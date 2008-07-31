@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+	<Description about="urn:mozilla:install-manifest">
+		<em:id>{c808Bd5a-5864-11db-8373-b622a1ef5492}</em:id>
+		<em:version>0.5</em:version>
+		<!-- Target Application this extension can install into, 
+         with minimum and maximum supported versions. -->
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>1.0+</em:minVersion>
+				<em:maxVersion>2.0.0.*</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+		<!-- Front End MetaData -->
+		<em:name>Kiox System</em:name>		
+		<em:description>Kiox System</em:description>
+		<em:optionsURL>chrome://kiox/content/options.xul</em:optionsURL>
+		<em:creator>Stefan Schneider</em:creator>
+		<em:homepageURL>http://www.uni-giessen.de/~gz135/</em:homepageURL>
+	</Description>
+</RDF>

@@ -1,0 +1,5 @@
+<!ENTITY prefWinKiox.title "Kiox System Einstellungen">
+<!ENTITY prefStartUrl.label "Start URL">
+<!ENTITY prefToolbarEnable.label "Zeige Toolbar">
+<!ENTITY prefToolbarNavigation.label "Zeige Toolbar-Navigation">
+
