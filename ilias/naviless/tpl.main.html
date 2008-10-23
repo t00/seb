@@ -1,0 +1,67 @@
+<!--
+  NAVILESS - SKIN for ILIAS
+  -------------------------
+
+  Purpose:    Enables the usage of Ilias courses in a secure environment.
+              All navigational elements have been removed.
+  Version:    Naviless v2, May 9th 2008
+              (designed and tested for Ilias v3.9.2)
+
+  Author:     Silvan Tschopp (tschopps @ ethz.ch)
+  Copyright:  (c) by NET ETH Zurich 
+              (http://www.net.ethz.ch, info @ net.ethz.ch)
+  Licence:    GNU General Public Licence, Version 2
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+	"http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>{WINDOW_TITLE} {PAGETITLE}</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="content-language" content="{META_CONTENT_LANGUAGE}" />
+	<!-- BEGIN mh_meta_item -->
+	<meta name="{MH_META_NAME}" lang="{MH_META_LANG}" content="{MH_META_CONTENT}" />
+	<!-- END mh_meta_item -->
+	<link rel="stylesheet" type="text/css" href="{LOCATION_STYLESHEET}" />
+	<!-- <link rel="P3Pv1" href="{LOCATION_P3PFILE}" /> -->
+	{LOCATION_NEWCONTENT_STYLESHEET_TAG}
+	<!-- BEGIN AdditionalStyle -->
+	<link rel="stylesheet" type="text/css" href="{LOCATION_ADDITIONAL_STYLESHEET}" />
+	<!-- END AdditionalStyle -->
+	<!-- BEGIN generic_css -->
+	<link rel="stylesheet" type="text/css" href="{LOCATION_GENERIC_STYLESHEET}" media="{MEDIA_GENERIC_STYLESHEET}" />
+	<!-- END generic_css -->
+	<!-- BEGIN ContentStyle -->
+	<link rel="stylesheet" type="text/css" href="{LOCATION_CONTENT_STYLESHEET}" />
+	<!-- END ContentStyle -->
+	<!-- BEGIN SyntaxStyle -->
+	<link rel="stylesheet" type="text/css" href="{LOCATION_SYNTAX_STYLESHEET}" />
+	<!-- END SyntaxStyle -->
+	<!-- BEGIN ChatStyle -->
+	<link rel="stylesheet" type="text/css" href="{LOCATION_CHAT_STYLESHEET}" />
+			{EXPIRES}
+	<!-- END ChatStyle -->
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<!-- BEGIN css_file -->
+	<link rel="stylesheet" type="text/css" href="{CSS_FILE}" media="{CSS_MEDIA}" />
+	<!-- END css_file -->
+	<!-- BEGIN js_file -->
+	<script type="text/javascript" src="{JS_FILE}"></script>
+	<!-- END js_file -->
+<!-- BEGIN HeadContent -->
+{CONTENT_BLOCK}
+<!-- END HeadContent -->
+<!-- BEGIN CalendarJS -->
+<style type="text/css">@import url({LOCATION_JAVASCRIPT_CALENDAR_STYLESHEET});</style>
+<script type="text/javascript" src="{LOCATION_JAVASCRIPT_CALENDAR}"></script>
+{CALENDAR_LANG_JAVASCRIPT}
+<script type="text/javascript" src="{LOCATION_JAVASCRIPT_CALENDAR_SETUP}"></script>
+<!-- END CalendarJS -->
+</head>
+<body class="{BODY_CLASS}" {BODY_ATTRIBUTES}>
+{CONTENT}
+{FOOTER}
+</body>
+</html>
