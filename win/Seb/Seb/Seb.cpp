@@ -296,9 +296,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		}		
 	}
 
-	/* starts the WinKeyox window */	
+	/* starts the WinKeyox window */
 	hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 60, 50, NULL, NULL, hInstance, NULL);
-	//hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW, 0, 0, 60, 45, NULL, NULL, hInstance, NULL);
 	/*
 	hMenu = GetMenu(hWnd);
 	HMENU hSubMenu = CreatePopupMenu();
@@ -580,6 +579,9 @@ BOOL CreateExternalProcess(string sProcess)
 	{
 	} 
 	*/
+	long counter=0;
+
+	
 	
 	//MessageBox(NULL,cmdLine.c_str(),"Error",MB_ICONERROR);
 	//SHGetSpecialFolderLocation
@@ -606,19 +608,21 @@ BOOL CreateExternalProcess(string sProcess)
 	//SetCurrentDirectory()
 	//GetCurrentDirectory()
 	
+	// give the process 10s to start
 
+	// after 10 s 
 
-	// gice the process 10s to start
 	if(parameters.procedureReady!=0){
 		parameters.hold = 1;
-		Sleep (5);
 		while(parameters.confirm != 1){
-			// wait for the process to sync
-			Sleep (5);
+			// wait for the process to sync, but max 1s
+			Sleep (500);
+			counter++;
+			if(counter == 20)
+				return FALSE;
 		}
+		parameters.hold = 0;
 	}
-	parameters.hold = 0;
-	
 
 	try
 	{
@@ -636,7 +640,7 @@ BOOL CreateExternalProcess(string sProcess)
 			&piProcess )      // Pointer to PROCESS_INFORMATION structure.
 		) 
 		{
-			//ResumeThread(procMonitorThread);
+			ResumeThread(procMonitorThread);
 			MessageBox(hWnd,PROCESS_FAILED,"Error",MB_ICONERROR);
 			return FALSE;
 		}
@@ -1172,7 +1176,3 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 	}
 	return TRUE;
 }
-
-
-
-
