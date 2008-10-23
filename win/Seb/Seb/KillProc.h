@@ -1,3 +1,47 @@
+#include "stdafx.h"
+
+
+string GetProcessNameFromID(long processID){
+PROCESSENTRY32 pe32;
+	ZeroMemory(&pe32,sizeof(PROCESSENTRY32));
+	pe32.dwSize = sizeof(PROCESSENTRY32);
+
+	//get_longest_process_name_length(&nProcessNameLength);
+	//nProcessNameLength = nProcessNameLength + 3;
+	
+	HANDLE hProcSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,0);
+
+
+	if(Process32First(hProcSnapShot,&pe32) == TRUE){
+		if( pe32.th32ProcessID == processID){
+			CloseHandle(hProcSnapShot);
+			return pe32.szExeFile;
+		}
+		while(Process32Next(hProcSnapShot,&pe32) == TRUE){
+			if( pe32.th32ProcessID == processID){
+				CloseHandle(hProcSnapShot);
+				return pe32.szExeFile;
+			}
+		}
+	}
+	CloseHandle(hProcSnapShot);
+}
+
+
+
+void KILL_PROC_BY_ID(const long procID){
+	HANDLE   hProc ;
+	
+	//string s = GetProcessNameFromID(procID);
+	//ofstream stream;
+	//stream.open("C:\\Temp\\log.txt",ios_base::app);
+	//stream << s << "\n";
+	//stream.close();
+
+	hProc = OpenProcess(PROCESS_TERMINATE, FALSE, procID);
+	TerminateProcess(hProc,0);
+}
+
 int KILL_PROC_BY_NAME(const char *szToTerminate)
 // Created: 6/23/2000  (RK)
 // Last modified: 3/10/2002  (RK)

@@ -1,11 +1,12 @@
 
 /**
-@Author: Stefan Schneider (stefan.schneider@hrz.uni-giessen.de)
+@Author: Stefan Schneider (stefan.schneider@hrz.uni-giessen.de
 */
 
 #include "stdafx.h"
 #include "Seb.h"
 #include "KillProc.h"
+#include "ProcMonitor.h"
 
 /* Forward declarations of functions included in this code module: */
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -22,6 +23,7 @@ BOOL				AlterTaskBar(BOOL);
 BOOL				MessageHook(BOOL);
 BOOL				CreateExternalProcess(string);
 BOOL				ShutdownInstance();						//cleaning up and resetting altered system before destroying the window
+VOID				MonitorProcesses(threadParameters & parameters);
 
 typedef void (*KEYHOOK)(HINSTANCE*, bool); //typedef for the KeyHook function of the loaded MsgHook.dll
 KEYHOOK KeyHook;
@@ -48,6 +50,7 @@ HINSTANCE hInst;							//Current Instance
 HWND hWnd;									//Handle to the own WinKeyox Window
 HMENU hMenu;
 HINSTANCE hinstDLL = NULL;					//instance of the hook library
+HANDLE procMonitorThread;
 
 TCHAR szTitle[MAX_LOADSTRING];				// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];		// the main window class name
@@ -58,6 +61,11 @@ char cHostname[255];						//char with Hostname
 char* cIp;									//Pointer to char with IP Address
 map< string, string > mpParam;				//map for *.ini parameters
 map< string, string > mpProcesses;
+vector< long> previousProcesses;			// troxler
+vector< long> allowedProcesses;				// troxler
+threadParameters parameters;				// troxler
+
+
 map< string, string >::iterator itProcesses;
 map< int, string > mpProcessCommands;
 map< int, string >::iterator itProcessCommands;
@@ -156,6 +164,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 }
 
 
+
 //
 //  FUNCTION: MyRegisterClass()
 //
@@ -199,10 +208,15 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //        create and display the main program window.
 //
 
+
+
+
+
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {	
 	hInst = hInstance; // Store instance handle in our global variable
 	DWORD dwNotUsedForAnything = 0;	
+	parameters.procedureReady = 0;
 	vector<string> vStrongKillProcessesBefore;
 	string sStrongKillProcesssesBefore;
 	int ret;
@@ -283,7 +297,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	}
 
 	/* starts the WinKeyox window */	
-	hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 0, 0, 60, 45, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 60, 50, NULL, NULL, hInstance, NULL);
 	//hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW, 0, 0, 60, 45, NULL, NULL, hInstance, NULL);
 	/*
 	hMenu = GetMenu(hWnd);
@@ -363,6 +377,24 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		ShowWindow(hWnd,cmd);
 		UpdateWindow(hWnd);
 	}
+	
+	// this is not the set of allowd processes to run & the processes in the list process
+	GetRunningProcesses(previousProcesses);
+	allowedProcesses.insert(allowedProcesses.end(),previousProcesses.begin(),previousProcesses.end());
+	
+	long threadID;
+
+	parameters.allowedProcesses = &allowedProcesses;
+	parameters.desktop = hNewDesktop;
+	parameters.hold = 0;
+	parameters.confirm =0;
+
+
+	if(getBool("PROC_MONITORING")){
+    	procMonitorThread = CreateThread(NULL,0,(LPTHREAD_START_ROUTINE) MonitorProcesses,(LPVOID)&parameters,0,(LPDWORD)&threadID);
+		parameters.procedureReady = 1;
+	}
+	
 	return TRUE;	
 }
 
@@ -411,6 +443,7 @@ BOOL ReadIniFile()
 				sProcess = *itProcesses;				
 				Tokenize(sProcess,vProcess,",");												
 				mpProcesses.insert(make_pair(vProcess[0],vProcess[1]));	
+				//allowedProcesses.push_back(vProcess[1]);
 				//MessageBox(NULL,vProcess[0].c_str(),"Error",MB_ICONERROR);
 				cntCommand++;				
 			}			
@@ -572,6 +605,21 @@ BOOL CreateExternalProcess(string sProcess)
 	*/
 	//SetCurrentDirectory()
 	//GetCurrentDirectory()
+	
+
+
+	// gice the process 10s to start
+	if(parameters.procedureReady!=0){
+		parameters.hold = 1;
+		Sleep (5);
+		while(parameters.confirm != 1){
+			// wait for the process to sync
+			Sleep (5);
+		}
+	}
+	parameters.hold = 0;
+	
+
 	try
 	{
 		if( !CreateProcess( NULL,   // No module name (use command line). 
@@ -588,17 +636,26 @@ BOOL CreateExternalProcess(string sProcess)
 			&piProcess )      // Pointer to PROCESS_INFORMATION structure.
 		) 
 		{
+			//ResumeThread(procMonitorThread);
 			MessageBox(hWnd,PROCESS_FAILED,"Error",MB_ICONERROR);
 			return FALSE;
 		}
+
+		// add the process to the allowed processes, not required anymore
+		//allowedProcesses.push_back(piProcess.dwProcessId);
+
 		mpProcessInformations.insert(make_pair(sProcess,piProcess));
 		//MessageBox(NULL,sProcess.c_str(),"Error",MB_ICONERROR);
 	}
 	catch( char * str )
-	{		
+	{	
+		//ResumeThread(procMonitorThread);
 		MessageBox(NULL,str,"Error",MB_ICONERROR);
 		return FALSE;
 	}
+
+	//ResumeThread(procMonitorThread);
+
 	return TRUE;
 }
 
@@ -673,6 +730,11 @@ BOOL ShutdownInstance()
 		*/
 		//ret = KILL_PROC_BY_NAME("firefox.exe");
 	}
+
+	// shut down the proc monitor thread
+	TerminateThread(procMonitorThread,0);
+	KillAllNotInList(previousProcesses);
+	
 	sStrongKillProcesssesAfter = mpParam["STRONG_KILL_PROCESSES_AFTER"];
 	if (sStrongKillProcesssesAfter != "")
 	{		
