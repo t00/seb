@@ -41,6 +41,5 @@ pref('kiox.toolbar.enable', true);
 pref('kiox.toolbar.navigation', true);
 //pref("browser.chromeURL","chrome://kiox/content/");
 
-//raol
-//useragent
-//pref("general.useragent.extra.firefox", "SEB");
+//useragent.extra
+pref("general.useragent.extra.firefox", "SEB");
