@@ -601,4 +601,10 @@ $string['youneedtoenrol'] = 'You need to enrol in this course before you can att
 $string['yourfinalgradeis'] = 'Your final grade for this quiz is $a.';
 $string['zerosignificantfiguresnotallowed'] = 'The correct answer cannot have zero significant figures!';
 
+//START quiz_for_safe_browser
+$string['safebrowser']='Safe browser';
+$string['safebrowsererror']='You are not allowed to attend to quiz. <br />You need a safe browser.';
+$string['safebrowseravailable']='Safe quiz: Only available with ';
+//END quiz_for_safe_browser
+
 ?>

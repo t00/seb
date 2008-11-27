@@ -210,6 +210,14 @@ class mod_quiz_mod_form extends moodleform_mod {
         $mform->setAdvanced('subnet', $CFG->quiz_fix_subnet);
         $mform->setDefault('subnet', $CFG->quiz_subnet);
 
+//START quiz_for_safe_browser
+        $selArray = array();
+        $selArray["0"] = get_string("none", "quiz");
+        $selArray["SEB"] = "Safe Exam Browser";
+        $mform->addElement('select', 'safebrowser', get_string("safebrowser", "quiz"), $selArray);
+        $mform->setHelpButton('safebrowser', array("safebrowser", get_string("safebrowser", "quiz"), "quiz"));
+//END quiz_for_safe_browser
+
 //-------------------------------------------------------------------------------
         $features = new stdClass;
         $features->groups = true;

@@ -55,10 +55,17 @@
         $USER->editing = $edit;
     }
 
+//START quiz_for_safe_browser
+    $headtags = '';
+    if (!has_capability('mod/quiz:manage', $context) && $quiz->safebrowser) {
+    	$headtags = '<style type="text/css"><!--'."\n".' .breadcrumb, .homelink, .navigation {display:none}'."\n".'//--></style>';
+    }
+//END quiz_for_safe_browser
+
     //only check pop ups if the user is not a teacher, and popup is set
 
     $bodytags = (has_capability('mod/quiz:attempt', $context) && $quiz->popup)?'onload="popupchecker(\'' . get_string('popupblockerwarning', 'quiz') . '\');"':'';
-    $PAGE->print_header($course->shortname.': %fullname%','',$bodytags);
+    $PAGE->print_header($course->shortname.': %fullname%','',$bodytags,$headtags);
 
     echo '<table id="layout-table"><tr>';
 
@@ -349,6 +356,13 @@
         print_heading(get_string("noquestions", "quiz"));
 
     } else if ($available && $moreattempts) {
+        
+//START quiz_for_safe_browser
+    	  if ($quiz->safebrowser) {
+    		echo '<p style="text-align:center; color:red">'.get_string("safebrowseravailable", "quiz").$quiz->safebrowser.'</p>';
+    	  }
+//END quiz_for_safe_browser
+
         echo "<br />";
         echo "<div class=\"quizattempt\">";
 

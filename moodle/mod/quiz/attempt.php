@@ -89,6 +89,12 @@
         print_error('nomoreattempts', 'quiz', "view.php?id={$cm->id}");
     }
 
+//START quiz_for_safe_browser
+    if (!has_capability('mod/quiz:manage', $context) && $quiz->safebrowser && !strpos($_SERVER['HTTP_USER_AGENT'], $quiz->safebrowser)) {
+    	 print_error("safebrowsererror", "quiz", "view.php?id={$cm->id}");
+    }
+//END quiz_for_safe_browser
+
 /// Check subnet access
     if (!$ispreviewing && $quiz->subnet && !address_in_subnet(getremoteaddr(), $quiz->subnet)) {
         print_error("subneterror", "quiz", "view.php?id=$cm->id");
@@ -391,6 +397,13 @@
     require_js($CFG->wwwroot . '/mod/quiz/quiz.js');
     $pagequestions = explode(',', $pagelist);
     $headtags = get_html_head_contributions($pagequestions, $questions, $states);
+
+//START quiz_for_safe_browser
+    if (!has_capability('mod/quiz:manage', $context) && $quiz->safebrowser) {
+         	$headtags .= '<style type="text/css"><!--'."\n".' .breadcrumb, .logininfo, .homelink {display:none}'."\n".'//--></style>';
+    }
+//END quiz_for_safe_browser
+
     if (!empty($popup)) {
         define('MESSAGE_WINDOW', true);  // This prevents the message window coming up
         print_header($course->shortname.': '.format_string($quiz->name), '', '', '', $headtags, false, '', '', false, '');

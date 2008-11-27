@@ -121,6 +121,13 @@
 
     $pagequestions = explode(',', $pagelist);
     $headtags = get_html_head_contributions($pagequestions, $questions, $states);
+
+//START quiz_for_safe_browser
+    if (!has_capability('mod/quiz:manage', $context) && $quiz->safebrowser) {
+    	$headtags .= '<style type="text/css"><!--'."\n".' .breadcrumb, .homelink {display:none}'."\n".'//--></style>';
+    }
+//END quiz_for_safe_browser
+
     if (!empty($popup)) {
         define('MESSAGE_WINDOW', true);  // This prevents the message window coming up
         print_header($course->shortname.': '.format_string($quiz->name), '', '', '', $headtags, false, '', '', false, '');
