@@ -1,0 +1,1 @@
+ALTER TABLE PREFIX_quiz ADD safebrowser CHAR(50);
