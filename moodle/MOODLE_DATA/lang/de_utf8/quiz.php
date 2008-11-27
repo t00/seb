@@ -689,4 +689,10 @@ $string['newlocal1'] = 'Ein Wert aus einer neuen Wertemenge, die nur von dieser 
 $string['newlocal2'] = 'Eine Datei aus einer neuen Dateimenge, die nur von dieser Frage genutzt werden kann.'; // ORPHANED
 $string['newlocal3'] = 'Ein Link aus einer neuen Link-Menge, der nur von dieser Frage genutzt werden kann.'; // ORPHANED
 
+//START quiz_for_safe_browser
+$string['safebrowser']='Sicherer Browser';
+$string['safebrowsererror']='Sie sind nicht berechtigt, das Quiz zu bearbeiten. <br />Dazu benötigen Sie einen sicheren Browser.';
+$string['safebrowseravailable']='Sicheres Quiz: Verfügbar mit  ';
+//END quiz_for_safe_browser
+
 ?>
