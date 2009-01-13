@@ -91,7 +91,7 @@
 
 //START quiz_for_safe_browser
     if (!has_capability('mod/quiz:manage', $context) && $quiz->safebrowser && !strpos($_SERVER['HTTP_USER_AGENT'], $quiz->safebrowser)) {
-    	 print_error("safebrowsererror", "quiz", "view.php?id={$cm->id}");
+    	 print_error("safebrowsererror", "quiz", "../../course/view.php?id=$course->id");
     }
 //END quiz_for_safe_browser
 

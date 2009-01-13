@@ -1,1 +1,1 @@
-ALTER TABLE PREFIX_quiz ADD safebrowser CHAR(50);
+ALTER TABLE PREFIX_quiz ADD safebrowser VARCHAR(50);
