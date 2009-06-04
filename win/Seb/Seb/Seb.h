@@ -1,13 +1,38 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the SEB kiosk application.
+ *
+ * The Initial Developer of the Original Code is Justus-Liebig-Universitaet Giessen.
+ * Portions created by the Initial Developer are Copyright (C) 2005
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
+ *   Oliver Rahs <rahs@net.ethz.ch>
+ *
+ * ***** END LICENSE BLOCK ***** */
+
 #pragma once
 
-#include "resource.h"
+#include "Resource.h"
 #include "SystemVersionInfo.h"
 
 #define IDM_START 9001
 #define IDM_OFFSET 37265
 
 #define MAX_LOADSTRING 100
-#define WINKEYOX_DESK "WinKeyox Desktop"
+#define SEB_DESK "SEB Desktop"
 
 //System Messages
 #define	FILE_NOT_FOUND "File not found!"
@@ -30,10 +55,11 @@
 #define	NO_TASKBAR_HANDLE "No taskbar handle!"
 #define	FIREFOX_START_FAILED "Could not start firefox!"
 #define KEYLOGGER_FAILED "Could not start KeyLogger!"
-#define	KIOX_TERMINATED "Kiox terminated!"
+#define	SEB_TERMINATED "SEB terminated!"
 #define	NO_OS_SUPPORT "The OS is not supported!"
 #define	KILL_PROC_FAILED "Killing process %s failed: %d"
 #define HKCU HKEY_CURRENT_USER
+#define HKLM HKEY_LOCAL_MACHINE
 #define SHOW_WIN_HIDE 0
 #define SHOW_WIN_NORMAL 1
 #define SHOW_WIN_MINIMIZED 2
@@ -41,9 +67,10 @@
 
 LPCTSTR KEY_RegPolicySystem = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
 LPCTSTR KEY_RegPolicyExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
+LPCTSTR KEY_RegPolicySEB = "Software\\Policies\\SEB";
 LPCTSTR VAL_DisableLockWorkstation = "DisableLockWorkstation";
 LPCTSTR VAL_DisableTaskMgr = "DisableTaskMgr";
 LPCTSTR VAL_DisableChangePassword = "DisableChangePassword";
 LPCTSTR VAL_NoClose = "NoClose";
 LPCTSTR VAL_NoLogoff = "NoLogoff";
-
+LPCTSTR VAL_ExernalApps = "ExternalApps";

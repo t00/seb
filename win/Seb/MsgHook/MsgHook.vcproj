@@ -208,6 +208,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MsgHook.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>

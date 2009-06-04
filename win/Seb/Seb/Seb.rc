@@ -1,6 +1,29 @@
-//Microsoft Developer Studio generated resource script.
-//
-#include "resource.h"
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code are the resources of SEB. 
+ *
+ * The Initial Developer of the Original Code is Justus-Liebig-Universitaet Giessen.
+ * Portions created by the Initial Developer are Copyright (C) 2005
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
+ *   Oliver Rahs <rahs@net.ethz.ch>
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+#include "Resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +51,7 @@ LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
 // Accelerator
 //
 
-IDC_WINKEYOX ACCELERATORS MOVEABLE PURE 
+IDC_SEB ACCELERATORS MOVEABLE PURE 
 BEGIN
     "?",            IDM_ABOUT,              ASCII,  ALT
     "/",            IDM_ABOUT,              ASCII,  ALT
@@ -45,9 +68,8 @@ STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
 FONT 8, "System"
 BEGIN
-    ICON            107,IDC_MYICON,14,9,16,16
-    LTEXT           "WinKeyox Version 1.0",IDC_STATIC,49,10,119,8,
-                    SS_NOPREFIX
+    ICON            107,IDC_MYICON,14,9,20,20
+    LTEXT           "SEB Version 1.2.1",IDC_STATIC,49,10,119,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2005",IDC_STATIC,49,20,119,8
     DEFPUSHBUTTON   "OK",IDOK,195,6,30,11,WS_GROUP
 END
@@ -88,7 +110,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_WINKEYOX            ICON    DISCARDABLE     "icon1.ico"
+IDI_SEB                 ICON    DISCARDABLE     "test2.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -97,11 +119,23 @@ IDI_WINKEYOX            ICON    DISCARDABLE     "icon1.ico"
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    IDS_APP_TITLE           "WinKeyox"
-    IDC_WINKEYOX            "WINKEYOX"
+    IDS_APP_TITLE           "SEB - App Chooser"
+    IDC_SEB                 "SEB"
 END
 
 #endif    // German (Germany) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// German (Switzerland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DES)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN_SWISS
+#pragma code_page(1252)
+#endif //_WIN32
+#endif    // German (Switzerland) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -115,4 +149,3 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
-

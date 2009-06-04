@@ -1,7 +1,32 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is responsible for killing processes.  
+ *
+ * The Initial Developer of the Original Code is ETH Zuerich.
+ * Portions created by the Initial Developer are Copyright (C) 2008
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Georg Troxler <gtroxler@student.ethz.ch>
+ *   Oliver Rahs <rahs@net.ethz.ch>
+ *
+ * ***** END LICENSE BLOCK ***** */
+
 #include "stdafx.h"
 
-
-string GetProcessNameFromID(long processID){
+string GetProcessNameFromID(long processID)
+{
 PROCESSENTRY32 pe32;
 	ZeroMemory(&pe32,sizeof(PROCESSENTRY32));
 	pe32.dwSize = sizeof(PROCESSENTRY32);
@@ -11,14 +36,17 @@ PROCESSENTRY32 pe32;
 	
 	HANDLE hProcSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,0);
 
-
-	if(Process32First(hProcSnapShot,&pe32) == TRUE){
-		if( pe32.th32ProcessID == processID){
+	if(Process32First(hProcSnapShot,&pe32) == TRUE)
+	{
+		if( pe32.th32ProcessID == processID)
+		{
 			CloseHandle(hProcSnapShot);
 			return pe32.szExeFile;
 		}
-		while(Process32Next(hProcSnapShot,&pe32) == TRUE){
-			if( pe32.th32ProcessID == processID){
+		while(Process32Next(hProcSnapShot,&pe32) == TRUE)
+		{
+			if( pe32.th32ProcessID == processID)
+			{
 				CloseHandle(hProcSnapShot);
 				return pe32.szExeFile;
 			}
@@ -27,9 +55,8 @@ PROCESSENTRY32 pe32;
 	CloseHandle(hProcSnapShot);
 }
 
-
-
-void KILL_PROC_BY_ID(const long procID){
+void KILL_PROC_BY_ID(const long procID)
+{
 	HANDLE   hProc ;
 	
 	//string s = GetProcessNameFromID(procID);
@@ -42,36 +69,37 @@ void KILL_PROC_BY_ID(const long procID){
 	TerminateProcess(hProc,0);
 }
 
+/* Method created: 6/23/2000  (RK)
+Last modified: 3/10/2002  (RK)
+Please report any problems or bugs to kochhar@physiology.wisc.edu
+The latest version of this routine can be found at:
+    http://www.neurophys.wisc.edu/ravi/software/killproc/
+Terminate the process "szToTerminate" if it is currently running
+This works for Win/95/98/ME and also Win/NT/2000/XP
+The process name is case-insensitive, i.e. "notepad.exe" and "NOTEPAD.EXE"
+will both work (for szToTerminate)
+Return codes are as follows:
+  0   = Process was successfully terminated
+  603 = Process was not currently running
+  604 = No permission to terminate process
+  605 = Unable to load PSAPI.DLL
+  602 = Unable to terminate process for some other reason
+  606 = Unable to identify system type
+  607 = Unsupported OS
+  632 = Invalid process name
+  700 = Unable to get procedure address from PSAPI.DLL
+  701 = Unable to get process list, EnumProcesses failed
+  702 = Unable to load KERNEL32.DLL
+  703 = Unable to get procedure address from KERNEL32.DLL
+  704 = CreateToolhelp32Snapshot failed
+Change history:
+  modified 3/8/2002  - Borland-C compatible if BORLANDC is defined as
+                       suggested by Bob Christensen
+  modified 3/10/2002 - Removed memory leaks as suggested by
+				      Jonathan Richard-Brochu (handles to Proc and Snapshot
+                       were not getting closed properly in some cases)
+*/
 int KILL_PROC_BY_NAME(const char *szToTerminate)
-// Created: 6/23/2000  (RK)
-// Last modified: 3/10/2002  (RK)
-// Please report any problems or bugs to kochhar@physiology.wisc.edu
-// The latest version of this routine can be found at:
-//     http://www.neurophys.wisc.edu/ravi/software/killproc/
-// Terminate the process "szToTerminate" if it is currently running
-// This works for Win/95/98/ME and also Win/NT/2000/XP
-// The process name is case-insensitive, i.e. "notepad.exe" and "NOTEPAD.EXE"
-// will both work (for szToTerminate)
-// Return codes are as follows:
-//   0   = Process was successfully terminated
-//   603 = Process was not currently running
-//   604 = No permission to terminate process
-//   605 = Unable to load PSAPI.DLL
-//   602 = Unable to terminate process for some other reason
-//   606 = Unable to identify system type
-//   607 = Unsupported OS
-//   632 = Invalid process name
-//   700 = Unable to get procedure address from PSAPI.DLL
-//   701 = Unable to get process list, EnumProcesses failed
-//   702 = Unable to load KERNEL32.DLL
-//   703 = Unable to get procedure address from KERNEL32.DLL
-//   704 = CreateToolhelp32Snapshot failed
-// Change history:
-//   modified 3/8/2002  - Borland-C compatible if BORLANDC is defined as
-//                        suggested by Bob Christensen
-//   modified 3/10/2002 - Removed memory leaks as suggested by
-//					      Jonathan Richard-Brochu (handles to Proc and Snapshot
-//                        were not getting closed properly in some cases)
 {
 	BOOL bResult,bResultm;
 	DWORD aiPID[1000],iCb=1000,iNumProc,iV2000=0;
@@ -93,19 +121,19 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 		szToTermUpper[indx]=toupper(szToTerminate[indx]);
 	szToTermUpper[iLenP]=0;
 
-     // PSAPI Function Pointers.
-     BOOL (WINAPI *lpfEnumProcesses)( DWORD *, DWORD cb, DWORD * );
-     BOOL (WINAPI *lpfEnumProcessModules)( HANDLE, HMODULE *,
+    // PSAPI Function Pointers.
+    BOOL (WINAPI *lpfEnumProcesses)( DWORD *, DWORD cb, DWORD * );
+    BOOL (WINAPI *lpfEnumProcessModules)( HANDLE, HMODULE *,
         DWORD, LPDWORD );
-     DWORD (WINAPI *lpfGetModuleBaseName)( HANDLE, HMODULE,
+    DWORD (WINAPI *lpfGetModuleBaseName)( HANDLE, HMODULE,
         LPTSTR, DWORD );
 
-      // ToolHelp Function Pointers.
-      HANDLE (WINAPI *lpfCreateToolhelp32Snapshot)(DWORD,DWORD) ;
-      BOOL (WINAPI *lpfProcess32First)(HANDLE,LPPROCESSENTRY32) ;
-      BOOL (WINAPI *lpfProcess32Next)(HANDLE,LPPROCESSENTRY32) ;
-      BOOL (WINAPI *lpfModule32First)(HANDLE,LPMODULEENTRY32) ;
-      BOOL (WINAPI *lpfModule32Next)(HANDLE,LPMODULEENTRY32) ;
+    // ToolHelp Function Pointers.
+	HANDLE (WINAPI *lpfCreateToolhelp32Snapshot)(DWORD,DWORD) ;
+	BOOL (WINAPI *lpfProcess32First)(HANDLE,LPPROCESSENTRY32) ;
+    BOOL (WINAPI *lpfProcess32Next)(HANDLE,LPPROCESSENTRY32) ;
+    BOOL (WINAPI *lpfModule32First)(HANDLE,LPMODULEENTRY32) ;
+    BOOL (WINAPI *lpfModule32Next)(HANDLE,LPMODULEENTRY32) ;
 
 	// First check what version of Windows we're in
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);

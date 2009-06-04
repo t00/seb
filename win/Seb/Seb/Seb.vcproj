@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ProcMonitor.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>

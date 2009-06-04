@@ -1,4 +1,27 @@
-
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is responsible for monitoring processes.  
+ *
+ * The Initial Developer of the Original Code is ETH Zuerich.
+ * Portions created by the Initial Developer are Copyright (C) 2008
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Georg Troxler <gtroxler@student.ethz.ch>
+ *   Oliver Rahs <rahs@net.ethz.ch>
+ *
+ * ***** END LICENSE BLOCK ***** */
 
 struct threadParameters{
 	vector< long > * allowedProcesses;
@@ -7,7 +30,6 @@ struct threadParameters{
 	long			confirm;
 	long			procedureReady;
 };
-
 
 BOOL CALLBACK FindFirefoxWindow(HWND hWnd, LPARAM lParam) {
 	char String[255];
@@ -28,13 +50,8 @@ BOOL CALLBACK FindFirefoxWindow(HWND hWnd, LPARAM lParam) {
 		*ohWnd = hWnd;
 		
 	}
-
 	return TRUE;
 }
-
-
-
-
 
 // function to monitor the running processes
 VOID GetRunningProcesses(vector< long > & inoutPreviousProcesses){
@@ -61,15 +78,9 @@ VOID GetRunningProcesses(vector< long > & inoutPreviousProcesses){
 		//	printf("%s;%d;%d;%d;%d\n",lpszProcessNameBuffer,pe32.th32ProcessID,pe32.th32ParentProcessID,pe32.pcPriClassBase,pe32.cntThreads);
 			inoutPreviousProcesses.push_back (pe32.th32ProcessID);
 		}
-
 	}
-
 	CloseHandle(hProcSnapShot);
 }
-
-
-
-
 
 VOID KillAllNotInList(vector< long > & allowedProcesses){
 	vector< long >  nowRunningProcesses;
@@ -104,10 +115,8 @@ VOID KillAllNotInList(vector< long > & allowedProcesses){
 		killList.clear();
 }
 
-
 VOID MonitorProcesses(threadParameters & parameters){
 	HWND hWnd;
-	
 	
 	//ostream file;
 	//file = fopen("C:\Temp\Log.txt","ba+");

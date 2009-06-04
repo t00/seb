@@ -1,5 +1,27 @@
-// MsgHook.cpp : Defines the entry point for the DLL application.
-//
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL 1.1
+ *
+ * The contents of this file are subject to the Mozilla Public License Version
+ * 1.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code provides message hooks. 
+ *
+ * The Initial Developer of the Original Code is Justus-Liebig-Universitaet Giessen.
+ * Portions created by the Initial Developer are Copyright (C) 2005
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
+ *   Oliver Rahs <rahs@net.ethz.ch>
+ *
+ * ***** END LICENSE BLOCK ***** */
 
 #include "stdafx.h"
 #include "MsgHook.h"
@@ -12,14 +34,12 @@
 // The section is SHARED among all instances of this DLL.
 // A low-level keyboard hook is always a system-wide hook.
 // 
-
 #pragma data_seg (".mydata")
 static HHOOK g_hHookKbdLL = NULL;	// Low Level Key hook handle (NT)
 static HHOOK g_hHookMouseLL = NULL;	// Low Level Mouse hook handle (NT)
 static HHOOK g_hHookKbd = NULL;		// Key hook handle (9x)
 static HHOOK g_hHookMouse = NULL;	// Mouse hook handle (9x)
 static HWND hWndCaller = NULL;		//Handle Pointer to the caller window 
-//static HWND hWndProcess = NULL;	//Handle Pointer to the process window 
 static BOOL bHotKeyKill = FALSE;
 static ALTER_FLAGS alter_flags; //AlterFlags struct with flags for alternating system functions
 #pragma data_seg ()
@@ -32,7 +52,8 @@ BOOL InitMsgHook();
 BOOL TerminateMsgHook();
 BOOL getBool(string);
 int getInt(string);
-BOOL IsNewOS; //NT4, W2k, XP, ...
+BOOL isValidOperatingSystem();
+int GetButtonForHotKeyFromRegistry(LPCTSTR);
 BOOL b1, b2, b3; //for hot key
 DWORD VK_B1, VK_B2, VK_B3;
 map<string, string> mpParam;//map for *.ini parameters
@@ -272,24 +293,21 @@ LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam) {
     return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam);
 }
 
-LRESULT CALLBACK MouseHook( int nCode, WPARAM wParam, LPARAM lParam ) {
-	/*
-	MOUSEHOOKSTRUCT mhs;
-	if( nCode >= 0 ) {
-		mhs = *(MOUSEHOOKSTRUCT*)lParam; 
-	}
-	*/
+LRESULT CALLBACK MouseHook( int nCode, WPARAM wParam, LPARAM lParam ) 
+{
 	if (nCode < 0 || nCode != HC_ACTION ) 
 	{		
 		return CallNextHookEx( g_hHookMouseLL, nCode, wParam, lParam); 
 	}
-	if((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE) {			
+	if((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE) 
+	{			
         return -1;
 	}
 	return CallNextHookEx(g_hHookMouse, nCode, wParam, lParam);
 }
-/* public hook functions */
-EXPORT void KeyHookNT(HINSTANCE *hDLL, bool setHook) {
+
+EXPORT void KeyHookNT(HINSTANCE *hDLL, bool setHook) 
+{
     if(setHook) 
 	{
 		g_hHookKbdLL = SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)LLKeyboardHook, (HINSTANCE)*hDLL, 0);
@@ -305,7 +323,6 @@ EXPORT void KeyHook9x(HINSTANCE *hDLL, bool setHook)
 {
 	if(setHook) 
 	{				
-		//g_hHookKbd = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, piKiox->dwThreadId);
 		g_hHookKbd = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, 0);
     }	
 	else 
@@ -315,11 +332,10 @@ EXPORT void KeyHook9x(HINSTANCE *hDLL, bool setHook)
     return;
 }
 
-EXPORT void MouseHookNT(HINSTANCE *hDLL, bool setHook) {
-    //MessageBox(NULL,"Set Mouse Hook1","Error",16);
+EXPORT void MouseHookNT(HINSTANCE *hDLL, bool setHook) 
+{
     if(setHook) 
 	{		
-		//MessageBox(NULL,"Set Mouse Hook2","Error",16);
 		g_hHookMouseLL = SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)LLMouseHook, (HINSTANCE)*hDLL, 0);
     } 
 	else 
@@ -333,7 +349,6 @@ EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook)
 {
 	if(setHook) 
 	{				
-		//g_hHookKbd = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, piKiox->dwThreadId);
 		g_hHookMouse = SetWindowsHookEx(WH_MOUSE, (HOOKPROC)MouseHook, (HINSTANCE)*hDLL, 0);
     } 
 	else 
@@ -343,11 +358,8 @@ EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook)
     return; 
 }
 
-
-/* public system functions */
 BOOL InitMsgHook()
 { 
-	//MessageBox(NULL,"InitMsgHook","Error",16);
 	string strLine = "";
 	string strKey = "";
 	string strValue = "";
@@ -357,26 +369,11 @@ BOOL InitMsgHook()
 		
 	try
 	{
-		
-		switch (sysVersionInfo.GetVersion())
-		{			
-			case WIN_NT_351 :
-			case WIN_NT_40  :
-			case WIN_2000 :
-			case WIN_XP :
-			case WIN_VISTA :
-				IsNewOS = TRUE;
-				break;
-			case WIN_95 :
-			case WIN_98 :
-			case WIN_ME :
-				IsNewOS = FALSE;
-				break;
-			default :
-				MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
-				return 1;			
+		if (!isValidOperatingSystem()) 
+		{
+			return FALSE;
 		}
-				
+
 		GetModuleFileName(*hMod,cCurrDir,sizeof(cCurrDir));
 		sCurrDir = (string)cCurrDir;
 		sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
@@ -415,12 +412,14 @@ BOOL InitMsgHook()
 		alter_flags.DISABLE_F11 = getBool("DISABLE_F11");
 		alter_flags.DISABLE_F12 = getBool("DISABLE_F12");
 		alter_flags.DISABLE_ESCAPE = getBool("DISABLE_ESCAPE");
-		/* Kill Caller with HotKey */
+		// Kill Caller with HotKey
 		sHotKey = mpParam["KILL_CALLER_HOTKEY"];
-		VK_B1 = ((DWORD)getInt("B1")) ? (DWORD)getInt("B1") : VK_F3;				
-		VK_B2 = ((DWORD)getInt("B2")) ? (DWORD)getInt("B2") : VK_F11;				
-		VK_B3 = ((DWORD)getInt("B3")) ? (DWORD)getInt("B3") : VK_F6;						
-		
+
+		//Hotkey from configuration file MsgHook.ini or Registry (default is F3 + F11 + F6)
+		VK_B1 = ((DWORD)getInt("B1")) ? (DWORD)getInt("B1") : (GetButtonForHotKeyFromRegistry(VAL_Button1) ? GetButtonForHotKeyFromRegistry(VAL_Button1) : VK_F3);				
+		VK_B2 = ((DWORD)getInt("B2")) ? (DWORD)getInt("B2") : (GetButtonForHotKeyFromRegistry(VAL_Button2) ? GetButtonForHotKeyFromRegistry(VAL_Button2) : VK_F11);				
+		VK_B3 = ((DWORD)getInt("B3")) ? (DWORD)getInt("B3") : (GetButtonForHotKeyFromRegistry(VAL_Button3) ? GetButtonForHotKeyFromRegistry(VAL_Button3) : VK_F6);
+
 		if (hWndCaller == NULL) 
 		{
 			hWndCaller = FindWindow(NULL,sHotKey.c_str());
@@ -439,6 +438,36 @@ BOOL InitMsgHook()
 		return FALSE;
 	}
 	return TRUE;
+}
+
+int GetButtonForHotKeyFromRegistry(LPCTSTR regButton) 
+{
+	int retValue;
+	retValue = 0;
+	try
+	{
+		HKEY hKey;
+		DWORD b1;
+		LONG retStatus;
+		DWORD dwType=REG_DWORD;
+		DWORD dwSize=sizeof(DWORD);
+		retStatus = RegOpenKeyEx(HKLM, KEY_RegPolicySEB, 0, KEY_READ, &hKey);
+		if (retStatus == ERROR_SUCCESS)
+		{
+			retStatus = RegQueryValueEx(hKey, regButton, NULL, &dwType,(LPBYTE)&b1, &dwSize);
+			if (retStatus == ERROR_SUCCESS)
+			{
+				retValue = b1;
+			}
+			RegCloseKey(hKey);
+		}
+		return retValue;
+	}
+	catch( char * str )
+	{		
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		return retValue;
+	}
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -460,18 +489,14 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
         case DLL_THREAD_ATTACH:
 			// Do thread-specific initialization.
-			//MessageBox(NULL,"DLL_THREAD_ATTACH","Error",16);
             break;
 
         case DLL_THREAD_DETACH:
 			// Do thread-specific cleanup.
-			//MessageBox(NULL,"DLL_THREAD_DETACH","Error",16);
             break;
 
         case DLL_PROCESS_DETACH:
 			// Perform any necessary cleanup.
-			//MessageBox(NULL,"DLL_PROCESS_DETACH","Error",16);
-			//of.close();
             break;
     }
     return TRUE;
@@ -503,7 +528,26 @@ int getInt(string key)
 	}
 }
 
+BOOL isValidOperatingSystem() 
+{
+	switch (sysVersionInfo.GetVersion())
+	{			
+		case WIN_NT_351 :
+		case WIN_NT_40  :
+		case WIN_2000 :
+		case WIN_XP :
+		case WIN_VISTA :
+		case WIN_95 :
+		case WIN_98 :
+		case WIN_ME :
+			return TRUE;
+			break;
+		default :
+			MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
+			return FALSE;			
+	}
+}
+
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
-
