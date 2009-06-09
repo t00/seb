@@ -247,6 +247,10 @@
 				RelativePath=".\Seb.rc"
 				>
 			</File>
+			<File
+				RelativePath=".\seb_icon.ico"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
