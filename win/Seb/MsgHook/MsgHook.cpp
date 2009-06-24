@@ -415,10 +415,10 @@ BOOL InitMsgHook()
 		// Kill Caller with HotKey
 		sHotKey = mpParam["KILL_CALLER_HOTKEY"];
 
-		//Hotkey from configuration file MsgHook.ini or Registry (default is F3 + F11 + F6)
-		VK_B1 = ((DWORD)getInt("B1")) ? (DWORD)getInt("B1") : (GetButtonForHotKeyFromRegistry(VAL_Button1) ? GetButtonForHotKeyFromRegistry(VAL_Button1) : VK_F3);				
-		VK_B2 = ((DWORD)getInt("B2")) ? (DWORD)getInt("B2") : (GetButtonForHotKeyFromRegistry(VAL_Button2) ? GetButtonForHotKeyFromRegistry(VAL_Button2) : VK_F11);				
-		VK_B3 = ((DWORD)getInt("B3")) ? (DWORD)getInt("B3") : (GetButtonForHotKeyFromRegistry(VAL_Button3) ? GetButtonForHotKeyFromRegistry(VAL_Button3) : VK_F6);
+		//Hotkey from Registry (1. priority) and configuration file MsgHook.ini (2. priority). If nothing is found -> default is F3 + F11 + F6.
+		VK_B1 = (GetButtonForHotKeyFromRegistry(VAL_Button1) ? GetButtonForHotKeyFromRegistry(VAL_Button1) : (DWORD)getInt("B1") ? (DWORD)getInt("B1") : VK_F3);				
+		VK_B2 = (GetButtonForHotKeyFromRegistry(VAL_Button2) ? GetButtonForHotKeyFromRegistry(VAL_Button2) : (DWORD)getInt("B2") ? (DWORD)getInt("B2") : VK_F11);				
+		VK_B3 = (GetButtonForHotKeyFromRegistry(VAL_Button3) ? GetButtonForHotKeyFromRegistry(VAL_Button3) : (DWORD)getInt("B3") ? (DWORD)getInt("B3") : VK_F6);
 
 		if (hWndCaller == NULL) 
 		{
