@@ -73,4 +73,5 @@ LPCTSTR VAL_DisableTaskMgr = "DisableTaskMgr";
 LPCTSTR VAL_DisableChangePassword = "DisableChangePassword";
 LPCTSTR VAL_NoClose = "NoClose";
 LPCTSTR VAL_NoLogoff = "NoLogoff";
-LPCTSTR VAL_ExernalApps = "ExternalApps";
+LPCTSTR VAL_PERMITTED_APPS = "PermittedApps";
+LPCTSTR VAL_ShowSEBAppChooser = "ShowSEBAppChooser";

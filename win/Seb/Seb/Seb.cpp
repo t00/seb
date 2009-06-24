@@ -1,27 +1,27 @@
 /* ***** BEGIN LICENSE BLOCK *****
- * Version: MPL 1.1
- *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
- * License.
- *
- * The Original Code is the SEB kiosk application.
- *
- * The Initial Developer of the Original Code is Justus-Liebig-Universitaet Giessen.
- * Portions created by the Initial Developer are Copyright (C) 2005
- * the Initial Developer. All Rights Reserved.
- *
- * Contributor(s):
- *   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
- *   Oliver Rahs <rahs@net.ethz.ch>
- *
- * ***** END LICENSE BLOCK ***** */
+* Version: MPL 1.1
+*
+* The contents of this file are subject to the Mozilla Public License Version
+* 1.1 (the "License"); you may not use this file except in compliance with
+* the License. You may obtain a copy of the License at
+* http://www.mozilla.org/MPL/
+*
+* Software distributed under the License is distributed on an "AS IS" basis,
+* WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+* for the specific language governing rights and limitations under the
+* License.
+*
+* The Original Code is the SEB kiosk application.
+*
+* The Initial Developer of the Original Code is Justus-Liebig-Universitaet Giessen.
+* Portions created by the Initial Developer are Copyright (C) 2005
+* the Initial Developer. All Rights Reserved.
+*
+* Contributor(s):
+*   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
+*   Oliver Rahs <rahs@net.ethz.ch>
+*
+* ***** END LICENSE BLOCK ***** */
 
 #include "stdafx.h"
 #include "Seb.h"
@@ -36,7 +36,8 @@ LRESULT CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 BOOL				ReadIniFile();
-BOOL				ReadRegistry();
+BOOL				ReadProcessesInRegistry();
+BOOL				ShowSebAppChooser();
 BOOL				GetClientInfo();
 BOOL				EditRegistry();
 BOOL				ResetRegistry();
@@ -97,9 +98,9 @@ PROCESS_INFORMATION piProcess;				//PROCESS_INFORMATION created process
 
 // Api Entry
 int APIENTRY _tWinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     LPTSTR    lpCmdLine,
-                     int       nCmdShow)
+					   HINSTANCE hPrevInstance,
+					   LPTSTR    lpCmdLine,
+					   int       nCmdShow)
 {
 	MSG msg;
 	HACCEL hAccelTable;	
@@ -108,11 +109,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	LoadString(hInstance, IDC_SEB, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 	DWORD dwRet = 0; 
-	
-	if (!InitInstance (hInstance, nCmdShow)) {
+
+	if (!InitInstance (hInstance, nCmdShow)) 
+	{
 		MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);		
 	}
-	
+
 	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SEB);
 	PROCESS_INFORMATION pi;
 	string shutDownProcess = mpParam["AUTOSTART_PROCESS"];
@@ -125,29 +127,33 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	In this case "SHUTDOWN_AFTER_PROCESS_TERMINATES" should be empty (!) and the only way to finish SEB 
 	is the defined Hotkey.
 	*/
-	
+
 	if (getBool("SHUTDOWN_AFTER_AUTOSTART_PROCESS_TERMINATES") && shutDownProcess != "")
 	{
 		pi = mpProcessInformations[shutDownProcess];
 		while(1) {		
 			dwRet = MsgWaitForMultipleObjects(1, &(pi.hProcess), FALSE, INFINITE, QS_ALLINPUT);
-			if (dwRet == WAIT_OBJECT_0) {
+			if (dwRet == WAIT_OBJECT_0) 
+			{
 				SendMessage(hWnd,WM_DESTROY,NULL,NULL);
 				return TRUE;    // The event was signaled
 			}
 
-			if (dwRet != WAIT_OBJECT_0 + 1) { // Something else happened
+			if (dwRet != WAIT_OBJECT_0 + 1) 
+			{ // Something else happened
 				break;
 			}
-			
+
 			// There is one or more window message available. Dispatch them
 			while(PeekMessage(&msg,NULL,NULL,NULL,PM_REMOVE))
 			{
-				if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
+				if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) 
+				{
 					TranslateMessage(&msg);
 					DispatchMessage(&msg);
 				}
-				if (WaitForSingleObject(pi.hProcess, 0) == WAIT_OBJECT_0) {
+				if (WaitForSingleObject(pi.hProcess, 0) == WAIT_OBJECT_0) 
+				{
 					return TRUE; // Event is now signaled.
 				}
 			}
@@ -156,14 +162,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	else {
 		while (GetMessage(&msg, NULL, 0, 0)) 
 		{
-				if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) 
-				{
-					  TranslateMessage(&msg);
-					  DispatchMessage(&msg);
-				}
-		 }
+			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) 
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		}
 	}
-    return (int) msg.wParam;
+	return (int) msg.wParam;
 }
 
 
@@ -196,7 +202,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.lpszMenuName	= (LPCTSTR)IDC_SEB;
 	wcex.lpszClassName	= szWindowClass;
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, (LPCTSTR)IDI_SEB);
-	
+
 	return RegisterClassEx(&wcex);
 }
 
@@ -227,19 +233,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	strAppDirectory = szAppPath;
 	strAppDirectory = strAppDirectory.substr(0, strAppDirectory.rfind("\\"));
 	SetCurrentDirectory(strAppDirectory.c_str());
-	
+
 	if (!ReadIniFile())
 	{
-		MessageBox(NULL,NO_INI_ERROR,"Error",MB_ICONERROR);
+		MessageBox(NULL,NO_INI_ERROR, "Error", MB_ICONERROR);
 		return FALSE;
 	}
-	
+
 	if (!SetVersionInfo()) 
 	{
 		MessageBox(NULL, NO_OS_SUPPORT, "Error", 16);
 		return FALSE;
 	}
-	
+
 	// locks OS
 	if (!IsNewOS) 
 	{
@@ -247,7 +253,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		if (getBool("WIN9X_KILL_EXPLORER")) {		
 			ret = KILL_PROC_BY_NAME("explorer.exe");
 			if (ret != 0) {
-				sprintf(buffer,KILL_PROC_FAILED,"explorer.exe",ret);
+				sprintf(buffer, KILL_PROC_FAILED, "explorer.exe", ret);
 				MessageBox(NULL,buffer,"Error",16);
 				killedExplorer = FALSE;
 			}
@@ -258,14 +264,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		//tell Win9x / Me that the screensaver is running to lock system tasks
 		if (getBool("WIN9X_SCREENSAVERRUNNING")) 
 		{
-			SystemParametersInfo(SPI_SCREENSAVERRUNNING,TRUE,&dwNotUsedForAnything,NULL);
+			SystemParametersInfo(SPI_SCREENSAVERRUNNING, TRUE, &dwNotUsedForAnything, NULL);
 		}
 	}
 	else 
 	{
 		//on NT4/NT5 a new desktop is created
 		if (getBool("NEW_DESKTOP")) {
-			
+
 			hOriginalThread = GetThreadDesktop(GetCurrentThreadId());
 			hOriginalInput = OpenInputDesktop(0, FALSE, DESKTOP_SWITCHDESKTOP);
 
@@ -278,19 +284,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	// start SEB window
 	hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 150, 50, NULL, NULL, hInstance, NULL);
-	
+
 	if (!hWnd)
 	{
 		MessageBox(NULL, INITIALIZE_ERROR, "Error", MB_ICONERROR);
 		return FALSE;
 	}
-	
+
 	if (!GetClientInfo())
 	{
-		MessageBox(NULL,NO_CLIENT_INFO_ERROR,"Error",MB_ICONERROR);
+		MessageBox(NULL, NO_CLIENT_INFO_ERROR, "Error", MB_ICONERROR);
 		return FALSE;
 	}
-	
+
 	if (getBool("EDIT_REGISTRY") && IsNewOS)
 	{
 		if (!EditRegistry())
@@ -298,12 +304,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			mpParam["EDIT_REGISTRY"] = "0"; //thats for ResetRegistry: do nothing because editing failed
 		}
 	}
-	
+
 	sStrongKillProcesssesBefore = mpParam["STRONG_KILL_PROCESSES_BEFORE"];
 	if (sStrongKillProcesssesBefore != "")
 	{		
-		Tokenize(sStrongKillProcesssesBefore,vStrongKillProcessesBefore,";");
-		for (int i=0;i<(int)vStrongKillProcessesBefore.size();i++)
+		Tokenize(sStrongKillProcesssesBefore, vStrongKillProcessesBefore, ";");
+		for (int i=0; i<(int)vStrongKillProcessesBefore.size(); i++)
 		{
 			ret = KILL_PROC_BY_NAME(vStrongKillProcessesBefore[i].c_str());
 		}
@@ -313,7 +319,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	{
 		if (!CreateExternalProcess(mpParam["AUTOSTART_PROCESS"]))
 		{
-			MessageBox(hWnd,PROCESS_FAILED,"Error",MB_ICONWARNING);
+			MessageBox(hWnd, PROCESS_FAILED, "Error", MB_ICONWARNING);
 			return FALSE;
 		}		
 	}
@@ -327,7 +333,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		}
 		if (hinstDLL == NULL) 
 		{
-			MessageBox(NULL,LOAD_LIBRARY_ERROR,"Error",16);
+			MessageBox(NULL, LOAD_LIBRARY_ERROR, "Error", 16);
 			return FALSE;
 		}
 		if (IsNewOS)
@@ -340,21 +346,21 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			KeyHook = (KEYHOOK)GetProcAddress(hinstDLL, "KeyHook9x"); //Address Of KeyHookNT
 			MouseHook = (MOUSEHOOK)GetProcAddress(hinstDLL, "MouseHook9x"); //Address Of KeyHookNT
 		}
-		KeyHook(&hinstDLL,TRUE);
-		MouseHook(&hinstDLL,TRUE);
+		KeyHook(&hinstDLL, TRUE);
+		MouseHook(&hinstDLL, TRUE);
 	}
 
 	// show Window	
-	if (getBool("SHOW_SEB_APP_CHOOSER")) {
+	if (ShowSebAppChooser()) {
 		int cmd = (getBool("AUTOSTART_PROCESS")) ? SW_SHOWNORMAL : SW_SHOWNORMAL; //Not very suggestive yet
 		ShowWindow(hWnd,cmd);
 		UpdateWindow(hWnd);
 	}
-	
+
 	// this is not the set of allowd processes to run & the processes in the list process
 	GetRunningProcesses(previousProcesses);
-	allowedProcesses.insert(allowedProcesses.end(),previousProcesses.begin(),previousProcesses.end());
-	
+	allowedProcesses.insert(allowedProcesses.end(), previousProcesses.begin(), previousProcesses.end());
+
 	long threadID;
 
 	parameters.allowedProcesses = &allowedProcesses;
@@ -363,7 +369,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	parameters.confirm =0;
 
 	if(getBool("PROC_MONITORING")){
-    	procMonitorThread = CreateThread(NULL,0,(LPTHREAD_START_ROUTINE) MonitorProcesses,(LPVOID)&parameters,0,(LPDWORD)&threadID);
+		procMonitorThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)MonitorProcesses, (LPVOID)&parameters,0, (LPDWORD)&threadID);
 		parameters.procedureReady = 1;
 	}
 	return TRUE;	
@@ -380,41 +386,48 @@ BOOL ReadIniFile()
 	vector<string> vProcesses;
 	vector<string>::iterator itProcesses;
 	string sProcess = "";
-	
+
 	try
 	{
-		GetModuleFileName(NULL,cCurrDir,sizeof(cCurrDir));
+		GetModuleFileName(NULL, cCurrDir, sizeof(cCurrDir));
 		sCurrDir = (string)cCurrDir;
 		sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
-			MessageBox(NULL,NO_INI_ERROR,"Error",16);
+			MessageBox(NULL, NO_INI_ERROR, "Error", 16);
 			return FALSE;
 		}
-		
+
 		while(!getline(inf, strLine).eof())
 		{			
-			strKey = strLine.substr(0,strLine.find("=", 0));
-			strValue = strLine.substr(strLine.find("=", 0)+1,strLine.length());
+			strKey = strLine.substr(0, strLine.find("=", 0));
+			strValue = strLine.substr(strLine.find("=", 0)+1, strLine.length());
 			mpParam[strKey] = strValue;				
 		}
 		inf.close();
 
-		// handle processes from configuration file Seb.ini
-		sProcesses = mpParam["PROCESSES"];
-		if (sProcesses != "") {
-			Tokenize(sProcesses, vProcesses, ";");
-			for( itProcesses = vProcesses.begin(); itProcesses != vProcesses.end(); itProcesses++ ) {
-				vector<string> vProcess;
-				sProcess = *itProcesses;				
-				Tokenize(sProcess, vProcess, ",");												
-				mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));	
-			}			
-		}
+		string sebProcess = mpParam["SEB_BROWSER"];
+		vector<string> sebProcessVector;
+		Tokenize(sebProcess, sebProcessVector, ",");												
+		mpProcesses.insert(make_pair(sebProcessVector[0], sebProcessVector[1]));
 
 		// handle processes from Registry
-		ReadRegistry();
+		ReadProcessesInRegistry();
+
+		if (mpProcesses.size() == 1) { // if nothing is found in registry -> read Seb.ini
+			// handle processes from configuration file Seb.ini
+			sProcesses = mpParam["PERMITTED_APPS"];
+			if (sProcesses != "") {
+				Tokenize(sProcesses, vProcesses, ";");
+				for( itProcesses = vProcesses.begin(); itProcesses != vProcesses.end(); itProcesses++ ) {
+					vector<string> vProcess;
+					sProcess = *itProcesses;				
+					Tokenize(sProcess, vProcess, ",");												
+					mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));	
+				}			
+			}
+		}
 	}
 	catch( char * str )
 	{		
@@ -424,7 +437,7 @@ BOOL ReadIniFile()
 	return TRUE;
 }
 
-BOOL ReadRegistry() 
+BOOL ReadProcessesInRegistry() 
 {
 	try
 	{
@@ -438,7 +451,7 @@ BOOL ReadRegistry()
 		DWORD dwType=REG_SZ;
 		DWORD dwSize=255;
 		if (!HandleOpenRegistryKey(HKLM, KEY_RegPolicySEB, &hKeySEB, FALSE)) return FALSE;
-		returnStatus = RegQueryValueEx(hKeySEB, VAL_ExernalApps, NULL, &dwType,(LPBYTE)&lszValue, &dwSize);
+		returnStatus = RegQueryValueEx(hKeySEB, VAL_PERMITTED_APPS, NULL, &dwType,(LPBYTE)&lszValue, &dwSize);
 		if (returnStatus == ERROR_SUCCESS)
 		{
 			Tokenize(lszValue, vProcesses, ";");
@@ -474,7 +487,7 @@ BOOL GetClientInfo()
 			{
 				if((hostinfo = gethostbyname(cHostname)) != NULL)
 				{
-						cIp = inet_ntoa(*(struct in_addr *)*hostinfo->h_addr_list);
+					cIp = inet_ntoa(*(struct in_addr *)*hostinfo->h_addr_list);
 				}
 			}
 			WSACleanup( );
@@ -496,7 +509,7 @@ BOOL EditRegistry()
 	{	
 		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicySystem, &hkSystem, TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicyExplorer, &hkExplorer, TRUE)) return FALSE;
-		
+
 		// Policy/System Values
 		if (getBool("REG_DISABLE_LOCK_WORKSTATION")) 
 		{
@@ -510,7 +523,7 @@ BOOL EditRegistry()
 		{ 			
 			if (!HandleSetRegistryKeyValue(hkSystem,VAL_DisableChangePassword,"DISABLE_CHANGE_PASSWORD")) return FALSE;
 		}
-		
+
 		// Policy/Explorer Values
 		if (getBool("REG_NO_CLOSE"))
 		{ 	
@@ -537,7 +550,7 @@ BOOL ResetRegistry()
 	{	
 		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicySystem, &hkSystem, TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicyExplorer, &hkExplorer, TRUE)) return FALSE;
-		
+
 		if (getBool("REG_DISABLE_LOCK_WORKSTATION")) 
 		{
 			RegDeleteValue(hkSystem,VAL_DisableLockWorkstation);
@@ -577,12 +590,12 @@ BOOL CreateExternalProcess(string sProcess)
 	STARTUPINFO siProcess;						//STARTUPINFO for created process
 	PROCESS_INFORMATION piProcess;				//PROCESS_INFORMATION created process
 	ZeroMemory( &siProcess, sizeof(siProcess) );
-    siProcess.cb = sizeof(siProcess);
+	siProcess.cb = sizeof(siProcess);
 	if (IsNewOS && getBool("NEW_DESKTOP")) {
 		siProcess.lpDesktop = SEB_DESK;
 	}
-    ZeroMemory( &piProcess, sizeof(piProcess) );
-	
+	ZeroMemory( &piProcess, sizeof(piProcess) );
+
 	// give the process 10s to start
 	// after 10 s 
 	if(parameters.procedureReady!=0){
@@ -611,7 +624,7 @@ BOOL CreateExternalProcess(string sProcess)
 			NULL,             // Use parent's starting directory. 
 			&siProcess,       // Pointer to STARTUPINFO structure.
 			&piProcess )      // Pointer to PROCESS_INFORMATION structure.
-		) 
+			) 
 		{
 			ResumeThread(procMonitorThread);
 			MessageBox(hWnd,PROCESS_FAILED,"Error",MB_ICONERROR);
@@ -636,7 +649,7 @@ BOOL ShutdownInstance()
 	int ret;
 	string sStrongKillProcesssesAfter = ""; 
 	vector< string >vStrongKillProcessesAfter;
-	
+
 	if (getBool("EDIT_REGISTRY") && IsNewOS)
 	{
 		if (!ResetRegistry())
@@ -644,15 +657,15 @@ BOOL ShutdownInstance()
 			MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
 		}
 	}
-	
+
 	if (getBool("MESSAGE_HOOK"))
 	{
 		KeyHook(&hinstDLL,FALSE);
 		MouseHook(&hinstDLL,FALSE);
 		FreeLibrary(hinstDLL);
 	}
-	
-	
+
+
 	// Kill all processes which are created by CreateExternalProcess()
 	for( itProcessInformations = mpProcessInformations.begin(); itProcessInformations != mpProcessInformations.end(); itProcessInformations++ ) {
 		string sCommandLine = "";
@@ -672,7 +685,7 @@ BOOL ShutdownInstance()
 	// shut down the proc monitor thread
 	TerminateThread(procMonitorThread,0);
 	KillAllNotInList(previousProcesses);
-	
+
 	sStrongKillProcesssesAfter = mpParam["STRONG_KILL_PROCESSES_AFTER"];
 	if (sStrongKillProcesssesAfter != "")
 	{		
@@ -687,7 +700,7 @@ BOOL ShutdownInstance()
 	firefox.exe still runs in NT4 Win2k after termination of the stored process (???)
 	p.e. calc.exe or notepad.exe are terminated correctly (???)
 	*/
-	
+
 	if (!IsNewOS) {				
 		if (getBool("WIN9X_KILL_EXPLORER") && killedExplorer) {
 			system("start explorer.exe");	
@@ -722,13 +735,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 	HANDLE hIcon, hIconSm;
-	
+
 	switch (message)
 	{
-	
+
 	case WM_CREATE:
 		HMENU hMenu, hSubMenu;
-        hMenu = CreateMenu();		
+		hMenu = CreateMenu();		
 		hSubMenu = CreatePopupMenu();
 		for( itProcesses = mpProcesses.begin(); itProcesses != mpProcesses.end(); itProcesses++ ) {
 			AppendMenu(hSubMenu, MF_STRING, cntProcess, (*itProcesses).first.c_str()); //Name of the Process	
@@ -736,7 +749,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			cntProcess ++;
 		}	
 		AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");				
-        SetMenu(hWnd, hMenu);
+		SetMenu(hWnd, hMenu);
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
@@ -748,7 +761,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
 			break;
-		// supports 20 different processes
+			// supports 20 different processes
 		case 37265 :
 			CreateExternalProcess(mpProcessCommands[37265]);
 			break;
@@ -856,62 +869,62 @@ BOOL CheckWritePermission(LPCSTR szPath)
 	DWORD dwAttr = GetFileAttributes(szPath);
 	if(dwAttr == 0xffffffff)
 	{
-	  DWORD dwError = GetLastError();
-	  if(dwError == ERROR_FILE_NOT_FOUND)
-	  {
-		MessageBox(hWnd,FILE_NOT_FOUND,"Error",MB_ICONERROR);
-		return FALSE;
-	  }
-	  else if(dwError == ERROR_PATH_NOT_FOUND)
-	  {
-		MessageBox(hWnd,PATH_NOT_FOUND,"Error",MB_ICONERROR);
-		return FALSE;
-	  }
-	  else if(dwError == ERROR_ACCESS_DENIED)
-	  {
-		MessageBox(hWnd,ACCESS_DENIED,"Error",MB_ICONERROR);
-		return FALSE;
-	  }
-	  else
-	  {
-		MessageBox(hWnd,UNDEFINED_ERROR,"Error",MB_ICONERROR);
-		return FALSE;
-	  }
+		DWORD dwError = GetLastError();
+		if(dwError == ERROR_FILE_NOT_FOUND)
+		{
+			MessageBox(hWnd,FILE_NOT_FOUND,"Error",MB_ICONERROR);
+			return FALSE;
+		}
+		else if(dwError == ERROR_PATH_NOT_FOUND)
+		{
+			MessageBox(hWnd,PATH_NOT_FOUND,"Error",MB_ICONERROR);
+			return FALSE;
+		}
+		else if(dwError == ERROR_ACCESS_DENIED)
+		{
+			MessageBox(hWnd,ACCESS_DENIED,"Error",MB_ICONERROR);
+			return FALSE;
+		}
+		else
+		{
+			MessageBox(hWnd,UNDEFINED_ERROR,"Error",MB_ICONERROR);
+			return FALSE;
+		}
 	}
 	else
 	{
-	  if(dwAttr & FILE_ATTRIBUTE_DIRECTORY)
-	  {
-		  if(dwAttr & FILE_ATTRIBUTE_READONLY) {
-			return FALSE;
-		  }
-	  }
-	  else
-	  {
-		  if(dwAttr & FILE_ATTRIBUTE_READONLY) {
-			return FALSE;
-		  }
-	  }
+		if(dwAttr & FILE_ATTRIBUTE_DIRECTORY)
+		{
+			if(dwAttr & FILE_ATTRIBUTE_READONLY) {
+				return FALSE;
+			}
+		}
+		else
+		{
+			if(dwAttr & FILE_ATTRIBUTE_READONLY) {
+				return FALSE;
+			}
+		}
 	}
 	return TRUE;
 }
 
 void Tokenize(const string& str, vector<string>& tokens, const string& delimiters = " ")
 {
-    // Skip delimiters at beginning.
-    string::size_type lastPos = str.find_first_not_of(delimiters, 0);
-    // Find first "non-delimiter".
-    string::size_type pos     = str.find_first_of(delimiters, lastPos);
+	// Skip delimiters at beginning.
+	string::size_type lastPos = str.find_first_not_of(delimiters, 0);
+	// Find first "non-delimiter".
+	string::size_type pos     = str.find_first_of(delimiters, lastPos);
 
-    while (string::npos != pos || string::npos != lastPos)
-    {
-        // Found a token, add it to the vector.
-        tokens.push_back(str.substr(lastPos, pos - lastPos));
-        // Skip delimiters.  Note the "not_of"
-        lastPos = str.find_first_not_of(delimiters, pos);
-        // Find next "non-delimiter"
-        pos = str.find_first_of(delimiters, lastPos);
-    }
+	while (string::npos != pos || string::npos != lastPos)
+	{
+		// Found a token, add it to the vector.
+		tokens.push_back(str.substr(lastPos, pos - lastPos));
+		// Skip delimiters.  Note the "not_of"
+		lastPos = str.find_first_not_of(delimiters, pos);
+		// Find next "non-delimiter"
+		pos = str.find_first_of(delimiters, lastPos);
+	}
 }
 
 string getLangString(string key)
@@ -969,33 +982,33 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 	{
 		long lngRegOpen;
 		long lngRegCreate;
-		
+
 		lngRegOpen = RegOpenKey(hKey, subKey, pKey);
 		if (lngRegOpen != ERROR_SUCCESS)
 		{
 			switch (lngRegOpen)
 			{
-				case ERROR_SUCCESS:
+			case ERROR_SUCCESS:
 				break;
-				case ERROR_FILE_NOT_FOUND :
-					if (bCreate)
+			case ERROR_FILE_NOT_FOUND :
+				if (bCreate)
+				{
+					lngRegCreate = RegCreateKey(hKey,subKey,pKey);
+					switch (lngRegCreate)
 					{
-						lngRegCreate = RegCreateKey(hKey,subKey,pKey);
-						switch (lngRegCreate)
-						{
-							case ERROR_SUCCESS:
-								break;
-							case ERROR_ACCESS_DENIED :
-								//MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
-								return FALSE;
-							break;
-							default :
-								return FALSE;
-						}
+					case ERROR_SUCCESS:
+						break;
+					case ERROR_ACCESS_DENIED :
+						//MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
+						return FALSE;
+						break;
+					default :
+						return FALSE;
 					}
+				}
 				break;
-				default :
-					return FALSE;
+			default :
+				return FALSE;
 			}
 		}
 	}
@@ -1029,15 +1042,15 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 			lngRegSet = RegSetValueEx(hKey, lpVal, NULL, REG_DWORD, (BYTE*)&val, sizeof(val));
 			switch (lngRegSet)
 			{
-				case ERROR_SUCCESS:
-					break; 
-				case ERROR_ACCESS_DENIED :
-					mpParam[sParam] = "0";
-					MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
-					return FALSE;
-				default :
-					mpParam[sParam] = "0";
-					return FALSE;
+			case ERROR_SUCCESS:
+				break; 
+			case ERROR_ACCESS_DENIED :
+				mpParam[sParam] = "0";
+				MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
+				return FALSE;
+			default :
+				mpParam[sParam] = "0";
+				return FALSE;
 			}
 		}
 	}
@@ -1053,21 +1066,54 @@ BOOL SetVersionInfo()
 {
 	switch (sysVersionInfo.GetVersion())
 	{			
-		case WIN_NT_351 :
-		case WIN_NT_40  :
-		case WIN_2000 :
-		case WIN_XP :
-		case WIN_VISTA :
-			IsNewOS = TRUE;
-			return TRUE;
-			break;
-		case WIN_95 :
-		case WIN_98 :
-		case WIN_ME :
-			IsNewOS = FALSE;
-			return TRUE;
-			break;
-		default :
-			return FALSE;			
+	case WIN_NT_351 :
+	case WIN_NT_40  :
+	case WIN_2000 :
+	case WIN_XP :
+	case WIN_VISTA :
+		IsNewOS = TRUE;
+		return TRUE;
+		break;
+	case WIN_95 :
+	case WIN_98 :
+	case WIN_ME :
+		IsNewOS = FALSE;
+		return TRUE;
+		break;
+	default :
+		return FALSE;			
 	}
+}
+
+BOOL ShowSebAppChooser()
+{
+	BOOL retVal = FALSE;
+	BOOL inReg = FALSE;
+	try
+	{
+		HKEY hKeySEB;
+		DWORD showSEBAppChooser;
+		DWORD dwType=REG_DWORD;
+		DWORD dwSize=sizeof(DWORD);
+		LONG returnStatus;
+		if (HandleOpenRegistryKey(HKLM, KEY_RegPolicySEB, &hKeySEB, FALSE))
+		{
+			returnStatus = RegQueryValueEx(hKeySEB, VAL_ShowSEBAppChooser, NULL, &dwType,(LPBYTE)&showSEBAppChooser, &dwSize);
+			if (returnStatus == ERROR_SUCCESS)
+			{
+				inReg = TRUE;
+				retVal = showSEBAppChooser;
+			}
+			RegCloseKey(hKeySEB);
+		}
+	}
+	catch( char * str )
+	{		
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+	}
+	if (!inReg) 
+	{
+		retVal = getBool("SHOW_SEB_APP_CHOOSER");
+	}
+	return retVal;
 }
