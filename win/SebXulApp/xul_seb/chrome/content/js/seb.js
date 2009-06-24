@@ -44,11 +44,11 @@ var SebSystem = {
 			}, false);
 
 			if (this._chrome) {
-				var urlExam = this.getUrlExam();
-				if (urlExam == null || urlExam == "") {
-					alert("A problem has occured:\nCannot find an URL for the exam.");
+				var url = this.getUrl();
+				if (url == null || url == "") {
+					alert("A problem has occured:\nNo URL defined for SEB.");
 				}
-				initBrowser(urlExam);
+				initBrowser(url);
 			}
 		} catch (e) {
 			alert(e);
@@ -66,6 +66,7 @@ var SebSystem = {
 
 	showContent : function() {
 		document.getElementById("deckContents").selectedIndex = 1;
+		window.title = this._browser.webNavigation.document.title;
 		this._browser.focus();
 	},
 
@@ -74,30 +75,37 @@ var SebSystem = {
 		alert("loaded");
 	},
 
-	getUrlExam : function() {
-		var urlExam = this.getUrlExamFromWindowsRegistry();
-		if (urlExam == null || urlExam == "") {
-			urlExam = this.getUrlExamFromFileSebIni();
+	getUrl : function() {
+		var url = "";
+		if (window.arguments[0] != null) {
+			var cmdLine = window.arguments[0].QueryInterface(Components.interfaces.nsICommandLine);
+			url = cmdLine.handleFlagWithParam("url", false);
 		}
-		if (urlExam == null || urlExam == "") {
-			urlExam = this.getUrlExamFromPreferences();
+		if (url == null || url == "") {
+			url = this.getUrlExamFromWindowsRegistry();
 		}
-		return urlExam;
+		if (url == null || url == "") {
+			url = this.getUrlExamFromFileSebIni();
+		}
+		if (url == null || url == "") {
+			url = this.getUrlExamFromPreferences();
+		}
+		return url;
 	},
 
 	getUrlExamFromWindowsRegistry : function() {
 		try {
-			var url = "";
+			var urlExam = "";
 			var reg = Components.classes["@mozilla.org/windows-registry-key;1"].createInstance(Components.interfaces.nsIWindowsRegKey);
 			reg.open(reg.ROOT_KEY_LOCAL_MACHINE, "SOFTWARE\\Policies", reg.ACCESS_READ);
 			if (reg.hasChild("SEB")) {
 				var subKey = reg.openChild("SEB", reg.ACCESS_READ);
 				if (subKey.hasValue("UrlExam")) {
-					url = subKey.readStringValue("UrlExam");
+					urlExam = subKey.readStringValue("UrlExam");
 				}
 			}
 			reg.close();
-			return url;
+			return urlExam;
 		} catch (ex) {
 			return "";
 		}
@@ -105,15 +113,15 @@ var SebSystem = {
 
 	getUrlExamFromFileSebIni : function() {
 		try {
-			var url = "";
+			var urlExam = "";
 			var sebConfig = new File(this._prefs.getChar('seb.configuration.file'));
 			var lines = sebConfig.readAllLines();
 			for ( var i = 0; i < lines.length; i++) {
 				if (lines[i].indexOf("URL_EXAM") != -1) {
-					url = lines[i].substr(lines[i].indexOf("=") + 1);
+					urlExam = lines[i].substr(lines[i].indexOf("=") + 1);
 				}
 			}
-			return url;
+			return urlExam;
 		} catch (ex) {
 			return "";
 		}
@@ -123,6 +131,23 @@ var SebSystem = {
 		return this._prefs.getChar('seb.startup.homepage');
 	}
 }
+
+/** ***** Observer ***** */
+/*
+observe : function(subject, topic, data) {
+	if (topic == "http-on-modify-request") {
+		var httpChannel = subject.QueryInterface(Components.interfaces.nsIHttpChannel);
+		httpChannel.setRequestHeader("X-Hello", "World", false);
+		alert("observe2");
+	}
+}
+*/
+/*
+ * var observerService =
+ * Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+ * observerService.addObserver(SebSystem, "http-on-modify-request", false);
+ * httpRequestObserver.register();
+ */
 
 /** ****** Top EventListener ***** */
 window.addEventListener("load", function(e) {
