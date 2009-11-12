@@ -364,6 +364,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	long threadID;
 
 	parameters.allowedProcesses = &allowedProcesses;
+	parameters.mpProcesses = mpProcesses;
 	parameters.desktop = hNewDesktop;
 	parameters.hold = 0;
 	parameters.confirm =0;
@@ -684,7 +685,7 @@ BOOL ShutdownInstance()
 
 	// shut down the proc monitor thread
 	TerminateThread(procMonitorThread,0);
-	KillAllNotInList(previousProcesses);
+	KillAllNotInList(previousProcesses, mpProcesses, true);
 
 	sStrongKillProcesssesAfter = mpParam["STRONG_KILL_PROCESSES_AFTER"];
 	if (sStrongKillProcesssesAfter != "")

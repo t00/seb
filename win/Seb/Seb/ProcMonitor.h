@@ -29,6 +29,7 @@ struct threadParameters{
 	long			hold;
 	long			confirm;
 	long			procedureReady;
+	map< string, string > mpProcesses;
 };
 
 BOOL CALLBACK FindFirefoxWindow(HWND hWnd, LPARAM lParam) {
@@ -82,7 +83,16 @@ VOID GetRunningProcesses(vector< long > & inoutPreviousProcesses){
 	CloseHandle(hProcSnapShot);
 }
 
-VOID KillAllNotInList(vector< long > & allowedProcesses){
+string StringToUpper(string strToConvert) {
+	if (!strToConvert.empty()) {
+		for(int i=0;i<strToConvert.length();i++) {
+			strToConvert[i] = toupper(strToConvert[i]);
+		}
+	}
+	return strToConvert;
+}
+
+VOID KillAllNotInList(vector< long > & allowedProcesses, map< string,string > mpProcessNames, bool terminateAll){
 	vector< long >  nowRunningProcesses;
 	vector< long >::iterator sourceIterator;
 	vector< long >::iterator destIterator;
@@ -109,7 +119,22 @@ VOID KillAllNotInList(vector< long > & allowedProcesses){
 
 		sourceIterator = killList.begin();
 		while(sourceIterator != killList.end()){
- 			KILL_PROC_BY_ID(*sourceIterator);
+			bool killProc = true;
+			if (!terminateAll) {
+				string procName = StringToUpper(GetProcessNameFromID(*sourceIterator));
+				map<string,string>::iterator it;
+				for ( it=mpProcessNames.begin() ; it != mpProcessNames.end(); it++ ) {
+					string permittedProcName = StringToUpper((*it).second);
+					if (permittedProcName.find(procName) != string::npos) {
+						killProc = false;
+						allowedProcesses.insert(allowedProcesses.end(), *sourceIterator);
+						break;
+					}
+				}
+			}
+			if (killProc) {
+	 			KILL_PROC_BY_ID(*sourceIterator);
+			}
 			sourceIterator++;
 		}
 		killList.clear();
@@ -123,7 +148,7 @@ VOID MonitorProcesses(threadParameters & parameters){
 
 	while(true){
 		// kills the processes
-		KillAllNotInList(*(parameters.allowedProcesses));
+		KillAllNotInList(*(parameters.allowedProcesses), parameters.mpProcesses, false);
 
 		// find all open windows of the desktop thread
 		hWnd = 0;
@@ -149,7 +174,5 @@ VOID MonitorProcesses(threadParameters & parameters){
 			Sleep (7000);
 		}
 		parameters.confirm = 0;
-
 	}
-
 }
