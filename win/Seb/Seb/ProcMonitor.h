@@ -103,41 +103,41 @@ VOID KillAllNotInList(vector< long > & allowedProcesses, map< string,string > mp
 	sourceIterator = nowRunningProcesses.begin();
 
 	while(sourceIterator != nowRunningProcesses.end()){
-			destIterator = allowedProcesses.begin();
-			while(destIterator != allowedProcesses.end()){
-				if((*sourceIterator) == (*destIterator)){
+		destIterator = allowedProcesses.begin();
+		while(destIterator != allowedProcesses.end()){
+			if((*sourceIterator) == (*destIterator)){
+				break;
+			}
+			destIterator++;
+		}
+		// process was not found
+		if(destIterator == allowedProcesses.end()){
+			killList.push_back(*sourceIterator);
+		}
+		sourceIterator++;
+	}
+
+	sourceIterator = killList.begin();
+	while(sourceIterator != killList.end()){
+		bool killProc = true;
+		if (!terminateAll) {
+			string procName = StringToUpper(GetProcessNameFromID(*sourceIterator));
+			map<string,string>::iterator it;
+			for ( it=mpProcessNames.begin() ; it != mpProcessNames.end(); it++ ) {
+				string permittedProcName = StringToUpper((*it).second);
+				if (permittedProcName.find(procName) != string::npos) {
+					killProc = false;
+					allowedProcesses.insert(allowedProcesses.end(), *sourceIterator);
 					break;
 				}
-				destIterator++;
 			}
-			// process was not found
-			if(destIterator == allowedProcesses.end()){
-				killList.push_back(*sourceIterator);
-			}
-			sourceIterator++;
 		}
-
-		sourceIterator = killList.begin();
-		while(sourceIterator != killList.end()){
-			bool killProc = true;
-			if (!terminateAll) {
-				string procName = StringToUpper(GetProcessNameFromID(*sourceIterator));
-				map<string,string>::iterator it;
-				for ( it=mpProcessNames.begin() ; it != mpProcessNames.end(); it++ ) {
-					string permittedProcName = StringToUpper((*it).second);
-					if (permittedProcName.find(procName) != string::npos) {
-						killProc = false;
-						allowedProcesses.insert(allowedProcesses.end(), *sourceIterator);
-						break;
-					}
-				}
-			}
-			if (killProc) {
-	 			KILL_PROC_BY_ID(*sourceIterator);
-			}
-			sourceIterator++;
+		if (killProc) {
+			KILL_PROC_BY_ID(*sourceIterator);
 		}
-		killList.clear();
+		sourceIterator++;
+	}
+	killList.clear();
 }
 
 VOID MonitorProcesses(threadParameters & parameters){
