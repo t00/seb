@@ -37,24 +37,26 @@
 // The section is SHARED among all instances of this DLL.
 // A low-level keyboard hook is always a system-wide hook.
 // 
+
 #pragma data_seg (".mydata")
-static HHOOK g_hHookKbdLL = NULL;	// Low Level Key hook handle (NT)
+static HHOOK g_hHookKbdLL   = NULL;	// Low Level Key hook handle (NT)
 static HHOOK g_hHookMouseLL = NULL;	// Low Level Mouse hook handle (NT)
-static HHOOK g_hHookKbd = NULL;		// Key hook handle (9x)
-static HHOOK g_hHookMouse = NULL;	// Mouse hook handle (9x)
-static HWND hWndCaller = NULL;		//Handle Pointer to the caller window 
+static HHOOK g_hHookKbd     = NULL;	// Key   hook handle (9x)
+static HHOOK g_hHookMouse   = NULL;	// Mouse hook handle (9x)
+static HWND  hWndCaller     = NULL;	//Handle Pointer to the caller window 
+//static HWND hWndProcess   = NULL;	//Handle Pointer to the process window 
 static BOOL bHotKeyKill = FALSE;
 static ALTER_FLAGS alter_flags; //AlterFlags struct with flags for alternating system functions
 #pragma data_seg ()
 #pragma comment(linker, "/SECTION:.mydata,RWS") // tell linker: make it shared
 
 HINSTANCE *hDll;	//the same pointer as hModule
-HMODULE *hMod;		//the same pointer as hDll
+HMODULE   *hMod;	//the same pointer as hDll
 PROCESS_INFORMATION *hPiProcess;
-BOOL InitMsgHook();
+BOOL      InitMsgHook();
 BOOL TerminateMsgHook();
 BOOL getBool(string);
-int getInt(string);
+int  getInt (string);
 BOOL isValidOperatingSystem();
 int GetButtonForHotKeyFromRegistry(LPCTSTR);
 BOOL b1, b2, b3; //for hot key
@@ -62,6 +64,8 @@ DWORD VK_B1, VK_B2, VK_B3;
 map<string, string> mpParam;//map for *.ini parameters
 SystemVersionInfo sysVersionInfo; 
 ofstream of;
+
+
 
 void Tokenize(const string& str, vector<string>& tokens, const string& delimiters = " ")
 {	
@@ -80,6 +84,9 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
         pos = str.find_first_of(delimiters, lastPos);
     }
 }
+
+
+
 /* private hook functions */
 LRESULT CALLBACK LLKeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
 {	
