@@ -1,3 +1,11 @@
+/*
+* SystemVersionInfo.h : header file
+*
+* SystemVersionInfo - Windows OS Detection Class
+*
+* Written by netseeker <netseeker@umzingelt.de>
+*/
+
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1
  *
@@ -28,14 +36,21 @@
 #define SYSTEMVERSIONINFO_H
 
 #define OS_UNKNOWN    800
-#define WIN_95    950
-#define WIN_98    980
-#define WIN_ME    999
-#define WIN_NT_351    1351
+#define WIN_95        950
+#define WIN_98        980
+#define WIN_ME        999
+#define WIN_NT_351   1351
 #define WIN_NT_40    1400
-#define WIN_2000    2000
-#define WIN_XP    2010
+#define WIN_2000     2000
+#define WIN_XP       2010
 #define WIN_VISTA    2050
+//#define WIN_7        2010
+//#define WIN_7        2050
+
+// Actually, Windows 7 gets the code WIN_VISTA,
+// but maybe this will change in the future.
+
+
 
 class SystemVersionInfo
 {
@@ -48,6 +63,18 @@ class SystemVersionInfo
 };
 
 #endif // SYSTEMVERSIONINFO_H
+//end header file
+
+
+/*
+* SystemVersionInfo.cpp : implementation file
+*
+* SystemVersionInfo - Windows OS Detection Class
+*
+* Written by netseeker <netseeker@umzingelt.de>
+*
+* History: 17 Aug 2002 - Creation
+*/
 
 //if you are using MS VC with precompiled headers include the next line
 //#include "stdafx.h"
@@ -108,5 +135,7 @@ int SystemVersionInfo::GetVersion()
                 break;
         }
     }
+
     return getVersion;
 }
+//end implementation file
