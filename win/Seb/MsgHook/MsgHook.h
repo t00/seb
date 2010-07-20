@@ -30,15 +30,19 @@
 #define EXPORT __declspec (dllexport)
 #endif
 //For Initialization
-#define	NO_OS_SUPPORT "The OS is not supported!"
-#define	NO_INI_ERROR "No *.ini File found!"
-#define	INITIALIZE_ERROR "Initialization of message hook library failed!"
-#define	TERMINATION_ERROR "Termination of message hook library failed!"
+#define	NO_OS_SUPPORT     "The OS is not supported!"
+#define	NO_INI_ERROR      "No *.ini File found!"
+#define	INITIALIZE_ERROR  "Initialization of message hook library failed!"
+#define	TERMINATION_ERROR    "Termination of message hook library failed!"
+
+// Name and location of MsgHook configuration file
+#define MSGHOOK_INI "../MsgHook.ini"
 
 //For the registry fields
 #include "AlterFlags.h"
-#include "SystemVersionInfo.h"
+#include "../SystemVersionInfo.h"
 /*
+registry WRITE,LOCMACH,Software\Microsoft\Windows\CurrentVersion\Policies\System,HideFastUserSwitching,1,DWORD
 registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableLockWorkstation,1,DWORD
 registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableTaskMgr,1,DWORD
 registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableChangePassword,1,DWORD
