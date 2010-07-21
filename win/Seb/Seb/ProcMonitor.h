@@ -23,7 +23,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-struct threadParameters{
+struct threadParameters
+{
 	vector< long > * allowedProcesses;
 	HDESK			desktop;
 	long			hold;
@@ -32,7 +33,9 @@ struct threadParameters{
 	map< string, string > mpProcesses;
 };
 
-BOOL CALLBACK FindFirefoxWindow(HWND hWnd, LPARAM lParam) {
+
+BOOL CALLBACK FindFirefoxWindow(HWND hWnd, LPARAM lParam)
+{
 	char String[255];
 	
 	HWND * ohWnd = (HWND*)lParam;
@@ -47,12 +50,17 @@ BOOL CALLBACK FindFirefoxWindow(HWND hWnd, LPARAM lParam) {
 	
 
 	string s = String;
-	if(s.find(firefox) != string::npos){
-		*ohWnd = hWnd;
-		
+	if(s.find(firefox) != string::npos)
+	{
+		*ohWnd = hWnd;	
 	}
+
 	return TRUE;
 }
+
+
+
+
 
 // function to monitor the running processes
 VOID GetRunningProcesses(vector< long > & inoutPreviousProcesses){
@@ -67,12 +75,14 @@ VOID GetRunningProcesses(vector< long > & inoutPreviousProcesses){
 
 	inoutPreviousProcesses.clear();
 
-	if(Process32First(hProcSnapShot,&pe32) == TRUE){
+	if(Process32First(hProcSnapShot,&pe32) == TRUE)
+	{
 		//trim_process_name(pe32.szExeFile,lpszProcessNameBuffer,pe32.th32ProcessID);
 		//strip_extension_from_executable(pe32.szExeFile, lpszProcessNameBuffer);
 		//printf("%s;%d;%d;%d\n",lpszProcessNameBuffer,pe32.th32ProcessID,pe32.th32ParentProcessID,pe32.pcPriClassBase);
 		inoutPreviousProcesses.push_back (pe32.th32ProcessID);
-		while(Process32Next(hProcSnapShot,&pe32) == TRUE){
+		while(Process32Next(hProcSnapShot,&pe32) == TRUE)
+		{
 
 		//	trim_process_name(pe32.szExeFile,lpszProcessNameBuffer,pe32.th32ProcessID);
 		//	strip_extension_from_executable(pe32.szExeFile, lpszProcessNameBuffer);
@@ -80,19 +90,28 @@ VOID GetRunningProcesses(vector< long > & inoutPreviousProcesses){
 			inoutPreviousProcesses.push_back (pe32.th32ProcessID);
 		}
 	}
+
 	CloseHandle(hProcSnapShot);
 }
 
-string StringToUpper(string strToConvert) {
-	if (!strToConvert.empty()) {
-		for(int i=0;i<strToConvert.length();i++) {
+
+
+string StringToUpper(string strToConvert)
+{
+	if (!strToConvert.empty())
+	{
+		for(int i=0; i<strToConvert.length(); i++)
+		{
 			strToConvert[i] = toupper(strToConvert[i]);
 		}
 	}
 	return strToConvert;
 }
 
-VOID KillAllNotInList(vector< long > & allowedProcesses, map< string,string > mpProcessNames, bool terminateAll){
+
+
+VOID KillAllNotInList(vector< long > & allowedProcesses, map< string,string > mpProcessNames, bool terminateAll)
+{
 	vector< long >  nowRunningProcesses;
 	vector< long >::iterator sourceIterator;
 	vector< long >::iterator destIterator;
@@ -102,37 +121,46 @@ VOID KillAllNotInList(vector< long > & allowedProcesses, map< string,string > mp
 
 	sourceIterator = nowRunningProcesses.begin();
 
-	while(sourceIterator != nowRunningProcesses.end()){
+	while(sourceIterator != nowRunningProcesses.end())
+	{
 		destIterator = allowedProcesses.begin();
-		while(destIterator != allowedProcesses.end()){
-			if((*sourceIterator) == (*destIterator)){
+		while(destIterator != allowedProcesses.end())
+		{
+			if((*sourceIterator) == (*destIterator))
+			{
 				break;
 			}
 			destIterator++;
 		}
 		// process was not found
-		if(destIterator == allowedProcesses.end()){
+		if(destIterator == allowedProcesses.end())
+		{
 			killList.push_back(*sourceIterator);
 		}
 		sourceIterator++;
 	}
 
 	sourceIterator = killList.begin();
-	while(sourceIterator != killList.end()){
+	while(sourceIterator != killList.end())
+	{
 		bool killProc = true;
-		if (!terminateAll) {
+		if (!terminateAll)
+		{
 			string procName = StringToUpper(GetProcessNameFromID(*sourceIterator));
 			map<string,string>::iterator it;
-			for ( it=mpProcessNames.begin() ; it != mpProcessNames.end(); it++ ) {
+			for (it = mpProcessNames.begin(); it != mpProcessNames.end(); it++)
+			{
 				string permittedProcName = StringToUpper((*it).second);
-				if (permittedProcName.find(procName) != string::npos) {
+				if (permittedProcName.find(procName) != string::npos)
+				{
 					killProc = false;
 					allowedProcesses.insert(allowedProcesses.end(), *sourceIterator);
 					break;
 				}
 			}
 		}
-		if (killProc) {
+		if (killProc)
+		{
 			KILL_PROC_BY_ID(*sourceIterator);
 		}
 		sourceIterator++;
@@ -140,13 +168,17 @@ VOID KillAllNotInList(vector< long > & allowedProcesses, map< string,string > mp
 	killList.clear();
 }
 
+
+
 VOID MonitorProcesses(threadParameters & parameters){
 	HWND hWnd;
-	
+
+
 	//ostream file;
 	//file = fopen("C:\Temp\Log.txt","ba+");
 
-	while(true){
+	while(true)
+	{
 		// kills the processes
 		KillAllNotInList(*(parameters.allowedProcesses), parameters.mpProcesses, false);
 
@@ -161,10 +193,12 @@ VOID MonitorProcesses(threadParameters & parameters){
 
 		Sleep (500);
 
-		if(parameters.hold != 0){
+		if(parameters.hold != 0)
+		{
 			parameters.confirm = 1;
 			Sleep (5);
-			while(parameters.hold!=0){
+			while(parameters.hold!=0)
+			{
 				Sleep (5);
 			}
 			parameters.confirm = 0;
@@ -174,5 +208,7 @@ VOID MonitorProcesses(threadParameters & parameters){
 			Sleep (7000);
 		}
 		parameters.confirm = 0;
+
 	}
+
 }
