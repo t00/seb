@@ -23,7 +23,12 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+// stdafx.cpp : source file that includes just the standard includes
+//  MsgHook.pch will be      the pre-compiled header for /MsgHook project
+// WinKeyox.pch will be      the pre-compiled header for /Seb     project
+// stdafx.obj   will contain the pre-compiled type information
+
 #include "stdafx.h"
 
-// Reference any additional headers you need in stdafx.h
+// TODO: reference any additional headers you need in STDAFX.H
 // and not in this file
