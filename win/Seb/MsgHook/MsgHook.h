@@ -39,6 +39,9 @@
 #define MSGHOOK_INI "../MsgHook.ini"
 
 //For the registry fields
+#define HKCU HKEY_CURRENT_USER
+#define HKLM HKEY_LOCAL_MACHINE
+
 #include "AlterFlags.h"
 #include "../SystemVersionInfo.h"
 /*
