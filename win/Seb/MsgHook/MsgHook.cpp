@@ -28,6 +28,7 @@
 
 #include "stdafx.h"
 #include "MsgHook.h"
+//#include <iostream>
 
 #ifdef _MANAGED
 #pragma managed(push, off)
@@ -57,8 +58,9 @@ BOOL      InitMsgHook();
 BOOL TerminateMsgHook();
 BOOL getBool(string);
 int  getInt (string);
+//BOOL IsNewOS; //NT4, W2k, XP, ...
 BOOL isValidOperatingSystem();
-int GetButtonForHotKeyFromRegistry(LPCTSTR);
+int  GetButtonForHotKeyFromRegistry(LPCTSTR);
 BOOL b1, b2, b3; //for hot key
 DWORD VK_B1, VK_B2, VK_B3;
 map<string, string> mpParam;//map for *.ini parameters
@@ -88,17 +90,17 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 
 
 /* private hook functions */
-LRESULT CALLBACK LLKeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {	
-	if (nCode < 0 || nCode != HC_ACTION ) 
+	if (nCode < 0 || nCode != HC_ACTION)
 	{
-		return CallNextHookEx( g_hHookKbdLL, nCode, wParam, lParam); 
+		return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 	BOOL bEatKeystroke;
 	BOOL bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
 	
 	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
-	BOOL bAltKeyDown = p->flags & LLKHF_ALTDOWN;
+	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
     switch (wParam) 
     {
         case WM_KEYDOWN:  
@@ -111,9 +113,9 @@ LRESULT CALLBACK LLKeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
 			/* every keyup resets hotkey pressed flags */
 			if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
 			{								
-					b1 = FALSE;
-					b2 = FALSE;					
-					b3 = FALSE;				
+				b1 = FALSE;
+				b2 = FALSE;					
+				b3 = FALSE;				
 			}
 			if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
 			/* HotKey */			
@@ -155,20 +157,21 @@ LRESULT CALLBACK LLKeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
 				}
 				/* some keys to eat */
 				if (
-						((alter_flags.DISABLE_START_MENU && ((p->vkCode == VK_LWIN) || (p->vkCode == VK_RWIN)))) ||						
-						((alter_flags.DISABLE_ALT_ESC && ((p->vkCode==VK_ESCAPE && bAltKeyDown)))) ||
-						((alter_flags.DISABLE_ALT_TAB && ((p->vkCode==VK_TAB && bAltKeyDown)))) ||
-						((alter_flags.DISABLE_ALT_F4 && ((p->vkCode==VK_F4 && bAltKeyDown)))) ||
-						((alter_flags.DISABLE_CTRL_ESC && ((p->vkCode==VK_ESCAPE && bCtrlKeyDown)))) ||					
-						((alter_flags.DISABLE_F1 && p->vkCode == VK_F1)) ||
-						((alter_flags.DISABLE_F2 && p->vkCode == VK_F2)) ||
-						((alter_flags.DISABLE_F3 && p->vkCode == VK_F3)) ||
-						((alter_flags.DISABLE_F4 && p->vkCode == VK_F4)) ||
-						((alter_flags.DISABLE_F5 && p->vkCode == VK_F5)) ||
-						((alter_flags.DISABLE_F6 && p->vkCode == VK_F6)) ||
-						((alter_flags.DISABLE_F7 && p->vkCode == VK_F7)) ||
-						((alter_flags.DISABLE_F8 && p->vkCode == VK_F8)) ||
-						((alter_flags.DISABLE_F9 && p->vkCode == VK_F9)) ||
+						((alter_flags.DISABLE_START_MENU && ((p->vkCode == VK_LWIN) || (p->vkCode == VK_RWIN)))) ||
+						((alter_flags.DISABLE_CTRL_ESC   && ((p->vkCode == VK_ESCAPE && bCtrlKeyDown)))) ||
+						((alter_flags.DISABLE_CTRL_P     && ((p->vkCode == VK_P      && bCtrlKeyDown)))) ||
+						((alter_flags.DISABLE_ALT_TAB    && ((p->vkCode == VK_TAB    && bAltKeyDown)))) ||
+						((alter_flags.DISABLE_ALT_ESC    && ((p->vkCode == VK_ESCAPE && bAltKeyDown)))) ||
+						((alter_flags.DISABLE_ALT_F4     && ((p->vkCode == VK_F4     && bAltKeyDown)))) ||
+						((alter_flags.DISABLE_F1  && p->vkCode == VK_F1 )) ||
+						((alter_flags.DISABLE_F2  && p->vkCode == VK_F2 )) ||
+						((alter_flags.DISABLE_F3  && p->vkCode == VK_F3 )) ||
+						((alter_flags.DISABLE_F4  && p->vkCode == VK_F4 )) ||
+						((alter_flags.DISABLE_F5  && p->vkCode == VK_F5 )) ||
+						((alter_flags.DISABLE_F6  && p->vkCode == VK_F6 )) ||
+						((alter_flags.DISABLE_F7  && p->vkCode == VK_F7 )) ||
+						((alter_flags.DISABLE_F8  && p->vkCode == VK_F8 )) ||
+						((alter_flags.DISABLE_F9  && p->vkCode == VK_F9 )) ||
 						((alter_flags.DISABLE_F10 && p->vkCode == VK_F10)) ||
 						((alter_flags.DISABLE_F11 && p->vkCode == VK_F11)) ||
 						((alter_flags.DISABLE_F12 && p->vkCode == VK_F12)) ||
@@ -181,32 +184,34 @@ LRESULT CALLBACK LLKeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
 		}
     }
 	
-    if ( bEatKeystroke )
+    if (bEatKeystroke)
 	{	
         return -1;
 	}
     else
 	{
-        return CallNextHookEx( g_hHookKbdLL, nCode, wParam, lParam );
+        return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 }
 
-LRESULT CALLBACK KeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
+
+
+LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	BOOL KeyUp, KeyDown, bAltKeyDown, bCtrlKeyDown;
 	
-	if (nCode < 0 || nCode != HC_ACTION ) 
+	if (nCode < 0 || nCode != HC_ACTION) 
 	{
-		return CallNextHookEx( g_hHookKbd, nCode, wParam, lParam); 
+		return CallNextHookEx(g_hHookKbd, nCode, wParam, lParam); 
 	}
 	if ((lParam & (1 << 31)) == 0) //Bit 31 set?
 	{		
-		KeyUp = FALSE;
+		KeyUp   = FALSE;
 		KeyDown = TRUE;
 	}
 	else
 	{
-		KeyUp = TRUE;
+		KeyUp   = TRUE;
 		KeyDown = FALSE;		
 	}
 	bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
@@ -218,12 +223,9 @@ LRESULT CALLBACK KeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
 		/* every keyup resets hotkey pressed flags */
 		if (KeyUp)
 		{								
-				b1 = FALSE;
-				//of << "Erase KeyUp b1\n";
-				b2 = FALSE;		
-				//of << "Erase KeyUp  b2\n";
-				b3 = FALSE;				
-				//of << "Erase KeyUp b3\n";
+			b1 = FALSE; //of << "Erase KeyUp b1\n";
+			b2 = FALSE; //of << "Erase KeyUp b2\n";
+			b3 = FALSE; //of << "Erase KeyUp b3\n";
 		}
 		/* HotKey */
 		if (KeyDown)
@@ -265,58 +267,75 @@ LRESULT CALLBACK KeyboardHook( int nCode, WPARAM wParam, LPARAM lParam )
 			}			
 			/* some keys to eat */			
 			if (		
-					((alter_flags.DISABLE_START_MENU && ((wParam == VK_LWIN) || (wParam == VK_RWIN)))) ||	//no effect					
-					((alter_flags.DISABLE_ALT_ESC && ((wParam == VK_ESCAPE && bAltKeyDown)))) ||			//no effect
-					((alter_flags.DISABLE_ALT_TAB && ((wParam == VK_TAB && bAltKeyDown)))) ||				//no effect
-					((alter_flags.DISABLE_ALT_F4 && ((wParam == VK_F4 && bAltKeyDown)))) ||
-					((alter_flags.DISABLE_CTRL_ESC && ((wParam == VK_ESCAPE && bCtrlKeyDown)))) ||			//no effect
-					((alter_flags.DISABLE_F1 && wParam == VK_F1)) ||
-					((alter_flags.DISABLE_F2 && wParam == VK_F2)) ||
-					((alter_flags.DISABLE_F3 && wParam == VK_F3)) ||
-					((alter_flags.DISABLE_F4 && wParam == VK_F4)) ||
-					((alter_flags.DISABLE_F5 && wParam == VK_F5)) ||
-					((alter_flags.DISABLE_F6 && wParam == VK_F6)) ||
-					((alter_flags.DISABLE_F7 && wParam == VK_F7)) ||
-					((alter_flags.DISABLE_F8 && wParam == VK_F8)) ||
-					((alter_flags.DISABLE_F9 && wParam == VK_F9)) ||
+					((alter_flags.DISABLE_START_MENU && ((wParam == VK_LWIN) || (wParam == VK_RWIN)))) ||	//no effect
+					((alter_flags.DISABLE_CTRL_ESC   && ((wParam == VK_ESCAPE && bCtrlKeyDown)))) ||		//no effect
+					((alter_flags.DISABLE_CTRL_P     && ((wParam == VK_P      && bCtrlKeyDown)))) ||		//no effect ???
+					((alter_flags.DISABLE_ALT_TAB    && ((wParam == VK_TAB    && bAltKeyDown)))) ||			//no effect
+					((alter_flags.DISABLE_ALT_ESC    && ((wParam == VK_ESCAPE && bAltKeyDown)))) ||			//no effect
+					((alter_flags.DISABLE_ALT_F4     && ((wParam == VK_F4     && bAltKeyDown)))) ||
+					((alter_flags.DISABLE_F1  && wParam == VK_F1 )) ||
+					((alter_flags.DISABLE_F2  && wParam == VK_F2 )) ||
+					((alter_flags.DISABLE_F3  && wParam == VK_F3 )) ||
+					((alter_flags.DISABLE_F4  && wParam == VK_F4 )) ||
+					((alter_flags.DISABLE_F5  && wParam == VK_F5 )) ||
+					((alter_flags.DISABLE_F6  && wParam == VK_F6 )) ||
+					((alter_flags.DISABLE_F7  && wParam == VK_F7 )) ||
+					((alter_flags.DISABLE_F8  && wParam == VK_F8 )) ||
+					((alter_flags.DISABLE_F9  && wParam == VK_F9 )) ||
 					((alter_flags.DISABLE_F10 && wParam == VK_F10)) ||
 					((alter_flags.DISABLE_F11 && wParam == VK_F11)) ||
 					((alter_flags.DISABLE_F12 && wParam == VK_F12))
 				) 
 			{	
-			//MessageBox(NULL,"Eat","Error",16);
-			return -1;			
+				//MessageBox(NULL,"Eat","Error",16);
+				return -1;			
 			}
 		}
 	}
-	return CallNextHookEx( g_hHookKbd, nCode, wParam, lParam );
+	return CallNextHookEx(g_hHookKbd, nCode, wParam, lParam);
 }
 
-LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam) {	
-	if (nCode < 0 || nCode != HC_ACTION ) 
+
+
+LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
+{	
+	if (nCode < 0 || nCode != HC_ACTION)
 	{
-		return CallNextHookEx( g_hHookMouseLL, nCode, wParam, lParam); 
+		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
-    if((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE) {			
+    if ((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
+	{			
         return -1;
 	}    
     return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam);
 }
 
-LRESULT CALLBACK MouseHook( int nCode, WPARAM wParam, LPARAM lParam ) 
+
+
+LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	if (nCode < 0 || nCode != HC_ACTION ) 
-	{		
-		return CallNextHookEx( g_hHookMouseLL, nCode, wParam, lParam); 
+	/*
+	MOUSEHOOKSTRUCT mhs;
+	if (nCode >= 0)
+	{
+		mhs = *(MOUSEHOOKSTRUCT*)lParam; 
 	}
-	if((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE) 
+	*/
+	if (nCode < 0 || nCode != HC_ACTION)
+	{		
+		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
+	}
+	if ((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
 	{			
         return -1;
 	}
 	return CallNextHookEx(g_hHookMouse, nCode, wParam, lParam);
 }
 
-EXPORT void KeyHookNT(HINSTANCE *hDLL, bool setHook) 
+
+
+/* public hook functions */
+EXPORT void KeyHookNT(HINSTANCE *hDLL, bool setHook)
 {
     if(setHook) 
 	{
@@ -329,10 +348,13 @@ EXPORT void KeyHookNT(HINSTANCE *hDLL, bool setHook)
     return;
 }
 
+
+
 EXPORT void KeyHook9x(HINSTANCE *hDLL, bool setHook) 
 {
 	if(setHook) 
 	{				
+	  //g_hHookKbd = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, piKiox->dwThreadId);
 		g_hHookKbd = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, 0);
     }	
 	else 
@@ -342,24 +364,31 @@ EXPORT void KeyHook9x(HINSTANCE *hDLL, bool setHook)
     return;
 }
 
-EXPORT void MouseHookNT(HINSTANCE *hDLL, bool setHook) 
+
+
+EXPORT void MouseHookNT(HINSTANCE *hDLL, bool setHook)
 {
+    //MessageBox(NULL,"Set Mouse Hook1","Error",16);
     if(setHook) 
 	{		
+		//MessageBox(NULL,"Set Mouse Hook2","Error",16);
 		g_hHookMouseLL = SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)LLMouseHook, (HINSTANCE)*hDLL, 0);
     } 
 	else 
 	{
-       UnhookWindowsHookEx(g_hHookMouseLL);
+		UnhookWindowsHookEx(g_hHookMouseLL);
     }
     return;
 }
 
+
+
 EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook) 
 {
-	if(setHook) 
+	if (setHook) 
 	{				
-		g_hHookMouse = SetWindowsHookEx(WH_MOUSE, (HOOKPROC)MouseHook, (HINSTANCE)*hDLL, 0);
+	  //g_hHookKbd   = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, piKiox->dwThreadId);
+		g_hHookMouse = SetWindowsHookEx(WH_MOUSE   , (HOOKPROC)MouseHook   , (HINSTANCE)*hDLL, 0);
     } 
 	else 
 	{
@@ -368,66 +397,101 @@ EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook)
     return; 
 }
 
+
+
+/* public system functions */
 BOOL InitMsgHook()
-{ 
-	string strLine = "";
-	string strKey = "";
+{
+	//MessageBox(NULL,"InitMsgHook","Error",16);
+	string strLine  = "";
+	string strKey   = "";
 	string strValue = "";
-	char cCurrDir[MAX_PATH];
+	char   cCurrDir[MAX_PATH];
 	string sCurrDir = "";
-	string sHotKey = "";
+	string sHotKey  = "";
 		
 	try
 	{
-		if (!isValidOperatingSystem()) 
+		if (!isValidOperatingSystem())
 		{
 			return FALSE;
 		}
 
-		GetModuleFileName(*hMod,cCurrDir,sizeof(cCurrDir));
+		GetModuleFileName(*hMod, cCurrDir, sizeof(cCurrDir));
 		sCurrDir = (string)cCurrDir;
-		sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
+
+/*
+		const char* captionString;
+		const char* messageString;
+		captionString = "Program executable:";
+		messageString = cCurrDir;
+	  //MessageBox(NULL, messageString, captionString, 16);
+*/
+
+		// The Seb.ini and MsgHook.ini configuration files have moved:
+		// Previously:
+		//     Seb.ini was lying in the /Seb     subdirectory,
+		// MsgHook.ini was lying in the /MsgHook subdirectory.
+		// Both had to be copied to the /Debug and /Release directories.
+		// before starting Seb.exe .
+		// Now:
+		// Seb.ini and MsgHook.ini are both in the Seb main project directory,
+		// together with the Seb.sln project file,
+		// the /Debug subdirectory and the /Release subdirectory.
+		// Advantage: the .ini files are lying together, being accessible
+		// for both the /Debug and the /Release version without copying
+		// being necessary anymore.
+
+	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
+		sCurrDir = MSGHOOK_INI;
+
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
 			MessageBox(NULL,NO_INI_ERROR,"Error",16);
 			return FALSE;
 		}
-		while(!getline(inf, strLine).eof())
+		while (!getline(inf, strLine).eof())
 		{			
 			strKey = strLine.substr(0,strLine.find("=", 0));
 			strValue = strLine.substr(strLine.find("=", 0)+1,strLine.length());
-			mpParam[strKey] = strValue;				
+			mpParam[strKey] = strValue;
+
+			//captionString = strKey  .c_str();
+			//messageString = strValue.c_str();
+			//MessageBox(NULL, messageString, captionString, 16);
 		}
 		inf.close();
 		
 		//setting bits of alter_flags_structs
 		alter_flags.DISABLE_CTRL_ESC = getBool("DISABLE_CTRL_ESC");
-		alter_flags.DISABLE_ALT_TAB = getBool("DISABLE_ALT_TAB");
-		alter_flags.DISABLE_ALT_ESC = getBool("DISABLE_ALT_ESC");
-		alter_flags.DISABLE_ALT_F4 = getBool("DISABLE_ALT_F4");
-		alter_flags.DISABLE_START_MENU = getBool("DISABLE_START_MENU");
+		alter_flags.DISABLE_CTRL_P   = getBool("DISABLE_CTRL_P");
+		alter_flags.DISABLE_ALT_TAB  = getBool("DISABLE_ALT_TAB");
+		alter_flags.DISABLE_ALT_ESC  = getBool("DISABLE_ALT_ESC");
+		alter_flags.DISABLE_ALT_F4   = getBool("DISABLE_ALT_F4");
+		alter_flags.DISABLE_START_MENU  = getBool("DISABLE_START_MENU");
 		alter_flags.DISABLE_RIGHT_MOUSE = getBool("DISABLE_RIGHT_MOUSE");
-		alter_flags.DISABLE_LEFT_MOUSE = getBool("DISABLE_LEFT_MOUSE");
-		alter_flags.DISABLE_F1 = getBool("DISABLE_F1");
-		alter_flags.DISABLE_F2 = getBool("DISABLE_F2");
-		alter_flags.DISABLE_F3 = getBool("DISABLE_F3");
-		alter_flags.DISABLE_F4 = getBool("DISABLE_F4");
-		alter_flags.DISABLE_F5 = getBool("DISABLE_F5");
-		alter_flags.DISABLE_F6 = getBool("DISABLE_F6");
-		alter_flags.DISABLE_F7 = getBool("DISABLE_F7");
-		alter_flags.DISABLE_F8 = getBool("DISABLE_F8");
-		alter_flags.DISABLE_F9 = getBool("DISABLE_F9");
+		alter_flags.DISABLE_LEFT_MOUSE  = getBool("DISABLE_LEFT_MOUSE");
+		alter_flags.DISABLE_F1  = getBool("DISABLE_F1");
+		alter_flags.DISABLE_F2  = getBool("DISABLE_F2");
+		alter_flags.DISABLE_F3  = getBool("DISABLE_F3");
+		alter_flags.DISABLE_F4  = getBool("DISABLE_F4");
+		alter_flags.DISABLE_F5  = getBool("DISABLE_F5");
+		alter_flags.DISABLE_F6  = getBool("DISABLE_F6");
+		alter_flags.DISABLE_F7  = getBool("DISABLE_F7");
+		alter_flags.DISABLE_F8  = getBool("DISABLE_F8");
+		alter_flags.DISABLE_F9  = getBool("DISABLE_F9");
 		alter_flags.DISABLE_F10 = getBool("DISABLE_F10");
 		alter_flags.DISABLE_F11 = getBool("DISABLE_F11");
 		alter_flags.DISABLE_F12 = getBool("DISABLE_F12");
 		alter_flags.DISABLE_ESCAPE = getBool("DISABLE_ESCAPE");
+
 		// Kill Caller with HotKey
 		sHotKey = mpParam["KILL_CALLER_HOTKEY"];
 
 		//Hotkey from Registry (1. priority) and configuration file MsgHook.ini (2. priority). If nothing is found -> default is F3 + F11 + F6.
-		VK_B1 = (GetButtonForHotKeyFromRegistry(VAL_Button1) ? GetButtonForHotKeyFromRegistry(VAL_Button1) : (DWORD)getInt("B1") ? (DWORD)getInt("B1") : VK_F3);				
-		VK_B2 = (GetButtonForHotKeyFromRegistry(VAL_Button2) ? GetButtonForHotKeyFromRegistry(VAL_Button2) : (DWORD)getInt("B2") ? (DWORD)getInt("B2") : VK_F11);				
+		VK_B1 = (GetButtonForHotKeyFromRegistry(VAL_Button1) ? GetButtonForHotKeyFromRegistry(VAL_Button1) : (DWORD)getInt("B1") ? (DWORD)getInt("B1") : VK_F3);
+		VK_B2 = (GetButtonForHotKeyFromRegistry(VAL_Button2) ? GetButtonForHotKeyFromRegistry(VAL_Button2) : (DWORD)getInt("B2") ? (DWORD)getInt("B2") : VK_F11);
 		VK_B3 = (GetButtonForHotKeyFromRegistry(VAL_Button3) ? GetButtonForHotKeyFromRegistry(VAL_Button3) : (DWORD)getInt("B3") ? (DWORD)getInt("B3") : VK_F6);
 
 		if (hWndCaller == NULL) 
@@ -443,12 +507,16 @@ BOOL InitMsgHook()
 			MessageBox(NULL,"No caller window found!","Error",16);
 		}
 	}
-	catch( char * str )
+	catch (char* str)
 	{					
 		return FALSE;
 	}
 	return TRUE;
 }
+
+
+
+
 
 int GetButtonForHotKeyFromRegistry(LPCTSTR regButton) 
 {
@@ -456,12 +524,12 @@ int GetButtonForHotKeyFromRegistry(LPCTSTR regButton)
 	retValue = 0;
 	try
 	{
-		HKEY hKey;
+		HKEY  hKey;
 		DWORD b1;
-		LONG retStatus;
-		DWORD dwType=REG_DWORD;
-		DWORD dwSize=sizeof(DWORD);
-		retStatus = RegOpenKeyEx(HKLM, KEY_RegPolicySEB, 0, KEY_READ, &hKey);
+		LONG  retStatus;
+		DWORD dwType = REG_DWORD;
+		DWORD dwSize = sizeof(DWORD);
+		retStatus    = RegOpenKeyEx(HKLM, KEY_RegPolicySEB, 0, KEY_READ, &hKey);
 		if (retStatus == ERROR_SUCCESS)
 		{
 			retStatus = RegQueryValueEx(hKey, regButton, NULL, &dwType,(LPBYTE)&b1, &dwSize);
@@ -473,20 +541,23 @@ int GetButtonForHotKeyFromRegistry(LPCTSTR regButton)
 		}
 		return retValue;
 	}
-	catch( char * str )
+	catch (char* str)
 	{		
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
 		return retValue;
 	}
 }
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-					 )
+
+
+
+
+BOOL APIENTRY DllMain(HMODULE hModule,
+                      DWORD   ul_reason_for_call,
+                      LPVOID  lpReserved)
 {
 	// Perform actions based on the reason for calling.
-    switch( ul_reason_for_call ) 
+    switch (ul_reason_for_call) 
     { 
         case DLL_PROCESS_ATTACH:
 			hMod = &hModule;
@@ -499,18 +570,24 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
         case DLL_THREAD_ATTACH:
 			// Do thread-specific initialization.
+			//MessageBox(NULL,"DLL_THREAD_ATTACH","Error",16);
             break;
 
         case DLL_THREAD_DETACH:
 			// Do thread-specific cleanup.
+			//MessageBox(NULL,"DLL_THREAD_DETACH","Error",16);
             break;
 
         case DLL_PROCESS_DETACH:
 			// Perform any necessary cleanup.
+			//MessageBox(NULL,"DLL_PROCESS_DETACH","Error",16);
+			//of.close();
             break;
     }
     return TRUE;
 }
+
+
 
 BOOL getBool(string key)
 {
@@ -520,11 +597,13 @@ BOOL getBool(string key)
 		ret = (atoi(mpParam[key].c_str()) > 0 ) ? TRUE : FALSE;
 		return ret;
 	}
-	catch( char * str )
+	catch (char* str)
 	{				
 		return FALSE;
 	}	
 }
+
+
 
 int getInt(string key)
 {
@@ -532,20 +611,22 @@ int getInt(string key)
 	{
 		return (atoi(mpParam[key].c_str()));
 	}
-	catch( char * str )
+	catch (char* str)
 	{		
 		return FALSE;
 	}
 }
 
-BOOL isValidOperatingSystem() 
+
+
+BOOL isValidOperatingSystem()
 {
 	switch (sysVersionInfo.GetVersion())
 	{			
 		case WIN_NT_351 :
 		case WIN_NT_40  :
-		case WIN_2000 :
-		case WIN_XP :
+		case WIN_2000  :
+		case WIN_XP    :
 		case WIN_VISTA :
 		case WIN_95 :
 		case WIN_98 :
@@ -557,6 +638,8 @@ BOOL isValidOperatingSystem()
 			return FALSE;			
 	}
 }
+
+
 
 #ifdef _MANAGED
 #pragma managed(pop)
