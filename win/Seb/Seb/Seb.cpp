@@ -518,7 +518,7 @@ BOOL ReadIniFile()
 
 		/* Get start URL for Seb Browser */
 		urlExam = mpParam["URL_EXAM"];
-		MessageBox(NULL,urlExam.c_str(),"URL_EXAM",MB_ICONERROR);
+		//MessageBox(NULL,urlExam.c_str(),"URL_EXAM",MB_ICONERROR);
 
 		/* Get Processes */
 		string sebProcess = mpParam["SEB_BROWSER"];
