@@ -466,6 +466,7 @@ BOOL ReadIniFile()
   //vector<string>::iterator itProcess;
 	string sProcess = "";
   //string sCommandProcess = "";
+	string urlExam = "";
 
 	try
 	{
@@ -513,6 +514,11 @@ BOOL ReadIniFile()
 			//MessageBox(NULL, messageString, captionString, 16);
 		}
 		inf.close();
+
+
+		/* Get start URL for Seb Browser */
+		urlExam = mpParam["URL_EXAM"];
+		MessageBox(NULL,urlExam.c_str(),"URL_EXAM",MB_ICONERROR);
 
 		/* Get Processes */
 		string sebProcess = mpParam["SEB_BROWSER"];
@@ -573,12 +579,51 @@ BOOL ReadProcessesInRegistry()
 			Tokenize(sProcesses, vProcesses, ";");
 			//MessageBox(hWnd,vKillProcesses[1].c_str(),"Error",MB_ICONWARNING);
 			int cntCommand = IDM_OFFSET;
+
 			for (itProcesses = vProcesses.begin(); itProcesses != vProcesses.end(); itProcesses++)
 			{
 				vector<string> vProcess;
 				sProcess = *itProcesses;				
-				Tokenize(sProcess, vProcess, ",");												
-				mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));	
+				Tokenize(sProcess, vProcess, ",");
+
+
+				string applicationName = vProcess[0];
+				string commandLine     = vProcess[1];
+
+				if (applicationName == "Seb")
+				{
+					//MessageBox(NULL,commandLine.c_str(),applicationName.c_str(),MB_ICONERROR);
+/*
+					commandLine.append(" -url ");
+					commandLine.append(urlExam);
+
+					//commandLine = "SebFirefox/firefox.exe -profile SebFirefox/profile -chrome chrome://kiox/content/";
+					//commandLine = "SebFirefox/firefox.exe -profile SebFirefox/profile -chrome chrome://kiox/content/ -url www.google.ch";
+					//commandLine = "SebFirefox/firefox.exe -url www.google.ch -profile SebFirefox/profile -chrome chrome://kiox/content/";
+					//commandLine = "SebFirefox/firefox.exe -profile SebFirefox/profile -url www.google.ch -chrome chrome://kiox/content/";
+					//commandLine = "SebFirefox/firefox.exe -url www.google.ch";
+
+					vProcess[1] = commandLine;
+
+					MessageBox(NULL,commandLine.c_str(),applicationName.c_str(),MB_ICONERROR);
+					MessageBox(NULL,vProcess[1].c_str(),vProcess[0].c_str(),MB_ICONERROR);
+*/
+				}
+
+				// Insert the process in the process list,
+				// apart from "Seb", which is no third-party application.
+				// If SEB shall be started without the browser,
+				// do not even insert the "Seb" application into the
+				// "PROCESSES=" line of the "Seb.ini" file!
+				//if (applicationName != "Seb")
+				{
+					mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));	
+					//allowedProcesses.push_back(vProcess[1]);
+					MessageBox(NULL,vProcess[0].c_str(),vProcess[1].c_str(),MB_ICONERROR);
+					cntCommand++;
+				}
+
+				mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));
 			}
 		}
 		RegCloseKey(hKeySEB);
@@ -844,6 +889,9 @@ BOOL CreateExternalProcess(string sProcess)
 
 	try
 	{
+		string applicationName = sProcess.c_str();
+		//MessageBox(hWnd,applicationName.c_str(),"applicationName",MB_ICONERROR);
+
 		if (!CreateProcess(NULL,   // No module name (use command line). 
 		  //TEXT((LPSTR)mpParam["PROCESS_CALL"].c_str()), // Command line. 
 			TEXT((LPSTR)mpProcesses[sProcess].c_str()), // Command line. 
@@ -859,7 +907,7 @@ BOOL CreateExternalProcess(string sProcess)
 		) 
 		{
 			ResumeThread(procMonitorThread);
-			MessageBox(hWnd,PROCESS_FAILED,"Error",MB_ICONERROR);
+			MessageBox(hWnd,PROCESS_FAILED,applicationName.c_str(),MB_ICONERROR);
 			return FALSE;
 		}
 
@@ -997,6 +1045,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC    hdc;
 	HANDLE hIcon, hIconSm;
+	string applicationName;
 
 	switch (message)
 	{
@@ -1005,12 +1054,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		HMENU hMenu, hSubMenu;
 		hMenu    = CreateMenu();
 		hSubMenu = CreatePopupMenu();
+
 		for (itProcesses  = mpProcesses.begin();
 			 itProcesses != mpProcesses.end();
 			 itProcesses++)
 		{
-			AppendMenu(hSubMenu, MF_STRING, cntProcess, (*itProcesses).first.c_str()); //Name of the Process	
-			mpProcessCommands.insert(make_pair(cntProcess,(*itProcesses).first));		
+			// applicationName = name of the process
+			// Do not append "Seb" to the third party application menu
+			applicationName = (*itProcesses).first;
+			if (applicationName == "Seb") continue;
+			AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
+			mpProcessCommands.insert(make_pair(cntProcess, applicationName));
 			cntProcess ++;
 		}	
 		AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");				
