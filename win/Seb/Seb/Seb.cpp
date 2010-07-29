@@ -460,13 +460,15 @@ BOOL ReadIniFile()
 	string strLine;
 	string strKey;
 	string strValue;
+	string sUrlExam         = "";
+	string sApplicationName = "";
+	string sCommandLine     = "";
+  //string sCommandProcess  = "";
+	string sProcess   = "";
 	string sProcesses = "";
 	vector<string> vProcesses;
 	vector<string>::iterator itProcesses;
   //vector<string>::iterator itProcess;
-	string sProcess = "";
-  //string sCommandProcess = "";
-	string urlExam = "";
 
 	try
 	{
@@ -516,15 +518,31 @@ BOOL ReadIniFile()
 		inf.close();
 
 
-		/* Get start URL for Seb Browser */
-		urlExam = mpParam["URL_EXAM"];
-		//MessageBox(NULL,urlExam.c_str(),"URL_EXAM",MB_ICONERROR);
+		// Get start URL for Seb Browser */
+		sUrlExam = mpParam["URL_EXAM"];
+		//MessageBox(NULL,sUrlExam.c_str(),"URL_EXAM",MB_ICONERROR);
 
-		/* Get Processes */
+		// Get the SEB Process, which is defined separately
+		// from the other processes in Seb.ini
 		string sebProcess = mpParam["SEB_BROWSER"];
 
 		vector<string> sebProcessVector;
-		Tokenize(sebProcess, sebProcessVector, ",");												
+		Tokenize(sebProcess, sebProcessVector, ",");
+
+		// Append the start URL of the exam to the browser command line,
+		// so the Safe Exam Browser starts directly on the exam homepage
+		sApplicationName = sebProcessVector[0];
+		sCommandLine     = sebProcessVector[1];
+
+		sCommandLine.append(" -url ");
+		sCommandLine.append(sUrlExam);
+
+		sebProcessVector[1] = sCommandLine;
+
+		//MessageBox(NULL,       sCommandLine.c_str(),   sApplicationName.c_str(),MB_ICONERROR);
+		//MessageBox(NULL,sebProcessVector[1].c_str(),sebProcessVector[0].c_str(),MB_ICONERROR);
+
+		// Add the SEB process to the process list
 		mpProcesses.insert(make_pair(sebProcessVector[0], sebProcessVector[1]));
 
 		// handle processes from Registry
@@ -544,6 +562,7 @@ BOOL ReadIniFile()
 					sProcess = *itProcesses;
 					Tokenize(sProcess, vProcess, ",");
 					mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));
+					//MessageBox(NULL,vProcess[1].c_str(),vProcess[0].c_str(),MB_ICONERROR);
 				}
 			}
 		}
@@ -576,54 +595,15 @@ BOOL ReadProcessesInRegistry()
 
 		if (returnStatus == ERROR_SUCCESS)
 		{
-			Tokenize(sProcesses, vProcesses, ";");
-			//MessageBox(hWnd,vKillProcesses[1].c_str(),"Error",MB_ICONWARNING);
-			int cntCommand = IDM_OFFSET;
+			Tokenize(lszValue, vProcesses, ";");
 
 			for (itProcesses = vProcesses.begin(); itProcesses != vProcesses.end(); itProcesses++)
 			{
 				vector<string> vProcess;
 				sProcess = *itProcesses;				
 				Tokenize(sProcess, vProcess, ",");
-
-
-				string applicationName = vProcess[0];
-				string commandLine     = vProcess[1];
-
-				if (applicationName == "Seb")
-				{
-					//MessageBox(NULL,commandLine.c_str(),applicationName.c_str(),MB_ICONERROR);
-/*
-					commandLine.append(" -url ");
-					commandLine.append(urlExam);
-
-					//commandLine = "SebFirefox/firefox.exe -profile SebFirefox/profile -chrome chrome://kiox/content/";
-					//commandLine = "SebFirefox/firefox.exe -profile SebFirefox/profile -chrome chrome://kiox/content/ -url www.google.ch";
-					//commandLine = "SebFirefox/firefox.exe -url www.google.ch -profile SebFirefox/profile -chrome chrome://kiox/content/";
-					//commandLine = "SebFirefox/firefox.exe -profile SebFirefox/profile -url www.google.ch -chrome chrome://kiox/content/";
-					//commandLine = "SebFirefox/firefox.exe -url www.google.ch";
-
-					vProcess[1] = commandLine;
-
-					MessageBox(NULL,commandLine.c_str(),applicationName.c_str(),MB_ICONERROR);
-					MessageBox(NULL,vProcess[1].c_str(),vProcess[0].c_str(),MB_ICONERROR);
-*/
-				}
-
-				// Insert the process in the process list,
-				// apart from "Seb", which is no third-party application.
-				// If SEB shall be started without the browser,
-				// do not even insert the "Seb" application into the
-				// "PROCESSES=" line of the "Seb.ini" file!
-				//if (applicationName != "Seb")
-				{
-					mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));	
-					//allowedProcesses.push_back(vProcess[1]);
-					MessageBox(NULL,vProcess[0].c_str(),vProcess[1].c_str(),MB_ICONERROR);
-					cntCommand++;
-				}
-
 				mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));
+				//MessageBox(NULL,vProcess[1].c_str(),vProcess[0].c_str(),MB_ICONERROR);
 			}
 		}
 		RegCloseKey(hKeySEB);
