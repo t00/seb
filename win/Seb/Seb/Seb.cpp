@@ -518,7 +518,7 @@ BOOL ReadIniFile()
 		inf.close();
 
 
-		// Get start URL for Seb Browser */
+		// Get start URL for Seb Browser
 		sUrlExam = mpParam["URL_EXAM"];
 		//MessageBox(NULL,sUrlExam.c_str(),"URL_EXAM",MB_ICONERROR);
 
