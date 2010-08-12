@@ -958,8 +958,8 @@ BOOL ShutdownInstance()
 			//of << (*itProcessInformations).first.c_str();
 			//of << "\n";
 			TerminateProcess(((*itProcessInformations).second).hProcess,0);
-			CloseHandle(((*itProcessInformations).second).hProcess);
-			CloseHandle(((*itProcessInformations).second).hThread);
+				 CloseHandle(((*itProcessInformations).second).hProcess);
+				 CloseHandle(((*itProcessInformations).second).hThread);
 		}
 	}
 
@@ -1039,10 +1039,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			 itProcesses != mpProcesses.end();
 			 itProcesses++)
 		{
-			// applicationName = name of the process
-			// Do not append "Seb" to the third party application menu
+			// applicationName = name of the process.
+			// If the "continue" command is active,
+			// "Seb" is not appended to the third party application menu.
 			applicationName = (*itProcesses).first;
-			if (applicationName == "Seb") continue;
+			//if (applicationName == "Seb") continue;
 			AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
 			mpProcessCommands.insert(make_pair(cntProcess, applicationName));
 			cntProcess ++;
