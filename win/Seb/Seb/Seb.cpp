@@ -669,7 +669,7 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			MessageBox(NULL,"HandleOpenRegistryKey(HKLM, System) failed","Registry Error",16);
+			//MessageBox(NULL,"HandleOpenRegistryKey(HKLM, System) failed","Registry Error",16);
 			return FALSE;
 		}
 
@@ -682,7 +682,7 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			MessageBox(NULL,"HandleOpenRegistryKey(HKCU, System) failed","Registry Error",16);
+			//MessageBox(NULL,"HandleOpenRegistryKey(HKCU, System) failed","Registry Error",16);
 			return FALSE;
 		}
 
@@ -695,7 +695,7 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			MessageBox(NULL,"HandleOpenRegistryKey(HKCU, Explorer) failed","Registry Error",16);
+			//MessageBox(NULL,"HandleOpenRegistryKey(HKCU, Explorer) failed","Registry Error",16);
 			return FALSE;
 		}
 
@@ -712,13 +712,13 @@ BOOL EditRegistry()
 			}
 			else
 			{
-				MessageBox(NULL,"Setting HIDE_FAST_USER_SWITCHING failed","HandleSetRegistryKeyValue",16);
+				//MessageBox(NULL,"Setting HIDE_FAST_USER_SWITCHING failed","HandleSetRegistryKeyValue",16);
 				return FALSE;
 			}
 		} 
 		else
 		{
-			MessageBox(NULL,"= false","REG_HIDE_FAST_USER_SWITCHING",16);
+			//MessageBox(NULL,"= false","REG_HIDE_FAST_USER_SWITCHING",16);
 		}
 
 
@@ -749,13 +749,13 @@ BOOL EditRegistry()
 			}
 			else
 			{
-				MessageBox(NULL,"Setting DISABLE_TASKMGR failed","HandleSetRegistryKeyValue",16);
+				//MessageBox(NULL,"Setting DISABLE_TASKMGR failed","HandleSetRegistryKeyValue",16);
 				return FALSE;
 			}
 		} 
 		else
 		{
-			MessageBox(NULL,"= false","REG_DISABLE_TASKMGR",16);
+			//MessageBox(NULL,"= false","REG_DISABLE_TASKMGR",16);
 		}
 
 
