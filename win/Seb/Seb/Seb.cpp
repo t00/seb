@@ -430,7 +430,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		UpdateWindow(hWnd);
 	}
 
-	// this is not the set of allowd processes to run & the processes in the list process
+	// this is not the set of allowed processes to run & the processes in the list process
 	GetRunningProcesses(previousProcesses);
 	allowedProcesses.insert(allowedProcesses.end(), previousProcesses.begin(), previousProcesses.end());
 
@@ -1043,7 +1043,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			// If the "continue" command is active,
 			// "Seb" is not appended to the third party application menu.
 			applicationName = (*itProcesses).first;
-			//if (applicationName == "Seb") continue;
+			if (applicationName == "Seb") continue;
 			AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
 			mpProcessCommands.insert(make_pair(cntProcess, applicationName));
 			cntProcess ++;
