@@ -352,7 +352,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	}
 
 	// start the SEB window
-	hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 150, 50, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
 
 	if (!hWnd)
 	{
