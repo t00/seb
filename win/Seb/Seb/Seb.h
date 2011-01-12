@@ -28,9 +28,19 @@
 #include "resource.h"
 #include "../SystemVersionInfo.h"
 
-// Name and location of Seb configuration file
-#define SEB_INI "../Seb.ini"
+// Name and location of Seb configuration file and logfile
+#define SEB_INI_FILE "../Seb.ini"
+#define SEB_LOG_FILE "Seb.log"
 
+// Function for easier writing into the logfile
+#define logg if (fp != NULL) fprintf
+
+// C structures for logfile handling
+bool  logFileDesired = true;
+char* logFileName    = SEB_LOG_FILE;
+FILE* fp;
+
+// Other constants
 #define IDM_START   9001
 #define IDM_OFFSET 37265
 
@@ -77,6 +87,8 @@
 // DisableChangePassword  ("Change a password")
 // DisableTaskMgr         ("Start Task Manager")
 // NoLogoff               ("Log off")
+// NoClose                ("No shutdown symbol in lower right desktop corner???")
+// EnableShade            ("Enable Shade on VMware virtual desktop")
 //
 // HKEY_LOCAL_MACHINE contains the Windows Registry key
 //
@@ -95,6 +107,7 @@
 LPCTSTR KEY_RegPolicySystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
 LPCTSTR KEY_RegPolicyExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
 LPCTSTR KEY_RegPolicySEB      = "Software\\Policies\\SEB";
+LPCTSTR KEY_RegVMwareClient   = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
 LPCTSTR VAL_HideFastUserSwitching  = "HideFastUserSwitching";
 LPCTSTR VAL_DisableLockWorkstation = "DisableLockWorkstation";
@@ -102,6 +115,7 @@ LPCTSTR VAL_DisableChangePassword  = "DisableChangePassword";
 LPCTSTR VAL_DisableTaskMgr         = "DisableTaskMgr";
 LPCTSTR VAL_NoLogoff               = "NoLogoff";
 LPCTSTR VAL_NoClose                = "NoClose";
+LPCTSTR VAL_EnableShade            = "EnableShade";
 
 
 // Only for trunk version necessary (XULrunner)
