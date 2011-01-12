@@ -25,42 +25,73 @@
 
 #include "stdafx.h"
 
+
+
 string GetProcessNameFromID(long processID)
 {
-PROCESSENTRY32 pe32;
-	ZeroMemory(&pe32,sizeof(PROCESSENTRY32));
-	pe32.dwSize = sizeof(PROCESSENTRY32);
+	string processName;
+	PROCESSENTRY32 pe32;
+	ZeroMemory(&pe32, sizeof(PROCESSENTRY32));
+	pe32.dwSize     = sizeof(PROCESSENTRY32);
 
 	//get_longest_process_name_length(&nProcessNameLength);
 	//nProcessNameLength = nProcessNameLength + 3;
-	
+
+	//logg(fp, "Entering GetProcessNameFromID()\n");
+	//logg(fp, "processID = %d\n", processID);
+
 	HANDLE hProcSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,0);
 
-
-	if(Process32First(hProcSnapShot,&pe32) == TRUE)
+	if (Process32First(hProcSnapShot, &pe32) == TRUE)
 	{
-		if( pe32.th32ProcessID == processID)
+		//logg(fp, "pe32.th32ProcessID = %d\t", pe32.th32ProcessID);
+		//logg(fp, "Process32First(hProcSnapShot, &pe32) == TRUE\n");
+
+		if (pe32.th32ProcessID == processID)
 		{
 			CloseHandle(hProcSnapShot);
-			return pe32.szExeFile;
+			processName = pe32.szExeFile;
+			//logg(fp, "pe32.th32ProcessID == processID\n");
+			//logg(fp, "pe32.szExeFile = %s\n", pe32.szExeFile);
+			//logg(fp, "processName    = %s\n", processName.c_str());
+			//logg(fp, "Leaving GetProcessNameFromID()\n");
+			return processName;
 		}
-		while(Process32Next(hProcSnapShot,&pe32) == TRUE)
+
+		while (Process32Next(hProcSnapShot, &pe32) == TRUE)
 		{
-			if( pe32.th32ProcessID == processID)
+			//logg(fp, "pe32.th32ProcessID = %d\t", pe32.th32ProcessID);
+			//logg(fp, "Process32Next(hProcSnapShot, &pe32) == TRUE\n");
+
+			if (pe32.th32ProcessID == processID)
 			{
 				CloseHandle(hProcSnapShot);
-				return pe32.szExeFile;
+				processName = pe32.szExeFile;
+				//logg(fp, "pe32.th32ProcessID == processID\n");
+				//logg(fp, "pe32.szExeFile = %s\n", pe32.szExeFile);
+				//logg(fp, "processName    = %s\n", processName.c_str());
+				//logg(fp, "Leaving GetProcessNameFromID()\n");
+				return processName;
 			}
 		}
-	}
+
+	} // end if (Process32First(hProcSnapShot,&pe32) == TRUE)
+
 	CloseHandle(hProcSnapShot);
+	processName = "";
+	//logg(fp, "Process name not found???\n");
+	//logg(fp, "pe32.szExeFile = %s\n", pe32.szExeFile);
+	//logg(fp, "processName    = %s\n", processName.c_str());
+	//logg(fp, "Leaving GetProcessNameFromID()\n");
+	return processName;
 }
 
 
 
 void KILL_PROC_BY_ID(const long procID)
 {
-	HANDLE   hProc ;
+	HANDLE hProc;
+	string procName;
 	
 	//string s = GetProcessNameFromID(procID);
 	//ofstream stream;
@@ -68,8 +99,13 @@ void KILL_PROC_BY_ID(const long procID)
 	//stream << s << "\n";
 	//stream.close();
 
+	procName = GetProcessNameFromID(procID);
+	logg(fp, "Entering KILL_PROC_BY_ID(%d)\n", procID);
+	logg(fp, "procID   = %d\t", procID);
+	logg(fp, "procName = %s\n", procName.c_str());
 	hProc = OpenProcess(PROCESS_TERMINATE, FALSE, procID);
-	TerminateProcess(hProc,0);
+	TerminateProcess(hProc, 0);
+	logg(fp, "Leaving  KILL_PROC_BY_ID(%d)\n", procID);
 }
 
 /* Method created: 6/23/2000  (RK)
@@ -103,6 +139,8 @@ Change history:
                        were not getting closed properly in some cases)
 */
 
+
+
 int KILL_PROC_BY_NAME(const char *szToTerminate)
 // Created: 6/23/2000  (RK)
 // Last modified: 3/10/2002  (RK)
@@ -135,24 +173,29 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 //                        were not getting closed properly in some cases)
 {
 	BOOL bResult,bResultm;
-	DWORD aiPID[1000],iCb=1000,iNumProc,iV2000=0;
-	DWORD iCbneeded,i,iFound=0;
-	char szName[MAX_PATH],szToTermUpper[MAX_PATH];
+	DWORD aiPID[1000], iCb=1000, iNumProc, iV2000=0;
+	DWORD iCbneeded, i, iFound=0;
+	string procName;
+	char szName[MAX_PATH], szToTermUpper[MAX_PATH];
 	HANDLE hProc,hSnapShot,hSnapShotm;
 	OSVERSIONINFO osvi;
     HINSTANCE hInstLib;
-	int iLen,iLenP,indx;
+	int iLen, iLenP, indx;
     HMODULE hMod;
 	PROCESSENTRY32 procentry;      
-	MODULEENTRY32 modentry;
+	MODULEENTRY32   modentry;
+
+	procName = (string)szToTerminate;
+	logg(fp, "Entering KILL_PROC_BY_NAME(%s)\n", szToTerminate);
+	logg(fp, "procName = %s\n", procName.c_str());
 
 	// Transfer Process name into "szToTermUpper" and
 	// convert it to upper case
-	iLenP=strlen(szToTerminate);
-	if(iLenP<1 || iLenP>MAX_PATH) return 632;
-	for(indx=0;indx<iLenP;indx++)
-		szToTermUpper[indx]=toupper(szToTerminate[indx]);
-	szToTermUpper[iLenP]=0;
+	iLenP = strlen(szToTerminate);
+	if (iLenP < 1 || iLenP > MAX_PATH) return 632;
+	for (indx = 0; indx < iLenP; indx++)
+		szToTermUpper[indx] = toupper(szToTerminate[indx]);
+	szToTermUpper[iLenP] = 0;
 
 	// PSAPI Function Pointers.
 	BOOL  (WINAPI *lpfEnumProcesses     )(DWORD*, DWORD cb, DWORD *);
@@ -168,47 +211,47 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 
 	// First check what version of Windows we're in
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
-    bResult=GetVersionEx(&osvi);
-	if(!bResult)     // Unable to identify system version
-	    return 606;
+    bResult = GetVersionEx(&osvi);
+	if (!bResult)     // Unable to identify system version
+		return 606;
 
 	// At Present we only support Win/NT/2000/XP or Win/9x/ME
-	if((osvi.dwPlatformId != VER_PLATFORM_WIN32_NT) &&
+	if ((osvi.dwPlatformId != VER_PLATFORM_WIN32_NT) &&
 		(osvi.dwPlatformId != VER_PLATFORM_WIN32_WINDOWS))
 		return 607;
 
-    if(osvi.dwPlatformId==VER_PLATFORM_WIN32_NT)
+    if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT)
 	{
 		// Win/NT or 2000 or XP
 
-         // Load library and get the procedures explicitly. We do
-         // this so that we don't have to worry about modules using
-         // this code failing to load under Windows 9x, because
-         // it can't resolve references to the PSAPI.DLL.
-         hInstLib = LoadLibraryA("PSAPI.DLL");
-         if(hInstLib == NULL)
-            return 605;
+		// Load library and get the procedures explicitly. We do
+		// this so that we don't have to worry about modules using
+		// this code failing to load under Windows 9x, because
+		// it can't resolve references to the PSAPI.DLL.
+		hInstLib = LoadLibraryA("PSAPI.DLL");
+		if (hInstLib == NULL)
+			return 605;
 
-         // Get procedure addresses.
-         lpfEnumProcesses = (BOOL(WINAPI *)(DWORD *,DWORD,DWORD*))
-            GetProcAddress( hInstLib, "EnumProcesses" ) ;
-         lpfEnumProcessModules = (BOOL(WINAPI *)(HANDLE, HMODULE *,
-            DWORD, LPDWORD)) GetProcAddress( hInstLib,
-            "EnumProcessModules" ) ;
-         lpfGetModuleBaseName =(DWORD (WINAPI *)(HANDLE, HMODULE,
-            LPTSTR, DWORD )) GetProcAddress( hInstLib,
-            "GetModuleBaseNameA" ) ;
+		// Get procedure addresses.
+		lpfEnumProcesses = (BOOL(WINAPI *)(DWORD *,DWORD,DWORD*))
+			GetProcAddress( hInstLib, "EnumProcesses" ) ;
+		lpfEnumProcessModules = (BOOL(WINAPI *)(HANDLE, HMODULE *,
+			DWORD, LPDWORD)) GetProcAddress( hInstLib,
+			"EnumProcessModules" ) ;
+		lpfGetModuleBaseName = (DWORD (WINAPI *)(HANDLE, HMODULE,
+			LPTSTR, DWORD )) GetProcAddress( hInstLib,
+			"GetModuleBaseNameA" ) ;
 
-         if(lpfEnumProcesses == NULL ||
-            lpfEnumProcessModules == NULL ||
-            lpfGetModuleBaseName == NULL)
-            {
-               FreeLibrary(hInstLib);
-               return 700;
-            }
+		if (lpfEnumProcesses      == NULL ||
+			lpfEnumProcessModules == NULL ||
+			lpfGetModuleBaseName  == NULL)
+		{
+			FreeLibrary(hInstLib);
+			return 700;
+		}
 		 
-		bResult=lpfEnumProcesses(aiPID,iCb,&iCbneeded);
-		if(!bResult)
+		bResult = lpfEnumProcesses(aiPID, iCb, &iCbneeded);
+		if (!bResult)
 		{
 			// Unable to get process list, EnumProcesses failed
             FreeLibrary(hInstLib);
@@ -216,35 +259,36 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 		}
 
 		// How many processes are there?
-		iNumProc=iCbneeded/sizeof(DWORD);
+		iNumProc = iCbneeded / sizeof(DWORD);
 
 		// Get and match the name of each process
-		for(i=0;i<iNumProc;i++)
+		for (i = 0; i < iNumProc; i++)
 		{
 			// Get the (module) name for this process
 
-	        strcpy(szName,"Unknown");
+	        strcpy(szName, "Unknown");
 			// First, get a handle to the process
-	        hProc=OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ,FALSE,
-				aiPID[i]);
+	        hProc = OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ, FALSE, aiPID[i]);
 	        // Now, get the process name
-	        if(hProc)
+	        if (hProc)
 			{
-               if(lpfEnumProcessModules(hProc,&hMod,sizeof(hMod),&iCbneeded) )
+               if (lpfEnumProcessModules(hProc, &hMod, sizeof(hMod), &iCbneeded))
 			   {
-                  iLen=lpfGetModuleBaseName(hProc,hMod,szName,MAX_PATH);
+					iLen = lpfGetModuleBaseName(hProc, hMod, szName, MAX_PATH);
+					logg(fp, "\tszName = %s\n", szName);
 			   }
 			}
-	        CloseHandle(hProc);			
-			if(strcmp(_strupr(szName),szToTermUpper)==0)
+	        CloseHandle(hProc);
+
+			if (strcmp(_strupr(szName), szToTermUpper) == 0)
 			{
 				// Process found, now terminate it
-				iFound=1;
+				iFound = 1;
 				// First open for termination
-				hProc=OpenProcess(PROCESS_TERMINATE,FALSE,aiPID[i]);
-				if(hProc)
+				hProc = OpenProcess(PROCESS_TERMINATE, FALSE, aiPID[i]);
+				if (hProc)
 				{
-					if(TerminateProcess(hProc,0))
+					if (TerminateProcess(hProc, 0))
 					{
 						// process terminated
 						CloseHandle(hProc);
@@ -274,7 +318,7 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 		// Win/95 or 98 or ME
 			
 		hInstLib = LoadLibraryA("Kernel32.DLL");
-		if( hInstLib == NULL )
+		if (hInstLib == NULL)
 			return 702;
 
 		// Get procedure addresses.
@@ -299,11 +343,11 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 		lpfModule32Next=
 			(BOOL(WINAPI *)(HANDLE,LPMODULEENTRY32))
 			GetProcAddress( hInstLib, "Module32Next" ) ;
-		if( lpfProcess32Next == NULL ||
-			lpfProcess32First == NULL ||
-		    lpfModule32Next == NULL ||
-			lpfModule32First == NULL ||
-			lpfCreateToolhelp32Snapshot == NULL )
+		if (lpfProcess32Next            == NULL ||
+			lpfProcess32First           == NULL ||
+		    lpfModule32Next             == NULL ||
+			lpfModule32First            == NULL ||
+			lpfCreateToolhelp32Snapshot == NULL)
 		{
 			FreeLibrary(hInstLib);
 			return 703;
@@ -313,9 +357,8 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 
 		// Get a handle to a Toolhelp snapshot of all the systems processes.
 
-		hSnapShot = lpfCreateToolhelp32Snapshot(
-			TH32CS_SNAPPROCESS, 0 ) ;
-		if( hSnapShot == INVALID_HANDLE_VALUE )
+		hSnapShot = lpfCreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+		if (hSnapShot == INVALID_HANDLE_VALUE)
 		{
 			FreeLibrary(hInstLib);
 			return 704;
@@ -323,36 +366,35 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 		
         // Get the first process' information.
         procentry.dwSize = sizeof(PROCESSENTRY32);
-        bResult=lpfProcess32First(hSnapShot,&procentry);
+        bResult = lpfProcess32First(hSnapShot, &procentry);
 
         // While there are processes, keep looping and checking.
-        while(bResult)
+        while (bResult)
         {
 		    // Get a handle to a Toolhelp snapshot of this process.
-		    hSnapShotm = lpfCreateToolhelp32Snapshot(
-			    TH32CS_SNAPMODULE, procentry.th32ProcessID) ;
-		    if( hSnapShotm == INVALID_HANDLE_VALUE )
+		    hSnapShotm = lpfCreateToolhelp32Snapshot(TH32CS_SNAPMODULE, procentry.th32ProcessID);
+		    if (hSnapShotm == INVALID_HANDLE_VALUE)
 			{
 				CloseHandle(hSnapShot);
 			    FreeLibrary(hInstLib);
 			    return 704;
 			}
 			// Get the module list for this process
-			modentry.dwSize=sizeof(MODULEENTRY32);
+			modentry.dwSize = sizeof(MODULEENTRY32);
 			bResultm=lpfModule32First(hSnapShotm,&modentry);
 
 			// While there are modules, keep looping and checking
-			while(bResultm)
+			while (bResultm)
 			{
-		        if(strcmp(modentry.szModule,szToTermUpper)==0)
+				if (strcmp(modentry.szModule,szToTermUpper) == 0)
 				{
 				    // Process found, now terminate it
-				    iFound=1;
+				    iFound = 1;
 				    // First open for termination
-				    hProc=OpenProcess(PROCESS_TERMINATE,FALSE,procentry.th32ProcessID);
-				    if(hProc)
+				    hProc = OpenProcess(PROCESS_TERMINATE, FALSE, procentry.th32ProcessID);
+				    if (hProc)
 					{
-					    if(TerminateProcess(hProc,0))
+					    if (TerminateProcess(hProc, 0))
 						{
 						    // process terminated
 							CloseHandle(hSnapShotm);
@@ -382,19 +424,19 @@ int KILL_PROC_BY_NAME(const char *szToTerminate)
 				}
 				else
 				{  // Look for next modules for this process
-					modentry.dwSize=sizeof(MODULEENTRY32);
-					bResultm=lpfModule32Next(hSnapShotm,&modentry);
+					modentry.dwSize = sizeof(MODULEENTRY32);
+					bResultm = lpfModule32Next(hSnapShotm, &modentry);
 				}
 			}
 
 			//Keep looking
 			CloseHandle(hSnapShotm);
             procentry.dwSize = sizeof(PROCESSENTRY32);
-            bResult = lpfProcess32Next(hSnapShot,&procentry);
+            bResult = lpfProcess32Next(hSnapShot, &procentry);
         }
 		CloseHandle(hSnapShot);
 	}
-	if(iFound==0)
+	if (iFound == 0)
 	{
 		FreeLibrary(hInstLib);
 		return 603;
