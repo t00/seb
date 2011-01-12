@@ -496,7 +496,7 @@ BOOL InitMsgHook()
 
 		if (hWndCaller == NULL) 
 		{
-			hWndCaller = FindWindow(NULL,sHotKey.c_str());
+			hWndCaller = FindWindow(NULL, sHotKey.c_str());
 		}
 		if (hWndCaller != NULL)
 		{
@@ -504,7 +504,7 @@ BOOL InitMsgHook()
 		}
 		else
 		{
-			MessageBox(NULL,"No caller window found!","Error",16);
+			MessageBox(NULL, "No caller window found!", "Error", 16);
 		}
 	}
 	catch (char* str)
