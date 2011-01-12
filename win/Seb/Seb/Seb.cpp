@@ -114,17 +114,32 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	MyRegisterClass(hInstance);
 	DWORD dwRet = 0; 
 
+	// Open the logfile for debug output
+	fp = fopen(logFileName, "w");
+
+	if (fp == NULL)
+	{
+		MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
+	}
+
+	//MessageBox(NULL, "Starting SEB...", "tWinMain():", MB_ICONERROR);
+	logg(fp, "\n");
+	logg(fp, "Enter tWinMain()\n");
+
 	// Perform application initialization:
 	//InitInstance (hInstance, nCmdShow);
 	/*
 	{
-		MessageBox(hWnd,INITIALIZE_ERROR,"Error",MB_ICONERROR);
+		MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", INITIALIZE_ERROR);
+		logg(fp, "Leave tWinMain()\n");
 		return FALSE;
 	}
 	*/
 	if (!InitInstance (hInstance, nCmdShow))
 	{
 		MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", INITIALIZE_ERROR);
 	}
 
 	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SEB);
@@ -134,7 +149,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	/*
 	if (!pi.hProcess)
 	{
-		MessageBox(hWnd,"kjhkjhkjh","Warning",MB_ICONWARNING);
+		MessageBox(hWnd, "kjhkjhkjh", "Warning", MB_ICONWARNING);
+		logg(fp, "Warning: kjhkjhkjh\n");
 	}
 	*/
 
@@ -156,7 +172,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			if (dwRet == WAIT_OBJECT_0)
 			{
 				//MessageBox(NULL,"1","Error",MB_ICONERROR);
+				logg(fp, "Error 1\n");
 				SendMessage(hWnd,WM_DESTROY,NULL,NULL);
+				logg(fp, "Leave tWinMain()\n\n");
 				return TRUE;    // The event was signaled
 			}
 
@@ -164,6 +182,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			{
 				// Something else happened
 				//MessageBox(NULL,"2","Error",MB_ICONERROR);
+				logg(fp, "Error 2\n");
 				break;
 			}
 
@@ -179,6 +198,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				if (WaitForSingleObject(pi.hProcess, 0) == WAIT_OBJECT_0)
 				{
 					//MessageBox(NULL,"3","Error",MB_ICONERROR);
+					logg(fp, "Error 3\n");
+					logg(fp, "Leave tWinMain()\n\n");
 					return TRUE; // Event is now signaled.
 				}
 			}
@@ -195,8 +216,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			}
 		}
 	}
+
+	logg(fp, "Leave tWinMain()\n\n");
 	return (int) msg.wParam;
-}
+
+} // end _tWinMain()
+
+
 
 
 
@@ -253,37 +279,48 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	parameters.procedureReady  = 0;
 	vector<string> vStrongKillProcessesBefore;
 	string         sStrongKillProcessesBefore;
-	int ret;
-	char buffer [100];
+	int  ret;
+	char buffer[100];
+
 	//its important to set the CurrentDirectory to the AppDir if you call the App from a Link
 	char szAppPath[MAX_PATH] = "";
 	string strAppDirectory;
 	GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
+
 	// Extract directory
 	strAppDirectory = szAppPath;
 	strAppDirectory = strAppDirectory.substr(0, strAppDirectory.rfind("\\"));
 	SetCurrentDirectory(strAppDirectory.c_str());
 
+	logg(fp, "Enter InitInstance()\n");
+
+	//MessageBox(NULL, strAppDirectory.c_str(), "InitInstance(): strAppDirectory", MB_ICONERROR);
+	logg(fp, "strAppDirectory = %s\n\n", strAppDirectory.c_str());
+
 	if (!ReadIniFile())
 	{
 		MessageBox(NULL, NO_INI_ERROR, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", NO_INI_ERROR);
+		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
-
 
 /*
 	if (getBool("CHECK_WRITE_PERMISSION") && (!CheckWritePermission("\\\\Three\\kiox_dev\\kiox_clients\\windows\\WinKeyox\\WinKeyox\\Release\\WinKeyox.ini")))
 	{
-		MessageBox(NULL,NO_WRITE_PERMISSION,"Error",MB_ICONERROR);
+		MessageBox(NULL, NO_WRITE_PERMISSION, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", NO_WRITE_PERMISSION_ERROR);
+		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
 */
-
 
 	// Trunk version (XUL-Runner)
 	if (!SetVersionInfo())
 	{
 		MessageBox(NULL, NO_OS_SUPPORT, "Error", 16);
+		logg(fp, "Error: %s\n", NO_OS_SUPPORT);
+		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
 
@@ -299,6 +336,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	  //case WIN_7      :
 			IsNewOS = TRUE;
 			//MessageBox(NULL,"= TRUE","IsNewOS",16);
+			logg(fp, "IsNewOS = TRUE\n");
 			break;
 		case WIN_95 :
 		case WIN_98 :
@@ -307,6 +345,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			break;
 		default :
 			MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
+			logg(fp, "Error: %s\n", NO_OS_SUPPORT);
+			logg(fp, "Leave InitInstance()\n\n");
 			return FALSE;
 	}
 */
@@ -318,11 +358,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		//just kill explorer.exe on Win9x / Me
 		if (getBool("WIN9X_KILL_EXPLORER"))
 		{
+			logg(fp, "Calling  KILL_PROC_BY_NAME(explorer.exe)\n");
 			ret = KILL_PROC_BY_NAME("explorer.exe");
 			if (ret != 0)
 			{
 				sprintf(buffer, KILL_PROC_FAILED, "explorer.exe", ret);
-				MessageBox(NULL,buffer,"Error",16);
+				MessageBox(NULL, buffer, "Error", 16);
+				logg(fp, "Error: %s\n", buffer);
 				killedExplorer = FALSE;
 			}
 			else
@@ -357,12 +399,16 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	if (!hWnd)
 	{
 		MessageBox(NULL, INITIALIZE_ERROR, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", INITIALIZE_ERROR);
+		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
 
 	if (!GetClientInfo())
 	{
 		MessageBox(NULL, NO_CLIENT_INFO_ERROR, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", NO_CLIENT_INFO_ERROR);
+		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
 
@@ -371,6 +417,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		if (!EditRegistry())
 		{
 			//MessageBox(hWnd,REG_EDIT_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
+			logg(fp, "Error  : %s\n", REG_EDIT_ERROR);
+			logg(fp, "Warning: %s\n", REGISTRY_WARNING);
 			mpParam["EDIT_REGISTRY"] = "0"; //thats for ResetRegistry: do nothing because editing failed
 		}
 	}
@@ -380,8 +428,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	{		
 		Tokenize(sStrongKillProcessesBefore, vStrongKillProcessesBefore, ";");
 		//MessageBox(hWnd, vKillProcess[1].c_str(), "Error", MB_ICONWARNING);
-		for (int i=0; i < (int)vStrongKillProcessesBefore.size(); i++)
+		//logg(fp, "Error: %s\n", vKillProcess[1].c_str());
+		logg(fp, "\n");
+		for (int i = 0; i < (int)vStrongKillProcessesBefore.size(); i++)
 		{
+			logg(fp, "KILL_PROC_BY_NAME(%s) Before\n", vStrongKillProcessesBefore[i].c_str());
 			ret = KILL_PROC_BY_NAME(vStrongKillProcessesBefore[i].c_str());
 		}
 	}
@@ -391,6 +442,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		if (!CreateExternalProcess(mpParam["AUTOSTART_PROCESS"]))
 		{
 			MessageBox(hWnd, PROCESS_FAILED, "Error", MB_ICONWARNING);
+			logg(fp, "Error: %s\n", PROCESS_FAILED);
+			logg(fp, "Leave InitInstance()\n\n");
 			return FALSE;
 		}		
 	}
@@ -406,6 +459,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		if (hinstDLL == NULL) 
 		{
 			MessageBox(NULL, LOAD_LIBRARY_ERROR, "Error", 16);
+			logg(fp, "Error: %s\n", LOAD_LIBRARY_ERROR);
+			logg(fp, "Leave InitInstance()\n\n");
 			return FALSE;
 		}
 		if (IsNewOS)
@@ -430,9 +485,63 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		UpdateWindow(hWnd);
 	}
 
-	// this is not the set of allowed processes to run & the processes in the list process
+	// This is not the set of allowed processes to run & the processes in the list process
+	// Why "not"???
 	GetRunningProcesses(previousProcesses);
 	allowedProcesses.insert(allowedProcesses.end(), previousProcesses.begin(), previousProcesses.end());
+
+
+	// Print the previous / allowed processes into the logfile
+
+	vector<long>::iterator previousIterator;
+	vector<long>::iterator  allowedIterator;
+	long   previousNr;
+	long    allowedNr;
+	long   previousID;
+	long    allowedID;
+	string previousName;
+	string  allowedName;
+  //char previousString[260];
+  //char  allowedString[260];
+
+
+	// Print the previous processes into the logfile
+	logg(fp, "\n");
+	logg(fp, " Nr\t   ID\tpreviousProcess\n");
+	logg(fp, "----------------------------------\n");
+	previousNr = 0;
+	for (previousIterator  = previousProcesses.begin();
+		 previousIterator != previousProcesses.end();
+		 previousIterator++)
+	{
+		previousNr++;
+		previousID   = *previousIterator;
+		previousName =  GetProcessNameFromID(previousID);
+		logg(fp, "%3d\t", previousNr);
+		logg(fp, "%5d\t", previousID);
+		logg(fp, "% s\n", previousName.c_str());
+	}
+	logg(fp, "\n\n");
+
+
+	// Print the allowed processes into the logfile
+	logg(fp, "\n");
+	logg(fp, " Nr\t   ID\tallowedProcess\n");
+	logg(fp, "----------------------------------\n");
+	allowedNr = 0;
+	for (allowedIterator  = allowedProcesses.begin();
+		 allowedIterator != allowedProcesses.end();
+		 allowedIterator++)
+	{
+		allowedNr++;
+		allowedID   = *allowedIterator;
+		allowedName =  GetProcessNameFromID(allowedID);
+		logg(fp, "%3d\t", allowedNr);
+		logg(fp, "%5d\t", allowedID);
+		logg(fp, "% s\n", allowedName.c_str());
+	}
+	logg(fp, "\n\n");
+
 
 	long threadID;
 
@@ -442,14 +551,31 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	parameters.hold    = 0;
 	parameters.confirm = 0;
 
-	if(getBool("PROC_MONITORING"))
+	if (getBool("PROC_MONITORING"))
 	{
 		procMonitorThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)MonitorProcesses, (LPVOID)&parameters, 0, (LPDWORD)&threadID);
 		parameters.procedureReady = 1;
 	}
 
-	return TRUE;	
-}
+	if (getBool("LOG_FILE"))
+	{
+		logFileDesired = true;
+		logg(fp, "Logfile desired, therefore keeping logfile\n");
+	}
+	else
+	{
+		logFileDesired = false;
+		logg(fp, "No logfile desired, therefore closing and removing logfile\n");
+		fclose(fp);
+		remove(logFileName);
+	}
+
+	logg(fp, "Leave InitInstance()\n\n");
+	return TRUE;
+
+} // end InitInstance()
+
+
 
 
 
@@ -468,7 +594,9 @@ BOOL ReadIniFile()
 	string sProcesses = "";
 	vector<string> vProcesses;
 	vector<string>::iterator itProcesses;
-  //vector<string>::iterator itProcess;
+	vector<string>::iterator itProcess;
+
+	logg(fp, "Enter ReadIniFile()\n");
 
 	try
 	{
@@ -477,9 +605,11 @@ BOOL ReadIniFile()
 
 		const char* captionString;
 		const char* messageString;
-		captionString = "Program executable:";
+		captionString = "Program executable";
 		messageString = cCurrDir;
 	  //MessageBox(NULL, messageString, captionString, 16);
+		logg(fp, "Program executable = %s\n", cCurrDir);
+		logg(fp, "\n");
 
 		// The Seb.ini and MsgHook.ini configuration files have moved:
 		// Previously:
@@ -496,14 +626,19 @@ BOOL ReadIniFile()
 		// being necessary anymore.
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = SEB_INI;
+		sCurrDir = SEB_INI_FILE;
 
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
 			MessageBox(NULL, NO_INI_ERROR, "Error", 16);
+			logg(fp, "Error: %s\n", NO_INI_ERROR);
+			logg(fp, "Leave ReadIniFile()\n\n");
 			return FALSE;
 		}
+
+		logg(fp, "key = value\n");
+		logg(fp, "-----------\n");
 
 		while(!getline(inf, strLine).eof())
 		{			
@@ -514,13 +649,20 @@ BOOL ReadIniFile()
 			//captionString = strKey  .c_str();
 			//messageString = strValue.c_str();
 			//MessageBox(NULL, messageString, captionString, 16);
+			logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
 		}
 		inf.close();
-
+		logg(fp, "-----------\n");
+		logg(fp, "\n");
 
 		// Get start URL for Seb Browser
 		sUrlExam = mpParam["URL_EXAM"];
-		//MessageBox(NULL,sUrlExam.c_str(),"URL_EXAM",MB_ICONERROR);
+		//MessageBox(NULL, sUrlExam.c_str(), "URL_EXAM", MB_ICONERROR);
+		logg(fp, "URL_EXAM = %s\n", sUrlExam.c_str());
+		logg(fp, "\n");
+
+		// Get the processes (SEB and third-party applications)
+		sProcesses = mpParam["PROCESSES"];
 
 		// Get the SEB Process, which is defined separately
 		// from the other processes in Seb.ini
@@ -542,6 +684,12 @@ BOOL ReadIniFile()
 		//MessageBox(NULL,       sCommandLine.c_str(),   sApplicationName.c_str(),MB_ICONERROR);
 		//MessageBox(NULL,sebProcessVector[1].c_str(),sebProcessVector[0].c_str(),MB_ICONERROR);
 
+		logg(fp, "sApplicationName = %s\n", sApplicationName.c_str());
+		logg(fp, "sCommandLine     = %s\n",     sCommandLine.c_str());
+
+		logg(fp, "sebProcessVector[0] = %s\t", sebProcessVector[0].c_str());
+		logg(fp, "sebProcessVector[1] = %s\n", sebProcessVector[1].c_str());
+
 		// Add the SEB process to the process list
 		mpProcesses.insert(make_pair(sebProcessVector[0], sebProcessVector[1]));
 
@@ -556,29 +704,54 @@ BOOL ReadIniFile()
 			if (sProcesses != "")
 			{
 				Tokenize(sProcesses, vProcesses, ";");
-				for (itProcesses = vProcesses.begin(); itProcesses != vProcesses.end(); itProcesses++)
+
+				int cntCommand = IDM_OFFSET;
+				logg(fp, "List of third party applications to insert:\n");
+				logg(fp, "-------------------------------------------\n");
+
+				for (itProcesses  = vProcesses.begin();
+					 itProcesses != vProcesses.end();
+					 itProcesses++)
 				{
 					vector<string> vProcess;
 					sProcess = *itProcesses;
 					Tokenize(sProcess, vProcess, ",");
 					mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));
-					//MessageBox(NULL,vProcess[1].c_str(),vProcess[0].c_str(),MB_ICONERROR);
+					//MessageBox(NULL, vProcess[1].c_str(), vProcess[0].c_str(), MB_ICONERROR);
+					logg(fp, "vProcess[0] = %s\n", vProcess[0].c_str());
+					logg(fp, "vProcess[1] = %s\n", vProcess[1].c_str());
+					cntCommand++;
 				}
-			}
-		}
-	}
+
+				logg(fp, "-------------------------------------------\n");
+				logg(fp, "\n");
+
+			} // end if (sProcesses != "")
+		} // end if (mpProcesses.size() == 1)
+	} // end try
+
 	catch (char* str)
 	{		
-		MessageBox(NULL, str, "Error", MB_ICONERROR); 
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave ReadIniFile()\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave ReadIniFile()\n\n");
 	return TRUE;
-}
+
+} // end ReadIniFile()
 
 
 
-BOOL ReadProcessesInRegistry() 
+
+
+BOOL ReadProcessesInRegistry()
 {
+
+	logg(fp, "Enter ReadProcessesInRegistry()\n");
+
 	try
 	{
 		vector<string> vProcesses;
@@ -597,24 +770,35 @@ BOOL ReadProcessesInRegistry()
 		{
 			Tokenize(lszValue, vProcesses, ";");
 
-			for (itProcesses = vProcesses.begin(); itProcesses != vProcesses.end(); itProcesses++)
+			for (itProcesses  = vProcesses.begin();
+				 itProcesses != vProcesses.end();
+				 itProcesses++)
 			{
 				vector<string> vProcess;
 				sProcess = *itProcesses;				
 				Tokenize(sProcess, vProcess, ",");
 				mpProcesses.insert(make_pair(vProcess[0], vProcess[1]));
-				//MessageBox(NULL,vProcess[1].c_str(),vProcess[0].c_str(),MB_ICONERROR);
+				//MessageBox(NULL, vProcess[1].c_str(), vProcess[0].c_str(), MB_ICONERROR);
+				logg(fp, "vProcess[0] = %s\n", vProcess[0].c_str());
+				logg(fp, "vProcess[1] = %s\n", vProcess[1].c_str());
 			}
 		}
 		RegCloseKey(hKeySEB);
 	}
 	catch (char* str)
 	{		
-		MessageBox(NULL, str, "Error", MB_ICONERROR); 
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave ReadProcessesInRegistry()\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave ReadProcessesInRegistry()\n\n");
 	return TRUE;
-}
+
+} // end ReadProcessesInRegistry()
+
+
 
 
 
@@ -624,13 +808,17 @@ BOOL GetClientInfo()
 	WSADATA  wsaData;		
 	PHOSTENT hostinfo;
 	wVersionRequested = MAKEWORD(2, 0);
+
+	logg(fp, "Enter GetClientInfo()\n");
+
 	try
 	{
 		if (WSAStartup(wVersionRequested, &wsaData) == 0)
 		{
 			if (gethostname(cHostname, sizeof(cHostname)) == 0)
 			{
-				//MessageBox(NULL,cHostname,"cHostname",16);
+				//MessageBox(NULL, cHostname, "cHostname", 16);
+				logg(fp, "cHostname = %s\n", cHostname);
 				if((hostinfo = gethostbyname(cHostname)) != NULL)
 				{
 					cIp = inet_ntoa(*(struct in_addr *)*hostinfo->h_addr_list);
@@ -641,11 +829,18 @@ BOOL GetClientInfo()
 	}
 	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",MB_ICONERROR); 
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave GetClientInfo()\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave GetClientInfo()\n\n");
 	return TRUE;
-}
+
+} // end GetClientInfo()
+
+
 
 
 
@@ -654,9 +849,14 @@ BOOL EditRegistry()
 	HKEY hklmSystem;
 	HKEY hkcuSystem;
 	HKEY hkcuExplorer;
+	HKEY hkcuVMwareClient;
+
 	BOOL openedHKLMPolicySystem;
 	BOOL openedHKCUPolicySystem;
 	BOOL openedHKCUPolicyExplorer;
+	BOOL openedHKCUVMwareClient;
+
+	logg(fp, "Enter EditRegistry()\n");
 
 	try
 	{
@@ -665,11 +865,14 @@ BOOL EditRegistry()
 		openedHKLMPolicySystem = HandleOpenRegistryKey(HKLM, KEY_RegPolicySystem  , &hklmSystem  , TRUE);
 		if (openedHKLMPolicySystem)
 		{
-			//MessageBox(NULL,"HandleOpenRegistryKey(HKLM, System) succeeded","Registry",16);
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) succeeded", "Registry", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKLM, System) succeeded\n");
 		}
 		else
 		{
-			//MessageBox(NULL,"HandleOpenRegistryKey(HKLM, System) failed","Registry Error",16);
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) failed", "Registry Error", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKLM, System) failed\n");
+			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
 
@@ -678,11 +881,14 @@ BOOL EditRegistry()
 		openedHKCUPolicySystem = HandleOpenRegistryKey(HKCU, KEY_RegPolicySystem  , &hkcuSystem  , TRUE);
 		if (openedHKCUPolicySystem)
 		{
-			//MessageBox(NULL,"HandleOpenRegistryKey(HKCU, System) succeeded","Registry",16);
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) succeeded", "Registry", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, System) succeeded\n");
 		}
 		else
 		{
-			//MessageBox(NULL,"HandleOpenRegistryKey(HKCU, System) failed","Registry Error",16);
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) failed", "Registry Error", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, System) failed\n");
+			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
 
@@ -691,11 +897,30 @@ BOOL EditRegistry()
 		openedHKCUPolicyExplorer = HandleOpenRegistryKey(HKCU, KEY_RegPolicyExplorer, &hkcuExplorer, TRUE);
 		if (openedHKCUPolicyExplorer)
 		{
-			//MessageBox(NULL,"HandleOpenRegistryKey(HKCU, Explorer) succeeded","Registry",16);
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) succeeded", "Registry", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, Explorer) succeeded\n");
 		}
 		else
 		{
-			//MessageBox(NULL,"HandleOpenRegistryKey(HKCU, Explorer) failed","Registry Error",16);
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) failed", "Registry Error", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, Explorer) failed\n");
+			logg(fp, "Leave EditRegistry()\n\n");
+			return FALSE;
+		}
+
+		// Open the Windows Registry Key
+		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client
+		openedHKCUVMwareClient = HandleOpenRegistryKey(HKCU, KEY_RegVMwareClient, &hkcuVMwareClient, TRUE);
+		if (openedHKCUVMwareClient)
+		{
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VMwareClient) succeeded", "Registry", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, VMwareClient) succeeded\n");
+		}
+		else
+		{
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VMwareClient) failed", "Registry Error", 16);
+			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, VMwareClient) failed\n");
+			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
 
@@ -704,21 +929,26 @@ BOOL EditRegistry()
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\HideFastUserSwitching
 		if (getBool("REG_HIDE_FAST_USER_SWITCHING")) 
 		{
-			//MessageBox(NULL,"= true","REG_HIDE_FAST_USER_SWITCHING",16);
+			//MessageBox(NULL, "= true", "REG_HIDE_FAST_USER_SWITCHING", 16);
+			logg(fp, "Registry: getBool(REG_HIDE_FAST_USER_SWITCHING) = true\n");
 
 			if (HandleSetRegistryKeyValue(hklmSystem,VAL_HideFastUserSwitching,"HIDE_FAST_USER_SWITCHING"))
 			{
-				//MessageBox(NULL,"Setting HIDE_FAST_USER_SWITCHING succeeded","HandleSetRegistryKeyValue",16);
+				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) succeeded\n");
 			}
 			else
 			{
-				//MessageBox(NULL,"Setting HIDE_FAST_USER_SWITCHING failed","HandleSetRegistryKeyValue",16);
+				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		} 
 		else
 		{
-			//MessageBox(NULL,"= false","REG_HIDE_FAST_USER_SWITCHING",16);
+			//MessageBox(NULL, "= false", "REG_HIDE_FAST_USER_SWITCHING", 16);
+			logg(fp, "Registry: getBool(REG_HIDE_FAST_USER_SWITCHING) = false\n");
 		}
 
 
@@ -726,14 +956,53 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableLockWorkstation
 		if (getBool("REG_DISABLE_LOCK_WORKSTATION")) 
 		{
-			if (!HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"DISABLE_LOCK_WORKSTATION")) return FALSE;
+			//MessageBox(NULL, "= true", "REG_DISABLE_LOCK_WORKSTATION", 16);
+			logg(fp, "Registry: getBool(REG_DISABLE_LOCK_WORKSTATION) = true\n");
+
+			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"DISABLE_LOCK_WORKSTATION"))
+			{
+				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) succeeded\n");
+			}
+			else
+			{
+				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
+				return FALSE;
+			}
 		}
+		else
+		{
+			//MessageBox(NULL, "= false", "REG_DISABLE_LOCK_WORKSTATION", 16);
+			logg(fp, "Registry: getBool(REG_DISABLE_LOCK_WORKSTATION) = false\n");
+		}
+
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableChangePassword
 		if (getBool("REG_DISABLE_CHANGE_PASSWORD")) 
-		{ 			
-			if (!HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"DISABLE_CHANGE_PASSWORD")) return FALSE;
+		{
+			//MessageBox(NULL,"= true","REG_DISABLE_CHANGE_PASSWORD",16);
+			logg(fp, "Registry: getBool(REG_DISABLE_CHANGE_PASSWORD) = true\n");
+
+			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"DISABLE_CHANGE_PASSWORD"))
+			{
+				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) succeeded\n");
+			}
+			else
+			{
+				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
+				return FALSE;
+			}
+		}
+		else
+		{
+			//MessageBox(NULL, "= false", "REG_DISABLE_CHANGE_PASSWORD", 16);
+			logg(fp, "Registry: getBool(REG_DISABLE_CHANGE_PASSWORD) = false\n");
 		}
 
 
@@ -742,44 +1011,125 @@ BOOL EditRegistry()
 		if (getBool("REG_DISABLE_TASKMGR")) 
 		{
 			//MessageBox(NULL,"= true","REG_DISABLE_TASKMGR",16);
+			logg(fp, "Registry: getBool(REG_DISABLE_TASKMGR) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableTaskMgr,"DISABLE_TASKMGR"))
 			{
-				//MessageBox(NULL,"Setting DISABLE_TASKMGR succeeded","HandleSetRegistryKeyValue",16);
+				//MessageBox(NULL, "Setting DISABLE_TASKMGR succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_TASKMGR) succeeded\n");
 			}
 			else
 			{
-				//MessageBox(NULL,"Setting DISABLE_TASKMGR failed","HandleSetRegistryKeyValue",16);
+				//MessageBox(NULL, "Setting DISABLE_TASKMGR failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_TASKMGR) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		} 
 		else
 		{
-			//MessageBox(NULL,"= false","REG_DISABLE_TASKMGR",16);
+			//MessageBox(NULL, "= false", "REG_DISABLE_TASKMGR", 16);
+			logg(fp, "Registry: getBool(REG_DISABLE_TASKMGR) = false\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoLogoff
 		if (getBool("REG_NO_LOGOFF"))
-		{ 			
-			if (!HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"NO_LOGOFF")) return FALSE;
+		{
+			//MessageBox(NULL,"= true","REG_NO_LOGOFF",16);
+			logg(fp, "Registry: getBool(REG_NO_LOGOFF) = true\n");
+
+			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"NO_LOGOFF"))
+			{
+				//MessageBox(NULL, "Setting NO_LOGOFF succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_LOGOFF) succeeded\n");
+			}
+			else
+			{
+				//MessageBox(NULL, "Setting NO_LOGOFF failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_LOGOFF) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
+				return FALSE;
+			}
 		}
+		else
+		{
+			//MessageBox(NULL, "= false", "REG_NO_LOGOFF", 16);
+			logg(fp, "Registry: getBool(REG_NO_LOGOFF) = false\n");
+		}
+
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose
 		if (getBool("REG_NO_CLOSE"))
-		{ 	
-			if (!HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"NO_CLOSE")) return FALSE;
+		{
+			//MessageBox(NULL,"= true","REG_NO_CLOSE",16);
+			logg(fp, "Registry: getBool(REG_NO_CLOSE) = true\n");
+
+			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"NO_CLOSE"))
+			{
+				//MessageBox(NULL, "Setting NO_CLOSE succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_CLOSE) succeeded\n");
+			}
+			else
+			{
+				//MessageBox(NULL, "Setting NO_CLOSE failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_CLOSE) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
+				return FALSE;
+			}
 		}
-	}
+		else
+		{
+			//MessageBox(NULL, "= false", "REG_NO_CLOSE", 16);
+			logg(fp, "Registry: getBool(REG_NO_CLOSE) = false\n");
+		}
+
+
+		// Set the Windows Registry Key
+		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client\EnableShade
+		if (getBool("REG_ENABLE_SHADE")) 
+		{
+			//MessageBox(NULL, "= true", "REG_ENABLE_SHADE", 16);
+			logg(fp, "Registry: getBool(REG_ENABLE_SHADE) = true\n");
+
+			if (HandleSetRegistryKeyValue(hkcuVMwareClient,VAL_EnableShade,"ENABLE_SHADE"))
+			{
+				//MessageBox(NULL, "Setting ENABLE_SHADE succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n");
+			}
+			else
+			{
+				//MessageBox(NULL, "Setting ENABLE_SHADE failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "Registry: HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
+				return FALSE;
+			}
+		} 
+		else
+		{
+			//MessageBox(NULL, "= false", "REG_ENABLE_SHADE", 16);
+			logg(fp, "Registry: getBool(REG_ENABLE_SHADE) = false\n");
+		}
+
+	} // end try
+
+
 	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",MB_ICONERROR);
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave EditRegistry()\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave EditRegistry()\n\n");
 	return TRUE;
-}
+
+} // end EditRegistry()
+
+
 
 
 
@@ -788,12 +1138,16 @@ BOOL ResetRegistry()
 	HKEY hklmSystem;
 	HKEY hkcuSystem;
 	HKEY hkcuExplorer;
+	HKEY hkcuVMwareClient;
+
+	logg(fp, "Enter ResetRegistry()\n");
 
 	try
 	{
-		if (!HandleOpenRegistryKey(HKLM, KEY_RegPolicySystem  , &hklmSystem  , TRUE)) return FALSE;
-		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicySystem  , &hkcuSystem  , TRUE)) return FALSE;
-		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicyExplorer, &hkcuExplorer, TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKLM, KEY_RegPolicySystem  , &hklmSystem      , TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicySystem  , &hkcuSystem      , TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicyExplorer, &hkcuExplorer    , TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKCU, KEY_RegVMwareClient  , &hkcuVMwareClient, TRUE)) return FALSE;
 
 		if (getBool("REG_HIDE_FAST_USER_SWITCHING")) 
 		{
@@ -804,29 +1158,41 @@ BOOL ResetRegistry()
 			RegDeleteValue(hkcuSystem, VAL_DisableLockWorkstation);
 		}
 		if (getBool("REG_DISABLE_TASKMGR")) 
-		{ 		
+		{
 			RegDeleteValue(hkcuSystem, VAL_DisableTaskMgr);
 		} 
 		if (getBool("REG_DISABLE_CHANGE_PASSWORD")) 
-		{ 			
+		{
 			RegDeleteValue(hkcuSystem, VAL_DisableChangePassword);
 		}
-		if (getBool("REG_NO_CLOSE"))
-		{ 				
-			RegDeleteValue(hkcuExplorer, VAL_NoClose);
-		} 
 		if (getBool("REG_NO_LOGOFF"))
-		{ 			
+		{
 			RegDeleteValue(hkcuExplorer, VAL_NoLogoff);
 		}
+		if (getBool("REG_NO_CLOSE"))
+		{
+			RegDeleteValue(hkcuExplorer, VAL_NoClose);
+		}
+		if (getBool("REG_ENABLE_SHADE"))
+		{
+			RegDeleteValue(hkcuVMwareClient, VAL_EnableShade);
+		}
 	}
+
 	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",MB_ICONERROR);
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave ResetRegistry()\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave ResetRegistry()\n\n");
 	return TRUE;
-}
+
+} // end ResetRegistry()
+
+
 
 
 
@@ -838,9 +1204,12 @@ BOOL CreateExternalProcess(string sProcess)
 	{
 	} 
 
+	logg(fp, "\n");
+	logg(fp, "Enter CreateExternalProcess()\n");
+
 	long counter = 0;
 
-	//MessageBox(NULL,cmdLine.c_str(),"Error",MB_ICONERROR);
+	//MessageBox(NULL, cmdLine.c_str(), "Error", MB_ICONERROR);
 	//SHGetSpecialFolderLocation
 	STARTUPINFO			siProcess;				//STARTUPINFO     for created process
 	PROCESS_INFORMATION piProcess;				//PROCESS_INFORMATION created process
@@ -852,17 +1221,23 @@ BOOL CreateExternalProcess(string sProcess)
 	}
 	ZeroMemory(&piProcess, sizeof(piProcess));
 
-	// give the process 10s to start
-	// after 10 s
+	// give the process 100s to start
+	// after 100 s
 	if (parameters.procedureReady != 0)
 	{
 		parameters.hold = 1;
-		while(parameters.confirm != 1)
+		while (parameters.confirm != 1)
 		{
-			// wait for the process to sync, but max 1s
+			// Wait for the process to sync, but max 0.5 seconds
 			Sleep(500);
 			counter++;
-			if (counter == 20) return FALSE;
+			if (counter == 200)
+			{
+				logg(fp, "\t");
+				logg(fp, "Timeout of 100 secs exceeded!\n");
+				logg(fp, "Leave CreateExternalProcess()\n\n");
+				return FALSE;
+			}
 		}
 		parameters.hold = 0;
 	}
@@ -870,7 +1245,9 @@ BOOL CreateExternalProcess(string sProcess)
 	try
 	{
 		string applicationName = sProcess.c_str();
-		//MessageBox(hWnd,applicationName.c_str(),"applicationName",MB_ICONERROR);
+		//MessageBox(hWnd, applicationName.c_str(), "applicationName", MB_ICONERROR);
+		logg(fp, "\tsProcess        = %s\n",        sProcess.c_str());
+		logg(fp, "\tapplicationName = %s\n", applicationName.c_str());
 
 		if (!CreateProcess(NULL,   // No module name (use command line). 
 		  //TEXT((LPSTR)mpParam["PROCESS_CALL"].c_str()), // Command line. 
@@ -887,32 +1264,44 @@ BOOL CreateExternalProcess(string sProcess)
 		) 
 		{
 			ResumeThread(procMonitorThread);
-			MessageBox(hWnd,PROCESS_FAILED,applicationName.c_str(),MB_ICONERROR);
+			MessageBox(hWnd, PROCESS_FAILED, applicationName.c_str(), MB_ICONERROR);
+			logg(fp, "\tError: creating process %s failed!\n", applicationName.c_str());
+			logg(fp, "Leave CreateExternalProcess()\n\n");
 			return FALSE;
 		}
 
 		// Add the process to the allowed processes, not required anymore
 		//allowedProcesses.push_back(piProcess.dwProcessId);
 
-		mpProcessInformations.insert(make_pair(sProcess,piProcess));
-		//MessageBox(NULL,sProcess.c_str(),"Error",MB_ICONERROR);
+		mpProcessInformations.insert(make_pair(sProcess, piProcess));
+		//MessageBox(NULL, sProcess.c_str(), "sProcess =", MB_ICONERROR);
+		logg(fp, "\tsProcess        = %s\n",        sProcess.c_str());
 	}
+
 	catch (char* str)
 	{	
 		//ResumeThread(procMonitorThread);
-		MessageBox(NULL,str,"Error",MB_ICONERROR);
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "\tError: %s\n", str);
+		logg(fp, "Leave CreateExternalProcess()\n\n");
 		return FALSE;
 	}
 
 	//ResumeThread(procMonitorThread);
+	logg(fp, "Leave CreateExternalProcess()\n\n");
 	return TRUE;
-}
+
+} // end CreateExternalProcess()
+
+
 
 
 
 BOOL ShutdownInstance()
 {
 	//MessageBox(NULL,"shutdown","Error",MB_ICONERROR);
+	logg(fp, "Entering ShutdownInstance()\n");
+
 	DWORD dwNotUsedForAnything = 0;	
 	int ret;
 	string sStrongKillProcesssesAfter = ""; 
@@ -924,6 +1313,7 @@ BOOL ShutdownInstance()
 		{
 			//MessageBox(hWnd,"ShutdownInstance(): not enough rights for editing registry",REGISTRY_WARNING,MB_ICONWARNING);
 			//MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
+			logg(fp, "Warning: %s\n", REGISTRY_WARNING);
 		}
 	}
 
@@ -953,6 +1343,7 @@ BOOL ShutdownInstance()
 		vector< string > vCommandLine;
 		vector< string > vExecutable;
 		GetExitCodeProcess(((*itProcessInformations).second).hProcess,&dwExitCode);
+
 		if (dwExitCode == STILL_ACTIVE)
 		{
 			//of << (*itProcessInformations).first.c_str();
@@ -970,9 +1361,10 @@ BOOL ShutdownInstance()
 	sStrongKillProcesssesAfter = mpParam["STRONG_KILL_PROCESSES_AFTER"];
 	if (sStrongKillProcesssesAfter != "")
 	{		
-		Tokenize(sStrongKillProcesssesAfter,vStrongKillProcessesAfter,";");
-		//MessageBox(hWnd,vKillProcess[1].c_str(),"Error",MB_ICONWARNING);
-		for (int i=0; i < (int)vStrongKillProcessesAfter.size(); i++)
+		Tokenize(sStrongKillProcesssesAfter, vStrongKillProcessesAfter, ";");
+		//MessageBox(hWnd, vKillProcess[1].c_str(), "Error", MB_ICONWARNING);
+		//logg(fp, "vKillProcess[1] = %s\n", vKillProcess[1]);
+		for (int i = 0; i < (int)vStrongKillProcessesAfter.size(); i++)
 		{
 			ret = KILL_PROC_BY_NAME(vStrongKillProcessesAfter[i].c_str());
 		}
@@ -1002,9 +1394,16 @@ BOOL ShutdownInstance()
 			SetThreadDesktop(hOriginalThread);
 				CloseDesktop(hNewDesktop);		
 		}
-	}	
+	}
+
+	// Close the logfile for debug output
+	logg(fp, "Leaving ShutdownInstance()\n\n");
+	fclose(fp);
 	return TRUE;
-}
+
+} // end ShutdownInstance()
+
+
 
 
 
@@ -1027,126 +1426,165 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	HANDLE hIcon, hIconSm;
 	string applicationName;
 
+	//logg(fp, "Enter WndProc()\n");
+
 	switch (message)
 	{
+		case WM_CREATE:
 
-	case WM_CREATE:
-		HMENU hMenu, hSubMenu;
-		hMenu    = CreateMenu();
-		hSubMenu = CreatePopupMenu();
+			HMENU hMenu, hSubMenu;
+			hMenu    = CreateMenu();
+			hSubMenu = CreatePopupMenu();
 
-		for (itProcesses  = mpProcesses.begin();
-			 itProcesses != mpProcesses.end();
-			 itProcesses++)
-		{
-			// applicationName = name of the process.
-			// If the "continue" command is active,
-			// "Seb" is not appended to the third party application menu.
-			applicationName = (*itProcesses).first;
-			if (applicationName == "Seb") continue;
-			AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
-			mpProcessCommands.insert(make_pair(cntProcess, applicationName));
-			cntProcess ++;
-		}	
-		AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");				
-		SetMenu(hWnd, hMenu);
-	case WM_COMMAND:
-		wmId    = LOWORD(wParam);
-		wmEvent = HIWORD(wParam);
-		// Parse the menu selections:
-		switch (wmId)
-		{
-		case IDM_ABOUT:
-			//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-			break;
-		case IDM_EXIT:
-			DestroyWindow(hWnd);
-			break;
-			// supports 20 different processes
-		case 37265 :
-			//MessageBox(NULL,mpProcessCommands[37265][1].c_str(),"Error",MB_ICONERROR);
-			CreateExternalProcess(mpProcessCommands[37265]);
-			break;
-		case 37266 :
-			//MessageBox(NULL,mpProcessCommands[37266][1].c_str(),"Error",MB_ICONERROR);
-			CreateExternalProcess(mpProcessCommands[37266]);
-			break;
-		case 37267 :
-			//MessageBox(NULL,mpProcessCommands[37267][1].c_str(),"Error",MB_ICONERROR);
-			CreateExternalProcess(mpProcessCommands[37267]);
-			break;
-		case 37268 :
-			CreateExternalProcess(mpProcessCommands[37268]);
-			break;
-		case 37269 :
-			CreateExternalProcess(mpProcessCommands[37269]);
-			break;
-		case 37270 :
-			CreateExternalProcess(mpProcessCommands[37270]);
-			break;
-		case 37271 :
-			CreateExternalProcess(mpProcessCommands[37271]);
-			break;
-		case 37272 :
-			CreateExternalProcess(mpProcessCommands[37272]);
-			break;
-		case 37273 :
-			CreateExternalProcess(mpProcessCommands[37273]);
-			break;
-		case 37274 :
-			CreateExternalProcess(mpProcessCommands[37274]);
-			break;
-		case 37275 :
-			CreateExternalProcess(mpProcessCommands[37275]);
-			break;
-		case 37276 :
-			CreateExternalProcess(mpProcessCommands[37276]);
-			break;
-		case 37277 :
-			CreateExternalProcess(mpProcessCommands[37277]);
-			break;
-		case 37278 :
-			CreateExternalProcess(mpProcessCommands[37278]);
-			break;
-		case 37279 :
-			CreateExternalProcess(mpProcessCommands[37279]);
-			break;
-		case 37280 :
-			CreateExternalProcess(mpProcessCommands[37280]);
-			break;
-		case 37281 :
-			CreateExternalProcess(mpProcessCommands[37281]);
-			break;
-		case 37282 :
-			CreateExternalProcess(mpProcessCommands[37282]);
-			break;
-		case 37283 :
-			CreateExternalProcess(mpProcessCommands[37283]);
-			break;
-		case 37284 :
-			CreateExternalProcess(mpProcessCommands[37284]);
-			break;
-		case 37285 :
-			CreateExternalProcess(mpProcessCommands[37285]);
-			break;
+			for (itProcesses  = mpProcesses.begin();
+				 itProcesses != mpProcesses.end();
+				 itProcesses++)
+			{
+				// applicationName = name of the process.
+				// If the "continue" command is active,
+				// "Seb" is not appended to the third party application menu.
+				applicationName = (*itProcesses).first;
+				if (applicationName == "Seb") continue;
+				AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
+				mpProcessCommands.insert(make_pair(cntProcess, applicationName));
+				cntProcess ++;
+			}	
+			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");				
+			SetMenu(hWnd, hMenu);
+
+		case WM_COMMAND:
+
+			wmId    = LOWORD(wParam);
+			wmEvent = HIWORD(wParam);
+			// Parse the menu selections:
+			switch (wmId)
+			{
+				case IDM_ABOUT:
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+				break;
+
+				case IDM_EXIT:
+				DestroyWindow(hWnd);
+				break;
+
+				// supports 20 different processes
+				case 37265 :
+				//MessageBox(NULL,mpProcessCommands[37265][1].c_str(),"Error",MB_ICONERROR);
+				CreateExternalProcess(mpProcessCommands[37265]);
+				break;
+
+				case 37266 :
+				//MessageBox(NULL,mpProcessCommands[37266][1].c_str(),"Error",MB_ICONERROR);
+				CreateExternalProcess(mpProcessCommands[37266]);
+				break;
+
+				case 37267 :
+				//MessageBox(NULL,mpProcessCommands[37267][1].c_str(),"Error",MB_ICONERROR);
+				CreateExternalProcess(mpProcessCommands[37267]);
+				break;
+
+				case 37268 :
+				CreateExternalProcess(mpProcessCommands[37268]);
+				break;
+
+				case 37269 :
+				CreateExternalProcess(mpProcessCommands[37269]);
+				break;
+
+				case 37270 :
+				CreateExternalProcess(mpProcessCommands[37270]);
+				break;
+
+				case 37271 :
+				CreateExternalProcess(mpProcessCommands[37271]);
+				break;
+
+				case 37272 :
+				CreateExternalProcess(mpProcessCommands[37272]);
+				break;
+
+				case 37273 :
+				CreateExternalProcess(mpProcessCommands[37273]);
+				break;
+
+				case 37274 :
+				CreateExternalProcess(mpProcessCommands[37274]);
+				break;
+
+				case 37275 :
+				CreateExternalProcess(mpProcessCommands[37275]);
+				break;
+
+				case 37276 :
+				CreateExternalProcess(mpProcessCommands[37276]);
+				break;
+
+				case 37277 :
+				CreateExternalProcess(mpProcessCommands[37277]);
+				break;
+
+				case 37278 :
+				CreateExternalProcess(mpProcessCommands[37278]);
+				break;
+
+				case 37279 :
+				CreateExternalProcess(mpProcessCommands[37279]);
+				break;
+
+				case 37280 :
+				CreateExternalProcess(mpProcessCommands[37280]);
+				break;
+
+				case 37281 :
+				CreateExternalProcess(mpProcessCommands[37281]);
+				break;
+
+				case 37282 :
+				CreateExternalProcess(mpProcessCommands[37282]);
+				break;
+
+				case 37283 :
+				CreateExternalProcess(mpProcessCommands[37283]);
+				break;
+
+				case 37284 :
+				CreateExternalProcess(mpProcessCommands[37284]);
+				break;
+
+				case 37285 :
+				CreateExternalProcess(mpProcessCommands[37285]);
+				break;
+
+				default:
+				//logg(fp, "Leave WndProc()\n\n");
+				return DefWindowProc(hWnd, message, wParam, lParam);
+
+			} // end switch (wmId)
+		break;
+
+		case WM_PAINT:
+			hdc = BeginPaint(hWnd, &ps);
+			// TODO: Add any drawing code here...
+			EndPaint(hWnd, &ps);
+		break;
+
+		case WM_DESTROY:
+			ShutdownInstance();
+			PostQuitMessage(0);
+		break;
+
 		default:
+			//logg(fp, "Leave WndProc()\n\n");
 			return DefWindowProc(hWnd, message, wParam, lParam);
-		}
-		break;
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		// TODO: Add any drawing code here...
-		EndPaint(hWnd, &ps);
-		break;
-	case WM_DESTROY:
-		ShutdownInstance();
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	}
+
+	} // end switch (message)
+
+	//logg(fp, "Leave WndProc()\n\n");
 	return 0;
-}
+
+} // end WndProc()
+
+
 
 
 
@@ -1166,13 +1604,17 @@ LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 	return FALSE;
-}
+
+} // end About()
+
+
 
 
 
 /****************** Utility Functions  *********************/
 BOOL CheckWritePermission(LPCSTR szPath) 
 {
+	logg(fp, "Enter CheckWritePermission()\n");
 	DWORD dwAttr = GetFileAttributes(szPath);
 	if (dwAttr == 0xffffffff)
 	{
@@ -1180,21 +1622,29 @@ BOOL CheckWritePermission(LPCSTR szPath)
 		if (dwError == ERROR_FILE_NOT_FOUND)
 		{
 			MessageBox(hWnd,FILE_NOT_FOUND,"Error",MB_ICONERROR);
+			logg(fp, "Error: %s\n", FILE_NOT_FOUND);
+			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
 		else if (dwError == ERROR_PATH_NOT_FOUND)
 		{
 			MessageBox(hWnd,PATH_NOT_FOUND,"Error",MB_ICONERROR);
+			logg(fp, "Error: %s\n", PATH_NOT_FOUND);
+			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
 		else if (dwError == ERROR_ACCESS_DENIED)
 		{
 			MessageBox(hWnd,ACCESS_DENIED,"Error",MB_ICONERROR);
+			logg(fp, "Error: %s\n", ACCESS_DENIED);
+			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
 		else
 		{
 			MessageBox(hWnd,UNDEFINED_ERROR,"Error",MB_ICONERROR);
+			logg(fp, "Error: %s\n", UNDEFINED_ERROR);
+			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
 	}
@@ -1202,22 +1652,72 @@ BOOL CheckWritePermission(LPCSTR szPath)
 	{
 		if (dwAttr & FILE_ATTRIBUTE_DIRECTORY)
 		{
+/*
+			// this is a directory
+			if (dwAttr & FILE_ATTRIBUTE_ARCHIVE)
+			// Directory is archive file
+			if (dwAttr & FILE_ATTRIBUTE_COMPRESSED)
+			// Directory is compressed
+			if (dwAttr & FILE_ATTRIBUTE_ENCRYPTED)
+			// Directory is encrypted
+			if (dwAttr & FILE_ATTRIBUTE_HIDDEN)
+			// Directory is hidden
+*/
 			if (dwAttr & FILE_ATTRIBUTE_READONLY)
 			{
+				logg(fp, "Leave CheckWritePermission()\n\n");
 				return FALSE;
 			}
 			// Directory is read-only
+/*
+			if (dwAttr & FILE_ATTRIBUTE_REPARSE_POINT)
+			// Directory has an associated reparse point
+			if (dwAttr & FILE_ATTRIBUTE_SYSTEM)
+			// Directory is part or used exclusively by the operating system
+*/
 		}
 		else
 		{
+/*
+			// this is an ordinary file
+			if (dwAttr & FILE_ATTRIBUTE_ARCHIVE)
+			// File is archive file
+			if (dwAttr & FILE_ATTRIBUTE_COMPRESSED)
+			// File is compressed
+			if (dwAttr & FILE_ATTRIBUTE_ENCRYPTED)
+			// File is encrypted
+			if (dwAttr & FILE_ATTRIBUTE_HIDDEN)
+			// File is hidden
+			if (dwAttr & FILE_ATTRIBUTE_NOT_CONTENT_INDEXED)
+			// File will not be indexed
+			if (dwAttr & FILE_ATTRIBUTE_OFFLINE)
+			// Data of file is not immediately available
+*/
 			if (dwAttr & FILE_ATTRIBUTE_READONLY)
 			{
+				logg(fp, "Leave CheckWritePermission()\n\n");
 				return FALSE;
 			}
+			// File is read-only
+/*
+			if (dwAttr & FILE_ATTRIBUTE_REPARSE_POINT)
+			// File has an associated reparse point
+			if (dwAttr & FILE_ATTRIBUTE_SPARSE_FILE)
+			// File is a sparse file
+			if (dwAttr & FILE_ATTRIBUTE_SYSTEM)
+			// File is part or used exclusively by the operating system
+			if (dwAttr & FILE_ATTRIBUTE_TEMPORARY)
+			// File is being used for temporary storage
+*/
 		}
 	}
+
+	logg(fp, "Leave CheckWritePermission()\n\n");
 	return TRUE;
-}
+
+} // BOOL CheckWritePermission()
+
+
 
 
 
@@ -1237,7 +1737,7 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 		// Find next "non-delimiter"
 		pos = str.find_first_of(delimiters, lastPos);
 	}
-}
+} // end Tokenize()
 
 
 
@@ -1252,16 +1752,18 @@ string getLangString(string key)
 		{	
 			err = NO_LANGSTRING_FOUND;
 			err += "\n" + key;
-			MessageBox(NULL,err.c_str(),"Error",16);		
+			MessageBox(NULL, err.c_str(), "Error",16);
+			logg(fp, "Error: %s\n", err);
 		}
 		return ret;
 	}
-	catch( char * str )
+	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",16);
+		MessageBox(NULL, str, "Error", 16);
+		logg(fp, "Error: %s\n", str);
 		return "";
 	}	
-}
+} // end getLangString()
 
 
 
@@ -1275,10 +1777,11 @@ BOOL getBool(string key)
 	}
 	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",16);
+		MessageBox(NULL, str, "Error", 16);
+		logg(fp, "Error: %s\n", str);
 		return FALSE;
 	}	
-}
+} // end getBool()
 
 
 
@@ -1290,15 +1793,20 @@ int getInt(string key)
 	}
 	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",16);
+		MessageBox(NULL, str, "Error", 16);
+		logg(fp, "Error: %s\n", str);
 		return FALSE;
 	}
-}
+} // end getInt()
+
+
 
 
 
 BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 {
+	logg(fp, "Enter HandleOpenRegistryKey()\n");
+
 	try
 	{
 		long lngRegOpen;
@@ -1312,20 +1820,20 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 		// Was the operation a success or did it produce an error?
 		// This makes absolutely no sense!
 
-		if (lngRegOpen == ERROR_SUCCESS) //MessageBox(hWnd," = ERROR_SUCCESS","lngRegOpen",16);
-		if (lngRegOpen != ERROR_SUCCESS)   MessageBox(hWnd,"!= ERROR_SUCCESS","lngRegOpen",16);
+		if (lngRegOpen == ERROR_SUCCESS) //MessageBox(hWnd, " = ERROR_SUCCESS", "lngRegOpen", 16);
+		if (lngRegOpen != ERROR_SUCCESS)   MessageBox(hWnd, "!= ERROR_SUCCESS", "lngRegOpen", 16);
 
 		if (lngRegOpen != ERROR_SUCCESS)
 		{
 			switch (lngRegOpen)
 			{
 				case ERROR_SUCCESS:
-					//MessageBox(hWnd,"HandleOpenRegistryKey(): Yes, enough rights for editing registry 1","Registry enough rights 1",16);
+					//MessageBox(hWnd, "HandleOpenRegistryKey(): Yes, enough rights for editing registry 1", "Registry enough rights 1", 16);
 					break;
 				case ERROR_FILE_NOT_FOUND :
 					if (bCreate)
 					{
-						lngRegCreate = RegCreateKey(hKey,subKey,pKey);
+						lngRegCreate = RegCreateKey(hKey, subKey, pKey);
 						switch (lngRegCreate)
 						{
 							case ERROR_SUCCESS:
@@ -1333,7 +1841,7 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 								break;
 							case ERROR_ACCESS_DENIED :
 							  //MessageBox(hWnd,"HandleOpenRegistryKey(): Not enough rights for editing registry",REGISTRY_WARNING,MB_ICONWARNING);
-							  //MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
+							  //MessageBox(hWnd, NOT_ENOUGH_REGISTRY_RIGHTS_ERROR, REGISTRY_WARNING, MB_ICONWARNING);
 								return FALSE;
 								break;
 							default :
@@ -1346,13 +1854,21 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 			} // end switch
 		} // end if
 	} // end try
+
 	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",16);
+		MessageBox(NULL, str, "Error", 16);
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave HandleOpenRegistryKey()\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave HandleOpenRegistryKey()\n\n");
 	return TRUE;
-}
+
+} // end HandleOpenRegistryKey()
+
+
 
 
 
@@ -1364,6 +1880,8 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 
 	long lngRegSet;
 	long lngRegGet;
+
+	logg(fp, "Enter HandleSetRegistryKeyValue()\n");
 
 	try
 	{
@@ -1384,20 +1902,30 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 					mpParam[sParam] = "0";
 				  //MessageBox(hWnd,"HandleSetRegistryKeyValue(): not enough rights for editing registry",REGISTRY_WARNING,MB_ICONWARNING);
 				  //MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
+					logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
 					return FALSE;
 				default :
 					mpParam[sParam] = "0";
+					logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
 					return FALSE;
 			}
 		}
 	}
+
 	catch (char* str)
 	{		
-		MessageBox(NULL,str,"Error",16);
+		MessageBox(NULL, str, "Error", 16);
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
 	return TRUE;
-}
+
+} // end HandleSetRegistryKeyValue()
+
+
 
 
 
@@ -1405,28 +1933,28 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 //* Only in trunk version (XUL-Runner)
 //************************************
 
-BOOL SetVersionInfo() 
+BOOL SetVersionInfo()
 {
 	switch (sysVersionInfo.GetVersion())
 	{			
-	case WIN_NT_351 :
-	case WIN_NT_40  :
-	case WIN_2000  :
-	case WIN_XP    :
-	case WIN_VISTA :
-		IsNewOS = TRUE;
-		return TRUE;
-		break;
-	case WIN_95 :
-	case WIN_98 :
-	case WIN_ME :
-		IsNewOS = FALSE;
-		return TRUE;
-		break;
-	default :
-		return FALSE;			
+		case WIN_NT_351 :
+		case WIN_NT_40  :
+		case WIN_2000  :
+		case WIN_XP    :
+		case WIN_VISTA :
+			IsNewOS = TRUE;
+			return TRUE;
+			break;
+		case WIN_95 :
+		case WIN_98 :
+		case WIN_ME :
+			IsNewOS = FALSE;
+			return TRUE;
+			break;
+		default :
+			return FALSE;			
 	}
-}
+} // end SetVersionInfo()
 
 
 
@@ -1452,13 +1980,17 @@ BOOL ShowSebAppChooser()
 			RegCloseKey(hKeySEB);
 		}
 	}
+
 	catch (char* str)
 	{
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
 	}
+
 	if (!inReg)
 	{
 		retVal = getBool("SHOW_SEB_APP_CHOOSER");
 	}
+
 	return retVal;
-}
+
+} // end ShowSebAppChooser()
