@@ -687,7 +687,7 @@ BOOL ReadIniFile()
 		logg(fp, "sApplicationName = %s\n", sApplicationName.c_str());
 		logg(fp, "sCommandLine     = %s\n",     sCommandLine.c_str());
 
-		logg(fp, "sebProcessVector[0] = %s\t", sebProcessVector[0].c_str());
+		logg(fp, "sebProcessVector[0] = %s\n", sebProcessVector[0].c_str());
 		logg(fp, "sebProcessVector[1] = %s\n", sebProcessVector[1].c_str());
 
 		// Add the SEB process to the process list
