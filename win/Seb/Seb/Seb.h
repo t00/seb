@@ -40,6 +40,32 @@ bool  logFileDesired = true;
 char* logFileName    = SEB_LOG_FILE;
 FILE* fp;
 
+
+// Socket structures for IPC (interprocess communication)
+// between SEB (client) and Windows service (server)
+
+#define BUFLEN 512
+
+WSADATA wsaData;
+SOCKET  ConnectSocket = INVALID_SOCKET;
+int     result;
+
+//char *message  = "$GPRMC,162614,A,5230.5900,N,01322.3900,E,10.0,90.0,131006,1.2,E,A*13";
+char   *message1 = "$GPRMC,072436.0000,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
+char   *message2 = "$GPRMC,072436.00,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
+char   *message3 = "$GPRMC,072436.00,V,4723.0490,N,833.2779,E,,311.41,181007,,*0B,AUTO";
+char    sendBuf[BUFLEN];
+
+char*   hostName   = "";
+char*   userName   = "";
+int     portNumber = 0;
+int     interval   = 10;
+int     messages   = 1000000;
+
+struct hostent *remoteHost;
+struct in_addr  addr;
+
+
 // Other constants
 #define IDM_START   9001
 #define IDM_OFFSET 37265
