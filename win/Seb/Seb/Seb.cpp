@@ -846,6 +846,37 @@ BOOL GetClientInfo()
 
 			// TODO
 
+			HANDLE  ProcessHandle = NULL;
+			DWORD   DesiredAccess = 0;
+			HANDLE  TokenHandle   = NULL;
+
+			TOKEN_INFORMATION_CLASS TokenInformationClass;
+			LPVOID TokenInformation      = NULL;
+			DWORD  TokenInformationLength = 0;
+			DWORD  ReturnLength           = 0;
+
+			BOOL b1 = OpenProcessToken(ProcessHandle, DesiredAccess, &TokenHandle);
+			BOOL b2 = GetTokenInformation(TokenHandle     , TokenInformationClass,
+										  TokenInformation, TokenInformationLength,
+										  &ReturnLength);
+
+/*
+			BOOL OpenProcessToken(HANDLE ProcessHandle, DWORD DesiredAccess, PHANDLE TokenHandle);
+			BOOL GetTokenInformation(HANDLE TokenHandle     , TOKEN_INFORMATION_CLASS TokenInformationClass,
+									 LPVOID TokenInformation, DWORD                   TokenInformationLength,
+									 PDWORD ReturnLength);
+*/
+
+			//if ((b1 == TRUE) && (b2 == TRUE))
+			{
+				//MessageBox(NULL, cHostName, "cHostName", 16);
+				//logg(fp, "TokenInformationLength = %s\n", TokenHandle->
+				//logg(fp, "TokenInformationClass  = %s\n", TokenInformationClass->
+				logg(fp, "TokenInformationLength = %d\n", TokenInformationLength);
+				logg(fp, "          ReturnLength = %d\n",           ReturnLength);
+			}
+
+
 			// Get the current hostname
 
 			int hostRes;
