@@ -28,6 +28,10 @@
 #include "KillProc.h"
 #include "ProcMonitor.h"
 
+//These usings are only working in .NET, not in Standard C++:
+//using namespace System::Security::Principal;
+//using System.Security.Principal;
+
 
 /* Forward declarations of functions included in this code module: */
 LRESULT CALLBACK	WndProc(HWND,  UINT, WPARAM, LPARAM);
@@ -81,8 +85,9 @@ TCHAR szWindowClass[MAX_LOADSTRING];		// the main window class name
 SystemVersionInfo sysVersionInfo;				
 BOOL IsNewOS = FALSE;
 BOOL b1, b2, b3;
-char cHostname[255];						//char with Hostname
-char* cIp;									//Pointer to char with IP Address
+char  cHostName[255];						//char with hostname
+char  cUserName[255];						//char with username
+char* cIp;									//Pointer to hostname with IP Address
 map< string, string > mpParam;				//map for *.ini parameters
 map< string, string > mpProcesses;
 vector< long> previousProcesses;			// troxler
@@ -806,22 +811,58 @@ BOOL GetClientInfo()
 {
 	WORD     wVersionRequested;
 	WSADATA  wsaData;		
-	PHOSTENT hostinfo;
+	PHOSTENT hostInfo;
 	wVersionRequested = MAKEWORD(2, 0);
 
 	logg(fp, "Enter GetClientInfo()\n");
+	logg(fp, "\n");
 
 	try
 	{
 		if (WSAStartup(wVersionRequested, &wsaData) == 0)
 		{
-			if (gethostname(cHostname, sizeof(cHostname)) == 0)
+			// Get the current username
+
+			DWORD cUserNameLen  = sizeof(cUserName);
+			DWORD cUserNameLen2 = 0;
+
+			BOOL user = GetUserName(cUserName, &cUserNameLen);
+			userName  = cUserName;
+
+			if (cUserName != NULL)
 			{
-				//MessageBox(NULL, cHostname, "cHostname", 16);
-				logg(fp, "cHostname = %s\n", cHostname);
-				if((hostinfo = gethostbyname(cHostname)) != NULL)
+				cUserNameLen2 = strlen(cUserName);
+				logg(fp, " userName     = %s\n",  userName);
+				logg(fp, "cUserName     = %s\n", cUserName);
+				logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
+				logg(fp, "cUserNameLen2 = %d\n", cUserNameLen2);
+			}
+
+            // Get the SID (security identifier) of the current user.
+			// This works only in .NET projects!
+            //WindowsIdentity    currentUser     = WindowsIdentity.GetCurrent();
+            //SecurityIdentifier currentUserSid  = currentUser.User;
+            //string             currentUserName = currentUser.Name;
+
+			// TODO
+
+			// Get the current hostname
+
+			int hostRes;
+			hostRes  = gethostname(cHostName, sizeof(cHostName));
+			hostName = cHostName;
+
+			if (hostRes == 0)
+			{
+				//MessageBox(NULL, cHostName, "cHostName", 16);
+				logg(fp, "cHostName = %s\n", cHostName);
+				logg(fp, " hostName = %s\n",  hostName);
+				hostInfo   = gethostbyname(cHostName);
+				remoteHost = gethostbyname( hostName);
+				if (hostInfo != NULL)
 				{
-					cIp = inet_ntoa(*(struct in_addr *)*hostinfo->h_addr_list);
+					logg(fp, "hostInfo->h_name = %s\n", hostInfo->h_name);
+					cIp = inet_ntoa(*(struct in_addr *)*hostInfo->h_addr_list);
 				}
 			}
 			WSACleanup( );
@@ -834,6 +875,23 @@ BOOL GetClientInfo()
 		logg(fp, "Leave GetClientInfo()\n\n");
 		return FALSE;
 	}
+
+	/* Symbolic and numeric IP address */ 
+	addr.s_addr = *(u_long *) remoteHost->h_addr_list[0];
+
+	logg(fp, "h_name      : %s\n", remoteHost->h_name);
+	logg(fp, "IP Address  : %s\n", inet_ntoa(addr));
+	logg(fp, "address type: ");
+	switch (remoteHost->h_addrtype)
+	{
+		case AF_INET:    logg(fp, "AF_INET\n");    break;
+		case AF_INET6:   logg(fp, "AF_INET6\n");   break;
+		case AF_NETBIOS: logg(fp, "AF_NETBIOS\n"); break;
+		default:                               break;
+	}
+	logg(fp, "h_addrtype  : %d\n", remoteHost->h_addrtype);
+	logg(fp, "h_length    : %d\n", remoteHost->h_length);    
+	logg(fp, "\n");
 
 	logg(fp, "Leave GetClientInfo()\n\n");
 	return TRUE;
