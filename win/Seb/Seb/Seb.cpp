@@ -1509,7 +1509,7 @@ BOOL CreateExternalProcess(string sProcess)
 BOOL ShutdownInstance()
 {
 	//MessageBox(NULL,"shutdown","Error",MB_ICONERROR);
-	logg(fp, "Entering ShutdownInstance()\n");
+	logg(fp, "Enter ShutdownInstance()\n");
 
 	DWORD dwNotUsedForAnything = 0;	
 	int ret;
@@ -1606,7 +1606,7 @@ BOOL ShutdownInstance()
 	}
 
 	// Close the logfile for debug output
-	logg(fp, "Leaving ShutdownInstance()\n\n");
+	logg(fp, "Leave ShutdownInstance()\n\n");
 	fclose(fp);
 	return TRUE;
 
