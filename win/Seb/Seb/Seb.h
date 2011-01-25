@@ -58,7 +58,7 @@ char    sendBuf[BUFLEN];
 
 char*   hostName   = "";
 char*   userName   = "";
-int     portNumber = 0;
+int     portNumber = 27016;
 int     interval   = 1;
 int     messages   = 3;
 
