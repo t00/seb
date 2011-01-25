@@ -835,6 +835,7 @@ BOOL GetClientInfo()
 				logg(fp, "cUserName     = %s\n", cUserName);
 				logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
 				logg(fp, "cUserNameLen2 = %d\n", cUserNameLen2);
+				logg(fp, "\n");
 			}
 
             // Get the SID (security identifier) of the current user.
@@ -873,6 +874,7 @@ BOOL GetClientInfo()
 				//logg(fp, "TokenInformationClass  = %s\n", TokenInformationClass->
 				logg(fp, "TokenInformationLength = %d\n", TokenInformationLength);
 				logg(fp, "          ReturnLength = %d\n",           ReturnLength);
+				logg(fp, "\n");
 			}
 
 
@@ -885,8 +887,10 @@ BOOL GetClientInfo()
 			if (hostRes == 0)
 			{
 				//MessageBox(NULL, cHostName, "cHostName", 16);
-				logg(fp, "cHostName = %s\n", cHostName);
-				logg(fp, " hostName = %s\n",  hostName);
+				logg(fp, "cHostName   = %s\n", cHostName);
+				logg(fp, " hostName   = %s\n",  hostName);
+				logg(fp, " portNumber = %d\n",  portNumber);
+				logg(fp, "\n");
 				hostInfo   = gethostbyname(cHostName);
 				remoteHost = gethostbyname( hostName);
 				if (hostInfo != NULL)
@@ -956,6 +960,11 @@ BOOL GetClientInfo()
   //clientService.sin_addr.s_addr = inet_addr("129.132.26.158");
 	clientService.sin_addr.s_addr = addr.s_addr;
 	clientService.sin_port        = htons(portNumber);
+
+	logg(fp, "clientService.sin_family      = %d\n", clientService.sin_family);
+	logg(fp, "clientService.sin_addr.s_addr = %d\n", clientService.sin_addr.s_addr);
+	logg(fp, "clientService.sin_port        = %d\n", clientService.sin_port);
+	logg(fp, "\n");
 
 
 	//----------------------
