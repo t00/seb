@@ -59,8 +59,8 @@ char    sendBuf[BUFLEN];
 char*   hostName   = "";
 char*   userName   = "";
 int     portNumber = 0;
-int     interval   = 10;
-int     messages   = 1000000;
+int     interval   = 1;
+int     messages   = 3;
 
 struct hostent *remoteHost;
 struct in_addr  addr;
