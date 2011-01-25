@@ -983,44 +983,59 @@ BOOL GetClientInfo()
 	else logg(fp, "Connected to server\n\n");
 
 
-	// Send several test messages to server
-	int counter;
+	// Send messages with client info to server
+/*
+	// Send username to server
+	sprintf(sendBuf, "username = %s\n", userName);
+	fflush(stdout);
+
+	result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
+
+	if (result < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
+	logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
+
 	strcpy(sendBuf, "");
 	fflush(stdout);
 
+
+	// Send hostname to server
+	sprintf(sendBuf, "hostname = %s\n", hostName);
+	fflush(stdout);
+
+	result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
+
+	if (result < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
+	logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
+*/
+	strcpy(sendBuf, "");
+	fflush(stdout);
+
+
+
+	// Send several test messages to server
+	int  counter;
+	//messages = 0;
 	for (counter = 1; counter <= messages; counter++)
 	{
 		// Test messages of varying contents and length
-		if ((counter % 3) == 1) strcpy(sendBuf, message1);
-		if ((counter % 3) == 2) strcpy(sendBuf, message2);
-		if ((counter % 3) == 0) strcpy(sendBuf, message3);
+		strcpy(sendBuf, message1);
+		strcpy(sendBuf, message2);
+		strcpy(sendBuf, message3);
 
 		// Send buffer contents to server
 		logg(fp, "Sending to server...\n");
 		result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
 
-		if (result < 0)
-		{
-			logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
-			//closesocket(ConnectSocket);
-			//WSACleanup();
-			//logg(fp, "Leave GetClientInfo()\n\n");
-			//return TRUE;
-		}
-		else
-		{
-			logg(fp, "Sent to server\n\n");
-			logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
-		}
+		if (result < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
+
+		strcpy(sendBuf, "");
+		fflush(stdout);
 
 		// Wait for [interval] seconds before sending the next message
 		// Note  that the Sleep() command comes from Windows,
 		// and is not the sleep() command known from UNIX.
 		// Nevertheless, both commands expect the time span in milliseconds.
-
-		strcpy(sendBuf, "");
-		fflush(stdout);
-
 		Sleep(1000 * interval);
 
 	} // next counter
