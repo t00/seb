@@ -810,12 +810,11 @@ BOOL ReadProcessesInRegistry()
 BOOL GetClientInfo()
 {
 	WORD     wVersionRequested;
-	WSADATA  wsaData;		
+	//WSADATA  wsaData;		
 	PHOSTENT hostInfo;
 	wVersionRequested = MAKEWORD(2, 0);
 
-	logg(fp, "Enter GetClientInfo()\n");
-	logg(fp, "\n");
+	logg(fp, "Enter GetClientInfo()\n\n");
 
 	try
 	{
@@ -896,16 +895,19 @@ BOOL GetClientInfo()
 					cIp = inet_ntoa(*(struct in_addr *)*hostInfo->h_addr_list);
 				}
 			}
-			WSACleanup( );
+			//Do NOT call WSACleanup() here, since from now on we use sockets!
+			//WSACleanup();
 		}
 	}
 	catch (char* str)
 	{		
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
-		logg(fp, "Error: %s\n", str);
+		logg(fp, "Error: %s\n\n", str);
 		logg(fp, "Leave GetClientInfo()\n\n");
+		WSACleanup();
 		return FALSE;
 	}
+
 
 	/* Symbolic and numeric IP address */ 
 	addr.s_addr = *(u_long *) remoteHost->h_addr_list[0];
@@ -918,11 +920,120 @@ BOOL GetClientInfo()
 		case AF_INET:    logg(fp, "AF_INET\n");    break;
 		case AF_INET6:   logg(fp, "AF_INET6\n");   break;
 		case AF_NETBIOS: logg(fp, "AF_NETBIOS\n"); break;
-		default:                               break;
+		default:                                   break;
 	}
 	logg(fp, "h_addrtype  : %d\n", remoteHost->h_addrtype);
 	logg(fp, "h_length    : %d\n", remoteHost->h_length);    
 	logg(fp, "\n");
+
+
+	//----------------------
+	// Create a SOCKET for connecting to server
+
+	int ai_family   = AF_INET;
+	int ai_socktype = SOCK_STREAM;
+	int ai_protocol = IPPROTO_TCP;
+
+	logg(fp, "Creating the ConnectSocket...\n");
+	ConnectSocket = socket(ai_family, ai_socktype, ai_protocol);
+	if (ConnectSocket == INVALID_SOCKET)
+	{
+		logg(fp, "socket() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "Leave GetClientInfo()\n\n");
+		WSACleanup();
+		return TRUE;
+	}
+	else logg(fp, "ConnectSocket created\n\n");
+
+
+	//----------------------
+	// The sockaddr_in structure specifies the address family,
+	// IP address, and port of the server to be connected to.
+
+	struct sockaddr_in clientService;
+
+	clientService.sin_family      = AF_INET;
+  //clientService.sin_addr.s_addr = inet_addr("129.132.26.158");
+	clientService.sin_addr.s_addr = addr.s_addr;
+	clientService.sin_port        = htons(portNumber);
+
+
+	//----------------------
+	// Connect to server
+	logg(fp, "Connecting to server...\n");
+	result = connect(ConnectSocket, (SOCKADDR*) &clientService, sizeof(clientService));
+	if (result == SOCKET_ERROR)
+	{
+		logg(fp, "connect() failed with error code %d\n\n", WSAGetLastError());
+		closesocket(ConnectSocket);
+		ConnectSocket = INVALID_SOCKET;
+		logg(fp, "Leave GetClientInfo()\n\n");
+		WSACleanup();
+		return TRUE;
+	}
+	else logg(fp, "Connected to server\n\n");
+
+
+	// Send several test messages to server
+	int counter;
+	strcpy(sendBuf, "");
+	fflush(stdout);
+
+	for (counter = 1; counter <= messages; counter++)
+	{
+		// Test messages of varying contents and length
+		if ((counter % 3) == 1) strcpy(sendBuf, message1);
+		if ((counter % 3) == 2) strcpy(sendBuf, message2);
+		if ((counter % 3) == 0) strcpy(sendBuf, message3);
+
+		// Send buffer contents to server
+		logg(fp, "Sending to server...\n");
+		result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
+
+		if (result < 0)
+		{
+			logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
+			//closesocket(ConnectSocket);
+			//WSACleanup();
+			//logg(fp, "Leave GetClientInfo()\n\n");
+			//return TRUE;
+		}
+		else
+		{
+			logg(fp, "Sent to server\n\n");
+			logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
+		}
+
+		// Wait for [interval] seconds before sending the next message
+		// Note  that the Sleep() command comes from Windows,
+		// and is not the sleep() command known from UNIX.
+		// Nevertheless, both commands expect the time span in milliseconds.
+
+		strcpy(sendBuf, "");
+		fflush(stdout);
+
+		Sleep(1000 * interval);
+
+	} // next counter
+
+
+	// Shutdown the connection since we're done
+	logg(fp, "Shutting down the ConnectSocket...\n");
+	result = shutdown(ConnectSocket, SD_SEND);
+	if (result == SOCKET_ERROR)
+	{
+		logg(fp, "shutdown() failed with error code %d\n\n", WSAGetLastError());
+		//closesocket(ConnectSocket);
+		//WSACleanup();
+		//logg(fp, "Leave GetClientInfo()\n\n");
+		//return TRUE;
+	}
+	else logg(fp, "ConnectSocket has been shut down\n\n");
+
+
+	// Close the ConnectSocket
+	closesocket(ConnectSocket);
+	WSACleanup();
 
 	logg(fp, "Leave GetClientInfo()\n\n");
 	return TRUE;
