@@ -124,7 +124,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	if (fp == NULL)
 	{
-		MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
+		//MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
 	}
 
 	//MessageBox(NULL, "Starting SEB...", "tWinMain():", MB_ICONERROR);
@@ -571,8 +571,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	{
 		logFileDesired = false;
 		logg(fp, "No logfile desired, therefore closing and removing logfile\n");
-		fclose(fp);
-		remove(logFileName);
+		if (fp != NULL)
+		{
+			fclose(fp);
+			remove(logFileName);
+		}
 	}
 
 	logg(fp, "Leave InitInstance()\n\n");
@@ -1622,7 +1625,7 @@ BOOL ShutdownInstance()
 
 	// Close the logfile for debug output
 	logg(fp, "Leave ShutdownInstance()\n\n");
-	fclose(fp);
+	if (fp != NULL) fclose(fp);
 	return TRUE;
 
 } // end ShutdownInstance()
