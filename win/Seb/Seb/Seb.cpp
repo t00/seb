@@ -916,7 +916,8 @@ BOOL GetClientInfo()
 	}
 
 
-	/* Symbolic and numeric IP address */ 
+	// Get the symbolic and numeric IP address
+
 	addr.s_addr = *(u_long *) remoteHost->h_addr_list[0];
 
 	logg(fp, "h_name      : %s\n", remoteHost->h_name);
@@ -934,8 +935,7 @@ BOOL GetClientInfo()
 	logg(fp, "\n");
 
 
-	//----------------------
-	// Create a SOCKET for connecting to server
+	// Create a SOCKET for connecting to the server
 
 	int ai_family   = AF_INET;
 	int ai_socktype = SOCK_STREAM;
@@ -953,7 +953,6 @@ BOOL GetClientInfo()
 	else logg(fp, "ConnectSocket created\n\n");
 
 
-	//----------------------
 	// The sockaddr_in structure specifies the address family,
 	// IP address, and port of the server to be connected to.
 
@@ -970,8 +969,8 @@ BOOL GetClientInfo()
 	logg(fp, "\n");
 
 
-	//----------------------
-	// Connect to server
+	// Connect to the server
+
 	logg(fp, "Connecting to server...\n");
 	result = connect(ConnectSocket, (SOCKADDR*) &clientService, sizeof(clientService));
 	if (result == SOCKET_ERROR)
@@ -986,10 +985,12 @@ BOOL GetClientInfo()
 	else logg(fp, "Connected to server\n\n");
 
 
-	// Send messages with client info to server
-/*
+	// Send messages with client info to the server
+
+
 	// Send username to server
-	sprintf(sendBuf, "username = %s\n", userName);
+	sprintf(sendBuf, "username=%s", userName);
+	strcat(sendBuf, endOfStringKeyWord);
 	fflush(stdout);
 
 	result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
@@ -999,25 +1000,29 @@ BOOL GetClientInfo()
 
 	strcpy(sendBuf, "");
 	fflush(stdout);
+	Sleep(1 * interval);
 
 
 	// Send hostname to server
-	sprintf(sendBuf, "hostname = %s\n", hostName);
+	sprintf(sendBuf, "hostname=%s", hostName);
+	strcat(sendBuf, endOfStringKeyWord);
 	fflush(stdout);
 
 	result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
 
 	if (result < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
 	logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
-*/
+
 	strcpy(sendBuf, "");
 	fflush(stdout);
+	Sleep(1 * interval);
 
 
+	// Send several test messages to the server
 
-	// Send several test messages to server
 	int  counter;
-	//messages = 0;
+	messages = 0;
+
 	for (counter = 1; counter <= messages; counter++)
 	{
 		// Test messages of varying contents and length
@@ -1044,7 +1049,8 @@ BOOL GetClientInfo()
 	} // next counter
 
 
-	// Shutdown the connection since we're done
+	// Shutdown the connection
+
 	logg(fp, "Shutting down the ConnectSocket...\n");
 	result = shutdown(ConnectSocket, SD_SEND);
 	if (result == SOCKET_ERROR)
