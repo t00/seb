@@ -54,7 +54,14 @@ int     result;
 char   *message1 = "$GPRMC,072436.0000,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
 char   *message2 = "$GPRMC,072436.00,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
 char   *message3 = "$GPRMC,072436.00,V,4723.0490,N,833.2779,E,,311.41,181007,,*0B,AUTO";
+
+const char* endOfStringKeyWord = "SEB_STOP";
+
 char    sendBuf[BUFLEN];
+
+//char   *message1 = "Username = alpha";
+//char   *message2 = "Hostname = beta";
+//char   *message3 = "IP addres = 111.222.333.444";
 
 char*   hostName   = "";
 char*   userName   = "";
