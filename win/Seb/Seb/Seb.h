@@ -63,11 +63,17 @@ char    sendBuf[BUFLEN];
 //char   *message2 = "Hostname = beta";
 //char   *message3 = "IP addres = 111.222.333.444";
 
-char*   hostName   = "";
-char*   userName   = "";
-int     portNumber = 27016;
-int     interval   = 1;
-int     messages   = 3;
+char*   defaultUserName     = "";
+char*   defaultHostName     = "localhost";
+int     defaultPortNumber   = 27016;
+int     defaultSendInterval = 1;
+int     defaultNumMessages  = 3;
+
+char*   userName     = "";
+char*   hostName     = "";
+int     portNumber   = 0;
+int     sendInterval = 0;
+int     numMessages  = 0;
 
 struct hostent *remoteHost;
 struct in_addr  addr;
