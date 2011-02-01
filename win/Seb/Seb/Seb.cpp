@@ -819,6 +819,23 @@ BOOL GetClientInfo()
 
 	logg(fp, "Enter GetClientInfo()\n\n");
 
+	// Set the default values for the
+	// socket communication parameters.
+	// Currently, we use sockets on the same machine,
+	// so we define in "Seb.ini" the default values
+	//
+	// defaultUserName     = "";
+	// defaultHostName     = "localhost";
+	// defaultPortNumber   = 27016;
+	// defaultSendInterval = 1;
+	// defaultNumMessages  = 3;
+
+	userName     = defaultUserName;
+	hostName     = defaultHostName;
+	portNumber   = defaultPortNumber;
+	sendInterval = defaultSendInterval;
+	numMessages  = defaultNumMessages;
+
 	try
 	{
 		if (WSAStartup(wVersionRequested, &wsaData) == 0)
@@ -881,20 +898,64 @@ BOOL GetClientInfo()
 			}
 
 
-			// Get the current hostname
+			// Debug output of socket communication parameters
+			logg(fp, " userName     = %s\n", userName);
+			logg(fp, " hostName     = %s\n", hostName);
+			logg(fp, " portNumber   = %d\n", portNumber);
+			logg(fp, " sendInterval = %d\n", sendInterval);
+			logg(fp, " numMessages  = %d\n", numMessages);
+			logg(fp, "\n");
 
-			int hostRes;
-			hostRes  = gethostname(cHostName, sizeof(cHostName));
-			hostName = cHostName;
 
-			if (hostRes == 0)
+			// If the user input is an alpha name for the host, use gethostbyname()
+			// If not, get host by addr (assume IPv4)
+
+			//struct hostent *remoteHost;
+			struct in_addr addr;
+
+			if (isalpha(hostName[0]))
+			{
+				/* host address is a name, e.g. "ilgpcs" or "ilgpcs.d.ethz.ch" */
+				logg(fp, "Calling gethostbyname() with symbolic address: %s\n\n", hostName);
+				remoteHost = gethostbyname(hostName);
+			}
+			else
+			{
+				/* host address is a number (IP address, e.g. "129.132.26.158") */    
+				logg(fp, "Calling gethostbyaddr() with numeric address: %s\n\n", hostName);
+				addr.s_addr = inet_addr(hostName);
+				if (addr.s_addr == INADDR_NONE)
+				{
+					logg(fp, "The IPv4 address entered must be a legal address\n");
+					//WSACleanup();
+					//return 1;
+				}
+				remoteHost = gethostbyaddr((char *) &addr, 4, AF_INET);
+			}
+
+			if (remoteHost == NULL)
+			{
+				logg(fp, "gethostbyname / gethostbyaddr failed: %ld\n", WSAGetLastError());
+				//WSACleanup();
+				//return 1;
+			}
+
+
+			strcpy(cHostName, hostName);
+			//int hostRes;
+			//hostRes  = gethostname(cHostName, sizeof(cHostName));
+			//hostName = cHostName;
+
+			if (remoteHost != NULL)
+			//if (hostRes == 0)
 			{
 				//MessageBox(NULL, cHostName, "cHostName", 16);
 				logg(fp, "cHostName   = %s\n", cHostName);
 				logg(fp, " hostName   = %s\n",  hostName);
 				logg(fp, " portNumber = %d\n",  portNumber);
 				logg(fp, "\n");
-				hostInfo   = gethostbyname(cHostName);
+				//hostInfo   = gethostbyname(cHostName);
+				hostInfo   = remoteHost;
 				remoteHost = gethostbyname( hostName);
 				if (hostInfo != NULL)
 				{
@@ -1000,7 +1061,7 @@ BOOL GetClientInfo()
 
 	strcpy(sendBuf, "");
 	fflush(stdout);
-	Sleep(1 * interval);
+	Sleep(1 * sendInterval);
 
 
 	// Send hostname to server
@@ -1015,15 +1076,15 @@ BOOL GetClientInfo()
 
 	strcpy(sendBuf, "");
 	fflush(stdout);
-	Sleep(1 * interval);
+	Sleep(1 * sendInterval);
 
 
 	// Send several test messages to the server
 
-	int  counter;
-	messages = 0;
+	int messageNr;
+	numMessages = 0;
 
-	for (counter = 1; counter <= messages; counter++)
+	for (messageNr = 1; messageNr <= numMessages; messageNr++)
 	{
 		// Test messages of varying contents and length
 		strcpy(sendBuf, message1);
@@ -1040,13 +1101,13 @@ BOOL GetClientInfo()
 		strcpy(sendBuf, "");
 		fflush(stdout);
 
-		// Wait for [interval] seconds before sending the next message
+		// Wait for [sendInterval] seconds before sending the next message
 		// Note  that the Sleep() command comes from Windows,
 		// and is not the sleep() command known from UNIX.
 		// Nevertheless, both commands expect the time span in milliseconds.
-		Sleep(1000 * interval);
+		Sleep(1000 * sendInterval);
 
-	} // next counter
+	} // next messageNr
 
 
 	// Shutdown the connection
