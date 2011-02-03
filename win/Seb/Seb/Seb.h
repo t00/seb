@@ -143,10 +143,10 @@ struct in_addr  addr;
 
 
 
-LPCTSTR KEY_RegPolicySystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
-LPCTSTR KEY_RegPolicyExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
-LPCTSTR KEY_RegPolicySEB      = "Software\\Policies\\SEB";
-LPCTSTR KEY_RegVMwareClient   = "Software\\VMware, Inc.\\VMware VDM\\Client";
+LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
+LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
+LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
+LPCTSTR KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
 LPCTSTR VAL_HideFastUserSwitching  = "HideFastUserSwitching";
 LPCTSTR VAL_DisableLockWorkstation = "DisableLockWorkstation";
