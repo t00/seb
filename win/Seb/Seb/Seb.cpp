@@ -771,7 +771,7 @@ BOOL ReadProcessesInRegistry()
 		LONG  returnStatus;
 		DWORD dwType = REG_SZ;
 		DWORD dwSize = 255;
-		if (!HandleOpenRegistryKey(HKLM, KEY_RegPolicySEB, &hKeySEB, FALSE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKLM, KEY_PoliciesSEB, &hKeySEB, FALSE)) return FALSE;
 		returnStatus = RegQueryValueEx(hKeySEB, VAL_PERMITTED_APPS, NULL, &dwType,(LPBYTE)&lszValue, &dwSize);
 
 		if (returnStatus == ERROR_SUCCESS)
@@ -1156,7 +1156,7 @@ BOOL EditRegistry()
 	{
 		// Open the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
-		openedHKLMPolicySystem = HandleOpenRegistryKey(HKLM, KEY_RegPolicySystem  , &hklmSystem  , TRUE);
+		openedHKLMPolicySystem = HandleOpenRegistryKey(HKLM, KEY_PoliciesSystem  , &hklmSystem  , TRUE);
 		if (openedHKLMPolicySystem)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) succeeded", "Registry", 16);
@@ -1172,7 +1172,7 @@ BOOL EditRegistry()
 
 		// Open the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System
-		openedHKCUPolicySystem = HandleOpenRegistryKey(HKCU, KEY_RegPolicySystem  , &hkcuSystem  , TRUE);
+		openedHKCUPolicySystem = HandleOpenRegistryKey(HKCU, KEY_PoliciesSystem  , &hkcuSystem  , TRUE);
 		if (openedHKCUPolicySystem)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) succeeded", "Registry", 16);
@@ -1188,7 +1188,7 @@ BOOL EditRegistry()
 
 		// Open the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
-		openedHKCUPolicyExplorer = HandleOpenRegistryKey(HKCU, KEY_RegPolicyExplorer, &hkcuExplorer, TRUE);
+		openedHKCUPolicyExplorer = HandleOpenRegistryKey(HKCU, KEY_PoliciesExplorer, &hkcuExplorer, TRUE);
 		if (openedHKCUPolicyExplorer)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) succeeded", "Registry", 16);
@@ -1204,7 +1204,7 @@ BOOL EditRegistry()
 
 		// Open the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client
-		openedHKCUVMwareClient = HandleOpenRegistryKey(HKCU, KEY_RegVMwareClient, &hkcuVMwareClient, TRUE);
+		openedHKCUVMwareClient = HandleOpenRegistryKey(HKCU, KEY_VMwareClient, &hkcuVMwareClient, TRUE);
 		if (openedHKCUVMwareClient)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VMwareClient) succeeded", "Registry", 16);
@@ -1438,10 +1438,10 @@ BOOL ResetRegistry()
 
 	try
 	{
-		if (!HandleOpenRegistryKey(HKLM, KEY_RegPolicySystem  , &hklmSystem      , TRUE)) return FALSE;
-		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicySystem  , &hkcuSystem      , TRUE)) return FALSE;
-		if (!HandleOpenRegistryKey(HKCU, KEY_RegPolicyExplorer, &hkcuExplorer    , TRUE)) return FALSE;
-		if (!HandleOpenRegistryKey(HKCU, KEY_RegVMwareClient  , &hkcuVMwareClient, TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKLM, KEY_PoliciesSystem  , &hklmSystem      , TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKCU, KEY_PoliciesSystem  , &hkcuSystem      , TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKCU, KEY_PoliciesExplorer, &hkcuExplorer    , TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKCU, KEY_VMwareClient    , &hkcuVMwareClient, TRUE)) return FALSE;
 
 		if (getBool("REG_HIDE_FAST_USER_SWITCHING")) 
 		{
@@ -2263,7 +2263,7 @@ BOOL ShowSebAppChooser()
 		DWORD dwType =    REG_DWORD;
 		DWORD dwSize = sizeof(DWORD);
 		LONG returnStatus;
-		if (HandleOpenRegistryKey(HKLM, KEY_RegPolicySEB, &hKeySEB, FALSE))
+		if (HandleOpenRegistryKey(HKLM, KEY_PoliciesSEB, &hKeySEB, FALSE))
 		{
 			returnStatus = RegQueryValueEx(hKeySEB, VAL_ShowSEBAppChooser, NULL, &dwType,(LPBYTE)&showSEBAppChooser, &dwSize);
 			if (returnStatus == ERROR_SUCCESS)
