@@ -32,52 +32,23 @@
 #define SEB_INI_FILE "../Seb.ini"
 #define SEB_LOG_FILE "Seb.log"
 
-// Function for easier writing into the logfile
-#define logg if (fp != NULL) fprintf
-
 // C structures for logfile handling
 bool  logFileDesired = true;
 char* logFileName    = SEB_LOG_FILE;
 FILE* fp;
 
+// Function for easier writing into the logfile
+#define logg if (fp != NULL) fprintf
 
 // Socket structures for IPC (interprocess communication)
 // between SEB (client) and Windows service (server)
 
 #define BUFLEN 512
 
-WSADATA wsaData;
-SOCKET  ConnectSocket = INVALID_SOCKET;
-int     result;
-
 //char *message  = "$GPRMC,162614,A,5230.5900,N,01322.3900,E,10.0,90.0,131006,1.2,E,A*13";
 char   *message1 = "$GPRMC,072436.0000,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
 char   *message2 = "$GPRMC,072436.00,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
 char   *message3 = "$GPRMC,072436.00,V,4723.0490,N,833.2779,E,,311.41,181007,,*0B,AUTO";
-
-const char* endOfStringKeyWord = "SEB_STOP";
-
-char    sendBuf[BUFLEN];
-
-//char   *message1 = "Username = alpha";
-//char   *message2 = "Hostname = beta";
-//char   *message3 = "IP addres = 111.222.333.444";
-
-char*   defaultUserName     = "";
-char*   defaultHostName     = "localhost";
-int     defaultPortNumber   = 27016;
-int     defaultSendInterval = 1;
-int     defaultNumMessages  = 3;
-
-char*   userName     = "";
-char*   hostName     = "";
-int     portNumber   = 0;
-int     sendInterval = 0;
-int     numMessages  = 0;
-
-struct hostent *remoteHost;
-struct in_addr  addr;
-
 
 // Other constants
 #define IDM_START   9001
