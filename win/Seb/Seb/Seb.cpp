@@ -87,13 +87,17 @@ HANDLE procMonitorThread;
 // between SEB (client) and Windows service (server)
 
 static WORD     wVersionRequested;
-//static WSADATA  wsaData;		
+//static int    hostRes;
 static PHOSTENT hostInfo;
+static WSADATA  wsaData;
+static SOCKET   ConnectSocket = INVALID_SOCKET;
+static struct sockaddr_in clientService;
+static int      socketResult;
+static char     sendBuf[BUFLEN];
 
-static WSADATA wsaData;
-static SOCKET  ConnectSocket = INVALID_SOCKET;
-static int     socketResult;
-static char    sendBuf[BUFLEN];
+static int ai_family   = AF_INET;
+static int ai_socktype = SOCK_STREAM;
+static int ai_protocol = IPPROTO_TCP;
 
 const char* endOfStringKeyWord = "SEB_STOP";
 
@@ -882,19 +886,15 @@ BOOL GetClientInfo()
 		{
 			// Get the current username
 
-			DWORD cUserNameLen  = sizeof(cUserName);
-			DWORD cUserNameLen2 = 0;
-
-			BOOL user = GetUserName(cUserName, &cUserNameLen);
-			userName  = cUserName;
+			DWORD cUserNameLen =      sizeof(cUserName);
+			BOOL user          = GetUserName(cUserName, &cUserNameLen);
+			userName           = cUserName;
 
 			if (cUserName != NULL)
 			{
-				cUserNameLen2 = strlen(cUserName);
 				logg(fp, " userName     = %s\n",  userName);
 				logg(fp, "cUserName     = %s\n", cUserName);
 				logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
-				logg(fp, "cUserNameLen2 = %d\n", cUserNameLen2);
 				logg(fp, "\n");
 			}
 
@@ -903,8 +903,6 @@ BOOL GetClientInfo()
             //WindowsIdentity    currentUser     = WindowsIdentity.GetCurrent();
             //SecurityIdentifier currentUserSid  = currentUser.User;
             //string             currentUserName = currentUser.Name;
-
-			// TODO
 
 			HANDLE  ProcessHandle = NULL;
 			DWORD   DesiredAccess = 0;
@@ -950,9 +948,6 @@ BOOL GetClientInfo()
 			// If the user input is an alpha name for the host, use gethostbyname()
 			// If not, get host by addr (assume IPv4)
 
-			//struct hostent *remoteHost;
-			struct in_addr addr;
-
 			if (isalpha(hostName[0]))
 			{
 				/* host address is a name, e.g. "ilgpcs" or "ilgpcs.d.ethz.ch" */
@@ -982,7 +977,7 @@ BOOL GetClientInfo()
 
 
 			strcpy(cHostName, hostName);
-			//int hostRes;
+
 			//hostRes  = gethostname(cHostName, sizeof(cHostName));
 			//hostName = cHostName;
 
@@ -1038,10 +1033,6 @@ BOOL GetClientInfo()
 
 	// Create a SOCKET for connecting to the server
 
-	int ai_family   = AF_INET;
-	int ai_socktype = SOCK_STREAM;
-	int ai_protocol = IPPROTO_TCP;
-
 	logg(fp, "Creating the ConnectSocket...\n");
 	ConnectSocket = socket(ai_family, ai_socktype, ai_protocol);
 	if (ConnectSocket == INVALID_SOCKET)
@@ -1056,8 +1047,6 @@ BOOL GetClientInfo()
 
 	// The sockaddr_in structure specifies the address family,
 	// IP address, and port of the server to be connected to.
-
-	struct sockaddr_in clientService;
 
 	clientService.sin_family      = AF_INET;
   //clientService.sin_addr.s_addr = inet_addr("129.132.26.158");
@@ -1187,25 +1176,6 @@ BOOL GetClientInfo()
 
 	} // next messageNr
 
-
-	// Shutdown the connection
-
-	logg(fp, "Shutting down the ConnectSocket...\n");
-	socketResult = shutdown(ConnectSocket, SD_SEND);
-	if (socketResult == SOCKET_ERROR)
-	{
-		logg(fp, "shutdown() failed with error code %d\n\n", WSAGetLastError());
-		//closesocket(ConnectSocket);
-		//WSACleanup();
-		//logg(fp, "Leave GetClientInfo()\n\n");
-		//return TRUE;
-	}
-	else logg(fp, "ConnectSocket has been shut down\n\n");
-
-
-	// Close the ConnectSocket
-	closesocket(ConnectSocket);
-	WSACleanup();
 
 	logg(fp, "Leave GetClientInfo()\n\n");
 	return TRUE;
@@ -1554,7 +1524,7 @@ BOOL ResetRegistry()
 	HKEY hkcuExplorer;
 	HKEY hkcuVMwareClient;
 
-	logg(fp, "Enter ResetRegistry()\n");
+	logg(fp, "Enter ResetRegistry()\n\n");
 
 	try
 	{
@@ -1714,13 +1684,46 @@ BOOL CreateExternalProcess(string sProcess)
 BOOL ShutdownInstance()
 {
 	//MessageBox(NULL,"shutdown","Error",MB_ICONERROR);
-	logg(fp, "Enter ShutdownInstance()\n");
+	logg(fp, "Enter ShutdownInstance()\n\n");
 
 	DWORD dwNotUsedForAnything = 0;	
 	int ret;
 	string sStrongKillProcesssesAfter = ""; 
 	vector< string >vStrongKillProcessesAfter;
 
+
+	// Debug output of socket communication parameters
+	logg(fp, " userName     = %s\n", userName);
+	logg(fp, " hostName     = %s\n", hostName);
+	logg(fp, " portNumber   = %d\n", portNumber);
+	logg(fp, " sendInterval = %d\n", sendInterval);
+	logg(fp, " numMessages  = %d\n", numMessages);
+	logg(fp, "\n");
+
+	// Tell the Seb Windows Service that we want to shutdown SEB,
+	// so the Seb Windows Service can reset the registry keys
+	// to their original values.
+
+	socketResult = SendEquationToSocketServer("shutdown", "1");
+
+	// Shutdown the socket connection
+
+	logg(fp, "Shutting down the ConnectSocket...\n");
+	socketResult = shutdown(ConnectSocket, SD_SEND);
+	if (socketResult == SOCKET_ERROR)
+	{
+		logg(fp, "shutdown() failed with error code %d\n\n", WSAGetLastError());
+	}
+	else logg(fp, "ConnectSocket has been shut down\n\n");
+
+	// Close the ConnectSocket
+	closesocket(ConnectSocket);
+	WSACleanup();
+
+
+
+	// In case the Seb Windows Server is not available,
+	// the Seb client tries to reset the registry keys itself.
 	if (getBool("EDIT_REGISTRY") && IsNewOS)
 	{
 		if (!ResetRegistry())
@@ -1730,6 +1733,7 @@ BOOL ShutdownInstance()
 			logg(fp, "Warning: %s\n", REGISTRY_WARNING);
 		}
 	}
+
 
 	if (getBool("MESSAGE_HOOK"))
 	{
