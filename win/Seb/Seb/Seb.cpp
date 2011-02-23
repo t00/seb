@@ -44,6 +44,7 @@ BOOL				ReadIniFile();
 BOOL				ReadProcessesInRegistry();
 BOOL				ShowSebAppChooser();
 BOOL				GetClientInfo();
+int					SendEquationToSocketServer(char*, char*);
 BOOL				 EditRegistry();
 BOOL				ResetRegistry();
 BOOL				AlterTaskBar(BOOL);
@@ -79,6 +80,43 @@ HWND      hWnd;								//Handle to the own SEB Window
 HMENU     hMenu;
 HINSTANCE hinstDLL = NULL;					//instance of the hook library
 HANDLE procMonitorThread;
+
+
+
+// Socket structures for IPC (interprocess communication)
+// between SEB (client) and Windows service (server)
+
+static WORD     wVersionRequested;
+//static WSADATA  wsaData;		
+static PHOSTENT hostInfo;
+
+static WSADATA wsaData;
+static SOCKET  ConnectSocket = INVALID_SOCKET;
+static int     socketResult;
+static char    sendBuf[BUFLEN];
+
+const char* endOfStringKeyWord = "SEB_STOP";
+
+//char   *message1 = "Username = alpha";
+//char   *message2 = "Hostname = beta";
+//char   *message3 = "IP addres = 111.222.333.444";
+
+static char*   defaultUserName     = "";
+static char*   defaultHostName     = "localhost";
+static int     defaultPortNumber   = 27016;
+static int     defaultSendInterval = 1;
+static int     defaultNumMessages  = 3;
+
+static char*   userName     = "";
+static char*   hostName     = "";
+static int     portNumber   = 0;
+static int     sendInterval = 0;
+static int     numMessages  = 0;
+
+static struct hostent *remoteHost;
+static struct in_addr  addr;
+
+
 
 TCHAR szTitle      [MAX_LOADSTRING];		// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];		// the main window class name
@@ -812,9 +850,11 @@ BOOL ReadProcessesInRegistry()
 
 BOOL GetClientInfo()
 {
-	WORD     wVersionRequested;
+	//WORD     wVersionRequested;
 	//WSADATA  wsaData;		
-	PHOSTENT hostInfo;
+	//PHOSTENT hostInfo;
+	//int      socketResult;
+
 	wVersionRequested = MAKEWORD(2, 0);
 
 	logg(fp, "Enter GetClientInfo()\n\n");
@@ -956,7 +996,7 @@ BOOL GetClientInfo()
 				logg(fp, "\n");
 				//hostInfo   = gethostbyname(cHostName);
 				hostInfo   = remoteHost;
-				remoteHost = gethostbyname( hostName);
+				remoteHost = gethostbyname(hostName);
 				if (hostInfo != NULL)
 				{
 					logg(fp, "hostInfo->h_name = %s\n", hostInfo->h_name);
@@ -1033,8 +1073,8 @@ BOOL GetClientInfo()
 	// Connect to the server
 
 	logg(fp, "Connecting to server...\n");
-	result = connect(ConnectSocket, (SOCKADDR*) &clientService, sizeof(clientService));
-	if (result == SOCKET_ERROR)
+	socketResult = connect(ConnectSocket, (SOCKADDR*) &clientService, sizeof(clientService));
+	if (socketResult == SOCKET_ERROR)
 	{
 		logg(fp, "connect() failed with error code %d\n\n", WSAGetLastError());
 		closesocket(ConnectSocket);
@@ -1046,37 +1086,75 @@ BOOL GetClientInfo()
 	else logg(fp, "Connected to server\n\n");
 
 
+
 	// Send messages with client info to the server
-
-
+/*
 	// Send username to server
 	sprintf(sendBuf, "username=%s", userName);
-	strcat(sendBuf, endOfStringKeyWord);
-	fflush(stdout);
+	strcat (sendBuf, endOfStringKeyWord);
+	fflush (stdout);
 
-	result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
+	socketResult = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
 
-	if (result < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
-	logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
-
-	strcpy(sendBuf, "");
-	fflush(stdout);
-	Sleep(1 * sendInterval);
-
-
-	// Send hostname to server
-	sprintf(sendBuf, "hostname=%s", hostName);
-	strcat(sendBuf, endOfStringKeyWord);
-	fflush(stdout);
-
-	result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
-
-	if (result < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
-	logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
+	if (socketResult < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
+	logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, socketResult);
 
 	strcpy(sendBuf, "");
 	fflush(stdout);
 	Sleep(1 * sendInterval);
+*/
+
+
+	// Send username, hostname etc. to server.
+	// Format of the sent strings is "leftSide=rightSide",
+	// exactly as in the Seb.ini configuration file.
+
+	int intHideFastUserSwitching  = (int) getBool("REG_HIDE_FAST_USER_SWITCHING");
+	int intDisableLockWorkstation = (int) getBool("REG_DISABLE_LOCK_WORKSTATION");
+	int intDisableChangePassword  = (int) getBool("REG_DISABLE_CHANGE_PASSWORD");
+	int intDisableTaskMgr         = (int) getBool("REG_DISABLE_TASKMGR");
+	int intNoLogoff               = (int) getBool("REG_NO_LOGOFF");
+	int intNoClose                = (int) getBool("REG_NO_CLOSE");
+	int intEnableShade            = (int) getBool("REG_ENABLE_SHADE");
+
+	logg(fp, "intHideFastUserSwitching  = %d\n", intHideFastUserSwitching);
+	logg(fp, "intDisableLockWorkstation = %d\n", intDisableLockWorkstation);
+	logg(fp, "intDisableChangePassword  = %d\n", intDisableChangePassword);
+	logg(fp, "intDisableTaskMgr         = %d\n", intDisableTaskMgr);
+	logg(fp, "intNoLogoff               = %d\n", intNoLogoff);
+	logg(fp, "intNoClose                = %d\n", intNoClose);
+	logg(fp, "intEnableShade            = %d\n", intEnableShade);
+	logg(fp, "\n");
+
+	char charHideFastUserSwitching [10];
+	char charDisableLockWorkstation[10];
+	char charDisableChangePassword [10];
+	char charDisableTaskMgr        [10];
+	char charNoLogoff              [10];
+	char charNoClose               [10];
+	char charEnableShade           [10];
+
+	sprintf(charHideFastUserSwitching , "%d", intHideFastUserSwitching);
+	sprintf(charDisableLockWorkstation, "%d", intDisableLockWorkstation);
+	sprintf(charDisableChangePassword , "%d", intDisableChangePassword);
+	sprintf(charDisableTaskMgr        , "%d", intDisableTaskMgr);
+	sprintf(charNoLogoff              , "%d", intNoLogoff);
+	sprintf(charNoClose               , "%d", intNoClose);
+	sprintf(charEnableShade           , "%d", intEnableShade);
+
+
+	// Transmission of equation strings to server
+
+	socketResult = SendEquationToSocketServer("username", userName);
+	socketResult = SendEquationToSocketServer("hostname", hostName);
+
+	socketResult = SendEquationToSocketServer((char*)VAL_HideFastUserSwitching , charHideFastUserSwitching);
+	socketResult = SendEquationToSocketServer((char*)VAL_DisableLockWorkstation, charDisableLockWorkstation);
+	socketResult = SendEquationToSocketServer((char*)VAL_DisableChangePassword , charDisableChangePassword);
+	socketResult = SendEquationToSocketServer((char*)VAL_DisableTaskMgr        , charDisableTaskMgr);
+	socketResult = SendEquationToSocketServer((char*)VAL_NoLogoff              , charNoLogoff);
+	socketResult = SendEquationToSocketServer((char*)VAL_NoClose               , charNoClose);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableShade           , charEnableShade);
 
 
 	// Send several test messages to the server
@@ -1093,10 +1171,10 @@ BOOL GetClientInfo()
 
 		// Send buffer contents to server
 		logg(fp, "Sending to server...\n");
-		result = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
+		socketResult = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
 
-		if (result < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
-		logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, result);
+		if (socketResult < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, socketResult);
 
 		strcpy(sendBuf, "");
 		fflush(stdout);
@@ -1113,8 +1191,8 @@ BOOL GetClientInfo()
 	// Shutdown the connection
 
 	logg(fp, "Shutting down the ConnectSocket...\n");
-	result = shutdown(ConnectSocket, SD_SEND);
-	if (result == SOCKET_ERROR)
+	socketResult = shutdown(ConnectSocket, SD_SEND);
+	if (socketResult == SOCKET_ERROR)
 	{
 		logg(fp, "shutdown() failed with error code %d\n\n", WSAGetLastError());
 		//closesocket(ConnectSocket);
@@ -1133,6 +1211,48 @@ BOOL GetClientInfo()
 	return TRUE;
 
 } // end GetClientInfo()
+
+
+
+
+
+//*************************************************
+// Send the string "key=value" to the socket server
+// ************************************************
+int SendEquationToSocketServer(char* leftSide, char* rightSide)
+{
+	//int socketResult;
+
+	logg(fp, "Enter SendEquationToSocketServer()\n\n");
+
+	logg(fp, " leftSide = ***%s***\n",  leftSide);
+	logg(fp, "rightSide = ***%s***\n", rightSide);
+
+	if (sendBuf == NULL) return -1;
+
+	sprintf(sendBuf, "%s=%s", leftSide, rightSide);
+	strcat(sendBuf, endOfStringKeyWord);
+	fflush(stdout);
+
+ 	//logg(fp, "sendBuf = ***%s***\n", sendBuf);
+	//logg(fp, "\n");
+
+	if (ConnectSocket != NULL)
+	{
+		socketResult = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
+
+		if (socketResult < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, socketResult);
+	}
+
+	strcpy(sendBuf, "");
+	fflush(stdout);
+	Sleep(1 * sendInterval);
+
+	logg(fp, "Leave SendEquationToSocketServer()\n\n");
+	return socketResult;
+
+} // end SendEquationToSocketServer()
 
 
 
