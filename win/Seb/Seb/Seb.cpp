@@ -91,19 +91,19 @@ static WORD     wVersionRequested;
 static PHOSTENT hostInfo;
 static WSADATA  wsaData;
 static SOCKET   ConnectSocket = INVALID_SOCKET;
+static struct hostent*    remoteHost;
+static struct in_addr     addr;
 static struct sockaddr_in clientService;
 static int      socketResult;
 static char     sendBuf[BUFLEN];
 
+
+// Socket protocol
 static int ai_family   = AF_INET;
 static int ai_socktype = SOCK_STREAM;
 static int ai_protocol = IPPROTO_TCP;
 
 const char* endOfStringKeyWord = "SEB_STOP";
-
-//char   *message1 = "Username = alpha";
-//char   *message2 = "Hostname = beta";
-//char   *message3 = "IP addres = 111.222.333.444";
 
 static char*   defaultUserName     = "";
 static char*   defaultHostName     = "localhost";
@@ -116,10 +116,25 @@ static char*   hostName     = "";
 static int     portNumber   = 0;
 static int     sendInterval = 0;
 static int     numMessages  = 0;
+static int     messageNr    = 0;
 
-static struct hostent *remoteHost;
-static struct in_addr  addr;
+// Store the desired registry values as integers
+static int intHideFastUserSwitching  = 0;
+static int intDisableLockWorkstation = 0;
+static int intDisableChangePassword  = 0;
+static int intDisableTaskMgr         = 0;
+static int intNoLogoff               = 0;
+static int intNoClose                = 0;
+static int intEnableShade            = 0;
 
+// Store the desired registry values as strings
+static char charHideFastUserSwitching [10];
+static char charDisableLockWorkstation[10];
+static char charDisableChangePassword [10];
+static char charDisableTaskMgr        [10];
+static char charNoLogoff              [10];
+static char charNoClose               [10];
+static char charEnableShade           [10];
 
 
 TCHAR szTitle      [MAX_LOADSTRING];		// The title bar text
@@ -1098,13 +1113,13 @@ BOOL GetClientInfo()
 	// Format of the sent strings is "leftSide=rightSide",
 	// exactly as in the Seb.ini configuration file.
 
-	int intHideFastUserSwitching  = (int) getBool("REG_HIDE_FAST_USER_SWITCHING");
-	int intDisableLockWorkstation = (int) getBool("REG_DISABLE_LOCK_WORKSTATION");
-	int intDisableChangePassword  = (int) getBool("REG_DISABLE_CHANGE_PASSWORD");
-	int intDisableTaskMgr         = (int) getBool("REG_DISABLE_TASKMGR");
-	int intNoLogoff               = (int) getBool("REG_NO_LOGOFF");
-	int intNoClose                = (int) getBool("REG_NO_CLOSE");
-	int intEnableShade            = (int) getBool("REG_ENABLE_SHADE");
+	intHideFastUserSwitching  = (int) getBool("REG_HIDE_FAST_USER_SWITCHING");
+	intDisableLockWorkstation = (int) getBool("REG_DISABLE_LOCK_WORKSTATION");
+	intDisableChangePassword  = (int) getBool("REG_DISABLE_CHANGE_PASSWORD");
+	intDisableTaskMgr         = (int) getBool("REG_DISABLE_TASKMGR");
+	intNoLogoff               = (int) getBool("REG_NO_LOGOFF");
+	intNoClose                = (int) getBool("REG_NO_CLOSE");
+	intEnableShade            = (int) getBool("REG_ENABLE_SHADE");
 
 	logg(fp, "intHideFastUserSwitching  = %d\n", intHideFastUserSwitching);
 	logg(fp, "intDisableLockWorkstation = %d\n", intDisableLockWorkstation);
@@ -1114,14 +1129,6 @@ BOOL GetClientInfo()
 	logg(fp, "intNoClose                = %d\n", intNoClose);
 	logg(fp, "intEnableShade            = %d\n", intEnableShade);
 	logg(fp, "\n");
-
-	char charHideFastUserSwitching [10];
-	char charDisableLockWorkstation[10];
-	char charDisableChangePassword [10];
-	char charDisableTaskMgr        [10];
-	char charNoLogoff              [10];
-	char charNoClose               [10];
-	char charEnableShade           [10];
 
 	sprintf(charHideFastUserSwitching , "%d", intHideFastUserSwitching);
 	sprintf(charDisableLockWorkstation, "%d", intDisableLockWorkstation);
@@ -1148,7 +1155,6 @@ BOOL GetClientInfo()
 
 	// Send several test messages to the server
 
-	int messageNr;
 	numMessages = 0;
 
 	for (messageNr = 1; messageNr <= numMessages; messageNr++)
