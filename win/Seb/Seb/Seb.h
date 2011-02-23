@@ -128,6 +128,7 @@ LPCTSTR VAL_NoClose                = "NoClose";
 LPCTSTR VAL_EnableShade            = "EnableShade";
 
 
+
 // Only for trunk version necessary (XULrunner)
 
 LPCTSTR VAL_PERMITTED_APPS    = "PermittedApps";
