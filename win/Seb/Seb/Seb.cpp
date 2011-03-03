@@ -44,7 +44,7 @@ BOOL				ReadIniFile();
 BOOL				ReadProcessesInRegistry();
 BOOL				ShowSebAppChooser();
 BOOL				GetClientInfo();
-int					SendEquationToSocketServer(char*, char*);
+int					SendEquationToSocketServer(char*, char*, int);
 BOOL				 EditRegistry();
 BOOL				ResetRegistry();
 BOOL				AlterTaskBar(BOOL);
@@ -108,7 +108,7 @@ const char* endOfStringKeyWord = "SEB_STOP";
 static char*   defaultUserName     = "";
 static char*   defaultHostName     = "localhost";
 static int     defaultPortNumber   = 27016;
-static int     defaultSendInterval = 1;
+static int     defaultSendInterval = 100;
 static int     defaultNumMessages  = 3;
 
 static char*   userName     = "";
@@ -128,13 +128,15 @@ static int intNoClose                = 0;
 static int intEnableShade            = 0;
 
 // Store the desired registry values as strings
-static char charHideFastUserSwitching [10];
-static char charDisableLockWorkstation[10];
-static char charDisableChangePassword [10];
-static char charDisableTaskMgr        [10];
-static char charNoLogoff              [10];
-static char charNoClose               [10];
-static char charEnableShade           [10];
+static char stringRegistryFlags        [100];
+static char stringHideFastUserSwitching [10];
+static char stringDisableLockWorkstation[10];
+static char stringDisableChangePassword [10];
+static char stringDisableTaskMgr        [10];
+static char stringNoLogoff              [10];
+static char stringNoClose               [10];
+static char stringEnableShade           [10];
+
 
 
 TCHAR szTitle      [MAX_LOADSTRING];		// The title bar text
@@ -178,7 +180,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	// Open the logfile for debug output
 	fp = fopen(logFileName, "w");
-
 	if (fp == NULL)
 	{
 		//MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
@@ -881,12 +882,13 @@ BOOL GetClientInfo()
 	// Set the default values for the
 	// socket communication parameters.
 	// Currently, we use sockets on the same machine,
-	// so we define in "Seb.ini" the default values
+	// so we could in the future
+	// define in "Seb.ini" the default values:
 	//
 	// defaultUserName     = "";
 	// defaultHostName     = "localhost";
 	// defaultPortNumber   = 27016;
-	// defaultSendInterval = 1;
+	// defaultSendInterval = 100;
 	// defaultNumMessages  = 3;
 
 	userName     = defaultUserName;
@@ -924,7 +926,7 @@ BOOL GetClientInfo()
 			HANDLE  TokenHandle   = NULL;
 
 			TOKEN_INFORMATION_CLASS TokenInformationClass;
-			LPVOID TokenInformation      = NULL;
+			LPVOID TokenInformation       = NULL;
 			DWORD  TokenInformationLength = 0;
 			DWORD  ReturnLength           = 0;
 
@@ -943,8 +945,8 @@ BOOL GetClientInfo()
 			//if ((b1 == TRUE) && (b2 == TRUE))
 			{
 				//MessageBox(NULL, cHostName, "cHostName", 16);
-				//logg(fp, "TokenInformationLength = %s\n", TokenHandle->
-				//logg(fp, "TokenInformationClass  = %s\n", TokenInformationClass->
+			  //logg(fp, "TokenInformationLength = %s\n", TokenHandle->
+			  //logg(fp, "TokenInformationClass  = %s\n", TokenInformationClass->
 				logg(fp, "TokenInformationLength = %d\n", TokenInformationLength);
 				logg(fp, "          ReturnLength = %d\n",           ReturnLength);
 				logg(fp, "\n");
@@ -1004,7 +1006,7 @@ BOOL GetClientInfo()
 				logg(fp, " hostName   = %s\n",  hostName);
 				logg(fp, " portNumber = %d\n",  portNumber);
 				logg(fp, "\n");
-				//hostInfo   = gethostbyname(cHostName);
+			  //hostInfo   = gethostbyname(cHostName);
 				hostInfo   = remoteHost;
 				remoteHost = gethostbyname(hostName);
 				if (hostInfo != NULL)
@@ -1090,25 +1092,6 @@ BOOL GetClientInfo()
 	else logg(fp, "Connected to server\n\n");
 
 
-
-	// Send messages with client info to the server
-/*
-	// Send username to server
-	sprintf(sendBuf, "username=%s", userName);
-	strcat (sendBuf, endOfStringKeyWord);
-	fflush (stdout);
-
-	socketResult = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
-
-	if (socketResult < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
-	logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, socketResult);
-
-	strcpy(sendBuf, "");
-	fflush(stdout);
-	Sleep(1 * sendInterval);
-*/
-
-
 	// Send username, hostname etc. to server.
 	// Format of the sent strings is "leftSide=rightSide",
 	// exactly as in the Seb.ini configuration file.
@@ -1130,57 +1113,38 @@ BOOL GetClientInfo()
 	logg(fp, "intEnableShade            = %d\n", intEnableShade);
 	logg(fp, "\n");
 
-	sprintf(charHideFastUserSwitching , "%d", intHideFastUserSwitching);
-	sprintf(charDisableLockWorkstation, "%d", intDisableLockWorkstation);
-	sprintf(charDisableChangePassword , "%d", intDisableChangePassword);
-	sprintf(charDisableTaskMgr        , "%d", intDisableTaskMgr);
-	sprintf(charNoLogoff              , "%d", intNoLogoff);
-	sprintf(charNoClose               , "%d", intNoClose);
-	sprintf(charEnableShade           , "%d", intEnableShade);
+	sprintf(stringHideFastUserSwitching , "%d", intHideFastUserSwitching);
+	sprintf(stringDisableLockWorkstation, "%d", intDisableLockWorkstation);
+	sprintf(stringDisableChangePassword , "%d", intDisableChangePassword);
+	sprintf(stringDisableTaskMgr        , "%d", intDisableTaskMgr);
+	sprintf(stringNoLogoff              , "%d", intNoLogoff);
+	sprintf(stringNoClose               , "%d", intNoClose);
+	sprintf(stringEnableShade           , "%d", intEnableShade);
 
+	// Build a binary string containing the "0"/"1" registry settings
+
+	strcpy(stringRegistryFlags, "");
+	strcat(stringRegistryFlags, stringHideFastUserSwitching);
+	strcat(stringRegistryFlags, stringDisableLockWorkstation);
+	strcat(stringRegistryFlags, stringDisableChangePassword);
+	strcat(stringRegistryFlags, stringDisableTaskMgr);
+	strcat(stringRegistryFlags, stringNoLogoff);
+	strcat(stringRegistryFlags, stringNoClose);
+	strcat(stringRegistryFlags, stringEnableShade);
 
 	// Transmission of equation strings to server
 
-	socketResult = SendEquationToSocketServer("username", userName);
-	socketResult = SendEquationToSocketServer("hostname", hostName);
+	socketResult = SendEquationToSocketServer("UserName", userName, sendInterval);
+	socketResult = SendEquationToSocketServer("HostName", hostName, sendInterval);
+	socketResult = SendEquationToSocketServer("RegistryFlags", stringRegistryFlags, sendInterval);
 
-	socketResult = SendEquationToSocketServer((char*)VAL_HideFastUserSwitching , charHideFastUserSwitching);
-	socketResult = SendEquationToSocketServer((char*)VAL_DisableLockWorkstation, charDisableLockWorkstation);
-	socketResult = SendEquationToSocketServer((char*)VAL_DisableChangePassword , charDisableChangePassword);
-	socketResult = SendEquationToSocketServer((char*)VAL_DisableTaskMgr        , charDisableTaskMgr);
-	socketResult = SendEquationToSocketServer((char*)VAL_NoLogoff              , charNoLogoff);
-	socketResult = SendEquationToSocketServer((char*)VAL_NoClose               , charNoClose);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableShade           , charEnableShade);
-
-
-	// Send several test messages to the server
-
-	numMessages = 0;
-
-	for (messageNr = 1; messageNr <= numMessages; messageNr++)
-	{
-		// Test messages of varying contents and length
-		strcpy(sendBuf, message1);
-		strcpy(sendBuf, message2);
-		strcpy(sendBuf, message3);
-
-		// Send buffer contents to server
-		logg(fp, "Sending to server...\n");
-		socketResult = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
-
-		if (socketResult < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
-		logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, socketResult);
-
-		strcpy(sendBuf, "");
-		fflush(stdout);
-
-		// Wait for [sendInterval] seconds before sending the next message
-		// Note  that the Sleep() command comes from Windows,
-		// and is not the sleep() command known from UNIX.
-		// Nevertheless, both commands expect the time span in milliseconds.
-		Sleep(1000 * sendInterval);
-
-	} // next messageNr
+	socketResult = SendEquationToSocketServer((char*)VAL_HideFastUserSwitching , stringHideFastUserSwitching , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_DisableLockWorkstation, stringDisableLockWorkstation, sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_DisableChangePassword , stringDisableChangePassword , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_DisableTaskMgr        , stringDisableTaskMgr        , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_NoLogoff              , stringNoLogoff              , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_NoClose               , stringNoClose               , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableShade           , stringEnableShade           , sendInterval);
 
 
 	logg(fp, "Leave GetClientInfo()\n\n");
@@ -1195,7 +1159,7 @@ BOOL GetClientInfo()
 //*************************************************
 // Send the string "key=value" to the socket server
 // ************************************************
-int SendEquationToSocketServer(char* leftSide, char* rightSide)
+int SendEquationToSocketServer(char* leftSide, char* rightSide, int sendInterval)
 {
 	//int socketResult;
 
@@ -1223,7 +1187,15 @@ int SendEquationToSocketServer(char* leftSide, char* rightSide)
 
 	strcpy(sendBuf, "");
 	fflush(stdout);
-	Sleep(1 * sendInterval);
+
+	// Wait [sendInterval] milliseconds
+	// before sending the next message,
+	// to avoid several messages sent together in one string
+	// and "jamming" the socket pipe!
+	// A send interval of 100 milliseconds = 1/10   second is too long.
+	// A send interval of  10 milliseconds = 1/100  second is sufficient.
+	// A send interval of   1 millisecond  = 1/1000 second is too short!
+	Sleep(sendInterval);
 
 	logg(fp, "Leave SendEquationToSocketServer()\n\n");
 	return socketResult;
@@ -1710,7 +1682,7 @@ BOOL ShutdownInstance()
 	// so the Seb Windows Service can reset the registry keys
 	// to their original values.
 
-	socketResult = SendEquationToSocketServer("shutdown", "1");
+	socketResult = SendEquationToSocketServer("ShutDown", "1", sendInterval);
 
 	// Shutdown the socket connection
 
@@ -1725,7 +1697,6 @@ BOOL ShutdownInstance()
 	// Close the ConnectSocket
 	closesocket(ConnectSocket);
 	WSACleanup();
-
 
 
 	// In case the Seb Windows Server is not available,
