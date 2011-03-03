@@ -111,6 +111,7 @@ static int     defaultPortNumber   = 27016;
 static int     defaultSendInterval = 100;
 static int     defaultNumMessages  = 3;
 
+static char    registryFlags[100];
 static char*   userName     = "";
 static char*   hostName     = "";
 static int     portNumber   = 0;
@@ -128,7 +129,6 @@ static int intNoClose                = 0;
 static int intEnableShade            = 0;
 
 // Store the desired registry values as strings
-static char stringRegistryFlags        [100];
 static char stringHideFastUserSwitching [10];
 static char stringDisableLockWorkstation[10];
 static char stringDisableChangePassword [10];
@@ -1123,20 +1123,20 @@ BOOL GetClientInfo()
 
 	// Build a binary string containing the "0"/"1" registry settings
 
-	strcpy(stringRegistryFlags, "");
-	strcat(stringRegistryFlags, stringHideFastUserSwitching);
-	strcat(stringRegistryFlags, stringDisableLockWorkstation);
-	strcat(stringRegistryFlags, stringDisableChangePassword);
-	strcat(stringRegistryFlags, stringDisableTaskMgr);
-	strcat(stringRegistryFlags, stringNoLogoff);
-	strcat(stringRegistryFlags, stringNoClose);
-	strcat(stringRegistryFlags, stringEnableShade);
+	strcpy(registryFlags, "");
+	strcat(registryFlags, stringHideFastUserSwitching);
+	strcat(registryFlags, stringDisableLockWorkstation);
+	strcat(registryFlags, stringDisableChangePassword);
+	strcat(registryFlags, stringDisableTaskMgr);
+	strcat(registryFlags, stringNoLogoff);
+	strcat(registryFlags, stringNoClose);
+	strcat(registryFlags, stringEnableShade);
 
 	// Transmission of equation strings to server
 
-	socketResult = SendEquationToSocketServer("UserName", userName, sendInterval);
-	socketResult = SendEquationToSocketServer("HostName", hostName, sendInterval);
-	socketResult = SendEquationToSocketServer("RegistryFlags", stringRegistryFlags, sendInterval);
+	socketResult = SendEquationToSocketServer("UserName"     , userName     , sendInterval);
+	socketResult = SendEquationToSocketServer("HostName"     , hostName     , sendInterval);
+	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, sendInterval);
 
 	socketResult = SendEquationToSocketServer((char*)VAL_HideFastUserSwitching , stringHideFastUserSwitching , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_DisableLockWorkstation, stringDisableLockWorkstation, sendInterval);
