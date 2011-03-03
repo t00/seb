@@ -45,10 +45,6 @@ FILE* fp;
 
 #define BUFLEN 512
 
-//char *message  = "$GPRMC,162614,A,5230.5900,N,01322.3900,E,10.0,90.0,131006,1.2,E,A*13";
-char   *message1 = "$GPRMC,072436.0000,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
-char   *message2 = "$GPRMC,072436.00,V,4723.0490,N,00833.2779,E,,311.41,181007,,*0B,AUTO";
-char   *message3 = "$GPRMC,072436.00,V,4723.0490,N,833.2779,E,,311.41,181007,,*0B,AUTO";
 
 // Other constants
 #define IDM_START   9001
@@ -113,12 +109,13 @@ char   *message3 = "$GPRMC,072436.00,V,4723.0490,N,833.2779,E,,311.41,181007,,*0
 #define GINA_PATH TEXT("MSGINA.DLL")
 
 
-
+// Strings for registry keys
 LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
 LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
 LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
 LPCTSTR KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
+// Strings for registry values
 LPCTSTR VAL_HideFastUserSwitching  = "HideFastUserSwitching";
 LPCTSTR VAL_DisableLockWorkstation = "DisableLockWorkstation";
 LPCTSTR VAL_DisableChangePassword  = "DisableChangePassword";
@@ -127,6 +124,14 @@ LPCTSTR VAL_NoLogoff               = "NoLogoff";
 LPCTSTR VAL_NoClose                = "NoClose";
 LPCTSTR VAL_EnableShade            = "EnableShade";
 
+// Aligned strings for printing out registry values
+LPCTSTR MSG_HideFastUserSwitching  = "HideFastUserSwitching ";
+LPCTSTR MSG_DisableLockWorkstation = "DisableLockWorkstation";
+LPCTSTR MSG_DisableChangePassword  = "DisableChangePassword ";
+LPCTSTR MSG_DisableTaskMgr         = "DisableTaskMgr        ";
+LPCTSTR MSG_NoLogoff               = "NoLogoff              ";
+LPCTSTR MSG_NoClose                = "NoClose               ";
+LPCTSTR MSG_EnableShade            = "EnableShade           ";
 
 
 // Only for trunk version necessary (XULrunner)
