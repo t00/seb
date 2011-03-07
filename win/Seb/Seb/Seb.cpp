@@ -103,7 +103,7 @@ static int ai_family   = AF_INET;
 static int ai_socktype = SOCK_STREAM;
 static int ai_protocol = IPPROTO_TCP;
 
-const char* endOfStringKeyWord = "SEB_STOP";
+const char* endOfStringKeyWord = "---";
 
 static char*   defaultUserName     = "";
 static char*   defaultHostName     = "localhost";
@@ -111,7 +111,8 @@ static int     defaultPortNumber   = 27016;
 static int     defaultSendInterval = 100;
 static int     defaultNumMessages  = 3;
 
-static char    registryFlags[100];
+static char    userNameRegistryFlags[100];
+static char    registryFlags[50];
 static char*   userName     = "";
 static char*   hostName     = "";
 static int     portNumber   = 0;
@@ -1132,12 +1133,34 @@ BOOL GetClientInfo()
 	strcat(registryFlags, stringNoClose);
 	strcat(registryFlags, stringEnableShade);
 
-	// Transmission of equation strings to server
+	//strcpy(userNameRegistryFlags, userName);
+	//strcpy(userNameRegistryFlags, endOfStringKeyWord);
+	//strcat(userNameRegistryFlags, registryFlags);
 
+
+	// Transmission of equation strings to server.
+	// The most important data are:
+	//
+	// 1.) userName:
+	// The user name must be sent so the server knows
+	// for whom it shall set/change the registry values.
+	//
+	// 2.) registryFlags:
+	// To reduce network traffic, the registry flags are sent
+	// as a "0101011" pattern in the registryFlags string.
+	//
+	// The host name can be omitted,
+	// since it is "localhost" by default anyway
+	// (SEB Windows service runs on same machine as SEB client)
+
+  //socketResult = SendEquationToSocketServer("HostName"     , hostName     , sendInterval);
 	socketResult = SendEquationToSocketServer("UserName"     , userName     , sendInterval);
-	socketResult = SendEquationToSocketServer("HostName"     , hostName     , sendInterval);
-	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, sendInterval);
+	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, 0);
+  //socketResult = SendEquationToSocketServer("UserNameRegistryFlags", userNameRegistryFlags, 0);
 
+	// Alternatively, the registry flags could also be sent
+	// one by one, namely in the "DisableTaskMgr=1" format:
+/*
 	socketResult = SendEquationToSocketServer((char*)VAL_HideFastUserSwitching , stringHideFastUserSwitching , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_DisableLockWorkstation, stringDisableLockWorkstation, sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_DisableChangePassword , stringDisableChangePassword , sendInterval);
@@ -1145,7 +1168,7 @@ BOOL GetClientInfo()
 	socketResult = SendEquationToSocketServer((char*)VAL_NoLogoff              , stringNoLogoff              , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_NoClose               , stringNoClose               , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_EnableShade           , stringEnableShade           , sendInterval);
-
+*/
 
 	logg(fp, "Leave GetClientInfo()\n\n");
 	return TRUE;
@@ -1163,10 +1186,10 @@ int SendEquationToSocketServer(char* leftSide, char* rightSide, int sendInterval
 {
 	//int socketResult;
 
-	logg(fp, "Enter SendEquationToSocketServer()\n\n");
+	logg(fp, "Enter SendEquationToSocketServer()\n");
 
-	logg(fp, " leftSide = ***%s***\n",  leftSide);
-	logg(fp, "rightSide = ***%s***\n", rightSide);
+	logg(fp, "    leftSide = ***%s***\n",  leftSide);
+	logg(fp, "   rightSide = ***%s***\n", rightSide);
 
 	if (sendBuf == NULL) return -1;
 
@@ -1181,8 +1204,8 @@ int SendEquationToSocketServer(char* leftSide, char* rightSide, int sendInterval
 	{
 		socketResult = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
 
-		if (socketResult < 0) logg(fp, "send() failed with error code %d\n\n", WSAGetLastError());
-		logg(fp, "Text sent    : ***%s*** with %d Bytes\n", sendBuf, socketResult);
+		if (socketResult < 0) logg(fp, "   send() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "   Text sent : ***%s*** with %d Bytes\n", sendBuf, socketResult);
 	}
 
 	strcpy(sendBuf, "");
