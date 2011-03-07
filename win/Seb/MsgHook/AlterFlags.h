@@ -48,11 +48,14 @@ typedef struct
 			DISABLE_ESCAPE : 1;
 } ALTER_FLAGS;
 
+
+// Strings for registry keys
 LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
 LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
 LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
 LPCTSTR KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
+// Strings for registry values
 LPCTSTR VAL_HideFastUserSwitching  = "HideFastUserSwitching";
 LPCTSTR VAL_DisableLockWorkstation = "DisableLockWorkstation";
 LPCTSTR VAL_DisableChangePassword  = "DisableChangePassword";
@@ -61,6 +64,7 @@ LPCTSTR VAL_NoLogoff               = "NoLogoff";
 LPCTSTR VAL_NoClose                = "NoClose";
 LPCTSTR VAL_EnableShade            = "EnableShade";
 
+// Strings for SEB exit sequence
 LPCTSTR VAL_Button1 = "B1";
 LPCTSTR VAL_Button2 = "B2";
 LPCTSTR VAL_Button3 = "B3";
