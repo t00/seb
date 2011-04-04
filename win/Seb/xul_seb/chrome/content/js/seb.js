@@ -28,6 +28,9 @@ var SebSystem = {
 	_prefs :null,
 	_profile :null,
 	_dirUtils :null,
+	_chromeDir : null,
+	_appDir : null,
+	_sebIni : null,
 	_browser :null,
 
 	startup : function() {
@@ -37,7 +40,11 @@ var SebSystem = {
 			this._profile = new Profile();
 			this._dirutils = new DirUtils();
 			this._browser = getBrowser();
-
+			this._chromeDir = new Dir(this._dirutils.getChromeDir());
+			this._appDir = this._chromeDir.parent.parent;
+			this._sebIni = this._appDir.clone();
+			this._sebIni.append("Seb.ini");
+			
 			/** **** EventListener ****** */
 			this._browser.addEventListener("load", function(e) {
 				SebSystem.onContentLoad();
@@ -115,10 +122,15 @@ var SebSystem = {
 		try {
 			var urlExam = "";
 			var sebConfig = new File(this._prefs.getChar('seb.configuration.file'));
+			if (!sebConfig.exists()) {
+				sebConfig = new File(this._sebIni.path);
+			}
 			var lines = sebConfig.readAllLines();
 			for ( var i = 0; i < lines.length; i++) {
-				if (lines[i].indexOf("URL_EXAM") != -1) {
-					urlExam = lines[i].substr(lines[i].indexOf("=") + 1);
+				var reg = /^\s?URL_EXAM\s?=\s?(.+)?\s?$/;
+				var ret = reg.exec(lines[i]);
+				if (ret) {
+					urlExam = ret[1];
 				}
 			}
 			return urlExam;
