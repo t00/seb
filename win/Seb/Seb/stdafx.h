@@ -31,7 +31,7 @@
 // Refer to MSDN for the latest info on corresponding values for different platforms.
 
 #ifndef WINVER				// Allow use of features specific to Windows 95 and Windows NT 4 or later.
-#define WINVER 0x0400		// Change this to the appropriate value to target Windows 98 and Windows 2000 or later.
+#define WINVER 0x0501		// Change this to the appropriate value to target Windows 98 and Windows 2000 or later.
 #endif
 
 #ifndef _WIN32_WINDOWS		  // Allow use of features specific to Windows 98 or later.
@@ -39,7 +39,7 @@
 #endif
 
 #ifndef _WIN32_WINNT			// Allow use of features specific to Windows NT 4 or later.
-#define _WIN32_WINNT 0x0400		// Change this to the appropriate value to target Windows 98 and Windows 2000 or later.
+#define _WIN32_WINNT 0x0501		// Change this to the appropriate value to target Windows 98 and Windows 2000 or later.
 #endif
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
@@ -66,6 +66,9 @@
 #include <tlhelp32.h>
 #include <algorithm>
 #include <vector>
-#include <winwlx.h> 
+#include <winwlx.h>
+
+#include <Sddl.h>       // ConvertSidToStringSid
+#include <atlstr.h>     // CString
 
 using namespace std;

@@ -28,6 +28,7 @@
 #include "KillProc.h"
 #include "ProcMonitor.h"
 
+
 //These usings are only working in .NET, not in Standard C++:
 //using namespace System::Security::Principal;
 //using System.Security.Principal;
@@ -45,6 +46,9 @@ BOOL				ReadProcessesInRegistry();
 BOOL				ShowSebAppChooser();
 BOOL				GetClientInfo();
 int					SendEquationToSocketServer(char*, char*, int);
+BOOL				OpenSocket();
+BOOL				CloseSocket();
+int                 DetermineUserSid(char*);
 BOOL				 EditRegistry();
 BOOL				ResetRegistry();
 BOOL				AlterTaskBar(BOOL);
@@ -91,9 +95,9 @@ static WORD     wVersionRequested;
 static PHOSTENT hostInfo;
 static WSADATA  wsaData;
 static SOCKET   ConnectSocket = INVALID_SOCKET;
-static struct hostent*    remoteHost;
-static struct in_addr     addr;
-static struct sockaddr_in clientService;
+static struct   hostent*    remoteHost;
+static struct   in_addr     addr;
+static struct   sockaddr_in clientService;
 static int      socketResult;
 static char     sendBuf[BUFLEN];
 
@@ -103,18 +107,19 @@ static int ai_family   = AF_INET;
 static int ai_socktype = SOCK_STREAM;
 static int ai_protocol = IPPROTO_TCP;
 
-const char* endOfStringKeyWord = "---";
+const char* endOfStringKeyWord = "---SEB---";
 
 static char*   defaultUserName     = "";
 static char*   defaultHostName     = "localhost";
-static int     defaultPortNumber   = 27016;
+static int     defaultPortNumber   = 57016;
 static int     defaultSendInterval = 100;
 static int     defaultNumMessages  = 3;
 
 static char    userNameRegistryFlags[100];
 static char    registryFlags[50];
-static char*   userName     = "";
 static char*   hostName     = "";
+static char*   userName     = "";
+static char    userSid[512];
 static int     portNumber   = 0;
 static int     sendInterval = 0;
 static int     numMessages  = 0;
@@ -128,6 +133,7 @@ static int intDisableTaskMgr         = 0;
 static int intNoLogoff               = 0;
 static int intNoClose                = 0;
 static int intEnableShade            = 0;
+static int intDebugger               = 0;
 
 // Store the desired registry values as strings
 static char stringHideFastUserSwitching [10];
@@ -137,6 +143,7 @@ static char stringDisableTaskMgr        [10];
 static char stringNoLogoff              [10];
 static char stringNoClose               [10];
 static char stringEnableShade           [10];
+static char stringDebugger              [10];
 
 
 
@@ -520,6 +527,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		{	
 			hinstDLL = LoadLibrary((LPCTSTR) mpParam["HOOK_DLL"].c_str());
 		}
+
 		if (hinstDLL == NULL) 
 		{
 			MessageBox(NULL, LOAD_LIBRARY_ERROR, "Error", 16);
@@ -527,6 +535,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			logg(fp, "Leave InitInstance()\n\n");
 			return FALSE;
 		}
+
 		if (IsNewOS)
 		{
 			  KeyHook =   (KEYHOOK)GetProcAddress(hinstDLL,   "KeyHookNT"); //Address Of KeyHookNT
@@ -753,9 +762,10 @@ BOOL ReadIniFile()
 
 		logg(fp, "sApplicationName = %s\n", sApplicationName.c_str());
 		logg(fp, "sCommandLine     = %s\n",     sCommandLine.c_str());
-
+		logg(fp, "\n");
 		logg(fp, "sebProcessVector[0] = %s\n", sebProcessVector[0].c_str());
 		logg(fp, "sebProcessVector[1] = %s\n", sebProcessVector[1].c_str());
+		logg(fp, "\n");
 
 		// Add the SEB process to the process list
 		mpProcesses.insert(make_pair(sebProcessVector[0], sebProcessVector[1]));
@@ -816,7 +826,6 @@ BOOL ReadIniFile()
 
 BOOL ReadProcessesInRegistry()
 {
-
 	logg(fp, "Enter ReadProcessesInRegistry()\n");
 
 	try
@@ -888,7 +897,7 @@ BOOL GetClientInfo()
 	//
 	// defaultUserName     = "";
 	// defaultHostName     = "localhost";
-	// defaultPortNumber   = 27016;
+	// defaultPortNumber   = 57016;
 	// defaultSendInterval = 100;
 	// defaultNumMessages  = 3;
 
@@ -915,12 +924,6 @@ BOOL GetClientInfo()
 				logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
 				logg(fp, "\n");
 			}
-
-            // Get the SID (security identifier) of the current user.
-			// This works only in .NET projects!
-            //WindowsIdentity    currentUser     = WindowsIdentity.GetCurrent();
-            //SecurityIdentifier currentUserSid  = currentUser.User;
-            //string             currentUserName = currentUser.Name;
 
 			HANDLE  ProcessHandle = NULL;
 			DWORD   DesiredAccess = 0;
@@ -1049,20 +1052,6 @@ BOOL GetClientInfo()
 	logg(fp, "\n");
 
 
-	// Create a SOCKET for connecting to the server
-
-	logg(fp, "Creating the ConnectSocket...\n");
-	ConnectSocket = socket(ai_family, ai_socktype, ai_protocol);
-	if (ConnectSocket == INVALID_SOCKET)
-	{
-		logg(fp, "socket() failed with error code %d\n\n", WSAGetLastError());
-		logg(fp, "Leave GetClientInfo()\n\n");
-		WSACleanup();
-		return TRUE;
-	}
-	else logg(fp, "ConnectSocket created\n\n");
-
-
 	// The sockaddr_in structure specifies the address family,
 	// IP address, and port of the server to be connected to.
 
@@ -1077,20 +1066,23 @@ BOOL GetClientInfo()
 	logg(fp, "\n");
 
 
+	// Create a SOCKET for connecting to the server
 	// Connect to the server
 
-	logg(fp, "Connecting to server...\n");
-	socketResult = connect(ConnectSocket, (SOCKADDR*) &clientService, sizeof(clientService));
-	if (socketResult == SOCKET_ERROR)
-	{
-		logg(fp, "connect() failed with error code %d\n\n", WSAGetLastError());
-		closesocket(ConnectSocket);
-		ConnectSocket = INVALID_SOCKET;
-		logg(fp, "Leave GetClientInfo()\n\n");
-		WSACleanup();
-		return TRUE;
-	}
-	else logg(fp, "Connected to server\n\n");
+	socketResult = OpenSocket();
+	if (socketResult == FALSE) return TRUE;
+
+
+	// Get the SID (security identifier) of the current user.
+	// This works only in .NET projects!
+	//WindowsIdentity    currentUser     = WindowsIdentity.GetCurrent();
+	//SecurityIdentifier currentUserSid  = currentUser.User;
+	//string             currentUserName = currentUser.Name;
+
+	strcpy(userSid, "");
+	DetermineUserSid(userSid);
+	logg(fp, "userSid = %s\n", userSid);
+	logg(fp, "\n");
 
 
 	// Send username, hostname etc. to server.
@@ -1104,6 +1096,7 @@ BOOL GetClientInfo()
 	intNoLogoff               = (int) getBool("REG_NO_LOGOFF");
 	intNoClose                = (int) getBool("REG_NO_CLOSE");
 	intEnableShade            = (int) getBool("REG_ENABLE_SHADE");
+	intDebugger               = (int) getBool("REG_DEBUGGER");
 
 	logg(fp, "intHideFastUserSwitching  = %d\n", intHideFastUserSwitching);
 	logg(fp, "intDisableLockWorkstation = %d\n", intDisableLockWorkstation);
@@ -1112,6 +1105,7 @@ BOOL GetClientInfo()
 	logg(fp, "intNoLogoff               = %d\n", intNoLogoff);
 	logg(fp, "intNoClose                = %d\n", intNoClose);
 	logg(fp, "intEnableShade            = %d\n", intEnableShade);
+	logg(fp, "intDebugger               = %d\n", intDebugger);
 	logg(fp, "\n");
 
 	sprintf(stringHideFastUserSwitching , "%d", intHideFastUserSwitching);
@@ -1121,6 +1115,7 @@ BOOL GetClientInfo()
 	sprintf(stringNoLogoff              , "%d", intNoLogoff);
 	sprintf(stringNoClose               , "%d", intNoClose);
 	sprintf(stringEnableShade           , "%d", intEnableShade);
+	sprintf(stringDebugger              , "%d", intDebugger);
 
 	// Build a binary string containing the "0"/"1" registry settings
 
@@ -1132,6 +1127,7 @@ BOOL GetClientInfo()
 	strcat(registryFlags, stringNoLogoff);
 	strcat(registryFlags, stringNoClose);
 	strcat(registryFlags, stringEnableShade);
+	strcat(registryFlags, stringDebugger);
 
 	//strcpy(userNameRegistryFlags, userName);
 	//strcpy(userNameRegistryFlags, endOfStringKeyWord);
@@ -1145,9 +1141,16 @@ BOOL GetClientInfo()
 	// The user name must be sent so the server knows
 	// for whom it shall set/change the registry values.
 	//
-	// 2.) registryFlags:
+	// 2.) userSid:
+	// For being able to set/change the registry values,
+	// the server must know the Security Identifier (SID)
+	// of the user currently logged in.
+	// Either the client or the server must therefore
+	// convert the userName to the userSid.
+	//
+	// 3.) registryFlags:
 	// To reduce network traffic, the registry flags are sent
-	// as a "0101011" pattern in the registryFlags string.
+	// as a "01010110" pattern in the registryFlags string.
 	//
 	// The host name can be omitted,
 	// since it is "localhost" by default anyway
@@ -1155,6 +1158,7 @@ BOOL GetClientInfo()
 
   //socketResult = SendEquationToSocketServer("HostName"     , hostName     , sendInterval);
 	socketResult = SendEquationToSocketServer("UserName"     , userName     , sendInterval);
+	socketResult = SendEquationToSocketServer("UserSid"      , userSid      , sendInterval);
 	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, 0);
   //socketResult = SendEquationToSocketServer("UserNameRegistryFlags", userNameRegistryFlags, 0);
 
@@ -1168,7 +1172,15 @@ BOOL GetClientInfo()
 	socketResult = SendEquationToSocketServer((char*)VAL_NoLogoff              , stringNoLogoff              , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_NoClose               , stringNoClose               , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_EnableShade           , stringEnableShade           , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_Debugger              , stringDebugger              , sendInterval);
 */
+
+	// Close the socket, so the server loop
+	// does not block its receive() all the time.
+	// Open the socket again before SEB shuts down.
+	// See method ShutdownInstance().
+
+	//CloseSocket();
 
 	logg(fp, "Leave GetClientInfo()\n\n");
 	return TRUE;
@@ -1229,19 +1241,190 @@ int SendEquationToSocketServer(char* leftSide, char* rightSide, int sendInterval
 
 
 
+//*****************************************
+// Open the socket connection to the server
+// ****************************************
+BOOL OpenSocket()
+{
+	// Create a SOCKET for connecting to the server
+	logg(fp, "Creating the ConnectSocket...\n");
+	ConnectSocket = socket(ai_family, ai_socktype, ai_protocol);
+	if (ConnectSocket == INVALID_SOCKET)
+	{
+		logg(fp, "socket() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "Leave GetClientInfo()\n\n");
+		WSACleanup();
+		return FALSE;
+	}
+	else logg(fp, "ConnectSocket created\n\n");
+
+	// Connect to the server
+	logg(fp, "Connecting to server...\n");
+	socketResult = connect(ConnectSocket, (SOCKADDR*) &clientService, sizeof(clientService));
+	if (socketResult == SOCKET_ERROR)
+	{
+		logg(fp, "connect() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "Leave GetClientInfo()\n\n");
+		closesocket(ConnectSocket);
+		ConnectSocket = INVALID_SOCKET;
+		WSACleanup();
+		return FALSE;
+	}
+	else logg(fp, "Connected to server\n\n");
+
+	return TRUE;
+}
+
+
+
+
+
+//******************************************
+// Close the socket connection to the server
+// *****************************************
+BOOL CloseSocket()
+{
+	// Shutdown the ConnectSocket
+	logg(fp, "Shutting down the ConnectSocket...\n");
+	socketResult = shutdown(ConnectSocket, SD_SEND);
+	if (socketResult == SOCKET_ERROR)
+	{
+		logg(fp, "shutdown() failed with error code %d\n\n", WSAGetLastError());
+		closesocket(ConnectSocket);
+		ConnectSocket = INVALID_SOCKET;
+		WSACleanup();
+		return FALSE;
+	}
+	else logg(fp, "ConnectSocket has been shut down\n\n");
+
+	// Close the ConnectSocket
+	closesocket(ConnectSocket);
+	ConnectSocket = INVALID_SOCKET;
+	WSACleanup();
+	return TRUE;
+}
+
+
+
+
+
+//****************************************************
+// Convert the given SID to a string format.
+// Use the ConvertSidToStringSid() Win32 API function.
+// Use the AtlThrow() function to signal errors.
+//****************************************************
+CString ConvertSidToString(PSID pSID)
+{
+	// Check input pointer
+	ATLASSERT(pSID != NULL);
+	if (pSID == NULL)
+	{
+		AtlThrow(E_POINTER);
+	}
+
+	// Get string corresponding to SID
+	LPTSTR pszSID = NULL;
+	if (!ConvertSidToStringSid(pSID, &pszSID))
+	{
+		AtlThrowLastWin32();
+	}
+
+	// Deep copy result in a CString instance
+	CString strSID(pszSID);
+
+	// Release buffer allocated by ConvertSidToStringSid API
+	LocalFree(pszSID);
+	pszSID = NULL;
+
+	// Return string representation of the SID
+	return strSID;
+}
+
+
+
+
+
+//******************************************************
+// Determine the user SID from the current process token
+//******************************************************
+int DetermineUserSid(char* userSid)
+{
+	// Open the access token associated with the calling process
+	HANDLE hToken = NULL;
+
+	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken)) 
+	{
+		logg(fp, "OpenProcessToken failed. GetLastError returned: %d\n", GetLastError());
+		return -1;
+	}
+
+	// Get the size of the memory buffer needed for the SID
+	DWORD dwBufferSize = 0;
+	if (!GetTokenInformation(hToken, TokenUser, NULL, 0, &dwBufferSize) &&
+		(GetLastError() != ERROR_INSUFFICIENT_BUFFER))
+	{
+		logg(fp, "GetTokenInformation failed. GetLastError returned: %d\n", GetLastError());
+		// Cleanup
+		CloseHandle(hToken);
+		hToken = NULL;
+		return -1;
+	}
+
+	// Allocate buffer for user token data
+	std::vector<BYTE> buffer;
+	buffer.resize(dwBufferSize);
+	PTOKEN_USER pTokenUser = reinterpret_cast<PTOKEN_USER>(&buffer[0]);
+
+	// Retrieve the token information in a TOKEN_USER structure
+	if (!GetTokenInformation(hToken, TokenUser, pTokenUser, dwBufferSize, &dwBufferSize)) 
+	{
+		logg(fp, "GetTokenInformation failed. GetLastError returned: %d\n", GetLastError());
+		// Cleanup
+		CloseHandle( hToken );
+		hToken = NULL;
+		return -1;
+	}
+
+    // Check if SID is valid
+	if (!IsValidSid(pTokenUser->User.Sid)) 
+	{
+		logg(fp, "The owner SID is invalid\n");
+		// Cleanup
+		CloseHandle(hToken);
+		hToken = NULL;
+		return -1;
+	}
+
+	// Get and print the SID string
+	CString userSidString = ConvertSidToString(pTokenUser->User.Sid).GetString();
+	strcpy (userSid, userSidString);
+	logg(fp, "userSidString = %s\n", userSidString);
+
+	// Cleanup
+	CloseHandle(hToken);
+	hToken = NULL;
+	return 0;
+}
+
+
+
+
+
 BOOL EditRegistry()
 {
 	HKEY hklmSystem;
 	HKEY hkcuSystem;
 	HKEY hkcuExplorer;
 	HKEY hkcuVMwareClient;
+	HKEY hklmUtilmanExe;
 
 	BOOL openedHKLMPolicySystem;
 	BOOL openedHKCUPolicySystem;
 	BOOL openedHKCUPolicyExplorer;
 	BOOL openedHKCUVMwareClient;
+	BOOL openedHKLMUtilmanExe;
 
-	logg(fp, "Enter EditRegistry()\n");
+	logg(fp, "Enter EditRegistry()\n\n");
 
 	try
 	{
@@ -1251,12 +1434,12 @@ BOOL EditRegistry()
 		if (openedHKLMPolicySystem)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) succeeded", "Registry", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKLM, System) succeeded\n");
+			logg(fp, "         HandleOpenRegistryKey(HKLM, System) succeeded\n\n");
 		}
 		else
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) failed", "Registry Error", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKLM, System) failed\n");
+			logg(fp, "         HandleOpenRegistryKey(HKLM, System) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
@@ -1267,12 +1450,12 @@ BOOL EditRegistry()
 		if (openedHKCUPolicySystem)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) succeeded", "Registry", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, System) succeeded\n");
+			logg(fp, "         HandleOpenRegistryKey(HKCU, System) succeeded\n\n");
 		}
 		else
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) failed", "Registry Error", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, System) failed\n");
+			logg(fp, "         HandleOpenRegistryKey(HKCU, System) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
@@ -1283,12 +1466,12 @@ BOOL EditRegistry()
 		if (openedHKCUPolicyExplorer)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) succeeded", "Registry", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, Explorer) succeeded\n");
+			logg(fp, "         HandleOpenRegistryKey(HKCU, Explorer) succeeded\n\n");
 		}
 		else
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) failed", "Registry Error", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, Explorer) failed\n");
+			logg(fp, "         HandleOpenRegistryKey(HKCU, Explorer) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
@@ -1299,33 +1482,52 @@ BOOL EditRegistry()
 		if (openedHKCUVMwareClient)
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VMwareClient) succeeded", "Registry", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, VMwareClient) succeeded\n");
+			logg(fp, "         HandleOpenRegistryKey(HKCU, VMwareClient) succeeded\n\n");
 		}
 		else
 		{
 			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VMwareClient) failed", "Registry Error", 16);
-			logg(fp, "Registry: HandleOpenRegistryKey(HKCU, VMwareClient) failed\n");
+			logg(fp, "         HandleOpenRegistryKey(HKCU, VMwareClient) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
+
+
+		// Open the Windows Registry Key
+		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe
+		openedHKLMUtilmanExe = HandleOpenRegistryKey(HKLM, KEY_UtilmanExe  , &hklmUtilmanExe  , TRUE);
+		if (openedHKLMUtilmanExe)
+		{
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, UtilmanExe) succeeded", "Registry", 16);
+			logg(fp, "         HandleOpenRegistryKey(HKLM, UtilmanExe) succeeded\n\n");
+		}
+		else
+		{
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, UtilmanExe) failed", "Registry Error", 16);
+			logg(fp, "         HandleOpenRegistryKey(HKLM, UtilmanExe) failed\n\n");
+			logg(fp, "Leave EditRegistry()\n\n");
+			return FALSE;
+		}
+
+
 
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\HideFastUserSwitching
 		if (getBool("REG_HIDE_FAST_USER_SWITCHING")) 
 		{
-			//MessageBox(NULL, "= true", "REG_HIDE_FAST_USER_SWITCHING", 16);
-			logg(fp, "Registry: getBool(REG_HIDE_FAST_USER_SWITCHING) = true\n");
+			// MessageBox(NULL, "= true", "REG_HIDE_FAST_USER_SWITCHING", 16);
+			logg(fp, "getBool(REG_HIDE_FAST_USER_SWITCHING) = true\n");
 
 			if (HandleSetRegistryKeyValue(hklmSystem,VAL_HideFastUserSwitching,"HIDE_FAST_USER_SWITCHING"))
 			{
 				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) succeeded\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -1333,7 +1535,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "REG_HIDE_FAST_USER_SWITCHING", 16);
-			logg(fp, "Registry: getBool(REG_HIDE_FAST_USER_SWITCHING) = false\n");
+			logg(fp, "getBool(REG_HIDE_FAST_USER_SWITCHING) = false\n");
 		}
 
 
@@ -1341,18 +1543,18 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableLockWorkstation
 		if (getBool("REG_DISABLE_LOCK_WORKSTATION")) 
 		{
-			//MessageBox(NULL, "= true", "REG_DISABLE_LOCK_WORKSTATION", 16);
-			logg(fp, "Registry: getBool(REG_DISABLE_LOCK_WORKSTATION) = true\n");
+			// MessageBox(NULL, "= true", "REG_DISABLE_LOCK_WORKSTATION", 16);
+			logg(fp, "getBool(REG_DISABLE_LOCK_WORKSTATION) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"DISABLE_LOCK_WORKSTATION"))
 			{
 				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) succeeded\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -1360,7 +1562,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "REG_DISABLE_LOCK_WORKSTATION", 16);
-			logg(fp, "Registry: getBool(REG_DISABLE_LOCK_WORKSTATION) = false\n");
+			logg(fp, "getBool(REG_DISABLE_LOCK_WORKSTATION) = false\n");
 		}
 
 
@@ -1368,18 +1570,18 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableChangePassword
 		if (getBool("REG_DISABLE_CHANGE_PASSWORD")) 
 		{
-			//MessageBox(NULL,"= true","REG_DISABLE_CHANGE_PASSWORD",16);
-			logg(fp, "Registry: getBool(REG_DISABLE_CHANGE_PASSWORD) = true\n");
+			//   MessageBox(NULL,"= true","REG_DISABLE_CHANGE_PASSWORD",16);
+			logg(fp, "getBool(REG_DISABLE_CHANGE_PASSWORD) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"DISABLE_CHANGE_PASSWORD"))
 			{
 				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) succeeded\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -1387,7 +1589,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "REG_DISABLE_CHANGE_PASSWORD", 16);
-			logg(fp, "Registry: getBool(REG_DISABLE_CHANGE_PASSWORD) = false\n");
+			logg(fp, "getBool(REG_DISABLE_CHANGE_PASSWORD) = false\n");
 		}
 
 
@@ -1395,18 +1597,18 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableTaskMgr
 		if (getBool("REG_DISABLE_TASKMGR")) 
 		{
-			//MessageBox(NULL,"= true","REG_DISABLE_TASKMGR",16);
-			logg(fp, "Registry: getBool(REG_DISABLE_TASKMGR) = true\n");
+			//   MessageBox(NULL,"= true","REG_DISABLE_TASKMGR",16);
+			logg(fp, "getBool(REG_DISABLE_TASKMGR) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableTaskMgr,"DISABLE_TASKMGR"))
 			{
 				//MessageBox(NULL, "Setting DISABLE_TASKMGR succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_TASKMGR) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) succeeded\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting DISABLE_TASKMGR failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(DISABLE_TASKMGR) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -1414,7 +1616,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "REG_DISABLE_TASKMGR", 16);
-			logg(fp, "Registry: getBool(REG_DISABLE_TASKMGR) = false\n");
+			logg(fp, "getBool(REG_DISABLE_TASKMGR) = false\n");
 		}
 
 
@@ -1422,18 +1624,18 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoLogoff
 		if (getBool("REG_NO_LOGOFF"))
 		{
-			//MessageBox(NULL,"= true","REG_NO_LOGOFF",16);
-			logg(fp, "Registry: getBool(REG_NO_LOGOFF) = true\n");
+			//   MessageBox(NULL,"= true","REG_NO_LOGOFF",16);
+			logg(fp, "getBool(REG_NO_LOGOFF) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"NO_LOGOFF"))
 			{
 				//MessageBox(NULL, "Setting NO_LOGOFF succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_LOGOFF) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) succeeded\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting NO_LOGOFF failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_LOGOFF) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -1441,7 +1643,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "REG_NO_LOGOFF", 16);
-			logg(fp, "Registry: getBool(REG_NO_LOGOFF) = false\n");
+			logg(fp, "getBool(REG_NO_LOGOFF) = false\n");
 		}
 
 
@@ -1449,18 +1651,18 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose
 		if (getBool("REG_NO_CLOSE"))
 		{
-			//MessageBox(NULL,"= true","REG_NO_CLOSE",16);
-			logg(fp, "Registry: getBool(REG_NO_CLOSE) = true\n");
+			//   MessageBox(NULL,"= true","REG_NO_CLOSE",16);
+			logg(fp, "getBool(REG_NO_CLOSE) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"NO_CLOSE"))
 			{
 				//MessageBox(NULL, "Setting NO_CLOSE succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_CLOSE) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) succeeded\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting NO_CLOSE failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(NO_CLOSE) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -1468,7 +1670,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "REG_NO_CLOSE", 16);
-			logg(fp, "Registry: getBool(REG_NO_CLOSE) = false\n");
+			logg(fp, "getBool(REG_NO_CLOSE) = false\n");
 		}
 
 
@@ -1476,18 +1678,18 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client\EnableShade
 		if (getBool("REG_ENABLE_SHADE")) 
 		{
-			//MessageBox(NULL, "= true", "REG_ENABLE_SHADE", 16);
-			logg(fp, "Registry: getBool(REG_ENABLE_SHADE) = true\n");
+			// MessageBox(NULL, "= true", "REG_ENABLE_SHADE", 16);
+			logg(fp, "getBool(REG_ENABLE_SHADE) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuVMwareClient,VAL_EnableShade,"ENABLE_SHADE"))
 			{
 				//MessageBox(NULL, "Setting ENABLE_SHADE succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting ENABLE_SHADE failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "Registry: HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -1495,7 +1697,34 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "REG_ENABLE_SHADE", 16);
-			logg(fp, "Registry: getBool(REG_ENABLE_SHADE) = false\n");
+			logg(fp, "getBool(REG_ENABLE_SHADE) = false\n");
+		}
+
+
+		// Set the Windows Registry Key
+		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe\Debugger
+		if (getBool("REG_DEBUGGER")) 
+		{
+			// MessageBox(NULL, "= true", "REG_DEBUGGER", 16);
+			logg(fp, "getBool(REG_DEBUGGER) = true\n");
+
+			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_Debugger,"DEBUGGER"))
+			{
+				//MessageBox(NULL, "Setting DEBUGGER succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DEBUGGER) succeeded\n");
+			}
+			else
+			{
+				//MessageBox(NULL, "Setting DEBUGGER failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DEBUGGER) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
+				return FALSE;
+			}
+		} 
+		else
+		{
+			//MessageBox(NULL, "= false", "REG_DEBUGGER", 16);
+			logg(fp, "getBool(REG_DEBUGGER) = false\n");
 		}
 
 	} // end try
@@ -1524,6 +1753,7 @@ BOOL ResetRegistry()
 	HKEY hkcuSystem;
 	HKEY hkcuExplorer;
 	HKEY hkcuVMwareClient;
+	HKEY hklmUtilmanExe;
 
 	logg(fp, "Enter ResetRegistry()\n\n");
 
@@ -1533,6 +1763,7 @@ BOOL ResetRegistry()
 		if (!HandleOpenRegistryKey(HKCU, KEY_PoliciesSystem  , &hkcuSystem      , TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKCU, KEY_PoliciesExplorer, &hkcuExplorer    , TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKCU, KEY_VMwareClient    , &hkcuVMwareClient, TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKLM, KEY_UtilmanExe      , &hklmUtilmanExe  , TRUE)) return FALSE;
 
 		if (getBool("REG_HIDE_FAST_USER_SWITCHING")) 
 		{
@@ -1561,6 +1792,10 @@ BOOL ResetRegistry()
 		if (getBool("REG_ENABLE_SHADE"))
 		{
 			RegDeleteValue(hkcuVMwareClient, VAL_EnableShade);
+		}
+		if (getBool("REG_DEBUGGER")) 
+		{
+			RegDeleteValue(hklmUtilmanExe, VAL_Debugger);
 		}
 	}
 
@@ -1701,25 +1936,19 @@ BOOL ShutdownInstance()
 	logg(fp, " numMessages  = %d\n", numMessages);
 	logg(fp, "\n");
 
-	// Tell the Seb Windows Service that we want to shutdown SEB,
-	// so the Seb Windows Service can reset the registry keys
-	// to their original values.
 
-	socketResult = SendEquationToSocketServer("ShutDown", "1", sendInterval);
-
-	// Shutdown the socket connection
-
-	logg(fp, "Shutting down the ConnectSocket...\n");
-	socketResult = shutdown(ConnectSocket, SD_SEND);
-	if (socketResult == SOCKET_ERROR)
+	// Reopen the socket connection to the server
+	//socketResult = OpenSocket();
+	//if (socketResult == TRUE)
 	{
-		logg(fp, "shutdown() failed with error code %d\n\n", WSAGetLastError());
-	}
-	else logg(fp, "ConnectSocket has been shut down\n\n");
+		// Tell the Seb Windows Service that we want to shutdown SEB,
+		// so the Seb Windows Service can reset the registry keys
+		// to their original values.
+		socketResult = SendEquationToSocketServer("ShutDown", "1", sendInterval);
 
-	// Close the ConnectSocket
-	closesocket(ConnectSocket);
-	WSACleanup();
+		// Close the socket connection finally
+		CloseSocket();
+	}
 
 
 	// In case the Seb Windows Server is not available,
@@ -2223,7 +2452,7 @@ int getInt(string key)
 
 BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 {
-	logg(fp, "Enter HandleOpenRegistryKey()\n");
+	logg(fp, "   Enter HandleOpenRegistryKey()\n");
 
 	try
 	{
@@ -2257,17 +2486,20 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 							case ERROR_SUCCESS:
 								//MessageBox(hWnd,"HandleOpenRegistryKey(): Yes, enough rights for editing registry 2","Registry enough rights 2",16);
 								break;
-							case ERROR_ACCESS_DENIED :
+							case ERROR_ACCESS_DENIED:
 							  //MessageBox(hWnd,"HandleOpenRegistryKey(): Not enough rights for editing registry",REGISTRY_WARNING,MB_ICONWARNING);
 							  //MessageBox(hWnd, NOT_ENOUGH_REGISTRY_RIGHTS_ERROR, REGISTRY_WARNING, MB_ICONWARNING);
+								logg(fp, "   Leave HandleOpenRegistryKey()\n");
 								return FALSE;
 								break;
-							default :
+							default:
+								logg(fp, "   Leave HandleOpenRegistryKey()\n");
 								return FALSE;
 						}
 					}
 					break;
 				default :
+					logg(fp, "   Leave HandleOpenRegistryKey()\n");
 					return FALSE;
 			} // end switch
 		} // end if
@@ -2276,12 +2508,12 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 	catch (char* str)
 	{		
 		MessageBox(NULL, str, "Error", 16);
-		logg(fp, "Error: %s\n", str);
-		logg(fp, "Leave HandleOpenRegistryKey()\n\n");
+		logg(fp, "   Error: %s\n", str);
+		logg(fp, "   Leave HandleOpenRegistryKey()\n");
 		return FALSE;
 	}
 
-	logg(fp, "Leave HandleOpenRegistryKey()\n\n");
+	logg(fp, "   Leave HandleOpenRegistryKey()\n");
 	return TRUE;
 
 } // end HandleOpenRegistryKey()
@@ -2303,7 +2535,7 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 
 	try
 	{
-		lngRegGet = RegQueryValueEx(hKey,lpVal,NULL,&type,(LPBYTE)&val,&dwLen);
+		lngRegGet = RegQueryValueEx(hKey, lpVal, NULL, &type, (LPBYTE)&val, &dwLen);
 		if (lngRegGet == ERROR_SUCCESS)
 		{
 			//is already set. don't touch this key value in the ResetRegistry function

@@ -93,12 +93,13 @@ FILE* fp;
 // DisableChangePassword  ("Change a password")
 // DisableTaskMgr         ("Start Task Manager")
 // NoLogoff               ("Log off")
-// NoClose                ("No shutdown symbol in lower right desktop corner???")
+// NoClose                ("No shutdown symbol in lower right desktop corner")
 // EnableShade            ("Enable Shade on VMware virtual desktop")
 //
 // HKEY_LOCAL_MACHINE contains the Windows Registry key
 //
 // HideFastUserSwitching  ("Switch User")
+// UtilmanExe             ("Program started by Ease-of-Access icon in lower left desktop corner")
 
 #define HKCU HKEY_CURRENT_USER
 #define HKLM HKEY_LOCAL_MACHINE
@@ -114,6 +115,7 @@ LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Po
 LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
 LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
 LPCTSTR KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
+LPCTSTR KEY_UtilmanExe       = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Utilman.exe";
 
 // Strings for registry values
 LPCTSTR VAL_HideFastUserSwitching  = "HideFastUserSwitching";
@@ -123,6 +125,7 @@ LPCTSTR VAL_DisableTaskMgr         = "DisableTaskMgr";
 LPCTSTR VAL_NoLogoff               = "NoLogoff";
 LPCTSTR VAL_NoClose                = "NoClose";
 LPCTSTR VAL_EnableShade            = "EnableShade";
+LPCTSTR VAL_Debugger               = "Debugger";
 
 // Aligned strings for printing out registry values
 LPCTSTR MSG_HideFastUserSwitching  = "HideFastUserSwitching ";
@@ -132,6 +135,7 @@ LPCTSTR MSG_DisableTaskMgr         = "DisableTaskMgr        ";
 LPCTSTR MSG_NoLogoff               = "NoLogoff              ";
 LPCTSTR MSG_NoClose                = "NoClose               ";
 LPCTSTR MSG_EnableShade            = "EnableShade           ";
+LPCTSTR MSG_Debugger               = "Debugger              ";
 
 
 // Only for trunk version necessary (XULrunner)

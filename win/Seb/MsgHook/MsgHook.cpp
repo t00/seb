@@ -498,6 +498,7 @@ BOOL InitMsgHook()
 		{
 			hWndCaller = FindWindow(NULL, sHotKey.c_str());
 		}
+
 		if (hWndCaller != NULL)
 		{
 			if (sHotKey != "") bHotKeyKill = TRUE;
