@@ -133,7 +133,7 @@ static int intDisableTaskMgr         = 0;
 static int intNoLogoff               = 0;
 static int intNoClose                = 0;
 static int intEnableShade            = 0;
-static int intDebugger               = 0;
+static int intEnableEaseOfAccess     = 0;
 
 // Store the desired registry values as strings
 static char stringHideFastUserSwitching [10];
@@ -143,7 +143,7 @@ static char stringDisableTaskMgr        [10];
 static char stringNoLogoff              [10];
 static char stringNoClose               [10];
 static char stringEnableShade           [10];
-static char stringDebugger              [10];
+static char stringEnableEaseOfAccess    [10];
 
 
 
@@ -1096,7 +1096,7 @@ BOOL GetClientInfo()
 	intNoLogoff               = (int) getBool("REG_NO_LOGOFF");
 	intNoClose                = (int) getBool("REG_NO_CLOSE");
 	intEnableShade            = (int) getBool("REG_ENABLE_SHADE");
-	intDebugger               = (int) getBool("REG_DEBUGGER");
+	intEnableEaseOfAccess     = (int) getBool("REG_ENABLE_EASE_OF_ACCESS");
 
 	logg(fp, "intHideFastUserSwitching  = %d\n", intHideFastUserSwitching);
 	logg(fp, "intDisableLockWorkstation = %d\n", intDisableLockWorkstation);
@@ -1105,7 +1105,7 @@ BOOL GetClientInfo()
 	logg(fp, "intNoLogoff               = %d\n", intNoLogoff);
 	logg(fp, "intNoClose                = %d\n", intNoClose);
 	logg(fp, "intEnableShade            = %d\n", intEnableShade);
-	logg(fp, "intDebugger               = %d\n", intDebugger);
+	logg(fp, "intEnableEaseOfAccess     = %d\n", intEnableEaseOfAccess);
 	logg(fp, "\n");
 
 	sprintf(stringHideFastUserSwitching , "%d", intHideFastUserSwitching);
@@ -1115,7 +1115,7 @@ BOOL GetClientInfo()
 	sprintf(stringNoLogoff              , "%d", intNoLogoff);
 	sprintf(stringNoClose               , "%d", intNoClose);
 	sprintf(stringEnableShade           , "%d", intEnableShade);
-	sprintf(stringDebugger              , "%d", intDebugger);
+	sprintf(stringEnableEaseOfAccess    , "%d", intEnableEaseOfAccess);
 
 	// Build a binary string containing the "0"/"1" registry settings
 
@@ -1127,7 +1127,7 @@ BOOL GetClientInfo()
 	strcat(registryFlags, stringNoLogoff);
 	strcat(registryFlags, stringNoClose);
 	strcat(registryFlags, stringEnableShade);
-	strcat(registryFlags, stringDebugger);
+	strcat(registryFlags, stringEnableEaseOfAccess);
 
 	//strcpy(userNameRegistryFlags, userName);
 	//strcpy(userNameRegistryFlags, endOfStringKeyWord);
@@ -1172,7 +1172,7 @@ BOOL GetClientInfo()
 	socketResult = SendEquationToSocketServer((char*)VAL_NoLogoff              , stringNoLogoff              , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_NoClose               , stringNoClose               , sendInterval);
 	socketResult = SendEquationToSocketServer((char*)VAL_EnableShade           , stringEnableShade           , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_Debugger              , stringDebugger              , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableEaseOfAccess    , stringEnableEaseOfAccess    , sendInterval);
 */
 
 	// Close the socket, so the server loop
@@ -1703,28 +1703,28 @@ BOOL EditRegistry()
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe\Debugger
-		if (getBool("REG_DEBUGGER")) 
+		if (getBool("REG_ENABLE_EASE_OF_ACCESS")) 
 		{
-			// MessageBox(NULL, "= true", "REG_DEBUGGER", 16);
-			logg(fp, "getBool(REG_DEBUGGER) = true\n");
+			// MessageBox(NULL, "= true", "REG_ENABLE_EASE_OF_ACCESS", 16);
+			logg(fp, "getBool(REG_ENABLE_EASE_OF_ACCESS) = true\n");
 
-			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_Debugger,"DEBUGGER"))
+			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_EnableEaseOfAccess,"ENABLE_EASE_OF_ACCESS"))
 			{
-				//MessageBox(NULL, "Setting DEBUGGER succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DEBUGGER) succeeded\n");
+				//MessageBox(NULL, "Setting ENABLE_EASE_OF_ACCESS succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) succeeded\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting DEBUGGER failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DEBUGGER) failed\n");
+				//MessageBox(NULL, "Setting ENABLE_EASE_OF_ACCESS failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) failed\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_DEBUGGER", 16);
-			logg(fp, "getBool(REG_DEBUGGER) = false\n");
+			//MessageBox(NULL, "= false", "REG_ENABLE_EASE_OF_ACCESS", 16);
+			logg(fp, "getBool(REG_ENABLE_EASE_OF_ACCESS) = false\n");
 		}
 
 	} // end try
@@ -1793,9 +1793,9 @@ BOOL ResetRegistry()
 		{
 			RegDeleteValue(hkcuVMwareClient, VAL_EnableShade);
 		}
-		if (getBool("REG_DEBUGGER")) 
+		if (getBool("REG_ENABLE_EASE_OF_ACCESS")) 
 		{
-			RegDeleteValue(hklmUtilmanExe, VAL_Debugger);
+			RegDeleteValue(hklmUtilmanExe, VAL_EnableEaseOfAccess);
 		}
 	}
 

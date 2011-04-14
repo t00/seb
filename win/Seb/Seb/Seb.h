@@ -99,7 +99,7 @@ FILE* fp;
 // HKEY_LOCAL_MACHINE contains the Windows Registry key
 //
 // HideFastUserSwitching  ("Switch User")
-// UtilmanExe             ("Program started by Ease-of-Access icon in lower left desktop corner")
+// UtilmanExe/Debugger    ("Program started by Ease-of-Access icon in lower left desktop corner")
 
 #define HKCU HKEY_CURRENT_USER
 #define HKLM HKEY_LOCAL_MACHINE
@@ -125,7 +125,7 @@ LPCTSTR VAL_DisableTaskMgr         = "DisableTaskMgr";
 LPCTSTR VAL_NoLogoff               = "NoLogoff";
 LPCTSTR VAL_NoClose                = "NoClose";
 LPCTSTR VAL_EnableShade            = "EnableShade";
-LPCTSTR VAL_Debugger               = "Debugger";
+LPCTSTR VAL_EnableEaseOfAccess     = "Debugger";
 
 // Aligned strings for printing out registry values
 LPCTSTR MSG_HideFastUserSwitching  = "HideFastUserSwitching ";
@@ -135,7 +135,7 @@ LPCTSTR MSG_DisableTaskMgr         = "DisableTaskMgr        ";
 LPCTSTR MSG_NoLogoff               = "NoLogoff              ";
 LPCTSTR MSG_NoClose                = "NoClose               ";
 LPCTSTR MSG_EnableShade            = "EnableShade           ";
-LPCTSTR MSG_Debugger               = "Debugger              ";
+LPCTSTR MSG_EnableEaseOfAccess     = "Debugger              ";
 
 
 // Only for trunk version necessary (XULrunner)
