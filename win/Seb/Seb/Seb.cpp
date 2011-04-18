@@ -117,6 +117,7 @@ static char*   defaultUserName     = "";
 static char*   defaultHostName     = "localhost";
 static int     defaultPortNumber   = 57016;
 static int     defaultSendInterval = 100;
+static int     defaultRecvTimeout  = 100;
 static int     defaultNumMessages  = 3;
 
 static char    userNameRegistryFlags[100];
@@ -904,12 +905,14 @@ BOOL GetClientInfo()
 	// defaultHostName     = "localhost";
 	// defaultPortNumber   = 57016;
 	// defaultSendInterval = 100;
+	// defaultRecvTimeout  = 100;
 	// defaultNumMessages  = 3;
 
 	userName     = defaultUserName;
 	hostName     = defaultHostName;
 	portNumber   = defaultPortNumber;
 	sendInterval = defaultSendInterval;
+	recvTimeout  = defaultRecvTimeout;
 	numMessages  = defaultNumMessages;
 
 	try
@@ -1079,6 +1082,28 @@ BOOL GetClientInfo()
 	if (socketResult == FALSE) return TRUE;
 
 
+
+   //---------------------------------------
+   // Call getsockopt. 
+   // The SO_RCVTIMEO parameter is a socket option 
+   // that tells the function to check the timeout
+   // for send() and recv() commands. 
+   // The timeouts are given in milliseconds.
+
+   int timeoutVal = recvTimeout;   // e.g. 100 msec
+   int timeoutLen = sizeof(int);
+
+   logg(fp, "\n");
+
+   if (setsockopt(ConnectSocket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeoutVal,  timeoutLen) != SOCKET_ERROR)
+       logg(fp, "Set SO_RCVTIMEO timeout value: %d milliseconds\n", timeoutVal);
+
+   if (getsockopt(ConnectSocket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeoutVal, &timeoutLen) != SOCKET_ERROR)
+       logg(fp, "Get SO_RCVTIMEO timeout value: %d milliseconds\n", timeoutVal);
+
+   logg(fp, "\n");
+
+
 	// Get the SID (security identifier) of the current user.
 	// This works only in .NET projects!
 	//WindowsIdentity    currentUser     = WindowsIdentity.GetCurrent();
@@ -1234,7 +1259,7 @@ int SendEquationToSocketServer(char* leftSide, char* rightSide, int sendInterval
 	if (ConnectSocket != NULL)
 	{
 		socketResult = send(ConnectSocket, sendBuffer, (int)strlen(sendBuffer), 0);
-		if (socketResult < 0) logg(fp, "   send() failed with error code %d\n\n", WSAGetLastError());
+		if (socketResult < 0) logg(fp, "   send() failed with error code %d\n", WSAGetLastError());
 		logg(fp, "   Text sent : ***%s*** with %d Bytes\n", sendBuffer, socketResult);
 	}
 
@@ -1276,7 +1301,7 @@ int RecvEquationOfSocketServer(char* leftSide, char* rightSide, int timeout)
 	if (ConnectSocket != NULL)
 	{
 		socketResult = recv(ConnectSocket, recvBuffer, BUFLEN, 0);
-		if (socketResult < 0) logg(fp, "   recv() failed with error code %d\n\n", WSAGetLastError());
+		if (socketResult < 0) logg(fp, "   recv() failed with error code %d\n", WSAGetLastError());
 		logg(fp, "   Text received : ***%s*** with %d Bytes\n", recvBuffer, socketResult);
 	}
 
