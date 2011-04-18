@@ -919,7 +919,7 @@ BOOL GetClientInfo()
 			// Get the current username
 
 			DWORD cUserNameLen =      sizeof(cUserName);
-			BOOL user          = GetUserName(cUserName, &cUserNameLen);
+			BOOL   user        = GetUserName(cUserName, &cUserNameLen);
 			userName           = cUserName;
 
 			if (cUserName != NULL)
