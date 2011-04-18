@@ -1,8 +1,8 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Seb", "Seb\Seb.vcproj", "{E758B32C-024E-4C0F-ABC3-1F76C450FED6}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Seb", "Seb\Seb.vcxproj", "{E758B32C-024E-4C0F-ABC3-1F76C450FED6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MsgHook", "MsgHook\MsgHook.vcproj", "{75A343F9-208F-4156-B6AF-0C0459A2F3C3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MsgHook", "MsgHook\MsgHook.vcxproj", "{75A343F9-208F-4156-B6AF-0C0459A2F3C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
