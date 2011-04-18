@@ -44,11 +44,14 @@ BOOL				InitInstance   (HINSTANCE, int);
 BOOL				ReadIniFile();
 BOOL				ReadProcessesInRegistry();
 BOOL				ShowSebAppChooser();
-BOOL				GetClientInfo();
-int					SendEquationToSocketServer(char*, char*, int);
+
 BOOL				OpenSocket();
 BOOL				CloseSocket();
 int                 DetermineUserSid(char*);
+int					SendEquationToSocketServer(char*, char*, int);
+int					RecvEquationOfSocketServer(char*, char*, int);
+
+BOOL				GetClientInfo();
 BOOL				 EditRegistry();
 BOOL				ResetRegistry();
 BOOL				AlterTaskBar(BOOL);
@@ -99,7 +102,8 @@ static struct   hostent*    remoteHost;
 static struct   in_addr     addr;
 static struct   sockaddr_in clientService;
 static int      socketResult;
-static char     sendBuf[BUFLEN];
+static char     sendBuffer[BUFLEN];
+static char     recvBuffer[BUFLEN];
 
 
 // Socket protocol
@@ -122,6 +126,7 @@ static char*   userName     = "";
 static char    userSid[512];
 static int     portNumber   = 0;
 static int     sendInterval = 0;
+static int     recvTimeout  = 0;
 static int     numMessages  = 0;
 static int     messageNr    = 0;
 
@@ -962,6 +967,7 @@ BOOL GetClientInfo()
 			logg(fp, " hostName     = %s\n", hostName);
 			logg(fp, " portNumber   = %d\n", portNumber);
 			logg(fp, " sendInterval = %d\n", sendInterval);
+			logg(fp, " recvTimeout  = %d\n", recvTimeout);
 			logg(fp, " numMessages  = %d\n", numMessages);
 			logg(fp, "\n");
 
@@ -1081,7 +1087,7 @@ BOOL GetClientInfo()
 
 	strcpy(userSid, "");
 	DetermineUserSid(userSid);
-	logg(fp, "userSid = %s\n", userSid);
+	logg(fp, "userSid       = %s\n", userSid);
 	logg(fp, "\n");
 
 
@@ -1156,11 +1162,24 @@ BOOL GetClientInfo()
 	// since it is "localhost" by default anyway
 	// (SEB Windows service runs on same machine as SEB client)
 
-  //socketResult = SendEquationToSocketServer("HostName"     , hostName     , sendInterval);
-	socketResult = SendEquationToSocketServer("UserName"     , userName     , sendInterval);
-	socketResult = SendEquationToSocketServer("UserSid"      , userSid      , sendInterval);
-	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, 0);
-  //socketResult = SendEquationToSocketServer("UserNameRegistryFlags", userNameRegistryFlags, 0);
+	char  leftSide[BUFLEN];
+	char rightSide[BUFLEN];
+
+	strcpy( leftSide, "");
+	strcpy(rightSide, "");
+
+  //socketResult = SendEquationToSocketServer("HostName"     ,  hostName     , sendInterval);
+  //socketResult = RecvEquationOfSocketServer( leftSide      ,  rightSide    , recvTimeout);
+
+	socketResult = SendEquationToSocketServer("UserName"     ,   userName    , sendInterval);
+	socketResult = RecvEquationOfSocketServer( leftSide      ,  rightSide    , recvTimeout);
+
+	socketResult = SendEquationToSocketServer("UserSid"      ,  userSid , sendInterval);
+	socketResult = RecvEquationOfSocketServer( leftSide      , rightSide, recvTimeout);
+
+	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, sendInterval);
+	socketResult = RecvEquationOfSocketServer( leftSide      ,    rightSide , recvTimeout);
+
 
 	// Alternatively, the registry flags could also be sent
 	// one by one, namely in the "DisableTaskMgr=1" format:
@@ -1203,24 +1222,23 @@ int SendEquationToSocketServer(char* leftSide, char* rightSide, int sendInterval
 	logg(fp, "    leftSide = ***%s***\n",  leftSide);
 	logg(fp, "   rightSide = ***%s***\n", rightSide);
 
-	if (sendBuf == NULL) return -1;
+	if (sendBuffer == NULL) return -1;
 
-	sprintf(sendBuf, "%s=%s", leftSide, rightSide);
-	strcat(sendBuf, endOfStringKeyWord);
-	fflush(stdout);
+	sprintf(sendBuffer, "%s=%s", leftSide, rightSide);
+	strcat (sendBuffer, endOfStringKeyWord);
+	fflush (stdout);
 
- 	//logg(fp, "sendBuf = ***%s***\n", sendBuf);
+ 	//logg(fp, "sendBuffer = ***%s***\n", sendBuffer);
 	//logg(fp, "\n");
 
 	if (ConnectSocket != NULL)
 	{
-		socketResult = send(ConnectSocket, sendBuf, (int)strlen(sendBuf), 0);
-
+		socketResult = send(ConnectSocket, sendBuffer, (int)strlen(sendBuffer), 0);
 		if (socketResult < 0) logg(fp, "   send() failed with error code %d\n\n", WSAGetLastError());
-		logg(fp, "   Text sent : ***%s*** with %d Bytes\n", sendBuf, socketResult);
+		logg(fp, "   Text sent : ***%s*** with %d Bytes\n", sendBuffer, socketResult);
 	}
 
-	strcpy(sendBuf, "");
+	strcpy(sendBuffer, "");
 	fflush(stdout);
 
 	// Wait [sendInterval] milliseconds
@@ -1236,6 +1254,59 @@ int SendEquationToSocketServer(char* leftSide, char* rightSide, int sendInterval
 	return socketResult;
 
 } // end SendEquationToSocketServer()
+
+
+
+
+
+//******************************************************
+// Receive the string "key=value" from the socket server
+// *****************************************************
+int RecvEquationOfSocketServer(char* leftSide, char* rightSide, int timeout)
+{
+	//int socketResult;
+
+	logg(fp, "Enter ReceiveEquationFromSocketServer()\n");
+
+	if (recvBuffer == NULL) return -1;
+
+	strcpy(recvBuffer, "");
+	fflush(stdout);
+
+	if (ConnectSocket != NULL)
+	{
+		socketResult = recv(ConnectSocket, recvBuffer, BUFLEN, 0);
+		if (socketResult < 0) logg(fp, "   recv() failed with error code %d\n\n", WSAGetLastError());
+		logg(fp, "   Text received : ***%s*** with %d Bytes\n", recvBuffer, socketResult);
+	}
+
+	char* endOfStringKeyWordPointer  = strstr(recvBuffer, endOfStringKeyWord);
+	if   (endOfStringKeyWordPointer != NULL)
+	     *endOfStringKeyWordPointer  = '\0';
+
+ 	logg(fp, "   recvBuffer    = ***%s***\n", recvBuffer);
+
+	// Extract the left and right side from the "leftSide=rightSide" message.
+	// Actually, this could easily be done using the sscanf() function.
+	// However, sscanf() did not work here, so lets take the hard way...
+	//sscanf(recvBuffer, "%s=%s", leftSide, rightSide);
+
+	strcpy( leftSide, recvBuffer);
+	strcpy(rightSide, "");
+
+	char* equalSignPointer  =        strstr( leftSide, "=");
+	if   (equalSignPointer != NULL)  strcpy(rightSide, equalSignPointer + 1);
+	if   (equalSignPointer != NULL) *equalSignPointer = '\0';
+
+	fflush(stdout);
+
+	logg(fp, "        leftSide = ***%s***\n",  leftSide);
+	logg(fp, "       rightSide = ***%s***\n", rightSide);
+
+	logg(fp, "Leave ReceiveEquationFromSocketServer()\n\n");
+	return socketResult;
+
+} // end RecvEquationFromSocketServer()
 
 
 
@@ -1404,7 +1475,8 @@ int DetermineUserSid(char* userSid)
 	CloseHandle(hToken);
 	hToken = NULL;
 	return 0;
-}
+
+} // end of method DetermineUserSid()
 
 
 
