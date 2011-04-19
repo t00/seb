@@ -41,8 +41,8 @@ FILE* fp;
 #define logg if (fp != NULL) fprintf
 
 // Socket structures for IPC (interprocess communication)
-// between SEB (client) and Windows service (server)
-
+// between SEB (client) and SEB Windows Service (server)
+bool    forceWindowsService = false;
 #define BUFLEN 512
 
 
