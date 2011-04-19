@@ -217,6 +217,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
 		logg(fp, "Error: %s\n", INITIALIZE_ERROR);
+		if (forceWindowsService)
+		{
+			logg(fp, "Windows Service could not be forced, should I exit now?\n");
+			//ShutdownInstance();
+			//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+		}
 	}
 
 	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SEB);
@@ -625,31 +631,15 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	long threadID;
 
 	parameters.allowedProcesses = &allowedProcesses;
-	parameters.mpProcesses = mpProcesses; // Only used in Branches, not in Tags!
-	parameters.desktop = hNewDesktop;
-	parameters.hold    = 0;
-	parameters.confirm = 0;
+	parameters.mpProcesses      = mpProcesses; // Only used in Branches, not in Tags!
+	parameters.desktop          = hNewDesktop;
+	parameters.hold             = 0;
+	parameters.confirm          = 0;
 
 	if (getBool("PROC_MONITORING"))
 	{
 		procMonitorThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)MonitorProcesses, (LPVOID)&parameters, 0, (LPDWORD)&threadID);
 		parameters.procedureReady = 1;
-	}
-
-	if (getBool("LOG_FILE"))
-	{
-		logFileDesired = true;
-		logg(fp, "Logfile desired, therefore keeping logfile\n");
-	}
-	else
-	{
-		logFileDesired = false;
-		logg(fp, "No logfile desired, therefore closing and removing logfile\n");
-		if (fp != NULL)
-		{
-			fclose(fp);
-			remove(logFileName);
-		}
 	}
 
 	logg(fp, "Leave InitInstance()\n\n");
@@ -736,6 +726,38 @@ BOOL ReadIniFile()
 		inf.close();
 		logg(fp, "-----------\n");
 		logg(fp, "\n");
+
+
+		// Decide whether to write data into the logfile
+		if (getBool("LOG_FILE"))
+		{
+			logFileDesired = true;
+			logg(fp, "Logfile desired, therefore keeping logfile\n");
+		}
+		else
+		{
+			logFileDesired = false;
+			logg(fp, "No logfile desired, therefore closing and removing logfile\n");
+			if (fp != NULL)
+			{
+				fclose(fp);
+				remove(logFileName);
+			}
+		}
+
+
+		// Decide whether to enforce socket communication with SEB Windows Service
+		if (getBool("FORCE_WINDOWS_SERVICE"))
+		{
+			forceWindowsService = true;
+			logg(fp, "Windows Service demanded, setting forceWindowService = true\n");
+		}
+		else
+		{
+			forceWindowsService = false;
+			logg(fp, "Windows Service not demanded, setting forceWindowService = false\n");
+		}
+
 
 		// Get start URL for Seb Browser
 		sUrlExam = mpParam["URL_EXAM"];
@@ -1079,29 +1101,65 @@ BOOL GetClientInfo()
 	// Connect to the server
 
 	socketResult = OpenSocket();
-	if (socketResult == FALSE) return TRUE;
+	if (socketResult == FALSE)
+	{
+		logg(fp, "socketResult = OpenSocket() failed!\n");
+		logg(fp, "What shall I do now?\n");
+		logg(fp, "forceWindowsService = %d\n", forceWindowsService);
+		logg(fp, "\n");
+		return TRUE;
+	}
 
 
+	// Set the timeout for the send() and recv() socket commands. 
+	// The timeouts are expected in milliseconds by the subsequent
+	// setsockopt() and getsockopt() socket commands (see below).
+	//
+	// If the flag FORCE_WINDOWS_SERVICE is set to 1 (true) in the Seb.ini,
+	// the timeout for the recv() socket command is set to "0" = "infinite".
+	// The SEB client then waits in ANY case for an acknowledgement
+	// from the SEB Windows Service that the registry values have been set.
+	// So the SEB client is BLOCKED until the server acknowledgement comes in.
+	// Problem: should the server be down or blocked,
+	// the SEB client remains blocked, too, and thus cannot start up.
+	// So the exam cannot take place then, not even in "unsure" mode!
+	//
+	// If the flag FORCE_WINDOWS_SERVICE is set to 0 (false) in the Seb.ini,
+	// the timeout for the recv() socket command is set to the default timeout, e.g. 100 msecs.
+	// The SEB client then only waits for a normal (short) timespan,
+	// and then continues. The SEB Windows Service might have problems,
+	// or succeeded in setting the registry values and just did not answer quickly.
+	// But in any case the SEB client is NOT blocked by a missing server acknowledgement,
+	// so the exam can take place with or without registry changes ("safe" or "unsafe" mode).
 
-   //---------------------------------------
-   // Call getsockopt. 
-   // The SO_RCVTIMEO parameter is a socket option 
-   // that tells the function to check the timeout
-   // for send() and recv() commands. 
-   // The timeouts are given in milliseconds.
+	if (forceWindowsService)
+	{
+		recvTimeout = 0;   // timeout "0" means "infinite" in this case !!!
+		logg(fp, "Force Windows Service demanded, therefore socket recvTimeout = infinite\n");
+	}
+	else
+	{
+		recvTimeout = defaultRecvTimeout;   // e.g. 100 milliseconds
+		logg(fp, "Force Windows Service not demanded, therefore socket recvTimeout = %d\n", recvTimeout);
+	}
 
-   int timeoutVal = recvTimeout;   // e.g. 100 msec
-   int timeoutLen = sizeof(int);
+	// Call getsockopt. 
+	// The SO_RCVTIMEO parameter is a socket option 
+	// that tells the function to check the timeout
+	// for send() and recv() commands. 
 
-   logg(fp, "\n");
+	int timeoutVal = recvTimeout;   // e.g. 100 msec
+	int timeoutLen = sizeof(int);
 
-   if (setsockopt(ConnectSocket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeoutVal,  timeoutLen) != SOCKET_ERROR)
-       logg(fp, "Set SO_RCVTIMEO timeout value: %d milliseconds\n", timeoutVal);
+	logg(fp, "\n");
 
-   if (getsockopt(ConnectSocket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeoutVal, &timeoutLen) != SOCKET_ERROR)
-       logg(fp, "Get SO_RCVTIMEO timeout value: %d milliseconds\n", timeoutVal);
+	if (setsockopt(ConnectSocket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeoutVal,  timeoutLen) != SOCKET_ERROR)
+		logg(fp, "Set SO_RCVTIMEO timeout value: %d milliseconds\n", timeoutVal);
 
-   logg(fp, "\n");
+	if (getsockopt(ConnectSocket, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeoutVal, &timeoutLen) != SOCKET_ERROR)
+		logg(fp, "Get SO_RCVTIMEO timeout value: %d milliseconds\n", timeoutVal);
+
+	logg(fp, "\n");
 
 
 	// Get the SID (security identifier) of the current user.
@@ -1198,12 +1256,15 @@ BOOL GetClientInfo()
 
 	socketResult = SendEquationToSocketServer("UserName"     ,   userName    , sendInterval);
 	socketResult = RecvEquationOfSocketServer( leftSide      ,  rightSide    , recvTimeout);
+	logg(fp, "socketResult = %d\n", socketResult);
 
 	socketResult = SendEquationToSocketServer("UserSid"      ,  userSid , sendInterval);
 	socketResult = RecvEquationOfSocketServer( leftSide      , rightSide, recvTimeout);
+	logg(fp, "socketResult = %d\n", socketResult);
 
 	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, sendInterval);
 	socketResult = RecvEquationOfSocketServer( leftSide      ,    rightSide , recvTimeout);
+	logg(fp, "socketResult = %d\n", socketResult);
 
 
 	// Alternatively, the registry flags could also be sent
