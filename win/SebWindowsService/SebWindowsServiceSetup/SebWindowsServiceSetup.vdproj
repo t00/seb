@@ -277,7 +277,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:ETH Zürich Lehrentwicklung und -technologie (LET)"
+        "Manufacturer" = "8:ETH Zürich, Lehrentwicklung und -technologie (LET)"
         "ARPHELPTELEPHONE" = "8:0041"
         "ARPHELPLINK" = "8:http://www.safeexambrowser.org"
         "Title" = "8:SebWindowsService Setup"
