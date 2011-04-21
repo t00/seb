@@ -1256,15 +1256,12 @@ BOOL GetClientInfo()
 
 	socketResult = SendEquationToSocketServer("UserName"     ,   userName    , sendInterval);
 	socketResult = RecvEquationOfSocketServer( leftSide      ,  rightSide    , recvTimeout);
-	logg(fp, "socketResult = %d\n", socketResult);
 
 	socketResult = SendEquationToSocketServer("UserSid"      ,  userSid , sendInterval);
 	socketResult = RecvEquationOfSocketServer( leftSide      , rightSide, recvTimeout);
-	logg(fp, "socketResult = %d\n", socketResult);
 
 	socketResult = SendEquationToSocketServer("RegistryFlags", registryFlags, sendInterval);
 	socketResult = RecvEquationOfSocketServer( leftSide      ,    rightSide , recvTimeout);
-	logg(fp, "socketResult = %d\n", socketResult);
 
 
 	// Alternatively, the registry flags could also be sent
@@ -2085,6 +2082,12 @@ BOOL ShutdownInstance()
 	string sStrongKillProcesssesAfter = ""; 
 	vector< string >vStrongKillProcessesAfter;
 
+	char  leftSide[BUFLEN];
+	char rightSide[BUFLEN];
+
+	strcpy( leftSide, "");
+	strcpy(rightSide, "");
+
 
 	// Debug output of socket communication parameters
 	logg(fp, " userName     = %s\n", userName);
@@ -2102,7 +2105,8 @@ BOOL ShutdownInstance()
 		// Tell the Seb Windows Service that we want to shutdown SEB,
 		// so the Seb Windows Service can reset the registry keys
 		// to their original values.
-		socketResult = SendEquationToSocketServer("ShutDown", "1", sendInterval);
+		socketResult = SendEquationToSocketServer("ShutDown",        "1", sendInterval);
+		socketResult = RecvEquationOfSocketServer( leftSide , rightSide , recvTimeout);
 
 		// Close the socket connection finally
 		CloseSocket();
