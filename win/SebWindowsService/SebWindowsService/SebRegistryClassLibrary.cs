@@ -711,6 +711,10 @@ namespace SebWindowsService
                     // When SEB client shuts down...
                     if (leftSideString.Equals("ShutDown"))
                     {
+                        // Response (acknowledgement) from server to client
+                        SendServerAcknowledgement("ShutDown", rightSideString);
+                        DebugOutputLine(debugMode, "Server sent acknowledgement to client");
+
                         // Reset the registry keys to their original values
                         DebugOutputLine(debugMode, "   Setting registry keys to old values...");
                         EditAllRegistryValues(SET_Old, EDIT_Restore);
@@ -1131,4 +1135,3 @@ namespace SebWindowsService
 
     } // end public class SebWindowsService
 }     // end namespace    SebWindowsService
-
