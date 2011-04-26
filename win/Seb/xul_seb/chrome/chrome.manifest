@@ -1,1 +1,4 @@
 content xul_seb file:content/
+locale  xul_seb	en-US file:locale/en-US/
+locale  xul_seb	de-DE file:locale/de-DE/
+locale  xul_seb	fr-FR file:locale/fr-FR/

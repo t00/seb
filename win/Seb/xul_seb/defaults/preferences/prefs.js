@@ -15,3 +15,6 @@ pref("browser.link.open_newwindow", 2);
 pref("privacy.popups.policy", 1);
 pref("dom.disable_open_during_load", false);
 pref("browser.chromeURL", "chrome://xul_seb/content/seb.xul");
+
+pref("intl.locale.matchOS", "false");
+pref("general.useragent.locale", "en-US");

@@ -38,6 +38,8 @@ var SebSystem = {
 	_appDir : null,
 	_sebIni : null,
 	_browser :null,
+	_locale  :null,
+	_const: null,
 
 	startup : function() {
 		try {
@@ -47,6 +49,7 @@ var SebSystem = {
 			gObserver = Cc['@mozilla.org/observer-service;1'].getService(Ci.nsIObserverService),
 			gIOService = Cc['@mozilla.org/network/io-service;1'].getService(Ci.nsIIOService),
 			*/
+			
 			this._chrome = (top.window.toString().indexOf('ChromeWindow') > -1);
 			this._prefs = new Prefs();
 			this._profile = new Profile();
@@ -56,6 +59,11 @@ var SebSystem = {
 			this._appDir = this._chromeDir.parent.parent;
 			this._sebIni = this._appDir.clone();
 			this._sebIni.append("Seb.ini");
+			this._locale = document.getElementById("locale");
+			this._const = document.getElementById("const");
+			//alert(this._locale.getString('seb.title'));
+			//alert(this._const.getString('seb.title'));
+			//alert(document.title);
 			//this.addCertificate("moodle_let.crt", 'C,c,c');
 			/** **** EventListener ****** */
 			this._browser.addEventListener("load", function(e) {
