@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SebWindowsService", "SebWindowsService\SebWindowsService.csproj", "{6598D792-CC1A-45E6-A791-BCE42C681B3A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SebWindowsServiceSetup", "SebWindowsServiceSetup\SebWindowsServiceSetup.vdproj", "{70968F72-53C6-487A-A3D4-077233FBA2AC}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SebWindowsServiceSetup", "SebWindowsPackageSetup\SebWindowsPackageSetup.vdproj", "{70968F72-53C6-487A-A3D4-077233FBA2AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE764AD0-A80F-479C-93A8-7EE1901E7C6A}"
 	ProjectSection(SolutionItems) = preProject
