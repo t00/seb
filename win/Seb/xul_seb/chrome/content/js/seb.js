@@ -24,6 +24,12 @@
  * ***** END LICENSE BLOCK ***** */
 
 var SebSystem = {
+	/*
+	Cc : null, 
+	Ci : null, 
+	gObserver : null,  
+	gIOService : null,
+	*/ 
 	_chrome :false,
 	_prefs :null,
 	_profile :null,
@@ -35,6 +41,12 @@ var SebSystem = {
 
 	startup : function() {
 		try {
+			/*
+			Cc = Components.classes;
+			Ci = Components.interfaces;
+			gObserver = Cc['@mozilla.org/observer-service;1'].getService(Ci.nsIObserverService),
+			gIOService = Cc['@mozilla.org/network/io-service;1'].getService(Ci.nsIIOService),
+			*/
 			this._chrome = (top.window.toString().indexOf('ChromeWindow') > -1);
 			this._prefs = new Prefs();
 			this._profile = new Profile();
@@ -44,7 +56,7 @@ var SebSystem = {
 			this._appDir = this._chromeDir.parent.parent;
 			this._sebIni = this._appDir.clone();
 			this._sebIni.append("Seb.ini");
-			
+			//this.addCertificate("moodle_let.crt", 'C,c,c');
 			/** **** EventListener ****** */
 			this._browser.addEventListener("load", function(e) {
 				SebSystem.onContentLoad();
@@ -70,16 +82,43 @@ var SebSystem = {
 			document.getElementById("deckContents").selectedIndex = 0;
 		}
 	},
-
+	
 	showContent : function() {
 		document.getElementById("deckContents").selectedIndex = 1;
 		window.title = this._browser.webNavigation.document.title;
 		this._browser.focus();
 	},
+	
+	/*
+	addCertificate : function(CertName, CertTrust) {
+		 try {
+	      var certDB = Cc["@mozilla.org/security/x509certdb;1"].getService(Ci.nsIX509CertDB2);
+	      var scriptableStream=Cc["@mozilla.org/scriptableinputstream;1"].getService(Ci.nsIScriptableInputStream);
+	      var channel = gIOService.newChannel("chrome://xul_seb/content/certs/" + CertName, null, null);
+	      var input=channel.open();
+	      scriptableStream.init(input);
+	      var certfile=scriptableStream.read(input.available());
+	      scriptableStream.close();
+	      input.close();
+			
+	      var beginCert = "-----BEGIN CERTIFICATE-----";
+	      var endCert = "-----END CERTIFICATE-----";
 
+	      certfile = certfile.replace(/[\r\n]/g, "");
+	      var begin = certfile.indexOf(beginCert);
+	      var end = certfile.indexOf(endCert);
+	      var cert = certfile.substring(begin + beginCert.length, end);
+	     
+	    	  certDB.addCertFromBase64(cert, CertTrust, "");
+	      }
+	      catch (e) {
+	    	  alert(e);
+	      }
+	},
+	*/
 	/** ***** Internal Callback functions ******* */
 	onContentLoad : function() {
-		alert("loaded");
+		//alert("loaded");
 	},
 
 	getUrl : function() {
