@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration.Install;
 using System.Linq;
+using System.ServiceProcess;
 
 
 namespace SebWindowsService
@@ -14,6 +15,14 @@ namespace SebWindowsService
         public ProjectInstaller()
         {
             InitializeComponent();
+        }
+
+        private void SebServiceInstaller_Committed(object sender, InstallEventArgs e)
+        {
+            // Autostart the SEB Windows Service when installation was successful
+            string sebServiceName       = this.SebServiceInstaller.ServiceName;
+            var    sebServiceController = new ServiceController(sebServiceName);
+                   sebServiceController.Start();
         }
     }
 }
