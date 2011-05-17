@@ -151,6 +151,57 @@ static char stringNoClose               [10];
 static char stringEnableShade           [10];
 static char stringEnableEaseOfAccess    [10];
 
+// Store the error message texts for different languages
+// e.g. (German, English, French)
+
+const int IND_LanguageMin     = 0;
+const int IND_LanguageGerman  = 0;
+const int IND_LanguageEnglish = 1;
+const int IND_LanguageFrench  = 2;
+const int IND_LanguageMax     = 2;
+const int IND_LanguageNum     = 3;
+
+const int IND_ErrorMin       = 0;
+
+const int IND_FileNotFound      = 0;
+const int IND_PathNotFound      = 1;
+const int IND_AccessDenied      = 2; 
+const int IND_UndefinedError    = 3;
+const int IND_NoWritePermission = 4;
+const int IND_NoIniError        = 5;
+const int IND_NoClientInfoError = 6;
+const int IND_InitialiseError   = 7;
+const int IND_RegEditError      = 8;
+
+const int IND_NotEnoughRegistryRightsError = 9;
+
+const int IND_RegistryWarning       = 10;
+const int IND_ProcessCallFailed     = 11;
+const int IND_ProcessWindowNotFound = 12;
+
+const int IND_LoadLibraryError   = 13;
+const int IND_NoLangStringFound  = 14;
+const int IND_NoInstance         = 15;
+const int IND_NoFileError        = 16;
+const int IND_NoTaskbarHandle    = 17;
+const int IND_FirefoxStartFailed = 18;
+const int IND_KeyloggerFailed    = 19;
+
+const int IND_KioxTerminated = 20;
+const int IND_SebTerminated  = 21;
+
+const int IND_NoOsSupport    = 22;
+const int IND_KillProcFailed = 23;
+
+const int IND_ErrorMax       = 23;
+const int IND_ErrorNum       = 24;
+
+static int languageIndex = 0;
+static int    errorIndex = 0;
+
+static LPCSTR errorCaption[IND_LanguageNum];
+static LPCSTR errorMessage[IND_LanguageNum][IND_ErrorNum];
+
 
 
 TCHAR szTitle      [MAX_LOADSTRING];		// The title bar text
@@ -191,6 +242,118 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	LoadString     (hInstance, IDC_SEB      , szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 	DWORD dwRet = 0; 
+
+	// Initialise the error messages in different languages
+
+	errorCaption[IND_LanguageGerman ] = "Fehler";
+	errorCaption[IND_LanguageEnglish] = "Error";
+	errorCaption[IND_LanguageFrench ] = "Erreur";
+
+	errorMessage[IND_LanguageGerman ][IND_FileNotFound] = "Datei nicht gefunden!";
+	errorMessage[IND_LanguageEnglish][IND_FileNotFound] = "File not found!";
+	errorMessage[IND_LanguageFrench ][IND_FileNotFound] = "Fichier pas trouvé!";
+
+	errorMessage[IND_LanguageGerman ][IND_PathNotFound] = "Pfad nicht gefunden!";
+	errorMessage[IND_LanguageEnglish][IND_PathNotFound] = "Path not found!";
+	errorMessage[IND_LanguageFrench ][IND_PathNotFound] = "Path pas trouvé!";
+
+	errorMessage[IND_LanguageGerman ][IND_AccessDenied] = "Zugriff verweigert!";
+	errorMessage[IND_LanguageEnglish][IND_AccessDenied] = "Access denied!";
+	errorMessage[IND_LanguageFrench ][IND_AccessDenied] = "Accès refusé!";
+
+	errorMessage[IND_LanguageGerman ][IND_UndefinedError] = "Undefinierter Fehler beim Prüfen der Schreibberechtigung!";
+	errorMessage[IND_LanguageEnglish][IND_UndefinedError] = "Undefined error in CheckWritePermission!";
+	errorMessage[IND_LanguageFrench ][IND_UndefinedError] = "Erreur indéfinie en vérifiant le droit à l'écrire!";
+
+	errorMessage[IND_LanguageGerman ][IND_AccessDenied] = "Keine Schreibberechtigung!";
+	errorMessage[IND_LanguageEnglish][IND_AccessDenied] = "No write permission!";
+	errorMessage[IND_LanguageFrench ][IND_AccessDenied] = "Pas de droit à l'écrire!";
+
+	errorMessage[IND_LanguageGerman ][IND_NoIniError] = "Konnte die Datei Seb.ini nicht finden!";
+	errorMessage[IND_LanguageEnglish][IND_NoIniError] = "Could not find the file Seb.ini !";
+	errorMessage[IND_LanguageFrench ][IND_NoIniError] = "Ne pouvais pas trouver le fichier Seb.ini !";
+
+	errorMessage[IND_LanguageGerman ][IND_NoClientInfoError] = "Keine Client-Information!";
+	errorMessage[IND_LanguageEnglish][IND_NoClientInfoError] = "No client info!";
+	errorMessage[IND_LanguageFrench ][IND_NoClientInfoError] = "Pas d'information sur le client!";
+
+	errorMessage[IND_LanguageGerman ][IND_InitialiseError] = "Initialisierung fehlgeschlagen!";
+	errorMessage[IND_LanguageEnglish][IND_InitialiseError] = "Initialization failed!";
+	errorMessage[IND_LanguageFrench ][IND_InitialiseError] = "Initialisation manquée / échouée!";
+
+	errorMessage[IND_LanguageGerman ][IND_RegEditError] = "Fehler beim Bearbeiten der Windows Registry!";
+	errorMessage[IND_LanguageEnglish][IND_RegEditError] = "Error editing the Windows Registry!";
+	errorMessage[IND_LanguageFrench ][IND_RegEditError] = "Erreur en traitant le Windows Registry!";
+
+
+
+	errorMessage[IND_LanguageGerman ][IND_NotEnoughRegistryRightsError] = "Nicht genügend Rechte zum Bearbeiten der Registry-Schlüssel!";
+	errorMessage[IND_LanguageEnglish][IND_NotEnoughRegistryRightsError] = "Not enough rights to edit registry keys!";
+	errorMessage[IND_LanguageFrench ][IND_NotEnoughRegistryRightsError] = "Pas de droits suffisants au traiter les clés du Registry!";
+
+
+
+	errorMessage[IND_LanguageGerman ][IND_RegistryWarning] = "Initialisierung fehlgeschlagen!";
+	errorMessage[IND_LanguageEnglish][IND_RegistryWarning] = "Registry Warning!";
+	errorMessage[IND_LanguageFrench ][IND_RegistryWarning] = "Initialisation manquée / échouée!";
+
+	errorMessage[IND_LanguageGerman ][IND_ProcessCallFailed] = "Prozeß fehlgeschlagen!";
+	errorMessage[IND_LanguageEnglish][IND_ProcessCallFailed] = "Process call failed!";
+	errorMessage[IND_LanguageFrench ][IND_ProcessCallFailed] = "Procès manqué / échoué!";
+
+	errorMessage[IND_LanguageGerman ][IND_ProcessWindowNotFound] = "Kein Prozeß-Fenster gefunden!";
+	errorMessage[IND_LanguageEnglish][IND_ProcessWindowNotFound] = "No process window found!";
+	errorMessage[IND_LanguageFrench ][IND_ProcessWindowNotFound] = "Aucune fenêtre du procès trouvée!";
+
+
+
+	errorMessage[IND_LanguageGerman ][IND_LoadLibraryError] = "Konnte die Bibliothek nicht laden!";
+	errorMessage[IND_LanguageEnglish][IND_LoadLibraryError] = "Could not load library!";
+	errorMessage[IND_LanguageFrench ][IND_LoadLibraryError] = "Ne pouvais pas charger la biblothèque!";
+
+	errorMessage[IND_LanguageGerman ][IND_NoLangStringFound] = "Kein Sprachen-String gefunden!";
+	errorMessage[IND_LanguageEnglish][IND_NoLangStringFound] = "No language string found!";
+	errorMessage[IND_LanguageFrench ][IND_NoLangStringFound] = "Ne pas trouvé ... de la langue!";
+
+	errorMessage[IND_LanguageGerman ][IND_NoInstance] = "Konnte meine Instanz nicht holen!";
+	errorMessage[IND_LanguageEnglish][IND_NoInstance] = "Could not get my instance!";
+	errorMessage[IND_LanguageFrench ][IND_NoInstance] = "Ne pouvais pas obtenir mon instance!";
+
+	errorMessage[IND_LanguageGerman ][IND_NoFileError] = "Konnte Datei nicht erzeugen oder finden!";
+	errorMessage[IND_LanguageEnglish][IND_NoFileError] = "Could not create or find file!";
+	errorMessage[IND_LanguageFrench ][IND_NoFileError] = "Ne pouvais pas ... ou trouver le fichier!";
+
+	errorMessage[IND_LanguageGerman ][IND_NoTaskbarHandle] = "Kein ... Taskleiste!";
+	errorMessage[IND_LanguageEnglish][IND_NoTaskbarHandle] = "No taskbar handle!";
+	errorMessage[IND_LanguageFrench ][IND_NoTaskbarHandle] = "Pas de ...!";
+
+	errorMessage[IND_LanguageGerman ][IND_FirefoxStartFailed] = "Konnte den Firefox nicht starten!";
+	errorMessage[IND_LanguageEnglish][IND_FirefoxStartFailed] = "Could not start Firefox!";
+	errorMessage[IND_LanguageFrench ][IND_FirefoxStartFailed] = "Ne pouvais pas lancer Firefox!";
+
+	errorMessage[IND_LanguageGerman ][IND_KeyloggerFailed] = "Konnte den KeyLogger nicht starten!";
+	errorMessage[IND_LanguageEnglish][IND_KeyloggerFailed] = "Could not start KeyLogger!";
+	errorMessage[IND_LanguageFrench ][IND_KeyloggerFailed] = "Ne pouvais pas lancer KeyLogger!";
+
+
+
+	errorMessage[IND_LanguageGerman ][IND_KioxTerminated] = "Kiox wurde beendet!";
+	errorMessage[IND_LanguageEnglish][IND_KioxTerminated] = "Kiox terminated!";
+	errorMessage[IND_LanguageFrench ][IND_KioxTerminated] = "Kiox était terminé!";
+
+	errorMessage[IND_LanguageGerman ][IND_SebTerminated] = "SEB wurde beendet!";
+	errorMessage[IND_LanguageEnglish][IND_SebTerminated] = "SEB terminated!";
+	errorMessage[IND_LanguageFrench ][IND_SebTerminated] = "SEB était terminé!";
+
+	errorMessage[IND_LanguageGerman ][IND_NoOsSupport] = "Das Betriebssystem wird nicht unterstützt!";
+	errorMessage[IND_LanguageEnglish][IND_NoOsSupport] = "The OS is not supported!";
+	errorMessage[IND_LanguageFrench ][IND_NoOsSupport] = "Le système d'exploitation n'est pas ...!";
+
+	errorMessage[IND_LanguageGerman ][IND_KillProcFailed] = "Killen des Prozesses %s fehlgeschlagen: %d!";
+	errorMessage[IND_LanguageEnglish][IND_KillProcFailed] = "Killing process %s failed: %d!";
+	errorMessage[IND_LanguageFrench ][IND_KillProcFailed] = "Abattre le procès manqué / échoué!";
+
+	languageIndex = IND_LanguageFrench;
 
 	// Open the logfile for debug output
 	fp = fopen(logFileName, "w");
@@ -382,7 +545,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	if (!ReadIniFile())
 	{
+		int errorIndex = IND_NoIniError;
+
 		MessageBox(NULL, NO_INI_ERROR, "Error", MB_ICONERROR);
+
+		for (int languageIndex = IND_LanguageMin; languageIndex <= IND_LanguageMax; languageIndex++)
+		{
+			LPCSTR caption = errorCaption[languageIndex];
+			LPCSTR message = errorMessage[languageIndex][errorIndex];
+			MessageBox(NULL, message, caption, MB_ICONERROR);
+		}
+
 		logg(fp, "Error: %s\n", NO_INI_ERROR);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
