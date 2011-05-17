@@ -69,7 +69,6 @@ bool    forceWindowsService = false;
 
 #define REGISTRY_WARNING         "Registry Warning!"
 #define PROCESS_FAILED           "Process call failed!"
-
 #define PROCESS_WINDOW_NOT_FOUND "No process window found!"
 
 #define LOAD_LIBRARY_ERROR       "Could not load library!"
