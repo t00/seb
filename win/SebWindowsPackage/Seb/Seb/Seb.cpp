@@ -201,7 +201,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	// Get the current language
 	languageIndex = GetCurrentLanguage();
-
 	OutputErrorMessage(languageIndex, IND_RegEditError, IND_MessageIconError);
 
 
@@ -2274,8 +2273,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
 				mpProcessCommands.insert(make_pair(cntProcess, applicationName));
 				cntProcess ++;
-			}	
-			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");				
+			}
+
+			//AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");
+
+			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
+			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
+			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
+
 			SetMenu(hWnd, hMenu);
 
 		case WM_COMMAND:
