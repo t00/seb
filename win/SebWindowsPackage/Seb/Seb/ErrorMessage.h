@@ -79,15 +79,21 @@ const int IND_MessageIconWarning = 1;
 static int languageIndex = 0;
 static int    errorIndex = 0;
 
-static LPCSTR errorCaption[IND_LanguageNum];
-static LPCSTR errorMessage[IND_LanguageNum][IND_ErrorNum];
+static LPCSTR   errorCaption[IND_LanguageNum];
+static LPCSTR   errorMessage[IND_LanguageNum][IND_ErrorNum];
+static LPCSTR languageString[IND_LanguageNum];
 
 
 
+// ****************************************************
 // Initialise the error messages in different languages
-
+// ****************************************************
 void DefineErrorMessages()
 {
+	languageString[IND_LanguageGerman ] = "Deutsch";
+	languageString[IND_LanguageEnglish] = "English";
+	languageString[IND_LanguageFrench ] = "Français";
+
 	errorCaption[IND_LanguageGerman ] = "Fehler";
 	errorCaption[IND_LanguageEnglish] = "Error";
 	errorCaption[IND_LanguageFrench ] = "Erreur";
@@ -206,7 +212,50 @@ void DefineErrorMessages()
 
 
 
-void PrintErrorMessage(int languageIndex, int errorIndex, UINT messageIcon)
+// ************************
+// Get the current language
+// ************************
+int GetCurrentLanguage()
+{
+	int languageIndex;
+
+	LANGID systemDefaultUILanguage = GetSystemDefaultUILanguage();
+	LANGID   userDefaultUILanguage = GetUserDefaultUILanguage();
+  //LANGID        threadUILanguage = GetThreadUILanguage();
+
+	HKL WINAPI keyboardLayout    = GetKeyboardLayout(0);
+	DWORD  inputLocalIdentifier  = (DWORD) keyboardLayout;
+	WORD   completeLanguageIndex = inputLocalIdentifier % 65536;
+
+	BYTE        subLanguageIndex = completeLanguageIndex / 256;
+	BYTE    primaryLanguageIndex = completeLanguageIndex % 256;
+
+	languageIndex = IND_LanguageEnglish;
+
+	if (primaryLanguageIndex == 0x07) languageIndex = IND_LanguageGerman;
+	if (primaryLanguageIndex == 0x09) languageIndex = IND_LanguageEnglish;
+	if (primaryLanguageIndex == 0x0C) languageIndex = IND_LanguageFrench;
+
+	logg(fp, "systemDefaultUILanguage   hex = %x   dec = %d\n", systemDefaultUILanguage, systemDefaultUILanguage);
+	logg(fp, "  userDefaultUILanguage   hex = %x   dec = %d\n",   userDefaultUILanguage,   userDefaultUILanguage);
+	logg(fp, "  keyboardLayout          hex = %x   dec = %d\n",          keyboardLayout,          keyboardLayout);
+	logg(fp, "inputLocalIdentifier      hex = %x   dec = %d\n",    inputLocalIdentifier,    inputLocalIdentifier);
+	logg(fp, "completeLanguageIndex     hex = %x   dec = %d\n",    completeLanguageIndex,   completeLanguageIndex);
+	logg(fp, "     subLanguageIndex     hex = %x   dec = %d\n",         subLanguageIndex,        subLanguageIndex);
+	logg(fp, " primaryLanguageIndex     hex = %x   dec = %d\n",     primaryLanguageIndex,    primaryLanguageIndex);
+	logg(fp, "        languageIndex                dec = %d\n",            languageIndex);
+
+	return languageIndex;
+
+} // end of method   GetCurrentLanguage()
+
+
+
+
+// **********************************
+// Output an error or warning message
+// **********************************
+void OutputErrorMessage(int languageIndex, int errorIndex, UINT messageIcon)
 {
 	LPCSTR caption = "";
 	LPCSTR message = "";
@@ -224,4 +273,4 @@ void PrintErrorMessage(int languageIndex, int errorIndex, UINT messageIcon)
   //logg(fp, "Leave PrintErrorMessage()\n\n");
 	return;
 
-} // end of method   PrintErrorMessages()
+} // end of method   OutputErrorMessage()

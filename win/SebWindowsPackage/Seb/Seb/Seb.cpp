@@ -199,10 +199,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// Initialise the error messages in different languages
 	DefineErrorMessages();
 
-	// Get the language
-	languageIndex = IND_LanguageFrench;
+	// Get the current language
+	languageIndex = GetCurrentLanguage();
 
-	PrintErrorMessage(languageIndex, IND_RegEditError, IND_MessageIconError);
+	OutputErrorMessage(languageIndex, IND_RegEditError, IND_MessageIconError);
 
 
 	// Open the logfile for debug output
@@ -215,6 +215,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//MessageBox(NULL, "Starting SEB...", "tWinMain():", MB_ICONERROR);
 	logg(fp, "\n");
 	logg(fp, "Enter tWinMain()\n");
+	logg(fp, "\n");
+	logg(fp, "languageIndex  = %d\n", languageIndex);
+	logg(fp, "languageString = %s\n", languageString[languageIndex]);
+	logg(fp, "\n");
+
 
 	// Perform application initialization:
 	//InitInstance (hInstance, nCmdShow);
@@ -395,7 +400,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	if (!ReadIniFile())
 	{
-		PrintErrorMessage(languageIndex, IND_NoIniError, MB_ICONERROR);
+		OutputErrorMessage(languageIndex, IND_NoIniError, MB_ICONERROR);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
