@@ -152,9 +152,6 @@ static char stringNoClose               [10];
 static char stringEnableShade           [10];
 static char stringEnableEaseOfAccess    [10];
 
-//static LPCSTR errorCaption[IND_LanguageNum];
-//static LPCSTR errorMessage[IND_LanguageNum][IND_ErrorNum];
-
 
 
 TCHAR szTitle      [MAX_LOADSTRING];		// The title bar text
@@ -201,7 +198,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	// Get the current language
 	languageIndex = GetCurrentLanguage();
-	OutputErrorMessage(languageIndex, IND_RegEditError, IND_MessageIconError);
 
 
 	// Open the logfile for debug output
@@ -399,7 +395,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	if (!ReadIniFile())
 	{
-		OutputErrorMessage(languageIndex, IND_NoIniError, MB_ICONERROR);
+		OutputErrorMessage(languageIndex, IND_NoSebIniError, MB_ICONERROR);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}

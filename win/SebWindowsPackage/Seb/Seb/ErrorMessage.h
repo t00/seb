@@ -23,7 +23,7 @@
 *
 * ***** END LICENSE BLOCK ***** */
 
-//#include "stdafx.h"
+
 
 // Store the error message texts for different languages
 // e.g. (German, English, French)
@@ -42,7 +42,7 @@ const int IND_PathNotFound      = 1;
 const int IND_AccessDenied      = 2; 
 const int IND_UndefinedError    = 3;
 const int IND_NoWritePermission = 4;
-const int IND_NoIniError        = 5;
+const int IND_NoSebIniError     = 5;
 const int IND_NoClientInfoError = 6;
 const int IND_InitialiseError   = 7;
 const int IND_RegEditError      = 8;
@@ -79,6 +79,7 @@ const int IND_MessageIconWarning = 1;
 static int languageIndex = 0;
 static int    errorIndex = 0;
 
+// Global arrays for messages in different languages
 static LPCSTR   errorCaption[IND_LanguageNum];
 static LPCSTR   errorMessage[IND_LanguageNum][IND_ErrorNum];
 static LPCSTR languageString[IND_LanguageNum];
@@ -118,9 +119,9 @@ void DefineErrorMessages()
 	errorMessage[IND_LanguageEnglish][IND_AccessDenied] = "No write permission!";
 	errorMessage[IND_LanguageFrench ][IND_AccessDenied] = "Pas de droit à l'écrire!";
 
-	errorMessage[IND_LanguageGerman ][IND_NoIniError] = "Konnte die Datei Seb.ini nicht finden!";
-	errorMessage[IND_LanguageEnglish][IND_NoIniError] = "Could not find the file Seb.ini !";
-	errorMessage[IND_LanguageFrench ][IND_NoIniError] = "Ne pouvais pas trouver le fichier Seb.ini !";
+	errorMessage[IND_LanguageGerman ][IND_NoSebIniError] = "Konnte die Datei Seb.ini nicht finden!";
+	errorMessage[IND_LanguageEnglish][IND_NoSebIniError] = "Could not find the file Seb.ini !";
+	errorMessage[IND_LanguageFrench ][IND_NoSebIniError] = "Ne pouvais pas trouver le fichier Seb.ini !";
 
 	errorMessage[IND_LanguageGerman ][IND_NoClientInfoError] = "Keine Client-Information!";
 	errorMessage[IND_LanguageEnglish][IND_NoClientInfoError] = "No client info!";
