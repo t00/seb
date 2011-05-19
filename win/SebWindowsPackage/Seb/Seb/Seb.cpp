@@ -27,7 +27,7 @@
 #include "Seb.h"
 #include "KillProc.h"
 #include "ProcMonitor.h"
-#include "ErrorMessage.h"
+#include "../ErrorMessage.h"
 
 
 //These usings are only working in .NET, not in Standard C++:

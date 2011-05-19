@@ -24,6 +24,7 @@
  * ***** END LICENSE BLOCK ***** */
 
 #include "stdafx.h"
+#include "../ErrorMessage.h"
 
 
 
