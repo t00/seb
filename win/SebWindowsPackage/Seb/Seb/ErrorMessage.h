@@ -72,9 +72,9 @@ const int IND_MessageTextNum    = 24;
 
 
 // MessageBox supports errors and warnings
-const int IND_MessageCategoryError   = 0;
-const int IND_MessageCategoryWarning = 1;
-const int IND_MessageCategoryNum     = 2;
+const int IND_MessageKindError   = 0;
+const int IND_MessageKindWarning = 1;
+const int IND_MessageKindNum     = 2;
 
 
 static int languageIndex = 0;
@@ -83,8 +83,8 @@ static int    errorIndex = 0;
 // Global arrays for messages in different languages
 static LPCSTR languageString  [IND_LanguageNum];
 static LPCSTR   messageText   [IND_LanguageNum][IND_MessageTextNum];
-static LPCSTR   messageCaption[IND_LanguageNum][IND_MessageCategoryNum];
-static int      messageIcon                    [IND_MessageCategoryNum];
+static LPCSTR   messageCaption[IND_LanguageNum][IND_MessageKindNum];
+static int      messageIcon                    [IND_MessageKindNum];
 
 
 
@@ -98,16 +98,16 @@ void DefineErrorMessages()
 	languageString[IND_LanguageFrench ] = "Français";
 
 
-	messageIcon[IND_MessageCategoryError  ] = MB_ICONERROR;
-	messageIcon[IND_MessageCategoryWarning] = MB_ICONWARNING;
+	messageIcon[IND_MessageKindError  ] = MB_ICONERROR;
+	messageIcon[IND_MessageKindWarning] = MB_ICONWARNING;
 
-	messageCaption[IND_LanguageGerman ][IND_MessageCategoryError] = "Fehler";
-	messageCaption[IND_LanguageEnglish][IND_MessageCategoryError] = "Error";
-	messageCaption[IND_LanguageFrench ][IND_MessageCategoryError] = "Erreur";
+	messageCaption[IND_LanguageGerman ][IND_MessageKindError] = "Fehler";
+	messageCaption[IND_LanguageEnglish][IND_MessageKindError] = "Error";
+	messageCaption[IND_LanguageFrench ][IND_MessageKindError] = "Erreur";
 
-	messageCaption[IND_LanguageGerman ][IND_MessageCategoryWarning] = "Warnung";
-	messageCaption[IND_LanguageEnglish][IND_MessageCategoryWarning] = "Warning";
-	messageCaption[IND_LanguageFrench ][IND_MessageCategoryWarning] = "Avertissement";
+	messageCaption[IND_LanguageGerman ][IND_MessageKindWarning] = "Warnung";
+	messageCaption[IND_LanguageEnglish][IND_MessageKindWarning] = "Warning";
+	messageCaption[IND_LanguageFrench ][IND_MessageKindWarning] = "Avertissement";
 
 
 	messageText[IND_LanguageGerman ][IND_FileNotFound] = "Datei nicht gefunden!";
@@ -262,22 +262,22 @@ int GetCurrentLanguage()
 // **********************************
 // Output an error or warning message
 // **********************************
-void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageCategoryIndex)
+void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageKindIndex)
 {
 	UINT   icon    = 0;
 	LPCSTR caption = "";
 	LPCSTR text    = "";
 
-	//logg(fp, "Enter PrintErrorMessage()\n\n");
+  //logg(fp, "Enter OutputErrorMessage()\n\n");
 
-	icon    = messageIcon                  [messageCategoryIndex];
-	caption = messageCaption[languageIndex][messageCategoryIndex];
+	icon    = messageIcon                  [messageKindIndex];
+	caption = messageCaption[languageIndex][messageKindIndex];
 	text    = messageText   [languageIndex][messageTextIndex];
 
 	MessageBox(NULL, text, caption, icon);
 	logg(fp, "%s: %s\n", caption, text);
 
-  //logg(fp, "Leave PrintErrorMessage()\n\n");
+  //logg(fp, "Leave OutputErrorMessage()\n\n");
 	return;
 
 } // end of method   OutputErrorMessage()
