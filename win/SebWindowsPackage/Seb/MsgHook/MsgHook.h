@@ -30,11 +30,6 @@
 #define EXPORT __declspec (dllexport)
 #endif
 
-//For Initialization
-//#define	NO_OS_SUPPORT     "The OS is not supported!"
-//#define	NO_INI_ERROR      "No *.ini File found!"
-//#define	INITIALIZE_ERROR  "Initialization of message hook library failed!"
-//#define	TERMINATION_ERROR    "Termination of message hook library failed!"
 
 // Name and location of MsgHook configuration file
 #define MSGHOOK_INI "../MsgHook.ini"
