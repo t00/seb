@@ -97,7 +97,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ErrorMessage.h" />
     <ClInclude Include="KillProc.h" />
     <ClInclude Include="ProcMonitor.h" />
     <ClInclude Include="Resource.h" />
