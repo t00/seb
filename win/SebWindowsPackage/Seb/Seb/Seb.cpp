@@ -198,7 +198,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	// Get the current language
 	languageIndex = GetCurrentLanguage();
-	OutputErrorMessage(languageIndex, IND_RegistryEditError, IND_MessageIconError);
+	OutputErrorMessage(languageIndex, IND_RegistryEditError, IND_MessageCategoryError);
 
 	// Open the logfile for debug output
 	fp = fopen(logFileName, "w");
@@ -395,7 +395,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	if (!ReadIniFile())
 	{
-		OutputErrorMessage(languageIndex, IND_NoSebIniError, IND_MessageIconError);
+		OutputErrorMessage(languageIndex, IND_NoSebIniError, IND_MessageCategoryError);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
