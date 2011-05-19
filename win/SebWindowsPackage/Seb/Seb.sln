@@ -4,6 +4,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Seb", "Seb\Seb.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MsgHook", "MsgHook\MsgHook.vcxproj", "{75A343F9-208F-4156-B6AF-0C0459A2F3C3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33902F97-2FA2-4B01-8414-263F792C5305}"
+	ProjectSection(SolutionItems) = preProject
+		ErrorMessage.h = ErrorMessage.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
