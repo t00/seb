@@ -1,1 +1,0 @@
-xulrunner\xulrunner.exe xul_seb\application.ini -profile profile
