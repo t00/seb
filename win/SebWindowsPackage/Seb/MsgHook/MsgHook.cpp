@@ -28,6 +28,7 @@
 
 #include "stdafx.h"
 #include "MsgHook.h"
+#include "../ErrorMessage.h"
 //#include <iostream>
 
 #ifdef _MANAGED
@@ -448,7 +449,8 @@ BOOL InitMsgHook()
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
-			MessageBox(NULL,NO_INI_ERROR,"Error",16);
+			OutputErrorMessage(languageIndex, IND_NoMsgHookIniError, IND_MessageKindError);
+			//MessageBox(NULL, messageText[languageIndex][IND_NoMsgHookIniError], "Error", 16);
 			return FALSE;
 		}
 		while (!getline(inf, strLine).eof())
@@ -565,7 +567,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 			hDll = (HINSTANCE*)&hModule;
 			if (!InitMsgHook()) 
 			{
-				MessageBox(NULL,INITIALIZE_ERROR,"Error",16);
+				OutputErrorMessage(languageIndex, IND_InitialiseError, IND_MessageKindError);
+				//MessageBox(NULL, INITIALIZE_ERROR,"Error", 16);
 			}
             break;
 
@@ -635,7 +638,8 @@ BOOL isValidOperatingSystem()
 			return TRUE;
 			break;
 		default :
-			MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
+			OutputErrorMessage(languageIndex, IND_NoOsSupport, IND_MessageKindError);
+			//MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
 			return FALSE;			
 	}
 }
