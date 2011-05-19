@@ -54,36 +54,6 @@ bool    forceWindowsService = false;
 #define SEB_DESK       "SEB Desktop"
 #define WINKEYOX_DESK  "WinKeyox Desktop"
 
-//System Messages
-#define	FILE_NOT_FOUND           "File not found!"
-#define	PATH_NOT_FOUND           "Path not found!"
-#define	ACCESS_DENIED            "Access denied!"
-#define	UNDEFINED_ERROR          "Undefined error in CheckWritePermission!"
-#define NO_WRITE_PERMISSION      "No write permission!"
-#define	NO_INI_ERROR             "No *.ini File found!"
-#define	NO_CLIENT_INFO_ERROR     "No client info!"
-#define	INITIALIZE_ERROR         "Initialization failed!"
-#define	REG_EDIT_ERROR           "Error editing the registry!"
-
-#define	NOT_ENOUGH_REGISTRY_RIGHTS_ERROR "Not enough rights to edit registry keys!"
-
-#define REGISTRY_WARNING         "Registry Warning!"
-#define PROCESS_FAILED           "Process call failed!"
-#define PROCESS_WINDOW_NOT_FOUND "No process window found!"
-
-#define LOAD_LIBRARY_ERROR       "Could not load library!"
-#define	NO_LANGSTRING_FOUND      "No language string found!"
-#define	NO_INSTANCE              "Could not get my instance!"
-#define	NO_FILE_ERROR            "Could not create or find file!"
-#define	NO_TASKBAR_HANDLE        "No taskbar handle!"
-#define	FIREFOX_START_FAILED     "Could not start firefox!"
-#define KEYLOGGER_FAILED         "Could not start KeyLogger!"
-
-#define KIOX_TERMINATED          "Kiox terminated!"
-#define SEB_TERMINATED           "SEB terminated!"
-
-#define	NO_OS_SUPPORT            "The OS is not supported!"
-#define	KILL_PROC_FAILED         "Killing process %s failed: %d"
 
 
 // HKEY_CURRENT_USER contains the Windows Registry keys

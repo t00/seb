@@ -463,7 +463,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			ret = KILL_PROC_BY_NAME("explorer.exe");
 			if (ret != 0)
 			{
-				sprintf(buffer, KILL_PROC_FAILED, "explorer.exe", ret);
+				sprintf(buffer, messageText[languageIndex][IND_KillProcessFailed], "explorer.exe", ret);
 				//MessageBox(NULL, buffer, "Error", 16);
 				logg(fp, "Error: %s\n", buffer);
 				killedExplorer = FALSE;
@@ -2062,7 +2062,7 @@ BOOL CreateExternalProcess(string sProcess)
 		) 
 		{
 			ResumeThread(procMonitorThread);
-			MessageBox(hWnd, PROCESS_FAILED, applicationName.c_str(), MB_ICONERROR);
+			MessageBox(hWnd, messageText[languageIndex][IND_ProcessCallFailed], applicationName.c_str(), MB_ICONERROR);
 			logg(fp, "\tError: creating process %s failed!\n", applicationName.c_str());
 			logg(fp, "Leave CreateExternalProcess()\n\n");
 			return FALSE;
@@ -2593,7 +2593,7 @@ string getLangString(string key)
 		ret = mpParam[key + "_" + mpParam["DEFAULT_LANGUAGE"]];
 		if (ret == "")
 		{	
-			err = NO_LANGSTRING_FOUND;
+			err = messageText[languageIndex][IND_NoLanguageStringFound];
 			err += "\n" + key;
 			MessageBox(NULL, err.c_str(), "Error",16);
 			logg(fp, "Error: %s\n", err);
