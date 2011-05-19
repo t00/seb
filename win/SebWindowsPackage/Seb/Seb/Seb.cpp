@@ -221,16 +221,18 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//InitInstance (hInstance, nCmdShow);
 	/*
 	{
-		MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
-		logg(fp, "Error: %s\n", INITIALIZE_ERROR);
+		OutputErrorMessage(languageIndex, IND_InitialiseError, IND_MessageKindError);
+		//MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
+		//logg(fp, "Error: %s\n", INITIALIZE_ERROR);
 		logg(fp, "Leave tWinMain()\n");
 		return FALSE;
 	}
 	*/
 	if (!InitInstance (hInstance, nCmdShow))
 	{
-		MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
-		logg(fp, "Error: %s\n", INITIALIZE_ERROR);
+		OutputErrorMessage(languageIndex, IND_InitialiseError, IND_MessageKindError);
+		//MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
+		//logg(fp, "Error: %s\n", INITIALIZE_ERROR);
 		if (forceWindowsService)
 		{
 			logg(fp, "Windows Service could not be forced, should I exit now?\n");
@@ -404,8 +406,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 /*
 	if (getBool("CHECK_WRITE_PERMISSION") && (!CheckWritePermission("\\\\Three\\kiox_dev\\kiox_clients\\windows\\WinKeyox\\WinKeyox\\Release\\WinKeyox.ini")))
 	{
-		MessageBox(NULL, NO_WRITE_PERMISSION, "Error", MB_ICONERROR);
-		logg(fp, "Error: %s\n", NO_WRITE_PERMISSION_ERROR);
+		OutputErrorMessage(languageIndex, IND_NoWritePermission, IND_MessageKindError);
+		//MessageBox(NULL, NO_WRITE_PERMISSION, "Error", MB_ICONERROR);
+		//logg(fp, "Error: %s\n", NO_WRITE_PERMISSION_ERROR);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
@@ -414,8 +417,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	// Trunk version (XUL-Runner)
 	if (!SetVersionInfo())
 	{
-		MessageBox(NULL, NO_OS_SUPPORT, "Error", 16);
-		logg(fp, "Error: %s\n", NO_OS_SUPPORT);
+		OutputErrorMessage(languageIndex, IND_NoOsSupport, IND_MessageKindError);
+		//MessageBox(NULL, NO_OS_SUPPORT, "Error", 16);
+		//logg(fp, "Error: %s\n", NO_OS_SUPPORT);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
@@ -440,8 +444,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			IsNewOS = FALSE;
 			break;
 		default :
-			MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
-			logg(fp, "Error: %s\n", NO_OS_SUPPORT);
+			OutputErrorMessage(languageIndex, IND_NoOsSupport, IND_MessageKindError);
+			//MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
+			//logg(fp, "Error: %s\n", NO_OS_SUPPORT);
 			logg(fp, "Leave InitInstance()\n\n");
 			return FALSE;
 	}
@@ -459,7 +464,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			if (ret != 0)
 			{
 				sprintf(buffer, KILL_PROC_FAILED, "explorer.exe", ret);
-				MessageBox(NULL, buffer, "Error", 16);
+				//MessageBox(NULL, buffer, "Error", 16);
 				logg(fp, "Error: %s\n", buffer);
 				killedExplorer = FALSE;
 			}
@@ -494,16 +499,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	if (!hWnd)
 	{
-		MessageBox(NULL, INITIALIZE_ERROR, "Error", MB_ICONERROR);
-		logg(fp, "Error: %s\n", INITIALIZE_ERROR);
+		OutputErrorMessage(languageIndex, IND_InitialiseError, IND_MessageKindError);
+		//MessageBox(NULL, INITIALIZE_ERROR, "Error", MB_ICONERROR);
+		//logg(fp, "Error: %s\n", INITIALIZE_ERROR);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
 
 	if (!GetClientInfo())
 	{
-		MessageBox(NULL, NO_CLIENT_INFO_ERROR, "Error", MB_ICONERROR);
-		logg(fp, "Error: %s\n", NO_CLIENT_INFO_ERROR);
+		OutputErrorMessage(languageIndex, IND_NoClientInfoError, IND_MessageKindError);
+		//MessageBox(NULL, NO_CLIENT_INFO_ERROR, "Error", MB_ICONERROR);
+		//logg(fp, "Error: %s\n", NO_CLIENT_INFO_ERROR);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
@@ -512,9 +519,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	{
 		if (!EditRegistry())
 		{
+			OutputErrorMessage(languageIndex, IND_RegistryEditError, IND_MessageKindError);
 			//MessageBox(hWnd,REG_EDIT_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
-			logg(fp, "Error  : %s\n", REG_EDIT_ERROR);
-			logg(fp, "Warning: %s\n", REGISTRY_WARNING);
+			//logg(fp, "Error  : %s\n", REG_EDIT_ERROR);
 			mpParam["EDIT_REGISTRY"] = "0"; //thats for ResetRegistry: do nothing because editing failed
 		}
 	}
@@ -537,8 +544,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	{
 		if (!CreateExternalProcess(mpParam["AUTOSTART_PROCESS"]))
 		{
-			MessageBox(hWnd, PROCESS_FAILED, "Error", MB_ICONWARNING);
-			logg(fp, "Error: %s\n", PROCESS_FAILED);
+			OutputErrorMessage(languageIndex, IND_ProcessCallFailed, IND_MessageKindWarning);
+			//MessageBox(hWnd, PROCESS_FAILED, "Error", MB_ICONERROR);
+			//logg(fp, "Error: %s\n", PROCESS_FAILED);
 			logg(fp, "Leave InitInstance()\n\n");
 			return FALSE;
 		}		
@@ -555,8 +563,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 		if (hinstDLL == NULL) 
 		{
-			MessageBox(NULL, LOAD_LIBRARY_ERROR, "Error", 16);
-			logg(fp, "Error: %s\n", LOAD_LIBRARY_ERROR);
+			OutputErrorMessage(languageIndex, IND_LoadLibraryError, IND_MessageKindError);
+			//MessageBox(NULL, LOAD_LIBRARY_ERROR, "Error", 16);
+			//logg(fp, "Error: %s\n", LOAD_LIBRARY_ERROR);
 			logg(fp, "Leave InitInstance()\n\n");
 			return FALSE;
 		}
@@ -716,8 +725,9 @@ BOOL ReadIniFile()
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
-			MessageBox(NULL, NO_INI_ERROR, "Error", 16);
-			logg(fp, "Error: %s\n", NO_INI_ERROR);
+			OutputErrorMessage(languageIndex, IND_NoSebIniError, IND_MessageKindError);
+			//MessageBox(NULL, NO_INI_ERROR, "Error", 16);
+			//logg(fp, "Error: %s\n", NO_INI_ERROR);
 			logg(fp, "Leave ReadIniFile()\n\n");
 			return FALSE;
 		}
@@ -1792,7 +1802,7 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoLogoff
 		if (getBool("REG_NO_LOGOFF"))
 		{
-			//   MessageBox(NULL,"= true","REG_NO_LOGOFF",16);
+			//MessageBox(NULL,"= true","REG_NO_LOGOFF",16);
 			logg(fp, "getBool(REG_NO_LOGOFF) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"NO_LOGOFF"))
@@ -1819,7 +1829,7 @@ BOOL EditRegistry()
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose
 		if (getBool("REG_NO_CLOSE"))
 		{
-			//   MessageBox(NULL,"= true","REG_NO_CLOSE",16);
+			//MessageBox(NULL,"= true","REG_NO_CLOSE",16);
 			logg(fp, "getBool(REG_NO_CLOSE) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"NO_CLOSE"))
@@ -1873,7 +1883,7 @@ BOOL EditRegistry()
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe\Debugger
 		if (getBool("REG_ENABLE_EASE_OF_ACCESS")) 
 		{
-			// MessageBox(NULL, "= true", "REG_ENABLE_EASE_OF_ACCESS", 16);
+			//MessageBox(NULL, "= true", "REG_ENABLE_EASE_OF_ACCESS", 16);
 			logg(fp, "getBool(REG_ENABLE_EASE_OF_ACCESS) = true\n");
 
 			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_EnableEaseOfAccess,"ENABLE_EASE_OF_ACCESS"))
@@ -2133,8 +2143,9 @@ BOOL ShutdownInstance()
 		if (!ResetRegistry())
 		{
 			//MessageBox(hWnd,"ShutdownInstance(): not enough rights for editing registry",REGISTRY_WARNING,MB_ICONWARNING);
+			OutputErrorMessage(languageIndex, IND_NotEnoughRegistryRightsError, IND_MessageKindError);
 			//MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
-			logg(fp, "Warning: %s\n", REGISTRY_WARNING);
+			//logg(fp, "Warning: %s\n", REGISTRY_WARNING);
 		}
 	}
 
@@ -2449,29 +2460,33 @@ BOOL CheckWritePermission(LPCSTR szPath)
 		DWORD dwError = GetLastError();
 		if (dwError == ERROR_FILE_NOT_FOUND)
 		{
-			MessageBox(hWnd,FILE_NOT_FOUND,"Error",MB_ICONERROR);
-			logg(fp, "Error: %s\n", FILE_NOT_FOUND);
+			OutputErrorMessage(languageIndex, IND_FileNotFound, IND_MessageKindError);
+			//MessageBox(hWnd,FILE_NOT_FOUND,"Error",MB_ICONERROR);
+			//logg(fp, "Error: %s\n", FILE_NOT_FOUND);
 			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
 		else if (dwError == ERROR_PATH_NOT_FOUND)
 		{
-			MessageBox(hWnd,PATH_NOT_FOUND,"Error",MB_ICONERROR);
-			logg(fp, "Error: %s\n", PATH_NOT_FOUND);
+			OutputErrorMessage(languageIndex, IND_PathNotFound, IND_MessageKindError);
+			//MessageBox(hWnd,PATH_NOT_FOUND,"Error",MB_ICONERROR);
+			//logg(fp, "Error: %s\n", PATH_NOT_FOUND);
 			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
 		else if (dwError == ERROR_ACCESS_DENIED)
 		{
-			MessageBox(hWnd,ACCESS_DENIED,"Error",MB_ICONERROR);
-			logg(fp, "Error: %s\n", ACCESS_DENIED);
+			OutputErrorMessage(languageIndex, IND_AccessDenied, IND_MessageKindError);
+			//MessageBox(hWnd,ACCESS_DENIED,"Error",MB_ICONERROR);
+			//logg(fp, "Error: %s\n", ACCESS_DENIED);
 			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
 		else
 		{
-			MessageBox(hWnd,UNDEFINED_ERROR,"Error",MB_ICONERROR);
-			logg(fp, "Error: %s\n", UNDEFINED_ERROR);
+			OutputErrorMessage(languageIndex, IND_UndefinedError, IND_MessageKindError);
+			//MessageBox(hWnd,UNDEFINED_ERROR,"Error",MB_ICONERROR);
+			//logg(fp, "Error: %s\n", UNDEFINED_ERROR);
 			logg(fp, "Leave CheckWritePermission()\n\n");
 			return FALSE;
 		}
@@ -2732,7 +2747,8 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 				case ERROR_ACCESS_DENIED :
 					mpParam[sParam] = "0";
 				  //MessageBox(hWnd,"HandleSetRegistryKeyValue(): not enough rights for editing registry",REGISTRY_WARNING,MB_ICONWARNING);
-				  //MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
+					OutputErrorMessage(languageIndex, IND_NotEnoughRegistryRightsError, IND_MessageKindError);
+					//MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
 					logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
 					return FALSE;
 				default :
