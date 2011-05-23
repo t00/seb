@@ -485,7 +485,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		if (getBool("NEW_DESKTOP"))
 		{
 			hOriginalThread = GetThreadDesktop(GetCurrentThreadId());
-			hOriginalInput = OpenInputDesktop(0, FALSE, DESKTOP_SWITCHDESKTOP);
+			hOriginalInput  = OpenInputDesktop(0, FALSE, DESKTOP_SWITCHDESKTOP);
 
 			// Create a new Desktop and switch to it
 			hNewDesktop = CreateDesktop(SEB_DESK, NULL, NULL, 0, GENERIC_ALL, NULL);
