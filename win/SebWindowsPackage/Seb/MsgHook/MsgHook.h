@@ -40,11 +40,3 @@
 
 #include "AlterFlags.h"
 #include "../SystemVersionInfo.h"
-/*
-registry WRITE,LOCMACH,Software\Microsoft\Windows\CurrentVersion\Policies\System,HideFastUserSwitching,1,DWORD
-registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableLockWorkstation,1,DWORD
-registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableTaskMgr,1,DWORD
-registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\System,DisableChangePassword,1,DWORD
-registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoClose,1,DWORD
-registry WRITE,CURUSER,Software\Microsoft\Windows\CurrentVersion\Policies\Explorer,NoLogoff,1,DWORD
-*/
