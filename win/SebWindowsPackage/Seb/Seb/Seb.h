@@ -29,20 +29,6 @@
 #include "../SystemVersionInfo.h"
 
 
-/*
-// Name and location of Seb configuration file and logfile
-#define SEB_INI_FILE "../Seb.ini"
-#define SEB_LOG_FILE "Seb.log"
-
-// C structures for logfile handling
-bool  logFileDesired = true;
-char* logFileName    = SEB_LOG_FILE;
-FILE* fp;
-
-// Function for easier writing into the logfile
-#define logg if (fp != NULL) fprintf
-*/
-
 
 // Socket structures for IPC (interprocess communication)
 // between SEB (client) and SEB Windows Service (server)
