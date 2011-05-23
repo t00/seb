@@ -29,7 +29,7 @@
 
 // Name and location of Seb configuration file and logfile
 #define SEB_INI_FILE "../Seb.ini"
-#define SEB_LOG_FILE "Seb.log"
+#define SEB_LOG_FILE    "Seb.log"
 
 // C structures for logfile handling
 bool  logFileDesired = true;
