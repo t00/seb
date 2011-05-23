@@ -7,6 +7,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33902F97-2FA2-4B01-8414-263F792C5305}"
 	ProjectSection(SolutionItems) = preProject
 		ErrorMessage.h = ErrorMessage.h
+		SystemVersionInfo.h = SystemVersionInfo.h
 	EndProjectSection
 EndProject
 Global
