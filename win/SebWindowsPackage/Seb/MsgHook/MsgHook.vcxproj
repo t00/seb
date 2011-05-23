@@ -94,7 +94,6 @@
     <ClInclude Include="AlterFlags.h" />
     <ClInclude Include="MsgHook.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="SystemVersionInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
