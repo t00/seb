@@ -32,9 +32,10 @@
 #define SEB_LOG_FILE    "Seb.log"
 
 // C structures for logfile handling
-bool  logFileDesired = true;
-char* logFileName    = SEB_LOG_FILE;
-FILE* fp;
+static bool logFileDesired   = true;
+static char logFileDir [512] = "";
+static char logFileName[512] = "";
+static FILE* fp;
 
 // Function for easier writing into the logfile
 #define logg if (fp != NULL) fprintf
@@ -247,6 +248,9 @@ int GetCurrentLanguage()
 {
 	int languageIndex;
 
+	logg(fp, "\n\n");
+	logg(fp, "Enter GetCurrentLanguage()\n");
+
 	LANGID systemDefaultUILanguage = GetSystemDefaultUILanguage();
 	LANGID   userDefaultUILanguage = GetUserDefaultUILanguage();
   //LANGID        threadUILanguage = GetThreadUILanguage();
@@ -264,6 +268,7 @@ int GetCurrentLanguage()
 	if (primaryLanguageIndex == 0x09) languageIndex = IND_LanguageEnglish;
 	if (primaryLanguageIndex == 0x0C) languageIndex = IND_LanguageFrench;
 
+	logg(fp, "\n");
 	logg(fp, "systemDefaultUILanguage   hex = %x   dec = %d\n", systemDefaultUILanguage, systemDefaultUILanguage);
 	logg(fp, "  userDefaultUILanguage   hex = %x   dec = %d\n",   userDefaultUILanguage,   userDefaultUILanguage);
 	logg(fp, "  keyboardLayout          hex = %x   dec = %d\n",          keyboardLayout,          keyboardLayout);
@@ -272,6 +277,9 @@ int GetCurrentLanguage()
 	logg(fp, "     subLanguageIndex     hex = %x   dec = %d\n",         subLanguageIndex,        subLanguageIndex);
 	logg(fp, " primaryLanguageIndex     hex = %x   dec = %d\n",     primaryLanguageIndex,    primaryLanguageIndex);
 	logg(fp, "        languageIndex                dec = %d\n",            languageIndex);
+	logg(fp, "\n");
+
+	logg(fp, "Leave GetCurrentLanguage()\n\n\n");
 
 	return languageIndex;
 

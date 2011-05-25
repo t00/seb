@@ -511,7 +511,8 @@ BOOL InitMsgHook()
 		}
 	}
 	catch (char* str)
-	{					
+	{
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
 		return FALSE;
 	}
 	return TRUE;
@@ -602,7 +603,8 @@ BOOL getBool(string key)
 		return ret;
 	}
 	catch (char* str)
-	{				
+	{
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
 		return FALSE;
 	}	
 }
@@ -616,7 +618,8 @@ int getInt(string key)
 		return (atoi(mpParam[key].c_str()));
 	}
 	catch (char* str)
-	{		
+	{
+		MessageBox(NULL, str, "Error", MB_ICONERROR);
 		return FALSE;
 	}
 }
