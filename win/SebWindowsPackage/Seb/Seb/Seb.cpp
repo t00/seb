@@ -193,6 +193,55 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	MyRegisterClass(hInstance);
 	DWORD dwRet = 0; 
 
+
+	// Initialise socket variables
+	userName     = defaultUserName;
+	hostName     = defaultHostName;
+	portNumber   = defaultPortNumber;
+	sendInterval = defaultSendInterval;
+	recvTimeout  = defaultRecvTimeout;
+	numMessages  = defaultNumMessages;
+
+	// Get the current username
+	DWORD cUserNameLen =      sizeof(cUserName);
+	BOOL   user        = GetUserName(cUserName, &cUserNameLen);
+
+
+	if (cUserName == NULL)
+	{
+		//MessageBox(NULL, "is NULL", "userName", MB_ICONERROR);
+	}
+	else
+	{
+		userName = cUserName;
+
+		logg(fp, " userName     = %s\n",  userName);
+		logg(fp, "cUserName     = %s\n", cUserName);
+		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
+		logg(fp, "\n");
+
+		// Open the logfile for debug output
+		strcpy(logFileDir, "C:\\Users\\");
+		strcat(logFileDir, userName);
+		strcat(logFileDir, "\\AppData\\Local\\ETH Zurich\\Seb Windows 1.5.2\\SebClient\\");
+
+		strcpy(logFileDir, "C:\\tmp\\");
+		//strcpy(logFileDir, "C:\\tmp\\ETH Zurich\\Seb Windows 1.5.2\\SebClient\\");
+
+		strcpy(logFileName, logFileDir);
+		strcat(logFileName, SEB_LOG_FILE);
+
+		//MessageBox(NULL,    userName, "   userName", MB_ICONERROR);
+		//MessageBox(NULL, logFileName, "logFileName", MB_ICONERROR);
+
+		fp = fopen(logFileName, "w");
+		if (fp == NULL)
+		{
+			//MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
+		}
+	}
+
+
 	// Initialise the error messages in different languages
 	DefineErrorMessages();
 
@@ -201,16 +250,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	OutputErrorMessage(languageIndex, IND_RegistryEditError, IND_MessageKindError);
 	OutputErrorMessage(languageIndex, IND_RegistryWarning  , IND_MessageKindWarning);
 
-	// Open the logfile for debug output
-	fp = fopen(logFileName, "w");
-	if (fp == NULL)
-	{
-		//MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
-	}
 
 	//MessageBox(NULL, "Starting SEB...", "tWinMain():", MB_ICONERROR);
+
 	logg(fp, "\n");
-	logg(fp, "Enter tWinMain()\n");
+	logg(fp, "\n");
+	logg(fp, "Enter tWinMain()\n\n");
 	logg(fp, "\n");
 	logg(fp, "languageIndex  = %d\n", languageIndex);
 	logg(fp, "languageString = %s\n", languageString[languageIndex]);
@@ -953,30 +998,10 @@ BOOL GetClientInfo()
 	// defaultRecvTimeout  = 100;
 	// defaultNumMessages  = 3;
 
-	userName     = defaultUserName;
-	hostName     = defaultHostName;
-	portNumber   = defaultPortNumber;
-	sendInterval = defaultSendInterval;
-	recvTimeout  = defaultRecvTimeout;
-	numMessages  = defaultNumMessages;
-
 	try
 	{
 		if (WSAStartup(wVersionRequested, &wsaData) == 0)
 		{
-			// Get the current username
-
-			DWORD cUserNameLen =      sizeof(cUserName);
-			BOOL   user        = GetUserName(cUserName, &cUserNameLen);
-			userName           = cUserName;
-
-			if (cUserName != NULL)
-			{
-				logg(fp, " userName     = %s\n",  userName);
-				logg(fp, "cUserName     = %s\n", cUserName);
-				logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
-				logg(fp, "\n");
-			}
 
 			HANDLE  ProcessHandle = NULL;
 			DWORD   DesiredAccess = 0;
@@ -2256,7 +2281,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	int wmId, wmEvent, cntProcess = IDM_OFFSET;
 	PAINTSTRUCT ps;
 	HDC    hdc;
-	HANDLE hIcon, hIconSm;
+//	HANDLE hIcon, hIconSm;
 	string applicationName;
 
 	//logg(fp, "Enter WndProc()\n");
