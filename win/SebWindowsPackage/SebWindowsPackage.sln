@@ -10,6 +10,7 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SebWindowsPackageSetup", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE764AD0-A80F-479C-93A8-7EE1901E7C6A}"
 	ProjectSection(SolutionItems) = preProject
+		DotNetZip-v1.9\Debug\Ionic.Zip.dll = DotNetZip-v1.9\Debug\Ionic.Zip.dll
 		seb_icon.ico = seb_icon.ico
 	EndProjectSection
 EndProject
