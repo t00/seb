@@ -97,7 +97,7 @@ string StringToUpper(string strToConvert)
 {
 	if (!strToConvert.empty())
 	{
-		for (int i = 0; i < strToConvert.length(); i++)
+		for (unsigned int i = 0; i < strToConvert.length(); i++)
 		{
 			strToConvert[i] = toupper(strToConvert[i]);
 		}
