@@ -25,17 +25,24 @@
 
 
 
-#pragma once
+//#pragma once
+
+#ifndef __ERRORMSG_H__
+#define __ERRORMSG_H__
+
 
 // Name and location of Seb configuration file and logfile
-#define SEB_INI_FILE "../Seb.ini"
+#define SEB_INI_FILE    "..\\Seb.ini"
+#define DRIVE_ROOT      "C:\\"
+#define	TEMP_DIR        "tmp\\"
 #define SEB_LOG_FILE    "Seb.log"
+#define MSG_LOG_FILE    "MsgHook.log"
 
 // C structures for logfile handling
-static bool logFileDesired   = true;
-static char logFileDir [512] = "";
-static char logFileName[512] = "";
-static FILE* fp;
+bool logFileDesired;
+char logFileDir [512];
+char logFileName[512];
+FILE* fp;
 
 // Function for easier writing into the logfile
 #define logg if (fp != NULL) fprintf
@@ -95,14 +102,14 @@ const int IND_MessageKindWarning = 1;
 const int IND_MessageKindNum     = 2;
 
 
-static int languageIndex = 0;
-static int    errorIndex = 0;
+int languageIndex = 0;
+int    errorIndex = 0;
 
 // Global arrays for messages in different languages
-static LPCSTR languageString  [IND_LanguageNum];
-static LPCSTR   messageText   [IND_LanguageNum][IND_MessageTextNum];
-static LPCSTR   messageCaption[IND_LanguageNum][IND_MessageKindNum];
-static int      messageIcon                    [IND_MessageKindNum];
+LPCSTR languageString  [IND_LanguageNum];
+LPCSTR   messageText   [IND_LanguageNum][IND_MessageTextNum];
+LPCSTR   messageCaption[IND_LanguageNum][IND_MessageKindNum];
+int      messageIcon                    [IND_MessageKindNum];
 
 
 
@@ -310,3 +317,8 @@ void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageKind
 	return;
 
 } // end of method   OutputErrorMessage()
+
+
+
+#endif /* __ERRORMSG_H__ */
+
