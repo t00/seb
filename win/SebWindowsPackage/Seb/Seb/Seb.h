@@ -23,7 +23,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-#pragma once
+//#pragma once
 
 #include "resource.h"
 #include "../SystemVersionInfo.h"

@@ -30,6 +30,30 @@
 #include "../ErrorMessage.h"
 
 
+// C structures for logfile handling
+extern bool logFileDesired;
+extern char logFileDir [512];
+extern char logFileName[512];
+extern FILE* fp;
+
+// Function for easier writing into the logfile
+#define logg if (fp != NULL) fprintf
+
+extern int languageIndex;
+extern int    errorIndex;
+
+// Global arrays for messages in different languages
+extern LPCSTR languageString  [IND_LanguageNum];
+extern LPCSTR   messageText   [IND_LanguageNum][IND_MessageTextNum];
+extern LPCSTR   messageCaption[IND_LanguageNum][IND_MessageKindNum];
+extern int      messageIcon                    [IND_MessageKindNum];
+
+//extern void DefineErrorMessages();
+//extern int  GetCurrentLanguage();
+//extern void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageKindIndex);
+
+
+
 //These usings are only working in .NET, not in Standard C++:
 //using namespace System::Security::Principal;
 //using System.Security.Principal;
@@ -87,7 +111,7 @@ HINSTANCE hInst;							//Current Instance
 HWND      hWnd;								//Handle to the own SEB Window
 HMENU     hMenu;
 HINSTANCE hinstDLL = NULL;					//instance of the hook library
-HANDLE procMonitorThread;
+HANDLE    procMonitorThread;
 
 
 
@@ -193,6 +217,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	MyRegisterClass(hInstance);
 	DWORD dwRet = 0; 
 
+	// By default, a logfile should be written
+	logFileDesired = true;
 
 	// Initialise socket variables
 	userName     = defaultUserName;
@@ -215,30 +241,37 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		userName = cUserName;
 
-		logg(fp, " userName     = %s\n",  userName);
-		logg(fp, "cUserName     = %s\n", cUserName);
-		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
-		logg(fp, "\n");
-
 		// Open the logfile for debug output
 		strcpy(logFileDir, "C:\\Users\\");
 		strcat(logFileDir, userName);
 		strcat(logFileDir, "\\AppData\\Local\\ETH Zurich\\Seb Windows 1.5.2\\SebClient\\");
 
-		strcpy(logFileDir, "C:\\tmp\\");
 		//strcpy(logFileDir, "C:\\tmp\\ETH Zurich\\Seb Windows 1.5.2\\SebClient\\");
 
-		strcpy(logFileName, logFileDir);
-		strcat(logFileName, SEB_LOG_FILE);
+		if (fp == NULL)
+		{
+			strcpy(logFileDir , DRIVE_ROOT);
+			strcat(logFileDir , TEMP_DIR);
+
+			strcpy(logFileName, logFileDir);
+			strcat(logFileName, SEB_LOG_FILE);
+
+			fp = fopen(logFileName, "w");
+		}
 
 		//MessageBox(NULL,    userName, "   userName", MB_ICONERROR);
 		//MessageBox(NULL, logFileName, "logFileName", MB_ICONERROR);
 
-		fp = fopen(logFileName, "w");
 		if (fp == NULL)
 		{
 			//MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
 		}
+
+		logg(fp, "\n");
+		logg(fp, " userName     = %s\n",  userName);
+		logg(fp, "cUserName     = %s\n", cUserName);
+		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
+		logg(fp, "\n");
 	}
 
 
