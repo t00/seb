@@ -31,6 +31,30 @@
 #include "../ErrorMessage.h"
 
 
+// C structures for logfile handling
+extern bool logFileDesired;
+extern char logFileDir [512];
+extern char logFileName[512];
+extern FILE* fp;
+
+// Function for easier writing into the logfile
+#define logg if (fp != NULL) fprintf
+
+extern int languageIndex;
+extern int    errorIndex;
+
+// Global arrays for messages in different languages
+extern LPCSTR languageString  [IND_LanguageNum];
+extern LPCSTR   messageText   [IND_LanguageNum][IND_MessageTextNum];
+extern LPCSTR   messageCaption[IND_LanguageNum][IND_MessageKindNum];
+extern int      messageIcon                    [IND_MessageKindNum];
+
+//extern void DefineErrorMessages();
+//extern int  GetCurrentLanguage();
+//extern void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageKindIndex);
+
+
+
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
@@ -92,7 +116,29 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 
 /* private hook functions */
 LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
-{	
+{
+	//logg(fp, "\n\n");
+
+	if (fp == NULL)
+	{
+		strcpy(logFileDir , DRIVE_ROOT);
+		strcat(logFileDir , TEMP_DIR);
+
+		strcpy(logFileName, logFileDir);
+		strcat(logFileName, MSG_LOG_FILE);
+
+		fp = fopen(logFileName, "w");
+	}
+
+	if (fp == NULL)
+	{
+		//MessageBox(NULL, logFileName, "LLKeyboardHook(): Could not open logfile", MB_ICONERROR);
+	}
+
+	logg(fp, "\n");
+	logg(fp, "Enter LLKeyboardHook()\n");
+
+
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
 		return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
@@ -102,6 +148,9 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	
 	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
 	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
+
+	logg(fp, "   MsgHook.cpp:  LLKeyboardHook():  p->vkCode = %d\n", p->vkCode);
+
     switch (wParam) 
     {
         case WM_KEYDOWN:  
@@ -136,6 +185,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 						{			
 							//TerminateProcess(hPiProcess->hProcess,0);
 							SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+							logg(fp, "Leave LLKeyboardHook()\n");
 							return -1;
 						}
 
@@ -184,7 +234,9 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 			}				
 		}
     }
-	
+
+	logg(fp, "Leave LLKeyboardHook()\n");
+
     if (bEatKeystroke)
 	{	
         return -1;
@@ -194,6 +246,8 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
         return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 }
+
+
 
 
 
