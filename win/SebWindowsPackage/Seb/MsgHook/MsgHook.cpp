@@ -129,7 +129,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
 	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
 
-	logg(fp, "   LLKeyboardHook():  p->vkCode = %d\n", p->vkCode);
+	logg(fp, "   LLKeyboardHook():  p->vkCode hex = %x   dec = %d\n", p->vkCode, p->vkCode);
 
     switch (wParam) 
     {
