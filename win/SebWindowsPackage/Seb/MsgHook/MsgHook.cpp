@@ -117,27 +117,7 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 /* private hook functions */
 LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	//logg(fp, "\n\n");
-
-	if (fp == NULL)
-	{
-		strcpy(logFileDir , DRIVE_ROOT);
-		strcat(logFileDir , TEMP_DIR);
-
-		strcpy(logFileName, logFileDir);
-		strcat(logFileName, MSG_LOG_FILE);
-
-		fp = fopen(logFileName, "w");
-	}
-
-	if (fp == NULL)
-	{
-		//MessageBox(NULL, logFileName, "LLKeyboardHook(): Could not open logfile", MB_ICONERROR);
-	}
-
-	logg(fp, "\n");
 	logg(fp, "Enter LLKeyboardHook()\n");
-
 
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
@@ -149,7 +129,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
 	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
 
-	logg(fp, "   MsgHook.cpp:  LLKeyboardHook():  p->vkCode = %d\n", p->vkCode);
+	logg(fp, "   LLKeyboardHook():  p->vkCode = %d\n", p->vkCode);
 
     switch (wParam) 
     {
@@ -185,7 +165,8 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 						{			
 							//TerminateProcess(hPiProcess->hProcess,0);
 							SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
-							logg(fp, "Leave LLKeyboardHook()\n");
+							logg(fp, "   SEB exit sequence, destroy window\n");
+							logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
 							return -1;
 						}
 
@@ -230,19 +211,23 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					) 
 				{
 					bEatKeystroke = true;
+					logg(fp, "   Keystroke has been caught\n");
 				}
 			}				
 		}
     }
 
-	logg(fp, "Leave LLKeyboardHook()\n");
 
     if (bEatKeystroke)
-	{	
+	{
+		logg(fp, "   bEatKeystroke = true\n");
+		logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
         return -1;
 	}
     else
 	{
+		logg(fp, "   bEatKeystroke = false\n");
+		logg(fp, "Leave LLKeyboardHook() and return CallNextHookEx()\n\n");
         return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 }
@@ -254,7 +239,9 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	BOOL KeyUp, KeyDown, bAltKeyDown, bCtrlKeyDown;
-	
+
+	logg(fp, "Enter KeyboardHook()\n");
+
 	if (nCode < 0 || nCode != HC_ACTION) 
 	{
 		return CallNextHookEx(g_hHookKbd, nCode, wParam, lParam); 
@@ -300,6 +287,8 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					{	
 						//TerminateProcess(hPiProcess->hProcess,0);
 						SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+						logg(fp, "   SEB exit sequence, destroy window\n");
+						logg(fp, "Leave KeyboardHook() and return -1\n\n");
 						return -1;						
 					}
 
@@ -343,25 +332,36 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 				) 
 			{	
 				//MessageBox(NULL,"Eat","Error",16);
+				logg(fp, "   Keystroke has been eaten\n");
+				logg(fp, "Leave KeyboardHook() and return -1\n\n");
 				return -1;			
 			}
 		}
 	}
+
+	logg(fp, "Leave KeyboardHook() and return CallNextHookEx()\n\n");
 	return CallNextHookEx(g_hHookKbd, nCode, wParam, lParam);
 }
 
 
 
 LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
-{	
+{
+	logg(fp, "Enter LLMouseHook()\n");
+
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
+		logg(fp, "Leave LLMouseHook() and return CallNextHookEx()\n\n");
 		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
+
     if ((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
-	{			
+	{
+		logg(fp, "Leave LLMouseHook() and return -1\n\n");
         return -1;
-	}    
+	}
+
+	logg(fp, "Leave LLMouseHook() and return CallNextHookEx()\n\n");
     return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam);
 }
 
@@ -376,14 +376,22 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 		mhs = *(MOUSEHOOKSTRUCT*)lParam; 
 	}
 	*/
+
+	logg(fp, "Enter MouseHook()\n");
+
 	if (nCode < 0 || nCode != HC_ACTION)
-	{		
+	{
+		logg(fp, "Leave MouseHook() and return CallNextHookEx()\n\n");
 		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
+
 	if ((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
-	{			
+	{
+		logg(fp, "Leave MouseHook() and return -1\n\n");
         return -1;
 	}
+
+	logg(fp, "Leave MouseHook() and return CallNextHookEx()\n\n");
 	return CallNextHookEx(g_hHookMouse, nCode, wParam, lParam);
 }
 
@@ -392,14 +400,18 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 /* public hook functions */
 EXPORT void KeyHookNT(HINSTANCE *hDLL, bool setHook)
 {
-    if(setHook) 
+	logg(fp, "Enter KeyHookNT()\n");
+    if (setHook) 
 	{
+		logg(fp, "   setHook == true\n");
 		g_hHookKbdLL = SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)LLKeyboardHook, (HINSTANCE)*hDLL, 0);
     } 
 	else 
 	{
+		logg(fp, "   setHook == false\n");
 		UnhookWindowsHookEx(g_hHookKbdLL);
     }
+	logg(fp, "Leave KeyHookNT()\n\n");
     return;
 }
 
@@ -407,15 +419,19 @@ EXPORT void KeyHookNT(HINSTANCE *hDLL, bool setHook)
 
 EXPORT void KeyHook9x(HINSTANCE *hDLL, bool setHook) 
 {
-	if(setHook) 
-	{				
+	logg(fp, "Enter KeyHook9x()\n");
+	if (setHook) 
+	{
+		logg(fp, "   setHook == true\n");
 	  //g_hHookKbd = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, piKiox->dwThreadId);
 		g_hHookKbd = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, 0);
     }	
 	else 
 	{
+		logg(fp, "   setHook == false\n");
 		UnhookWindowsHookEx(g_hHookKbd);
     }
+	logg(fp, "Leave KeyHook9x()\n\n");
     return;
 }
 
@@ -423,16 +439,18 @@ EXPORT void KeyHook9x(HINSTANCE *hDLL, bool setHook)
 
 EXPORT void MouseHookNT(HINSTANCE *hDLL, bool setHook)
 {
-    //MessageBox(NULL,"Set Mouse Hook1","Error",16);
+	logg(fp, "Enter MouseHookNT()\n");
     if(setHook) 
 	{		
-		//MessageBox(NULL,"Set Mouse Hook2","Error",16);
+		logg(fp, "   setHook == true\n");
 		g_hHookMouseLL = SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)LLMouseHook, (HINSTANCE)*hDLL, 0);
     } 
 	else 
 	{
+		logg(fp, "   setHook == false\n");
 		UnhookWindowsHookEx(g_hHookMouseLL);
     }
+	logg(fp, "Leave MouseHookNT()\n\n");
     return;
 }
 
@@ -440,15 +458,19 @@ EXPORT void MouseHookNT(HINSTANCE *hDLL, bool setHook)
 
 EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook) 
 {
+	logg(fp, "Enter MouseHook9x()\n");
 	if (setHook) 
-	{				
+	{
+		logg(fp, "   setHook == true\n");
 	  //g_hHookKbd   = SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)KeyboardHook, (HINSTANCE)*hDLL, piKiox->dwThreadId);
 		g_hHookMouse = SetWindowsHookEx(WH_MOUSE   , (HOOKPROC)MouseHook   , (HINSTANCE)*hDLL, 0);
     } 
 	else 
 	{
+		logg(fp, "   setHook == false\n");
 		UnhookWindowsHookEx(g_hHookMouse);
     }
+	logg(fp, "Leave MouseHook9x()\n\n");
     return; 
 }
 
@@ -464,11 +486,14 @@ BOOL InitMsgHook()
 	char   cCurrDir[MAX_PATH];
 	string sCurrDir = "";
 	string sHotKey  = "";
-		
+
+	logg(fp, "Enter InitMsgHook()\n");
+
 	try
 	{
 		if (!isValidOperatingSystem())
 		{
+			logg(fp, "Leave InitMsgHook and return FALSE()\n\n");
 			return FALSE;
 		}
 
@@ -500,23 +525,27 @@ BOOL InitMsgHook()
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
 		sCurrDir = MSGHOOK_INI;
 
-		ifstream inf(sCurrDir.c_str());	
+		ifstream inf(sCurrDir.c_str());
+
 		if (!inf.is_open()) 
 		{
 			OutputErrorMessage(languageIndex, IND_NoMsgHookIniError, IND_MessageKindError);
 			//MessageBox(NULL, messageText[languageIndex][IND_NoMsgHookIniError], "Error", 16);
+			logg(fp, "Leave InitMsgHook() and return FALSE\n\n");
 			return FALSE;
 		}
+
 		while (!getline(inf, strLine).eof())
 		{			
-			strKey = strLine.substr(0,strLine.find("=", 0));
-			strValue = strLine.substr(strLine.find("=", 0)+1,strLine.length());
+			strKey   = strLine.substr(0, strLine.find("=", 0));
+			strValue = strLine.substr(   strLine.find("=", 0)+1, strLine.length());
 			mpParam[strKey] = strValue;
-
+			logg(fp, "   strKey = %s   strValue = %s\n", strKey.c_str(), strValue.c_str());
 			//captionString = strKey  .c_str();
 			//messageString = strValue.c_str();
 			//MessageBox(NULL, messageString, captionString, 16);
 		}
+		logg(fp, "\n");
 		inf.close();
 		
 		//setting bits of alter_flags_structs
@@ -561,14 +590,18 @@ BOOL InitMsgHook()
 		}
 		else
 		{
+			//OutputErrorMessage(languageIndex, IND_NoCallerWindowFound, IND_MessageKindError);
 			MessageBox(NULL, "No caller window found!", "Error", 16);
 		}
 	}
 	catch (char* str)
 	{
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "Leave InitMsgHook() and return FALSE\n\n");
 		return FALSE;
 	}
+
+	logg(fp, "Leave InitMsgHook()\n\n");
 	return TRUE;
 }
 
@@ -578,8 +611,9 @@ BOOL InitMsgHook()
 
 int GetButtonForHotKeyFromRegistry(LPCTSTR regButton) 
 {
-	int retValue;
-	retValue = 0;
+	int retValue = 0;
+	logg(fp, "Enter GetButtonForHotKeyFromRegistry()\n");
+
 	try
 	{
 		HKEY  hKey;
@@ -588,6 +622,7 @@ int GetButtonForHotKeyFromRegistry(LPCTSTR regButton)
 		DWORD dwType = REG_DWORD;
 		DWORD dwSize = sizeof(DWORD);
 		retStatus    = RegOpenKeyEx(HKLM, KEY_PoliciesSEB, 0, KEY_READ, &hKey);
+
 		if (retStatus == ERROR_SUCCESS)
 		{
 			retStatus = RegQueryValueEx(hKey, regButton, NULL, &dwType,(LPBYTE)&b1, &dwSize);
@@ -597,11 +632,13 @@ int GetButtonForHotKeyFromRegistry(LPCTSTR regButton)
 			}
 			RegCloseKey(hKey);
 		}
+		logg(fp, "Leave GetButtonForHotKeyFromRegistry()\n\n");
 		return retValue;
 	}
 	catch (char* str)
 	{		
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
+		logg(fp, "Leave GetButtonForHotKeyFromRegistry()\n\n");
 		return retValue;
 	}
 }
@@ -614,6 +651,28 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                       DWORD   ul_reason_for_call,
                       LPVOID  lpReserved)
 {
+
+	// Open or create a logfile for message hooks
+	if (fp == NULL)
+	{
+		strcpy(logFileDir , DRIVE_ROOT);
+		strcat(logFileDir , TEMP_DIR);
+
+		strcpy(logFileName, logFileDir);
+		strcat(logFileName, MSG_LOG_FILE);
+
+		fp = fopen(logFileName, "w");
+	}
+
+	if (fp == NULL)
+	{
+		//MessageBox(NULL, logFileName, "DllMain(): Could not open logfile", MB_ICONERROR);
+	}
+
+	logg(fp, "\n");
+	logg(fp, "Enter DllMain()\n");
+
+
 	// Perform actions based on the reason for calling.
     switch (ul_reason_for_call) 
     { 
@@ -643,6 +702,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 			//of.close();
             break;
     }
+
+	logg(fp, "Leave DllMain()\n\n");
     return TRUE;
 }
 
@@ -682,7 +743,12 @@ int getInt(string key)
 
 BOOL isValidOperatingSystem()
 {
-	switch (sysVersionInfo.GetVersion())
+	int operatingSystem = sysVersionInfo.GetVersion();
+
+	logg(fp, "Enter isValidOperatingSystem()\n");
+	logg(fp, "   sysVersionInfo.GetVersion() == %d\n", operatingSystem);
+
+	switch (operatingSystem)
 	{			
 		case WIN_NT_351 :
 		case WIN_NT_40  :
@@ -692,11 +758,14 @@ BOOL isValidOperatingSystem()
 		case WIN_95 :
 		case WIN_98 :
 		case WIN_ME :
+			logg(fp, "   operatingSystem == %d\n", operatingSystem);
+			logg(fp, "Leave isValidOperatingSystem() and return TRUE\n\n");
 			return TRUE;
 			break;
 		default :
 			OutputErrorMessage(languageIndex, IND_NoOsSupport, IND_MessageKindError);
 			//MessageBox(NULL,NO_OS_SUPPORT,"Error",16);
+			logg(fp, "Leave isValidOperatingSystem() and return FALSE\n\n");
 			return FALSE;			
 	}
 }
