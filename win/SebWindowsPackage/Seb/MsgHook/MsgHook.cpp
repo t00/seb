@@ -123,13 +123,18 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
+
 	BOOL bEatKeystroke;
 	BOOL bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
 	
 	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
 	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
 
-	logg(fp, "   LLKeyboardHook():  p->vkCode hex = %x   dec = %d\n", p->vkCode, p->vkCode);
+	logg(fp, "   nCode       hex = %6x   dec = %8d\n", nCode , nCode);
+	logg(fp, "   wParam      hex = %6x   dec = %8d\n", wParam, wParam);
+	logg(fp, "   lParam      hex = %6x   dec = %8d\n", lParam, lParam);
+	logg(fp, "   p->vkCode   hex = %6x   dec = %8d\n", p->vkCode, p->vkCode);
+
 
     switch (wParam) 
     {
@@ -211,7 +216,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					) 
 				{
 					bEatKeystroke = true;
-					logg(fp, "   Keystroke has been caught\n");
+					logg(fp, "   Suppress    hex = %6x   dec = %8d   p->vkCode\n", p->vkCode, p->vkCode);
 				}
 			}				
 		}
@@ -241,11 +246,15 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	BOOL KeyUp, KeyDown, bAltKeyDown, bCtrlKeyDown;
 
 	logg(fp, "Enter KeyboardHook()\n");
+	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
+	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
+	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
 
 	if (nCode < 0 || nCode != HC_ACTION) 
 	{
 		return CallNextHookEx(g_hHookKbd, nCode, wParam, lParam); 
 	}
+
 	if ((lParam & (1 << 31)) == 0) //Bit 31 set?
 	{		
 		KeyUp   = FALSE;
@@ -256,9 +265,11 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		KeyUp   = TRUE;
 		KeyDown = FALSE;		
 	}
+
 	bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
-	bAltKeyDown = ((lParam & (1 << 29)) != 0) ? TRUE : FALSE;
-	
+	bAltKeyDown  = ((lParam & (1 << 29)) != 0) ? TRUE : FALSE;
+
+
 	if (KeyDown || KeyUp)
 	{			
 		/* hotkeys */
@@ -308,7 +319,8 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 						//return -1;
 					}
 				}
-			}			
+			}
+
 			/* some keys to eat */			
 			if (		
 					((alter_flags.DISABLE_START_MENU && ((wParam == VK_LWIN) || (wParam == VK_RWIN)))) ||	//no effect
@@ -330,9 +342,8 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					((alter_flags.DISABLE_F11 && wParam == VK_F11)) ||
 					((alter_flags.DISABLE_F12 && wParam == VK_F12))
 				) 
-			{	
-				//MessageBox(NULL,"Eat","Error",16);
-				logg(fp, "   Keystroke has been eaten\n");
+			{
+				logg(fp, "   Suppress   hex = %6x   dec = %8d   wParam\n", wParam, wParam);
 				logg(fp, "Leave KeyboardHook() and return -1\n\n");
 				return -1;			
 			}
@@ -348,6 +359,9 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	logg(fp, "Enter LLMouseHook()\n");
+	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
+	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
+	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
 
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
@@ -369,15 +383,18 @@ LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	/*
+/*
 	MOUSEHOOKSTRUCT mhs;
 	if (nCode >= 0)
 	{
 		mhs = *(MOUSEHOOKSTRUCT*)lParam; 
 	}
-	*/
+*/
 
 	logg(fp, "Enter MouseHook()\n");
+	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
+	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
+	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
 
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
@@ -540,7 +557,7 @@ BOOL InitMsgHook()
 			strKey   = strLine.substr(0, strLine.find("=", 0));
 			strValue = strLine.substr(   strLine.find("=", 0)+1, strLine.length());
 			mpParam[strKey] = strValue;
-			logg(fp, "   strKey = %s   strValue = %s\n", strKey.c_str(), strValue.c_str());
+			logg(fp, "   %-20s = %s\n", strKey.c_str(), strValue.c_str());
 			//captionString = strKey  .c_str();
 			//messageString = strValue.c_str();
 			//MessageBox(NULL, messageString, captionString, 16);
