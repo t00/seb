@@ -276,14 +276,14 @@ int GetCurrentLanguage()
 	if (primaryLanguageIndex == 0x0C) languageIndex = IND_LanguageFrench;
 
 	logg(fp, "\n");
-	logg(fp, "systemDefaultUILanguage   hex = %x   dec = %d\n", systemDefaultUILanguage, systemDefaultUILanguage);
-	logg(fp, "  userDefaultUILanguage   hex = %x   dec = %d\n",   userDefaultUILanguage,   userDefaultUILanguage);
-	logg(fp, "  keyboardLayout          hex = %x   dec = %d\n",          keyboardLayout,          keyboardLayout);
-	logg(fp, "inputLocalIdentifier      hex = %x   dec = %d\n",    inputLocalIdentifier,    inputLocalIdentifier);
-	logg(fp, "completeLanguageIndex     hex = %x   dec = %d\n",    completeLanguageIndex,   completeLanguageIndex);
-	logg(fp, "     subLanguageIndex     hex = %x   dec = %d\n",         subLanguageIndex,        subLanguageIndex);
-	logg(fp, " primaryLanguageIndex     hex = %x   dec = %d\n",     primaryLanguageIndex,    primaryLanguageIndex);
-	logg(fp, "        languageIndex                dec = %d\n",            languageIndex);
+	logg(fp, "systemDefaultUILanguage   hex = %8x   dec = %d\n", systemDefaultUILanguage, systemDefaultUILanguage);
+	logg(fp, "  userDefaultUILanguage   hex = %8x   dec = %d\n",   userDefaultUILanguage,   userDefaultUILanguage);
+	logg(fp, "       keyboardLayout     hex = %8x   dec = %d\n",        keyboardLayout,          keyboardLayout);
+	logg(fp, "inputLocalIdentifier      hex = %8x   dec = %d\n",    inputLocalIdentifier,    inputLocalIdentifier);
+	logg(fp, "completeLanguageIndex     hex = %8x   dec = %d\n",    completeLanguageIndex,   completeLanguageIndex);
+	logg(fp, "     subLanguageIndex     hex = %8x   dec = %d\n",         subLanguageIndex,        subLanguageIndex);
+	logg(fp, " primaryLanguageIndex     hex = %8x   dec = %d\n",     primaryLanguageIndex,    primaryLanguageIndex);
+	logg(fp, "        languageIndex                      dec = %d\n",       languageIndex);
 	logg(fp, "\n");
 
 	logg(fp, "Leave GetCurrentLanguage()\n\n\n");
