@@ -27,6 +27,11 @@
 
 #pragma once
 
+
+// Suppresses disturbing compiler warnings regarding "strcpy" and "strcat"
+#define _CRT_SECURE_NO_WARNINGS
+
+
 // Modify the following defines if you have to target a platform prior to the ones specified below.
 // Refer to MSDN for the latest info on corresponding values for different platforms.
 
