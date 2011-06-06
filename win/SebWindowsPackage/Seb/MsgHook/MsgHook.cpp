@@ -123,29 +123,32 @@ std::string GetKeyName(unsigned int keyCode)
 	char keyName[50];
 	int  keyNameLength = 0;
 
+	// Call the first Windows API function
 	UINT scanCode = MapVirtualKey(keyCode, MAPVK_VK_TO_VSC);
 
-    // because MapVirtualKey strips the extended bit for some keys
+    // Because MapVirtualKey strips the extended bit for some keys
     switch (keyCode)
     {
-        case VK_LEFT  : case VK_UP  : case VK_RIGHT: case VK_DOWN: // arrow keys
+        case VK_LEFT  : case VK_UP  : // arrow keys
+		case VK_RIGHT : case VK_DOWN: // arrow keys
         case VK_PRIOR : case VK_NEXT: // page up and page down
         case VK_END   : case VK_HOME:
         case VK_INSERT: case VK_DELETE:
         case VK_DIVIDE: // numpad slash
         case VK_NUMLOCK:
         {
-			logg(fp, "    keyCode is special and strips the extended bit\n");
+			logg(fp, "   keyCode is special and strips the extended bit\n");
             scanCode |= 0x100; // set extended bit
             break;
         }
     }
 
+	// Call the second Windows API function
 	keyNameLength = GetKeyNameText(scanCode << 16, keyName, sizeof(keyName));
 
-	logg(fp, "    keyCode   hex = %6x   dec = %8d\n",  keyCode,  keyCode);
-	logg(fp, "   scanCode   hex = %6x   dec = %8d\n", scanCode, scanCode);
-	logg(fp, "    keyName       = %s             \n",  keyName);
+	//logg(fp, "    keyCode   hex = %6x   dec = %8d\n",  keyCode,  keyCode);
+	//logg(fp, "   scanCode   hex = %6x   dec = %8d\n", scanCode, scanCode);
+	//logg(fp, "    keyName       = %s             \n",  keyName);
 
     if (keyNameLength != 0) return keyName;
 					   else return "[Error]";
@@ -174,12 +177,13 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	DWORD  keyCode = p->vkCode;
 	string keyName = GetKeyName(keyCode);
 
+	logg(fp, "   keyName = %s                   \n", keyName.c_str());
+/*
+	logg(fp, "   keyCode   hex = %6x   dec = %8d\n", keyCode, keyCode);
 	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
 	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
 	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
-	logg(fp, "   keyCode   hex = %6x   dec = %8d\n", keyCode, keyCode);
-	logg(fp, "   keyName       = %s             \n", keyName.c_str());
-
+*/
 
     switch (wParam) 
     {
@@ -188,7 +192,8 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		case WM_SYSKEYDOWN:	
 		case WM_SYSKEYUP:		
         {			
-			bEatKeystroke = false;			
+			bEatKeystroke = false;
+
 			/* hotkeys */
 			/* every keyup resets hotkey pressed flags */
 			if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
@@ -197,13 +202,14 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 				b2 = FALSE;					
 				b3 = FALSE;				
 			}
+
 			if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
 			/* HotKey */			
 			{
 				if (bHotKeyKill)
 				{ 
 					/* every other keydowns resets hotkey pressed flags */			
-					if ((p->vkCode != VK_B1) && (p->vkCode != VK_B2) && (p->vkCode != VK_B3))
+					if ((keyCode != VK_B1) && (keyCode != VK_B2) && (keyCode != VK_B3))
 					{					
 						b1 = FALSE;
 						b2 = FALSE;				
@@ -211,7 +217,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					}
 					else
 					{		
-						if ((b1 == TRUE) && (b2 == TRUE) && (b3 == TRUE) && (p->vkCode == VK_B3))
+						if ((b1 == TRUE) && (b2 == TRUE) && (b3 == TRUE) && (keyCode == VK_B3))
 						{			
 							//TerminateProcess(hPiProcess->hProcess,0);
 							SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
@@ -220,48 +226,49 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 							return -1;
 						}
 
-						if (p->vkCode == VK_B1) 
+						if (keyCode == VK_B1) 
 						{
 							b1 = TRUE;	
 							//return -1;						
 						}
-						if (p->vkCode == VK_B2)
+						if (keyCode == VK_B2)
 						{
 							b2 = TRUE;
 							//return -1;
 						}
-						if (p->vkCode == VK_B3)
+						if (keyCode == VK_B3)
 						{
 							b3 = TRUE;
 							//return -1;
 						}
 					}
 				}
+
 				/* some keys to eat */
 				if (
-						((alter_flags.DISABLE_START_MENU && ((p->vkCode == VK_LWIN) || (p->vkCode == VK_RWIN)))) ||
-						((alter_flags.DISABLE_CTRL_ESC   && ((p->vkCode == VK_ESCAPE && bCtrlKeyDown)))) ||
-						((alter_flags.DISABLE_CTRL_P     && ((p->vkCode == VK_P      && bCtrlKeyDown)))) ||
-						((alter_flags.DISABLE_ALT_TAB    && ((p->vkCode == VK_TAB    && bAltKeyDown)))) ||
-						((alter_flags.DISABLE_ALT_ESC    && ((p->vkCode == VK_ESCAPE && bAltKeyDown)))) ||
-						((alter_flags.DISABLE_ALT_F4     && ((p->vkCode == VK_F4     && bAltKeyDown)))) ||
-						((alter_flags.DISABLE_F1  && p->vkCode == VK_F1 )) ||
-						((alter_flags.DISABLE_F2  && p->vkCode == VK_F2 )) ||
-						((alter_flags.DISABLE_F3  && p->vkCode == VK_F3 )) ||
-						((alter_flags.DISABLE_F4  && p->vkCode == VK_F4 )) ||
-						((alter_flags.DISABLE_F5  && p->vkCode == VK_F5 )) ||
-						((alter_flags.DISABLE_F6  && p->vkCode == VK_F6 )) ||
-						((alter_flags.DISABLE_F7  && p->vkCode == VK_F7 )) ||
-						((alter_flags.DISABLE_F8  && p->vkCode == VK_F8 )) ||
-						((alter_flags.DISABLE_F9  && p->vkCode == VK_F9 )) ||
-						((alter_flags.DISABLE_F10 && p->vkCode == VK_F10)) ||
-						((alter_flags.DISABLE_F11 && p->vkCode == VK_F11)) ||
-						((alter_flags.DISABLE_F12 && p->vkCode == VK_F12)) ||
-						((alter_flags.DISABLE_ESCAPE && p->vkCode == VK_ESCAPE))
+						((alter_flags.DISABLE_START_MENU && ((keyCode == VK_LWIN) || (keyCode == VK_RWIN)))) ||
+						((alter_flags.DISABLE_CTRL_ESC   && ((keyCode == VK_ESCAPE && bCtrlKeyDown)))) ||
+						((alter_flags.DISABLE_CTRL_P     && ((keyCode == VK_P      && bCtrlKeyDown)))) ||
+						((alter_flags.DISABLE_ALT_TAB    && ((keyCode == VK_TAB    && bAltKeyDown)))) ||
+						((alter_flags.DISABLE_ALT_ESC    && ((keyCode == VK_ESCAPE && bAltKeyDown)))) ||
+						((alter_flags.DISABLE_ALT_F4     && ((keyCode == VK_F4     && bAltKeyDown)))) ||
+						((alter_flags.DISABLE_F1  && keyCode == VK_F1 )) ||
+						((alter_flags.DISABLE_F2  && keyCode == VK_F2 )) ||
+						((alter_flags.DISABLE_F3  && keyCode == VK_F3 )) ||
+						((alter_flags.DISABLE_F4  && keyCode == VK_F4 )) ||
+						((alter_flags.DISABLE_F5  && keyCode == VK_F5 )) ||
+						((alter_flags.DISABLE_F6  && keyCode == VK_F6 )) ||
+						((alter_flags.DISABLE_F7  && keyCode == VK_F7 )) ||
+						((alter_flags.DISABLE_F8  && keyCode == VK_F8 )) ||
+						((alter_flags.DISABLE_F9  && keyCode == VK_F9 )) ||
+						((alter_flags.DISABLE_F10 && keyCode == VK_F10)) ||
+						((alter_flags.DISABLE_F11 && keyCode == VK_F11)) ||
+						((alter_flags.DISABLE_F12 && keyCode == VK_F12)) ||
+						((alter_flags.DISABLE_ESCAPE && keyCode == VK_ESCAPE))
 					) 
 				{
 					bEatKeystroke = true;
-					logg(fp, "   Suppress    hex = %6x   dec = %8d   p->vkCode\n", p->vkCode, p->vkCode);
+					logg(fp, "   Suppress this key...\n");
 				}
 			}				
 		}
@@ -388,7 +395,7 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					((alter_flags.DISABLE_F12 && wParam == VK_F12))
 				) 
 			{
-				logg(fp, "   Suppress   hex = %6x   dec = %8d   wParam\n", wParam, wParam);
+				logg(fp, "   Suppress this key...\n");
 				logg(fp, "Leave KeyboardHook() and return -1\n\n");
 				return -1;			
 			}
