@@ -280,8 +280,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	// Get the current language
 	languageIndex = GetCurrentLanguage();
-	OutputErrorMessage(languageIndex, IND_RegistryEditError, IND_MessageKindError);
-	OutputErrorMessage(languageIndex, IND_RegistryWarning  , IND_MessageKindWarning);
+	//OutputErrorMessage(languageIndex, IND_RegistryEditError, IND_MessageKindError);
+	//OutputErrorMessage(languageIndex, IND_RegistryWarning  , IND_MessageKindWarning);
 
 
 	//MessageBox(NULL, "Starting SEB...", "tWinMain():", MB_ICONERROR);
