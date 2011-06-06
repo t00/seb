@@ -114,6 +114,47 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 
 
 
+
+// **************************************
+//* Gets the name of a key in string form
+// **************************************
+std::string GetKeyName(unsigned int keyCode)
+{
+	char keyName[50];
+	int  keyNameLength = 0;
+
+	UINT scanCode = MapVirtualKey(keyCode, MAPVK_VK_TO_VSC);
+
+    // because MapVirtualKey strips the extended bit for some keys
+    switch (keyCode)
+    {
+        case VK_LEFT  : case VK_UP  : case VK_RIGHT: case VK_DOWN: // arrow keys
+        case VK_PRIOR : case VK_NEXT: // page up and page down
+        case VK_END   : case VK_HOME:
+        case VK_INSERT: case VK_DELETE:
+        case VK_DIVIDE: // numpad slash
+        case VK_NUMLOCK:
+        {
+			logg(fp, "    keyCode is special and strips the extended bit\n");
+            scanCode |= 0x100; // set extended bit
+            break;
+        }
+    }
+
+	keyNameLength = GetKeyNameText(scanCode << 16, keyName, sizeof(keyName));
+
+	logg(fp, "    keyCode   hex = %6x   dec = %8d\n",  keyCode,  keyCode);
+	logg(fp, "   scanCode   hex = %6x   dec = %8d\n", scanCode, scanCode);
+	logg(fp, "    keyName       = %s             \n",  keyName);
+
+    if (keyNameLength != 0) return keyName;
+					   else return "[Error]";
+
+} // end of method   GetKeyName()
+
+
+
+
 /* private hook functions */
 LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
@@ -130,10 +171,14 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
 	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
 
-	logg(fp, "   nCode       hex = %6x   dec = %8d\n", nCode , nCode);
-	logg(fp, "   wParam      hex = %6x   dec = %8d\n", wParam, wParam);
-	logg(fp, "   lParam      hex = %6x   dec = %8d\n", lParam, lParam);
-	logg(fp, "   p->vkCode   hex = %6x   dec = %8d\n", p->vkCode, p->vkCode);
+	DWORD  keyCode = p->vkCode;
+	string keyName = GetKeyName(keyCode);
+
+	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
+	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
+	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
+	logg(fp, "   keyCode   hex = %6x   dec = %8d\n", keyCode, keyCode);
+	logg(fp, "   keyName       = %s             \n", keyName.c_str());
 
 
     switch (wParam) 
@@ -457,7 +502,7 @@ EXPORT void KeyHook9x(HINSTANCE *hDLL, bool setHook)
 EXPORT void MouseHookNT(HINSTANCE *hDLL, bool setHook)
 {
 	logg(fp, "Enter MouseHookNT()\n");
-    if(setHook) 
+    if (setHook) 
 	{		
 		logg(fp, "   setHook == true\n");
 		g_hHookMouseLL = SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)LLMouseHook, (HINSTANCE)*hDLL, 0);
