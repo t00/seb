@@ -115,17 +115,52 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 
 
 
+
+// **********************************************
+//* Gets the name of a mouse event in string form
+// **********************************************
+string GetMouseName(WPARAM wParam)
+{
+  //logg(fp, "   Enter GetMouseName()\n");
+  //logg(fp, "      wParam   hex = %6x   dec = %8d\n",  wParam,  wParam);
+
+	string mouseName = "";
+
+    switch (wParam)
+    {
+        case WM_LBUTTONDOWN: mouseName = "WM_LBUTTONDOWN"; break;  //  left button down
+        case WM_RBUTTONDOWN: mouseName = "WM_RBUTTONDOWN"; break;  // right button down
+        case WM_LBUTTONUP  : mouseName = "WM_LBUTTONUP"  ; break;  //  left button up
+        case WM_RBUTTONUP  : mouseName = "WM_RBUTTONUP"  ; break;  // right button up
+        default            : mouseName = "[Error]"       ; break;  // name not found
+    }
+
+  //logg(fp, "      mouseName   = %s\n",  mouseName.c_str());
+  //logg(fp, "   Leave GetMouseName()\n");
+
+    return mouseName;
+
+} // end of method   GetMouseName()
+
+
+
+
 // **************************************
 //* Gets the name of a key in string form
 // **************************************
-std::string GetKeyName(unsigned int keyCode)
+string GetKeyName(UINT keyCode)
 {
+	//logg(fp, "   Enter GetKeyName()\n");
+
 	char keyName[50];
 	int  keyNameLength = 0;
 
 	// Call the first Windows API function
 	UINT scanCode = MapVirtualKey(keyCode, MAPVK_VK_TO_VSC);
-
+/*
+	logg(fp, "        keyCode   hex = %6x   dec = %8d\n",  keyCode,  keyCode);
+	logg(fp, "       scanCode   hex = %6x   dec = %8d\n", scanCode, scanCode);
+*/
     // Because MapVirtualKey strips the extended bit for some keys
     switch (keyCode)
     {
@@ -137,7 +172,7 @@ std::string GetKeyName(unsigned int keyCode)
         case VK_DIVIDE: // numpad slash
         case VK_NUMLOCK:
         {
-			logg(fp, "   keyCode is special and strips the extended bit\n");
+			logg(fp, "      keyCode is special and strips the extended bit\n");
             scanCode |= 0x100; // set extended bit
             break;
         }
@@ -146,9 +181,8 @@ std::string GetKeyName(unsigned int keyCode)
 	// Call the second Windows API function
 	keyNameLength = GetKeyNameText(scanCode << 16, keyName, sizeof(keyName));
 
-	//logg(fp, "    keyCode   hex = %6x   dec = %8d\n",  keyCode,  keyCode);
-	//logg(fp, "   scanCode   hex = %6x   dec = %8d\n", scanCode, scanCode);
-	//logg(fp, "    keyName       = %s             \n",  keyName);
+  //logg(fp, "        keyName       = %s\n",  keyName);
+  //logg(fp, "   Leave GetKeyName()\n");
 
     if (keyNameLength != 0) return keyName;
 					   else return "[Error]";
@@ -162,28 +196,28 @@ std::string GetKeyName(unsigned int keyCode)
 LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	logg(fp, "Enter LLKeyboardHook()\n");
+/*
+	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
+	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
+	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
+*/
+	BOOL bEatKeystroke;
+	BOOL bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
+
+	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*) lParam;
+	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
+
+	DWORD  keyCode = p->vkCode;
+	string keyName = GetKeyName(keyCode);
+
+  //logg(fp, "   keyCode   hex = %6x   dec = %8d\n", keyCode, keyCode);
+	logg(fp, "   keyName = %s                   \n", keyName.c_str());
 
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
 		return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 
-	BOOL bEatKeystroke;
-	BOOL bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
-	
-	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*)lParam;
-	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
-
-	DWORD  keyCode = p->vkCode;
-	string keyName = GetKeyName(keyCode);
-
-	logg(fp, "   keyName = %s                   \n", keyName.c_str());
-/*
-	logg(fp, "   keyCode   hex = %6x   dec = %8d\n", keyCode, keyCode);
-	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
-	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
-	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
-*/
 
     switch (wParam) 
     {
@@ -277,13 +311,13 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 
     if (bEatKeystroke)
 	{
-		logg(fp, "   bEatKeystroke = true\n");
+		//logg(fp, "   bEatKeystroke = true\n");
 		logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
         return -1;
 	}
     else
 	{
-		logg(fp, "   bEatKeystroke = false\n");
+		//logg(fp, "   bEatKeystroke = false\n");
 		logg(fp, "Leave LLKeyboardHook() and return CallNextHookEx()\n\n");
         return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
@@ -411,9 +445,19 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	logg(fp, "Enter LLMouseHook()\n");
+/*
 	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
 	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
 	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
+*/
+	//BOOL bEatMouseClick;
+
+	PMOUSEHOOKSTRUCT m = (PMOUSEHOOKSTRUCT) lParam;
+	UINT mouseCode = m->wHitTestCode;
+
+	string mouseName = GetMouseName(wParam);
+	logg(fp, "   mouseName = %s\n", mouseName.c_str());
+
 
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
@@ -421,7 +465,7 @@ LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
 
-    if ((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
+    if ((wParam == WM_RBUTTONUP || wParam == WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
 	{
 		logg(fp, "Leave LLMouseHook() and return -1\n\n");
         return -1;
@@ -454,7 +498,7 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
 
-	if ((wParam==WM_RBUTTONUP || wParam==WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
+	if ((wParam == WM_RBUTTONUP || wParam == WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
 	{
 		logg(fp, "Leave MouseHook() and return -1\n\n");
         return -1;
@@ -827,7 +871,7 @@ BOOL isValidOperatingSystem()
 		case WIN_95 :
 		case WIN_98 :
 		case WIN_ME :
-			logg(fp, "   operatingSystem == %d\n", operatingSystem);
+			logg(fp, "   operatingSystem             == %d\n", operatingSystem);
 			logg(fp, "Leave isValidOperatingSystem() and return TRUE\n\n");
 			return TRUE;
 			break;
