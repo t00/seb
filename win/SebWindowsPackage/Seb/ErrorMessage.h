@@ -32,7 +32,7 @@
 
 
 // Name and location of Seb configuration file and logfile
-#define SEB_INI_FILE    "..\\Seb.ini"
+#define SEB_INI    "..\\Seb.ini"
 #define DRIVE_ROOT      "C:\\"
 #define	TEMP_DIR        "tmp\\"
 #define SEB_LOG_FILE    "Seb.log"
