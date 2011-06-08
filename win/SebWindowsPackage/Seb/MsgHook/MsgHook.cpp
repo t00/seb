@@ -79,7 +79,7 @@ static ALTER_FLAGS alter_flags; //AlterFlags struct with flags for alternating s
 HINSTANCE *hDll;	//the same pointer as hModule
 HMODULE   *hMod;	//the same pointer as hDll
 PROCESS_INFORMATION *hPiProcess;
-BOOL      InitMsgHook();
+BOOL      ReadMsgHookIni();
 BOOL TerminateMsgHook();
 BOOL getBool(string);
 int  getInt (string);
@@ -128,10 +128,22 @@ string GetMouseName(WPARAM wParam)
 
     switch (wParam)
     {
-        case WM_LBUTTONDOWN: mouseName = "WM_LBUTTONDOWN"; break;  //  left button down
-        case WM_RBUTTONDOWN: mouseName = "WM_RBUTTONDOWN"; break;  // right button down
-        case WM_LBUTTONUP  : mouseName = "WM_LBUTTONUP"  ; break;  //  left button up
-        case WM_RBUTTONUP  : mouseName = "WM_RBUTTONUP"  ; break;  // right button up
+        case WM_LBUTTONDOWN: mouseName = "WM_LBUTTONDOWN"; break;  //   left button down
+        case WM_MBUTTONDOWN: mouseName = "WM_MBUTTONDOWN"; break;  // middle button down
+        case WM_RBUTTONDOWN: mouseName = "WM_RBUTTONDOWN"; break;  //  right button down
+
+        case WM_LBUTTONUP  : mouseName = "WM_LBUTTONUP"  ; break;  //   left button up
+        case WM_MBUTTONUP  : mouseName = "WM_MBUTTONUP"  ; break;  // middle button up
+        case WM_RBUTTONUP  : mouseName = "WM_RBUTTONUP"  ; break;  //  right button up
+
+        case WM_LBUTTONDBLCLK: mouseName = "WM_LBUTTONDBLCLK"; break;  //   left button down
+        case WM_MBUTTONDBLCLK: mouseName = "WM_MBUTTONDBLCLK"; break;  // middle button down
+        case WM_RBUTTONDBLCLK: mouseName = "WM_RBUTTONDBLCLK"; break;  //  right button down
+
+      //case WM_MOUSEFIRST: mouseName = "WM_LBUTTONDOWN"; break;  // mouse first
+        case WM_MOUSEMOVE : mouseName = "WM_MBUTTONDOWN"; break;  // mouse move
+        case WM_MOUSEWHEEL: mouseName = "WM_RBUTTONDOWN"; break;  // mouse wheel
+
         default            : mouseName = "[Error]"       ; break;  // name not found
     }
 
@@ -172,7 +184,7 @@ string GetKeyName(UINT keyCode)
         case VK_DIVIDE: // numpad slash
         case VK_NUMLOCK:
         {
-			logg(fp, "      keyCode is special and strips the extended bit\n");
+			//logg(fp, "      keyCode is special and strips the extended bit:::\n");
             scanCode |= 0x100; // set extended bit
             break;
         }
@@ -195,43 +207,47 @@ string GetKeyName(UINT keyCode)
 /* private hook functions */
 LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	logg(fp, "Enter LLKeyboardHook()\n");
+	//logg(fp, "Enter LLKeyboardHook()\n");
 /*
 	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
 	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
 	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
 */
 	BOOL bEatKeystroke;
-	BOOL bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
+	BOOL bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL) >> ((sizeof(SHORT) * 8) - 1);
 
 	KBDLLHOOKSTRUCT* p = (KBDLLHOOKSTRUCT*) lParam;
 	BOOL bAltKeyDown   = p->flags & LLKHF_ALTDOWN;
 
+	// Get the virtual key code of the pressed key,
+	// and convert it to a clear text name
+	// (e.g. the key code 0x72 means the key "F3").
 	DWORD  keyCode = p->vkCode;
 	string keyName = GetKeyName(keyCode);
 
   //logg(fp, "   keyCode   hex = %6x   dec = %8d\n", keyCode, keyCode);
-	logg(fp, "   keyName = %s                   \n", keyName.c_str());
+	logg(fp, "   keyName = %-8s   ", keyName.c_str());
 
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
+		logg(fp, "\n");
 		return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 
 
-    switch (wParam) 
-    {
-        case WM_KEYDOWN:  
-        case WM_KEYUP: 
+	switch (wParam) 
+	{
+		case WM_KEYDOWN:  
+		case WM_KEYUP: 
 		case WM_SYSKEYDOWN:	
 		case WM_SYSKEYUP:		
-        {			
+		{			
 			bEatKeystroke = false;
 
 			/* hotkeys */
 			/* every keyup resets hotkey pressed flags */
 			if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
-			{								
+			{
 				b1 = FALSE;
 				b2 = FALSE;					
 				b3 = FALSE;				
@@ -241,22 +257,23 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 			/* HotKey */			
 			{
 				if (bHotKeyKill)
-				{ 
+				{
 					/* every other keydowns resets hotkey pressed flags */			
 					if ((keyCode != VK_B1) && (keyCode != VK_B2) && (keyCode != VK_B3))
-					{					
+					{
 						b1 = FALSE;
 						b2 = FALSE;				
 						b3 = FALSE;
 					}
 					else
-					{		
+					{
 						if ((b1 == TRUE) && (b2 == TRUE) && (b3 == TRUE) && (keyCode == VK_B3))
-						{			
+						{
+							logg(fp, "\n\n");
 							//TerminateProcess(hPiProcess->hProcess,0);
 							SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
 							logg(fp, "   SEB exit sequence, destroy window\n");
-							logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
+						  //logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
 							return -1;
 						}
 
@@ -275,8 +292,9 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 							b3 = TRUE;
 							//return -1;
 						}
-					}
-				}
+					} // end else
+				} // end if (bHotKeyKill)
+
 
 				/* some keys to eat */
 				if (
@@ -302,25 +320,28 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					) 
 				{
 					bEatKeystroke = true;
-					logg(fp, "   Suppress this key...\n");
+					logg(fp, "   Suppress this key...");
 				}
-			}				
-		}
-    }
 
+			} // end   if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
+		} // end   case
+    } // end   switch (wParam)
+
+	logg(fp, "\n");
 
     if (bEatKeystroke)
 	{
 		//logg(fp, "   bEatKeystroke = true\n");
-		logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
+		//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
         return -1;
 	}
     else
 	{
 		//logg(fp, "   bEatKeystroke = false\n");
-		logg(fp, "Leave LLKeyboardHook() and return CallNextHookEx()\n\n");
+		//logg(fp, "Leave LLKeyboardHook() and return CallNextHookEx()\n\n");
         return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
+
 }
 
 
@@ -332,10 +353,11 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	BOOL KeyUp, KeyDown, bAltKeyDown, bCtrlKeyDown;
 
 	logg(fp, "Enter KeyboardHook()\n");
+/*
 	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
 	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
 	logg(fp, "   lParam    hex = %6x   dec = %8d\n", lParam, lParam);
-
+*/
 	if (nCode < 0 || nCode != HC_ACTION) 
 	{
 		return CallNextHookEx(g_hHookKbd, nCode, wParam, lParam); 
@@ -444,7 +466,7 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	logg(fp, "Enter LLMouseHook()\n");
+	//logg(fp, "Enter LLMouseHook()\n");
 /*
 	logg(fp, "   nCode     hex = %6x   dec = %8d\n", nCode , nCode);
 	logg(fp, "   wParam    hex = %6x   dec = %8d\n", wParam, wParam);
@@ -461,17 +483,17 @@ LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 	if (nCode < 0 || nCode != HC_ACTION)
 	{
-		logg(fp, "Leave LLMouseHook() and return CallNextHookEx()\n\n");
+		//logg(fp, "Leave LLMouseHook() and return CallNextHookEx()\n\n");
 		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
 
     if ((wParam == WM_RBUTTONUP || wParam == WM_RBUTTONDOWN) && alter_flags.DISABLE_RIGHT_MOUSE)
 	{
-		logg(fp, "Leave LLMouseHook() and return -1\n\n");
+		//logg(fp, "Leave LLMouseHook() and return -1\n\n");
         return -1;
 	}
 
-	logg(fp, "Leave LLMouseHook() and return CallNextHookEx()\n\n");
+	//logg(fp, "Leave LLMouseHook() and return CallNextHookEx()\n\n");
     return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam);
 }
 
@@ -589,38 +611,38 @@ EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook)
 
 
 
-/* public system functions */
-BOOL InitMsgHook()
+
+
+BOOL ReadMsgHookIni()
 {
-	//MessageBox(NULL,"InitMsgHook","Error",16);
+	char   cCurrDir[MAX_PATH];
+	string sCurrDir = "";
 	string strLine  = "";
 	string strKey   = "";
 	string strValue = "";
-	char   cCurrDir[MAX_PATH];
-	string sCurrDir = "";
 	string sHotKey  = "";
 
-	logg(fp, "Enter InitMsgHook()\n");
+	logg(fp, "Enter ReadMsgHookIni()\n");
 
 	try
 	{
 		if (!isValidOperatingSystem())
 		{
-			logg(fp, "Leave InitMsgHook and return FALSE()\n\n");
+			logg(fp, "Leave ReadMsgHookIni() and return FALSE()\n\n");
 			return FALSE;
 		}
 
 		GetModuleFileName(*hMod, cCurrDir, sizeof(cCurrDir));
 		sCurrDir = (string)cCurrDir;
-
 /*
 		const char* captionString;
 		const char* messageString;
 		captionString = "Program executable:";
 		messageString = cCurrDir;
 	  //MessageBox(NULL, messageString, captionString, 16);
+		logg(fp, "Program executable = %s\n", cCurrDir);
+		logg(fp, "\n");
 */
-
 		// The Seb.ini and MsgHook.ini configuration files have moved:
 		// Previously:
 		//     Seb.ini was lying in the /Seb     subdirectory,
@@ -636,31 +658,55 @@ BOOL InitMsgHook()
 		// being necessary anymore.
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = MSGHOOK_INI;
+		sCurrDir = MSG_HOOK_INI;
 
 		ifstream inf(sCurrDir.c_str());
-
 		if (!inf.is_open()) 
 		{
 			OutputErrorMessage(languageIndex, IND_NoMsgHookIniError, IND_MessageKindError);
 			//MessageBox(NULL, messageText[languageIndex][IND_NoMsgHookIniError], "Error", 16);
-			logg(fp, "Leave InitMsgHook() and return FALSE\n\n");
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_NoMsgHookIniError]);
+			logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
 			return FALSE;
 		}
+
+		logg(fp, "key = value\n");
+		logg(fp, "-----------\n");
 
 		while (!getline(inf, strLine).eof())
 		{			
 			strKey   = strLine.substr(0, strLine.find("=", 0));
 			strValue = strLine.substr(   strLine.find("=", 0)+1, strLine.length());
 			mpParam[strKey] = strValue;
-			logg(fp, "   %-20s = %s\n", strKey.c_str(), strValue.c_str());
+
 			//captionString = strKey  .c_str();
 			//messageString = strValue.c_str();
 			//MessageBox(NULL, messageString, captionString, 16);
+			logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
 		}
-		logg(fp, "\n");
+
 		inf.close();
-		
+		logg(fp, "-----------\n\n");
+
+
+		// Decide whether to write data into the logfile
+		if (getBool("LOG_FILE"))
+		{
+			logFileDesired = true;
+			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
+		}
+		else
+		{
+			logFileDesired = false;
+			logg(fp, "No logfile desired, therefore closing and removing logfile\n\n");
+			if (fp != NULL)
+			{
+				fclose(fp);
+				remove(logFileName);
+			}
+		}
+
+
 		//setting bits of alter_flags_structs
 		alter_flags.DISABLE_CTRL_ESC = getBool("DISABLE_CTRL_ESC");
 		alter_flags.DISABLE_CTRL_P   = getBool("DISABLE_CTRL_P");
@@ -706,15 +752,17 @@ BOOL InitMsgHook()
 			//OutputErrorMessage(languageIndex, IND_NoCallerWindowFound, IND_MessageKindError);
 			MessageBox(NULL, "No caller window found!", "Error", 16);
 		}
-	}
+	} // end try
+
 	catch (char* str)
 	{
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
-		logg(fp, "Leave InitMsgHook() and return FALSE\n\n");
+		logg(fp, "Error: %s\n", str);
+		logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
 		return FALSE;
 	}
 
-	logg(fp, "Leave InitMsgHook()\n\n");
+	logg(fp, "Leave ReadMsgHookIni()\n\n");
 	return TRUE;
 }
 
@@ -764,6 +812,9 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                       DWORD   ul_reason_for_call,
                       LPVOID  lpReserved)
 {
+	// By default, a logfile should be written
+	//logFileDesired = true;
+
 
 	// Open or create a logfile for message hooks
 	if (fp == NULL)
@@ -792,7 +843,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
         case DLL_PROCESS_ATTACH:
 			hMod = &hModule;
 			hDll = (HINSTANCE*)&hModule;
-			if (!InitMsgHook()) 
+			if (!ReadMsgHookIni()) 
 			{
 				OutputErrorMessage(languageIndex, IND_InitialiseError, IND_MessageKindError);
 				//MessageBox(NULL, INITIALIZE_ERROR,"Error", 16);
