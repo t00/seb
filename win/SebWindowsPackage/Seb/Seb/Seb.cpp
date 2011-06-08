@@ -66,7 +66,7 @@ LRESULT	CALLBACK	  KeyboardHook( int, WPARAM, LPARAM);
 LRESULT CALLBACK	  About(HWND,  UINT, WPARAM, LPARAM);
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance   (HINSTANCE, int);
-BOOL				ReadIniFile();
+BOOL				ReadSebIni();
 BOOL				ReadProcessesInRegistry();
 BOOL				ShowSebAppChooser();
 
@@ -474,7 +474,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	//MessageBox(NULL, strAppDirectory.c_str(), "InitInstance(): strAppDirectory", MB_ICONERROR);
 	logg(fp, "strAppDirectory = %s\n\n", strAppDirectory.c_str());
 
-	if (!ReadIniFile())
+	if (!ReadSebIni())
 	{
 		OutputErrorMessage(languageIndex, IND_NoSebIniError, IND_MessageKindError);
 		logg(fp, "Leave InitInstance()\n\n");
@@ -751,13 +751,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 
 
-BOOL ReadIniFile()
+BOOL ReadSebIni()
 {
 	char   cCurrDir[MAX_PATH];
 	string sCurrDir = "";
-	string strLine;
-	string strKey;
-	string strValue;
+	string strLine  = "";
+	string strKey   = "";
+	string strValue = "";
 	string sUrlExam         = "";
 	string sApplicationName = "";
 	string sCommandLine     = "";
@@ -768,7 +768,7 @@ BOOL ReadIniFile()
 	vector<string>::iterator itProcesses;
 	vector<string>::iterator itProcess;
 
-	logg(fp, "Enter ReadIniFile()\n");
+	logg(fp, "Enter ReadSebIni()\n");
 
 	try
 	{
@@ -798,15 +798,15 @@ BOOL ReadIniFile()
 		// being necessary anymore.
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = SEB_INI_FILE;
+		sCurrDir = SEB_INI;
 
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
 			OutputErrorMessage(languageIndex, IND_NoSebIniError, IND_MessageKindError);
-			//MessageBox(NULL, NO_INI_ERROR, "Error", 16);
-			//logg(fp, "Error: %s\n", NO_INI_ERROR);
-			logg(fp, "Leave ReadIniFile()\n\n");
+			//MessageBox(NULL, messageText[languageIndex][IND_NoSebIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_NoSebIniError]);
+			logg(fp, "Leave ReadSebIni() and return FALSE\n\n");
 			return FALSE;
 		}
 
@@ -824,21 +824,21 @@ BOOL ReadIniFile()
 			//MessageBox(NULL, messageString, captionString, 16);
 			logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
 		}
+
 		inf.close();
-		logg(fp, "-----------\n");
-		logg(fp, "\n");
+		logg(fp, "-----------\n\n");
 
 
 		// Decide whether to write data into the logfile
 		if (getBool("LOG_FILE"))
 		{
 			logFileDesired = true;
-			logg(fp, "Logfile desired, therefore keeping logfile\n");
+			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
 		}
 		else
 		{
 			logFileDesired = false;
-			logg(fp, "No logfile desired, therefore closing and removing logfile\n");
+			logg(fp, "No logfile desired, therefore closing and removing logfile\n\n");
 			if (fp != NULL)
 			{
 				fclose(fp);
@@ -940,14 +940,14 @@ BOOL ReadIniFile()
 	{		
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
 		logg(fp, "Error: %s\n", str);
-		logg(fp, "Leave ReadIniFile()\n\n");
+		logg(fp, "Leave ReadSebIni() and return FALSE\n\n");
 		return FALSE;
 	}
 
-	logg(fp, "Leave ReadIniFile()\n\n");
+	logg(fp, "Leave ReadSebIni()\n\n");
 	return TRUE;
 
-} // end ReadIniFile()
+} // end ReadSebIni()
 
 
 
