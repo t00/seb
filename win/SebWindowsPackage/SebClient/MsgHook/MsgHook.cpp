@@ -643,14 +643,14 @@ BOOL ReadMsgHookIni()
 		logg(fp, "Program executable = %s\n", cCurrDir);
 		logg(fp, "\n");
 */
-		// The Seb.ini and MsgHook.ini configuration files have moved:
+		// The SebStarter.ini and MsgHook.ini configuration files have moved:
 		// Previously:
-		//     Seb.ini was lying in the /Seb     subdirectory,
-		// MsgHook.ini was lying in the /MsgHook subdirectory.
+		// SebStarter.ini was lying in the /SebStarter subdirectory,
+		//    MsgHook.ini was lying in the /MsgHook    subdirectory.
 		// Both had to be copied to the /Debug and /Release directories.
-		// before starting Seb.exe .
+		// before starting SebStarter.exe .
 		// Now:
-		// Seb.ini and MsgHook.ini are both in the Seb main project directory,
+		// SebStarter.ini and MsgHook.ini are both in the Seb main project directory,
 		// together with the Seb.sln project file,
 		// the /Debug subdirectory and the /Release subdirectory.
 		// Advantage: the .ini files are lying together, being accessible
