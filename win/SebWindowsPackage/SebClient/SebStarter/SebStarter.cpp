@@ -24,7 +24,7 @@
 * ***** END LICENSE BLOCK ***** */
 
 #include "stdafx.h"
-#include "Seb.h"
+#include "SebStarter.h"
 #include "KillProc.h"
 #include "ProcMonitor.h"
 #include "../ErrorMessage.h"
@@ -66,7 +66,7 @@ LRESULT	CALLBACK	  KeyboardHook( int, WPARAM, LPARAM);
 LRESULT CALLBACK	  About(HWND,  UINT, WPARAM, LPARAM);
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance   (HINSTANCE, int);
-BOOL				ReadSebIni();
+BOOL				ReadSebStarterIni();
 BOOL				ReadProcessesInRegistry();
 BOOL				ShowSebAppChooser();
 
@@ -474,9 +474,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	//MessageBox(NULL, strAppDirectory.c_str(), "InitInstance(): strAppDirectory", MB_ICONERROR);
 	logg(fp, "strAppDirectory = %s\n\n", strAppDirectory.c_str());
 
-	if (!ReadSebIni())
+	if (!ReadSebStarterIni())
 	{
-		OutputErrorMessage(languageIndex, IND_NoSebIniError, IND_MessageKindError);
+		OutputErrorMessage(languageIndex, IND_NoSebStarterIniError, IND_MessageKindError);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
@@ -751,7 +751,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 
 
-BOOL ReadSebIni()
+BOOL ReadSebStarterIni()
 {
 	char   cCurrDir[MAX_PATH];
 	string sCurrDir = "";
@@ -768,7 +768,7 @@ BOOL ReadSebIni()
 	vector<string>::iterator itProcesses;
 	vector<string>::iterator itProcess;
 
-	logg(fp, "Enter ReadSebIni()\n");
+	logg(fp, "Enter ReadSebStarterIni()\n");
 
 	try
 	{
@@ -783,30 +783,30 @@ BOOL ReadSebIni()
 		logg(fp, "Program executable = %s\n", cCurrDir);
 		logg(fp, "\n");
 
-		// The Seb.ini and MsgHook.ini configuration files have moved:
+		// The SebStarter.ini and MsgHook.ini configuration files have moved:
 		// Previously:
-		//     Seb.ini was lying in the /Seb     subdirectory,
-		// MsgHook.ini was lying in the /MsgHook subdirectory.
+		// SebStarter.ini was lying in the /SebStarter subdirectory,
+		//    MsgHook.ini was lying in the /MsgHook    subdirectory.
 		// Both had to be copied to the /Debug and /Release directories.
-		// before starting Seb.exe .
+		// before starting SebStarter.exe .
 		// Now:
-		// Seb.ini and MsgHook.ini are both in the Seb main project directory,
-		// together with the Seb.sln project file,
+		// SebStarter.ini and MsgHook.ini are both in the SebClient main project directory,
+		// together with the SebClient.sln project file,
 		// the /Debug subdirectory and the /Release subdirectory.
 		// Advantage: the .ini files are lying together, being accessible
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = SEB_INI;
+		sCurrDir = SEB_STARTER_INI;
 
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
-			OutputErrorMessage(languageIndex, IND_NoSebIniError, IND_MessageKindError);
-			//MessageBox(NULL, messageText[languageIndex][IND_NoSebIniError], "Error", 16);
-			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_NoSebIniError]);
-			logg(fp, "Leave ReadSebIni() and return FALSE\n\n");
+			OutputErrorMessage(languageIndex, IND_NoSebStarterIniError, IND_MessageKindError);
+			//MessageBox(NULL, messageText[languageIndex][IND_NoSebStarterIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_NoSebStarterIniError]);
+			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
 			return FALSE;
 		}
 
@@ -870,7 +870,7 @@ BOOL ReadSebIni()
 		sProcesses = mpParam["PROCESSES"];
 
 		// Get the SEB Process, which is defined separately
-		// from the other processes in Seb.ini
+		// from the other processes in SebStarter.ini
 		string sebProcess = mpParam["SEB_BROWSER"];
 
 		vector<string> sebProcessVector;
@@ -904,8 +904,8 @@ BOOL ReadSebIni()
 
 		if (mpProcesses.size() == 1)
 		{
-			// if nothing is found in registry  -> read Seb.ini
-			// handle processes from configuration file Seb.ini
+			// if nothing is found in registry  -> read SebStarter.ini
+			// handle processes from configuration file SebStarter.ini
 			sProcesses = mpParam["PERMITTED_APPS"];
 			if (sProcesses != "")
 			{
@@ -940,14 +940,14 @@ BOOL ReadSebIni()
 	{		
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
 		logg(fp, "Error: %s\n", str);
-		logg(fp, "Leave ReadSebIni() and return FALSE\n\n");
+		logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
 		return FALSE;
 	}
 
-	logg(fp, "Leave ReadSebIni()\n\n");
+	logg(fp, "Leave ReadSebStarterIni()\n\n");
 	return TRUE;
 
-} // end ReadSebIni()
+} // end ReadSebStarterIni()
 
 
 
@@ -1022,7 +1022,7 @@ BOOL GetClientInfo()
 	// socket communication parameters.
 	// Currently, we use sockets on the same machine,
 	// so we could in the future
-	// define in "Seb.ini" the default values:
+	// define in "SebStarter.ini" the default values:
 	//
 	// defaultUserName     = "";
 	// defaultHostName     = "localhost";
@@ -1196,7 +1196,7 @@ BOOL GetClientInfo()
 	// The timeouts are expected in milliseconds by the subsequent
 	// setsockopt() and getsockopt() socket commands (see below).
 	//
-	// If the flag FORCE_WINDOWS_SERVICE is set to 1 (true) in the Seb.ini,
+	// If the flag FORCE_WINDOWS_SERVICE is set to 1 (true) in the SebStarter.ini,
 	// the timeout for the recv() socket command is set to "0" = "infinite".
 	// The SEB client then waits in ANY case for an acknowledgement
 	// from the SEB Windows Service that the registry values have been set.
@@ -1205,7 +1205,7 @@ BOOL GetClientInfo()
 	// the SEB client remains blocked, too, and thus cannot start up.
 	// So the exam cannot take place then, not even in "unsure" mode!
 	//
-	// If the flag FORCE_WINDOWS_SERVICE is set to 0 (false) in the Seb.ini,
+	// If the flag FORCE_WINDOWS_SERVICE is set to 0 (false) in the SebStarter.ini,
 	// the timeout for the recv() socket command is set to the default timeout, e.g. 100 msecs.
 	// The SEB client then only waits for a normal (short) timespan,
 	// and then continues. The SEB Windows Service might have problems,
@@ -1257,7 +1257,7 @@ BOOL GetClientInfo()
 
 	// Send username, hostname etc. to server.
 	// Format of the sent strings is "leftSide=rightSide",
-	// exactly as in the Seb.ini configuration file.
+	// exactly as in the SebStarter.ini configuration file.
 
 	intHideFastUserSwitching  = (int) getBool("REG_HIDE_FAST_USER_SWITCHING");
 	intDisableLockWorkstation = (int) getBool("REG_DISABLE_LOCK_WORKSTATION");
@@ -2195,7 +2195,7 @@ BOOL ShutdownInstance()
 
 
 	// In case the Seb Windows Server is not available,
-	// the Seb client tries to reset the registry keys itself.
+	// the Seb Client tries to reset the registry keys itself.
 	if (getBool("EDIT_REGISTRY") && IsNewOS)
 	{
 		if (!ResetRegistry())
