@@ -255,6 +255,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_118EF9DF57214218BA69F0626F651218"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_118FECE87E0C4BB280EB333552585954"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -334,6 +340,12 @@
         "Entry"
         {
         "MsmKey" = "8:_14DB21A47E4E497D87E261742057595F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_14E2501A2F6542D38468EDA727DBB3C6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -543,6 +555,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_251EF4E69FE74F66BB5C0AEEA6211DC5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_25897DD37DE74184AB766C1269D1670D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -675,12 +693,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2C7B3CC476714A16907BE467818244F5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_2CAC97992CA04F33AA2EAD3538D45CC0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -771,18 +783,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_30DD5EAE51194906B94EA1D5D72BEB41"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_310D5CEE669340E193C6C28CB7C337C2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_31CAB9862D544F469191F17E6325C040"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -790,6 +790,12 @@
         "Entry"
         {
         "MsmKey" = "8:_3227FF25CCEA4C4E856384B5C3DFEB9F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_32767BE5D94140ECAFB627F2035744AE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -832,6 +838,12 @@
         "Entry"
         {
         "MsmKey" = "8:_36A9E6A06F3344ECAA18203D7C472B08"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_36CA9436207345A3829514AF77D75F20"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1125,6 +1137,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4914BFCAF006481595A75C99616DEE06"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_491B66F8F55C44CE8A0679B616729441"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1150,12 +1168,6 @@
         "Entry"
         {
         "MsmKey" = "8:_4AB55C68A6D841B2B116189E436EE3BC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4AD251B3B02E4FFFADB21DB308544275"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1479,12 +1491,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_61D5638C19A44359B68281F25054181B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_61DD357E60B349D8A93C5796DD38A747"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1533,6 +1539,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6514B61713604C728B76CF911AD00ADD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_660E93F338FC44C59B02D2F1595DC70B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1558,6 +1570,12 @@
         "Entry"
         {
         "MsmKey" = "8:_67D7A66497224F5BBA1656CED174CB8C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_67E9C3A44B174BAC85FFFE43103CF4D4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1611,6 +1629,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6C7EB2EF03884414803B5E86FCE9FA6A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6D0005E2E99C4636914A3A1179279BA9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1653,6 +1677,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_70C09B47B68446F387CC9788FD6FACA4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_72236250AD8B4849B52250EC63ADFD46"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1666,6 +1696,12 @@
         "Entry"
         {
         "MsmKey" = "8:_72903977716B415DA3303EC540EDC37D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_729BA3BC70D0498386AAB572B30FB29F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1833,12 +1869,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7CFAF536B8974CF9A0A103E0860D5720"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7D945B945DFF4F0EB5F1188D713C8B51"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1870,12 +1900,6 @@
         "Entry"
         {
         "MsmKey" = "8:_7F6BAD142F1B418395C3886CC7A5F3B3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7FC428D0A90040768BCE1A3D73FFF479"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1953,13 +1977,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_863ED1839BE7440B8226D5EDD51A63A1"
+        "MsmKey" = "8:_864DEF9C086D43F29C31949DF2C83DD5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_864DEF9C086D43F29C31949DF2C83DD5"
+        "MsmKey" = "8:_86CBC77701484D29B67664BF67677460"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2038,12 +2062,6 @@
         "Entry"
         {
         "MsmKey" = "8:_89F11EF11AE24A29B29BC2367F9B6110"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8A271F5A1AC04403B1D3A3B7B0C67658"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2151,12 +2169,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_913F406B3DFC481E8E64069D1D15BF1B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_914A3579805C49069DD4EF76F6DD61EE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2182,6 +2194,12 @@
         "Entry"
         {
         "MsmKey" = "8:_931CC496983C45889C340D7488F81F3B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_947693D65EBE499C8270215E0CE06EA6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2236,12 +2254,6 @@
         "Entry"
         {
         "MsmKey" = "8:_9A07BF5D9156483994E585E4A76A67CE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9A6FB4CD739C44C99525181D827AB7E7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2457,6 +2469,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_AB0DED593AAF48F09DADE7A76EFDE7EB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_ABA645D4C5344586A8BF984B7266AE5B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2488,12 +2506,6 @@
         "Entry"
         {
         "MsmKey" = "8:_AD9926211D7B4011ACD302E4D4AE23FB"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AE02273D87DD4FBC9B9D1B0B06FE4412"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2542,12 +2554,6 @@
         "Entry"
         {
         "MsmKey" = "8:_B1B7EE7DEB5F424D83F256A6C10A98AF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B201CA97238C4BC4A34219F52D672AAB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2871,6 +2877,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C683644B46E441488AB73A6FC912B7FA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C68E3FC4CD4C436BB1F9EFDD61EC4289"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2907,6 +2919,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C7F54093B455440D88A916BAF4D01CAE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C7F6702220264CB98BF6B8B6BB55F558"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2938,12 +2956,6 @@
         "Entry"
         {
         "MsmKey" = "8:_CB57B53B746D48979B53824B09D34006"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CBD63D7AC9AF4B4E8BE5B9B91BEBDE84"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3034,6 +3046,12 @@
         "Entry"
         {
         "MsmKey" = "8:_D2AEDA4F0D864BF3AA5BA51CB6E926E7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D2C2145AE22248F78A38F342048BACE4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3148,12 +3166,6 @@
         "Entry"
         {
         "MsmKey" = "8:_DBD955AF98924D30AACAFE8214B67E8D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DBDBC4C28E974261B76BCD8AD24D9306"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3531,6 +3543,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F209F4174A024381A0D763473FD5931E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F21D771F4DCB42E9AE7C149BAF01CB75"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3609,19 +3627,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F6E8B5BACA8F4A27AFC0788D23B5DFF2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_F76EA2B50192491D9236063F64F98844"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F7DE96CF714A4204BC9A7E9C05EEFD98"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3718,12 +3724,6 @@
         "Entry"
         {
         "MsmKey" = "8:_FE3A81A6124B4E8BA36D3BDE01887F18"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FE6D8479D5F549E2B4F4A8DE3E580E8E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -4718,6 +4718,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_118EF9DF57214218BA69F0626F651218"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\chrome.manifest"
+            "TargetName" = "8:chrome.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_61BA3B66427C47F49BE7160D67F7F4BE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_118FECE87E0C4BB280EB333552585954"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\components\\jsconsole-clhandler.js"
@@ -4984,6 +5004,26 @@
             "TargetName" = "8:README.txt"
             "Tag" = "8:"
             "Folder" = "8:_3B42090340E04EE09556E129F7F149FA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_14E2501A2F6542D38468EDA727DBB3C6"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\content\\images\\loader.gif"
+            "TargetName" = "8:loader.gif"
+            "Tag" = "8:"
+            "Folder" = "8:_E5FF2A3FFE744824B85880A7A2407DC0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -5678,6 +5718,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_251EF4E69FE74F66BB5C0AEEA6211DC5"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\application.ini"
+            "TargetName" = "8:application.ini"
+            "Tag" = "8:"
+            "Folder" = "8:_AE14A4E1BFBC4D34A4085223102EBA07"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_25897DD37DE74184AB766C1269D1670D"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\components\\autocomplete.xpt"
@@ -6118,26 +6178,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2C7B3CC476714A16907BE467818244F5"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\content\\js\\seb.js"
-            "TargetName" = "8:seb.js"
-            "Tag" = "8:"
-            "Folder" = "8:_29F427AA37DE44BBB41B27FC29BB0A26"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2CAC97992CA04F33AA2EAD3538D45CC0"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\satchel.xpt"
@@ -6438,46 +6478,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_30DD5EAE51194906B94EA1D5D72BEB41"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\content\\seb.xul"
-            "TargetName" = "8:seb.xul"
-            "Tag" = "8:"
-            "Folder" = "8:_2EF07DF196FA4AE7A98D84A327916A42"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_310D5CEE669340E193C6C28CB7C337C2"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\locale\\fr-FR\\seb.dtd"
-            "TargetName" = "8:seb.dtd"
-            "Tag" = "8:"
-            "Folder" = "8:_A25DA9E144C847EEADD90A594A401A8F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_31CAB9862D544F469191F17E6325C040"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\chrome\\toolkit.jar"
@@ -6504,6 +6504,26 @@
             "TargetName" = "8:charsetData.properties"
             "Tag" = "8:"
             "Folder" = "8:_885B0FCEA2594BE1B6E7D222DD3D6D49"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_32767BE5D94140ECAFB627F2035744AE"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\content\\images\\loader_stop.gif"
+            "TargetName" = "8:loader_stop.gif"
+            "Tag" = "8:"
+            "Folder" = "8:_E5FF2A3FFE744824B85880A7A2407DC0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -6644,6 +6664,26 @@
             "TargetName" = "8:nsContentPrefService.js"
             "Tag" = "8:"
             "Folder" = "8:_09EA58545B854611BA49AA4755FE3AC9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_36CA9436207345A3829514AF77D75F20"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\content\\js\\browser.js"
+            "TargetName" = "8:browser.js"
+            "Tag" = "8:"
+            "Folder" = "8:_29F427AA37DE44BBB41B27FC29BB0A26"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7618,6 +7658,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4914BFCAF006481595A75C99616DEE06"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\locale\\en-US\\seb.properties"
+            "TargetName" = "8:seb.properties"
+            "Tag" = "8:"
+            "Folder" = "8:_9300E0019B5B405D9CDFF4695D9D583C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_491B66F8F55C44CE8A0679B616729441"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\res\\fonts\\mathfontSTIXSize1.properties"
@@ -7704,26 +7764,6 @@
             "TargetName" = "8:xpcom_ds.xpt"
             "Tag" = "8:"
             "Folder" = "8:_09EA58545B854611BA49AA4755FE3AC9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4AD251B3B02E4FFFADB21DB308544275"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\locale\\fr-FR\\seb.properties"
-            "TargetName" = "8:seb.properties"
-            "Tag" = "8:"
-            "Folder" = "8:_A25DA9E144C847EEADD90A594A401A8F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -8798,26 +8838,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_61D5638C19A44359B68281F25054181B"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\locale\\de-DE\\seb.dtd"
-            "TargetName" = "8:seb.dtd"
-            "Tag" = "8:"
-            "Folder" = "8:_40B21DC96C5844CD807AADA52B200166"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_61DD357E60B349D8A93C5796DD38A747"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\res\\table-add-column-before.gif"
@@ -8978,6 +8998,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6514B61713604C728B76CF911AD00ADD"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\content\\css\\seb.css"
+            "TargetName" = "8:seb.css"
+            "Tag" = "8:"
+            "Folder" = "8:_1FC4CD74F0C54612AFB36432CD5D4358"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_660E93F338FC44C59B02D2F1595DC70B"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\nsLoginManager.js"
@@ -9064,6 +9104,26 @@
             "TargetName" = "8:content_xslt.xpt"
             "Tag" = "8:"
             "Folder" = "8:_CCF4D91C723C4C5FB58E49486505CD22"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_67E9C3A44B174BAC85FFFE43103CF4D4"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\content\\seb.xul"
+            "TargetName" = "8:seb.xul"
+            "Tag" = "8:"
+            "Folder" = "8:_2EF07DF196FA4AE7A98D84A327916A42"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -9218,6 +9278,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6C7EB2EF03884414803B5E86FCE9FA6A"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\defaults\\preferences\\prefs.js"
+            "TargetName" = "8:prefs.js"
+            "Tag" = "8:"
+            "Folder" = "8:_ACA5114235EA45B3AD970C979CD22F19"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6D0005E2E99C4636914A3A1179279BA9"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\res\\svg.css"
@@ -9358,6 +9438,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_70C09B47B68446F387CC9788FD6FACA4"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\locale\\fr-FR\\seb.dtd"
+            "TargetName" = "8:seb.dtd"
+            "Tag" = "8:"
+            "Folder" = "8:_A25DA9E144C847EEADD90A594A401A8F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_72236250AD8B4849B52250EC63ADFD46"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\components\\dom_threads.xpt"
@@ -9404,6 +9504,26 @@
             "TargetName" = "8:utils.js"
             "Tag" = "8:"
             "Folder" = "8:_CA150A19B9044AB69BE7E11F5E2DED21"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_729BA3BC70D0498386AAB572B30FB29F"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\content\\js\\seb.js"
+            "TargetName" = "8:seb.js"
+            "Tag" = "8:"
+            "Folder" = "8:_29F427AA37DE44BBB41B27FC29BB0A26"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -9958,26 +10078,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7CFAF536B8974CF9A0A103E0860D5720"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\defaults\\preferences\\lock_prefs.js"
-            "TargetName" = "8:lock_prefs.js"
-            "Tag" = "8:"
-            "Folder" = "8:_ACA5114235EA45B3AD970C979CD22F19"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7D945B945DFF4F0EB5F1188D713C8B51"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\mozctlx.dll"
@@ -10084,26 +10184,6 @@
             "TargetName" = "8:nssckbi.dll"
             "Tag" = "8:"
             "Folder" = "8:_E0010710CD9241F9B3C96A3B81FEA4A7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FC428D0A90040768BCE1A3D73FFF479"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\locale\\de-DE\\seb.properties"
-            "TargetName" = "8:seb.properties"
-            "Tag" = "8:"
-            "Folder" = "8:_40B21DC96C5844CD807AADA52B200166"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -10358,12 +10438,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_863ED1839BE7440B8226D5EDD51A63A1"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_864DEF9C086D43F29C31949DF2C83DD5"
             {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\content\\load.xul"
-            "TargetName" = "8:load.xul"
+            "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\content_base.xpt"
+            "TargetName" = "8:content_base.xpt"
             "Tag" = "8:"
-            "Folder" = "8:_2EF07DF196FA4AE7A98D84A327916A42"
+            "Folder" = "8:_CCF4D91C723C4C5FB58E49486505CD22"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -10378,12 +10458,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_864DEF9C086D43F29C31949DF2C83DD5"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_86CBC77701484D29B67664BF67677460"
             {
-            "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\content_base.xpt"
-            "TargetName" = "8:content_base.xpt"
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\locale\\de-DE\\seb.properties"
+            "TargetName" = "8:seb.properties"
             "Tag" = "8:"
-            "Folder" = "8:_CCF4D91C723C4C5FB58E49486505CD22"
+            "Folder" = "8:_40B21DC96C5844CD807AADA52B200166"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -10644,26 +10724,6 @@
             "TargetName" = "8:langGroups.properties"
             "Tag" = "8:"
             "Folder" = "8:_885B0FCEA2594BE1B6E7D222DD3D6D49"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8A271F5A1AC04403B1D3A3B7B0C67658"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\content\\images\\loader_stop.gif"
-            "TargetName" = "8:loader_stop.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_E5FF2A3FFE744824B85880A7A2407DC0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -11018,26 +11078,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_913F406B3DFC481E8E64069D1D15BF1B"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\chrome.manifest"
-            "TargetName" = "8:chrome.manifest"
-            "Tag" = "8:"
-            "Folder" = "8:_61BA3B66427C47F49BE7160D67F7F4BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_914A3579805C49069DD4EF76F6DD61EE"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\xpcom_xpti.xpt"
@@ -11124,6 +11164,26 @@
             "TargetName" = "8:table-add-row-before.gif"
             "Tag" = "8:"
             "Folder" = "8:_3B35B63D961D438A92B90CF5C48A850D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_947693D65EBE499C8270215E0CE06EA6"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\defaults\\preferences\\lock_prefs.js"
+            "TargetName" = "8:lock_prefs.js"
+            "Tag" = "8:"
+            "Folder" = "8:_ACA5114235EA45B3AD970C979CD22F19"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -11304,26 +11364,6 @@
             "TargetName" = "8:table-add-row-after-active.gif"
             "Tag" = "8:"
             "Folder" = "8:_3B35B63D961D438A92B90CF5C48A850D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9A6FB4CD739C44C99525181D827AB7E7"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\content\\images\\loader.gif"
-            "TargetName" = "8:loader.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_E5FF2A3FFE744824B85880A7A2407DC0"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -12038,6 +12078,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AB0DED593AAF48F09DADE7A76EFDE7EB"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\mozilla.cfg"
+            "TargetName" = "8:mozilla.cfg"
+            "Tag" = "8:"
+            "Folder" = "8:_AE14A4E1BFBC4D34A4085223102EBA07"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_ABA645D4C5344586A8BF984B7266AE5B"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\res\\table-remove-column.gif"
@@ -12144,26 +12204,6 @@
             "TargetName" = "8:mozbrwsr.xpt"
             "Tag" = "8:"
             "Folder" = "8:_09EA58545B854611BA49AA4755FE3AC9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AE02273D87DD4FBC9B9D1B0B06FE4412"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\defaults\\preferences\\prefs.js"
-            "TargetName" = "8:prefs.js"
-            "Tag" = "8:"
-            "Folder" = "8:_ACA5114235EA45B3AD970C979CD22F19"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -12324,26 +12364,6 @@
             "TargetName" = "8:exthelper.xpt"
             "Tag" = "8:"
             "Folder" = "8:_09EA58545B854611BA49AA4755FE3AC9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B201CA97238C4BC4A34219F52D672AAB"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\content\\css\\seb.css"
-            "TargetName" = "8:seb.css"
-            "Tag" = "8:"
-            "Folder" = "8:_1FC4CD74F0C54612AFB36432CD5D4358"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -13418,6 +13438,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C683644B46E441488AB73A6FC912B7FA"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\locale\\fr-FR\\seb.properties"
+            "TargetName" = "8:seb.properties"
+            "Tag" = "8:"
+            "Folder" = "8:_A25DA9E144C847EEADD90A594A401A8F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C68E3FC4CD4C436BB1F9EFDD61EC4289"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\chrome\\jslib.manifest"
@@ -13538,6 +13578,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C7F54093B455440D88A916BAF4D01CAE"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\content\\load.xul"
+            "TargetName" = "8:load.xul"
+            "Tag" = "8:"
+            "Folder" = "8:_2EF07DF196FA4AE7A98D84A327916A42"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C7F6702220264CB98BF6B8B6BB55F558"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\xulrunner-stub.exe"
@@ -13644,26 +13704,6 @@
             "TargetName" = "8:dom.xpt"
             "Tag" = "8:"
             "Folder" = "8:_09EA58545B854611BA49AA4755FE3AC9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CBD63D7AC9AF4B4E8BE5B9B91BEBDE84"
-            {
-            "SourcePath" = "8:..\\Seb\\xul_seb\\application.ini"
-            "TargetName" = "8:application.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_AE14A4E1BFBC4D34A4085223102EBA07"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -13964,6 +14004,26 @@
             "TargetName" = "8:accessibility.xpt"
             "Tag" = "8:"
             "Folder" = "8:_CCF4D91C723C4C5FB58E49486505CD22"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D2C2145AE22248F78A38F342048BACE4"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\locale\\de-DE\\seb.dtd"
+            "TargetName" = "8:seb.dtd"
+            "Tag" = "8:"
+            "Folder" = "8:_40B21DC96C5844CD807AADA52B200166"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -14344,26 +14404,6 @@
             "TargetName" = "8:imgicon.xpt"
             "Tag" = "8:"
             "Folder" = "8:_CCF4D91C723C4C5FB58E49486505CD22"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DBDBC4C28E974261B76BCD8AD24D9306"
-            {
-            "SourcePath" = "8:..\\Seb\\xul_seb\\mozilla.cfg"
-            "TargetName" = "8:mozilla.cfg"
-            "Tag" = "8:"
-            "Folder" = "8:_AE14A4E1BFBC4D34A4085223102EBA07"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -15618,6 +15658,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F209F4174A024381A0D763473FD5931E"
+            {
+            "SourcePath" = "8:..\\SebClient\\xul_seb\\chrome\\locale\\en-US\\seb.dtd"
+            "TargetName" = "8:seb.dtd"
+            "Tag" = "8:"
+            "Folder" = "8:_9300E0019B5B405D9CDFF4695D9D583C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F21D771F4DCB42E9AE7C149BAF01CB75"
             {
             "SourcePath" = "8:..\\..\\Seb\\xulrunner\\defaults\\profile\\US\\chrome\\userChrome-example.css"
@@ -15878,52 +15938,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F6E8B5BACA8F4A27AFC0788D23B5DFF2"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\content\\js\\browser.js"
-            "TargetName" = "8:browser.js"
-            "Tag" = "8:"
-            "Folder" = "8:_29F427AA37DE44BBB41B27FC29BB0A26"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F76EA2B50192491D9236063F64F98844"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\dom_threads.xpt"
             "TargetName" = "8:dom_threads.xpt"
             "Tag" = "8:"
             "Folder" = "8:_CCF4D91C723C4C5FB58E49486505CD22"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F7DE96CF714A4204BC9A7E9C05EEFD98"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\locale\\en-US\\seb.dtd"
-            "TargetName" = "8:seb.dtd"
-            "Tag" = "8:"
-            "Folder" = "8:_9300E0019B5B405D9CDFF4695D9D583C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -16238,26 +16258,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FE6D8479D5F549E2B4F4A8DE3E580E8E"
-            {
-            "SourcePath" = "8:..\\..\\Seb\\xul_seb\\chrome\\locale\\en-US\\seb.properties"
-            "TargetName" = "8:seb.properties"
-            "Tag" = "8:"
-            "Folder" = "8:_9300E0019B5B405D9CDFF4695D9D583C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FE77C38E028E423E8C15079FF92A3178"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\webBrowser_core.xpt"
@@ -16389,7 +16389,7 @@
                     }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_AD31C98D7A3C46E684BB2C97B1F3D501"
                     {
-                    "Name" = "8:Seb"
+                    "Name" = "8:SebClient"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"

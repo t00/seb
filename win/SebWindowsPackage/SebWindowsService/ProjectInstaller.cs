@@ -22,8 +22,8 @@ namespace SebWindowsService
         private void SebServiceInstaller_Committed(object sender, InstallEventArgs e)
         {
             // Unzip the XULRunner directories after installation
-            string XulSebZipFile = "xul_seb.zip";
-            Console.WriteLine("XulSebZipFile = " + XulSebZipFile);
+            //string XulSebZipFile = "xul_seb.zip";
+            //Console.WriteLine("XulSebZipFile = " + XulSebZipFile);
 
             //ZipFile zipFile = zipFile.Read("xul_seb.zip");
 
