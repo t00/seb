@@ -1,0 +1,420 @@
+
+Enter tWinMain()
+Enter InitInstance()
+strAppDirectory = c:\Users\Dirk\seb\trunk\win\Seb\Release
+
+Enter ReadIniFile()
+Program executable = c:\Users\Dirk\seb\trunk\win\Seb\Release\Seb.exe
+
+key = value
+-----------
+[SEB] = [SEB]
+HOOK_DLL = MsgHook.dll
+MESSAGE_HOOK = 1
+EDIT_REGISTRY = 1
+REG_HIDE_FAST_USER_SWITCHING = 1
+REG_DISABLE_LOCK_WORKSTATION = 1
+REG_DISABLE_TASKMGR = 1
+REG_DISABLE_CHANGE_PASSWORD = 1
+REG_NO_CLOSE = 1
+REG_NO_LOGOFF = 1
+REG_ENABLE_SHADE = 0
+REG_ENABLE_EASE_OF_ACCESS = 0
+WIN9X_KILL_EXPLORER = 1
+WIN9X_SCREENSAVERRUNNING = 0
+NEW_DESKTOP = 1
+SHOW_SEB_APP_CHOOSER = 1
+STRONG_KILL_PROCESSES_BEFORE = 
+STRONG_KILL_PROCESSES_AFTER = 
+PERMITTED_APPS = Calculator,calc.exe;Notepad,notepad.exe;
+SEB_BROWSER = Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini
+AUTOSTART_PROCESS = Seb
+SHUTDOWN_AFTER_AUTOSTART_PROCESS_TERMINATES = 0
+PROC_MONITORING = 0
+LOG_FILE = 1
+URL_EXAM = http://www.safeexambrowser.org/
+ = 
+-----------
+
+URL_EXAM = http://www.safeexambrowser.org/
+
+sApplicationName = Seb
+sCommandLine     = ../xulrunner/xulrunner.exe ../xul_seb/application.ini -url http://www.safeexambrowser.org/
+
+sebProcessVector[0] = Seb
+sebProcessVector[1] = ../xulrunner/xulrunner.exe ../xul_seb/application.ini -url http://www.safeexambrowser.org/
+
+Enter ReadProcessesInRegistry()
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+Leave ReadProcessesInRegistry()
+
+List of third party applications to insert:
+-------------------------------------------
+vProcess[0] = Calculator
+vProcess[1] = calc.exe
+vProcess[0] = Notepad
+vProcess[1] = notepad.exe
+-------------------------------------------
+
+Leave ReadIniFile()
+
+Enter GetClientInfo()
+
+ userName     = Dirk
+cUserName     = Dirk
+cUserNameLen  = 5
+
+TokenInformationLength = 0
+          ReturnLength = 0
+
+ userName     = Dirk
+ hostName     = localhost
+ portNumber   = 57016
+ sendInterval = 100
+ numMessages  = 3
+
+Calling gethostbyname() with symbolic address: localhost
+
+cHostName   = localhost
+ hostName   = localhost
+ portNumber = 57016
+
+hostInfo->h_name = dirks-lenovo
+h_name      : dirks-lenovo
+IP Address  : 127.0.0.1
+address type: AF_INET
+h_addrtype  : 2
+h_length    : 4
+
+clientService.sin_family      = 2
+clientService.sin_addr.s_addr = 16777343
+clientService.sin_port        = 47326
+
+Creating the ConnectSocket...
+ConnectSocket created
+
+Connecting to server...
+connect() failed with error code 10061
+
+Leave GetClientInfo()
+
+Enter EditRegistry()
+
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+         HandleOpenRegistryKey(HKLM, System) succeeded
+
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+         HandleOpenRegistryKey(HKCU, System) succeeded
+
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+         HandleOpenRegistryKey(HKCU, Explorer) succeeded
+
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+         HandleOpenRegistryKey(HKCU, VMwareClient) succeeded
+
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+         HandleOpenRegistryKey(HKLM, UtilmanExe) succeeded
+
+getBool(REG_HIDE_FAST_USER_SWITCHING) = true
+Enter HandleSetRegistryKeyValue()
+Leave HandleSetRegistryKeyValue()
+
+      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) succeeded
+getBool(REG_DISABLE_LOCK_WORKSTATION) = true
+Enter HandleSetRegistryKeyValue()
+Leave HandleSetRegistryKeyValue()
+
+      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) succeeded
+getBool(REG_DISABLE_CHANGE_PASSWORD) = true
+Enter HandleSetRegistryKeyValue()
+Leave HandleSetRegistryKeyValue()
+
+      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) succeeded
+getBool(REG_DISABLE_TASKMGR) = true
+Enter HandleSetRegistryKeyValue()
+Leave HandleSetRegistryKeyValue()
+
+      HandleSetRegistryKeyValue(DISABLE_TASKMGR) succeeded
+getBool(REG_NO_LOGOFF) = true
+Enter HandleSetRegistryKeyValue()
+Leave HandleSetRegistryKeyValue()
+
+      HandleSetRegistryKeyValue(NO_LOGOFF) succeeded
+getBool(REG_NO_CLOSE) = true
+Enter HandleSetRegistryKeyValue()
+Leave HandleSetRegistryKeyValue()
+
+      HandleSetRegistryKeyValue(NO_CLOSE) succeeded
+getBool(REG_ENABLE_SHADE) = false
+getBool(REG_ENABLE_EASE_OF_ACCESS) = false
+Leave EditRegistry()
+
+
+Enter CreateExternalProcess()
+	sProcess        = Seb
+	applicationName = Seb
+	sProcess        = Seb
+Leave CreateExternalProcess()
+
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+
+ Nr	   ID	previousProcess
+----------------------------------
+  1	    0	[System Process]
+  2	    4	System
+  3	  292	smss.exe
+  4	  452	csrss.exe
+  5	  532	wininit.exe
+  6	  560	csrss.exe
+  7	  588	services.exe
+  8	  612	lsass.exe
+  9	  620	lsm.exe
+ 10	  656	winlogon.exe
+ 11	  760	svchost.exe
+ 12	  840	DTS.exe
+ 13	  864	ibmpmsvc.exe
+ 14	  904	AtService.exe
+ 15	  948	svchost.exe
+ 16	 1008	atiesrxx.exe
+ 17	  376	svchost.exe
+ 18	  712	svchost.exe
+ 19	  776	svchost.exe
+ 20	 1136	svchost.exe
+ 21	 1344	vpnagent.exe
+ 22	 1376	atieclxx.exe
+ 23	 1408	svchost.exe
+ 24	 1560	wlanext.exe
+ 25	 1572	conhost.exe
+ 26	 1676	spoolsv.exe
+ 27	 1744	sched.exe
+ 28	 1768	svchost.exe
+ 29	 1864	TPHKSVC.exe
+ 30	 1928	AcPrfMgrSvc.exe
+ 31	 1960	avguard.exe
+ 32	 2020	EvtEng.exe
+ 33	 1228	PresentationFontCache.exe
+ 34	 1256	svchost.exe
+ 35	 2056	LMS.exe
+ 36	 2100	sqlservr.exe
+ 37	 2112	avshadow.exe
+ 38	 2120	conhost.exe
+ 39	 2168	cchservice.exe
+ 40	 2268	NMSAccessU.exe
+ 41	 2360	RegSrvc.exe
+ 42	 2400	sqlwriter.exe
+ 43	 2420	svchost.exe
+ 44	 2464	UNS.exe
+ 45	 2600	wsnm.exe
+ 46	 2668	AcSvc.exe
+ 47	 2852	unsecapp.exe
+ 48	 3016	WmiPrvSE.exe
+ 49	 3296	avmailc.exe
+ 50	 3324	avwebgrd.exe
+ 51	 3400	svchost.exe
+ 52	 3432	svchost.exe
+ 53	 3648	svchost.exe
+ 54	 4044	taskhost.exe
+ 55	 3788	dwm.exe
+ 56	 3828	explorer.exe
+ 57	 4064	igfxpers.exe
+ 58	 2912	PrivacyIconClient.exe
+ 59	 3712	TPOSDSVC.exe
+ 60	 3848	tpfnf6r.exe
+ 61	 4052	SynTPEnh.exe
+ 62	 2720	igfxsrvc.exe
+ 63	 4124	sidebar.exe
+ 64	 4196	DLG.exe
+ 65	 4288	TSVNCache.exe
+ 66	 4308	AAM Updates Notifier.exe
+ 67	 4624	avgnt.exe
+ 68	 4632	SynTPLpr.exe
+ 69	 4664	rundll32.exe
+ 70	 4704	MOM.exe
+ 71	 4736	jusched.exe
+ 72	 4764	TPONSCR.exe
+ 73	 4784	TpScrex.exe
+ 74	 4816	rundll32.exe
+ 75	 5100	CCC.exe
+ 76	 1388	SynTPHelper.exe
+ 77	 4748	WUDFHost.exe
+ 78	 2276	SvcGuiHlpr.exe
+ 79	 2996	SUService.exe
+ 80	 6704	TSVNCache.exe
+ 81	 6868	hpmup094.bin
+ 82	 8376	SSScheduler.exe
+ 83	 8444	SearchIndexer.exe
+ 84	 9860	ctfmon.exe
+ 85	15760	ctfmon.exe
+ 86	22788	svchost.exe
+ 87	24684	HelpLibAgent.exe
+ 88	24784	firefox.exe
+ 89	25512	splwow64.exe
+ 90	23876	notepad.exe
+ 91	28716	VCExpress.exe
+ 92	30356	audiodg.exe
+ 93	30040	SearchProtocolHost.exe
+ 94	29956	SearchFilterHost.exe
+ 95	30348	mspdbsrv.exe
+ 96	31192	Seb.exe
+ 97	31260	xulrunner.exe
+
+
+
+ Nr	   ID	allowedProcess
+----------------------------------
+  1	    0	[System Process]
+  2	    4	System
+  3	  292	smss.exe
+  4	  452	csrss.exe
+  5	  532	wininit.exe
+  6	  560	csrss.exe
+  7	  588	services.exe
+  8	  612	lsass.exe
+  9	  620	lsm.exe
+ 10	  656	winlogon.exe
+ 11	  760	svchost.exe
+ 12	  840	DTS.exe
+ 13	  864	ibmpmsvc.exe
+ 14	  904	AtService.exe
+ 15	  948	svchost.exe
+ 16	 1008	atiesrxx.exe
+ 17	  376	svchost.exe
+ 18	  712	svchost.exe
+ 19	  776	svchost.exe
+ 20	 1136	svchost.exe
+ 21	 1344	vpnagent.exe
+ 22	 1376	atieclxx.exe
+ 23	 1408	svchost.exe
+ 24	 1560	wlanext.exe
+ 25	 1572	conhost.exe
+ 26	 1676	spoolsv.exe
+ 27	 1744	sched.exe
+ 28	 1768	svchost.exe
+ 29	 1864	TPHKSVC.exe
+ 30	 1928	AcPrfMgrSvc.exe
+ 31	 1960	avguard.exe
+ 32	 2020	EvtEng.exe
+ 33	 1228	PresentationFontCache.exe
+ 34	 1256	svchost.exe
+ 35	 2056	LMS.exe
+ 36	 2100	sqlservr.exe
+ 37	 2112	avshadow.exe
+ 38	 2120	conhost.exe
+ 39	 2168	cchservice.exe
+ 40	 2268	NMSAccessU.exe
+ 41	 2360	RegSrvc.exe
+ 42	 2400	sqlwriter.exe
+ 43	 2420	svchost.exe
+ 44	 2464	UNS.exe
+ 45	 2600	wsnm.exe
+ 46	 2668	AcSvc.exe
+ 47	 2852	unsecapp.exe
+ 48	 3016	WmiPrvSE.exe
+ 49	 3296	avmailc.exe
+ 50	 3324	avwebgrd.exe
+ 51	 3400	svchost.exe
+ 52	 3432	svchost.exe
+ 53	 3648	svchost.exe
+ 54	 4044	taskhost.exe
+ 55	 3788	dwm.exe
+ 56	 3828	explorer.exe
+ 57	 4064	igfxpers.exe
+ 58	 2912	PrivacyIconClient.exe
+ 59	 3712	TPOSDSVC.exe
+ 60	 3848	tpfnf6r.exe
+ 61	 4052	SynTPEnh.exe
+ 62	 2720	igfxsrvc.exe
+ 63	 4124	sidebar.exe
+ 64	 4196	DLG.exe
+ 65	 4288	TSVNCache.exe
+ 66	 4308	AAM Updates Notifier.exe
+ 67	 4624	avgnt.exe
+ 68	 4632	SynTPLpr.exe
+ 69	 4664	rundll32.exe
+ 70	 4704	MOM.exe
+ 71	 4736	jusched.exe
+ 72	 4764	TPONSCR.exe
+ 73	 4784	TpScrex.exe
+ 74	 4816	rundll32.exe
+ 75	 5100	CCC.exe
+ 76	 1388	SynTPHelper.exe
+ 77	 4748	WUDFHost.exe
+ 78	 2276	SvcGuiHlpr.exe
+ 79	 2996	SUService.exe
+ 80	 6704	TSVNCache.exe
+ 81	 6868	hpmup094.bin
+ 82	 8376	SSScheduler.exe
+ 83	 8444	SearchIndexer.exe
+ 84	 9860	ctfmon.exe
+ 85	15760	ctfmon.exe
+ 86	22788	svchost.exe
+ 87	24684	HelpLibAgent.exe
+ 88	24784	firefox.exe
+ 89	25512	splwow64.exe
+ 90	23876	notepad.exe
+ 91	28716	VCExpress.exe
+ 92	30356	audiodg.exe
+ 93	30040	SearchProtocolHost.exe
+ 94	29956	SearchFilterHost.exe
+ 95	30348	mspdbsrv.exe
+ 96	31192	Seb.exe
+ 97	31260	xulrunner.exe
+
+
+Logfile desired, therefore keeping logfile
+Leave InitInstance()
+
+Enter ShutdownInstance()
+
+ userName     = Dirk
+ hostName     = localhost
+ portNumber   = 57016
+ sendInterval = 100
+ numMessages  = 3
+
+Enter SendEquationToSocketServer()
+    leftSide = ***ShutDown***
+   rightSide = ***1***
+   send() failed with error code 10093
+
+   Text sent : ***ShutDown=1---SEB---*** with -1 Bytes
+Leave SendEquationToSocketServer()
+
+Shutting down the ConnectSocket...
+shutdown() failed with error code 10093
+
+Enter ResetRegistry()
+
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+   Enter HandleOpenRegistryKey()
+   Leave HandleOpenRegistryKey()
+Leave ResetRegistry()
+
+Calling  KILL_PROC_BY_ID(31516)
+Entering KILL_PROC_BY_ID(31516)
+procID   = 31516	procName = MpCmdRun.exe
+Leaving  KILL_PROC_BY_ID(31516)
+Calling  KILL_PROC_BY_ID(31664)
+Entering KILL_PROC_BY_ID(31664)
+procID   = 31664	procName = taskmgr.exe
+Leaving  KILL_PROC_BY_ID(31664)
+Calling  KILL_PROC_BY_ID(29256)
+Entering KILL_PROC_BY_ID(29256)
+procID   = 29256	procName = webtmr.exe
+Leaving  KILL_PROC_BY_ID(29256)
+Leave ShutdownInstance()
+
