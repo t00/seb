@@ -31,12 +31,12 @@
 #define __ERRORMSG_H__
 
 
-// Name and location of Seb configuration file and logfile
-#define SEB_INI    "..\\Seb.ini"
+// Name and location of Seb configuration files and logfiles
+#define SEB_STARTER_INI "..\\SebStarter.ini"
 #define DRIVE_ROOT      "C:\\"
 #define	TEMP_DIR        "tmp\\"
-#define SEB_LOG_FILE    "Seb.log"
-#define MSG_LOG_FILE    "MsgHook.log"
+#define SEB_LOG_FILE    "SebStarter.log"
+#define MSG_LOG_FILE       "MsgHook.log"
 
 // C structures for logfile handling
 bool logFileDesired;
@@ -61,16 +61,16 @@ const int IND_LanguageNum     = 3;
 
 const int IND_MessageTextMin    = 0;
 
-const int IND_FileNotFound      = 0;
-const int IND_PathNotFound      = 1;
-const int IND_AccessDenied      = 2; 
-const int IND_UndefinedError    = 3;
-const int IND_NoWritePermission = 4;
-const int IND_NoSebIniError     = 5;
-const int IND_NoMsgHookIniError = 6;
-const int IND_NoClientInfoError = 7;
-const int IND_InitialiseError   = 8;
-const int IND_RegistryEditError = 9;
+const int IND_FileNotFound         = 0;
+const int IND_PathNotFound         = 1;
+const int IND_AccessDenied         = 2; 
+const int IND_UndefinedError       = 3;
+const int IND_NoWritePermission    = 4;
+const int IND_NoSebStarterIniError = 5;
+const int IND_NoMsgHookIniError    = 6;
+const int IND_NoClientInfoError    = 7;
+const int IND_InitialiseError      = 8;
+const int IND_RegistryEditError    = 9;
 
 const int IND_NotEnoughRegistryRightsError = 10;
 
@@ -155,9 +155,9 @@ void DefineErrorMessages()
 	messageText[IND_LanguageEnglish][IND_NoWritePermission] = "No write permission!";
 	messageText[IND_LanguageFrench ][IND_NoWritePermission] = "Pas de droit à l'écrire!";
 
-	messageText[IND_LanguageGerman ][IND_NoSebIniError] = "Konnte die Datei Seb.ini nicht finden!";
-	messageText[IND_LanguageEnglish][IND_NoSebIniError] = "Could not find the file Seb.ini !";
-	messageText[IND_LanguageFrench ][IND_NoSebIniError] = "Ne pouvais pas trouver le fichier Seb.ini !";
+	messageText[IND_LanguageGerman ][IND_NoSebStarterIniError] = "Konnte die Datei SebStarter.ini nicht finden!";
+	messageText[IND_LanguageEnglish][IND_NoSebStarterIniError] = "Could not find the file SebStarter.ini !";
+	messageText[IND_LanguageFrench ][IND_NoSebStarterIniError] = "Ne pouvais pas trouver le fichier SebStarter.ini !";
 
 	messageText[IND_LanguageGerman ][IND_NoMsgHookIniError] = "Konnte die Datei MsgHook.ini nicht finden!";
 	messageText[IND_LanguageEnglish][IND_NoMsgHookIniError] = "Could not find the file MsgHook.ini !";
