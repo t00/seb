@@ -837,12 +837,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_36D38EA125EC4576A1158EF662160ED2"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_36E2AE68517E4F5187540780779D59B2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1000,12 +994,6 @@
         "Entry"
         {
         "MsmKey" = "8:_403FD61E5CD14826851AD3FDB995D348"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_41348C20387147BAA2B8587ADB1A27CC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2283,6 +2271,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9C651DFA87A34F56A3771D9808A9A792"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9D30DE3E42C140EDB9A1B2BC236DE22F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2529,12 +2523,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AF6083FF121046B989CC3BAF46420D2C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_AFD6A5B6244D4261951BE7867FC2C6EB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2548,12 +2536,6 @@
         "Entry"
         {
         "MsmKey" = "8:_B0D59F054B0E4DD482B7CEF951CDDECA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B0E18D96FD054DE1A3B9AE0F5E0CDCDD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3015,12 +2997,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CEF1634CA1EA4811A493076C6E77476C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CEFCCB96B7704114A58BCB541725E209"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3166,12 +3142,6 @@
         "Entry"
         {
         "MsmKey" = "8:_DA75164062B7499B8657E367C81598AF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DB386CCA87204AFCAE9A7913817DB6CA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3598,6 +3568,12 @@
         "Entry"
         {
         "MsmKey" = "8:_F3F4B12140AC4138A16E4B58FBA1CC82"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F4D8F914AFB24446B5B72842591D5326"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -6668,26 +6644,6 @@
             "TargetName" = "8:nsContentPrefService.js"
             "Tag" = "8:"
             "Folder" = "8:_09EA58545B854611BA49AA4755FE3AC9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_36D38EA125EC4576A1158EF662160ED2"
-            {
-            "SourcePath" = "8:..\\Seb\\xul_seb.zip"
-            "TargetName" = "8:xul_seb.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -11462,6 +11418,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C651DFA87A34F56A3771D9808A9A792"
+            {
+            "SourcePath" = "8:..\\SebClient\\MsgHook.ini"
+            "TargetName" = "8:MsgHook.ini"
+            "Tag" = "8:"
+            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9D30DE3E42C140EDB9A1B2BC236DE22F"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\parentalcontrols.xpt"
@@ -12282,26 +12258,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AF6083FF121046B989CC3BAF46420D2C"
-            {
-            "SourcePath" = "8:..\\Seb\\MsgHook.ini"
-            "TargetName" = "8:MsgHook.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AFD6A5B6244D4261951BE7867FC2C6EB"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\res\\mathml.css"
@@ -12348,26 +12304,6 @@
             "TargetName" = "8:arrow.gif"
             "Tag" = "8:"
             "Folder" = "8:_885B0FCEA2594BE1B6E7D222DD3D6D49"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B0E18D96FD054DE1A3B9AE0F5E0CDCDD"
-            {
-            "SourcePath" = "8:..\\Seb\\xulrunner.zip"
-            "TargetName" = "8:xulrunner.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -13902,26 +13838,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CEF1634CA1EA4811A493076C6E77476C"
-            {
-            "SourcePath" = "8:..\\Seb\\Seb.ini"
-            "TargetName" = "8:Seb.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CEFCCB96B7704114A58BCB541725E209"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\components\\chardet.xpt"
@@ -14408,26 +14324,6 @@
             "TargetName" = "8:ssl3.dll"
             "Tag" = "8:"
             "Folder" = "8:_3B42090340E04EE09556E129F7F149FA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DB386CCA87204AFCAE9A7913817DB6CA"
-            {
-            "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning.zip"
-            "TargetName" = "8:xulrunner_no_ssl_warning.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -15862,6 +15758,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4D8F914AFB24446B5B72842591D5326"
+            {
+            "SourcePath" = "8:..\\SebClient\\SebStarter.ini"
+            "TargetName" = "8:SebStarter.ini"
+            "Tag" = "8:"
+            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4E1842CA5F74A22A3B43F017CEA2CA7"
             {
             "SourcePath" = "8:..\\Seb\\xulrunner_no_ssl_warning\\platform.ini"
@@ -16437,6 +16353,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_A2C1527B368045648749CE64C9DE894B"
+                    {
+                    "Name" = "8:ETH Zurich"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_DE1AEAE40DF34332AFAF6E894202A9D4"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_548E293CF2844284B424458C4E7B9057"
@@ -17104,7 +17031,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_D1A781BF6BAC46F48B0C1DDDE07171DF"
             {
             "Name" = "8:#1916"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:DesktopFolder"
@@ -17128,15 +17055,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.5.1"
-        "ProductCode" = "8:{B8415735-C18C-49F8-82AC-73F46E22CC2A}"
-        "PackageCode" = "8:{F6EECB30-1C72-41A0-B849-066A922E1424}"
+        "ProductCode" = "8:{DE9FE57E-9141-4C49-9EC3-A360F262FFDF}"
+        "PackageCode" = "8:{01F0985E-BA17-4DE2-AD46-6D22E915902E}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.5.1"
+        "ProductVersion" = "8:1.5.2"
         "Manufacturer" = "8:ETH Zurich"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://www.safeexambrowser.org"
@@ -17249,6 +17176,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_51C91CF5C95B41C8962EB11875F8C53B"
+            {
+            "Name" = "8:Safe Exam Browser"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
+            "Folder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
+            "WorkingFolder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
+            "Icon" = "8:_479CB539279B4C5F83AC381C3DF7F571"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -17742,34 +17683,6 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_41348C20387147BAA2B8587ADB1A27CC"
-            {
-            "SourcePath" = "8:..\\Release\\Seb.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_082CE6E63686411FB52ED9065F47C75E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{E758B32C-024E-4C0F-ABC3-1F76C450FED6}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6A64F98DE34A4D4F8645A1C14CC1B2AC"
             {
             "SourcePath" = "8:..\\SebWindowsService\\obj\\x86\\Release\\SebWindowsService.exe"
