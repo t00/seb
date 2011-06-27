@@ -1010,10 +1010,11 @@ BOOL ReadSebStarterIni()
 		{
 			OutputErrorMessage(languageIndex, IND_VirtualMachineForbidden, IND_MessageKindError);
 			logg(fp, "Forbidden trial to run SEB on a VIRTUAL machine!\n\n\n\n");
-			logg(fp, "Close logfile\n");
-			logg(fp, "Leave ReadSebStarterIni() and call ShutdownInstance()\n\n");
+
+			//logg(fp, "Leave ReadSebStarterIni() and call ShutdownInstance()\n\n");
 			//ShutdownInstance();
-			if (fp != NULL) fclose(fp);
+
+			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
 			return FALSE;
 		}
 
