@@ -603,6 +603,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_28FF512A96F240A7AF5F5EA01457D5BC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_29DBAA823D1A4DC092F3218280CA9584"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1707,6 +1713,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7B24E09E2EB243BBB049D40C37E6D292"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7B87C18D52C944178592347C9575946C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2301,6 +2313,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9C16E4F7AABD4E6B9383B159666CCB68"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9C651DFA87A34F56A3771D9808A9A792"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2674,6 +2692,12 @@
         "Entry"
         {
         "MsmKey" = "8:_AF6CA74FC5D44966BF65E27DE5D3898F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AFFF599D5FED41C7B34DEBE1633F9E3A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -5870,6 +5894,26 @@
             "TargetName" = "8:xhtml11.dtd"
             "Tag" = "8:"
             "Folder" = "8:_DB352B51D0C44FADA630DDAA00F50DC2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_28FF512A96F240A7AF5F5EA01457D5BC"
+            {
+            "SourcePath" = "8:..\\SebClient\\xulrunner\\chrome\\geckofx.manifest"
+            "TargetName" = "8:geckofx.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_92D229B494D64569943F1932738F2FCD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -9544,6 +9588,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B24E09E2EB243BBB049D40C37E6D292"
+            {
+            "SourcePath" = "8:..\\SebClient\\xulrunner_no_ssl_warning\\chrome\\geckofx.manifest"
+            "TargetName" = "8:geckofx.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_78A8632C6C99402E9620021F5FEAD9B6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7B87C18D52C944178592347C9575946C"
             {
             "SourcePath" = "8:..\\SebClient\\xulrunner\\components\\jar.xpt"
@@ -11524,6 +11588,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C16E4F7AABD4E6B9383B159666CCB68"
+            {
+            "SourcePath" = "8:..\\SebClient\\xulrunner_no_ssl_warning\\chrome\\geckofx.jar"
+            "TargetName" = "8:geckofx.jar"
+            "Tag" = "8:"
+            "Folder" = "8:_78A8632C6C99402E9620021F5FEAD9B6"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C651DFA87A34F56A3771D9808A9A792"
             {
             "SourcePath" = "8:..\\SebClient\\MsgHook.ini"
@@ -12770,6 +12854,26 @@
             "TargetName" = "8:dom_range.xpt"
             "Tag" = "8:"
             "Folder" = "8:_09EA58545B854611BA49AA4755FE3AC9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AFFF599D5FED41C7B34DEBE1633F9E3A"
+            {
+            "SourcePath" = "8:..\\SebClient\\xulrunner\\chrome\\geckofx.jar"
+            "TargetName" = "8:geckofx.jar"
+            "Tag" = "8:"
+            "Folder" = "8:_92D229B494D64569943F1932738F2FCD"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
