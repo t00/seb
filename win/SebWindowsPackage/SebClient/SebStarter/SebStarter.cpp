@@ -24,6 +24,9 @@
 * ***** END LICENSE BLOCK ***** */
 
 #include "stdafx.h"
+#include <intrin.h>
+//#include <Hvgdk.h>
+//#include "cpuid.h"
 #include "SebStarter.h"
 #include "KillProc.h"
 #include "ProcMonitor.h"
@@ -751,6 +754,119 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 
 
+// ***************************************
+//  Wrapper for cryptic __cpuid() function
+// ***************************************
+void GetInfoAboutCPU(int infoType, PUINT eax, PUINT ebx, PUINT ecx, PUINT edx)
+{
+	int CPUinfo[4];
+
+	logg(fp, "   Enter GetCPUID()\n");
+
+	__cpuid(CPUinfo, infoType);
+
+	*eax = CPUinfo[0];
+	*ebx = CPUinfo[1];
+	*ecx = CPUinfo[2];
+	*edx = CPUinfo[3];
+
+	logg(fp, "      infoType = %d   CPUinfo[0] = %0.8x   eax = %0.8x\n", infoType, CPUinfo[0], eax);
+	logg(fp, "      infoType = %d   CPUinfo[1] = %0.8x   ebx = %0.8x\n", infoType, CPUinfo[1], ebx);
+	logg(fp, "      infoType = %d   CPUinfo[2] = %0.8x   ecx = %0.8x\n", infoType, CPUinfo[2], ecx);
+	logg(fp, "      infoType = %d   CPUinfo[3] = %0.8x   edx = %0.8x\n", infoType, CPUinfo[3], edx);
+
+	logg(fp, "   Leave GetTheCPUID()\n\n");
+	return;
+
+} // end of method   GetInfoAboutCPU()
+
+
+
+
+
+// **********************************************
+//  Checks if SEB is running on a virtual machine
+// **********************************************
+bool IsSebRunningOnVirtualMachine()
+{
+	bool    virtualMachine = false;
+	char      vendorID[50] = "";
+	char hyperVendorID[50] = "";
+
+	UINT eax, ebx, ecx, edx;
+	UINT ecxBit31;
+
+	logg(fp, "Enter IsSebRunningOnVirtualMachine()\n\n");
+
+
+	// Get the vendor ID string via parameter EAX = 0000_0000h
+	GetInfoAboutCPU(0x0, &eax, &ebx, &ecx, &edx);
+
+	// ATTENTION: the order ebx, edx, ecx (rather than ebx, ecx, edx) is NO typo -
+	// this is the correct order for getting the hyper vendor string!!!
+	memcpy(vendorID + 0, &ebx, 4);
+	memcpy(vendorID + 4, &edx, 4);
+	memcpy(vendorID + 8, &ecx, 4);
+	vendorID[49] = '\0';
+	logg(fp, "   vendorID = %s\n\n", vendorID);
+
+
+	// Get the "hypervisor present bit" by parameter EAX = 0000_0001h
+	// The "hypervisor present bit", if set to 1, indicates a virtual machine.
+	GetInfoAboutCPU(0x1, &eax, &ebx, &ecx, &edx);
+
+	ecxBit31 = ((ecx & 0x80000000) >> 31);
+
+	logg(fp, "   (ecx & 0x80000000)        = %0.8x\n",  (ecx & 0x80000000));
+	logg(fp, "   (ecx & 0x80000000)  >> 31 = %0.8x\n", ((ecx & 0x80000000) >> 31));
+	logg(fp, "    ecxBit31                 = %0.8x\n",   ecxBit31);
+	logg(fp, "\n");
+
+	// If  (bit 31 of register ECX is set),
+	// SEB is probably running in a virtual machine
+
+	if (ecxBit31 == 1) virtualMachine = true;
+				  else virtualMachine = false;
+
+	if (virtualMachine == true)
+	{
+		logg(fp, "   Yes, bit 31 of register ECX is INDEED set!\n");
+		logg(fp, "   SEB seems to run on a VIRTUAL machine!\n\n");
+	}
+	else
+	{
+		logg(fp, "   No, bit 31 of register ECX is NOT set!\n");
+		logg(fp, "   SEB seems to run on a PHYSICAL machine!\n\n");
+	}
+
+
+	// Get the hyper vendor ID
+	if (virtualMachine == true)
+	{
+		// Get the vendor ID string via parameter EAX = 4000_0000h
+		GetInfoAboutCPU(0x40000000, &eax, &ebx, &ecx, &edx);
+
+		// ATTENTION: the order ebx, edx, ecx (rather than ebx, ecx, edx) is NO typo -
+		// this is the correct order for getting the hyper vendor string!!!
+		memcpy(hyperVendorID + 0, &ebx, 4);
+		memcpy(hyperVendorID + 4, &edx, 4);
+		memcpy(hyperVendorID + 8, &ecx, 4);
+		hyperVendorID[49] = '\0';
+		logg(fp, "   hyperVendorID = %s\n\n", hyperVendorID);
+
+		// Success - running under VMware
+		//if (!strcmp(hyperVendorID, "VMwareVMware")) return 1;
+	}
+
+	logg(fp, "Leave IsSebRunningOnVirtualMachine\n\n");
+	return virtualMachine;
+
+} // end of method   IsSebRunningOnVirtualMachine()
+
+
+
+
+
 BOOL ReadSebStarterIni()
 {
 	char   cCurrDir[MAX_PATH];
@@ -851,12 +967,52 @@ BOOL ReadSebStarterIni()
 		if (getBool("FORCE_WINDOWS_SERVICE"))
 		{
 			forceWindowsService = true;
-			logg(fp, "Windows Service demanded, setting forceWindowService = true\n");
+			logg(fp, "Windows Service demanded    , setting forceWindowsService = true\n");
 		}
 		else
 		{
 			forceWindowsService = false;
-			logg(fp, "Windows Service not demanded, setting forceWindowService = false\n");
+			logg(fp, "Windows Service not demanded, setting forceWindowsService = false\n");
+		}
+
+
+		// Decide whether to allow SEB running on a virtual machine
+		if (getBool("ALLOW_VIRTUAL_MACHINE"))
+		{
+			allowVirtualMachine = true;
+			logg(fp, "Virtual machine allowed     , setting allowVirtualMachine = true\n\n\n\n");
+		}
+		else
+		{
+			allowVirtualMachine = false;
+			logg(fp, "Virtual machine not allowed , setting allowVirtualMachine = false\n\n\n\n");
+		}
+
+
+		// Detect whether SEB runs in a virtual machine
+		bool runningOnVirtualMachine = IsSebRunningOnVirtualMachine();
+
+		if (runningOnVirtualMachine == true)
+		{
+			 logg(fp, "Caution  , SEB seems to run on a VIRTUAL  machine!\n\n\n\n");
+		}
+		else
+		{
+			logg(fp, "All right, SEB seems to run on a PHYSICAL machine!\n\n\n\n");
+		}
+
+
+		// FAKE
+		//runningOnVirtualMachine = true;
+
+		// If SEB is running on a virtual machine and this is not allowed, take action
+		if ((runningOnVirtualMachine == true) && (allowVirtualMachine == false))
+		{
+			logg(fp, "Forbidden trial to run SEB on a VIRTUAL machine! Take Action!\n\n\n\n");
+			logg(fp, "Close logfile\n");
+			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
+			if (fp != NULL) fclose(fp);
+			return FALSE;
 		}
 
 
