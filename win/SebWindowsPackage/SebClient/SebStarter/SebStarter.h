@@ -32,8 +32,10 @@
 
 // Socket structures for IPC (interprocess communication)
 // between SEB (client) and SEB Windows Service (server)
-bool    forceWindowsService = false;
-bool    allowVirtualMachine = false;
+bool     forceWindowsService = false;
+bool     allowVirtualMachine = false;
+bool runningOnVirtualMachine = false;
+
 #define BUFLEN 512
 
 

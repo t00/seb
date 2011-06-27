@@ -309,17 +309,34 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 	*/
+
+
 	if (!InitInstance (hInstance, nCmdShow))
 	{
 		OutputErrorMessage(languageIndex, IND_InitialiseError, IND_MessageKindError);
 		//MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
 		//logg(fp, "Error: %s\n", INITIALIZE_ERROR);
+
 		if (forceWindowsService)
 		{
 			logg(fp, "Windows Service could not be forced, should I exit now?\n");
-			//ShutdownInstance();
-			//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
 		}
+
+		if ((runningOnVirtualMachine == true) && (allowVirtualMachine == false))
+		{
+			logg(fp, "Attempt to run SEB on a virtual machine, should I exit now?\n");
+		}
+
+		logg(fp, "Exiting the SEB program...\n");
+		//ShutdownInstance();
+		//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+
+		// Close the logfile for debug output
+		logg(fp, "Closing the logfile...()\n\n");
+		if (fp != NULL) fclose(fp);
+
+		return -1;
+		//return (int) msg.wParam;
 	}
 
 	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SEB);
@@ -990,7 +1007,7 @@ BOOL ReadSebStarterIni()
 
 
 		// Detect whether SEB runs in a virtual machine
-		bool runningOnVirtualMachine = IsSebRunningOnVirtualMachine();
+		runningOnVirtualMachine = IsSebRunningOnVirtualMachine();
 
 		if (runningOnVirtualMachine == true)
 		{
@@ -1002,18 +1019,11 @@ BOOL ReadSebStarterIni()
 		}
 
 
-		// FAKE
-		//runningOnVirtualMachine = true;
-
 		// If SEB is running on a virtual machine and this is not allowed, take action
 		if ((runningOnVirtualMachine == true) && (allowVirtualMachine == false))
 		{
 			OutputErrorMessage(languageIndex, IND_VirtualMachineForbidden, IND_MessageKindError);
 			logg(fp, "Forbidden trial to run SEB on a VIRTUAL machine!\n\n\n\n");
-
-			//logg(fp, "Leave ReadSebStarterIni() and call ShutdownInstance()\n\n");
-			//ShutdownInstance();
-
 			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
 			return FALSE;
 		}
