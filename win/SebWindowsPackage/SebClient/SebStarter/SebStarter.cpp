@@ -247,9 +247,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		// Open the logfile for debug output
 		strcpy(logFileDir, "C:\\Users\\");
 		strcat(logFileDir, userName);
-		strcat(logFileDir, "\\AppData\\Local\\ETH Zurich\\Seb Windows 1.5.2\\SebClient\\");
+		strcat(logFileDir, "\\AppData\\Local\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
 
-		//strcpy(logFileDir, "C:\\tmp\\ETH Zurich\\Seb Windows 1.5.2\\SebClient\\");
+		//strcpy(logFileDir, "C:\\tmp\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
 
 		if (fp == NULL)
 		{
@@ -1003,7 +1003,7 @@ BOOL ReadSebStarterIni()
 
 
 		// FAKE
-		runningOnVirtualMachine = true;
+		//runningOnVirtualMachine = true;
 
 		// If SEB is running on a virtual machine and this is not allowed, take action
 		if ((runningOnVirtualMachine == true) && (allowVirtualMachine == false))
