@@ -92,8 +92,10 @@ const int IND_SebTerminated     = 22;
 const int IND_NoOsSupport       = 23;
 const int IND_KillProcessFailed = 24;
 
-const int IND_MessageTextMax    = 24;
-const int IND_MessageTextNum    = 25;
+const int IND_VirtualMachineForbidden = 25;
+
+const int IND_MessageTextMax    = 25;
+const int IND_MessageTextNum    = 26;
 
 
 // MessageBox supports errors and warnings
@@ -155,13 +157,13 @@ void DefineErrorMessages()
 	messageText[IND_LanguageEnglish][IND_NoWritePermission] = "No write permission!";
 	messageText[IND_LanguageFrench ][IND_NoWritePermission] = "Pas de droit à l'écrire!";
 
-	messageText[IND_LanguageGerman ][IND_NoSebStarterIniError] = "Konnte die Datei SebStarter.ini nicht finden!";
-	messageText[IND_LanguageEnglish][IND_NoSebStarterIniError] = "Could not find the file SebStarter.ini !";
-	messageText[IND_LanguageFrench ][IND_NoSebStarterIniError] = "Ne pouvais pas trouver le fichier SebStarter.ini !";
+	messageText[IND_LanguageGerman ][IND_NoSebStarterIniError] = "Fehler beim Öffnen der Datei SebStarter.ini!";
+	messageText[IND_LanguageEnglish][IND_NoSebStarterIniError] = "Error when opening the file SebStarter.ini!";
+	messageText[IND_LanguageFrench ][IND_NoSebStarterIniError] = "Erreur en ouvrant le fichier SebStarter.ini!";
 
-	messageText[IND_LanguageGerman ][IND_NoMsgHookIniError] = "Konnte die Datei MsgHook.ini nicht finden!";
-	messageText[IND_LanguageEnglish][IND_NoMsgHookIniError] = "Could not find the file MsgHook.ini !";
-	messageText[IND_LanguageFrench ][IND_NoMsgHookIniError] = "Ne pouvais pas trouver le fichier MsgHook.ini !";
+	messageText[IND_LanguageGerman ][IND_NoMsgHookIniError] = "Fehler beim Öffnen der Datei MsgHook.ini!";
+	messageText[IND_LanguageEnglish][IND_NoMsgHookIniError] = "Error when opening the file MsgHook.ini!";
+	messageText[IND_LanguageFrench ][IND_NoMsgHookIniError] = "Erreur en ouvrant le fichier MsgHook.ini!";
 
 	messageText[IND_LanguageGerman ][IND_NoClientInfoError] = "Keine Client-Information!";
 	messageText[IND_LanguageEnglish][IND_NoClientInfoError] = "No client info!";
@@ -239,6 +241,10 @@ void DefineErrorMessages()
 	messageText[IND_LanguageGerman ][IND_KillProcessFailed] = "Abschießen des Prozesses %s fehlgeschlagen: %d!";
 	messageText[IND_LanguageEnglish][IND_KillProcessFailed] = "Killing process %s failed: %d!";
 	messageText[IND_LanguageFrench ][IND_KillProcessFailed] = "Abattre le procès %s manqué / échoué: %d!";
+
+	messageText[IND_LanguageGerman ][IND_VirtualMachineForbidden] = "SEB darf nicht auf einer virtuellen Maschine ausgeführt werden!";
+	messageText[IND_LanguageEnglish][IND_VirtualMachineForbidden] = "SEB may not be executed on a virtual machine!";
+	messageText[IND_LanguageFrench ][IND_VirtualMachineForbidden] = "Défense d'exécuter SEB sur une machine virtuelle!";
 
 	return;
 
