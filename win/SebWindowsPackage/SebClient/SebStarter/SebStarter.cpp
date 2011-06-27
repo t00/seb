@@ -1003,14 +1003,16 @@ BOOL ReadSebStarterIni()
 
 
 		// FAKE
-		//runningOnVirtualMachine = true;
+		runningOnVirtualMachine = true;
 
 		// If SEB is running on a virtual machine and this is not allowed, take action
 		if ((runningOnVirtualMachine == true) && (allowVirtualMachine == false))
 		{
-			logg(fp, "Forbidden trial to run SEB on a VIRTUAL machine! Take Action!\n\n\n\n");
+			OutputErrorMessage(languageIndex, IND_VirtualMachineForbidden, IND_MessageKindError);
+			logg(fp, "Forbidden trial to run SEB on a VIRTUAL machine!\n\n\n\n");
 			logg(fp, "Close logfile\n");
-			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
+			logg(fp, "Leave ReadSebStarterIni() and call ShutdownInstance()\n\n");
+			//ShutdownInstance();
 			if (fp != NULL) fclose(fp);
 			return FALSE;
 		}
