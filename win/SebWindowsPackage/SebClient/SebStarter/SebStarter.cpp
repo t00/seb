@@ -25,8 +25,9 @@
 
 #include "stdafx.h"
 #include <intrin.h>
-//#include <Hvgdk.h>
-//#include "cpuid.h"
+#include <Shlobj.h>
+//#include "dirent.h"
+//#include <system.h>
 #include "SebStarter.h"
 #include "KillProc.h"
 #include "ProcMonitor.h"
@@ -37,6 +38,8 @@
 extern bool logFileDesired;
 extern char logFileDir [512];
 extern char logFileName[512];
+extern char iniFileDir [512];
+extern char iniFileName[512];
 extern FILE* fp;
 
 // Function for easier writing into the logfile
@@ -231,10 +234,36 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	recvTimeout  = defaultRecvTimeout;
 	numMessages  = defaultNumMessages;
 
+	char  tempPath[BUFLEN];
+	char* tempPointer;
+
+	char programDataDir[MAX_PATH];
+	int    csidl  = CSIDL_COMMON_APPDATA;
+	BOOL  fCreate = false;
+
+
+	// Get the path of the "Program Data" directory.
+	// A SEB written in .NET would call: SHGetKnownFolderPath(FOLDERID_ProgramData)
+	BOOL boolVar = SHGetSpecialFolderPath(0, programDataDir, CSIDL_COMMON_APPDATA, false);
+
+	strcpy(iniFileDir, programDataDir);
+	strcat(iniFileDir, "\\");
+
+	strcat(iniFileDir, MANUFACTURER);
+	strcat(iniFileDir, "\\");
+	strcat(iniFileDir, VERSION);
+	strcat(iniFileDir, "\\");
+	strcat(iniFileDir, APPLICATION);
+	strcat(iniFileDir, "\\");
+
+	strcpy(iniFileName, iniFileDir);
+	strcat(iniFileName, SEB_STARTER_INI);
+
+	//strcpy(iniFileName, "C:\\Users\\<Username>\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+
 	// Get the current username
 	DWORD cUserNameLen =      sizeof(cUserName);
 	BOOL   user        = GetUserName(cUserName, &cUserNameLen);
-
 
 	if (cUserName == NULL)
 	{
@@ -244,21 +273,30 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		userName = cUserName;
 
-		// Open the logfile for debug output
-		strcpy(logFileDir, "C:\\Users\\");
-		strcat(logFileDir, userName);
-		strcat(logFileDir, "\\AppData\\Local\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
-
-		//strcpy(logFileDir, "C:\\tmp\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
-
 		if (fp == NULL)
 		{
-			strcpy(logFileDir , DRIVE_ROOT);
-			strcat(logFileDir , TEMP_DIR);
+			// Set the location of the log file
+			GetTempPath(BUFLEN, tempPath);
+
+			 tempPointer = strstr(tempPath, "Temp");
+			*tempPointer = '\0';
+
+			strcpy(logFileDir, tempPath);
+			strcat(logFileDir, MANUFACTURER);
+			strcat(logFileDir, "\\");
+			strcat(logFileDir, VERSION);
+			strcat(logFileDir, "\\");
+			strcat(logFileDir, APPLICATION);
+			strcat(logFileDir, "\\");
+
+			//strcpy(logFileDir, "C:\\Users\\Username\\AppData\\Local\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
+			//openDir(logFileDir);
 
 			strcpy(logFileName, logFileDir);
-			strcat(logFileName, SEB_LOG_FILE);
+			strcat(logFileName, SEB_STARTER_LOG);
+			//strcpy(logFileName, "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
 
+			// Open the logfile for debug output
 			fp = fopen(logFileName, "w");
 		}
 
@@ -274,6 +312,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		logg(fp, " userName     = %s\n",  userName);
 		logg(fp, "cUserName     = %s\n", cUserName);
 		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
+		logg(fp, "\n");
+		logg(fp, "  programDataDir = %s\n", programDataDir);
+		logg(fp, "  iniFileDir     = %s\n",     iniFileDir);
+		logg(fp, "  iniFileName    = %s\n",     iniFileName);
+		logg(fp, "  tempPath       = %s\n",    tempPath);
+		logg(fp, "  logFileDir     = %s\n",     logFileDir);
+		logg(fp, "  logFileName    = %s\n",     logFileName);
 		logg(fp, "\n");
 	}
 
@@ -496,7 +541,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	if (!ReadSebStarterIni())
 	{
-		OutputErrorMessage(languageIndex, IND_NoSebStarterIniError, IND_MessageKindError);
+		OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
 		logg(fp, "Leave InitInstance()\n\n");
 		return FALSE;
 	}
@@ -931,14 +976,15 @@ BOOL ReadSebStarterIni()
 		// being necessary anymore.
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = SEB_STARTER_INI;
+		sCurrDir = iniFileName;
+		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
 
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
-			OutputErrorMessage(languageIndex, IND_NoSebStarterIniError, IND_MessageKindError);
-			//MessageBox(NULL, messageText[languageIndex][IND_NoSebStarterIniError], "Error", 16);
-			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_NoSebStarterIniError]);
+			OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
+			//MessageBox(NULL, messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
 			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
 			return FALSE;
 		}
