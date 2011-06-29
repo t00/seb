@@ -24,14 +24,12 @@
 * ***** END LICENSE BLOCK ***** */
 
 #include "stdafx.h"
-#include <intrin.h>
-#include <Shlobj.h>
-//#include "dirent.h"
-//#include <system.h>
 #include "SebStarter.h"
 #include "KillProc.h"
 #include "ProcMonitor.h"
 #include "../ErrorMessage.h"
+#include <intrin.h>
+#include <Shlobj.h>
 
 
 // C structures for logfile handling
@@ -234,32 +232,26 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	recvTimeout  = defaultRecvTimeout;
 	numMessages  = defaultNumMessages;
 
-	char  tempPath[BUFLEN];
-	char* tempPointer;
+	//char  tempPath[BUFLEN];
+	//char* tempPointer;
 
-	char programDataDir[MAX_PATH];
-	int    csidl  = CSIDL_COMMON_APPDATA;
-	BOOL  fCreate = false;
-
+	char    programDataDir[MAX_PATH];
+	char appDataRoamingDir[MAX_PATH];
+	BOOL gotPath = false;
 
 	// Get the path of the "Program Data" directory.
-	// A SEB written in .NET would call: SHGetKnownFolderPath(FOLDERID_ProgramData)
-	BOOL boolVar = SHGetSpecialFolderPath(0, programDataDir, CSIDL_COMMON_APPDATA, false);
+	gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
 
 	strcpy(iniFileDir, programDataDir);
 	strcat(iniFileDir, "\\");
-
 	strcat(iniFileDir, MANUFACTURER);
 	strcat(iniFileDir, "\\");
-	strcat(iniFileDir, VERSION);
-	strcat(iniFileDir, "\\");
-	strcat(iniFileDir, APPLICATION);
+	strcat(iniFileDir, PRODUCT_NAME);
 	strcat(iniFileDir, "\\");
 
 	strcpy(iniFileName, iniFileDir);
 	strcat(iniFileName, SEB_STARTER_INI);
-
-	//strcpy(iniFileName, "C:\\Users\\<Username>\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+	//strcpy(iniFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
 
 	// Get the current username
 	DWORD cUserNameLen =      sizeof(cUserName);
@@ -275,26 +267,25 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		if (fp == NULL)
 		{
+			// Get the path of the "Users\Username\AppData\Roaming" directory.
+			gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
+
 			// Set the location of the log file
-			GetTempPath(BUFLEN, tempPath);
 
-			 tempPointer = strstr(tempPath, "Temp");
-			*tempPointer = '\0';
+			//GetTempPath(BUFLEN, tempPath);
+			// tempPointer = strstr(tempPath, "Temp");
+			//*tempPointer = '\0';
 
-			strcpy(logFileDir, tempPath);
+			strcpy(logFileDir, appDataRoamingDir);
+			strcat(logFileDir, "\\");
 			strcat(logFileDir, MANUFACTURER);
 			strcat(logFileDir, "\\");
-			strcat(logFileDir, VERSION);
+			strcat(logFileDir, PRODUCT_NAME);
 			strcat(logFileDir, "\\");
-			strcat(logFileDir, APPLICATION);
-			strcat(logFileDir, "\\");
-
-			//strcpy(logFileDir, "C:\\Users\\Username\\AppData\\Local\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
-			//openDir(logFileDir);
 
 			strcpy(logFileName, logFileDir);
 			strcat(logFileName, SEB_STARTER_LOG);
-			//strcpy(logFileName, "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
+			//strcpy(logFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
 
 			// Open the logfile for debug output
 			fp = fopen(logFileName, "w");
@@ -313,12 +304,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		logg(fp, "cUserName     = %s\n", cUserName);
 		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
 		logg(fp, "\n");
-		logg(fp, "  programDataDir = %s\n", programDataDir);
-		logg(fp, "  iniFileDir     = %s\n",     iniFileDir);
-		logg(fp, "  iniFileName    = %s\n",     iniFileName);
-		logg(fp, "  tempPath       = %s\n",    tempPath);
-		logg(fp, "  logFileDir     = %s\n",     logFileDir);
-		logg(fp, "  logFileName    = %s\n",     logFileName);
+		logg(fp, "  programDataDir    = %s\n",    programDataDir);
+		logg(fp, "  iniFileDir        = %s\n",        iniFileDir);
+		logg(fp, "  iniFileName       = %s\n",        iniFileName);
+		logg(fp, "  appDataRoamingDir = %s\n", appDataRoamingDir);
+		logg(fp, "  logFileDir        = %s\n",        logFileDir);
+		logg(fp, "  logFileName       = %s\n",        logFileName);
 		logg(fp, "\n");
 	}
 
