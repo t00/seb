@@ -2331,12 +2331,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9C651DFA87A34F56A3771D9808A9A792"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9C655B7DE08A4424BC9645E2B0AA8F20"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3634,12 +3628,6 @@
         "Entry"
         {
         "MsmKey" = "8:_F3B8022040F24A639CF60E990931D5FC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F4D8F914AFB24446B5B72842591D5326"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -11660,26 +11648,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C651DFA87A34F56A3771D9808A9A792"
-            {
-            "SourcePath" = "8:..\\SebClient\\MsgHook.ini"
-            "TargetName" = "8:MsgHook.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C655B7DE08A4424BC9645E2B0AA8F20"
             {
             "SourcePath" = "8:..\\SebClient\\xulrunner_no_ssl_warning\\components\\loginmgr.xpt"
@@ -16000,26 +15968,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F4D8F914AFB24446B5B72842591D5326"
-            {
-            "SourcePath" = "8:..\\SebClient\\SebStarter.ini"
-            "TargetName" = "8:SebStarter.ini"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F54B618EBB8E449895289520E0947C5D"
             {
             "SourcePath" = "8:..\\SebClient\\xulrunner\\components\\xpinstall.xpt"
@@ -16506,6 +16454,18 @@
         }
         "Folder"
         {
+            "{994432C3-9487-495D-8656-3E829A8DBDDE}:_14DD20E1BE84463D8FEBB69865D0A377"
+            {
+            "DefaultLocation" = "8:[AppDataFolder][Manufacturer]\\[ProductName]"
+            "Name" = "8:User's Application Data Roaming Folder"
+            "AlwaysCreate" = "11:TRUE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:USERSAPPDATAROAMINGFOLDER"
+                "Folders"
+                {
+                }
+            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_27E8C14BD85146D5999E66D344D9840F"
             {
             "Name" = "8:#1919"
@@ -16517,7 +16477,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_A2C1527B368045648749CE64C9DE894B"
                     {
-                    "Name" = "8:ETH Zurich"
+                    "Name" = "8:ETH Zuerich"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -16532,7 +16492,7 @@
             {
             "DefaultLocation" = "8:[CommonAppDataFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:Common Application Data Folder"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:COMMONAPPDATAFOLDER"
@@ -17196,7 +17156,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.6"
         "ProductCode" = "8:{EB3C066D-5646-4CCD-A019-37448786EABF}"
-        "PackageCode" = "8:{41CCD933-9F1D-420C-B536-46D0E18C221F}"
+        "PackageCode" = "8:{903E0096-27A8-4494-A3AC-8FA92D2ECA7A}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -17204,7 +17164,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.6"
-        "Manufacturer" = "8:ETH Zurich"
+        "Manufacturer" = "8:ETH Zuerich"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://www.safeexambrowser.org"
         "Title" = "8:SEB Windows 1.6 Setup"
