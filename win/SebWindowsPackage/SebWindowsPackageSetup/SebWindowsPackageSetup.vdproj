@@ -387,6 +387,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_192DAC2825A24584BE2527EE5EEDB89C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_199250BDC636498DAEA158A30F2F0EC1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -598,6 +604,12 @@
         "Entry"
         {
         "MsmKey" = "8:_272DD57977694F1798755A407800D227"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_28E83476E43D4726ACD7EC1499A08248"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -5188,6 +5200,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_192DAC2825A24584BE2527EE5EEDB89C"
+            {
+            "SourcePath" = "8:..\\SebClient\\SebStarter.ini"
+            "TargetName" = "8:SebStarter.ini"
+            "Tag" = "8:"
+            "Folder" = "8:_50EFE0DB1A9D44B9946BF4D685F93AA3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_199250BDC636498DAEA158A30F2F0EC1"
             {
             "SourcePath" = "8:..\\SebClient\\xulrunner_no_ssl_warning\\components\\necko_dns.xpt"
@@ -5894,6 +5926,26 @@
             "TargetName" = "8:xhtml11.dtd"
             "Tag" = "8:"
             "Folder" = "8:_DB352B51D0C44FADA630DDAA00F50DC2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_28E83476E43D4726ACD7EC1499A08248"
+            {
+            "SourcePath" = "8:..\\SebClient\\MsgHook.ini"
+            "TargetName" = "8:MsgHook.ini"
+            "Tag" = "8:"
+            "Folder" = "8:_50EFE0DB1A9D44B9946BF4D685F93AA3"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -16476,6 +16528,18 @@
                     }
                 }
             }
+            "{994432C3-9487-495D-8656-3E829A8DBDDE}:_50EFE0DB1A9D44B9946BF4D685F93AA3"
+            {
+            "DefaultLocation" = "8:[CommonAppDataFolder][Manufacturer]\\[ProductName]"
+            "Name" = "8:Common Application Data Folder"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:COMMONAPPDATAFOLDER"
+                "Folders"
+                {
+                }
+            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_548E293CF2844284B424458C4E7B9057"
             {
             "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
@@ -17132,7 +17196,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.6"
         "ProductCode" = "8:{EB3C066D-5646-4CCD-A019-37448786EABF}"
-        "PackageCode" = "8:{8076AB8E-63EC-4B1C-AC93-1E008AB89FAF}"
+        "PackageCode" = "8:{41CCD933-9F1D-420C-B536-46D0E18C221F}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
