@@ -31,17 +31,24 @@
 #define __ERRORMSG_H__
 
 
-// Name and location of Seb configuration files and logfiles
-#define SEB_STARTER_INI "..\\SebStarter.ini"
-#define DRIVE_ROOT      "C:\\"
-#define	TEMP_DIR        "tmp\\"
-#define SEB_LOG_FILE    "SebStarter.log"
-#define MSG_LOG_FILE       "MsgHook.log"
+// Name and location of SEB configuration files and logfiles
+#define SEB_STARTER_INI "SebStarter.ini"
+#define SEB_STARTER_LOG "SebStarter.log"
+#define    MSG_HOOK_INI    "MsgHook.ini"
+#define    MSG_HOOK_LOG    "MsgHook.log"
+
+#define MANUFACTURER "ETH Zurich"
+#define VERSION      "SEB Windows 1.6"
+#define APPLICATION  "SebClient"
 
 // C structures for logfile handling
+#define BUFLEN 512
+
 bool logFileDesired;
 char logFileDir [512];
 char logFileName[512];
+char iniFileDir [512];
+char iniFileName[512];
 FILE* fp;
 
 // Function for easier writing into the logfile
@@ -66,8 +73,8 @@ const int IND_PathNotFound         = 1;
 const int IND_AccessDenied         = 2; 
 const int IND_UndefinedError       = 3;
 const int IND_NoWritePermission    = 4;
-const int IND_NoSebStarterIniError = 5;
-const int IND_NoMsgHookIniError    = 6;
+const int IND_SebStarterIniError   = 5;
+const int IND_MsgHookIniError      = 6;
 const int IND_NoClientInfoError    = 7;
 const int IND_InitialiseError      = 8;
 const int IND_RegistryEditError    = 9;
@@ -157,13 +164,13 @@ void DefineErrorMessages()
 	messageText[IND_LanguageEnglish][IND_NoWritePermission] = "No write permission!";
 	messageText[IND_LanguageFrench ][IND_NoWritePermission] = "Pas de droit à l'écrire!";
 
-	messageText[IND_LanguageGerman ][IND_NoSebStarterIniError] = "Fehler beim Öffnen der Datei SebStarter.ini!";
-	messageText[IND_LanguageEnglish][IND_NoSebStarterIniError] = "Error when opening the file SebStarter.ini!";
-	messageText[IND_LanguageFrench ][IND_NoSebStarterIniError] = "Erreur en ouvrant le fichier SebStarter.ini!";
+	messageText[IND_LanguageGerman ][IND_SebStarterIniError] = "Fehler beim Öffnen der Datei SebStarter.ini!";
+	messageText[IND_LanguageEnglish][IND_SebStarterIniError] = "Error when opening the file SebStarter.ini!";
+	messageText[IND_LanguageFrench ][IND_SebStarterIniError] = "Erreur en ouvrant le fichier SebStarter.ini!";
 
-	messageText[IND_LanguageGerman ][IND_NoMsgHookIniError] = "Fehler beim Öffnen der Datei MsgHook.ini!";
-	messageText[IND_LanguageEnglish][IND_NoMsgHookIniError] = "Error when opening the file MsgHook.ini!";
-	messageText[IND_LanguageFrench ][IND_NoMsgHookIniError] = "Erreur en ouvrant le fichier MsgHook.ini!";
+	messageText[IND_LanguageGerman ][IND_MsgHookIniError] = "Fehler beim Öffnen der Datei MsgHook.ini!";
+	messageText[IND_LanguageEnglish][IND_MsgHookIniError] = "Error when opening the file MsgHook.ini!";
+	messageText[IND_LanguageFrench ][IND_MsgHookIniError] = "Erreur en ouvrant le fichier MsgHook.ini!";
 
 	messageText[IND_LanguageGerman ][IND_NoClientInfoError] = "Keine Client-Information!";
 	messageText[IND_LanguageEnglish][IND_NoClientInfoError] = "No client info!";

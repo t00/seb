@@ -27,6 +27,7 @@
 //
 
 #include "stdafx.h"
+#include <Shlobj.h>
 #include "MsgHook.h"
 #include "../ErrorMessage.h"
 
@@ -35,6 +36,8 @@
 extern bool logFileDesired;
 extern char logFileDir [512];
 extern char logFileName[512];
+extern char iniFileDir [512];
+extern char iniFileName[512];
 extern FILE* fp;
 
 // Function for easier writing into the logfile
@@ -622,6 +625,10 @@ BOOL ReadMsgHookIni()
 	string strValue = "";
 	string sHotKey  = "";
 
+	char programDataDir[MAX_PATH];
+	int    csidl  = CSIDL_COMMON_APPDATA;
+	BOOL  fCreate = false;
+
 	logg(fp, "Enter ReadMsgHookIni()\n");
 
 	try
@@ -657,15 +664,43 @@ BOOL ReadMsgHookIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
+		// Get the path of the "Program Data" directory.
+		// A SEB written in .NET would call: SHGetKnownFolderPath(FOLDERID_ProgramData)
+		BOOL boolVar = SHGetSpecialFolderPath(0, programDataDir, CSIDL_COMMON_APPDATA, false);
+
+		strcpy(iniFileDir, programDataDir);
+		strcat(iniFileDir, "\\");
+
+		strcat(iniFileDir, MANUFACTURER);
+		strcat(iniFileDir, "\\");
+		strcat(iniFileDir, VERSION);
+		strcat(iniFileDir, "\\");
+		strcat(iniFileDir, APPLICATION);
+		strcat(iniFileDir, "\\");
+
+		strcpy(iniFileName, iniFileDir);
+		strcat(iniFileName, MSG_HOOK_INI);
+
+		//strcpy(iniFileName, "C:\\Users\\<Username>\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
+
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = MSG_HOOK_INI;
+		sCurrDir = iniFileName;
+
+		logg(fp, "\n");
+		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
+		logg(fp, "\n");
+		logg(fp, "  iniFileDir     = %s\n",     iniFileDir);
+		logg(fp, "  iniFileName    = %s\n",     iniFileName);
+		logg(fp, "  logFileDir     = %s\n",     logFileDir);
+		logg(fp, "  logFileName    = %s\n",     logFileName);
+		logg(fp, "\n");
 
 		ifstream inf(sCurrDir.c_str());
 		if (!inf.is_open()) 
 		{
-			OutputErrorMessage(languageIndex, IND_NoMsgHookIniError, IND_MessageKindError);
-			//MessageBox(NULL, messageText[languageIndex][IND_NoMsgHookIniError], "Error", 16);
-			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_NoMsgHookIniError]);
+			OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
+			//MessageBox(NULL, messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
 			logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
 			return FALSE;
 		}
@@ -815,15 +850,32 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	// By default, a logfile should be written
 	//logFileDesired = true;
 
+	char  tempPath[BUFLEN];
+	char* tempPointer;
 
 	// Open or create a logfile for message hooks
 	if (fp == NULL)
 	{
-		strcpy(logFileDir , DRIVE_ROOT);
-		strcat(logFileDir , TEMP_DIR);
+		// Set the location of the log file
+		GetTempPath(BUFLEN, tempPath);
+
+		 tempPointer = strstr(tempPath, "Temp");
+		*tempPointer = '\0';
+
+		strcpy(logFileDir, tempPath);
+		strcat(logFileDir, MANUFACTURER);
+		strcat(logFileDir, "\\");
+		strcat(logFileDir, VERSION);
+		strcat(logFileDir, "\\");
+		strcat(logFileDir, APPLICATION);
+		strcat(logFileDir, "\\");
+
+		//strcpy(logFileDir, "C:\\Users\\Username\\AppData\\Local\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
+		//openDir(logFileDir);
 
 		strcpy(logFileName, logFileDir);
-		strcat(logFileName, MSG_LOG_FILE);
+		strcat(logFileName, MSG_HOOK_LOG);
+		//strcpy(logFileName, "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.log");
 
 		fp = fopen(logFileName, "w");
 	}

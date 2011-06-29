@@ -32,7 +32,7 @@
 
 
 // Name and location of MsgHook configuration file
-#define MSG_HOOK_INI "../MsgHook.ini"
+//#define MSG_HOOK_INI "MsgHook.ini"
 
 //For the registry fields
 #define HKCU HKEY_CURRENT_USER
