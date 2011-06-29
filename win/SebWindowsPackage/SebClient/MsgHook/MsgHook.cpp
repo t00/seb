@@ -27,9 +27,10 @@
 //
 
 #include "stdafx.h"
-#include <Shlobj.h>
 #include "MsgHook.h"
 #include "../ErrorMessage.h"
+
+#include <Shlobj.h>
 
 
 // C structures for logfile handling
@@ -626,8 +627,7 @@ BOOL ReadMsgHookIni()
 	string sHotKey  = "";
 
 	char programDataDir[MAX_PATH];
-	int    csidl  = CSIDL_COMMON_APPDATA;
-	BOOL  fCreate = false;
+	BOOL gotPath = false;
 
 	logg(fp, "Enter ReadMsgHookIni()\n");
 
@@ -666,22 +666,18 @@ BOOL ReadMsgHookIni()
 
 		// Get the path of the "Program Data" directory.
 		// A SEB written in .NET would call: SHGetKnownFolderPath(FOLDERID_ProgramData)
-		BOOL boolVar = SHGetSpecialFolderPath(0, programDataDir, CSIDL_COMMON_APPDATA, false);
+		gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
 
 		strcpy(iniFileDir, programDataDir);
 		strcat(iniFileDir, "\\");
-
 		strcat(iniFileDir, MANUFACTURER);
 		strcat(iniFileDir, "\\");
-		strcat(iniFileDir, VERSION);
-		strcat(iniFileDir, "\\");
-		strcat(iniFileDir, APPLICATION);
+		strcat(iniFileDir, PRODUCT_NAME);
 		strcat(iniFileDir, "\\");
 
 		strcpy(iniFileName, iniFileDir);
 		strcat(iniFileName, MSG_HOOK_INI);
-
-		//strcpy(iniFileName, "C:\\Users\\<Username>\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
+		//strcpy(iniFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
 		sCurrDir = iniFileName;
@@ -850,32 +846,34 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	// By default, a logfile should be written
 	//logFileDesired = true;
 
-	char  tempPath[BUFLEN];
-	char* tempPointer;
+	//char  tempPath[BUFLEN];
+	//char* tempPointer;
+
+	char appDataRoamingDir[MAX_PATH];
+	BOOL gotPath = false;
 
 	// Open or create a logfile for message hooks
 	if (fp == NULL)
 	{
+		// Get the path of the "Users\Username\AppData\Roaming" directory.
+		gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
+
 		// Set the location of the log file
-		GetTempPath(BUFLEN, tempPath);
 
-		 tempPointer = strstr(tempPath, "Temp");
-		*tempPointer = '\0';
+		//GetTempPath(BUFLEN, tempPath);
+		// tempPointer = strstr(tempPath, "Temp");
+		//*tempPointer = '\0';
 
-		strcpy(logFileDir, tempPath);
+		strcpy(logFileDir, appDataRoamingDir);
+		strcat(logFileDir, "\\");
 		strcat(logFileDir, MANUFACTURER);
 		strcat(logFileDir, "\\");
-		strcat(logFileDir, VERSION);
+		strcat(logFileDir, PRODUCT_NAME);
 		strcat(logFileDir, "\\");
-		strcat(logFileDir, APPLICATION);
-		strcat(logFileDir, "\\");
-
-		//strcpy(logFileDir, "C:\\Users\\Username\\AppData\\Local\\ETH Zurich\\Seb Windows 1.6\\SebClient\\");
-		//openDir(logFileDir);
 
 		strcpy(logFileName, logFileDir);
 		strcat(logFileName, MSG_HOOK_LOG);
-		//strcpy(logFileName, "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.log");
+		//strcpy(logFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.log");
 
 		fp = fopen(logFileName, "w");
 	}
