@@ -37,9 +37,9 @@
 #define    MSG_HOOK_INI    "MsgHook.ini"
 #define    MSG_HOOK_LOG    "MsgHook.log"
 
-#define MANUFACTURER "ETH Zurich"
-#define VERSION      "SEB Windows 1.6"
-#define APPLICATION  "SebClient"
+#define MANUFACTURER "ETH Zuerich"
+#define PRODUCT_NAME "SEB Windows 1.6"
+//#define COMPONENT    "SebClient"
 
 // C structures for logfile handling
 #define BUFLEN 512
