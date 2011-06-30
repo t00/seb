@@ -23,17 +23,22 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-// MsgHook.cpp : Defines the entry point for the DLL application.
+//
+// MsgHook.cpp:
+// Defines the entry point for the DLL application,
+// intercepting and suppressing mouse and key events.
 //
 
 #include "stdafx.h"
 #include "MsgHook.h"
-#include "../ErrorMessage.h"
+#include "../ErrorMessage.h"   // multilingual (German, English, French)
 
-#include <Shlobj.h>
 
 
 // C structures for logfile handling
+extern char    programDataDir[MAX_PATH];
+extern char appDataRoamingDir[MAX_PATH];
+
 extern bool logFileDesired;
 extern char logFileDir [512];
 extern char logFileName[512];
@@ -859,11 +864,6 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 		gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
 
 		// Set the location of the log file
-
-		//GetTempPath(BUFLEN, tempPath);
-		// tempPointer = strstr(tempPath, "Temp");
-		//*tempPointer = '\0';
-
 		strcpy(logFileDir, appDataRoamingDir);
 		strcat(logFileDir, "\\");
 		strcat(logFileDir, MANUFACTURER);
