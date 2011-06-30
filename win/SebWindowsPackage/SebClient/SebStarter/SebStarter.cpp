@@ -23,16 +23,25 @@
 *
 * ***** END LICENSE BLOCK ***** */
 
+//
+// SebStarter.cpp:
+// Defines the SEB main application,
+// starting the kiosk mode and eventually the XULRunner browser.
+//
+
 #include "stdafx.h"
 #include "SebStarter.h"
 #include "KillProc.h"
 #include "ProcMonitor.h"
-#include "../ErrorMessage.h"
-#include <intrin.h>
-#include <Shlobj.h>
+#include "../ErrorMessage.h"   // multilingual (German, English, French)
+
+#include <intrin.h>   // for detecting virtual machines
 
 
 // C structures for logfile handling
+extern char    programDataDir[MAX_PATH];
+extern char appDataRoamingDir[MAX_PATH];
+
 extern bool logFileDesired;
 extern char logFileDir [512];
 extern char logFileName[512];
@@ -232,26 +241,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	recvTimeout  = defaultRecvTimeout;
 	numMessages  = defaultNumMessages;
 
-	//char  tempPath[BUFLEN];
-	//char* tempPointer;
-
-	char    programDataDir[MAX_PATH];
-	char appDataRoamingDir[MAX_PATH];
-	BOOL gotPath = false;
-
-	// Get the path of the "Program Data" directory.
-	gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
-
-	strcpy(iniFileDir, programDataDir);
-	strcat(iniFileDir, "\\");
-	strcat(iniFileDir, MANUFACTURER);
-	strcat(iniFileDir, "\\");
-	strcat(iniFileDir, PRODUCT_NAME);
-	strcat(iniFileDir, "\\");
-
-	strcpy(iniFileName, iniFileDir);
-	strcat(iniFileName, SEB_STARTER_INI);
-	//strcpy(iniFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+	SetIniFileDirectoryAndName();
 
 	// Get the current username
 	DWORD cUserNameLen =      sizeof(cUserName);
@@ -267,26 +257,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		if (fp == NULL)
 		{
-			// Get the path of the "Users\Username\AppData\Roaming" directory.
-			gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
-
-			// Set the location of the log file
-
-			//GetTempPath(BUFLEN, tempPath);
-			// tempPointer = strstr(tempPath, "Temp");
-			//*tempPointer = '\0';
-
-			strcpy(logFileDir, appDataRoamingDir);
-			strcat(logFileDir, "\\");
-			strcat(logFileDir, MANUFACTURER);
-			strcat(logFileDir, "\\");
-			strcat(logFileDir, PRODUCT_NAME);
-			strcat(logFileDir, "\\");
-
-			strcpy(logFileName, logFileDir);
-			strcat(logFileName, SEB_STARTER_LOG);
-			//strcpy(logFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
-
+			SetLogFileDirectoryAndName();
 			// Open the logfile for debug output
 			fp = fopen(logFileName, "w");
 		}
