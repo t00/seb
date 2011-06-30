@@ -30,6 +30,7 @@
 #ifndef __ERRORMSG_H__
 #define __ERRORMSG_H__
 
+#include <Shlobj.h>   // for getting system folder paths
 
 // Name and location of SEB configuration files and logfiles
 #define SEB_STARTER_INI "SebStarter.ini"
@@ -37,18 +38,23 @@
 #define    MSG_HOOK_INI    "MsgHook.ini"
 #define    MSG_HOOK_LOG    "MsgHook.log"
 
+// Application path contains [MANUFACTURER]\[PRODUCT_NAME]
+// (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
 #define MANUFACTURER "ETH Zuerich"
 #define PRODUCT_NAME "SEB Windows 1.6"
-//#define COMPONENT    "SebClient"
+
 
 // C structures for logfile handling
 #define BUFLEN 512
 
+char    programDataDir[MAX_PATH];
+char appDataRoamingDir[MAX_PATH];
+
 bool logFileDesired;
-char logFileDir [512];
-char logFileName[512];
-char iniFileDir [512];
-char iniFileName[512];
+char logFileDir [BUFLEN];
+char logFileName[BUFLEN];
+char iniFileDir [BUFLEN];
+char iniFileName[BUFLEN];
 FILE* fp;
 
 // Function for easier writing into the logfile
@@ -330,6 +336,51 @@ void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageKind
 	return;
 
 } // end of method   OutputErrorMessage()
+
+
+
+
+
+// **********************************************
+// Ini files belong in the Program Data directory
+// **********************************************
+void SetIniFileDirectoryAndName()
+{
+	// Get the path of the "Program Data" directory.
+	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
+
+	strcpy(iniFileDir, programDataDir); strcat(iniFileDir, "\\");
+	strcat(iniFileDir, MANUFACTURER  ); strcat(iniFileDir, "\\");
+	strcat(iniFileDir, PRODUCT_NAME  ); strcat(iniFileDir, "\\");
+
+	strcpy(iniFileName, iniFileDir);
+	strcat(iniFileName, SEB_STARTER_INI);
+  //strcpy(iniFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+	return;
+
+} // end of method   SetIniFileDirectoryAndName()
+
+
+
+// ******************************************************
+// Log files belong in the User AppData Roaming directory
+// ******************************************************
+void SetLogFileDirectoryAndName()
+{
+	// Get the path of the "Users\Username\AppData\Roaming" directory.
+	BOOL gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
+
+	// Set the location of the log file
+	strcpy(logFileDir, appDataRoamingDir); strcat(logFileDir, "\\");
+	strcat(logFileDir, MANUFACTURER     ); strcat(logFileDir, "\\");
+	strcat(logFileDir, PRODUCT_NAME     ); strcat(logFileDir, "\\");
+
+	strcpy(logFileName, logFileDir);
+	strcat(logFileName, SEB_STARTER_LOG);
+  //strcpy(logFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
+	return;
+
+} // end of method   SetLogFileDirectoryAndName()
 
 
 
