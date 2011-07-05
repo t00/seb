@@ -39,11 +39,14 @@
 extern char    programDataDir[MAX_PATH];
 extern char appDataRoamingDir[MAX_PATH];
 
-extern bool logFileDesired;
-extern char logFileDir [512];
-extern char logFileName[512];
-extern char iniFileDir [512];
-extern char iniFileName[512];
+extern bool logFileDesiredMsgHook;
+extern bool logFileDesiredSebStarter;
+extern char logFileDirectory [BUFLEN];
+extern char logFileMsgHook   [BUFLEN];
+extern char logFileSebStarter[BUFLEN];
+extern char iniFileDirectory [BUFLEN];
+extern char iniFileMsgHook   [BUFLEN];
+extern char iniFileSebStarter[BUFLEN];
 extern FILE* fp;
 
 // Function for easier writing into the logfile
@@ -669,31 +672,22 @@ BOOL ReadMsgHookIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		// Get the path of the "Program Data" directory.
-		// A SEB written in .NET would call: SHGetKnownFolderPath(FOLDERID_ProgramData)
-		gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
 
-		strcpy(iniFileDir, programDataDir);
-		strcat(iniFileDir, "\\");
-		strcat(iniFileDir, MANUFACTURER);
-		strcat(iniFileDir, "\\");
-		strcat(iniFileDir, PRODUCT_NAME);
-		strcat(iniFileDir, "\\");
+		// Determine the location of the .ini files
+		SetIniFileDirectoryAndName();
+		//MessageBox(NULL, iniFileMsgHook, "iniFileMsgHook", MB_ICONERROR);
 
-		strcpy(iniFileName, iniFileDir);
-		strcat(iniFileName, MSG_HOOK_INI);
-		//strcpy(iniFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = iniFileName;
+		sCurrDir = iniFileMsgHook;
 
 		logg(fp, "\n");
 		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
 		logg(fp, "\n");
-		logg(fp, "  iniFileDir     = %s\n",     iniFileDir);
-		logg(fp, "  iniFileName    = %s\n",     iniFileName);
-		logg(fp, "  logFileDir     = %s\n",     logFileDir);
-		logg(fp, "  logFileName    = %s\n",     logFileName);
+		logg(fp, "  iniFileDirectory = %s\n", iniFileDirectory);
+		logg(fp, "  iniFileMsgHook   = %s\n", iniFileMsgHook);
+		logg(fp, "  logFileDirectory = %s\n", logFileDirectory);
+		logg(fp, "  logFileMsgHook   = %s\n", logFileMsgHook);
 		logg(fp, "\n");
 
 		ifstream inf(sCurrDir.c_str());
@@ -728,17 +722,17 @@ BOOL ReadMsgHookIni()
 		// Decide whether to write data into the logfile
 		if (getBool("LOG_FILE"))
 		{
-			logFileDesired = true;
+			logFileDesiredMsgHook = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
 		}
 		else
 		{
-			logFileDesired = false;
+			logFileDesiredMsgHook = false;
 			logg(fp, "No logfile desired, therefore closing and removing logfile\n\n");
 			if (fp != NULL)
 			{
 				fclose(fp);
-				remove(logFileName);
+				remove(logFileMsgHook);
 			}
 		}
 
@@ -849,38 +843,21 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                       LPVOID  lpReserved)
 {
 	// By default, a logfile should be written
-	//logFileDesired = true;
-
-	//char  tempPath[BUFLEN];
-	//char* tempPointer;
-
-	char appDataRoamingDir[MAX_PATH];
-	BOOL gotPath = false;
+	//logFileDesiredMsgHook = true;
 
 	// Open or create a logfile for message hooks
 	if (fp == NULL)
 	{
-		// Get the path of the "Users\Username\AppData\Roaming" directory.
-		gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
-
-		// Set the location of the log file
-		strcpy(logFileDir, appDataRoamingDir);
-		strcat(logFileDir, "\\");
-		strcat(logFileDir, MANUFACTURER);
-		strcat(logFileDir, "\\");
-		strcat(logFileDir, PRODUCT_NAME);
-		strcat(logFileDir, "\\");
-
-		strcpy(logFileName, logFileDir);
-		strcat(logFileName, MSG_HOOK_LOG);
-		//strcpy(logFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.log");
-
-		fp = fopen(logFileName, "w");
+		// Determine the location of the .log files
+		SetLogFileDirectoryAndName();
+		// MessageBox(NULL, logFileMsgHook, "logFileMsgHook", MB_ICONERROR);
+		// Open the logfile for debug output
+		fp = fopen(logFileMsgHook, "w");
 	}
 
 	if (fp == NULL)
 	{
-		//MessageBox(NULL, logFileName, "DllMain(): Could not open logfile", MB_ICONERROR);
+		//MessageBox(NULL, logFileMsgHook, "DllMain(): Could not open logfile MsgHook.log", MB_ICONERROR);
 	}
 
 	logg(fp, "\n");
