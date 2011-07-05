@@ -349,12 +349,16 @@ void SetIniFileDirectoryAndName()
 	// Get the path of the "Program Data" directory.
 	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
 
+	// Set the location of the ini directory
 	strcpy(iniFileDir, programDataDir); strcat(iniFileDir, "\\");
 	strcat(iniFileDir, MANUFACTURER  ); strcat(iniFileDir, "\\");
 	strcat(iniFileDir, PRODUCT_NAME  ); strcat(iniFileDir, "\\");
 
+	// Set the location of the ini file
 	strcpy(iniFileName, iniFileDir);
 	strcat(iniFileName, SEB_STARTER_INI);
+
+  //strcpy(iniFileName, "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.6");
   //strcpy(iniFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
 	return;
 
@@ -367,6 +371,15 @@ void SetIniFileDirectoryAndName()
 // ******************************************************
 void SetLogFileDirectoryAndName()
 {
+	// Get the path of the "Program Data" directory.
+	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
+
+	// Set the location of the log directory
+	strcpy(logFileDir, programDataDir); strcat(logFileDir, "\\");
+	strcat(logFileDir, MANUFACTURER  ); strcat(logFileDir, "\\");
+	strcat(logFileDir, PRODUCT_NAME  ); strcat(logFileDir, "\\");
+
+/*
 	// Get the path of the "Users\Username\AppData\Roaming" directory.
 	BOOL gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
 
@@ -374,9 +387,14 @@ void SetLogFileDirectoryAndName()
 	strcpy(logFileDir, appDataRoamingDir); strcat(logFileDir, "\\");
 	strcat(logFileDir, MANUFACTURER     ); strcat(logFileDir, "\\");
 	strcat(logFileDir, PRODUCT_NAME     ); strcat(logFileDir, "\\");
+*/
 
 	strcpy(logFileName, logFileDir);
 	strcat(logFileName, SEB_STARTER_LOG);
+  //strcpy(logFileName, "C:\\Users\\Dirk\\tmp2\\SebStarter.log");
+  //strcpy(logFileName, "C:\\Users\\Dirk\\Desktop\\SebStarter.log");
+  //strcpy(logFileName, "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
+  //strcpy(logFileName, "C:\\Users\\Dirk\\AppData\\Roaming\\ETH Zuerich\\SEB Windows 1.6");
   //strcpy(logFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
 	return;
 
