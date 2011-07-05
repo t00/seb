@@ -16454,18 +16454,6 @@
         }
         "Folder"
         {
-            "{994432C3-9487-495D-8656-3E829A8DBDDE}:_14DD20E1BE84463D8FEBB69865D0A377"
-            {
-            "DefaultLocation" = "8:[AppDataFolder][Manufacturer]\\[ProductName]"
-            "Name" = "8:User's Application Data Roaming Folder"
-            "AlwaysCreate" = "11:TRUE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:USERSAPPDATAROAMINGFOLDER"
-                "Folders"
-                {
-                }
-            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_27E8C14BD85146D5999E66D344D9840F"
             {
             "Name" = "8:#1919"
