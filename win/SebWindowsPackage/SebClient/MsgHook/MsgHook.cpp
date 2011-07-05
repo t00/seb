@@ -679,8 +679,8 @@ BOOL ReadMsgHookIni()
 		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
 		logg(fp, "\n");
 		logg(fp, "  iniFileDirectory = %s\n", iniFileDirectory);
-		logg(fp, "  iniFileMsgHook   = %s\n", iniFileMsgHook);
 		logg(fp, "  logFileDirectory = %s\n", logFileDirectory);
+		logg(fp, "  iniFileMsgHook   = %s\n", iniFileMsgHook);
 		logg(fp, "  logFileMsgHook   = %s\n", logFileMsgHook);
 		logg(fp, "\n");
 

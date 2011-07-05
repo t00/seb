@@ -281,8 +281,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		logg(fp, "\n");
 		logg(fp, "  programDataDirectory = %s\n", programDataDirectory);
 		logg(fp, "  iniFileDirectory     = %s\n", iniFileDirectory);
-		logg(fp, "  iniFileSebStarter    = %s\n", iniFileSebStarter);
 		logg(fp, "  logFileDirectory     = %s\n", logFileDirectory);
+		logg(fp, "  iniFileSebStarter    = %s\n", iniFileSebStarter);
 		logg(fp, "  logFileSebStarter    = %s\n", logFileSebStarter);
 		logg(fp, "\n");
 	}
