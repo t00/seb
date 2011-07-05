@@ -42,11 +42,14 @@
 extern char    programDataDir[MAX_PATH];
 extern char appDataRoamingDir[MAX_PATH];
 
-extern bool logFileDesired;
-extern char logFileDir [512];
-extern char logFileName[512];
-extern char iniFileDir [512];
-extern char iniFileName[512];
+extern bool logFileDesiredMsgHook;
+extern bool logFileDesiredSebStarter;
+extern char logFileDirectory [BUFLEN];
+extern char logFileMsgHook   [BUFLEN];
+extern char logFileSebStarter[BUFLEN];
+extern char iniFileDirectory [BUFLEN];
+extern char iniFileMsgHook   [BUFLEN];
+extern char iniFileSebStarter[BUFLEN];
 extern FILE* fp;
 
 // Function for easier writing into the logfile
@@ -231,7 +234,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	DWORD dwRet = 0; 
 
 	// By default, a logfile should be written
-	logFileDesired = true;
+	logFileDesiredSebStarter = true;
 
 	// Initialise socket variables
 	userName     = defaultUserName;
@@ -241,8 +244,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	recvTimeout  = defaultRecvTimeout;
 	numMessages  = defaultNumMessages;
 
+	// Determine the location of the .ini files
 	SetIniFileDirectoryAndName();
-	//MessageBox(NULL, iniFileName, "iniFileName", MB_ICONERROR);
+	//MessageBox(NULL, iniFileSebStarter, "iniFileSebStarter", MB_ICONERROR);
 
 	// Get the current username
 	DWORD cUserNameLen =      sizeof(cUserName);
@@ -258,18 +262,18 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		if (fp == NULL)
 		{
+			// Determine the location of the .log files
 			SetLogFileDirectoryAndName();
-			// MessageBox(NULL, logFileName, "logFileName", MB_ICONERROR);
+			// MessageBox(NULL, logFileSebStarter, "logFileSebStarter", MB_ICONERROR);
 			// Open the logfile for debug output
-			fp = fopen(logFileName, "w");
+			fp = fopen(logFileSebStarter, "w");
 		}
 
 		//MessageBox(NULL,    userName, "   userName", MB_ICONERROR);
-		//MessageBox(NULL, logFileName, "logFileName", MB_ICONERROR);
 
 		if (fp == NULL)
 		{
-			//MessageBox(NULL, logFileName, "_tWinMain(): Could not open logfile", MB_ICONERROR);
+			//MessageBox(NULL, logFileSebStarter, "_tWinMain(): Could not open logfile SebStarter.log", MB_ICONERROR);
 		}
 
 		logg(fp, "\n");
@@ -278,11 +282,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
 		logg(fp, "\n");
 		logg(fp, "  programDataDir    = %s\n",    programDataDir);
-		logg(fp, "  iniFileDir        = %s\n",        iniFileDir);
-		logg(fp, "  iniFileName       = %s\n",        iniFileName);
+		logg(fp, "  iniFileDirectory  = %s\n",        iniFileDirectory);
+		logg(fp, "  iniFileSebStarter = %s\n",        iniFileSebStarter);
 		logg(fp, "  appDataRoamingDir = %s\n", appDataRoamingDir);
-		logg(fp, "  logFileDir        = %s\n",        logFileDir);
-		logg(fp, "  logFileName       = %s\n",        logFileName);
+		logg(fp, "  logFileDirectory  = %s\n",        logFileDirectory);
+		logg(fp, "  logFileSebStarter = %s\n",        logFileSebStarter);
 		logg(fp, "\n");
 	}
 
@@ -946,7 +950,7 @@ BOOL ReadSebStarterIni()
 		// being necessary anymore.
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = iniFileName;
+		sCurrDir = iniFileSebStarter;
 		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
 
 		ifstream inf(sCurrDir.c_str());	
@@ -981,17 +985,17 @@ BOOL ReadSebStarterIni()
 		// Decide whether to write data into the logfile
 		if (getBool("LOG_FILE"))
 		{
-			logFileDesired = true;
+			logFileDesiredSebStarter = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
 		}
 		else
 		{
-			logFileDesired = false;
+			logFileDesiredSebStarter = false;
 			logg(fp, "No logfile desired, therefore closing and removing logfile\n\n");
 			if (fp != NULL)
 			{
 				fclose(fp);
-				remove(logFileName);
+				remove(logFileSebStarter);
 			}
 		}
 
