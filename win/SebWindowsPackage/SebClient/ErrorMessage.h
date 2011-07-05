@@ -47,9 +47,7 @@
 // C structures for logfile handling
 #define BUFLEN 512
 
-char    programDataDir[MAX_PATH];
-char appDataRoamingDir[MAX_PATH];
-
+char programDataDirectory[MAX_PATH];
 bool logFileDesiredMsgHook;
 bool logFileDesiredSebStarter;
 char logFileDirectory [BUFLEN];
@@ -350,12 +348,12 @@ void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageKind
 void SetIniFileDirectoryAndName()
 {
 	// Get the path of the "Program Data" directory.
-	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
+	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDirectory, CSIDL_COMMON_APPDATA, false);
 
 	// Set the location of the ini files directory
-	strcpy(iniFileDirectory, programDataDir); strcat(iniFileDirectory, "\\");
-	strcat(iniFileDirectory, MANUFACTURER  ); strcat(iniFileDirectory, "\\");
-	strcat(iniFileDirectory, PRODUCT_NAME  ); strcat(iniFileDirectory, "\\");
+	strcpy(iniFileDirectory, programDataDirectory); strcat(iniFileDirectory, "\\");
+	strcat(iniFileDirectory, MANUFACTURER        ); strcat(iniFileDirectory, "\\");
+	strcat(iniFileDirectory, PRODUCT_NAME        ); strcat(iniFileDirectory, "\\");
 
 	// Set the location of the MsgHook.ini file
 	strcpy(iniFileMsgHook, iniFileDirectory);
@@ -380,23 +378,13 @@ void SetIniFileDirectoryAndName()
 // ******************************************************
 void SetLogFileDirectoryAndName()
 {
-/*
-	// Get the path of the "Users\Username\AppData\Roaming" directory.
-	BOOL gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
-
-	// Set the location of the log files directory
-	strcpy(logFileDirectory, appDataRoamingDir); strcat(logFileDirectory, "\\");
-	strcat(logFileDirectory, MANUFACTURER     ); strcat(logFileDirectory, "\\");
-	strcat(logFileDirectory, PRODUCT_NAME     ); strcat(logFileDirectory, "\\");
-*/
-
 	// Get the path of the "Program Data" directory.
-	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
+	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDirectory, CSIDL_COMMON_APPDATA, false);
 
 	// Set the location of the log files directory
-	strcpy(logFileDirectory, programDataDir); strcat(logFileDirectory, "\\");
-	strcat(logFileDirectory, MANUFACTURER  ); strcat(logFileDirectory, "\\");
-	strcat(logFileDirectory, PRODUCT_NAME  ); strcat(logFileDirectory, "\\");
+	strcpy(logFileDirectory, programDataDirectory); strcat(logFileDirectory, "\\");
+	strcat(logFileDirectory, MANUFACTURER        ); strcat(logFileDirectory, "\\");
+	strcat(logFileDirectory, PRODUCT_NAME        ); strcat(logFileDirectory, "\\");
 
 	// Set the location of the MsgHook.log file
 	strcpy(logFileMsgHook, logFileDirectory);
