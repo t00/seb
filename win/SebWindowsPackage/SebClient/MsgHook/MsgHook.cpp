@@ -34,11 +34,8 @@
 #include "../ErrorMessage.h"   // multilingual (German, English, French)
 
 
-
 // C structures for logfile handling
-extern char    programDataDir[MAX_PATH];
-extern char appDataRoamingDir[MAX_PATH];
-
+extern char programDataDirectory[MAX_PATH];
 extern bool logFileDesiredMsgHook;
 extern bool logFileDesiredSebStarter;
 extern char logFileDirectory [BUFLEN];
@@ -633,9 +630,6 @@ BOOL ReadMsgHookIni()
 	string strKey   = "";
 	string strValue = "";
 	string sHotKey  = "";
-
-	char programDataDir[MAX_PATH];
-	BOOL gotPath = false;
 
 	logg(fp, "Enter ReadMsgHookIni()\n");
 
