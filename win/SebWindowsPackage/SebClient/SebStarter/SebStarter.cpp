@@ -39,9 +39,7 @@
 
 
 // C structures for logfile handling
-extern char    programDataDir[MAX_PATH];
-extern char appDataRoamingDir[MAX_PATH];
-
+extern char programDataDirectory[MAX_PATH];
 extern bool logFileDesiredMsgHook;
 extern bool logFileDesiredSebStarter;
 extern char logFileDirectory [BUFLEN];
@@ -281,12 +279,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		logg(fp, "cUserName     = %s\n", cUserName);
 		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
 		logg(fp, "\n");
-		logg(fp, "  programDataDir    = %s\n",    programDataDir);
-		logg(fp, "  iniFileDirectory  = %s\n",        iniFileDirectory);
-		logg(fp, "  iniFileSebStarter = %s\n",        iniFileSebStarter);
-		logg(fp, "  appDataRoamingDir = %s\n", appDataRoamingDir);
-		logg(fp, "  logFileDirectory  = %s\n",        logFileDirectory);
-		logg(fp, "  logFileSebStarter = %s\n",        logFileSebStarter);
+		logg(fp, "  programDataDirectory = %s\n", programDataDirectory);
+		logg(fp, "  iniFileDirectory     = %s\n", iniFileDirectory);
+		logg(fp, "  iniFileSebStarter    = %s\n", iniFileSebStarter);
+		logg(fp, "  logFileDirectory     = %s\n", logFileDirectory);
+		logg(fp, "  logFileSebStarter    = %s\n", logFileSebStarter);
 		logg(fp, "\n");
 	}
 
