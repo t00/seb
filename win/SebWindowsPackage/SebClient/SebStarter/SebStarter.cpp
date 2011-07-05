@@ -242,6 +242,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	numMessages  = defaultNumMessages;
 
 	SetIniFileDirectoryAndName();
+	//MessageBox(NULL, iniFileName, "iniFileName", MB_ICONERROR);
 
 	// Get the current username
 	DWORD cUserNameLen =      sizeof(cUserName);
@@ -258,6 +259,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		if (fp == NULL)
 		{
 			SetLogFileDirectoryAndName();
+			// MessageBox(NULL, logFileName, "logFileName", MB_ICONERROR);
 			// Open the logfile for debug output
 			fp = fopen(logFileName, "w");
 		}
@@ -267,7 +269,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		if (fp == NULL)
 		{
-			//MessageBox(NULL, logFileName, "tWinMain(): Could not open logfile", MB_ICONERROR);
+			//MessageBox(NULL, logFileName, "_tWinMain(): Could not open logfile", MB_ICONERROR);
 		}
 
 		logg(fp, "\n");
@@ -298,7 +300,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	logg(fp, "\n");
 	logg(fp, "\n");
-	logg(fp, "Enter tWinMain()\n\n");
+	logg(fp, "Enter _tWinMain()\n\n");
 	logg(fp, "\n");
 	logg(fp, "languageIndex  = %d\n", languageIndex);
 	logg(fp, "languageString = %s\n", languageString[languageIndex]);
@@ -312,8 +314,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		OutputErrorMessage(languageIndex, IND_InitialiseError, IND_MessageKindError);
 		//MessageBox(hWnd, INITIALIZE_ERROR, "Error", MB_ICONERROR);
 		//logg(fp, "Error: %s\n", INITIALIZE_ERROR);
-		logg(fp, "Leave tWinMain()\n");
-		return FALSE;
+
+		logg(fp, "Leave _tWinMain()\n\n");
+		// Close the logfile for debug output
+		logg(fp, "Closing the logfile...()\n\n");
+		if (fp != NULL) fclose(fp);
+		return -1;
 	}
 	*/
 
@@ -338,13 +344,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		//ShutdownInstance();
 		//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
 
+		logg(fp, "Leave _tWinMain()\n\n");
 		// Close the logfile for debug output
 		logg(fp, "Closing the logfile...()\n\n");
 		if (fp != NULL) fclose(fp);
-
 		return -1;
 		//return (int) msg.wParam;
 	}
+
+	logg(fp, "InitInstance was successful()\n\n");
 
 	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SEB);
 	PROCESS_INFORMATION pi;
@@ -377,8 +385,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			{
 				//MessageBox(NULL,"1","Error",MB_ICONERROR);
 				logg(fp, "Error 1\n");
+				logg(fp, "Leave _tWinMain()\n\n");
 				SendMessage(hWnd,WM_DESTROY,NULL,NULL);
-				logg(fp, "Leave tWinMain()\n\n");
 				return TRUE;    // The event was signaled
 			}
 
@@ -403,7 +411,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				{
 					//MessageBox(NULL,"3","Error",MB_ICONERROR);
 					logg(fp, "Error 3\n");
-					logg(fp, "Leave tWinMain()\n\n");
+					logg(fp, "Leave _tWinMain()\n\n");
 					return TRUE; // Event is now signaled.
 				}
 			}
@@ -421,7 +429,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 
-	logg(fp, "Leave tWinMain()\n\n");
+	logg(fp, "Leave _tWinMain()\n\n");
 	return (int) msg.wParam;
 
 } // end _tWinMain()
