@@ -50,11 +50,14 @@
 char    programDataDir[MAX_PATH];
 char appDataRoamingDir[MAX_PATH];
 
-bool logFileDesired;
-char logFileDir [BUFLEN];
-char logFileName[BUFLEN];
-char iniFileDir [BUFLEN];
-char iniFileName[BUFLEN];
+bool logFileDesiredMsgHook;
+bool logFileDesiredSebStarter;
+char logFileDirectory [BUFLEN];
+char logFileMsgHook   [BUFLEN];
+char logFileSebStarter[BUFLEN];
+char iniFileDirectory [BUFLEN];
+char iniFileMsgHook   [BUFLEN];
+char iniFileSebStarter[BUFLEN];
 FILE* fp;
 
 // Function for easier writing into the logfile
@@ -349,17 +352,23 @@ void SetIniFileDirectoryAndName()
 	// Get the path of the "Program Data" directory.
 	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
 
-	// Set the location of the ini directory
-	strcpy(iniFileDir, programDataDir); strcat(iniFileDir, "\\");
-	strcat(iniFileDir, MANUFACTURER  ); strcat(iniFileDir, "\\");
-	strcat(iniFileDir, PRODUCT_NAME  ); strcat(iniFileDir, "\\");
+	// Set the location of the ini files directory
+	strcpy(iniFileDirectory, programDataDir); strcat(iniFileDirectory, "\\");
+	strcat(iniFileDirectory, MANUFACTURER  ); strcat(iniFileDirectory, "\\");
+	strcat(iniFileDirectory, PRODUCT_NAME  ); strcat(iniFileDirectory, "\\");
 
-	// Set the location of the ini file
-	strcpy(iniFileName, iniFileDir);
-	strcat(iniFileName, SEB_STARTER_INI);
+	// Set the location of the MsgHook.ini file
+	strcpy(iniFileMsgHook, iniFileDirectory);
+	strcat(iniFileMsgHook, MSG_HOOK_INI);
 
-  //strcpy(iniFileName, "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.6");
-  //strcpy(iniFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+	// Set the location of the SebStarter.ini file
+	strcpy(iniFileSebStarter, iniFileDirectory);
+	strcat(iniFileSebStarter, SEB_STARTER_INI);
+
+  //strcpy(iniFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.6");
+  //strcpy(iniFileMsgHook   , "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
+  //strcpy(iniFileSebStarter, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+
 	return;
 
 } // end of method   SetIniFileDirectoryAndName()
@@ -371,31 +380,37 @@ void SetIniFileDirectoryAndName()
 // ******************************************************
 void SetLogFileDirectoryAndName()
 {
-	// Get the path of the "Program Data" directory.
-	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
-
-	// Set the location of the log directory
-	strcpy(logFileDir, programDataDir); strcat(logFileDir, "\\");
-	strcat(logFileDir, MANUFACTURER  ); strcat(logFileDir, "\\");
-	strcat(logFileDir, PRODUCT_NAME  ); strcat(logFileDir, "\\");
-
 /*
 	// Get the path of the "Users\Username\AppData\Roaming" directory.
 	BOOL gotPath = SHGetSpecialFolderPath(NULL, appDataRoamingDir, CSIDL_APPDATA, true);
 
-	// Set the location of the log file
-	strcpy(logFileDir, appDataRoamingDir); strcat(logFileDir, "\\");
-	strcat(logFileDir, MANUFACTURER     ); strcat(logFileDir, "\\");
-	strcat(logFileDir, PRODUCT_NAME     ); strcat(logFileDir, "\\");
+	// Set the location of the log files directory
+	strcpy(logFileDirectory, appDataRoamingDir); strcat(logFileDirectory, "\\");
+	strcat(logFileDirectory, MANUFACTURER     ); strcat(logFileDirectory, "\\");
+	strcat(logFileDirectory, PRODUCT_NAME     ); strcat(logFileDirectory, "\\");
 */
 
-	strcpy(logFileName, logFileDir);
-	strcat(logFileName, SEB_STARTER_LOG);
-  //strcpy(logFileName, "C:\\Users\\Dirk\\tmp2\\SebStarter.log");
-  //strcpy(logFileName, "C:\\Users\\Dirk\\Desktop\\SebStarter.log");
-  //strcpy(logFileName, "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
-  //strcpy(logFileName, "C:\\Users\\Dirk\\AppData\\Roaming\\ETH Zuerich\\SEB Windows 1.6");
-  //strcpy(logFileName, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
+	// Get the path of the "Program Data" directory.
+	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDir, CSIDL_COMMON_APPDATA, false);
+
+	// Set the location of the log files directory
+	strcpy(logFileDirectory, programDataDir); strcat(logFileDirectory, "\\");
+	strcat(logFileDirectory, MANUFACTURER  ); strcat(logFileDirectory, "\\");
+	strcat(logFileDirectory, PRODUCT_NAME  ); strcat(logFileDirectory, "\\");
+
+	// Set the location of the MsgHook.log file
+	strcpy(logFileMsgHook, logFileDirectory);
+	strcat(logFileMsgHook, MSG_HOOK_LOG);
+
+	// Set the location of the SebStarter.log file
+	strcpy(logFileSebStarter, logFileDirectory);
+	strcat(logFileSebStarter, SEB_STARTER_LOG);
+
+  //strcpy(logFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.6");
+  //strcpy(logFileDirectory , "C:\\Users\\Username\\AppData\\Roaming\\ETH Zuerich\\SEB Windows 1.6");
+  //strcpy(logFileMsgHook   , "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.log");
+  //strcpy(logFileSebStarter, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
+
 	return;
 
 } // end of method   SetLogFileDirectoryAndName()
