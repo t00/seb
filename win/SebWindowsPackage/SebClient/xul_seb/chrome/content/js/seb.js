@@ -13,23 +13,17 @@
  *
  * The Original Code is the browser component of SEB.
  *
- * The Initial Developer of the Original Code is Justus-Liebig-Universitaet Giessen.
+ * The Initial Developer of the Original Code is Stefan Schneider <stefan.schneider@uni-hamburg.de>.
  * Portions created by the Initial Developer are Copyright (C) 2005
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
+ *   Stefan Schneider <stefan.schneider@uni-hamburg.de>
  *   Oliver Rahs <rahs@net.ethz.ch>
  *
  * ***** END LICENSE BLOCK ***** */
 
 var SebSystem = {
-	/*
-	Cc : null, 
-	Ci : null, 
-	gObserver : null,  
-	gIOService : null,
-	*/ 
 	_chrome :false,
 	_prefs :null,
 	_profile :null,
@@ -43,12 +37,6 @@ var SebSystem = {
 
 	startup : function() {
 		try {
-			/*
-			Cc = Components.classes;
-			Ci = Components.interfaces;
-			gObserver = Cc['@mozilla.org/observer-service;1'].getService(Ci.nsIObserverService),
-			gIOService = Cc['@mozilla.org/network/io-service;1'].getService(Ci.nsIIOService),
-			*/
 			
 			this._chrome = (top.window.toString().indexOf('ChromeWindow') > -1);
 			this._prefs = new Prefs();
@@ -61,15 +49,9 @@ var SebSystem = {
 			this._sebIni.append("Seb.ini");
 			this._locale = document.getElementById("locale");
 			this._const = document.getElementById("const");
-			//alert(this._locale.getString('seb.title'));
-			//alert(this._const.getString('seb.title'));
-			//alert(document.title);
-			//this.addCertificate("moodle_let.crt", 'C,c,c');
+			
 			/** **** EventListener ****** */
-			this._browser.addEventListener("load", function(e) {
-				SebSystem.onContentLoad();
-			}, false);
-
+			
 			if (this._chrome) {
 				var url = this.getUrl();
 				if (url == null || url == "") {
@@ -97,38 +79,8 @@ var SebSystem = {
 		this._browser.focus();
 	},
 	
-	/*
-	addCertificate : function(CertName, CertTrust) {
-		 try {
-	      var certDB = Cc["@mozilla.org/security/x509certdb;1"].getService(Ci.nsIX509CertDB2);
-	      var scriptableStream=Cc["@mozilla.org/scriptableinputstream;1"].getService(Ci.nsIScriptableInputStream);
-	      var channel = gIOService.newChannel("chrome://xul_seb/content/certs/" + CertName, null, null);
-	      var input=channel.open();
-	      scriptableStream.init(input);
-	      var certfile=scriptableStream.read(input.available());
-	      scriptableStream.close();
-	      input.close();
-			
-	      var beginCert = "-----BEGIN CERTIFICATE-----";
-	      var endCert = "-----END CERTIFICATE-----";
-
-	      certfile = certfile.replace(/[\r\n]/g, "");
-	      var begin = certfile.indexOf(beginCert);
-	      var end = certfile.indexOf(endCert);
-	      var cert = certfile.substring(begin + beginCert.length, end);
-	     
-	    	  certDB.addCertFromBase64(cert, CertTrust, "");
-	      }
-	      catch (e) {
-	    	  alert(e);
-	      }
-	},
-	*/
 	/** ***** Internal Callback functions ******* */
-	onContentLoad : function() {
-		//alert("loaded");
-	},
-
+	
 	getUrl : function() {
 		var url = "";
 		if (window.arguments[0] != null) {
@@ -191,27 +143,12 @@ var SebSystem = {
 	}
 }
 
-/** ***** Observer ***** */
-/*
-observe : function(subject, topic, data) {
-	if (topic == "http-on-modify-request") {
-		var httpChannel = subject.QueryInterface(Components.interfaces.nsIHttpChannel);
-		httpChannel.setRequestHeader("X-Hello", "World", false);
-		alert("observe2");
-	}
-}
-*/
-/*
- * var observerService =
- * Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
- * observerService.addObserver(SebSystem, "http-on-modify-request", false);
- * httpRequestObserver.register();
- */
-
 /** ****** Top EventListener ***** */
+
 window.addEventListener("load", function(e) {
 	SebSystem.startup();
 }, false);
+
 window.addEventListener("unload", function(e) {
 	SebSystem.shutdown();
 }, false);
