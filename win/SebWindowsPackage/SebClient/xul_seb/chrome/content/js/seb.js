@@ -37,7 +37,6 @@ var SebSystem = {
 
 	startup : function() {
 		try {
-			
 			this._chrome = (top.window.toString().indexOf('ChromeWindow') > -1);
 			this._prefs = new Prefs();
 			this._profile = new Profile();
@@ -46,7 +45,7 @@ var SebSystem = {
 			this._chromeDir = new Dir(this._dirutils.getChromeDir());
 			this._appDir = this._chromeDir.parent.parent;
 			this._sebIni = this._appDir.clone();
-			this._sebIni.append("Seb.ini");
+			this._sebIni.append(this._prefs.getChar('seb.configuration.filename'));
 			this._locale = document.getElementById("locale");
 			this._const = document.getElementById("const");
 			
@@ -120,9 +119,11 @@ var SebSystem = {
 	getUrlExamFromFileSebIni : function() {
 		try {
 			var urlExam = "";
+			// first try to load hard coded path to *.ini file in prefs.js
 			var sebConfig = new File(this._prefs.getChar('seb.configuration.file'));
+			// if not exist get file with 'seb.configuration.filename' in app directory
 			if (!sebConfig.exists()) {
-				sebConfig = new File(this._sebIni.path);
+				sebConfig = new File(this._sebIni.path); 
 			}
 			var lines = sebConfig.readAllLines();
 			for ( var i = 0; i < lines.length; i++) {
