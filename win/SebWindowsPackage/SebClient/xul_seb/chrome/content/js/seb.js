@@ -76,8 +76,41 @@ var SebSystem = {
 		document.getElementById("deckContents").selectedIndex = 1;
 		window.title = this._browser.webNavigation.document.title;
 		this._browser.focus();
+		var win = SebSystem._browser.contentWindow.wrappedJSObject;
+		//var doc = SebSystem._browser.contentDocument.wrappedJSObject;
+		win.open = SebSystem.openWin; // capture window.open event and use seb handler
 	},
 	
+	/* this is a first version of implementing popup windows
+	 * It works p.e. for simple popup windows like "Sonderzeichen Tabelle" or "more colors" in ILIAS tinyMCE
+	 * Complex websites with multiple open requests or ajax calls are not supported
+	*/
+	openWin : function(url, name, features) {
+		try {
+			features = "chrome,centerscreen,"+ features; // add arguments for new chrome winow 
+			//alert(url + "|" + name + "|" + features);
+			var openerWin = SebSystem._browser.contentWindow; 
+			var win = window.open(url,name,features); //  open the new window and pass the new features 
+			// tricky: 
+			// this tells the new window, "you are opened by browsers contentWindow and not by me"  ;-) 
+			// important for communication between the two windows
+			win.opener = openerWin; 
+			// bind window.open events of the popup window to the same handler
+			win.open = SebSystem.openWin; 
+			//win.addEventListener("close",SebSystem.closeWin,false);
+			win.focus();
+			// !IMPORTANT:
+			// WYSIWYG editors like tinMCE check the return value and send a popup blocking warning 
+			return true; 
+		}
+		catch (e) {
+			//alert(e);
+		}
+	},
+	
+	closeWin : function(e) {
+		//alert("closeWin" + e);
+	},
 	/** ***** Internal Callback functions ******* */
 	
 	getUrl : function() {
