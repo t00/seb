@@ -59,10 +59,12 @@ set SebInstallDir=%ProgramFiles%\%Manufacturer%\%Product% %Version%\%Component%\
 set SebInstallDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
 
 set InstallMsi=SebWindowsPackageSetup.msi
+set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
 set MsgHookIni=MsgHook.ini
 
 set InstallMsiFile=%BatchDir%%InstallMsi%
+set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
 set MsgHookIniFile=%BatchDir%%MsgHookIni%
 
@@ -78,10 +80,12 @@ echo SebInstallDir      = %SebInstallDir%
 echo SebInstallDir(x86) = %SebInstallDir(x86)%
 echo.
 echo InstallMsi         = %InstallMsi%
+echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
 echo MsgHookIni         = %MsgHookIni%
 echo.
 echo InstallMsiFile     = %InstallMsiFile%
+echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
 echo MsgHookIniFile     = %MsgHookIniFile%
 
@@ -101,11 +105,14 @@ msiexec.exe /i "%InstallMsiFile%"
 echo.
 echo.
 echo Copy the configured .ini files to the SEB configuration directory
+echo Copy the configured .bat file  to the SEB  installation directory
 echo -----------------------------------------------------------------
 
 @echo on
-copy "%SebStarterIniFile%" "%SebConfigDir%"
 copy    "%MsgHookIniFile%" "%SebConfigDir%"
+copy "%SebStarterIniFile%" "%SebConfigDir%"
+copy "%SebStarterBatFile%" "%SebInstallDir%"
+copy "%SebStarterBatFile%" "%SebInstallDir(x86)%"
 @echo off
 
 
