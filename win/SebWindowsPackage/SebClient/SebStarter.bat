@@ -6,6 +6,7 @@ echo.
 echo.
 echo Safe Exam Browser startup
 echo -------------------------
+echo.
 echo If additional applications shall be used in conjunction with SEB,
 echo these applications must be installed previously to SEB,
 echo using administrator rights, too.
@@ -20,6 +21,7 @@ echo 1.) Enter the _full_ pathes to the program executables
 echo into the SebStarter.ini file.
 echo.
 echo Example:
+echo.
 echo If you have installed the "VMware View Client" software,
 echo and its program executable "wswc.exe" lies in the directory
 echo "C:\Program Files\VMware\VMware View\Client\bin\",
@@ -42,14 +44,13 @@ echo.
 echo set PermittedAppDir1="%ProgramFiles%\VMware\VMware View\Client\bin"
 echo set PermittedAppDir1(x86)="%ProgramFiles(x86)%\VMware\VMware View\Client\bin"
 echo.
-echo (if you are not sure whether the full path contains "(x86)" or not,
+echo (If you are not sure whether the full path contains "(x86)" or not,
 echo just enter both lines to cover both cases).
 echo The PATH variable is then automatically enhanced
 echo by this path to the program executable.
 echo.
 echo It is possible to permit several such applications,
 echo using "PermittedAppDir1=...", "PermittedAppDir2=...", etc.
-echo See below for prototypes of these directory settings.
 echo.
 
 
