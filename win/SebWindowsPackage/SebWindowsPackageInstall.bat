@@ -6,14 +6,34 @@ echo.
 echo.
 echo Safe Exam Browser installation
 echo ------------------------------
-
-echo For a full installation, you must execute this batch script
-echo when logged in as an administrator! Otherwise, the MSI installer
-echo will ask you for an administrator password, and after installation
-echo the SebStarter.ini and MsgHook.ini files will _not_ be copied to
+echo.
+echo For a full installation, you must execute the
+echo.
+echo SebWindowsPackageInstall.bat
+echo.
+echo script when logged in as an administrator, not as a standard user!
+echo.
+echo Reason:
+echo.
+echo If you execute this script as a standard user, the MSI installer
+echo will ask you for an administrator password.
+echo Even after successful installation in administrator mode,
+echo the script will then fall back to standard user rights.
+echo.
+echo So the SebStarter.ini and MsgHook.ini files will _not_ be copied to
 echo the program data directory due to lack of administrative rights!
 echo In this case, you will have to _manually_ copy these .ini files
 echo as an administrator afterwards.
+echo.
+echo Solution:
+echo.
+echo To avoid this, please execute the SebWindowsPackageInstall.bat
+echo script by right-clicking on its name in the Explorer,
+echo and then choosing "Run as administrator".
+echo You will then be prompted for the administrator password,
+echo and the whole script will be executed with administrator rights
+echo (running the MSI installer and afterwards copying the .ini files).
+echo.
 
 
 
