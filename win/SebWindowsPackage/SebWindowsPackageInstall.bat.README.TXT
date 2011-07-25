@@ -12,7 +12,7 @@ script when logged in as an administrator, not as a standard user!
 Reason:
 
 This script first runs the MSI installer with the
-installation file SebWindowsPackageSetup.msi.
+installation file SebWindowsPackageInstall.msi.
 
 Afterwards, the script copies the configuration files
 MsgHook.ini and SebStarter.ini to the Program Data directory

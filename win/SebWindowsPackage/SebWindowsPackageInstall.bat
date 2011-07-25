@@ -16,7 +16,7 @@ echo.
 echo Reason:
 echo.
 echo This script first runs the MSI installer with the
-echo installation file SebWindowsPackageSetup.msi.
+echo installation file SebWindowsPackageInstall.msi.
 echo.
 echo Afterwards, the script copies the configuration files
 echo MsgHook.ini and SebStarter.ini to the Program Data directory
@@ -89,7 +89,7 @@ set SebConfigDir=%ProgramData%\%Manufacturer%\%Product% %Version%
 set SebInstallDir=%ProgramFiles%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
 set SebInstallDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
 
-set InstallMsi=SebWindowsPackageSetup.msi
+set InstallMsi=SebWindowsPackageInstall.msi
 set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
 set MsgHookIni=MsgHook.ini
