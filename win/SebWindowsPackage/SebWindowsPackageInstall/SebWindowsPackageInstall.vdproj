@@ -2883,12 +2883,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BBAE3106B2D246CCB3360A0C923A8103"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_BC7A1096D1C9478CA053EF1DEAFD71BC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3694,12 +3688,6 @@
         "Entry"
         {
         "MsmKey" = "8:_F8AD59B525494D7294C90161CF5A4511"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_F982480EBBAF42289A9296647D72891B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -13500,26 +13488,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BBAE3106B2D246CCB3360A0C923A8103"
-            {
-            "SourcePath" = "8:..\\SebClient\\SebStarter.bat.README.TXT"
-            "TargetName" = "8:SebStarter.bat.README.TXT"
-            "Tag" = "8:"
-            "Folder" = "8:_082CE6E63686411FB52ED9065F47C75E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BC7A1096D1C9478CA053EF1DEAFD71BC"
             {
             "SourcePath" = "8:..\\SebClient\\xulrunner_no_ssl_warning\\nspr4.dll"
@@ -16186,26 +16154,6 @@
             "TargetName" = "8:dom_offline.xpt"
             "Tag" = "8:"
             "Folder" = "8:_CCF4D91C723C4C5FB58E49486505CD22"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F982480EBBAF42289A9296647D72891B"
-            {
-            "SourcePath" = "8:..\\SebClient\\SebStarter.bat"
-            "TargetName" = "8:SebStarter.bat"
-            "Tag" = "8:"
-            "Folder" = "8:_082CE6E63686411FB52ED9065F47C75E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
