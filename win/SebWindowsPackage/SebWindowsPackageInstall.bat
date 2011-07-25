@@ -27,7 +27,7 @@ echo SebStarter.bat to the Program Files directory,
 echo where SEB has been installed.]
 echo.
 echo If you execute this script as a standard user, the MSI installer
-echo will ask you for an administrator password.
+echo will prompt you for an administrator password.
 echo Even after successful installation in administrator mode,
 echo the script will then fall back to standard user rights.
 echo.
