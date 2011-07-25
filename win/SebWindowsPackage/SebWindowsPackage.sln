@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SebWindowsService", "SebWindowsService\SebWindowsService.csproj", "{6598D792-CC1A-45E6-A791-BCE42C681B3A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SebWindowsPackageSetup", "SebWindowsPackageSetup\SebWindowsPackageSetup.vdproj", "{70968F72-53C6-487A-A3D4-077233FBA2AC}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SebWindowsPackageInstall", "SebWindowsPackageInstall\SebWindowsPackageInstall.vdproj", "{70968F72-53C6-487A-A3D4-077233FBA2AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{75A343F9-208F-4156-B6AF-0C0459A2F3C3} = {75A343F9-208F-4156-B6AF-0C0459A2F3C3}
 	EndProjectSection
