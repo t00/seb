@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:SebWindowsPackageInstall"
+"ProjectName" = "8:SebWindowsInstall"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -196,12 +196,6 @@
         "Entry"
         {
         "MsmKey" = "8:_0D6D8DE09BE64F789D948FDB7161BB19"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0DDDAB218F6F46A7836A4B6321E898B3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1498,6 +1492,12 @@
         "Entry"
         {
         "MsmKey" = "8:_69CB0D11C88241E1BBB8E5A1E66C4C51"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_69CE32EAF31444558CA4AA1EA1ABD230"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3832,7 +3832,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\SebWindowsPackageInstall.msi"
+        "OutputFilename" = "8:Release\\SebWindowsInstall.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -4554,26 +4554,6 @@
             "TargetName" = "8:PlacesDBUtils.jsm"
             "Tag" = "8:"
             "Folder" = "8:_CA150A19B9044AB69BE7E11F5E2DED21"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0DDDAB218F6F46A7836A4B6321E898B3"
-            {
-            "SourcePath" = "8:..\\SebWindowsPackageLicence.rtf"
-            "TargetName" = "8:SebWindowsPackageLicence.rtf"
-            "Tag" = "8:"
-            "Folder" = "8:_548E293CF2844284B424458C4E7B9057"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -8894,6 +8874,26 @@
             "TargetName" = "8:plds4.dll"
             "Tag" = "8:"
             "Folder" = "8:_3B42090340E04EE09556E129F7F149FA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_69CE32EAF31444558CA4AA1EA1ABD230"
+            {
+            "SourcePath" = "8:SebWindowsInstallLicence.rtf"
+            "TargetName" = "8:SebWindowsInstallLicence.rtf"
+            "Tag" = "8:"
+            "Folder" = "8:_5D7AF8F3BBB64E4EA13B8152A0147D75"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -16498,6 +16498,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_5D7AF8F3BBB64E4EA13B8152A0147D75"
+                    {
+                    "Name" = "8:SebWindowsInstall"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_EA56DE5E1FA54E2496E3798D2E1C9211"
+                        "Folders"
+                        {
+                        }
+                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_7158FFFE33264C8FAB1AB2B2A6E4A1BA"
                     {
                     "Name" = "8:SebWindowsService"
@@ -17144,7 +17155,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.7"
         "ProductCode" = "8:{A466EE78-7902-40DD-BBC3-957BF91F4FE8}"
-        "PackageCode" = "8:{4B8996C2-FC4C-4A0E-8F98-AE5126140314}"
+        "PackageCode" = "8:{BE1262A2-3209-459A-B753-CF068B6B30B9}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -17450,7 +17461,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_0DDDAB218F6F46A7836A4B6321E898B3"
+                            "Value" = "8:_69CE32EAF31444558CA4AA1EA1ABD230"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -17669,7 +17680,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_0DDDAB218F6F46A7836A4B6321E898B3"
+                            "Value" = "8:_69CE32EAF31444558CA4AA1EA1ABD230"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
