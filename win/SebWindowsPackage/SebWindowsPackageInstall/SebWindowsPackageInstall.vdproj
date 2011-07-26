@@ -1053,12 +1053,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_479CB539279B4C5F83AC381C3DF7F571"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_47F02AA528EF4065A836C9280825E674"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2806,6 +2800,12 @@
         "Entry"
         {
         "MsmKey" = "8:_B5A54D92BA6B42D787840387267B99A5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B70F0A6252D94F53BACBB7DB285F3397"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -7394,26 +7394,6 @@
             "TargetName" = "8:xpcom.dll"
             "Tag" = "8:"
             "Folder" = "8:_3B42090340E04EE09556E129F7F149FA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_479CB539279B4C5F83AC381C3DF7F571"
-            {
-            "SourcePath" = "8:..\\seb_icon.ico"
-            "TargetName" = "8:seb_icon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -13248,6 +13228,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B70F0A6252D94F53BACBB7DB285F3397"
+            {
+            "SourcePath" = "8:..\\SebClient\\SebIcon.ico"
+            "TargetName" = "8:SebIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B72992AA61214262B8BAFA677078349F"
             {
             "SourcePath" = "8:..\\SebClient\\xulrunner_no_ssl_warning\\modules\\ISO8601DateUtils.jsm"
@@ -17161,7 +17161,7 @@
         "Keywords" = "8:Safe Exam Browser"
         "ARPCOMMENTS" = "8:Safe Exam Browser (Client and Windows Service)"
         "ARPURLINFOABOUT" = "8:http://www.ethz.ch/let"
-        "ARPPRODUCTICON" = "8:_479CB539279B4C5F83AC381C3DF7F571"
+        "ARPPRODUCTICON" = "8:_B70F0A6252D94F53BACBB7DB285F3397"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -17275,7 +17275,7 @@
             "Target" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
             "Folder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
             "WorkingFolder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
-            "Icon" = "8:_479CB539279B4C5F83AC381C3DF7F571"
+            "Icon" = "8:_B70F0A6252D94F53BACBB7DB285F3397"
             "Feature" = "8:"
             }
         }
@@ -17415,7 +17415,7 @@
                             "ContextData" = "8:1;True=1;False=0"
                             "Attributes" = "3:0"
                             "Setting" = "3:0"
-                            "Value" = "3:1"
+                            "Value" = "3:0"
                             "DefaultValue" = "3:1"
                             "UsePlugInResources" = "11:TRUE"
                             }
