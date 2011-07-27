@@ -16532,7 +16532,7 @@
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_082CE6E63686411FB52ED9065F47C75E"
                             {
                             "Name" = "8:Release"
-                            "AlwaysCreate" = "11:FALSE"
+                            "AlwaysCreate" = "11:TRUE"
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
                             "Property" = "8:_D91F8B1EE66A4881ACD24917FFC51838"
@@ -17279,13 +17279,13 @@
             {
             "Name" = "8:Safe Exam Browser"
             "Arguments" = "8:"
-            "Description" = "8:"
+            "Description" = "8:Shortcut to Safe Exam Browser"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
+            "Target" = "8:_082CE6E63686411FB52ED9065F47C75E"
             "Folder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
-            "WorkingFolder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
+            "WorkingFolder" = "8:_082CE6E63686411FB52ED9065F47C75E"
             "Icon" = "8:_B70F0A6252D94F53BACBB7DB285F3397"
             "Feature" = "8:"
             }
