@@ -106,8 +106,7 @@
     <ClInclude Include="SystemVersionInfo.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="icon1.ico" />
-    <None Include="seb_icon.ico" />
+    <None Include="SebStarter.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SebStarter.rc" />
