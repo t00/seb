@@ -87,7 +87,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_SEB                 ICON    DISCARDABLE     "seb_icon.ico"
+IDI_SEB                 ICON    DISCARDABLE     "SebStarter.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //

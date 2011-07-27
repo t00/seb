@@ -106,11 +106,10 @@
     <ClInclude Include="SystemVersionInfo.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="icon1.ico" />
-    <None Include="seb_icon.ico" />
+    <ResourceCompile Include="SebStarter.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="SebStarter.rc" />
+    <None Include="SebStarter.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
