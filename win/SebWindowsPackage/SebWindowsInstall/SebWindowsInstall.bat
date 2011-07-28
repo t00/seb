@@ -82,7 +82,7 @@ echo ---------------------------------------------------------
 set Manufacturer=ETH Zuerich
 set Product=SEB Windows
 set Version=1.7
-set Component=SebClient
+set Component=SebWindowsClient
 set Build=Release
 
 set SebConfigDir=%ProgramData%\%Manufacturer%\%Product% %Version%
