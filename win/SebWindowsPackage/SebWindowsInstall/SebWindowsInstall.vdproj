@@ -63,12 +63,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_985949300432468F84195984AA966730"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9A583C71CDC742C6BE262BA8B3569ADE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -77,6 +71,12 @@
         {
         "MsmKey" = "8:_B9E9004F6F3D41D882322976E3679CDB"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
+        "OwnerKey" = "8:_6A64F98DE34A4D4F8645A1C14CC1B2AC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -95,6 +95,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6A64F98DE34A4D4F8645A1C14CC1B2AC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -378,26 +384,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_985949300432468F84195984AA966730"
-            {
-            "SourcePath" = "8:..\\SebWindowsClient\\unzip.exe"
-            "TargetName" = "8:unzip.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B9E9004F6F3D41D882322976E3679CDB"
             {
             "SourcePath" = "8:..\\RegistryEnableAllBlueScreenButtons.bat"
@@ -416,6 +402,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
+                    {
+                    "Name" = "8:Ionic.Zip.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Ionic.Zip.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_7158FFFE33264C8FAB1AB2B2A6E4A1BA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CEED135AC51A4D57A839EEA345A7385A"
@@ -1165,7 +1182,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.7"
         "ProductCode" = "8:{A466EE78-7902-40DD-BBC3-957BF91F4FE8}"
-        "PackageCode" = "8:{5887A00C-64B7-41DE-9E2C-AB1385AC26F6}"
+        "PackageCode" = "8:{5A17196C-C89B-4560-82E3-6EA3CACBF910}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
