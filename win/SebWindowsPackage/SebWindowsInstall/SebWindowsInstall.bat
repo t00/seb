@@ -86,24 +86,28 @@ set Component=SebWindowsClient
 set Build=Release
 
 set SebConfigDir=%ProgramData%\%Manufacturer%\%Product% %Version%
-set SebInstallDir=%ProgramFiles%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
-set SebInstallDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
+
+set SebInstallDir=%ProgramFiles%\%Manufacturer%\%Product% %Version%
 set SebClientDir=%ProgramFiles%\%Manufacturer%\%Product% %Version%\%Component%
+set SebReleaseDir=%ProgramFiles%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
+
+set SebInstallDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%
 set SebClientDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%
+set SebReleaseDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
 
 set InstallMsi=SebWindowsInstall.msi
 set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
 set MsgHookIni=MsgHook.ini
 
-set XulSebZip=xul_seb.zip
-set XulRunnerZip=xulrunner.zip
-set XulRunnerNoSslZip=xulrunner_no_ssl_warning.zip
-
 set InstallMsiFile=%BatchDir%%InstallMsi%
 set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
 set MsgHookIniFile=%BatchDir%%MsgHookIni%
+
+set XulSebZip=xul_seb.zip
+set XulRunnerZip=xulrunner.zip
+set XulRunnerNoSslZip=xulrunner_no_ssl_warning.zip
 
 set XulSebZipFile=%SebClientDir%\%XulSebZip%
 set XulRunnerZipFile=%SebClientDir%\%XulRunnerZip%
@@ -121,24 +125,28 @@ echo Component    = %Component%
 echo Build        = %Build%
 echo.
 echo SebConfigDir       = %SebConfigDir%
+echo.
 echo SebInstallDir      = %SebInstallDir%
-echo SebInstallDir(x86) = %SebInstallDir(x86)%
 echo SebClientDir       = %SebClientDir%
+echo SebReleaseDir      = %SebReleaseDir%
+echo.
+echo SebInstallDir(x86) = %SebInstallDir(x86)%
 echo SebClientDir(x86)  = %SebClientDir(x86)%
+echo SebReleaseDir(x86) = %SebReleaseDir(x86)%
 echo.
 echo InstallMsi         = %InstallMsi%
 echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
 echo MsgHookIni         = %MsgHookIni%
 echo.
-echo XulSebZip          = %XulSebZip%
-echo XulRunnerZip       = %XulRunnerZip%
-echo XulRunnerNoSslZip  = %XulRunnerNoSSlZip%
-echo.
 echo InstallMsiFile     = %InstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
 echo MsgHookIniFile     = %MsgHookIniFile%
+echo.
+echo XulSebZip          = %XulSebZip%
+echo XulRunnerZip       = %XulRunnerZip%
+echo XulRunnerNoSslZip  = %XulRunnerNoSSlZip%
 echo.
 echo XulSebZipFile         = %XulSebZipFile%
 echo XulRunnerZipFile      = %XulRunnerZipFile%
@@ -186,8 +194,8 @@ echo -----------------------------------------------------------------
 
 copy    "%MsgHookIniFile%" "%SebConfigDir%"
 copy "%SebStarterIniFile%" "%SebConfigDir%"
-copy "%SebStarterBatFile%" "%SebInstallDir%"
-copy "%SebStarterBatFile%" "%SebInstallDir(x86)%"
+copy "%SebStarterBatFile%" "%SebReleaseDir%"
+copy "%SebStarterBatFile%" "%SebReleaseDir(x86)%"
 
 @echo off
 
