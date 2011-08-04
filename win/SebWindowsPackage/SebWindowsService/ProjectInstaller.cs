@@ -26,6 +26,14 @@ namespace SebWindowsService
         {
             // Unpack the XULRunner directories after installation
 
+            string   SebBatchDir = "";
+            string[] SebBatchArgs = new string[10];
+
+            SebBatchDir  = System.Environment.CommandLine;
+            SebBatchDir  = System.Environment.CurrentDirectory;
+            SebBatchArgs = System.Environment.GetCommandLineArgs();
+            SebBatchDir  = SebBatchArgs[2];
+
             string ProgramData  = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             string ProgramFiles = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
@@ -39,6 +47,20 @@ namespace SebWindowsService
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebClientDir  = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component;
             string SebReleaseDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component + "\\" + Build;
+
+            string    InstallMsi = "SebWindowsInstall.msi";
+            string SebStarterBat = "SebStarter.bat";
+            string SebStarterIni = "SebStarter.ini";
+            string    MsgHookIni =    "MsgHook.ini";
+
+            string    InstallMsiFile = SebBatchDir + "\\" +    InstallMsi;
+            string SebStarterBatFile = SebBatchDir + "\\" + SebStarterBat;
+            string SebStarterIniFile = SebBatchDir + "\\" + SebStarterIni;
+            string    MsgHookIniFile = SebBatchDir + "\\" +    MsgHookIni;
+
+            string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
+            string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
+            string    MsgHookIniFileTarget = SebConfigDir  + "\\" +    MsgHookIni;
 
             string XulSebZip         = "xul_seb.zip";
             string XulRunnerZip      = "xulrunner.zip";
@@ -76,6 +98,15 @@ namespace SebWindowsService
                 }
             }
 
+
+            // Copy the configured .ini files to the configuration directory
+            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
+            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
+            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+
+            //System.IO.File.Copy(   MsgHookIniFile, SebConfigDir , true);
+            //System.IO.File.Copy(SebStarterIniFile, SebConfigDir , true);
+            //System.IO.File.Copy(SebStarterBatFile, SebReleaseDir, true);
 
             // Autostart the SEB Windows Service after installation
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
