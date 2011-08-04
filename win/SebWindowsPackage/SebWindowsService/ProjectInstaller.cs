@@ -30,9 +30,9 @@ namespace SebWindowsService
             string[] SebBatchArgs = new string[10];
 
             SebBatchDir  = System.Environment.CommandLine;
-            SebBatchDir  = System.Environment.CurrentDirectory;
-            SebBatchArgs = System.Environment.GetCommandLineArgs();
-            SebBatchDir  = SebBatchArgs[2];
+            //SebBatchDir  = System.Environment.CurrentDirectory;
+            //SebBatchArgs = System.Environment.GetCommandLineArgs();
+            //SebBatchDir  = SebBatchArgs[2];
 
             string ProgramData  = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             string ProgramFiles = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
