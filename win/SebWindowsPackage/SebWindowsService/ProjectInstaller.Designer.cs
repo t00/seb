@@ -42,6 +42,8 @@
             this.SebServiceInstaller.ServiceName = "SebWindowsService";
             this.SebServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             this.SebServiceInstaller.Committed += new System.Configuration.Install.InstallEventHandler(this.SebServiceInstaller_Committed);
+            this.SebServiceInstaller.AfterUninstall += new System.Configuration.Install.InstallEventHandler(this.SebServiceInstaller_AfterUninstall);
+            this.SebServiceInstaller.BeforeUninstall += new System.Configuration.Install.InstallEventHandler(this.SebServiceInstaller_BeforeUninstall);
             // 
             // ProjectInstaller
             // 
