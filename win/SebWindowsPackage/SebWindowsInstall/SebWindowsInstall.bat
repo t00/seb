@@ -171,8 +171,9 @@ echo Run the Microsoft Installer with the .msi file
 echo ----------------------------------------------
 
 @echo on
-msiexec /i "%InstallMsiFile%"
-@REM msiexec /passive TARGETDIR="%SebInstallDir(x86)%" /i "%InstallMsiFile%"
+     msiexec /i "%InstallMsiFile%"
+@REM msiexec /i "%InstallMsiFile%" INSTALLDIR="%SebInstallDir(x86)%"
+@REM msiexec /i "%InstallMsiFile%" /passive INSTALLDIR="%SebInstallDir(x86)%"
 @echo off
 
 
