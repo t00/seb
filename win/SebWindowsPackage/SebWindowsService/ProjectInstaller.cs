@@ -30,6 +30,9 @@ namespace SebWindowsService
             string[] SebBatchArgs = new string[10];
 
             SebBatchDir  = System.Environment.CommandLine;
+            SebBatchDir  = this.Context.Parameters["SrcDir"];
+            //SebBatchDir  = this.Context.Parameters["TrgDir"];
+
             //SebBatchDir  = System.Environment.CurrentDirectory;
             //SebBatchArgs = System.Environment.GetCommandLineArgs();
             //SebBatchDir  = SebBatchArgs[2];
@@ -57,7 +60,12 @@ namespace SebWindowsService
             string SebStarterBatFile = SebBatchDir + "\\" + SebStarterBat;
             string SebStarterIniFile = SebBatchDir + "\\" + SebStarterIni;
             string    MsgHookIniFile = SebBatchDir + "\\" +    MsgHookIni;
-
+/*
+               InstallMsiFile =    InstallMsi;
+            SebStarterBatFile = SebStarterBat;
+            SebStarterIniFile = SebStarterIni;
+               MsgHookIniFile =    MsgHookIni;
+*/
             string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
             string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
             string    MsgHookIniFileTarget = SebConfigDir  + "\\" +    MsgHookIni;
@@ -100,9 +108,9 @@ namespace SebWindowsService
 
 
             // Copy the configured .ini files to the configuration directory
-            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
-            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
-            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, false);
+            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, false);
+            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, false);
 
             //System.IO.File.Copy(   MsgHookIniFile, SebConfigDir , true);
             //System.IO.File.Copy(SebStarterIniFile, SebConfigDir , true);

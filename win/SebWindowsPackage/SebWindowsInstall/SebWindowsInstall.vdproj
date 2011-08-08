@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_026CA98243224AF2A181F96D7E5C1DF8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_27F091F3D6004A7398C9A55783069630"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -22,12 +28,6 @@
         "Entry"
         {
         "MsmKey" = "8:_2F781351D84142A3B90B16EEDFEEF307"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4050E4BA06A242AABCB54527EF739AE2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -77,6 +77,12 @@
         {
         "MsmKey" = "8:_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
         "OwnerKey" = "8:_6A64F98DE34A4D4F8645A1C14CC1B2AC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BE18A0F24B7B4E6997419F6E49EB8F8C"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -211,7 +217,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_AD0CF09E_ADA2_41EA_9B29_43B24A029275"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
+            "CustomActionData" = "8:/TrgDir=\"abba[TARGETDIR]\\abba\""
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_8E598A9733194CDCBC2A25B6EB7081B0"
             {
@@ -264,6 +270,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_026CA98243224AF2A181F96D7E5C1DF8"
+            {
+            "SourcePath" = "8:..\\SebWindowsBanner.bmp"
+            "TargetName" = "8:SebWindowsBanner.bmp"
+            "Tag" = "8:"
+            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27F091F3D6004A7398C9A55783069630"
             {
             "SourcePath" = "8:..\\SebWindowsClient\\MsgHook\\MsgHook.ini"
@@ -290,26 +316,6 @@
             "TargetName" = "8:SebStarter.ini"
             "Tag" = "8:"
             "Folder" = "8:_50EFE0DB1A9D44B9946BF4D685F93AA3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4050E4BA06A242AABCB54527EF739AE2"
-            {
-            "SourcePath" = "8:..\\SebWindows.ico"
-            "TargetName" = "8:SebWindows.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -428,6 +434,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BE18A0F24B7B4E6997419F6E49EB8F8C"
+            {
+            "SourcePath" = "8:..\\SebWindowsIcon.ico"
+            "TargetName" = "8:SebWindowsIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CEED135AC51A4D57A839EEA345A7385A"
@@ -594,7 +620,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.7"
         "ProductCode" = "8:{A466EE78-7902-40DD-BBC3-957BF91F4FE8}"
-        "PackageCode" = "8:{5A17196C-C89B-4560-82E3-6EA3CACBF910}"
+        "PackageCode" = "8:{D896163F-1920-4413-8380-CF9524C827B4}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -611,7 +637,7 @@
         "Keywords" = "8:Safe Exam Browser"
         "ARPCOMMENTS" = "8:Safe Exam Browser (Client and Windows Service)"
         "ARPURLINFOABOUT" = "8:http://www.ethz.ch/let"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_BE18A0F24B7B4E6997419F6E49EB8F8C"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -755,7 +781,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_026CA98243224AF2A181F96D7E5C1DF8"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -805,7 +832,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_026CA98243224AF2A181F96D7E5C1DF8"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -853,7 +881,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_026CA98243224AF2A181F96D7E5C1DF8"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -888,7 +917,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_026CA98243224AF2A181F96D7E5C1DF8"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "EulaText"
@@ -935,7 +965,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_026CA98243224AF2A181F96D7E5C1DF8"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -966,7 +997,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_026CA98243224AF2A181F96D7E5C1DF8"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
