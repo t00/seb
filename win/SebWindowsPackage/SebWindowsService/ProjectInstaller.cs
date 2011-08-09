@@ -26,47 +26,6 @@ namespace SebWindowsService
         {
             // Unpack the XULRunner directories after installation
 
-            string   SebBatchDir = "";
-            string[] SebBatchArgs = new string[10];
-
-            SebBatchDir  = System.Environment.CommandLine;
-
-            int numKeyValuePairs = this.Context.Parameters.Count;
-
-            ICollection keys   = this.Context.Parameters.Keys;
-            ICollection values = this.Context.Parameters.Values;
-
-            IEnumerator stringEnumerator = this.Context.Parameters.GetEnumerator();
-            IEnumerator   keyEnumerator  = this.Context.Parameters.Keys.GetEnumerator();
-            IEnumerator valueEnumerator  = this.Context.Parameters.Values.GetEnumerator();
-/*
-            foreach (key k = keys.)
-            {
-                this.Context.LogMessage("param = " + param);
-            }
-
-            foreach (string param in this.Context.Parameters.)
-            {
-                this.Context.LogMessage("param = " + param);
-            }
-*/
-            for (int i = 0; i < numKeyValuePairs; i++)
-            {
-                //string key = this.Context.Parameters.Keys.GetEnumerator()
-            }
-
-            SebBatchDir = this.Context.Parameters["sourcedir"];
-            //SebBatchDir = System.IO.Directory.GetCurrentDirectory();
-
-            //SebBatchDir  = this.Context.Parameters["SrcDir"];
-            //SebBatchDir  = this.Context.Parameters["TrgDir"];
-
-            this.Context.LogMessage("SebBatchDir = " + SebBatchDir);
-
-            //SebBatchDir  = System.Environment.CurrentDirectory;
-            //SebBatchArgs = System.Environment.GetCommandLineArgs();
-            //SebBatchDir  = SebBatchArgs[2];
-
             string ProgramData  = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             string ProgramFiles = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
@@ -75,6 +34,16 @@ namespace SebWindowsService
             string Version      = "1.7";
             string Component    = "SebWindowsClient";
             string Build        = "Release";
+
+            // Get the directory of the .msi installer file as CustomActionData.
+            // To see where the "SourceDir" comes from, look at:
+            // Custom Actions window ->
+            // Install and Commit phases ->
+            // Primary output of SebWindowsService (Active) ->
+            // Properties window ->
+            // CustomActionData: /SourceDir="[SOURCEDIR]\"
+
+            string SebBatchDir   = this.Context.Parameters["SourceDir"];
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
@@ -90,12 +59,7 @@ namespace SebWindowsService
             string SebStarterBatFile = SebBatchDir + "\\" + SebStarterBat;
             string SebStarterIniFile = SebBatchDir + "\\" + SebStarterIni;
             string    MsgHookIniFile = SebBatchDir + "\\" +    MsgHookIni;
-/*
-               InstallMsiFile =    InstallMsi;
-            SebStarterBatFile = SebStarterBat;
-            SebStarterIniFile = SebStarterIni;
-               MsgHookIniFile =    MsgHookIni;
-*/
+
             string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
             string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
             string    MsgHookIniFileTarget = SebConfigDir  + "\\" +    MsgHookIni;
@@ -127,7 +91,7 @@ namespace SebWindowsService
                 }
             }
 
-            // Extract all files from the "xulrunner.zip" file
+            // Extract all files from the "xulrunner_no_ssl.zip" file
             using (ZipFile zipFile = ZipFile.Read(XulRunnerNoSslZipFile))
             {
                 foreach (ZipEntry zipEntry in zipFile)
@@ -137,16 +101,14 @@ namespace SebWindowsService
             }
 
 
-            // Copy the configured .ini files to the configuration directory.
+            // Copy the configured MsgHook.ini and SebStarter.ini files
+            // to the configuration directory.
             // Overwrite the default .ini files previously installed there.
+            // Additionally, copy the SebStarter.bat file to the installation directory.
 
             System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
             System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
             System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
-
-            //System.IO.File.Copy(   MsgHookIniFile, SebConfigDir , true);
-            //System.IO.File.Copy(SebStarterIniFile, SebConfigDir , true);
-            //System.IO.File.Copy(SebStarterBatFile, SebReleaseDir, true);
 
             // Autostart the SEB Windows Service after installation
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
