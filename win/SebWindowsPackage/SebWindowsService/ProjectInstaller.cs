@@ -56,6 +56,7 @@ namespace SebWindowsService
             }
 
             SebBatchDir = this.Context.Parameters["sourcedir"];
+            //SebBatchDir = System.IO.Directory.GetCurrentDirectory();
 
             //SebBatchDir  = this.Context.Parameters["SrcDir"];
             //SebBatchDir  = this.Context.Parameters["TrgDir"];
@@ -136,12 +137,13 @@ namespace SebWindowsService
             }
 
 
-            // Copy the configured .ini files to the configuration directory
-/*
-            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, false);
-            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, false);
-            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, false);
-*/
+            // Copy the configured .ini files to the configuration directory.
+            // Overwrite the default .ini files previously installed there.
+
+            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
+            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
+            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+
             //System.IO.File.Copy(   MsgHookIniFile, SebConfigDir , true);
             //System.IO.File.Copy(SebStarterIniFile, SebConfigDir , true);
             //System.IO.File.Copy(SebStarterBatFile, SebReleaseDir, true);
@@ -157,7 +159,7 @@ namespace SebWindowsService
         private void SebServiceInstaller_AfterUninstall(object sender, InstallEventArgs e)
         {
             // Delete all remaining directories and files after uninstallation
-/*
+
             string ProgramData  = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             string ProgramFiles = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
@@ -169,8 +171,7 @@ namespace SebWindowsService
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
             System.IO.Directory.Delete(SebConfigDir , true);
-            System.IO.Directory.Delete(SebInstallDir, true);
-*/
+            //System.IO.Directory.Delete(SebInstallDir, true);
         }
 
 
