@@ -30,8 +30,37 @@ namespace SebWindowsService
             string[] SebBatchArgs = new string[10];
 
             SebBatchDir  = System.Environment.CommandLine;
-            SebBatchDir  = this.Context.Parameters["SrcDir"];
+
+            int numKeyValuePairs = this.Context.Parameters.Count;
+
+            ICollection keys   = this.Context.Parameters.Keys;
+            ICollection values = this.Context.Parameters.Values;
+
+            IEnumerator stringEnumerator = this.Context.Parameters.GetEnumerator();
+            IEnumerator   keyEnumerator  = this.Context.Parameters.Keys.GetEnumerator();
+            IEnumerator valueEnumerator  = this.Context.Parameters.Values.GetEnumerator();
+/*
+            foreach (key k = keys.)
+            {
+                this.Context.LogMessage("param = " + param);
+            }
+
+            foreach (string param in this.Context.Parameters.)
+            {
+                this.Context.LogMessage("param = " + param);
+            }
+*/
+            for (int i = 0; i < numKeyValuePairs; i++)
+            {
+                //string key = this.Context.Parameters.Keys.GetEnumerator()
+            }
+
+            SebBatchDir = this.Context.Parameters["sourcedir"];
+
+            //SebBatchDir  = this.Context.Parameters["SrcDir"];
             //SebBatchDir  = this.Context.Parameters["TrgDir"];
+
+            this.Context.LogMessage("SebBatchDir = " + SebBatchDir);
 
             //SebBatchDir  = System.Environment.CurrentDirectory;
             //SebBatchArgs = System.Environment.GetCommandLineArgs();
@@ -108,10 +137,11 @@ namespace SebWindowsService
 
 
             // Copy the configured .ini files to the configuration directory
+/*
             System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, false);
             System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, false);
             System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, false);
-
+*/
             //System.IO.File.Copy(   MsgHookIniFile, SebConfigDir , true);
             //System.IO.File.Copy(SebStarterIniFile, SebConfigDir , true);
             //System.IO.File.Copy(SebStarterBatFile, SebReleaseDir, true);
