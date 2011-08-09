@@ -186,13 +186,13 @@ echo -----------------------------------------------------------------
 
 @echo on
 
-@REM unzip -q "%XulSebZipFile%"         -d "%SebClientDir%"
-@REM unzip -q "%XulRunnerZipFile%"      -d "%SebClientDir%"
-@REM unzip -q "%XulRunnerNoSslZipFile%" -d "%SebClientDir%"
+unzip -q "%XulSebZipFile%"         -d "%SebClientDir%"
+unzip -q "%XulRunnerZipFile%"      -d "%SebClientDir%"
+unzip -q "%XulRunnerNoSslZipFile%" -d "%SebClientDir%"
 
-@REM unzip -q "%XulSebZipFile(x86)%"         -d "%SebClientDir(x86)%"
-@REM unzip -q "%XulRunnerZipFile(x86)%"      -d "%SebClientDir(x86)%"
-@REM unzip -q "%XulRunnerNoSslZipFile(x86)%" -d "%SebClientDir(x86)%"
+unzip -q "%XulSebZipFile(x86)%"         -d "%SebClientDir(x86)%"
+unzip -q "%XulRunnerZipFile(x86)%"      -d "%SebClientDir(x86)%"
+unzip -q "%XulRunnerNoSslZipFile(x86)%" -d "%SebClientDir(x86)%"
 
 copy    "%MsgHookIniFile%" "%SebConfigDir%"
 copy "%SebStarterIniFile%" "%SebConfigDir%"
