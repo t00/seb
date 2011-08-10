@@ -132,8 +132,28 @@ namespace SebWindowsService
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
-            System.IO.Directory.Delete(SebConfigDir , true);
+            //System.IO.Directory.Delete(SebConfigDir, true);
             //System.IO.Directory.Delete(SebInstallDir, true);
+
+/*
+            try
+            {
+                System.IO.Directory.Delete(SebConfigDir, true);
+            }
+            catch (Exception exc)
+            {
+                //throw (exc);
+            }
+
+            try
+            {
+                System.IO.Directory.Delete(SebInstallDir, true);
+            }
+            catch (Exception exc)
+            {
+                //throw (exc);
+            }
+*/
         }
 
 

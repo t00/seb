@@ -766,18 +766,18 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_51C91CF5C95B41C8962EB11875F8C53B"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_55B34A79064847078582524230F661CF"
             {
-            "Name" = "8:Safe Exam Browser"
+            "Name" = "8:Shortcut to SebStarter.exe"
             "Arguments" = "8:"
-            "Description" = "8:Shortcut to Safe Exam Browser"
+            "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_082CE6E63686411FB52ED9065F47C75E"
+            "Target" = "8:_9A583C71CDC742C6BE262BA8B3569ADE"
             "Folder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
             "WorkingFolder" = "8:_082CE6E63686411FB52ED9065F47C75E"
-            "Icon" = "8:"
+            "Icon" = "8:_BE18A0F24B7B4E6997419F6E49EB8F8C"
             "Feature" = "8:"
             }
         }
