@@ -184,11 +184,9 @@ echo -----------------------------------------------------------------
 
 @echo on
 
-
-
-delete "%SebConfigDir%"
-delete "%SebInstallDir%"
-delete "%SebInstallDir(x86)%"
+rmdir /s /q "%SebConfigDir%"
+rmdir /s /q "%SebInstallDir%"
+rmdir /s /q "%SebInstallDir(x86)%"
 
 @echo off
 
