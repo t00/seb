@@ -173,9 +173,16 @@ echo -----------------------------------------------------------------
 
 @echo on
 
+@REM REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v NoThumbnailCache /t REG_DWORD /d 0x00000001 /f
+@REM pause
+
 rmdir /s /q "%SebConfigDir%"
 rmdir /s /q "%SebInstallDir%"
 rmdir /s /q "%SebInstallDir(x86)%"
+pause
+
+@REM REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v NoThumbnailCache /t REG_DWORD /d 0x00000000 /f
+@REM pause
 
 @echo off
 
