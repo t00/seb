@@ -179,10 +179,9 @@ echo -----------------------------------------------------------------
 rmdir /s /q "%SebConfigDir%"
 rmdir /s /q "%SebInstallDir%"
 rmdir /s /q "%SebInstallDir(x86)%"
-pause
 
-@REM REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v NoThumbnailCache /t REG_DWORD /d 0x00000000 /f
 @REM pause
+@REM REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v NoThumbnailCache /t REG_DWORD /d 0x00000000 /f
 
 @echo off
 
