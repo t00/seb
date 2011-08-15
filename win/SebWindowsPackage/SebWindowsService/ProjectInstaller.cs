@@ -106,9 +106,9 @@ namespace SebWindowsService
             // Overwrite the default .ini files previously installed there.
             // Additionally, copy the SebStarter.bat file to the installation directory.
 
-            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
-            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
-            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+            //System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
+            //System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
+            //System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
 
             // Autostart the SEB Windows Service after installation
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
