@@ -132,18 +132,24 @@ namespace SebWindowsService
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
-            // Warning:
+            // ATTENTION:
             //
-            // Often the
-            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.7\SebWindowsClient\Release
-            // directory is not removed, even though its files have been deleted before.
+            // Deleting the SEB configuration directory in the ProgramData directory, e.g.
+            // C:\ProgramData\ETH Zuerich\SEB Windows 1.7 ,
+            // mostly succeeds.
+            //
+            // Deleting the SEB installation directory in the Program Files directory, e.g.
+            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.7\SebWindowsClient\Release ,
+            // mostly fails, even though its files have all been deleted before.
+            //
             // This is a known and annoying Windows bug still occurring in Windows 7:
-            //
             // Often it is impossible to delete an empty (!) directory
             // "because a process is still needing it" (which is not true).
+            //
             // Currently, only a user logoff or machine reboot solves this,
-            // so maybe it is necessary to reboot and manually delete
-            // this Release directory after reboot.
+            // so maybe it is necessary to reboot and manually delete the
+            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.7\SebWindowsClient\Release
+            // directory after reboot.
 
             //System.IO.Directory.Delete(SebConfigDir , true);
             //System.IO.Directory.Delete(SebInstallDir, true);
