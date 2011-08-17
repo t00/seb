@@ -105,12 +105,22 @@ namespace SebWindowsService
             // to the configuration directory.
             // Overwrite the default .ini files previously installed there.
             // Additionally, copy the SebStarter.bat file to the installation directory.
+            //
+            // Note:
+            // Currently, this copying is deactivated, since we use an
+            // Administrative Install two-phase scenario:
+            //
+            // 1st phase: the teacher configures the MsgHook.ini and SebStarter.ini
+            // 2nd phase: the student executes the .msi file, which automatically uses
+            // the .ini files configured (modified) by the teacher during 1st phase.
 
             //System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
             //System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
             //System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
 
-            // Autostart the SEB Windows Service after installation
+
+            // Autostart the SEB Windows Service after installation.
+            // This avoids the necessity of a machine reboot.
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
             var    sebServiceController = new ServiceController(sebServiceName);
                    sebServiceController.Start();
@@ -178,7 +188,8 @@ namespace SebWindowsService
 
         private void SebServiceInstaller_BeforeUninstall(object sender, InstallEventArgs e)
         {
-            // Stop the SEB Windows Service before uninstallation
+            // Stop the SEB Windows Service before uninstallation ???
+            // Seems to be unnecessary since the Uninstaller automatically does this.
 /*
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
             var    sebServiceController = new ServiceController(sebServiceName);
