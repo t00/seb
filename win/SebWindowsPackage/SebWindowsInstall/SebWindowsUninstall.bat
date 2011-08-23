@@ -132,7 +132,9 @@ echo Run the Microsoft Installer with the .msi file
 echo ----------------------------------------------
 
 @echo on
+
 msiexec /uninstall "%InstallMsiFile%"
+
 @echo off
 
 
