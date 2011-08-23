@@ -9,7 +9,7 @@ echo =============================================
 echo.
 echo The whole installation procedure comprises three phases:
 echo.
-ehco.
+echo.
 echo 1st phase (configuration):
 echo --------------------------
 echo The teacher configures SEB by modifiying
@@ -54,12 +54,14 @@ echo.
 echo.
 echo 3rd phase (actual installation):
 echo --------------------------------
-echo In order to install SEB, a student must
+echo In order to install SEB, a student must either
 echo.
 echo - connect to the network share, enter the source image
 echo "SebWindowsAdminImage" and double-click the
 echo "SebWindowsInstall.msi" file
+echo.
 echo or
+echo.
 echo - unzip the "SebWindowsInstall.zip" file
 echo in an arbitrary folder (e.g. "C:\tmp") on his machine
 echo and then double-click the "SebWindowsInstall.msi" file.

@@ -6,7 +6,7 @@ echo =============================================
 echo.
 echo The whole installation procedure comprises three phases:
 echo.
-ehco.
+echo.
 echo 1st phase (configuration):
 echo --------------------------
 echo The teacher configures SEB by modifiying
