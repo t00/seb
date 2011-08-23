@@ -174,7 +174,9 @@ echo Run the Safe Exam Browser (with permitted applications)
 echo -------------------------------------------------------
 
 @echo on
+
 SebStarter.exe
+
 @echo off
 
 
