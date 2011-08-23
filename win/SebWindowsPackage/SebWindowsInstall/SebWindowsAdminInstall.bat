@@ -28,14 +28,14 @@ echo The teacher executes the "SebWindowsAdminInstall.bat" script
 echo when logged in as an administrator (not as a standard user!)
 echo.
 echo This script runs the MSI installer with the option /a
-echo and the installation file SebWindowsInstall.msi.
+echo and the installation file "SebWindowsInstall.msi".
 echo.
 echo It creates a source image named "SebWindowsAdminImage",
-echo containing a copy of the SebWindowsInstall.msi file,
+echo containing a copy of the "SebWindowsInstall.msi" file,
 echo and a "Common Application Data Folder".
 echo.
 echo Afterwards, the script copies the (previously modified)
-echo configuration files MsgHook.ini and SebStarter.ini
+echo configuration files "MsgHook.ini" and "SebStarter.ini"
 echo to the "Common Application Data Folder".
 echo.
 echo [And if desired, the script copies also the batch file
@@ -127,15 +127,17 @@ set SebAdminConfigDir=%BatchDir%%SebAdminImage%\%CommonAppDataFolder%
 
 
 
-set InstallMsi=SebWindowsInstall.msi
+set SebInstallZip=SebWindowsInstall.zip
+set SebInstallMsi=SebWindowsInstall.msi
 set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
-set MsgHookIni=MsgHook.ini
+set SebMsgHookIni=MsgHook.ini
 
-set InstallMsiFile=%BatchDir%%InstallMsi%
+set SebInstallZipFile=%BatchDir%%SebInstallZip%
+set SebInstallMsiFile=%BatchDir%%SebInstallMsi%
 set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
-set MsgHookIniFile=%BatchDir%%MsgHookIni%
+set SebMsgHookIniFile=%BatchDir%%SebMsgHookIni%
 
 
 
@@ -155,15 +157,17 @@ echo SebInstallDir(x86) = %SebInstallDir(x86)%
 echo SebClientDir(x86)  = %SebClientDir(x86)%
 echo SebReleaseDir(x86) = %SebReleaseDir(x86)%
 echo.
-echo InstallMsi         = %InstallMsi%
+echo SebInstallZip      = %SebInstallZip%
+echo SebInstallMsi      = %SebInstallMsi%
 echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
-echo MsgHookIni         = %MsgHookIni%
+echo SebMsgHookIni      = %SebMsgHookIni%
 echo.
-echo InstallMsiFile     = %InstallMsiFile%
+echo SebInstallZipFile  = %SebInstallZipFile%
+echo SebInstallMsiFile  = %SebInstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
-echo MsgHookIniFile     = %MsgHookIniFile%
+echo SebMsgHookIniFile  = %SebMsgHookIniFile%
 echo.
 echo CommonAppDataFolder = %CommonAppDataFolder%
 echo SebAdminImage       = %SebAdminImage%
@@ -185,7 +189,9 @@ echo Run the administrative installation with the .msi file
 echo ------------------------------------------------------
 
 @echo on
-msiexec /a "%InstallMsiFile%" TARGETDIR=%SebAdminImageDir%
+
+msiexec /a "%SebInstallMsiFile%" TARGETDIR=%SebAdminImageDir%
+
 @echo off
 
 
@@ -198,10 +204,12 @@ echo -----------------------------------------------------------------
 
 @echo on
 
-copy    "%MsgHookIniFile%" "%SebAdminConfigDir%"
+copy "%SebMsgHookIniFile%" "%SebAdminConfigDir%"
 copy "%SebStarterIniFile%" "%SebAdminConfigDir%"
 copy "%SebStarterBatFile%" "%SebReleaseDir%"
 copy "%SebStarterBatFile%" "%SebReleaseDir(x86)%"
+
+zip -q -r -b "%SebInstallZipFile%" "%SebAdminImageDir%"
 
 @echo off
 

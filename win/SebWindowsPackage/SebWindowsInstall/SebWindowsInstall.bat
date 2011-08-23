@@ -92,15 +92,15 @@ set SebInstallDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%
 set SebClientDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%
 set SebReleaseDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
 
-set InstallMsi=SebWindowsInstall.msi
+set SebInstallMsi=SebWindowsInstall.msi
 set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
-set MsgHookIni=MsgHook.ini
+set SebMsgHookIni=MsgHook.ini
 
-set InstallMsiFile=%BatchDir%%InstallMsi%
+set SebInstallMsiFile=%BatchDir%%SebInstallMsi%
 set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
-set MsgHookIniFile=%BatchDir%%MsgHookIni%
+set SebMsgHookIniFile=%BatchDir%%SebMsgHookIni%
 
 set XulSebZip=xul_seb.zip
 set XulRunnerZip=xulrunner.zip
@@ -131,15 +131,15 @@ echo SebInstallDir(x86) = %SebInstallDir(x86)%
 echo SebClientDir(x86)  = %SebClientDir(x86)%
 echo SebReleaseDir(x86) = %SebReleaseDir(x86)%
 echo.
-echo InstallMsi         = %InstallMsi%
+echo SebInstallMsi      = %SebInstallMsi%
 echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
-echo MsgHookIni         = %MsgHookIni%
+echo SebMsgHookIni      = %SebMsgHookIni%
 echo.
-echo InstallMsiFile     = %InstallMsiFile%
+echo SebInstallMsiFile  = %SebInstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
-echo MsgHookIniFile     = %MsgHookIniFile%
+echo SebMsgHookIniFile  = %SebMsgHookIniFile%
 echo.
 echo XulSebZip          = %XulSebZip%
 echo XulRunnerZip       = %XulRunnerZip%
@@ -169,9 +169,9 @@ echo ---------------------------------------
 
 @echo on
 
-     msiexec /i "%InstallMsiFile%"
-@REM msiexec /i "%InstallMsiFile%" INSTALLDIR="%SebInstallDir(x86)%"
-@REM msiexec /i "%InstallMsiFile%" /passive INSTALLDIR="%SebInstallDir(x86)%"
+     msiexec /i "%SebInstallMsiFile%"
+@REM msiexec /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir(x86)%"
+@REM msiexec /i "%SebInstallMsiFile%" /passive INSTALLDIR="%SebInstallDir(x86)%"
 
 @echo off
 
@@ -193,10 +193,10 @@ echo -----------------------------------------------------------------
 @REM unzip -q "%XulRunnerZipFile(x86)%"      -d "%SebClientDir(x86)%"
 @REM unzip -q "%XulRunnerNoSslZipFile(x86)%" -d "%SebClientDir(x86)%"
 
-copy    "%MsgHookIniFile%" "%SebConfigDir%"
-copy "%SebStarterIniFile%" "%SebConfigDir%"
-copy "%SebStarterBatFile%" "%SebReleaseDir%"
-copy "%SebStarterBatFile%" "%SebReleaseDir(x86)%"
+@REM copy "%SebMsgHookIniFile%" "%SebConfigDir%"
+@REM copy "%SebStarterIniFile%" "%SebConfigDir%"
+@REM copy "%SebStarterBatFile%" "%SebReleaseDir%"
+@REM copy "%SebStarterBatFile%" "%SebReleaseDir(x86)%"
 
 @echo off
 
