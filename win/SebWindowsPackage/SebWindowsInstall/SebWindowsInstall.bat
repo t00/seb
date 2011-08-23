@@ -5,7 +5,7 @@
 echo.
 echo.
 echo Safe Exam Browser installation
-echo ------------------------------
+echo ==============================
 echo.
 echo For a full installation, you must execute the "SebWindowsInstall.bat"
 echo script when logged in as an administrator (not as a standard user!)
@@ -164,8 +164,8 @@ path %path%;%BatchDir%
 
 echo.
 echo.
-echo Run the Microsoft Installer with the .msi file
-echo ----------------------------------------------
+echo Run the installation with the .msi file
+echo ---------------------------------------
 
 @echo on
      msiexec /i "%InstallMsiFile%"
@@ -183,13 +183,13 @@ echo -----------------------------------------------------------------
 
 @echo on
 
-unzip -q "%XulSebZipFile%"         -d "%SebClientDir%"
-unzip -q "%XulRunnerZipFile%"      -d "%SebClientDir%"
-unzip -q "%XulRunnerNoSslZipFile%" -d "%SebClientDir%"
+@REM unzip -q "%XulSebZipFile%"         -d "%SebClientDir%"
+@REM unzip -q "%XulRunnerZipFile%"      -d "%SebClientDir%"
+@REM unzip -q "%XulRunnerNoSslZipFile%" -d "%SebClientDir%"
 
-unzip -q "%XulSebZipFile(x86)%"         -d "%SebClientDir(x86)%"
-unzip -q "%XulRunnerZipFile(x86)%"      -d "%SebClientDir(x86)%"
-unzip -q "%XulRunnerNoSslZipFile(x86)%" -d "%SebClientDir(x86)%"
+@REM unzip -q "%XulSebZipFile(x86)%"         -d "%SebClientDir(x86)%"
+@REM unzip -q "%XulRunnerZipFile(x86)%"      -d "%SebClientDir(x86)%"
+@REM unzip -q "%XulRunnerNoSslZipFile(x86)%" -d "%SebClientDir(x86)%"
 
 copy    "%MsgHookIniFile%" "%SebConfigDir%"
 copy "%SebStarterIniFile%" "%SebConfigDir%"

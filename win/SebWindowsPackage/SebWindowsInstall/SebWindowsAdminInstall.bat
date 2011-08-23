@@ -39,7 +39,7 @@ echo configuration files MsgHook.ini and SebStarter.ini
 echo to the "Common Application Data Folder".
 echo.
 echo [And if desired, the script copies also the batch file
-echo SebStarter.bat to the Program Files directory,
+echo "SebStarter.bat" to the "Program Files" directory,
 echo where SEB has been installed.]
 echo.
 echo The source image can then serve as a network share,
@@ -179,8 +179,8 @@ path %path%;%BatchDir%
 
 echo.
 echo.
-echo Run the Administrative Install
-echo ------------------------------
+echo Run the administrative installation with the .msi file
+echo ------------------------------------------------------
 
 @echo on
 msiexec /a "%InstallMsiFile%" TARGETDIR=%SebAdminImageDir%
@@ -198,9 +198,8 @@ echo -----------------------------------------------------------------
 
 copy    "%MsgHookIniFile%" "%SebAdminConfigDir%"
 copy "%SebStarterIniFile%" "%SebAdminConfigDir%"
-
-@REM copy "%SebStarterBatFile%" "%SebReleaseDir%"
-@REM copy "%SebStarterBatFile%" "%SebReleaseDir(x86)%"
+copy "%SebStarterBatFile%" "%SebReleaseDir%"
+copy "%SebStarterBatFile%" "%SebReleaseDir(x86)%"
 
 @echo off
 
