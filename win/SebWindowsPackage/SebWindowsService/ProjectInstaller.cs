@@ -114,9 +114,9 @@ namespace SebWindowsService
             // 2nd phase: the student executes the .msi file, which automatically uses
             // the .ini files configured (modified) by the teacher during 1st phase.
 
-            //System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
-            //System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
-            //System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
+            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
+            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
 
 
             // Autostart the SEB Windows Service after installation.
