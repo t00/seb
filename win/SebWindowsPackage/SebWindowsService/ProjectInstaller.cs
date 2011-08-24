@@ -50,19 +50,19 @@ namespace SebWindowsService
             string SebClientDir  = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component;
             string SebReleaseDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component + "\\" + Build;
 
-            string    InstallMsi = "SebWindowsInstall.msi";
+            string SebInstallMsi = "SebWindowsInstall.msi";
             string SebStarterBat = "SebStarter.bat";
             string SebStarterIni = "SebStarter.ini";
-            string    MsgHookIni =    "MsgHook.ini";
+            string SebMsgHookIni =    "MsgHook.ini";
 
-            string    InstallMsiFile = SebBatchDir + "\\" +    InstallMsi;
+            string SebInstallMsiFile = SebBatchDir + "\\" + SebInstallMsi;
             string SebStarterBatFile = SebBatchDir + "\\" + SebStarterBat;
             string SebStarterIniFile = SebBatchDir + "\\" + SebStarterIni;
-            string    MsgHookIniFile = SebBatchDir + "\\" +    MsgHookIni;
+            string SebMsgHookIniFile = SebBatchDir + "\\" + SebMsgHookIni;
 
             string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
             string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
-            string    MsgHookIniFileTarget = SebConfigDir  + "\\" +    MsgHookIni;
+            string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
 
             string XulSebZip         = "xul_seb.zip";
             string XulRunnerZip      = "xulrunner.zip";
@@ -107,14 +107,14 @@ namespace SebWindowsService
             // Additionally, copy the SebStarter.bat file to the installation directory.
             //
             // Note:
-            // Currently, this copying is deactivated, since we use an
-            // Administrative Install two-phase scenario:
+            // This copying can be deactivated when we use an Administrative Install.
+            // But in any case, we have a two-phase scenario:
             //
             // 1st phase: the teacher configures the MsgHook.ini and SebStarter.ini
             // 2nd phase: the student executes the .msi file, which automatically uses
             // the .ini files configured (modified) by the teacher during 1st phase.
 
-            System.IO.File.Copy(   MsgHookIniFile,    MsgHookIniFileTarget, true);
+            System.IO.File.Copy(SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
             System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
             System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
 
