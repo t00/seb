@@ -107,8 +107,8 @@ echo.
 echo Assign the permitted applications executable directories
 echo --------------------------------------------------------
 
-set PermittedAppDir1="%ProgramFiles%\VMware\VMware View\Client\bin"
-set PermittedAppDir1(x86)="%ProgramFiles(x86)%\VMware\VMware View\Client\bin"
+@REM set PermittedAppDir1="%ProgramFiles%\VMware\VMware View\Client\bin"
+@REM set PermittedAppDir1(x86)="%ProgramFiles(x86)%\VMware\VMware View\Client\bin"
 
 @REM set PermittedAppDir2="..."
 @REM set PermittedAppDir2(x86)="..."
@@ -124,9 +124,9 @@ set PermittedAppDir1(x86)="%ProgramFiles(x86)%\VMware\VMware View\Client\bin"
 echo Display the permitted applications executable directories
 echo ---------------------------------------------------------
 
-echo.
-echo PermittedAppDir1      = %PermittedAppDir1%
-echo PermittedAppDir1(x86) = %PermittedAppDir1(x86)%
+@REM echo.
+@REM echo PermittedAppDir1      = %PermittedAppDir1%
+@REM echo PermittedAppDir1(x86) = %PermittedAppDir1(x86)%
 
 @REM echo.
 @REM echo PermittedAppDir2      = %PermittedAppDir2%
@@ -145,8 +145,8 @@ echo PermittedAppDir1(x86) = %PermittedAppDir1(x86)%
 echo Expand the PATH environment variable by the permitted applications
 echo ------------------------------------------------------------------
 
-path %path%;%PermittedAppDir1%
-path %path%;%PermittedAppDir1(x86)%
+@REM path %path%;%PermittedAppDir1%
+@REM path %path%;%PermittedAppDir1(x86)%
 
 @REM path %path%;%PermittedAppDir2%
 @REM path %path%;%PermittedAppDir2(x86)
