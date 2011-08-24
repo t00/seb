@@ -94,8 +94,8 @@ echo SebInstallDir(x86) = %SebInstallDir(x86)%
 
 
 
-@REM echo Expand the PATH environment variable by the SEB directories
-@REM echo -----------------------------------------------------------
+echo Expand the PATH environment variable by the SEB directories
+echo -----------------------------------------------------------
 
 path %path%;%SebInstallDir%
 path %path%;%SebInstallDir(x86)%
@@ -121,8 +121,8 @@ set PermittedAppDir1(x86)="%ProgramFiles(x86)%\VMware\VMware View\Client\bin"
 
 
 
-@REM echo Display the permitted applications executable directories
-@REM echo ---------------------------------------------------------
+echo Display the permitted applications executable directories
+echo ---------------------------------------------------------
 
 echo.
 echo PermittedAppDir1      = %PermittedAppDir1%
@@ -142,8 +142,8 @@ echo PermittedAppDir1(x86) = %PermittedAppDir1(x86)%
 
 
 
-@REM echo Expand the PATH environment variable by the permitted applications
-@REM echo ------------------------------------------------------------------
+echo Expand the PATH environment variable by the permitted applications
+echo ------------------------------------------------------------------
 
 path %path%;%PermittedAppDir1%
 path %path%;%PermittedAppDir1(x86)%
@@ -174,7 +174,9 @@ echo Run the Safe Exam Browser (with permitted applications)
 echo -------------------------------------------------------
 
 @echo on
+
 SebStarter.exe
+
 @echo off
 
 
