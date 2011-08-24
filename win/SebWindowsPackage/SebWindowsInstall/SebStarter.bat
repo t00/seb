@@ -94,8 +94,8 @@ echo SebInstallDir(x86) = %SebInstallDir(x86)%
 
 
 
-@REM echo Expand the PATH environment variable by the SEB directories
-@REM echo -----------------------------------------------------------
+echo Expand the PATH environment variable by the SEB directories
+echo -----------------------------------------------------------
 
 path %path%;%SebInstallDir%
 path %path%;%SebInstallDir(x86)%
@@ -121,8 +121,8 @@ echo --------------------------------------------------------
 
 
 
-@REM echo Display the permitted applications executable directories
-@REM echo ---------------------------------------------------------
+echo Display the permitted applications executable directories
+echo ---------------------------------------------------------
 
 @REM echo.
 @REM echo PermittedAppDir1      = %PermittedAppDir1%
@@ -142,8 +142,8 @@ echo --------------------------------------------------------
 
 
 
-@REM echo Expand the PATH environment variable by the permitted applications
-@REM echo ------------------------------------------------------------------
+echo Expand the PATH environment variable by the permitted applications
+echo ------------------------------------------------------------------
 
 @REM path %path%;%PermittedAppDir1%
 @REM path %path%;%PermittedAppDir1(x86)%
