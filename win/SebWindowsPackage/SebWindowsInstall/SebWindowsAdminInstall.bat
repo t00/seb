@@ -204,8 +204,8 @@ echo -----------------------------------------------------------------
 
 @echo on
 
-copy "%SebMsgHookIniFile%" "%SebAdminConfigDir%"
-copy "%SebStarterIniFile%" "%SebAdminConfigDir%"
+copy "%SebMsgHookIniFile%" "%SebAdminImageDir%"
+copy "%SebStarterIniFile%" "%SebAdminImageDir%"
 copy "%SebStarterBatFile%" "%SebAdminImageDir%"
 
 @REM zip -q -r -b "%SebInstallZipFile%" "%SebAdminImageDir%"
