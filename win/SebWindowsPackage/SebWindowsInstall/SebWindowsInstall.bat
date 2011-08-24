@@ -17,11 +17,11 @@ echo installation file "SebWindowsInstall.msi".
 echo.
 echo Afterwards, the script copies the configuration files
 echo "MsgHook.ini" and "SebStarter.ini" to the "ProgramData" directory
-echo (overwriting the default MsgHook.ini and SebStarter.ini).
+echo (overwriting the default "MsgHook.ini" and "SebStarter.ini").
 echo.
-echo [And if desired, the script copies also the batch file
+echo By default, the script copies also the batch file
 echo "SebStarter.bat" to the "Program Files" directory,
-echo where SEB has been installed.]
+echo where SEB has been installed.
 echo.
 echo If you execute this script as a standard user,
 echo the MSI installer will prompt you for an administrator password.

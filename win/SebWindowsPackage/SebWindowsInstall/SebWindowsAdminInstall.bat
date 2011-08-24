@@ -31,16 +31,11 @@ echo This script runs the MSI installer with the option /a
 echo and the installation file "SebWindowsInstall.msi".
 echo.
 echo It creates a source image named "SebWindowsAdminImage",
-echo containing a copy of the "SebWindowsInstall.msi" file,
-echo and a "Common Application Data Folder".
+echo containing a copy of the "SebWindowsInstall.msi" file.
 echo.
-echo Afterwards, the script copies the (previously modified)
-echo configuration files "MsgHook.ini" and "SebStarter.ini"
-echo to the "Common Application Data Folder".
-echo.
-echo [And if desired, the script copies also the batch file
-echo "SebStarter.bat" to the "Program Files" directory,
-echo where SEB has been installed.]
+echo After installation, the script copies the (previously modified)
+echo configuration files "MsgHook.ini" and "SebStarter.ini",
+echo and also the batch file "SebStarter.bat", to the source image.
 echo.
 echo The source image can then serve as a network share,
 echo so a workgroup with access to the network share
@@ -63,7 +58,7 @@ echo.
 echo or
 echo.
 echo - unzip the "SebWindowsInstall.zip" file
-echo in an arbitrary folder (e.g. "C:\tmp") on his machine
+echo in an arbitrary folder (e.g. "C:\tmp") on his machine,
 echo and then double-click the "SebWindowsInstall.msi" file.
 echo.
 
@@ -207,8 +202,6 @@ echo -----------------------------------------------------------------
 copy "%SebMsgHookIniFile%" "%SebAdminImageDir%"
 copy "%SebStarterIniFile%" "%SebAdminImageDir%"
 copy "%SebStarterBatFile%" "%SebAdminImageDir%"
-
-@REM zip -q -r -b "%SebInstallZipFile%" "%SebAdminImageDir%"
 
 @echo off
 
