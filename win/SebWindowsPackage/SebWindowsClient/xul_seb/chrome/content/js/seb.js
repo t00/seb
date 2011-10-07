@@ -23,10 +23,6 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-window.arguments.prototype = function() {
-	return this.arguments;
-}
-
 var SebSystem = {
 	_chrome :false,
 	_prefs :null,
@@ -155,3 +151,8 @@ window.addEventListener("load", function(e) {
 window.addEventListener("unload", function(e) {
 	SebSystem.shutdown();
 }, false);
+
+/* this is for popup window open events to prevent error messages */
+window.arguments.prototype = function() {
+	return this.arguments;
+}
