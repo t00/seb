@@ -37,6 +37,9 @@
 
 #include <intrin.h>   // for detecting virtual machines
 
+//JAND
+#include <time.h>
+#include "sha1.h"
 
 // C structures for logfile handling
 extern char programDataDirectory[MAX_PATH];
@@ -105,6 +108,8 @@ KEYHOOK KeyHook;
 typedef void (*MOUSEHOOK)(HINSTANCE*, bool); //typedef for the MouseHook function of the loaded MsgHook.dll
 MOUSEHOOK MouseHook;
 
+typedef void (*ITOPIATEST)(HINSTANCE*, bool); 
+ITOPIATEST ItopiaTest;
 
 /* Utility Functions */
 BOOL				CheckWritePermission(LPCSTR);
@@ -690,6 +695,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		}
 		  KeyHook(&hinstDLL, TRUE);
 		MouseHook(&hinstDLL, TRUE);
+
+
+	//	if (GetProcAddress(hinstDLL,   "ItopiaTest") == 0)
+	//	{
+	//		MessageBox(NULL, "DLL problem", "Error", 16);
+	//	}
 	}
 
 	// Show Window	
@@ -814,7 +825,7 @@ void GetInfoAboutCPU(int infoType, PUINT eax, PUINT ebx, PUINT ecx, PUINT edx)
 // **********************************************
 //  Checks if SEB is running on a virtual machine
 // **********************************************
-bool IsSebRunningOnVirtualMachine()
+bool IsSebRunningOnVirtualMachineOld()
 {
 	bool    virtualMachine = false;
 	char      vendorID[50] = "";
@@ -823,7 +834,7 @@ bool IsSebRunningOnVirtualMachine()
 	UINT eax, ebx, ecx, edx;
 	UINT ecxBit31;
 
-	logg(fp, "Enter IsSebRunningOnVirtualMachine()\n\n");
+	logg(fp, "Enter IsSebRunningOnVirtualMachineOld()\n\n");
 
 
 	// Get the vendor ID string via parameter EAX = 0000_0000h
@@ -885,10 +896,67 @@ bool IsSebRunningOnVirtualMachine()
 		//if (!strcmp(hyperVendorID, "VMwareVMware")) return 1;
 	}
 
-	logg(fp, "Leave IsSebRunningOnVirtualMachine\n\n");
+	logg(fp, "Leave IsSebRunningOnVirtualMachineOld()\n\n");
 	return virtualMachine;
 
-} // end of method   IsSebRunningOnVirtualMachine()
+} // end of method   IsSebRunningOnVirtualMachineOld()
+
+
+
+int insideMatrixB()
+{
+	unsigned char m[2+4], rpill[] = "\x0f\x01\x0d\x00\x00\x00\x00\xc3";
+	*((unsigned*)&rpill[3]) = (unsigned)m;
+	((void(*)())&rpill)();
+	return (m[5]>0xd0) ? 1 : 0;
+}
+
+
+bool insideMatrix()
+{
+	unsigned char mem[4] = {0,0,0,0};
+	__asm str mem;
+	if ((mem[0]==0x00) && (mem[1]==0x40))
+		 return true ; //printf("INSIDE MATRIX!!\n");
+	else return false; //printf("OUTSIDE MATRIX!!\n");
+	return false;
+}
+
+
+
+bool IsSebRunningOnVirtualMachineNew()
+{
+	bool virtualMachine = false;
+
+	// STR or SIDT code?
+	virtualMachine = insideMatrix();
+
+	logg(fp, "Enter IsSebRunningOnVirtualMachineNew()\n\n");
+
+	if (virtualMachine == true)
+	{
+		logg(fp, "   Red Pill: VM detected\n");
+		logg(fp, "   SEB seems to run on a VIRTUAL machine!\n\n");
+	}
+	else
+	{
+		logg(fp, "   Red Pill: No VM detected\n");
+		logg(fp, "   SEB seems to run on a PHYSICAL machine!\n\n");
+	}
+
+	// JAND: add RDP detection
+	// from Answers/186016/How-to-detect-if-a-remote-desktop-session-is-prese
+	if (GetSystemMetrics(SM_REMOTESESSION))
+	{
+		// remote desktop session
+		logg(fp, "   SEB seems to run on a Remote Desktop session\n\n");
+		virtualMachine = true;
+	}
+
+	logg(fp, "Leave IsSebRunningOnVirtualMachineNew\n\n");
+	return virtualMachine;
+
+} // end of method   IsSebRunningOnVirtualMachineNew()
 
 
 
@@ -943,6 +1011,7 @@ BOOL ReadSebStarterIni()
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
 		sCurrDir = iniFileSebStarter;
 		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
+
 
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
@@ -1019,7 +1088,7 @@ BOOL ReadSebStarterIni()
 
 		// Detect whether SEB runs in a virtual machine
 		runningOnVirtualMachine = false;
-		runningOnVirtualMachine = IsSebRunningOnVirtualMachine();
+		runningOnVirtualMachine = IsSebRunningOnVirtualMachineNew();
 
 		if (runningOnVirtualMachine == true)
 		{
@@ -1118,7 +1187,7 @@ BOOL ReadSebStarterIni()
 	} // end try
 
 	catch (char* str)
-	{		
+	{
 		MessageBox(NULL, str, "Error", MB_ICONERROR);
 		logg(fp, "Error: %s\n", str);
 		logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
@@ -2906,8 +2975,7 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 		if (lngRegOpen != ERROR_SUCCESS)   MessageBox(hWnd, "!= ERROR_SUCCESS", "lngRegOpen", 16);
 
 		if (lngRegOpen != ERROR_SUCCESS)
-		{
-			logg(fp, "  HandleOpenRegistryKey() ERROR_SUCCESS???\n");
+		{   logg(fp, "  HandleOpenRegistryKey() ERROR_SUCCESS???\n");
 			switch (lngRegOpen)
 			{
 				case ERROR_SUCCESS:
