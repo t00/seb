@@ -105,6 +105,7 @@ KEYHOOK KeyHook;
 typedef void (*MOUSEHOOK)(HINSTANCE*, bool); //typedef for the MouseHook function of the loaded MsgHook.dll
 MOUSEHOOK MouseHook;
 
+
 /* Utility Functions */
 BOOL				CheckWritePermission(LPCSTR);
 VOID				Tokenize(const string&, vector<string>&, const string&);
@@ -359,14 +360,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	PROCESS_INFORMATION pi;
 	string shutDownProcess = mpParam["AUTOSTART_PROCESS"];
 
-	/*
-	if (!pi.hProcess)
-	{
-		MessageBox(hWnd, "kjhkjhkjh", "Warning", MB_ICONWARNING);
-		logg(fp, "Warning: kjhkjhkjh\n");
-	}
-	*/
-
+	
 	/* main message loop */
 	/*
 	If the autostart process is finished it signals and closes SEB.
@@ -1024,6 +1018,7 @@ BOOL ReadSebStarterIni()
 
 
 		// Detect whether SEB runs in a virtual machine
+		runningOnVirtualMachine = false;
 		runningOnVirtualMachine = IsSebRunningOnVirtualMachine();
 
 		if (runningOnVirtualMachine == true)
@@ -1040,7 +1035,7 @@ BOOL ReadSebStarterIni()
 		if ((runningOnVirtualMachine == true) && (allowVirtualMachine == false))
 		{
 			OutputErrorMessage(languageIndex, IND_VirtualMachineForbidden, IND_MessageKindError);
-			logg(fp, "Forbidden trial to run SEB on a VIRTUAL machine!\n\n\n\n");
+			logg(fp, "Forbidden to run SEB on a VIRTUAL machine!\n\n\n\n");
 			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
 			return FALSE;
 		}
@@ -2912,6 +2907,7 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 
 		if (lngRegOpen != ERROR_SUCCESS)
 		{
+			logg(fp, "  HandleOpenRegistryKey() ERROR_SUCCESS???\n");
 			switch (lngRegOpen)
 			{
 				case ERROR_SUCCESS:
