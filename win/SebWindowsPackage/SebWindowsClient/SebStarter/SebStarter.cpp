@@ -18,8 +18,10 @@
 * the Initial Developer. All Rights Reserved.
 *
 * Contributor(s):
-*   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
-*   Oliver Rahs <rahs@net.ethz.ch>
+*   Stefan Schneider, Uni Hamburg, <stefan.schneider@uni-hamburg.de>
+*   Oliver Rahs     , ETH Zurich , <rahs@net.ethz.ch>
+*   Dirk Bauer      , ETH Zurich , <dirk.bauer@let.ethz.ch>
+*   Jan Derriks     , Hogeschool van Amsterdam, <j.derriks@hva.nl>
 *
 * ***** END LICENSE BLOCK ***** */
 
@@ -903,22 +905,43 @@ bool IsSebRunningOnVirtualMachineOld()
 
 
 
+
+
+// *******************************************************
+// Since the VM detection using the hypervisor present bit
+// does not work on every virtual machine,
+// here is better working version 
+// It does not only detect SEB running on a virtual machine,
+// but also SEB running on a remote desktop.
+// Suggested by Jan Derriks, Hogeschool van Amsterdam.
+// *******************************************************
+
+// "Red Pill" code from
+// http://invisiblethings.org/papers/redpill.html
+// but this code seems to be not working!
+/*
 int insideMatrixB()
 {
-	unsigned char m[2+4], rpill[] = "\x0f\x01\x0d\x00\x00\x00\x00\xc3";
-	*((unsigned*)&rpill[3]) = (unsigned)m;
-	((void(*)())&rpill)();
+	unsigned char m[2+4];
+	unsigned char rpill[] = "\x0f\x01\x0d\x00\x00\x00\x00\xc3";
+	*((unsigned*) &rpill[3]) = (unsigned)m;
+	((void(*)())  &rpill)();
 	return (m[5]>0xd0) ? 1 : 0;
 }
+*/
 
 
+
+// This code, however, does work!
+// (At least it detects VM Player virtual machines).
 bool insideMatrix()
 {
 	unsigned char mem[4] = {0,0,0,0};
 	__asm str mem;
-	if ((mem[0]==0x00) && (mem[1]==0x40))
-		 return true ; //printf("INSIDE MATRIX!!\n");
-	else return false; //printf("OUTSIDE MATRIX!!\n");
+	if ((mem[0] == 0x00) && (mem[1] == 0x40))
+		return true ; //printf("INSIDE  MATRIX!!\n");
+	else
+		return false; //printf("OUTSIDE MATRIX!!\n");
 	return false;
 }
 
@@ -928,29 +951,34 @@ bool IsSebRunningOnVirtualMachineNew()
 {
 	bool virtualMachine = false;
 
+	logg(fp, "Enter IsSebRunningOnVirtualMachineNew()\n\n");
+
 	// STR or SIDT code?
 	virtualMachine = insideMatrix();
 
-	logg(fp, "Enter IsSebRunningOnVirtualMachineNew()\n\n");
-
 	if (virtualMachine == true)
 	{
-		logg(fp, "   Red Pill: VM detected\n");
+		logg(fp, "   Red Pill: Virtual Machine detected\n");
 		logg(fp, "   SEB seems to run on a VIRTUAL machine!\n\n");
 	}
 	else
 	{
-		logg(fp, "   Red Pill: No VM detected\n");
+		logg(fp, "   Red Pill: No Virtual Machine detected\n");
 		logg(fp, "   SEB seems to run on a PHYSICAL machine!\n\n");
 	}
 
 	// JAND: add RDP detection
-	// from Answers/186016/How-to-detect-if-a-remote-desktop-session-is-prese
+	// from Answers/186016/How-to-detect-if-a-remote-desktop-session-is-present
 	if (GetSystemMetrics(SM_REMOTESESSION))
 	{
-		// remote desktop session
-		logg(fp, "   SEB seems to run on a Remote Desktop session\n\n");
+		logg(fp, "   Red Pill: Remote Desktop detected\n");
+		logg(fp, "   SEB seems to run on a REMOTE machine!\n\n");
 		virtualMachine = true;
+	}
+	else
+	{
+		logg(fp, "   Red Pill: No Remote Desktop detected\n");
+		logg(fp, "   SEB seems to run on a LOCAL machine!\n\n");
 	}
 
 	logg(fp, "Leave IsSebRunningOnVirtualMachineNew\n\n");
@@ -1086,9 +1114,11 @@ BOOL ReadSebStarterIni()
 		}
 
 
-		// Detect whether SEB runs in a virtual machine
+		// Detect whether SEB runs on a virtual machine
+		// (or on a remote desktop)
 		runningOnVirtualMachine = false;
-		runningOnVirtualMachine = IsSebRunningOnVirtualMachineNew();
+		runningOnVirtualMachine |= IsSebRunningOnVirtualMachineOld();
+		runningOnVirtualMachine |= IsSebRunningOnVirtualMachineNew();
 
 		if (runningOnVirtualMachine == true)
 		{
