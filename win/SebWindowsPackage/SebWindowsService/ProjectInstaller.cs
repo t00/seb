@@ -116,7 +116,7 @@ namespace SebWindowsService
 
             System.IO.File.Copy(SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
             System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
-            System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+          //System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
 
 
             // Autostart the SEB Windows Service after installation.
