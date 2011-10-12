@@ -123,6 +123,17 @@ set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
 set SebMsgHookIniFile=%BatchDir%%SebMsgHookIni%
 
+set XulSebZip=xul_seb.zip
+set XulRunnerZip=xulrunner.zip
+set XulRunnerNoSslZip=xulrunner_no_ssl_warning.zip
+
+set XulSebZipFile=%SebClientDir%\%XulSebZip%
+set XulRunnerZipFile=%SebClientDir%\%XulRunnerZip%
+set XulRunnerNoSslZipFile=%SebClientDir%\%XulRunnerNoSslZip%
+
+set XulSebZipFile(x86)=%SebClientDir(x86)%\%XulSebZip%
+set XulRunnerZipFile(x86)=%SebClientDir(x86)%\%XulRunnerZip%
+set XulRunnerNoSslZipFile(x86)=%SebClientDir(x86)%\%XulRunnerNoSslZip%
 
 
 echo Manufacturer = %Manufacturer%
@@ -157,6 +168,18 @@ echo CommonAppDataFolder = %CommonAppDataFolder%
 echo SebAdminImage       = %SebAdminImage%
 echo SebAdminImageDir    = %SebAdminImageDir%
 echo SebAdminConfigDir   = %SebAdminConfigDir%
+echo.
+echo XulSebZip          = %XulSebZip%
+echo XulRunnerZip       = %XulRunnerZip%
+echo XulRunnerNoSslZip  = %XulRunnerNoSSlZip%
+echo.
+echo XulSebZipFile         = %XulSebZipFile%
+echo XulRunnerZipFile      = %XulRunnerZipFile%
+echo XulRunnerNoSslZipFile = %XulRunnerNoSSlZipFile%
+echo.
+echo XulSebZipFile(x86)         = %XulSebZipFile(x86)%
+echo XulRunnerZipFile(x86)      = %XulRunnerZipFile(x86)%
+echo XulRunnerNoSslZipFile(x86) = %XulRunnerNoSSlZipFile(x86)%
 
 
 
