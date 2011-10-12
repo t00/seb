@@ -173,9 +173,9 @@ echo Run the installation with the .msi file
 echo ---------------------------------------
 
 @echo on
-
-msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir%"
-
+pause
+msiexec /qb /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir%"
+pause
 @echo off
 
 
