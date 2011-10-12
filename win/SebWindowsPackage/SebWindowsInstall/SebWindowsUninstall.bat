@@ -153,7 +153,7 @@ echo -----------------------------------------
 
 @echo on
 pause
-msiexec /uninstall "%SebInstallMsiFile%"
+msiexec /q /x "%SebInstallMsiFile%"
 pause
 @echo off
 

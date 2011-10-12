@@ -197,7 +197,7 @@ echo ---------------------------------------
 
 @echo on
 pause
-msiexec /qb /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir%"
+msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir%"
 pause
 @echo off
 
