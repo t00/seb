@@ -35,7 +35,8 @@ echo containing a copy of the "SebWindowsInstall.msi" file.
 echo.
 echo After installation, the script copies the (previously modified)
 echo configuration files "MsgHook.ini" and "SebStarter.ini",
-echo and also the batch file "SebStarter.bat", to the source image.
+echo (and also the batch file "SebStarter.bat"),
+echo to the source image.
 echo.
 echo The source image can then serve as a network share,
 echo so a workgroup with access to the network share
