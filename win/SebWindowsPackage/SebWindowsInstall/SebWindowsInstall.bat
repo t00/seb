@@ -4,43 +4,51 @@
 
 echo.
 echo.
-echo Safe Exam Browser installation
-echo ==============================
+echo Safe Exam Browser silent installation
+echo =====================================
 echo.
-echo For a full installation, you must execute the "SebWindowsInstall.bat"
-echo script when logged in as an administrator (not as a standard user!)
+echo The whole installation procedure comprises two phases:
 echo.
-echo Reason:
 echo.
-echo This script first runs the MSI installer with the
-echo installation file "SebWindowsInstall.msi".
+echo 1st phase (configuration):
+echo --------------------------
+echo The teacher configures SEB by modifiying
+echo the "MsgHook.ini" and "SebStarter.ini" files using a text editor.
 echo.
-echo Afterwards, the script copies the configuration files
-echo "MsgHook.ini" and "SebStarter.ini" to the "ProgramData" directory
-echo (overwriting the default "MsgHook.ini" and "SebStarter.ini").
+echo If third-party applications shall be permitted,
+echo the teacher can additionally edit the "SebStarter.bat" file.
+echo This batch file enhances the PATH variable by the paths to the
+echo third-party applications, such that SEB can find the executables
+echo of these applications when they are called during an exam.
 echo.
-echo By default, the script copies also the batch file
-echo "SebStarter.bat" to the "Program Files" directory,
-echo where SEB has been installed.
+echo The teacher packs the whole directory into a zip file,
+echo e.g. "SebWindowsInstall.zip",
+echo and distributes the zip file to the students.
 echo.
-echo If you execute this script as a standard user,
-echo the MSI installer will prompt you for an administrator password.
-echo Even after successful installation in administrator mode,
-echo the script will then fall back to standard user rights.
 echo.
-echo So the "SebStarter.ini" and "MsgHook.ini" files will _not_ be copied
-echo to the "ProgramData" directory due to lack of administrator rights!
-echo In this case, you will have to _manually_ copy these .ini files
-echo as an administrator afterwards.
+echo 2nd phase (actual installation):
+echo --------------------------------
+echo The student unzips the "SebWindowsInstall.zip" file
+echo in an arbitrary folder (e.g. "C:\tmp") on his machine.
 echo.
-echo Solution:
+echo Then he double-clicks the "SebWindowsInstall.bat" script
+echo when logged in as an administrator (not as a standard user!)
 echo.
-echo To avoid this, please execute the "SebWindowsInstall.bat"
-echo script by right-clicking on its name in the Windows Explorer,
-echo and then choosing "Run as administrator".
-echo You will then be prompted for the administrator password,
-echo and the whole script will be executed with administrator rights
-echo (running the MSI installer and copying the configured files)
+echo This script runs the MSI installer with the option /i
+echo and the installation file "SebWindowsInstall.msi",
+echo and uses the installation directory given by the
+echo INSTALLDIR parameter.
+echo.
+echo Usually INSTALLDIR is a subdirectory of "C:\Program Files"
+echo or "C:\Program Files (x86)". The parameter string is
+echo built by this script from the ingredients
+echo "Manufacturer", "Product", "Version" etc. (see below).
+echo.
+echo After installation, the script copies the (previously modified)
+echo configuration files "MsgHook.ini" and "SebStarter.ini",
+echo (and also the batch file "SebStarter.bat"),
+echo to the application data directory, which usually is
+echo a subdirectory of "C:\Program Data".
 echo.
 
 
@@ -53,6 +61,7 @@ echo ----------------------------------------------------
 echo ProgramData       = %ProgramData%
 echo ProgramFiles      = %ProgramFiles%
 echo ProgramFiles(x86) = %ProgramFiles(x86)%
+echo CommonAppDataFolder=%CommonAppDataFolder%
 
 
 
@@ -82,6 +91,11 @@ set Version=1.7.1
 set Component=SebWindowsClient
 set Build=Release
 
+set CommonAppDataFolder=Common Application Data Folder
+set SebAdminImage=SebWindowsAdminImage
+
+
+
 set SebConfigDir=%ProgramData%\%Manufacturer%\%Product% %Version%
 
 set SebInstallDir=%ProgramFiles%\%Manufacturer%\%Product% %Version%
@@ -92,27 +106,23 @@ set SebInstallDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%
 set SebClientDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%
 set SebReleaseDir(x86)=%ProgramFiles(x86)%\%Manufacturer%\%Product% %Version%\%Component%\%Build%
 
+set SebAdminImageDir=%BatchDir%%SebAdminImage%
+set SebAdminConfigDir=%BatchDir%%SebAdminImage%\%CommonAppDataFolder%
+
+
+
+set SebInstallZip=SebWindowsInstall.zip
 set SebInstallMsi=SebWindowsInstall.msi
 set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
 set SebMsgHookIni=MsgHook.ini
 
+set SebInstallZipFile=%BatchDir%%SebInstallZip%
 set SebInstallMsiFile=%BatchDir%%SebInstallMsi%
 set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
 set SebMsgHookIniFile=%BatchDir%%SebMsgHookIni%
 
-set XulSebZip=xul_seb.zip
-set XulRunnerZip=xulrunner.zip
-set XulRunnerNoSslZip=xulrunner_no_ssl_warning.zip
-
-set XulSebZipFile=%SebClientDir%\%XulSebZip%
-set XulRunnerZipFile=%SebClientDir%\%XulRunnerZip%
-set XulRunnerNoSslZipFile=%SebClientDir%\%XulRunnerNoSslZip%
-
-set XulSebZipFile(x86)=%SebClientDir(x86)%\%XulSebZip%
-set XulRunnerZipFile(x86)=%SebClientDir(x86)%\%XulRunnerZip%
-set XulRunnerNoSslZipFile(x86)=%SebClientDir(x86)%\%XulRunnerNoSslZip%
 
 
 echo Manufacturer = %Manufacturer%
@@ -131,27 +141,22 @@ echo SebInstallDir(x86) = %SebInstallDir(x86)%
 echo SebClientDir(x86)  = %SebClientDir(x86)%
 echo SebReleaseDir(x86) = %SebReleaseDir(x86)%
 echo.
+echo SebInstallZip      = %SebInstallZip%
 echo SebInstallMsi      = %SebInstallMsi%
 echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
 echo SebMsgHookIni      = %SebMsgHookIni%
 echo.
+echo SebInstallZipFile  = %SebInstallZipFile%
 echo SebInstallMsiFile  = %SebInstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
 echo SebMsgHookIniFile  = %SebMsgHookIniFile%
 echo.
-echo XulSebZip          = %XulSebZip%
-echo XulRunnerZip       = %XulRunnerZip%
-echo XulRunnerNoSslZip  = %XulRunnerNoSSlZip%
-echo.
-echo XulSebZipFile         = %XulSebZipFile%
-echo XulRunnerZipFile      = %XulRunnerZipFile%
-echo XulRunnerNoSslZipFile = %XulRunnerNoSSlZipFile%
-echo.
-echo XulSebZipFile(x86)         = %XulSebZipFile(x86)%
-echo XulRunnerZipFile(x86)      = %XulRunnerZipFile(x86)%
-echo XulRunnerNoSslZipFile(x86) = %XulRunnerNoSSlZipFile(x86)%
+echo CommonAppDataFolder = %CommonAppDataFolder%
+echo SebAdminImage       = %SebAdminImage%
+echo SebAdminImageDir    = %SebAdminImageDir%
+echo SebAdminConfigDir   = %SebAdminConfigDir%
 
 
 
@@ -169,9 +174,7 @@ echo ---------------------------------------
 
 @echo on
 
-     msiexec /i "%SebInstallMsiFile%"
-@REM msiexec /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir(x86)%"
-@REM msiexec /i "%SebInstallMsiFile%" /passive INSTALLDIR="%SebInstallDir(x86)%"
+msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir%"
 
 @echo off
 
@@ -185,18 +188,13 @@ echo -----------------------------------------------------------------
 
 @echo on
 
-@REM unzip -q "%XulSebZipFile%"         -d "%SebClientDir%"
-@REM unzip -q "%XulRunnerZipFile%"      -d "%SebClientDir%"
-@REM unzip -q "%XulRunnerNoSslZipFile%" -d "%SebClientDir%"
+copy "%SebMsgHookIniFile%" "%SebInstallDir%"
+copy "%SebStarterIniFile%" "%SebInstallDir%"
+copy "%SebStarterBatFile%" "%SebInstallDir%"
 
-@REM unzip -q "%XulSebZipFile(x86)%"         -d "%SebClientDir(x86)%"
-@REM unzip -q "%XulRunnerZipFile(x86)%"      -d "%SebClientDir(x86)%"
-@REM unzip -q "%XulRunnerNoSslZipFile(x86)%" -d "%SebClientDir(x86)%"
-
-@REM copy "%SebMsgHookIniFile%" "%SebConfigDir%"
-@REM copy "%SebStarterIniFile%" "%SebConfigDir%"
-@REM copy "%SebStarterBatFile%" "%SebReleaseDir%"
-@REM copy "%SebStarterBatFile%" "%SebReleaseDir(x86)%"
+copy "%SebMsgHookIniFile%" "%SebInstallDir(x86)%"
+copy "%SebStarterIniFile%" "%SebInstallDir(x86)%"
+copy "%SebStarterBatFile%" "%SebInstallDir(x86)%"
 
 @echo off
 
