@@ -124,6 +124,7 @@ echo XulRunnerNoSslZipFile(x86) = %XulRunnerNoSSlZipFile(x86)%
 @REM echo -----------------------------------------------------------
 
 path %path%;%BatchDir%
+path %path%;"C:\Windows\Microsoft.NET\Framework\v4.0.30319"
 
 
 
@@ -136,8 +137,11 @@ echo --------------------------------------
 
 set InstallUtilExe="C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe"
 
-InstallUtilExe "%SebInstallDir%\SebWindowsService\SebWindowsService.exe"
-InstallUtilExe "%SebInstallDir(x86)%\SebWindowsService\SebWindowsService.exe"
+@REM InstallUtilExe "%SebInstallDir%\SebWindowsService\SebWindowsService.exe"
+@REM InstallUtilExe "%SebInstallDir(x86)%\SebWindowsService\SebWindowsService.exe"
+
+InstallUtil.exe "%SebInstallDir%\SebWindowsService\SebWindowsService.exe"
+InstallUtil.exe "%SebInstallDir(x86)%\SebWindowsService\SebWindowsService.exe"
 
 @echo off
 
