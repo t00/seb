@@ -22,6 +22,7 @@ namespace SebWindowsService
         }
 
 
+
         private void SebServiceInstaller_Committed(object sender, InstallEventArgs e)
         {
             // Unpack the XULRunner directories after installation
@@ -114,17 +115,78 @@ namespace SebWindowsService
             // 2nd phase: the student executes the .msi file, which automatically uses
             // the .ini files configured (modified) by the teacher during 1st phase.
 
-            System.IO.File.Copy(SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
-            System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
-          //System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+            //System.IO.File.Copy(SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
+            //System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
+            //System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+
+            try
+            {
+                System.IO.File.Copy(SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+            try
+            {
+                System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+            try
+            {
+                System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
 
 
             // Autostart the SEB Windows Service after installation.
             // This avoids the necessity of a machine reboot.
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
             var    sebServiceController = new ServiceController(sebServiceName);
-                   sebServiceController.Start();
-        }
+
+            try
+            {
+                sebServiceController.Start();
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+            return;
+
+        } // end of method   SebServiceInstaller_Committed()
+
+
+
+
+        private void SebServiceInstaller_BeforeUninstall(object sender, InstallEventArgs e)
+        {
+            // Stop the SEB Windows Service before uninstallation ???
+            // Seems to be unnecessary since the Uninstaller automatically does this.
+            string sebServiceName       = this.SebServiceInstaller.ServiceName;
+            var    sebServiceController = new ServiceController(sebServiceName);
+
+            try
+            {
+                sebServiceController.Stop();
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+            return;
+        }   // end of method   SebServiceInstaller_BeforeUninstall()
+
 
 
 
@@ -182,20 +244,10 @@ namespace SebWindowsService
 		        //throw;
 	        }
 
-        }
+            return;
 
+        }  // end of method   SebServiceInstaller_AfterUninstall()
 
-
-        private void SebServiceInstaller_BeforeUninstall(object sender, InstallEventArgs e)
-        {
-            // Stop the SEB Windows Service before uninstallation ???
-            // Seems to be unnecessary since the Uninstaller automatically does this.
-/*
-            string sebServiceName       = this.SebServiceInstaller.ServiceName;
-            var    sebServiceController = new ServiceController(sebServiceName);
-                   sebServiceController.Stop();
-*/
-        }
 
     }
 }
