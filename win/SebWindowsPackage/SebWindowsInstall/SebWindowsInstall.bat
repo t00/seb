@@ -198,17 +198,19 @@ echo ---------------------------------------
 @echo on
 pause
 
-msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir(x86)%"
-
+@REM msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir%"
+     msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir(x86)%"
 
 @REM For example:
 @REM
-@REM If this script "SebWindowsInstall.bat" and the installer "SebWindowsInstall.msi"
-@REM are both located in "C:\tmp", and the Windows version is English and 64 bit, then the
-@REM following command line installs Safe Exam Browser for Windows 1.7.1 on the computer:
+@REM If this script "SebWindowsInstall.bat" and the installer
+@REM "SebWindowsInstall.msi" are both located in "C:\tmp",
+@REM the Windows version is English,
+@REM and 32 bit program version desired even on a 64 bit machine,
+@REM then the following command line installs Safe Exam Browser
+@REM for Windows 1.7.1 on the computer:
 @REM
 @REM msiexec /q /i "C:\tmp\SebWindowsInstall.msi" INSTALLDIR="C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.7.1"
-
 
 pause
 @echo off
