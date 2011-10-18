@@ -172,6 +172,10 @@ namespace SebWindowsService
         {
             // Stop the SEB Windows Service before uninstallation ???
             // Seems to be unnecessary since the Uninstaller automatically does this.
+            // Even more: seems to be detrimental, since the Windows service is
+            // sometimes NOT started after INSTALLATION then!!!
+            // So due to current knowledge, do NOT use this code!!!
+/*
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
             var    sebServiceController = new ServiceController(sebServiceName);
 
@@ -183,7 +187,7 @@ namespace SebWindowsService
             {
                 //throw;
             }
-
+*/
             return;
         }   // end of method   SebServiceInstaller_BeforeUninstall()
 
