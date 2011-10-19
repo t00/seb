@@ -196,7 +196,7 @@ echo Run the installation with the .msi file
 echo ---------------------------------------
 
 @echo on
-pause
+@REM pause
 
 @REM msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir%"
      msiexec /q /i "%SebInstallMsiFile%" INSTALLDIR="%SebInstallDir(x86)%"
@@ -212,7 +212,7 @@ pause
 @REM
 @REM msiexec /q /i "C:\tmp\SebWindowsInstall.msi" INSTALLDIR="C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.7.1"
 
-pause
+@REM pause
 @echo off
 
 
@@ -238,7 +238,7 @@ copy "%SebStarterBatFile%" "%SebInstallDir(x86)%"
 
 
 echo.
-pause
+@REM pause
 @echo on
 
 
