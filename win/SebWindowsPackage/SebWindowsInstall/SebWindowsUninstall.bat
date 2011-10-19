@@ -152,9 +152,11 @@ echo Run the uninstallation with the .msi file
 echo -----------------------------------------
 
 @echo on
-pause
+@REM pause
+
 msiexec /q /x "%SebInstallMsiFile%"
-pause
+
+@REM pause
 @echo off
 
 
@@ -176,7 +178,7 @@ rmdir /s /q "%SebInstallDir(x86)%"
 
 
 echo.
-pause
+@REM pause
 @echo on
 
 
