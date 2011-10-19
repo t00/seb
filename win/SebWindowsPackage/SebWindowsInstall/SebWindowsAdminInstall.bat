@@ -209,7 +209,7 @@ copy "%SebStarterBatFile%" "%SebAdminImageDir%"
 
 
 echo.
-pause
+@REM pause
 @echo on
 
 
