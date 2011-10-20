@@ -27,14 +27,14 @@ namespace SebWindowsConfig
         const int IND_RegistrySettingMax  =  7;
         const int IND_RegistrySettingNum  =  8;
 
-        const String MSG_HideFastUserSwitching  = "HideFastUserSwitching ";
-        const String MSG_DisableLockWorkstation = "DisableLockWorkstation";
-        const String MSG_DisableChangePassword  = "DisableChangePassword ";
-        const String MSG_DisableTaskMgr         = "DisableTaskMgr        ";
-        const String MSG_NoLogoff               = "NoLogoff              ";
-        const String MSG_NoClose                = "NoClose               ";
-        const String MSG_EnableShade            = "EnableShade           ";
-        const String MSG_EnableEaseOfAccess     = "Debugger              ";
+        const String MSG_HideFastUserSwitching  = "REG_HIDE_FAST_USER_SWITCHING";
+        const String MSG_DisableLockWorkstation = "REG_DISABLE_LOCK_WORKSTATION";
+        const String MSG_DisableChangePassword  = "REG_DISABLE_CHANGE_PASSWORD";
+        const String MSG_DisableTaskMgr         = "REG_DISABLE_TASKMGR";
+        const String MSG_NoLogoff               = "REG_NO_LOGOFF";
+        const String MSG_NoClose                = "REG_NO_CLOSE";
+        const String MSG_EnableShade            = "REG_ENABLE_SHADE";
+        const String MSG_EnableEaseOfAccess     = "REG_ENABLE_EASE_OF_ACCESS";
 
         const String TYPE_HideFastUserSwitching  = "REG_DWORD";
         const String TYPE_DisableLockWorkstation = "REG_DWORD";
@@ -168,17 +168,32 @@ namespace SebWindowsConfig
                             String rightSide = line.Substring(equalPos + 1);
                             labelLeftSide.Text  =  leftSide;
                             labelRightSide.Text = rightSide;
-
+/*
                             if (leftSide.Equals("REG_DISABLE_TASKMGR"))
                             {
                                 if (rightSide.Equals("0")) disableTaskManager = false;
                                 if (rightSide.Equals("1")) disableTaskManager = true;
-                                enableTaskManager = !disableTaskManager;
-                                checkBoxTaskManager.Checked = enableTaskManager;
+                                enableTaskManager           = !disableTaskManager;
+                                checkBoxTaskManager.Checked =   enableTaskManager;
                             }
-                        }
-                    }
-                }
+*/
+                            int index;
+                            for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
+                            {
+                                if (leftSide.Equals(msgString[index]))
+                                {
+                                    Boolean rightBool = false;
+                                    if (rightSide.Equals("0")) rightBool = false;
+                                    if (rightSide.Equals("1")) rightBool = true;
+                                    oldSetting[index] = rightBool;
+                                    newSetting[index] = rightBool;
+                                    checkBoxTaskManager.Checked = rightBool;
+                                }
+                            }
+
+                        } // end if line.Contains("=")
+                    } // end while
+                } // end using
             }
             catch (Exception streamReadException) 
             {
