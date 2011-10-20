@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.labelMsgHookIniPath = new System.Windows.Forms.Label();
+            this.labelSebStarterIniPath = new System.Windows.Forms.Label();
             this.labelSaveSebStarterIniFile = new System.Windows.Forms.Label();
             this.labelOpenSebStarterIniFile = new System.Windows.Forms.Label();
             this.labelBrowseSebStarterIniFolder = new System.Windows.Forms.Label();
@@ -37,15 +39,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxTaskManager = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.folderBrowserDialogBrowseSebStarterIni = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogSebStarterIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
-            this.labelSebStarterIniPath = new System.Windows.Forms.Label();
-            this.labelMsgHookIniPath = new System.Windows.Forms.Label();
+            this.labelCurrentLine = new System.Windows.Forms.Label();
+            this.labelLeftSide = new System.Windows.Forms.Label();
+            this.labelRightSide = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,6 +63,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.labelRightSide);
+            this.splitContainer1.Panel1.Controls.Add(this.labelLeftSide);
+            this.splitContainer1.Panel1.Controls.Add(this.labelCurrentLine);
             this.splitContainer1.Panel1.Controls.Add(this.labelMsgHookIniPath);
             this.splitContainer1.Panel1.Controls.Add(this.labelSebStarterIniPath);
             this.splitContainer1.Panel1.Controls.Add(this.labelSaveSebStarterIniFile);
@@ -70,7 +76,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.checkBox5);
             this.splitContainer1.Panel1.Controls.Add(this.checkBox4);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox3);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxTaskManager);
             this.splitContainer1.Panel1.Controls.Add(this.checkBox2);
             this.splitContainer1.Panel1.Controls.Add(this.checkBox1);
             // 
@@ -80,6 +86,24 @@
             this.splitContainer1.Size = new System.Drawing.Size(962, 509);
             this.splitContainer1.SplitterDistance = 679;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // labelMsgHookIniPath
+            // 
+            this.labelMsgHookIniPath.AutoSize = true;
+            this.labelMsgHookIniPath.Location = new System.Drawing.Point(54, 78);
+            this.labelMsgHookIniPath.Name = "labelMsgHookIniPath";
+            this.labelMsgHookIniPath.Size = new System.Drawing.Size(117, 17);
+            this.labelMsgHookIniPath.TabIndex = 12;
+            this.labelMsgHookIniPath.Text = "MsgHook.ini path";
+            // 
+            // labelSebStarterIniPath
+            // 
+            this.labelSebStarterIniPath.AutoSize = true;
+            this.labelSebStarterIniPath.Location = new System.Drawing.Point(52, 50);
+            this.labelSebStarterIniPath.Name = "labelSebStarterIniPath";
+            this.labelSebStarterIniPath.Size = new System.Drawing.Size(126, 17);
+            this.labelSebStarterIniPath.TabIndex = 11;
+            this.labelSebStarterIniPath.Text = "SebStarter.ini path";
             // 
             // labelSaveSebStarterIniFile
             // 
@@ -160,15 +184,16 @@
             this.checkBox4.Text = "Change Password";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // checkBoxTaskManager
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(57, 190);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(121, 21);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "Task Manager";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBoxTaskManager.AutoSize = true;
+            this.checkBoxTaskManager.Location = new System.Drawing.Point(57, 190);
+            this.checkBoxTaskManager.Name = "checkBoxTaskManager";
+            this.checkBoxTaskManager.Size = new System.Drawing.Size(121, 21);
+            this.checkBoxTaskManager.TabIndex = 2;
+            this.checkBoxTaskManager.Text = "Task Manager";
+            this.checkBoxTaskManager.UseVisualStyleBackColor = true;
+            this.checkBoxTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxTaskManager_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -204,23 +229,32 @@
             // 
             this.openFileDialogSebStarterIni.FileName = "openFileDialogSebStarterIni";
             // 
-            // labelSebStarterIniPath
+            // labelCurrentLine
             // 
-            this.labelSebStarterIniPath.AutoSize = true;
-            this.labelSebStarterIniPath.Location = new System.Drawing.Point(52, 50);
-            this.labelSebStarterIniPath.Name = "labelSebStarterIniPath";
-            this.labelSebStarterIniPath.Size = new System.Drawing.Size(126, 17);
-            this.labelSebStarterIniPath.TabIndex = 11;
-            this.labelSebStarterIniPath.Text = "SebStarter.ini path";
+            this.labelCurrentLine.AutoSize = true;
+            this.labelCurrentLine.Location = new System.Drawing.Point(55, 368);
+            this.labelCurrentLine.Name = "labelCurrentLine";
+            this.labelCurrentLine.Size = new System.Drawing.Size(79, 17);
+            this.labelCurrentLine.TabIndex = 13;
+            this.labelCurrentLine.Text = "current line";
             // 
-            // labelMsgHookIniPath
+            // labelLeftSide
             // 
-            this.labelMsgHookIniPath.AutoSize = true;
-            this.labelMsgHookIniPath.Location = new System.Drawing.Point(54, 78);
-            this.labelMsgHookIniPath.Name = "labelMsgHookIniPath";
-            this.labelMsgHookIniPath.Size = new System.Drawing.Size(117, 17);
-            this.labelMsgHookIniPath.TabIndex = 12;
-            this.labelMsgHookIniPath.Text = "MsgHook.ini path";
+            this.labelLeftSide.AutoSize = true;
+            this.labelLeftSide.Location = new System.Drawing.Point(306, 368);
+            this.labelLeftSide.Name = "labelLeftSide";
+            this.labelLeftSide.Size = new System.Drawing.Size(57, 17);
+            this.labelLeftSide.TabIndex = 14;
+            this.labelLeftSide.Text = "left side";
+            // 
+            // labelRightSide
+            // 
+            this.labelRightSide.AutoSize = true;
+            this.labelRightSide.Location = new System.Drawing.Point(457, 368);
+            this.labelRightSide.Name = "labelRightSide";
+            this.labelRightSide.Size = new System.Drawing.Size(66, 17);
+            this.labelRightSide.TabIndex = 15;
+            this.labelRightSide.Text = "right side";
             // 
             // Form1
             // 
@@ -248,7 +282,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBoxTaskManager;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox7;
@@ -260,6 +294,9 @@
         private System.Windows.Forms.Label labelSaveSebStarterIniFile;
         private System.Windows.Forms.Label labelSebStarterIniPath;
         private System.Windows.Forms.Label labelMsgHookIniPath;
+        private System.Windows.Forms.Label labelCurrentLine;
+        private System.Windows.Forms.Label labelRightSide;
+        private System.Windows.Forms.Label labelLeftSide;
     }
 }
 

@@ -16,6 +16,8 @@ namespace SebWindowsConfig
         String sebMsgHookIniPath = "";
         StreamReader streamReaderSebStarterIni;
         StreamWriter streamWriterSebStarterIni;
+        Boolean  enableTaskManager = false;
+        Boolean disableTaskManager = true;
 
         public Form1()
         {
@@ -50,6 +52,24 @@ namespace SebWindowsConfig
                     while ((line = sr.ReadLine()) != null) 
                     {
                         Console.WriteLine(line);
+                        labelCurrentLine.Text = line;
+
+                        if (line.Contains("="))
+                        {
+                            int     equalPos = line.IndexOf  ("=");
+                            String  leftSide = line.Remove   (equalPos);
+                            String rightSide = line.Substring(equalPos + 1);
+                            labelLeftSide.Text  =  leftSide;
+                            labelRightSide.Text = rightSide;
+
+                            if (leftSide.Equals("REG_DISABLE_TASKMGR"))
+                            {
+                                if (rightSide.Equals("0")) disableTaskManager = false;
+                                if (rightSide.Equals("1")) disableTaskManager = true;
+                                enableTaskManager = !disableTaskManager;
+                                checkBoxTaskManager.Checked = enableTaskManager;
+                            }
+                        }
                     }
                 }
             }
@@ -65,6 +85,11 @@ namespace SebWindowsConfig
         private void labelSaveSebStarterIniFile_Click(object sender, EventArgs e)
         {
             DialogResult saveFileName = saveFileDialogSebStarterIni.ShowDialog();
+        }
+
+        private void checkBoxTaskManager_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
