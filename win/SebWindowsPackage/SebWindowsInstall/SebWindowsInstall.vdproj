@@ -429,11 +429,6 @@
             "AssemblyAsmDisplayName" = "8:Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
-                    {
-                    "Name" = "8:Ionic.Zip.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Ionic.Zip.dll"
             "TargetName" = "8:"
@@ -813,7 +808,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F8814FF9E4A1427FB3B23032DADAF825"
             {
-            "Name" = "8:SEB Windows 1.7.1"
+            "Name" = "8:SEB Windows 1.8"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
