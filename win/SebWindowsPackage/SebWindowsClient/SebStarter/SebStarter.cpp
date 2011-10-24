@@ -708,6 +708,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	// Show Window	
 	if (ShowSebAppChooser())
 	{
+		// Assure that the new desktop has been created
+		// BEFORE the AppChooser window starts up,
+		// so the AppChooser window is NOT hided at start.
+		// Since it takes a few seconds for the new desktop to appear,
+		// wait for 1 second (1000 milliseconds)
+		// before launching the AppChooser window.
+		Sleep(1000);
+
 		int cmd = (getBool("AUTOSTART_PROCESS")) ? SW_SHOWNORMAL : SW_SHOWNORMAL; //Not very suggestive yet
 		ShowWindow(hWnd,cmd);
 		UpdateWindow(hWnd);
