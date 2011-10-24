@@ -87,7 +87,7 @@ echo ---------------------------------------------------------
 
 set Manufacturer=ETH Zuerich
 set Product=SEB Windows
-set Version=1.7.1
+set Version=1.8
 set Component=SebWindowsClient
 set Build=Release
 
@@ -208,9 +208,9 @@ echo ---------------------------------------
 @REM the Windows version is English,
 @REM and 32 bit program version desired even on a 64 bit machine,
 @REM then the following command line installs Safe Exam Browser
-@REM for Windows 1.7.1 on the computer:
+@REM for Windows 1.8 on the computer:
 @REM
-@REM msiexec /q /i "C:\tmp\SebWindowsInstall.msi" INSTALLDIR="C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.7.1"
+@REM msiexec /q /i "C:\tmp\SebWindowsInstall.msi" INSTALLDIR="C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8"
 
 @REM pause
 @echo off
