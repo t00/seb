@@ -402,7 +402,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 			// There is one or more window message available. Dispatch them
 
-			while(PeekMessage(&msg,NULL,NULL,NULL,PM_REMOVE))
+			while (PeekMessage(&msg,NULL,NULL,NULL,PM_REMOVE))
 			{
 				if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
 				{
@@ -496,7 +496,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	int  ret;
 	char buffer[100];
 
-	//its important to set the CurrentDirectory to the AppDir if you call the App from a Link
+	// It is important to set the CurrentDirectory to the AppDir if you call the App from a Link
 	char szAppPath[MAX_PATH] = "";
 	string strAppDirectory;
 	GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
