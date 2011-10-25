@@ -714,9 +714,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		// Since it takes a few seconds for the new desktop to appear,
 		// wait for 3 seconds (3000 milliseconds)
 		// before launching the AppChooser window.
-		//Sleep(3000);
+		// But this is a hack and sometimes does not work,
+		// put the sleep() command in a comment only.
+
+		// Sleep(3000);
 
 		int cmd = (getBool("AUTOSTART_PROCESS")) ? SW_SHOWNORMAL : SW_SHOWNORMAL; //Not very suggestive yet
+
 		ShowWindow(hWnd,cmd);
 		UpdateWindow(hWnd);
 	}
