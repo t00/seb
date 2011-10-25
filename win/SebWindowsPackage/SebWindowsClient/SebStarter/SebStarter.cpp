@@ -179,24 +179,24 @@ static int     numMessages  = 0;
 static int     messageNr    = 0;
 
 // Store the desired registry values as integers
-static int intHideFastUserSwitching  = 0;
-static int intDisableLockWorkstation = 0;
-static int intDisableChangePassword  = 0;
-static int intDisableTaskMgr         = 0;
-static int intNoLogoff               = 0;
-static int intNoClose                = 0;
-static int intEnableShade            = 0;
-static int intEnableEaseOfAccess     = 0;
+static int intEnableSwitchUser        = 0;
+static int intEnableLockThisComputer  = 0;
+static int intEnableChangeAPassword   = 0;
+static int intEnableStartTaskManager  = 0;
+static int intEnableLogOff            = 0;
+static int intEnableShutDown          = 0;
+static int intEnableEaseOfAccess      = 0;
+static int intEnableVmWareClientShade = 0;
 
 // Store the desired registry values as strings
-static char stringHideFastUserSwitching [10];
-static char stringDisableLockWorkstation[10];
-static char stringDisableChangePassword [10];
-static char stringDisableTaskMgr        [10];
-static char stringNoLogoff              [10];
-static char stringNoClose               [10];
-static char stringEnableShade           [10];
-static char stringEnableEaseOfAccess    [10];
+static char stringEnableSwitchUser       [10];
+static char stringEnableLockThisComputer [10];
+static char stringEnableChangeAPassword  [10];
+static char stringEnableStartTaskManager [10];
+static char stringEnableLogOff           [10];
+static char stringEnableShutDown         [10];
+static char stringEnableEaseOfAccess     [10];
+static char stringEnableVmWareClientShade[10];
 
 
 
@@ -1551,45 +1551,45 @@ BOOL GetClientInfo()
 	// Format of the sent strings is "leftSide=rightSide",
 	// exactly as in the SebStarter.ini configuration file.
 
-	intHideFastUserSwitching  = (int) getBool("REG_HIDE_FAST_USER_SWITCHING");
-	intDisableLockWorkstation = (int) getBool("REG_DISABLE_LOCK_WORKSTATION");
-	intDisableChangePassword  = (int) getBool("REG_DISABLE_CHANGE_PASSWORD");
-	intDisableTaskMgr         = (int) getBool("REG_DISABLE_TASKMGR");
-	intNoLogoff               = (int) getBool("REG_NO_LOGOFF");
-	intNoClose                = (int) getBool("REG_NO_CLOSE");
-	intEnableShade            = (int) getBool("REG_ENABLE_SHADE");
-	intEnableEaseOfAccess     = (int) getBool("REG_ENABLE_EASE_OF_ACCESS");
+	intEnableSwitchUser        = (int) getBool("ENABLE_SWITCH_USER");
+	intEnableLockThisComputer  = (int) getBool("ENABLE_LOCK_THIS_COMPUTER");
+	intEnableChangeAPassword   = (int) getBool("ENABLE_CHANGE_A_PASSWORD");
+	intEnableStartTaskManager  = (int) getBool("ENABLE_START_TASK_MANAGER");
+	intEnableLogOff            = (int) getBool("ENABLE_LOG_OFF");
+	intEnableShutDown          = (int) getBool("ENABLE_SHUT_DOWN");
+	intEnableEaseOfAccess      = (int) getBool("ENABLE_EASE_OF_ACCESS");
+	intEnableVmWareClientShade = (int) getBool("ENABLE_VM_WARE_CLIENT_SHADE");
 
-	logg(fp, "intHideFastUserSwitching  = %d\n", intHideFastUserSwitching);
-	logg(fp, "intDisableLockWorkstation = %d\n", intDisableLockWorkstation);
-	logg(fp, "intDisableChangePassword  = %d\n", intDisableChangePassword);
-	logg(fp, "intDisableTaskMgr         = %d\n", intDisableTaskMgr);
-	logg(fp, "intNoLogoff               = %d\n", intNoLogoff);
-	logg(fp, "intNoClose                = %d\n", intNoClose);
-	logg(fp, "intEnableShade            = %d\n", intEnableShade);
-	logg(fp, "intEnableEaseOfAccess     = %d\n", intEnableEaseOfAccess);
+	logg(fp, "intEnableSwitchUser        = %d\n", intEnableSwitchUser);
+	logg(fp, "intEnableLockThisComputer  = %d\n", intEnableLockThisComputer);
+	logg(fp, "intEnableChangeAPassword   = %d\n", intEnableChangeAPassword);
+	logg(fp, "intEnableStartTaskManager  = %d\n", intEnableStartTaskManager);
+	logg(fp, "intEnableLogOff            = %d\n", intEnableLogOff);
+	logg(fp, "intEnableShutDown          = %d\n", intEnableShutDown);
+	logg(fp, "intEnableEaseOfAccess      = %d\n", intEnableEaseOfAccess);
+	logg(fp, "intEnableVmWareClientShade = %d\n", intEnableVmWareClientShade);
 	logg(fp, "\n");
 
-	sprintf(stringHideFastUserSwitching , "%d", intHideFastUserSwitching);
-	sprintf(stringDisableLockWorkstation, "%d", intDisableLockWorkstation);
-	sprintf(stringDisableChangePassword , "%d", intDisableChangePassword);
-	sprintf(stringDisableTaskMgr        , "%d", intDisableTaskMgr);
-	sprintf(stringNoLogoff              , "%d", intNoLogoff);
-	sprintf(stringNoClose               , "%d", intNoClose);
-	sprintf(stringEnableShade           , "%d", intEnableShade);
-	sprintf(stringEnableEaseOfAccess    , "%d", intEnableEaseOfAccess);
+	sprintf(stringEnableSwitchUser       , "%d", intEnableSwitchUser);
+	sprintf(stringEnableLockThisComputer , "%d", intEnableLockThisComputer);
+	sprintf(stringEnableChangeAPassword  , "%d", intEnableChangeAPassword);
+	sprintf(stringEnableStartTaskManager , "%d", intEnableStartTaskManager);
+	sprintf(stringEnableLogOff           , "%d", intEnableLogOff);
+	sprintf(stringEnableShutDown         , "%d", intEnableShutDown);
+	sprintf(stringEnableEaseOfAccess     , "%d", intEnableEaseOfAccess);
+	sprintf(stringEnableVmWareClientShade, "%d", intEnableVmWareClientShade);
 
 	// Build a binary string containing the "0"/"1" registry settings
 
 	strcpy(registryFlags, "");
-	strcat(registryFlags, stringHideFastUserSwitching);
-	strcat(registryFlags, stringDisableLockWorkstation);
-	strcat(registryFlags, stringDisableChangePassword);
-	strcat(registryFlags, stringDisableTaskMgr);
-	strcat(registryFlags, stringNoLogoff);
-	strcat(registryFlags, stringNoClose);
-	strcat(registryFlags, stringEnableShade);
+	strcat(registryFlags, stringEnableSwitchUser);
+	strcat(registryFlags, stringEnableLockThisComputer);
+	strcat(registryFlags, stringEnableChangeAPassword);
+	strcat(registryFlags, stringEnableStartTaskManager);
+	strcat(registryFlags, stringEnableLogOff);
+	strcat(registryFlags, stringEnableShutDown);
 	strcat(registryFlags, stringEnableEaseOfAccess);
+	strcat(registryFlags, stringEnableVmWareClientShade);
 
 	//strcpy(userNameRegistryFlags, userName);
 	//strcpy(userNameRegistryFlags, endOfStringKeyWord);
@@ -1638,16 +1638,16 @@ BOOL GetClientInfo()
 
 
 	// Alternatively, the registry flags could also be sent
-	// one by one, namely in the "DisableTaskMgr=1" format:
+	// one by one, namely in the "EnableStartTaskManager=1" format:
 /*
-	socketResult = SendEquationToSocketServer((char*)VAL_HideFastUserSwitching , stringHideFastUserSwitching , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_DisableLockWorkstation, stringDisableLockWorkstation, sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_DisableChangePassword , stringDisableChangePassword , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_DisableTaskMgr        , stringDisableTaskMgr        , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_NoLogoff              , stringNoLogoff              , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_NoClose               , stringNoClose               , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableShade           , stringEnableShade           , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableEaseOfAccess    , stringEnableEaseOfAccess    , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableSwitchUser       , stringEnableSwitchUser       , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableLockThisComputer , stringEnableLockThisComputer , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableChangeAPassword  , stringEnableChangeAPassword  , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableStartTaskManager , stringEnableStartTaskManager , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableLogOff           , stringEnableLogOff           , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableShutDown         , stringEnableShutDown         , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableEaseOfAccess     , stringEnableEaseOfAccess     , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)VAL_EnableVmWareClientShade, stringEnableVmWareClientShade, sendInterval);
 */
 
 	// Close the socket, so the server loop
@@ -2042,10 +2042,10 @@ BOOL EditRegistry()
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\HideFastUserSwitching
-		if (getBool("REG_HIDE_FAST_USER_SWITCHING")) 
+		if (getBool("ENABLE_SWITCH_USER") == FALSE) 
 		{
-			// MessageBox(NULL, "= true", "REG_HIDE_FAST_USER_SWITCHING", 16);
-			logg(fp, "getBool(REG_HIDE_FAST_USER_SWITCHING) = true\n");
+			// MessageBox(NULL, "= false", "ENABLE_SWITCH_USER", 16);
+			logg(fp, "getBool(ENABLE_SWITCH_USER) = false\n");
 
 			if (HandleSetRegistryKeyValue(hklmSystem,VAL_HideFastUserSwitching,"HIDE_FAST_USER_SWITCHING"))
 			{
@@ -2062,17 +2062,17 @@ BOOL EditRegistry()
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_HIDE_FAST_USER_SWITCHING", 16);
-			logg(fp, "getBool(REG_HIDE_FAST_USER_SWITCHING) = false\n");
+			//MessageBox(NULL, "= true", "ENABLE_SWITCH_USER", 16);
+			logg(fp, "getBool(ENABLE_SWITCH_USER) = true\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableLockWorkstation
-		if (getBool("REG_DISABLE_LOCK_WORKSTATION")) 
+		if (getBool("ENABLE_LOCK_THIS_COMPUTER") == FALSE) 
 		{
-			// MessageBox(NULL, "= true", "REG_DISABLE_LOCK_WORKSTATION", 16);
-			logg(fp, "getBool(REG_DISABLE_LOCK_WORKSTATION) = true\n");
+			// MessageBox(NULL, "= false", "ENABLE_LOCK_THIS_COMPUTER", 16);
+			logg(fp, "getBool(ENABLE_LOCK_THIS_COMPUTER) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"DISABLE_LOCK_WORKSTATION"))
 			{
@@ -2089,17 +2089,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_DISABLE_LOCK_WORKSTATION", 16);
-			logg(fp, "getBool(REG_DISABLE_LOCK_WORKSTATION) = false\n");
+			//MessageBox(NULL, "= true", "ENABLE_LOCK_THIS_COMPUTER", 16);
+			logg(fp, "getBool(ENABLE_LOCK_THIS_COMPUTER) = true\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableChangePassword
-		if (getBool("REG_DISABLE_CHANGE_PASSWORD")) 
+		if (getBool("ENABLE_CHANGE_A_PASSWORD") == FALSE) 
 		{
-			//   MessageBox(NULL,"= true","REG_DISABLE_CHANGE_PASSWORD",16);
-			logg(fp, "getBool(REG_DISABLE_CHANGE_PASSWORD) = true\n");
+			//   MessageBox(NULL,"= false","ENABLE_CHANGE_A_PASSWORD",16);
+			logg(fp, "getBool(ENABLE_CHANGE_A_PASSWORD) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"DISABLE_CHANGE_PASSWORD"))
 			{
@@ -2116,17 +2116,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_DISABLE_CHANGE_PASSWORD", 16);
-			logg(fp, "getBool(REG_DISABLE_CHANGE_PASSWORD) = false\n");
+			//MessageBox(NULL, "= true", "ENABLE_CHANGE_A_PASSWORD", 16);
+			logg(fp, "getBool(ENABLE_CHANGE_A_PASSWORD) = true\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableTaskMgr
-		if (getBool("REG_DISABLE_TASKMGR")) 
+		if (getBool("ENABLE_START_TASK_MANAGER") == FALSE) 
 		{
-			//   MessageBox(NULL,"= true","REG_DISABLE_TASKMGR",16);
-			logg(fp, "getBool(REG_DISABLE_TASKMGR) = true\n");
+			//   MessageBox(NULL,"= false","ENABLE_START_TASK_MANAGER",16);
+			logg(fp, "getBool(ENABLE_START_TASK_MANAGER) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableTaskMgr,"DISABLE_TASKMGR"))
 			{
@@ -2143,17 +2143,17 @@ BOOL EditRegistry()
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_DISABLE_TASKMGR", 16);
-			logg(fp, "getBool(REG_DISABLE_TASKMGR) = false\n");
+			//MessageBox(NULL, "= true", "ENABLE_START_TASK_MANAGER", 16);
+			logg(fp, "getBool(ENABLE_START_TASK_MANAGER) = true\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoLogoff
-		if (getBool("REG_NO_LOGOFF"))
+		if (getBool("ENABLE_LOGOFF") == FALSE)
 		{
-			//MessageBox(NULL,"= true","REG_NO_LOGOFF",16);
-			logg(fp, "getBool(REG_NO_LOGOFF) = true\n");
+			//MessageBox(NULL,"= false","ENABLE_LOGOFF",16);
+			logg(fp, "getBool(ENABLE_LOGOFF) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"NO_LOGOFF"))
 			{
@@ -2170,17 +2170,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_NO_LOGOFF", 16);
-			logg(fp, "getBool(REG_NO_LOGOFF) = false\n");
+			//MessageBox(NULL, "= true", "ENABLE_LOGOFF", 16);
+			logg(fp, "getBool(ENABLE_LOGOFF) = true\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose
-		if (getBool("REG_NO_CLOSE"))
+		if (getBool("ENABLE_SHUT_DOWN") == FALSE)
 		{
-			//MessageBox(NULL,"= true","REG_NO_CLOSE",16);
-			logg(fp, "getBool(REG_NO_CLOSE) = true\n");
+			//MessageBox(NULL,"= false","ENABLE_SHUT_DOWN",16);
+			logg(fp, "getBool(ENABLE_SHUT_DOWN) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"NO_CLOSE"))
 			{
@@ -2197,44 +2197,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_NO_CLOSE", 16);
-			logg(fp, "getBool(REG_NO_CLOSE) = false\n");
-		}
-
-
-		// Set the Windows Registry Key
-		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client\EnableShade
-		if (getBool("REG_ENABLE_SHADE")) 
-		{
-			// MessageBox(NULL, "= true", "REG_ENABLE_SHADE", 16);
-			logg(fp, "getBool(REG_ENABLE_SHADE) = true\n");
-
-			if (HandleSetRegistryKeyValue(hkcuVMwareClient,VAL_EnableShade,"ENABLE_SHADE"))
-			{
-				//MessageBox(NULL, "Setting ENABLE_SHADE succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n");
-			}
-			else
-			{
-				//MessageBox(NULL, "Setting ENABLE_SHADE failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n");
-				logg(fp, "Leave EditRegistry()\n\n");
-				return FALSE;
-			}
-		} 
-		else
-		{
-			//MessageBox(NULL, "= false", "REG_ENABLE_SHADE", 16);
-			logg(fp, "getBool(REG_ENABLE_SHADE) = false\n");
+			//MessageBox(NULL, "= true", "ENABLE_SHUT_DOWN", 16);
+			logg(fp, "getBool(ENABLE_SHUT_DOWN) = true\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe\Debugger
-		if (getBool("REG_ENABLE_EASE_OF_ACCESS")) 
+		if (getBool("ENABLE_EASE_OF_ACCESS") == TRUE) 
 		{
-			//MessageBox(NULL, "= true", "REG_ENABLE_EASE_OF_ACCESS", 16);
-			logg(fp, "getBool(REG_ENABLE_EASE_OF_ACCESS) = true\n");
+			//MessageBox(NULL, "= true", "ENABLE_EASE_OF_ACCESS", 16);
+			logg(fp, "getBool(ENABLE_EASE_OF_ACCESS) = true\n");
 
 			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_EnableEaseOfAccess,"ENABLE_EASE_OF_ACCESS"))
 			{
@@ -2251,9 +2224,37 @@ BOOL EditRegistry()
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "REG_ENABLE_EASE_OF_ACCESS", 16);
-			logg(fp, "getBool(REG_ENABLE_EASE_OF_ACCESS) = false\n");
+			//MessageBox(NULL, "= false", "ENABLE_EASE_OF_ACCESS", 16);
+			logg(fp, "getBool(ENABLE_EASE_OF_ACCESS) = false\n");
 		}
+
+
+		// Set the Windows Registry Key
+		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client\EnableShade
+		if (getBool("ENABLE_VM_WARE_CLIENT_SHADE") == TRUE) 
+		{
+			// MessageBox(NULL, "= true", "ENABLE_VM_WARE_CLIENT_SHADE", 16);
+			logg(fp, "getBool(ENABLE_VM_WARE_CLIENT_SHADE) = true\n");
+
+			if (HandleSetRegistryKeyValue(hkcuVMwareClient,VAL_EnableShade,"ENABLE_SHADE"))
+			{
+				//MessageBox(NULL, "Setting ENABLE_SHADE succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n");
+			}
+			else
+			{
+				//MessageBox(NULL, "Setting ENABLE_SHADE failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n");
+				logg(fp, "Leave EditRegistry()\n\n");
+				return FALSE;
+			}
+		} 
+		else
+		{
+			//MessageBox(NULL, "= false", "ENABLE_VM_WARE_CLIENT_SHADE", 16);
+			logg(fp, "getBool(ENABLE_VM_WARE_CLIENT_SHADE) = false\n");
+		}
+
 
 	} // end try
 
@@ -2293,37 +2294,37 @@ BOOL ResetRegistry()
 		if (!HandleOpenRegistryKey(HKCU, KEY_VMwareClient    , &hkcuVMwareClient, TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKLM, KEY_UtilmanExe      , &hklmUtilmanExe  , TRUE)) return FALSE;
 
-		if (getBool("REG_HIDE_FAST_USER_SWITCHING")) 
+		if (getBool("ENABLE_SWITCH_USER")) 
 		{
 			RegDeleteValue(hklmSystem, VAL_HideFastUserSwitching);
 		}
-		if (getBool("REG_DISABLE_LOCK_WORKSTATION")) 
+		if (getBool("ENABLE_LOCK_THIS_COMPUTER")) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableLockWorkstation);
 		}
-		if (getBool("REG_DISABLE_TASKMGR")) 
+		if (getBool("ENABLE_TASK_MANAGER")) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableTaskMgr);
 		} 
-		if (getBool("REG_DISABLE_CHANGE_PASSWORD")) 
+		if (getBool("ENABLE_CHANGE_A_PASSWORD")) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableChangePassword);
 		}
-		if (getBool("REG_NO_LOGOFF"))
+		if (getBool("ENABLE_LOG_OFF"))
 		{
 			RegDeleteValue(hkcuExplorer, VAL_NoLogoff);
 		}
-		if (getBool("REG_NO_CLOSE"))
+		if (getBool("ENABLE_SHUT_DOWN"))
 		{
 			RegDeleteValue(hkcuExplorer, VAL_NoClose);
 		}
-		if (getBool("REG_ENABLE_SHADE"))
-		{
-			RegDeleteValue(hkcuVMwareClient, VAL_EnableShade);
-		}
-		if (getBool("REG_ENABLE_EASE_OF_ACCESS")) 
+		if (getBool("ENABLE_EASE_OF_ACCESS")) 
 		{
 			RegDeleteValue(hklmUtilmanExe, VAL_EnableEaseOfAccess);
+		}
+		if (getBool("ENABLE_VM_WARE_CLIENT_SHADE"))
+		{
+			RegDeleteValue(hkcuVMwareClient, VAL_EnableShade);
 		}
 	}
 
