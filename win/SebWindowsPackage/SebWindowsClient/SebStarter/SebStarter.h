@@ -76,8 +76,8 @@ bool runningOnVirtualMachine = false;
 LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
 LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
 LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
-LPCTSTR KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 LPCTSTR KEY_UtilmanExe       = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Utilman.exe";
+LPCTSTR KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
 // Strings for registry values
 LPCTSTR VAL_HideFastUserSwitching  = "HideFastUserSwitching";
@@ -86,8 +86,8 @@ LPCTSTR VAL_DisableChangePassword  = "DisableChangePassword";
 LPCTSTR VAL_DisableTaskMgr         = "DisableTaskMgr";
 LPCTSTR VAL_NoLogoff               = "NoLogoff";
 LPCTSTR VAL_NoClose                = "NoClose";
-LPCTSTR VAL_EnableShade            = "EnableShade";
 LPCTSTR VAL_EnableEaseOfAccess     = "Debugger";
+LPCTSTR VAL_EnableShade            = "EnableShade";
 
 // Aligned strings for printing out registry values
 LPCTSTR MSG_HideFastUserSwitching  = "HideFastUserSwitching ";
@@ -96,8 +96,8 @@ LPCTSTR MSG_DisableChangePassword  = "DisableChangePassword ";
 LPCTSTR MSG_DisableTaskMgr         = "DisableTaskMgr        ";
 LPCTSTR MSG_NoLogoff               = "NoLogoff              ";
 LPCTSTR MSG_NoClose                = "NoClose               ";
-LPCTSTR MSG_EnableShade            = "EnableShade           ";
 LPCTSTR MSG_EnableEaseOfAccess     = "Debugger              ";
+LPCTSTR MSG_EnableShade            = "EnableShade           ";
 
 
 // Only for trunk version necessary (XULrunner)
