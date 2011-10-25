@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.labelSaveMsgHookIniFile = new System.Windows.Forms.Label();
+            this.labelOpenMsgHookIniFile = new System.Windows.Forms.Label();
             this.checkBoxEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.labelRightSide = new System.Windows.Forms.Label();
             this.labelLeftSide = new System.Windows.Forms.Label();
@@ -50,8 +52,7 @@
             this.folderBrowserDialogBrowseIniFiles = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogSebStarterIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
-            this.labelOpenMsgHookIniFile = new System.Windows.Forms.Label();
-            this.labelSaveMsgHookIniFile = new System.Windows.Forms.Label();
+            this.buttonRestoreSettingsOfSebStarterIni = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -66,13 +67,11 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.labelSaveMsgHookIniFile);
-            this.splitContainer1.Panel1.Controls.Add(this.labelOpenMsgHookIniFile);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonRestoreSettingsOfSebStarterIni);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableEaseOfAccess);
             this.splitContainer1.Panel1.Controls.Add(this.labelRightSide);
             this.splitContainer1.Panel1.Controls.Add(this.labelLeftSide);
             this.splitContainer1.Panel1.Controls.Add(this.labelCurrentLine);
-            this.splitContainer1.Panel1.Controls.Add(this.labelMsgHookIniPath);
             this.splitContainer1.Panel1.Controls.Add(this.labelSebStarterIniPath);
             this.splitContainer1.Panel1.Controls.Add(this.labelSaveSebStarterIniFile);
             this.splitContainer1.Panel1.Controls.Add(this.labelOpenSebStarterIniFile);
@@ -89,9 +88,32 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.labelMsgHookOptions);
+            this.splitContainer1.Panel2.Controls.Add(this.labelSaveMsgHookIniFile);
+            this.splitContainer1.Panel2.Controls.Add(this.labelOpenMsgHookIniFile);
+            this.splitContainer1.Panel2.Controls.Add(this.labelMsgHookIniPath);
             this.splitContainer1.Size = new System.Drawing.Size(962, 655);
             this.splitContainer1.SplitterDistance = 679;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // labelSaveMsgHookIniFile
+            // 
+            this.labelSaveMsgHookIniFile.AutoSize = true;
+            this.labelSaveMsgHookIniFile.Location = new System.Drawing.Point(43, 528);
+            this.labelSaveMsgHookIniFile.Name = "labelSaveMsgHookIniFile";
+            this.labelSaveMsgHookIniFile.Size = new System.Drawing.Size(143, 17);
+            this.labelSaveMsgHookIniFile.TabIndex = 18;
+            this.labelSaveMsgHookIniFile.Text = "Save MsgHook.ini file";
+            this.labelSaveMsgHookIniFile.Click += new System.EventHandler(this.labelSaveMsgHookIniFile_Click);
+            // 
+            // labelOpenMsgHookIniFile
+            // 
+            this.labelOpenMsgHookIniFile.AutoSize = true;
+            this.labelOpenMsgHookIniFile.Location = new System.Drawing.Point(43, 496);
+            this.labelOpenMsgHookIniFile.Name = "labelOpenMsgHookIniFile";
+            this.labelOpenMsgHookIniFile.Size = new System.Drawing.Size(146, 17);
+            this.labelOpenMsgHookIniFile.TabIndex = 17;
+            this.labelOpenMsgHookIniFile.Text = "Open MsgHook.ini file";
+            this.labelOpenMsgHookIniFile.Click += new System.EventHandler(this.labelOpenMsgHookIniFile_Click);
             // 
             // checkBoxEnableEaseOfAccess
             // 
@@ -102,6 +124,7 @@
             this.checkBoxEnableEaseOfAccess.TabIndex = 16;
             this.checkBoxEnableEaseOfAccess.Text = "Enable Ease of Access";
             this.checkBoxEnableEaseOfAccess.UseVisualStyleBackColor = true;
+            this.checkBoxEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxEnableEaseOfAccess_CheckedChanged);
             // 
             // labelRightSide
             // 
@@ -133,7 +156,7 @@
             // labelMsgHookIniPath
             // 
             this.labelMsgHookIniPath.AutoSize = true;
-            this.labelMsgHookIniPath.Location = new System.Drawing.Point(54, 78);
+            this.labelMsgHookIniPath.Location = new System.Drawing.Point(43, 66);
             this.labelMsgHookIniPath.Name = "labelMsgHookIniPath";
             this.labelMsgHookIniPath.Size = new System.Drawing.Size(117, 17);
             this.labelMsgHookIniPath.TabIndex = 12;
@@ -142,7 +165,7 @@
             // labelSebStarterIniPath
             // 
             this.labelSebStarterIniPath.AutoSize = true;
-            this.labelSebStarterIniPath.Location = new System.Drawing.Point(52, 50);
+            this.labelSebStarterIniPath.Location = new System.Drawing.Point(54, 55);
             this.labelSebStarterIniPath.Name = "labelSebStarterIniPath";
             this.labelSebStarterIniPath.Size = new System.Drawing.Size(126, 17);
             this.labelSebStarterIniPath.TabIndex = 11;
@@ -187,6 +210,7 @@
             this.checkBoxEnableVmWareClientShade.TabIndex = 7;
             this.checkBoxEnableVmWareClientShade.Text = "Enable VMware Client Shade";
             this.checkBoxEnableVmWareClientShade.UseVisualStyleBackColor = true;
+            this.checkBoxEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxEnableVmWareClientShade_CheckedChanged);
             // 
             // checkBoxEnableLogOff
             // 
@@ -197,11 +221,12 @@
             this.checkBoxEnableLogOff.TabIndex = 6;
             this.checkBoxEnableLogOff.Text = "Enable Log off";
             this.checkBoxEnableLogOff.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxEnableLogOff_CheckedChanged);
             // 
             // labelSebStarterOptions
             // 
             this.labelSebStarterOptions.AutoSize = true;
-            this.labelSebStarterOptions.Location = new System.Drawing.Point(54, 23);
+            this.labelSebStarterOptions.Location = new System.Drawing.Point(55, 24);
             this.labelSebStarterOptions.Name = "labelSebStarterOptions";
             this.labelSebStarterOptions.Size = new System.Drawing.Size(126, 17);
             this.labelSebStarterOptions.TabIndex = 5;
@@ -216,6 +241,7 @@
             this.checkBoxEnableShutDown.TabIndex = 4;
             this.checkBoxEnableShutDown.Text = "Enable Shut down";
             this.checkBoxEnableShutDown.UseVisualStyleBackColor = true;
+            this.checkBoxEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxEnableShutDown_CheckedChanged);
             // 
             // checkBoxEnableChangeAPassword
             // 
@@ -226,6 +252,7 @@
             this.checkBoxEnableChangeAPassword.TabIndex = 3;
             this.checkBoxEnableChangeAPassword.Text = "Enable Change a password";
             this.checkBoxEnableChangeAPassword.UseVisualStyleBackColor = true;
+            this.checkBoxEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxEnableChangeAPassword_CheckedChanged);
             // 
             // checkBoxEnableStartTaskManager
             // 
@@ -247,6 +274,7 @@
             this.checkBoxEnableLockThisComputer.TabIndex = 1;
             this.checkBoxEnableLockThisComputer.Text = "Enable Lock this computer";
             this.checkBoxEnableLockThisComputer.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLockThisComputer.CheckedChanged += new System.EventHandler(this.checkBoxEnableLockThisComputer_CheckedChanged);
             // 
             // checkBoxEnableSwitchUser
             // 
@@ -262,7 +290,7 @@
             // labelMsgHookOptions
             // 
             this.labelMsgHookOptions.AutoSize = true;
-            this.labelMsgHookOptions.Location = new System.Drawing.Point(88, 36);
+            this.labelMsgHookOptions.Location = new System.Drawing.Point(43, 36);
             this.labelMsgHookOptions.Name = "labelMsgHookOptions";
             this.labelMsgHookOptions.Size = new System.Drawing.Size(117, 17);
             this.labelMsgHookOptions.TabIndex = 0;
@@ -272,25 +300,15 @@
             // 
             this.openFileDialogSebStarterIni.FileName = "openFileDialogSebStarterIni";
             // 
-            // labelOpenMsgHookIniFile
+            // buttonRestoreSettingsOfSebStarterIni
             // 
-            this.labelOpenMsgHookIniFile.AutoSize = true;
-            this.labelOpenMsgHookIniFile.Location = new System.Drawing.Point(319, 496);
-            this.labelOpenMsgHookIniFile.Name = "labelOpenMsgHookIniFile";
-            this.labelOpenMsgHookIniFile.Size = new System.Drawing.Size(146, 17);
-            this.labelOpenMsgHookIniFile.TabIndex = 17;
-            this.labelOpenMsgHookIniFile.Text = "Open MsgHook.ini file";
-            this.labelOpenMsgHookIniFile.Click += new System.EventHandler(this.labelOpenMsgHookIniFile_Click);
-            // 
-            // labelSaveMsgHookIniFile
-            // 
-            this.labelSaveMsgHookIniFile.AutoSize = true;
-            this.labelSaveMsgHookIniFile.Location = new System.Drawing.Point(319, 528);
-            this.labelSaveMsgHookIniFile.Name = "labelSaveMsgHookIniFile";
-            this.labelSaveMsgHookIniFile.Size = new System.Drawing.Size(143, 17);
-            this.labelSaveMsgHookIniFile.TabIndex = 18;
-            this.labelSaveMsgHookIniFile.Text = "Save MsgHook.ini file";
-            this.labelSaveMsgHookIniFile.Click += new System.EventHandler(this.labelSaveMsgHookIniFile_Click);
+            this.buttonRestoreSettingsOfSebStarterIni.Location = new System.Drawing.Point(356, 112);
+            this.buttonRestoreSettingsOfSebStarterIni.Name = "buttonRestoreSettingsOfSebStarterIni";
+            this.buttonRestoreSettingsOfSebStarterIni.Size = new System.Drawing.Size(139, 72);
+            this.buttonRestoreSettingsOfSebStarterIni.TabIndex = 19;
+            this.buttonRestoreSettingsOfSebStarterIni.Text = "Restore settings of SebStarter.ini";
+            this.buttonRestoreSettingsOfSebStarterIni.UseVisualStyleBackColor = true;
+            this.buttonRestoreSettingsOfSebStarterIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfSebStarterIni_Click);
             // 
             // SebWindowsConfigForm
             // 
@@ -336,6 +354,7 @@
         private System.Windows.Forms.CheckBox checkBoxEnableEaseOfAccess;
         private System.Windows.Forms.Label labelOpenMsgHookIniFile;
         private System.Windows.Forms.Label labelSaveMsgHookIniFile;
+        private System.Windows.Forms.Button buttonRestoreSettingsOfSebStarterIni;
     }
 }
 

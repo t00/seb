@@ -78,7 +78,7 @@ namespace SebWindowsConfig
 
             // Initialise the global arrays
 
-            int index;
+            int  index;
             for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
             {
                    oldSetting[index] = false;
@@ -144,7 +144,8 @@ namespace SebWindowsConfig
                         labelLeftSide.Text  =  leftSide;
                         labelRightSide.Text = rightSide;
 
-                        for (int index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
+                        int  index;
+                        for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
                         {
                             if (leftSide.Equals(msgString[index]))
                             {
@@ -199,16 +200,6 @@ namespace SebWindowsConfig
         }
 
 
-        private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void labelOpenMsgHookIniFile_Click(object sender, EventArgs e)
         {
 
@@ -217,6 +208,78 @@ namespace SebWindowsConfig
         private void labelSaveMsgHookIniFile_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        // If the user changes a setting by clicking the checkbox,
+        // update the setting in memory for it can be saved on file later.
+
+        private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableSwitchUser] = newSetting[IND_EnableSwitchUser];
+            newSetting[IND_EnableSwitchUser] = checkBoxEnableSwitchUser.Checked;
+        }
+
+        private void checkBoxEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableLockThisComputer] = newSetting[IND_EnableLockThisComputer];
+            newSetting[IND_EnableLockThisComputer] = checkBoxEnableLockThisComputer.Checked;
+        }
+
+        private void checkBoxEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableChangeAPassword] = newSetting[IND_EnableChangeAPassword];
+            newSetting[IND_EnableChangeAPassword] = checkBoxEnableChangeAPassword.Checked;
+        }
+
+        private void checkBoxEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableStartTaskManager] = newSetting[IND_EnableStartTaskManager];
+            newSetting[IND_EnableStartTaskManager] = checkBoxEnableStartTaskManager.Checked;
+        }
+
+        private void checkBoxEnableLogOff_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableLogOff] = newSetting[IND_EnableLogOff];
+            newSetting[IND_EnableLogOff] = checkBoxEnableLogOff.Checked;
+        }
+
+        private void checkBoxEnableShutDown_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableShutDown] = newSetting[IND_EnableShutDown];
+            newSetting[IND_EnableShutDown] = checkBoxEnableShutDown.Checked;
+        }
+
+        private void checkBoxEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableEaseOfAccess] = newSetting[IND_EnableEaseOfAccess];
+            newSetting[IND_EnableEaseOfAccess] = checkBoxEnableEaseOfAccess.Checked;
+        }
+
+        private void checkBoxEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EnableVmWareClientShade] = newSetting[IND_EnableVmWareClientShade];
+            newSetting[IND_EnableVmWareClientShade] = checkBoxEnableVmWareClientShade.Checked;
+        }
+
+
+        private void buttonRestoreSettingsOfSebStarterIni_Click(object sender, EventArgs e)
+        {
+            int  index;
+            for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
+            {
+                newSetting[index] = oldSetting[index];
+            }
+
+            // Assign the old settings from the ini file to the widgets again
+            checkBoxEnableSwitchUser       .Checked = oldSetting[IND_EnableSwitchUser];
+            checkBoxEnableLockThisComputer .Checked = oldSetting[IND_EnableLockThisComputer];
+            checkBoxEnableChangeAPassword  .Checked = oldSetting[IND_EnableChangeAPassword];
+            checkBoxEnableStartTaskManager .Checked = oldSetting[IND_EnableStartTaskManager];
+            checkBoxEnableLogOff           .Checked = oldSetting[IND_EnableLogOff];
+            checkBoxEnableShutDown         .Checked = oldSetting[IND_EnableShutDown];
+            checkBoxEnableEaseOfAccess     .Checked = oldSetting[IND_EnableEaseOfAccess];
+            checkBoxEnableVmWareClientShade.Checked = oldSetting[IND_EnableVmWareClientShade];
         }
 
     }
