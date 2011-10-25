@@ -10,40 +10,41 @@ using System.IO;
 
 namespace SebWindowsConfig
 {
-    public partial class Form1 : Form
+    public partial class SebWindowsConfigForm : Form
     {
         // Constants for indexing the ini file settings
-        const int IND_HideFastUserSwitching  = 0;
-        const int IND_DisableLockWorkstation = 1;
-        const int IND_DisableChangePassword  = 2;
-        const int IND_DisableTaskMgr         = 3;
-        const int IND_NoLogoff               = 4;
-        const int IND_NoClose                = 5;
-        const int IND_EnableShade            = 6;
-        const int IND_EnableEaseOfAccess     = 7;
+        const int IND_EnableSwitchUser        = 0;
+        const int IND_EnableLockThisComputer  = 1;
+        const int IND_EnableChangeAPassword   = 2;
+        const int IND_EnableStartTaskManager  = 3;
+        const int IND_EnableLogOff            = 4;
+        const int IND_EnableShutDown          = 5;
+        const int IND_EnableEaseOfAccess      = 6;
+        const int IND_EnableVmWareClientShade = 7;
 
         const int IND_RegistrySettingNone = -1;
         const int IND_RegistrySettingMin  =  0;
         const int IND_RegistrySettingMax  =  7;
         const int IND_RegistrySettingNum  =  8;
 
-        const String MSG_HideFastUserSwitching  = "REG_HIDE_FAST_USER_SWITCHING";
-        const String MSG_DisableLockWorkstation = "REG_DISABLE_LOCK_WORKSTATION";
-        const String MSG_DisableChangePassword  = "REG_DISABLE_CHANGE_PASSWORD";
-        const String MSG_DisableTaskMgr         = "REG_DISABLE_TASKMGR";
-        const String MSG_NoLogoff               = "REG_NO_LOGOFF";
-        const String MSG_NoClose                = "REG_NO_CLOSE";
-        const String MSG_EnableShade            = "REG_ENABLE_SHADE";
-        const String MSG_EnableEaseOfAccess     = "REG_ENABLE_EASE_OF_ACCESS";
+        const String MSG_EnableSwitchUser        = "ENABLE_SWITCH_USER";
+        const String MSG_EnableLockThisComputer  = "ENABLE_LOCK_THIS_COMPUTER";
+        const String MSG_EnableChangeAPassword   = "ENABLE_CHANGE_A_PASSWORD";
+        const String MSG_EnableStartTaskManager  = "ENABLE_START_TASK_MANAGER";
+        const String MSG_EnableLogOff            = "ENABLE_LOG_OFF";
+        const String MSG_EnableShutDown          = "ENABLE_SHUT_DOWN";
+        const String MSG_EnableEaseOfAccess      = "ENABLE_EASE_OF_ACCESS";
+        const String MSG_EnableVmWareClientShade = "ENABLE_VM_WARE_CLIENT_SHADE";
 
-        const String TYPE_HideFastUserSwitching  = "REG_DWORD";
-        const String TYPE_DisableLockWorkstation = "REG_DWORD";
-        const String TYPE_DisableChangePassword  = "REG_DWORD";
-        const String TYPE_DisableTaskMgr         = "REG_DWORD";
-        const String TYPE_NoLogoff               = "REG_DWORD";
-        const String TYPE_NoClose                = "REG_DWORD";
-        const String TYPE_EnableShade            = "REG_DWORD";
-        const String TYPE_EnableEaseOfAccess     = "REG_SZ";
+        const String TYPE_EnableSwitchUser        = "REG_DWORD";
+        const String TYPE_EnableLockThisComputer  = "REG_DWORD";
+        const String TYPE_EnableChangeAPassword   = "REG_DWORD";
+        const String TYPE_EnableStartTaskManager  = "REG_DWORD";
+        const String TYPE_EnableLogOff            = "REG_DWORD";
+        const String TYPE_EnableShutDown          = "REG_DWORD";
+        const String TYPE_EnableEaseOfAccess      = "REG_SZ";
+        const String TYPE_EnableVmWareClientShade = "REG_DWORD";
+
 
         // Global variables
 
@@ -59,19 +60,19 @@ namespace SebWindowsConfig
         static Boolean[]  allowSetting = new Boolean[IND_RegistrySettingNum + 1];
         static Boolean[] forbidSetting = new Boolean[IND_RegistrySettingNum + 1];
 
-        String sebStarterIniPath = "";
-        String sebMsgHookIniPath = "";
+        String       sebStarterIniPath = "";
+        String       sebMsgHookIniPath = "";
         StreamReader streamReaderSebStarterIni;
+        StreamReader streamReaderSebMsgHookIni;
         StreamWriter streamWriterSebStarterIni;
-        Boolean  enableTaskManager = false;
-        Boolean disableTaskManager = true;
+        StreamWriter streamWriterSebMsgHookIni;
 
 
 
         // ***********
         // Constructor
         // ***********
-        public Form1()
+        public SebWindowsConfigForm()
         {
             InitializeComponent();
 
@@ -80,66 +81,41 @@ namespace SebWindowsConfig
             int index;
             for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
             {
-                oldSetting[index] = false;
-                newSetting[index] = false;
+                   oldSetting[index] = false;
+                   newSetting[index] = false;
+                   defSetting[index] = false;
+                 allowSetting[index] = true;
+                forbidSetting[index] = false;
             }
 
-            defSetting[IND_HideFastUserSwitching ] = true;
-            defSetting[IND_DisableLockWorkstation] = true;
-            defSetting[IND_DisableChangePassword ] = true;
-            defSetting[IND_DisableTaskMgr        ] = true;
-            defSetting[IND_NoLogoff              ] = true;
-            defSetting[IND_NoClose               ] = true;
-            defSetting[IND_EnableShade           ] = false;
-            defSetting[IND_EnableEaseOfAccess    ] = false;
+            msgString[IND_EnableSwitchUser       ] = MSG_EnableSwitchUser;
+            msgString[IND_EnableLockThisComputer ] = MSG_EnableLockThisComputer;
+            msgString[IND_EnableChangeAPassword  ] = MSG_EnableChangeAPassword;
+            msgString[IND_EnableStartTaskManager ] = MSG_EnableStartTaskManager;
+            msgString[IND_EnableLogOff           ] = MSG_EnableLogOff;
+            msgString[IND_EnableShutDown         ] = MSG_EnableShutDown;
+            msgString[IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
+            msgString[IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
 
-            allowSetting[IND_HideFastUserSwitching ] = false;
-            allowSetting[IND_DisableLockWorkstation] = false;
-            allowSetting[IND_DisableChangePassword ] = false;
-            allowSetting[IND_DisableTaskMgr        ] = false;
-            allowSetting[IND_NoLogoff              ] = false;
-            allowSetting[IND_NoClose               ] = false;
-            allowSetting[IND_EnableShade           ] = true;
-            allowSetting[IND_EnableEaseOfAccess    ] = true;
+            typeString[IND_EnableSwitchUser       ] = TYPE_EnableSwitchUser;
+            typeString[IND_EnableLockThisComputer ] = TYPE_EnableLockThisComputer;
+            typeString[IND_EnableChangeAPassword  ] = TYPE_EnableChangeAPassword;
+            typeString[IND_EnableStartTaskManager ] = TYPE_EnableStartTaskManager;
+            typeString[IND_EnableLogOff           ] = TYPE_EnableLogOff;
+            typeString[IND_EnableShutDown         ] = TYPE_EnableShutDown;
+            typeString[IND_EnableEaseOfAccess     ] = TYPE_EnableEaseOfAccess;
+            typeString[IND_EnableVmWareClientShade] = TYPE_EnableVmWareClientShade;
 
-            forbidSetting[IND_HideFastUserSwitching ] = true;
-            forbidSetting[IND_DisableLockWorkstation] = true;
-            forbidSetting[IND_DisableChangePassword ] = true;
-            forbidSetting[IND_DisableTaskMgr        ] = true;
-            forbidSetting[IND_NoLogoff              ] = true;
-            forbidSetting[IND_NoClose               ] = true;
-            forbidSetting[IND_EnableShade           ] = false;
-            forbidSetting[IND_EnableEaseOfAccess    ] = false;
+        } // end of contructor public SebWindowsConfigForm()
 
-            msgString[IND_HideFastUserSwitching ] = MSG_HideFastUserSwitching;
-            msgString[IND_DisableLockWorkstation] = MSG_DisableLockWorkstation;
-            msgString[IND_DisableChangePassword ] = MSG_DisableChangePassword;
-            msgString[IND_DisableTaskMgr        ] = MSG_DisableTaskMgr;
-            msgString[IND_NoLogoff              ] = MSG_NoLogoff;
-            msgString[IND_NoClose               ] = MSG_NoClose;
-            msgString[IND_EnableShade           ] = MSG_EnableShade;
-            msgString[IND_EnableEaseOfAccess    ] = MSG_EnableEaseOfAccess;
 
-            typeString[IND_HideFastUserSwitching ] = TYPE_HideFastUserSwitching;
-            typeString[IND_DisableLockWorkstation] = TYPE_DisableLockWorkstation;
-            typeString[IND_DisableChangePassword ] = TYPE_DisableChangePassword;
-            typeString[IND_DisableTaskMgr        ] = TYPE_DisableTaskMgr;
-            typeString[IND_NoLogoff              ] = TYPE_NoLogoff;
-            typeString[IND_NoClose               ] = TYPE_NoClose;
-            typeString[IND_EnableShade           ] = TYPE_EnableShade;
-            typeString[IND_EnableEaseOfAccess    ] = TYPE_EnableEaseOfAccess;
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBox2.Checked = !checkBox1.Checked;
-        }
 
         private void labelBrowseSebStarterFolder_Click(object sender, EventArgs e)
         {
-            DialogResult browseFolderName = folderBrowserDialogBrowseSebStarterIni.ShowDialog();
+            DialogResult browseFolderName = folderBrowserDialogBrowseIniFiles.ShowDialog();
         }
+
+
 
         private void labelOpenSebStarterIniFile_Click(object sender, EventArgs e)
         {
@@ -150,51 +126,62 @@ namespace SebWindowsConfig
             try 
             {
                 // Create an instance of StreamReader to read from a file.
-                // The using statement also closes the StreamReader.
-                using (StreamReader sr = new StreamReader(sebStarterIniPath)) 
+                StreamReader streamReader = new StreamReader(sebStarterIniPath);
+                String       line;
+
+                // Read and display lines from the file until the end of 
+                // the file is reached.
+                while ((line = streamReader.ReadLine()) != null) 
                 {
-                    String line;
-                    // Read and display lines from the file until the end of 
-                    // the file is reached.
-                    while ((line = sr.ReadLine()) != null) 
+                    Console.WriteLine(line);
+                    labelCurrentLine.Text = line;
+
+                    if (line.Contains("="))
                     {
-                        Console.WriteLine(line);
-                        labelCurrentLine.Text = line;
+                        int     equalPos = line.IndexOf  ("=");
+                        String  leftSide = line.Remove   (equalPos);
+                        String rightSide = line.Substring(equalPos + 1);
+                        labelLeftSide.Text  =  leftSide;
+                        labelRightSide.Text = rightSide;
 
-                        if (line.Contains("="))
+                        for (int index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
                         {
-                            int     equalPos = line.IndexOf  ("=");
-                            String  leftSide = line.Remove   (equalPos);
-                            String rightSide = line.Substring(equalPos + 1);
-                            labelLeftSide.Text  =  leftSide;
-                            labelRightSide.Text = rightSide;
+                            if (leftSide.Equals(msgString[index]))
+                            {
+                                Boolean rightBool = false;
+                                if (rightSide.Equals("0")) rightBool = false;
+                                if (rightSide.Equals("1")) rightBool = true;
+                                newSetting[index] = rightBool;
+                            }
+                        }
 /*
-                            if (leftSide.Equals("REG_DISABLE_TASKMGR"))
-                            {
-                                if (rightSide.Equals("0")) disableTaskManager = false;
-                                if (rightSide.Equals("1")) disableTaskManager = true;
-                                enableTaskManager           = !disableTaskManager;
-                                checkBoxTaskManager.Checked =   enableTaskManager;
-                            }
+                        if (leftSide.Equals(msgString[IND_DisableTaskMgr]))
+                        {
+                            Boolean rightBool = false;
+                            if (rightSide.Equals("0")) rightBool = false;
+                            if (rightSide.Equals("1")) rightBool = true;
+                            newSetting[IND_EnableStartTaskManager] = rightBool;
+                            checkBoxEnableStartTaskManager.Checked = rightBool;
+                        }
 */
-                            int index;
-                            for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
-                            {
-                                if (leftSide.Equals(msgString[index]))
-                                {
-                                    Boolean rightBool = false;
-                                    if (rightSide.Equals("0")) rightBool = false;
-                                    if (rightSide.Equals("1")) rightBool = true;
-                                    oldSetting[index] = rightBool;
-                                    newSetting[index] = rightBool;
-                                    checkBoxTaskManager.Checked = rightBool;
-                                }
-                            }
+                    } // end if line.Contains("=")
+                } // end while
 
-                        } // end if line.Contains("=")
-                    } // end while
-                } // end using
-            }
+
+                // Close the StreamReader
+                streamReader.Close();
+
+                // Assign the settings from the ini file to the widgets
+                checkBoxEnableSwitchUser       .Checked = newSetting[IND_EnableSwitchUser];
+                checkBoxEnableLockThisComputer .Checked = newSetting[IND_EnableLockThisComputer];
+                checkBoxEnableChangeAPassword  .Checked = newSetting[IND_EnableChangeAPassword];
+                checkBoxEnableStartTaskManager .Checked = newSetting[IND_EnableStartTaskManager];
+                checkBoxEnableLogOff           .Checked = newSetting[IND_EnableLogOff];
+                checkBoxEnableShutDown         .Checked = newSetting[IND_EnableShutDown];
+                checkBoxEnableEaseOfAccess     .Checked = newSetting[IND_EnableEaseOfAccess];
+                checkBoxEnableVmWareClientShade.Checked = newSetting[IND_EnableVmWareClientShade];
+
+            } // end try
             catch (Exception streamReadException) 
             {
                 // Let the user know what went wrong.
@@ -202,16 +189,35 @@ namespace SebWindowsConfig
                 Console.WriteLine(streamReadException.Message);
             }
 
-        }
+        } // end of method   labelOpenSebStarterIniFile_Click()
+
+
 
         private void labelSaveSebStarterIniFile_Click(object sender, EventArgs e)
         {
             DialogResult saveFileName = saveFileDialogSebStarterIni.ShowDialog();
         }
 
-        private void checkBoxTaskManager_CheckedChanged(object sender, EventArgs e)
+
+        private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void checkBoxEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelOpenMsgHookIniFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelSaveMsgHookIniFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

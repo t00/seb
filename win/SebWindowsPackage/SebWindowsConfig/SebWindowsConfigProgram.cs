@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace SebWindowsConfig
 {
-    static class Program
+    static class SebWindowsConfigProgram
     {
         /// <summary>
         /// The main entry point for the application.
@@ -15,7 +15,7 @@ namespace SebWindowsConfig
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new SebWindowsConfigForm());
         }
     }
 }

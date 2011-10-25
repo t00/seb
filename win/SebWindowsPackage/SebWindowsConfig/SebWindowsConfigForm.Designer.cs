@@ -1,6 +1,6 @@
 ﻿namespace SebWindowsConfig
 {
-    partial class Form1
+    partial class SebWindowsConfigForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,26 +29,29 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
+            this.labelRightSide = new System.Windows.Forms.Label();
+            this.labelLeftSide = new System.Windows.Forms.Label();
+            this.labelCurrentLine = new System.Windows.Forms.Label();
             this.labelMsgHookIniPath = new System.Windows.Forms.Label();
             this.labelSebStarterIniPath = new System.Windows.Forms.Label();
             this.labelSaveSebStarterIniFile = new System.Windows.Forms.Label();
             this.labelOpenSebStarterIniFile = new System.Windows.Forms.Label();
             this.labelBrowseSebStarterIniFolder = new System.Windows.Forms.Label();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxTaskManager = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.folderBrowserDialogBrowseSebStarterIni = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkBoxEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableLogOff = new System.Windows.Forms.CheckBox();
+            this.labelSebStarterOptions = new System.Windows.Forms.Label();
+            this.checkBoxEnableShutDown = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableChangeAPassword = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableStartTaskManager = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableLockThisComputer = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableSwitchUser = new System.Windows.Forms.CheckBox();
+            this.labelMsgHookOptions = new System.Windows.Forms.Label();
+            this.folderBrowserDialogBrowseIniFiles = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogSebStarterIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
-            this.labelCurrentLine = new System.Windows.Forms.Label();
-            this.labelLeftSide = new System.Windows.Forms.Label();
-            this.labelRightSide = new System.Windows.Forms.Label();
+            this.labelOpenMsgHookIniFile = new System.Windows.Forms.Label();
+            this.labelSaveMsgHookIniFile = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -63,6 +66,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.labelSaveMsgHookIniFile);
+            this.splitContainer1.Panel1.Controls.Add(this.labelOpenMsgHookIniFile);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableEaseOfAccess);
             this.splitContainer1.Panel1.Controls.Add(this.labelRightSide);
             this.splitContainer1.Panel1.Controls.Add(this.labelLeftSide);
             this.splitContainer1.Panel1.Controls.Add(this.labelCurrentLine);
@@ -71,21 +77,58 @@
             this.splitContainer1.Panel1.Controls.Add(this.labelSaveSebStarterIniFile);
             this.splitContainer1.Panel1.Controls.Add(this.labelOpenSebStarterIniFile);
             this.splitContainer1.Panel1.Controls.Add(this.labelBrowseSebStarterIniFolder);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox7);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox6);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox5);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox4);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBoxTaskManager);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox2);
-            this.splitContainer1.Panel1.Controls.Add(this.checkBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableVmWareClientShade);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableLogOff);
+            this.splitContainer1.Panel1.Controls.Add(this.labelSebStarterOptions);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableShutDown);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableChangeAPassword);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableStartTaskManager);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableLockThisComputer);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxEnableSwitchUser);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Size = new System.Drawing.Size(962, 509);
+            this.splitContainer1.Panel2.Controls.Add(this.labelMsgHookOptions);
+            this.splitContainer1.Size = new System.Drawing.Size(962, 655);
             this.splitContainer1.SplitterDistance = 679;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // checkBoxEnableEaseOfAccess
+            // 
+            this.checkBoxEnableEaseOfAccess.AutoSize = true;
+            this.checkBoxEnableEaseOfAccess.Location = new System.Drawing.Point(58, 338);
+            this.checkBoxEnableEaseOfAccess.Name = "checkBoxEnableEaseOfAccess";
+            this.checkBoxEnableEaseOfAccess.Size = new System.Drawing.Size(175, 21);
+            this.checkBoxEnableEaseOfAccess.TabIndex = 16;
+            this.checkBoxEnableEaseOfAccess.Text = "Enable Ease of Access";
+            this.checkBoxEnableEaseOfAccess.UseVisualStyleBackColor = true;
+            // 
+            // labelRightSide
+            // 
+            this.labelRightSide.AutoSize = true;
+            this.labelRightSide.Location = new System.Drawing.Point(462, 423);
+            this.labelRightSide.Name = "labelRightSide";
+            this.labelRightSide.Size = new System.Drawing.Size(66, 17);
+            this.labelRightSide.TabIndex = 15;
+            this.labelRightSide.Text = "right side";
+            // 
+            // labelLeftSide
+            // 
+            this.labelLeftSide.AutoSize = true;
+            this.labelLeftSide.Location = new System.Drawing.Point(319, 423);
+            this.labelLeftSide.Name = "labelLeftSide";
+            this.labelLeftSide.Size = new System.Drawing.Size(57, 17);
+            this.labelLeftSide.TabIndex = 14;
+            this.labelLeftSide.Text = "left side";
+            // 
+            // labelCurrentLine
+            // 
+            this.labelCurrentLine.AutoSize = true;
+            this.labelCurrentLine.Location = new System.Drawing.Point(56, 423);
+            this.labelCurrentLine.Name = "labelCurrentLine";
+            this.labelCurrentLine.Size = new System.Drawing.Size(79, 17);
+            this.labelCurrentLine.TabIndex = 13;
+            this.labelCurrentLine.Text = "current line";
             // 
             // labelMsgHookIniPath
             // 
@@ -108,7 +151,7 @@
             // labelSaveSebStarterIniFile
             // 
             this.labelSaveSebStarterIniFile.AutoSize = true;
-            this.labelSaveSebStarterIniFile.Location = new System.Drawing.Point(54, 462);
+            this.labelSaveSebStarterIniFile.Location = new System.Drawing.Point(56, 528);
             this.labelSaveSebStarterIniFile.Name = "labelSaveSebStarterIniFile";
             this.labelSaveSebStarterIniFile.Size = new System.Drawing.Size(152, 17);
             this.labelSaveSebStarterIniFile.TabIndex = 10;
@@ -118,7 +161,7 @@
             // labelOpenSebStarterIniFile
             // 
             this.labelOpenSebStarterIniFile.AutoSize = true;
-            this.labelOpenSebStarterIniFile.Location = new System.Drawing.Point(54, 430);
+            this.labelOpenSebStarterIniFile.Location = new System.Drawing.Point(56, 496);
             this.labelOpenSebStarterIniFile.Name = "labelOpenSebStarterIniFile";
             this.labelOpenSebStarterIniFile.Size = new System.Drawing.Size(155, 17);
             this.labelOpenSebStarterIniFile.TabIndex = 9;
@@ -128,142 +171,135 @@
             // labelBrowseSebStarterIniFolder
             // 
             this.labelBrowseSebStarterIniFolder.AutoSize = true;
-            this.labelBrowseSebStarterIniFolder.Location = new System.Drawing.Point(54, 401);
+            this.labelBrowseSebStarterIniFolder.Location = new System.Drawing.Point(56, 459);
             this.labelBrowseSebStarterIniFolder.Name = "labelBrowseSebStarterIniFolder";
             this.labelBrowseSebStarterIniFolder.Size = new System.Drawing.Size(184, 17);
             this.labelBrowseSebStarterIniFolder.TabIndex = 8;
             this.labelBrowseSebStarterIniFolder.Text = "Browse SebStarter.ini folder";
             this.labelBrowseSebStarterIniFolder.Click += new System.EventHandler(this.labelBrowseSebStarterFolder_Click);
             // 
-            // checkBox7
+            // checkBoxEnableVmWareClientShade
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(57, 340);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(127, 21);
-            this.checkBox7.TabIndex = 7;
-            this.checkBox7.Text = "Ease of Access";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBoxEnableVmWareClientShade.AutoSize = true;
+            this.checkBoxEnableVmWareClientShade.Location = new System.Drawing.Point(57, 374);
+            this.checkBoxEnableVmWareClientShade.Name = "checkBoxEnableVmWareClientShade";
+            this.checkBoxEnableVmWareClientShade.Size = new System.Drawing.Size(212, 21);
+            this.checkBoxEnableVmWareClientShade.TabIndex = 7;
+            this.checkBoxEnableVmWareClientShade.Text = "Enable VMware Client Shade";
+            this.checkBoxEnableVmWareClientShade.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // checkBoxEnableLogOff
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(57, 302);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(70, 21);
-            this.checkBox6.TabIndex = 6;
-            this.checkBox6.Text = "Logoff";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLogOff.AutoSize = true;
+            this.checkBoxEnableLogOff.Location = new System.Drawing.Point(58, 264);
+            this.checkBoxEnableLogOff.Name = "checkBoxEnableLogOff";
+            this.checkBoxEnableLogOff.Size = new System.Drawing.Size(122, 21);
+            this.checkBoxEnableLogOff.TabIndex = 6;
+            this.checkBoxEnableLogOff.Text = "Enable Log off";
+            this.checkBoxEnableLogOff.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // labelSebStarterOptions
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(54, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 17);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "SebStarter options";
+            this.labelSebStarterOptions.AutoSize = true;
+            this.labelSebStarterOptions.Location = new System.Drawing.Point(54, 23);
+            this.labelSebStarterOptions.Name = "labelSebStarterOptions";
+            this.labelSebStarterOptions.Size = new System.Drawing.Size(126, 17);
+            this.labelSebStarterOptions.TabIndex = 5;
+            this.labelSebStarterOptions.Text = "SebStarter options";
             // 
-            // checkBox5
+            // checkBoxEnableShutDown
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(57, 263);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(65, 21);
-            this.checkBox5.TabIndex = 4;
-            this.checkBox5.Text = "Close";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBoxEnableShutDown.AutoSize = true;
+            this.checkBoxEnableShutDown.Location = new System.Drawing.Point(58, 300);
+            this.checkBoxEnableShutDown.Name = "checkBoxEnableShutDown";
+            this.checkBoxEnableShutDown.Size = new System.Drawing.Size(144, 21);
+            this.checkBoxEnableShutDown.TabIndex = 4;
+            this.checkBoxEnableShutDown.Text = "Enable Shut down";
+            this.checkBoxEnableShutDown.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // checkBoxEnableChangeAPassword
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(57, 227);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(144, 21);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Change Password";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBoxEnableChangeAPassword.AutoSize = true;
+            this.checkBoxEnableChangeAPassword.Location = new System.Drawing.Point(57, 190);
+            this.checkBoxEnableChangeAPassword.Name = "checkBoxEnableChangeAPassword";
+            this.checkBoxEnableChangeAPassword.Size = new System.Drawing.Size(203, 21);
+            this.checkBoxEnableChangeAPassword.TabIndex = 3;
+            this.checkBoxEnableChangeAPassword.Text = "Enable Change a password";
+            this.checkBoxEnableChangeAPassword.UseVisualStyleBackColor = true;
             // 
-            // checkBoxTaskManager
+            // checkBoxEnableStartTaskManager
             // 
-            this.checkBoxTaskManager.AutoSize = true;
-            this.checkBoxTaskManager.Location = new System.Drawing.Point(57, 190);
-            this.checkBoxTaskManager.Name = "checkBoxTaskManager";
-            this.checkBoxTaskManager.Size = new System.Drawing.Size(121, 21);
-            this.checkBoxTaskManager.TabIndex = 2;
-            this.checkBoxTaskManager.Text = "Task Manager";
-            this.checkBoxTaskManager.UseVisualStyleBackColor = true;
-            this.checkBoxTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxTaskManager_CheckedChanged);
+            this.checkBoxEnableStartTaskManager.AutoSize = true;
+            this.checkBoxEnableStartTaskManager.Location = new System.Drawing.Point(57, 227);
+            this.checkBoxEnableStartTaskManager.Name = "checkBoxEnableStartTaskManager";
+            this.checkBoxEnableStartTaskManager.Size = new System.Drawing.Size(203, 21);
+            this.checkBoxEnableStartTaskManager.TabIndex = 2;
+            this.checkBoxEnableStartTaskManager.Text = "Enable Start Task Manager";
+            this.checkBoxEnableStartTaskManager.UseVisualStyleBackColor = true;
+            this.checkBoxEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxEnableStartTaskManager_CheckedChanged);
             // 
-            // checkBox2
+            // checkBoxEnableLockThisComputer
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(57, 151);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(139, 21);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Lock Workstation";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLockThisComputer.AutoSize = true;
+            this.checkBoxEnableLockThisComputer.Location = new System.Drawing.Point(57, 151);
+            this.checkBoxEnableLockThisComputer.Name = "checkBoxEnableLockThisComputer";
+            this.checkBoxEnableLockThisComputer.Size = new System.Drawing.Size(197, 21);
+            this.checkBoxEnableLockThisComputer.TabIndex = 1;
+            this.checkBoxEnableLockThisComputer.Text = "Enable Lock this computer";
+            this.checkBoxEnableLockThisComputer.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxEnableSwitchUser
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(57, 112);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(154, 21);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Fast User Switching";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBoxEnableSwitchUser.AutoSize = true;
+            this.checkBoxEnableSwitchUser.Location = new System.Drawing.Point(57, 112);
+            this.checkBoxEnableSwitchUser.Name = "checkBoxEnableSwitchUser";
+            this.checkBoxEnableSwitchUser.Size = new System.Drawing.Size(152, 21);
+            this.checkBoxEnableSwitchUser.TabIndex = 0;
+            this.checkBoxEnableSwitchUser.Text = "Enable Switch User";
+            this.checkBoxEnableSwitchUser.UseVisualStyleBackColor = true;
+            this.checkBoxEnableSwitchUser.CheckedChanged += new System.EventHandler(this.checkBoxEnableSwitchUser_CheckedChanged);
             // 
-            // label2
+            // labelMsgHookOptions
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(88, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 17);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "MsgHook options";
+            this.labelMsgHookOptions.AutoSize = true;
+            this.labelMsgHookOptions.Location = new System.Drawing.Point(88, 36);
+            this.labelMsgHookOptions.Name = "labelMsgHookOptions";
+            this.labelMsgHookOptions.Size = new System.Drawing.Size(117, 17);
+            this.labelMsgHookOptions.TabIndex = 0;
+            this.labelMsgHookOptions.Text = "MsgHook options";
             // 
             // openFileDialogSebStarterIni
             // 
             this.openFileDialogSebStarterIni.FileName = "openFileDialogSebStarterIni";
             // 
-            // labelCurrentLine
+            // labelOpenMsgHookIniFile
             // 
-            this.labelCurrentLine.AutoSize = true;
-            this.labelCurrentLine.Location = new System.Drawing.Point(55, 368);
-            this.labelCurrentLine.Name = "labelCurrentLine";
-            this.labelCurrentLine.Size = new System.Drawing.Size(79, 17);
-            this.labelCurrentLine.TabIndex = 13;
-            this.labelCurrentLine.Text = "current line";
+            this.labelOpenMsgHookIniFile.AutoSize = true;
+            this.labelOpenMsgHookIniFile.Location = new System.Drawing.Point(319, 496);
+            this.labelOpenMsgHookIniFile.Name = "labelOpenMsgHookIniFile";
+            this.labelOpenMsgHookIniFile.Size = new System.Drawing.Size(146, 17);
+            this.labelOpenMsgHookIniFile.TabIndex = 17;
+            this.labelOpenMsgHookIniFile.Text = "Open MsgHook.ini file";
+            this.labelOpenMsgHookIniFile.Click += new System.EventHandler(this.labelOpenMsgHookIniFile_Click);
             // 
-            // labelLeftSide
+            // labelSaveMsgHookIniFile
             // 
-            this.labelLeftSide.AutoSize = true;
-            this.labelLeftSide.Location = new System.Drawing.Point(306, 368);
-            this.labelLeftSide.Name = "labelLeftSide";
-            this.labelLeftSide.Size = new System.Drawing.Size(57, 17);
-            this.labelLeftSide.TabIndex = 14;
-            this.labelLeftSide.Text = "left side";
+            this.labelSaveMsgHookIniFile.AutoSize = true;
+            this.labelSaveMsgHookIniFile.Location = new System.Drawing.Point(319, 528);
+            this.labelSaveMsgHookIniFile.Name = "labelSaveMsgHookIniFile";
+            this.labelSaveMsgHookIniFile.Size = new System.Drawing.Size(143, 17);
+            this.labelSaveMsgHookIniFile.TabIndex = 18;
+            this.labelSaveMsgHookIniFile.Text = "Save MsgHook.ini file";
+            this.labelSaveMsgHookIniFile.Click += new System.EventHandler(this.labelSaveMsgHookIniFile_Click);
             // 
-            // labelRightSide
-            // 
-            this.labelRightSide.AutoSize = true;
-            this.labelRightSide.Location = new System.Drawing.Point(457, 368);
-            this.labelRightSide.Name = "labelRightSide";
-            this.labelRightSide.Size = new System.Drawing.Size(66, 17);
-            this.labelRightSide.TabIndex = 15;
-            this.labelRightSide.Text = "right side";
-            // 
-            // Form1
+            // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 509);
+            this.ClientSize = new System.Drawing.Size(962, 655);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form1";
-            this.Text = "SEB Windows Preferences Window";
+            this.Name = "SebWindowsConfigForm";
+            this.Text = "SEB Windows Configuration Window";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -277,16 +313,16 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBoxTaskManager;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogBrowseSebStarterIni;
+        private System.Windows.Forms.CheckBox checkBoxEnableSwitchUser;
+        private System.Windows.Forms.CheckBox checkBoxEnableLogOff;
+        private System.Windows.Forms.Label labelSebStarterOptions;
+        private System.Windows.Forms.CheckBox checkBoxEnableShutDown;
+        private System.Windows.Forms.CheckBox checkBoxEnableChangeAPassword;
+        private System.Windows.Forms.CheckBox checkBoxEnableStartTaskManager;
+        private System.Windows.Forms.CheckBox checkBoxEnableLockThisComputer;
+        private System.Windows.Forms.Label labelMsgHookOptions;
+        private System.Windows.Forms.CheckBox checkBoxEnableVmWareClientShade;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogBrowseIniFiles;
         private System.Windows.Forms.OpenFileDialog openFileDialogSebStarterIni;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSebStarterIni;
         private System.Windows.Forms.Label labelBrowseSebStarterIniFolder;
@@ -297,6 +333,9 @@
         private System.Windows.Forms.Label labelCurrentLine;
         private System.Windows.Forms.Label labelRightSide;
         private System.Windows.Forms.Label labelLeftSide;
+        private System.Windows.Forms.CheckBox checkBoxEnableEaseOfAccess;
+        private System.Windows.Forms.Label labelOpenMsgHookIniFile;
+        private System.Windows.Forms.Label labelSaveMsgHookIniFile;
     }
 }
 
