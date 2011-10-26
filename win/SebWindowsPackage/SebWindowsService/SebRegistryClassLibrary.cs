@@ -20,7 +20,7 @@ namespace SebWindowsService
         // Constants for socket communication
 
         // Since the longest possible message is
-        // "DisableLockWorkstation=1---SEB---",
+        // "EnableVmWareClientShade=1---SEB---",
         // a buffer size of 50 characters per message would be sufficient.
 
         // But the message containing the user SID can be longer.
@@ -42,9 +42,6 @@ namespace SebWindowsService
         const String ipAddressOfLocalHost = "127.0.0.1";
         const String endOfStringKeyWord   = "---SEB---";
 
-
-        // Constants for registry keys and values
-
         const int SET_Def  = 1;
         const int SET_Old  = 2;
         const int SET_New  = 3;
@@ -55,19 +52,23 @@ namespace SebWindowsService
         const int EDIT_Set     = 2;
         const int EDIT_Restore = 3;
 
-        const int IND_HideFastUserSwitching  = 0;
-        const int IND_DisableLockWorkstation = 1;
-        const int IND_DisableChangePassword  = 2;
-        const int IND_DisableTaskMgr         = 3;
-        const int IND_NoLogoff               = 4;
-        const int IND_NoClose                = 5;
-        const int IND_EnableShade            = 6;
-        const int IND_EnableEaseOfAccess     = 7;
+        // Constants for indexing the ini file settings
+
+        const int IND_EnableSwitchUser        = 0;
+        const int IND_EnableLockThisComputer  = 1;
+        const int IND_EnableChangeAPassword   = 2;
+        const int IND_EnableStartTaskManager  = 3;
+        const int IND_EnableLogOff            = 4;
+        const int IND_EnableShutDown          = 5;
+        const int IND_EnableEaseOfAccess      = 6;
+        const int IND_EnableVmWareClientShade = 7;
 
         const int IND_RegistrySettingNone = -1;
         const int IND_RegistrySettingMin  =  0;
         const int IND_RegistrySettingMax  =  7;
         const int IND_RegistrySettingNum  =  8;
+
+        // Constants for registry keys and values
 
         const String HIVE_HKCU = "HKEY_CURRENT_USER";
         const String HIVE_HKLM = "HKEY_LOCAL_MACHINE";
@@ -79,8 +80,8 @@ namespace SebWindowsService
         const String KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
         const String KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
         const String KEY_PoliciesSEB      = "Software\\Policies\\SEB";
-        const String KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
         const String KEY_UtilmanExe       = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Utilman.exe";
+        const String KEY_VmWareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
         const String VAL_HideFastUserSwitching  = "HideFastUserSwitching";
         const String VAL_DisableLockWorkstation = "DisableLockWorkstation";
@@ -88,26 +89,26 @@ namespace SebWindowsService
         const String VAL_DisableTaskMgr         = "DisableTaskMgr";
         const String VAL_NoLogoff               = "NoLogoff";
         const String VAL_NoClose                = "NoClose";
-        const String VAL_EnableShade            = "EnableShade";
         const String VAL_EnableEaseOfAccess     = "Debugger";
+        const String VAL_EnableShade            = "EnableShade";
 
-        const String MSG_HideFastUserSwitching  = "HideFastUserSwitching ";
-        const String MSG_DisableLockWorkstation = "DisableLockWorkstation";
-        const String MSG_DisableChangePassword  = "DisableChangePassword ";
-        const String MSG_DisableTaskMgr         = "DisableTaskMgr        ";
-        const String MSG_NoLogoff               = "NoLogoff              ";
-        const String MSG_NoClose                = "NoClose               ";
-        const String MSG_EnableShade            = "EnableShade           ";
-        const String MSG_EnableEaseOfAccess     = "Debugger              ";
+        const String MSG_EnableSwitchUser        = "ENABLE_SWITCH_USER         ";
+        const String MSG_EnableLockThisComputer  = "ENABLE_LOCK_THIS_COMPUTER  ";
+        const String MSG_EnableChangeAPassword   = "ENABLE_CHANGE_A_PASSWORD   ";
+        const String MSG_EnableStartTaskManager  = "ENABLE_START_TASK_MANAGER  ";
+        const String MSG_EnableLogOff            = "ENABLE_LOG_OFF             ";
+        const String MSG_EnableShutDown          = "ENABLE_SHUT_DOWN           ";
+        const String MSG_EnableEaseOfAccess      = "ENABLE_EASE_OF_ACCESS      ";
+        const String MSG_EnableVmWareClientShade = "ENABLE_VM_WARE_CLIENT_SHADE";
 
-        const String TYPE_HideFastUserSwitching  = "REG_DWORD";
-        const String TYPE_DisableLockWorkstation = "REG_DWORD";
-        const String TYPE_DisableChangePassword  = "REG_DWORD";
-        const String TYPE_DisableTaskMgr         = "REG_DWORD";
-        const String TYPE_NoLogoff               = "REG_DWORD";
-        const String TYPE_NoClose                = "REG_DWORD";
-        const String TYPE_EnableShade            = "REG_DWORD";
-        const String TYPE_EnableEaseOfAccess     = "REG_SZ";
+        const String TYPE_EnableSwitchUser        = "REG_DWORD";
+        const String TYPE_EnableLockThisComputer  = "REG_DWORD";
+        const String TYPE_EnableChangeAPassword   = "REG_DWORD";
+        const String TYPE_EnableStartTaskManager  = "REG_DWORD";
+        const String TYPE_EnableLogOff            = "REG_DWORD";
+        const String TYPE_EnableShutDown          = "REG_DWORD";
+        const String TYPE_EnableEaseOfAccess      = "REG_SZ";
+        const String TYPE_EnableVmWareClientShade = "REG_DWORD";
 
         const String DATA_EnableEaseOfAccessTrue  = "";
         const String DATA_EnableEaseOfAccessFalse = "SebDummy.exe";
@@ -294,85 +295,60 @@ namespace SebWindowsService
 
             // Initialise the global arrays
 
-            int index;
+            int  index;
             for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
             {
-                oldSetting[index] = 0;
-                newSetting[index] = 0;
+                   oldSetting[index] = 0;
+                   newSetting[index] = 0;
+                   defSetting[index] = 0;
+                 allowSetting[index] = 1;
+                forbidSetting[index] = 0;
             }
 
-            defSetting[IND_HideFastUserSwitching ] = 1;
-            defSetting[IND_DisableLockWorkstation] = 1;
-            defSetting[IND_DisableChangePassword ] = 1;
-            defSetting[IND_DisableTaskMgr        ] = 1;
-            defSetting[IND_NoLogoff              ] = 1;
-            defSetting[IND_NoClose               ] = 1;
-            defSetting[IND_EnableShade           ] = 0;
-            defSetting[IND_EnableEaseOfAccess    ] = 0;
+            hiveString[IND_EnableSwitchUser       ] = HIVE_HKLM;
+            hiveString[IND_EnableLockThisComputer ] = HIVE_HKCU;
+            hiveString[IND_EnableChangeAPassword  ] = HIVE_HKCU;
+            hiveString[IND_EnableStartTaskManager ] = HIVE_HKCU;
+            hiveString[IND_EnableLogOff           ] = HIVE_HKCU;
+            hiveString[IND_EnableShutDown         ] = HIVE_HKCU;
+            hiveString[IND_EnableEaseOfAccess     ] = HIVE_HKLM;
+            hiveString[IND_EnableVmWareClientShade] = HIVE_HKCU;
 
-            allowSetting[IND_HideFastUserSwitching ] = 0;
-            allowSetting[IND_DisableLockWorkstation] = 0;
-            allowSetting[IND_DisableChangePassword ] = 0;
-            allowSetting[IND_DisableTaskMgr        ] = 0;
-            allowSetting[IND_NoLogoff              ] = 0;
-            allowSetting[IND_NoClose               ] = 0;
-            allowSetting[IND_EnableShade           ] = 1;
-            allowSetting[IND_EnableEaseOfAccess    ] = 1;
+            keyString[IND_EnableSwitchUser       ] = KEY_PoliciesSystem;
+            keyString[IND_EnableLockThisComputer ] = KEY_PoliciesSystem;
+            keyString[IND_EnableChangeAPassword  ] = KEY_PoliciesSystem;
+            keyString[IND_EnableStartTaskManager ] = KEY_PoliciesSystem;
+            keyString[IND_EnableLogOff           ] = KEY_PoliciesExplorer;
+            keyString[IND_EnableShutDown         ] = KEY_PoliciesExplorer;
+            keyString[IND_EnableEaseOfAccess     ] = KEY_UtilmanExe;
+            keyString[IND_EnableVmWareClientShade] = KEY_VmWareClient;
 
-            forbidSetting[IND_HideFastUserSwitching ] = 1;
-            forbidSetting[IND_DisableLockWorkstation] = 1;
-            forbidSetting[IND_DisableChangePassword ] = 1;
-            forbidSetting[IND_DisableTaskMgr        ] = 1;
-            forbidSetting[IND_NoLogoff              ] = 1;
-            forbidSetting[IND_NoClose               ] = 1;
-            forbidSetting[IND_EnableShade           ] = 0;
-            forbidSetting[IND_EnableEaseOfAccess    ] = 0;
+            valString[IND_EnableSwitchUser       ] = VAL_HideFastUserSwitching;
+            valString[IND_EnableLockThisComputer ] = VAL_DisableLockWorkstation;
+            valString[IND_EnableChangeAPassword  ] = VAL_DisableChangePassword;
+            valString[IND_EnableStartTaskManager ] = VAL_DisableTaskMgr;
+            valString[IND_EnableLogOff           ] = VAL_NoLogoff;
+            valString[IND_EnableShutDown         ] = VAL_NoClose;
+            valString[IND_EnableEaseOfAccess     ] = VAL_EnableEaseOfAccess;
+            valString[IND_EnableVmWareClientShade] = VAL_EnableShade;
 
-            hiveString[IND_HideFastUserSwitching ] = HIVE_HKLM;
-            hiveString[IND_DisableLockWorkstation] = HIVE_HKCU;
-            hiveString[IND_DisableChangePassword ] = HIVE_HKCU;
-            hiveString[IND_DisableTaskMgr        ] = HIVE_HKCU;
-            hiveString[IND_NoLogoff              ] = HIVE_HKCU;
-            hiveString[IND_NoClose               ] = HIVE_HKCU;
-            hiveString[IND_EnableShade           ] = HIVE_HKCU;
-            hiveString[IND_EnableEaseOfAccess    ] = HIVE_HKLM;
+            msgString[IND_EnableSwitchUser       ] = MSG_EnableSwitchUser;
+            msgString[IND_EnableLockThisComputer ] = MSG_EnableLockThisComputer;
+            msgString[IND_EnableChangeAPassword  ] = MSG_EnableChangeAPassword;
+            msgString[IND_EnableStartTaskManager ] = MSG_EnableStartTaskManager;
+            msgString[IND_EnableLogOff           ] = MSG_EnableLogOff;
+            msgString[IND_EnableShutDown         ] = MSG_EnableShutDown;
+            msgString[IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
+            msgString[IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
 
-            keyString[IND_HideFastUserSwitching ] = KEY_PoliciesSystem;
-            keyString[IND_DisableLockWorkstation] = KEY_PoliciesSystem;
-            keyString[IND_DisableChangePassword ] = KEY_PoliciesSystem;
-            keyString[IND_DisableTaskMgr        ] = KEY_PoliciesSystem;
-            keyString[IND_NoLogoff              ] = KEY_PoliciesExplorer;
-            keyString[IND_NoClose               ] = KEY_PoliciesExplorer;
-            keyString[IND_EnableShade           ] = KEY_VMwareClient;
-            keyString[IND_EnableEaseOfAccess    ] = KEY_UtilmanExe;
-
-            valString[IND_HideFastUserSwitching ] = VAL_HideFastUserSwitching;
-            valString[IND_DisableLockWorkstation] = VAL_DisableLockWorkstation;
-            valString[IND_DisableChangePassword ] = VAL_DisableChangePassword;
-            valString[IND_DisableTaskMgr        ] = VAL_DisableTaskMgr;
-            valString[IND_NoLogoff              ] = VAL_NoLogoff;
-            valString[IND_NoClose               ] = VAL_NoClose;
-            valString[IND_EnableShade           ] = VAL_EnableShade;
-            valString[IND_EnableEaseOfAccess    ] = VAL_EnableEaseOfAccess;
-
-            msgString[IND_HideFastUserSwitching ] = MSG_HideFastUserSwitching;
-            msgString[IND_DisableLockWorkstation] = MSG_DisableLockWorkstation;
-            msgString[IND_DisableChangePassword ] = MSG_DisableChangePassword;
-            msgString[IND_DisableTaskMgr        ] = MSG_DisableTaskMgr;
-            msgString[IND_NoLogoff              ] = MSG_NoLogoff;
-            msgString[IND_NoClose               ] = MSG_NoClose;
-            msgString[IND_EnableShade           ] = MSG_EnableShade;
-            msgString[IND_EnableEaseOfAccess    ] = MSG_EnableEaseOfAccess;
-
-            typeString[IND_HideFastUserSwitching ] = TYPE_HideFastUserSwitching;
-            typeString[IND_DisableLockWorkstation] = TYPE_DisableLockWorkstation;
-            typeString[IND_DisableChangePassword ] = TYPE_DisableChangePassword;
-            typeString[IND_DisableTaskMgr        ] = TYPE_DisableTaskMgr;
-            typeString[IND_NoLogoff              ] = TYPE_NoLogoff;
-            typeString[IND_NoClose               ] = TYPE_NoClose;
-            typeString[IND_EnableShade           ] = TYPE_EnableShade;
-            typeString[IND_EnableEaseOfAccess    ] = TYPE_EnableEaseOfAccess;
-
+            typeString[IND_EnableSwitchUser       ] = TYPE_EnableSwitchUser;
+            typeString[IND_EnableLockThisComputer ] = TYPE_EnableLockThisComputer;
+            typeString[IND_EnableChangeAPassword  ] = TYPE_EnableChangeAPassword;
+            typeString[IND_EnableStartTaskManager ] = TYPE_EnableStartTaskManager;
+            typeString[IND_EnableLogOff           ] = TYPE_EnableLogOff;
+            typeString[IND_EnableShutDown         ] = TYPE_EnableShutDown;
+            typeString[IND_EnableEaseOfAccess     ] = TYPE_EnableEaseOfAccess;
+            typeString[IND_EnableVmWareClientShade] = TYPE_EnableVmWareClientShade;
 
             // Debug output of initialised global arrays
 
@@ -608,7 +584,7 @@ namespace SebWindowsService
                         EditAllRegistryValues(SET_Old, EDIT_Get);
 
                         // In case the setting transmission from SEB client is faulty,
-                        // it could happen that e.g. the "DisableTaskMgr=1" command
+                        // it could happen that e.g. the "EnableStartTaskManager=0" command
                         // does not reach the Seb Windows Service,
                         // and that the Task Manager is therefore not disabled
                         // although the SEB client wants it to be disabled!
@@ -616,7 +592,7 @@ namespace SebWindowsService
                         // set the SEB to the most restrictive values by default.
                         //
                         // In the rare case that the Task Manager shall be ENABLED,
-                        // the "DisableTaskMgr=0" command must be successfully received.
+                        // the "EnableStartTaskManager=1" command must be successfully received.
                         // Of course, a faulty transmission can happen also in this case,
                         // but most of the time the SEB client
                         // wants all settings to be as restrictive as possible,
