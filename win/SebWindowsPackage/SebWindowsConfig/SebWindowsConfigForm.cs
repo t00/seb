@@ -35,7 +35,7 @@ namespace SebWindowsConfig
         const String MSG_EnableShutDown          = "ENABLE_SHUT_DOWN";
         const String MSG_EnableEaseOfAccess      = "ENABLE_EASE_OF_ACCESS";
         const String MSG_EnableVmWareClientShade = "ENABLE_VM_WARE_CLIENT_SHADE";
-
+/*
         const String TYPE_EnableSwitchUser        = "REG_DWORD";
         const String TYPE_EnableLockThisComputer  = "REG_DWORD";
         const String TYPE_EnableChangeAPassword   = "REG_DWORD";
@@ -44,13 +44,13 @@ namespace SebWindowsConfig
         const String TYPE_EnableShutDown          = "REG_DWORD";
         const String TYPE_EnableEaseOfAccess      = "REG_SZ";
         const String TYPE_EnableVmWareClientShade = "REG_DWORD";
-
+*/
 
         // Global variables
 
         // Names of registry domains, keys, values, types
         static String[]  msgString = new String[IND_RegistrySettingNum + 1];
-        static String[] typeString = new String[IND_RegistrySettingNum + 1];
+      //static String[] typeString = new String[IND_RegistrySettingNum + 1];
 
         // Registry settings as booleans (true or false)
         static Boolean[] defSetting = new Boolean[IND_RegistrySettingNum + 1];
@@ -96,7 +96,7 @@ namespace SebWindowsConfig
             msgString[IND_EnableShutDown         ] = MSG_EnableShutDown;
             msgString[IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
             msgString[IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
-
+/*
             typeString[IND_EnableSwitchUser       ] = TYPE_EnableSwitchUser;
             typeString[IND_EnableLockThisComputer ] = TYPE_EnableLockThisComputer;
             typeString[IND_EnableChangeAPassword  ] = TYPE_EnableChangeAPassword;
@@ -105,8 +105,8 @@ namespace SebWindowsConfig
             typeString[IND_EnableShutDown         ] = TYPE_EnableShutDown;
             typeString[IND_EnableEaseOfAccess     ] = TYPE_EnableEaseOfAccess;
             typeString[IND_EnableVmWareClientShade] = TYPE_EnableVmWareClientShade;
-
-        } // end of contructor public SebWindowsConfigForm()
+*/
+        } // end of contructor   SebWindowsConfigForm()
 
 
 
@@ -138,9 +138,9 @@ namespace SebWindowsConfig
 
                     if (line.Contains("="))
                     {
-                        int     equalPos = line.IndexOf  ("=");
-                        String  leftSide = line.Remove   (equalPos);
-                        String rightSide = line.Substring(equalPos + 1);
+                        int     equalPos    = line.IndexOf  ("=");
+                        String  leftSide    = line.Remove   (equalPos);
+                        String rightSide    = line.Substring(equalPos + 1);
                         labelLeftSide.Text  =  leftSide;
                         labelRightSide.Text = rightSide;
 
