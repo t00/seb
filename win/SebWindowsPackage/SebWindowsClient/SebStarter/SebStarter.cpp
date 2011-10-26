@@ -1943,13 +1943,13 @@ BOOL EditRegistry()
 	HKEY hklmSystem;
 	HKEY hkcuSystem;
 	HKEY hkcuExplorer;
-	HKEY hkcuVMwareClient;
+	HKEY hkcuVmWareClient;
 	HKEY hklmUtilmanExe;
 
 	BOOL openedHKLMPolicySystem;
 	BOOL openedHKCUPolicySystem;
 	BOOL openedHKCUPolicyExplorer;
-	BOOL openedHKCUVMwareClient;
+	BOOL openedHKCUVmWareClient;
 	BOOL openedHKLMUtilmanExe;
 
 	logg(fp, "Enter EditRegistry()\n\n");
@@ -2006,16 +2006,16 @@ BOOL EditRegistry()
 
 		// Open the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client
-		openedHKCUVMwareClient = HandleOpenRegistryKey(HKCU, KEY_VMwareClient, &hkcuVMwareClient, TRUE);
-		if (openedHKCUVMwareClient)
+		openedHKCUVmWareClient = HandleOpenRegistryKey(HKCU, KEY_VmWareClient, &hkcuVmWareClient, TRUE);
+		if (openedHKCUVmWareClient)
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VMwareClient) succeeded", "Registry", 16);
-			logg(fp, "         HandleOpenRegistryKey(HKCU, VMwareClient) succeeded\n\n");
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VmWareClient) succeeded", "Registry", 16);
+			logg(fp, "         HandleOpenRegistryKey(HKCU, VmWareClient) succeeded\n\n");
 		}
 		else
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VMwareClient) failed", "Registry Error", 16);
-			logg(fp, "         HandleOpenRegistryKey(HKCU, VMwareClient) failed\n\n");
+			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VmWareClient) failed", "Registry Error", 16);
+			logg(fp, "         HandleOpenRegistryKey(HKCU, VmWareClient) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
 		}
@@ -2236,7 +2236,7 @@ BOOL EditRegistry()
 			// MessageBox(NULL, "= true", "ENABLE_VM_WARE_CLIENT_SHADE", 16);
 			logg(fp, "getBool(ENABLE_VM_WARE_CLIENT_SHADE) = true\n");
 
-			if (HandleSetRegistryKeyValue(hkcuVMwareClient,VAL_EnableShade,"ENABLE_SHADE"))
+			if (HandleSetRegistryKeyValue(hkcuVmWareClient,VAL_EnableShade,"ENABLE_SHADE"))
 			{
 				//MessageBox(NULL, "Setting ENABLE_SHADE succeeded", "HandleSetRegistryKeyValue", 16);
 				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n");
@@ -2281,7 +2281,7 @@ BOOL ResetRegistry()
 	HKEY hklmSystem;
 	HKEY hkcuSystem;
 	HKEY hkcuExplorer;
-	HKEY hkcuVMwareClient;
+	HKEY hkcuVmWareClient;
 	HKEY hklmUtilmanExe;
 
 	logg(fp, "Enter ResetRegistry()\n\n");
@@ -2291,7 +2291,7 @@ BOOL ResetRegistry()
 		if (!HandleOpenRegistryKey(HKLM, KEY_PoliciesSystem  , &hklmSystem      , TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKCU, KEY_PoliciesSystem  , &hkcuSystem      , TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKCU, KEY_PoliciesExplorer, &hkcuExplorer    , TRUE)) return FALSE;
-		if (!HandleOpenRegistryKey(HKCU, KEY_VMwareClient    , &hkcuVMwareClient, TRUE)) return FALSE;
+		if (!HandleOpenRegistryKey(HKCU, KEY_VmWareClient    , &hkcuVmWareClient, TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKLM, KEY_UtilmanExe      , &hklmUtilmanExe  , TRUE)) return FALSE;
 
 		if (getBool("ENABLE_SWITCH_USER")) 
@@ -2324,7 +2324,7 @@ BOOL ResetRegistry()
 		}
 		if (getBool("ENABLE_VM_WARE_CLIENT_SHADE"))
 		{
-			RegDeleteValue(hkcuVMwareClient, VAL_EnableShade);
+			RegDeleteValue(hkcuVmWareClient, VAL_EnableShade);
 		}
 	}
 

@@ -77,7 +77,7 @@ LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Po
 LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
 LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
 LPCTSTR KEY_UtilmanExe       = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Utilman.exe";
-LPCTSTR KEY_VMwareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
+LPCTSTR KEY_VmWareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
 // Strings for registry values
 LPCTSTR VAL_HideFastUserSwitching  = "HideFastUserSwitching";
