@@ -1640,14 +1640,14 @@ BOOL GetClientInfo()
 	// Alternatively, the registry flags could also be sent
 	// one by one, namely in the "EnableStartTaskManager=1" format:
 /*
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableSwitchUser       , stringEnableSwitchUser       , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableLockThisComputer , stringEnableLockThisComputer , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableChangeAPassword  , stringEnableChangeAPassword  , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableStartTaskManager , stringEnableStartTaskManager , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableLogOff           , stringEnableLogOff           , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableShutDown         , stringEnableShutDown         , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableEaseOfAccess     , stringEnableEaseOfAccess     , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)VAL_EnableVmWareClientShade, stringEnableVmWareClientShade, sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableSwitchUser       , stringEnableSwitchUser       , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableLockThisComputer , stringEnableLockThisComputer , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableChangeAPassword  , stringEnableChangeAPassword  , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableStartTaskManager , stringEnableStartTaskManager , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableLogOff           , stringEnableLogOff           , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableShutDown         , stringEnableShutDown         , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableEaseOfAccess     , stringEnableEaseOfAccess     , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_EnableVmWareClientShade, stringEnableVmWareClientShade, sendInterval);
 */
 
 	// Close the socket, so the server loop
