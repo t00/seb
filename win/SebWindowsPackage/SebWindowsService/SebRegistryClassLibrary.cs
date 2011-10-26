@@ -331,7 +331,7 @@ namespace SebWindowsService
             valString[IND_EnableShutDown         ] = VAL_NoClose;
             valString[IND_EnableEaseOfAccess     ] = VAL_EnableEaseOfAccess;
             valString[IND_EnableVmWareClientShade] = VAL_EnableShade;
-/*
+
             msgString[IND_EnableSwitchUser       ] = MSG_EnableSwitchUser;
             msgString[IND_EnableLockThisComputer ] = MSG_EnableLockThisComputer;
             msgString[IND_EnableChangeAPassword  ] = MSG_EnableChangeAPassword;
@@ -340,7 +340,7 @@ namespace SebWindowsService
             msgString[IND_EnableShutDown         ] = MSG_EnableShutDown;
             msgString[IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
             msgString[IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
-*/
+
             typeString[IND_EnableSwitchUser       ] = TYPE_EnableSwitchUser;
             typeString[IND_EnableLockThisComputer ] = TYPE_EnableLockThisComputer;
             typeString[IND_EnableChangeAPassword  ] = TYPE_EnableChangeAPassword;
