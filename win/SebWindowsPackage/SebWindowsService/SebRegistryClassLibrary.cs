@@ -635,7 +635,7 @@ namespace SebWindowsService
                     int regIndex = IND_RegistrySettingNone;
                     for   (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
                     {
-                        if (leftSideString.Equals(valString[index])) break;
+                        if (leftSideString.Equals(msgString[index])) break;
                     }
                     regIndex = index;
 
@@ -652,6 +652,23 @@ namespace SebWindowsService
                         String regMsg  =  msgString[regIndex];
                         String regType = typeString[regIndex];
                         String regData = "";
+
+                        // Most of the registry values are in negative format
+                        // (e.g. DisableTaskMgr=1).
+                        // Since we store our settings in positive format
+                        // (e.g. EnableStartTaskManager=0),
+                        // we must in these cases invert the settings
+                        // when editing the Windows Registry.
+                        if ((regIndex == IND_EnableSwitchUser      ) ||
+                            (regIndex == IND_EnableLockThisComputer) ||
+                            (regIndex == IND_EnableChangeAPassword ) ||
+                            (regIndex == IND_EnableStartTaskManager) ||
+                            (regIndex == IND_EnableLogOff          ) ||
+                            (regIndex == IND_EnableShutDown        ))
+                        {
+                            if (newInteger ==  0) newInteger =  1;
+                            if (newInteger ==  1) newInteger =  0;
+                        }
 
                         if (newInteger == 0) regData = "0";
                         if (newInteger == 1) regData = "1";
