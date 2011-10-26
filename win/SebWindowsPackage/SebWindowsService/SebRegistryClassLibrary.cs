@@ -92,14 +92,14 @@ namespace SebWindowsService
         const String VAL_EnableEaseOfAccess     = "Debugger";
         const String VAL_EnableShade            = "EnableShade";
 
-        const String MSG_EnableSwitchUser        = "ENABLE_SWITCH_USER         ";
-        const String MSG_EnableLockThisComputer  = "ENABLE_LOCK_THIS_COMPUTER  ";
-        const String MSG_EnableChangeAPassword   = "ENABLE_CHANGE_A_PASSWORD   ";
-        const String MSG_EnableStartTaskManager  = "ENABLE_START_TASK_MANAGER  ";
-        const String MSG_EnableLogOff            = "ENABLE_LOG_OFF             ";
-        const String MSG_EnableShutDown          = "ENABLE_SHUT_DOWN           ";
-        const String MSG_EnableEaseOfAccess      = "ENABLE_EASE_OF_ACCESS      ";
-        const String MSG_EnableVmWareClientShade = "ENABLE_VM_WARE_CLIENT_SHADE";
+        const String MSG_EnableSwitchUser        = "EnableSwitchUser";
+        const String MSG_EnableLockThisComputer  = "EnableLockThisComputer";
+        const String MSG_EnableChangeAPassword   = "EnableChangeAPassword";
+        const String MSG_EnableStartTaskManager  = "EnableStartTaskManager";
+        const String MSG_EnableLogOff            = "EnableLogOff";
+        const String MSG_EnableShutDown          = "EnableShutDown";
+        const String MSG_EnableEaseOfAccess      = "EnableEaseOfAccess";
+        const String MSG_EnableVmWareClientShade = "EnableVmWareClientShade";
 
         const String TYPE_EnableSwitchUser        = "REG_DWORD";
         const String TYPE_EnableLockThisComputer  = "REG_DWORD";
@@ -331,7 +331,7 @@ namespace SebWindowsService
             valString[IND_EnableShutDown         ] = VAL_NoClose;
             valString[IND_EnableEaseOfAccess     ] = VAL_EnableEaseOfAccess;
             valString[IND_EnableVmWareClientShade] = VAL_EnableShade;
-
+/*
             msgString[IND_EnableSwitchUser       ] = MSG_EnableSwitchUser;
             msgString[IND_EnableLockThisComputer ] = MSG_EnableLockThisComputer;
             msgString[IND_EnableChangeAPassword  ] = MSG_EnableChangeAPassword;
@@ -340,7 +340,7 @@ namespace SebWindowsService
             msgString[IND_EnableShutDown         ] = MSG_EnableShutDown;
             msgString[IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
             msgString[IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
-
+*/
             typeString[IND_EnableSwitchUser       ] = TYPE_EnableSwitchUser;
             typeString[IND_EnableLockThisComputer ] = TYPE_EnableLockThisComputer;
             typeString[IND_EnableChangeAPassword  ] = TYPE_EnableChangeAPassword;
@@ -1043,6 +1043,24 @@ namespace SebWindowsService
                     if (wishedSettings == SET_Allow ) setInteger =  allowInteger;
                     if (wishedSettings == SET_Forbid) setInteger = forbidInteger;
 
+                    // Most of the registry values are in negative format
+                    // (e.g. DisableTaskMgr=1).
+                    // Since we store our settings in positive format
+                    // (e.g. EnableStartTaskManager=0),
+                    // we must in these cases invert the settings
+                    // when editing the Windows Registry.
+                    if ((regIndex == IND_EnableSwitchUser      ) ||
+                        (regIndex == IND_EnableLockThisComputer) ||
+                        (regIndex == IND_EnableChangeAPassword ) ||
+                        (regIndex == IND_EnableStartTaskManager) ||
+                        (regIndex == IND_EnableLogOff          ) ||
+                        (regIndex == IND_EnableShutDown        ))
+                    {
+                        if (setInteger ==  0) setInteger =  1;
+                        if (setInteger ==  1) setInteger =  0;
+                    }
+
+                    // Convert integers to strings (necessary for Windows Registry)
                     if (setInteger == -1) setString = "" ;
                     if (setInteger ==  0) setString = "0";
                     if (setInteger ==  1) setString = "1";
@@ -1070,6 +1088,23 @@ namespace SebWindowsService
 
                 if (editMode == EDIT_Get) DebugOutputLine(debugMode, "      Got " + regMsg + " as integer " + getInteger);
                 if (editMode == EDIT_Set) DebugOutputLine(debugMode, "      Set " + regMsg + " to integer " + setInteger);
+
+                // Most of the registry values are in negative format
+                // (e.g. DisableTaskMgr=1).
+                // Since we store our settings in positive format
+                // (e.g. EnableStartTaskManager=0),
+                // we must in these cases invert the settings
+                // when editing the Windows Registry.
+                if ((regIndex == IND_EnableSwitchUser      ) ||
+                    (regIndex == IND_EnableLockThisComputer) ||
+                    (regIndex == IND_EnableChangeAPassword ) ||
+                    (regIndex == IND_EnableStartTaskManager) ||
+                    (regIndex == IND_EnableLogOff          ) ||
+                    (regIndex == IND_EnableShutDown        ))
+                {
+                    if (getInteger ==  0) getInteger =  1;
+                    if (getInteger ==  1) getInteger =  0;
+                }
 
                 // If we GET the registry setting, store it as the old setting.
                 // If we SET the registry setting, store it as the new setting.
