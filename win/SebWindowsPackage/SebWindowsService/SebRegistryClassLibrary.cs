@@ -653,23 +653,6 @@ namespace SebWindowsService
                         String regType = typeString[regIndex];
                         String regData = "";
 
-                        // Most of the registry values are in negative format
-                        // (e.g. DisableTaskMgr=1).
-                        // Since we store our settings in positive format
-                        // (e.g. EnableStartTaskManager=0),
-                        // we must in these cases invert the settings
-                        // when editing the Windows Registry.
-                        if ((regIndex == IND_EnableSwitchUser      ) ||
-                            (regIndex == IND_EnableLockThisComputer) ||
-                            (regIndex == IND_EnableChangeAPassword ) ||
-                            (regIndex == IND_EnableStartTaskManager) ||
-                            (regIndex == IND_EnableLogOff          ) ||
-                            (regIndex == IND_EnableShutDown        ))
-                        {
-                            if (newInteger ==  0) newInteger =  1;
-                            if (newInteger ==  1) newInteger =  0;
-                        }
-
                         if (newInteger == 0) regData = "0";
                         if (newInteger == 1) regData = "1";
 
@@ -850,7 +833,7 @@ namespace SebWindowsService
             // regKey     = @"Software\Microsoft\Windows\CurrentVersion\Policies\System"
             // regVal     = "DisableTaskMgr"
             // regMsg     = "DisableTaskMgr        "
-            // regTyp     = REG_DWORD or REG_SZ
+            // regType    = REG_DWORD or REG_SZ
             // setString  = "0" or "1"
             // editMode   = EDIT_Get or EDIT_Set
 
@@ -870,6 +853,24 @@ namespace SebWindowsService
             int    getInteger = -1;
             int    setInteger = -1;
 
+            // Most of the registry values are in negative format
+            // (e.g. DisableTaskMgr=1).
+            // Since we store our settings in positive format
+            // (e.g. EnableStartTaskManager=0),
+            // we must in these cases invert the settings
+            // when editing the Windows Registry.
+            if (regMsg.Equals(MSG_EnableSwitchUser      ) ||
+                regMsg.Equals(MSG_EnableLockThisComputer) ||
+                regMsg.Equals(MSG_EnableChangeAPassword ) ||
+                regMsg.Equals(MSG_EnableStartTaskManager) ||
+                regMsg.Equals(MSG_EnableLogOff          ) ||
+                regMsg.Equals(MSG_EnableShutDown        ))
+            {
+                if (setString == "0") setString = "1";
+                if (setString == "1") setString = "0";
+            }
+
+            // Convert the registry value integer to a string
             if (setString == "" ) setInteger = -1;
             if (setString == "0") setInteger =  0;
             if (setString == "1") setInteger =  1;
@@ -972,6 +973,7 @@ namespace SebWindowsService
                 if (getObject == null) getString = "";
                                  else  getString = getObject.ToString();
 
+                // Convert the registry value string to an integer
                 if (getString == "" ) getInteger = -1;
                 if (getString == "0") getInteger =  0;
                 if (getString == "1") getInteger =  1;
@@ -1014,6 +1016,23 @@ namespace SebWindowsService
             //DebugOutputLine(debugMode, "");
             //DebugOutputLine(debugMode, "");
             //DebugOutputLine(debugMode, "");
+
+            // Most of the registry values are in negative format
+            // (e.g. DisableTaskMgr=1).
+            // Since we store our settings in positive format
+            // (e.g. EnableStartTaskManager=0),
+            // we must in these cases invert the settings
+            // when editing the Windows Registry.
+            if (regMsg.Equals(MSG_EnableSwitchUser      ) ||
+                regMsg.Equals(MSG_EnableLockThisComputer) ||
+                regMsg.Equals(MSG_EnableChangeAPassword ) ||
+                regMsg.Equals(MSG_EnableStartTaskManager) ||
+                regMsg.Equals(MSG_EnableLogOff          ) ||
+                regMsg.Equals(MSG_EnableShutDown        ))
+            {
+                if (getString == "0") getString = "1";
+                if (getString == "1") getString = "0";
+            }
 
             debugMode = true;
             return getString;
@@ -1060,24 +1079,7 @@ namespace SebWindowsService
                     if (wishedSettings == SET_Allow ) setInteger =  allowInteger;
                     if (wishedSettings == SET_Forbid) setInteger = forbidInteger;
 
-                    // Most of the registry values are in negative format
-                    // (e.g. DisableTaskMgr=1).
-                    // Since we store our settings in positive format
-                    // (e.g. EnableStartTaskManager=0),
-                    // we must in these cases invert the settings
-                    // when editing the Windows Registry.
-                    if ((regIndex == IND_EnableSwitchUser      ) ||
-                        (regIndex == IND_EnableLockThisComputer) ||
-                        (regIndex == IND_EnableChangeAPassword ) ||
-                        (regIndex == IND_EnableStartTaskManager) ||
-                        (regIndex == IND_EnableLogOff          ) ||
-                        (regIndex == IND_EnableShutDown        ))
-                    {
-                        if (setInteger ==  0) setInteger =  1;
-                        if (setInteger ==  1) setInteger =  0;
-                    }
-
-                    // Convert integers to strings (necessary for Windows Registry)
+                    // Convert the registry value integer to a string
                     if (setInteger == -1) setString = "" ;
                     if (setInteger ==  0) setString = "0";
                     if (setInteger ==  1) setString = "1";
@@ -1096,6 +1098,7 @@ namespace SebWindowsService
 
                 getString = EditOneRegistryValue(userName, userSid, regHive, regKey, regVal, regMsg, regType, setString, editMode);
 
+                // Convert the registry value string to an integer
                 if (getString == "" ) getInteger = -1;
                 if (getString == "0") getInteger =  0;
                 if (getString == "1") getInteger =  1;
@@ -1105,23 +1108,6 @@ namespace SebWindowsService
 
                 if (editMode == EDIT_Get) DebugOutputLine(debugMode, "      Got " + regMsg + " as integer " + getInteger);
                 if (editMode == EDIT_Set) DebugOutputLine(debugMode, "      Set " + regMsg + " to integer " + setInteger);
-
-                // Most of the registry values are in negative format
-                // (e.g. DisableTaskMgr=1).
-                // Since we store our settings in positive format
-                // (e.g. EnableStartTaskManager=0),
-                // we must in these cases invert the settings
-                // when editing the Windows Registry.
-                if ((regIndex == IND_EnableSwitchUser      ) ||
-                    (regIndex == IND_EnableLockThisComputer) ||
-                    (regIndex == IND_EnableChangeAPassword ) ||
-                    (regIndex == IND_EnableStartTaskManager) ||
-                    (regIndex == IND_EnableLogOff          ) ||
-                    (regIndex == IND_EnableShutDown        ))
-                {
-                    if (getInteger ==  0) getInteger =  1;
-                    if (getInteger ==  1) getInteger =  0;
-                }
 
                 // If we GET the registry setting, store it as the old setting.
                 // If we SET the registry setting, store it as the new setting.
