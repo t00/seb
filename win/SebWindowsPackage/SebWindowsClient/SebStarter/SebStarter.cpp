@@ -496,7 +496,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	int  ret;
 	char buffer[100];
 
-	// It is important to set the CurrentDirectory to the AppDir if you call the App from a Link
+	// It is important to set the CurrentDirectory
+	// to the AppDir if you call the App from a Link
 	char szAppPath[MAX_PATH] = "";
 	string strAppDirectory;
 	GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
