@@ -383,7 +383,7 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		KeyDown = FALSE;		
 	}
 
-	bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL)>>((sizeof(SHORT) * 8) - 1);
+	bCtrlKeyDown = GetAsyncKeyState(VK_CONTROL) >> ((sizeof(SHORT) * 8) - 1);
 	bAltKeyDown  = ((lParam & (1 << 29)) != 0) ? TRUE : FALSE;
 
 
@@ -732,27 +732,27 @@ BOOL ReadMsgHookIni()
 
 
 		//setting bits of alter_flags_structs
-		alter_flags.DISABLE_CTRL_ESC = getBool("DISABLE_CTRL_ESC");
-		alter_flags.DISABLE_CTRL_P   = getBool("DISABLE_CTRL_P");
-		alter_flags.DISABLE_ALT_TAB  = getBool("DISABLE_ALT_TAB");
-		alter_flags.DISABLE_ALT_ESC  = getBool("DISABLE_ALT_ESC");
-		alter_flags.DISABLE_ALT_F4   = getBool("DISABLE_ALT_F4");
-		alter_flags.DISABLE_START_MENU  = getBool("DISABLE_START_MENU");
-		alter_flags.DISABLE_RIGHT_MOUSE = getBool("DISABLE_RIGHT_MOUSE");
-		alter_flags.DISABLE_LEFT_MOUSE  = getBool("DISABLE_LEFT_MOUSE");
-		alter_flags.DISABLE_F1  = getBool("DISABLE_F1");
-		alter_flags.DISABLE_F2  = getBool("DISABLE_F2");
-		alter_flags.DISABLE_F3  = getBool("DISABLE_F3");
-		alter_flags.DISABLE_F4  = getBool("DISABLE_F4");
-		alter_flags.DISABLE_F5  = getBool("DISABLE_F5");
-		alter_flags.DISABLE_F6  = getBool("DISABLE_F6");
-		alter_flags.DISABLE_F7  = getBool("DISABLE_F7");
-		alter_flags.DISABLE_F8  = getBool("DISABLE_F8");
-		alter_flags.DISABLE_F9  = getBool("DISABLE_F9");
-		alter_flags.DISABLE_F10 = getBool("DISABLE_F10");
-		alter_flags.DISABLE_F11 = getBool("DISABLE_F11");
-		alter_flags.DISABLE_F12 = getBool("DISABLE_F12");
-		alter_flags.DISABLE_ESCAPE = getBool("DISABLE_ESCAPE");
+		alter_flags.DISABLE_CTRL_ESC = !getBool("ENABLE_CTRL_ESC");
+		alter_flags.DISABLE_CTRL_P   = !getBool("ENABLE_CTRL_P");
+		alter_flags.DISABLE_ALT_TAB  = !getBool("ENABLE_ALT_TAB");
+		alter_flags.DISABLE_ALT_ESC  = !getBool("ENABLE_ALT_ESC");
+		alter_flags.DISABLE_ALT_F4   = !getBool("ENABLE_ALT_F4");
+		alter_flags.DISABLE_START_MENU  = !getBool("ENABLE_START_MENU");
+		alter_flags.DISABLE_RIGHT_MOUSE = !getBool("ENABLE_RIGHT_MOUSE");
+		alter_flags.DISABLE_LEFT_MOUSE  = !getBool("ENABLE_LEFT_MOUSE");
+		alter_flags.DISABLE_F1  = !getBool("ENABLE_F1");
+		alter_flags.DISABLE_F2  = !getBool("ENABLE_F2");
+		alter_flags.DISABLE_F3  = !getBool("ENABLE_F3");
+		alter_flags.DISABLE_F4  = !getBool("ENABLE_F4");
+		alter_flags.DISABLE_F5  = !getBool("ENABLE_F5");
+		alter_flags.DISABLE_F6  = !getBool("ENABLE_F6");
+		alter_flags.DISABLE_F7  = !getBool("ENABLE_F7");
+		alter_flags.DISABLE_F8  = !getBool("ENABLE_F8");
+		alter_flags.DISABLE_F9  = !getBool("ENABLE_F9");
+		alter_flags.DISABLE_F10 = !getBool("ENABLE_F10");
+		alter_flags.DISABLE_F11 = !getBool("ENABLE_F11");
+		alter_flags.DISABLE_F12 = !getBool("ENABLE_F12");
+		alter_flags.DISABLE_ESCAPE = !getBool("ENABLE_ESCAPE");
 
 		// Kill Caller with HotKey
 		sHotKey = mpParam["KILL_CALLER_HOTKEY"];
