@@ -866,11 +866,11 @@ namespace SebWindowsService
                 regMsg.Equals(MSG_EnableLogOff          ) ||
                 regMsg.Equals(MSG_EnableShutDown        ))
             {
-                DebugOutputLine(debugMode, "Converting before setting:");
-                DebugOutputLine(debugMode, "Set regMsg " + regMsg + "=" + setString);
+                DebugOutputLine(debugMode, "        Converting before setting:");
+                DebugOutputLine(debugMode, "        Set regMsg " + regMsg + "=" + setString);
                      if (setString == "0") setString = "1";
                 else if (setString == "1") setString = "0";
-                DebugOutputLine(debugMode, "Set regVal " + regVal + "=" + setString);
+                DebugOutputLine(debugMode, "        Set regVal " + regVal + "=" + setString);
             }
 
             // Convert the registry value integer to a string
@@ -882,21 +882,21 @@ namespace SebWindowsService
 
             DebugOutputLine(debugMode, "");
             DebugOutputLine(debugMode, "");
-            DebugOutputLine(debugMode, "userName   = " + userName);
-            DebugOutputLine(debugMode, "userSid    = " + userSid);
-            DebugOutputLine(debugMode, "regHive    = " + regHive);
-            DebugOutputLine(debugMode, "regKey     = " + regKey);
-            DebugOutputLine(debugMode, "regVal     = " + regVal);
-            DebugOutputLine(debugMode, "regMsg     = " + regMsg);
-            DebugOutputLine(debugMode, "regType    = " + regType);
-            DebugOutputLine(debugMode, "setString  = " + setString);
-            DebugOutputLine(debugMode, "editMode   = " + editMode);
+            DebugOutputLine(debugMode, "        userName   = " + userName);
+            DebugOutputLine(debugMode, "        userSid    = " + userSid);
+            DebugOutputLine(debugMode, "        regHive    = " + regHive);
+            DebugOutputLine(debugMode, "        regKey     = " + regKey);
+            DebugOutputLine(debugMode, "        regVal     = " + regVal);
+            DebugOutputLine(debugMode, "        regMsg     = " + regMsg);
+            DebugOutputLine(debugMode, "        regType    = " + regType);
+            DebugOutputLine(debugMode, "        setString  = " + setString);
+            DebugOutputLine(debugMode, "        editMode   = " + editMode);
             DebugOutputLine(debugMode, "");
 
             if (regHive == HIVE_HKCU) keyName = userSid + "\\" + regKey;
             if (regHive == HIVE_HKLM) keyName = regKey;
 
-            DebugOutputLine(debugMode, "    keyName = " + keyName);
+            DebugOutputLine(debugMode, "            keyName = " + keyName);
 
             if (regHive == HIVE_HKCU) ourKey = Registry.Users;
             if (regHive == HIVE_HKLM) ourKey = Registry.LocalMachine;
@@ -912,8 +912,8 @@ namespace SebWindowsService
             catch (Exception e)
             {
                 keyAlreadyExists = false;
-                DebugOutputLine(debugMode, "OpenSubKey() failed!");
-                DebugOutputLine(debugMode, "Error type = " + e.Message);
+                DebugOutputLine(debugMode, "        OpenSubKey() failed!");
+                DebugOutputLine(debugMode, "        Error type = " + e.Message);
                 if (subKey == null) DebugOutputLine(debugMode, "subKey == null");
                                else DebugOutputLine(debugMode,  subKey.Name);
             }
@@ -934,8 +934,8 @@ namespace SebWindowsService
                 catch (Exception e)
                 {
                     keyHasBeenCreated = false;
-                    DebugOutputLine(debugMode, "CreateSubKey() failed!");
-                    DebugOutputLine(debugMode, "Error type = " + e.Message);
+                    DebugOutputLine(debugMode, "        CreateSubKey() failed!");
+                    DebugOutputLine(debugMode, "        Error type = " + e.Message);
                     if (subKey == null) DebugOutputLine(debugMode, "subKey == null");
                                    else DebugOutputLine(debugMode,  subKey.Name);
                 }
@@ -955,9 +955,9 @@ namespace SebWindowsService
 
 
             // From now on, we assume that the registry key (value) exists and is open
-            DebugOutputLine(debugMode, "    keyName = " +     keyName);
-            DebugOutputLine(debugMode, "ourKey.Name = " + ourKey.Name);
-            DebugOutputLine(debugMode, "subKey.Name = " + subKey.Name);
+            DebugOutputLine(debugMode, "            keyName = " +     keyName);
+            DebugOutputLine(debugMode, "        ourKey.Name = " + ourKey.Name);
+            DebugOutputLine(debugMode, "        subKey.Name = " + subKey.Name);
             DebugOutputLine(debugMode, "");
 
 
@@ -967,7 +967,7 @@ namespace SebWindowsService
 
             if (keyAlreadyExists)
             {
-                DebugOutputLine(debugMode, "Getting " + regVal + "...");
+                DebugOutputLine(debugMode, "        Getting " + regVal + "...");
 
                 // Try to get the value of the key
                 getObject = subKey.GetValue(regVal);
@@ -981,8 +981,8 @@ namespace SebWindowsService
                 if (getString == "0") getInteger =  0;
                 if (getString == "1") getInteger =  1;
 
-                DebugOutputLine(debugMode, "Got " + regVal + " as " + getInteger);
-                DebugOutputLine(debugMode, "Got " + regVal + " as " + getString);
+                DebugOutputLine(debugMode,      "Got " + regVal + " as " + getInteger);
+                DebugOutputLine(debugMode,      "Got " + regVal + " as " + getString);
             }
 
 
@@ -992,15 +992,15 @@ namespace SebWindowsService
 
             if ((editMode == EDIT_Set) || (editMode == EDIT_Restore))
             {
-                DebugOutputLine(debugMode, "Setting " + regVal + " to " + setString + "...");
+                DebugOutputLine(debugMode, "        Setting " + regVal + " to " + setString + "...");
 
                 if (regKind == RegistryValueKind.DWord ) subKey.SetValue(regVal, setInteger, RegistryValueKind.DWord);
                 if (regKind == RegistryValueKind.String) subKey.SetValue(regVal, setString , RegistryValueKind.String);
                 if (regKind == RegistryValueKind.DWord ) DebugOutputLine(debugMode, "Set " + regVal + " to " + setInteger);
                 if (regKind == RegistryValueKind.String) DebugOutputLine(debugMode, "Set " + regVal + " to " + setString);
 
-                DebugOutputLine(debugMode, "Set " + regVal + " to " + setInteger);
-                DebugOutputLine(debugMode, "Set " + regVal + " to " + setString);
+                DebugOutputLine(debugMode, "        Set " + regVal + " to " + setInteger);
+                DebugOutputLine(debugMode, "        Set " + regVal + " to " + setString);
             }
 
 
@@ -1008,9 +1008,9 @@ namespace SebWindowsService
             // delete it again before SEB shuts down.
             if ((editMode == EDIT_Restore) && (setInteger == -1))
             {
-                DebugOutputLine(debugMode, "Deleting " + regVal + "...");
+                DebugOutputLine(debugMode, "        Deleting " + regVal + "...");
                 subKey.DeleteValue(regVal);
-                DebugOutputLine(debugMode, "Deleted  " + regVal);
+                DebugOutputLine(debugMode, "        Deleted  " + regVal);
             }
 
             subKey.Close();
@@ -1033,11 +1033,11 @@ namespace SebWindowsService
                 regMsg.Equals(MSG_EnableLogOff          ) ||
                 regMsg.Equals(MSG_EnableShutDown        ))
             {
-                DebugOutputLine(debugMode, "Converting:");
-                DebugOutputLine(debugMode, "regVal " + regVal + "=" + getString);
+                DebugOutputLine(debugMode, "        Converting:");
+                DebugOutputLine(debugMode, "        regVal " + regVal + "=" + getString);
                      if (getString == "0") getString = "1";
                 else if (getString == "1") getString = "0";
-                DebugOutputLine(debugMode, "regMsg " + regMsg + "=" + getString);
+                DebugOutputLine(debugMode, "        regMsg " + regMsg + "=" + getString);
             }
 
             debugMode = true;

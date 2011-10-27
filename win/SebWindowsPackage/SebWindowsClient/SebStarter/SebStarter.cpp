@@ -2051,12 +2051,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hklmSystem,VAL_HideFastUserSwitching,"HIDE_FAST_USER_SWITCHING"))
 			{
 				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2064,7 +2064,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= true", "ENABLE_SWITCH_USER", 16);
-			logg(fp, "getBool(ENABLE_SWITCH_USER) = true\n");
+			logg(fp, "getBool(ENABLE_SWITCH_USER) = true\n\n");
 		}
 
 
@@ -2078,12 +2078,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"DISABLE_LOCK_WORKSTATION"))
 			{
 				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2091,7 +2091,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= true", "ENABLE_LOCK_THIS_COMPUTER", 16);
-			logg(fp, "getBool(ENABLE_LOCK_THIS_COMPUTER) = true\n");
+			logg(fp, "getBool(ENABLE_LOCK_THIS_COMPUTER) = true\n\n");
 		}
 
 
@@ -2105,12 +2105,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"DISABLE_CHANGE_PASSWORD"))
 			{
 				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2118,7 +2118,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= true", "ENABLE_CHANGE_A_PASSWORD", 16);
-			logg(fp, "getBool(ENABLE_CHANGE_A_PASSWORD) = true\n");
+			logg(fp, "getBool(ENABLE_CHANGE_A_PASSWORD) = true\n\n");
 		}
 
 
@@ -2132,12 +2132,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableTaskMgr,"DISABLE_TASKMGR"))
 			{
 				//MessageBox(NULL, "Setting DISABLE_TASKMGR succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting DISABLE_TASKMGR failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2145,7 +2145,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= true", "ENABLE_START_TASK_MANAGER", 16);
-			logg(fp, "getBool(ENABLE_START_TASK_MANAGER) = true\n");
+			logg(fp, "getBool(ENABLE_START_TASK_MANAGER) = true\n\n");
 		}
 
 
@@ -2159,12 +2159,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"NO_LOGOFF"))
 			{
 				//MessageBox(NULL, "Setting NO_LOGOFF succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting NO_LOGOFF failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2172,7 +2172,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= true", "ENABLE_LOGOFF", 16);
-			logg(fp, "getBool(ENABLE_LOGOFF) = true\n");
+			logg(fp, "getBool(ENABLE_LOGOFF) = true\n\n");
 		}
 
 
@@ -2186,12 +2186,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"NO_CLOSE"))
 			{
 				//MessageBox(NULL, "Setting NO_CLOSE succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting NO_CLOSE failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2199,7 +2199,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= true", "ENABLE_SHUT_DOWN", 16);
-			logg(fp, "getBool(ENABLE_SHUT_DOWN) = true\n");
+			logg(fp, "getBool(ENABLE_SHUT_DOWN) = true\n\n");
 		}
 
 
@@ -2213,12 +2213,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_EnableEaseOfAccess,"ENABLE_EASE_OF_ACCESS"))
 			{
 				//MessageBox(NULL, "Setting ENABLE_EASE_OF_ACCESS succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting ENABLE_EASE_OF_ACCESS failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2226,7 +2226,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "ENABLE_EASE_OF_ACCESS", 16);
-			logg(fp, "getBool(ENABLE_EASE_OF_ACCESS) = false\n");
+			logg(fp, "getBool(ENABLE_EASE_OF_ACCESS) = false\n\n");
 		}
 
 
@@ -2240,12 +2240,12 @@ BOOL EditRegistry()
 			if (HandleSetRegistryKeyValue(hkcuVmWareClient,VAL_EnableShade,"ENABLE_SHADE"))
 			{
 				//MessageBox(NULL, "Setting ENABLE_SHADE succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n");
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n\n");
 			}
 			else
 			{
 				//MessageBox(NULL, "Setting ENABLE_SHADE failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n");
+				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
@@ -2253,7 +2253,7 @@ BOOL EditRegistry()
 		else
 		{
 			//MessageBox(NULL, "= false", "ENABLE_VM_WARE_CLIENT_SHADE", 16);
-			logg(fp, "getBool(ENABLE_VM_WARE_CLIENT_SHADE) = false\n");
+			logg(fp, "getBool(ENABLE_VM_WARE_CLIENT_SHADE) = false\n\n");
 		}
 
 
@@ -3101,11 +3101,11 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 				  //MessageBox(hWnd,"HandleSetRegistryKeyValue(): not enough rights for editing registry",REGISTRY_WARNING,MB_ICONWARNING);
 					OutputErrorMessage(languageIndex, IND_NotEnoughRegistryRightsError, IND_MessageKindError);
 					//MessageBox(hWnd,NOT_ENOUGH_REGISTRY_RIGHTS_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
-					logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
+					logg(fp, "Leave HandleSetRegistryKeyValue()\n");
 					return FALSE;
 				default :
 					mpParam[sParam] = "0";
-					logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
+					logg(fp, "Leave HandleSetRegistryKeyValue()\n");
 					return FALSE;
 			}
 		}
@@ -3115,11 +3115,11 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 	{		
 		MessageBox(NULL, str, "Error", 16);
 		logg(fp, "Error: %s\n", str);
-		logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
+		logg(fp, "Leave HandleSetRegistryKeyValue()\n");
 		return FALSE;
 	}
 
-	logg(fp, "Leave HandleSetRegistryKeyValue()\n\n");
+	logg(fp, "Leave HandleSetRegistryKeyValue()\n");
 	return TRUE;
 
 } // end HandleSetRegistryKeyValue()
