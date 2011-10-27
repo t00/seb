@@ -866,10 +866,10 @@ namespace SebWindowsService
                 regMsg.Equals(MSG_EnableLogOff          ) ||
                 regMsg.Equals(MSG_EnableShutDown        ))
             {
-                DebugOutputLine(debugMode, "Converting:");
+                DebugOutputLine(debugMode, "Converting before setting:");
                 DebugOutputLine(debugMode, "Set regMsg " + regMsg + "=" + setString);
-                if (setString.Equals("0")) setString = "1";
-                if (setString.Equals("1")) setString = "0";
+                     if (setString == "0") setString = "1";
+                else if (setString == "1") setString = "0";
                 DebugOutputLine(debugMode, "Set regVal " + regVal + "=" + setString);
             }
 
@@ -1035,8 +1035,8 @@ namespace SebWindowsService
             {
                 DebugOutputLine(debugMode, "Converting:");
                 DebugOutputLine(debugMode, "regVal " + regVal + "=" + getString);
-                if (getString.Equals("0")) getString = "1";
-                if (getString.Equals("1")) getString = "0";
+                     if (getString == "0") getString = "1";
+                else if (getString == "1") getString = "0";
                 DebugOutputLine(debugMode, "regMsg " + regMsg + "=" + getString);
             }
 
