@@ -27,14 +27,14 @@ namespace SebWindowsConfig
         const int IND_RegistrySettingMax  =  7;
         const int IND_RegistrySettingNum  =  8;
 
-        const String MSG_EnableSwitchUser        = "ENABLE_SWITCH_USER";
-        const String MSG_EnableLockThisComputer  = "ENABLE_LOCK_THIS_COMPUTER";
-        const String MSG_EnableChangeAPassword   = "ENABLE_CHANGE_A_PASSWORD";
-        const String MSG_EnableStartTaskManager  = "ENABLE_START_TASK_MANAGER";
-        const String MSG_EnableLogOff            = "ENABLE_LOG_OFF";
-        const String MSG_EnableShutDown          = "ENABLE_SHUT_DOWN";
-        const String MSG_EnableEaseOfAccess      = "ENABLE_EASE_OF_ACCESS";
-        const String MSG_EnableVmWareClientShade = "ENABLE_VM_WARE_CLIENT_SHADE";
+        const String MSG_EnableSwitchUser        = "Enable_Switch_User";
+        const String MSG_EnableLockThisComputer  = "Enable_Lock_This_Computer";
+        const String MSG_EnableChangeAPassword   = "Enable_Change_A_Password";
+        const String MSG_EnableStartTaskManager  = "Enable_Start_Task_Manager";
+        const String MSG_EnableLogOff            = "Enable_Log_Off";
+        const String MSG_EnableShutDown          = "Enable_Shut_Down";
+        const String MSG_EnableEaseOfAccess      = "Enable_Ease_Of_Access";
+        const String MSG_EnableVmWareClientShade = "Enable_Vm_Ware_Client_Shade";
 /*
         const String TYPE_EnableSwitchUser        = "REG_DWORD";
         const String TYPE_EnableLockThisComputer  = "REG_DWORD";
