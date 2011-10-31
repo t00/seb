@@ -101,6 +101,5 @@ LPCTSTR MSG_EnableShade            = "EnableShade           ";
 
 
 // Only for trunk version necessary (XULrunner)
-
 LPCTSTR VAL_PERMITTED_APPS    = "PermittedApps";
 LPCTSTR VAL_ShowSEBAppChooser = "ShowSEBAppChooser";

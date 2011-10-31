@@ -28,7 +28,7 @@ echo "C:\Program Files\VMware\VMware View\Client\bin\",
 echo then enter the full path to the program executable
 echo in the SebStarter.ini file:
 echo.
-echo PERMITTED_APPS=VMwareViewClient,"C:\Program Files\VMware\VMware View\Client\bin\wswc.exe";
+echo Permitted_Applications=VMwareViewClient,"C:\Program Files\VMware\VMware View\Client\bin\wswc.exe";
 echo.
 echo.
 echo 2.) Enter only the _short_ pathes to the program executables
@@ -37,7 +37,7 @@ echo.
 echo In our example, "wscw.exe" is the short path,
 echo so enter in the SebStarter.ini file only
 echo.
-echo PERMITTED_APPS=VMwareViewClient,wswc.exe;
+echo Permitted_Applications=VMwareViewClient,wswc.exe;
 echo.
 echo But in this case, you have to additionally enter in SebStarter.bat the lines
 echo.

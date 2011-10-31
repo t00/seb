@@ -365,7 +365,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SEB);
 	PROCESS_INFORMATION pi;
-	string shutDownProcess = mpParam["AUTOSTART_PROCESS"];
+	string shutDownProcess = mpParam["Autostart_Process"];
 
 	
 	/* main message loop */
@@ -377,7 +377,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	and the only way to finish SEB is the defined Hotkey.
 	*/
 
-	if (getBool("SHUTDOWN_AFTER_AUTOSTART_PROCESS_TERMINATES") && shutDownProcess != "")
+	if (getBool("Shutdown_After_Autostart_Process_Terminates") && shutDownProcess != "")
 	{
 		pi = mpProcessInformations[shutDownProcess];
 		while (1)
@@ -573,7 +573,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	if (!IsNewOS)
 	{
 		//just kill explorer.exe on Win9x / Me
-		if (getBool("WIN9X_KILL_EXPLORER"))
+		if (getBool("Win_9x_Kill_Explorer"))
 		{
 			logg(fp, "Calling  KILL_PROC_BY_NAME(explorer.exe)\n");
 			ret = KILL_PROC_BY_NAME("explorer.exe");
@@ -590,7 +590,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			}
 		}
 		//tell Win9x / Me that the screensaver is running to lock system tasks
-		if (getBool("WIN9X_SCREENSAVERRUNNING"))
+		if (getBool("Win_9x_Screen_Saver_Running"))
 		{
 			SystemParametersInfo(SPI_SCREENSAVERRUNNING, TRUE, &dwNotUsedForAnything, NULL);
 		}
@@ -598,7 +598,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	else
 	{
 		//on NT4/NT5 a new desktop is created
-		if (getBool("NEW_DESKTOP"))
+		if (getBool("New_Desktop"))
 		{
 			hOriginalThread = GetThreadDesktop(GetCurrentThreadId());
 			hOriginalInput  = OpenInputDesktop(0, FALSE, DESKTOP_SWITCHDESKTOP);
@@ -631,18 +631,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		return FALSE;
 	}
 
-	if (getBool("EDIT_REGISTRY") && IsNewOS)
+	if (getBool("Edit_Registry") && IsNewOS)
 	{
 		if (!EditRegistry())
 		{
 			OutputErrorMessage(languageIndex, IND_RegistryEditError, IND_MessageKindError);
 			//MessageBox(hWnd,REG_EDIT_ERROR,REGISTRY_WARNING,MB_ICONWARNING);
 			//logg(fp, "Error  : %s\n", REG_EDIT_ERROR);
-			mpParam["EDIT_REGISTRY"] = "0"; //thats for ResetRegistry: do nothing because editing failed
+			mpParam["Edit_Registry"] = "0"; //thats for ResetRegistry: do nothing because editing failed
 		}
 	}
 
-	sStrongKillProcessesBefore = mpParam["STRONG_KILL_PROCESSES_BEFORE"];
+	sStrongKillProcessesBefore = mpParam["Strong_Kill_Processes_Before"];
 	if (sStrongKillProcessesBefore != "")
 	{		
 		Tokenize(sStrongKillProcessesBefore, vStrongKillProcessesBefore, ";");
@@ -656,9 +656,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		}
 	}
 
-	if (mpParam["AUTOSTART_PROCESS"] != "")
+	if (mpParam["Autostart_Process"] != "")
 	{
-		if (!CreateExternalProcess(mpParam["AUTOSTART_PROCESS"]))
+		if (!CreateExternalProcess(mpParam["Autostart_Process"]))
 		{
 			OutputErrorMessage(languageIndex, IND_ProcessCallFailed, IND_MessageKindWarning);
 			//MessageBox(hWnd, PROCESS_FAILED, "Error", MB_ICONERROR);
@@ -670,11 +670,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	/* setting the HOOK */
 
-	if (getBool("MESSAGE_HOOK"))
+	if (getBool("Message_Hook"))
 	{
 		if (hinstDLL == NULL) 
 		{	
-			hinstDLL = LoadLibrary((LPCTSTR) mpParam["HOOK_DLL"].c_str());
+			hinstDLL = LoadLibrary((LPCTSTR) mpParam["Hook_Dll"].c_str());
 		}
 
 		if (hinstDLL == NULL) 
@@ -720,7 +720,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 		// Sleep(3000);
 
-		int cmd = (getBool("AUTOSTART_PROCESS")) ? SW_SHOWNORMAL : SW_SHOWNORMAL; //Not very suggestive yet
+		int cmd = (getBool("Autostart_Process")) ? SW_SHOWNORMAL : SW_SHOWNORMAL; //Not very suggestive yet
 
 		ShowWindow(hWnd,cmd);
 		UpdateWindow(hWnd);
@@ -792,7 +792,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	parameters.hold             = 0;
 	parameters.confirm          = 0;
 
-	if (getBool("PROC_MONITORING"))
+	if (getBool("Process_Monitoring"))
 	{
 		procMonitorThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)MonitorProcesses, (LPVOID)&parameters, 0, (LPDWORD)&threadID);
 		parameters.procedureReady = 1;
@@ -1084,7 +1084,7 @@ BOOL ReadSebStarterIni()
 
 
 		// Decide whether to write data into the logfile
-		if (getBool("LOG_FILE"))
+		if (getBool("Log_File"))
 		{
 			logFileDesiredSebStarter = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
@@ -1102,7 +1102,7 @@ BOOL ReadSebStarterIni()
 
 
 		// Decide whether to enforce socket communication with SEB Windows Service
-		if (getBool("FORCE_WINDOWS_SERVICE"))
+		if (getBool("Force_Windows_Service"))
 		{
 			forceWindowsService = true;
 			logg(fp, "Windows Service demanded    , setting forceWindowsService = true\n");
@@ -1115,7 +1115,7 @@ BOOL ReadSebStarterIni()
 
 
 		// Decide whether to allow SEB running on a virtual machine
-		if (getBool("ALLOW_VIRTUAL_MACHINE"))
+		if (getBool("Allow_Virtual_Machine"))
 		{
 			allowVirtualMachine = true;
 			logg(fp, "Virtual machine allowed     , setting allowVirtualMachine = true\n\n\n\n");
@@ -1154,17 +1154,17 @@ BOOL ReadSebStarterIni()
 
 
 		// Get start URL for Seb Browser
-		sUrlExam = mpParam["URL_EXAM"];
-		//MessageBox(NULL, sUrlExam.c_str(), "URL_EXAM", MB_ICONERROR);
-		logg(fp, "URL_EXAM = %s\n", sUrlExam.c_str());
+		sUrlExam = mpParam["Url_Exam"];
+		//MessageBox(NULL, sUrlExam.c_str(), "Url_Exam", MB_ICONERROR);
+		logg(fp, "Url_Exam = %s\n", sUrlExam.c_str());
 		logg(fp, "\n");
 
 		// Get the processes (SEB and third-party applications)
-		sProcesses = mpParam["PROCESSES"];
+		sProcesses = mpParam["Processes"];
 
 		// Get the SEB Process, which is defined separately
 		// from the other processes in SebStarter.ini
-		string sebProcess = mpParam["SEB_BROWSER"];
+		string sebProcess = mpParam["Seb_Browser"];
 
 		vector<string> sebProcessVector;
 		Tokenize(sebProcess, sebProcessVector, ",");
@@ -1199,7 +1199,7 @@ BOOL ReadSebStarterIni()
 		{
 			// if nothing is found in registry  -> read SebStarter.ini
 			// handle processes from configuration file SebStarter.ini
-			sProcesses = mpParam["PERMITTED_APPS"];
+			sProcesses = mpParam["Permitted_Applications"];
 			if (sProcesses != "")
 			{
 				Tokenize(sProcesses, vProcesses, ";");
@@ -1489,7 +1489,7 @@ BOOL GetClientInfo()
 	// The timeouts are expected in milliseconds by the subsequent
 	// setsockopt() and getsockopt() socket commands (see below).
 	//
-	// If the flag FORCE_WINDOWS_SERVICE is set to 1 (true) in the SebStarter.ini,
+	// If the flag Force_Windows_Service is set to 1 (true) in the SebStarter.ini,
 	// the timeout for the recv() socket command is set to "0" = "infinite".
 	// The SEB client then waits in ANY case for an acknowledgement
 	// from the SEB Windows Service that the registry values have been set.
@@ -1498,7 +1498,7 @@ BOOL GetClientInfo()
 	// the SEB client remains blocked, too, and thus cannot start up.
 	// So the exam cannot take place then, not even in "unsure" mode!
 	//
-	// If the flag FORCE_WINDOWS_SERVICE is set to 0 (false) in the SebStarter.ini,
+	// If the flag Force_Windows_Service is set to 0 (false) in the SebStarter.ini,
 	// the timeout for the recv() socket command is set to the default timeout, e.g. 100 msecs.
 	// The SEB client then only waits for a normal (short) timespan,
 	// and then continues. The SEB Windows Service might have problems,
@@ -1552,14 +1552,14 @@ BOOL GetClientInfo()
 	// Format of the sent strings is "leftSide=rightSide",
 	// exactly as in the SebStarter.ini configuration file.
 
-	intEnableSwitchUser        = (int) getBool("ENABLE_SWITCH_USER");
-	intEnableLockThisComputer  = (int) getBool("ENABLE_LOCK_THIS_COMPUTER");
-	intEnableChangeAPassword   = (int) getBool("ENABLE_CHANGE_A_PASSWORD");
-	intEnableStartTaskManager  = (int) getBool("ENABLE_START_TASK_MANAGER");
-	intEnableLogOff            = (int) getBool("ENABLE_LOG_OFF");
-	intEnableShutDown          = (int) getBool("ENABLE_SHUT_DOWN");
-	intEnableEaseOfAccess      = (int) getBool("ENABLE_EASE_OF_ACCESS");
-	intEnableVmWareClientShade = (int) getBool("ENABLE_VM_WARE_CLIENT_SHADE");
+	intEnableSwitchUser        = (int) getBool("Enable_Switch_User");
+	intEnableLockThisComputer  = (int) getBool("Enable_Lock_This_Computer");
+	intEnableChangeAPassword   = (int) getBool("Enable_Change_A_Password");
+	intEnableStartTaskManager  = (int) getBool("Enable_Start_Task_Manager");
+	intEnableLogOff            = (int) getBool("Enable_Log_Off");
+	intEnableShutDown          = (int) getBool("Enable_Shut_Down");
+	intEnableEaseOfAccess      = (int) getBool("Enable_Ease_Of_Access");
+	intEnableVmWareClientShade = (int) getBool("Enable_Vm_Ware_Client_Shade");
 
 	logg(fp, "intEnableSwitchUser        = %d\n", intEnableSwitchUser);
 	logg(fp, "intEnableLockThisComputer  = %d\n", intEnableLockThisComputer);
@@ -2043,217 +2043,217 @@ BOOL EditRegistry()
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\HideFastUserSwitching
-		if (getBool("ENABLE_SWITCH_USER") == FALSE) 
+		if (getBool("Enable_Switch_User") == FALSE) 
 		{
-			// MessageBox(NULL, "= false", "ENABLE_SWITCH_USER", 16);
-			logg(fp, "getBool(ENABLE_SWITCH_USER) = false\n");
+			// MessageBox(NULL, "= false", "Enable_Switch_User", 16);
+			logg(fp, "getBool(Enable_Switch_User) = false\n");
 
-			if (HandleSetRegistryKeyValue(hklmSystem,VAL_HideFastUserSwitching,"HIDE_FAST_USER_SWITCHING"))
+			if (HandleSetRegistryKeyValue(hklmSystem,VAL_HideFastUserSwitching,"Hide_Fast_User_Switching"))
 			{
-				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) succeeded\n\n");
+				//MessageBox(NULL, "Setting HideFastUserSwitching succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(HideFastUserSwitching) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting HIDE_FAST_USER_SWITCHING failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(HIDE_FAST_USER_SWITCHING) failed\n\n");
+				//MessageBox(NULL, "Setting HideFastUserSwitching failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(HideFastUserSwitching) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		} 
 		else
 		{
-			//MessageBox(NULL, "= true", "ENABLE_SWITCH_USER", 16);
-			logg(fp, "getBool(ENABLE_SWITCH_USER) = true\n\n");
+			//MessageBox(NULL, "= true", "Enable_Switch_User", 16);
+			logg(fp, "getBool(Enable_Switch_User) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableLockWorkstation
-		if (getBool("ENABLE_LOCK_THIS_COMPUTER") == FALSE) 
+		if (getBool("Enable_Lock_This_Computer") == FALSE) 
 		{
-			// MessageBox(NULL, "= false", "ENABLE_LOCK_THIS_COMPUTER", 16);
-			logg(fp, "getBool(ENABLE_LOCK_THIS_COMPUTER) = false\n");
+			// MessageBox(NULL, "= false", "Enable_Lock_This_Computer", 16);
+			logg(fp, "getBool(Enable_Lock_This_Computer) = false\n");
 
-			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"DISABLE_LOCK_WORKSTATION"))
+			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"Disable_Lock_Workstation"))
 			{
-				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) succeeded\n\n");
+				//MessageBox(NULL, "Setting DisableLockWorkstation succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DisableLockWorkstation) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting DISABLE_LOCK_WORKSTATION failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_LOCK_WORKSTATION) failed\n\n");
+				//MessageBox(NULL, "Setting DisableLockWorkstation failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DisableLockWorkstation) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "ENABLE_LOCK_THIS_COMPUTER", 16);
-			logg(fp, "getBool(ENABLE_LOCK_THIS_COMPUTER) = true\n\n");
+			//MessageBox(NULL, "= true", "Enable_Lock_This_Computer", 16);
+			logg(fp, "getBool(Enable_Lock_This_Computer) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableChangePassword
-		if (getBool("ENABLE_CHANGE_A_PASSWORD") == FALSE) 
+		if (getBool("Enable_Change_A_Password") == FALSE) 
 		{
-			//   MessageBox(NULL,"= false","ENABLE_CHANGE_A_PASSWORD",16);
-			logg(fp, "getBool(ENABLE_CHANGE_A_PASSWORD) = false\n");
+			//   MessageBox(NULL,"= false","Enable_Change_A_Password",16);
+			logg(fp, "getBool(Enable_Change_A_Password) = false\n");
 
-			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"DISABLE_CHANGE_PASSWORD"))
+			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"Disable_Change_Password"))
 			{
-				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) succeeded\n\n");
+				//MessageBox(NULL, "Setting DisableChangePassword succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DisableChangePassword) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting DISABLE_CHANGE_PASSWORD failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_CHANGE_PASSWORD) failed\n\n");
+				//MessageBox(NULL, "Setting DisableChangePassword failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DisableChangePassword) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "ENABLE_CHANGE_A_PASSWORD", 16);
-			logg(fp, "getBool(ENABLE_CHANGE_A_PASSWORD) = true\n\n");
+			//MessageBox(NULL, "= true", "Enable_Change_A_Password", 16);
+			logg(fp, "getBool(Enable_Change_A_Password) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableTaskMgr
-		if (getBool("ENABLE_START_TASK_MANAGER") == FALSE) 
+		if (getBool("Enable_Start_Task_Manager") == FALSE) 
 		{
-			//   MessageBox(NULL,"= false","ENABLE_START_TASK_MANAGER",16);
-			logg(fp, "getBool(ENABLE_START_TASK_MANAGER) = false\n");
+			//   MessageBox(NULL,"= false","Enable_Start_Task_Manager",16);
+			logg(fp, "getBool(Enable_Start_Task_Manager) = false\n");
 
-			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableTaskMgr,"DISABLE_TASKMGR"))
+			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableTaskMgr,"Disable_Task_Manager"))
 			{
-				//MessageBox(NULL, "Setting DISABLE_TASKMGR succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) succeeded\n\n");
+				//MessageBox(NULL, "Setting DisableTaskMgr succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DisableTaskMgr) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting DISABLE_TASKMGR failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(DISABLE_TASKMGR) failed\n\n");
+				//MessageBox(NULL, "Setting DisableTaskMgr failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(DisableTaskMgr) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		} 
 		else
 		{
-			//MessageBox(NULL, "= true", "ENABLE_START_TASK_MANAGER", 16);
-			logg(fp, "getBool(ENABLE_START_TASK_MANAGER) = true\n\n");
+			//MessageBox(NULL, "= true", "Enable_Start_Task_Manager", 16);
+			logg(fp, "getBool(Enable_Start_Task_Manager) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoLogoff
-		if (getBool("ENABLE_LOGOFF") == FALSE)
+		if (getBool("Enable_Log_Off") == FALSE)
 		{
-			//MessageBox(NULL,"= false","ENABLE_LOGOFF",16);
-			logg(fp, "getBool(ENABLE_LOGOFF) = false\n");
+			//MessageBox(NULL,"= false","Enable_Log_Off",16);
+			logg(fp, "getBool(Enable_Log_Off) = false\n");
 
-			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"NO_LOGOFF"))
+			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"No_Logoff"))
 			{
-				//MessageBox(NULL, "Setting NO_LOGOFF succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) succeeded\n\n");
+				//MessageBox(NULL, "Setting NoLogoff succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(NoLogoff) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting NO_LOGOFF failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_LOGOFF) failed\n\n");
+				//MessageBox(NULL, "Setting NoLogoff failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(NoLogoff) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "ENABLE_LOGOFF", 16);
-			logg(fp, "getBool(ENABLE_LOGOFF) = true\n\n");
+			//MessageBox(NULL, "= true", "Enable_Log_Off", 16);
+			logg(fp, "getBool(Enable_Log_Off) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose
-		if (getBool("ENABLE_SHUT_DOWN") == FALSE)
+		if (getBool("Enable_Shut_Down") == FALSE)
 		{
-			//MessageBox(NULL,"= false","ENABLE_SHUT_DOWN",16);
-			logg(fp, "getBool(ENABLE_SHUT_DOWN) = false\n");
+			//MessageBox(NULL,"= false","Enable_Shut_Down",16);
+			logg(fp, "getBool(Enable_Shut_Down) = false\n");
 
-			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"NO_CLOSE"))
+			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"No_Close"))
 			{
-				//MessageBox(NULL, "Setting NO_CLOSE succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) succeeded\n\n");
+				//MessageBox(NULL, "Setting NoClose succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(NoClose) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting NO_CLOSE failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(NO_CLOSE) failed\n\n");
+				//MessageBox(NULL, "Setting NoClose failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(NoClose) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "ENABLE_SHUT_DOWN", 16);
-			logg(fp, "getBool(ENABLE_SHUT_DOWN) = true\n\n");
+			//MessageBox(NULL, "= true", "Enable_Shut_Down", 16);
+			logg(fp, "getBool(Enable_Shut_Down) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe\Debugger
-		if (getBool("ENABLE_EASE_OF_ACCESS") == TRUE) 
+		if (getBool("Enable_Ease_Of_Access") == TRUE) 
 		{
-			//MessageBox(NULL, "= true", "ENABLE_EASE_OF_ACCESS", 16);
-			logg(fp, "getBool(ENABLE_EASE_OF_ACCESS) = true\n");
+			//MessageBox(NULL, "= true", "Enable_Ease_Of_Access", 16);
+			logg(fp, "getBool(Enable_Ease_Of_Access) = true\n");
 
-			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_EnableEaseOfAccess,"ENABLE_EASE_OF_ACCESS"))
+			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_EnableEaseOfAccess,"Enable_Ease_Of_Access"))
 			{
-				//MessageBox(NULL, "Setting ENABLE_EASE_OF_ACCESS succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) succeeded\n\n");
+				//MessageBox(NULL, "Setting EnableEaseOfAccess succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(EnableEaseOfAccess) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting ENABLE_EASE_OF_ACCESS failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_EASE_OF_ACCESS) failed\n\n");
+				//MessageBox(NULL, "Setting EnableEaseOfAccess failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(EnableEaseOfAccess) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "ENABLE_EASE_OF_ACCESS", 16);
-			logg(fp, "getBool(ENABLE_EASE_OF_ACCESS) = false\n\n");
+			//MessageBox(NULL, "= false", "Enable_Ease_Of_Access", 16);
+			logg(fp, "getBool(Enable_Ease_Of_Access) = false\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client\EnableShade
-		if (getBool("ENABLE_VM_WARE_CLIENT_SHADE") == TRUE) 
+		if (getBool("Enable_Vm_Ware_Client_Shade") == TRUE) 
 		{
-			// MessageBox(NULL, "= true", "ENABLE_VM_WARE_CLIENT_SHADE", 16);
-			logg(fp, "getBool(ENABLE_VM_WARE_CLIENT_SHADE) = true\n");
+			// MessageBox(NULL, "= true", "Enable_Vm_Ware_Client_Shade", 16);
+			logg(fp, "getBool(Enable_Vm_Ware_Client_Shade) = true\n");
 
-			if (HandleSetRegistryKeyValue(hkcuVmWareClient,VAL_EnableShade,"ENABLE_SHADE"))
+			if (HandleSetRegistryKeyValue(hkcuVmWareClient,VAL_EnableShade,"Enable_Shade"))
 			{
-				//MessageBox(NULL, "Setting ENABLE_SHADE succeeded", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) succeeded\n\n");
+				//MessageBox(NULL, "Setting EnableShade succeeded", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(EnableShade) succeeded\n\n");
 			}
 			else
 			{
-				//MessageBox(NULL, "Setting ENABLE_SHADE failed", "HandleSetRegistryKeyValue", 16);
-				logg(fp, "      HandleSetRegistryKeyValue(ENABLE_SHADE) failed\n\n");
+				//MessageBox(NULL, "Setting EnableShade failed", "HandleSetRegistryKeyValue", 16);
+				logg(fp, "      HandleSetRegistryKeyValue(EnableShade) failed\n\n");
 				logg(fp, "Leave EditRegistry()\n\n");
 				return FALSE;
 			}
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "ENABLE_VM_WARE_CLIENT_SHADE", 16);
-			logg(fp, "getBool(ENABLE_VM_WARE_CLIENT_SHADE) = false\n\n");
+			//MessageBox(NULL, "= false", "Enable_Vm_Ware_Client_Shade", 16);
+			logg(fp, "getBool(Enable_Vm_Ware_Client_Shade) = false\n\n");
 		}
 
 
@@ -2295,35 +2295,35 @@ BOOL ResetRegistry()
 		if (!HandleOpenRegistryKey(HKCU, KEY_VmWareClient    , &hkcuVmWareClient, TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKLM, KEY_UtilmanExe      , &hklmUtilmanExe  , TRUE)) return FALSE;
 
-		if (getBool("ENABLE_SWITCH_USER")) 
+		if (getBool("Enable_Switch_User")) 
 		{
 			RegDeleteValue(hklmSystem, VAL_HideFastUserSwitching);
 		}
-		if (getBool("ENABLE_LOCK_THIS_COMPUTER")) 
+		if (getBool("Enable_Lock_This_Computer")) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableLockWorkstation);
 		}
-		if (getBool("ENABLE_TASK_MANAGER")) 
+		if (getBool("Enable_Task_Manager")) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableTaskMgr);
 		} 
-		if (getBool("ENABLE_CHANGE_A_PASSWORD")) 
+		if (getBool("Enable_Change_A_Password")) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableChangePassword);
 		}
-		if (getBool("ENABLE_LOG_OFF"))
+		if (getBool("Enable_Log_Off"))
 		{
 			RegDeleteValue(hkcuExplorer, VAL_NoLogoff);
 		}
-		if (getBool("ENABLE_SHUT_DOWN"))
+		if (getBool("Enable_Shut_Down"))
 		{
 			RegDeleteValue(hkcuExplorer, VAL_NoClose);
 		}
-		if (getBool("ENABLE_EASE_OF_ACCESS")) 
+		if (getBool("Enable_Ease_Of_Access")) 
 		{
 			RegDeleteValue(hklmUtilmanExe, VAL_EnableEaseOfAccess);
 		}
-		if (getBool("ENABLE_VM_WARE_CLIENT_SHADE"))
+		if (getBool("Enable_Vm_Ware_Client_Shade"))
 		{
 			RegDeleteValue(hkcuVmWareClient, VAL_EnableShade);
 		}
@@ -2365,7 +2365,7 @@ BOOL CreateExternalProcess(string sProcess)
 	PROCESS_INFORMATION piProcess;				//PROCESS_INFORMATION created process
 	ZeroMemory(&siProcess, sizeof(siProcess));
 	siProcess.cb         = sizeof(siProcess);
-	if (IsNewOS && getBool("NEW_DESKTOP"))
+	if (IsNewOS && getBool("New_Desktop"))
 	{
 		siProcess.lpDesktop = SEB_DESK;
 	}
@@ -2490,7 +2490,7 @@ BOOL ShutdownInstance()
 
 	// In case the Seb Windows Server is not available,
 	// the Seb Client tries to reset the registry keys itself.
-	if (getBool("EDIT_REGISTRY") && IsNewOS)
+	if (getBool("Edit_Registry") && IsNewOS)
 	{
 		if (!ResetRegistry())
 		{
@@ -2502,7 +2502,7 @@ BOOL ShutdownInstance()
 	}
 
 
-	if (getBool("MESSAGE_HOOK"))
+	if (getBool("Message_Hook"))
 	{
 /*
 		for (itProcessInformations  = mpProcessInformations.begin();
@@ -2543,7 +2543,7 @@ BOOL ShutdownInstance()
 	TerminateThread(procMonitorThread, 0);
 	KillAllNotInList(previousProcesses, mpProcesses, true);
 
-	sStrongKillProcesssesAfter = mpParam["STRONG_KILL_PROCESSES_AFTER"];
+	sStrongKillProcesssesAfter = mpParam["Strong_Kill_Processes_After"];
 	if (sStrongKillProcesssesAfter != "")
 	{		
 		Tokenize(sStrongKillProcesssesAfter, vStrongKillProcessesAfter, ";");
@@ -2562,18 +2562,18 @@ BOOL ShutdownInstance()
 
 	if (!IsNewOS)
 	{				
-		if (getBool("WIN9X_KILL_EXPLORER") && killedExplorer)
+		if (getBool("Win_9x_Kill_Explorer") && killedExplorer)
 		{
 			system("start explorer.exe");	
 		}
-		if (getBool("WIN9X_SCREENSAVERRUNNING"))
+		if (getBool("Win_9x_Screen_Saver_Running"))
 		{
 			SystemParametersInfo(SPI_SCREENSAVERRUNNING,FALSE,&dwNotUsedForAnything,NULL);
 		}						
 	}
 	else
 	{
-		if (getBool("NEW_DESKTOP"))
+		if (getBool("New_Desktop"))
 		{
 			   SwitchDesktop(hOriginalInput);
 			SetThreadDesktop(hOriginalThread);
@@ -3187,7 +3187,7 @@ BOOL ShowSebAppChooser()
 
 	if (!inReg)
 	{
-		retVal = getBool("SHOW_SEB_APP_CHOOSER");
+		retVal = getBool("Show_Seb_App_Chooser");
 	}
 
 	return retVal;
