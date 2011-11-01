@@ -25,27 +25,27 @@
 
 typedef struct
 {
-	BYTE	Disable_Ctrl_Esc : 1,
-			Disable_Ctrl_P  : 1,
-			Disable_Alt_Tab : 1,
-			Disable_Alt_Esc : 1,
-			Disable_Alt_F4  : 1,
-			Disable_Start_Menu  : 1,
-			Disable_Right_Mouse : 1,
-			Disable_Left_Mouse  : 1,
-			Disable_F1  : 1,
-			Disable_F2  : 1,
-			Disable_F3  : 1,
-			Disable_F4  : 1,
-			Disable_F5  : 1,
-			Disable_F6  : 1,
-			Disable_F7  : 1,
-			Disable_F8  : 1,
-			Disable_F9  : 1,
-			Disable_F10 : 1,
-			Disable_F11 : 1,
-			Disable_F12 : 1,
-			Disable_Esc : 1;
+	BYTE	DisableCtrlEsc : 1,
+			DisableCtrlP  : 1,
+			DisableAltTab : 1,
+			DisableAltEsc : 1,
+			DisableAltF4  : 1,
+			DisableStartMenu  : 1,
+			DisableRightMouse : 1,
+			DisableLeftMouse  : 1,
+			DisableF1  : 1,
+			DisableF2  : 1,
+			DisableF3  : 1,
+			DisableF4  : 1,
+			DisableF5  : 1,
+			DisableF6  : 1,
+			DisableF7  : 1,
+			DisableF8  : 1,
+			DisableF9  : 1,
+			DisableF10 : 1,
+			DisableF11 : 1,
+			DisableF12 : 1,
+			DisableEsc : 1;
 } ALTER_FLAGS;
 
 

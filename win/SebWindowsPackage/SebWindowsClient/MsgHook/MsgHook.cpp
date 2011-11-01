@@ -307,25 +307,25 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 				/* some keys to eat */
 				if (
-						((alter_flags.Disable_Start_Menu && ((keyCode == VK_LWIN) || (keyCode == VK_RWIN)))) ||
-						((alter_flags.Disable_Ctrl_Esc   && ((keyCode == VK_ESCAPE && bCtrlKeyDown)))) ||
-						((alter_flags.Disable_Ctrl_P     && ((keyCode == VK_P      && bCtrlKeyDown)))) ||
-						((alter_flags.Disable_Alt_Tab    && ((keyCode == VK_TAB    && bAltKeyDown)))) ||
-						((alter_flags.Disable_Alt_Esc    && ((keyCode == VK_ESCAPE && bAltKeyDown)))) ||
-						((alter_flags.Disable_Alt_F4     && ((keyCode == VK_F4     && bAltKeyDown)))) ||
-						((alter_flags.Disable_F1  && keyCode == VK_F1 )) ||
-						((alter_flags.Disable_F2  && keyCode == VK_F2 )) ||
-						((alter_flags.Disable_F3  && keyCode == VK_F3 )) ||
-						((alter_flags.Disable_F4  && keyCode == VK_F4 )) ||
-						((alter_flags.Disable_F5  && keyCode == VK_F5 )) ||
-						((alter_flags.Disable_F6  && keyCode == VK_F6 )) ||
-						((alter_flags.Disable_F7  && keyCode == VK_F7 )) ||
-						((alter_flags.Disable_F8  && keyCode == VK_F8 )) ||
-						((alter_flags.Disable_F9  && keyCode == VK_F9 )) ||
-						((alter_flags.Disable_F10 && keyCode == VK_F10)) ||
-						((alter_flags.Disable_F11 && keyCode == VK_F11)) ||
-						((alter_flags.Disable_F12 && keyCode == VK_F12)) ||
-						((alter_flags.Disable_Esc && keyCode == VK_ESCAPE))
+						((alter_flags.DisableStartMenu && ((keyCode == VK_LWIN) || (keyCode == VK_RWIN)))) ||
+						((alter_flags.DisableCtrlEsc   && ((keyCode == VK_ESCAPE && bCtrlKeyDown)))) ||
+						((alter_flags.DisableCtrlP     && ((keyCode == VK_P      && bCtrlKeyDown)))) ||
+						((alter_flags.DisableAltTab    && ((keyCode == VK_TAB    && bAltKeyDown)))) ||
+						((alter_flags.DisableAltEsc    && ((keyCode == VK_ESCAPE && bAltKeyDown)))) ||
+						((alter_flags.DisableAltF4     && ((keyCode == VK_F4     && bAltKeyDown)))) ||
+						((alter_flags.DisableF1  && keyCode == VK_F1 )) ||
+						((alter_flags.DisableF2  && keyCode == VK_F2 )) ||
+						((alter_flags.DisableF3  && keyCode == VK_F3 )) ||
+						((alter_flags.DisableF4  && keyCode == VK_F4 )) ||
+						((alter_flags.DisableF5  && keyCode == VK_F5 )) ||
+						((alter_flags.DisableF6  && keyCode == VK_F6 )) ||
+						((alter_flags.DisableF7  && keyCode == VK_F7 )) ||
+						((alter_flags.DisableF8  && keyCode == VK_F8 )) ||
+						((alter_flags.DisableF9  && keyCode == VK_F9 )) ||
+						((alter_flags.DisableF10 && keyCode == VK_F10)) ||
+						((alter_flags.DisableF11 && keyCode == VK_F11)) ||
+						((alter_flags.DisableF12 && keyCode == VK_F12)) ||
+						((alter_flags.DisableEsc && keyCode == VK_ESCAPE))
 					) 
 				{
 					bEatKeystroke = true;
@@ -440,24 +440,24 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 			/* some keys to eat */			
 			if (		
-					((alter_flags.Disable_Start_Menu && ((wParam == VK_LWIN) || (wParam == VK_RWIN)))) ||	//no effect
-					((alter_flags.Disable_Ctrl_Esc   && ((wParam == VK_ESCAPE && bCtrlKeyDown)))) ||		//no effect
-					((alter_flags.Disable_Ctrl_P     && ((wParam == VK_P      && bCtrlKeyDown)))) ||		//no effect ???
-					((alter_flags.Disable_Alt_Tab    && ((wParam == VK_TAB    && bAltKeyDown)))) ||			//no effect
-					((alter_flags.Disable_Alt_Esc    && ((wParam == VK_ESCAPE && bAltKeyDown)))) ||			//no effect
-					((alter_flags.Disable_Alt_F4     && ((wParam == VK_F4     && bAltKeyDown)))) ||
-					((alter_flags.Disable_F1  && wParam == VK_F1 )) ||
-					((alter_flags.Disable_F2  && wParam == VK_F2 )) ||
-					((alter_flags.Disable_F3  && wParam == VK_F3 )) ||
-					((alter_flags.Disable_F4  && wParam == VK_F4 )) ||
-					((alter_flags.Disable_F5  && wParam == VK_F5 )) ||
-					((alter_flags.Disable_F6  && wParam == VK_F6 )) ||
-					((alter_flags.Disable_F7  && wParam == VK_F7 )) ||
-					((alter_flags.Disable_F8  && wParam == VK_F8 )) ||
-					((alter_flags.Disable_F9  && wParam == VK_F9 )) ||
-					((alter_flags.Disable_F10 && wParam == VK_F10)) ||
-					((alter_flags.Disable_F11 && wParam == VK_F11)) ||
-					((alter_flags.Disable_F12 && wParam == VK_F12))
+					((alter_flags.DisableStartMenu && ((wParam == VK_LWIN) || (wParam == VK_RWIN)))) ||	//no effect
+					((alter_flags.DisableCtrlEsc   && ((wParam == VK_ESCAPE && bCtrlKeyDown)))) ||		//no effect
+					((alter_flags.DisableCtrlP     && ((wParam == VK_P      && bCtrlKeyDown)))) ||		//no effect ???
+					((alter_flags.DisableAltTab    && ((wParam == VK_TAB    && bAltKeyDown)))) ||		//no effect
+					((alter_flags.DisableAltEsc    && ((wParam == VK_ESCAPE && bAltKeyDown)))) ||		//no effect
+					((alter_flags.DisableAltF4     && ((wParam == VK_F4     && bAltKeyDown)))) ||
+					((alter_flags.DisableF1  && wParam == VK_F1 )) ||
+					((alter_flags.DisableF2  && wParam == VK_F2 )) ||
+					((alter_flags.DisableF3  && wParam == VK_F3 )) ||
+					((alter_flags.DisableF4  && wParam == VK_F4 )) ||
+					((alter_flags.DisableF5  && wParam == VK_F5 )) ||
+					((alter_flags.DisableF6  && wParam == VK_F6 )) ||
+					((alter_flags.DisableF7  && wParam == VK_F7 )) ||
+					((alter_flags.DisableF8  && wParam == VK_F8 )) ||
+					((alter_flags.DisableF9  && wParam == VK_F9 )) ||
+					((alter_flags.DisableF10 && wParam == VK_F10)) ||
+					((alter_flags.DisableF11 && wParam == VK_F11)) ||
+					((alter_flags.DisableF12 && wParam == VK_F12))
 				) 
 			{
 				logg(fp, "   Suppress this key...\n");
@@ -496,7 +496,7 @@ LRESULT CALLBACK LLMouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
 
-    if ((wParam == WM_RBUTTONUP || wParam == WM_RBUTTONDOWN) && alter_flags.Disable_Right_Mouse)
+    if ((wParam == WM_RBUTTONUP || wParam == WM_RBUTTONDOWN) && alter_flags.DisableRightMouse)
 	{
 		//logg(fp, "Leave LLMouseHook() and return -1\n\n");
         return -1;
@@ -529,7 +529,7 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 		return CallNextHookEx(g_hHookMouseLL, nCode, wParam, lParam); 
 	}
 
-	if ((wParam == WM_RBUTTONUP || wParam == WM_RBUTTONDOWN) && alter_flags.Disable_Right_Mouse)
+	if ((wParam == WM_RBUTTONUP || wParam == WM_RBUTTONDOWN) && alter_flags.DisableRightMouse)
 	{
 		logg(fp, "Leave MouseHook() and return -1\n\n");
         return -1;
@@ -714,7 +714,7 @@ BOOL ReadMsgHookIni()
 
 
 		// Decide whether to write data into the logfile
-		if (getBool("Log_File"))
+		if (getBool("WriteLogFiles"))
 		{
 			logFileDesiredMsgHook = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
@@ -732,30 +732,30 @@ BOOL ReadMsgHookIni()
 
 
 		//setting bits of alter_flags_structs
-		alter_flags.Disable_Ctrl_Esc = !getBool("Enable_Ctrl_Esc");
-		alter_flags.Disable_Ctrl_P   = !getBool("Enable_Ctrl_P");
-		alter_flags.Disable_Alt_Tab  = !getBool("Enable_Alt_Tab");
-		alter_flags.Disable_Alt_Esc  = !getBool("Enable_Alt_Esc");
-		alter_flags.Disable_Alt_F4   = !getBool("Enable_Alt_F4");
-		alter_flags.Disable_Start_Menu  = !getBool("Enable_Start_Menu");
-		alter_flags.Disable_Right_Mouse = !getBool("Enable_Right_Mouse");
-		alter_flags.Disable_Left_Mouse  = !getBool("Enable_Left_Mouse");
-		alter_flags.Disable_F1  = !getBool("Enable_F1");
-		alter_flags.Disable_F2  = !getBool("Enable_F2");
-		alter_flags.Disable_F3  = !getBool("Enable_F3");
-		alter_flags.Disable_F4  = !getBool("Enable_F4");
-		alter_flags.Disable_F5  = !getBool("Enable_F5");
-		alter_flags.Disable_F6  = !getBool("Enable_F6");
-		alter_flags.Disable_F7  = !getBool("Enable_F7");
-		alter_flags.Disable_F8  = !getBool("Enable_F8");
-		alter_flags.Disable_F9  = !getBool("Enable_F9");
-		alter_flags.Disable_F10 = !getBool("Enable_F10");
-		alter_flags.Disable_F11 = !getBool("Enable_F11");
-		alter_flags.Disable_F12 = !getBool("Enable_F12");
-		alter_flags.Disable_Esc = !getBool("Enable_Esc");
+		alter_flags.DisableCtrlEsc = !getBool("EnableCtrlEsc");
+		alter_flags.DisableCtrlP   = !getBool("EnableCtrlP");
+		alter_flags.DisableAltTab  = !getBool("EnableAltTab");
+		alter_flags.DisableAltEsc  = !getBool("EnableAltEsc");
+		alter_flags.DisableAltF4   = !getBool("EnableAltF4");
+		alter_flags.DisableStartMenu  = !getBool("EnableStartMenu");
+		alter_flags.DisableRightMouse = !getBool("EnableRightMouse");
+		alter_flags.DisableLeftMouse  = !getBool("EnableLeftMouse");
+		alter_flags.DisableF1  = !getBool("EnableF1");
+		alter_flags.DisableF2  = !getBool("EnableF2");
+		alter_flags.DisableF3  = !getBool("EnableF3");
+		alter_flags.DisableF4  = !getBool("EnableF4");
+		alter_flags.DisableF5  = !getBool("EnableF5");
+		alter_flags.DisableF6  = !getBool("EnableF6");
+		alter_flags.DisableF7  = !getBool("EnableF7");
+		alter_flags.DisableF8  = !getBool("EnableF8");
+		alter_flags.DisableF9  = !getBool("EnableF9");
+		alter_flags.DisableF10 = !getBool("EnableF10");
+		alter_flags.DisableF11 = !getBool("EnableF11");
+		alter_flags.DisableF12 = !getBool("EnableF12");
+		alter_flags.DisableEsc = !getBool("EnableEsc");
 
 		// Kill Caller with HotKey
-		sHotKey = mpParam["Kill_Caller_Hotkey"];
+		sHotKey = mpParam["KillCallerHotkey"];
 
 		//Hotkey from Registry (1. priority) and configuration file MsgHook.ini (2. priority). If nothing is found -> default is F3 + F11 + F6.
 		VK_B1 = (GetButtonForHotKeyFromRegistry(VAL_Button1) ? GetButtonForHotKeyFromRegistry(VAL_Button1) : (DWORD)getInt("B1") ? (DWORD)getInt("B1") : VK_F3);
