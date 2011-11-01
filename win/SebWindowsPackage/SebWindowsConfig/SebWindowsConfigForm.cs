@@ -136,7 +136,6 @@ namespace SebWindowsConfig
         {
             DialogResult openFileDialogResult = openFileDialogSebStarterIni.ShowDialog();
             sebStarterIniPath                 = openFileDialogSebStarterIni.FileName;
-            labelSebStarterIniPath.Text       = sebStarterIniPath;
 
             try 
             {
@@ -149,15 +148,12 @@ namespace SebWindowsConfig
                 while ((line = streamReader.ReadLine()) != null) 
                 {
                     Console.WriteLine(line);
-                    labelCurrentLine.Text = line;
 
                     if (line.Contains("="))
                     {
                         int     equalPos    = line.IndexOf  ("=");
                         String  leftSide    = line.Remove   (equalPos);
                         String rightSide    = line.Substring(equalPos + 1);
-                        labelLeftSide.Text  =  leftSide;
-                        labelRightSide.Text = rightSide;
 
                         int  index;
                         for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
@@ -319,6 +315,11 @@ namespace SebWindowsConfig
         {
             oldStringPermittedApplications = newStringPermittedApplications;
             newStringPermittedApplications = textBoxPermittedApplications.Text;
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
     }
