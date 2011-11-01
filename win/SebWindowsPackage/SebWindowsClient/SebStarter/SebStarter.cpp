@@ -87,7 +87,7 @@ ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance   (HINSTANCE, int);
 BOOL				ReadSebStarterIni();
 BOOL				ReadProcessesInRegistry();
-BOOL				ShowSebAppChooser();
+BOOL				ShowSebApplicationChooser();
 
 BOOL				OpenSocket();
 BOOL				CloseSocket();
@@ -707,7 +707,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	}
 
 	// Show Window	
-	if (ShowSebAppChooser())
+	if (ShowSebApplicationChooser())
 	{
 		// Assure that the new desktop has been created
 		// BEFORE the AppChooser window starts up,
@@ -1256,13 +1256,13 @@ BOOL ReadProcessesInRegistry()
 		string sProcesses = "";
 		string sProcess   = "";
 		vector<string>::iterator itProcesses;
-		HKEY  hKeySEB;
+		HKEY  hKeySeb;
 		char  lszValue[255];
 		LONG  returnStatus;
 		DWORD dwType = REG_SZ;
 		DWORD dwSize = 255;
-		if (!HandleOpenRegistryKey(HKLM, KEY_PoliciesSEB, &hKeySEB, FALSE)) return FALSE;
-		returnStatus = RegQueryValueEx(hKeySEB, VAL_PERMITTED_APPS, NULL, &dwType,(LPBYTE)&lszValue, &dwSize);
+		if (!HandleOpenRegistryKey(HKLM, KEY_PoliciesSeb, &hKeySeb, FALSE)) return FALSE;
+		returnStatus = RegQueryValueEx(hKeySeb, VAL_PermittedApplications, NULL, &dwType,(LPBYTE)&lszValue, &dwSize);
 
 		if (returnStatus == ERROR_SUCCESS)
 		{
@@ -1281,7 +1281,7 @@ BOOL ReadProcessesInRegistry()
 				logg(fp, "vProcess[1] = %s\n", vProcess[1].c_str());
 			}
 		}
-		RegCloseKey(hKeySEB);
+		RegCloseKey(hKeySeb);
 	}
 	catch (char* str)
 	{		
@@ -3157,26 +3157,26 @@ BOOL SetVersionInfo()
 
 
 
-BOOL ShowSebAppChooser()
+BOOL ShowSebApplicationChooser()
 {
 	BOOL retVal = FALSE;
 	BOOL inReg  = FALSE;
 	try
 	{
-		HKEY  hKeySEB;
-		DWORD showSEBAppChooser;
+		HKEY  hKeySeb;
+		DWORD showSebApplicationChooser;
 		DWORD dwType =    REG_DWORD;
 		DWORD dwSize = sizeof(DWORD);
 		LONG returnStatus;
-		if (HandleOpenRegistryKey(HKLM, KEY_PoliciesSEB, &hKeySEB, FALSE))
+		if (HandleOpenRegistryKey(HKLM, KEY_PoliciesSeb, &hKeySeb, FALSE))
 		{
-			returnStatus = RegQueryValueEx(hKeySEB, VAL_ShowSEBAppChooser, NULL, &dwType,(LPBYTE)&showSEBAppChooser, &dwSize);
+			returnStatus = RegQueryValueEx(hKeySeb, VAL_ShowSebApplicationChooser, NULL, &dwType,(LPBYTE)&showSebApplicationChooser, &dwSize);
 			if (returnStatus == ERROR_SUCCESS)
 			{
 				inReg  = TRUE;
-				retVal = showSEBAppChooser;
+				retVal = showSebApplicationChooser;
 			}
-			RegCloseKey(hKeySEB);
+			RegCloseKey(hKeySeb);
 		}
 	}
 
@@ -3192,4 +3192,4 @@ BOOL ShowSebAppChooser()
 
 	return retVal;
 
-} // end ShowSebAppChooser()
+} // end ShowSebApplicationChooser()

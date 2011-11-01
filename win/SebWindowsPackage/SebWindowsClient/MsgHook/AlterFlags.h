@@ -52,7 +52,7 @@ typedef struct
 // Strings for registry keys
 LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
 LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
-LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
+LPCTSTR KEY_PoliciesSeb      = "Software\\Policies\\SEB";
 LPCTSTR KEY_VmWareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
 // Strings for registry values

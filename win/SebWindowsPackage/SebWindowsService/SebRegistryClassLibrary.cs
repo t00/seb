@@ -79,7 +79,7 @@ namespace SebWindowsService
         const String KEY_ProfileList      = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\ProfileList";
         const String KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
         const String KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
-        const String KEY_PoliciesSEB      = "Software\\Policies\\SEB";
+        const String KEY_PoliciesSeb      = "Software\\Policies\\SEB";
         const String KEY_UtilmanExe       = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Utilman.exe";
         const String KEY_VmWareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 

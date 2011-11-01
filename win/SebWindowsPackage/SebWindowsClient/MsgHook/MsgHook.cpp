@@ -806,7 +806,7 @@ int GetButtonForHotKeyFromRegistry(LPCTSTR regButton)
 		LONG  retStatus;
 		DWORD dwType = REG_DWORD;
 		DWORD dwSize = sizeof(DWORD);
-		retStatus    = RegOpenKeyEx(HKLM, KEY_PoliciesSEB, 0, KEY_READ, &hKey);
+		retStatus    = RegOpenKeyEx(HKLM, KEY_PoliciesSeb, 0, KEY_READ, &hKey);
 
 		if (retStatus == ERROR_SUCCESS)
 		{

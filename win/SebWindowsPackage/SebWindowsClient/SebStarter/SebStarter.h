@@ -75,7 +75,7 @@ bool runningOnVirtualMachine = false;
 // Strings for registry keys
 LPCTSTR KEY_PoliciesSystem   = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
 LPCTSTR KEY_PoliciesExplorer = "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer";
-LPCTSTR KEY_PoliciesSEB      = "Software\\Policies\\SEB";
+LPCTSTR KEY_PoliciesSeb      = "Software\\Policies\\SEB";
 LPCTSTR KEY_UtilmanExe       = "Software\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\Utilman.exe";
 LPCTSTR KEY_VmWareClient     = "Software\\VMware, Inc.\\VMware VDM\\Client";
 
@@ -101,5 +101,5 @@ LPCTSTR MSG_EnableShade            = "EnableShade           ";
 
 
 // Only for trunk version necessary (XULrunner)
-LPCTSTR VAL_PERMITTED_APPS    = "PermittedApps";
-LPCTSTR VAL_ShowSEBAppChooser = "ShowSEBAppChooser";
+LPCTSTR VAL_PermittedApplications     = "PermittedApplications";
+LPCTSTR VAL_ShowSebApplicationChooser = "ShowSebApplicationChooser";
