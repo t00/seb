@@ -35,6 +35,10 @@ namespace SebWindowsConfig
         const String MSG_EnableShutDown          = "EnableShutDown";
         const String MSG_EnableEaseOfAccess      = "EnableEaseOfAccess";
         const String MSG_EnableVmWareClientShade = "EnableVmWareClientShade";
+
+        const String MSG_ExamUrl               = "ExamUrl";
+        const String MSG_PermittedApplications = "PermittedApplications";
+
 /*
         const String TYPE_EnableSwitchUser        = "REG_DWORD";
         const String TYPE_EnableLockThisComputer  = "REG_DWORD";
@@ -59,6 +63,13 @@ namespace SebWindowsConfig
 
         static Boolean[]  allowSetting = new Boolean[IND_RegistrySettingNum + 1];
         static Boolean[] forbidSetting = new Boolean[IND_RegistrySettingNum + 1];
+
+        String oldStringExamUrl = "";
+        String newStringExamUrl = "";
+        String msgStringExamUrl = "";
+        String oldStringPermittedApplications = "";
+        String newStringPermittedApplications = "";
+        String msgStringPermittedApplications = "";
 
         String       sebStarterIniPath = "";
         String       sebMsgHookIniPath = "";
@@ -96,6 +107,10 @@ namespace SebWindowsConfig
             msgString[IND_EnableShutDown         ] = MSG_EnableShutDown;
             msgString[IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
             msgString[IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
+
+            msgStringExamUrl               = MSG_ExamUrl;
+            msgStringPermittedApplications = MSG_PermittedApplications;
+
 /*
             typeString[IND_EnableSwitchUser       ] = TYPE_EnableSwitchUser;
             typeString[IND_EnableLockThisComputer ] = TYPE_EnableLockThisComputer;
@@ -155,16 +170,17 @@ namespace SebWindowsConfig
                                 newSetting[index] = rightBool;
                             }
                         }
-/*
-                        if (leftSide.Equals(msgString[IND_DisableTaskMgr]))
+
+                        if (leftSide.Equals(msgStringExamUrl))
                         {
-                            Boolean rightBool = false;
-                            if (rightSide.Equals("0")) rightBool = false;
-                            if (rightSide.Equals("1")) rightBool = true;
-                            newSetting[IND_EnableStartTaskManager] = rightBool;
-                            checkBoxEnableStartTaskManager.Checked = rightBool;
+                            newStringExamUrl = rightSide;
                         }
-*/
+
+                        if (leftSide.Equals(msgStringPermittedApplications))
+                        {
+                            newStringPermittedApplications = rightSide;
+                        }
+
                     } // end if line.Contains("=")
                 } // end while
 
@@ -181,6 +197,9 @@ namespace SebWindowsConfig
                 checkBoxEnableShutDown         .Checked = newSetting[IND_EnableShutDown];
                 checkBoxEnableEaseOfAccess     .Checked = newSetting[IND_EnableEaseOfAccess];
                 checkBoxEnableVmWareClientShade.Checked = newSetting[IND_EnableVmWareClientShade];
+
+                textBoxExamUrl              .Text = newStringExamUrl;
+                textBoxPermittedApplications.Text = newStringPermittedApplications;
 
             } // end try
             catch (Exception streamReadException) 
@@ -271,6 +290,9 @@ namespace SebWindowsConfig
                 newSetting[index] = oldSetting[index];
             }
 
+            newStringExamUrl               = oldStringExamUrl;
+            newStringPermittedApplications = oldStringPermittedApplications;
+
             // Assign the old settings from the ini file to the widgets again
             checkBoxEnableSwitchUser       .Checked = oldSetting[IND_EnableSwitchUser];
             checkBoxEnableLockThisComputer .Checked = oldSetting[IND_EnableLockThisComputer];
@@ -280,6 +302,23 @@ namespace SebWindowsConfig
             checkBoxEnableShutDown         .Checked = oldSetting[IND_EnableShutDown];
             checkBoxEnableEaseOfAccess     .Checked = oldSetting[IND_EnableEaseOfAccess];
             checkBoxEnableVmWareClientShade.Checked = oldSetting[IND_EnableVmWareClientShade];
+
+            textBoxExamUrl              .Text = oldStringExamUrl;
+            textBoxPermittedApplications.Text = oldStringPermittedApplications;
+        }
+
+
+        private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
+        {
+            oldStringExamUrl = newStringExamUrl;
+            newStringExamUrl = textBoxExamUrl.Text;
+        }
+
+
+        private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
+        {
+            oldStringPermittedApplications = newStringPermittedApplications;
+            newStringPermittedApplications = textBoxPermittedApplications.Text;
         }
 
     }
