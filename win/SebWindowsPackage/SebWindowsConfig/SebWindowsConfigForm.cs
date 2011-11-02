@@ -13,6 +13,8 @@ namespace SebWindowsConfig
     public partial class SebWindowsConfigForm : Form
     {
         // Constants for indexing the ini file settings
+
+        // Windows Security Screen
         const int IND_EnableSwitchUser        = 0;
         const int IND_EnableLockThisComputer  = 1;
         const int IND_EnableChangeAPassword   = 2;
@@ -26,6 +28,25 @@ namespace SebWindowsConfig
         const int IND_RegistrySettingMin  =  0;
         const int IND_RegistrySettingMax  =  7;
         const int IND_RegistrySettingNum  =  8;
+
+        // Further ini file settings
+        const int IND_AllowVirtualMachine = 8;
+        const int IND_ForceWindowsService = 9;
+        const int IND_WriteLogFileSebStarterLog = 10;
+
+        const int IND_CreateNewDesktop          = 11;
+        const int IND_ShowSebApplicationChooser = 12;
+
+        const int IND_HookMessages = 13;
+        const int IND_EditRegistry = 14;
+
+        const int IND_ShutdownAfterAutostartProcessTerminates = 15;
+        const int IND_MonitorProcesses = 16;
+
+        const int IND_Win9xKillExplorer       = 17;
+        const int IND_Win9xScreenSaverRunning = 18;
+
+
 
         const String MSG_EnableSwitchUser        = "EnableSwitchUser";
         const String MSG_EnableLockThisComputer  = "EnableLockThisComputer";
@@ -125,14 +146,11 @@ namespace SebWindowsConfig
 
 
 
-        private void labelBrowseSebStarterFolder_Click(object sender, EventArgs e)
-        {
-            DialogResult browseFolderName = folderBrowserDialogBrowseIniFiles.ShowDialog();
-        }
 
-
-
-        private void labelOpenSebStarterIniFile_Click(object sender, EventArgs e)
+        // ************************
+        // Open File SebStarter.ini
+        // ************************
+        private void labelOpenFileSebStarterIni_Click(object sender, EventArgs e)
         {
             DialogResult openFileDialogResult = openFileDialogSebStarterIni.ShowDialog();
             sebStarterIniPath                 = openFileDialogSebStarterIni.FileName;
@@ -149,11 +167,12 @@ namespace SebWindowsConfig
                 {
                     Console.WriteLine(line);
 
+                    // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (line.Contains("="))
                     {
-                        int     equalPos    = line.IndexOf  ("=");
-                        String  leftSide    = line.Remove   (equalPos);
-                        String rightSide    = line.Substring(equalPos + 1);
+                        int     equalPos = line.IndexOf  ("=");
+                        String  leftSide = line.Remove   (equalPos);
+                        String rightSide = line.Substring(equalPos + 1);
 
                         int  index;
                         for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
@@ -180,7 +199,6 @@ namespace SebWindowsConfig
                     } // end if line.Contains("=")
                 } // end while
 
-
                 // Close the StreamReader
                 streamReader.Close();
 
@@ -205,22 +223,34 @@ namespace SebWindowsConfig
                 Console.WriteLine(streamReadException.Message);
             }
 
-        } // end of method   labelOpenSebStarterIniFile_Click()
+        } // end of method   labelOpenFileSebStarterIni_Click()
 
 
 
-        private void labelSaveSebStarterIniFile_Click(object sender, EventArgs e)
+        // ************************
+        // Save File SebStarter.ini
+        // ************************
+        private void labelSaveFileSebStarterIni_Click(object sender, EventArgs e)
         {
             DialogResult saveFileName = saveFileDialogSebStarterIni.ShowDialog();
         }
 
 
-        private void labelOpenMsgHookIniFile_Click(object sender, EventArgs e)
+
+        // *********************
+        // Open File MsgHook.ini
+        // *********************
+        private void labelOpenFileMsgHookIni_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void labelSaveMsgHookIniFile_Click(object sender, EventArgs e)
+
+
+        // *********************
+        // Save File MsgHook.ini
+        // *********************
+        private void labelSaveFileMsgHookIni_Click(object sender, EventArgs e)
         {
 
         }
@@ -277,6 +307,11 @@ namespace SebWindowsConfig
             newSetting[IND_EnableVmWareClientShade] = checkBoxEnableVmWareClientShade.Checked;
         }
 
+        private void checkBoxWriteSebStarterLogFile_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void buttonRestoreSettingsOfSebStarterIni_Click(object sender, EventArgs e)
         {
@@ -317,10 +352,6 @@ namespace SebWindowsConfig
             newStringPermittedApplications = textBoxPermittedApplications.Text;
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
     }
 }
