@@ -714,7 +714,7 @@ BOOL ReadMsgHookIni()
 
 
 		// Decide whether to write data into the logfile
-		if (getBool("WriteLogFiles"))
+		if (getBool("WriteLogFileMsgHookLog"))
 		{
 			logFileDesiredMsgHook = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");

@@ -1084,7 +1084,7 @@ BOOL ReadSebStarterIni()
 
 
 		// Decide whether to write data into the logfile
-		if (getBool("WriteLogFiles"))
+		if (getBool("WriteLogFileSebStarterLog"))
 		{
 			logFileDesiredSebStarter = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
