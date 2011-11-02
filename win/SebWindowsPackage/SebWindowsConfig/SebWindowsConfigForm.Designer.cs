@@ -30,11 +30,25 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsConfigForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBoxFurtherSettings = new System.Windows.Forms.GroupBox();
+            this.checkBoxShutdownAfterAutostartProcessTerminates = new System.Windows.Forms.CheckBox();
+            this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
+            this.checkBoxEditRegistry = new System.Windows.Forms.CheckBox();
+            this.checkBoxHookMessages = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowSebApplicationChooser = new System.Windows.Forms.CheckBox();
+            this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
             this.checkBoxWriteLogFileSebStarterLog = new System.Windows.Forms.CheckBox();
+            this.checkBoxForceWindowsService = new System.Windows.Forms.CheckBox();
             this.groupBoxSebStarterIni = new System.Windows.Forms.GroupBox();
             this.labelOpenFileSebStarterIni = new System.Windows.Forms.Label();
             this.labelSaveFileSebStarterIni = new System.Windows.Forms.Label();
+            this.buttonRestoreSettingsOfSebStarterIni = new System.Windows.Forms.Button();
             this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
+            this.textBoxAutostartProcess = new System.Windows.Forms.TextBox();
+            this.labelSebBrowser = new System.Windows.Forms.Label();
+            this.labelAutostartProcess = new System.Windows.Forms.Label();
+            this.textBoxSebBrowser = new System.Windows.Forms.TextBox();
             this.labelExamUrl = new System.Windows.Forms.Label();
             this.labelPermittedApplications = new System.Windows.Forms.Label();
             this.textBoxPermittedApplications = new System.Windows.Forms.TextBox();
@@ -48,7 +62,6 @@
             this.checkBoxEnableShutDown = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
-            this.buttonRestoreSettingsOfSebStarterIni = new System.Windows.Forms.Button();
             this.checkBoxWriteLogFileMsgHookLog = new System.Windows.Forms.CheckBox();
             this.groupBoxMsgHookIni = new System.Windows.Forms.GroupBox();
             this.labelOpenFileMsgHookIni = new System.Windows.Forms.Label();
@@ -81,6 +94,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBoxFurtherSettings.SuspendLayout();
             this.groupBoxSebStarterIni.SuspendLayout();
             this.groupBoxOnlineExam.SuspendLayout();
             this.groupBoxWindowsSecurityScreen.SuspendLayout();
@@ -97,11 +111,10 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.checkBoxWriteLogFileSebStarterLog);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBoxFurtherSettings);
             this.splitContainer1.Panel1.Controls.Add(this.groupBoxSebStarterIni);
             this.splitContainer1.Panel1.Controls.Add(this.groupBoxOnlineExam);
             this.splitContainer1.Panel1.Controls.Add(this.groupBoxWindowsSecurityScreen);
-            this.splitContainer1.Panel1.Controls.Add(this.buttonRestoreSettingsOfSebStarterIni);
             // 
             // splitContainer1.Panel2
             // 
@@ -113,24 +126,135 @@
             this.splitContainer1.SplitterDistance = 708;
             this.splitContainer1.TabIndex = 0;
             // 
+            // groupBoxFurtherSettings
+            // 
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxShutdownAfterAutostartProcessTerminates);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxMonitorProcesses);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxEditRegistry);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxHookMessages);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxShowSebApplicationChooser);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxCreateNewDesktop);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxAllowVirtualMachine);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxWriteLogFileSebStarterLog);
+            this.groupBoxFurtherSettings.Controls.Add(this.checkBoxForceWindowsService);
+            this.groupBoxFurtherSettings.Location = new System.Drawing.Point(343, 166);
+            this.groupBoxFurtherSettings.Name = "groupBoxFurtherSettings";
+            this.groupBoxFurtherSettings.Size = new System.Drawing.Size(319, 284);
+            this.groupBoxFurtherSettings.TabIndex = 45;
+            this.groupBoxFurtherSettings.TabStop = false;
+            this.groupBoxFurtherSettings.Text = "Further settings";
+            // 
+            // checkBoxShutdownAfterAutostartProcessTerminates
+            // 
+            this.checkBoxShutdownAfterAutostartProcessTerminates.AutoSize = true;
+            this.checkBoxShutdownAfterAutostartProcessTerminates.Enabled = false;
+            this.checkBoxShutdownAfterAutostartProcessTerminates.Location = new System.Drawing.Point(6, 253);
+            this.checkBoxShutdownAfterAutostartProcessTerminates.Name = "checkBoxShutdownAfterAutostartProcessTerminates";
+            this.checkBoxShutdownAfterAutostartProcessTerminates.Size = new System.Drawing.Size(309, 21);
+            this.checkBoxShutdownAfterAutostartProcessTerminates.TabIndex = 50;
+            this.checkBoxShutdownAfterAutostartProcessTerminates.Text = "Shutdown after autostart process terminates";
+            this.checkBoxShutdownAfterAutostartProcessTerminates.UseVisualStyleBackColor = true;
+            this.checkBoxShutdownAfterAutostartProcessTerminates.CheckedChanged += new System.EventHandler(this.checkBoxShutdownAfterAutostartProcessTerminates_CheckedChanged);
+            // 
+            // checkBoxMonitorProcesses
+            // 
+            this.checkBoxMonitorProcesses.AutoSize = true;
+            this.checkBoxMonitorProcesses.Enabled = false;
+            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(6, 226);
+            this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
+            this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
+            this.checkBoxMonitorProcesses.TabIndex = 49;
+            this.checkBoxMonitorProcesses.Text = "Monitor processes";
+            this.checkBoxMonitorProcesses.UseVisualStyleBackColor = true;
+            this.checkBoxMonitorProcesses.CheckedChanged += new System.EventHandler(this.checkBoxMonitorProcesses_CheckedChanged);
+            // 
+            // checkBoxEditRegistry
+            // 
+            this.checkBoxEditRegistry.AutoSize = true;
+            this.checkBoxEditRegistry.Enabled = false;
+            this.checkBoxEditRegistry.Location = new System.Drawing.Point(6, 199);
+            this.checkBoxEditRegistry.Name = "checkBoxEditRegistry";
+            this.checkBoxEditRegistry.Size = new System.Drawing.Size(105, 21);
+            this.checkBoxEditRegistry.TabIndex = 48;
+            this.checkBoxEditRegistry.Text = "Edit registry";
+            this.checkBoxEditRegistry.UseVisualStyleBackColor = true;
+            this.checkBoxEditRegistry.CheckedChanged += new System.EventHandler(this.checkBoxEditRegistry_CheckedChanged);
+            // 
+            // checkBoxHookMessages
+            // 
+            this.checkBoxHookMessages.AutoSize = true;
+            this.checkBoxHookMessages.Enabled = false;
+            this.checkBoxHookMessages.Location = new System.Drawing.Point(6, 172);
+            this.checkBoxHookMessages.Name = "checkBoxHookMessages";
+            this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
+            this.checkBoxHookMessages.TabIndex = 47;
+            this.checkBoxHookMessages.Text = "Hook messages";
+            this.checkBoxHookMessages.UseVisualStyleBackColor = true;
+            this.checkBoxHookMessages.CheckedChanged += new System.EventHandler(this.checkBoxHookMessages_CheckedChanged);
+            // 
+            // checkBoxShowSebApplicationChooser
+            // 
+            this.checkBoxShowSebApplicationChooser.AutoSize = true;
+            this.checkBoxShowSebApplicationChooser.Location = new System.Drawing.Point(6, 145);
+            this.checkBoxShowSebApplicationChooser.Name = "checkBoxShowSebApplicationChooser";
+            this.checkBoxShowSebApplicationChooser.Size = new System.Drawing.Size(222, 21);
+            this.checkBoxShowSebApplicationChooser.TabIndex = 46;
+            this.checkBoxShowSebApplicationChooser.Text = "Show SEB application chooser";
+            this.checkBoxShowSebApplicationChooser.UseVisualStyleBackColor = true;
+            this.checkBoxShowSebApplicationChooser.CheckedChanged += new System.EventHandler(this.checkBoxShowSebApplicationChooser_CheckedChanged);
+            // 
+            // checkBoxCreateNewDesktop
+            // 
+            this.checkBoxCreateNewDesktop.AutoSize = true;
+            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(6, 118);
+            this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
+            this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
+            this.checkBoxCreateNewDesktop.TabIndex = 45;
+            this.checkBoxCreateNewDesktop.Text = "Create new desktop";
+            this.checkBoxCreateNewDesktop.UseVisualStyleBackColor = true;
+            this.checkBoxCreateNewDesktop.CheckedChanged += new System.EventHandler(this.checkBoxCreateNewDesktop_CheckedChanged);
+            // 
+            // checkBoxAllowVirtualMachine
+            // 
+            this.checkBoxAllowVirtualMachine.AutoSize = true;
+            this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(6, 36);
+            this.checkBoxAllowVirtualMachine.Name = "checkBoxAllowVirtualMachine";
+            this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(161, 21);
+            this.checkBoxAllowVirtualMachine.TabIndex = 43;
+            this.checkBoxAllowVirtualMachine.Text = "Allow virtual machine";
+            this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
+            this.checkBoxAllowVirtualMachine.CheckedChanged += new System.EventHandler(this.checkBoxAllowVirtualMachine_CheckedChanged);
+            // 
             // checkBoxWriteLogFileSebStarterLog
             // 
             this.checkBoxWriteLogFileSebStarterLog.AutoSize = true;
-            this.checkBoxWriteLogFileSebStarterLog.Location = new System.Drawing.Point(379, 329);
+            this.checkBoxWriteLogFileSebStarterLog.Location = new System.Drawing.Point(6, 90);
             this.checkBoxWriteLogFileSebStarterLog.Name = "checkBoxWriteLogFileSebStarterLog";
             this.checkBoxWriteLogFileSebStarterLog.Size = new System.Drawing.Size(199, 21);
             this.checkBoxWriteLogFileSebStarterLog.TabIndex = 42;
             this.checkBoxWriteLogFileSebStarterLog.Text = "Write logfile SebStarter.log";
             this.checkBoxWriteLogFileSebStarterLog.UseVisualStyleBackColor = true;
-            this.checkBoxWriteLogFileSebStarterLog.CheckedChanged += new System.EventHandler(this.checkBoxWriteSebStarterLogFile_CheckedChanged);
+            this.checkBoxWriteLogFileSebStarterLog.CheckedChanged += new System.EventHandler(this.checkBoxWriteLogFileSebStarterLog_CheckedChanged);
+            // 
+            // checkBoxForceWindowsService
+            // 
+            this.checkBoxForceWindowsService.AutoSize = true;
+            this.checkBoxForceWindowsService.Location = new System.Drawing.Point(6, 63);
+            this.checkBoxForceWindowsService.Name = "checkBoxForceWindowsService";
+            this.checkBoxForceWindowsService.Size = new System.Drawing.Size(175, 21);
+            this.checkBoxForceWindowsService.TabIndex = 44;
+            this.checkBoxForceWindowsService.Text = "Force Windows service";
+            this.checkBoxForceWindowsService.UseVisualStyleBackColor = true;
+            this.checkBoxForceWindowsService.CheckedChanged += new System.EventHandler(this.checkBoxForceWindowsService_CheckedChanged);
             // 
             // groupBoxSebStarterIni
             // 
             this.groupBoxSebStarterIni.Controls.Add(this.labelOpenFileSebStarterIni);
             this.groupBoxSebStarterIni.Controls.Add(this.labelSaveFileSebStarterIni);
+            this.groupBoxSebStarterIni.Controls.Add(this.buttonRestoreSettingsOfSebStarterIni);
             this.groupBoxSebStarterIni.Location = new System.Drawing.Point(54, 38);
             this.groupBoxSebStarterIni.Name = "groupBoxSebStarterIni";
-            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(338, 100);
+            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(352, 100);
             this.groupBoxSebStarterIni.TabIndex = 26;
             this.groupBoxSebStarterIni.TabStop = false;
             this.groupBoxSebStarterIni.Text = "SebStarter.ini";
@@ -157,23 +281,71 @@
             this.labelSaveFileSebStarterIni.Text = "Save file SebStarter.ini";
             this.labelSaveFileSebStarterIni.Click += new System.EventHandler(this.labelSaveFileSebStarterIni_Click);
             // 
+            // buttonRestoreSettingsOfSebStarterIni
+            // 
+            this.buttonRestoreSettingsOfSebStarterIni.Location = new System.Drawing.Point(196, 21);
+            this.buttonRestoreSettingsOfSebStarterIni.Name = "buttonRestoreSettingsOfSebStarterIni";
+            this.buttonRestoreSettingsOfSebStarterIni.Size = new System.Drawing.Size(139, 72);
+            this.buttonRestoreSettingsOfSebStarterIni.TabIndex = 19;
+            this.buttonRestoreSettingsOfSebStarterIni.Text = "Restore settings of SebStarter.ini";
+            this.buttonRestoreSettingsOfSebStarterIni.UseVisualStyleBackColor = true;
+            this.buttonRestoreSettingsOfSebStarterIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfSebStarterIni_Click);
+            // 
             // groupBoxOnlineExam
             // 
+            this.groupBoxOnlineExam.Controls.Add(this.textBoxAutostartProcess);
+            this.groupBoxOnlineExam.Controls.Add(this.labelSebBrowser);
+            this.groupBoxOnlineExam.Controls.Add(this.labelAutostartProcess);
+            this.groupBoxOnlineExam.Controls.Add(this.textBoxSebBrowser);
             this.groupBoxOnlineExam.Controls.Add(this.labelExamUrl);
             this.groupBoxOnlineExam.Controls.Add(this.labelPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxExamUrl);
             this.groupBoxOnlineExam.Location = new System.Drawing.Point(54, 456);
             this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
-            this.groupBoxOnlineExam.Size = new System.Drawing.Size(637, 100);
+            this.groupBoxOnlineExam.Size = new System.Drawing.Size(637, 149);
             this.groupBoxOnlineExam.TabIndex = 25;
             this.groupBoxOnlineExam.TabStop = false;
             this.groupBoxOnlineExam.Text = "Online Exam";
             // 
+            // textBoxAutostartProcess
+            // 
+            this.textBoxAutostartProcess.Location = new System.Drawing.Point(153, 59);
+            this.textBoxAutostartProcess.Name = "textBoxAutostartProcess";
+            this.textBoxAutostartProcess.Size = new System.Drawing.Size(478, 22);
+            this.textBoxAutostartProcess.TabIndex = 27;
+            this.textBoxAutostartProcess.TextChanged += new System.EventHandler(this.textBoxAutostartProcess_TextChanged);
+            // 
+            // labelSebBrowser
+            // 
+            this.labelSebBrowser.AutoSize = true;
+            this.labelSebBrowser.Location = new System.Drawing.Point(6, 34);
+            this.labelSebBrowser.Name = "labelSebBrowser";
+            this.labelSebBrowser.Size = new System.Drawing.Size(89, 17);
+            this.labelSebBrowser.TabIndex = 26;
+            this.labelSebBrowser.Text = "SEB browser";
+            // 
+            // labelAutostartProcess
+            // 
+            this.labelAutostartProcess.AutoSize = true;
+            this.labelAutostartProcess.Location = new System.Drawing.Point(6, 62);
+            this.labelAutostartProcess.Name = "labelAutostartProcess";
+            this.labelAutostartProcess.Size = new System.Drawing.Size(119, 17);
+            this.labelAutostartProcess.TabIndex = 25;
+            this.labelAutostartProcess.Text = "Autostart process";
+            // 
+            // textBoxSebBrowser
+            // 
+            this.textBoxSebBrowser.Location = new System.Drawing.Point(153, 31);
+            this.textBoxSebBrowser.Name = "textBoxSebBrowser";
+            this.textBoxSebBrowser.Size = new System.Drawing.Size(478, 22);
+            this.textBoxSebBrowser.TabIndex = 24;
+            this.textBoxSebBrowser.TextChanged += new System.EventHandler(this.textBoxSebBrowser_TextChanged);
+            // 
             // labelExamUrl
             // 
             this.labelExamUrl.AutoSize = true;
-            this.labelExamUrl.Location = new System.Drawing.Point(6, 29);
+            this.labelExamUrl.Location = new System.Drawing.Point(6, 90);
             this.labelExamUrl.Name = "labelExamUrl";
             this.labelExamUrl.Size = new System.Drawing.Size(74, 17);
             this.labelExamUrl.TabIndex = 21;
@@ -182,15 +354,15 @@
             // labelPermittedApplications
             // 
             this.labelPermittedApplications.AutoSize = true;
-            this.labelPermittedApplications.Location = new System.Drawing.Point(6, 54);
+            this.labelPermittedApplications.Location = new System.Drawing.Point(6, 118);
             this.labelPermittedApplications.Name = "labelPermittedApplications";
-            this.labelPermittedApplications.Size = new System.Drawing.Size(148, 17);
+            this.labelPermittedApplications.Size = new System.Drawing.Size(147, 17);
             this.labelPermittedApplications.TabIndex = 22;
-            this.labelPermittedApplications.Text = "Permitted Applications";
+            this.labelPermittedApplications.Text = "Permitted applications";
             // 
             // textBoxPermittedApplications
             // 
-            this.textBoxPermittedApplications.Location = new System.Drawing.Point(153, 54);
+            this.textBoxPermittedApplications.Location = new System.Drawing.Point(153, 115);
             this.textBoxPermittedApplications.Name = "textBoxPermittedApplications";
             this.textBoxPermittedApplications.Size = new System.Drawing.Size(478, 22);
             this.textBoxPermittedApplications.TabIndex = 23;
@@ -198,7 +370,7 @@
             // 
             // textBoxExamUrl
             // 
-            this.textBoxExamUrl.Location = new System.Drawing.Point(153, 26);
+            this.textBoxExamUrl.Location = new System.Drawing.Point(153, 87);
             this.textBoxExamUrl.Name = "textBoxExamUrl";
             this.textBoxExamUrl.Size = new System.Drawing.Size(478, 22);
             this.textBoxExamUrl.TabIndex = 20;
@@ -308,16 +480,6 @@
             this.checkBoxEnableVmWareClientShade.Text = "Enable VMware Client Shade";
             this.checkBoxEnableVmWareClientShade.UseVisualStyleBackColor = true;
             this.checkBoxEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxEnableVmWareClientShade_CheckedChanged);
-            // 
-            // buttonRestoreSettingsOfSebStarterIni
-            // 
-            this.buttonRestoreSettingsOfSebStarterIni.Location = new System.Drawing.Point(436, 56);
-            this.buttonRestoreSettingsOfSebStarterIni.Name = "buttonRestoreSettingsOfSebStarterIni";
-            this.buttonRestoreSettingsOfSebStarterIni.Size = new System.Drawing.Size(139, 72);
-            this.buttonRestoreSettingsOfSebStarterIni.TabIndex = 19;
-            this.buttonRestoreSettingsOfSebStarterIni.Text = "Restore settings of SebStarter.ini";
-            this.buttonRestoreSettingsOfSebStarterIni.UseVisualStyleBackColor = true;
-            this.buttonRestoreSettingsOfSebStarterIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfSebStarterIni_Click);
             // 
             // checkBoxWriteLogFileMsgHookLog
             // 
@@ -604,11 +766,12 @@
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Window";
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.groupBoxFurtherSettings.ResumeLayout(false);
+            this.groupBoxFurtherSettings.PerformLayout();
             this.groupBoxSebStarterIni.ResumeLayout(false);
             this.groupBoxSebStarterIni.PerformLayout();
             this.groupBoxOnlineExam.ResumeLayout(false);
@@ -675,6 +838,19 @@
         private System.Windows.Forms.CheckBox checkBoxEsc;
         private System.Windows.Forms.CheckBox checkBoxWriteLogFileMsgHookLog;
         private System.Windows.Forms.CheckBox checkBoxWriteLogFileSebStarterLog;
+        private System.Windows.Forms.CheckBox checkBoxForceWindowsService;
+        private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
+        private System.Windows.Forms.GroupBox groupBoxFurtherSettings;
+        private System.Windows.Forms.CheckBox checkBoxEditRegistry;
+        private System.Windows.Forms.CheckBox checkBoxHookMessages;
+        private System.Windows.Forms.CheckBox checkBoxShowSebApplicationChooser;
+        private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
+        private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
+        private System.Windows.Forms.CheckBox checkBoxShutdownAfterAutostartProcessTerminates;
+        private System.Windows.Forms.Label labelAutostartProcess;
+        private System.Windows.Forms.TextBox textBoxSebBrowser;
+        private System.Windows.Forms.TextBox textBoxAutostartProcess;
+        private System.Windows.Forms.Label labelSebBrowser;
     }
 }
 

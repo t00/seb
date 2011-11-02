@@ -15,6 +15,7 @@ namespace SebWindowsConfig
         // Constants for indexing the ini file settings
 
         // Windows Security Screen
+
         const int IND_EnableSwitchUser        = 0;
         const int IND_EnableLockThisComputer  = 1;
         const int IND_EnableChangeAPassword   = 2;
@@ -29,7 +30,8 @@ namespace SebWindowsConfig
         const int IND_RegistrySettingMax  =  7;
         const int IND_RegistrySettingNum  =  8;
 
-        // Further ini file settings
+        // Further settings
+
         const int IND_AllowVirtualMachine = 8;
         const int IND_ForceWindowsService = 9;
         const int IND_WriteLogFileSebStarterLog = 10;
@@ -57,6 +59,8 @@ namespace SebWindowsConfig
         const String MSG_EnableEaseOfAccess      = "EnableEaseOfAccess";
         const String MSG_EnableVmWareClientShade = "EnableVmWareClientShade";
 
+        const String MSG_SebBrowser            = "SebBrowser";
+        const String MSG_AutostartProcess      = "AutostartProcess";
         const String MSG_ExamUrl               = "ExamUrl";
         const String MSG_PermittedApplications = "PermittedApplications";
 
@@ -85,9 +89,18 @@ namespace SebWindowsConfig
         static Boolean[]  allowSetting = new Boolean[IND_RegistrySettingNum + 1];
         static Boolean[] forbidSetting = new Boolean[IND_RegistrySettingNum + 1];
 
+        String oldStringSebBrowser = "";
+        String newStringSebBrowser = "";
+        String msgStringSebBrowser = "";
+
+        String oldStringAutostartProcess = "";
+        String newStringAutostartProcess = "";
+        String msgStringAutostartProcess = "";
+
         String oldStringExamUrl = "";
         String newStringExamUrl = "";
         String msgStringExamUrl = "";
+
         String oldStringPermittedApplications = "";
         String newStringPermittedApplications = "";
         String msgStringPermittedApplications = "";
@@ -129,6 +142,8 @@ namespace SebWindowsConfig
             msgString[IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
             msgString[IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
 
+            msgStringSebBrowser            = MSG_SebBrowser;
+            msgStringAutostartProcess      = MSG_AutostartProcess;
             msgStringExamUrl               = MSG_ExamUrl;
             msgStringPermittedApplications = MSG_PermittedApplications;
 
@@ -158,12 +173,12 @@ namespace SebWindowsConfig
             try 
             {
                 // Create an instance of StreamReader to read from a file.
-                StreamReader streamReader = new StreamReader(sebStarterIniPath);
-                String       line;
+                streamReaderSebStarterIni = new StreamReader(sebStarterIniPath);
+                String line;
 
                 // Read and display lines from the file until the end of 
                 // the file is reached.
-                while ((line = streamReader.ReadLine()) != null) 
+                while ((line = streamReaderSebStarterIni.ReadLine()) != null) 
                 {
                     Console.WriteLine(line);
 
@@ -186,21 +201,23 @@ namespace SebWindowsConfig
                             }
                         }
 
+                        if (leftSide.Equals(msgStringSebBrowser))
+                            newStringSebBrowser = rightSide;
+
+                        if (leftSide.Equals(msgStringAutostartProcess))
+                            newStringAutostartProcess = rightSide;
+
                         if (leftSide.Equals(msgStringExamUrl))
-                        {
                             newStringExamUrl = rightSide;
-                        }
 
                         if (leftSide.Equals(msgStringPermittedApplications))
-                        {
                             newStringPermittedApplications = rightSide;
-                        }
 
                     } // end if line.Contains("=")
                 } // end while
 
                 // Close the StreamReader
-                streamReader.Close();
+                streamReaderSebStarterIni.Close();
 
                 // Assign the settings from the ini file to the widgets
                 checkBoxEnableSwitchUser       .Checked = newSetting[IND_EnableSwitchUser];
@@ -212,6 +229,8 @@ namespace SebWindowsConfig
                 checkBoxEnableEaseOfAccess     .Checked = newSetting[IND_EnableEaseOfAccess];
                 checkBoxEnableVmWareClientShade.Checked = newSetting[IND_EnableVmWareClientShade];
 
+                textBoxSebBrowser           .Text = newStringSebBrowser;
+                textBoxAutostartProcess     .Text = newStringAutostartProcess;
                 textBoxExamUrl              .Text = newStringExamUrl;
                 textBoxPermittedApplications.Text = newStringPermittedApplications;
 
@@ -224,6 +243,7 @@ namespace SebWindowsConfig
             }
 
         } // end of method   labelOpenFileSebStarterIni_Click()
+
 
 
 
@@ -258,6 +278,8 @@ namespace SebWindowsConfig
 
         // If the user changes a setting by clicking the checkbox,
         // update the setting in memory for it can be saved on file later.
+
+        // Windows Security Screen
 
         private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
@@ -307,10 +329,63 @@ namespace SebWindowsConfig
             newSetting[IND_EnableVmWareClientShade] = checkBoxEnableVmWareClientShade.Checked;
         }
 
-        private void checkBoxWriteSebStarterLogFile_CheckedChanged(object sender, EventArgs e)
-        {
 
+        // Further settings
+
+        private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_AllowVirtualMachine] = newSetting[IND_AllowVirtualMachine];
+            newSetting[IND_AllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
         }
+
+        private void checkBoxForceWindowsService_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_ForceWindowsService] = newSetting[IND_ForceWindowsService];
+            newSetting[IND_ForceWindowsService] = checkBoxForceWindowsService.Checked;
+        }
+
+        private void checkBoxWriteLogFileSebStarterLog_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_WriteLogFileSebStarterLog] = newSetting[IND_WriteLogFileSebStarterLog];
+            newSetting[IND_WriteLogFileSebStarterLog] = checkBoxWriteLogFileSebStarterLog.Checked;
+        }
+
+        private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_CreateNewDesktop] = newSetting[IND_CreateNewDesktop];
+            newSetting[IND_CreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
+        }
+
+        private void checkBoxShowSebApplicationChooser_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_ShowSebApplicationChooser] = newSetting[IND_ShowSebApplicationChooser];
+            newSetting[IND_ShowSebApplicationChooser] = checkBoxShowSebApplicationChooser.Checked;
+        }
+
+        private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_HookMessages] = newSetting[IND_HookMessages];
+            newSetting[IND_HookMessages] = checkBoxHookMessages.Checked;
+        }
+
+        private void checkBoxEditRegistry_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_EditRegistry] = newSetting[IND_EditRegistry];
+            newSetting[IND_EditRegistry] = checkBoxEditRegistry.Checked;
+        }
+
+        private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_MonitorProcesses] = newSetting[IND_MonitorProcesses];
+            newSetting[IND_MonitorProcesses] = checkBoxMonitorProcesses.Checked;
+        }
+
+        private void checkBoxShutdownAfterAutostartProcessTerminates_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_ShutdownAfterAutostartProcessTerminates] = newSetting[IND_ShutdownAfterAutostartProcessTerminates];
+            newSetting[IND_ShutdownAfterAutostartProcessTerminates] = checkBoxShutdownAfterAutostartProcessTerminates.Checked;
+        }
+
 
 
         private void buttonRestoreSettingsOfSebStarterIni_Click(object sender, EventArgs e)
@@ -321,6 +396,8 @@ namespace SebWindowsConfig
                 newSetting[index] = oldSetting[index];
             }
 
+            newStringSebBrowser            = oldStringSebBrowser;
+            newStringAutostartProcess      = oldStringAutostartProcess;
             newStringExamUrl               = oldStringExamUrl;
             newStringPermittedApplications = oldStringPermittedApplications;
 
@@ -334,10 +411,35 @@ namespace SebWindowsConfig
             checkBoxEnableEaseOfAccess     .Checked = oldSetting[IND_EnableEaseOfAccess];
             checkBoxEnableVmWareClientShade.Checked = oldSetting[IND_EnableVmWareClientShade];
 
+            checkBoxAllowVirtualMachine      .Checked = oldSetting[IND_AllowVirtualMachine];
+            checkBoxForceWindowsService      .Checked = oldSetting[IND_ForceWindowsService];
+            checkBoxWriteLogFileSebStarterLog.Checked = oldSetting[IND_WriteLogFileSebStarterLog];
+            checkBoxCreateNewDesktop         .Checked = oldSetting[IND_CreateNewDesktop];
+            checkBoxShowSebApplicationChooser.Checked = oldSetting[IND_ShowSebApplicationChooser];
+            checkBoxHookMessages             .Checked = oldSetting[IND_HookMessages];
+            checkBoxEditRegistry             .Checked = oldSetting[IND_EditRegistry];
+            checkBoxMonitorProcesses         .Checked = oldSetting[IND_MonitorProcesses];
+            checkBoxShutdownAfterAutostartProcessTerminates.Checked = oldSetting[IND_ShutdownAfterAutostartProcessTerminates];
+
+            textBoxSebBrowser           .Text = oldStringSebBrowser;
+            textBoxAutostartProcess     .Text = oldStringAutostartProcess;
             textBoxExamUrl              .Text = oldStringExamUrl;
             textBoxPermittedApplications.Text = oldStringPermittedApplications;
         }
 
+
+
+        private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
+        {
+            oldStringSebBrowser = newStringSebBrowser;
+            newStringSebBrowser = textBoxSebBrowser.Text;
+        }
+
+        private void textBoxAutostartProcess_TextChanged(object sender, EventArgs e)
+        {
+            oldStringAutostartProcess = newStringAutostartProcess;
+            newStringAutostartProcess = textBoxAutostartProcess.Text;
+        }
 
         private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
         {
@@ -345,13 +447,11 @@ namespace SebWindowsConfig
             newStringExamUrl = textBoxExamUrl.Text;
         }
 
-
         private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
         {
             oldStringPermittedApplications = newStringPermittedApplications;
             newStringPermittedApplications = textBoxPermittedApplications.Text;
         }
-
 
     }
 }
