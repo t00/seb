@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsConfigForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
             this.checkBoxShutdownAfterAutostart = new System.Windows.Forms.CheckBox();
@@ -1263,7 +1262,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1435, 655);
             this.Controls.Add(this.splitContainer1);

@@ -99,16 +99,16 @@ namespace SebWindowsConfig
         // Global variables
 
         // Names of settings
-        static String[,]  msgString = new String[IND_GroupNum, IND_SettingNum + 1];
-      //static String[,] typeString = new String[IND_GroupNum, IND_SettingNum + 1];
+        static String[,]  msgString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
+      //static String[,] typeString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
 
         // Values of settings as booleans (true or false)
-        static Boolean[,] defSetting = new Boolean[IND_GroupNum, IND_SettingNum + 1];
-        static Boolean[,] oldSetting = new Boolean[IND_GroupNum, IND_SettingNum + 1];
-        static Boolean[,] newSetting = new Boolean[IND_GroupNum, IND_SettingNum + 1];
+        static Boolean[,] defSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
+        static Boolean[,] oldSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
+        static Boolean[,] newSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
 
-        static Boolean[,]  allowSetting = new Boolean[IND_GroupNum, IND_SettingNum + 1];
-        static Boolean[,] forbidSetting = new Boolean[IND_GroupNum, IND_SettingNum + 1];
+        static Boolean[,]  allowSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
+        static Boolean[,] forbidSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
 
         String oldStringSebBrowser = "";
         String newStringSebBrowser = "";
