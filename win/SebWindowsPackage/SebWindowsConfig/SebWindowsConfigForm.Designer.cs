@@ -130,6 +130,8 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogMsgHookIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogMsgHookIni = new System.Windows.Forms.SaveFileDialog();
+            this.buttonRestoreSettingsOfMsgHookIni = new System.Windows.Forms.Button();
+            this.textBoxDebug = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -161,6 +163,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.textBoxDebug);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonRestoreSettingsOfMsgHookIni);
             this.splitContainer1.Panel2.Controls.Add(this.groupBoxKey3);
             this.splitContainer1.Panel2.Controls.Add(this.groupBoxKey2);
             this.splitContainer1.Panel2.Controls.Add(this.groupBoxKey1);
@@ -1258,11 +1262,36 @@
             // 
             // openFileDialogSebStarterIni
             // 
-            this.openFileDialogSebStarterIni.FileName = "openFileDialogSebStarterIni";
+            this.openFileDialogSebStarterIni.FileName = "SebStarter.ini";
+            // 
+            // saveFileDialogSebStarterIni
+            // 
+            this.saveFileDialogSebStarterIni.FileName = "SebStarter.ini";
             // 
             // openFileDialogMsgHookIni
             // 
-            this.openFileDialogMsgHookIni.FileName = "openFileDialogMsgHookIni";
+            this.openFileDialogMsgHookIni.FileName = "MsgHook.ini";
+            // 
+            // saveFileDialogMsgHookIni
+            // 
+            this.saveFileDialogMsgHookIni.FileName = "MsgHook.ini";
+            // 
+            // buttonRestoreSettingsOfMsgHookIni
+            // 
+            this.buttonRestoreSettingsOfMsgHookIni.Location = new System.Drawing.Point(272, 419);
+            this.buttonRestoreSettingsOfMsgHookIni.Name = "buttonRestoreSettingsOfMsgHookIni";
+            this.buttonRestoreSettingsOfMsgHookIni.Size = new System.Drawing.Size(139, 72);
+            this.buttonRestoreSettingsOfMsgHookIni.TabIndex = 45;
+            this.buttonRestoreSettingsOfMsgHookIni.Text = "Restore settings of MsgHook.ini";
+            this.buttonRestoreSettingsOfMsgHookIni.UseVisualStyleBackColor = true;
+            this.buttonRestoreSettingsOfMsgHookIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfMsgHookIni_Click);
+            // 
+            // textBoxDebug
+            // 
+            this.textBoxDebug.Location = new System.Drawing.Point(22, 528);
+            this.textBoxDebug.Name = "textBoxDebug";
+            this.textBoxDebug.Size = new System.Drawing.Size(419, 22);
+            this.textBoxDebug.TabIndex = 46;
             // 
             // SebWindowsConfigForm
             // 
@@ -1406,6 +1435,8 @@
         private System.Windows.Forms.RadioButton radioButtonKey3F1;
         private System.Windows.Forms.OpenFileDialog openFileDialogMsgHookIni;
         private System.Windows.Forms.SaveFileDialog saveFileDialogMsgHookIni;
+        private System.Windows.Forms.Button buttonRestoreSettingsOfMsgHookIni;
+        private System.Windows.Forms.TextBox textBoxDebug;
     }
 }
 

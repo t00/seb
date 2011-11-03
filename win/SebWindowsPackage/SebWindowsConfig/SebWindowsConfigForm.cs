@@ -129,16 +129,10 @@ namespace SebWindowsConfig
         const String MSG_EnableF11 = "EnableF11";
         const String MSG_EnableF12 = "EnableF12";
 
-/*
-        const String TYPE_EnableSwitchUser        = "REG_DWORD";
-        const String TYPE_EnableLockThisComputer  = "REG_DWORD";
-        const String TYPE_EnableChangeAPassword   = "REG_DWORD";
-        const String TYPE_EnableStartTaskManager  = "REG_DWORD";
-        const String TYPE_EnableLogOff            = "REG_DWORD";
-        const String TYPE_EnableShutDown          = "REG_DWORD";
-        const String TYPE_EnableEaseOfAccess      = "REG_SZ";
-        const String TYPE_EnableVmWareClientShade = "REG_DWORD";
-*/
+        const String MSG_B1 = "B1";
+        const String MSG_B2 = "B2";
+        const String MSG_B3 = "B3";
+
 
         // Global variables
 
@@ -239,23 +233,38 @@ namespace SebWindowsConfig
             msgStringExamUrl               = MSG_ExamUrl;
             msgStringPermittedApplications = MSG_PermittedApplications;
 
-/*
-            typeString[IND_RegistryValues, IND_EnableSwitchUser       ] = TYPE_EnableSwitchUser;
-            typeString[IND_RegistryValues, IND_EnableLockThisComputer ] = TYPE_EnableLockThisComputer;
-            typeString[IND_RegistryValues, IND_EnableChangeAPassword  ] = TYPE_EnableChangeAPassword;
-            typeString[IND_RegistryValues, IND_EnableStartTaskManager ] = TYPE_EnableStartTaskManager;
-            typeString[IND_RegistryValues, IND_EnableLogOff           ] = TYPE_EnableLogOff;
-            typeString[IND_RegistryValues, IND_EnableShutDown         ] = TYPE_EnableShutDown;
-            typeString[IND_RegistryValues, IND_EnableEaseOfAccess     ] = TYPE_EnableEaseOfAccess;
-            typeString[IND_RegistryValues, IND_EnableVmWareClientShade] = TYPE_EnableVmWareClientShade;
-*/
+            msgString[IND_SpecialKeys, IND_EnableEsc       ] = MSG_EnableEsc;
+            msgString[IND_SpecialKeys, IND_EnableCtrlEsc   ] = MSG_EnableCtrlEsc;
+            msgString[IND_SpecialKeys, IND_EnableAltEsc    ] = MSG_EnableAltEsc;
+            msgString[IND_SpecialKeys, IND_EnableAltTab    ] = MSG_EnableAltTab;
+            msgString[IND_SpecialKeys, IND_EnableAltF4     ] = MSG_EnableAltF4;
+            msgString[IND_SpecialKeys, IND_EnableStartMenu ] = MSG_EnableStartMenu;
+            msgString[IND_SpecialKeys, IND_EnableRightMouse] = MSG_EnableRightMouse;
+
+            msgString[IND_FunctionKeys, IND_EnableF1 ] = MSG_EnableF1;
+            msgString[IND_FunctionKeys, IND_EnableF2 ] = MSG_EnableF2;
+            msgString[IND_FunctionKeys, IND_EnableF3 ] = MSG_EnableF3;
+            msgString[IND_FunctionKeys, IND_EnableF4 ] = MSG_EnableF4;
+            msgString[IND_FunctionKeys, IND_EnableF5 ] = MSG_EnableF5;
+            msgString[IND_FunctionKeys, IND_EnableF6 ] = MSG_EnableF6;
+            msgString[IND_FunctionKeys, IND_EnableF7 ] = MSG_EnableF7;
+            msgString[IND_FunctionKeys, IND_EnableF8 ] = MSG_EnableF8;
+            msgString[IND_FunctionKeys, IND_EnableF9 ] = MSG_EnableF9;
+            msgString[IND_FunctionKeys, IND_EnableF10] = MSG_EnableF10;
+            msgString[IND_FunctionKeys, IND_EnableF11] = MSG_EnableF11;
+            msgString[IND_FunctionKeys, IND_EnableF12] = MSG_EnableF12;
+
+            msgStringB1 = MSG_B1;
+            msgStringB2 = MSG_B2;
+            msgStringB3 = MSG_B3;
+
         } // end of contructor   SebWindowsConfigForm()
 
 
 
 
         // ************************
-        // Open File SebStarter.ini
+        // Open file SebStarter.ini
         // ************************
         private void labelOpenFileSebStarterIni_Click(object sender, EventArgs e)
         {
@@ -313,7 +322,7 @@ namespace SebWindowsConfig
                 // Close the StreamReader
                 streamReaderSebStarterIni.Close();
 
-                // Assign the settings from the ini file to the widgets
+                // Assign the settings from the SebStarter.ini file to the widgets
                 checkBoxEnableSwitchUser       .Checked = newSetting[IND_RegistryValues, IND_EnableSwitchUser];
                 checkBoxEnableLockThisComputer .Checked = newSetting[IND_RegistryValues, IND_EnableLockThisComputer];
                 checkBoxEnableChangeAPassword  .Checked = newSetting[IND_RegistryValues, IND_EnableChangeAPassword];
@@ -352,7 +361,7 @@ namespace SebWindowsConfig
 
 
         // ************************
-        // Save File SebStarter.ini
+        // Save file SebStarter.ini
         // ************************
         private void labelSaveFileSebStarterIni_Click(object sender, EventArgs e)
         {
@@ -363,7 +372,7 @@ namespace SebWindowsConfig
 
 
         // *********************
-        // Open File MsgHook.ini
+        // Open file MsgHook.ini
         // *********************
         private void labelOpenFileMsgHookIni_Click(object sender, EventArgs e)
         {
@@ -404,7 +413,10 @@ namespace SebWindowsConfig
                         }
 
                         if (leftSide.Equals(msgStringB1))
+                        {
                             newStringB1 = rightSide;
+                            //textBoxDebug.Text = newStringB1;
+                        }
 
                         if (leftSide.Equals(msgStringB2))
                             newStringB2 = rightSide;
@@ -418,7 +430,7 @@ namespace SebWindowsConfig
                 // Close the StreamReader
                 streamReaderSebStarterIni.Close();
 
-                // Assign the settings from the ini file to the widgets
+                // Assign the settings from the MsgHook.ini file to the widgets
                 checkBoxEnableEsc       .Checked = newSetting[IND_SpecialKeys, IND_EnableEsc];
                 checkBoxEnableCtrlEsc   .Checked = newSetting[IND_SpecialKeys, IND_EnableCtrlEsc];
                 checkBoxEnableAltEsc    .Checked = newSetting[IND_SpecialKeys, IND_EnableAltEsc];
@@ -440,10 +452,15 @@ namespace SebWindowsConfig
                 checkBoxEnableF11.Checked = newSetting[IND_FunctionKeys, IND_EnableF11];
                 checkBoxEnableF12.Checked = newSetting[IND_FunctionKeys, IND_EnableF12];
 
-                textBoxSebBrowser           .Text = newStringSebBrowser;
-                textBoxAutostartProcess     .Text = newStringAutostartProcess;
-                textBoxExamUrl              .Text = newStringExamUrl;
-                textBoxPermittedApplications.Text = newStringPermittedApplications;
+                // Convert the B1, B2, B3 strings to integers and booleans
+                textBoxDebug.Text = newStringB1;
+
+                if (newStringB1 == "114")
+                {
+                    int Key = 1;
+                    int F   = 3;
+                    radioButtonKey1F3.Checked = true;
+                }
 
             } // end try
             catch (Exception streamReadException) 
@@ -459,7 +476,7 @@ namespace SebWindowsConfig
 
 
         // *********************
-        // Save File MsgHook.ini
+        // Save file MsgHook.ini
         // *********************
         private void labelSaveFileMsgHookIni_Click(object sender, EventArgs e)
         {
@@ -629,7 +646,37 @@ namespace SebWindowsConfig
         }
 
 
+        // Group Online exam
 
+        private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
+        {
+            oldStringSebBrowser = newStringSebBrowser;
+            newStringSebBrowser = textBoxSebBrowser.Text;
+        }
+
+        private void textBoxAutostartProcess_TextChanged(object sender, EventArgs e)
+        {
+            oldStringAutostartProcess = newStringAutostartProcess;
+            newStringAutostartProcess = textBoxAutostartProcess.Text;
+        }
+
+        private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
+        {
+            oldStringExamUrl = newStringExamUrl;
+            newStringExamUrl = textBoxExamUrl.Text;
+        }
+
+        private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
+        {
+            oldStringPermittedApplications = newStringPermittedApplications;
+            newStringPermittedApplications = textBoxPermittedApplications.Text;
+        }
+
+
+
+        // ***************************************
+        // Restore settings of file SebStarter.ini
+        // ***************************************
         private void buttonRestoreSettingsOfSebStarterIni_Click(object sender, EventArgs e)
         {
             int  indexGroup;
@@ -645,7 +692,7 @@ namespace SebWindowsConfig
             newStringExamUrl               = oldStringExamUrl;
             newStringPermittedApplications = oldStringPermittedApplications;
 
-            // Assign the old settings from the ini file to the widgets again
+            // Assign the old settings from the SebStarter.ini file to the widgets again
             checkBoxEnableSwitchUser       .Checked = oldSetting[IND_RegistryValues, IND_EnableSwitchUser];
             checkBoxEnableLockThisComputer .Checked = oldSetting[IND_RegistryValues, IND_EnableLockThisComputer];
             checkBoxEnableChangeAPassword  .Checked = oldSetting[IND_RegistryValues, IND_EnableChangeAPassword];
@@ -673,29 +720,47 @@ namespace SebWindowsConfig
 
 
 
-        private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
+        // ************************************
+        // Restore settings of file MsgHook.ini
+        // ************************************
+        private void buttonRestoreSettingsOfMsgHookIni_Click(object sender, EventArgs e)
         {
-            oldStringSebBrowser = newStringSebBrowser;
-            newStringSebBrowser = textBoxSebBrowser.Text;
+            int  indexGroup;
+            int  indexSetting;
+            for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
+            for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
+            {
+                newSetting[indexGroup, indexSetting] = oldSetting[indexGroup, indexSetting];
+            }
+
+            newStringB1 = oldStringB1;
+            newStringB2 = oldStringB2;
+            newStringB3 = oldStringB3;
+
+            // Assign the old settings from the MsgHook.ini file to the widgets again
+            checkBoxEnableEsc       .Checked = oldSetting[IND_SpecialKeys, IND_EnableEsc];
+            checkBoxEnableCtrlEsc   .Checked = oldSetting[IND_SpecialKeys, IND_EnableCtrlEsc];
+            checkBoxEnableAltEsc    .Checked = oldSetting[IND_SpecialKeys, IND_EnableAltEsc];
+            checkBoxEnableAltTab    .Checked = oldSetting[IND_SpecialKeys, IND_EnableAltTab];
+            checkBoxEnableAltF4     .Checked = oldSetting[IND_SpecialKeys, IND_EnableAltF4];
+            checkBoxEnableStartMenu .Checked = oldSetting[IND_SpecialKeys, IND_EnableStartMenu];
+            checkBoxEnableRightMouse.Checked = oldSetting[IND_SpecialKeys, IND_EnableRightMouse];
+
+            checkBoxEnableF1.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF1];
+            checkBoxEnableF2.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF2];
+            checkBoxEnableF3.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF3];
+            checkBoxEnableF4.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF4];
+            checkBoxEnableF5.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF5];
+            checkBoxEnableF6.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF6];
+            checkBoxEnableF7.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF7];
+            checkBoxEnableF8.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF8];
+            checkBoxEnableF9.Checked  = oldSetting[IND_FunctionKeys, IND_EnableF9];
+            checkBoxEnableF10.Checked = oldSetting[IND_FunctionKeys, IND_EnableF10];
+            checkBoxEnableF11.Checked = oldSetting[IND_FunctionKeys, IND_EnableF11];
+            checkBoxEnableF12.Checked = oldSetting[IND_FunctionKeys, IND_EnableF12];
         }
 
-        private void textBoxAutostartProcess_TextChanged(object sender, EventArgs e)
-        {
-            oldStringAutostartProcess = newStringAutostartProcess;
-            newStringAutostartProcess = textBoxAutostartProcess.Text;
-        }
 
-        private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
-        {
-            oldStringExamUrl = newStringExamUrl;
-            newStringExamUrl = textBoxExamUrl.Text;
-        }
-
-        private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
-        {
-            oldStringPermittedApplications = newStringPermittedApplications;
-            newStringPermittedApplications = textBoxPermittedApplications.Text;
-        }
 
     }
 }
