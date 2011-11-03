@@ -85,6 +85,50 @@ namespace SebWindowsConfig
         const String MSG_ExamUrl               = "ExamUrl";
         const String MSG_PermittedApplications = "PermittedApplications";
 
+        // Group Special keys
+        const int IND_EnableEsc        = 1;
+        const int IND_EnableCtrlEsc    = 2;
+        const int IND_EnableAltEsc     = 3;
+        const int IND_EnableAltTab     = 4;
+        const int IND_EnableAltF4      = 5;
+        const int IND_EnableStartMenu  = 6;
+        const int IND_EnableRightMouse = 7;
+
+        const String MSG_EnableEsc        = "EnableEsc";
+        const String MSG_EnableCtrlEsc    = "EnableCtrlEsc";
+        const String MSG_EnableAltEsc     = "EnableAltEsc";
+        const String MSG_EnableAltTab     = "EnableAltTab";
+        const String MSG_EnableAltF4      = "EnableAltF4";
+        const String MSG_EnableStartMenu  = "EnableStartMenu";
+        const String MSG_EnableRightMouse = "EnableRightMouse";
+
+        // Group Function keys
+        const int IND_EnableF1  = 1;
+        const int IND_EnableF2  = 2;
+        const int IND_EnableF3  = 3;
+        const int IND_EnableF4  = 4;
+        const int IND_EnableF5  = 5;
+        const int IND_EnableF6  = 6;
+        const int IND_EnableF7  = 7;
+        const int IND_EnableF8  = 8;
+        const int IND_EnableF9  = 9;
+        const int IND_EnableF10 = 10;
+        const int IND_EnableF11 = 11;
+        const int IND_EnableF12 = 12;
+
+        const String MSG_EnableF1  = "EnableF1";
+        const String MSG_EnableF2  = "EnableF2";
+        const String MSG_EnableF3  = "EnableF3";
+        const String MSG_EnableF4  = "EnableF4";
+        const String MSG_EnableF5  = "EnableF5";
+        const String MSG_EnableF6  = "EnableF6";
+        const String MSG_EnableF7  = "EnableF7";
+        const String MSG_EnableF8  = "EnableF8";
+        const String MSG_EnableF9  = "EnableF9";
+        const String MSG_EnableF10 = "EnableF10";
+        const String MSG_EnableF11 = "EnableF11";
+        const String MSG_EnableF12 = "EnableF12";
+
 /*
         const String TYPE_EnableSwitchUser        = "REG_DWORD";
         const String TYPE_EnableLockThisComputer  = "REG_DWORD";
@@ -126,12 +170,27 @@ namespace SebWindowsConfig
         String newStringPermittedApplications = "";
         String msgStringPermittedApplications = "";
 
-        String       sebStarterIniPath = "";
-        String       sebMsgHookIniPath = "";
+        String oldStringB1 = "";
+        String newStringB1 = "";
+        String msgStringB1 = "";
+
+        String oldStringB2 = "";
+        String newStringB2 = "";
+        String msgStringB2 = "";
+
+        String oldStringB3 = "";
+        String newStringB3 = "";
+        String msgStringB3 = "";
+
+        String       stringPathSebStarterIni = "";
+        String       stringPathMsgHookIni    = "";
         StreamReader streamReaderSebStarterIni;
-        StreamReader streamReaderSebMsgHookIni;
         StreamWriter streamWriterSebStarterIni;
-        StreamWriter streamWriterSebMsgHookIni;
+        StreamReader streamReaderMsgHookIni;
+        StreamWriter streamWriterMsgHookIni;
+
+        DialogResult dialogResultSebStarterIni;
+        DialogResult dialogResultMsgHookIni;
 
 
 
@@ -200,13 +259,13 @@ namespace SebWindowsConfig
         // ************************
         private void labelOpenFileSebStarterIni_Click(object sender, EventArgs e)
         {
-            DialogResult openFileDialogResult = openFileDialogSebStarterIni.ShowDialog();
-            sebStarterIniPath                 = openFileDialogSebStarterIni.FileName;
+            dialogResultSebStarterIni = openFileDialogSebStarterIni.ShowDialog();
+            stringPathSebStarterIni   = openFileDialogSebStarterIni.FileName;
 
             try 
             {
                 // Create an instance of StreamReader to read from a file.
-                streamReaderSebStarterIni = new StreamReader(sebStarterIniPath);
+                streamReaderSebStarterIni = new StreamReader(stringPathSebStarterIni);
                 String line;
 
                 // Read and display lines from the file until the end of 
@@ -302,13 +361,100 @@ namespace SebWindowsConfig
 
 
 
+
         // *********************
         // Open File MsgHook.ini
         // *********************
         private void labelOpenFileMsgHookIni_Click(object sender, EventArgs e)
         {
+            dialogResultMsgHookIni = openFileDialogMsgHookIni.ShowDialog();
+            stringPathMsgHookIni   = openFileDialogMsgHookIni.FileName;
 
-        }
+            try 
+            {
+                // Create an instance of StreamReader to read from a file.
+                streamReaderMsgHookIni = new StreamReader(stringPathMsgHookIni);
+                String line;
+
+                // Read and display lines from the file until the end of 
+                // the file is reached.
+                while ((line = streamReaderMsgHookIni.ReadLine()) != null) 
+                {
+                    Console.WriteLine(line);
+
+                    // Skip empty lines and lines not in "leftSide = rightSide" format
+                    if (line.Contains("="))
+                    {
+                        int     equalPos = line.IndexOf  ("=");
+                        String  leftSide = line.Remove   (equalPos);
+                        String rightSide = line.Substring(equalPos + 1);
+
+                        int  indexGroup;
+                        int  indexSetting;
+                        for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
+                        for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
+                        {
+                            if (leftSide.Equals(msgString[indexGroup, indexSetting]))
+                            {
+                                Boolean rightBool = false;
+                                if (rightSide.Equals("0")) rightBool = false;
+                                if (rightSide.Equals("1")) rightBool = true;
+                                newSetting[indexGroup, indexSetting] = rightBool;
+                            }
+                        }
+
+                        if (leftSide.Equals(msgStringB1))
+                            newStringB1 = rightSide;
+
+                        if (leftSide.Equals(msgStringB2))
+                            newStringB2 = rightSide;
+
+                        if (leftSide.Equals(msgStringB3))
+                            newStringB3 = rightSide;
+
+                    } // end if line.Contains("=")
+                } // end while
+
+                // Close the StreamReader
+                streamReaderSebStarterIni.Close();
+
+                // Assign the settings from the ini file to the widgets
+                checkBoxEnableEsc       .Checked = newSetting[IND_SpecialKeys, IND_EnableEsc];
+                checkBoxEnableCtrlEsc   .Checked = newSetting[IND_SpecialKeys, IND_EnableCtrlEsc];
+                checkBoxEnableAltEsc    .Checked = newSetting[IND_SpecialKeys, IND_EnableAltEsc];
+                checkBoxEnableAltTab    .Checked = newSetting[IND_SpecialKeys, IND_EnableAltTab];
+                checkBoxEnableAltF4     .Checked = newSetting[IND_SpecialKeys, IND_EnableAltF4];
+                checkBoxEnableStartMenu .Checked = newSetting[IND_SpecialKeys, IND_EnableStartMenu];
+                checkBoxEnableRightMouse.Checked = newSetting[IND_SpecialKeys, IND_EnableRightMouse];
+
+                checkBoxEnableF1.Checked  = newSetting[IND_FunctionKeys, IND_EnableF1];
+                checkBoxEnableF2.Checked  = newSetting[IND_FunctionKeys, IND_EnableF2];
+                checkBoxEnableF3.Checked  = newSetting[IND_FunctionKeys, IND_EnableF3];
+                checkBoxEnableF4.Checked  = newSetting[IND_FunctionKeys, IND_EnableF4];
+                checkBoxEnableF5.Checked  = newSetting[IND_FunctionKeys, IND_EnableF5];
+                checkBoxEnableF6.Checked  = newSetting[IND_FunctionKeys, IND_EnableF6];
+                checkBoxEnableF7.Checked  = newSetting[IND_FunctionKeys, IND_EnableF7];
+                checkBoxEnableF8.Checked  = newSetting[IND_FunctionKeys, IND_EnableF8];
+                checkBoxEnableF9.Checked  = newSetting[IND_FunctionKeys, IND_EnableF9];
+                checkBoxEnableF10.Checked = newSetting[IND_FunctionKeys, IND_EnableF10];
+                checkBoxEnableF11.Checked = newSetting[IND_FunctionKeys, IND_EnableF11];
+                checkBoxEnableF12.Checked = newSetting[IND_FunctionKeys, IND_EnableF12];
+
+                textBoxSebBrowser           .Text = newStringSebBrowser;
+                textBoxAutostartProcess     .Text = newStringAutostartProcess;
+                textBoxExamUrl              .Text = newStringExamUrl;
+                textBoxPermittedApplications.Text = newStringPermittedApplications;
+
+            } // end try
+            catch (Exception streamReadException) 
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(streamReadException.Message);
+            }
+
+        }  // end of method   labelOpenFileMsgHookIni_Click()
+
 
 
 

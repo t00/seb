@@ -105,29 +105,31 @@
             this.labelOpenFileMsgHookIni = new System.Windows.Forms.Label();
             this.labelSaveFileMsgHookIni = new System.Windows.Forms.Label();
             this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
-            this.checkBoxF1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF12 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF11 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF5 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF6 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF9 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF7 = new System.Windows.Forms.CheckBox();
-            this.checkBoxF8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF12 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF11 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF10 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF9 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableF8 = new System.Windows.Forms.CheckBox();
             this.groupBoxSpecialKeys = new System.Windows.Forms.GroupBox();
-            this.checkBoxEsc = new System.Windows.Forms.CheckBox();
-            this.checkBoxCtrlEsc = new System.Windows.Forms.CheckBox();
-            this.checkBoxAltEsc = new System.Windows.Forms.CheckBox();
-            this.checkBoxAltTab = new System.Windows.Forms.CheckBox();
-            this.checkBoxAltF4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxStartMenu = new System.Windows.Forms.CheckBox();
-            this.checkBoxRightMouse = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableEsc = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableCtrlEsc = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableAltEsc = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableAltTab = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableAltF4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableStartMenu = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
             this.folderBrowserDialogBrowseIniFiles = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogSebStarterIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialogMsgHookIni = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogMsgHookIni = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1029,18 +1031,18 @@
             // 
             // groupBoxFunctionKeys
             // 
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF1);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF2);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF12);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF3);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF11);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF4);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF5);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBox10);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF6);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF9);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF7);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxF8);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF1);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF2);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF12);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF3);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF11);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF4);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF5);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF10);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF6);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF9);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF7);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF8);
             this.groupBoxFunctionKeys.Location = new System.Drawing.Point(222, 38);
             this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
             this.groupBoxFunctionKeys.Size = new System.Drawing.Size(132, 362);
@@ -1048,135 +1050,135 @@
             this.groupBoxFunctionKeys.TabStop = false;
             this.groupBoxFunctionKeys.Text = "Function keys";
             // 
-            // checkBoxF1
+            // checkBoxEnableF1
             // 
-            this.checkBoxF1.AutoSize = true;
-            this.checkBoxF1.Location = new System.Drawing.Point(6, 36);
-            this.checkBoxF1.Name = "checkBoxF1";
-            this.checkBoxF1.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF1.TabIndex = 25;
-            this.checkBoxF1.Text = "Enable F1";
-            this.checkBoxF1.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF1.AutoSize = true;
+            this.checkBoxEnableF1.Location = new System.Drawing.Point(6, 36);
+            this.checkBoxEnableF1.Name = "checkBoxEnableF1";
+            this.checkBoxEnableF1.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF1.TabIndex = 25;
+            this.checkBoxEnableF1.Text = "Enable F1";
+            this.checkBoxEnableF1.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF2
+            // checkBoxEnableF2
             // 
-            this.checkBoxF2.AutoSize = true;
-            this.checkBoxF2.Location = new System.Drawing.Point(6, 63);
-            this.checkBoxF2.Name = "checkBoxF2";
-            this.checkBoxF2.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF2.TabIndex = 26;
-            this.checkBoxF2.Text = "Enable F2";
-            this.checkBoxF2.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF2.AutoSize = true;
+            this.checkBoxEnableF2.Location = new System.Drawing.Point(6, 63);
+            this.checkBoxEnableF2.Name = "checkBoxEnableF2";
+            this.checkBoxEnableF2.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF2.TabIndex = 26;
+            this.checkBoxEnableF2.Text = "Enable F2";
+            this.checkBoxEnableF2.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF12
+            // checkBoxEnableF12
             // 
-            this.checkBoxF12.AutoSize = true;
-            this.checkBoxF12.Location = new System.Drawing.Point(6, 333);
-            this.checkBoxF12.Name = "checkBoxF12";
-            this.checkBoxF12.Size = new System.Drawing.Size(102, 21);
-            this.checkBoxF12.TabIndex = 37;
-            this.checkBoxF12.Text = "Enable F12";
-            this.checkBoxF12.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF12.AutoSize = true;
+            this.checkBoxEnableF12.Location = new System.Drawing.Point(6, 333);
+            this.checkBoxEnableF12.Name = "checkBoxEnableF12";
+            this.checkBoxEnableF12.Size = new System.Drawing.Size(102, 21);
+            this.checkBoxEnableF12.TabIndex = 37;
+            this.checkBoxEnableF12.Text = "Enable F12";
+            this.checkBoxEnableF12.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF3
+            // checkBoxEnableF3
             // 
-            this.checkBoxF3.AutoSize = true;
-            this.checkBoxF3.Location = new System.Drawing.Point(6, 90);
-            this.checkBoxF3.Name = "checkBoxF3";
-            this.checkBoxF3.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF3.TabIndex = 27;
-            this.checkBoxF3.Text = "Enable F3";
-            this.checkBoxF3.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF3.AutoSize = true;
+            this.checkBoxEnableF3.Location = new System.Drawing.Point(6, 90);
+            this.checkBoxEnableF3.Name = "checkBoxEnableF3";
+            this.checkBoxEnableF3.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF3.TabIndex = 27;
+            this.checkBoxEnableF3.Text = "Enable F3";
+            this.checkBoxEnableF3.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF11
+            // checkBoxEnableF11
             // 
-            this.checkBoxF11.AutoSize = true;
-            this.checkBoxF11.Location = new System.Drawing.Point(6, 306);
-            this.checkBoxF11.Name = "checkBoxF11";
-            this.checkBoxF11.Size = new System.Drawing.Size(102, 21);
-            this.checkBoxF11.TabIndex = 36;
-            this.checkBoxF11.Text = "Enable F11";
-            this.checkBoxF11.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF11.AutoSize = true;
+            this.checkBoxEnableF11.Location = new System.Drawing.Point(6, 306);
+            this.checkBoxEnableF11.Name = "checkBoxEnableF11";
+            this.checkBoxEnableF11.Size = new System.Drawing.Size(102, 21);
+            this.checkBoxEnableF11.TabIndex = 36;
+            this.checkBoxEnableF11.Text = "Enable F11";
+            this.checkBoxEnableF11.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF4
+            // checkBoxEnableF4
             // 
-            this.checkBoxF4.AutoSize = true;
-            this.checkBoxF4.Location = new System.Drawing.Point(6, 117);
-            this.checkBoxF4.Name = "checkBoxF4";
-            this.checkBoxF4.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF4.TabIndex = 28;
-            this.checkBoxF4.Text = "Enable F4";
-            this.checkBoxF4.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF4.AutoSize = true;
+            this.checkBoxEnableF4.Location = new System.Drawing.Point(6, 117);
+            this.checkBoxEnableF4.Name = "checkBoxEnableF4";
+            this.checkBoxEnableF4.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF4.TabIndex = 28;
+            this.checkBoxEnableF4.Text = "Enable F4";
+            this.checkBoxEnableF4.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF5
+            // checkBoxEnableF5
             // 
-            this.checkBoxF5.AutoSize = true;
-            this.checkBoxF5.Location = new System.Drawing.Point(6, 144);
-            this.checkBoxF5.Name = "checkBoxF5";
-            this.checkBoxF5.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF5.TabIndex = 29;
-            this.checkBoxF5.Text = "Enable F5";
-            this.checkBoxF5.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF5.AutoSize = true;
+            this.checkBoxEnableF5.Location = new System.Drawing.Point(6, 144);
+            this.checkBoxEnableF5.Name = "checkBoxEnableF5";
+            this.checkBoxEnableF5.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF5.TabIndex = 29;
+            this.checkBoxEnableF5.Text = "Enable F5";
+            this.checkBoxEnableF5.UseVisualStyleBackColor = true;
             // 
-            // checkBox10
+            // checkBoxEnableF10
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(6, 279);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(102, 21);
-            this.checkBox10.TabIndex = 34;
-            this.checkBox10.Text = "Enable F10";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF10.AutoSize = true;
+            this.checkBoxEnableF10.Location = new System.Drawing.Point(6, 279);
+            this.checkBoxEnableF10.Name = "checkBoxEnableF10";
+            this.checkBoxEnableF10.Size = new System.Drawing.Size(102, 21);
+            this.checkBoxEnableF10.TabIndex = 34;
+            this.checkBoxEnableF10.Text = "Enable F10";
+            this.checkBoxEnableF10.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF6
+            // checkBoxEnableF6
             // 
-            this.checkBoxF6.AutoSize = true;
-            this.checkBoxF6.Location = new System.Drawing.Point(6, 171);
-            this.checkBoxF6.Name = "checkBoxF6";
-            this.checkBoxF6.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF6.TabIndex = 30;
-            this.checkBoxF6.Text = "Enable F6";
-            this.checkBoxF6.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF6.AutoSize = true;
+            this.checkBoxEnableF6.Location = new System.Drawing.Point(6, 171);
+            this.checkBoxEnableF6.Name = "checkBoxEnableF6";
+            this.checkBoxEnableF6.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF6.TabIndex = 30;
+            this.checkBoxEnableF6.Text = "Enable F6";
+            this.checkBoxEnableF6.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF9
+            // checkBoxEnableF9
             // 
-            this.checkBoxF9.AutoSize = true;
-            this.checkBoxF9.Location = new System.Drawing.Point(6, 252);
-            this.checkBoxF9.Name = "checkBoxF9";
-            this.checkBoxF9.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF9.TabIndex = 33;
-            this.checkBoxF9.Text = "Enable F9";
-            this.checkBoxF9.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF9.AutoSize = true;
+            this.checkBoxEnableF9.Location = new System.Drawing.Point(6, 252);
+            this.checkBoxEnableF9.Name = "checkBoxEnableF9";
+            this.checkBoxEnableF9.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF9.TabIndex = 33;
+            this.checkBoxEnableF9.Text = "Enable F9";
+            this.checkBoxEnableF9.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF7
+            // checkBoxEnableF7
             // 
-            this.checkBoxF7.AutoSize = true;
-            this.checkBoxF7.Location = new System.Drawing.Point(6, 198);
-            this.checkBoxF7.Name = "checkBoxF7";
-            this.checkBoxF7.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF7.TabIndex = 31;
-            this.checkBoxF7.Text = "Enable F7";
-            this.checkBoxF7.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF7.AutoSize = true;
+            this.checkBoxEnableF7.Location = new System.Drawing.Point(6, 198);
+            this.checkBoxEnableF7.Name = "checkBoxEnableF7";
+            this.checkBoxEnableF7.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF7.TabIndex = 31;
+            this.checkBoxEnableF7.Text = "Enable F7";
+            this.checkBoxEnableF7.UseVisualStyleBackColor = true;
             // 
-            // checkBoxF8
+            // checkBoxEnableF8
             // 
-            this.checkBoxF8.AutoSize = true;
-            this.checkBoxF8.Location = new System.Drawing.Point(6, 225);
-            this.checkBoxF8.Name = "checkBoxF8";
-            this.checkBoxF8.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxF8.TabIndex = 32;
-            this.checkBoxF8.Text = "Enable F8";
-            this.checkBoxF8.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF8.AutoSize = true;
+            this.checkBoxEnableF8.Location = new System.Drawing.Point(6, 225);
+            this.checkBoxEnableF8.Name = "checkBoxEnableF8";
+            this.checkBoxEnableF8.Size = new System.Drawing.Size(94, 21);
+            this.checkBoxEnableF8.TabIndex = 32;
+            this.checkBoxEnableF8.Text = "Enable F8";
+            this.checkBoxEnableF8.UseVisualStyleBackColor = true;
             // 
             // groupBoxSpecialKeys
             // 
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEsc);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxCtrlEsc);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxAltEsc);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxAltTab);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxAltF4);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxStartMenu);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxRightMouse);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableEsc);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableCtrlEsc);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltEsc);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltTab);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltF4);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableStartMenu);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableRightMouse);
             this.groupBoxSpecialKeys.Location = new System.Drawing.Point(16, 166);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Size = new System.Drawing.Size(200, 234);
@@ -1184,79 +1186,83 @@
             this.groupBoxSpecialKeys.TabStop = false;
             this.groupBoxSpecialKeys.Text = "Special keys";
             // 
-            // checkBoxEsc
+            // checkBoxEnableEsc
             // 
-            this.checkBoxEsc.AutoSize = true;
-            this.checkBoxEsc.Location = new System.Drawing.Point(6, 37);
-            this.checkBoxEsc.Name = "checkBoxEsc";
-            this.checkBoxEsc.Size = new System.Drawing.Size(101, 21);
-            this.checkBoxEsc.TabIndex = 41;
-            this.checkBoxEsc.Text = "Enable Esc";
-            this.checkBoxEsc.UseVisualStyleBackColor = true;
+            this.checkBoxEnableEsc.AutoSize = true;
+            this.checkBoxEnableEsc.Location = new System.Drawing.Point(6, 37);
+            this.checkBoxEnableEsc.Name = "checkBoxEnableEsc";
+            this.checkBoxEnableEsc.Size = new System.Drawing.Size(101, 21);
+            this.checkBoxEnableEsc.TabIndex = 41;
+            this.checkBoxEnableEsc.Text = "Enable Esc";
+            this.checkBoxEnableEsc.UseVisualStyleBackColor = true;
             // 
-            // checkBoxCtrlEsc
+            // checkBoxEnableCtrlEsc
             // 
-            this.checkBoxCtrlEsc.AutoSize = true;
-            this.checkBoxCtrlEsc.Location = new System.Drawing.Point(6, 64);
-            this.checkBoxCtrlEsc.Name = "checkBoxCtrlEsc";
-            this.checkBoxCtrlEsc.Size = new System.Drawing.Size(127, 21);
-            this.checkBoxCtrlEsc.TabIndex = 19;
-            this.checkBoxCtrlEsc.Text = "Enable Ctrl-Esc";
-            this.checkBoxCtrlEsc.UseVisualStyleBackColor = true;
+            this.checkBoxEnableCtrlEsc.AutoSize = true;
+            this.checkBoxEnableCtrlEsc.Location = new System.Drawing.Point(6, 64);
+            this.checkBoxEnableCtrlEsc.Name = "checkBoxEnableCtrlEsc";
+            this.checkBoxEnableCtrlEsc.Size = new System.Drawing.Size(127, 21);
+            this.checkBoxEnableCtrlEsc.TabIndex = 19;
+            this.checkBoxEnableCtrlEsc.Text = "Enable Ctrl-Esc";
+            this.checkBoxEnableCtrlEsc.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAltEsc
+            // checkBoxEnableAltEsc
             // 
-            this.checkBoxAltEsc.AutoSize = true;
-            this.checkBoxAltEsc.Location = new System.Drawing.Point(6, 91);
-            this.checkBoxAltEsc.Name = "checkBoxAltEsc";
-            this.checkBoxAltEsc.Size = new System.Drawing.Size(122, 21);
-            this.checkBoxAltEsc.TabIndex = 20;
-            this.checkBoxAltEsc.Text = "Enable Alt-Esc";
-            this.checkBoxAltEsc.UseVisualStyleBackColor = true;
+            this.checkBoxEnableAltEsc.AutoSize = true;
+            this.checkBoxEnableAltEsc.Location = new System.Drawing.Point(6, 91);
+            this.checkBoxEnableAltEsc.Name = "checkBoxEnableAltEsc";
+            this.checkBoxEnableAltEsc.Size = new System.Drawing.Size(122, 21);
+            this.checkBoxEnableAltEsc.TabIndex = 20;
+            this.checkBoxEnableAltEsc.Text = "Enable Alt-Esc";
+            this.checkBoxEnableAltEsc.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAltTab
+            // checkBoxEnableAltTab
             // 
-            this.checkBoxAltTab.AutoSize = true;
-            this.checkBoxAltTab.Location = new System.Drawing.Point(6, 118);
-            this.checkBoxAltTab.Name = "checkBoxAltTab";
-            this.checkBoxAltTab.Size = new System.Drawing.Size(124, 21);
-            this.checkBoxAltTab.TabIndex = 21;
-            this.checkBoxAltTab.Text = "Enable Alt-Tab";
-            this.checkBoxAltTab.UseVisualStyleBackColor = true;
+            this.checkBoxEnableAltTab.AutoSize = true;
+            this.checkBoxEnableAltTab.Location = new System.Drawing.Point(6, 118);
+            this.checkBoxEnableAltTab.Name = "checkBoxEnableAltTab";
+            this.checkBoxEnableAltTab.Size = new System.Drawing.Size(124, 21);
+            this.checkBoxEnableAltTab.TabIndex = 21;
+            this.checkBoxEnableAltTab.Text = "Enable Alt-Tab";
+            this.checkBoxEnableAltTab.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAltF4
+            // checkBoxEnableAltF4
             // 
-            this.checkBoxAltF4.AutoSize = true;
-            this.checkBoxAltF4.Location = new System.Drawing.Point(6, 145);
-            this.checkBoxAltF4.Name = "checkBoxAltF4";
-            this.checkBoxAltF4.Size = new System.Drawing.Size(115, 21);
-            this.checkBoxAltF4.TabIndex = 22;
-            this.checkBoxAltF4.Text = "Enable Alt-F4";
-            this.checkBoxAltF4.UseVisualStyleBackColor = true;
+            this.checkBoxEnableAltF4.AutoSize = true;
+            this.checkBoxEnableAltF4.Location = new System.Drawing.Point(6, 145);
+            this.checkBoxEnableAltF4.Name = "checkBoxEnableAltF4";
+            this.checkBoxEnableAltF4.Size = new System.Drawing.Size(115, 21);
+            this.checkBoxEnableAltF4.TabIndex = 22;
+            this.checkBoxEnableAltF4.Text = "Enable Alt-F4";
+            this.checkBoxEnableAltF4.UseVisualStyleBackColor = true;
             // 
-            // checkBoxStartMenu
+            // checkBoxEnableStartMenu
             // 
-            this.checkBoxStartMenu.AutoSize = true;
-            this.checkBoxStartMenu.Location = new System.Drawing.Point(6, 172);
-            this.checkBoxStartMenu.Name = "checkBoxStartMenu";
-            this.checkBoxStartMenu.Size = new System.Drawing.Size(147, 21);
-            this.checkBoxStartMenu.TabIndex = 23;
-            this.checkBoxStartMenu.Text = "Enable Start Menu";
-            this.checkBoxStartMenu.UseVisualStyleBackColor = true;
+            this.checkBoxEnableStartMenu.AutoSize = true;
+            this.checkBoxEnableStartMenu.Location = new System.Drawing.Point(6, 172);
+            this.checkBoxEnableStartMenu.Name = "checkBoxEnableStartMenu";
+            this.checkBoxEnableStartMenu.Size = new System.Drawing.Size(147, 21);
+            this.checkBoxEnableStartMenu.TabIndex = 23;
+            this.checkBoxEnableStartMenu.Text = "Enable Start Menu";
+            this.checkBoxEnableStartMenu.UseVisualStyleBackColor = true;
             // 
-            // checkBoxRightMouse
+            // checkBoxEnableRightMouse
             // 
-            this.checkBoxRightMouse.AutoSize = true;
-            this.checkBoxRightMouse.Location = new System.Drawing.Point(6, 199);
-            this.checkBoxRightMouse.Name = "checkBoxRightMouse";
-            this.checkBoxRightMouse.Size = new System.Drawing.Size(157, 21);
-            this.checkBoxRightMouse.TabIndex = 24;
-            this.checkBoxRightMouse.Text = "Enable Right Mouse";
-            this.checkBoxRightMouse.UseVisualStyleBackColor = true;
+            this.checkBoxEnableRightMouse.AutoSize = true;
+            this.checkBoxEnableRightMouse.Location = new System.Drawing.Point(6, 199);
+            this.checkBoxEnableRightMouse.Name = "checkBoxEnableRightMouse";
+            this.checkBoxEnableRightMouse.Size = new System.Drawing.Size(157, 21);
+            this.checkBoxEnableRightMouse.TabIndex = 24;
+            this.checkBoxEnableRightMouse.Text = "Enable Right Mouse";
+            this.checkBoxEnableRightMouse.UseVisualStyleBackColor = true;
             // 
             // openFileDialogSebStarterIni
             // 
             this.openFileDialogSebStarterIni.FileName = "openFileDialogSebStarterIni";
+            // 
+            // openFileDialogMsgHookIni
+            // 
+            this.openFileDialogMsgHookIni.FileName = "openFileDialogMsgHookIni";
             // 
             // SebWindowsConfigForm
             // 
@@ -1319,31 +1325,31 @@
         private System.Windows.Forms.TextBox textBoxExamUrl;
         private System.Windows.Forms.Label labelPermittedApplications;
         private System.Windows.Forms.TextBox textBoxPermittedApplications;
-        private System.Windows.Forms.CheckBox checkBoxCtrlEsc;
-        private System.Windows.Forms.CheckBox checkBoxAltEsc;
-        private System.Windows.Forms.CheckBox checkBoxAltTab;
-        private System.Windows.Forms.CheckBox checkBoxAltF4;
-        private System.Windows.Forms.CheckBox checkBoxStartMenu;
-        private System.Windows.Forms.CheckBox checkBoxRightMouse;
-        private System.Windows.Forms.CheckBox checkBoxF1;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBoxF9;
-        private System.Windows.Forms.CheckBox checkBoxF8;
-        private System.Windows.Forms.CheckBox checkBoxF7;
-        private System.Windows.Forms.CheckBox checkBoxF6;
-        private System.Windows.Forms.CheckBox checkBoxF5;
-        private System.Windows.Forms.CheckBox checkBoxF4;
-        private System.Windows.Forms.CheckBox checkBoxF3;
-        private System.Windows.Forms.CheckBox checkBoxF2;
-        private System.Windows.Forms.CheckBox checkBoxF12;
-        private System.Windows.Forms.CheckBox checkBoxF11;
+        private System.Windows.Forms.CheckBox checkBoxEnableCtrlEsc;
+        private System.Windows.Forms.CheckBox checkBoxEnableAltEsc;
+        private System.Windows.Forms.CheckBox checkBoxEnableAltTab;
+        private System.Windows.Forms.CheckBox checkBoxEnableAltF4;
+        private System.Windows.Forms.CheckBox checkBoxEnableStartMenu;
+        private System.Windows.Forms.CheckBox checkBoxEnableRightMouse;
+        private System.Windows.Forms.CheckBox checkBoxEnableF1;
+        private System.Windows.Forms.CheckBox checkBoxEnableF10;
+        private System.Windows.Forms.CheckBox checkBoxEnableF9;
+        private System.Windows.Forms.CheckBox checkBoxEnableF8;
+        private System.Windows.Forms.CheckBox checkBoxEnableF7;
+        private System.Windows.Forms.CheckBox checkBoxEnableF6;
+        private System.Windows.Forms.CheckBox checkBoxEnableF5;
+        private System.Windows.Forms.CheckBox checkBoxEnableF4;
+        private System.Windows.Forms.CheckBox checkBoxEnableF3;
+        private System.Windows.Forms.CheckBox checkBoxEnableF2;
+        private System.Windows.Forms.CheckBox checkBoxEnableF12;
+        private System.Windows.Forms.CheckBox checkBoxEnableF11;
         private System.Windows.Forms.GroupBox groupBoxRegistryValues;
         private System.Windows.Forms.GroupBox groupBoxOnlineExam;
         private System.Windows.Forms.GroupBox groupBoxSebStarterIni;
         private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
         private System.Windows.Forms.GroupBox groupBoxSpecialKeys;
         private System.Windows.Forms.GroupBox groupBoxMsgHookIni;
-        private System.Windows.Forms.CheckBox checkBoxEsc;
+        private System.Windows.Forms.CheckBox checkBoxEnableEsc;
         private System.Windows.Forms.CheckBox checkBoxWriteLogFileMsgHookLog;
         private System.Windows.Forms.CheckBox checkBoxWriteLogFileSebStarterLog;
         private System.Windows.Forms.CheckBox checkBoxForceWindowsService;
@@ -1398,6 +1404,8 @@
         private System.Windows.Forms.RadioButton radioButtonKey3F3;
         private System.Windows.Forms.RadioButton radioButtonKey3F2;
         private System.Windows.Forms.RadioButton radioButtonKey3F1;
+        private System.Windows.Forms.OpenFileDialog openFileDialogMsgHookIni;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogMsgHookIni;
     }
 }
 
