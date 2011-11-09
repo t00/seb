@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1D263494F3054E17BF498DBF6FC26837"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_27F091F3D6004A7398C9A55783069630"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -28,18 +22,6 @@
         "Entry"
         {
         "MsmKey" = "8:_2F781351D84142A3B90B16EEDFEEF307"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_39C26720E3E3495286C73F043A893E75"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_493EE3A2330D4FF4B5BAA25601E01528"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -282,26 +264,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1D263494F3054E17BF498DBF6FC26837"
-            {
-            "SourcePath" = "8:SebStarter.bat"
-            "TargetName" = "8:SebStarter.bat"
-            "Tag" = "8:"
-            "Folder" = "8:_082CE6E63686411FB52ED9065F47C75E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27F091F3D6004A7398C9A55783069630"
             {
             "SourcePath" = "8:..\\SebWindowsClient\\MsgHook\\MsgHook.ini"
@@ -339,46 +301,6 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_39C26720E3E3495286C73F043A893E75"
-            {
-            "SourcePath" = "8:..\\SebWindowsBanner.bmp"
-            "TargetName" = "8:SebWindowsBanner.bmp"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_493EE3A2330D4FF4B5BAA25601E01528"
-            {
-            "SourcePath" = "8:..\\SebWindowsClient\\SebStarter\\SebStarter.bat"
-            "TargetName" = "8:SebStarter.bat"
-            "Tag" = "8:"
-            "Folder" = "8:_082CE6E63686411FB52ED9065F47C75E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
@@ -429,6 +351,11 @@
             "AssemblyAsmDisplayName" = "8:Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
+                    {
+                    "Name" = "8:Ionic.Zip.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Ionic.Zip.dll"
             "TargetName" = "8:"
@@ -672,7 +599,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.8"
         "ProductCode" = "8:{0538D745-51CF-4EF2-8F30-69FAC95CADA2}"
-        "PackageCode" = "8:{3A46541A-3677-4841-9427-AF13CC2CEC15}"
+        "PackageCode" = "8:{036E1984-DFC3-4746-BC0E-EB09AFC85B32}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -848,7 +775,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_39C26720E3E3495286C73F043A893E75"
+                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -899,7 +826,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_39C26720E3E3495286C73F043A893E75"
+                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -948,7 +875,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_39C26720E3E3495286C73F043A893E75"
+                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -984,7 +911,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_39C26720E3E3495286C73F043A893E75"
+                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "EulaText"
@@ -1032,7 +959,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_39C26720E3E3495286C73F043A893E75"
+                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -1064,7 +991,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_39C26720E3E3495286C73F043A893E75"
+                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
