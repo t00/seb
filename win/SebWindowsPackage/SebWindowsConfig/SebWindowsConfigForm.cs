@@ -21,13 +21,13 @@ namespace SebWindowsConfig
         const int IND_GroupNum  = 7;
 
         // Group indices
-        const int IND_RegistryValues   = 1;
-        const int IND_SecurityOptions  = 2;
-        const int IND_SpecialKeys      = 3;
-        const int IND_FunctionKeys     = 4;
-        const int IND_Key1             = 5;
-        const int IND_Key2             = 6;
-        const int IND_Key3             = 7;
+        const int IND_RegistryValues  = 1;
+        const int IND_SecurityOptions = 2;
+        const int IND_SpecialKeys     = 3;
+        const int IND_FunctionKeys    = 4;
+        const int IND_ExitKey1        = 5;
+        const int IND_ExitKey2        = 6;
+        const int IND_ExitKey3        = 7;
 
 
         // Each group contains up to 12 settings
@@ -175,6 +175,14 @@ namespace SebWindowsConfig
         String oldStringB3 = "";
         String newStringB3 = "";
         String msgStringB3 = "";
+
+        int oldIndexExitKey1 = 0;
+        int oldIndexExitKey2 = 0;
+        int oldIndexExitKey3 = 0;
+
+        int newIndexExitKey1 = 0;
+        int newIndexExitKey2 = 0;
+        int newIndexExitKey3 = 0;
 
         String       stringPathSebStarterIni = "";
         String       stringPathMsgHookIni    = "";
@@ -390,6 +398,7 @@ namespace SebWindowsConfig
                 while ((line = streamReaderMsgHookIni.ReadLine()) != null) 
                 {
                     Console.WriteLine(line);
+                    //textBoxDebug.Text = line;
 
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (line.Contains("="))
@@ -415,20 +424,24 @@ namespace SebWindowsConfig
                         if (leftSide.Equals(msgStringB1))
                         {
                             newStringB1 = rightSide;
-                            //textBoxDebug.Text = newStringB1;
                         }
 
                         if (leftSide.Equals(msgStringB2))
+                        {
                             newStringB2 = rightSide;
+                        }
 
                         if (leftSide.Equals(msgStringB3))
+                        {
                             newStringB3 = rightSide;
+                        }
 
                     } // end if line.Contains("=")
                 } // end while
 
                 // Close the StreamReader
-                streamReaderSebStarterIni.Close();
+                streamReaderMsgHookIni.Close();
+
 
                 // Assign the settings from the MsgHook.ini file to the widgets
                 checkBoxEnableEsc       .Checked = newSetting[IND_SpecialKeys, IND_EnableEsc];
@@ -453,13 +466,11 @@ namespace SebWindowsConfig
                 checkBoxEnableF12.Checked = newSetting[IND_FunctionKeys, IND_EnableF12];
 
                 // Convert the B1, B2, B3 strings to integers and booleans
-                textBoxDebug.Text = newStringB1;
-
-                if (newStringB1 == "114")
+                if (newStringB1.Equals("114"))
                 {
-                    int Key = 1;
-                    int F   = 3;
                     radioButtonKey1F3.Checked = true;
+                    listBoxExitKey1.SelectedIndex = 2;   // 3 - 1 = 2
+                    newSetting[IND_ExitKey1, 3] = true;
                 }
 
             } // end try
@@ -673,6 +684,53 @@ namespace SebWindowsConfig
         }
 
 
+        // Group Exit sequence
+
+        private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            oldIndexExitKey1 = newIndexExitKey1;
+            newIndexExitKey1 =  listBoxExitKey1.SelectedIndex + 1;
+
+            int  indexGroup   = IND_ExitKey1;
+            int  indexSetting = IND_SettingNone;
+            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+            {
+                oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
+                newSetting[indexGroup, indexSetting] = (indexSetting == newIndexExitKey1);
+            }
+        }
+
+
+        private void listBoxExitKey2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            oldIndexExitKey2 = newIndexExitKey2;
+            newIndexExitKey2 =  listBoxExitKey2.SelectedIndex + 1;
+
+            int  indexGroup   = IND_ExitKey2;
+            int  indexSetting = IND_SettingNone;
+            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+            {
+                oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
+                newSetting[indexGroup, indexSetting] = (indexSetting == newIndexExitKey2);
+            }
+        }
+
+
+        private void listBoxExitKey3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            oldIndexExitKey3 = newIndexExitKey3;
+            newIndexExitKey3 =  listBoxExitKey3.SelectedIndex + 1;
+
+            int  indexGroup   = IND_ExitKey3;
+            int  indexSetting = IND_SettingNone;
+            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+            {
+                oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
+                newSetting[indexGroup, indexSetting] = (indexSetting == newIndexExitKey3);
+            }
+        }
+
+
 
         // ***************************************
         // Restore settings of file SebStarter.ini
@@ -737,6 +795,10 @@ namespace SebWindowsConfig
             newStringB2 = oldStringB2;
             newStringB3 = oldStringB3;
 
+            newIndexExitKey1 = oldIndexExitKey1;
+            newIndexExitKey2 = oldIndexExitKey2;
+            newIndexExitKey3 = oldIndexExitKey3;
+
             // Assign the old settings from the MsgHook.ini file to the widgets again
             checkBoxEnableEsc       .Checked = oldSetting[IND_SpecialKeys, IND_EnableEsc];
             checkBoxEnableCtrlEsc   .Checked = oldSetting[IND_SpecialKeys, IND_EnableCtrlEsc];
@@ -758,6 +820,10 @@ namespace SebWindowsConfig
             checkBoxEnableF10.Checked = oldSetting[IND_FunctionKeys, IND_EnableF10];
             checkBoxEnableF11.Checked = oldSetting[IND_FunctionKeys, IND_EnableF11];
             checkBoxEnableF12.Checked = oldSetting[IND_FunctionKeys, IND_EnableF12];
+
+            listBoxExitKey1.SelectedIndex = oldIndexExitKey1 - 1;
+            listBoxExitKey2.SelectedIndex = oldIndexExitKey2 - 1;
+            listBoxExitKey3.SelectedIndex = oldIndexExitKey3 - 1;
         }
 
 
