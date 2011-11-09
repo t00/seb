@@ -225,12 +225,10 @@ echo -----------------------------------------------------------------
 
 @echo on
 
-copy "%SebMsgHookIniFile%" "%SebInstallDir%"
-copy "%SebStarterIniFile%" "%SebInstallDir%"
-copy "%SebStarterBatFile%" "%SebInstallDir%"
+copy "%SebMsgHookIniFile%" "%SebConfigDir%"
+copy "%SebStarterIniFile%" "%SebConfigDir%"
 
-copy "%SebMsgHookIniFile%" "%SebInstallDir(x86)%"
-copy "%SebStarterIniFile%" "%SebInstallDir(x86)%"
+copy "%SebStarterBatFile%" "%SebInstallDir%"
 copy "%SebStarterBatFile%" "%SebInstallDir(x86)%"
 
 @echo off
