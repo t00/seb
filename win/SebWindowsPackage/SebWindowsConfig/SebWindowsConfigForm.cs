@@ -427,22 +427,26 @@ namespace SebWindowsConfig
                                 Boolean rightBool = false;
                                 if (rightSide.Equals("0")) rightBool = false;
                                 if (rightSide.Equals("1")) rightBool = true;
+                                oldSetting[indexGroup, indexSetting] = rightBool;
                                 newSetting[indexGroup, indexSetting] = rightBool;
                             }
                         }
 
                         if (leftSide.Equals(msgStringB1))
                         {
+                            oldStringB1 = rightSide;
                             newStringB1 = rightSide;
                         }
 
                         if (leftSide.Equals(msgStringB2))
                         {
+                            oldStringB2 = rightSide;
                             newStringB2 = rightSide;
                         }
 
                         if (leftSide.Equals(msgStringB3))
                         {
+                            oldStringB3 = rightSide;
                             newStringB3 = rightSide;
                         }
 
@@ -481,13 +485,22 @@ namespace SebWindowsConfig
                 for (indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
                 {
                     if (newStringB1.Equals(virtualKeyCodeString[indexFunctionKey]))
+                    {
+                        oldIndexExitKeyFirst = indexFunctionKey;
                         newIndexExitKeyFirst = indexFunctionKey;
+                    }
 
                     if (newStringB2.Equals(virtualKeyCodeString[indexFunctionKey]))
+                    {
+                        oldIndexExitKeySecond = indexFunctionKey;
                         newIndexExitKeySecond = indexFunctionKey;
+                    }
 
                     if (newStringB3.Equals(virtualKeyCodeString[indexFunctionKey]))
+                    {
+                        oldIndexExitKeyThird = indexFunctionKey;
                         newIndexExitKeyThird = indexFunctionKey;
+                    }
                 }
 
                 listBoxExitKeyFirst .SelectedIndex = newIndexExitKeyFirst  - 1;
@@ -523,74 +536,42 @@ namespace SebWindowsConfig
 
         private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableSwitchUser;
-            bool booleanChecked = checkBoxEnableSwitchUser.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableSwitchUser] = checkBoxEnableSwitchUser.Checked;
         }
 
         private void checkBoxEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableLockThisComputer;
-            bool booleanChecked = checkBoxEnableLockThisComputer.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableLockThisComputer] = checkBoxEnableLockThisComputer.Checked;
         }
 
         private void checkBoxEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableChangeAPassword;
-            bool booleanChecked = checkBoxEnableChangeAPassword.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableChangeAPassword] = checkBoxEnableChangeAPassword.Checked;
         }
 
         private void checkBoxEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableStartTaskManager;
-            bool booleanChecked = checkBoxEnableStartTaskManager.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableStartTaskManager] = checkBoxEnableStartTaskManager.Checked;
         }
 
         private void checkBoxEnableLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableLogOff;
-            bool booleanChecked = checkBoxEnableLogOff.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableLogOff] = checkBoxEnableLogOff.Checked;
         }
 
         private void checkBoxEnableShutDown_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableShutDown;
-            bool booleanChecked = checkBoxEnableShutDown.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableShutDown] = checkBoxEnableShutDown.Checked;
         }
 
         private void checkBoxEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableEaseOfAccess;
-            bool booleanChecked = checkBoxEnableEaseOfAccess.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableEaseOfAccess] = checkBoxEnableEaseOfAccess.Checked;
         }
 
         private void checkBoxEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_RegistryValues;
-            int    indexSetting = IND_EnableVmWareClientShade;
-            bool booleanChecked = checkBoxEnableVmWareClientShade.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_RegistryValues, IND_EnableVmWareClientShade] = checkBoxEnableVmWareClientShade.Checked;
         }
 
 
@@ -598,83 +579,47 @@ namespace SebWindowsConfig
 
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_AllowVirtualMachine;
-            bool booleanChecked = checkBoxAllowVirtualMachine.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_AllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
         }
 
         private void checkBoxForceWindowsService_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_ForceWindowsService;
-            bool booleanChecked = checkBoxForceWindowsService.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_ForceWindowsService] = checkBoxForceWindowsService.Checked;
         }
 
         private void checkBoxWriteLogFileSebStarterLog_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_WriteLogFileSebStarterLog;
-            bool booleanChecked = checkBoxWriteLogFileSebStarterLog.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_WriteLogFileSebStarterLog] = checkBoxWriteLogFileSebStarterLog.Checked;
         }
 
         private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_CreateNewDesktop;
-            bool booleanChecked = checkBoxCreateNewDesktop.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_CreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
         }
 
         private void checkBoxShowSebApplicationChooser_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_ShowSebApplicationChooser;
-            bool booleanChecked = checkBoxShowSebApplicationChooser.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_ShowSebApplicationChooser] = checkBoxShowSebApplicationChooser.Checked;
         }
 
         private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_HookMessages;
-            bool booleanChecked = checkBoxHookMessages.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_HookMessages] = checkBoxHookMessages.Checked;
         }
 
         private void checkBoxEditRegistry_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_EditRegistry;
-            bool booleanChecked = checkBoxEditRegistry.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_EditRegistry] = checkBoxEditRegistry.Checked;
         }
 
         private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_MonitorProcesses;
-            bool booleanChecked = checkBoxMonitorProcesses.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_MonitorProcesses] = checkBoxMonitorProcesses.Checked;
         }
 
-        private void checkBoxShutdownAfterAutostartProcessTerminates_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxShutdownAfterAutostart_CheckedChanged(object sender, EventArgs e)
         {
-            int    indexGroup   = IND_SecurityOptions;
-            int    indexSetting = IND_ShutdownAfterAutostart;
-            bool booleanChecked = checkBoxShutdownAfterAutostart.Checked;
-            oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-            newSetting[indexGroup, indexSetting] = booleanChecked;
+            newSetting[IND_SecurityOptions, IND_ShutdownAfterAutostart] = checkBoxShutdownAfterAutostart.Checked;
         }
 
 
@@ -682,25 +627,21 @@ namespace SebWindowsConfig
 
         private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
         {
-            oldStringSebBrowser = newStringSebBrowser;
             newStringSebBrowser = textBoxSebBrowser.Text;
         }
 
         private void textBoxAutostartProcess_TextChanged(object sender, EventArgs e)
         {
-            oldStringAutostartProcess = newStringAutostartProcess;
             newStringAutostartProcess = textBoxAutostartProcess.Text;
         }
 
         private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
         {
-            oldStringExamUrl = newStringExamUrl;
             newStringExamUrl = textBoxExamUrl.Text;
         }
 
         private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
         {
-            oldStringPermittedApplications = newStringPermittedApplications;
             newStringPermittedApplications = textBoxPermittedApplications.Text;
         }
 
@@ -709,43 +650,36 @@ namespace SebWindowsConfig
 
         private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_SpecialKeys, IND_EnableEsc] = newSetting[IND_SpecialKeys, IND_EnableEsc];
             newSetting[IND_SpecialKeys, IND_EnableEsc] = checkBoxEnableEsc.Checked;
         }
 
         private void checkBoxEnableCtrlEsc_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_SpecialKeys, IND_EnableCtrlEsc] = newSetting[IND_SpecialKeys, IND_EnableCtrlEsc];
             newSetting[IND_SpecialKeys, IND_EnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
         }
 
         private void checkBoxEnableAltEsc_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_SpecialKeys, IND_EnableAltEsc] = newSetting[IND_SpecialKeys, IND_EnableAltEsc];
             newSetting[IND_SpecialKeys, IND_EnableAltEsc] = checkBoxEnableAltEsc.Checked;
         }
 
         private void checkBoxEnableAltTab_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_SpecialKeys, IND_EnableAltTab] = newSetting[IND_SpecialKeys, IND_EnableAltTab];
             newSetting[IND_SpecialKeys, IND_EnableAltTab] = checkBoxEnableAltTab.Checked;
         }
 
         private void checkBoxEnableAltF4_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_SpecialKeys, IND_EnableAltF4] = newSetting[IND_SpecialKeys, IND_EnableAltF4];
             newSetting[IND_SpecialKeys, IND_EnableAltF4] = checkBoxEnableAltF4.Checked;
         }
 
         private void checkBoxEnableStartMenu_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_SpecialKeys, IND_EnableStartMenu] = newSetting[IND_SpecialKeys, IND_EnableStartMenu];
             newSetting[IND_SpecialKeys, IND_EnableStartMenu] = checkBoxEnableStartMenu.Checked;
         }
 
         private void checkBoxEnableRightMouse_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_SpecialKeys, IND_EnableRightMouse] = newSetting[IND_SpecialKeys, IND_EnableRightMouse];
             newSetting[IND_SpecialKeys, IND_EnableRightMouse] = checkBoxEnableRightMouse.Checked;
         }
 
@@ -754,73 +688,61 @@ namespace SebWindowsConfig
 
         private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF1] = newSetting[IND_FunctionKeys, IND_EnableF1];
             newSetting[IND_FunctionKeys, IND_EnableF1] = checkBoxEnableF1.Checked;
         }
 
         private void checkBoxEnableF2_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF2] = newSetting[IND_FunctionKeys, IND_EnableF2];
             newSetting[IND_FunctionKeys, IND_EnableF2] = checkBoxEnableF2.Checked;
         }
 
         private void checkBoxEnableF3_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF3] = newSetting[IND_FunctionKeys, IND_EnableF3];
             newSetting[IND_FunctionKeys, IND_EnableF3] = checkBoxEnableF3.Checked;
         }
 
         private void checkBoxEnableF4_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF4] = newSetting[IND_FunctionKeys, IND_EnableF4];
             newSetting[IND_FunctionKeys, IND_EnableF4] = checkBoxEnableF4.Checked;
         }
 
         private void checkBoxEnableF5_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF5] = newSetting[IND_FunctionKeys, IND_EnableF5];
             newSetting[IND_FunctionKeys, IND_EnableF5] = checkBoxEnableF5.Checked;
         }
 
         private void checkBoxEnableF6_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF6] = newSetting[IND_FunctionKeys, IND_EnableF6];
             newSetting[IND_FunctionKeys, IND_EnableF6] = checkBoxEnableF6.Checked;
         }
 
         private void checkBoxEnableF7_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF7] = newSetting[IND_FunctionKeys, IND_EnableF7];
             newSetting[IND_FunctionKeys, IND_EnableF7] = checkBoxEnableF7.Checked;
         }
 
         private void checkBoxEnableF8_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF8] = newSetting[IND_FunctionKeys, IND_EnableF8];
             newSetting[IND_FunctionKeys, IND_EnableF8] = checkBoxEnableF8.Checked;
         }
 
         private void checkBoxEnableF9_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF9] = newSetting[IND_FunctionKeys, IND_EnableF9];
             newSetting[IND_FunctionKeys, IND_EnableF9] = checkBoxEnableF9.Checked;
         }
 
         private void checkBoxEnableF10_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF10] = newSetting[IND_FunctionKeys, IND_EnableF10];
             newSetting[IND_FunctionKeys, IND_EnableF10] = checkBoxEnableF10.Checked;
         }
 
         private void checkBoxEnableF11_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF11] = newSetting[IND_FunctionKeys, IND_EnableF11];
             newSetting[IND_FunctionKeys, IND_EnableF11] = checkBoxEnableF11.Checked;
         }
 
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
-            oldSetting[IND_FunctionKeys, IND_EnableF12] = newSetting[IND_FunctionKeys, IND_EnableF12];
             newSetting[IND_FunctionKeys, IND_EnableF12] = checkBoxEnableF12.Checked;
         }
 
@@ -829,22 +751,19 @@ namespace SebWindowsConfig
 
         private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
-            oldIndexExitKeyFirst = newIndexExitKeyFirst;
-            newIndexExitKeyFirst =  listBoxExitKeyFirst.SelectedIndex + 1;
+            newIndexExitKeyFirst = listBoxExitKeyFirst.SelectedIndex + 1;
         }
 
 
         private void listBoxExitKeySecond_SelectedIndexChanged(object sender, EventArgs e)
         {
-            oldIndexExitKeySecond = newIndexExitKeySecond;
-            newIndexExitKeySecond =  listBoxExitKeySecond.SelectedIndex + 1;
+            newIndexExitKeySecond = listBoxExitKeySecond.SelectedIndex + 1;
         }
 
 
         private void listBoxExitKeyThird_SelectedIndexChanged(object sender, EventArgs e)
         {
-            oldIndexExitKeyThird = newIndexExitKeyThird;
-            newIndexExitKeyThird =  listBoxExitKeyThird.SelectedIndex + 1;
+            newIndexExitKeyThird = listBoxExitKeyThird.SelectedIndex + 1;
         }
 
 
@@ -885,7 +804,7 @@ namespace SebWindowsConfig
             checkBoxHookMessages             .Checked = oldSetting[IND_SecurityOptions, IND_HookMessages];
             checkBoxEditRegistry             .Checked = oldSetting[IND_SecurityOptions, IND_EditRegistry];
             checkBoxMonitorProcesses         .Checked = oldSetting[IND_SecurityOptions, IND_MonitorProcesses];
-            checkBoxShutdownAfterAutostart.Checked = oldSetting[IND_SecurityOptions, IND_ShutdownAfterAutostart];
+            checkBoxShutdownAfterAutostart   .Checked = oldSetting[IND_SecurityOptions, IND_ShutdownAfterAutostart];
 
             textBoxSebBrowser           .Text = oldStringSebBrowser;
             textBoxAutostartProcess     .Text = oldStringAutostartProcess;

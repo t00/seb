@@ -210,7 +210,7 @@
             this.checkBoxShutdownAfterAutostart.TabIndex = 50;
             this.checkBoxShutdownAfterAutostart.Text = "Shutdown after autostart process terminates";
             this.checkBoxShutdownAfterAutostart.UseVisualStyleBackColor = true;
-            this.checkBoxShutdownAfterAutostart.CheckedChanged += new System.EventHandler(this.checkBoxShutdownAfterAutostartProcessTerminates_CheckedChanged);
+            this.checkBoxShutdownAfterAutostart.CheckedChanged += new System.EventHandler(this.checkBoxShutdownAfterAutostart_CheckedChanged);
             // 
             // checkBoxMonitorProcesses
             // 
