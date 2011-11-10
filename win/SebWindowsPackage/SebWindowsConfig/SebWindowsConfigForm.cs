@@ -318,6 +318,7 @@ namespace SebWindowsConfig
                                 Boolean rightBool = false;
                                 if (rightSide.Equals("0")) rightBool = false;
                                 if (rightSide.Equals("1")) rightBool = true;
+                                oldSetting[indexGroup, indexSetting] = rightBool;
                                 newSetting[indexGroup, indexSetting] = rightBool;
                             }
                         }
