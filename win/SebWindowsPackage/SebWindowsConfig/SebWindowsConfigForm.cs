@@ -519,7 +519,7 @@ namespace SebWindowsConfig
         // If the user changes a setting by clicking the checkbox,
         // update the setting in memory for it can be saved on file later.
 
-        // Group Registry values
+        // Group "Registry values"
 
         private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
@@ -594,7 +594,7 @@ namespace SebWindowsConfig
         }
 
 
-        // Group Security options
+        // Group "Security options"
 
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
         {
@@ -678,7 +678,7 @@ namespace SebWindowsConfig
         }
 
 
-        // Group Online exam
+        // Group "Online exam"
 
         private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
         {
@@ -705,7 +705,127 @@ namespace SebWindowsConfig
         }
 
 
-        // Group Exit sequence
+        // Group "Special keys"
+
+        private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_SpecialKeys, IND_EnableEsc] = newSetting[IND_SpecialKeys, IND_EnableEsc];
+            newSetting[IND_SpecialKeys, IND_EnableEsc] = checkBoxEnableEsc.Checked;
+        }
+
+        private void checkBoxEnableCtrlEsc_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_SpecialKeys, IND_EnableCtrlEsc] = newSetting[IND_SpecialKeys, IND_EnableCtrlEsc];
+            newSetting[IND_SpecialKeys, IND_EnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
+        }
+
+        private void checkBoxEnableAltEsc_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_SpecialKeys, IND_EnableAltEsc] = newSetting[IND_SpecialKeys, IND_EnableAltEsc];
+            newSetting[IND_SpecialKeys, IND_EnableAltEsc] = checkBoxEnableAltEsc.Checked;
+        }
+
+        private void checkBoxEnableAltTab_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_SpecialKeys, IND_EnableAltTab] = newSetting[IND_SpecialKeys, IND_EnableAltTab];
+            newSetting[IND_SpecialKeys, IND_EnableAltTab] = checkBoxEnableAltTab.Checked;
+        }
+
+        private void checkBoxEnableAltF4_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_SpecialKeys, IND_EnableAltF4] = newSetting[IND_SpecialKeys, IND_EnableAltF4];
+            newSetting[IND_SpecialKeys, IND_EnableAltF4] = checkBoxEnableAltF4.Checked;
+        }
+
+        private void checkBoxEnableStartMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_SpecialKeys, IND_EnableStartMenu] = newSetting[IND_SpecialKeys, IND_EnableStartMenu];
+            newSetting[IND_SpecialKeys, IND_EnableStartMenu] = checkBoxEnableStartMenu.Checked;
+        }
+
+        private void checkBoxEnableRightMouse_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_SpecialKeys, IND_EnableRightMouse] = newSetting[IND_SpecialKeys, IND_EnableRightMouse];
+            newSetting[IND_SpecialKeys, IND_EnableRightMouse] = checkBoxEnableRightMouse.Checked;
+        }
+
+
+        // Group "Function keys"
+
+        private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF1] = newSetting[IND_FunctionKeys, IND_EnableF1];
+            newSetting[IND_FunctionKeys, IND_EnableF1] = checkBoxEnableF1.Checked;
+        }
+
+        private void checkBoxEnableF2_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF2] = newSetting[IND_FunctionKeys, IND_EnableF2];
+            newSetting[IND_FunctionKeys, IND_EnableF2] = checkBoxEnableF2.Checked;
+        }
+
+        private void checkBoxEnableF3_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF3] = newSetting[IND_FunctionKeys, IND_EnableF3];
+            newSetting[IND_FunctionKeys, IND_EnableF3] = checkBoxEnableF3.Checked;
+        }
+
+        private void checkBoxEnableF4_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF4] = newSetting[IND_FunctionKeys, IND_EnableF4];
+            newSetting[IND_FunctionKeys, IND_EnableF4] = checkBoxEnableF4.Checked;
+        }
+
+        private void checkBoxEnableF5_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF5] = newSetting[IND_FunctionKeys, IND_EnableF5];
+            newSetting[IND_FunctionKeys, IND_EnableF5] = checkBoxEnableF5.Checked;
+        }
+
+        private void checkBoxEnableF6_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF6] = newSetting[IND_FunctionKeys, IND_EnableF6];
+            newSetting[IND_FunctionKeys, IND_EnableF6] = checkBoxEnableF6.Checked;
+        }
+
+        private void checkBoxEnableF7_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF7] = newSetting[IND_FunctionKeys, IND_EnableF7];
+            newSetting[IND_FunctionKeys, IND_EnableF7] = checkBoxEnableF7.Checked;
+        }
+
+        private void checkBoxEnableF8_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF8] = newSetting[IND_FunctionKeys, IND_EnableF8];
+            newSetting[IND_FunctionKeys, IND_EnableF8] = checkBoxEnableF8.Checked;
+        }
+
+        private void checkBoxEnableF9_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF9] = newSetting[IND_FunctionKeys, IND_EnableF9];
+            newSetting[IND_FunctionKeys, IND_EnableF9] = checkBoxEnableF9.Checked;
+        }
+
+        private void checkBoxEnableF10_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF10] = newSetting[IND_FunctionKeys, IND_EnableF10];
+            newSetting[IND_FunctionKeys, IND_EnableF10] = checkBoxEnableF10.Checked;
+        }
+
+        private void checkBoxEnableF11_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF11] = newSetting[IND_FunctionKeys, IND_EnableF11];
+            newSetting[IND_FunctionKeys, IND_EnableF11] = checkBoxEnableF11.Checked;
+        }
+
+        private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
+        {
+            oldSetting[IND_FunctionKeys, IND_EnableF12] = newSetting[IND_FunctionKeys, IND_EnableF12];
+            newSetting[IND_FunctionKeys, IND_EnableF12] = checkBoxEnableF12.Checked;
+        }
+
+
+        // Group "Exit sequence"
 
         private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
