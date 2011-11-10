@@ -323,16 +323,28 @@ namespace SebWindowsConfig
                         }
 
                         if (leftSide.Equals(msgStringSebBrowser))
+                        {
+                            oldStringSebBrowser = rightSide;
                             newStringSebBrowser = rightSide;
+                        }
 
                         if (leftSide.Equals(msgStringAutostartProcess))
+                        {
+                            oldStringAutostartProcess = rightSide;
                             newStringAutostartProcess = rightSide;
+                        }
 
                         if (leftSide.Equals(msgStringExamUrl))
+                        {
+                            oldStringExamUrl = rightSide;
                             newStringExamUrl = rightSide;
+                        }
 
                         if (leftSide.Equals(msgStringPermittedApplications))
+                        {
+                            oldStringPermittedApplications = rightSide;
                             newStringPermittedApplications = rightSide;
+                        }
 
                     } // end if line.Contains("=")
                 } // end while
