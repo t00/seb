@@ -25,10 +25,6 @@ namespace SebWindowsConfig
         const int IND_SecurityOptions = 2;
         const int IND_SpecialKeys     = 3;
         const int IND_FunctionKeys    = 4;
-        const int IND_ExitKey1        = 5;
-        const int IND_ExitKey2        = 6;
-        const int IND_ExitKey3        = 7;
-
 
         // Each group contains up to 12 settings
         const int IND_SettingNone =  0;
@@ -138,7 +134,6 @@ namespace SebWindowsConfig
 
         // Names of settings
         static String[,]  msgString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
-      //static String[,] typeString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
 
         // Values of settings as booleans (true or false)
         static Boolean[,] defSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
@@ -147,6 +142,8 @@ namespace SebWindowsConfig
 
         static Boolean[,]  allowSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
         static Boolean[,] forbidSetting = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
+
+        static String[] virtualKeyCodeString = new String[IND_SettingNum + 1];
 
         String oldStringSebBrowser = "";
         String newStringSebBrowser = "";
@@ -176,13 +173,13 @@ namespace SebWindowsConfig
         String newStringB3 = "";
         String msgStringB3 = "";
 
-        int oldIndexExitKey1 = 0;
-        int oldIndexExitKey2 = 0;
-        int oldIndexExitKey3 = 0;
+        int oldIndexExitKeyFirst  = 0;
+        int oldIndexExitKeySecond = 0;
+        int oldIndexExitKeyThird  = 0;
 
-        int newIndexExitKey1 = 0;
-        int newIndexExitKey2 = 0;
-        int newIndexExitKey3 = 0;
+        int newIndexExitKeyFirst  = 0;
+        int newIndexExitKeySecond = 0;
+        int newIndexExitKeyThird  = 0;
 
         String       stringPathSebStarterIni = "";
         String       stringPathMsgHookIni    = "";
@@ -265,6 +262,19 @@ namespace SebWindowsConfig
             msgStringB1 = MSG_B1;
             msgStringB2 = MSG_B2;
             msgStringB3 = MSG_B3;
+
+            virtualKeyCodeString[1] = "112";
+            virtualKeyCodeString[2] = "113";
+            virtualKeyCodeString[3] = "114";
+            virtualKeyCodeString[4] = "115";
+            virtualKeyCodeString[5] = "116";
+            virtualKeyCodeString[6] = "117";
+            virtualKeyCodeString[7] = "118";
+            virtualKeyCodeString[8] = "119";
+            virtualKeyCodeString[9] = "120";
+            virtualKeyCodeString[10] = "121";
+            virtualKeyCodeString[11] = "122";
+            virtualKeyCodeString[12] = "123";
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -466,12 +476,23 @@ namespace SebWindowsConfig
                 checkBoxEnableF12.Checked = newSetting[IND_FunctionKeys, IND_EnableF12];
 
                 // Convert the B1, B2, B3 strings to integers and booleans
-                if (newStringB1.Equals("114"))
+
+                int  indexFunctionKey;
+                for (indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
                 {
-                    radioButtonKey1F3.Checked = true;
-                    listBoxExitKey1.SelectedIndex = 2;   // 3 - 1 = 2
-                    newSetting[IND_ExitKey1, 3] = true;
+                    if (newStringB1.Equals(virtualKeyCodeString[indexFunctionKey]))
+                        newIndexExitKeyFirst = indexFunctionKey;
+
+                    if (newStringB2.Equals(virtualKeyCodeString[indexFunctionKey]))
+                        newIndexExitKeySecond = indexFunctionKey;
+
+                    if (newStringB3.Equals(virtualKeyCodeString[indexFunctionKey]))
+                        newIndexExitKeyThird = indexFunctionKey;
                 }
+
+                listBoxExitKeyFirst .SelectedIndex = newIndexExitKeyFirst  - 1;
+                listBoxExitKeySecond.SelectedIndex = newIndexExitKeySecond - 1;
+                listBoxExitKeyThird .SelectedIndex = newIndexExitKeyThird  - 1;
 
             } // end try
             catch (Exception streamReadException) 
@@ -686,48 +707,24 @@ namespace SebWindowsConfig
 
         // Group Exit sequence
 
-        private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
-            oldIndexExitKey1 = newIndexExitKey1;
-            newIndexExitKey1 =  listBoxExitKey1.SelectedIndex + 1;
-
-            int  indexGroup   = IND_ExitKey1;
-            int  indexSetting = IND_SettingNone;
-            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
-            {
-                oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-                newSetting[indexGroup, indexSetting] = (indexSetting == newIndexExitKey1);
-            }
+            oldIndexExitKeyFirst = newIndexExitKeyFirst;
+            newIndexExitKeyFirst =  listBoxExitKeyFirst.SelectedIndex + 1;
         }
 
 
-        private void listBoxExitKey2_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxExitKeySecond_SelectedIndexChanged(object sender, EventArgs e)
         {
-            oldIndexExitKey2 = newIndexExitKey2;
-            newIndexExitKey2 =  listBoxExitKey2.SelectedIndex + 1;
-
-            int  indexGroup   = IND_ExitKey2;
-            int  indexSetting = IND_SettingNone;
-            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
-            {
-                oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-                newSetting[indexGroup, indexSetting] = (indexSetting == newIndexExitKey2);
-            }
+            oldIndexExitKeySecond = newIndexExitKeySecond;
+            newIndexExitKeySecond =  listBoxExitKeySecond.SelectedIndex + 1;
         }
 
 
-        private void listBoxExitKey3_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxExitKeyThird_SelectedIndexChanged(object sender, EventArgs e)
         {
-            oldIndexExitKey3 = newIndexExitKey3;
-            newIndexExitKey3 =  listBoxExitKey3.SelectedIndex + 1;
-
-            int  indexGroup   = IND_ExitKey3;
-            int  indexSetting = IND_SettingNone;
-            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
-            {
-                oldSetting[indexGroup, indexSetting] = newSetting[indexGroup, indexSetting];
-                newSetting[indexGroup, indexSetting] = (indexSetting == newIndexExitKey3);
-            }
+            oldIndexExitKeyThird = newIndexExitKeyThird;
+            newIndexExitKeyThird =  listBoxExitKeyThird.SelectedIndex + 1;
         }
 
 
@@ -795,9 +792,9 @@ namespace SebWindowsConfig
             newStringB2 = oldStringB2;
             newStringB3 = oldStringB3;
 
-            newIndexExitKey1 = oldIndexExitKey1;
-            newIndexExitKey2 = oldIndexExitKey2;
-            newIndexExitKey3 = oldIndexExitKey3;
+            newIndexExitKeyFirst  = oldIndexExitKeyFirst;
+            newIndexExitKeySecond = oldIndexExitKeySecond;
+            newIndexExitKeyThird  = oldIndexExitKeyThird;
 
             // Assign the old settings from the MsgHook.ini file to the widgets again
             checkBoxEnableEsc       .Checked = oldSetting[IND_SpecialKeys, IND_EnableEsc];
@@ -821,9 +818,9 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = oldSetting[IND_FunctionKeys, IND_EnableF11];
             checkBoxEnableF12.Checked = oldSetting[IND_FunctionKeys, IND_EnableF12];
 
-            listBoxExitKey1.SelectedIndex = oldIndexExitKey1 - 1;
-            listBoxExitKey2.SelectedIndex = oldIndexExitKey2 - 1;
-            listBoxExitKey3.SelectedIndex = oldIndexExitKey3 - 1;
+            listBoxExitKeyFirst .SelectedIndex = oldIndexExitKeyFirst  - 1;
+            listBoxExitKeySecond.SelectedIndex = oldIndexExitKeySecond - 1;
+            listBoxExitKeyThird .SelectedIndex = oldIndexExitKeyThird  - 1;
         }
 
 

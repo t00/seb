@@ -61,6 +61,10 @@
             this.checkBoxEnableShutDown = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
+            this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
+            this.listBoxExitKeyFirst = new System.Windows.Forms.ListBox();
+            this.listBoxExitKeyThird = new System.Windows.Forms.ListBox();
+            this.listBoxExitKeySecond = new System.Windows.Forms.ListBox();
             this.textBoxDebug = new System.Windows.Forms.TextBox();
             this.buttonRestoreSettingsOfMsgHookIni = new System.Windows.Forms.Button();
             this.groupBoxKey3 = new System.Windows.Forms.GroupBox();
@@ -132,10 +136,6 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogMsgHookIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogMsgHookIni = new System.Windows.Forms.SaveFileDialog();
-            this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
-            this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
-            this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -144,13 +144,13 @@
             this.groupBoxSebStarterIni.SuspendLayout();
             this.groupBoxOnlineExam.SuspendLayout();
             this.groupBoxRegistryValues.SuspendLayout();
+            this.groupBoxExitSequence.SuspendLayout();
             this.groupBoxKey3.SuspendLayout();
             this.groupBoxKey2.SuspendLayout();
             this.groupBoxKey1.SuspendLayout();
             this.groupBoxMsgHookIni.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
-            this.groupBoxExitSequence.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -536,6 +536,87 @@
             this.checkBoxEnableVmWareClientShade.Text = "Enable VMware Client Shade";
             this.checkBoxEnableVmWareClientShade.UseVisualStyleBackColor = true;
             this.checkBoxEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxEnableVmWareClientShade_CheckedChanged);
+            // 
+            // groupBoxExitSequence
+            // 
+            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeyFirst);
+            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeyThird);
+            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeySecond);
+            this.groupBoxExitSequence.Location = new System.Drawing.Point(569, 38);
+            this.groupBoxExitSequence.Name = "groupBoxExitSequence";
+            this.groupBoxExitSequence.Size = new System.Drawing.Size(156, 243);
+            this.groupBoxExitSequence.TabIndex = 51;
+            this.groupBoxExitSequence.TabStop = false;
+            this.groupBoxExitSequence.Text = "Exit sequence";
+            // 
+            // listBoxExitKeyFirst
+            // 
+            this.listBoxExitKeyFirst.FormattingEnabled = true;
+            this.listBoxExitKeyFirst.ItemHeight = 16;
+            this.listBoxExitKeyFirst.Items.AddRange(new object[] {
+            "F1",
+            "F2",
+            "F3",
+            "F4",
+            "F5",
+            "F6",
+            "F7",
+            "F8",
+            "F9",
+            "F10",
+            "F11",
+            "F12"});
+            this.listBoxExitKeyFirst.Location = new System.Drawing.Point(19, 36);
+            this.listBoxExitKeyFirst.Name = "listBoxExitKeyFirst";
+            this.listBoxExitKeyFirst.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKeyFirst.TabIndex = 47;
+            this.listBoxExitKeyFirst.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyFirst_SelectedIndexChanged);
+            // 
+            // listBoxExitKeyThird
+            // 
+            this.listBoxExitKeyThird.FormattingEnabled = true;
+            this.listBoxExitKeyThird.ItemHeight = 16;
+            this.listBoxExitKeyThird.Items.AddRange(new object[] {
+            "F1",
+            "F2",
+            "F3",
+            "F4",
+            "F5",
+            "F6",
+            "F7",
+            "F8",
+            "F9",
+            "F10",
+            "F11",
+            "F12"});
+            this.listBoxExitKeyThird.Location = new System.Drawing.Point(107, 36);
+            this.listBoxExitKeyThird.Name = "listBoxExitKeyThird";
+            this.listBoxExitKeyThird.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKeyThird.TabIndex = 50;
+            this.listBoxExitKeyThird.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyThird_SelectedIndexChanged);
+            // 
+            // listBoxExitKeySecond
+            // 
+            this.listBoxExitKeySecond.FormattingEnabled = true;
+            this.listBoxExitKeySecond.ItemHeight = 16;
+            this.listBoxExitKeySecond.Items.AddRange(new object[] {
+            "F1",
+            "F2",
+            "F3",
+            "F4",
+            "F5",
+            "F6",
+            "F7",
+            "F8",
+            "F9",
+            "F10",
+            "F11",
+            "F12"});
+            this.listBoxExitKeySecond.Location = new System.Drawing.Point(63, 36);
+            this.listBoxExitKeySecond.Name = "listBoxExitKeySecond";
+            this.listBoxExitKeySecond.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKeySecond.TabIndex = 49;
+            this.listBoxExitKeySecond.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeySecond_SelectedIndexChanged);
             // 
             // textBoxDebug
             // 
@@ -1299,87 +1380,6 @@
             // 
             this.saveFileDialogMsgHookIni.FileName = "MsgHook.ini";
             // 
-            // listBoxExitKey1
-            // 
-            this.listBoxExitKey1.FormattingEnabled = true;
-            this.listBoxExitKey1.ItemHeight = 16;
-            this.listBoxExitKey1.Items.AddRange(new object[] {
-            "F1",
-            "F2",
-            "F3",
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "F8",
-            "F9",
-            "F10",
-            "F11",
-            "F12"});
-            this.listBoxExitKey1.Location = new System.Drawing.Point(19, 36);
-            this.listBoxExitKey1.Name = "listBoxExitKey1";
-            this.listBoxExitKey1.Size = new System.Drawing.Size(38, 196);
-            this.listBoxExitKey1.TabIndex = 47;
-            this.listBoxExitKey1.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey1_SelectedIndexChanged);
-            // 
-            // listBoxExitKey2
-            // 
-            this.listBoxExitKey2.FormattingEnabled = true;
-            this.listBoxExitKey2.ItemHeight = 16;
-            this.listBoxExitKey2.Items.AddRange(new object[] {
-            "F1",
-            "F2",
-            "F3",
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "F8",
-            "F9",
-            "F10",
-            "F11",
-            "F12"});
-            this.listBoxExitKey2.Location = new System.Drawing.Point(63, 36);
-            this.listBoxExitKey2.Name = "listBoxExitKey2";
-            this.listBoxExitKey2.Size = new System.Drawing.Size(38, 196);
-            this.listBoxExitKey2.TabIndex = 49;
-            this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
-            // 
-            // listBoxExitKey3
-            // 
-            this.listBoxExitKey3.FormattingEnabled = true;
-            this.listBoxExitKey3.ItemHeight = 16;
-            this.listBoxExitKey3.Items.AddRange(new object[] {
-            "F1",
-            "F2",
-            "F3",
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "F8",
-            "F9",
-            "F10",
-            "F11",
-            "F12"});
-            this.listBoxExitKey3.Location = new System.Drawing.Point(107, 36);
-            this.listBoxExitKey3.Name = "listBoxExitKey3";
-            this.listBoxExitKey3.Size = new System.Drawing.Size(38, 196);
-            this.listBoxExitKey3.TabIndex = 50;
-            this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey3_SelectedIndexChanged);
-            // 
-            // groupBoxExitSequence
-            // 
-            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey1);
-            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey3);
-            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey2);
-            this.groupBoxExitSequence.Location = new System.Drawing.Point(569, 38);
-            this.groupBoxExitSequence.Name = "groupBoxExitSequence";
-            this.groupBoxExitSequence.Size = new System.Drawing.Size(156, 243);
-            this.groupBoxExitSequence.TabIndex = 51;
-            this.groupBoxExitSequence.TabStop = false;
-            this.groupBoxExitSequence.Text = "Exit sequence";
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1402,6 +1402,7 @@
             this.groupBoxOnlineExam.PerformLayout();
             this.groupBoxRegistryValues.ResumeLayout(false);
             this.groupBoxRegistryValues.PerformLayout();
+            this.groupBoxExitSequence.ResumeLayout(false);
             this.groupBoxKey3.ResumeLayout(false);
             this.groupBoxKey3.PerformLayout();
             this.groupBoxKey2.ResumeLayout(false);
@@ -1414,7 +1415,6 @@
             this.groupBoxFunctionKeys.PerformLayout();
             this.groupBoxSpecialKeys.ResumeLayout(false);
             this.groupBoxSpecialKeys.PerformLayout();
-            this.groupBoxExitSequence.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1525,9 +1525,9 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialogMsgHookIni;
         private System.Windows.Forms.Button buttonRestoreSettingsOfMsgHookIni;
         private System.Windows.Forms.TextBox textBoxDebug;
-        private System.Windows.Forms.ListBox listBoxExitKey1;
-        private System.Windows.Forms.ListBox listBoxExitKey3;
-        private System.Windows.Forms.ListBox listBoxExitKey2;
+        private System.Windows.Forms.ListBox listBoxExitKeyFirst;
+        private System.Windows.Forms.ListBox listBoxExitKeyThird;
+        private System.Windows.Forms.ListBox listBoxExitKeySecond;
         private System.Windows.Forms.GroupBox groupBoxExitSequence;
     }
 }
