@@ -17,14 +17,15 @@ namespace SebWindowsConfig
         // The Graphical User Interface contains 7 groups
         const int IND_GroupNone = 0;
         const int IND_GroupMin  = 1;
-        const int IND_GroupMax  = 7;
-        const int IND_GroupNum  = 7;
+        const int IND_GroupMax  = 5;
+        const int IND_GroupNum  = 5;
 
         // Group indices
         const int IND_RegistryValues  = 1;
         const int IND_SecurityOptions = 2;
         const int IND_SpecialKeys     = 3;
         const int IND_FunctionKeys    = 4;
+        const int IND_OtherOptions    = 5;
 
         // Each group contains up to 12 settings
         const int IND_SettingNone =  0;
@@ -54,19 +55,17 @@ namespace SebWindowsConfig
         // Group Security options
         const int IND_AllowVirtualMachine       = 1;
         const int IND_ForceWindowsService       = 2;
-        const int IND_WriteLogFileSebStarterLog = 3;
-        const int IND_CreateNewDesktop          = 4;
-        const int IND_ShowSebApplicationChooser = 5;
-        const int IND_HookMessages              = 6;
-        const int IND_EditRegistry              = 7;
+        const int IND_CreateNewDesktop          = 3;
+        const int IND_ShowSebApplicationChooser = 4;
+        const int IND_HookMessages              = 5;
+        const int IND_EditRegistry              = 6;
+        const int IND_MonitorProcesses          = 7;
         const int IND_ShutdownAfterAutostart    = 8;
-        const int IND_MonitorProcesses          = 9;
-        const int IND_Win9xKillExplorer         = 10;
-        const int IND_Win9xScreenSaverRunning   = 11;
+        const int IND_Win9xKillExplorer         = 9;
+        const int IND_Win9xScreenSaverRunning   = 10;
 
         const String MSG_AllowVirtualMachine       = "AllowVirtualMachine";
         const String MSG_ForceWindowsService       = "ForceWindowsService";
-        const String MSG_WriteLogFileSebStarterLog = "WriteLogFileSebStarterLog";
         const String MSG_CreateNewDesktop          = "CreateNewDesktop";
         const String MSG_ShowSebApplicationChooser = "ShowSebApplicationChooser";
         const String MSG_HookMessages              = "HookMessages";
@@ -128,6 +127,13 @@ namespace SebWindowsConfig
         const String MSG_B1 = "B1";
         const String MSG_B2 = "B2";
         const String MSG_B3 = "B3";
+
+        // Group Other options
+        const int IND_WriteLogFileSebStarterLog = 1;
+        const int IND_WriteLogFileMsgHookLog    = 2;
+
+        const String MSG_WriteLogFileSebStarterLog = "WriteLogFileSebStarterLog";
+        const String MSG_WriteLogFileMsgHookLog    = "WriteLogFileMsgHookLog";
 
 
         // Global variables
@@ -225,7 +231,6 @@ namespace SebWindowsConfig
 
             msgString[IND_SecurityOptions, IND_AllowVirtualMachine      ] = MSG_AllowVirtualMachine;
             msgString[IND_SecurityOptions, IND_ForceWindowsService      ] = MSG_ForceWindowsService;
-            msgString[IND_SecurityOptions, IND_WriteLogFileSebStarterLog] = MSG_WriteLogFileSebStarterLog;
             msgString[IND_SecurityOptions, IND_CreateNewDesktop         ] = MSG_CreateNewDesktop;
             msgString[IND_SecurityOptions, IND_ShowSebApplicationChooser] = MSG_ShowSebApplicationChooser;
             msgString[IND_SecurityOptions, IND_HookMessages             ] = MSG_HookMessages;
@@ -258,6 +263,9 @@ namespace SebWindowsConfig
             msgString[IND_FunctionKeys, IND_EnableF10] = MSG_EnableF10;
             msgString[IND_FunctionKeys, IND_EnableF11] = MSG_EnableF11;
             msgString[IND_FunctionKeys, IND_EnableF12] = MSG_EnableF12;
+
+            msgString[IND_OtherOptions, IND_WriteLogFileSebStarterLog] = MSG_WriteLogFileSebStarterLog;
+            msgString[IND_OtherOptions, IND_WriteLogFileMsgHookLog   ] = MSG_WriteLogFileMsgHookLog;
 
             msgStringB1 = MSG_B1;
             msgStringB2 = MSG_B2;
@@ -365,13 +373,14 @@ namespace SebWindowsConfig
 
                 checkBoxAllowVirtualMachine      .Checked = newSetting[IND_SecurityOptions, IND_AllowVirtualMachine];
                 checkBoxForceWindowsService      .Checked = newSetting[IND_SecurityOptions, IND_ForceWindowsService];
-                checkBoxWriteLogFileSebStarterLog.Checked = newSetting[IND_SecurityOptions, IND_WriteLogFileSebStarterLog];
                 checkBoxCreateNewDesktop         .Checked = newSetting[IND_SecurityOptions, IND_CreateNewDesktop];
                 checkBoxShowSebApplicationChooser.Checked = newSetting[IND_SecurityOptions, IND_ShowSebApplicationChooser];
                 checkBoxHookMessages             .Checked = newSetting[IND_SecurityOptions, IND_HookMessages];
                 checkBoxEditRegistry             .Checked = newSetting[IND_SecurityOptions, IND_EditRegistry];
                 checkBoxMonitorProcesses         .Checked = newSetting[IND_SecurityOptions, IND_MonitorProcesses];
                 checkBoxShutdownAfterAutostart   .Checked = newSetting[IND_SecurityOptions, IND_ShutdownAfterAutostart];
+
+                checkBoxWriteLogFileSebStarterLog.Checked = newSetting[IND_OtherOptions, IND_WriteLogFileSebStarterLog];
 
                 textBoxSebBrowser           .Text = newStringSebBrowser;
                 textBoxAutostartProcess     .Text = newStringAutostartProcess;
@@ -492,6 +501,8 @@ namespace SebWindowsConfig
                 checkBoxEnableF11.Checked = newSetting[IND_FunctionKeys, IND_EnableF11];
                 checkBoxEnableF12.Checked = newSetting[IND_FunctionKeys, IND_EnableF12];
 
+                checkBoxWriteLogFileMsgHookLog.Checked = newSetting[IND_OtherOptions, IND_WriteLogFileMsgHookLog];
+
                 // Convert the B1, B2, B3 strings to integers and booleans
 
                 int  indexFunctionKey;
@@ -545,8 +556,8 @@ namespace SebWindowsConfig
         // If the user changes a setting by clicking the checkbox,
         // update the setting in memory for it can be saved on file later.
 
-        // Group "Registry values"
 
+        // Group "Registry values"
         private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_RegistryValues, IND_EnableSwitchUser] = checkBoxEnableSwitchUser.Checked;
@@ -589,7 +600,6 @@ namespace SebWindowsConfig
 
 
         // Group "Security options"
-
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_SecurityOptions, IND_AllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
@@ -598,11 +608,6 @@ namespace SebWindowsConfig
         private void checkBoxForceWindowsService_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_SecurityOptions, IND_ForceWindowsService] = checkBoxForceWindowsService.Checked;
-        }
-
-        private void checkBoxWriteLogFileSebStarterLog_CheckedChanged(object sender, EventArgs e)
-        {
-            newSetting[IND_SecurityOptions, IND_WriteLogFileSebStarterLog] = checkBoxWriteLogFileSebStarterLog.Checked;
         }
 
         private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
@@ -637,7 +642,6 @@ namespace SebWindowsConfig
 
 
         // Group "Online exam"
-
         private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
         {
             newStringSebBrowser = textBoxSebBrowser.Text;
@@ -660,7 +664,6 @@ namespace SebWindowsConfig
 
 
         // Group "Special keys"
-
         private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_SpecialKeys, IND_EnableEsc] = checkBoxEnableEsc.Checked;
@@ -698,7 +701,6 @@ namespace SebWindowsConfig
 
 
         // Group "Function keys"
-
         private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_FunctionKeys, IND_EnableF1] = checkBoxEnableF1.Checked;
@@ -761,24 +763,32 @@ namespace SebWindowsConfig
 
 
         // Group "Exit sequence"
-
         private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
             newIndexExitKeyFirst = listBoxExitKeyFirst.SelectedIndex + 1;
         }
-
 
         private void listBoxExitKeySecond_SelectedIndexChanged(object sender, EventArgs e)
         {
             newIndexExitKeySecond = listBoxExitKeySecond.SelectedIndex + 1;
         }
 
-
         private void listBoxExitKeyThird_SelectedIndexChanged(object sender, EventArgs e)
         {
             newIndexExitKeyThird = listBoxExitKeyThird.SelectedIndex + 1;
         }
 
+
+        // Other options
+        private void checkBoxWriteLogFileSebStarterLog_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OtherOptions, IND_WriteLogFileSebStarterLog] = checkBoxWriteLogFileSebStarterLog.Checked;
+        }
+
+        private void checkBoxWriteLogFileMsgHookLog_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OtherOptions, IND_WriteLogFileMsgHookLog] = checkBoxWriteLogFileMsgHookLog.Checked;
+        }
 
 
         // ***************************************
@@ -811,13 +821,14 @@ namespace SebWindowsConfig
 
             checkBoxAllowVirtualMachine      .Checked = oldSetting[IND_SecurityOptions, IND_AllowVirtualMachine];
             checkBoxForceWindowsService      .Checked = oldSetting[IND_SecurityOptions, IND_ForceWindowsService];
-            checkBoxWriteLogFileSebStarterLog.Checked = oldSetting[IND_SecurityOptions, IND_WriteLogFileSebStarterLog];
             checkBoxCreateNewDesktop         .Checked = oldSetting[IND_SecurityOptions, IND_CreateNewDesktop];
             checkBoxShowSebApplicationChooser.Checked = oldSetting[IND_SecurityOptions, IND_ShowSebApplicationChooser];
             checkBoxHookMessages             .Checked = oldSetting[IND_SecurityOptions, IND_HookMessages];
             checkBoxEditRegistry             .Checked = oldSetting[IND_SecurityOptions, IND_EditRegistry];
             checkBoxMonitorProcesses         .Checked = oldSetting[IND_SecurityOptions, IND_MonitorProcesses];
             checkBoxShutdownAfterAutostart   .Checked = oldSetting[IND_SecurityOptions, IND_ShutdownAfterAutostart];
+
+            checkBoxWriteLogFileSebStarterLog.Checked = oldSetting[IND_OtherOptions, IND_WriteLogFileSebStarterLog];
 
             textBoxSebBrowser           .Text = oldStringSebBrowser;
             textBoxAutostartProcess     .Text = oldStringAutostartProcess;
@@ -870,12 +881,12 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = oldSetting[IND_FunctionKeys, IND_EnableF11];
             checkBoxEnableF12.Checked = oldSetting[IND_FunctionKeys, IND_EnableF12];
 
+            checkBoxWriteLogFileMsgHookLog.Checked = oldSetting[IND_OtherOptions, IND_WriteLogFileMsgHookLog];
+
             listBoxExitKeyFirst .SelectedIndex = oldIndexExitKeyFirst  - 1;
             listBoxExitKeySecond.SelectedIndex = oldIndexExitKeySecond - 1;
             listBoxExitKeyThird .SelectedIndex = oldIndexExitKeyThird  - 1;
         }
-
-
 
     }
 }

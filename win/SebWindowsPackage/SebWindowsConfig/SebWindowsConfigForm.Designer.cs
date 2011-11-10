@@ -67,45 +67,6 @@
             this.listBoxExitKeySecond = new System.Windows.Forms.ListBox();
             this.textBoxDebug = new System.Windows.Forms.TextBox();
             this.buttonRestoreSettingsOfMsgHookIni = new System.Windows.Forms.Button();
-            this.groupBoxKey3 = new System.Windows.Forms.GroupBox();
-            this.radioButtonKey3F12 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F11 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F10 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F9 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F8 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F7 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F6 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F5 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F4 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F3 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F2 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey3F1 = new System.Windows.Forms.RadioButton();
-            this.groupBoxKey2 = new System.Windows.Forms.GroupBox();
-            this.radioButtonKey2F12 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F11 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F10 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F9 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F8 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F7 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F6 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F5 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F4 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F3 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F2 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey2F1 = new System.Windows.Forms.RadioButton();
-            this.groupBoxKey1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonKey1F12 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F11 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F10 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F9 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F8 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F7 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F6 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F5 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F4 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F3 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F2 = new System.Windows.Forms.RadioButton();
-            this.radioButtonKey1F1 = new System.Windows.Forms.RadioButton();
             this.checkBoxWriteLogFileMsgHookLog = new System.Windows.Forms.CheckBox();
             this.groupBoxMsgHookIni = new System.Windows.Forms.GroupBox();
             this.labelOpenFileMsgHookIni = new System.Windows.Forms.Label();
@@ -145,9 +106,6 @@
             this.groupBoxOnlineExam.SuspendLayout();
             this.groupBoxRegistryValues.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
-            this.groupBoxKey3.SuspendLayout();
-            this.groupBoxKey2.SuspendLayout();
-            this.groupBoxKey1.SuspendLayout();
             this.groupBoxMsgHookIni.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -170,11 +128,6 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBoxExitSequence);
             this.splitContainer1.Panel2.Controls.Add(this.textBoxDebug);
-            this.splitContainer1.Panel2.Controls.Add(this.buttonRestoreSettingsOfMsgHookIni);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBoxKey3);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBoxKey2);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBoxKey1);
-            this.splitContainer1.Panel2.Controls.Add(this.checkBoxWriteLogFileMsgHookLog);
             this.splitContainer1.Panel2.Controls.Add(this.groupBoxMsgHookIni);
             this.splitContainer1.Panel2.Controls.Add(this.groupBoxFunctionKeys);
             this.splitContainer1.Panel2.Controls.Add(this.groupBoxSpecialKeys);
@@ -191,11 +144,10 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxShowSebApplicationChooser);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxWriteLogFileSebStarterLog);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxForceWindowsService);
             this.groupBoxSecurityOptions.Location = new System.Drawing.Point(294, 166);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
-            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(319, 284);
+            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(319, 259);
             this.groupBoxSecurityOptions.TabIndex = 45;
             this.groupBoxSecurityOptions.TabStop = false;
             this.groupBoxSecurityOptions.Text = "Security options";
@@ -204,7 +156,7 @@
             // 
             this.checkBoxShutdownAfterAutostart.AutoSize = true;
             this.checkBoxShutdownAfterAutostart.Enabled = false;
-            this.checkBoxShutdownAfterAutostart.Location = new System.Drawing.Point(6, 253);
+            this.checkBoxShutdownAfterAutostart.Location = new System.Drawing.Point(6, 226);
             this.checkBoxShutdownAfterAutostart.Name = "checkBoxShutdownAfterAutostart";
             this.checkBoxShutdownAfterAutostart.Size = new System.Drawing.Size(309, 21);
             this.checkBoxShutdownAfterAutostart.TabIndex = 50;
@@ -216,7 +168,7 @@
             // 
             this.checkBoxMonitorProcesses.AutoSize = true;
             this.checkBoxMonitorProcesses.Enabled = false;
-            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(6, 226);
+            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(6, 199);
             this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
             this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
             this.checkBoxMonitorProcesses.TabIndex = 49;
@@ -228,7 +180,7 @@
             // 
             this.checkBoxEditRegistry.AutoSize = true;
             this.checkBoxEditRegistry.Enabled = false;
-            this.checkBoxEditRegistry.Location = new System.Drawing.Point(6, 199);
+            this.checkBoxEditRegistry.Location = new System.Drawing.Point(6, 172);
             this.checkBoxEditRegistry.Name = "checkBoxEditRegistry";
             this.checkBoxEditRegistry.Size = new System.Drawing.Size(105, 21);
             this.checkBoxEditRegistry.TabIndex = 48;
@@ -240,7 +192,7 @@
             // 
             this.checkBoxHookMessages.AutoSize = true;
             this.checkBoxHookMessages.Enabled = false;
-            this.checkBoxHookMessages.Location = new System.Drawing.Point(6, 172);
+            this.checkBoxHookMessages.Location = new System.Drawing.Point(6, 145);
             this.checkBoxHookMessages.Name = "checkBoxHookMessages";
             this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
             this.checkBoxHookMessages.TabIndex = 47;
@@ -251,7 +203,7 @@
             // checkBoxShowSebApplicationChooser
             // 
             this.checkBoxShowSebApplicationChooser.AutoSize = true;
-            this.checkBoxShowSebApplicationChooser.Location = new System.Drawing.Point(6, 145);
+            this.checkBoxShowSebApplicationChooser.Location = new System.Drawing.Point(6, 118);
             this.checkBoxShowSebApplicationChooser.Name = "checkBoxShowSebApplicationChooser";
             this.checkBoxShowSebApplicationChooser.Size = new System.Drawing.Size(222, 21);
             this.checkBoxShowSebApplicationChooser.TabIndex = 46;
@@ -262,7 +214,7 @@
             // checkBoxCreateNewDesktop
             // 
             this.checkBoxCreateNewDesktop.AutoSize = true;
-            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(6, 118);
+            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(6, 91);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
             this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
             this.checkBoxCreateNewDesktop.TabIndex = 45;
@@ -284,7 +236,7 @@
             // checkBoxWriteLogFileSebStarterLog
             // 
             this.checkBoxWriteLogFileSebStarterLog.AutoSize = true;
-            this.checkBoxWriteLogFileSebStarterLog.Location = new System.Drawing.Point(6, 90);
+            this.checkBoxWriteLogFileSebStarterLog.Location = new System.Drawing.Point(373, 48);
             this.checkBoxWriteLogFileSebStarterLog.Name = "checkBoxWriteLogFileSebStarterLog";
             this.checkBoxWriteLogFileSebStarterLog.Size = new System.Drawing.Size(199, 21);
             this.checkBoxWriteLogFileSebStarterLog.TabIndex = 42;
@@ -308,9 +260,10 @@
             this.groupBoxSebStarterIni.Controls.Add(this.labelOpenFileSebStarterIni);
             this.groupBoxSebStarterIni.Controls.Add(this.labelSaveFileSebStarterIni);
             this.groupBoxSebStarterIni.Controls.Add(this.buttonRestoreSettingsOfSebStarterIni);
+            this.groupBoxSebStarterIni.Controls.Add(this.checkBoxWriteLogFileSebStarterLog);
             this.groupBoxSebStarterIni.Location = new System.Drawing.Point(24, 38);
             this.groupBoxSebStarterIni.Name = "groupBoxSebStarterIni";
-            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(352, 100);
+            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(589, 100);
             this.groupBoxSebStarterIni.TabIndex = 26;
             this.groupBoxSebStarterIni.TabStop = false;
             this.groupBoxSebStarterIni.Text = "SebStarter.ini";
@@ -444,7 +397,7 @@
             this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableVmWareClientShade);
             this.groupBoxRegistryValues.Location = new System.Drawing.Point(24, 166);
             this.groupBoxRegistryValues.Name = "groupBoxRegistryValues";
-            this.groupBoxRegistryValues.Size = new System.Drawing.Size(264, 270);
+            this.groupBoxRegistryValues.Size = new System.Drawing.Size(264, 259);
             this.groupBoxRegistryValues.TabIndex = 24;
             this.groupBoxRegistryValues.TabStop = false;
             this.groupBoxRegistryValues.Text = "Registry values";
@@ -542,7 +495,7 @@
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeyFirst);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeyThird);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeySecond);
-            this.groupBoxExitSequence.Location = new System.Drawing.Point(569, 38);
+            this.groupBoxExitSequence.Location = new System.Drawing.Point(360, 166);
             this.groupBoxExitSequence.Name = "groupBoxExitSequence";
             this.groupBoxExitSequence.Size = new System.Drawing.Size(156, 243);
             this.groupBoxExitSequence.TabIndex = 51;
@@ -620,14 +573,14 @@
             // 
             // textBoxDebug
             // 
-            this.textBoxDebug.Location = new System.Drawing.Point(22, 528);
+            this.textBoxDebug.Location = new System.Drawing.Point(22, 569);
             this.textBoxDebug.Name = "textBoxDebug";
             this.textBoxDebug.Size = new System.Drawing.Size(419, 22);
             this.textBoxDebug.TabIndex = 46;
             // 
             // buttonRestoreSettingsOfMsgHookIni
             // 
-            this.buttonRestoreSettingsOfMsgHookIni.Location = new System.Drawing.Point(272, 419);
+            this.buttonRestoreSettingsOfMsgHookIni.Location = new System.Drawing.Point(185, 21);
             this.buttonRestoreSettingsOfMsgHookIni.Name = "buttonRestoreSettingsOfMsgHookIni";
             this.buttonRestoreSettingsOfMsgHookIni.Size = new System.Drawing.Size(139, 72);
             this.buttonRestoreSettingsOfMsgHookIni.TabIndex = 45;
@@ -635,482 +588,26 @@
             this.buttonRestoreSettingsOfMsgHookIni.UseVisualStyleBackColor = true;
             this.buttonRestoreSettingsOfMsgHookIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfMsgHookIni_Click);
             // 
-            // groupBoxKey3
-            // 
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F12);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F11);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F10);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F9);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F8);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F7);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F6);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F5);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F4);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F3);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F2);
-            this.groupBoxKey3.Controls.Add(this.radioButtonKey3F1);
-            this.groupBoxKey3.Location = new System.Drawing.Point(498, 38);
-            this.groupBoxKey3.Name = "groupBoxKey3";
-            this.groupBoxKey3.Size = new System.Drawing.Size(63, 362);
-            this.groupBoxKey3.TabIndex = 44;
-            this.groupBoxKey3.TabStop = false;
-            this.groupBoxKey3.Text = "Key 3";
-            // 
-            // radioButtonKey3F12
-            // 
-            this.radioButtonKey3F12.AutoSize = true;
-            this.radioButtonKey3F12.Location = new System.Drawing.Point(6, 333);
-            this.radioButtonKey3F12.Name = "radioButtonKey3F12";
-            this.radioButtonKey3F12.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey3F12.TabIndex = 11;
-            this.radioButtonKey3F12.TabStop = true;
-            this.radioButtonKey3F12.Text = "F12";
-            this.radioButtonKey3F12.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F11
-            // 
-            this.radioButtonKey3F11.AutoSize = true;
-            this.radioButtonKey3F11.Location = new System.Drawing.Point(6, 305);
-            this.radioButtonKey3F11.Name = "radioButtonKey3F11";
-            this.radioButtonKey3F11.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey3F11.TabIndex = 10;
-            this.radioButtonKey3F11.TabStop = true;
-            this.radioButtonKey3F11.Text = "F11";
-            this.radioButtonKey3F11.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F10
-            // 
-            this.radioButtonKey3F10.AutoSize = true;
-            this.radioButtonKey3F10.Location = new System.Drawing.Point(6, 279);
-            this.radioButtonKey3F10.Name = "radioButtonKey3F10";
-            this.radioButtonKey3F10.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey3F10.TabIndex = 9;
-            this.radioButtonKey3F10.TabStop = true;
-            this.radioButtonKey3F10.Text = "F10";
-            this.radioButtonKey3F10.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F9
-            // 
-            this.radioButtonKey3F9.AutoSize = true;
-            this.radioButtonKey3F9.Location = new System.Drawing.Point(6, 252);
-            this.radioButtonKey3F9.Name = "radioButtonKey3F9";
-            this.radioButtonKey3F9.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F9.TabIndex = 8;
-            this.radioButtonKey3F9.TabStop = true;
-            this.radioButtonKey3F9.Text = "F9";
-            this.radioButtonKey3F9.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F8
-            // 
-            this.radioButtonKey3F8.AutoSize = true;
-            this.radioButtonKey3F8.Location = new System.Drawing.Point(6, 225);
-            this.radioButtonKey3F8.Name = "radioButtonKey3F8";
-            this.radioButtonKey3F8.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F8.TabIndex = 7;
-            this.radioButtonKey3F8.TabStop = true;
-            this.radioButtonKey3F8.Text = "F8";
-            this.radioButtonKey3F8.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F7
-            // 
-            this.radioButtonKey3F7.AutoSize = true;
-            this.radioButtonKey3F7.Location = new System.Drawing.Point(6, 198);
-            this.radioButtonKey3F7.Name = "radioButtonKey3F7";
-            this.radioButtonKey3F7.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F7.TabIndex = 6;
-            this.radioButtonKey3F7.TabStop = true;
-            this.radioButtonKey3F7.Text = "F7";
-            this.radioButtonKey3F7.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F6
-            // 
-            this.radioButtonKey3F6.AutoSize = true;
-            this.radioButtonKey3F6.Location = new System.Drawing.Point(6, 171);
-            this.radioButtonKey3F6.Name = "radioButtonKey3F6";
-            this.radioButtonKey3F6.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F6.TabIndex = 5;
-            this.radioButtonKey3F6.TabStop = true;
-            this.radioButtonKey3F6.Text = "F6";
-            this.radioButtonKey3F6.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F5
-            // 
-            this.radioButtonKey3F5.AutoSize = true;
-            this.radioButtonKey3F5.Location = new System.Drawing.Point(6, 144);
-            this.radioButtonKey3F5.Name = "radioButtonKey3F5";
-            this.radioButtonKey3F5.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F5.TabIndex = 4;
-            this.radioButtonKey3F5.TabStop = true;
-            this.radioButtonKey3F5.Text = "F5";
-            this.radioButtonKey3F5.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F4
-            // 
-            this.radioButtonKey3F4.AutoSize = true;
-            this.radioButtonKey3F4.Location = new System.Drawing.Point(6, 117);
-            this.radioButtonKey3F4.Name = "radioButtonKey3F4";
-            this.radioButtonKey3F4.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F4.TabIndex = 3;
-            this.radioButtonKey3F4.TabStop = true;
-            this.radioButtonKey3F4.Text = "F4";
-            this.radioButtonKey3F4.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F3
-            // 
-            this.radioButtonKey3F3.AutoSize = true;
-            this.radioButtonKey3F3.Location = new System.Drawing.Point(6, 90);
-            this.radioButtonKey3F3.Name = "radioButtonKey3F3";
-            this.radioButtonKey3F3.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F3.TabIndex = 2;
-            this.radioButtonKey3F3.TabStop = true;
-            this.radioButtonKey3F3.Text = "F3";
-            this.radioButtonKey3F3.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F2
-            // 
-            this.radioButtonKey3F2.AutoSize = true;
-            this.radioButtonKey3F2.Location = new System.Drawing.Point(6, 63);
-            this.radioButtonKey3F2.Name = "radioButtonKey3F2";
-            this.radioButtonKey3F2.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F2.TabIndex = 1;
-            this.radioButtonKey3F2.TabStop = true;
-            this.radioButtonKey3F2.Text = "F2";
-            this.radioButtonKey3F2.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey3F1
-            // 
-            this.radioButtonKey3F1.AutoSize = true;
-            this.radioButtonKey3F1.Location = new System.Drawing.Point(6, 36);
-            this.radioButtonKey3F1.Name = "radioButtonKey3F1";
-            this.radioButtonKey3F1.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey3F1.TabIndex = 0;
-            this.radioButtonKey3F1.TabStop = true;
-            this.radioButtonKey3F1.Text = "F1";
-            this.radioButtonKey3F1.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxKey2
-            // 
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F12);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F11);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F10);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F9);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F8);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F7);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F6);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F5);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F4);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F3);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F2);
-            this.groupBoxKey2.Controls.Add(this.radioButtonKey2F1);
-            this.groupBoxKey2.Location = new System.Drawing.Point(429, 38);
-            this.groupBoxKey2.Name = "groupBoxKey2";
-            this.groupBoxKey2.Size = new System.Drawing.Size(63, 362);
-            this.groupBoxKey2.TabIndex = 43;
-            this.groupBoxKey2.TabStop = false;
-            this.groupBoxKey2.Text = "Key 2";
-            // 
-            // radioButtonKey2F12
-            // 
-            this.radioButtonKey2F12.AutoSize = true;
-            this.radioButtonKey2F12.Location = new System.Drawing.Point(6, 333);
-            this.radioButtonKey2F12.Name = "radioButtonKey2F12";
-            this.radioButtonKey2F12.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey2F12.TabIndex = 11;
-            this.radioButtonKey2F12.TabStop = true;
-            this.radioButtonKey2F12.Text = "F12";
-            this.radioButtonKey2F12.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F11
-            // 
-            this.radioButtonKey2F11.AutoSize = true;
-            this.radioButtonKey2F11.Location = new System.Drawing.Point(6, 305);
-            this.radioButtonKey2F11.Name = "radioButtonKey2F11";
-            this.radioButtonKey2F11.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey2F11.TabIndex = 10;
-            this.radioButtonKey2F11.TabStop = true;
-            this.radioButtonKey2F11.Text = "F11";
-            this.radioButtonKey2F11.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F10
-            // 
-            this.radioButtonKey2F10.AutoSize = true;
-            this.radioButtonKey2F10.Location = new System.Drawing.Point(6, 279);
-            this.radioButtonKey2F10.Name = "radioButtonKey2F10";
-            this.radioButtonKey2F10.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey2F10.TabIndex = 9;
-            this.radioButtonKey2F10.TabStop = true;
-            this.radioButtonKey2F10.Text = "F10";
-            this.radioButtonKey2F10.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F9
-            // 
-            this.radioButtonKey2F9.AutoSize = true;
-            this.radioButtonKey2F9.Location = new System.Drawing.Point(6, 252);
-            this.radioButtonKey2F9.Name = "radioButtonKey2F9";
-            this.radioButtonKey2F9.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F9.TabIndex = 8;
-            this.radioButtonKey2F9.TabStop = true;
-            this.radioButtonKey2F9.Text = "F9";
-            this.radioButtonKey2F9.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F8
-            // 
-            this.radioButtonKey2F8.AutoSize = true;
-            this.radioButtonKey2F8.Location = new System.Drawing.Point(6, 225);
-            this.radioButtonKey2F8.Name = "radioButtonKey2F8";
-            this.radioButtonKey2F8.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F8.TabIndex = 7;
-            this.radioButtonKey2F8.TabStop = true;
-            this.radioButtonKey2F8.Text = "F8";
-            this.radioButtonKey2F8.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F7
-            // 
-            this.radioButtonKey2F7.AutoSize = true;
-            this.radioButtonKey2F7.Location = new System.Drawing.Point(6, 198);
-            this.radioButtonKey2F7.Name = "radioButtonKey2F7";
-            this.radioButtonKey2F7.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F7.TabIndex = 6;
-            this.radioButtonKey2F7.TabStop = true;
-            this.radioButtonKey2F7.Text = "F7";
-            this.radioButtonKey2F7.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F6
-            // 
-            this.radioButtonKey2F6.AutoSize = true;
-            this.radioButtonKey2F6.Location = new System.Drawing.Point(6, 171);
-            this.radioButtonKey2F6.Name = "radioButtonKey2F6";
-            this.radioButtonKey2F6.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F6.TabIndex = 5;
-            this.radioButtonKey2F6.TabStop = true;
-            this.radioButtonKey2F6.Text = "F6";
-            this.radioButtonKey2F6.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F5
-            // 
-            this.radioButtonKey2F5.AutoSize = true;
-            this.radioButtonKey2F5.Location = new System.Drawing.Point(6, 144);
-            this.radioButtonKey2F5.Name = "radioButtonKey2F5";
-            this.radioButtonKey2F5.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F5.TabIndex = 4;
-            this.radioButtonKey2F5.TabStop = true;
-            this.radioButtonKey2F5.Text = "F5";
-            this.radioButtonKey2F5.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F4
-            // 
-            this.radioButtonKey2F4.AutoSize = true;
-            this.radioButtonKey2F4.Location = new System.Drawing.Point(6, 117);
-            this.radioButtonKey2F4.Name = "radioButtonKey2F4";
-            this.radioButtonKey2F4.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F4.TabIndex = 3;
-            this.radioButtonKey2F4.TabStop = true;
-            this.radioButtonKey2F4.Text = "F4";
-            this.radioButtonKey2F4.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F3
-            // 
-            this.radioButtonKey2F3.AutoSize = true;
-            this.radioButtonKey2F3.Location = new System.Drawing.Point(6, 90);
-            this.radioButtonKey2F3.Name = "radioButtonKey2F3";
-            this.radioButtonKey2F3.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F3.TabIndex = 2;
-            this.radioButtonKey2F3.TabStop = true;
-            this.radioButtonKey2F3.Text = "F3";
-            this.radioButtonKey2F3.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F2
-            // 
-            this.radioButtonKey2F2.AutoSize = true;
-            this.radioButtonKey2F2.Location = new System.Drawing.Point(6, 63);
-            this.radioButtonKey2F2.Name = "radioButtonKey2F2";
-            this.radioButtonKey2F2.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F2.TabIndex = 1;
-            this.radioButtonKey2F2.TabStop = true;
-            this.radioButtonKey2F2.Text = "F2";
-            this.radioButtonKey2F2.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey2F1
-            // 
-            this.radioButtonKey2F1.AutoSize = true;
-            this.radioButtonKey2F1.Location = new System.Drawing.Point(6, 36);
-            this.radioButtonKey2F1.Name = "radioButtonKey2F1";
-            this.radioButtonKey2F1.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey2F1.TabIndex = 0;
-            this.radioButtonKey2F1.TabStop = true;
-            this.radioButtonKey2F1.Text = "F1";
-            this.radioButtonKey2F1.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxKey1
-            // 
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F12);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F11);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F10);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F9);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F8);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F7);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F6);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F5);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F4);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F3);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F2);
-            this.groupBoxKey1.Controls.Add(this.radioButtonKey1F1);
-            this.groupBoxKey1.Location = new System.Drawing.Point(360, 38);
-            this.groupBoxKey1.Name = "groupBoxKey1";
-            this.groupBoxKey1.Size = new System.Drawing.Size(63, 362);
-            this.groupBoxKey1.TabIndex = 42;
-            this.groupBoxKey1.TabStop = false;
-            this.groupBoxKey1.Text = "Key 1";
-            // 
-            // radioButtonKey1F12
-            // 
-            this.radioButtonKey1F12.AutoSize = true;
-            this.radioButtonKey1F12.Location = new System.Drawing.Point(6, 333);
-            this.radioButtonKey1F12.Name = "radioButtonKey1F12";
-            this.radioButtonKey1F12.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey1F12.TabIndex = 11;
-            this.radioButtonKey1F12.TabStop = true;
-            this.radioButtonKey1F12.Text = "F12";
-            this.radioButtonKey1F12.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F11
-            // 
-            this.radioButtonKey1F11.AutoSize = true;
-            this.radioButtonKey1F11.Location = new System.Drawing.Point(6, 305);
-            this.radioButtonKey1F11.Name = "radioButtonKey1F11";
-            this.radioButtonKey1F11.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey1F11.TabIndex = 10;
-            this.radioButtonKey1F11.TabStop = true;
-            this.radioButtonKey1F11.Text = "F11";
-            this.radioButtonKey1F11.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F10
-            // 
-            this.radioButtonKey1F10.AutoSize = true;
-            this.radioButtonKey1F10.Location = new System.Drawing.Point(6, 279);
-            this.radioButtonKey1F10.Name = "radioButtonKey1F10";
-            this.radioButtonKey1F10.Size = new System.Drawing.Size(53, 21);
-            this.radioButtonKey1F10.TabIndex = 9;
-            this.radioButtonKey1F10.TabStop = true;
-            this.radioButtonKey1F10.Text = "F10";
-            this.radioButtonKey1F10.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F9
-            // 
-            this.radioButtonKey1F9.AutoSize = true;
-            this.radioButtonKey1F9.Location = new System.Drawing.Point(6, 252);
-            this.radioButtonKey1F9.Name = "radioButtonKey1F9";
-            this.radioButtonKey1F9.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F9.TabIndex = 8;
-            this.radioButtonKey1F9.TabStop = true;
-            this.radioButtonKey1F9.Text = "F9";
-            this.radioButtonKey1F9.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F8
-            // 
-            this.radioButtonKey1F8.AutoSize = true;
-            this.radioButtonKey1F8.Location = new System.Drawing.Point(6, 225);
-            this.radioButtonKey1F8.Name = "radioButtonKey1F8";
-            this.radioButtonKey1F8.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F8.TabIndex = 7;
-            this.radioButtonKey1F8.TabStop = true;
-            this.radioButtonKey1F8.Text = "F8";
-            this.radioButtonKey1F8.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F7
-            // 
-            this.radioButtonKey1F7.AutoSize = true;
-            this.radioButtonKey1F7.Location = new System.Drawing.Point(6, 198);
-            this.radioButtonKey1F7.Name = "radioButtonKey1F7";
-            this.radioButtonKey1F7.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F7.TabIndex = 6;
-            this.radioButtonKey1F7.TabStop = true;
-            this.radioButtonKey1F7.Text = "F7";
-            this.radioButtonKey1F7.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F6
-            // 
-            this.radioButtonKey1F6.AutoSize = true;
-            this.radioButtonKey1F6.Location = new System.Drawing.Point(6, 171);
-            this.radioButtonKey1F6.Name = "radioButtonKey1F6";
-            this.radioButtonKey1F6.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F6.TabIndex = 5;
-            this.radioButtonKey1F6.TabStop = true;
-            this.radioButtonKey1F6.Text = "F6";
-            this.radioButtonKey1F6.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F5
-            // 
-            this.radioButtonKey1F5.AutoSize = true;
-            this.radioButtonKey1F5.Location = new System.Drawing.Point(6, 144);
-            this.radioButtonKey1F5.Name = "radioButtonKey1F5";
-            this.radioButtonKey1F5.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F5.TabIndex = 4;
-            this.radioButtonKey1F5.TabStop = true;
-            this.radioButtonKey1F5.Text = "F5";
-            this.radioButtonKey1F5.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F4
-            // 
-            this.radioButtonKey1F4.AutoSize = true;
-            this.radioButtonKey1F4.Location = new System.Drawing.Point(6, 117);
-            this.radioButtonKey1F4.Name = "radioButtonKey1F4";
-            this.radioButtonKey1F4.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F4.TabIndex = 3;
-            this.radioButtonKey1F4.TabStop = true;
-            this.radioButtonKey1F4.Text = "F4";
-            this.radioButtonKey1F4.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F3
-            // 
-            this.radioButtonKey1F3.AutoSize = true;
-            this.radioButtonKey1F3.Location = new System.Drawing.Point(6, 90);
-            this.radioButtonKey1F3.Name = "radioButtonKey1F3";
-            this.radioButtonKey1F3.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F3.TabIndex = 2;
-            this.radioButtonKey1F3.TabStop = true;
-            this.radioButtonKey1F3.Text = "F3";
-            this.radioButtonKey1F3.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F2
-            // 
-            this.radioButtonKey1F2.AutoSize = true;
-            this.radioButtonKey1F2.Location = new System.Drawing.Point(6, 63);
-            this.radioButtonKey1F2.Name = "radioButtonKey1F2";
-            this.radioButtonKey1F2.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F2.TabIndex = 1;
-            this.radioButtonKey1F2.TabStop = true;
-            this.radioButtonKey1F2.Text = "F2";
-            this.radioButtonKey1F2.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonKey1F1
-            // 
-            this.radioButtonKey1F1.AutoSize = true;
-            this.radioButtonKey1F1.Location = new System.Drawing.Point(6, 36);
-            this.radioButtonKey1F1.Name = "radioButtonKey1F1";
-            this.radioButtonKey1F1.Size = new System.Drawing.Size(45, 21);
-            this.radioButtonKey1F1.TabIndex = 0;
-            this.radioButtonKey1F1.TabStop = true;
-            this.radioButtonKey1F1.Text = "F1";
-            this.radioButtonKey1F1.UseVisualStyleBackColor = true;
-            // 
             // checkBoxWriteLogFileMsgHookLog
             // 
             this.checkBoxWriteLogFileMsgHookLog.AutoSize = true;
-            this.checkBoxWriteLogFileMsgHookLog.Location = new System.Drawing.Point(16, 419);
+            this.checkBoxWriteLogFileMsgHookLog.Location = new System.Drawing.Point(361, 48);
             this.checkBoxWriteLogFileMsgHookLog.Name = "checkBoxWriteLogFileMsgHookLog";
             this.checkBoxWriteLogFileMsgHookLog.Size = new System.Drawing.Size(190, 21);
             this.checkBoxWriteLogFileMsgHookLog.TabIndex = 41;
             this.checkBoxWriteLogFileMsgHookLog.Text = "Write logfile MsgHook.log";
             this.checkBoxWriteLogFileMsgHookLog.UseVisualStyleBackColor = true;
+            this.checkBoxWriteLogFileMsgHookLog.CheckedChanged += new System.EventHandler(this.checkBoxWriteLogFileMsgHookLog_CheckedChanged);
             // 
             // groupBoxMsgHookIni
             // 
             this.groupBoxMsgHookIni.Controls.Add(this.labelOpenFileMsgHookIni);
             this.groupBoxMsgHookIni.Controls.Add(this.labelSaveFileMsgHookIni);
+            this.groupBoxMsgHookIni.Controls.Add(this.checkBoxWriteLogFileMsgHookLog);
+            this.groupBoxMsgHookIni.Controls.Add(this.buttonRestoreSettingsOfMsgHookIni);
             this.groupBoxMsgHookIni.Location = new System.Drawing.Point(16, 38);
             this.groupBoxMsgHookIni.Name = "groupBoxMsgHookIni";
-            this.groupBoxMsgHookIni.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxMsgHookIni.Size = new System.Drawing.Size(557, 100);
             this.groupBoxMsgHookIni.TabIndex = 40;
             this.groupBoxMsgHookIni.TabStop = false;
             this.groupBoxMsgHookIni.Text = "MsgHook.ini";
@@ -1151,7 +648,7 @@
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF9);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF7);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF8);
-            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(222, 38);
+            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(222, 166);
             this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
             this.groupBoxFunctionKeys.Size = new System.Drawing.Size(132, 362);
             this.groupBoxFunctionKeys.TabIndex = 39;
@@ -1403,12 +900,6 @@
             this.groupBoxRegistryValues.ResumeLayout(false);
             this.groupBoxRegistryValues.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
-            this.groupBoxKey3.ResumeLayout(false);
-            this.groupBoxKey3.PerformLayout();
-            this.groupBoxKey2.ResumeLayout(false);
-            this.groupBoxKey2.PerformLayout();
-            this.groupBoxKey1.ResumeLayout(false);
-            this.groupBoxKey1.PerformLayout();
             this.groupBoxMsgHookIni.ResumeLayout(false);
             this.groupBoxMsgHookIni.PerformLayout();
             this.groupBoxFunctionKeys.ResumeLayout(false);
@@ -1482,45 +973,6 @@
         private System.Windows.Forms.TextBox textBoxSebBrowser;
         private System.Windows.Forms.TextBox textBoxAutostartProcess;
         private System.Windows.Forms.Label labelSebBrowser;
-        private System.Windows.Forms.GroupBox groupBoxKey1;
-        private System.Windows.Forms.RadioButton radioButtonKey1F1;
-        private System.Windows.Forms.RadioButton radioButtonKey1F2;
-        private System.Windows.Forms.RadioButton radioButtonKey1F12;
-        private System.Windows.Forms.RadioButton radioButtonKey1F11;
-        private System.Windows.Forms.RadioButton radioButtonKey1F10;
-        private System.Windows.Forms.RadioButton radioButtonKey1F9;
-        private System.Windows.Forms.RadioButton radioButtonKey1F8;
-        private System.Windows.Forms.RadioButton radioButtonKey1F7;
-        private System.Windows.Forms.RadioButton radioButtonKey1F6;
-        private System.Windows.Forms.RadioButton radioButtonKey1F5;
-        private System.Windows.Forms.RadioButton radioButtonKey1F4;
-        private System.Windows.Forms.RadioButton radioButtonKey1F3;
-        private System.Windows.Forms.GroupBox groupBoxKey2;
-        private System.Windows.Forms.RadioButton radioButtonKey2F12;
-        private System.Windows.Forms.RadioButton radioButtonKey2F11;
-        private System.Windows.Forms.RadioButton radioButtonKey2F10;
-        private System.Windows.Forms.RadioButton radioButtonKey2F9;
-        private System.Windows.Forms.RadioButton radioButtonKey2F8;
-        private System.Windows.Forms.RadioButton radioButtonKey2F7;
-        private System.Windows.Forms.RadioButton radioButtonKey2F6;
-        private System.Windows.Forms.RadioButton radioButtonKey2F5;
-        private System.Windows.Forms.RadioButton radioButtonKey2F4;
-        private System.Windows.Forms.RadioButton radioButtonKey2F3;
-        private System.Windows.Forms.RadioButton radioButtonKey2F2;
-        private System.Windows.Forms.RadioButton radioButtonKey2F1;
-        private System.Windows.Forms.GroupBox groupBoxKey3;
-        private System.Windows.Forms.RadioButton radioButtonKey3F12;
-        private System.Windows.Forms.RadioButton radioButtonKey3F11;
-        private System.Windows.Forms.RadioButton radioButtonKey3F10;
-        private System.Windows.Forms.RadioButton radioButtonKey3F9;
-        private System.Windows.Forms.RadioButton radioButtonKey3F8;
-        private System.Windows.Forms.RadioButton radioButtonKey3F7;
-        private System.Windows.Forms.RadioButton radioButtonKey3F6;
-        private System.Windows.Forms.RadioButton radioButtonKey3F5;
-        private System.Windows.Forms.RadioButton radioButtonKey3F4;
-        private System.Windows.Forms.RadioButton radioButtonKey3F3;
-        private System.Windows.Forms.RadioButton radioButtonKey3F2;
-        private System.Windows.Forms.RadioButton radioButtonKey3F1;
         private System.Windows.Forms.OpenFileDialog openFileDialogMsgHookIni;
         private System.Windows.Forms.SaveFileDialog saveFileDialogMsgHookIni;
         private System.Windows.Forms.Button buttonRestoreSettingsOfMsgHookIni;
