@@ -766,16 +766,39 @@ namespace SebWindowsConfig
         private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
             newIndexExitKeyFirst = listBoxExitKeyFirst.SelectedIndex + 1;
+            // All three keys must be different
+            if ((newIndexExitKeyFirst == newIndexExitKeySecond) ||
+                (newIndexExitKeyFirst == newIndexExitKeyThird))
+            {
+                newIndexExitKeyFirst               = oldIndexExitKeyFirst;
+                 listBoxExitKeyFirst.SelectedIndex = oldIndexExitKeyFirst - 1;
+            }
         }
+
 
         private void listBoxExitKeySecond_SelectedIndexChanged(object sender, EventArgs e)
         {
             newIndexExitKeySecond = listBoxExitKeySecond.SelectedIndex + 1;
+            // All three keys must be different
+            if ((newIndexExitKeySecond == newIndexExitKeyFirst) ||
+                (newIndexExitKeySecond == newIndexExitKeyThird))
+            {
+                newIndexExitKeySecond               = oldIndexExitKeySecond;
+                 listBoxExitKeySecond.SelectedIndex = oldIndexExitKeySecond - 1;
+            }
         }
+
 
         private void listBoxExitKeyThird_SelectedIndexChanged(object sender, EventArgs e)
         {
             newIndexExitKeyThird = listBoxExitKeyThird.SelectedIndex + 1;
+            // All three keys must be different
+            if ((newIndexExitKeyThird == newIndexExitKeyFirst) ||
+                (newIndexExitKeyThird == newIndexExitKeySecond))
+            {
+                newIndexExitKeyThird               = oldIndexExitKeyThird;
+                 listBoxExitKeyThird.SelectedIndex = oldIndexExitKeyThird - 1;
+            }
         }
 
 
