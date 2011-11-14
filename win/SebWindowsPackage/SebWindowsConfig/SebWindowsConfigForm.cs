@@ -187,6 +187,10 @@ namespace SebWindowsConfig
         int newIndexExitKeySecond = 0;
         int newIndexExitKeyThird  = 0;
 
+        int tmpIndexExitKeyFirst  = 0;
+        int tmpIndexExitKeySecond = 0;
+        int tmpIndexExitKeyThird  = 0;
+
         String       stringPathSebStarterIni = "";
         String       stringPathMsgHookIni    = "";
         StreamReader streamReaderSebStarterIni;
@@ -762,43 +766,44 @@ namespace SebWindowsConfig
         }
 
 
+
         // Group "Exit sequence"
         private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
-            newIndexExitKeyFirst = listBoxExitKeyFirst.SelectedIndex + 1;
-            // Make sure that all three exit keys are different
-            if ((newIndexExitKeyFirst == newIndexExitKeySecond) ||
-                (newIndexExitKeyFirst == newIndexExitKeyThird))
-            {
-                newIndexExitKeyFirst               = oldIndexExitKeyFirst;
-                 listBoxExitKeyFirst.SelectedIndex = oldIndexExitKeyFirst - 1;
-            }
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previous key.
+                 tmpIndexExitKeyFirst =   listBoxExitKeyFirst.SelectedIndex + 1;
+            if ((tmpIndexExitKeyFirst == newIndexExitKeySecond) ||
+                (tmpIndexExitKeyFirst == newIndexExitKeyThird))
+                  listBoxExitKeyFirst.SelectedIndex = newIndexExitKeyFirst - 1;
+            else
+                 newIndexExitKeyFirst = tmpIndexExitKeyFirst;
         }
 
 
         private void listBoxExitKeySecond_SelectedIndexChanged(object sender, EventArgs e)
         {
-            newIndexExitKeySecond = listBoxExitKeySecond.SelectedIndex + 1;
-            // Make sure that all three exit keys are different
-            if ((newIndexExitKeySecond == newIndexExitKeyFirst) ||
-                (newIndexExitKeySecond == newIndexExitKeyThird))
-            {
-                newIndexExitKeySecond               = oldIndexExitKeySecond;
-                 listBoxExitKeySecond.SelectedIndex = oldIndexExitKeySecond - 1;
-            }
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previous key.
+                 tmpIndexExitKeySecond =   listBoxExitKeySecond.SelectedIndex + 1;
+            if ((tmpIndexExitKeySecond == newIndexExitKeyFirst) ||
+                (tmpIndexExitKeySecond == newIndexExitKeyThird))
+                  listBoxExitKeySecond.SelectedIndex = newIndexExitKeySecond - 1;
+            else
+                 newIndexExitKeySecond = tmpIndexExitKeySecond;
         }
 
 
         private void listBoxExitKeyThird_SelectedIndexChanged(object sender, EventArgs e)
         {
-            newIndexExitKeyThird = listBoxExitKeyThird.SelectedIndex + 1;
-            // Make sure that all three exit keys are different
-            if ((newIndexExitKeyThird == newIndexExitKeyFirst) ||
-                (newIndexExitKeyThird == newIndexExitKeySecond))
-            {
-                newIndexExitKeyThird               = oldIndexExitKeyThird;
-                 listBoxExitKeyThird.SelectedIndex = oldIndexExitKeyThird - 1;
-            }
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previous key.
+                 tmpIndexExitKeyThird =   listBoxExitKeyThird.SelectedIndex + 1;
+            if ((tmpIndexExitKeyThird == newIndexExitKeyFirst) ||
+                (tmpIndexExitKeyThird == newIndexExitKeySecond))
+                  listBoxExitKeyThird.SelectedIndex = newIndexExitKeyThird - 1;
+            else
+                 newIndexExitKeyThird = tmpIndexExitKeyThird;
         }
 
 
