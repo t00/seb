@@ -37,12 +37,12 @@
             this.checkBoxShowSebApplicationChooser = new System.Windows.Forms.CheckBox();
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
-            this.checkBoxWriteLogFileSebStarterLog = new System.Windows.Forms.CheckBox();
             this.checkBoxForceWindowsService = new System.Windows.Forms.CheckBox();
             this.groupBoxSebStarterIni = new System.Windows.Forms.GroupBox();
             this.labelOpenFileSebStarterIni = new System.Windows.Forms.Label();
             this.labelSaveFileSebStarterIni = new System.Windows.Forms.Label();
             this.buttonRestoreSettingsOfSebStarterIni = new System.Windows.Forms.Button();
+            this.checkBoxWriteLogFileSebStarterLog = new System.Windows.Forms.CheckBox();
             this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
             this.textBoxAutostartProcess = new System.Windows.Forms.TextBox();
             this.labelSebBrowser = new System.Windows.Forms.Label();
@@ -66,11 +66,11 @@
             this.listBoxExitKeyThird = new System.Windows.Forms.ListBox();
             this.listBoxExitKeySecond = new System.Windows.Forms.ListBox();
             this.textBoxDebug = new System.Windows.Forms.TextBox();
-            this.buttonRestoreSettingsOfMsgHookIni = new System.Windows.Forms.Button();
-            this.checkBoxWriteLogFileMsgHookLog = new System.Windows.Forms.CheckBox();
             this.groupBoxMsgHookIni = new System.Windows.Forms.GroupBox();
             this.labelOpenFileMsgHookIni = new System.Windows.Forms.Label();
             this.labelSaveFileMsgHookIni = new System.Windows.Forms.Label();
+            this.checkBoxWriteLogFileMsgHookLog = new System.Windows.Forms.CheckBox();
+            this.buttonRestoreSettingsOfMsgHookIni = new System.Windows.Forms.Button();
             this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF2 = new System.Windows.Forms.CheckBox();
@@ -233,17 +233,6 @@
             this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
             this.checkBoxAllowVirtualMachine.CheckedChanged += new System.EventHandler(this.checkBoxAllowVirtualMachine_CheckedChanged);
             // 
-            // checkBoxWriteLogFileSebStarterLog
-            // 
-            this.checkBoxWriteLogFileSebStarterLog.AutoSize = true;
-            this.checkBoxWriteLogFileSebStarterLog.Location = new System.Drawing.Point(373, 48);
-            this.checkBoxWriteLogFileSebStarterLog.Name = "checkBoxWriteLogFileSebStarterLog";
-            this.checkBoxWriteLogFileSebStarterLog.Size = new System.Drawing.Size(199, 21);
-            this.checkBoxWriteLogFileSebStarterLog.TabIndex = 42;
-            this.checkBoxWriteLogFileSebStarterLog.Text = "Write logfile SebStarter.log";
-            this.checkBoxWriteLogFileSebStarterLog.UseVisualStyleBackColor = true;
-            this.checkBoxWriteLogFileSebStarterLog.CheckedChanged += new System.EventHandler(this.checkBoxWriteLogFileSebStarterLog_CheckedChanged);
-            // 
             // checkBoxForceWindowsService
             // 
             this.checkBoxForceWindowsService.AutoSize = true;
@@ -299,6 +288,17 @@
             this.buttonRestoreSettingsOfSebStarterIni.Text = "Restore settings of SebStarter.ini";
             this.buttonRestoreSettingsOfSebStarterIni.UseVisualStyleBackColor = true;
             this.buttonRestoreSettingsOfSebStarterIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfSebStarterIni_Click);
+            // 
+            // checkBoxWriteLogFileSebStarterLog
+            // 
+            this.checkBoxWriteLogFileSebStarterLog.AutoSize = true;
+            this.checkBoxWriteLogFileSebStarterLog.Location = new System.Drawing.Point(373, 48);
+            this.checkBoxWriteLogFileSebStarterLog.Name = "checkBoxWriteLogFileSebStarterLog";
+            this.checkBoxWriteLogFileSebStarterLog.Size = new System.Drawing.Size(199, 21);
+            this.checkBoxWriteLogFileSebStarterLog.TabIndex = 42;
+            this.checkBoxWriteLogFileSebStarterLog.Text = "Write logfile SebStarter.log";
+            this.checkBoxWriteLogFileSebStarterLog.UseVisualStyleBackColor = true;
+            this.checkBoxWriteLogFileSebStarterLog.CheckedChanged += new System.EventHandler(this.checkBoxWriteLogFileSebStarterLog_CheckedChanged);
             // 
             // groupBoxOnlineExam
             // 
@@ -578,27 +578,6 @@
             this.textBoxDebug.Size = new System.Drawing.Size(419, 22);
             this.textBoxDebug.TabIndex = 46;
             // 
-            // buttonRestoreSettingsOfMsgHookIni
-            // 
-            this.buttonRestoreSettingsOfMsgHookIni.Location = new System.Drawing.Point(185, 21);
-            this.buttonRestoreSettingsOfMsgHookIni.Name = "buttonRestoreSettingsOfMsgHookIni";
-            this.buttonRestoreSettingsOfMsgHookIni.Size = new System.Drawing.Size(139, 72);
-            this.buttonRestoreSettingsOfMsgHookIni.TabIndex = 45;
-            this.buttonRestoreSettingsOfMsgHookIni.Text = "Restore settings of MsgHook.ini";
-            this.buttonRestoreSettingsOfMsgHookIni.UseVisualStyleBackColor = true;
-            this.buttonRestoreSettingsOfMsgHookIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfMsgHookIni_Click);
-            // 
-            // checkBoxWriteLogFileMsgHookLog
-            // 
-            this.checkBoxWriteLogFileMsgHookLog.AutoSize = true;
-            this.checkBoxWriteLogFileMsgHookLog.Location = new System.Drawing.Point(361, 48);
-            this.checkBoxWriteLogFileMsgHookLog.Name = "checkBoxWriteLogFileMsgHookLog";
-            this.checkBoxWriteLogFileMsgHookLog.Size = new System.Drawing.Size(190, 21);
-            this.checkBoxWriteLogFileMsgHookLog.TabIndex = 41;
-            this.checkBoxWriteLogFileMsgHookLog.Text = "Write logfile MsgHook.log";
-            this.checkBoxWriteLogFileMsgHookLog.UseVisualStyleBackColor = true;
-            this.checkBoxWriteLogFileMsgHookLog.CheckedChanged += new System.EventHandler(this.checkBoxWriteLogFileMsgHookLog_CheckedChanged);
-            // 
             // groupBoxMsgHookIni
             // 
             this.groupBoxMsgHookIni.Controls.Add(this.labelOpenFileMsgHookIni);
@@ -633,6 +612,27 @@
             this.labelSaveFileMsgHookIni.TabIndex = 18;
             this.labelSaveFileMsgHookIni.Text = "Save file MsgHook.ini";
             this.labelSaveFileMsgHookIni.Click += new System.EventHandler(this.labelSaveFileMsgHookIni_Click);
+            // 
+            // checkBoxWriteLogFileMsgHookLog
+            // 
+            this.checkBoxWriteLogFileMsgHookLog.AutoSize = true;
+            this.checkBoxWriteLogFileMsgHookLog.Location = new System.Drawing.Point(361, 48);
+            this.checkBoxWriteLogFileMsgHookLog.Name = "checkBoxWriteLogFileMsgHookLog";
+            this.checkBoxWriteLogFileMsgHookLog.Size = new System.Drawing.Size(190, 21);
+            this.checkBoxWriteLogFileMsgHookLog.TabIndex = 41;
+            this.checkBoxWriteLogFileMsgHookLog.Text = "Write logfile MsgHook.log";
+            this.checkBoxWriteLogFileMsgHookLog.UseVisualStyleBackColor = true;
+            this.checkBoxWriteLogFileMsgHookLog.CheckedChanged += new System.EventHandler(this.checkBoxWriteLogFileMsgHookLog_CheckedChanged);
+            // 
+            // buttonRestoreSettingsOfMsgHookIni
+            // 
+            this.buttonRestoreSettingsOfMsgHookIni.Location = new System.Drawing.Point(185, 21);
+            this.buttonRestoreSettingsOfMsgHookIni.Name = "buttonRestoreSettingsOfMsgHookIni";
+            this.buttonRestoreSettingsOfMsgHookIni.Size = new System.Drawing.Size(139, 72);
+            this.buttonRestoreSettingsOfMsgHookIni.TabIndex = 45;
+            this.buttonRestoreSettingsOfMsgHookIni.Text = "Restore settings of MsgHook.ini";
+            this.buttonRestoreSettingsOfMsgHookIni.UseVisualStyleBackColor = true;
+            this.buttonRestoreSettingsOfMsgHookIni.Click += new System.EventHandler(this.buttonRestoreSettingsOfMsgHookIni_Click);
             // 
             // groupBoxFunctionKeys
             // 

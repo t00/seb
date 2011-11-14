@@ -14,7 +14,7 @@ namespace SebWindowsConfig
     {
         // Constants for indexing the ini file settings
 
-        // The Graphical User Interface contains 7 groups
+        // The Graphical User Interface contains 5 groups
         const int IND_GroupNone = 0;
         const int IND_GroupMin  = 1;
         const int IND_GroupMax  = 5;
@@ -33,7 +33,7 @@ namespace SebWindowsConfig
         const int IND_SettingMax  = 12;
         const int IND_SettingNum  = 12;
 
-        // Group Registry values
+        // Group "Registry values"
         const int IND_EnableSwitchUser        = 1;
         const int IND_EnableLockThisComputer  = 2;
         const int IND_EnableChangeAPassword   = 3;
@@ -52,7 +52,7 @@ namespace SebWindowsConfig
         const String MSG_EnableEaseOfAccess      = "EnableEaseOfAccess";
         const String MSG_EnableVmWareClientShade = "EnableVmWareClientShade";
 
-        // Group Security options
+        // Group "Security options"
         const int IND_AllowVirtualMachine       = 1;
         const int IND_ForceWindowsService       = 2;
         const int IND_CreateNewDesktop          = 3;
@@ -80,7 +80,7 @@ namespace SebWindowsConfig
         const String MSG_ExamUrl               = "ExamUrl";
         const String MSG_PermittedApplications = "PermittedApplications";
 
-        // Group Special keys
+        // Group "Special keys"
         const int IND_EnableEsc        = 1;
         const int IND_EnableCtrlEsc    = 2;
         const int IND_EnableAltEsc     = 3;
@@ -97,7 +97,7 @@ namespace SebWindowsConfig
         const String MSG_EnableStartMenu  = "EnableStartMenu";
         const String MSG_EnableRightMouse = "EnableRightMouse";
 
-        // Group Function keys
+        // Group "Function keys"
         const int IND_EnableF1  = 1;
         const int IND_EnableF2  = 2;
         const int IND_EnableF3  = 3;
@@ -128,12 +128,13 @@ namespace SebWindowsConfig
         const String MSG_B2 = "B2";
         const String MSG_B3 = "B3";
 
-        // Group Other options
+        // Group "Other options"
         const int IND_WriteLogFileSebStarterLog = 1;
         const int IND_WriteLogFileMsgHookLog    = 2;
 
         const String MSG_WriteLogFileSebStarterLog = "WriteLogFileSebStarterLog";
         const String MSG_WriteLogFileMsgHookLog    = "WriteLogFileMsgHookLog";
+
 
 
         // Global variables
@@ -299,7 +300,7 @@ namespace SebWindowsConfig
         private void labelOpenFileSebStarterIni_Click(object sender, EventArgs e)
         {
             dialogResultSebStarterIni = openFileDialogSebStarterIni.ShowDialog();
-            stringPathSebStarterIni   = openFileDialogSebStarterIni.FileName;
+              stringPathSebStarterIni = openFileDialogSebStarterIni.FileName;
 
             try 
             {
@@ -409,7 +410,10 @@ namespace SebWindowsConfig
         // ************************
         private void labelSaveFileSebStarterIni_Click(object sender, EventArgs e)
         {
-            DialogResult saveFileName = saveFileDialogSebStarterIni.ShowDialog();
+            dialogResultSebStarterIni = saveFileDialogSebStarterIni.ShowDialog();
+              stringPathSebStarterIni = saveFileDialogSebStarterIni.FileName;
+                    textBoxDebug.Text = stringPathSebStarterIni;
+
         }
 
 
@@ -421,7 +425,7 @@ namespace SebWindowsConfig
         private void labelOpenFileMsgHookIni_Click(object sender, EventArgs e)
         {
             dialogResultMsgHookIni = openFileDialogMsgHookIni.ShowDialog();
-            stringPathMsgHookIni   = openFileDialogMsgHookIni.FileName;
+              stringPathMsgHookIni = openFileDialogMsgHookIni.FileName;
 
             try 
             {
@@ -481,7 +485,6 @@ namespace SebWindowsConfig
 
                 // Close the StreamReader
                 streamReaderMsgHookIni.Close();
-
 
                 // Assign the settings from the MsgHook.ini file to the widgets
                 checkBoxEnableEsc       .Checked = newSetting[IND_SpecialKeys, IND_EnableEsc];
@@ -553,15 +556,22 @@ namespace SebWindowsConfig
         // *********************
         private void labelSaveFileMsgHookIni_Click(object sender, EventArgs e)
         {
+            dialogResultMsgHookIni = saveFileDialogMsgHookIni.ShowDialog();
+              stringPathMsgHookIni = saveFileDialogMsgHookIni.FileName;
+                 textBoxDebug.Text = stringPathMsgHookIni;
 
         }
 
 
-        // If the user changes a setting by clicking the checkbox,
-        // update the setting in memory for it can be saved on file later.
 
+        // ******************************************************
+        // Event handlers:
+        // If the user changes a setting by clicking or typing,
+        // update the setting in memory for later saving on file.
+        // ******************************************************
 
         // Group "Registry values"
+
         private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_RegistryValues, IND_EnableSwitchUser] = checkBoxEnableSwitchUser.Checked;
@@ -604,6 +614,7 @@ namespace SebWindowsConfig
 
 
         // Group "Security options"
+
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_SecurityOptions, IND_AllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
@@ -646,6 +657,7 @@ namespace SebWindowsConfig
 
 
         // Group "Online exam"
+
         private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
         {
             newStringSebBrowser = textBoxSebBrowser.Text;
@@ -668,6 +680,7 @@ namespace SebWindowsConfig
 
 
         // Group "Special keys"
+
         private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_SpecialKeys, IND_EnableEsc] = checkBoxEnableEsc.Checked;
@@ -705,6 +718,7 @@ namespace SebWindowsConfig
 
 
         // Group "Function keys"
+
         private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_FunctionKeys, IND_EnableF1] = checkBoxEnableF1.Checked;
@@ -768,10 +782,11 @@ namespace SebWindowsConfig
 
 
         // Group "Exit sequence"
+
         private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previous key.
+            // If selected key is already occupied, revert to previously selected key.
                  tmpIndexExitKeyFirst =   listBoxExitKeyFirst.SelectedIndex + 1;
             if ((tmpIndexExitKeyFirst == newIndexExitKeySecond) ||
                 (tmpIndexExitKeyFirst == newIndexExitKeyThird))
@@ -784,7 +799,7 @@ namespace SebWindowsConfig
         private void listBoxExitKeySecond_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previous key.
+            // If selected key is already occupied, revert to previously selected key.
                  tmpIndexExitKeySecond =   listBoxExitKeySecond.SelectedIndex + 1;
             if ((tmpIndexExitKeySecond == newIndexExitKeyFirst) ||
                 (tmpIndexExitKeySecond == newIndexExitKeyThird))
@@ -797,7 +812,7 @@ namespace SebWindowsConfig
         private void listBoxExitKeyThird_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previous key.
+            // If selected key is already occupied, revert to previously selected key.
                  tmpIndexExitKeyThird =   listBoxExitKeyThird.SelectedIndex + 1;
             if ((tmpIndexExitKeyThird == newIndexExitKeyFirst) ||
                 (tmpIndexExitKeyThird == newIndexExitKeySecond))
@@ -807,7 +822,8 @@ namespace SebWindowsConfig
         }
 
 
-        // Other options
+        // Group "Other options"
+
         private void checkBoxWriteLogFileSebStarterLog_CheckedChanged(object sender, EventArgs e)
         {
             newSetting[IND_OtherOptions, IND_WriteLogFileSebStarterLog] = checkBoxWriteLogFileSebStarterLog.Checked;
@@ -817,6 +833,7 @@ namespace SebWindowsConfig
         {
             newSetting[IND_OtherOptions, IND_WriteLogFileMsgHookLog] = checkBoxWriteLogFileMsgHookLog.Checked;
         }
+
 
 
         // ***************************************
@@ -916,5 +933,5 @@ namespace SebWindowsConfig
             listBoxExitKeyThird .SelectedIndex = oldIndexExitKeyThird  - 1;
         }
 
-    }
-}
+    } // end of   class     SebWindowsConfigForm
+}     // end of   namespace SebWindowsConfig
