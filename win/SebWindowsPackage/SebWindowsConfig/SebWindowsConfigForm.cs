@@ -194,6 +194,10 @@ namespace SebWindowsConfig
 
         String       stringPathSebStarterIni = "";
         String       stringPathMsgHookIni    = "";
+
+        FileStream fileStreamSebStarterIni;
+        FileStream fileStreamMsgHookIni;
+
         StreamReader streamReaderSebStarterIni;
         StreamWriter streamWriterSebStarterIni;
         StreamReader streamReaderMsgHookIni;
@@ -304,16 +308,14 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Create an instance of StreamReader to read from a file.
-                streamReaderSebStarterIni = new StreamReader(stringPathSebStarterIni);
+                // Open the SebStarter.ini file for read access
+                  fileStreamSebStarterIni = new   FileStream(stringPathSebStarterIni, FileMode.Open, FileAccess.Read);
+                streamReaderSebStarterIni = new StreamReader(fileStreamSebStarterIni);
                 String line;
 
-                // Read and display lines from the file until the end of 
-                // the file is reached.
+                // Read lines from the SebStarter.ini file until end of file is reached
                 while ((line = streamReaderSebStarterIni.ReadLine()) != null) 
                 {
-                    Console.WriteLine(line);
-
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (line.Contains("="))
                     {
@@ -363,8 +365,9 @@ namespace SebWindowsConfig
                     } // end if line.Contains("=")
                 } // end while
 
-                // Close the StreamReader
+                // Close the SebStarter.ini file
                 streamReaderSebStarterIni.Close();
+                  fileStreamSebStarterIni.Close();
 
                 // Assign the settings from the SebStarter.ini file to the widgets
                 checkBoxEnableSwitchUser       .Checked = newSetting[IND_RegistryValues, IND_EnableSwitchUser];
@@ -412,9 +415,82 @@ namespace SebWindowsConfig
         {
             dialogResultSebStarterIni = saveFileDialogSebStarterIni.ShowDialog();
               stringPathSebStarterIni = saveFileDialogSebStarterIni.FileName;
-                    textBoxDebug.Text = stringPathSebStarterIni;
 
-        }
+            try 
+            {
+                // Open the SebStarter.ini file for read/write access
+                  fileStreamSebStarterIni = new   FileStream(stringPathSebStarterIni, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                streamReaderSebStarterIni = new StreamReader(fileStreamSebStarterIni);
+                streamWriterSebStarterIni = new StreamWriter(fileStreamSebStarterIni);
+                String line;
+
+                // Read and write lines from the SebStarter.ini file until end of file is reached
+                while ((line = streamReaderMsgHookIni.ReadLine()) != null) 
+                {
+                    // Skip empty lines and lines not in "leftSide = rightSide" format
+                    if (line.Contains("="))
+                    {
+                        int     equalPos = line.IndexOf  ("=");
+                        String  leftSide = line.Remove   (equalPos);
+                        String rightSide = line.Substring(equalPos + 1);
+
+                        int  indexGroup;
+                        int  indexSetting;
+                        for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
+                        for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
+                        {
+                            if (leftSide.Equals(msgString[indexGroup, indexSetting]))
+                            {
+                                Boolean rightBool = newSetting[indexGroup, indexSetting];
+                                if (rightBool == false) rightSide = "0";
+                                if (rightBool == true ) rightSide = "1";
+                            }
+                        }
+
+                        if (leftSide.Equals(msgStringSebBrowser))
+                        {
+                            rightSide = newStringSebBrowser;
+                        }
+
+                        if (leftSide.Equals(msgStringAutostartProcess))
+                        {
+                            rightSide = newStringAutostartProcess;
+                        }
+
+                        if (leftSide.Equals(msgStringExamUrl))
+                        {
+                            rightSide = newStringExamUrl;
+                        }
+
+                        if (leftSide.Equals(msgStringPermittedApplications))
+                        {
+                            rightSide = newStringPermittedApplications;
+                        }
+
+                        // Concatenate the modified line
+                        line = leftSide + "=" + rightSide;
+
+                    } // end if line.Contains("=")
+
+                    // Write the modified line back into the file
+                    streamWriterSebStarterIni.WriteLine(line);
+
+                } // end while
+
+                // Close the SebStarter.ini file
+                streamReaderSebStarterIni.Close();
+                streamWriterSebStarterIni.Close();
+                  fileStreamSebStarterIni.Close();
+
+            } // end try
+            catch (Exception streamWriteException) 
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be written:");
+                Console.WriteLine(streamWriteException.Message);
+            }
+
+        } // end of method   labelSaveFileSebStarterIni_Click()
 
 
 
@@ -429,17 +505,14 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Create an instance of StreamReader to read from a file.
-                streamReaderMsgHookIni = new StreamReader(stringPathMsgHookIni);
+                // Open the MsgHook.ini file for read access
+                  fileStreamMsgHookIni = new   FileStream(stringPathMsgHookIni, FileMode.Open, FileAccess.Read);
+                streamReaderMsgHookIni = new StreamReader(fileStreamMsgHookIni);
                 String line;
 
-                // Read and display lines from the file until the end of 
-                // the file is reached.
-                while ((line = streamReaderMsgHookIni.ReadLine()) != null) 
+                // Read lines from the SebStarter.ini file until end of file is reached
+                while ((line = streamReaderMsgHookIni.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
-                    //textBoxDebug.Text = line;
-
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (line.Contains("="))
                     {
@@ -483,8 +556,9 @@ namespace SebWindowsConfig
                     } // end if line.Contains("=")
                 } // end while
 
-                // Close the StreamReader
+                // Close the MsgHook.ini file
                 streamReaderMsgHookIni.Close();
+                  fileStreamMsgHookIni.Close();
 
                 // Assign the settings from the MsgHook.ini file to the widgets
                 checkBoxEnableEsc       .Checked = newSetting[IND_SpecialKeys, IND_EnableEsc];
@@ -558,9 +632,80 @@ namespace SebWindowsConfig
         {
             dialogResultMsgHookIni = saveFileDialogMsgHookIni.ShowDialog();
               stringPathMsgHookIni = saveFileDialogMsgHookIni.FileName;
-                 textBoxDebug.Text = stringPathMsgHookIni;
 
-        }
+            try 
+            {
+                // Open the MsgHook.ini file for read/write access
+                 readFileStreamMsgHookIni = new   FileStream(     stringPathMsgHookIni, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                writeFileStreamMsgHookIni = new   FileStream(     stringPathMsgHookIni, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                   streamReaderMsgHookIni = new StreamReader( readFileStreamMsgHookIni);
+                   streamWriterMsgHookIni = new StreamWriter(writeFileStreamMsgHookIni);
+
+                // Read and write lines from the MsgHook.ini file until end of file is reached
+                long oldFilePointer = fileStreamMsgHookIni.Position;
+                while (streamReaderMsgHookIni.EndOfStream == false)
+                {
+                    // Skip empty lines and lines not in "leftSide = rightSide" format
+                    string line = streamReaderMsgHookIni.ReadLine();
+                    if (line.Contains("="))
+                    {
+                        int     equalPos = line.IndexOf  ("=");
+                        String  leftSide = line.Remove   (equalPos);
+                        String rightSide = line.Substring(equalPos + 1);
+
+                        int  indexGroup;
+                        int  indexSetting;
+                        for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
+                        for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
+                        {
+                            if (leftSide.Equals(msgString[indexGroup, indexSetting]))
+                            {
+                                Boolean rightBool = newSetting[indexGroup, indexSetting];
+                                if (rightBool == false) rightSide = "0";
+                                if (rightBool == true ) rightSide = "1";
+                            }
+                        }
+
+                        if (leftSide.Equals(msgStringB1))
+                        {
+                            rightSide = newStringB1;
+                        }
+
+                        if (leftSide.Equals(msgStringB2))
+                        {
+                            rightSide = newStringB2;
+                        }
+
+                        if (leftSide.Equals(msgStringB3))
+                        {
+                            rightSide = newStringB3;
+                        }
+
+                        // Concatenate the modified line
+                        line = leftSide + "=" + rightSide;
+
+                    } // end if line.Contains("=")
+
+                    // Write the modified line back into the file
+                    streamWriterMsgHookIni.WriteLine(line);
+
+                } // end while
+
+                // Close the MsgHook.ini file
+                streamReaderMsgHookIni.Close();
+                streamWriterMsgHookIni.Close();
+                  fileStreamMsgHookIni.Close();
+
+            } // end try
+            catch (Exception streamWriteException) 
+            {
+                // Let the user know what went wrong.
+                Console.WriteLine("The file could not be written:");
+                Console.WriteLine(streamWriteException.Message);
+            }
+
+        }  // end of method   labelSaveFileMsgHookIni_Click()
+
 
 
 
@@ -569,6 +714,7 @@ namespace SebWindowsConfig
         // If the user changes a setting by clicking or typing,
         // update the setting in memory for later saving on file.
         // ******************************************************
+
 
         // Group "Registry values"
 
@@ -611,6 +757,7 @@ namespace SebWindowsConfig
         {
             newSetting[IND_RegistryValues, IND_EnableVmWareClientShade] = checkBoxEnableVmWareClientShade.Checked;
         }
+
 
 
         // Group "Security options"
@@ -656,6 +803,7 @@ namespace SebWindowsConfig
         }
 
 
+
         // Group "Online exam"
 
         private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
@@ -677,6 +825,7 @@ namespace SebWindowsConfig
         {
             newStringPermittedApplications = textBoxPermittedApplications.Text;
         }
+
 
 
         // Group "Special keys"
@@ -715,6 +864,7 @@ namespace SebWindowsConfig
         {
             newSetting[IND_SpecialKeys, IND_EnableRightMouse] = checkBoxEnableRightMouse.Checked;
         }
+
 
 
         // Group "Function keys"
@@ -820,6 +970,7 @@ namespace SebWindowsConfig
             else
                  newIndexExitKeyThird = tmpIndexExitKeyThird;
         }
+
 
 
         // Group "Other options"
