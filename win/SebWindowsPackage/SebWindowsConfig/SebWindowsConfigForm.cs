@@ -451,10 +451,12 @@ namespace SebWindowsConfig
                 // Open the SebStarter.ini file for writing
                   fileStreamSebStarterIni = new   FileStream(stringPathSebStarterIni, FileMode.OpenOrCreate, FileAccess.Write);
                 streamWriterSebStarterIni = new StreamWriter(fileStreamSebStarterIni);
+
+                int    lineNr;
                 String line;
 
                 // Write lines into the SebStarter.ini file until end of file is reached
-                for (int lineNr = 1; lineNr <= numLinesSebStarterIni; lineNr++)
+                for (lineNr = 1; lineNr <= numLinesSebStarterIni; lineNr++)
                 {
                     line = oldLinesSebStarterIni[lineNr];
 
@@ -674,10 +676,12 @@ namespace SebWindowsConfig
                 // Open the MsgHook.ini file for writing
                   fileStreamMsgHookIni = new   FileStream(stringPathMsgHookIni, FileMode.OpenOrCreate, FileAccess.Write);
                 streamWriterMsgHookIni = new StreamWriter(fileStreamMsgHookIni);
+
+                int    lineNr;
                 String line;
 
                 // Write lines into the MsgHook.ini file until end of file is reached
-                for (int lineNr = 1; lineNr <= numLinesMsgHookIni; lineNr++)
+                for (lineNr = 1; lineNr <= numLinesMsgHookIni; lineNr++)
                 {
                     line = oldLinesMsgHookIni[lineNr];
 
