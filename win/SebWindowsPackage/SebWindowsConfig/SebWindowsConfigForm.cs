@@ -14,6 +14,9 @@ namespace SebWindowsConfig
     {
         // Constants for indexing the ini file settings
 
+        // Maximum number of text lines in ini files
+        const int MAX_LINES = 100;
+
         // The Graphical User Interface contains 5 groups
         const int IND_GroupNone = 0;
         const int IND_GroupMin  = 1;
@@ -139,6 +142,15 @@ namespace SebWindowsConfig
 
         // Global variables
 
+        // Text lines of the ini files before and after modification
+        int numLinesSebStarterIni = 0;
+        int numLinesMsgHookIni    = 0;
+
+        static String[] oldLinesSebStarterIni = new String[MAX_LINES + 1];
+        static String[] newLinesSebStarterIni = new String[MAX_LINES + 1];
+        static String[] oldLinesMsgHookIni    = new String[MAX_LINES + 1];
+        static String[] newLinesMsgHookIni    = new String[MAX_LINES + 1];
+
         // Names of settings
         static String[,]  msgString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
 
@@ -152,6 +164,7 @@ namespace SebWindowsConfig
 
         static String[] virtualKeyCodeString = new String[IND_SettingNum + 1];
 
+        // Values of settings as strings
         String oldStringSebBrowser = "";
         String newStringSebBrowser = "";
         String msgStringSebBrowser = "";
@@ -192,8 +205,8 @@ namespace SebWindowsConfig
         int tmpIndexExitKeySecond = 0;
         int tmpIndexExitKeyThird  = 0;
 
-        String       stringPathSebStarterIni = "";
-        String       stringPathMsgHookIni    = "";
+        String stringPathSebStarterIni = "";
+        String stringPathMsgHookIni    = "";
 
         FileStream fileStreamSebStarterIni;
         FileStream fileStreamMsgHookIni;
@@ -217,8 +230,20 @@ namespace SebWindowsConfig
 
             // Initialise the global arrays
 
+            numLinesSebStarterIni = 0;
+            numLinesMsgHookIni    = 0;
+
+            for (int lineNr = 0; lineNr <= MAX_LINES; lineNr++)
+            {
+                oldLinesSebStarterIni[lineNr] = "";
+                newLinesSebStarterIni[lineNr] = "";
+                oldLinesMsgHookIni   [lineNr] = "";
+                newLinesMsgHookIni   [lineNr] = "";
+            }
+
             int  indexGroup;
             int  indexSetting;
+
             for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
             for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
             {
@@ -308,14 +333,19 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Open the SebStarter.ini file for read access
+                // Open the SebStarter.ini file for reading
                   fileStreamSebStarterIni = new   FileStream(stringPathSebStarterIni, FileMode.Open, FileAccess.Read);
                 streamReaderSebStarterIni = new StreamReader(fileStreamSebStarterIni);
                 String line;
 
                 // Read lines from the SebStarter.ini file until end of file is reached
+                numLinesSebStarterIni = 0;
+
                 while ((line = streamReaderSebStarterIni.ReadLine()) != null) 
                 {
+                    numLinesSebStarterIni++;
+                    oldLinesSebStarterIni[numLinesSebStarterIni] = line;
+
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (line.Contains("="))
                     {
@@ -418,15 +448,16 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Open the SebStarter.ini file for read/write access
-                  fileStreamSebStarterIni = new   FileStream(stringPathSebStarterIni, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                streamReaderSebStarterIni = new StreamReader(fileStreamSebStarterIni);
+                // Open the SebStarter.ini file for writing
+                  fileStreamSebStarterIni = new   FileStream(stringPathSebStarterIni, FileMode.OpenOrCreate, FileAccess.Write);
                 streamWriterSebStarterIni = new StreamWriter(fileStreamSebStarterIni);
                 String line;
 
-                // Read and write lines from the SebStarter.ini file until end of file is reached
-                while ((line = streamReaderMsgHookIni.ReadLine()) != null) 
+                // Write lines into the SebStarter.ini file until end of file is reached
+                for (int lineNr = 1; lineNr <= numLinesSebStarterIni; lineNr++)
                 {
+                    line = oldLinesSebStarterIni[lineNr];
+
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (line.Contains("="))
                     {
@@ -473,12 +504,12 @@ namespace SebWindowsConfig
                     } // end if line.Contains("=")
 
                     // Write the modified line back into the file
+                        newLinesSebStarterIni[lineNr] = line;
                     streamWriterSebStarterIni.WriteLine(line);
 
-                } // end while
+                } // next lineNr
 
                 // Close the SebStarter.ini file
-                streamReaderSebStarterIni.Close();
                 streamWriterSebStarterIni.Close();
                   fileStreamSebStarterIni.Close();
 
@@ -505,14 +536,19 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Open the MsgHook.ini file for read access
+                // Open the MsgHook.ini file for reading
                   fileStreamMsgHookIni = new   FileStream(stringPathMsgHookIni, FileMode.Open, FileAccess.Read);
                 streamReaderMsgHookIni = new StreamReader(fileStreamMsgHookIni);
                 String line;
 
                 // Read lines from the SebStarter.ini file until end of file is reached
+                numLinesMsgHookIni = 0;
+
                 while ((line = streamReaderMsgHookIni.ReadLine()) != null)
                 {
+                    numLinesMsgHookIni++;
+                    oldLinesMsgHookIni[numLinesMsgHookIni] = line;
+
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (line.Contains("="))
                     {
@@ -635,18 +671,17 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Open the MsgHook.ini file for read/write access
-                 readFileStreamMsgHookIni = new   FileStream(     stringPathMsgHookIni, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                writeFileStreamMsgHookIni = new   FileStream(     stringPathMsgHookIni, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                   streamReaderMsgHookIni = new StreamReader( readFileStreamMsgHookIni);
-                   streamWriterMsgHookIni = new StreamWriter(writeFileStreamMsgHookIni);
+                // Open the MsgHook.ini file for writing
+                  fileStreamMsgHookIni = new   FileStream(stringPathMsgHookIni, FileMode.OpenOrCreate, FileAccess.Write);
+                streamWriterMsgHookIni = new StreamWriter(fileStreamMsgHookIni);
+                String line;
 
-                // Read and write lines from the MsgHook.ini file until end of file is reached
-                long oldFilePointer = fileStreamMsgHookIni.Position;
-                while (streamReaderMsgHookIni.EndOfStream == false)
+                // Write lines into the MsgHook.ini file until end of file is reached
+                for (int lineNr = 1; lineNr <= numLinesMsgHookIni; lineNr++)
                 {
+                    line = oldLinesMsgHookIni[lineNr];
+
                     // Skip empty lines and lines not in "leftSide = rightSide" format
-                    string line = streamReaderMsgHookIni.ReadLine();
                     if (line.Contains("="))
                     {
                         int     equalPos = line.IndexOf  ("=");
@@ -687,12 +722,12 @@ namespace SebWindowsConfig
                     } // end if line.Contains("=")
 
                     // Write the modified line back into the file
+                        newLinesMsgHookIni[lineNr] = line;
                     streamWriterMsgHookIni.WriteLine(line);
 
-                } // end while
+                } // next lineNr
 
                 // Close the MsgHook.ini file
-                streamReaderMsgHookIni.Close();
                 streamWriterMsgHookIni.Close();
                   fileStreamMsgHookIni.Close();
 
