@@ -62,9 +62,9 @@
             this.checkBoxEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
-            this.listBoxExitKeyFirst = new System.Windows.Forms.ListBox();
-            this.listBoxExitKeyThird = new System.Windows.Forms.ListBox();
-            this.listBoxExitKeySecond = new System.Windows.Forms.ListBox();
+            this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
+            this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
+            this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.textBoxDebug = new System.Windows.Forms.TextBox();
             this.groupBoxMsgHookIni = new System.Windows.Forms.GroupBox();
             this.labelOpenFileMsgHookIni = new System.Windows.Forms.Label();
@@ -92,7 +92,6 @@
             this.checkBoxEnableAltF4 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableStartMenu = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
-            this.folderBrowserDialogBrowseIniFiles = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogSebStarterIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogMsgHookIni = new System.Windows.Forms.OpenFileDialog();
@@ -492,9 +491,9 @@
             // 
             // groupBoxExitSequence
             // 
-            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeyFirst);
-            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeyThird);
-            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKeySecond);
+            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey1);
+            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey3);
+            this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey2);
             this.groupBoxExitSequence.Location = new System.Drawing.Point(360, 166);
             this.groupBoxExitSequence.Name = "groupBoxExitSequence";
             this.groupBoxExitSequence.Size = new System.Drawing.Size(156, 243);
@@ -502,11 +501,11 @@
             this.groupBoxExitSequence.TabStop = false;
             this.groupBoxExitSequence.Text = "Exit sequence";
             // 
-            // listBoxExitKeyFirst
+            // listBoxExitKey1
             // 
-            this.listBoxExitKeyFirst.FormattingEnabled = true;
-            this.listBoxExitKeyFirst.ItemHeight = 16;
-            this.listBoxExitKeyFirst.Items.AddRange(new object[] {
+            this.listBoxExitKey1.FormattingEnabled = true;
+            this.listBoxExitKey1.ItemHeight = 16;
+            this.listBoxExitKey1.Items.AddRange(new object[] {
             "F1",
             "F2",
             "F3",
@@ -519,17 +518,17 @@
             "F10",
             "F11",
             "F12"});
-            this.listBoxExitKeyFirst.Location = new System.Drawing.Point(19, 36);
-            this.listBoxExitKeyFirst.Name = "listBoxExitKeyFirst";
-            this.listBoxExitKeyFirst.Size = new System.Drawing.Size(38, 196);
-            this.listBoxExitKeyFirst.TabIndex = 47;
-            this.listBoxExitKeyFirst.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyFirst_SelectedIndexChanged);
+            this.listBoxExitKey1.Location = new System.Drawing.Point(19, 36);
+            this.listBoxExitKey1.Name = "listBoxExitKey1";
+            this.listBoxExitKey1.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKey1.TabIndex = 47;
+            this.listBoxExitKey1.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyFirst_SelectedIndexChanged);
             // 
-            // listBoxExitKeyThird
+            // listBoxExitKey3
             // 
-            this.listBoxExitKeyThird.FormattingEnabled = true;
-            this.listBoxExitKeyThird.ItemHeight = 16;
-            this.listBoxExitKeyThird.Items.AddRange(new object[] {
+            this.listBoxExitKey3.FormattingEnabled = true;
+            this.listBoxExitKey3.ItemHeight = 16;
+            this.listBoxExitKey3.Items.AddRange(new object[] {
             "F1",
             "F2",
             "F3",
@@ -542,17 +541,17 @@
             "F10",
             "F11",
             "F12"});
-            this.listBoxExitKeyThird.Location = new System.Drawing.Point(107, 36);
-            this.listBoxExitKeyThird.Name = "listBoxExitKeyThird";
-            this.listBoxExitKeyThird.Size = new System.Drawing.Size(38, 196);
-            this.listBoxExitKeyThird.TabIndex = 50;
-            this.listBoxExitKeyThird.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyThird_SelectedIndexChanged);
+            this.listBoxExitKey3.Location = new System.Drawing.Point(107, 36);
+            this.listBoxExitKey3.Name = "listBoxExitKey3";
+            this.listBoxExitKey3.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKey3.TabIndex = 50;
+            this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyThird_SelectedIndexChanged);
             // 
-            // listBoxExitKeySecond
+            // listBoxExitKey2
             // 
-            this.listBoxExitKeySecond.FormattingEnabled = true;
-            this.listBoxExitKeySecond.ItemHeight = 16;
-            this.listBoxExitKeySecond.Items.AddRange(new object[] {
+            this.listBoxExitKey2.FormattingEnabled = true;
+            this.listBoxExitKey2.ItemHeight = 16;
+            this.listBoxExitKey2.Items.AddRange(new object[] {
             "F1",
             "F2",
             "F3",
@@ -565,11 +564,11 @@
             "F10",
             "F11",
             "F12"});
-            this.listBoxExitKeySecond.Location = new System.Drawing.Point(63, 36);
-            this.listBoxExitKeySecond.Name = "listBoxExitKeySecond";
-            this.listBoxExitKeySecond.Size = new System.Drawing.Size(38, 196);
-            this.listBoxExitKeySecond.TabIndex = 49;
-            this.listBoxExitKeySecond.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeySecond_SelectedIndexChanged);
+            this.listBoxExitKey2.Location = new System.Drawing.Point(63, 36);
+            this.listBoxExitKey2.Name = "listBoxExitKey2";
+            this.listBoxExitKey2.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKey2.TabIndex = 49;
+            this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeySecond_SelectedIndexChanged);
             // 
             // textBoxDebug
             // 
@@ -913,74 +912,88 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
+
+        private System.Windows.Forms.GroupBox groupBoxSebStarterIni;
+        private System.Windows.Forms.GroupBox groupBoxMsgHookIni;
+
+        private System.Windows.Forms.GroupBox groupBoxRegistryValues;
+        private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
+        private System.Windows.Forms.GroupBox groupBoxOnlineExam;
+
+        private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
+        private System.Windows.Forms.GroupBox groupBoxSpecialKeys;
+        private System.Windows.Forms.GroupBox groupBoxExitSequence;
+
+        private System.Windows.Forms.OpenFileDialog openFileDialogSebStarterIni;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogSebStarterIni;
+        private System.Windows.Forms.OpenFileDialog openFileDialogMsgHookIni;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogMsgHookIni;
+
+        private System.Windows.Forms.Label labelOpenFileSebStarterIni;
+        private System.Windows.Forms.Label labelSaveFileSebStarterIni;
+        private System.Windows.Forms.Label labelOpenFileMsgHookIni;
+        private System.Windows.Forms.Label labelSaveFileMsgHookIni;
+
+        private System.Windows.Forms.Button buttonRestoreSettingsOfSebStarterIni;
+        private System.Windows.Forms.Button buttonRestoreSettingsOfMsgHookIni;
+
+        private System.Windows.Forms.CheckBox checkBoxWriteLogFileMsgHookLog;
+        private System.Windows.Forms.CheckBox checkBoxWriteLogFileSebStarterLog;
+
         private System.Windows.Forms.CheckBox checkBoxEnableSwitchUser;
         private System.Windows.Forms.CheckBox checkBoxEnableLogOff;
         private System.Windows.Forms.CheckBox checkBoxEnableShutDown;
         private System.Windows.Forms.CheckBox checkBoxEnableChangeAPassword;
         private System.Windows.Forms.CheckBox checkBoxEnableStartTaskManager;
         private System.Windows.Forms.CheckBox checkBoxEnableLockThisComputer;
-        private System.Windows.Forms.CheckBox checkBoxEnableVmWareClientShade;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogBrowseIniFiles;
-        private System.Windows.Forms.OpenFileDialog openFileDialogSebStarterIni;
-        private System.Windows.Forms.SaveFileDialog saveFileDialogSebStarterIni;
-        private System.Windows.Forms.Label labelOpenFileSebStarterIni;
-        private System.Windows.Forms.Label labelSaveFileSebStarterIni;
         private System.Windows.Forms.CheckBox checkBoxEnableEaseOfAccess;
-        private System.Windows.Forms.Label labelOpenFileMsgHookIni;
-        private System.Windows.Forms.Label labelSaveFileMsgHookIni;
-        private System.Windows.Forms.Button buttonRestoreSettingsOfSebStarterIni;
-        private System.Windows.Forms.Label labelExamUrl;
-        private System.Windows.Forms.TextBox textBoxExamUrl;
-        private System.Windows.Forms.Label labelPermittedApplications;
-        private System.Windows.Forms.TextBox textBoxPermittedApplications;
-        private System.Windows.Forms.CheckBox checkBoxEnableCtrlEsc;
-        private System.Windows.Forms.CheckBox checkBoxEnableAltEsc;
-        private System.Windows.Forms.CheckBox checkBoxEnableAltTab;
-        private System.Windows.Forms.CheckBox checkBoxEnableAltF4;
-        private System.Windows.Forms.CheckBox checkBoxEnableStartMenu;
-        private System.Windows.Forms.CheckBox checkBoxEnableRightMouse;
-        private System.Windows.Forms.CheckBox checkBoxEnableF1;
-        private System.Windows.Forms.CheckBox checkBoxEnableF10;
-        private System.Windows.Forms.CheckBox checkBoxEnableF9;
-        private System.Windows.Forms.CheckBox checkBoxEnableF8;
-        private System.Windows.Forms.CheckBox checkBoxEnableF7;
-        private System.Windows.Forms.CheckBox checkBoxEnableF6;
-        private System.Windows.Forms.CheckBox checkBoxEnableF5;
-        private System.Windows.Forms.CheckBox checkBoxEnableF4;
-        private System.Windows.Forms.CheckBox checkBoxEnableF3;
-        private System.Windows.Forms.CheckBox checkBoxEnableF2;
-        private System.Windows.Forms.CheckBox checkBoxEnableF12;
-        private System.Windows.Forms.CheckBox checkBoxEnableF11;
-        private System.Windows.Forms.GroupBox groupBoxRegistryValues;
-        private System.Windows.Forms.GroupBox groupBoxOnlineExam;
-        private System.Windows.Forms.GroupBox groupBoxSebStarterIni;
-        private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
-        private System.Windows.Forms.GroupBox groupBoxSpecialKeys;
-        private System.Windows.Forms.GroupBox groupBoxMsgHookIni;
-        private System.Windows.Forms.CheckBox checkBoxEnableEsc;
-        private System.Windows.Forms.CheckBox checkBoxWriteLogFileMsgHookLog;
-        private System.Windows.Forms.CheckBox checkBoxWriteLogFileSebStarterLog;
+        private System.Windows.Forms.CheckBox checkBoxEnableVmWareClientShade;
+
         private System.Windows.Forms.CheckBox checkBoxForceWindowsService;
         private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
-        private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
         private System.Windows.Forms.CheckBox checkBoxEditRegistry;
         private System.Windows.Forms.CheckBox checkBoxHookMessages;
         private System.Windows.Forms.CheckBox checkBoxShowSebApplicationChooser;
         private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
         private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
         private System.Windows.Forms.CheckBox checkBoxShutdownAfterAutostart;
-        private System.Windows.Forms.Label labelAutostartProcess;
+
         private System.Windows.Forms.TextBox textBoxSebBrowser;
         private System.Windows.Forms.TextBox textBoxAutostartProcess;
+        private System.Windows.Forms.TextBox textBoxExamUrl;
+        private System.Windows.Forms.TextBox textBoxPermittedApplications;
         private System.Windows.Forms.Label labelSebBrowser;
-        private System.Windows.Forms.OpenFileDialog openFileDialogMsgHookIni;
-        private System.Windows.Forms.SaveFileDialog saveFileDialogMsgHookIni;
-        private System.Windows.Forms.Button buttonRestoreSettingsOfMsgHookIni;
+        private System.Windows.Forms.Label labelAutostartProcess;
+        private System.Windows.Forms.Label labelExamUrl;
+        private System.Windows.Forms.Label labelPermittedApplications;
+
+        private System.Windows.Forms.CheckBox checkBoxEnableEsc;
+        private System.Windows.Forms.CheckBox checkBoxEnableCtrlEsc;
+        private System.Windows.Forms.CheckBox checkBoxEnableAltEsc;
+        private System.Windows.Forms.CheckBox checkBoxEnableAltTab;
+        private System.Windows.Forms.CheckBox checkBoxEnableAltF4;
+        private System.Windows.Forms.CheckBox checkBoxEnableStartMenu;
+        private System.Windows.Forms.CheckBox checkBoxEnableRightMouse;
+
+        private System.Windows.Forms.CheckBox checkBoxEnableF1;
+        private System.Windows.Forms.CheckBox checkBoxEnableF2;
+        private System.Windows.Forms.CheckBox checkBoxEnableF3;
+        private System.Windows.Forms.CheckBox checkBoxEnableF4;
+        private System.Windows.Forms.CheckBox checkBoxEnableF5;
+        private System.Windows.Forms.CheckBox checkBoxEnableF6;
+        private System.Windows.Forms.CheckBox checkBoxEnableF7;
+        private System.Windows.Forms.CheckBox checkBoxEnableF8;
+        private System.Windows.Forms.CheckBox checkBoxEnableF9;
+        private System.Windows.Forms.CheckBox checkBoxEnableF10;
+        private System.Windows.Forms.CheckBox checkBoxEnableF11;
+        private System.Windows.Forms.CheckBox checkBoxEnableF12;
+
+        private System.Windows.Forms.ListBox listBoxExitKey1;
+        private System.Windows.Forms.ListBox listBoxExitKey3;
+        private System.Windows.Forms.ListBox listBoxExitKey2;
+
         private System.Windows.Forms.TextBox textBoxDebug;
-        private System.Windows.Forms.ListBox listBoxExitKeyFirst;
-        private System.Windows.Forms.ListBox listBoxExitKeyThird;
-        private System.Windows.Forms.ListBox listBoxExitKeySecond;
-        private System.Windows.Forms.GroupBox groupBoxExitSequence;
+
     }
 }
 
