@@ -703,17 +703,20 @@ namespace SebWindowsConfig
 
                         if (leftSide.Equals(msgStringB1))
                         {
-                            rightSide = newStringB1;
+                            newStringB1 = virtualKeyCodeString[newIndexExitKeyFirst];
+                            rightSide   = newStringB1;
                         }
 
                         if (leftSide.Equals(msgStringB2))
                         {
-                            rightSide = newStringB2;
+                            newStringB2 = virtualKeyCodeString[newIndexExitKeySecond];
+                            rightSide   = newStringB2;
                         }
 
                         if (leftSide.Equals(msgStringB3))
                         {
-                            rightSide = newStringB3;
+                            newStringB3 = virtualKeyCodeString[newIndexExitKeyThird];
+                            rightSide   = newStringB3;
                         }
 
                         // Concatenate the modified line
