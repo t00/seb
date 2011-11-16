@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerSebConfigExe = new System.Windows.Forms.SplitContainer();
             this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
             this.checkBoxShutdownAfterAutostart = new System.Windows.Forms.CheckBox();
             this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
@@ -96,10 +96,10 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogMsgHookIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogMsgHookIni = new System.Windows.Forms.SaveFileDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSebConfigExe)).BeginInit();
+            this.splitContainerSebConfigExe.Panel1.SuspendLayout();
+            this.splitContainerSebConfigExe.Panel2.SuspendLayout();
+            this.splitContainerSebConfigExe.SuspendLayout();
             this.groupBoxSecurityOptions.SuspendLayout();
             this.groupBoxSebStarterIni.SuspendLayout();
             this.groupBoxOnlineExam.SuspendLayout();
@@ -110,29 +110,29 @@
             this.groupBoxSpecialKeys.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // splitContainerSebConfigExe
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainerSebConfigExe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSebConfigExe.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerSebConfigExe.Name = "splitContainerSebConfigExe";
             // 
-            // splitContainer1.Panel1
+            // splitContainerSebConfigExe.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.groupBoxSecurityOptions);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBoxSebStarterIni);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBoxOnlineExam);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBoxRegistryValues);
+            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSecurityOptions);
+            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSebStarterIni);
+            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxOnlineExam);
+            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxRegistryValues);
             // 
-            // splitContainer1.Panel2
+            // splitContainerSebConfigExe.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBoxExitSequence);
-            this.splitContainer1.Panel2.Controls.Add(this.textBoxDebug);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBoxMsgHookIni);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBoxFunctionKeys);
-            this.splitContainer1.Panel2.Controls.Add(this.groupBoxSpecialKeys);
-            this.splitContainer1.Size = new System.Drawing.Size(1435, 655);
-            this.splitContainer1.SplitterDistance = 694;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxExitSequence);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.textBoxDebug);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookIni);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxSpecialKeys);
+            this.splitContainerSebConfigExe.Size = new System.Drawing.Size(1435, 655);
+            this.splitContainerSebConfigExe.SplitterDistance = 694;
+            this.splitContainerSebConfigExe.TabIndex = 0;
             // 
             // groupBoxSecurityOptions
             // 
@@ -884,7 +884,7 @@
             this.openFileDialogSebStarterIni.DefaultExt = "ini";
             this.openFileDialogSebStarterIni.FileName = "SebStarter.ini";
             this.openFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.openFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.openFileDialogSebStarterIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.openFileDialogSebStarterIni.RestoreDirectory = true;
             this.openFileDialogSebStarterIni.Title = "Open file SebStarter.ini";
             // 
@@ -893,7 +893,7 @@
             this.saveFileDialogSebStarterIni.DefaultExt = "ini";
             this.saveFileDialogSebStarterIni.FileName = "SebStarter.ini";
             this.saveFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.saveFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.saveFileDialogSebStarterIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.saveFileDialogSebStarterIni.RestoreDirectory = true;
             this.saveFileDialogSebStarterIni.Title = "Save file SebStarter.ini";
             // 
@@ -902,7 +902,7 @@
             this.openFileDialogMsgHookIni.DefaultExt = "ini";
             this.openFileDialogMsgHookIni.FileName = "MsgHook.ini";
             this.openFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.openFileDialogMsgHookIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.openFileDialogMsgHookIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.openFileDialogMsgHookIni.RestoreDirectory = true;
             this.openFileDialogMsgHookIni.Title = "Open file MsgHook.ini";
             // 
@@ -911,7 +911,7 @@
             this.saveFileDialogMsgHookIni.DefaultExt = "ini";
             this.saveFileDialogMsgHookIni.FileName = "MsgHook.ini";
             this.saveFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.saveFileDialogMsgHookIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.saveFileDialogMsgHookIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.saveFileDialogMsgHookIni.RestoreDirectory = true;
             this.saveFileDialogMsgHookIni.Title = "Save file MsgHook.ini";
             // 
@@ -921,14 +921,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1435, 655);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainerSebConfigExe);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Window";
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainerSebConfigExe.Panel1.ResumeLayout(false);
+            this.splitContainerSebConfigExe.Panel2.ResumeLayout(false);
+            this.splitContainerSebConfigExe.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSebConfigExe)).EndInit();
+            this.splitContainerSebConfigExe.ResumeLayout(false);
             this.groupBoxSecurityOptions.ResumeLayout(false);
             this.groupBoxSecurityOptions.PerformLayout();
             this.groupBoxSebStarterIni.ResumeLayout(false);
@@ -950,7 +950,7 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainerSebConfigExe;
 
         private System.Windows.Forms.GroupBox groupBoxSebStarterIni;
         private System.Windows.Forms.GroupBox groupBoxMsgHookIni;
