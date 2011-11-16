@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsConfigForm));
             this.splitContainerSebConfigExe = new System.Windows.Forms.SplitContainer();
             this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
             this.checkBoxShutdownAfterAutostart = new System.Windows.Forms.CheckBox();
@@ -117,6 +118,8 @@
             // 
             // splitContainerSebConfigExe.Panel1
             // 
+            this.splitContainerSebConfigExe.Panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainerSebConfigExe.Panel1.BackgroundImage")));
+            this.splitContainerSebConfigExe.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSecurityOptions);
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSebStarterIni);
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxOnlineExam);
@@ -124,6 +127,8 @@
             // 
             // splitContainerSebConfigExe.Panel2
             // 
+            this.splitContainerSebConfigExe.Panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainerSebConfigExe.Panel2.BackgroundImage")));
+            this.splitContainerSebConfigExe.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxExitSequence);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookIni);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
