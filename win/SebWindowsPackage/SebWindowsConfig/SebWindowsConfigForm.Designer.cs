@@ -65,7 +65,6 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.textBoxDebug = new System.Windows.Forms.TextBox();
             this.groupBoxMsgHookIni = new System.Windows.Forms.GroupBox();
             this.labelOpenFileMsgHookIni = new System.Windows.Forms.Label();
             this.labelSaveFileMsgHookIni = new System.Windows.Forms.Label();
@@ -126,7 +125,6 @@
             // splitContainerSebConfigExe.Panel2
             // 
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxExitSequence);
-            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.textBoxDebug);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookIni);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxSpecialKeys);
@@ -570,13 +568,6 @@
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeySecond_SelectedIndexChanged);
             // 
-            // textBoxDebug
-            // 
-            this.textBoxDebug.Location = new System.Drawing.Point(22, 569);
-            this.textBoxDebug.Name = "textBoxDebug";
-            this.textBoxDebug.Size = new System.Drawing.Size(419, 22);
-            this.textBoxDebug.TabIndex = 46;
-            // 
             // groupBoxMsgHookIni
             // 
             this.groupBoxMsgHookIni.Controls.Add(this.labelOpenFileMsgHookIni);
@@ -926,7 +917,6 @@
             this.Text = "SEB Windows Configuration Window";
             this.splitContainerSebConfigExe.Panel1.ResumeLayout(false);
             this.splitContainerSebConfigExe.Panel2.ResumeLayout(false);
-            this.splitContainerSebConfigExe.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSebConfigExe)).EndInit();
             this.splitContainerSebConfigExe.ResumeLayout(false);
             this.groupBoxSecurityOptions.ResumeLayout(false);
@@ -1030,8 +1020,6 @@
         private System.Windows.Forms.ListBox listBoxExitKey1;
         private System.Windows.Forms.ListBox listBoxExitKey3;
         private System.Windows.Forms.ListBox listBoxExitKey2;
-
-        private System.Windows.Forms.TextBox textBoxDebug;
 
     }
 }
