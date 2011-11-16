@@ -881,19 +881,39 @@
             // 
             // openFileDialogSebStarterIni
             // 
+            this.openFileDialogSebStarterIni.DefaultExt = "ini";
             this.openFileDialogSebStarterIni.FileName = "SebStarter.ini";
+            this.openFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
+            this.openFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.openFileDialogSebStarterIni.RestoreDirectory = true;
+            this.openFileDialogSebStarterIni.Title = "Open file SebStarter.ini";
             // 
             // saveFileDialogSebStarterIni
             // 
+            this.saveFileDialogSebStarterIni.DefaultExt = "ini";
             this.saveFileDialogSebStarterIni.FileName = "SebStarter.ini";
+            this.saveFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
+            this.saveFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.saveFileDialogSebStarterIni.RestoreDirectory = true;
+            this.saveFileDialogSebStarterIni.Title = "Save file SebStarter.ini";
             // 
             // openFileDialogMsgHookIni
             // 
+            this.openFileDialogMsgHookIni.DefaultExt = "ini";
             this.openFileDialogMsgHookIni.FileName = "MsgHook.ini";
+            this.openFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
+            this.openFileDialogMsgHookIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.openFileDialogMsgHookIni.RestoreDirectory = true;
+            this.openFileDialogMsgHookIni.Title = "Open file MsgHook.ini";
             // 
             // saveFileDialogMsgHookIni
             // 
+            this.saveFileDialogMsgHookIni.DefaultExt = "ini";
             this.saveFileDialogMsgHookIni.FileName = "MsgHook.ini";
+            this.saveFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
+            this.saveFileDialogMsgHookIni.InitialDirectory = System.Environment.CurrentDirectory;
+            this.saveFileDialogMsgHookIni.RestoreDirectory = true;
+            this.saveFileDialogMsgHookIni.Title = "Save file MsgHook.ini";
             // 
             // SebWindowsConfigForm
             // 
