@@ -45,6 +45,8 @@
             this.buttonRestoreSettingsOfSebStarterIni = new System.Windows.Forms.Button();
             this.checkBoxWriteLogFileSebStarterLog = new System.Windows.Forms.CheckBox();
             this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
+            this.labelQuitPassword = new System.Windows.Forms.Label();
+            this.textBoxQuitPassword = new System.Windows.Forms.TextBox();
             this.textBoxAutostartProcess = new System.Windows.Forms.TextBox();
             this.labelSebBrowser = new System.Windows.Forms.Label();
             this.labelAutostartProcess = new System.Windows.Forms.Label();
@@ -147,7 +149,7 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxForceWindowsService);
-            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(294, 166);
+            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(294, 154);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
             this.groupBoxSecurityOptions.Size = new System.Drawing.Size(319, 259);
             this.groupBoxSecurityOptions.TabIndex = 45;
@@ -304,6 +306,8 @@
             // 
             // groupBoxOnlineExam
             // 
+            this.groupBoxOnlineExam.Controls.Add(this.labelQuitPassword);
+            this.groupBoxOnlineExam.Controls.Add(this.textBoxQuitPassword);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxAutostartProcess);
             this.groupBoxOnlineExam.Controls.Add(this.labelSebBrowser);
             this.groupBoxOnlineExam.Controls.Add(this.labelAutostartProcess);
@@ -312,12 +316,29 @@
             this.groupBoxOnlineExam.Controls.Add(this.labelPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxExamUrl);
-            this.groupBoxOnlineExam.Location = new System.Drawing.Point(24, 456);
+            this.groupBoxOnlineExam.Location = new System.Drawing.Point(24, 433);
             this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
-            this.groupBoxOnlineExam.Size = new System.Drawing.Size(589, 149);
+            this.groupBoxOnlineExam.Size = new System.Drawing.Size(589, 175);
             this.groupBoxOnlineExam.TabIndex = 25;
             this.groupBoxOnlineExam.TabStop = false;
             this.groupBoxOnlineExam.Text = "Online exam";
+            // 
+            // labelQuitPassword
+            // 
+            this.labelQuitPassword.AutoSize = true;
+            this.labelQuitPassword.Location = new System.Drawing.Point(6, 146);
+            this.labelQuitPassword.Name = "labelQuitPassword";
+            this.labelQuitPassword.Size = new System.Drawing.Size(98, 17);
+            this.labelQuitPassword.TabIndex = 29;
+            this.labelQuitPassword.Text = "Quit password";
+            // 
+            // textBoxQuitPassword
+            // 
+            this.textBoxQuitPassword.Location = new System.Drawing.Point(153, 143);
+            this.textBoxQuitPassword.Name = "textBoxQuitPassword";
+            this.textBoxQuitPassword.Size = new System.Drawing.Size(419, 22);
+            this.textBoxQuitPassword.TabIndex = 28;
+            this.textBoxQuitPassword.TextChanged += new System.EventHandler(this.textBoxQuitPassword_TextChanged);
             // 
             // textBoxAutostartProcess
             // 
@@ -397,7 +418,7 @@
             this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableShutDown);
             this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableEaseOfAccess);
             this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableVmWareClientShade);
-            this.groupBoxRegistryValues.Location = new System.Drawing.Point(24, 166);
+            this.groupBoxRegistryValues.Location = new System.Drawing.Point(24, 154);
             this.groupBoxRegistryValues.Name = "groupBoxRegistryValues";
             this.groupBoxRegistryValues.Size = new System.Drawing.Size(264, 259);
             this.groupBoxRegistryValues.TabIndex = 24;
@@ -1025,6 +1046,8 @@
         private System.Windows.Forms.ListBox listBoxExitKey1;
         private System.Windows.Forms.ListBox listBoxExitKey3;
         private System.Windows.Forms.ListBox listBoxExitKey2;
+        private System.Windows.Forms.Label labelQuitPassword;
+        private System.Windows.Forms.TextBox textBoxQuitPassword;
 
     }
 }

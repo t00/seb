@@ -78,10 +78,12 @@ namespace SebWindowsConfig
         const String MSG_Win9xKillExplorer         = "Win9xKillExplorer";
         const String MSG_Win9xScreenSaverRunning   = "Win9xScreenSaverRunning";
 
+        // Group "Online exam"
         const String MSG_SebBrowser            = "SebBrowser";
         const String MSG_AutostartProcess      = "AutostartProcess";
         const String MSG_ExamUrl               = "ExamUrl";
         const String MSG_PermittedApplications = "PermittedApplications";
+        const String MSG_QuitPassword          = "QuitPassword";
 
         // Group "Special keys"
         const int IND_EnableEsc        = 1;
@@ -127,6 +129,7 @@ namespace SebWindowsConfig
         const String MSG_EnableF11 = "EnableF11";
         const String MSG_EnableF12 = "EnableF12";
 
+        // Group "Exit sequence"
         const String MSG_B1 = "B1";
         const String MSG_B2 = "B2";
         const String MSG_B3 = "B3";
@@ -180,6 +183,10 @@ namespace SebWindowsConfig
         String oldStringPermittedApplications = "";
         String newStringPermittedApplications = "";
         String msgStringPermittedApplications = "";
+
+        String oldStringQuitPassword = "";
+        String newStringQuitPassword = "";
+        String msgStringQuitPassword = "";
 
         String oldStringB1 = "";
         String newStringB1 = "";
@@ -276,6 +283,7 @@ namespace SebWindowsConfig
             msgStringAutostartProcess      = MSG_AutostartProcess;
             msgStringExamUrl               = MSG_ExamUrl;
             msgStringPermittedApplications = MSG_PermittedApplications;
+            msgStringQuitPassword          = MSG_QuitPassword;
 
             msgString[IND_SpecialKeys, IND_EnableEsc       ] = MSG_EnableEsc;
             msgString[IND_SpecialKeys, IND_EnableCtrlEsc   ] = MSG_EnableCtrlEsc;
@@ -392,6 +400,12 @@ namespace SebWindowsConfig
                             newStringPermittedApplications = rightSide;
                         }
 
+                        if (leftSide.Equals(msgStringQuitPassword))
+                        {
+                            oldStringQuitPassword = rightSide;
+                            newStringQuitPassword = rightSide;
+                        }
+
                     } // end if line.Contains("=")
                 } // end while
 
@@ -424,6 +438,7 @@ namespace SebWindowsConfig
                 textBoxAutostartProcess     .Text = newStringAutostartProcess;
                 textBoxExamUrl              .Text = newStringExamUrl;
                 textBoxPermittedApplications.Text = newStringPermittedApplications;
+                textBoxQuitPassword         .Text = newStringQuitPassword;
 
             } // end try
             catch (Exception streamReadException) 
@@ -498,6 +513,11 @@ namespace SebWindowsConfig
                         if (leftSide.Equals(msgStringPermittedApplications))
                         {
                             rightSide = newStringPermittedApplications;
+                        }
+
+                        if (leftSide.Equals(msgStringQuitPassword))
+                        {
+                            rightSide = newStringQuitPassword;
                         }
 
                         // Concatenate the modified line
@@ -867,6 +887,11 @@ namespace SebWindowsConfig
             newStringPermittedApplications = textBoxPermittedApplications.Text;
         }
 
+        private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
+        {
+            newStringQuitPassword = textBoxQuitPassword.Text;
+        }
+
 
 
         // Group "Special keys"
@@ -1045,6 +1070,7 @@ namespace SebWindowsConfig
             newStringAutostartProcess      = oldStringAutostartProcess;
             newStringExamUrl               = oldStringExamUrl;
             newStringPermittedApplications = oldStringPermittedApplications;
+            newStringQuitPassword          = oldStringQuitPassword;
 
             // Assign the old settings from the SebStarter.ini file to the widgets again
             checkBoxEnableSwitchUser       .Checked = oldSetting[IND_RegistryValues, IND_EnableSwitchUser];
@@ -1071,6 +1097,7 @@ namespace SebWindowsConfig
             textBoxAutostartProcess     .Text = oldStringAutostartProcess;
             textBoxExamUrl              .Text = oldStringExamUrl;
             textBoxPermittedApplications.Text = oldStringPermittedApplications;
+            textBoxQuitPassword         .Text = oldStringQuitPassword;
         }
 
 
