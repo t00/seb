@@ -84,6 +84,7 @@ namespace SebWindowsConfig
         const String MSG_ExamUrl               = "ExamUrl";
         const String MSG_PermittedApplications = "PermittedApplications";
         const String MSG_QuitPassword          = "QuitPassword";
+        const String MSG_QuitHashcode          = "QuitHashcode";
 
         // Group "Special keys"
         const int IND_EnableEsc        = 1;
@@ -188,6 +189,13 @@ namespace SebWindowsConfig
         String newStringQuitPassword = "";
         String msgStringQuitPassword = "";
 
+        String oldStringQuitHashcode = "";
+        String newStringQuitHashcode = "";
+        String msgStringQuitHashcode = "";
+
+        int oldNumberQuitHashcode = 0;
+        int newNumberQuitHashcode = 0;
+
         String oldStringB1 = "";
         String newStringB1 = "";
         String msgStringB1 = "";
@@ -284,6 +292,7 @@ namespace SebWindowsConfig
             msgStringExamUrl               = MSG_ExamUrl;
             msgStringPermittedApplications = MSG_PermittedApplications;
             msgStringQuitPassword          = MSG_QuitPassword;
+            msgStringQuitHashcode          = MSG_QuitHashcode;
 
             msgString[IND_SpecialKeys, IND_EnableEsc       ] = MSG_EnableEsc;
             msgString[IND_SpecialKeys, IND_EnableCtrlEsc   ] = MSG_EnableCtrlEsc;
@@ -406,12 +415,25 @@ namespace SebWindowsConfig
                             newStringQuitPassword = rightSide;
                         }
 
+                        if (leftSide.Equals(msgStringQuitHashcode))
+                        {
+                            oldStringQuitHashcode = rightSide;
+                            newStringQuitHashcode = rightSide;
+                        }
+
                     } // end if line.Contains("=")
                 } // end while
 
                 // Close the SebStarter.ini file
                 streamReaderSebStarterIni.Close();
                   fileStreamSebStarterIni.Close();
+
+                // Encrypt the quit password by computing its hashcode
+                oldNumberQuitHashcode = oldStringQuitPassword.GetHashCode();
+                newNumberQuitHashcode = newStringQuitPassword.GetHashCode();
+
+                oldStringQuitHashcode = oldNumberQuitHashcode.ToString();
+                newStringQuitHashcode = newNumberQuitHashcode.ToString();
 
                 // Assign the settings from the SebStarter.ini file to the widgets
                 checkBoxEnableSwitchUser       .Checked = newSetting[IND_RegistryValues, IND_EnableSwitchUser];
@@ -439,6 +461,7 @@ namespace SebWindowsConfig
                 textBoxExamUrl              .Text = newStringExamUrl;
                 textBoxPermittedApplications.Text = newStringPermittedApplications;
                 textBoxQuitPassword         .Text = newStringQuitPassword;
+                textBoxQuitHashcode         .Text = newStringQuitHashcode;
 
             } // end try
             catch (Exception streamReadException) 
@@ -518,6 +541,11 @@ namespace SebWindowsConfig
                         if (leftSide.Equals(msgStringQuitPassword))
                         {
                             rightSide = newStringQuitPassword;
+                        }
+
+                        if (leftSide.Equals(msgStringQuitHashcode))
+                        {
+                            rightSide = newStringQuitHashcode;
                         }
 
                         // Concatenate the modified line
@@ -889,7 +917,11 @@ namespace SebWindowsConfig
 
         private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
         {
-            newStringQuitPassword = textBoxQuitPassword.Text;
+            // Get and encrypt the new quit password
+            newStringQuitPassword      =   textBoxQuitPassword.Text;
+            newNumberQuitHashcode      = newStringQuitPassword.GetHashCode();
+            newStringQuitHashcode      = newNumberQuitHashcode.ToString();
+              textBoxQuitHashcode.Text = newStringQuitHashcode;
         }
 
 
@@ -1071,6 +1103,7 @@ namespace SebWindowsConfig
             newStringExamUrl               = oldStringExamUrl;
             newStringPermittedApplications = oldStringPermittedApplications;
             newStringQuitPassword          = oldStringQuitPassword;
+            newStringQuitHashcode          = oldStringQuitHashcode;
 
             // Assign the old settings from the SebStarter.ini file to the widgets again
             checkBoxEnableSwitchUser       .Checked = oldSetting[IND_RegistryValues, IND_EnableSwitchUser];
@@ -1098,6 +1131,7 @@ namespace SebWindowsConfig
             textBoxExamUrl              .Text = oldStringExamUrl;
             textBoxPermittedApplications.Text = oldStringPermittedApplications;
             textBoxQuitPassword         .Text = oldStringQuitPassword;
+            textBoxQuitHashcode         .Text = oldStringQuitHashcode;
         }
 
 

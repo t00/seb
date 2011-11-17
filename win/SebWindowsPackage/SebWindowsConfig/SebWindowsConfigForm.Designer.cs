@@ -45,6 +45,8 @@
             this.buttonRestoreSettingsOfSebStarterIni = new System.Windows.Forms.Button();
             this.checkBoxWriteLogFileSebStarterLog = new System.Windows.Forms.CheckBox();
             this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
+            this.labelQuitHashCode = new System.Windows.Forms.Label();
+            this.textBoxQuitHashcode = new System.Windows.Forms.TextBox();
             this.labelQuitPassword = new System.Windows.Forms.Label();
             this.textBoxQuitPassword = new System.Windows.Forms.TextBox();
             this.textBoxAutostartProcess = new System.Windows.Forms.TextBox();
@@ -306,6 +308,8 @@
             // 
             // groupBoxOnlineExam
             // 
+            this.groupBoxOnlineExam.Controls.Add(this.labelQuitHashCode);
+            this.groupBoxOnlineExam.Controls.Add(this.textBoxQuitHashcode);
             this.groupBoxOnlineExam.Controls.Add(this.labelQuitPassword);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxQuitPassword);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxAutostartProcess);
@@ -318,10 +322,27 @@
             this.groupBoxOnlineExam.Controls.Add(this.textBoxExamUrl);
             this.groupBoxOnlineExam.Location = new System.Drawing.Point(24, 433);
             this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
-            this.groupBoxOnlineExam.Size = new System.Drawing.Size(589, 175);
+            this.groupBoxOnlineExam.Size = new System.Drawing.Size(589, 210);
             this.groupBoxOnlineExam.TabIndex = 25;
             this.groupBoxOnlineExam.TabStop = false;
             this.groupBoxOnlineExam.Text = "Online exam";
+            // 
+            // labelQuitHashCode
+            // 
+            this.labelQuitHashCode.AutoSize = true;
+            this.labelQuitHashCode.Location = new System.Drawing.Point(6, 171);
+            this.labelQuitHashCode.Name = "labelQuitHashCode";
+            this.labelQuitHashCode.Size = new System.Drawing.Size(100, 17);
+            this.labelQuitHashCode.TabIndex = 31;
+            this.labelQuitHashCode.Text = "Quit hashcode";
+            // 
+            // textBoxQuitHashcode
+            // 
+            this.textBoxQuitHashcode.Location = new System.Drawing.Point(153, 171);
+            this.textBoxQuitHashcode.Name = "textBoxQuitHashcode";
+            this.textBoxQuitHashcode.ReadOnly = true;
+            this.textBoxQuitHashcode.Size = new System.Drawing.Size(419, 22);
+            this.textBoxQuitHashcode.TabIndex = 30;
             // 
             // labelQuitPassword
             // 
@@ -1048,6 +1069,8 @@
         private System.Windows.Forms.ListBox listBoxExitKey2;
         private System.Windows.Forms.Label labelQuitPassword;
         private System.Windows.Forms.TextBox textBoxQuitPassword;
+        private System.Windows.Forms.Label labelQuitHashCode;
+        private System.Windows.Forms.TextBox textBoxQuitHashcode;
 
     }
 }
