@@ -1011,6 +1011,8 @@ BOOL ReadSebStarterIni()
 	string strKey   = "";
 	string strValue = "";
 	string sExamUrl         = "";
+	string sQuitPassword    = "";
+	string sQuitHashcode    = "";
 	string sApplicationName = "";
 	string sCommandLine     = "";
   //string sCommandProcess  = "";
@@ -1070,7 +1072,7 @@ BOOL ReadSebStarterIni()
 		while(!getline(inf, strLine).eof())
 		{			
 			strKey   = strLine.substr(0, strLine.find("=", 0));
-			strValue = strLine.substr(   strLine.find("=", 0)+1, strLine.length());
+			strValue = strLine.substr(   strLine.find("=", 0) + 1, strLine.length());
 			mpParam[strKey] = strValue;
 
 			//captionString = strKey  .c_str();
@@ -1153,10 +1155,14 @@ BOOL ReadSebStarterIni()
 		}
 
 
-		// Get start URL for Seb Browser
-		sExamUrl = mpParam["ExamUrl"];
+		// Get start URL and quit password for SEB
+		sExamUrl      = mpParam["ExamUrl"];
+		sQuitPassword = mpParam["QuitPassword"];
+		sQuitHashcode = mpParam["QuitHashcode"];
 		//MessageBox(NULL, sExamUrl.c_str(), "ExamUrl", MB_ICONERROR);
-		logg(fp, "ExamUrl = %s\n", sExamUrl.c_str());
+		logg(fp, "ExamUrl      = %s\n", sExamUrl.c_str());
+		logg(fp, "QuitPassword = %s\n", sQuitPassword.c_str());
+		logg(fp, "QuitHashcode = %s\n", sQuitHashcode.c_str());
 		logg(fp, "\n");
 
 		// Get the processes (SEB and third-party applications)
