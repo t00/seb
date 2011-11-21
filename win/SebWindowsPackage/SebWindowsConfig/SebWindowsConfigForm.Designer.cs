@@ -922,7 +922,6 @@
             this.openFileDialogSebStarterIni.DefaultExt = "ini";
             this.openFileDialogSebStarterIni.FileName = "SebStarter.ini";
             this.openFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.openFileDialogSebStarterIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.openFileDialogSebStarterIni.RestoreDirectory = true;
             this.openFileDialogSebStarterIni.Title = "Open file SebStarter.ini";
             // 
@@ -931,7 +930,6 @@
             this.saveFileDialogSebStarterIni.DefaultExt = "ini";
             this.saveFileDialogSebStarterIni.FileName = "SebStarter.ini";
             this.saveFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.saveFileDialogSebStarterIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.saveFileDialogSebStarterIni.RestoreDirectory = true;
             this.saveFileDialogSebStarterIni.Title = "Save file SebStarter.ini";
             // 
@@ -940,7 +938,6 @@
             this.openFileDialogMsgHookIni.DefaultExt = "ini";
             this.openFileDialogMsgHookIni.FileName = "MsgHook.ini";
             this.openFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.openFileDialogMsgHookIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.openFileDialogMsgHookIni.RestoreDirectory = true;
             this.openFileDialogMsgHookIni.Title = "Open file MsgHook.ini";
             // 
@@ -949,7 +946,6 @@
             this.saveFileDialogMsgHookIni.DefaultExt = "ini";
             this.saveFileDialogMsgHookIni.FileName = "MsgHook.ini";
             this.saveFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
-            this.saveFileDialogMsgHookIni.InitialDirectory = "C:\\Users\\Dirk\\seb\\trunk\\win\\SebWindowsPackage";
             this.saveFileDialogMsgHookIni.RestoreDirectory = true;
             this.saveFileDialogMsgHookIni.Title = "Save file MsgHook.ini";
             // 
