@@ -243,6 +243,43 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 
+/*
+	if (keyCode == VK_ESCAPE)
+	{
+		logg(fp, "   LLKeyboardHook(): Esc pressed, calling pop window for quit password...\n\n");
+
+		// TODO: modal popup window for entering the quit password
+		string quitPasswordStored  = "";
+		string quitPasswordEntered = "";
+		string quitHashcodeStored  = "";
+		string quitHashcodeEntered = "";
+
+		quitPasswordStored  = mpParam["QuitPassword"];
+		quitPasswordEntered = "Davos";
+      //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
+
+		quitHashcodeStored  = quitPasswordStored;
+		quitHashcodeEntered = quitPasswordEntered;
+
+		//quitHashcodeStored  = quitPasswordStored .ComputeHashcode();
+		//quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
+
+		logg(fp, "   quitPasswordStored  = %s\n", quitPasswordStored);
+		logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered);
+		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored);
+		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered);
+
+		if (quitHashcodeStored == quitHashcodeEntered)
+		{
+			logg(fp, "\n\n");
+			//TerminateProcess(hPiProcess->hProcess,0);
+			SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+			logg(fp, "   SEB quit password entered correctly, therefore destroy window\n");
+			//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
+			return -1;
+		}
+	}
+*/
 
 	switch (wParam) 
 	{
@@ -348,13 +385,6 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		//logg(fp, "   bEatKeystroke = false\n");
 		//logg(fp, "Leave LLKeyboardHook() and return CallNextHookEx()\n\n");
-
-		if (keyCode == VK_ESCAPE)
-		{
-			logg(fp, "   LLKeyboardHook(): Esc pressed, calling pop window for quit password...\n\n");
-			//MessageBox(NULL, "Enter quit password:", "Davos", MB_ICONERROR);
-		}
-
         return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 
