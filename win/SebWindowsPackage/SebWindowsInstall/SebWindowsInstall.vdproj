@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_013ABA4C208B4DF997ADB8530899810A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_27F091F3D6004A7398C9A55783069630"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -22,6 +28,12 @@
         "Entry"
         {
         "MsmKey" = "8:_2F781351D84142A3B90B16EEDFEEF307"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4B152F5B42AF4082AF57CF44D5DD9C52"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -63,12 +75,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BE18A0F24B7B4E6997419F6E49EB8F8C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_CEED135AC51A4D57A839EEA345A7385A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -82,12 +88,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D72F56EECBDF465D87804FD5D7584B9A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DE835566A9CD440CB6064E82597B7CB1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -264,6 +264,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_013ABA4C208B4DF997ADB8530899810A"
+            {
+            "SourcePath" = "8:..\\SebBanner.bmp"
+            "TargetName" = "8:SebBanner.bmp"
+            "Tag" = "8:"
+            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_27F091F3D6004A7398C9A55783069630"
             {
             "SourcePath" = "8:..\\SebWindowsClient\\MsgHook\\MsgHook.ini"
@@ -290,6 +310,26 @@
             "TargetName" = "8:SebStarter.ini"
             "Tag" = "8:"
             "Folder" = "8:_50EFE0DB1A9D44B9946BF4D685F93AA3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4B152F5B42AF4082AF57CF44D5DD9C52"
+            {
+            "SourcePath" = "8:..\\SebIcon.ico"
+            "TargetName" = "8:SebIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -375,26 +415,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BE18A0F24B7B4E6997419F6E49EB8F8C"
-            {
-            "SourcePath" = "8:..\\SebWindowsIcon.ico"
-            "TargetName" = "8:SebWindowsIcon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CEED135AC51A4D57A839EEA345A7385A"
             {
             "SourcePath" = "8:..\\SebWindowsClient\\xulrunner_no_ssl_warning.zip"
@@ -439,26 +459,6 @@
             {
             "SourcePath" = "8:..\\SebWindowsClient\\xulrunner.zip"
             "TargetName" = "8:xulrunner.zip"
-            "Tag" = "8:"
-            "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DE835566A9CD440CB6064E82597B7CB1"
-            {
-            "SourcePath" = "8:..\\SebWindowsBanner.bmp"
-            "TargetName" = "8:SebWindowsBanner.bmp"
             "Tag" = "8:"
             "Folder" = "8:_AD31C98D7A3C46E684BB2C97B1F3D501"
             "Condition" = "8:"
@@ -599,7 +599,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.8"
         "ProductCode" = "8:{0538D745-51CF-4EF2-8F30-69FAC95CADA2}"
-        "PackageCode" = "8:{036E1984-DFC3-4746-BC0E-EB09AFC85B32}"
+        "PackageCode" = "8:{070C65E4-A981-414B-AA58-27B7B44313CF}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -616,7 +616,7 @@
         "Keywords" = "8:Safe Exam Browser"
         "ARPCOMMENTS" = "8:Safe Exam Browser (Client and Windows Service)"
         "ARPURLINFOABOUT" = "8:http://www.ethz.ch/let"
-        "ARPPRODUCTICON" = "8:_BE18A0F24B7B4E6997419F6E49EB8F8C"
+        "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -730,7 +730,7 @@
             "Target" = "8:_9A583C71CDC742C6BE262BA8B3569ADE"
             "Folder" = "8:_A2C1527B368045648749CE64C9DE894B"
             "WorkingFolder" = "8:_082CE6E63686411FB52ED9065F47C75E"
-            "Icon" = "8:_BE18A0F24B7B4E6997419F6E49EB8F8C"
+            "Icon" = "8:_4B152F5B42AF4082AF57CF44D5DD9C52"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F8814FF9E4A1427FB3B23032DADAF825"
@@ -744,7 +744,7 @@
             "Target" = "8:_9A583C71CDC742C6BE262BA8B3569ADE"
             "Folder" = "8:_D1A781BF6BAC46F48B0C1DDDE07171DF"
             "WorkingFolder" = "8:_082CE6E63686411FB52ED9065F47C75E"
-            "Icon" = "8:_BE18A0F24B7B4E6997419F6E49EB8F8C"
+            "Icon" = "8:_4B152F5B42AF4082AF57CF44D5DD9C52"
             "Feature" = "8:"
             }
         }
@@ -775,7 +775,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
+                            "Value" = "8:_013ABA4C208B4DF997ADB8530899810A"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -826,7 +826,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
+                            "Value" = "8:_013ABA4C208B4DF997ADB8530899810A"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -875,7 +875,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
+                            "Value" = "8:_013ABA4C208B4DF997ADB8530899810A"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -911,7 +911,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
+                            "Value" = "8:_013ABA4C208B4DF997ADB8530899810A"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "EulaText"
@@ -959,7 +959,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
+                            "Value" = "8:_013ABA4C208B4DF997ADB8530899810A"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -991,7 +991,7 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:2"
-                            "Value" = "8:_DE835566A9CD440CB6064E82597B7CB1"
+                            "Value" = "8:_013ABA4C208B4DF997ADB8530899810A"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
