@@ -66,6 +66,7 @@
             this.checkBoxEnableShutDown = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
+            this.buttonFinish = new System.Windows.Forms.Button();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
@@ -133,6 +134,7 @@
             // 
             this.splitContainerSebConfigExe.Panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainerSebConfigExe.Panel2.BackgroundImage")));
             this.splitContainerSebConfigExe.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonFinish);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxExitSequence);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookIni);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
@@ -533,6 +535,16 @@
             this.checkBoxEnableVmWareClientShade.Text = "Enable VMware Client Shade";
             this.checkBoxEnableVmWareClientShade.UseVisualStyleBackColor = true;
             this.checkBoxEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxEnableVmWareClientShade_CheckedChanged);
+            // 
+            // buttonFinish
+            // 
+            this.buttonFinish.Location = new System.Drawing.Point(16, 579);
+            this.buttonFinish.Name = "buttonFinish";
+            this.buttonFinish.Size = new System.Drawing.Size(189, 64);
+            this.buttonFinish.TabIndex = 52;
+            this.buttonFinish.Text = "Configuration finished,\r\nclose window";
+            this.buttonFinish.UseVisualStyleBackColor = true;
+            this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
             // 
             // groupBoxExitSequence
             // 
@@ -1067,6 +1079,7 @@
         private System.Windows.Forms.TextBox textBoxQuitPassword;
         private System.Windows.Forms.Label labelQuitHashCode;
         private System.Windows.Forms.TextBox textBoxQuitHashcode;
+        private System.Windows.Forms.Button buttonFinish;
 
     }
 }

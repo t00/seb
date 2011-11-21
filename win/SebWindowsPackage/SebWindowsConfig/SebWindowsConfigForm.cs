@@ -1186,5 +1186,16 @@ namespace SebWindowsConfig
             listBoxExitKey3.SelectedIndex = oldIndexExitKey3 - 1;
         }
 
+
+
+        // ***********************************
+        // Close the configuration application
+        // ***********************************
+        private void buttonFinish_Click(object sender, EventArgs e)
+        {
+            // Close the configuration window and exit
+            this.Close();
+        }
+
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig
