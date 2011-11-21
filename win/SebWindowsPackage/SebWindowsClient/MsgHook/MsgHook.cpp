@@ -629,6 +629,7 @@ BOOL ReadMsgHookIni()
 	string strLine  = "";
 	string strKey   = "";
 	string strValue = "";
+	size_t strFound = -1;
 	string sHotKey  = "";
 
 	logg(fp, "Enter ReadMsgHookIni()\n");
@@ -698,15 +699,24 @@ BOOL ReadMsgHookIni()
 		logg(fp, "-----------\n");
 
 		while (!getline(inf, strLine).eof())
-		{			
-			strKey   = strLine.substr(0, strLine.find("=", 0));
-			strValue = strLine.substr(   strLine.find("=", 0)+1, strLine.length());
-			mpParam[strKey] = strValue;
+		{
+			strFound = strLine.find  ("=", 0);
+			strKey   = strLine.substr(0, strFound);
+			strValue = strLine.substr(   strFound + 1, strLine.length());
 
-			//captionString = strKey  .c_str();
-			//messageString = strValue.c_str();
-			//MessageBox(NULL, messageString, captionString, 16);
-			logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
+			// Skip lines without a "=" character
+			if (strFound == string::npos)
+			{
+				logg(fp, "%s\n", strLine.c_str());
+			}
+			else
+			{
+				mpParam[strKey] = strValue;
+				//captionString = strKey  .c_str();
+				//messageString = strValue.c_str();
+				//MessageBox(NULL, messageString, captionString, 16);
+				logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
+			}
 		}
 
 		inf.close();
