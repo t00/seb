@@ -348,6 +348,13 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		//logg(fp, "   bEatKeystroke = false\n");
 		//logg(fp, "Leave LLKeyboardHook() and return CallNextHookEx()\n\n");
+
+		if (keyCode == VK_ESCAPE)
+		{
+			logg(fp, "   LLKeyboardHook(): Esc pressed, calling pop window for quit password...\n\n");
+			//MessageBox(NULL, "Enter quit password:", "Davos", MB_ICONERROR);
+		}
+
         return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 
