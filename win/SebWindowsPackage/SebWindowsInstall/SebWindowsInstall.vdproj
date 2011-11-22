@@ -391,11 +391,6 @@
             "AssemblyAsmDisplayName" = "8:Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
-                    {
-                    "Name" = "8:Ionic.Zip.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Ionic.Zip.dll"
             "TargetName" = "8:"
@@ -599,7 +594,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SEB Windows 1.8"
         "ProductCode" = "8:{0538D745-51CF-4EF2-8F30-69FAC95CADA2}"
-        "PackageCode" = "8:{070C65E4-A981-414B-AA58-27B7B44313CF}"
+        "PackageCode" = "8:{60A8F99F-D2F8-44AD-96AB-918FDA97CC3D}"
         "UpgradeCode" = "8:{C8F21970-5908-416C-9CD5-3B71B28233A3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -731,6 +726,20 @@
             "Folder" = "8:_A2C1527B368045648749CE64C9DE894B"
             "WorkingFolder" = "8:_082CE6E63686411FB52ED9065F47C75E"
             "Icon" = "8:_4B152F5B42AF4082AF57CF44D5DD9C52"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_86B178830A4346289C8F09C2FC606E46"
+            {
+            "Name" = "8:SEB Windows 1.8"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_9A583C71CDC742C6BE262BA8B3569ADE"
+            "Folder" = "8:_082CE6E63686411FB52ED9065F47C75E"
+            "WorkingFolder" = "8:_082CE6E63686411FB52ED9065F47C75E"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F8814FF9E4A1427FB3B23032DADAF825"
