@@ -257,6 +257,11 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		string quitHashcodeStored  = "";
 		string quitHashcodeEntered = "";
 
+		logg(fp, " examUrl      = %s\n",  examUrl);
+		logg(fp, " quitPassword = %s\n",  quitPassword);
+		logg(fp, " quitHashcode = %s\n",  quitHashcode);
+		logg(fp, "\n");
+
 		quitPasswordStored  = quitPassword;
 		quitPasswordEntered = "Davos";
       //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
@@ -267,10 +272,11 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		//quitHashcodeStored  = quitPasswordStored .ComputeHashcode();
 		//quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
 
-		logg(fp, "   quitPasswordStored  = %s\n", quitPasswordStored);
-		logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered);
-		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored);
-		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered);
+		logg(fp, "   quitPasswordStored  = %s\n", quitPasswordStored .c_str());
+		logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered.c_str());
+		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
+		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
+		logg(fp, "\n");
 
 		if (quitHashcodeStored == quitHashcodeEntered)
 		{
