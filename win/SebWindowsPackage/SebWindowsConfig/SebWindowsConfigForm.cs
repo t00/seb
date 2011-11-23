@@ -335,6 +335,11 @@ namespace SebWindowsConfig
             virtualKeyCodeString[11] = "122";
             virtualKeyCodeString[12] = "123";
 
+            openFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
+            saveFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
+            openFileDialogMsgHookIni   .InitialDirectory = System.Environment.CurrentDirectory;
+            saveFileDialogMsgHookIni   .InitialDirectory = System.Environment.CurrentDirectory;
+
         } // end of contructor   SebWindowsConfigForm()
 
 
