@@ -53,6 +53,9 @@ extern char logFileSebStarter[BUFLEN];
 extern char iniFileDirectory [BUFLEN];
 extern char iniFileMsgHook   [BUFLEN];
 extern char iniFileSebStarter[BUFLEN];
+extern char examUrl          [BUFLEN];
+extern char quitPassword     [BUFLEN];
+extern char quitHashcode     [BUFLEN];
 extern FILE* fp;
 
 // Function for easier writing into the logfile
@@ -1165,14 +1168,25 @@ BOOL ReadSebStarterIni()
 		}
 
 
-		// Get start URL and quit password for SEB
+		// Get the start URL and quit password for SEB
 		sExamUrl      = mpParam["ExamUrl"];
 		sQuitPassword = mpParam["QuitPassword"];
 		sQuitHashcode = mpParam["QuitHashcode"];
+
+		// Store the start URL and quit password for SEB
+		strcpy(examUrl     , sExamUrl     .c_str());
+		strcpy(quitPassword, sQuitPassword.c_str());
+		strcpy(quitHashcode, sQuitHashcode.c_str());
+
 		//MessageBox(NULL, sExamUrl.c_str(), "ExamUrl", MB_ICONERROR);
-		logg(fp, "ExamUrl      = %s\n", sExamUrl.c_str());
-		logg(fp, "QuitPassword = %s\n", sQuitPassword.c_str());
-		logg(fp, "QuitHashcode = %s\n", sQuitHashcode.c_str());
+
+		logg(fp, "sExamUrl      = %s\n", sExamUrl     .c_str());
+		logg(fp, "sQuitPassword = %s\n", sQuitPassword.c_str());
+		logg(fp, "sQuitHashcode = %s\n", sQuitHashcode.c_str());
+		logg(fp, "\n");
+		logg(fp, " examUrl      = %s\n",  examUrl);
+		logg(fp, " quitPassword = %s\n",  quitPassword);
+		logg(fp, " quitHashcode = %s\n",  quitHashcode);
 		logg(fp, "\n");
 
 		// Get the processes (SEB and third-party applications)

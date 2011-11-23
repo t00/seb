@@ -44,6 +44,9 @@ extern char logFileSebStarter[BUFLEN];
 extern char iniFileDirectory [BUFLEN];
 extern char iniFileMsgHook   [BUFLEN];
 extern char iniFileSebStarter[BUFLEN];
+extern char examUrl          [BUFLEN];
+extern char quitPassword     [BUFLEN];
+extern char quitHashcode     [BUFLEN];
 extern FILE* fp;
 
 // Function for easier writing into the logfile
@@ -243,7 +246,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		return CallNextHookEx(g_hHookKbdLL, nCode, wParam, lParam);
 	}
 
-/*
+
 	if (keyCode == VK_ESCAPE)
 	{
 		logg(fp, "   LLKeyboardHook(): Esc pressed, calling pop window for quit password...\n\n");
@@ -254,7 +257,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		string quitHashcodeStored  = "";
 		string quitHashcodeEntered = "";
 
-		quitPasswordStored  = mpParam["QuitPassword"];
+		quitPasswordStored  = quitPassword;
 		quitPasswordEntered = "Davos";
       //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
 
@@ -278,8 +281,8 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 			//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
 			return -1;
 		}
-	}
-*/
+	} // end if (keyCode == VK_ESCAPE)
+
 
 	switch (wParam) 
 	{

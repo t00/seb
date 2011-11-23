@@ -56,6 +56,9 @@ char logFileSebStarter[BUFLEN];
 char iniFileDirectory [BUFLEN];
 char iniFileMsgHook   [BUFLEN];
 char iniFileSebStarter[BUFLEN];
+char examUrl          [BUFLEN];
+char quitPassword     [BUFLEN];
+char quitHashcode     [BUFLEN];
 FILE* fp;
 
 // Function for easier writing into the logfile
