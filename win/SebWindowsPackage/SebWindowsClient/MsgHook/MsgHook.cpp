@@ -247,49 +247,6 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	}
 
 
-	if (keyCode == VK_ESCAPE)
-	{
-		logg(fp, "   LLKeyboardHook(): Esc pressed, calling pop window for quit password...\n\n");
-
-		// TODO: modal popup window for entering the quit password
-		string quitPasswordStored  = "";
-		string quitPasswordEntered = "";
-		string quitHashcodeStored  = "";
-		string quitHashcodeEntered = "";
-
-		logg(fp, " examUrl      = %s\n",  examUrl);
-		logg(fp, " quitPassword = %s\n",  quitPassword);
-		logg(fp, " quitHashcode = %s\n",  quitHashcode);
-		logg(fp, "\n");
-
-		quitPasswordStored  = quitPassword;
-		quitPasswordEntered = "Davos";
-      //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
-
-		quitHashcodeStored  = quitPasswordStored;
-		quitHashcodeEntered = quitPasswordEntered;
-
-		//quitHashcodeStored  = quitPasswordStored .ComputeHashcode();
-		//quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
-
-		logg(fp, "   quitPasswordStored  = %s\n", quitPasswordStored .c_str());
-		logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered.c_str());
-		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
-		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
-		logg(fp, "\n");
-
-		if (quitHashcodeStored == quitHashcodeEntered)
-		{
-			logg(fp, "\n\n");
-			//TerminateProcess(hPiProcess->hProcess,0);
-			SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
-			logg(fp, "   SEB quit password entered correctly, therefore destroy window\n");
-			//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
-			return -1;
-		}
-	} // end if (keyCode == VK_ESCAPE)
-
-
 	switch (wParam) 
 	{
 		case WM_KEYDOWN:  
@@ -383,6 +340,50 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
     } // end   switch (wParam)
 
 	logg(fp, "\n");
+
+
+	// If the "Esc" (Escape) key has been pressed and is enabled,
+	// invoke a popup window asking for the quit password.
+	// If the user enters the correct quit password,
+	// close the window and exit the Safe Exam Browser.
+	if ((keyCode == VK_ESCAPE) && (!alter_flags.DisableEsc))
+	{
+		logg(fp, "   \n");
+		logg(fp, "   Esc pressed, calling pop window for quit password...\n\n");
+
+		// TODO: modal popup window for entering the quit password
+		string quitPasswordStored  = "";
+		string quitPasswordEntered = "";
+		string quitHashcodeStored  = "";
+		string quitHashcodeEntered = "";
+
+		quitPasswordStored = quitPassword;
+		quitHashcodeStored = quitHashcode;
+
+		// only temporarily for testing purposes
+		quitPasswordEntered = "Davos";
+		quitHashcodeEntered = "12345";
+
+      //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
+	  //quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
+
+		logg(fp, "   quitPasswordStored  = %s\n", quitPasswordStored .c_str());
+		logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered.c_str());
+		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
+		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
+		logg(fp, "\n");
+
+		if (quitHashcodeStored == quitHashcodeEntered)
+		{
+			logg(fp, "\n\n");
+			//TerminateProcess(hPiProcess->hProcess,0);
+			SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+			logg(fp, "   SEB quit password entered correctly, therefore destroy window\n");
+			//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
+			return -1;
+		}
+	} // end if (keyCode == VK_ESCAPE)
+
 
     if (bEatKeystroke)
 	{
@@ -677,6 +678,8 @@ BOOL ReadMsgHookIni()
 	string strValue = "";
 	size_t strFound = -1;
 	string sHotKey  = "";
+	string sQuitPassword = "";
+	string sQuitHashcode = "";
 
 	logg(fp, "Enter ReadMsgHookIni()\n");
 
@@ -713,11 +716,9 @@ BOOL ReadMsgHookIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-
 		// Determine the location of the .ini files
 		SetIniFileDirectoryAndName();
 		//MessageBox(NULL, iniFileMsgHook, "iniFileMsgHook", MB_ICONERROR);
-
 
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
 		sCurrDir = iniFileMsgHook;
@@ -785,6 +786,19 @@ BOOL ReadMsgHookIni()
 				remove(logFileMsgHook);
 			}
 		}
+
+
+		// Get the quit password for SEB
+		sQuitPassword = mpParam["QuitPassword"];
+		sQuitHashcode = mpParam["QuitHashcode"];
+
+		// Store the quit password for SEB
+		strcpy(quitPassword, sQuitPassword.c_str());
+		strcpy(quitHashcode, sQuitHashcode.c_str());
+
+		logg(fp, "quitPassword = %s\n",  quitPassword);
+		logg(fp, "quitHashcode = %s\n",  quitHashcode);
+		logg(fp, "\n");
 
 
 		//setting bits of alter_flags_structs

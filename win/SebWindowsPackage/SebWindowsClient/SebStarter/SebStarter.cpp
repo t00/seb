@@ -1015,8 +1015,6 @@ BOOL ReadSebStarterIni()
 	string strValue = "";
 	size_t strFound = -1;
 	string sExamUrl         = "";
-	string sQuitPassword    = "";
-	string sQuitHashcode    = "";
 	string sApplicationName = "";
 	string sCommandLine     = "";
   //string sCommandProcess  = "";
@@ -1058,7 +1056,6 @@ BOOL ReadSebStarterIni()
 	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
 		sCurrDir = iniFileSebStarter;
 		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
-
 
 		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
@@ -1168,26 +1165,16 @@ BOOL ReadSebStarterIni()
 		}
 
 
-		// Get the start URL and quit password for SEB
-		sExamUrl      = mpParam["ExamUrl"];
-		sQuitPassword = mpParam["QuitPassword"];
-		sQuitHashcode = mpParam["QuitHashcode"];
+		// Get the start URL for SEB
+		sExamUrl = mpParam["ExamUrl"];
 
-		// Store the start URL and quit password for SEB
-		strcpy(examUrl     , sExamUrl     .c_str());
-		strcpy(quitPassword, sQuitPassword.c_str());
-		strcpy(quitHashcode, sQuitHashcode.c_str());
+		// Store the start URL for SEB
+		strcpy(examUrl, sExamUrl.c_str());
 
 		//MessageBox(NULL, sExamUrl.c_str(), "ExamUrl", MB_ICONERROR);
+		logg(fp, "sExamUrl = %s\n", sExamUrl.c_str());
+		logg(fp, "\n");
 
-		logg(fp, "sExamUrl      = %s\n", sExamUrl     .c_str());
-		logg(fp, "sQuitPassword = %s\n", sQuitPassword.c_str());
-		logg(fp, "sQuitHashcode = %s\n", sQuitHashcode.c_str());
-		logg(fp, "\n");
-		logg(fp, " examUrl      = %s\n",  examUrl);
-		logg(fp, " quitPassword = %s\n",  quitPassword);
-		logg(fp, " quitHashcode = %s\n",  quitHashcode);
-		logg(fp, "\n");
 
 		// Get the processes (SEB and third-party applications)
 		sProcesses = mpParam["Processes"];
