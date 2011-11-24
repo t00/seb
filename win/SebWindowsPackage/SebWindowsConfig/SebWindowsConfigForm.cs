@@ -218,9 +218,6 @@ namespace SebWindowsConfig
         String newStringQuitHashcode = "";
         String msgStringQuitHashcode = "";
 
-        int oldNumberQuitHashcode = 0;
-        int newNumberQuitHashcode = 0;
-
         String stringPathSebStarterIni = "";
         String stringPathMsgHookIni    = "";
 
@@ -635,11 +632,8 @@ namespace SebWindowsConfig
                   fileStreamMsgHookIni.Close();
 
                 // Encrypt the quit password by computing its hashcode
-                oldNumberQuitHashcode = oldStringQuitPassword.GetHashCode();
-                newNumberQuitHashcode = newStringQuitPassword.GetHashCode();
-
-                oldStringQuitHashcode = oldNumberQuitHashcode.ToString();
-                newStringQuitHashcode = newNumberQuitHashcode.ToString();
+                oldStringQuitHashcode = oldStringQuitPassword;
+                newStringQuitHashcode = newStringQuitPassword;
 
                 // Assign the settings from the MsgHook.ini file to the widgets
                 checkBoxEnableEsc       .Checked = newSetting[IND_SpecialKeys, IND_EnableEsc];
@@ -1070,8 +1064,7 @@ namespace SebWindowsConfig
         {
             // Get and encrypt the new quit password
             newStringQuitPassword      =   textBoxQuitPassword.Text;
-            newNumberQuitHashcode      = newStringQuitPassword.GetHashCode();
-            newStringQuitHashcode      = newNumberQuitHashcode.ToString();
+            newStringQuitHashcode      = newStringQuitPassword;
               textBoxQuitHashcode.Text = newStringQuitHashcode;
         }
 
