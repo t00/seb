@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace SebWindowsConfig
 {
@@ -220,6 +221,9 @@ namespace SebWindowsConfig
 
         String stringPathSebStarterIni = "";
         String stringPathMsgHookIni    = "";
+
+        // Password encryption using the SHA-256 hash algorithm
+        SHA256 sha256 = new SHA256Managed();
 
         FileStream fileStreamSebStarterIni;
         FileStream fileStreamMsgHookIni;
@@ -1060,12 +1064,21 @@ namespace SebWindowsConfig
                  newIndexExitKey3 = tmpIndexExitKey3;
         }
 
+
         private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
         {
-            // Get and encrypt the new quit password
-            newStringQuitPassword      =   textBoxQuitPassword.Text;
-            newStringQuitHashcode      = newStringQuitPassword;
-              textBoxQuitHashcode.Text = newStringQuitHashcode;
+            // Get the new quit password
+            newStringQuitPassword = textBoxQuitPassword.Text;
+
+            // Encrypt the new quit password
+            byte[] passwordBytes = Encoding.Default.GetBytes(newStringQuitPassword);
+            byte[] hashcodeBytes = sha256.ComputeHash(passwordBytes);
+
+            newStringQuitHashcode = string.Empty;
+            for (int i = 0; i < hashcodeBytes.Length; i++)
+                newStringQuitHashcode += hashcodeBytes[i].ToString("X");
+
+            textBoxQuitHashcode.Text = newStringQuitHashcode;
         }
 
 
