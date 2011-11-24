@@ -362,7 +362,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 		// only temporarily for testing purposes
 		quitPasswordEntered = "Davos";
-		quitHashcodeEntered = "12345";
+		quitHashcodeEntered = "Davos";
 
       //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
 	  //quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
