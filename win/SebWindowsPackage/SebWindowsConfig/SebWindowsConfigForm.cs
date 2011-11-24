@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
 
+
 namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
@@ -133,8 +134,6 @@ namespace SebWindowsConfig
         const String MSG_B1 = "B1";
         const String MSG_B2 = "B2";
         const String MSG_B3 = "B3";
-
-        const String MSG_QuitPassword = "QuitPassword";
         const String MSG_QuitHashcode = "QuitHashcode";
 
         // Group "Other options"
@@ -213,7 +212,6 @@ namespace SebWindowsConfig
 
         String oldStringQuitPassword = "";
         String newStringQuitPassword = "";
-        String msgStringQuitPassword = "";
 
         String oldStringQuitHashcode = "";
         String newStringQuitHashcode = "";
@@ -321,8 +319,6 @@ namespace SebWindowsConfig
             msgStringB1 = MSG_B1;
             msgStringB2 = MSG_B2;
             msgStringB3 = MSG_B3;
-
-            msgStringQuitPassword = MSG_QuitPassword;
             msgStringQuitHashcode = MSG_QuitHashcode;
 
             virtualKeyCodeString[ 1] = "112";
@@ -616,12 +612,6 @@ namespace SebWindowsConfig
                             newStringB3 = rightSide;
                         }
 
-                        if (leftSide.Equals(msgStringQuitPassword))
-                        {
-                            oldStringQuitPassword = rightSide;
-                            newStringQuitPassword = rightSide;
-                        }
-
                         if (leftSide.Equals(msgStringQuitHashcode))
                         {
                             oldStringQuitHashcode = rightSide;
@@ -634,10 +624,6 @@ namespace SebWindowsConfig
                 // Close the MsgHook.ini file
                 streamReaderMsgHookIni.Close();
                   fileStreamMsgHookIni.Close();
-
-                // Encrypt the quit password by computing its hashcode
-                oldStringQuitHashcode = oldStringQuitPassword;
-                newStringQuitHashcode = newStringQuitPassword;
 
                 // Assign the settings from the MsgHook.ini file to the widgets
                 checkBoxEnableEsc       .Checked = newSetting[IND_SpecialKeys, IND_EnableEsc];
@@ -764,11 +750,6 @@ namespace SebWindowsConfig
                         {
                             newStringB3 = virtualKeyCodeString[newIndexExitKey3];
                             rightSide   = newStringB3;
-                        }
-
-                        if (leftSide.Equals(msgStringQuitPassword))
-                        {
-                            rightSide = newStringQuitPassword;
                         }
 
                         if (leftSide.Equals(msgStringQuitHashcode))
