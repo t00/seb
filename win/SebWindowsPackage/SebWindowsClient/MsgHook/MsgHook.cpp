@@ -45,7 +45,6 @@ extern char iniFileDirectory [BUFLEN];
 extern char iniFileMsgHook   [BUFLEN];
 extern char iniFileSebStarter[BUFLEN];
 extern char examUrl          [BUFLEN];
-extern char quitPassword     [BUFLEN];
 extern char quitHashcode     [BUFLEN];
 extern FILE* fp;
 
@@ -352,28 +351,25 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		logg(fp, "   Esc pressed, calling pop window for quit password...\n\n");
 
 		// TODO: modal popup window for entering the quit password
-		string quitPasswordStored  = "";
 		string quitPasswordEntered = "";
 		string quitHashcodeStored  = "";
 		string quitHashcodeEntered = "";
 
-		quitPasswordStored = quitPassword;
 		quitHashcodeStored = quitHashcode;
 
 		// only temporarily for testing purposes
 		quitPasswordEntered = "Davos";
-		quitHashcodeEntered = "Davos";
+		quitHashcodeEntered = "47E2361A7D358FA46394ACBCB899536D816774BE7B53AD8777BB23464DA54E";
 
       //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
 	  //quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
 
-		logg(fp, "   quitPasswordStored  = %s\n", quitPasswordStored .c_str());
 		logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered.c_str());
-		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
 		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
+		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
 		logg(fp, "\n");
 
-		if (quitHashcodeStored == quitHashcodeEntered)
+		if (quitHashcodeEntered == quitHashcodeStored)
 		{
 			logg(fp, "\n\n");
 			//TerminateProcess(hPiProcess->hProcess,0);
@@ -678,7 +674,6 @@ BOOL ReadMsgHookIni()
 	string strValue = "";
 	size_t strFound = -1;
 	string sHotKey  = "";
-	string sQuitPassword = "";
 	string sQuitHashcode = "";
 
 	logg(fp, "Enter ReadMsgHookIni()\n");
@@ -788,15 +783,12 @@ BOOL ReadMsgHookIni()
 		}
 
 
-		// Get the quit password for SEB
-		sQuitPassword = mpParam["QuitPassword"];
+		// Get the encrypted quit password (hashcode) for SEB
 		sQuitHashcode = mpParam["QuitHashcode"];
 
-		// Store the quit password for SEB
-		strcpy(quitPassword, sQuitPassword.c_str());
+		// Store the encrypted quit password (hashcode) for SEB
 		strcpy(quitHashcode, sQuitHashcode.c_str());
 
-		logg(fp, "quitPassword = %s\n",  quitPassword);
 		logg(fp, "quitHashcode = %s\n",  quitHashcode);
 		logg(fp, "\n");
 

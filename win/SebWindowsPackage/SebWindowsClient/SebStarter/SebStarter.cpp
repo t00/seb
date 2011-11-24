@@ -54,7 +54,6 @@ extern char iniFileDirectory [BUFLEN];
 extern char iniFileMsgHook   [BUFLEN];
 extern char iniFileSebStarter[BUFLEN];
 extern char examUrl          [BUFLEN];
-extern char quitPassword     [BUFLEN];
 extern char quitHashcode     [BUFLEN];
 extern FILE* fp;
 
