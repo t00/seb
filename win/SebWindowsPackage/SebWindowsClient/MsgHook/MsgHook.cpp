@@ -361,6 +361,20 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		quitPasswordEntered = "Davos";
 		quitHashcodeEntered = "47E2361A7D358FA46394ACBCB899536D816774BE7B53AD8777BB23464DA54E";
 
+		//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
+		//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+
+		//MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2);
+
+		HINSTANCE    hInstance    = *hDll;
+		LPCTSTR     lpTemplate    = "abba";
+		HWND         hWndParent   = hWndCaller;
+		DLGPROC     lpDialogFunc;
+
+		//INT_PTR DialogBox(HINSTANCE hInstance, LPCTSTR lpTemplate, HWND hWndParent, DLGPROC lpDialogFunc);
+
+		DialogBox(hInstance, lpTemplate, hWndCaller, lpDialogFunc);
+
       //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
 	  //quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
 
