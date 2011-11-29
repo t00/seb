@@ -387,7 +387,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
 		//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
 
-		//MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2);
+		MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2);
 
 		HINSTANCE    hInstance    = *hDll;
 		LPCTSTR     lpTemplate    = "abba";
@@ -407,7 +407,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
 		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
 		logg(fp, "\n");
-
+/*
 		if (quitHashcodeEntered == quitHashcodeStored)
 		{
 			logg(fp, "\n\n");
@@ -417,6 +417,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 			//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
 			return -1;
 		}
+*/
 	} // end if (keyCode == VK_ESCAPE)
 
 

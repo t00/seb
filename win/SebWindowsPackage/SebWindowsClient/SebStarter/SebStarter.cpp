@@ -82,9 +82,11 @@ extern int      messageIcon                    [IND_MessageKindNum];
 
 /* Forward declarations of functions included in this code module: */
 LRESULT CALLBACK	WndProc(HWND,  UINT, WPARAM, LPARAM);
+LRESULT CALLBACK    DlgProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 LRESULT	CALLBACK	LLKeyboardHook( int, WPARAM, LPARAM);
 LRESULT	CALLBACK	  KeyboardHook( int, WPARAM, LPARAM);
 LRESULT CALLBACK	  About(HWND,  UINT, WPARAM, LPARAM);
+
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance   (HINSTANCE, int);
 BOOL				ReadSebStarterIni();
