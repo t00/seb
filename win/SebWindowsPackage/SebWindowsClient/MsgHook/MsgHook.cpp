@@ -31,6 +31,7 @@
 
 #include "stdafx.h"
 #include "MsgHook.h"
+#include "resource.h"
 #include "../ErrorMessage.h"   // multilingual (German, English, French)
 
 
