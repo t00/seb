@@ -394,7 +394,8 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		HWND         hWndParent   = hWndCaller;
 		DLGPROC     lpDialogFunc;
 
-		DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndParent, reinterpret_cast<DLGPROC>(DlgProc));
+		DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(DlgProc));
+		//DialogBox((HINSTANCE)*hDll, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(DlgProc));
 
 		//INT_PTR DialogBox(HINSTANCE hInstance, LPCTSTR lpTemplate, HWND hWndParent, DLGPROC lpDialogFunc);
 
