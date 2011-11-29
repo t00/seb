@@ -215,6 +215,28 @@ string GetKeyName(UINT keyCode)
 
 
 
+LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+	switch(Msg)
+	{
+	case WM_INITDIALOG:
+		return TRUE;
+
+	case WM_COMMAND:
+		switch(wParam)
+		{
+		case IDOK:
+			EndDialog(hWndDlg, 0);
+			return TRUE;
+		}
+		break;
+	}
+
+	return FALSE;
+}
+
+
+
 /* private hook functions */
 LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 {
@@ -371,9 +393,11 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		HWND         hWndParent   = hWndCaller;
 		DLGPROC     lpDialogFunc;
 
+		DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndParent, reinterpret_cast<DLGPROC>(DlgProc));
+
 		//INT_PTR DialogBox(HINSTANCE hInstance, LPCTSTR lpTemplate, HWND hWndParent, DLGPROC lpDialogFunc);
 
-		DialogBox(hInstance, lpTemplate, hWndCaller, lpDialogFunc);
+		//DialogBox(hInstance, lpTemplate, hWndCaller, lpDialogFunc);
 
       //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
 	  //quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
