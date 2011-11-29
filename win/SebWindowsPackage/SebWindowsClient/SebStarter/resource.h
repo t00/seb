@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by Seb.rc
+// Used by SebStarter.rc
 //
 #define IDC_MYICON                      2
 #define IDD_SEB_DIALOG                  102
