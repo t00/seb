@@ -215,7 +215,7 @@ string GetKeyName(UINT keyCode)
 
 
 
-
+/*
 LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	switch(Msg)
@@ -235,7 +235,7 @@ LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 
 	return FALSE;
 }
-
+*/
 
 
 /* private hook functions */
@@ -387,14 +387,14 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
 		//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
 
-		MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2);
-
+		//MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2);
+/*
 		HINSTANCE    hInstance    = *hDll;
 		LPCTSTR     lpTemplate    = "abba";
 		HWND         hWndParent   = hWndCaller;
 		DLGPROC     lpDialogFunc;
-
-		DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(DlgProc));
+*/
+		//DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(DlgProc));
 		//DialogBox((HINSTANCE)*hDll, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(DlgProc));
 
 		//INT_PTR DialogBox(HINSTANCE hInstance, LPCTSTR lpTemplate, HWND hWndParent, DLGPROC lpDialogFunc);

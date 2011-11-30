@@ -82,10 +82,10 @@ extern int      messageIcon                    [IND_MessageKindNum];
 
 /* Forward declarations of functions included in this code module: */
 LRESULT CALLBACK	WndProc(HWND,  UINT, WPARAM, LPARAM);
-LRESULT CALLBACK    DlgProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 LRESULT	CALLBACK	LLKeyboardHook( int, WPARAM, LPARAM);
 LRESULT	CALLBACK	  KeyboardHook( int, WPARAM, LPARAM);
 LRESULT CALLBACK	  About(HWND,  UINT, WPARAM, LPARAM);
+LRESULT CALLBACK    DlgProc(HWND,  UINT, WPARAM, LPARAM);
 
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance   (HINSTANCE, int);
@@ -507,8 +507,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
 
 	// Extract directory
-	strAppDirectory = szAppPath;
-	strAppDirectory = strAppDirectory.substr(0, strAppDirectory.rfind("\\"));
+	strAppDirectory   =  szAppPath;
+	strAppDirectory   = strAppDirectory.substr(0, strAppDirectory.rfind("\\"));
 	SetCurrentDirectory(strAppDirectory.c_str());
 
 	logg(fp, "Enter InitInstance()\n");
@@ -700,6 +700,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			  KeyHook =   (KEYHOOK)GetProcAddress(hinstDLL,   "KeyHook9x"); //Address Of KeyHookNT
 			MouseHook = (MOUSEHOOK)GetProcAddress(hinstDLL, "MouseHook9x"); //Address Of KeyHookNT
 		}
+
 		  KeyHook(&hinstDLL, TRUE);
 		MouseHook(&hinstDLL, TRUE);
 
@@ -726,7 +727,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 		int cmd = (getBool("AutostartProcess")) ? SW_SHOWNORMAL : SW_SHOWNORMAL; //Not very suggestive yet
 
-		ShowWindow(hWnd,cmd);
+		  ShowWindow(hWnd, cmd);
 		UpdateWindow(hWnd);
 	}
 
@@ -2635,9 +2636,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		case WM_CREATE:
 
-			HMENU hMenu, hSubMenu;
+			HMENU hMenu, hMenu2, hSubMenu, hSubMenu2;
 			hMenu    = CreateMenu();
+			hMenu2   = CreateMenu();
 			hSubMenu = CreatePopupMenu();
+			hSubMenu2 = CreatePopupMenu();
 
 			for (itProcesses  = mpProcesses.begin();
 				 itProcesses != mpProcesses.end();
@@ -2653,11 +2656,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				cntProcess ++;
 			}
 
-			//AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");
+			AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Open");
+			AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Save");
+			AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Exit");
+
+			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");
+			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu2, "&File");
 
 			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
 			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
 			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
+
+			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
+			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
+			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
 
 			SetMenu(hWnd, hMenu);
 
@@ -2669,10 +2681,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch (wmId)
 			{
 				case IDM_ABOUT:
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 				break;
 
 				case IDM_EXIT:
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
 				DestroyWindow(hWnd);
 				break;
 
@@ -2794,6 +2808,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 } // end WndProc()
 
 
+
+// Message handler for Quit Password box
+LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+	switch(Msg)
+	{
+	case WM_INITDIALOG:
+		return TRUE;
+
+	case WM_COMMAND:
+		switch(wParam)
+		{
+		case IDOK:
+			EndDialog(hWndDlg, 0);
+			return TRUE;
+		}
+		break;
+	}
+
+	return FALSE;
+}
 
 
 
