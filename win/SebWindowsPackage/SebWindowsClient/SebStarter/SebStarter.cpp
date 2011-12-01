@@ -2660,6 +2660,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				cntProcess ++;
 			}
 
+			AppendMenu(hSubMenu, MF_STRING, cntProcess, "Quit SEB...");
+
 			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Open");
 			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Save");
 			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Exit");
