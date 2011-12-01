@@ -2682,6 +2682,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				MessageBox(NULL, "IDM_QUIT_PASSWORD", "WM_COMMAND", MB_ICONERROR);
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+
+				if (DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, (DLGPROC)DlgProc) == IDOK)
+				{
+					// Complete the command; szItemName contains the
+					// name of the item to delete.
+				}
+				else
+				{
+					// Cancel the command.
+				}
 				break;
 
 				case IDM_ABOUT:
@@ -2827,19 +2837,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	switch(Msg)
-	{
-	case WM_INITDIALOG:
-		return TRUE;
+    {
+        case WM_COMMAND:
+            switch (LOWORD(wParam))
+            {
+                case IDOK:
+                    if (!GetDlgItemText(hWndDlg, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80))
+						strcpy(quitPassword, "");
 
-	case WM_COMMAND:
-		switch(wParam)
-		{
-		case IDOK:
-			EndDialog(hWndDlg, 0);
-			return TRUE;
-		}
-		break;
-	}
+                    // Fall through.
+
+                case IDCANCEL:
+                    EndDialog(hWndDlg, wParam);
+                    return TRUE;
+            }
+    }
 
 	return FALSE;
 }
