@@ -2629,8 +2629,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	HDC    hdc;
 //	HANDLE hIcon, hIconSm;
 	string applicationName;
+	string appChooserTitle;
 
 	//logg(fp, "Enter WndProc()\n");
+
+	if (languageIndex == IND_LanguageGerman ) appChooserTitle = "&Zugelassene Anwendungen";
+	if (languageIndex == IND_LanguageEnglish) appChooserTitle = "&Permitted applications";
+	if (languageIndex == IND_LanguageFrench ) appChooserTitle = "&Applications permies";
 
 	switch (message)
 	{
@@ -2642,9 +2647,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			hSubMenu  = CreatePopupMenu();
 			hSubMenu2 = CreatePopupMenu();
 
+			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, appChooserTitle.c_str());
+
+/*
 			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
 			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
 			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
+*/
 
 			for (itProcesses  = mpProcesses.begin();
 				 itProcesses != mpProcesses.end();
