@@ -2637,9 +2637,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 
 			HMENU hMenu, hMenu2, hSubMenu, hSubMenu2;
-			hMenu    = CreateMenu();
-			hMenu2   = CreateMenu();
-			hSubMenu = CreatePopupMenu();
+			hMenu     = CreateMenu();
+			hMenu2    = CreateMenu();
+			hSubMenu  = CreatePopupMenu();
 			hSubMenu2 = CreatePopupMenu();
 
 			for (itProcesses  = mpProcesses.begin();
@@ -2667,9 +2667,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
 			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
 
-			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
-			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
-			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
+			if (languageIndex == IND_LanguageGerman ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Verlasse SEB");
+			if (languageIndex == IND_LanguageEnglish) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quit SEB");
+			if (languageIndex == IND_LanguageFrench ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quitter SEB");
 
 			SetMenu(hWnd, hMenu);
 
