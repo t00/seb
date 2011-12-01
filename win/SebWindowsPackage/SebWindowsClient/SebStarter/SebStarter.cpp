@@ -2660,7 +2660,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				cntProcess ++;
 			}
 
-			AppendMenu(hSubMenu, MF_STRING, cntProcess, "Quit SEB...");
+			AppendMenu(hSubMenu, MF_STRING, IDM_QUIT_PASSWORD, "Quit SEB...");
 
 			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Open");
 			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Save");
@@ -2682,6 +2682,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			// Parse the menu selections:
 			switch (wmId)
 			{
+				case IDM_QUIT_PASSWORD:
+				logg(fp, "   WM_COMMAND: IDM_QUIT_PASSWORD\n");
+				MessageBox(NULL, "IDM_QUIT_PASSWORD", "WM_COMMAND", MB_ICONERROR);
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+				break;
+
 				case IDM_ABOUT:
 				logg(fp, "   WM_COMMAND: IDM_ABOUT\n");
 				MessageBox(NULL, "IDM_ABOUT", "WM_COMMAND", MB_ICONERROR);
