@@ -2649,12 +2649,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, appChooserTitle.c_str());
 
-/*
-			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
-			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
-			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
-*/
-
+			// Append the permitted applications to the AppChooser menu
 			for (itProcesses  = mpProcesses.begin();
 				 itProcesses != mpProcesses.end();
 				 itProcesses++)
@@ -2669,18 +2664,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				cntProcess ++;
 			}
 
+			// Append the entry for quitting SEB
 			AppendMenu(hSubMenu, MF_STRING, IDM_QUIT_PASSWORD, "Quit SEB...");
-
-			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Open");
-			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Save");
-			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Exit");
-
-			//AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");
-			//AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu2, "&File");
-
-			//if (languageIndex == IND_LanguageGerman ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Verlasse SEB");
-			//if (languageIndex == IND_LanguageEnglish) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quit SEB");
-			//if (languageIndex == IND_LanguageFrench ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quitter SEB");
 
 			SetMenu(hWnd, hMenu);
 
@@ -2688,6 +2673,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			wmId    = LOWORD(wParam);
 			wmEvent = HIWORD(wParam);
+
 			// Parse the menu selections:
 			switch (wmId)
 			{
@@ -2715,21 +2701,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				// supports 20 different processes
 				case 37265 :
 				logg(fp, "   WM_COMMAND: 37265\n");
-				MessageBox(NULL, "37265", "WM_COMMAND", MB_ICONERROR);
+				//MessageBox(NULL, "37265", "WM_COMMAND", MB_ICONERROR);
 				//MessageBox(NULL,mpProcessCommands[37265][1].c_str(),"Error",MB_ICONERROR);
 				CreateExternalProcess(mpProcessCommands[37265]);
 				break;
 
 				case 37266 :
 				logg(fp, "   WM_COMMAND: 37266\n");
-				MessageBox(NULL, "37266", "WM_COMMAND", MB_ICONERROR);
+				//MessageBox(NULL, "37266", "WM_COMMAND", MB_ICONERROR);
 				//MessageBox(NULL,mpProcessCommands[37266][1].c_str(),"Error",MB_ICONERROR);
 				CreateExternalProcess(mpProcessCommands[37266]);
 				break;
 
 				case 37267 :
 				logg(fp, "   WM_COMMAND: 37267\n");
-				MessageBox(NULL, "37267", "WM_COMMAND", MB_ICONERROR);
+				//MessageBox(NULL, "37267", "WM_COMMAND", MB_ICONERROR);
 				//MessageBox(NULL,mpProcessCommands[37267][1].c_str(),"Error",MB_ICONERROR);
 				CreateExternalProcess(mpProcessCommands[37267]);
 				break;
