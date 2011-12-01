@@ -2642,6 +2642,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			hSubMenu  = CreatePopupMenu();
 			hSubMenu2 = CreatePopupMenu();
 
+			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
+			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
+			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
+
 			for (itProcesses  = mpProcesses.begin();
 				 itProcesses != mpProcesses.end();
 				 itProcesses++)
@@ -2656,20 +2660,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				cntProcess ++;
 			}
 
-			AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Open");
-			AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Save");
-			AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Exit");
+			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Open");
+			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Save");
+			//AppendMenu(hSubMenu2, MF_STRING,    cntProcess, "Exit");
 
-			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");
-			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu2, "&File");
+			//AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Start");
+			//AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu2, "&File");
 
-			if (languageIndex == IND_LanguageGerman ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Zugelassene Anwendungen");
-			if (languageIndex == IND_LanguageEnglish) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Permitted applications");
-			if (languageIndex == IND_LanguageFrench ) AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Applications permies");
-
-			if (languageIndex == IND_LanguageGerman ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Verlasse SEB");
-			if (languageIndex == IND_LanguageEnglish) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quit SEB");
-			if (languageIndex == IND_LanguageFrench ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quitter SEB");
+			//if (languageIndex == IND_LanguageGerman ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Verlasse SEB");
+			//if (languageIndex == IND_LanguageEnglish) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quit SEB");
+			//if (languageIndex == IND_LanguageFrench ) AppendMenu(hSubMenu2, MF_STRING | MF_POPUP , (UINT)hSubMenu, "&Quitter SEB");
 
 			SetMenu(hWnd, hMenu);
 

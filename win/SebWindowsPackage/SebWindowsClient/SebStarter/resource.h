@@ -9,6 +9,7 @@
 #define IDD_ABOUTBOX                    103
 #define IDM_ABOUT                       104
 #define IDM_EXIT                        105
+#define IDM_QUIT_PASSWORD               106
 #define IDC_SEB                         109
 #define IDR_MAINFRAME                   128
 #define IDI_SEB                         132
