@@ -2681,27 +2681,37 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch (wmId)
 			{
 				case IDM_ABOUT:
+				logg(fp, "   WM_COMMAND: IDM_ABOUT\n");
+				MessageBox(NULL, "IDM_ABOUT", "WM_COMMAND", MB_ICONERROR);
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 				break;
 
 				case IDM_EXIT:
+				logg(fp, "   WM_COMMAND: IDM_EXIT\n");
+				MessageBox(NULL, "IDM_EXIT", "WM_COMMAND", MB_ICONERROR);
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
 				DestroyWindow(hWnd);
 				break;
 
 				// supports 20 different processes
 				case 37265 :
+				logg(fp, "   WM_COMMAND: 37265\n");
+				MessageBox(NULL, "37265", "WM_COMMAND", MB_ICONERROR);
 				//MessageBox(NULL,mpProcessCommands[37265][1].c_str(),"Error",MB_ICONERROR);
 				CreateExternalProcess(mpProcessCommands[37265]);
 				break;
 
 				case 37266 :
+				logg(fp, "   WM_COMMAND: 37266\n");
+				MessageBox(NULL, "37266", "WM_COMMAND", MB_ICONERROR);
 				//MessageBox(NULL,mpProcessCommands[37266][1].c_str(),"Error",MB_ICONERROR);
 				CreateExternalProcess(mpProcessCommands[37266]);
 				break;
 
 				case 37267 :
+				logg(fp, "   WM_COMMAND: 37267\n");
+				MessageBox(NULL, "37267", "WM_COMMAND", MB_ICONERROR);
 				//MessageBox(NULL,mpProcessCommands[37267][1].c_str(),"Error",MB_ICONERROR);
 				CreateExternalProcess(mpProcessCommands[37267]);
 				break;
