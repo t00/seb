@@ -119,6 +119,16 @@ namespace SebWindowsService
             //System.IO.File.Copy(SebStarterIniFile, SebStarterIniFileTarget, true);
             //System.IO.File.Copy(SebStarterBatFile, SebStarterBatFileTarget, true);
 
+            if (System.IO.File.Exists(SebMsgHookIniFile))
+                System.IO.File.Copy  (SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
+
+            if (System.IO.File.Exists(SebStarterIniFile))
+                System.IO.File.Copy  (SebStarterIniFile, SebStarterIniFileTarget, true);
+
+            if (System.IO.File.Exists(SebStarterBatFile))
+                System.IO.File.Copy  (SebStarterBatFile, SebStarterBatFileTarget, true);
+
+/*
             try
             {
                 System.IO.File.Copy(SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
@@ -145,7 +155,7 @@ namespace SebWindowsService
             {
                 //throw;
             }
-
+*/
 
             // Autostart the SEB Windows Service after installation.
             // This avoids the necessity of a machine reboot.
