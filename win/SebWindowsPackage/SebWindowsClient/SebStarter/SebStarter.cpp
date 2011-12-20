@@ -1032,7 +1032,29 @@ BOOL ReadSebStarterIni()
 	vector<string>::iterator itProcesses;
 	vector<string>::iterator itProcess;
 
-	logg(fp, "Enter ReadSebStarterIni()\n");
+	logg(fp, "Enter ReadSebStarterIni()\n\n");
+
+	// Charme variant: Set the location of the ini files directory
+	strcpy(iniFileDirectory , ".");
+	strcpy(iniFileMsgHook   ,    MSG_HOOK_INI);
+	strcpy(iniFileSebStarter, SEB_STARTER_INI);
+
+	logg(fp, "   Charme variant:\n");
+	logg(fp, "   ---------------\n");
+	logg(fp, "   iniFileDirectory  = %s\n", iniFileDirectory);
+	logg(fp, "   iniFileMsgHook    = %s\n", iniFileMsgHook);
+	logg(fp, "   iniFileSebStarter = %s\n", iniFileSebStarter);
+	logg(fp, "   \n");
+
+	SetIniFileDirectoryAndName();
+
+	logg(fp, "   \n");
+	logg(fp, "   Modern variant:\n");
+	logg(fp, "   ---------------\n");
+	logg(fp, "   iniFileDirectory  = %s\n", iniFileDirectory);
+	logg(fp, "   iniFileMsgHook    = %s\n", iniFileMsgHook);
+	logg(fp, "   iniFileSebStarter = %s\n", iniFileSebStarter);
+	logg(fp, "   \n");
 
 	try
 	{

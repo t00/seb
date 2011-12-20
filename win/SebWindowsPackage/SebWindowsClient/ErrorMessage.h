@@ -351,6 +351,28 @@ void OutputErrorMessage(int languageIndex, int messageTextIndex, int messageKind
 // **********************************************
 void SetIniFileDirectoryAndName()
 {
+	logg(fp, "Enter SetIniFileDirectoryAndName()\n");
+
+
+	// Charme variant: Set the location of the ini files directory
+	strcpy(iniFileDirectory , ".");
+	strcpy(iniFileMsgHook   ,    MSG_HOOK_INI);
+	strcpy(iniFileSebStarter, SEB_STARTER_INI);
+
+  //strcpy(iniFileDirectory, exeFileDirectory);
+  //strcat(iniFileDirectory, "\\");
+
+	// Charme variant: Set the location of the MsgHook.ini file
+  //strcpy(iniFileMsgHook, iniFileDirectory);
+
+	// Charme variant: Set the location of the SebStarter.ini file
+  //strcpy(iniFileSebStarter, iniFileDirectory);
+
+  //strcpy(iniFileDirectory , "C:\\tmp\\");
+  //strcpy(iniFileMsgHook   , "C:\\Users\\Username\\tmp\\SebWindowsPackage\\SebClient\\MsgHook.ini");
+  //strcpy(iniFileSebStarter, "C:\\Users\\Username\\tmp\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+
+
 	// Get the path of the "Program Data" directory.
 	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDirectory, CSIDL_COMMON_APPDATA, false);
 
@@ -367,9 +389,7 @@ void SetIniFileDirectoryAndName()
 	strcpy(iniFileSebStarter, iniFileDirectory);
 	strcat(iniFileSebStarter, SEB_STARTER_INI);
 
-  //strcpy(iniFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8");
-  //strcpy(iniFileMsgHook   , "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
-  //strcpy(iniFileSebStarter, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
+	logg(fp, "Leave SetIniFileDirectoryAndName()\n");
 
 	return;
 
