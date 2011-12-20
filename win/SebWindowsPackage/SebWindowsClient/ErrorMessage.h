@@ -56,6 +56,7 @@ char logFileSebStarter[BUFLEN];
 char iniFileDirectory [BUFLEN];
 char iniFileMsgHook   [BUFLEN];
 char iniFileSebStarter[BUFLEN];
+char exeFileDirectory [BUFLEN];
 char examUrl          [BUFLEN];
 char quitPassword     [BUFLEN];
 char quitHashcode     [BUFLEN];
