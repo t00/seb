@@ -747,7 +747,7 @@ BOOL ReadMsgHookIni()
 
 		ifstream inf;
 
-		logg(fp, "   Try to open ini file %s\n", iniFileMsgHook);
+		logg(fp, "Try to open ini file %s\n", iniFileMsgHook);
 		inf.open(iniFileMsgHook);
 
 		//logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
@@ -755,7 +755,7 @@ BOOL ReadMsgHookIni()
 
 		if (!inf.is_open()) 
 		{
-			logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
+			logg(fp, "Try to open ini file %s\n", sCurrDir.c_str());
 			inf.open(sCurrDir.c_str());
 
 			if (!inf.is_open()) 
@@ -768,6 +768,7 @@ BOOL ReadMsgHookIni()
 			}
 		}
 
+		logg(fp, "\n");
 		logg(fp, "key = value\n");
 		logg(fp, "-----------\n");
 

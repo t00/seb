@@ -1050,7 +1050,7 @@ BOOL ReadSebStarterIni()
 
 		ifstream inf;
 
-		logg(fp, "   Try to open ini file %s\n", iniFileSebStarter);
+		logg(fp, "Try to open ini file %s\n", iniFileSebStarter);
 		inf.open(iniFileSebStarter);
 
 		//logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
@@ -1058,7 +1058,7 @@ BOOL ReadSebStarterIni()
 
 		if (!inf.is_open()) 
 		{
-			logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
+			logg(fp, "Try to open ini file %s\n", sCurrDir.c_str());
 			inf.open(sCurrDir.c_str());
 
 			if (!inf.is_open()) 
@@ -1071,6 +1071,7 @@ BOOL ReadSebStarterIni()
 			}
 		}
 
+		logg(fp, "\n");
 		logg(fp, "key = value\n");
 		logg(fp, "-----------\n");
 
