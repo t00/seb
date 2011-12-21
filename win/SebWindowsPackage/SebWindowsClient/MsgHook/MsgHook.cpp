@@ -717,7 +717,7 @@ BOOL ReadMsgHookIni()
 	string sHotKey  = "";
 	string sQuitHashcode = "";
 
-	logg(fp, "Enter ReadMsgHookIni()\n");
+	logg(fp, "Enter ReadMsgHookIni()\n\n");
 
 	try
 	{
@@ -745,13 +745,18 @@ BOOL ReadMsgHookIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		logg(fp, "Try to open ini file %s\n\n", iniFileMsgHook);
-		ifstream inf(iniFileMsgHook);
+		ifstream inf;
+
+		logg(fp, "   Try to open ini file %s\n", iniFileMsgHook);
+		inf.open(iniFileMsgHook);
+
+		//logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
+		//inf.open(sCurrDir.c_str());
 
 		if (!inf.is_open()) 
 		{
-			logg(fp, "Try to open ini file %s\n\n", cCurrDir);
-			ifstream inf(sCurrDir.c_str());
+			logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
+			inf.open(sCurrDir.c_str());
 
 			if (!inf.is_open()) 
 			{

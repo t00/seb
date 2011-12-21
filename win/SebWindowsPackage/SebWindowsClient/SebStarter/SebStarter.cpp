@@ -1026,7 +1026,7 @@ BOOL ReadSebStarterIni()
 	vector<string>::iterator itProcesses;
 	vector<string>::iterator itProcess;
 
-	logg(fp, "Enter ReadSebStarterIni()\n");
+	logg(fp, "Enter ReadSebStarterIni()\n\n");
 
 	try
 	{
@@ -1048,13 +1048,18 @@ BOOL ReadSebStarterIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		logg(fp, "Try to open ini file %s\n\n", iniFileSebStarter);
-		ifstream inf(iniFileSebStarter);
+		ifstream inf;
+
+		logg(fp, "   Try to open ini file %s\n", iniFileSebStarter);
+		inf.open(iniFileSebStarter);
+
+		//logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
+		//inf.open(sCurrDir.c_str());
 
 		if (!inf.is_open()) 
 		{
-			logg(fp, "Try to open ini file %s\n\n", cCurrDir);
-			ifstream inf(sCurrDir.c_str());
+			logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
+			inf.open(sCurrDir.c_str());
 
 			if (!inf.is_open()) 
 			{
@@ -2676,7 +2681,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				case IDM_QUIT_PASSWORD:
 				logg(fp, "   WM_COMMAND: IDM_QUIT_PASSWORD\n");
-				MessageBox(NULL, "IDM_QUIT_PASSWORD", "WM_COMMAND", MB_ICONERROR);
+				//MessageBox(NULL, "IDM_QUIT_PASSWORD", "WM_COMMAND", MB_ICONERROR);
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 
