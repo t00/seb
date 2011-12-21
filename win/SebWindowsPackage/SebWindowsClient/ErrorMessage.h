@@ -56,7 +56,6 @@ char logFileSebStarter[BUFLEN];
 char iniFileDirectory [BUFLEN];
 char iniFileMsgHook   [BUFLEN];
 char iniFileSebStarter[BUFLEN];
-char exeFileDirectory [BUFLEN];
 char examUrl          [BUFLEN];
 char quitPassword     [BUFLEN];
 char quitHashcode     [BUFLEN];
@@ -368,33 +367,8 @@ void SetIniFileDirectoryAndName()
 	strcat(iniFileSebStarter, SEB_STARTER_INI);
 
   //strcpy(iniFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8");
-  //strcpy(iniFileMsgHook   , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8\\MsgHook.ini");
-  //strcpy(iniFileSebStarter, "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8\\SebStarter.ini");
-
-
-	// Test whether the .ini files exist in the ProgramData directory.
-	// If not, search them in the application directory
-	// (the directory containing "SebStarter.exe").
-
-	if (false)
-	{
-		strcpy(iniFileDirectory, exeFileDirectory);
-		strcat(iniFileDirectory, "\\");
-
-		// Set the location of the MsgHook.ini file
-		strcpy(iniFileMsgHook, iniFileDirectory);
-		strcat(iniFileMsgHook, MSG_HOOK_INI);
-
-		// Set the location of the SebStarter.ini file
-		strcpy(iniFileSebStarter, iniFileDirectory);
-		strcat(iniFileSebStarter, SEB_STARTER_INI);
-
-	  //strcpy(iniFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8");
-	  //strcpy(iniFileMsgHook   , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8\\MsgHook.log");
-	  //strcpy(iniFileSebStarter, "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8\\SebStarter.log");
-	}
-
-	logg(fp, "Leave SetIniFileDirectoryAndName()\n");
+  //strcpy(iniFileMsgHook   , "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
+  //strcpy(iniFileSebStarter, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
 
 	return;
 
@@ -424,8 +398,8 @@ void SetLogFileDirectoryAndName()
 	strcat(logFileSebStarter, SEB_STARTER_LOG);
 
   //strcpy(logFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8");
-  //strcpy(logFileMsgHook   , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8\\MsgHook.log");
-  //strcpy(logFileSebStarter, "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8\\SebStarter.log");
+  //strcpy(logFileMsgHook   , "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.log");
+  //strcpy(logFileSebStarter, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
 
 	return;
 
