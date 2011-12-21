@@ -45,7 +45,6 @@ extern char logFileSebStarter[BUFLEN];
 extern char iniFileDirectory [BUFLEN];
 extern char iniFileMsgHook   [BUFLEN];
 extern char iniFileSebStarter[BUFLEN];
-extern char exeFileDirectory [BUFLEN];
 extern char examUrl          [BUFLEN];
 extern char quitHashcode     [BUFLEN];
 extern FILE* fp;
