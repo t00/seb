@@ -729,15 +729,8 @@ BOOL ReadMsgHookIni()
 
 		GetModuleFileName(*hMod, cCurrDir, sizeof(cCurrDir));
 		sCurrDir = (string)cCurrDir;
-/*
-		const char* captionString;
-		const char* messageString;
-		captionString = "Program executable:";
-		messageString = cCurrDir;
-	  //MessageBox(NULL, messageString, captionString, 16);
-		logg(fp, "Program executable = %s\n", cCurrDir);
-		logg(fp, "\n");
-*/
+		sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
+
 		// The SebStarter.ini and MsgHook.ini configuration files have moved:
 		// Previously:
 		// SebStarter.ini was lying in the /SebStarter subdirectory,
@@ -752,30 +745,22 @@ BOOL ReadMsgHookIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		// Determine the location of the .ini files
-		SetIniFileDirectoryAndName();
-		//MessageBox(NULL, iniFileMsgHook, "iniFileMsgHook", MB_ICONERROR);
+		logg(fp, "Try to open ini file %s\n\n", iniFileMsgHook);
+		ifstream inf(iniFileMsgHook);
 
-	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = iniFileMsgHook;
-
-		logg(fp, "\n");
-		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
-		logg(fp, "\n");
-		logg(fp, "  iniFileDirectory = %s\n", iniFileDirectory);
-		logg(fp, "  logFileDirectory = %s\n", logFileDirectory);
-		logg(fp, "  iniFileMsgHook   = %s\n", iniFileMsgHook);
-		logg(fp, "  logFileMsgHook   = %s\n", logFileMsgHook);
-		logg(fp, "\n");
-
-		ifstream inf(sCurrDir.c_str());
 		if (!inf.is_open()) 
 		{
-			OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
-			//MessageBox(NULL, messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
-			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
-			logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
-			return FALSE;
+			logg(fp, "Try to open ini file %s\n\n", cCurrDir);
+			ifstream inf(sCurrDir.c_str());
+
+			if (!inf.is_open()) 
+			{
+				OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
+				//MessageBox(NULL, messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
+				//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
+				logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
+				return FALSE;
+			}
 		}
 
 		logg(fp, "key = value\n");
@@ -941,6 +926,11 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 {
 	// By default, a logfile should be written
 	//logFileDesiredMsgHook = true;
+
+	// Determine the location of the .ini files
+	SetIniFileDirectoryAndName();
+	//MessageBox(NULL, iniFileMsgHook, "iniFileMsgHook", MB_ICONERROR);
+
 
 	// Open or create a logfile for message hooks
 	if (fp == NULL)

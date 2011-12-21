@@ -1032,14 +1032,7 @@ BOOL ReadSebStarterIni()
 	{
 		GetModuleFileName(NULL, cCurrDir, sizeof(cCurrDir));
 		sCurrDir = (string)cCurrDir;
-
-		const char* captionString;
-		const char* messageString;
-		captionString = "Program executable";
-		messageString = cCurrDir;
-	  //MessageBox(NULL, messageString, captionString, 16);
-		logg(fp, "Program executable = %s\n", cCurrDir);
-		logg(fp, "\n");
+		sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
 
 		// The SebStarter.ini and MsgHook.ini configuration files have moved:
 		// Previously:
@@ -1055,18 +1048,22 @@ BOOL ReadSebStarterIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-	  //sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
-		sCurrDir = iniFileSebStarter;
-		logg(fp, "sCurrDir = %s\n\n", sCurrDir.c_str());
+		logg(fp, "Try to open ini file %s\n\n", iniFileSebStarter);
+		ifstream inf(iniFileSebStarter);
 
-		ifstream inf(sCurrDir.c_str());	
 		if (!inf.is_open()) 
 		{
-			OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
-			//MessageBox(NULL, messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
-			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
-			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
-			return FALSE;
+			logg(fp, "Try to open ini file %s\n\n", cCurrDir);
+			ifstream inf(sCurrDir.c_str());
+
+			if (!inf.is_open()) 
+			{
+				OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
+				//MessageBox(NULL, messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
+				//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
+				logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
+				return FALSE;
+			}
 		}
 
 		logg(fp, "key = value\n");
