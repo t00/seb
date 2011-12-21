@@ -53,7 +53,6 @@ extern char logFileSebStarter[BUFLEN];
 extern char iniFileDirectory [BUFLEN];
 extern char iniFileMsgHook   [BUFLEN];
 extern char iniFileSebStarter[BUFLEN];
-extern char exeFileDirectory [BUFLEN];
 extern char examUrl          [BUFLEN];
 extern char quitHashcode     [BUFLEN];
 extern FILE* fp;
@@ -503,7 +502,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	// It is important to set the CurrentDirectory
 	// to the AppDir if you call the App from a Link
-	char    szAppPath[MAX_PATH] = "";
+	char szAppPath[MAX_PATH] = "";
 	string strAppDirectory;
 	GetModuleFileName(0, szAppPath, sizeof(szAppPath) - 1);
 
@@ -512,15 +511,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	strAppDirectory   = strAppDirectory.substr(0, strAppDirectory.rfind("\\"));
 	SetCurrentDirectory(strAppDirectory.c_str());
 
-	// The directory containing the program executable "SebStarter.exe"
-	strcpy(exeFileDirectory, strAppDirectory.c_str());
-
 	logg(fp, "Enter InitInstance()\n");
 
 	//MessageBox(NULL, strAppDirectory.c_str(), "InitInstance(): strAppDirectory", MB_ICONERROR);
-	logg(fp, " strAppDirectory = %s\n",  strAppDirectory.c_str());
-	logg(fp, "exeFileDirectory = %s\n", exeFileDirectory);
-	logg(fp, "\n");
+	logg(fp, "strAppDirectory = %s\n\n", strAppDirectory.c_str());
 
 	if (!ReadSebStarterIni())
 	{
