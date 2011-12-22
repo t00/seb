@@ -2668,7 +2668,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 
 			// Append the entry for quitting SEB
-			AppendMenu(hSubMenu, MF_STRING, IDM_QUIT_PASSWORD, "Quit SEB...");
+			//AppendMenu(hSubMenu, MF_STRING, IDM_QUIT_PASSWORD, "Quit SEB...");
 
 			SetMenu(hWnd, hMenu);
 

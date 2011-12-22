@@ -337,6 +337,7 @@
             this.labelQuitHashCode.Size = new System.Drawing.Size(100, 17);
             this.labelQuitHashCode.TabIndex = 31;
             this.labelQuitHashCode.Text = "Quit hashcode";
+            this.labelQuitHashCode.Visible = false;
             // 
             // textBoxQuitHashcode
             // 
@@ -345,6 +346,7 @@
             this.textBoxQuitHashcode.ReadOnly = true;
             this.textBoxQuitHashcode.Size = new System.Drawing.Size(419, 22);
             this.textBoxQuitHashcode.TabIndex = 30;
+            this.textBoxQuitHashcode.Visible = false;
             // 
             // labelQuitPassword
             // 
@@ -354,13 +356,17 @@
             this.labelQuitPassword.Size = new System.Drawing.Size(98, 17);
             this.labelQuitPassword.TabIndex = 29;
             this.labelQuitPassword.Text = "Quit password";
+            this.labelQuitPassword.Visible = false;
             // 
             // textBoxQuitPassword
             // 
             this.textBoxQuitPassword.Location = new System.Drawing.Point(153, 143);
             this.textBoxQuitPassword.Name = "textBoxQuitPassword";
+            this.textBoxQuitPassword.ReadOnly = true;
             this.textBoxQuitPassword.Size = new System.Drawing.Size(419, 22);
             this.textBoxQuitPassword.TabIndex = 28;
+            this.textBoxQuitPassword.Visible = false;
+            this.textBoxQuitPassword.WordWrap = false;
             this.textBoxQuitPassword.TextChanged += new System.EventHandler(this.textBoxQuitPassword_TextChanged);
             // 
             // textBoxAutostartProcess
