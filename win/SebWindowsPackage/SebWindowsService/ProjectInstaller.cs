@@ -65,13 +65,15 @@ namespace SebWindowsService
             string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
             string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
 
-            string XulSebZip         = "xul_seb.zip";
-            string XulRunnerZip      = "xulrunner.zip";
-            string XulRunnerNoSslZip = "xulrunner_no_ssl_warning.zip";
+            string XulSebZip           = "xul_seb.zip";
+            string XulRunnerZip        = "xulrunner.zip";
+            string XulRunnerNoSslZip   = "xulrunner_no_ssl_warning.zip";
+            string XulRunnerWithSslZip = "xulrunner_with_ssl_warning.zip";
 
-            string XulSebZipFile         = SebClientDir + "\\" + XulSebZip;
-            string XulRunnerZipFile      = SebClientDir + "\\" + XulRunnerZip;
-            string XulRunnerNoSslZipFile = SebClientDir + "\\" + XulRunnerNoSslZip;
+            string XulSebZipFile           = SebClientDir + "\\" + XulSebZip;
+            string XulRunnerZipFile        = SebClientDir + "\\" + XulRunnerZip;
+            string XulRunnerNoSslZipFile   = SebClientDir + "\\" + XulRunnerNoSslZip;
+            string XulRunnerWithSslZipFile = SebClientDir + "\\" + XulRunnerWithSslZip;
 
 
             // Extract all files from the "xul_seb.zip" file
@@ -94,6 +96,15 @@ namespace SebWindowsService
 
             // Extract all files from the "xulrunner_no_ssl.zip" file
             using (ZipFile zipFile = ZipFile.Read(XulRunnerNoSslZipFile))
+            {
+                foreach (ZipEntry zipEntry in zipFile)
+                {
+                    zipEntry.Extract(SebClientDir, ExtractExistingFileAction.OverwriteSilently);
+                }
+            }
+
+            // Extract all files from the "xulrunner_with_ssl.zip" file
+            using (ZipFile zipFile = ZipFile.Read(XulRunnerWithSslZipFile))
             {
                 foreach (ZipEntry zipEntry in zipFile)
                 {
