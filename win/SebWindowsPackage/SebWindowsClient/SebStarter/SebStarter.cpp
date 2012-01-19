@@ -1011,7 +1011,7 @@ bool IsSebRunningOnVirtualMachineNew()
 BOOL ReadSebStarterIni()
 {
 	char   cCurrDir[MAX_PATH];
-	string sCurrDir = "";
+	string sCurrIni = "";
 	string strLine  = "";
 	string strKey   = "";
 	string strValue = "";
@@ -1031,8 +1031,8 @@ BOOL ReadSebStarterIni()
 	try
 	{
 		GetModuleFileName(NULL, cCurrDir, sizeof(cCurrDir));
-		sCurrDir = (string)cCurrDir;
-		sCurrDir.replace(((size_t)sCurrDir.length()-3), 3, "ini");
+		sCurrIni = (string)cCurrDir;
+		sCurrIni.replace(((size_t)sCurrIni.length()-3), 3, "ini");
 
 		// The SebStarter.ini and MsgHook.ini configuration files have moved:
 		// Previously:
@@ -1053,13 +1053,13 @@ BOOL ReadSebStarterIni()
 		logg(fp, "Try to open ini file %s\n", iniFileSebStarter);
 		inf.open(iniFileSebStarter);
 
-		//logg(fp, "   Try to open ini file %s\n", sCurrDir.c_str());
-		//inf.open(sCurrDir.c_str());
+		//logg(fp, "   Try to open ini file %s\n", sCurrIni.c_str());
+		//inf.open(sCurrIni.c_str());
 
 		if (!inf.is_open()) 
 		{
-			logg(fp, "Try to open ini file %s\n", sCurrDir.c_str());
-			inf.open(sCurrDir.c_str());
+			logg(fp, "Try to open ini file %s\n", sCurrIni.c_str());
+			inf.open(sCurrIni.c_str());
 
 			if (!inf.is_open()) 
 			{
