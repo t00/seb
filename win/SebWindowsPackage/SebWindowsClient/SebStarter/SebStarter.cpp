@@ -236,7 +236,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                        int       nCmdShow)
 {
 	MSG msg;
-	HACCEL hAccelTable;	
+	HACCEL hAccelTable;
+
 	// Initialize global strings
 	LoadString     (hInstance, IDS_APP_TITLE, szTitle      , MAX_LOADSTRING);
 	LoadString     (hInstance, IDC_SEB      , szWindowClass, MAX_LOADSTRING);
