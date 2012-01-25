@@ -235,6 +235,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                        LPTSTR    lpCmdLine,
                        int       nCmdShow)
 {
+	char currentSebStarterDir[MAX_PATH];
+	char currentSebStarterIni[MAX_PATH];
+	char currentSebStarterLog[MAX_PATH];
+	bool sebLightVersion = false;
+	ifstream inputStream;
+
 	MSG msg;
 	HACCEL hAccelTable;
 
@@ -259,46 +265,99 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	SetIniFileDirectoryAndName();
 	//MessageBox(NULL, iniFileSebStarter, "iniFileSebStarter", MB_ICONERROR);
 
+	GetCurrentDirectory(MAX_PATH, currentSebStarterDir);
+
+	strcpy(currentSebStarterIni, currentSebStarterDir);
+	strcat(currentSebStarterIni, "\\");
+	strcat(currentSebStarterIni, SEB_STARTER_INI);
+
+	strcpy(currentSebStarterLog, currentSebStarterDir);
+	strcat(currentSebStarterLog, "\\");
+	strcat(currentSebStarterLog, SEB_STARTER_LOG);
+
+	//MessageBox(NULL, currentSebStarterDir, "currentSebStarterDir", MB_ICONERROR);
+	//MessageBox(NULL, currentSebStarterIni, "currentSebStarterIni", MB_ICONERROR);
+	//MessageBox(NULL, currentSebStarterLog, "currentSebStarterLog", MB_ICONERROR);
+
+
+	// Test if ProgramData contains a SebStarter.ini file
+	//logg(fp, "Try to open ini file %s\n", iniFileSebStarter);
+	inputStream.open(iniFileSebStarter);
+
+	// If ProgramData contains no SebStarter.ini file
+	if (!inputStream.is_open())
+	{
+		// Test if current directory contains a SebStarter.ini file
+		//logg(fp, "Try to open ini file %s\n", currentSebStarterIni);
+		inputStream.open(currentSebStarterIni);
+
+		// If yes, change the paths to the SebStarter.ini and SebStarter.log files
+		if (inputStream.is_open())
+		{
+			sebLightVersion = true;
+		}
+		// If none of these directories contains a SebStarter.ini file, give up
+		else
+		{
+			OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
+			//MessageBox(NULL, messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
+			//logg(fp, "Leave _tWinMain() and return FALSE\n\n");
+			return FALSE;
+		}
+	}
+
+	inputStream.close();
+
+
 	// Get the current username
 	DWORD cUserNameLen =      sizeof(cUserName);
 	BOOL   user        = GetUserName(cUserName, &cUserNameLen);
 
-	if (cUserName == NULL)
-	{
+if (cUserName == NULL)
+{
 		//MessageBox(NULL, "is NULL", "userName", MB_ICONERROR);
-	}
-	else
+}
+else
+{
+	userName = cUserName;
+	//MessageBox(NULL,    userName, "   userName", MB_ICONERROR);
+
+	// Open or create a logfile for SebStarter.exe
+	if (fp == NULL)
 	{
-		userName = cUserName;
+		// Determine the location of the .log files
+		SetLogFileDirectoryAndName();
 
-		if (fp == NULL)
+		if (sebLightVersion == true)
 		{
-			// Determine the location of the .log files
-			SetLogFileDirectoryAndName();
-			// MessageBox(NULL, logFileSebStarter, "logFileSebStarter", MB_ICONERROR);
-			// Open the logfile for debug output
-			fp = fopen(logFileSebStarter, "w");
+			strcpy(iniFileSebStarter, currentSebStarterIni);
+			strcpy(logFileSebStarter, currentSebStarterLog);
 		}
 
-		//MessageBox(NULL,    userName, "   userName", MB_ICONERROR);
-
-		if (fp == NULL)
-		{
-			//MessageBox(NULL, logFileSebStarter, "_tWinMain(): Could not open logfile SebStarter.log", MB_ICONERROR);
-		}
-
-		logg(fp, "\n");
-		logg(fp, " userName     = %s\n",  userName);
-		logg(fp, "cUserName     = %s\n", cUserName);
-		logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
-		logg(fp, "\n");
-		logg(fp, "  programDataDirectory = %s\n", programDataDirectory);
-		logg(fp, "  iniFileDirectory     = %s\n", iniFileDirectory);
-		logg(fp, "  logFileDirectory     = %s\n", logFileDirectory);
-		logg(fp, "  iniFileSebStarter    = %s\n", iniFileSebStarter);
-		logg(fp, "  logFileSebStarter    = %s\n", logFileSebStarter);
-		logg(fp, "\n");
+		// MessageBox(NULL, iniFileSebStarter, "iniFileSebStarter", MB_ICONERROR);
+		// MessageBox(NULL, logFileSebStarter, "logFileSebStarter", MB_ICONERROR);
+		// Open the logfile for debug output
+		fp = fopen(logFileSebStarter, "w");
 	}
+
+	if (fp == NULL)
+	{
+		//MessageBox(NULL, logFileSebStarter, "_tWinMain(): Could not open logfile SebStarter.log", MB_ICONERROR);
+	}
+
+	logg(fp, "\n");
+	logg(fp, " userName     = %s\n",  userName);
+	logg(fp, "cUserName     = %s\n", cUserName);
+	logg(fp, "cUserNameLen  = %d\n", cUserNameLen);
+	logg(fp, "\n");
+	logg(fp, "  programDataDirectory = %s\n", programDataDirectory);
+	logg(fp, "  iniFileDirectory     = %s\n", iniFileDirectory);
+	logg(fp, "  logFileDirectory     = %s\n", logFileDirectory);
+	logg(fp, "  iniFileSebStarter    = %s\n", iniFileSebStarter);
+	logg(fp, "  logFileSebStarter    = %s\n", logFileSebStarter);
+	logg(fp, "\n");
+}
 
 
 	// Initialise the error messages in different languages
@@ -1011,8 +1070,6 @@ bool IsSebRunningOnVirtualMachineNew()
 
 BOOL ReadSebStarterIni()
 {
-	char   cCurrDir[MAX_PATH];
-	string sCurrIni = "";
 	string strLine  = "";
 	string strKey   = "";
 	string strValue = "";
@@ -1026,15 +1083,12 @@ BOOL ReadSebStarterIni()
 	vector<string> vProcesses;
 	vector<string>::iterator itProcesses;
 	vector<string>::iterator itProcess;
+	ifstream inputStream;
 
 	logg(fp, "Enter ReadSebStarterIni()\n\n");
 
 	try
 	{
-		GetModuleFileName(NULL, cCurrDir, sizeof(cCurrDir));
-		sCurrIni = (string)cCurrDir;
-		sCurrIni.replace(((size_t)sCurrIni.length()-3), 3, "ini");
-
 		// The SebStarter.ini and MsgHook.ini configuration files have moved:
 		// Previously:
 		// SebStarter.ini was lying in the /SebStarter subdirectory,
@@ -1049,34 +1103,24 @@ BOOL ReadSebStarterIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		ifstream inf;
-
 		logg(fp, "Try to open ini file %s\n", iniFileSebStarter);
-		inf.open(iniFileSebStarter);
+		inputStream.open(iniFileSebStarter);
 
-		//logg(fp, "   Try to open ini file %s\n", sCurrIni.c_str());
-		//inf.open(sCurrIni.c_str());
-
-		if (!inf.is_open()) 
+		// If the SebStarter.ini file could not be opened, give up
+		if (!inputStream.is_open()) 
 		{
-			logg(fp, "Try to open ini file %s\n", sCurrIni.c_str());
-			inf.open(sCurrIni.c_str());
-
-			if (!inf.is_open()) 
-			{
-				OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
-				//MessageBox(NULL, messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
-				//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
-				logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
-				return FALSE;
-			}
+			OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
+			//MessageBox(NULL       , messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
+			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
+			return FALSE;
 		}
 
 		logg(fp, "\n");
 		logg(fp, "key = value\n");
 		logg(fp, "-----------\n");
 
-		while(!getline(inf, strLine).eof())
+		while(!getline(inputStream, strLine).eof())
 		{
 			strFound = strLine.find  ("=", 0);
 			strKey   = strLine.substr(0, strFound);
@@ -1097,7 +1141,7 @@ BOOL ReadSebStarterIni()
 			}
 		}
 
-		inf.close();
+		inputStream.close();
 		logg(fp, "-----------\n\n");
 
 
