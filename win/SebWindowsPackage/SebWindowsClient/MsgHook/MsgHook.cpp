@@ -708,14 +708,13 @@ EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook)
 
 BOOL ReadMsgHookIni()
 {
-	char   cCurrDir[MAX_PATH];
-	string sCurrIni = "";
 	string strLine  = "";
 	string strKey   = "";
 	string strValue = "";
 	size_t strFound = -1;
 	string sHotKey  = "";
 	string sQuitHashcode = "";
+	ifstream inputStream;
 
 	logg(fp, "Enter ReadMsgHookIni()\n\n");
 
@@ -726,10 +725,6 @@ BOOL ReadMsgHookIni()
 			logg(fp, "Leave ReadMsgHookIni() and return FALSE()\n\n");
 			return FALSE;
 		}
-
-		GetModuleFileName(*hMod, cCurrDir, sizeof(cCurrDir));
-		sCurrIni = (string)cCurrDir;
-		sCurrIni.replace(((size_t)sCurrIni.length()-3), 3, "ini");
 
 		// The SebStarter.ini and MsgHook.ini configuration files have moved:
 		// Previously:
@@ -745,34 +740,24 @@ BOOL ReadMsgHookIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		ifstream inf;
-
 		logg(fp, "Try to open ini file %s\n", iniFileMsgHook);
-		inf.open(iniFileMsgHook);
+		inputStream.open(iniFileMsgHook);
 
-		//logg(fp, "   Try to open ini file %s\n", sCurrIni.c_str());
-		//inf.open(sCurrIni.c_str());
-
-		if (!inf.is_open()) 
+		// If the MsgHook.ini file could not be opened, give up
+		if (!inputStream.is_open()) 
 		{
-			logg(fp, "Try to open ini file %s\n", sCurrIni.c_str());
-			inf.open(sCurrIni.c_str());
-
-			if (!inf.is_open()) 
-			{
-				OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
-				//MessageBox(NULL, messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
-				//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
-				logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
-				return FALSE;
-			}
+			OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
+			//MessageBox(NULL       , messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
+			logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
+			return FALSE;
 		}
 
 		logg(fp, "\n");
 		logg(fp, "key = value\n");
 		logg(fp, "-----------\n");
 
-		while (!getline(inf, strLine).eof())
+		while (!getline(inputStream, strLine).eof())
 		{
 			strFound = strLine.find  ("=", 0);
 			strKey   = strLine.substr(0, strFound);
@@ -793,7 +778,7 @@ BOOL ReadMsgHookIni()
 			}
 		}
 
-		inf.close();
+		inputStream.close();
 		logg(fp, "-----------\n\n");
 
 
@@ -930,20 +915,78 @@ BOOL APIENTRY DllMain(HMODULE hModule,
                       DWORD   ul_reason_for_call,
                       LPVOID  lpReserved)
 {
+	char currentMessageHookDir[MAX_PATH];
+	char currentMessageHookIni[MAX_PATH];
+	char currentMessageHookLog[MAX_PATH];
+	bool sebLightVersion = false;
+	ifstream inputStream;
+
 	// By default, a logfile should be written
-	//logFileDesiredMsgHook = true;
+	logFileDesiredMsgHook = true;
 
 	// Determine the location of the .ini files
 	SetIniFileDirectoryAndName();
 	//MessageBox(NULL, iniFileMsgHook, "iniFileMsgHook", MB_ICONERROR);
 
+	GetCurrentDirectory(MAX_PATH, currentMessageHookDir);
 
-	// Open or create a logfile for message hooks
+	strcpy(currentMessageHookIni, currentMessageHookDir);
+	strcat(currentMessageHookIni, "\\");
+	strcat(currentMessageHookIni, MSG_HOOK_INI);
+
+	strcpy(currentMessageHookLog, currentMessageHookDir);
+	strcat(currentMessageHookLog, "\\");
+	strcat(currentMessageHookLog, MSG_HOOK_LOG);
+
+	//MessageBox(NULL, currentMessageHookDir, "currentMessageHookDir", MB_ICONERROR);
+	//MessageBox(NULL, currentMessageHookIni, "currentMessageHookIni", MB_ICONERROR);
+	//MessageBox(NULL, currentMessageHookLog, "currentMessageHookLog", MB_ICONERROR);
+
+
+	// Test if ProgramData contains a MsgHook.ini file
+	//logg(fp, "Try to open ini file %s\n", iniFileMsgHook);
+	inputStream.open(iniFileMsgHook);
+
+	// If ProgramData contains no MsgHook.ini file
+	if (!inputStream.is_open())
+	{
+		// Test if current directory contains a MsgHook.ini file
+		//logg(fp, "Try to open ini file %s\n", currentMessageHookIni);
+		inputStream.open(currentMessageHookIni);
+
+		// If yes, change the paths to the MsgHook.ini and MsgHook.log files
+		if (inputStream.is_open())
+		{
+			sebLightVersion = true;
+		}
+		// If none of these directories contains a MsgHook.ini file, give up
+		else
+		{
+			OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
+			//MessageBox(NULL, messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
+			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
+			//logg(fp, "Leave DllMain() and return FALSE\n\n");
+			return FALSE;
+		}
+	}
+
+	inputStream.close();
+
+
+	// Open or create a logfile for MsgHook.dll
 	if (fp == NULL)
 	{
 		// Determine the location of the .log files
 		SetLogFileDirectoryAndName();
-		// MessageBox(NULL, logFileMsgHook, "logFileMsgHook", MB_ICONERROR);
+
+		if (sebLightVersion == true)
+		{
+			strcpy(iniFileMsgHook, currentMessageHookIni);
+			strcpy(logFileMsgHook, currentMessageHookLog);
+		}
+
+		//MessageBox(NULL, iniFileMsgHook, "iniFileMsgHook", MB_ICONERROR);
+		//MessageBox(NULL, logFileMsgHook, "logFileMsgHook", MB_ICONERROR);
 		// Open the logfile for debug output
 		fp = fopen(logFileMsgHook, "w");
 	}
