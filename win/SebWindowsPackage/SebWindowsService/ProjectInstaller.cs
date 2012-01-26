@@ -32,7 +32,7 @@ namespace SebWindowsService
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
-            string Version      = "1.8";
+            string Version      = "1.8.1";
             string Component    = "SebWindowsClient";
             string Build        = "Release";
 
@@ -224,7 +224,7 @@ namespace SebWindowsService
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
-            string Version      = "1.8";
+            string Version      = "1.8.1";
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
@@ -232,11 +232,11 @@ namespace SebWindowsService
             // ATTENTION:
             //
             // Deleting the SEB configuration directory in the ProgramData directory, e.g.
-            // C:\ProgramData\ETH Zuerich\SEB Windows 1.8 ,
+            // C:\ProgramData\ETH Zuerich\SEB Windows 1.8.1 ,
             // mostly succeeds.
             //
             // Deleting the SEB installation directory in the Program Files directory, e.g.
-            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8\SebWindowsClient\Release ,
+            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8.1\SebWindowsClient\Release ,
             // mostly fails, even though its files have all been deleted before.
             //
             // This is a known and annoying Windows bug still occurring in Windows 7:
@@ -245,7 +245,7 @@ namespace SebWindowsService
             //
             // Currently, only a user logoff or machine reboot solves this,
             // so maybe it is necessary to reboot and manually delete the
-            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8\SebWindowsClient\Release
+            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8.1\SebWindowsClient\Release
             // directory after reboot.
 
             //System.IO.Directory.Delete(SebConfigDir , true);
