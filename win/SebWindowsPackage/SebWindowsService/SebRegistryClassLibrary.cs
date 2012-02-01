@@ -696,7 +696,7 @@ namespace SebWindowsService
                         EditAllRegistryValues(SET_Old, EDIT_Restore);
 
                         // Flush the registry keys
-                        Boolean flushRegistryValues = true;
+                        Boolean flushRegistryValues = false;
                         if (flushRegistryValues)
                         {
                             DebugOutputLine(debugMode, "   Setting registry keys to allow values...");
