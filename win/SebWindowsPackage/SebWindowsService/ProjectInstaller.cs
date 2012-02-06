@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration.Install;
 using System.Linq;
 using System.ServiceProcess;
+using System.IO;
 using System.IO.Packaging;
 using Ionic.Zip;
 
@@ -27,8 +28,9 @@ namespace SebWindowsService
         {
             // Unpack the XULRunner directories after installation
 
-            string ProgramData  = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramData   = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string ProgramFiles  = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string DesktopDir    = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -52,6 +54,7 @@ namespace SebWindowsService
             string SebReleaseDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component + "\\" + Build;
 
             string SebInstallMsi = "SebWindowsInstall.msi";
+            string SebStarterExe = "SebStarter.exe";
             string SebStarterBat = "SebStarter.bat";
             string SebStarterIni = "SebStarter.ini";
             string SebMsgHookIni =    "MsgHook.ini";
@@ -61,6 +64,7 @@ namespace SebWindowsService
             string SebStarterIniFile = SebBatchDir + "\\" + SebStarterIni;
             string SebMsgHookIniFile = SebBatchDir + "\\" + SebMsgHookIni;
 
+            string SebStarterExeFileTarget = SebReleaseDir + "\\" + SebStarterExe;
             string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
             string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
             string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
@@ -167,6 +171,44 @@ namespace SebWindowsService
                 //throw;
             }
 */
+
+            // Determine the operating system (Windows version)
+            System.OperatingSystem operatingSystem = System.Environment.OSVersion;
+            System.PlatformID      platform        = operatingSystem.Platform;
+            System.Version         version         = operatingSystem.Version;
+            string                 versionString   = operatingSystem.VersionString;
+
+            string AllUsersDir = Environment.GetEnvironmentVariable("ALLUSERSPROFILE");
+            string PublicDir   = Environment.GetEnvironmentVariable("PUBLIC");
+            int    versionMajor = version.Major;
+
+            // Create a shortcut to SebStarter.exe on the desktop
+            using (StreamWriter writer1 = new StreamWriter(DesktopDir + "\\" + "DirkWinVersion.txt"))
+            {
+                writer1.WriteLine();
+                writer1.WriteLine("operatingSystem = " + operatingSystem);
+                writer1.WriteLine("platform        = " + platform);
+                writer1.WriteLine("version         = " + version);
+                writer1.WriteLine("versionString   = " + versionString);
+                writer1.WriteLine("versionMajor    = " + versionMajor);
+                writer1.WriteLine();
+                writer1.WriteLine("AllUsersDir = " + AllUsersDir);
+                writer1.WriteLine("PublicDir   = " + PublicDir);
+                writer1.WriteLine();
+                writer1.Flush();
+            }
+
+            // Create a shortcut to SebStarter.exe on the desktop
+            using (StreamWriter writer = new StreamWriter(DesktopDir + "\\" + SebStarterExe + ".url"))
+            {
+                writer.WriteLine("[InternetShortcut]");
+                writer.WriteLine("URL=file:///" + SebStarterExeFileTarget);
+                writer.WriteLine("IconIndex=0");
+                string SebWindowsIcon = SebStarterExeFileTarget.Replace('\\', '/');
+                writer.WriteLine("IconFile=" + SebWindowsIcon);
+                writer.Flush();
+            }
+
 
             // Autostart the SEB Windows Service after installation.
             // This avoids the necessity of a machine reboot.
