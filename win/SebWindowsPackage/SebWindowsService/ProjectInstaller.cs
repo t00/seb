@@ -24,13 +24,63 @@ namespace SebWindowsService
 
 
 
+        private string GetCommonDesktopDirectory()
+        {
+            // The common desktop directory (containîng the program shortcuts for all users)
+            // has changed between Windows XP and Windows Vista.
+            // As usual, Microsoft annoys the developers by not providing a
+            // System.Environment.SpecialFolder variable for the common desktop.
+            // The variable DesktopDirectory only points the the current user's desktop,
+            // the variable CommonApplicationDirectory points to the common program data.
+            // So we must construct the common desktop directory, depending on the Windows version.
+
+            // Determine the Windows version (actually "Windows NT" version).
+            // Windows NT version <= 5 : Windows NT 4.0,..., XP
+            // Windows NT version >= 6 : Windows Vista, 7, 8...
+            OperatingSystem operatingSystem  = Environment.OSVersion;
+            Version         version          = operatingSystem.Version;
+            int             versionWindowsNT = version.Major;
+
+            // Build the common desktop directory, depending on the Windows version.
+            // Windows NT version <= 5 : "C:\Documents and Settings\All Users\Desktop"
+            // Windows NT version >= 6 : "C:\Users\Public\Desktop"
+            string CommonDesktopDir = "";
+            string      AllUsersDir = Environment.GetEnvironmentVariable("ALLUSERSPROFILE");
+            string        PublicDir = Environment.GetEnvironmentVariable("PUBLIC");
+            if (versionWindowsNT <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
+            if (versionWindowsNT >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
+
+            // Write some debug data into a file
+            string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
+            using (StreamWriter writer1 = new StreamWriter(UserDebugFile))
+            {
+                writer1.WriteLine();
+                writer1.WriteLine("operatingSystem  = " + operatingSystem);
+                writer1.WriteLine("platform         = " + operatingSystem.Platform);
+                writer1.WriteLine("version          = " + operatingSystem.Version);
+                writer1.WriteLine("versionString    = " + operatingSystem.VersionString);
+                writer1.WriteLine("version.Major    = " + operatingSystem.Version.Major);
+                writer1.WriteLine();
+                writer1.WriteLine("     AllUsersDir = " +      AllUsersDir);
+                writer1.WriteLine("       PublicDir = " +        PublicDir);
+                writer1.WriteLine("CommonDesktopDir = " + CommonDesktopDir);
+                writer1.WriteLine("  UserDesktopDir = " +   UserDesktopDir);
+                writer1.WriteLine();
+                writer1.Flush();
+            }
+
+            return CommonDesktopDir;
+        }
+
+
+
         private void SebServiceInstaller_Committed(object sender, InstallEventArgs e)
         {
             // Unpack the XULRunner directories after installation
 
-            string ProgramData    = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles   = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            string UserDesktopDir = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string ProgramData    = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string ProgramFiles   = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -68,6 +118,9 @@ namespace SebWindowsService
             string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
             string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
             string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
+
+            string CommonDesktopDirectory = GetCommonDesktopDirectory();
+            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + SebStarterExe + ".url";
 
             string XulSebZip           = "xul_seb.zip";
             string XulRunnerZip        = "xulrunner.zip";
@@ -172,6 +225,7 @@ namespace SebWindowsService
             }
 */
 
+/*
             // The common desktop directory (containîng the program shortcuts for all users)
             // has changed between Windows XP and Windows Vista.
             // As usual, Microsoft annoys the developers by not providing a
@@ -180,35 +234,33 @@ namespace SebWindowsService
             // the variable CommonApplicationDirectory points to the common program data.
             // So we must construct the common desktop directory, depending on the Windows version.
 
-            // Determine the operating system (Windows version)
-            System.OperatingSystem operatingSystem = System.Environment.OSVersion;
-            System.PlatformID      platform        = operatingSystem.Platform;
-            System.Version         version         = operatingSystem.Version;
-            string                 versionString   = operatingSystem.VersionString;
+            // Determine the Windows version (actually "Windows NT" version).
+            // Windows NT version <= 5 : Windows NT 4.0,..., XP
+            // Windows NT version >= 6 : Windows Vista, 7, 8...
+            OperatingSystem operatingSystem  = Environment.OSVersion;
+            Version         version          = operatingSystem.Version;
+            int             versionWindowsNT = version.Major;
 
-            // Get the Windows version (in terms of "Windows NT" version)
+            // Build the common desktop directory, depending on the Windows version.
+            // Windows NT version <= 5 : "C:\Documents and Settings\All Users\Desktop"
+            // Windows NT version >= 6 : "C:\Users\Public\Desktop"
             string CommonDesktopDir = "";
             string      AllUsersDir = Environment.GetEnvironmentVariable("ALLUSERSPROFILE");
             string        PublicDir = Environment.GetEnvironmentVariable("PUBLIC");
-            int    versionWindowsNT = version.Major;
-
-            // Build the common desktop directory, depending on the Windows version.
-            // Windows NT version <= 5 : Windows NT 4.0,..., XP
-            // Windows NT version >= 6 : Windows Vista, 7, 8...
             if (versionWindowsNT <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
             if (versionWindowsNT >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
 
-/*
             // Write some debug data into a file
-            string DebugFile = UserDesktopDir + "\\" + "DirkWinVersion.txt";
-            using (StreamWriter writer1 = new StreamWriter(DebugFile))
+            string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
+            using (StreamWriter writer1 = new StreamWriter(UserDebugFile))
             {
                 writer1.WriteLine();
                 writer1.WriteLine("operatingSystem  = " + operatingSystem);
-                writer1.WriteLine("platform         = " + platform);
-                writer1.WriteLine("version          = " + version);
-                writer1.WriteLine("versionString    = " + versionString);
-                writer1.WriteLine("versionWindowsNT = " + versionWindowsNT);
+                writer1.WriteLine("platform         = " + operatingSystem.Platform);
+                writer1.WriteLine("version          = " + operatingSystem.Version);
+                writer1.WriteLine("versionString    = " + operatingSystem.VersionString);
+                writer1.WriteLine("version.Major    = " + operatingSystem.Version.Major);
                 writer1.WriteLine();
                 writer1.WriteLine("     AllUsersDir = " +      AllUsersDir);
                 writer1.WriteLine("       PublicDir = " +        PublicDir);
@@ -220,8 +272,7 @@ namespace SebWindowsService
 */
 
             // Create a shortcut to the program executable "SebStarter.exe" on the common desktop
-            string DesktopIconUrl = CommonDesktopDir + "\\" + SebStarterExe + ".url";
-            using (StreamWriter writer = new StreamWriter(DesktopIconUrl))
+            using (StreamWriter writer = new StreamWriter(CommonDesktopIconUrl))
             {
                 writer.WriteLine("[InternetShortcut]");
                 writer.WriteLine("URL=file:///" + SebStarterExeFileTarget);
@@ -274,6 +325,7 @@ namespace SebWindowsService
             }
 */
             return;
+
         }   // end of method   SebServiceInstaller_BeforeUninstall()
 
 
@@ -283,8 +335,8 @@ namespace SebWindowsService
         {
             // Delete all remaining directories and files after uninstallation
 
-            string ProgramData  = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramData    = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string ProgramFiles   = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -292,6 +344,10 @@ namespace SebWindowsService
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebStarterExe = "SebStarter.exe";
+
+            string CommonDesktopDirectory = GetCommonDesktopDirectory();
+            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + SebStarterExe + ".url";
 
             // ATTENTION:
             //
@@ -332,6 +388,10 @@ namespace SebWindowsService
 	        {
 		        //throw;
 	        }
+
+
+            // Delete the shortcut to the program executable "SebStarter.exe" on the common desktop
+            System.IO.File.Delete(CommonDesktopIconUrl);
 
             return;
 
