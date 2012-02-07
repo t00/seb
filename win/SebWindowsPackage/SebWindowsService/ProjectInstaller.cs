@@ -28,9 +28,9 @@ namespace SebWindowsService
         {
             // Unpack the XULRunner directories after installation
 
-            string ProgramData   = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles  = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            string DesktopDir    = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string ProgramData    = System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string ProgramFiles   = System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string UserDesktopDir = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -172,34 +172,56 @@ namespace SebWindowsService
             }
 */
 
+            // The common desktop directory (containîng the program shortcuts for all users)
+            // has changed between Windows XP and Windows Vista.
+            // As usual, Microsoft annoys the developers by not providing a
+            // System.Environment.SpecialFolder variable for the common desktop.
+            // The variable DesktopDirectory only points the the current user's desktop,
+            // the variable CommonApplicationDirectory points to the common program data.
+            // So we must construct the common desktop directory, depending on the Windows version.
+
             // Determine the operating system (Windows version)
             System.OperatingSystem operatingSystem = System.Environment.OSVersion;
             System.PlatformID      platform        = operatingSystem.Platform;
             System.Version         version         = operatingSystem.Version;
             string                 versionString   = operatingSystem.VersionString;
 
-            string AllUsersDir = Environment.GetEnvironmentVariable("ALLUSERSPROFILE");
-            string PublicDir   = Environment.GetEnvironmentVariable("PUBLIC");
-            int    versionMajor = version.Major;
+            // Get the Windows version (in terms of "Windows NT" version)
+            string CommonDesktopDir = "";
+            string      AllUsersDir = Environment.GetEnvironmentVariable("ALLUSERSPROFILE");
+            string        PublicDir = Environment.GetEnvironmentVariable("PUBLIC");
+            int    versionWindowsNT = version.Major;
 
-            // Create a shortcut to SebStarter.exe on the desktop
-            using (StreamWriter writer1 = new StreamWriter(DesktopDir + "\\" + "DirkWinVersion.txt"))
+            // Build the common desktop directory, depending on the Windows version.
+            // Windows NT version <= 5 : Windows NT 4.0,..., XP
+            // Windows NT version >= 6 : Windows Vista, 7, 8...
+            if (versionWindowsNT <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
+            if (versionWindowsNT >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
+
+/*
+            // Write some debug data into a file
+            string DebugFile = UserDesktopDir + "\\" + "DirkWinVersion.txt";
+            using (StreamWriter writer1 = new StreamWriter(DebugFile))
             {
                 writer1.WriteLine();
-                writer1.WriteLine("operatingSystem = " + operatingSystem);
-                writer1.WriteLine("platform        = " + platform);
-                writer1.WriteLine("version         = " + version);
-                writer1.WriteLine("versionString   = " + versionString);
-                writer1.WriteLine("versionMajor    = " + versionMajor);
+                writer1.WriteLine("operatingSystem  = " + operatingSystem);
+                writer1.WriteLine("platform         = " + platform);
+                writer1.WriteLine("version          = " + version);
+                writer1.WriteLine("versionString    = " + versionString);
+                writer1.WriteLine("versionWindowsNT = " + versionWindowsNT);
                 writer1.WriteLine();
-                writer1.WriteLine("AllUsersDir = " + AllUsersDir);
-                writer1.WriteLine("PublicDir   = " + PublicDir);
+                writer1.WriteLine("     AllUsersDir = " +      AllUsersDir);
+                writer1.WriteLine("       PublicDir = " +        PublicDir);
+                writer1.WriteLine("CommonDesktopDir = " + CommonDesktopDir);
+                writer1.WriteLine("  UserDesktopDir = " +   UserDesktopDir);
                 writer1.WriteLine();
                 writer1.Flush();
             }
+*/
 
-            // Create a shortcut to SebStarter.exe on the desktop
-            using (StreamWriter writer = new StreamWriter(DesktopDir + "\\" + SebStarterExe + ".url"))
+            // Create a shortcut to the program executable "SebStarter.exe" on the common desktop
+            string DesktopIconUrl = CommonDesktopDir + "\\" + SebStarterExe + ".url";
+            using (StreamWriter writer = new StreamWriter(DesktopIconUrl))
             {
                 writer.WriteLine("[InternetShortcut]");
                 writer.WriteLine("URL=file:///" + SebStarterExeFileTarget);
