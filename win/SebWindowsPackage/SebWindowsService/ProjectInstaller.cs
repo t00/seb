@@ -50,6 +50,7 @@ namespace SebWindowsService
             if (versionWindowsNT <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
             if (versionWindowsNT >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
 
+/*
             // Write some debug data into a file
             string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
@@ -69,7 +70,7 @@ namespace SebWindowsService
                 writer1.WriteLine();
                 writer1.Flush();
             }
-
+*/
             return CommonDesktopDir;
         }
 
