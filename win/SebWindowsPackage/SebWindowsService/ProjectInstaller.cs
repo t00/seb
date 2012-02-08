@@ -34,12 +34,12 @@ namespace SebWindowsService
             // the variable CommonApplicationDirectory points to the common program data.
             // So we must construct the common desktop directory, depending on the Windows version.
 
-            // Determine the Windows version (actually "Windows NT" version).
+            // Determine the major Windows version (actually "Windows NT" version).
             // Windows NT version <= 5 : Windows NT 4.0,..., XP
             // Windows NT version >= 6 : Windows Vista, 7, 8...
-            OperatingSystem operatingSystem  = Environment.OSVersion;
-            Version         version          = operatingSystem.Version;
-            int             versionWindowsNT = version.Major;
+            OperatingSystem operatingSystem = Environment.OSVersion;
+            Version         version         = operatingSystem.Version;
+            int             versionMajor    = version.Major;
 
             // Build the common desktop directory, depending on the Windows version.
             // Windows NT version <= 5 : "C:\Documents and Settings\All Users\Desktop"
@@ -47,8 +47,8 @@ namespace SebWindowsService
             string CommonDesktopDir = "";
             string      AllUsersDir = Environment.GetEnvironmentVariable("ALLUSERSPROFILE");
             string        PublicDir = Environment.GetEnvironmentVariable("PUBLIC");
-            if (versionWindowsNT <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
-            if (versionWindowsNT >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
+            if (versionMajor <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
+            if (versionMajor >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
 
 /*
             // Write some debug data into a file
@@ -121,7 +121,7 @@ namespace SebWindowsService
             string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
-            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + SebStarterExe + ".url";
+            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
 
             string XulSebZip           = "xul_seb.zip";
             string XulRunnerZip        = "xulrunner.zip";
@@ -345,10 +345,9 @@ namespace SebWindowsService
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebStarterExe = "SebStarter.exe";
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
-            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + SebStarterExe + ".url";
+            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
 
             // ATTENTION:
             //
