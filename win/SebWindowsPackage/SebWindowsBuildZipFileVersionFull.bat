@@ -77,15 +77,15 @@ echo ----------------------------------------------------
 
 @echo on
 
-set SebZipDir="C:\Users\Dirk\tmp\seb_%Version%_win"
-set SebTrunkDir="C:\Users\Dirk\seb\trunk\win\SebWindowsPackage"
+set SourceDir="C:\Users\Dirk\seb\trunk\win\SebWindowsPackage"
+set TargetDir="C:\Users\Dirk\tmp\seb_%Version%_win"
 
-copy "%SebTrunkDir%\SebWindowsInstall\*.bat"                           %SebZipDir%
-copy "%SebTrunkDir%\SebWindowsInstall\Release\SebWindowsInstall.msi"   %SebZipDir%
-copy "%SebTrunkDir%\SebWindowsConfig\bin\Release\SebWindowsConfig.exe" %SebZipDir%
-copy "%SebTrunkDir%\SebWindowsClient\MsgHook\MsgHook.ini"              %SebZipDir%
-copy "%SebTrunkDir%\SebWindowsClient\SebStarter\SebStarter.ini"        %SebZipDir%
-copy "%SebTrunkDir%\SebWindowsClient\SebStarter\SebStarter.bat"        %SebZipDir%
+copy "%SourceDir%\SebWindowsInstall\*.bat"                           %TargetDir%
+copy "%SourceDir%\SebWindowsInstall\Release\SebWindowsInstall.msi"   %TargetDir%
+copy "%SourceDir%\SebWindowsConfig\bin\Release\SebWindowsConfig.exe" %TargetDir%
+copy "%SourceDir%\SebWindowsClient\MsgHook\MsgHook.ini"              %TargetDir%
+copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.ini"        %TargetDir%
+copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.bat"        %TargetDir%
 
 @echo off
 
