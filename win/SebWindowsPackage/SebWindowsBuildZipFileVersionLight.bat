@@ -66,11 +66,6 @@ echo SebInstallMsiFile  = %SebInstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
 echo SebMsgHookIniFile  = %SebMsgHookIniFile%
-echo.
-echo CommonAppDataFolder = %CommonAppDataFolder%
-echo SebAdminImage       = %SebAdminImage%
-echo SebAdminImageDir    = %SebAdminImageDir%
-echo SebAdminConfigDir   = %SebAdminConfigDir%
 
 
 
@@ -82,7 +77,7 @@ echo ----------------------------------------------------
 
 @echo on
 
-set SebZipDir="C:\Users\Dirk\tmp\seb_%Version%_win"
+set SebZipDir="C:\Users\Dirk\tmp\seb_%Version%_win_light"
 set SebTrunkDir="C:\Users\Dirk\seb\trunk\win\SebWindowsPackage"
 
 copy "%SebTrunkDir%\Release\MsgHook.dll"                               %SebZipDir%
@@ -97,7 +92,7 @@ copy "%SebTrunkDir%\SebWindowsClient\SebStarter\SebStarter.bat"        %SebZipDi
 
 
 echo.
-@REM pause
+pause
 @echo on
 
 

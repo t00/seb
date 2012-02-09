@@ -66,11 +66,6 @@ echo SebInstallMsiFile  = %SebInstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
 echo SebMsgHookIniFile  = %SebMsgHookIniFile%
-echo.
-echo CommonAppDataFolder = %CommonAppDataFolder%
-echo SebAdminImage       = %SebAdminImage%
-echo SebAdminImageDir    = %SebAdminImageDir%
-echo SebAdminConfigDir   = %SebAdminConfigDir%
 
 
 
@@ -97,7 +92,7 @@ copy "%SebTrunkDir%\SebWindowsClient\SebStarter\SebStarter.bat"        %SebZipDi
 
 
 echo.
-@REM pause
+pause
 @echo on
 
 
