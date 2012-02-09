@@ -4,7 +4,7 @@
 
 echo.
 echo.
-echo Safe Exam Browser silent installation
+echo Safe Exam Browser silent inst allation
 echo =====================================
 
 
