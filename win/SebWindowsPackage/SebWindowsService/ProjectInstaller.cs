@@ -343,11 +343,36 @@ namespace SebWindowsService
             string Product      = "SEB Windows";
             string Version      = "1.8.1";
 
-            string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string Client       = "SebWindowsClient";
+            string Release      = "Release";
+            string Service      = "SebWindowsService";
+            string Logfile      = "SebWindowsService.logfile.txt";
+
+            string SebConfigDir  = ProgramData   + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebInstallDir = ProgramFiles  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+
+            string SebClientDir  = SebInstallDir + "\\" + Client;
+            string SebReleaseDir = SebInstallDir + "\\" + Client + "\\" + Release;
+            string SebServiceDir = SebInstallDir + "\\" + Service;
+            string SebServiceLog = SebInstallDir + "\\" + Service + "\\" + Logfile;
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
             string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
+
+
+            // Stop the SEB Windows Service after uninstallation ???
+            string sebServiceName       = this.SebServiceInstaller.ServiceName;
+            var    sebServiceController = new ServiceController(sebServiceName);
+
+            try
+            {
+                sebServiceController.Stop();
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
 
             // ATTENTION:
             //
@@ -367,6 +392,39 @@ namespace SebWindowsService
             // so maybe it is necessary to reboot and manually delete the
             // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8.1\SebWindowsClient\Release
             // directory after reboot.
+
+            // Try to delete the "SebWindowsClient\Release" subdirectory
+            try
+            {
+                System.IO.Directory.Delete(SebReleaseDir, true);
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+            // Try to delete the "SebWindowsClient" subdirectory
+            try
+            {
+                System.IO.Directory.Delete(SebClientDir, true);
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+            // Try to delete the "SebWindowsService.logfile.txt" file
+            System.IO.File.Delete(SebServiceLog);
+
+            // Try to delete the "SebWindowsService" subdirectory
+            try
+            {
+                System.IO.Directory.Delete(SebServiceDir, true);
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
 
             //System.IO.Directory.Delete(SebConfigDir , true);
             //System.IO.Directory.Delete(SebInstallDir, true);
