@@ -31,7 +31,7 @@ echo ---------------------------------------------------------
 
 set Manufacturer=ETH Zuerich
 set Product=SEB Windows
-set Version=1.8
+set Version=1.8.1
 set Component=SebWindowsClient
 set Build=Release
 
@@ -82,7 +82,7 @@ echo ----------------------------------------------------
 
 @echo on
 
-set SebZipDir="C:\Users\Dirk\tmp\seb_1.8.1_win"
+set SebZipDir="C:\Users\Dirk\tmp\seb_%Version%_win"
 set SebTrunkDir="C:\Users\Dirk\seb\trunk\win\SebWindowsPackage"
 
 copy "%SebTrunkDir%\SebWindowsInstall\*.bat"                           %SebZipDir%
