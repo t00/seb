@@ -92,7 +92,7 @@ copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.bat"        %TargetDir%
 
 
 echo.
-pause
+@REM pause
 @echo on
 
 
