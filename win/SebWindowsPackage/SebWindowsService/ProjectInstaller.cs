@@ -76,6 +76,8 @@ namespace SebWindowsService
 
 
 
+
+
         private void SebServiceInstaller_Committed(object sender, InstallEventArgs e)
         {
             // Unpack the XULRunner directories after installation
@@ -226,52 +228,6 @@ namespace SebWindowsService
             }
 */
 
-/*
-            // The common desktop directory (containîng the program shortcuts for all users)
-            // has changed between Windows XP and Windows Vista.
-            // As usual, Microsoft annoys the developers by not providing a
-            // System.Environment.SpecialFolder variable for the common desktop.
-            // The variable DesktopDirectory only points the the current user's desktop,
-            // the variable CommonApplicationDirectory points to the common program data.
-            // So we must construct the common desktop directory, depending on the Windows version.
-
-            // Determine the Windows version (actually "Windows NT" version).
-            // Windows NT version <= 5 : Windows NT 4.0,..., XP
-            // Windows NT version >= 6 : Windows Vista, 7, 8...
-            OperatingSystem operatingSystem  = Environment.OSVersion;
-            Version         version          = operatingSystem.Version;
-            int             versionWindowsNT = version.Major;
-
-            // Build the common desktop directory, depending on the Windows version.
-            // Windows NT version <= 5 : "C:\Documents and Settings\All Users\Desktop"
-            // Windows NT version >= 6 : "C:\Users\Public\Desktop"
-            string CommonDesktopDir = "";
-            string      AllUsersDir = Environment.GetEnvironmentVariable("ALLUSERSPROFILE");
-            string        PublicDir = Environment.GetEnvironmentVariable("PUBLIC");
-            if (versionWindowsNT <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
-            if (versionWindowsNT >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
-
-            // Write some debug data into a file
-            string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
-            using (StreamWriter writer1 = new StreamWriter(UserDebugFile))
-            {
-                writer1.WriteLine();
-                writer1.WriteLine("operatingSystem  = " + operatingSystem);
-                writer1.WriteLine("platform         = " + operatingSystem.Platform);
-                writer1.WriteLine("version          = " + operatingSystem.Version);
-                writer1.WriteLine("versionString    = " + operatingSystem.VersionString);
-                writer1.WriteLine("version.Major    = " + operatingSystem.Version.Major);
-                writer1.WriteLine();
-                writer1.WriteLine("     AllUsersDir = " +      AllUsersDir);
-                writer1.WriteLine("       PublicDir = " +        PublicDir);
-                writer1.WriteLine("CommonDesktopDir = " + CommonDesktopDir);
-                writer1.WriteLine("  UserDesktopDir = " +   UserDesktopDir);
-                writer1.WriteLine();
-                writer1.Flush();
-            }
-*/
-
             // Create a shortcut to the program executable "SebStarter.exe" on the common desktop
             using (StreamWriter writer = new StreamWriter(CommonDesktopIconUrl))
             {
@@ -305,6 +261,7 @@ namespace SebWindowsService
 
 
 
+
         private void SebServiceInstaller_BeforeUninstall(object sender, InstallEventArgs e)
         {
             // Stop the SEB Windows Service before uninstallation ???
@@ -332,6 +289,7 @@ namespace SebWindowsService
 
 
 
+
         private void SebServiceInstaller_AfterUninstall(object sender, InstallEventArgs e)
         {
             // Delete all remaining directories and files after uninstallation
@@ -342,36 +300,22 @@ namespace SebWindowsService
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
             string Version      = "1.8.1";
+            string Component    = "SebWindowsClient";
+            string Build        = "Release";
 
-            string Client       = "SebWindowsClient";
-            string Release      = "Release";
             string Service      = "SebWindowsService";
             string Logfile      = "SebWindowsService.logfile.txt";
 
             string SebConfigDir  = ProgramData   + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles  + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
-            string SebClientDir  = SebInstallDir + "\\" + Client;
-            string SebReleaseDir = SebInstallDir + "\\" + Client + "\\" + Release;
+            string SebClientDir  = SebInstallDir + "\\" + Component;
+            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;  
             string SebServiceDir = SebInstallDir + "\\" + Service;
             string SebServiceLog = SebInstallDir + "\\" + Service + "\\" + Logfile;
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
             string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
-
-
-            // Stop the SEB Windows Service after uninstallation ???
-            string sebServiceName       = this.SebServiceInstaller.ServiceName;
-            var    sebServiceController = new ServiceController(sebServiceName);
-
-            try
-            {
-                sebServiceController.Stop();
-            }
-            catch (Exception)
-            {
-                //throw;
-            }
 
 
             // ATTENTION:
@@ -393,6 +337,21 @@ namespace SebWindowsService
             // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8.1\SebWindowsClient\Release
             // directory after reboot.
 
+
+            // Stop the SEB Windows Service after uninstallation ???
+            string sebServiceName       = this.SebServiceInstaller.ServiceName;
+            var    sebServiceController = new ServiceController(sebServiceName);
+
+            try
+            {
+                sebServiceController.Stop();
+            }
+            catch (Exception)
+            {
+                //throw;
+            }
+
+
             // Try to delete the "SebWindowsClient\Release" subdirectory
             try
             {
@@ -402,6 +361,7 @@ namespace SebWindowsService
             {
                 //throw;
             }
+
 
             // Try to delete the "SebWindowsClient" subdirectory
             try
@@ -413,8 +373,10 @@ namespace SebWindowsService
                 //throw;
             }
 
+
             // Try to delete the "SebWindowsService.logfile.txt" file
             System.IO.File.Delete(SebServiceLog);
+
 
             // Try to delete the "SebWindowsService" subdirectory
             try
@@ -425,6 +387,7 @@ namespace SebWindowsService
             {
                 //throw;
             }
+
 
             //System.IO.Directory.Delete(SebConfigDir , true);
             //System.IO.Directory.Delete(SebInstallDir, true);
