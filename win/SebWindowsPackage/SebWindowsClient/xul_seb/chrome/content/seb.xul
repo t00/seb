@@ -26,7 +26,14 @@
 		<stringbundle id="locale" src="chrome://xul_seb/locale/seb.properties" />
 		<stringbundle id="const" src="chrome://xul_seb/content/seb.properties" />
 	</stringbundleset>
-	
+	<!-- commands -->
+	<commandset id="sebCommandSet">
+		<command id="sebCmdReload" oncommand="SebSystem.reloadPage();"/>
+	</commandset>
+	<!-- keysets -->
+	<keyset>
+		<key id="sebKeyReload" keycode="VK_F5" command="sebCmdReload"/>
+	</keyset>
 	<vbox flex="1">
 		<deck id="deckContents" selectedIndex="1" flex="1">		
 			<iframe flex="1" id="iLoading" src="chrome://xul_seb/content/load.xul" type="content-primary"></iframe>	

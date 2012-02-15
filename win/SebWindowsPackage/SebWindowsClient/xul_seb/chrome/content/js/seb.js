@@ -78,6 +78,10 @@ var SebSystem = {
 		this._browser.focus();
 	},
 	
+	reloadPage : function() {
+		this._browser.contentWindow.location.reload();
+	},
+	
 	getUrl : function() {
 		var url = "";
 		if (window.arguments[0] != null) {
