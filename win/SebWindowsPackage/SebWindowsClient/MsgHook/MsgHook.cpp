@@ -371,12 +371,12 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 	if ((keyCode == VK_ESCAPE) && (!alter_flags.DisableEsc))
 	{
 		logg(fp, "   \n");
-		logg(fp, "   Esc pressed, calling pop window for quit password...\n\n");
+		logg(fp, "   Esc pressed, calling popup window for quit password...\n\n");
 
 		// TODO: modal popup window for entering the quit password
 		string quitPasswordEntered = "";
-		string quitHashcodeStored  = "";
 		string quitHashcodeEntered = "";
+		string quitHashcodeStored  = "";
 
 		quitHashcodeStored = quitHashcode;
 
