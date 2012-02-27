@@ -85,7 +85,7 @@ LRESULT CALLBACK	WndProc(HWND,  UINT, WPARAM, LPARAM);
 LRESULT	CALLBACK	LLKeyboardHook( int, WPARAM, LPARAM);
 LRESULT	CALLBACK	  KeyboardHook( int, WPARAM, LPARAM);
 LRESULT CALLBACK	  About(HWND,  UINT, WPARAM, LPARAM);
-LRESULT CALLBACK    DlgProc(HWND,  UINT, WPARAM, LPARAM);
+//LRESULT CALLBACK    EnterQuitPasswordProc(HWND,  UINT, WPARAM, LPARAM);
 
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance   (HINSTANCE, int);
@@ -2725,13 +2725,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			// Parse the menu selections:
 			switch (wmId)
 			{
-				case IDM_QUIT_PASSWORD:
-				logg(fp, "   WM_COMMAND: IDM_QUIT_PASSWORD\n");
+				//case IDM_QUIT_PASSWORD:
+				//logg(fp, "   WM_COMMAND: IDM_QUIT_PASSWORD\n");
 				//MessageBox(NULL, "IDM_QUIT_PASSWORD", "WM_COMMAND", MB_ICONERROR);
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-
-				if (DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, (DLGPROC)DlgProc) == IDOK)
+/*
+				if (DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, (DLGPROC)EnterQuitPasswordProc) == IDOK)
 				{
 					// Complete the command; szItemName contains the
 					// name of the item to delete.
@@ -2741,18 +2741,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					// Cancel the command.
 				}
 				break;
-
+*/
 				case IDM_ABOUT:
 				logg(fp, "   WM_COMMAND: IDM_ABOUT\n");
 				MessageBox(NULL, "IDM_ABOUT", "WM_COMMAND", MB_ICONERROR);
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
 				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 				break;
 
 				case IDM_EXIT:
 				logg(fp, "   WM_COMMAND: IDM_EXIT\n");
 				MessageBox(NULL, "IDM_EXIT", "WM_COMMAND", MB_ICONERROR);
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(DlgProc));
+				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
 				DestroyWindow(hWnd);
 				break;
 
@@ -2882,7 +2882,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 
 // Message handler for Quit Password box
-LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
+/*
+LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	switch(Msg)
     {
@@ -2903,7 +2904,7 @@ LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 
 	return FALSE;
 }
-
+*/
 
 
 // Message handler for about box.
