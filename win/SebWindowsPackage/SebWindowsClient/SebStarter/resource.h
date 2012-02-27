@@ -3,7 +3,6 @@
 // Used by SebStarter.rc
 //
 #define IDC_MYICON                      2
-#define IDD_DIALOG_QUIT_PASSWORD        101
 #define IDD_SEB_DIALOG                  102
 #define IDS_APP_TITLE                   103
 #define IDD_ABOUTBOX                    103
@@ -16,7 +15,6 @@
 #define IDI_ICON1                       138
 #define IDI_ICON2                       140
 #define IDI_ICON3                       142
-#define IDC_MFCMASKEDEDIT_QUIT_PASSWORD 1001
 #define ID_FILE_STARTPROCESS            32771
 #define IDM_STARTPROCESS                32772
 #define IDC_STATIC                      -1

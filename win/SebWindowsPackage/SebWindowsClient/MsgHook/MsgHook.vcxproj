@@ -93,6 +93,7 @@
   <ItemGroup>
     <ClInclude Include="AlterFlags.h" />
     <ClInclude Include="MsgHook.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

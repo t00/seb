@@ -46,6 +46,7 @@ extern char iniFileDirectory [BUFLEN];
 extern char iniFileMsgHook   [BUFLEN];
 extern char iniFileSebStarter[BUFLEN];
 extern char examUrl          [BUFLEN];
+extern char quitPassword     [BUFLEN];
 extern char quitHashcode     [BUFLEN];
 extern FILE* fp;
 
@@ -169,6 +170,7 @@ string GetMouseName(WPARAM wParam)
 
 
 
+
 // **************************************
 //* Gets the name of a key in string form
 // **************************************
@@ -215,27 +217,34 @@ string GetKeyName(UINT keyCode)
 
 
 
-/*
-LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
-{
-	switch(Msg)
-	{
-	case WM_INITDIALOG:
-		return TRUE;
 
-	case WM_COMMAND:
-		switch(wParam)
-		{
-		case IDOK:
-			EndDialog(hWndDlg, 0);
-			return TRUE;
-		}
-		break;
-	}
 
-	return FALSE;
-}
-*/
+// *********************************************
+//* Evaluates the Enter Quit Password dialog box
+// *********************************************
+BOOL CALLBACK EnterQuitPasswordProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam) 
+{ 
+    switch (message) 
+    { 
+        case WM_COMMAND: 
+            switch (LOWORD(wParam)) 
+            { 
+                case IDOK: 
+                    if (!GetDlgItemText(hwndDlg, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80)) 
+                         *quitPassword = 0; 
+ 
+                    // Fall through. 
+ 
+                case IDCANCEL: 
+                    EndDialog(hwndDlg, wParam); 
+                    return TRUE; 
+            } 
+    } 
+    return FALSE; 
+} 
+
+
+
 
 
 /* private hook functions */
@@ -380,44 +389,52 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
  
 		quitHashcodeStored = quitHashcode;
 
-		// only temporarily for testing purposes
-		quitPasswordEntered = "Davos";
-		quitHashcodeEntered = "47E2361A7D358FA46394ACBCB899536D816774BE7B53AD8777BB23464DA54E";
-
 		//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
 		//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
-
 		//MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2 | MB_SERVICE_NOTIFICATION);
 
-		HINSTANCE    hInstance    = *hDll;
-		LPCTSTR     lpTemplate    = "abba";
-		HWND         hWndParent   = hWndCaller;
-		DLGPROC     lpDialogFunc;
+		HINSTANCE    hinst = *hDll;
+		HWND         hwnd  = hWndCaller;
 
 		//DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
 		//DialogBox((HINSTANCE)*hDll, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
-
 		//INT_PTR DialogBox(HINSTANCE hInstance, LPCTSTR lpTemplate, HWND hWndParent, DLGPROC lpDialogFunc);
 		//DialogBox(hInstance, lpTemplate, hWndCaller, lpDialogFunc);
 
-
-      //quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
-	  //quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
-
-		logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered.c_str());
-		logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
-		logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
-		logg(fp, "\n");
-
-		if (quitHashcodeEntered == quitHashcodeStored)
+		if (DialogBox(hinst, 
+					  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
+					  hwnd, 
+					  (DLGPROC)EnterQuitPasswordProc) == IDOK) 
 		{
-			logg(fp, "\n\n");
-			//TerminateProcess(hPiProcess->hProcess,0);
-			SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
-			logg(fp, "   SEB quit password entered correctly, therefore destroy window\n");
-			//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
-			return -1;
+			// Complete the command; szItemName / quitPasswordEntered contains the 
+			// name of the item to delete.
+
+			//quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
+			//quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
+
+			// only temporarily for testing purposes
+			quitPasswordEntered = "Davos";
+			quitHashcodeEntered = "47E2361A7D358FA46394ACBCB899536D816774BE7B53AD8777BB23464DA54E";
+
+			logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered.c_str());
+			logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
+			logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
+			logg(fp, "\n");
+
+			if (quitHashcodeEntered == quitHashcodeStored)
+			{
+				logg(fp, "\n\n");
+				//TerminateProcess(hPiProcess->hProcess,0);
+				SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
+				logg(fp, "   SEB quit password entered correctly, therefore destroy window\n");
+				//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
+				return -1;
+			}
 		}
+		else 
+		{
+			// Cancel the command. 
+		} 
 
 	} // end if (keyCode == VK_ESCAPE)
 
