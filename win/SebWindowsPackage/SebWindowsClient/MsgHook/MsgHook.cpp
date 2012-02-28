@@ -223,9 +223,51 @@ string GetKeyName(UINT keyCode)
 //* Evaluates the Enter Quit Password dialog box
 // *********************************************
 BOOL CALLBACK EnterQuitPasswordProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam) 
-{ 
+{
+	HWND hwndOwner; 
+	RECT rc, rcDlg, rcOwner;
+
     switch (message) 
-    { 
+    {
+		case WM_INITDIALOG: 
+
+		// Get the owner window and dialog box rectangles. 
+
+		if ((hwndOwner = GetParent(hwndDlg)) == NULL) 
+		{
+			hwndOwner = GetDesktopWindow(); 
+		}
+
+		GetWindowRect(hwndOwner, &rcOwner); 
+		GetWindowRect(hwndDlg, &rcDlg); 
+		CopyRect(&rc, &rcOwner); 
+
+		// Offset the owner and dialog box rectangles so that right and bottom 
+		// values represent the width and height, and then offset the owner again 
+		// to discard space taken up by the dialog box. 
+
+		OffsetRect(&rcDlg, -rcDlg.left, -rcDlg.top); 
+		OffsetRect(&rc, -rc.left, -rc.top); 
+		OffsetRect(&rc, -rcDlg.right, -rcDlg.bottom); 
+
+		// The new position is the sum of half the remaining space and the owner's 
+		// original position. 
+
+		SetWindowPos(hwndDlg, HWND_TOP, 
+					 rcOwner.left + (rc.right  / 2), 
+					 rcOwner.top  + (rc.bottom / 2), 
+					 0, 0,          // Ignores size arguments. 
+					 SWP_NOSIZE); 
+
+	    if (GetDlgCtrlID((HWND) wParam) != IDC_MFCMASKEDEDIT_QUIT_PASSWORD) 
+		{ 
+			SetFocus(GetDlgItem(hwndDlg, IDC_MFCMASKEDEDIT_QUIT_PASSWORD)); 
+			return FALSE; 
+		} 
+		return TRUE; 
+
+
+
         case WM_COMMAND: 
             switch (LOWORD(wParam)) 
             { 
@@ -238,8 +280,10 @@ BOOL CALLBACK EnterQuitPasswordProc(HWND hwndDlg, UINT message, WPARAM wParam, L
                 case IDCANCEL: 
                     EndDialog(hwndDlg, wParam); 
                     return TRUE; 
-            } 
-    } 
+            }
+
+    } // end switch (message)
+
     return FALSE; 
 } 
 
