@@ -468,10 +468,10 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		{
 			logg(fp, "   res = IDOK\n");
 
-			// Complete the command; szItemName / quitPasswordEntered contains the 
-			// name of the item to delete.
+			// Complete the command:
+			// quitPasswordEntered contains the entered password
 
-			//quitPasswordEntered = CreateWindow(Popup, "Enter quit password:");
+			quitPasswordEntered = quitPassword;
 			//quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
 
 			// only temporarily for testing purposes

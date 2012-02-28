@@ -86,7 +86,7 @@ LRESULT CALLBACK	WndProc(HWND,  UINT, WPARAM, LPARAM);
 LRESULT	CALLBACK	LLKeyboardHook( int, WPARAM, LPARAM);
 LRESULT	CALLBACK	  KeyboardHook( int, WPARAM, LPARAM);
 LRESULT CALLBACK	  About(HWND,  UINT, WPARAM, LPARAM);
-//LRESULT CALLBACK    EnterQuitPasswordProc(HWND,  UINT, WPARAM, LPARAM);
+LRESULT CALLBACK    EnterQuitPasswordProc(HWND,  UINT, WPARAM, LPARAM);
 
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance   (HINSTANCE, int);
@@ -2686,194 +2686,261 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	if (languageIndex == IND_LanguageEnglish) appChooserTitle = "&Permitted applications";
 	if (languageIndex == IND_LanguageFrench ) appChooserTitle = "&Applications permies";
 
+
 	switch (message)
 	{
 		case WM_CREATE:
 
-			HMENU hMenu, hMenu2, hSubMenu, hSubMenu2;
-			hMenu     = CreateMenu();
-			hMenu2    = CreateMenu();
-			hSubMenu  = CreatePopupMenu();
-			hSubMenu2 = CreatePopupMenu();
+		HMENU hMenu, hMenu2, hSubMenu, hSubMenu2;
+		hMenu     = CreateMenu();
+		hMenu2    = CreateMenu();
+		hSubMenu  = CreatePopupMenu();
+		hSubMenu2 = CreatePopupMenu();
 
-			AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, appChooserTitle.c_str());
+		AppendMenu(hMenu, MF_STRING | MF_POPUP , (UINT)hSubMenu, appChooserTitle.c_str());
 
-			// Append the permitted applications to the AppChooser menu
-			for (itProcesses  = mpProcesses.begin();
-				 itProcesses != mpProcesses.end();
-				 itProcesses++)
-			{
-				// applicationName = name of the process.
-				// If the "continue" command is active,
-				// "Seb" is not appended to the third party application menu.
-				applicationName = (*itProcesses).first;
-				if (applicationName == "Seb") continue;
-				AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
-				mpProcessCommands.insert(make_pair(cntProcess, applicationName));
-				cntProcess ++;
-			}
+		// Append the permitted applications to the AppChooser menu
+		for (itProcesses  = mpProcesses.begin();
+			 itProcesses != mpProcesses.end();
+			 itProcesses++)
+		{
+			// applicationName = name of the process.
+			// If the "continue" command is active,
+			// "Seb" is not appended to the third party application menu.
+			applicationName = (*itProcesses).first;
+			if (applicationName == "Seb") continue;
+			AppendMenu(hSubMenu, MF_STRING,    cntProcess, applicationName.c_str());
+			mpProcessCommands.insert(make_pair(cntProcess, applicationName));
+			cntProcess ++;
+		}
 
-			// Append the entry for quitting SEB
-			AppendMenu(hSubMenu, MF_STRING, IDM_QUIT_PASSWORD, "Quit SEB...");
+		// Append the entry for quitting SEB
+		AppendMenu(hSubMenu, MF_STRING, IDM_QUIT_PASSWORD, "Quit SEB...");
+		SetMenu(hWnd, hMenu);
 
-			SetMenu(hWnd, hMenu);
+
 
 		case WM_COMMAND:
 
-			wmId    = LOWORD(wParam);
-			wmEvent = HIWORD(wParam);
+		wmId    = LOWORD(wParam);
+		wmEvent = HIWORD(wParam);
 
-			// Parse the menu selections:
-			switch (wmId)
+		// Parse the menu selections:
+		switch (wmId)
+		{
+			case IDM_QUIT_PASSWORD:
+
+			logg(fp, "   \n");
+			logg(fp, "   Quit SEB... selected, calling popup window for quit password...\n\n");
+
+			// TODO: modal popup window for entering the quit password
+			string quitPasswordEntered = "";
+			string quitHashcodeEntered = "";
+			string quitHashcodeStored  = "";
+ 
+			quitHashcodeStored = quitHashcode;
+
+			//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
+			MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2 | MB_SERVICE_NOTIFICATION);
+
+			HINSTANCE hInstance;
+			HWND      hWndParent;
+			HWND      hWndDesktop;
+			HWND      hWndOwner;
+
+			//hInstance = *hDll;
+			//hInstance = NULL;
+
+			hWndParent  = GetParent(hWnd);
+			hWndDesktop = GetDesktopWindow();
+
+			// Get the owner window and dialog box rectangles
+								   hWndOwner = hWndParent;
+			if (hWndOwner == NULL) hWndOwner = hWndDesktop;
+
+			logg(fp, "   hWnd        = %d\n", hWnd);
+			logg(fp, "   hWndParent  = %d\n", hWndParent);
+			logg(fp, "   hWndDesktop = %d\n", hWndDesktop);
+			logg(fp, "   hWndOwner   = %d\n", hWndOwner);
+
+			int dialogRes = DialogBox(hInst,
+									  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
+									  hWnd, 
+									  (DLGPROC)EnterQuitPasswordProc);
+
+			logg(fp, "   IDOK      = %d\n", IDOK);
+			logg(fp, "   IDCANCEL  = %d\n", IDCANCEL);
+			logg(fp, "   dialogRes = %d\n", dialogRes);
+
+			if (dialogRes == IDOK)
 			{
-				case IDM_QUIT_PASSWORD:
+				logg(fp, "   res = IDOK\n");
 
-				logg(fp, "   WM_COMMAND: IDM_QUIT_PASSWORD\n");
-				MessageBox(NULL, "IDM_QUIT_PASSWORD", "WM_COMMAND", MB_ICONERROR);
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-/*
-				if (DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, (DLGPROC)EnterQuitPasswordProc) == IDOK)
+				// Complete the command:
+				// quitPasswordEntered contains the entered password
+
+				quitPasswordEntered = quitPassword;
+				//quitHashcodeEntered = quitPasswordEntered.ComputeHashcode();
+
+				// only temporarily for testing purposes
+				quitPasswordEntered = "Davos";
+				quitHashcodeEntered = "47E2361A7D358FA46394ACBCB899536D816774BE7B53AD8777BB23464DA54E";
+
+				logg(fp, "   quitPasswordEntered = %s\n", quitPasswordEntered.c_str());
+				logg(fp, "   quitHashcodeEntered = %s\n", quitHashcodeEntered.c_str());
+				logg(fp, "   quitHashcodeStored  = %s\n", quitHashcodeStored .c_str());
+				logg(fp, "\n");
+
+				if (quitHashcodeEntered == quitHashcodeStored)
 				{
-					// Complete the command; szItemName contains the
-					// name of the item to delete.
+					logg(fp, "\n\n");
+					//TerminateProcess(hPiProcess->hProcess,0);
+					SendMessage(hWnd, WM_DESTROY, NULL, NULL);
+					logg(fp, "   SEB quit password entered correctly, therefore destroy window\n");
+					//logg(fp, "Leave LLKeyboardHook() and return -1\n\n");
+					return -1;
 				}
-				else
-				{
-					// Cancel the command.
-				}
-				break;
-*/
+			}
+			else
+			{
+				logg(fp, "   res = IDCANCEL\n");
+				// Cancel the command.
+			}
+			break;
 
-				case IDM_ABOUT:
-				logg(fp, "   WM_COMMAND: IDM_ABOUT\n");
-				MessageBox(NULL, "IDM_ABOUT", "WM_COMMAND", MB_ICONERROR);
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-				break;
 
-				case IDM_EXIT:
-				logg(fp, "   WM_COMMAND: IDM_EXIT\n");
-				MessageBox(NULL, "IDM_EXIT", "WM_COMMAND", MB_ICONERROR);
-				//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
-				DestroyWindow(hWnd);
-				break;
+			case IDM_ABOUT:
+			logg(fp, "   WM_COMMAND: IDM_ABOUT\n");
+			MessageBox(NULL, "IDM_ABOUT", "WM_COMMAND", MB_ICONERROR);
+			//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
+			//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+			break;
 
-				// supports 20 different processes
-				case 37265 :
-				logg(fp, "   WM_COMMAND: 37265\n");
-				//MessageBox(NULL, "37265", "WM_COMMAND", MB_ICONERROR);
-				//MessageBox(NULL,mpProcessCommands[37265][1].c_str(),"Error",MB_ICONERROR);
-				CreateExternalProcess(mpProcessCommands[37265]);
-				break;
+			case IDM_EXIT:
+			logg(fp, "   WM_COMMAND: IDM_EXIT\n");
+			MessageBox(NULL, "IDM_EXIT", "WM_COMMAND", MB_ICONERROR);
+			//DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWnd, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
+			DestroyWindow(hWnd);
+			break;
 
-				case 37266 :
-				logg(fp, "   WM_COMMAND: 37266\n");
-				//MessageBox(NULL, "37266", "WM_COMMAND", MB_ICONERROR);
-				//MessageBox(NULL,mpProcessCommands[37266][1].c_str(),"Error",MB_ICONERROR);
-				CreateExternalProcess(mpProcessCommands[37266]);
-				break;
+			// supports 20 different processes
+			case 37265 :
+			logg(fp, "   WM_COMMAND: 37265\n");
+			//MessageBox(NULL, "37265", "WM_COMMAND", MB_ICONERROR);
+			//MessageBox(NULL,mpProcessCommands[37265][1].c_str(),"Error",MB_ICONERROR);
+			CreateExternalProcess(mpProcessCommands[37265]);
+			break;
 
-				case 37267 :
-				logg(fp, "   WM_COMMAND: 37267\n");
-				//MessageBox(NULL, "37267", "WM_COMMAND", MB_ICONERROR);
-				//MessageBox(NULL,mpProcessCommands[37267][1].c_str(),"Error",MB_ICONERROR);
-				CreateExternalProcess(mpProcessCommands[37267]);
-				break;
+			case 37266 :
+			logg(fp, "   WM_COMMAND: 37266\n");
+			//MessageBox(NULL, "37266", "WM_COMMAND", MB_ICONERROR);
+			//MessageBox(NULL,mpProcessCommands[37266][1].c_str(),"Error",MB_ICONERROR);
+			CreateExternalProcess(mpProcessCommands[37266]);
+			break;
 
-				case 37268 :
-				CreateExternalProcess(mpProcessCommands[37268]);
-				break;
+			case 37267 :
+			logg(fp, "   WM_COMMAND: 37267\n");
+			//MessageBox(NULL, "37267", "WM_COMMAND", MB_ICONERROR);
+			//MessageBox(NULL,mpProcessCommands[37267][1].c_str(),"Error",MB_ICONERROR);
+			CreateExternalProcess(mpProcessCommands[37267]);
+			break;
 
-				case 37269 :
-				CreateExternalProcess(mpProcessCommands[37269]);
-				break;
+			case 37268 :
+			CreateExternalProcess(mpProcessCommands[37268]);
+			break;
 
-				case 37270 :
-				CreateExternalProcess(mpProcessCommands[37270]);
-				break;
+			case 37269 :
+			CreateExternalProcess(mpProcessCommands[37269]);
+			break;
 
-				case 37271 :
-				CreateExternalProcess(mpProcessCommands[37271]);
-				break;
+			case 37270 :
+			CreateExternalProcess(mpProcessCommands[37270]);
+			break;
 
-				case 37272 :
-				CreateExternalProcess(mpProcessCommands[37272]);
-				break;
+			case 37271 :
+			CreateExternalProcess(mpProcessCommands[37271]);
+			break;
 
-				case 37273 :
-				CreateExternalProcess(mpProcessCommands[37273]);
-				break;
+			case 37272 :
+			CreateExternalProcess(mpProcessCommands[37272]);
+			break;
 
-				case 37274 :
-				CreateExternalProcess(mpProcessCommands[37274]);
-				break;
+			case 37273 :
+			CreateExternalProcess(mpProcessCommands[37273]);
+			break;
 
-				case 37275 :
-				CreateExternalProcess(mpProcessCommands[37275]);
-				break;
+			case 37274 :
+			CreateExternalProcess(mpProcessCommands[37274]);
+			break;
 
-				case 37276 :
-				CreateExternalProcess(mpProcessCommands[37276]);
-				break;
+			case 37275 :
+			CreateExternalProcess(mpProcessCommands[37275]);
+			break;
 
-				case 37277 :
-				CreateExternalProcess(mpProcessCommands[37277]);
-				break;
+			case 37276 :
+			CreateExternalProcess(mpProcessCommands[37276]);
+			break;
 
-				case 37278 :
-				CreateExternalProcess(mpProcessCommands[37278]);
-				break;
+			case 37277 :
+			CreateExternalProcess(mpProcessCommands[37277]);
+			break;
 
-				case 37279 :
-				CreateExternalProcess(mpProcessCommands[37279]);
-				break;
+			case 37278 :
+			CreateExternalProcess(mpProcessCommands[37278]);
+			break;
 
-				case 37280 :
-				CreateExternalProcess(mpProcessCommands[37280]);
-				break;
+			case 37279 :
+			CreateExternalProcess(mpProcessCommands[37279]);
+			break;
 
-				case 37281 :
-				CreateExternalProcess(mpProcessCommands[37281]);
-				break;
+			case 37280 :
+			CreateExternalProcess(mpProcessCommands[37280]);
+			break;
 
-				case 37282 :
-				CreateExternalProcess(mpProcessCommands[37282]);
-				break;
+			case 37281 :
+			CreateExternalProcess(mpProcessCommands[37281]);
+			break;
 
-				case 37283 :
-				CreateExternalProcess(mpProcessCommands[37283]);
-				break;
+			case 37282 :
+			CreateExternalProcess(mpProcessCommands[37282]);
+			break;
 
-				case 37284 :
-				CreateExternalProcess(mpProcessCommands[37284]);
-				break;
+			case 37283 :
+			CreateExternalProcess(mpProcessCommands[37283]);
+			break;
 
-				case 37285 :
-				CreateExternalProcess(mpProcessCommands[37285]);
-				break;
+			case 37284 :
+			CreateExternalProcess(mpProcessCommands[37284]);
+			break;
 
-				default:
-				//logg(fp, "Leave WndProc()\n\n");
-				return DefWindowProc(hWnd, message, wParam, lParam);
+			case 37285 :
+			CreateExternalProcess(mpProcessCommands[37285]);
+			break;
 
-			} // end switch (wmId)
+			default:
+			//logg(fp, "Leave WndProc()\n\n");
+			return DefWindowProc(hWnd, message, wParam, lParam);
+
+		} // end switch (wmId)
 		break;
+		// end case WM_COMMAND
+
+
 
 		case WM_PAINT:
-			hdc = BeginPaint(hWnd, &ps);
-			// TODO: Add any drawing code here...
-			EndPaint(hWnd, &ps);
+		hdc = BeginPaint(hWnd, &ps);
+		// TODO: Add any drawing code here...
+		EndPaint(hWnd, &ps);
 		break;
 
 		case WM_DESTROY:
-			ShutdownInstance();
-			PostQuitMessage(0);
+		ShutdownInstance();
+		PostQuitMessage(0);
 		break;
 
 		default:
-			//logg(fp, "Leave WndProc()\n\n");
-			return DefWindowProc(hWnd, message, wParam, lParam);
+		//logg(fp, "Leave WndProc()\n\n");
+		return DefWindowProc(hWnd, message, wParam, lParam);
 
 	} // end switch (message)
 
@@ -2884,8 +2951,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 
 
-// Message handler for Quit Password box
-/*
+// Message handler for Enter Quit Password diaglog box
+// *********************************************
+//* Evaluates the Enter Quit Password dialog box
+// *********************************************
 LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
 	switch(Msg)
@@ -2907,7 +2976,7 @@ LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LP
 
 	return FALSE;
 }
-*/
+
 
 
 // Message handler for about box.
