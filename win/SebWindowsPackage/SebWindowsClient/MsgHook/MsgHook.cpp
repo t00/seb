@@ -433,31 +433,41 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		quitHashcodeStored = quitHashcode;
 
 		//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
-		//SendMessage(hWndCaller,WM_DESTROY,NULL,NULL);
 		MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2 | MB_SERVICE_NOTIFICATION);
 
-		//DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
-		//DialogBox((HINSTANCE)*hDll, MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), hWndCaller, reinterpret_cast<DLGPROC>(EnterQuitPasswordProc));
-		//INT_PTR DialogBox(HINSTANCE hInstance, LPCTSTR lpTemplate, HWND hWndParent, DLGPROC lpDialogFunc);
-		//DialogBox(hInstance, lpTemplate, hWndCaller, lpDialogFunc);
-
 		HINSTANCE hInstance;
+		HWND      hWndParent;
+		HWND      hWndDesktop;
 		HWND      hWndOwner;
 
-		//hInstance = *hDll;
-		hInstance = NULL;
+		hInstance = *hDll;
+		//hInstance = NULL;
+
+		hWndParent  = GetParent(hWndCaller);
+		hWndDesktop = GetDesktopWindow();
 
 		// Get the owner window and dialog box rectangles
-		if ((hWndOwner = GetParent(hWndCaller)) == NULL) 
-		{
-			hWndOwner = GetDesktopWindow(); 
-		}
+							   hWndOwner = hWndParent;
+		if (hWndOwner == NULL) hWndOwner = hWndDesktop;
 
-		if (DialogBox(*hDll, 
-					  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
-					  hWndOwner, 
-					  (DLGPROC)EnterQuitPasswordProc) == IDOK) 
+		logg(fp, "   hWndCaller  = %d\n", hWndCaller);
+		logg(fp, "   hWndParent  = %d\n", hWndParent);
+		logg(fp, "   hWndDesktop = %d\n", hWndDesktop);
+		logg(fp, "   hWndOwner   = %d\n", hWndOwner);
+
+		int dialogRes = DialogBox(*hDll, 
+								  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
+								  hWndOwner, 
+								  (DLGPROC)EnterQuitPasswordProc);
+
+		logg(fp, "   IDOK      = %d\n", IDOK);
+		logg(fp, "   IDCANCEL  = %d\n", IDCANCEL);
+		logg(fp, "   dialogRes = %d\n", dialogRes);
+
+		if (dialogRes == IDOK)
 		{
+			logg(fp, "   res = IDOK\n");
+
 			// Complete the command; szItemName / quitPasswordEntered contains the 
 			// name of the item to delete.
 
@@ -485,6 +495,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 		else 
 		{
+			logg(fp, "   res = IDCANCEL\n");
 			// Cancel the command. 
 		} 
 
