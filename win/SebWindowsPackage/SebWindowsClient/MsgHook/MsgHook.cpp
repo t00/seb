@@ -231,8 +231,7 @@ BOOL CALLBACK EnterQuitPasswordProc(HWND hwndDlg, UINT message, WPARAM wParam, L
     {
 		case WM_INITDIALOG: 
 
-		// Get the owner window and dialog box rectangles. 
-
+		// Get the owner window and dialog box rectangles
 		if ((hwndOwner = GetParent(hwndDlg)) == NULL) 
 		{
 			hwndOwner = GetDesktopWindow(); 
@@ -442,9 +441,21 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		//INT_PTR DialogBox(HINSTANCE hInstance, LPCTSTR lpTemplate, HWND hWndParent, DLGPROC lpDialogFunc);
 		//DialogBox(hInstance, lpTemplate, hWndCaller, lpDialogFunc);
 
+		HINSTANCE hInstance;
+		HWND      hWndOwner;
+
+		//hInstance = *hDll;
+		hInstance = NULL;
+
+		// Get the owner window and dialog box rectangles
+		if ((hWndOwner = GetParent(hWndCaller)) == NULL) 
+		{
+			hWndOwner = GetDesktopWindow(); 
+		}
+
 		if (DialogBox(*hDll, 
 					  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
-					  hWndCaller, 
+					  hWndOwner, 
 					  (DLGPROC)EnterQuitPasswordProc) == IDOK) 
 		{
 			// Complete the command; szItemName / quitPasswordEntered contains the 
