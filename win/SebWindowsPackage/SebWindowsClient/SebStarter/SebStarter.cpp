@@ -2751,7 +2751,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			quitHashcodeStored = quitHashcode;
 
 			//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
-			MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2 | MB_SERVICE_NOTIFICATION);
+			MessageBox(NULL, "Enter quit password:", "SebStarter: Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2);
 
 			//hInstance = *hDll;
 			//hInstance = NULL;
@@ -2808,7 +2808,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
-				logg(fp, "   res = IDCANCEL\n");
+				logg(fp, "   res != IDOK\n");
 				// Cancel the command.
 			}
 			break;

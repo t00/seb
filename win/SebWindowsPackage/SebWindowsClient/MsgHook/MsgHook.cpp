@@ -433,7 +433,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		quitHashcodeStored = quitHashcode;
 
 		//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
-		MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2 | MB_SERVICE_NOTIFICATION);
+		MessageBox(NULL, "Enter quit password:", "MsgHook: Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2 | MB_SERVICE_NOTIFICATION);
 
 		HINSTANCE hInstance;
 		HWND      hWndParent;
