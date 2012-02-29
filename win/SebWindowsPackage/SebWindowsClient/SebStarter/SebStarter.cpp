@@ -2680,6 +2680,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	string applicationName;
 	string appChooserTitle;
 
+	HINSTANCE hInstance;
+	HWND      hWndParent;
+	HWND      hWndDesktop;
+	HWND      hWndOwner;
+
+	int    dialogRes;
+	string quitPasswordEntered;
+	string quitHashcodeEntered;
+	string quitHashcodeStored;
+
 	//logg(fp, "Enter WndProc()\n");
 
 	if (languageIndex == IND_LanguageGerman ) appChooserTitle = "&Zugelassene Anwendungen";
@@ -2734,19 +2744,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			logg(fp, "   Quit SEB... selected, calling popup window for quit password...\n\n");
 
 			// TODO: modal popup window for entering the quit password
-			string quitPasswordEntered = "";
-			string quitHashcodeEntered = "";
-			string quitHashcodeStored  = "";
- 
+			quitPasswordEntered = "";
+			quitHashcodeEntered = "";
+			quitHashcodeStored  = "";
+
 			quitHashcodeStored = quitHashcode;
 
 			//hWnd = CreateWindow(szWindowClass, szTitle, WS_MAXIMIZE, 10, 10, 200, 55, NULL, NULL, hInstance, NULL);
 			MessageBox(NULL, "Enter quit password:", "Quit SEB", MB_OKCANCEL | MB_ICONQUESTION | MB_DEFBUTTON2 | MB_SERVICE_NOTIFICATION);
-
-			HINSTANCE hInstance;
-			HWND      hWndParent;
-			HWND      hWndDesktop;
-			HWND      hWndOwner;
 
 			//hInstance = *hDll;
 			//hInstance = NULL;
@@ -2763,10 +2768,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			logg(fp, "   hWndDesktop = %d\n", hWndDesktop);
 			logg(fp, "   hWndOwner   = %d\n", hWndOwner);
 
-			int dialogRes = DialogBox(hInst,
-									  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
-									  hWnd, 
-									  (DLGPROC)EnterQuitPasswordProc);
+			dialogRes = DialogBox(hInst,
+								  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
+								  hWnd, 
+								  (DLGPROC)EnterQuitPasswordProc);
 
 			logg(fp, "   IDOK      = %d\n", IDOK);
 			logg(fp, "   IDCANCEL  = %d\n", IDCANCEL);
