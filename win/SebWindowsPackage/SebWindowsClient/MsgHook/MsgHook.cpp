@@ -222,68 +222,71 @@ string GetKeyName(UINT keyCode)
 // *********************************************
 //* Evaluates the Enter Quit Password dialog box
 // *********************************************
-BOOL CALLBACK EnterQuitPasswordProc(HWND hwndDlg, UINT message, WPARAM wParam, LPARAM lParam) 
+LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDialog, UINT message, WPARAM wParam, LPARAM lParam) 
 {
-	HWND hwndOwner; 
-	RECT rc, rcDlg, rcOwner;
+	HWND hWndOwner; 
+	RECT rc, rcDialog, rcOwner;
 
-    switch (message) 
-    {
+	switch (message) 
+	{
 		case WM_INITDIALOG: 
 
-		// Get the owner window and dialog box rectangles
-		if ((hwndOwner = GetParent(hwndDlg)) == NULL) 
-		{
-			hwndOwner = GetDesktopWindow(); 
-		}
+			// Get the owner window and dialog box rectangles
+			if ((hWndOwner = GetParent(hWndDialog)) == NULL) 
+			{
+				hWndOwner = GetDesktopWindow(); 
+			}
 
-		GetWindowRect(hwndOwner, &rcOwner); 
-		GetWindowRect(hwndDlg, &rcDlg); 
-		CopyRect(&rc, &rcOwner); 
+			GetWindowRect(hWndOwner , &rcOwner); 
+			GetWindowRect(hWndDialog, &rcDialog); 
+			CopyRect(&rc, &rcOwner); 
 
-		// Offset the owner and dialog box rectangles so that right and bottom 
-		// values represent the width and height, and then offset the owner again 
-		// to discard space taken up by the dialog box. 
+			// Offset the owner and dialog box rectangles so that right and bottom 
+			// values represent the width and height, and then offset the owner again 
+			// to discard space taken up by the dialog box. 
+			OffsetRect(&rcDialog, -rcDialog.left , -rcDialog.top   ); 
+			OffsetRect(&rc      , -rc.left       , -rc.top         ); 
+			OffsetRect(&rc      , -rcDialog.right, -rcDialog.bottom); 
 
-		OffsetRect(&rcDlg, -rcDlg.left, -rcDlg.top); 
-		OffsetRect(&rc, -rc.left, -rc.top); 
-		OffsetRect(&rc, -rcDlg.right, -rcDlg.bottom); 
+			// The new position is the sum of half the remaining space and the owner's 
+			// original position. 
+			SetWindowPos(hWndDialog, HWND_TOP, 
+						 rcOwner.left + (rc.right  / 2), 
+						 rcOwner.top  + (rc.bottom / 2), 
+						 0, 0,          // Ignores size arguments. 
+						 SWP_NOSIZE); 
 
-		// The new position is the sum of half the remaining space and the owner's 
-		// original position. 
+			if (GetDlgCtrlID((HWND) wParam) != IDC_MFCMASKEDEDIT_QUIT_PASSWORD) 
+			{ 
+				SetFocus(GetDlgItem(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD)); 
+				return FALSE; 
+			}
 
-		SetWindowPos(hwndDlg, HWND_TOP, 
-					 rcOwner.left + (rc.right  / 2), 
-					 rcOwner.top  + (rc.bottom / 2), 
-					 0, 0,          // Ignores size arguments. 
-					 SWP_NOSIZE); 
-
-	    if (GetDlgCtrlID((HWND) wParam) != IDC_MFCMASKEDEDIT_QUIT_PASSWORD) 
-		{ 
-			SetFocus(GetDlgItem(hwndDlg, IDC_MFCMASKEDEDIT_QUIT_PASSWORD)); 
-			return FALSE; 
-		} 
-		return TRUE; 
+			return TRUE; 
+		// end case WM_INITDIALOG
 
 
 
-        case WM_COMMAND: 
-            switch (LOWORD(wParam)) 
-            { 
-                case IDOK: 
-                    if (!GetDlgItemText(hwndDlg, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80)) 
-                         *quitPassword = 0; 
+		case WM_COMMAND: 
+			switch (LOWORD(wParam)) 
+			{ 
+				case IDOK: 
+					if (!GetDlgItemText(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80)) 
+						*quitPassword = 0; 
  
-                    // Fall through. 
+				// Fall through...
  
-                case IDCANCEL: 
-                    EndDialog(hwndDlg, wParam); 
-                    return TRUE; 
-            }
+				case IDCANCEL: 
+					EndDialog(hWndDialog, wParam); 
+					return TRUE; 
+			}
 
-    } // end switch (message)
+			break;
+		// end case WM_COMMAND
 
-    return FALSE; 
+	} // end switch (message)
+
+	return FALSE; 
 } 
 
 
