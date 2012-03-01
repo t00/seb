@@ -2883,7 +2883,7 @@ LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDialog, UINT message, WPARAM wPa
 	logg(fp, "Enter EnterQuitPasswordProc() of SebStarter\n");
 	logg(fp, "   message = %d\n", message);
 
-	if (message == WM_INITDIALOG)
+	//if (message == WM_INITDIALOG)
 	{
 		logg(fp, "   Enter case WM_INITDIALOG\n");
 
