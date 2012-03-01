@@ -227,9 +227,13 @@ LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDialog, UINT message, WPARAM wPa
 	HWND hWndOwner; 
 	RECT rc, rcDialog, rcOwner;
 
+	logg(fp, "Enter EnterQuitPasswordProc() of MsgHook\n");
+
 	switch (message) 
 	{
 		case WM_INITDIALOG: 
+
+			logg(fp, "   Enter case WM_INITDIALOG\n");
 
 			// Get the owner window and dialog box rectangles
 			if ((hWndOwner = GetParent(hWndDialog)) == NULL) 
@@ -258,34 +262,45 @@ LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDialog, UINT message, WPARAM wPa
 
 			if (GetDlgCtrlID((HWND) wParam) != IDC_MFCMASKEDEDIT_QUIT_PASSWORD) 
 			{ 
-				SetFocus(GetDlgItem(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD)); 
+				SetFocus(GetDlgItem(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD));
+				logg(fp, "   Leave case WM_INITDIALOG and return FALSE\n");
 				return FALSE; 
 			}
 
+			logg(fp, "   Leave case WM_INITDIALOG and return TRUE\n");
 			return TRUE; 
 		// end case WM_INITDIALOG
 
 
 
-		case WM_COMMAND: 
+		case WM_COMMAND:
+
+			logg(fp, "   Enter case WM_COMMAND\n");
+
 			switch (LOWORD(wParam)) 
 			{ 
-				case IDOK: 
-					if (!GetDlgItemText(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80)) 
-						*quitPassword = 0; 
- 
+				case IDOK:
+					logg(fp, "   calling GetDlgItemText()...\n");
+					if (!GetDlgItemText(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80))
+						*quitPassword = 0;
+					logg(fp, "   quitPassword = %d\n", quitPassword);
+
 				// Fall through...
  
-				case IDCANCEL: 
-					EndDialog(hWndDialog, wParam); 
+				case IDCANCEL:
+					logg(fp, "   calling EndDialog()...\n");
+					EndDialog(hWndDialog, wParam);
+					logg(fp, "   Leave case WM_COMMAND and return TRUE\n");
 					return TRUE; 
 			}
 
+			logg(fp, "   Leave case WM_COMMAND\n");
 			break;
 		// end case WM_COMMAND
 
 	} // end switch (message)
 
+	logg(fp, "Leave EnterQuitPasswordProc() of MsgHook\n\n");
 	return FALSE; 
 } 
 
