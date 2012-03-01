@@ -2880,6 +2880,7 @@ LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDialog, UINT message, WPARAM wPa
 	RECT rc, rcDialog, rcOwner;
 
 	logg(fp, "Enter EnterQuitPasswordProc() of SebStarter\n");
+	logg(fp, "   message = %d\n", message);
 
 	switch (message) 
 	{
