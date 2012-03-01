@@ -473,6 +473,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		logg(fp, "   hWndParent  = %d\n", hWndParent);
 		logg(fp, "   hWndDesktop = %d\n", hWndDesktop);
 		logg(fp, "   hWndOwner   = %d\n", hWndOwner);
+		logg(fp, "\n");
 
 		int dialogRes = DialogBox(*hDll, 
 								  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
@@ -514,7 +515,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 		else 
 		{
-			logg(fp, "   res = IDCANCEL\n");
+			logg(fp, "   res != IDOK\n\n");
 			// Cancel the command. 
 		} 
 

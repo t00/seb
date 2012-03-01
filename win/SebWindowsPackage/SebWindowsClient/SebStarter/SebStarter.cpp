@@ -2766,6 +2766,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			logg(fp, "   hWndParent  = %d\n", hWndParent);
 			logg(fp, "   hWndDesktop = %d\n", hWndDesktop);
 			logg(fp, "   hWndOwner   = %d\n", hWndOwner);
+			logg(fp, "\n");
 
 			dialogRes = DialogBox(hInst,
 								  MAKEINTRESOURCE(IDD_DIALOG_QUIT_PASSWORD), 
@@ -2807,7 +2808,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
-				logg(fp, "   res != IDOK\n");
+				logg(fp, "   res != IDOK\n\n");
 				// Cancel the command.
 			}
 		} // end if (wmId == IDM_QUIT_PASSWORD)
