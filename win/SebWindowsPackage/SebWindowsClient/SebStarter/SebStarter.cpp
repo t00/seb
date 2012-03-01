@@ -2883,76 +2883,73 @@ LRESULT CALLBACK EnterQuitPasswordProc(HWND hWndDialog, UINT message, WPARAM wPa
 	logg(fp, "Enter EnterQuitPasswordProc() of SebStarter\n");
 	logg(fp, "   message = %d\n", message);
 
-	switch (message) 
+	if (message == WM_INITDIALOG)
 	{
-		case WM_INITDIALOG:
+		logg(fp, "   Enter case WM_INITDIALOG\n");
 
-			logg(fp, "   Enter case WM_INITDIALOG\n");
+		// Get the owner window and dialog box rectangles
+		if ((hWndOwner = GetParent(hWndDialog)) == NULL) 
+		{
+			hWndOwner = GetDesktopWindow(); 
+		}
 
-			// Get the owner window and dialog box rectangles
-			if ((hWndOwner = GetParent(hWndDialog)) == NULL) 
-			{
-				hWndOwner = GetDesktopWindow(); 
-			}
+		GetWindowRect(hWndOwner , &rcOwner); 
+		GetWindowRect(hWndDialog, &rcDialog); 
+		CopyRect(&rc, &rcOwner); 
 
-			GetWindowRect(hWndOwner , &rcOwner); 
-			GetWindowRect(hWndDialog, &rcDialog); 
-			CopyRect(&rc, &rcOwner); 
+		// Offset the owner and dialog box rectangles so that right and bottom 
+		// values represent the width and height, and then offset the owner again 
+		// to discard space taken up by the dialog box. 
+		OffsetRect(&rcDialog, -rcDialog.left , -rcDialog.top   ); 
+		OffsetRect(&rc      , -rc.left       , -rc.top         ); 
+		OffsetRect(&rc      , -rcDialog.right, -rcDialog.bottom); 
 
-			// Offset the owner and dialog box rectangles so that right and bottom 
-			// values represent the width and height, and then offset the owner again 
-			// to discard space taken up by the dialog box. 
-			OffsetRect(&rcDialog, -rcDialog.left , -rcDialog.top   ); 
-			OffsetRect(&rc      , -rc.left       , -rc.top         ); 
-			OffsetRect(&rc      , -rcDialog.right, -rcDialog.bottom); 
+		// The new position is the sum of half the remaining space and the owner's 
+		// original position. 
+		SetWindowPos(hWndDialog, HWND_TOP, 
+					 rcOwner.left + (rc.right  / 2), 
+					 rcOwner.top  + (rc.bottom / 2), 
+					 0, 0,          // Ignores size arguments. 
+					 SWP_NOSIZE); 
 
-			// The new position is the sum of half the remaining space and the owner's 
-			// original position. 
-			SetWindowPos(hWndDialog, HWND_TOP, 
-						 rcOwner.left + (rc.right  / 2), 
-						 rcOwner.top  + (rc.bottom / 2), 
-						 0, 0,          // Ignores size arguments. 
-						 SWP_NOSIZE); 
+		if (GetDlgCtrlID((HWND) wParam) != IDC_MFCMASKEDEDIT_QUIT_PASSWORD) 
+		{ 
+			SetFocus(GetDlgItem(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD));
+			logg(fp, "   Leave case WM_INITDIALOG and return FALSE\n");
+			return FALSE; 
+		}
 
-			if (GetDlgCtrlID((HWND) wParam) != IDC_MFCMASKEDEDIT_QUIT_PASSWORD) 
-			{ 
-				SetFocus(GetDlgItem(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD));
-				logg(fp, "   Leave case WM_INITDIALOG and return FALSE\n");
-				return FALSE; 
-			}
-
-			logg(fp, "   Leave case WM_INITDIALOG and return TRUE\n");
-			return TRUE; 
-		// end case WM_INITDIALOG
-
+		logg(fp, "   Leave case WM_INITDIALOG and return TRUE\n");
+		return TRUE;
+	}
+	// end case WM_INITDIALOG
 
 
-		case WM_COMMAND:
+	//if (message == WM_COMMAND)
+	{
+		logg(fp, "   Enter case WM_COMMAND\n");
 
-			logg(fp, "   Enter case WM_COMMAND\n");
+		switch (LOWORD(wParam)) 
+		{ 
+			case IDOK:
+				logg(fp, "   calling GetDlgItemText()...\n");
+				if (!GetDlgItemText(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80))
+					*quitPassword = 0;
+				logg(fp, "   quitPassword = %d\n", quitPassword);
 
-			switch (LOWORD(wParam)) 
-			{ 
-				case IDOK:
-					logg(fp, "   calling GetDlgItemText()...\n");
-					if (!GetDlgItemText(hWndDialog, IDC_MFCMASKEDEDIT_QUIT_PASSWORD, quitPassword, 80))
-						*quitPassword = 0;
-					logg(fp, "   quitPassword = %d\n", quitPassword);
-
-				// Fall through...
+			// Fall through...
  
-				case IDCANCEL:
-					logg(fp, "   calling EndDialog()...\n");
-					EndDialog(hWndDialog, wParam);
-					logg(fp, "   Leave case WM_COMMAND and return TRUE\n");
-					return TRUE; 
-			}
+			case IDCANCEL:
+				logg(fp, "   calling EndDialog()...\n");
+				EndDialog(hWndDialog, wParam);
+				logg(fp, "   Leave case WM_COMMAND and return TRUE\n");
+				return TRUE; 
+		}
 
-			logg(fp, "   Leave case WM_COMMAND\n");
-			break;
-		// end case WM_COMMAND
+		logg(fp, "   Leave case WM_COMMAND\n");
+	}
+	// end case WM_COMMAND
 
-	} // end switch (message)
 
 	logg(fp, "Leave EnterQuitPasswordProc() of SebStarter\n\n");
 	return FALSE;
