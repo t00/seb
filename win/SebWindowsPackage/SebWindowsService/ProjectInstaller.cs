@@ -100,16 +100,26 @@ namespace SebWindowsService
             // Properties window ->
             // CustomActionData: /SourceDir="[SOURCEDIR]\" /TargetDir="[TARGETDIR]\"
 
-            string SebBatchDir   = this.Context.Parameters["SourceDir"];
-            string SebInstallDir = this.Context.Parameters["TargetDir"];
+            string SebSourceDir  = this.Context.Parameters["SourceDir"];
+            string SebTargetDir  = this.Context.Parameters["TargetDir"];
 
-            string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
-          //string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebBatchDir   = SebSourceDir;
+            string SebInstallDir = SebTargetDir;
+            string SebConfigDir  = SebInstallDir.Replace(ProgramFiles, ProgramData);
+
+            // Cut off the leading "C:\Program Files\" from the InstallDir
+            // and replace it by the "C:\ProgramData\"
+            //int    LengthOfProgramFilesDir    = ProgramFiles.Length;
+            //string ManufacturerProductVersion = SebInstallDir.Substring(LengthOfProgramFilesDir);
+            //string SebConfigDir               = ProgramData + "\\" + ManufacturerProductVersion;
+
+            //string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\";
+            //string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\";
 
             // SebInstallDir already has a "\\" at the end,
             // so we can append the file names directly to it.
-            string SebClientDir  = SebInstallDir + Component;
-            string SebReleaseDir = SebInstallDir + Component + "\\" + Build;
+            string SebClientDir  = SebInstallDir + Component + "\\";
+            string SebReleaseDir = SebInstallDir + Component + "\\" + Build + "\\";
 
             string SebInstallMsi = "SebWindowsInstall.msi";
             string SebStarterExe = "SebStarter.exe";
@@ -124,10 +134,10 @@ namespace SebWindowsService
             string SebStarterIniFile = SebBatchDir + SebStarterIni;
             string SebMsgHookIniFile = SebBatchDir + SebMsgHookIni;
 
-            string SebStarterExeFileTarget = SebReleaseDir + "\\" + SebStarterExe;
-            string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
-            string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
-            string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
+            string SebStarterExeFileTarget = SebReleaseDir + SebStarterExe;
+            string SebStarterBatFileTarget = SebReleaseDir + SebStarterBat;
+            string SebStarterIniFileTarget = SebConfigDir  + SebStarterIni;
+            string SebMsgHookIniFileTarget = SebConfigDir  + SebMsgHookIni;
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
             string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
@@ -137,10 +147,10 @@ namespace SebWindowsService
             string XulRunnerNoSslZip   = "xulrunner_no_ssl_warning.zip";
             string XulRunnerWithSslZip = "xulrunner_with_ssl_warning.zip";
 
-            string XulSebZipFile           = SebClientDir + "\\" + XulSebZip;
-            string XulRunnerZipFile        = SebClientDir + "\\" + XulRunnerZip;
-            string XulRunnerNoSslZipFile   = SebClientDir + "\\" + XulRunnerNoSslZip;
-            string XulRunnerWithSslZipFile = SebClientDir + "\\" + XulRunnerWithSslZip;
+            string XulSebZipFile           = SebClientDir + XulSebZip;
+            string XulRunnerZipFile        = SebClientDir + XulRunnerZip;
+            string XulRunnerNoSslZipFile   = SebClientDir + XulRunnerNoSslZip;
+            string XulRunnerWithSslZipFile = SebClientDir + XulRunnerWithSslZip;
 
 
             // Write some debug data into a file
