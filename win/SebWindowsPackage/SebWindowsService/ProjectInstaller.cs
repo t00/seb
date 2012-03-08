@@ -100,11 +100,13 @@ namespace SebWindowsService
             // CustomActionData: /SourceDir="[SOURCEDIR]\"
 
             string SebBatchDir   = this.Context.Parameters["SourceDir"];
+            string SebTargetDir  = this.Context.Parameters["TargetDir"];
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebClientDir  = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component;
-            string SebReleaseDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component + "\\" + Build;
+
+            string SebClientDir  = SebInstallDir + "\\" + Component;
+            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
 
             string SebInstallMsi = "SebWindowsInstall.msi";
             string SebStarterExe = "SebStarter.exe";
@@ -112,10 +114,12 @@ namespace SebWindowsService
             string SebStarterIni = "SebStarter.ini";
             string SebMsgHookIni =    "MsgHook.ini";
 
-            string SebInstallMsiFile = SebBatchDir + "\\" + SebInstallMsi;
-            string SebStarterBatFile = SebBatchDir + "\\" + SebStarterBat;
-            string SebStarterIniFile = SebBatchDir + "\\" + SebStarterIni;
-            string SebMsgHookIniFile = SebBatchDir + "\\" + SebMsgHookIni;
+            // SebBatchDir already has a "\\" at the end,
+            // therefore we can append the file names directly to it.
+            string SebInstallMsiFile = SebBatchDir + SebInstallMsi;
+            string SebStarterBatFile = SebBatchDir + SebStarterBat;
+            string SebStarterIniFile = SebBatchDir + SebStarterIni;
+            string SebMsgHookIniFile = SebBatchDir + SebMsgHookIni;
 
             string SebStarterExeFileTarget = SebReleaseDir + "\\" + SebStarterExe;
             string SebStarterBatFileTarget = SebReleaseDir + "\\" + SebStarterBat;
@@ -134,6 +138,43 @@ namespace SebWindowsService
             string XulRunnerZipFile        = SebClientDir + "\\" + XulRunnerZip;
             string XulRunnerNoSslZipFile   = SebClientDir + "\\" + XulRunnerNoSslZip;
             string XulRunnerWithSslZipFile = SebClientDir + "\\" + XulRunnerWithSslZip;
+
+
+            // Write some debug data into a file
+            string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string UserDebugFile  = UserDesktopDir + "\\" + "NickTargetDir.txt";
+            using (StreamWriter sw = new StreamWriter(UserDebugFile))
+            {
+                sw.WriteLine();
+                sw.WriteLine("SebBatchDir  = " + SebBatchDir);
+                sw.WriteLine("SebTargetDir = " + SebTargetDir);
+                sw.WriteLine();
+                sw.WriteLine("SebConfigDir  = " + SebConfigDir);
+                sw.WriteLine("SebInstallDir = " + SebInstallDir);
+                sw.WriteLine();
+                sw.WriteLine("SebClientDir  = " + SebClientDir);
+                sw.WriteLine("SebReleaseDir = " + SebReleaseDir);
+                sw.WriteLine();
+                sw.WriteLine("SebInstallMsiFile = " + SebInstallMsiFile);
+                sw.WriteLine("SebStarterBatFile = " + SebStarterBatFile);
+                sw.WriteLine("SebStarterIniFile = " + SebStarterIniFile);
+                sw.WriteLine("SebMsgHookIniFile = " + SebMsgHookIniFile);
+                sw.WriteLine();
+                sw.WriteLine("SebStarterExeFileTarget = " + SebStarterExeFileTarget);
+                sw.WriteLine("SebStarterBatFileTarget = " + SebStarterBatFileTarget);
+                sw.WriteLine("SebStarterIniFileTarget = " + SebStarterIniFileTarget);
+                sw.WriteLine("SebMsgHookIniFileTarget = " + SebMsgHookIniFileTarget);
+                sw.WriteLine();
+                sw.WriteLine("CommonDesktopDirectory = " + CommonDesktopDirectory);
+                sw.WriteLine("CommonDesktopIconUrl   = " + CommonDesktopIconUrl);
+                sw.WriteLine();
+                sw.WriteLine("XulSebZipFile           = " + XulSebZipFile);
+                sw.WriteLine("XulRunnerZipFile        = " + XulRunnerZipFile);
+                sw.WriteLine("XulRunnerNoSslZipFile   = " + XulRunnerNoSslZipFile);
+                sw.WriteLine("XulRunnerWithSslZipFile = " + XulRunnerWithSslZipFile);
+                sw.WriteLine();
+                sw.Flush();
+            }
 
 
             // Extract all files from the "xul_seb.zip" file

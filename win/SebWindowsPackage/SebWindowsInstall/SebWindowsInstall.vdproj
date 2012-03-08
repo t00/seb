@@ -217,7 +217,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_AD0CF09E_ADA2_41EA_9B29_43B24A029275"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\""
+            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\" /TargetDir=\"[TARGETDIR]\\\""
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_8E598A9733194CDCBC2A25B6EB7081B0"
             {
@@ -417,11 +417,6 @@
             "AssemblyAsmDisplayName" = "8:Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_BCEC2FEA5FFD3AC5FBED8FB007AA098E"
-                    {
-                    "Name" = "8:Ionic.Zip.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Ionic.Zip.dll"
             "TargetName" = "8:"
