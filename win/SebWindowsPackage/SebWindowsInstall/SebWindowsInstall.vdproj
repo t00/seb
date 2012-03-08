@@ -245,7 +245,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_3CBAE5CE_AFEA_435E_8BB6_37C457BA8C7A"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\""
+            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\" /TargetDir=\"[TARGETDIR]\\\""
             }
         }
         "DefaultFeature"

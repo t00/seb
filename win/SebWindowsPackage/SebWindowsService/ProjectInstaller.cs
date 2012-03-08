@@ -100,10 +100,10 @@ namespace SebWindowsService
             // CustomActionData: /SourceDir="[SOURCEDIR]\"
 
             string SebBatchDir   = this.Context.Parameters["SourceDir"];
-            string SebTargetDir  = this.Context.Parameters["TargetDir"];
+            string SebInstallDir = this.Context.Parameters["TargetDir"];
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
+          //string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
             string SebClientDir  = SebInstallDir + "\\" + Component;
             string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
@@ -146,8 +146,8 @@ namespace SebWindowsService
             using (StreamWriter sw = new StreamWriter(UserDebugFile))
             {
                 sw.WriteLine();
-                sw.WriteLine("SebBatchDir  = " + SebBatchDir);
-                sw.WriteLine("SebTargetDir = " + SebTargetDir);
+                sw.WriteLine("SebBatchDir   = " + SebBatchDir);
+                sw.WriteLine("SebInstallDir = " + SebInstallDir);
                 sw.WriteLine();
                 sw.WriteLine("SebConfigDir  = " + SebConfigDir);
                 sw.WriteLine("SebInstallDir = " + SebInstallDir);
