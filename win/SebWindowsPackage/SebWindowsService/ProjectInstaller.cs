@@ -87,7 +87,7 @@ namespace SebWindowsService
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
-            string Version      = "1.9";
+            string Version      = "1.8.3";
             string Component    = "SebWindowsClient";
             string Build        = "Release";
 
@@ -103,12 +103,12 @@ namespace SebWindowsService
             string SebSourceDir  = this.Context.Parameters["SourceDir"];
             string SebTargetDir  = this.Context.Parameters["TargetDir"];
 
+            // Cut off the leading "C:\Program Files\" from the InstallDir
+            // and replace it by the "C:\ProgramData\"
             string SebBatchDir   = SebSourceDir;
             string SebInstallDir = SebTargetDir;
             string SebConfigDir  = SebInstallDir.Replace(ProgramFiles, ProgramData);
 
-            // Cut off the leading "C:\Program Files\" from the InstallDir
-            // and replace it by the "C:\ProgramData\"
             //int    LengthOfProgramFilesDir    = ProgramFiles.Length;
             //string ManufacturerProductVersion = SebInstallDir.Substring(LengthOfProgramFilesDir);
             //string SebConfigDir               = ProgramData + "\\" + ManufacturerProductVersion;
@@ -353,7 +353,7 @@ namespace SebWindowsService
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
-            string Version      = "1.9";
+            string Version      = "1.8.3";
             string Component    = "SebWindowsClient";
             string Build        = "Release";
 
@@ -390,11 +390,11 @@ namespace SebWindowsService
             // ATTENTION:
             //
             // Deleting the SEB configuration directory in the ProgramData directory, e.g.
-            // C:\ProgramData\ETH Zuerich\SEB Windows 1.9 ,
+            // C:\ProgramData\ETH Zuerich\SEB Windows 1.8.3 ,
             // mostly succeeds.
             //
             // Deleting the SEB installation directory in the Program Files directory, e.g.
-            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.9\SebWindowsClient\Release ,
+            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8.3\SebWindowsClient\Release ,
             // mostly fails, even though its files have all been deleted before.
             //
             // This is a known and annoying Windows bug still occurring in Windows 7:
@@ -403,7 +403,7 @@ namespace SebWindowsService
             //
             // Currently, only a user logoff or machine reboot solves this,
             // so maybe it is necessary to reboot and manually delete the
-            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.9\SebWindowsClient\Release
+            // C:\Program Files (x86)\ETH Zuerich\SEB Windows 1.8.3\SebWindowsClient\Release
             // directory after reboot.
 
 
