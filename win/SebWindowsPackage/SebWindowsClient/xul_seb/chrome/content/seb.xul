@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://xul_seb/content/css/seb.css" type="text/css"?>
+<!DOCTYPE window [
+	<!ENTITY % sebDtdLocal SYSTEM "chrome://xul_seb/locale/seb.dtd">
+	%sebDtdLocal;
+	<!ENTITY % sebDtdConst SYSTEM "chrome://xul_seb/content/seb.dtd">
+	%sebDtdConst;
+]>
+<window id="sebSystem" title="&seb.title;" width="800" height="600" hidechrome="true" sizemode="maximized"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://jslib/content/jslib.js"/>	
+	<script type="application/x-javascript"> 
+		include(jslib_io);			
+		include(jslib_prefs);
+		include(jslib_profile);
+		include(jslib_file);
+		JS_LIB_DEBUG = JS_LIB_OFF;
+		JS_LIB_ERROR_ALERT = JS_LIB_ON;
+		JS_LIB_DEBUG_ALERT = JS_LIB_OFF;
+	</script>
+	<script type="application/x-javascript" src="chrome://xul_seb/content/js/seb.js"/>
+	<script type="application/x-javascript" src="chrome://xul_seb/content/js/browser.js"/>
+	<stringbundleset>
+		<stringbundle id="locale" src="chrome://xul_seb/locale/seb.properties" />
+		<stringbundle id="const" src="chrome://xul_seb/content/seb.properties" />
+	</stringbundleset>
+	<!-- commands -->
+	<commandset id="sebCommandSet">
+		<command id="sebCmdReload" oncommand="SebSystem.reloadPage();"/>
+	</commandset>
+	<!-- keysets -->
+	<keyset>
+		<key id="sebKeyReload" keycode="VK_F5" command="sebCmdReload"/>
+	</keyset>
+	<vbox flex="1">
+		<deck id="deckContents" selectedIndex="1" flex="1">		
+			<iframe flex="1" id="iLoading" src="chrome://xul_seb/content/load.xul" type="content-primary"></iframe>	
+			<browser flex="1" id="browserContent" type="content-primary" src="about:blank"/>
+		</deck>
+	</vbox>
+
+</window>
