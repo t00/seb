@@ -82,8 +82,8 @@ namespace SebWindowsService
         {
             // Unpack the XULRunner directories after installation
 
-            string ProgramDataDir  = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             string ProgramFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramDataDir  = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -118,8 +118,15 @@ namespace SebWindowsService
                 SebConfigDirNew = SebInstallDirNew.Replace(ProgramFilesDir, ProgramDataDir);
             }
 
-            string SebConfigDirOld  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            // Original version:
+            // Manual concatenation of ClientDir and ReleaseDir due to Microsoft Best Policies.
+            // But this sometimes led to an error if the user did not accept the default
+            // InstallDir / TargetDir but modified it,
+            // e.g. if he cut out the Manufacturer "ETH Zuerich". The command
+            // SebConfigDir = SebInstallDir.Replace(ProgramFilesDir, ProgramDataDir);
+            // avoids this problem.
             string SebInstallDirOld = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebConfigDirOld  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
             string SebInstallDir = SebInstallDirOld;
             string SebConfigDir  = SebConfigDirOld;
@@ -158,6 +165,49 @@ namespace SebWindowsService
             string XulRunnerZipFile        = SebClientDir + "\\" + XulRunnerZip;
             string XulRunnerNoSslZipFile   = SebClientDir + "\\" + XulRunnerNoSslZip;
             string XulRunnerWithSslZipFile = SebClientDir + "\\" + XulRunnerWithSslZip;
+
+
+            // Write some debug data into a file
+            string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string UserDebugFile  = UserDesktopDir + "\\" + "InstallerCommitted.txt";
+            using (StreamWriter sw = new StreamWriter(UserDebugFile))
+            {
+                sw.WriteLine();
+                sw.WriteLine("ProgramFilesDir = " + ProgramFilesDir);
+                sw.WriteLine("ProgramDataDir  = " + ProgramDataDir);
+                sw.WriteLine();
+                sw.WriteLine("SebBatchDir   = " + SebBatchDir);
+                sw.WriteLine();
+                sw.WriteLine("SebConfigDirOld  = " + SebConfigDirOld);
+                sw.WriteLine("SebConfigDirNew  = " + SebConfigDirNew);
+                sw.WriteLine("SebInstallDirOld = " + SebInstallDirOld);
+                sw.WriteLine("SebInstallDirNew = " + SebInstallDirNew);
+                sw.WriteLine();
+                sw.WriteLine("SebConfigDir  = " + SebConfigDir);
+                sw.WriteLine("SebInstallDir = " + SebInstallDir);
+                sw.WriteLine("SebClientDir  = " + SebClientDir);
+                sw.WriteLine("SebReleaseDir = " + SebReleaseDir);
+                sw.WriteLine();
+                sw.WriteLine("SebInstallMsiFile = " + SebInstallMsiFile);
+                sw.WriteLine("SebStarterBatFile = " + SebStarterBatFile);
+                sw.WriteLine("SebStarterIniFile = " + SebStarterIniFile);
+                sw.WriteLine("SebMsgHookIniFile = " + SebMsgHookIniFile);
+                sw.WriteLine();
+                sw.WriteLine("SebStarterExeFileTarget = " + SebStarterExeFileTarget);
+                sw.WriteLine("SebStarterBatFileTarget = " + SebStarterBatFileTarget);
+                sw.WriteLine("SebStarterIniFileTarget = " + SebStarterIniFileTarget);
+                sw.WriteLine("SebMsgHookIniFileTarget = " + SebMsgHookIniFileTarget);
+                sw.WriteLine();
+                sw.WriteLine("CommonDesktopDirectory = " + CommonDesktopDirectory);
+                sw.WriteLine("CommonDesktopIconUrl   = " + CommonDesktopIconUrl);
+                sw.WriteLine();
+                sw.WriteLine("XulSebZipFile           = " + XulSebZipFile);
+                sw.WriteLine("XulRunnerZipFile        = " + XulRunnerZipFile);
+                sw.WriteLine("XulRunnerNoSslZipFile   = " + XulRunnerNoSslZipFile);
+                sw.WriteLine("XulRunnerWithSslZipFile = " + XulRunnerWithSslZipFile);
+                sw.WriteLine();
+                sw.Flush();
+            }
 
 
             // Extract all files from the "xul_seb.zip" file
@@ -318,8 +368,8 @@ namespace SebWindowsService
         {
             // Delete all remaining directories and files after uninstallation
 
-            string ProgramData    = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles   = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramDataDir  = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -330,22 +380,23 @@ namespace SebWindowsService
             string Service      = "SebWindowsService";
             string Logfile      = "SebWindowsService.logfile.txt";
 
-            string SebConfigDir  = ProgramData   + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebInstallDir = ProgramFiles  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebInstallDir = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebConfigDir  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
             string SebClientDir  = SebInstallDir + "\\" + Component;
-            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;  
+            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
+
             string SebServiceDir = SebInstallDir + "\\" + Service;
             string SebServiceLog = SebInstallDir + "\\" + Service + "\\" + Logfile;
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
-            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
+            string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
 
 
             // ATTENTION:
             //
             // Deleting the SEB configuration directory in the ProgramData directory, e.g.
-            // C:\ProgramData\ETH Zuerich\SEB Windows 1.9 ,
+            // C:\ProgramData\ETH Zuerich\SEB Windows 1.9,
             // mostly succeeds.
             //
             // Deleting the SEB installation directory in the Program Files directory, e.g.
