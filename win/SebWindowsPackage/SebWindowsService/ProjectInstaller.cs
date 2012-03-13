@@ -118,6 +118,9 @@ namespace SebWindowsService
                 SebConfigDir = SebInstallDir.Replace(ProgramFilesDir, ProgramDataDir);
             }
 
+            string SebInstallDirNew = SebInstallDir;
+            string SebConfigDirNew  = SebConfigDir;
+
             // Original version:
             // manual concatenation of ClientDir and ReleaseDir due to Microsoft Best Policies.
             // But this sometimes led to an error if the user did not accept the default
@@ -125,8 +128,11 @@ namespace SebWindowsService
             // e.g. if he cut out the Manufacturer "ETH Zuerich". The command
             // SebConfigDir = SebInstallDir.Replace(ProgramFilesDir, ProgramDataDir);
             // avoids this problem.
-            //string SebInstallDir = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            //string SebConfigDir  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebInstallDirOld = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebConfigDirOld  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+
+            SebInstallDir = SebInstallDirOld;
+            SebConfigDir  = SebConfigDirOld;
 
             string SebClientDir  = SebInstallDir + "\\" + Component;
             string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
@@ -171,6 +177,11 @@ namespace SebWindowsService
                 sw.WriteLine("ProgramDataDir  = " + ProgramDataDir);
                 sw.WriteLine();
                 sw.WriteLine("SebBatchDir   = " + SebBatchDir);
+                sw.WriteLine();
+                sw.WriteLine("SebConfigDirOld  = " + SebConfigDirOld);
+                sw.WriteLine("SebConfigDirNew  = " + SebConfigDirNew);
+                sw.WriteLine("SebInstallDirOld = " + SebInstallDirOld);
+                sw.WriteLine("SebInstallDirNew = " + SebInstallDirNew);
                 sw.WriteLine();
                 sw.WriteLine("SebConfigDir  = " + SebConfigDir);
                 sw.WriteLine("SebInstallDir = " + SebInstallDir);
@@ -368,6 +379,22 @@ namespace SebWindowsService
                 SebConfigDir = SebInstallDir.Replace(ProgramFilesDir, ProgramDataDir);
             }
 
+            string SebInstallDirNew = SebInstallDir;
+            string SebConfigDirNew  = SebConfigDir;
+
+            // Original version:
+            // manual concatenation of ClientDir and ReleaseDir due to Microsoft Best Policies.
+            // But this sometimes led to an error if the user did not accept the default
+            // InstallDir / TargetDir but modified it,
+            // e.g. if he cut out the Manufacturer "ETH Zuerich". The command
+            // SebConfigDir = SebInstallDir.Replace(ProgramFilesDir, ProgramDataDir);
+            // avoids this problem.
+            string SebInstallDirOld = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebConfigDirOld  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+
+            SebInstallDir = SebInstallDirOld;
+            SebConfigDir  = SebConfigDirOld;
+
             string SebClientDir  = SebInstallDir + "\\" + Component;
             string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
 
@@ -388,6 +415,11 @@ namespace SebWindowsService
                 sw.WriteLine("ProgramDataDir  = " + ProgramDataDir);
                 sw.WriteLine();
                 sw.WriteLine("SebBatchDir   = " + SebBatchDir);
+                sw.WriteLine();
+                sw.WriteLine("SebConfigDirOld  = " + SebConfigDirOld);
+                sw.WriteLine("SebConfigDirNew  = " + SebConfigDirNew);
+                sw.WriteLine("SebInstallDirOld = " + SebInstallDirOld);
+                sw.WriteLine("SebInstallDirNew = " + SebInstallDirNew);
                 sw.WriteLine();
                 sw.WriteLine("SebConfigDir  = " + SebConfigDir);
                 sw.WriteLine("SebInstallDir = " + SebInstallDir);
