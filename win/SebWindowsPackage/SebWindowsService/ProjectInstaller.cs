@@ -380,8 +380,48 @@ namespace SebWindowsService
             string Service      = "SebWindowsService";
             string Logfile      = "SebWindowsService.logfile.txt";
 
-            string SebInstallDir = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebConfigDir  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            // Get the directory of the .msi installer file
+            // and the directory of the target installation as CustomActionData.
+            // To see where the "SourceDir" and "TargetDir" come from, look at:
+            // Custom Actions window ->
+            // Install and Commit phases ->
+            // Primary output of SebWindowsService (Active) ->
+            // Properties window ->
+            // CustomActionData: /SourceDir="[SOURCEDIR]\" /TargetDir="[TARGETDIR]\"
+            //string SebSourceDir  = this.Context.Parameters["SourceDir"];
+            //string SebTargetDir  = this.Context.Parameters["TargetDir"];
+
+            // The SEB light version can be installed anywhere,
+            // and the configuration files can then lie in the installation directory.
+            //string SebBatchDir      = SebSourceDir;
+            //string SebInstallDirNew = SebTargetDir;
+            //string SebConfigDirNew  = SebTargetDir;
+
+            // The SEB full version contains the SebWindowsService
+            // and should therefore be installed in the ProgramFiles directory
+            // and configured in the ProgramData directory.
+            // To achieve this, cut off the leading "C:\Program Files\"
+            // from the InstallDir and replace it by the "C:\ProgramData\".
+            //if (SebInstallDirNew.Contains(ProgramFilesDir))
+            {
+                //SebConfigDirNew = SebInstallDirNew.Replace(ProgramFilesDir, ProgramDataDir);
+            }
+
+            // Original version:
+            // Manual concatenation of ClientDir and ReleaseDir due to Microsoft Best Policies.
+            // But this sometimes led to an error if the user did not accept the default
+            // InstallDir / TargetDir but modified it,
+            // e.g. if he cut out the Manufacturer "ETH Zuerich". The command
+            // SebConfigDir = SebInstallDir.Replace(ProgramFilesDir, ProgramDataDir);
+            // avoids this problem.
+            string SebInstallDirOld = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebConfigDirOld  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+
+            string SebInstallDir = SebInstallDirOld;
+            string SebConfigDir  = SebConfigDirOld;
+
+            //string SebInstallDir = SebInstallDirNew;
+            //string SebConfigDir  = SebConfigDirNew;
 
             string SebClientDir  = SebInstallDir + "\\" + Component;
             string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
@@ -391,6 +431,34 @@ namespace SebWindowsService
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
             string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
+
+
+            // Write some debug data into a file
+            string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string UserDebugFile  = UserDesktopDir + "\\" + "AfterUninstall.txt";
+            using (StreamWriter sw = new StreamWriter(UserDebugFile))
+            {
+                sw.WriteLine();
+                sw.WriteLine("ProgramFilesDir = " + ProgramFilesDir);
+                sw.WriteLine("ProgramDataDir  = " + ProgramDataDir);
+                sw.WriteLine();
+                //sw.WriteLine("SebBatchDir   = " + SebBatchDir);
+                sw.WriteLine();
+                sw.WriteLine("SebConfigDirOld  = " + SebConfigDirOld);
+                //sw.WriteLine("SebConfigDirNew  = " + SebConfigDirNew);
+                sw.WriteLine("SebInstallDirOld = " + SebInstallDirOld);
+                //sw.WriteLine("SebInstallDirNew = " + SebInstallDirNew);
+                sw.WriteLine();
+                sw.WriteLine("SebConfigDir  = " + SebConfigDir);
+                sw.WriteLine("SebInstallDir = " + SebInstallDir);
+                sw.WriteLine("SebClientDir  = " + SebClientDir);
+                sw.WriteLine("SebReleaseDir = " + SebReleaseDir);
+                sw.WriteLine();
+                sw.WriteLine("CommonDesktopDirectory = " + CommonDesktopDirectory);
+                sw.WriteLine("CommonDesktopIconUrl   = " + CommonDesktopIconUrl);
+                sw.WriteLine();
+                sw.Flush();
+            }
 
 
             // ATTENTION:
