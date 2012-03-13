@@ -97,9 +97,12 @@ namespace SebWindowsService
             // Install and Commit phases ->
             // Primary output of SebWindowsService (Active) ->
             // Properties window ->
-            // CustomActionData: /SourceDir="[SOURCEDIR]\"
+            // CustomActionData: /SourceDir="[SOURCEDIR]\ /TargetDir="[TARGETDIR]\"
 
-            string SebBatchDir   = this.Context.Parameters["SourceDir"];
+            string SebSourceDir  = this.Context.Parameters["SourceDir"];
+            string SebTargetDir  = this.Context.Parameters["TargetDir"];
+
+            string SebBatchDir   = SebSourceDir;
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
