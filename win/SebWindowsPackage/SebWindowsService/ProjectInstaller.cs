@@ -54,21 +54,21 @@ namespace SebWindowsService
             // Write some debug data into a file
             string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
-            using (StreamWriter writer1 = new StreamWriter(UserDebugFile))
+            using (StreamWriter sw = new StreamWriter(UserDebugFile))
             {
-                writer1.WriteLine();
-                writer1.WriteLine("operatingSystem  = " + operatingSystem);
-                writer1.WriteLine("platform         = " + operatingSystem.Platform);
-                writer1.WriteLine("version          = " + operatingSystem.Version);
-                writer1.WriteLine("versionString    = " + operatingSystem.VersionString);
-                writer1.WriteLine("version.Major    = " + operatingSystem.Version.Major);
-                writer1.WriteLine();
-                writer1.WriteLine("     AllUsersDir = " +      AllUsersDir);
-                writer1.WriteLine("       PublicDir = " +        PublicDir);
-                writer1.WriteLine("CommonDesktopDir = " + CommonDesktopDir);
-                writer1.WriteLine("  UserDesktopDir = " +   UserDesktopDir);
-                writer1.WriteLine();
-                writer1.Flush();
+                sw.WriteLine();
+                sw.WriteLine("operatingSystem  = " + operatingSystem);
+                sw.WriteLine("platform         = " + operatingSystem.Platform);
+                sw.WriteLine("version          = " + operatingSystem.Version);
+                sw.WriteLine("versionString    = " + operatingSystem.VersionString);
+                sw.WriteLine("version.Major    = " + operatingSystem.Version.Major);
+                sw.WriteLine();
+                sw.WriteLine("     AllUsersDir = " +      AllUsersDir);
+                sw.WriteLine("       PublicDir = " +        PublicDir);
+                sw.WriteLine("CommonDesktopDir = " + CommonDesktopDir);
+                sw.WriteLine("  UserDesktopDir = " +   UserDesktopDir);
+                sw.WriteLine();
+                sw.Flush();
             }
 */
             return CommonDesktopDir;
@@ -82,8 +82,8 @@ namespace SebWindowsService
         {
             // Unpack the XULRunner directories after installation
 
-            string ProgramData    = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles   = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramDataDir  = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string ProgramFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -91,23 +91,44 @@ namespace SebWindowsService
             string Component    = "SebWindowsClient";
             string Build        = "Release";
 
-            // Get the directory of the .msi installer file as CustomActionData.
-            // To see where the "SourceDir" comes from, look at:
+            // Get the directory of the .msi installer file
+            // and the directory of the target installation as CustomActionData.
+            // To see where the "SourceDir" and "TargetDir" come from, look at:
             // Custom Actions window ->
             // Install and Commit phases ->
             // Primary output of SebWindowsService (Active) ->
             // Properties window ->
-            // CustomActionData: /SourceDir="[SOURCEDIR]\ /TargetDir="[TARGETDIR]\"
-
+            // CustomActionData: /SourceDir="[SOURCEDIR]\" /TargetDir="[TARGETDIR]\"
             string SebSourceDir  = this.Context.Parameters["SourceDir"];
             string SebTargetDir  = this.Context.Parameters["TargetDir"];
 
-            string SebBatchDir   = SebSourceDir;
+            // The SEB light version can be installed anywhere,
+            // and the configuration files can then lie in the installation directory.
+            string SebBatchDir      = SebSourceDir;
+            string SebInstallDirNew = SebTargetDir;
+            string SebConfigDirNew  = SebTargetDir;
 
-            string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebClientDir  = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component;
-            string SebReleaseDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component + "\\" + Build;
+            // The SEB full version contains the SebWindowsService
+            // and should therefore be installed in the ProgramFiles directory
+            // and configured in the ProgramData directory.
+            // To achieve this, cut off the leading "C:\Program Files\"
+            // from the InstallDir and replace it by the "C:\ProgramData\".
+            if (SebInstallDirNew.Contains(ProgramFilesDir))
+            {
+                SebConfigDirNew = SebInstallDirNew.Replace(ProgramFilesDir, ProgramDataDir);
+            }
+
+            string SebConfigDirOld  = ProgramDataDir  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebInstallDirOld = ProgramFilesDir + "\\" + Manufacturer + "\\" + Product + " " + Version;
+
+            string SebInstallDir = SebInstallDirOld;
+            string SebConfigDir  = SebConfigDirOld;
+
+            //string SebInstallDir = SebInstallDirNew;
+            //string SebConfigDir  = SebConfigDirNew;
+
+            string SebClientDir  = SebInstallDir + "\\" + Component;
+            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
 
             string SebInstallMsi = "SebWindowsInstall.msi";
             string SebStarterExe = "SebStarter.exe";
