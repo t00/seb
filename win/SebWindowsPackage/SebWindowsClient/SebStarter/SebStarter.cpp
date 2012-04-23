@@ -184,25 +184,45 @@ static int     recvTimeout  = 0;
 static int     numMessages  = 0;
 static int     messageNr    = 0;
 
-// Store the desired registry values as integers
-static int intEnableSwitchUser        = 0;
-static int intEnableLockThisComputer  = 0;
-static int intEnableChangeAPassword   = 0;
-static int intEnableStartTaskManager  = 0;
-static int intEnableLogOff            = 0;
-static int intEnableShutDown          = 0;
-static int intEnableEaseOfAccess      = 0;
-static int intEnableVmWareClientShade = 0;
+// Store the desired Blue Screen inside SEB options as integers
+static int intInsideSebEnableSwitchUser        = 0;
+static int intInsideSebEnableLockThisComputer  = 0;
+static int intInsideSebEnableChangeAPassword   = 0;
+static int intInsideSebEnableStartTaskManager  = 0;
+static int intInsideSebEnableLogOff            = 0;
+static int intInsideSebEnableShutDown          = 0;
+static int intInsideSebEnableEaseOfAccess      = 0;
+static int intInsideSebEnableVmWareClientShade = 0;
 
-// Store the desired registry values as strings
-static char stringEnableSwitchUser       [10];
-static char stringEnableLockThisComputer [10];
-static char stringEnableChangeAPassword  [10];
-static char stringEnableStartTaskManager [10];
-static char stringEnableLogOff           [10];
-static char stringEnableShutDown         [10];
-static char stringEnableEaseOfAccess     [10];
-static char stringEnableVmWareClientShade[10];
+// Store the desired Blue Screen outside SEB options as integers
+static int intOutsideSebEnableSwitchUser        = 1;
+static int intOutsideSebEnableLockThisComputer  = 1;
+static int intOutsideSebEnableChangeAPassword   = 1;
+static int intOutsideSebEnableStartTaskManager  = 1;
+static int intOutsideSebEnableLogOff            = 1;
+static int intOutsideSebEnableShutDown          = 1;
+static int intOutsideSebEnableEaseOfAccess      = 1;
+static int intOutsideSebEnableVmWareClientShade = 1;
+
+// Store the desired Blue Screen inside SEB options as strings
+static char stringInsideSebEnableSwitchUser       [10];
+static char stringInsideSebEnableLockThisComputer [10];
+static char stringInsideSebEnableChangeAPassword  [10];
+static char stringInsideSebEnableStartTaskManager [10];
+static char stringInsideSebEnableLogOff           [10];
+static char stringInsideSebEnableShutDown         [10];
+static char stringInsideSebEnableEaseOfAccess     [10];
+static char stringInsideSebEnableVmWareClientShade[10];
+
+// Store the desired Blue Screen outside SEB options as strings
+static char stringOutsideSebEnableSwitchUser       [10];
+static char stringOutsideSebEnableLockThisComputer [10];
+static char stringOutsideSebEnableChangeAPassword  [10];
+static char stringOutsideSebEnableStartTaskManager [10];
+static char stringOutsideSebEnableLogOff           [10];
+static char stringOutsideSebEnableShutDown         [10];
+static char stringOutsideSebEnableEaseOfAccess     [10];
+static char stringOutsideSebEnableVmWareClientShade[10];
 
 
 
@@ -1718,45 +1738,83 @@ BOOL GetClientInfo()
 	// Format of the sent strings is "leftSide=rightSide",
 	// exactly as in the SebStarter.ini configuration file.
 
-	intEnableSwitchUser        = (int) getBool("EnableSwitchUser");
-	intEnableLockThisComputer  = (int) getBool("EnableLockThisComputer");
-	intEnableChangeAPassword   = (int) getBool("EnableChangeAPassword");
-	intEnableStartTaskManager  = (int) getBool("EnableStartTaskManager");
-	intEnableLogOff            = (int) getBool("EnableLogOff");
-	intEnableShutDown          = (int) getBool("EnableShutDown");
-	intEnableEaseOfAccess      = (int) getBool("EnableEaseOfAccess");
-	intEnableVmWareClientShade = (int) getBool("EnableVmWareClientShade");
+	intInsideSebEnableSwitchUser        = (int) getBool("InsideSebEnableSwitchUser");
+	intInsideSebEnableLockThisComputer  = (int) getBool("InsideSebEnableLockThisComputer");
+	intInsideSebEnableChangeAPassword   = (int) getBool("InsideSebEnableChangeAPassword");
+	intInsideSebEnableStartTaskManager  = (int) getBool("InsideSebEnableStartTaskManager");
+	intInsideSebEnableLogOff            = (int) getBool("InsideSebEnableLogOff");
+	intInsideSebEnableShutDown          = (int) getBool("InsideSebEnableShutDown");
+	intInsideSebEnableEaseOfAccess      = (int) getBool("InsideSebEnableEaseOfAccess");
+	intInsideSebEnableVmWareClientShade = (int) getBool("InsideSebEnableVmWareClientShade");
 
-	logg(fp, "intEnableSwitchUser        = %d\n", intEnableSwitchUser);
-	logg(fp, "intEnableLockThisComputer  = %d\n", intEnableLockThisComputer);
-	logg(fp, "intEnableChangeAPassword   = %d\n", intEnableChangeAPassword);
-	logg(fp, "intEnableStartTaskManager  = %d\n", intEnableStartTaskManager);
-	logg(fp, "intEnableLogOff            = %d\n", intEnableLogOff);
-	logg(fp, "intEnableShutDown          = %d\n", intEnableShutDown);
-	logg(fp, "intEnableEaseOfAccess      = %d\n", intEnableEaseOfAccess);
-	logg(fp, "intEnableVmWareClientShade = %d\n", intEnableVmWareClientShade);
+	intOutsideSebEnableSwitchUser        = (int) getBool("OutsideSebEnableSwitchUser");
+	intOutsideSebEnableLockThisComputer  = (int) getBool("OutsideSebEnableLockThisComputer");
+	intOutsideSebEnableChangeAPassword   = (int) getBool("OutsideSebEnableChangeAPassword");
+	intOutsideSebEnableStartTaskManager  = (int) getBool("OutsideSebEnableStartTaskManager");
+	intOutsideSebEnableLogOff            = (int) getBool("OutsideSebEnableLogOff");
+	intOutsideSebEnableShutDown          = (int) getBool("OutsideSebEnableShutDown");
+	intOutsideSebEnableEaseOfAccess      = (int) getBool("OutsideSebEnableEaseOfAccess");
+	intOutsideSebEnableVmWareClientShade = (int) getBool("OutsideSebEnableVmWareClientShade");
+
+	logg(fp, "intInsideSebEnableSwitchUser        = %d\n", intInsideSebEnableSwitchUser);
+	logg(fp, "intInsideSebEnableLockThisComputer  = %d\n", intInsideSebEnableLockThisComputer);
+	logg(fp, "intInsideSebEnableChangeAPassword   = %d\n", intInsideSebEnableChangeAPassword);
+	logg(fp, "intInsideSebEnableStartTaskManager  = %d\n", intInsideSebEnableStartTaskManager);
+	logg(fp, "intInsideSebEnableLogOff            = %d\n", intInsideSebEnableLogOff);
+	logg(fp, "intInsideSebEnableShutDown          = %d\n", intInsideSebEnableShutDown);
+	logg(fp, "intInsideSebEnableEaseOfAccess      = %d\n", intInsideSebEnableEaseOfAccess);
+	logg(fp, "intInsideSebEnableVmWareClientShade = %d\n", intInsideSebEnableVmWareClientShade);
 	logg(fp, "\n");
 
-	sprintf(stringEnableSwitchUser       , "%d", intEnableSwitchUser);
-	sprintf(stringEnableLockThisComputer , "%d", intEnableLockThisComputer);
-	sprintf(stringEnableChangeAPassword  , "%d", intEnableChangeAPassword);
-	sprintf(stringEnableStartTaskManager , "%d", intEnableStartTaskManager);
-	sprintf(stringEnableLogOff           , "%d", intEnableLogOff);
-	sprintf(stringEnableShutDown         , "%d", intEnableShutDown);
-	sprintf(stringEnableEaseOfAccess     , "%d", intEnableEaseOfAccess);
-	sprintf(stringEnableVmWareClientShade, "%d", intEnableVmWareClientShade);
+	logg(fp, "intOutsideSebEnableSwitchUser        = %d\n", intOutsideSebEnableSwitchUser);
+	logg(fp, "intOutsideSebEnableLockThisComputer  = %d\n", intOutsideSebEnableLockThisComputer);
+	logg(fp, "intOutsideSebEnableChangeAPassword   = %d\n", intOutsideSebEnableChangeAPassword);
+	logg(fp, "intOutsideSebEnableStartTaskManager  = %d\n", intOutsideSebEnableStartTaskManager);
+	logg(fp, "intOutsideSebEnableLogOff            = %d\n", intOutsideSebEnableLogOff);
+	logg(fp, "intOutsideSebEnableShutDown          = %d\n", intOutsideSebEnableShutDown);
+	logg(fp, "intOutsideSebEnableEaseOfAccess      = %d\n", intOutsideSebEnableEaseOfAccess);
+	logg(fp, "intOutsideSebEnableVmWareClientShade = %d\n", intOutsideSebEnableVmWareClientShade);
+	logg(fp, "\n");
+
+	sprintf(stringInsideSebEnableSwitchUser       , "%d", intInsideSebEnableSwitchUser);
+	sprintf(stringInsideSebEnableLockThisComputer , "%d", intInsideSebEnableLockThisComputer);
+	sprintf(stringInsideSebEnableChangeAPassword  , "%d", intInsideSebEnableChangeAPassword);
+	sprintf(stringInsideSebEnableStartTaskManager , "%d", intInsideSebEnableStartTaskManager);
+	sprintf(stringInsideSebEnableLogOff           , "%d", intInsideSebEnableLogOff);
+	sprintf(stringInsideSebEnableShutDown         , "%d", intInsideSebEnableShutDown);
+	sprintf(stringInsideSebEnableEaseOfAccess     , "%d", intInsideSebEnableEaseOfAccess);
+	sprintf(stringInsideSebEnableVmWareClientShade, "%d", intInsideSebEnableVmWareClientShade);
+
+	sprintf(stringOutsideSebEnableSwitchUser       , "%d", intOutsideSebEnableSwitchUser);
+	sprintf(stringOutsideSebEnableLockThisComputer , "%d", intOutsideSebEnableLockThisComputer);
+	sprintf(stringOutsideSebEnableChangeAPassword  , "%d", intOutsideSebEnableChangeAPassword);
+	sprintf(stringOutsideSebEnableStartTaskManager , "%d", intOutsideSebEnableStartTaskManager);
+	sprintf(stringOutsideSebEnableLogOff           , "%d", intOutsideSebEnableLogOff);
+	sprintf(stringOutsideSebEnableShutDown         , "%d", intOutsideSebEnableShutDown);
+	sprintf(stringOutsideSebEnableEaseOfAccess     , "%d", intOutsideSebEnableEaseOfAccess);
+	sprintf(stringOutsideSebEnableVmWareClientShade, "%d", intOutsideSebEnableVmWareClientShade);
 
 	// Build a binary string containing the "0"/"1" registry settings
 
 	strcpy(registryFlags, "");
-	strcat(registryFlags, stringEnableSwitchUser);
-	strcat(registryFlags, stringEnableLockThisComputer);
-	strcat(registryFlags, stringEnableChangeAPassword);
-	strcat(registryFlags, stringEnableStartTaskManager);
-	strcat(registryFlags, stringEnableLogOff);
-	strcat(registryFlags, stringEnableShutDown);
-	strcat(registryFlags, stringEnableEaseOfAccess);
-	strcat(registryFlags, stringEnableVmWareClientShade);
+
+	strcat(registryFlags, stringInsideSebEnableSwitchUser);
+	strcat(registryFlags, stringInsideSebEnableLockThisComputer);
+	strcat(registryFlags, stringInsideSebEnableChangeAPassword);
+	strcat(registryFlags, stringInsideSebEnableStartTaskManager);
+	strcat(registryFlags, stringInsideSebEnableLogOff);
+	strcat(registryFlags, stringInsideSebEnableShutDown);
+	strcat(registryFlags, stringInsideSebEnableEaseOfAccess);
+	strcat(registryFlags, stringInsideSebEnableVmWareClientShade);
+
+	strcat(registryFlags, stringOutsideSebEnableSwitchUser);
+	strcat(registryFlags, stringOutsideSebEnableLockThisComputer);
+	strcat(registryFlags, stringOutsideSebEnableChangeAPassword);
+	strcat(registryFlags, stringOutsideSebEnableStartTaskManager);
+	strcat(registryFlags, stringOutsideSebEnableLogOff);
+	strcat(registryFlags, stringOutsideSebEnableShutDown);
+	strcat(registryFlags, stringOutsideSebEnableEaseOfAccess);
+	strcat(registryFlags, stringOutsideSebEnableVmWareClientShade);
 
 	//strcpy(userNameRegistryFlags, userName);
 	//strcpy(userNameRegistryFlags, endOfStringKeyWord);
@@ -1779,7 +1837,7 @@ BOOL GetClientInfo()
 	//
 	// 3.) registryFlags:
 	// To reduce network traffic, the registry flags are sent
-	// as a "01010110" pattern in the registryFlags string.
+	// as a "0000000011111111" pattern in the registryFlags string.
 	//
 	// The host name can be omitted,
 	// since it is "localhost" by default anyway
@@ -1805,16 +1863,25 @@ BOOL GetClientInfo()
 
 
 	// Alternatively, the registry flags could also be sent
-	// one by one, namely in the "EnableStartTaskManager=1" format:
+	// one by one, namely in the "InsideSebEnableStartTaskManager=1" format:
 /*
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableSwitchUser       , stringEnableSwitchUser       , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableLockThisComputer , stringEnableLockThisComputer , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableChangeAPassword  , stringEnableChangeAPassword  , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableStartTaskManager , stringEnableStartTaskManager , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableLogOff           , stringEnableLogOff           , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableShutDown         , stringEnableShutDown         , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableEaseOfAccess     , stringEnableEaseOfAccess     , sendInterval);
-	socketResult = SendEquationToSocketServer((char*)MSG_EnableVmWareClientShade, stringEnableVmWareClientShade, sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableSwitchUser       , stringInsideSebEnableSwitchUser       , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableLockThisComputer , stringInsideSebEnableLockThisComputer , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableChangeAPassword  , stringInsideSebEnableChangeAPassword  , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableStartTaskManager , stringInsideSebEnableStartTaskManager , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableLogOff           , stringInsideSebEnableLogOff           , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableShutDown         , stringInsideSebEnableShutDown         , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableEaseOfAccess     , stringInsideSebEnableEaseOfAccess     , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_InsideSebEnableVmWareClientShade, stringInsideSebEnableVmWareClientShade, sendInterval);
+
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableSwitchUser       , stringOutsideSebEnableSwitchUser       , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableLockThisComputer , stringOutsideSebEnableLockThisComputer , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableChangeAPassword  , stringOutsideSebEnableChangeAPassword  , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableStartTaskManager , stringOutsideSebEnableStartTaskManager , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableLogOff           , stringOutsideSebEnableLogOff           , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableShutDown         , stringOutsideSebEnableShutDown         , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableEaseOfAccess     , stringOutsideSebEnableEaseOfAccess     , sendInterval);
+	socketResult = SendEquationToSocketServer((char*)MSG_OutsideSebEnableVmWareClientShade, stringOutsideSebEnableVmWareClientShade, sendInterval);
 */
 
 	// Close the socket, so the server loop
@@ -2209,10 +2276,10 @@ BOOL EditRegistry()
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\HideFastUserSwitching
-		if (getBool("EnableSwitchUser") == FALSE) 
+		if (getBool("InsideSebEnableSwitchUser") == FALSE) 
 		{
-			// MessageBox(NULL, "= false", "EnableSwitchUser", 16);
-			logg(fp, "getBool(EnableSwitchUser) = false\n");
+			// MessageBox(NULL, "= false", "InsideSebEnableSwitchUser", 16);
+			logg(fp, "getBool(InsideSebEnableSwitchUser) = false\n");
 
 			if (HandleSetRegistryKeyValue(hklmSystem,VAL_HideFastUserSwitching,"Hide_Fast_User_Switching"))
 			{
@@ -2229,17 +2296,17 @@ BOOL EditRegistry()
 		} 
 		else
 		{
-			//MessageBox(NULL, "= true", "EnableSwitchUser", 16);
-			logg(fp, "getBool(EnableSwitchUser) = true\n\n");
+			//MessageBox(NULL, "= true", "InsideSebEnableSwitchUser", 16);
+			logg(fp, "getBool(InsideSebEnableSwitchUser) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableLockWorkstation
-		if (getBool("EnableLockThisComputer") == FALSE) 
+		if (getBool("InsideSebEnableLockThisComputer") == FALSE) 
 		{
-			// MessageBox(NULL, "= false", "EnableLockThisComputer", 16);
-			logg(fp, "getBool(EnableLockThisComputer) = false\n");
+			// MessageBox(NULL, "= false", "InsideSebEnableLockThisComputer", 16);
+			logg(fp, "getBool(InsideSebEnableLockThisComputer) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableLockWorkstation,"DisableLock_Workstation"))
 			{
@@ -2256,17 +2323,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "EnableLockThisComputer", 16);
-			logg(fp, "getBool(EnableLockThisComputer) = true\n\n");
+			//MessageBox(NULL, "= true", "InsideSebEnableLockThisComputer", 16);
+			logg(fp, "getBool(InsideSebEnableLockThisComputer) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableChangePassword
-		if (getBool("EnableChangeAPassword") == FALSE) 
+		if (getBool("InsideSebEnableChangeAPassword") == FALSE) 
 		{
-			//   MessageBox(NULL,"= false","EnableChangeAPassword",16);
-			logg(fp, "getBool(EnableChangeAPassword) = false\n");
+			//   MessageBox(NULL,"= false","InsideSebEnableChangeAPassword",16);
+			logg(fp, "getBool(InsideSebEnableChangeAPassword) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableChangePassword,"DisableChange_Password"))
 			{
@@ -2283,17 +2350,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "EnableChangeAPassword", 16);
-			logg(fp, "getBool(EnableChangeAPassword) = true\n\n");
+			//MessageBox(NULL, "= true", "InsideSebEnableChangeAPassword", 16);
+			logg(fp, "getBool(InsideSebEnableChangeAPassword) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableTaskMgr
-		if (getBool("EnableStartTaskManager") == FALSE) 
+		if (getBool("InsideSebEnableStartTaskManager") == FALSE) 
 		{
-			//   MessageBox(NULL,"= false","EnableStartTaskManager",16);
-			logg(fp, "getBool(EnableStartTaskManager) = false\n");
+			//   MessageBox(NULL,"= false","InsideSebEnableStartTaskManager",16);
+			logg(fp, "getBool(InsideSebEnableStartTaskManager) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuSystem,VAL_DisableTaskMgr,"DisableTaskManager"))
 			{
@@ -2310,17 +2377,17 @@ BOOL EditRegistry()
 		} 
 		else
 		{
-			//MessageBox(NULL, "= true", "EnableStartTaskManager", 16);
-			logg(fp, "getBool(EnableStartTaskManager) = true\n\n");
+			//MessageBox(NULL, "= true", "InsideSebEnableStartTaskManager", 16);
+			logg(fp, "getBool(InsideSebEnableStartTaskManager) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoLogoff
-		if (getBool("EnableLogOff") == FALSE)
+		if (getBool("InsideSebEnableLogOff") == FALSE)
 		{
-			//MessageBox(NULL,"= false","EnableLogOff",16);
-			logg(fp, "getBool(EnableLogOff) = false\n");
+			//MessageBox(NULL,"= false","InsideSebEnableLogOff",16);
+			logg(fp, "getBool(InsideSebEnableLogOff) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoLogoff,"No_Logoff"))
 			{
@@ -2337,17 +2404,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "EnableLogOff", 16);
-			logg(fp, "getBool(EnableLogOff) = true\n\n");
+			//MessageBox(NULL, "= true", "InsideSebEnableLogOff", 16);
+			logg(fp, "getBool(InsideSebEnableLogOff) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose
-		if (getBool("EnableShutDown") == FALSE)
+		if (getBool("InsideSebEnableShutDown") == FALSE)
 		{
-			//MessageBox(NULL,"= false","EnableShutDown",16);
-			logg(fp, "getBool(EnableShutDown) = false\n");
+			//MessageBox(NULL,"= false","InsideSebEnableShutDown",16);
+			logg(fp, "getBool(InsideSebEnableShutDown) = false\n");
 
 			if (HandleSetRegistryKeyValue(hkcuExplorer,VAL_NoClose,"No_Close"))
 			{
@@ -2364,17 +2431,17 @@ BOOL EditRegistry()
 		}
 		else
 		{
-			//MessageBox(NULL, "= true", "EnableShutDown", 16);
-			logg(fp, "getBool(EnableShutDown) = true\n\n");
+			//MessageBox(NULL, "= true", "InsideSebEnableShutDown", 16);
+			logg(fp, "getBool(InsideSebEnableShutDown) = true\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe\Debugger
-		if (getBool("EnableEaseOfAccess") == TRUE) 
+		if (getBool("InsideSebEnableEaseOfAccess") == TRUE) 
 		{
-			//MessageBox(NULL, "= true", "EnableEaseOfAccess", 16);
-			logg(fp, "getBool(EnableEaseOfAccess) = true\n");
+			//MessageBox(NULL, "= true", "InsideSebEnableEaseOfAccess", 16);
+			logg(fp, "getBool(InsideSebEnableEaseOfAccess) = true\n");
 
 			if (HandleSetRegistryKeyValue(hklmUtilmanExe,VAL_EnableEaseOfAccess,"EnableEaseOfAccess"))
 			{
@@ -2391,17 +2458,17 @@ BOOL EditRegistry()
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "EnableEaseOfAccess", 16);
-			logg(fp, "getBool(EnableEaseOfAccess) = false\n\n");
+			//MessageBox(NULL, "= false", "InsideSebEnableEaseOfAccess", 16);
+			logg(fp, "getBool(InsideSebEnableEaseOfAccess) = false\n\n");
 		}
 
 
 		// Set the Windows Registry Key
 		// HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client\EnableShade
-		if (getBool("EnableVmWareClientShade") == TRUE) 
+		if (getBool("InsideSebEnableVmWareClientShade") == TRUE) 
 		{
-			// MessageBox(NULL, "= true", "EnableVmWareClientShade", 16);
-			logg(fp, "getBool(EnableVmWareClientShade) = true\n");
+			// MessageBox(NULL, "= true", "InsideSebEnableVmWareClientShade", 16);
+			logg(fp, "getBool(InsideSebEnableVmWareClientShade) = true\n");
 
 			if (HandleSetRegistryKeyValue(hkcuVmWareClient,VAL_EnableShade,"EnableShade"))
 			{
@@ -2418,8 +2485,8 @@ BOOL EditRegistry()
 		} 
 		else
 		{
-			//MessageBox(NULL, "= false", "EnableVmWareClientShade", 16);
-			logg(fp, "getBool(EnableVmWareClientShade) = false\n\n");
+			//MessageBox(NULL, "= false", "InsideSebEnableVmWareClientShade", 16);
+			logg(fp, "getBool(InsideSebEnableVmWareClientShade) = false\n\n");
 		}
 
 
@@ -2461,35 +2528,35 @@ BOOL ResetRegistry()
 		if (!HandleOpenRegistryKey(HKCU, KEY_VmWareClient    , &hkcuVmWareClient, TRUE)) return FALSE;
 		if (!HandleOpenRegistryKey(HKLM, KEY_UtilmanExe      , &hklmUtilmanExe  , TRUE)) return FALSE;
 
-		if (getBool("EnableSwitchUser")) 
+		if (getBool("OutsideSebEnableSwitchUser") == TRUE) 
 		{
 			RegDeleteValue(hklmSystem, VAL_HideFastUserSwitching);
 		}
-		if (getBool("EnableLockThisComputer")) 
+		if (getBool("OutsideSebEnableLockThisComputer") == TRUE) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableLockWorkstation);
 		}
-		if (getBool("EnableTaskManager")) 
+		if (getBool("OutsideSebEnableTaskManager") == TRUE) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableTaskMgr);
 		} 
-		if (getBool("EnableChangeAPassword")) 
+		if (getBool("OutsideSebEnableChangeAPassword") == TRUE) 
 		{
 			RegDeleteValue(hkcuSystem, VAL_DisableChangePassword);
 		}
-		if (getBool("EnableLogOff"))
+		if (getBool("OutsideSebEnableLogOff") == TRUE)
 		{
 			RegDeleteValue(hkcuExplorer, VAL_NoLogoff);
 		}
-		if (getBool("EnableShutDown"))
+		if (getBool("OutsideSebEnableShutDown") == TRUE)
 		{
 			RegDeleteValue(hkcuExplorer, VAL_NoClose);
 		}
-		if (getBool("EnableEaseOfAccess")) 
+		if (getBool("OutsideSebEnableEaseOfAccess") == TRUE) 
 		{
 			RegDeleteValue(hklmUtilmanExe, VAL_EnableEaseOfAccess);
 		}
-		if (getBool("EnableVmWareClientShade"))
+		if (getBool("OutsideSebEnableVmWareClientShade") == TRUE)
 		{
 			RegDeleteValue(hkcuVmWareClient, VAL_EnableShade);
 		}
