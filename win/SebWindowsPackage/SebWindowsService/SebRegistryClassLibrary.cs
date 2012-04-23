@@ -42,17 +42,22 @@ namespace SebWindowsService
         const String ipAddressOfLocalHost = "127.0.0.1";
         const String endOfStringKeyWord   = "---SEB---";
 
-        const int SET_Def  = 1;
-        const int SET_Old  = 2;
-        const int SET_New  = 3;
-        const int SET_Allow  = 4;
-        const int SET_Forbid = 5;
+        const int SET_Def     = 1;
+        const int SET_Old     = 2;
+        const int SET_New     = 3;
+        const int SET_Forbid  = 4;
+        const int SET_Allow   = 5;
+        const int SET_Inside  = 6;
+        const int SET_Outside = 7;
 
         const int EDIT_Get     = 1;
         const int EDIT_Set     = 2;
         const int EDIT_Restore = 3;
 
         // Constants for indexing the ini file settings
+
+        const int IND_Inside  = 0;
+        const int IND_Outside = 1;
 
         const int IND_EnableSwitchUser        = 0;
         const int IND_EnableLockThisComputer  = 1;
@@ -141,8 +146,10 @@ namespace SebWindowsService
         static    int[] oldSetting = new int[IND_RegistrySettingNum + 1];
         static    int[] newSetting = new int[IND_RegistrySettingNum + 1];
 
-        static int[]  allowSetting = new int[IND_RegistrySettingNum + 1];
-        static int[] forbidSetting = new int[IND_RegistrySettingNum + 1];
+        static int[]  forbidSetting = new int[IND_RegistrySettingNum + 1];
+        static int[]   allowSetting = new int[IND_RegistrySettingNum + 1];
+        static int[]  insideSetting = new int[IND_RegistrySettingNum + 1];
+        static int[] outsideSetting = new int[IND_RegistrySettingNum + 1];
 
 
         // Socket communication
@@ -295,14 +302,17 @@ namespace SebWindowsService
 
             // Initialise the global arrays
 
-            int  index;
-            for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
+            int  regIndex = 0;
+            for (regIndex = IND_RegistrySettingMin; regIndex <= IND_RegistrySettingMax; regIndex++)
             {
-                   oldSetting[index] = 0;
-                   newSetting[index] = 0;
-                   defSetting[index] = 0;
-                 allowSetting[index] = 1;
-                forbidSetting[index] = 0;
+                    oldSetting[regIndex] = 0;
+                    newSetting[regIndex] = 0;
+                    defSetting[regIndex] = 0;
+
+                 forbidSetting[regIndex] = 0;
+                  allowSetting[regIndex] = 1;
+                 insideSetting[regIndex] = 0;
+                outsideSetting[regIndex] = 1;
             }
 
             hiveString[IND_EnableSwitchUser       ] = HIVE_HKLM;
@@ -354,14 +364,14 @@ namespace SebWindowsService
 
             DebugOutputLine(debugMode, "Debug output of initialised global arrays");
             DebugOutputLine(debugMode, "");
-            for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
+            for (regIndex = IND_RegistrySettingMin; regIndex <= IND_RegistrySettingMax; regIndex++)
             {
-                DebugOutputLine(debugMode, index.ToString());
-                DebugOutputLine(debugMode, hiveString[index]);
-                DebugOutputLine(debugMode,  keyString[index]);
-                DebugOutputLine(debugMode,  valString[index]);
-                DebugOutputLine(debugMode,  msgString[index]);
-                DebugOutputLine(debugMode, typeString[index]);
+                DebugOutputLine(debugMode, regIndex.ToString());
+                DebugOutputLine(debugMode, hiveString[regIndex]);
+                DebugOutputLine(debugMode,  keyString[regIndex]);
+                DebugOutputLine(debugMode,  valString[regIndex]);
+                DebugOutputLine(debugMode,  msgString[regIndex]);
+                DebugOutputLine(debugMode, typeString[regIndex]);
                 DebugOutputLine(debugMode, "");
             }
             DebugOutputLine(debugMode, "");
@@ -612,18 +622,36 @@ namespace SebWindowsService
                         // Response (acknowledgement) from server to client
                         SendServerAcknowledgement("RegistryFlags", registryFlags);
                         DebugOutputLine(debugMode, "Server sent acknowledgement to client");
+                        DebugOutputLine(debugMode, "");
 
-                        // Convert the letters of the string into integers
-                        // and store the registry flags as new the settings
-                        for (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
+                        // Convert the first 8 letters (0..7) of the registryFlags string
+                        // into integers, and store these flags as the "inside SEB" settings
+                        DebugOutputLine(debugMode, "      registryFlags inside SEB:");
+                        for (regIndex = IND_RegistrySettingMin; regIndex <= IND_RegistrySettingMax; regIndex++)
                         {
-                            Char flagCharacter = registryFlags.ElementAt(index);
+                            Char flagCharacter = registryFlags.ElementAt(regIndex);
                             int  flagInteger   = flagCharacter - '0';
                             if  (flagCharacter.Equals('1')) flagInteger = 1;
                                                        else flagInteger = 0;
-                            DebugOutputLine(debugMode, "      registryFlags[" + index + "] = " + flagInteger);
-                            newSetting[index] = flagInteger;
+                            DebugOutputLine(debugMode, "      registryFlags[" + regIndex + "] = " + flagInteger);
+                               newSetting[regIndex] = flagInteger;
+                            insideSetting[regIndex] = flagInteger;
                         }
+                        DebugOutputLine(debugMode, "");
+
+                        // Convert the second 8 letters (8..15) of the registryFlags string
+                        // into integers, and store these flags as the "outside SEB" settings
+                        DebugOutputLine(debugMode, "      registryFlags outside SEB:");
+                        for (regIndex = IND_RegistrySettingMin; regIndex <= IND_RegistrySettingMax; regIndex++)
+                        {
+                            Char flagCharacter = registryFlags.ElementAt(regIndex + IND_RegistrySettingNum);
+                            int  flagInteger   = flagCharacter - '0';
+                            if  (flagCharacter.Equals('1')) flagInteger = 1;
+                                                       else flagInteger = 0;
+                            DebugOutputLine(debugMode, "      registryFlags[" + regIndex + "] = " + flagInteger);
+                            outsideSetting[regIndex] = flagInteger;
+                        }
+                        DebugOutputLine(debugMode, "");
 
                         // Set the registry keys to the flag values
                         DebugOutputLine(debugMode, "   Setting registry keys to flag values...");
@@ -632,19 +660,28 @@ namespace SebWindowsService
 
 
                     // Determine the index in case it is a registry setting
-                    int regIndex = IND_RegistrySettingNone;
-                    for   (index = IND_RegistrySettingMin; index <= IND_RegistrySettingMax; index++)
+                    int foundIndex = IND_RegistrySettingNone;
+                    for  (regIndex = IND_RegistrySettingMin; regIndex <= IND_RegistrySettingMax; regIndex++)
                     {
-                        if (leftSideString.Equals(msgString[index])) break;
+                        if (leftSideString.Contains(msgString[regIndex])) break;
                     }
-                    regIndex = index;
+                    foundIndex = regIndex;
 
 
                     // Change a certain registy setting
-                    if ((regIndex >= IND_RegistrySettingMin) &&
-                        (regIndex <= IND_RegistrySettingMax))
+                    int passIndex = 0;
+
+                    if ((foundIndex >= IND_RegistrySettingMin) &&
+                        (foundIndex <= IND_RegistrySettingMax))
                     {
-                        newSetting[regIndex] = newInteger;
+                        regIndex = foundIndex;
+
+                        if (leftSideString.Contains("InsideSeb" )) passIndex = IND_Inside;
+                        if (leftSideString.Contains("OutsideSeb")) passIndex = IND_Outside;
+
+                        if (passIndex == IND_Inside )     newSetting[regIndex] = newInteger;
+                        if (passIndex == IND_Inside )  insideSetting[regIndex] = newInteger;
+                        if (passIndex == IND_Outside) outsideSetting[regIndex] = newInteger;
 
                         String regHive = hiveString[regIndex];
                         String regKey  =  keyString[regIndex];
@@ -662,8 +699,11 @@ namespace SebWindowsService
                             if (newInteger == 1) regData = DATA_EnableEaseOfAccessTrue;
                         }
 
-                        DebugOutputLine(debugMode, "   Setting registry value   : " + regVal + "="  + regData);
-                        EditOneRegistryValue(userName, userSid, regHive, regKey, regVal, regMsg, regType, regData, EDIT_Set);
+                        if (passIndex == IND_Inside)
+                        {
+                            DebugOutputLine(debugMode, "   Setting registry value   : " + regVal + "=" + regData);
+                            EditOneRegistryValue(userName, userSid, regHive, regKey, regVal, regMsg, regType, regData, EDIT_Set);
+                        }
                     }
 
 
@@ -699,8 +739,8 @@ namespace SebWindowsService
                         Boolean flushRegistryValues = true;
                         if (flushRegistryValues)
                         {
-                            DebugOutputLine(debugMode, "   Setting registry keys to allow values...");
-                            EditAllRegistryValues(SET_Allow, EDIT_Restore);
+                            DebugOutputLine(debugMode, "   Setting registry keys to outside values...");
+                            EditAllRegistryValues(SET_Outside, EDIT_Restore);
                         }
 
                         // Exit the receiving loop for this SEB client
@@ -1073,17 +1113,21 @@ namespace SebWindowsService
                 // Only necessary for setting operation
                 if ((editMode == EDIT_Set) || (editMode == EDIT_Restore))
                 {
-                    int    defInteger =    defSetting[regIndex];
-                    int    oldInteger =    oldSetting[regIndex];
-                    int    newInteger =    newSetting[regIndex];
-                    int  allowInteger =  allowSetting[regIndex];
-                    int forbidInteger = forbidSetting[regIndex];
+                    int     defInteger =     defSetting[regIndex];
+                    int     oldInteger =     oldSetting[regIndex];
+                    int     newInteger =     newSetting[regIndex];
+                    int  forbidInteger =  forbidSetting[regIndex];
+                    int   allowInteger =   allowSetting[regIndex];
+                    int  insideInteger =  insideSetting[regIndex];
+                    int outsideInteger = outsideSetting[regIndex];
 
-                    if (wishedSettings == SET_Def   ) setInteger =    defInteger;
-                    if (wishedSettings == SET_Old   ) setInteger =    oldInteger;
-                    if (wishedSettings == SET_New   ) setInteger =    newInteger;
-                    if (wishedSettings == SET_Allow ) setInteger =  allowInteger;
-                    if (wishedSettings == SET_Forbid) setInteger = forbidInteger;
+                    if (wishedSettings == SET_Def    ) setInteger =     defInteger;
+                    if (wishedSettings == SET_Old    ) setInteger =     oldInteger;
+                    if (wishedSettings == SET_New    ) setInteger =     newInteger;
+                    if (wishedSettings == SET_Forbid ) setInteger =  forbidInteger;
+                    if (wishedSettings == SET_Allow  ) setInteger =   allowInteger;
+                    if (wishedSettings == SET_Inside ) setInteger =  insideInteger;
+                    if (wishedSettings == SET_Outside) setInteger = outsideInteger;
 
                     // Convert the registry value integer to a string
                     if (setInteger == -1) setString = "" ;
