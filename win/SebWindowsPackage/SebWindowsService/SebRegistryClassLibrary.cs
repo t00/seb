@@ -653,8 +653,8 @@ namespace SebWindowsService
                         }
                         DebugOutputLine(debugMode, "");
 
-                        // Set the registry keys to the flag values
-                        DebugOutputLine(debugMode, "   Setting registry keys to flag values...");
+                        // Set the registry keys to the "inside SEB" flag values
+                        DebugOutputLine(debugMode, "   Setting registry keys to inside SEB values...");
                         EditAllRegistryValues(SET_New, EDIT_Set);
                     }
 
@@ -712,7 +712,7 @@ namespace SebWindowsService
                     // When all settings have been transmitted, set the registry values
                     if (leftSideString.Equals("AllSettingsTransmitted"))
                     {
-                        DebugOutputLine(debugMode, "   Setting registry keys to new values...");
+                        DebugOutputLine(debugMode, "   Setting registry keys to inside SEB values...");
                         EditAllRegistryValues(SET_New, EDIT_Set);
 
                         // Set the message receive timeout to Infinite,
@@ -739,7 +739,7 @@ namespace SebWindowsService
                         Boolean flushRegistryValues = true;
                         if (flushRegistryValues)
                         {
-                            DebugOutputLine(debugMode, "   Setting registry keys to outside values...");
+                            DebugOutputLine(debugMode, "   Setting registry keys to outside SEB values...");
                             EditAllRegistryValues(SET_Outside, EDIT_Restore);
                         }
 
