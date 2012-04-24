@@ -80,6 +80,7 @@ echo ----------------------------------------------------
 set SourceDir="C:\Users\Dirk\seb\trunk\win\SebWindowsPackage"
 set TargetDir="C:\Users\Dirk\tmp\seb_%Version%_win"
 
+copy "%SourceDir%\Registry*.bat"                                     %TargetDir%
 copy "%SourceDir%\SebWindowsInstall\*.bat"                           %TargetDir%
 copy "%SourceDir%\SebWindowsInstall\Release\SebWindowsInstall.msi"   %TargetDir%
 copy "%SourceDir%\SebWindowsConfig\bin\Release\SebWindowsConfig.exe" %TargetDir%
