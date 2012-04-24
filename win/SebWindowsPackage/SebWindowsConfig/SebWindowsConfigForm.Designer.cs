@@ -161,7 +161,7 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxForceWindowsService);
-            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(300, 150);
+            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(280, 150);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
             this.groupBoxSecurityOptions.Size = new System.Drawing.Size(330, 270);
             this.groupBoxSecurityOptions.TabIndex = 45;
@@ -172,7 +172,7 @@
             // 
             this.checkBoxShutdownAfterAutostart.AutoSize = true;
             this.checkBoxShutdownAfterAutostart.Enabled = false;
-            this.checkBoxShutdownAfterAutostart.Location = new System.Drawing.Point(6, 240);
+            this.checkBoxShutdownAfterAutostart.Location = new System.Drawing.Point(10, 240);
             this.checkBoxShutdownAfterAutostart.Name = "checkBoxShutdownAfterAutostart";
             this.checkBoxShutdownAfterAutostart.Size = new System.Drawing.Size(309, 21);
             this.checkBoxShutdownAfterAutostart.TabIndex = 50;
@@ -184,7 +184,7 @@
             // 
             this.checkBoxMonitorProcesses.AutoSize = true;
             this.checkBoxMonitorProcesses.Enabled = false;
-            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(6, 210);
+            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(10, 210);
             this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
             this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
             this.checkBoxMonitorProcesses.TabIndex = 49;
@@ -196,7 +196,7 @@
             // 
             this.checkBoxEditRegistry.AutoSize = true;
             this.checkBoxEditRegistry.Enabled = false;
-            this.checkBoxEditRegistry.Location = new System.Drawing.Point(6, 180);
+            this.checkBoxEditRegistry.Location = new System.Drawing.Point(10, 180);
             this.checkBoxEditRegistry.Name = "checkBoxEditRegistry";
             this.checkBoxEditRegistry.Size = new System.Drawing.Size(105, 21);
             this.checkBoxEditRegistry.TabIndex = 48;
@@ -208,7 +208,7 @@
             // 
             this.checkBoxHookMessages.AutoSize = true;
             this.checkBoxHookMessages.Enabled = false;
-            this.checkBoxHookMessages.Location = new System.Drawing.Point(6, 150);
+            this.checkBoxHookMessages.Location = new System.Drawing.Point(10, 150);
             this.checkBoxHookMessages.Name = "checkBoxHookMessages";
             this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
             this.checkBoxHookMessages.TabIndex = 47;
@@ -219,7 +219,7 @@
             // checkBoxShowSebApplicationChooser
             // 
             this.checkBoxShowSebApplicationChooser.AutoSize = true;
-            this.checkBoxShowSebApplicationChooser.Location = new System.Drawing.Point(6, 120);
+            this.checkBoxShowSebApplicationChooser.Location = new System.Drawing.Point(10, 120);
             this.checkBoxShowSebApplicationChooser.Name = "checkBoxShowSebApplicationChooser";
             this.checkBoxShowSebApplicationChooser.Size = new System.Drawing.Size(222, 21);
             this.checkBoxShowSebApplicationChooser.TabIndex = 46;
@@ -230,7 +230,7 @@
             // checkBoxCreateNewDesktop
             // 
             this.checkBoxCreateNewDesktop.AutoSize = true;
-            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(6, 90);
+            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(10, 90);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
             this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
             this.checkBoxCreateNewDesktop.TabIndex = 45;
@@ -241,7 +241,7 @@
             // checkBoxAllowVirtualMachine
             // 
             this.checkBoxAllowVirtualMachine.AutoSize = true;
-            this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(6, 30);
+            this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(10, 30);
             this.checkBoxAllowVirtualMachine.Name = "checkBoxAllowVirtualMachine";
             this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(161, 21);
             this.checkBoxAllowVirtualMachine.TabIndex = 43;
@@ -252,7 +252,7 @@
             // checkBoxForceWindowsService
             // 
             this.checkBoxForceWindowsService.AutoSize = true;
-            this.checkBoxForceWindowsService.Location = new System.Drawing.Point(6, 60);
+            this.checkBoxForceWindowsService.Location = new System.Drawing.Point(10, 60);
             this.checkBoxForceWindowsService.Name = "checkBoxForceWindowsService";
             this.checkBoxForceWindowsService.Size = new System.Drawing.Size(175, 21);
             this.checkBoxForceWindowsService.TabIndex = 44;
@@ -268,7 +268,7 @@
             this.groupBoxSebStarterIni.Controls.Add(this.checkBoxWriteLogFileSebStarterLog);
             this.groupBoxSebStarterIni.Location = new System.Drawing.Point(20, 40);
             this.groupBoxSebStarterIni.Name = "groupBoxSebStarterIni";
-            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(610, 100);
+            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(590, 100);
             this.groupBoxSebStarterIni.TabIndex = 26;
             this.groupBoxSebStarterIni.TabStop = false;
             this.groupBoxSebStarterIni.Text = "SebStarter.ini";
@@ -332,7 +332,7 @@
             this.groupBoxOnlineExam.Controls.Add(this.textBoxExamUrl);
             this.groupBoxOnlineExam.Location = new System.Drawing.Point(20, 430);
             this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
-            this.groupBoxOnlineExam.Size = new System.Drawing.Size(610, 210);
+            this.groupBoxOnlineExam.Size = new System.Drawing.Size(590, 210);
             this.groupBoxOnlineExam.TabIndex = 25;
             this.groupBoxOnlineExam.TabStop = false;
             this.groupBoxOnlineExam.Text = "Online exam";
@@ -352,7 +352,7 @@
             this.textBoxQuitHashcode.Location = new System.Drawing.Point(153, 180);
             this.textBoxQuitHashcode.Name = "textBoxQuitHashcode";
             this.textBoxQuitHashcode.ReadOnly = true;
-            this.textBoxQuitHashcode.Size = new System.Drawing.Size(450, 22);
+            this.textBoxQuitHashcode.Size = new System.Drawing.Size(420, 22);
             this.textBoxQuitHashcode.TabIndex = 30;
             this.textBoxQuitHashcode.Visible = false;
             // 
@@ -371,7 +371,7 @@
             this.textBoxQuitPassword.Location = new System.Drawing.Point(153, 150);
             this.textBoxQuitPassword.Name = "textBoxQuitPassword";
             this.textBoxQuitPassword.ReadOnly = true;
-            this.textBoxQuitPassword.Size = new System.Drawing.Size(450, 22);
+            this.textBoxQuitPassword.Size = new System.Drawing.Size(420, 22);
             this.textBoxQuitPassword.TabIndex = 28;
             this.textBoxQuitPassword.Visible = false;
             this.textBoxQuitPassword.WordWrap = false;
@@ -381,7 +381,7 @@
             // 
             this.textBoxAutostartProcess.Location = new System.Drawing.Point(153, 60);
             this.textBoxAutostartProcess.Name = "textBoxAutostartProcess";
-            this.textBoxAutostartProcess.Size = new System.Drawing.Size(450, 22);
+            this.textBoxAutostartProcess.Size = new System.Drawing.Size(420, 22);
             this.textBoxAutostartProcess.TabIndex = 27;
             this.textBoxAutostartProcess.TextChanged += new System.EventHandler(this.textBoxAutostartProcess_TextChanged);
             // 
@@ -407,7 +407,7 @@
             // 
             this.textBoxSebBrowser.Location = new System.Drawing.Point(153, 30);
             this.textBoxSebBrowser.Name = "textBoxSebBrowser";
-            this.textBoxSebBrowser.Size = new System.Drawing.Size(450, 22);
+            this.textBoxSebBrowser.Size = new System.Drawing.Size(420, 22);
             this.textBoxSebBrowser.TabIndex = 24;
             this.textBoxSebBrowser.TextChanged += new System.EventHandler(this.textBoxSebBrowser_TextChanged);
             // 
@@ -433,7 +433,7 @@
             // 
             this.textBoxPermittedApplications.Location = new System.Drawing.Point(153, 120);
             this.textBoxPermittedApplications.Name = "textBoxPermittedApplications";
-            this.textBoxPermittedApplications.Size = new System.Drawing.Size(450, 22);
+            this.textBoxPermittedApplications.Size = new System.Drawing.Size(420, 22);
             this.textBoxPermittedApplications.TabIndex = 23;
             this.textBoxPermittedApplications.TextChanged += new System.EventHandler(this.textBoxPermittedApplications_TextChanged);
             // 
@@ -441,7 +441,7 @@
             // 
             this.textBoxExamUrl.Location = new System.Drawing.Point(153, 90);
             this.textBoxExamUrl.Name = "textBoxExamUrl";
-            this.textBoxExamUrl.Size = new System.Drawing.Size(450, 22);
+            this.textBoxExamUrl.Size = new System.Drawing.Size(420, 22);
             this.textBoxExamUrl.TabIndex = 20;
             this.textBoxExamUrl.TextChanged += new System.EventHandler(this.textBoxExamUrl_TextChanged);
             // 
@@ -465,7 +465,7 @@
             this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableVmWareClientShade);
             this.groupBoxBluescreenOptions.Location = new System.Drawing.Point(20, 150);
             this.groupBoxBluescreenOptions.Name = "groupBoxBluescreenOptions";
-            this.groupBoxBluescreenOptions.Size = new System.Drawing.Size(270, 270);
+            this.groupBoxBluescreenOptions.Size = new System.Drawing.Size(250, 270);
             this.groupBoxBluescreenOptions.TabIndex = 24;
             this.groupBoxBluescreenOptions.TabStop = false;
             this.groupBoxBluescreenOptions.Text = "Inside / outside SEB";
@@ -473,7 +473,7 @@
             // checkBoxInsideSebEnableVmWareClientShade
             // 
             this.checkBoxInsideSebEnableVmWareClientShade.AutoSize = true;
-            this.checkBoxInsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(19, 242);
+            this.checkBoxInsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(10, 242);
             this.checkBoxInsideSebEnableVmWareClientShade.Name = "checkBoxInsideSebEnableVmWareClientShade";
             this.checkBoxInsideSebEnableVmWareClientShade.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableVmWareClientShade.TabIndex = 24;
@@ -483,7 +483,7 @@
             // checkBoxInsideSebEnableEaseOfAccess
             // 
             this.checkBoxInsideSebEnableEaseOfAccess.AutoSize = true;
-            this.checkBoxInsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(19, 212);
+            this.checkBoxInsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(10, 212);
             this.checkBoxInsideSebEnableEaseOfAccess.Name = "checkBoxInsideSebEnableEaseOfAccess";
             this.checkBoxInsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableEaseOfAccess.TabIndex = 23;
@@ -493,7 +493,7 @@
             // checkBoxInsideSebEnableShutDown
             // 
             this.checkBoxInsideSebEnableShutDown.AutoSize = true;
-            this.checkBoxInsideSebEnableShutDown.Location = new System.Drawing.Point(19, 182);
+            this.checkBoxInsideSebEnableShutDown.Location = new System.Drawing.Point(10, 182);
             this.checkBoxInsideSebEnableShutDown.Name = "checkBoxInsideSebEnableShutDown";
             this.checkBoxInsideSebEnableShutDown.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableShutDown.TabIndex = 22;
@@ -503,7 +503,7 @@
             // checkBoxInsideSebEnableLogOff
             // 
             this.checkBoxInsideSebEnableLogOff.AutoSize = true;
-            this.checkBoxInsideSebEnableLogOff.Location = new System.Drawing.Point(19, 152);
+            this.checkBoxInsideSebEnableLogOff.Location = new System.Drawing.Point(10, 152);
             this.checkBoxInsideSebEnableLogOff.Name = "checkBoxInsideSebEnableLogOff";
             this.checkBoxInsideSebEnableLogOff.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableLogOff.TabIndex = 21;
@@ -513,7 +513,7 @@
             // checkBoxInsideSebEnableStartTaskManager
             // 
             this.checkBoxInsideSebEnableStartTaskManager.AutoSize = true;
-            this.checkBoxInsideSebEnableStartTaskManager.Location = new System.Drawing.Point(19, 122);
+            this.checkBoxInsideSebEnableStartTaskManager.Location = new System.Drawing.Point(10, 122);
             this.checkBoxInsideSebEnableStartTaskManager.Name = "checkBoxInsideSebEnableStartTaskManager";
             this.checkBoxInsideSebEnableStartTaskManager.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableStartTaskManager.TabIndex = 20;
@@ -523,7 +523,7 @@
             // checkBoxInsideSebEnableChangeAPassword
             // 
             this.checkBoxInsideSebEnableChangeAPassword.AutoSize = true;
-            this.checkBoxInsideSebEnableChangeAPassword.Location = new System.Drawing.Point(19, 92);
+            this.checkBoxInsideSebEnableChangeAPassword.Location = new System.Drawing.Point(10, 92);
             this.checkBoxInsideSebEnableChangeAPassword.Name = "checkBoxInsideSebEnableChangeAPassword";
             this.checkBoxInsideSebEnableChangeAPassword.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableChangeAPassword.TabIndex = 19;
@@ -533,7 +533,7 @@
             // checkBoxInsideSebEnableLockThisComputer
             // 
             this.checkBoxInsideSebEnableLockThisComputer.AutoSize = true;
-            this.checkBoxInsideSebEnableLockThisComputer.Location = new System.Drawing.Point(19, 62);
+            this.checkBoxInsideSebEnableLockThisComputer.Location = new System.Drawing.Point(10, 62);
             this.checkBoxInsideSebEnableLockThisComputer.Name = "checkBoxInsideSebEnableLockThisComputer";
             this.checkBoxInsideSebEnableLockThisComputer.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableLockThisComputer.TabIndex = 18;
@@ -543,7 +543,7 @@
             // checkBoxInsideSebEnableSwitchUser
             // 
             this.checkBoxInsideSebEnableSwitchUser.AutoSize = true;
-            this.checkBoxInsideSebEnableSwitchUser.Location = new System.Drawing.Point(19, 32);
+            this.checkBoxInsideSebEnableSwitchUser.Location = new System.Drawing.Point(10, 32);
             this.checkBoxInsideSebEnableSwitchUser.Name = "checkBoxInsideSebEnableSwitchUser";
             this.checkBoxInsideSebEnableSwitchUser.Size = new System.Drawing.Size(18, 17);
             this.checkBoxInsideSebEnableSwitchUser.TabIndex = 17;
@@ -553,7 +553,7 @@
             // checkBoxOutsideSebEnableSwitchUser
             // 
             this.checkBoxOutsideSebEnableSwitchUser.AutoSize = true;
-            this.checkBoxOutsideSebEnableSwitchUser.Location = new System.Drawing.Point(43, 30);
+            this.checkBoxOutsideSebEnableSwitchUser.Location = new System.Drawing.Point(30, 30);
             this.checkBoxOutsideSebEnableSwitchUser.Name = "checkBoxOutsideSebEnableSwitchUser";
             this.checkBoxOutsideSebEnableSwitchUser.Size = new System.Drawing.Size(152, 21);
             this.checkBoxOutsideSebEnableSwitchUser.TabIndex = 0;
@@ -564,7 +564,7 @@
             // checkBoxOutsideSebEnableLockThisComputer
             // 
             this.checkBoxOutsideSebEnableLockThisComputer.AutoSize = true;
-            this.checkBoxOutsideSebEnableLockThisComputer.Location = new System.Drawing.Point(43, 60);
+            this.checkBoxOutsideSebEnableLockThisComputer.Location = new System.Drawing.Point(30, 60);
             this.checkBoxOutsideSebEnableLockThisComputer.Name = "checkBoxOutsideSebEnableLockThisComputer";
             this.checkBoxOutsideSebEnableLockThisComputer.Size = new System.Drawing.Size(197, 21);
             this.checkBoxOutsideSebEnableLockThisComputer.TabIndex = 1;
@@ -575,7 +575,7 @@
             // checkBoxOutsideSebEnableChangeAPassword
             // 
             this.checkBoxOutsideSebEnableChangeAPassword.AutoSize = true;
-            this.checkBoxOutsideSebEnableChangeAPassword.Location = new System.Drawing.Point(43, 90);
+            this.checkBoxOutsideSebEnableChangeAPassword.Location = new System.Drawing.Point(30, 90);
             this.checkBoxOutsideSebEnableChangeAPassword.Name = "checkBoxOutsideSebEnableChangeAPassword";
             this.checkBoxOutsideSebEnableChangeAPassword.Size = new System.Drawing.Size(203, 21);
             this.checkBoxOutsideSebEnableChangeAPassword.TabIndex = 3;
@@ -586,7 +586,7 @@
             // checkBoxOutsideSebEnableStartTaskManager
             // 
             this.checkBoxOutsideSebEnableStartTaskManager.AutoSize = true;
-            this.checkBoxOutsideSebEnableStartTaskManager.Location = new System.Drawing.Point(43, 120);
+            this.checkBoxOutsideSebEnableStartTaskManager.Location = new System.Drawing.Point(30, 120);
             this.checkBoxOutsideSebEnableStartTaskManager.Name = "checkBoxOutsideSebEnableStartTaskManager";
             this.checkBoxOutsideSebEnableStartTaskManager.Size = new System.Drawing.Size(203, 21);
             this.checkBoxOutsideSebEnableStartTaskManager.TabIndex = 2;
@@ -597,7 +597,7 @@
             // checkBoxOutsideSebEnableLogOff
             // 
             this.checkBoxOutsideSebEnableLogOff.AutoSize = true;
-            this.checkBoxOutsideSebEnableLogOff.Location = new System.Drawing.Point(43, 150);
+            this.checkBoxOutsideSebEnableLogOff.Location = new System.Drawing.Point(30, 150);
             this.checkBoxOutsideSebEnableLogOff.Name = "checkBoxOutsideSebEnableLogOff";
             this.checkBoxOutsideSebEnableLogOff.Size = new System.Drawing.Size(122, 21);
             this.checkBoxOutsideSebEnableLogOff.TabIndex = 6;
@@ -608,7 +608,7 @@
             // checkBoxOutsideSebEnableShutDown
             // 
             this.checkBoxOutsideSebEnableShutDown.AutoSize = true;
-            this.checkBoxOutsideSebEnableShutDown.Location = new System.Drawing.Point(43, 180);
+            this.checkBoxOutsideSebEnableShutDown.Location = new System.Drawing.Point(30, 180);
             this.checkBoxOutsideSebEnableShutDown.Name = "checkBoxOutsideSebEnableShutDown";
             this.checkBoxOutsideSebEnableShutDown.Size = new System.Drawing.Size(144, 21);
             this.checkBoxOutsideSebEnableShutDown.TabIndex = 4;
@@ -619,7 +619,7 @@
             // checkBoxOutsideSebEnableEaseOfAccess
             // 
             this.checkBoxOutsideSebEnableEaseOfAccess.AutoSize = true;
-            this.checkBoxOutsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(43, 210);
+            this.checkBoxOutsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(30, 210);
             this.checkBoxOutsideSebEnableEaseOfAccess.Name = "checkBoxOutsideSebEnableEaseOfAccess";
             this.checkBoxOutsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(175, 21);
             this.checkBoxOutsideSebEnableEaseOfAccess.TabIndex = 16;
@@ -630,7 +630,7 @@
             // checkBoxOutsideSebEnableVmWareClientShade
             // 
             this.checkBoxOutsideSebEnableVmWareClientShade.AutoSize = true;
-            this.checkBoxOutsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(43, 240);
+            this.checkBoxOutsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(30, 240);
             this.checkBoxOutsideSebEnableVmWareClientShade.Name = "checkBoxOutsideSebEnableVmWareClientShade";
             this.checkBoxOutsideSebEnableVmWareClientShade.Size = new System.Drawing.Size(212, 21);
             this.checkBoxOutsideSebEnableVmWareClientShade.TabIndex = 7;
@@ -653,9 +653,9 @@
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey1);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey3);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey2);
-            this.groupBoxExitSequence.Location = new System.Drawing.Point(340, 150);
+            this.groupBoxExitSequence.Location = new System.Drawing.Point(320, 150);
             this.groupBoxExitSequence.Name = "groupBoxExitSequence";
-            this.groupBoxExitSequence.Size = new System.Drawing.Size(160, 250);
+            this.groupBoxExitSequence.Size = new System.Drawing.Size(160, 240);
             this.groupBoxExitSequence.TabIndex = 51;
             this.groupBoxExitSequence.TabStop = false;
             this.groupBoxExitSequence.Text = "Exit sequence";
@@ -677,9 +677,9 @@
             "F10",
             "F11",
             "F12"});
-            this.listBoxExitKey1.Location = new System.Drawing.Point(19, 36);
+            this.listBoxExitKey1.Location = new System.Drawing.Point(10, 30);
             this.listBoxExitKey1.Name = "listBoxExitKey1";
-            this.listBoxExitKey1.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKey1.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey1.TabIndex = 47;
             this.listBoxExitKey1.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyFirst_SelectedIndexChanged);
             // 
@@ -700,9 +700,9 @@
             "F10",
             "F11",
             "F12"});
-            this.listBoxExitKey3.Location = new System.Drawing.Point(107, 36);
+            this.listBoxExitKey3.Location = new System.Drawing.Point(110, 30);
             this.listBoxExitKey3.Name = "listBoxExitKey3";
-            this.listBoxExitKey3.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKey3.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey3.TabIndex = 50;
             this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeyThird_SelectedIndexChanged);
             // 
@@ -723,9 +723,9 @@
             "F10",
             "F11",
             "F12"});
-            this.listBoxExitKey2.Location = new System.Drawing.Point(63, 36);
+            this.listBoxExitKey2.Location = new System.Drawing.Point(60, 30);
             this.listBoxExitKey2.Name = "listBoxExitKey2";
-            this.listBoxExitKey2.Size = new System.Drawing.Size(38, 196);
+            this.listBoxExitKey2.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKeySecond_SelectedIndexChanged);
             // 
@@ -737,7 +737,7 @@
             this.groupBoxMsgHookIni.Controls.Add(this.buttonRestoreSettingsOfMsgHookIni);
             this.groupBoxMsgHookIni.Location = new System.Drawing.Point(20, 40);
             this.groupBoxMsgHookIni.Name = "groupBoxMsgHookIni";
-            this.groupBoxMsgHookIni.Size = new System.Drawing.Size(560, 100);
+            this.groupBoxMsgHookIni.Size = new System.Drawing.Size(590, 100);
             this.groupBoxMsgHookIni.TabIndex = 40;
             this.groupBoxMsgHookIni.TabStop = false;
             this.groupBoxMsgHookIni.Text = "MsgHook.ini";
@@ -799,9 +799,9 @@
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF9);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF7);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF8);
-            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(210, 150);
+            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(200, 150);
             this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
-            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(120, 400);
+            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(110, 390);
             this.groupBoxFunctionKeys.TabIndex = 39;
             this.groupBoxFunctionKeys.TabStop = false;
             this.groupBoxFunctionKeys.Text = "Function keys";
@@ -809,7 +809,7 @@
             // checkBoxEnableF1
             // 
             this.checkBoxEnableF1.AutoSize = true;
-            this.checkBoxEnableF1.Location = new System.Drawing.Point(6, 30);
+            this.checkBoxEnableF1.Location = new System.Drawing.Point(10, 30);
             this.checkBoxEnableF1.Name = "checkBoxEnableF1";
             this.checkBoxEnableF1.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF1.TabIndex = 25;
@@ -820,7 +820,7 @@
             // checkBoxEnableF2
             // 
             this.checkBoxEnableF2.AutoSize = true;
-            this.checkBoxEnableF2.Location = new System.Drawing.Point(6, 60);
+            this.checkBoxEnableF2.Location = new System.Drawing.Point(10, 60);
             this.checkBoxEnableF2.Name = "checkBoxEnableF2";
             this.checkBoxEnableF2.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF2.TabIndex = 26;
@@ -831,7 +831,7 @@
             // checkBoxEnableF12
             // 
             this.checkBoxEnableF12.AutoSize = true;
-            this.checkBoxEnableF12.Location = new System.Drawing.Point(6, 360);
+            this.checkBoxEnableF12.Location = new System.Drawing.Point(10, 360);
             this.checkBoxEnableF12.Name = "checkBoxEnableF12";
             this.checkBoxEnableF12.Size = new System.Drawing.Size(102, 21);
             this.checkBoxEnableF12.TabIndex = 37;
@@ -842,7 +842,7 @@
             // checkBoxEnableF3
             // 
             this.checkBoxEnableF3.AutoSize = true;
-            this.checkBoxEnableF3.Location = new System.Drawing.Point(6, 90);
+            this.checkBoxEnableF3.Location = new System.Drawing.Point(10, 90);
             this.checkBoxEnableF3.Name = "checkBoxEnableF3";
             this.checkBoxEnableF3.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF3.TabIndex = 27;
@@ -853,7 +853,7 @@
             // checkBoxEnableF11
             // 
             this.checkBoxEnableF11.AutoSize = true;
-            this.checkBoxEnableF11.Location = new System.Drawing.Point(6, 330);
+            this.checkBoxEnableF11.Location = new System.Drawing.Point(10, 330);
             this.checkBoxEnableF11.Name = "checkBoxEnableF11";
             this.checkBoxEnableF11.Size = new System.Drawing.Size(102, 21);
             this.checkBoxEnableF11.TabIndex = 36;
@@ -864,7 +864,7 @@
             // checkBoxEnableF4
             // 
             this.checkBoxEnableF4.AutoSize = true;
-            this.checkBoxEnableF4.Location = new System.Drawing.Point(6, 120);
+            this.checkBoxEnableF4.Location = new System.Drawing.Point(10, 120);
             this.checkBoxEnableF4.Name = "checkBoxEnableF4";
             this.checkBoxEnableF4.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF4.TabIndex = 28;
@@ -875,7 +875,7 @@
             // checkBoxEnableF5
             // 
             this.checkBoxEnableF5.AutoSize = true;
-            this.checkBoxEnableF5.Location = new System.Drawing.Point(6, 150);
+            this.checkBoxEnableF5.Location = new System.Drawing.Point(10, 150);
             this.checkBoxEnableF5.Name = "checkBoxEnableF5";
             this.checkBoxEnableF5.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF5.TabIndex = 29;
@@ -886,7 +886,7 @@
             // checkBoxEnableF10
             // 
             this.checkBoxEnableF10.AutoSize = true;
-            this.checkBoxEnableF10.Location = new System.Drawing.Point(6, 300);
+            this.checkBoxEnableF10.Location = new System.Drawing.Point(10, 300);
             this.checkBoxEnableF10.Name = "checkBoxEnableF10";
             this.checkBoxEnableF10.Size = new System.Drawing.Size(102, 21);
             this.checkBoxEnableF10.TabIndex = 34;
@@ -897,7 +897,7 @@
             // checkBoxEnableF6
             // 
             this.checkBoxEnableF6.AutoSize = true;
-            this.checkBoxEnableF6.Location = new System.Drawing.Point(6, 180);
+            this.checkBoxEnableF6.Location = new System.Drawing.Point(10, 180);
             this.checkBoxEnableF6.Name = "checkBoxEnableF6";
             this.checkBoxEnableF6.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF6.TabIndex = 30;
@@ -908,7 +908,7 @@
             // checkBoxEnableF9
             // 
             this.checkBoxEnableF9.AutoSize = true;
-            this.checkBoxEnableF9.Location = new System.Drawing.Point(6, 270);
+            this.checkBoxEnableF9.Location = new System.Drawing.Point(10, 270);
             this.checkBoxEnableF9.Name = "checkBoxEnableF9";
             this.checkBoxEnableF9.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF9.TabIndex = 33;
@@ -919,7 +919,7 @@
             // checkBoxEnableF7
             // 
             this.checkBoxEnableF7.AutoSize = true;
-            this.checkBoxEnableF7.Location = new System.Drawing.Point(6, 210);
+            this.checkBoxEnableF7.Location = new System.Drawing.Point(10, 210);
             this.checkBoxEnableF7.Name = "checkBoxEnableF7";
             this.checkBoxEnableF7.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF7.TabIndex = 31;
@@ -930,7 +930,7 @@
             // checkBoxEnableF8
             // 
             this.checkBoxEnableF8.AutoSize = true;
-            this.checkBoxEnableF8.Location = new System.Drawing.Point(6, 240);
+            this.checkBoxEnableF8.Location = new System.Drawing.Point(10, 240);
             this.checkBoxEnableF8.Name = "checkBoxEnableF8";
             this.checkBoxEnableF8.Size = new System.Drawing.Size(94, 21);
             this.checkBoxEnableF8.TabIndex = 32;
@@ -949,7 +949,7 @@
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableRightMouse);
             this.groupBoxSpecialKeys.Location = new System.Drawing.Point(20, 150);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
-            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(180, 250);
+            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(170, 240);
             this.groupBoxSpecialKeys.TabIndex = 38;
             this.groupBoxSpecialKeys.TabStop = false;
             this.groupBoxSpecialKeys.Text = "Special keys";
@@ -957,7 +957,7 @@
             // checkBoxEnableEsc
             // 
             this.checkBoxEnableEsc.AutoSize = true;
-            this.checkBoxEnableEsc.Location = new System.Drawing.Point(6, 30);
+            this.checkBoxEnableEsc.Location = new System.Drawing.Point(10, 30);
             this.checkBoxEnableEsc.Name = "checkBoxEnableEsc";
             this.checkBoxEnableEsc.Size = new System.Drawing.Size(101, 21);
             this.checkBoxEnableEsc.TabIndex = 41;
@@ -968,7 +968,7 @@
             // checkBoxEnableCtrlEsc
             // 
             this.checkBoxEnableCtrlEsc.AutoSize = true;
-            this.checkBoxEnableCtrlEsc.Location = new System.Drawing.Point(6, 60);
+            this.checkBoxEnableCtrlEsc.Location = new System.Drawing.Point(10, 60);
             this.checkBoxEnableCtrlEsc.Name = "checkBoxEnableCtrlEsc";
             this.checkBoxEnableCtrlEsc.Size = new System.Drawing.Size(127, 21);
             this.checkBoxEnableCtrlEsc.TabIndex = 19;
@@ -979,7 +979,7 @@
             // checkBoxEnableAltEsc
             // 
             this.checkBoxEnableAltEsc.AutoSize = true;
-            this.checkBoxEnableAltEsc.Location = new System.Drawing.Point(6, 90);
+            this.checkBoxEnableAltEsc.Location = new System.Drawing.Point(10, 90);
             this.checkBoxEnableAltEsc.Name = "checkBoxEnableAltEsc";
             this.checkBoxEnableAltEsc.Size = new System.Drawing.Size(122, 21);
             this.checkBoxEnableAltEsc.TabIndex = 20;
@@ -990,7 +990,7 @@
             // checkBoxEnableAltTab
             // 
             this.checkBoxEnableAltTab.AutoSize = true;
-            this.checkBoxEnableAltTab.Location = new System.Drawing.Point(6, 120);
+            this.checkBoxEnableAltTab.Location = new System.Drawing.Point(10, 120);
             this.checkBoxEnableAltTab.Name = "checkBoxEnableAltTab";
             this.checkBoxEnableAltTab.Size = new System.Drawing.Size(124, 21);
             this.checkBoxEnableAltTab.TabIndex = 21;
@@ -1001,7 +1001,7 @@
             // checkBoxEnableAltF4
             // 
             this.checkBoxEnableAltF4.AutoSize = true;
-            this.checkBoxEnableAltF4.Location = new System.Drawing.Point(6, 150);
+            this.checkBoxEnableAltF4.Location = new System.Drawing.Point(10, 150);
             this.checkBoxEnableAltF4.Name = "checkBoxEnableAltF4";
             this.checkBoxEnableAltF4.Size = new System.Drawing.Size(115, 21);
             this.checkBoxEnableAltF4.TabIndex = 22;
@@ -1012,7 +1012,7 @@
             // checkBoxEnableStartMenu
             // 
             this.checkBoxEnableStartMenu.AutoSize = true;
-            this.checkBoxEnableStartMenu.Location = new System.Drawing.Point(6, 180);
+            this.checkBoxEnableStartMenu.Location = new System.Drawing.Point(10, 180);
             this.checkBoxEnableStartMenu.Name = "checkBoxEnableStartMenu";
             this.checkBoxEnableStartMenu.Size = new System.Drawing.Size(147, 21);
             this.checkBoxEnableStartMenu.TabIndex = 23;
@@ -1023,7 +1023,7 @@
             // checkBoxEnableRightMouse
             // 
             this.checkBoxEnableRightMouse.AutoSize = true;
-            this.checkBoxEnableRightMouse.Location = new System.Drawing.Point(6, 210);
+            this.checkBoxEnableRightMouse.Location = new System.Drawing.Point(10, 210);
             this.checkBoxEnableRightMouse.Name = "checkBoxEnableRightMouse";
             this.checkBoxEnableRightMouse.Size = new System.Drawing.Size(157, 21);
             this.checkBoxEnableRightMouse.TabIndex = 24;
