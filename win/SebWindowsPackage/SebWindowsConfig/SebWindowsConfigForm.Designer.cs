@@ -57,15 +57,23 @@
             this.labelPermittedApplications = new System.Windows.Forms.Label();
             this.textBoxPermittedApplications = new System.Windows.Forms.TextBox();
             this.textBoxExamUrl = new System.Windows.Forms.TextBox();
-            this.groupBoxRegistryValues = new System.Windows.Forms.GroupBox();
-            this.checkBoxEnableSwitchUser = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableLockThisComputer = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableChangeAPassword = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableStartTaskManager = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableLogOff = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableShutDown = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
+            this.groupBoxBluescreenOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsideSebEnableShutDown = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsideSebEnableLogOff = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsideSebEnableStartTaskManager = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsideSebEnableChangeAPassword = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsideSebEnableLockThisComputer = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsideSebEnableSwitchUser = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableSwitchUser = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableLockThisComputer = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableChangeAPassword = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableStartTaskManager = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableLogOff = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableShutDown = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
+            this.checkBoxOutsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.buttonFinish = new System.Windows.Forms.Button();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
@@ -108,7 +116,7 @@
             this.groupBoxSecurityOptions.SuspendLayout();
             this.groupBoxSebStarterIni.SuspendLayout();
             this.groupBoxOnlineExam.SuspendLayout();
-            this.groupBoxRegistryValues.SuspendLayout();
+            this.groupBoxBluescreenOptions.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.groupBoxMsgHookIni.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
@@ -128,7 +136,7 @@
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSecurityOptions);
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSebStarterIni);
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxOnlineExam);
-            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxRegistryValues);
+            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxBluescreenOptions);
             // 
             // splitContainerSebConfigExe.Panel2
             // 
@@ -153,9 +161,9 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxForceWindowsService);
-            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(294, 154);
+            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(303, 154);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
-            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(319, 259);
+            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(320, 259);
             this.groupBoxSecurityOptions.TabIndex = 45;
             this.groupBoxSecurityOptions.TabStop = false;
             this.groupBoxSecurityOptions.Text = "Security options";
@@ -260,7 +268,7 @@
             this.groupBoxSebStarterIni.Controls.Add(this.checkBoxWriteLogFileSebStarterLog);
             this.groupBoxSebStarterIni.Location = new System.Drawing.Point(24, 38);
             this.groupBoxSebStarterIni.Name = "groupBoxSebStarterIni";
-            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(589, 100);
+            this.groupBoxSebStarterIni.Size = new System.Drawing.Size(599, 100);
             this.groupBoxSebStarterIni.TabIndex = 26;
             this.groupBoxSebStarterIni.TabStop = false;
             this.groupBoxSebStarterIni.Text = "SebStarter.ini";
@@ -324,7 +332,7 @@
             this.groupBoxOnlineExam.Controls.Add(this.textBoxExamUrl);
             this.groupBoxOnlineExam.Location = new System.Drawing.Point(24, 433);
             this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
-            this.groupBoxOnlineExam.Size = new System.Drawing.Size(589, 210);
+            this.groupBoxOnlineExam.Size = new System.Drawing.Size(599, 210);
             this.groupBoxOnlineExam.TabIndex = 25;
             this.groupBoxOnlineExam.TabStop = false;
             this.groupBoxOnlineExam.Text = "Online exam";
@@ -437,110 +445,198 @@
             this.textBoxExamUrl.TabIndex = 20;
             this.textBoxExamUrl.TextChanged += new System.EventHandler(this.textBoxExamUrl_TextChanged);
             // 
-            // groupBoxRegistryValues
+            // groupBoxBluescreenOptions
             // 
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableSwitchUser);
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableLockThisComputer);
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableChangeAPassword);
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableStartTaskManager);
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableLogOff);
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableShutDown);
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableEaseOfAccess);
-            this.groupBoxRegistryValues.Controls.Add(this.checkBoxEnableVmWareClientShade);
-            this.groupBoxRegistryValues.Location = new System.Drawing.Point(24, 154);
-            this.groupBoxRegistryValues.Name = "groupBoxRegistryValues";
-            this.groupBoxRegistryValues.Size = new System.Drawing.Size(264, 259);
-            this.groupBoxRegistryValues.TabIndex = 24;
-            this.groupBoxRegistryValues.TabStop = false;
-            this.groupBoxRegistryValues.Text = "Registry values";
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableVmWareClientShade);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableEaseOfAccess);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableShutDown);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableLogOff);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableStartTaskManager);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableChangeAPassword);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableLockThisComputer);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxInsideSebEnableSwitchUser);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableSwitchUser);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableLockThisComputer);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableChangeAPassword);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableStartTaskManager);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableLogOff);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableShutDown);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableEaseOfAccess);
+            this.groupBoxBluescreenOptions.Controls.Add(this.checkBoxOutsideSebEnableVmWareClientShade);
+            this.groupBoxBluescreenOptions.Location = new System.Drawing.Point(24, 154);
+            this.groupBoxBluescreenOptions.Name = "groupBoxBluescreenOptions";
+            this.groupBoxBluescreenOptions.Size = new System.Drawing.Size(273, 259);
+            this.groupBoxBluescreenOptions.TabIndex = 24;
+            this.groupBoxBluescreenOptions.TabStop = false;
+            this.groupBoxBluescreenOptions.Text = "Inside / outside SEB";
             // 
-            // checkBoxEnableSwitchUser
+            // checkBoxInsideSebEnableVmWareClientShade
             // 
-            this.checkBoxEnableSwitchUser.AutoSize = true;
-            this.checkBoxEnableSwitchUser.Location = new System.Drawing.Point(19, 37);
-            this.checkBoxEnableSwitchUser.Name = "checkBoxEnableSwitchUser";
-            this.checkBoxEnableSwitchUser.Size = new System.Drawing.Size(152, 21);
-            this.checkBoxEnableSwitchUser.TabIndex = 0;
-            this.checkBoxEnableSwitchUser.Text = "Enable Switch User";
-            this.checkBoxEnableSwitchUser.UseVisualStyleBackColor = true;
-            this.checkBoxEnableSwitchUser.CheckedChanged += new System.EventHandler(this.checkBoxEnableSwitchUser_CheckedChanged);
+            this.checkBoxInsideSebEnableVmWareClientShade.AutoSize = true;
+            this.checkBoxInsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(19, 228);
+            this.checkBoxInsideSebEnableVmWareClientShade.Name = "checkBoxInsideSebEnableVmWareClientShade";
+            this.checkBoxInsideSebEnableVmWareClientShade.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableVmWareClientShade.TabIndex = 24;
+            this.checkBoxInsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableVmWareClientShade_CheckedChanged);
             // 
-            // checkBoxEnableLockThisComputer
+            // checkBoxInsideSebEnableEaseOfAccess
             // 
-            this.checkBoxEnableLockThisComputer.AutoSize = true;
-            this.checkBoxEnableLockThisComputer.Location = new System.Drawing.Point(19, 64);
-            this.checkBoxEnableLockThisComputer.Name = "checkBoxEnableLockThisComputer";
-            this.checkBoxEnableLockThisComputer.Size = new System.Drawing.Size(197, 21);
-            this.checkBoxEnableLockThisComputer.TabIndex = 1;
-            this.checkBoxEnableLockThisComputer.Text = "Enable Lock this computer";
-            this.checkBoxEnableLockThisComputer.UseVisualStyleBackColor = true;
-            this.checkBoxEnableLockThisComputer.CheckedChanged += new System.EventHandler(this.checkBoxEnableLockThisComputer_CheckedChanged);
+            this.checkBoxInsideSebEnableEaseOfAccess.AutoSize = true;
+            this.checkBoxInsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(19, 201);
+            this.checkBoxInsideSebEnableEaseOfAccess.Name = "checkBoxInsideSebEnableEaseOfAccess";
+            this.checkBoxInsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableEaseOfAccess.TabIndex = 23;
+            this.checkBoxInsideSebEnableEaseOfAccess.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableEaseOfAccess_CheckedChanged);
             // 
-            // checkBoxEnableChangeAPassword
+            // checkBoxInsideSebEnableShutDown
             // 
-            this.checkBoxEnableChangeAPassword.AutoSize = true;
-            this.checkBoxEnableChangeAPassword.Location = new System.Drawing.Point(19, 91);
-            this.checkBoxEnableChangeAPassword.Name = "checkBoxEnableChangeAPassword";
-            this.checkBoxEnableChangeAPassword.Size = new System.Drawing.Size(203, 21);
-            this.checkBoxEnableChangeAPassword.TabIndex = 3;
-            this.checkBoxEnableChangeAPassword.Text = "Enable Change a password";
-            this.checkBoxEnableChangeAPassword.UseVisualStyleBackColor = true;
-            this.checkBoxEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxEnableChangeAPassword_CheckedChanged);
+            this.checkBoxInsideSebEnableShutDown.AutoSize = true;
+            this.checkBoxInsideSebEnableShutDown.Location = new System.Drawing.Point(19, 174);
+            this.checkBoxInsideSebEnableShutDown.Name = "checkBoxInsideSebEnableShutDown";
+            this.checkBoxInsideSebEnableShutDown.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableShutDown.TabIndex = 22;
+            this.checkBoxInsideSebEnableShutDown.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableShutDown_CheckedChanged);
             // 
-            // checkBoxEnableStartTaskManager
+            // checkBoxInsideSebEnableLogOff
             // 
-            this.checkBoxEnableStartTaskManager.AutoSize = true;
-            this.checkBoxEnableStartTaskManager.Location = new System.Drawing.Point(19, 118);
-            this.checkBoxEnableStartTaskManager.Name = "checkBoxEnableStartTaskManager";
-            this.checkBoxEnableStartTaskManager.Size = new System.Drawing.Size(203, 21);
-            this.checkBoxEnableStartTaskManager.TabIndex = 2;
-            this.checkBoxEnableStartTaskManager.Text = "Enable Start Task Manager";
-            this.checkBoxEnableStartTaskManager.UseVisualStyleBackColor = true;
-            this.checkBoxEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxEnableStartTaskManager_CheckedChanged);
+            this.checkBoxInsideSebEnableLogOff.AutoSize = true;
+            this.checkBoxInsideSebEnableLogOff.Location = new System.Drawing.Point(19, 147);
+            this.checkBoxInsideSebEnableLogOff.Name = "checkBoxInsideSebEnableLogOff";
+            this.checkBoxInsideSebEnableLogOff.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableLogOff.TabIndex = 21;
+            this.checkBoxInsideSebEnableLogOff.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableLogOff_CheckedChanged);
             // 
-            // checkBoxEnableLogOff
+            // checkBoxInsideSebEnableStartTaskManager
             // 
-            this.checkBoxEnableLogOff.AutoSize = true;
-            this.checkBoxEnableLogOff.Location = new System.Drawing.Point(19, 145);
-            this.checkBoxEnableLogOff.Name = "checkBoxEnableLogOff";
-            this.checkBoxEnableLogOff.Size = new System.Drawing.Size(122, 21);
-            this.checkBoxEnableLogOff.TabIndex = 6;
-            this.checkBoxEnableLogOff.Text = "Enable Log off";
-            this.checkBoxEnableLogOff.UseVisualStyleBackColor = true;
-            this.checkBoxEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxEnableLogOff_CheckedChanged);
+            this.checkBoxInsideSebEnableStartTaskManager.AutoSize = true;
+            this.checkBoxInsideSebEnableStartTaskManager.Location = new System.Drawing.Point(19, 120);
+            this.checkBoxInsideSebEnableStartTaskManager.Name = "checkBoxInsideSebEnableStartTaskManager";
+            this.checkBoxInsideSebEnableStartTaskManager.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableStartTaskManager.TabIndex = 20;
+            this.checkBoxInsideSebEnableStartTaskManager.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableStartTaskManager_CheckedChanged);
             // 
-            // checkBoxEnableShutDown
+            // checkBoxInsideSebEnableChangeAPassword
             // 
-            this.checkBoxEnableShutDown.AutoSize = true;
-            this.checkBoxEnableShutDown.Location = new System.Drawing.Point(19, 172);
-            this.checkBoxEnableShutDown.Name = "checkBoxEnableShutDown";
-            this.checkBoxEnableShutDown.Size = new System.Drawing.Size(144, 21);
-            this.checkBoxEnableShutDown.TabIndex = 4;
-            this.checkBoxEnableShutDown.Text = "Enable Shut down";
-            this.checkBoxEnableShutDown.UseVisualStyleBackColor = true;
-            this.checkBoxEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxEnableShutDown_CheckedChanged);
+            this.checkBoxInsideSebEnableChangeAPassword.AutoSize = true;
+            this.checkBoxInsideSebEnableChangeAPassword.Location = new System.Drawing.Point(19, 91);
+            this.checkBoxInsideSebEnableChangeAPassword.Name = "checkBoxInsideSebEnableChangeAPassword";
+            this.checkBoxInsideSebEnableChangeAPassword.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableChangeAPassword.TabIndex = 19;
+            this.checkBoxInsideSebEnableChangeAPassword.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableChangeAPassword_CheckedChanged);
             // 
-            // checkBoxEnableEaseOfAccess
+            // checkBoxInsideSebEnableLockThisComputer
             // 
-            this.checkBoxEnableEaseOfAccess.AutoSize = true;
-            this.checkBoxEnableEaseOfAccess.Location = new System.Drawing.Point(19, 199);
-            this.checkBoxEnableEaseOfAccess.Name = "checkBoxEnableEaseOfAccess";
-            this.checkBoxEnableEaseOfAccess.Size = new System.Drawing.Size(175, 21);
-            this.checkBoxEnableEaseOfAccess.TabIndex = 16;
-            this.checkBoxEnableEaseOfAccess.Text = "Enable Ease of Access";
-            this.checkBoxEnableEaseOfAccess.UseVisualStyleBackColor = true;
-            this.checkBoxEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxEnableEaseOfAccess_CheckedChanged);
+            this.checkBoxInsideSebEnableLockThisComputer.AutoSize = true;
+            this.checkBoxInsideSebEnableLockThisComputer.Location = new System.Drawing.Point(19, 65);
+            this.checkBoxInsideSebEnableLockThisComputer.Name = "checkBoxInsideSebEnableLockThisComputer";
+            this.checkBoxInsideSebEnableLockThisComputer.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableLockThisComputer.TabIndex = 18;
+            this.checkBoxInsideSebEnableLockThisComputer.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableLockThisComputer.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableLockThisComputer_CheckedChanged);
             // 
-            // checkBoxEnableVmWareClientShade
+            // checkBoxInsideSebEnableSwitchUser
             // 
-            this.checkBoxEnableVmWareClientShade.AutoSize = true;
-            this.checkBoxEnableVmWareClientShade.Location = new System.Drawing.Point(19, 226);
-            this.checkBoxEnableVmWareClientShade.Name = "checkBoxEnableVmWareClientShade";
-            this.checkBoxEnableVmWareClientShade.Size = new System.Drawing.Size(212, 21);
-            this.checkBoxEnableVmWareClientShade.TabIndex = 7;
-            this.checkBoxEnableVmWareClientShade.Text = "Enable VMware Client Shade";
-            this.checkBoxEnableVmWareClientShade.UseVisualStyleBackColor = true;
-            this.checkBoxEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxEnableVmWareClientShade_CheckedChanged);
+            this.checkBoxInsideSebEnableSwitchUser.AutoSize = true;
+            this.checkBoxInsideSebEnableSwitchUser.Location = new System.Drawing.Point(19, 39);
+            this.checkBoxInsideSebEnableSwitchUser.Name = "checkBoxInsideSebEnableSwitchUser";
+            this.checkBoxInsideSebEnableSwitchUser.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxInsideSebEnableSwitchUser.TabIndex = 17;
+            this.checkBoxInsideSebEnableSwitchUser.UseVisualStyleBackColor = true;
+            this.checkBoxInsideSebEnableSwitchUser.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableSwitchUser_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableSwitchUser
+            // 
+            this.checkBoxOutsideSebEnableSwitchUser.AutoSize = true;
+            this.checkBoxOutsideSebEnableSwitchUser.Location = new System.Drawing.Point(43, 37);
+            this.checkBoxOutsideSebEnableSwitchUser.Name = "checkBoxOutsideSebEnableSwitchUser";
+            this.checkBoxOutsideSebEnableSwitchUser.Size = new System.Drawing.Size(152, 21);
+            this.checkBoxOutsideSebEnableSwitchUser.TabIndex = 0;
+            this.checkBoxOutsideSebEnableSwitchUser.Text = "Enable Switch User";
+            this.checkBoxOutsideSebEnableSwitchUser.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableSwitchUser.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableSwitchUser_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableLockThisComputer
+            // 
+            this.checkBoxOutsideSebEnableLockThisComputer.AutoSize = true;
+            this.checkBoxOutsideSebEnableLockThisComputer.Location = new System.Drawing.Point(43, 63);
+            this.checkBoxOutsideSebEnableLockThisComputer.Name = "checkBoxOutsideSebEnableLockThisComputer";
+            this.checkBoxOutsideSebEnableLockThisComputer.Size = new System.Drawing.Size(197, 21);
+            this.checkBoxOutsideSebEnableLockThisComputer.TabIndex = 1;
+            this.checkBoxOutsideSebEnableLockThisComputer.Text = "Enable Lock this computer";
+            this.checkBoxOutsideSebEnableLockThisComputer.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableLockThisComputer.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableLockThisComputer_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableChangeAPassword
+            // 
+            this.checkBoxOutsideSebEnableChangeAPassword.AutoSize = true;
+            this.checkBoxOutsideSebEnableChangeAPassword.Location = new System.Drawing.Point(43, 89);
+            this.checkBoxOutsideSebEnableChangeAPassword.Name = "checkBoxOutsideSebEnableChangeAPassword";
+            this.checkBoxOutsideSebEnableChangeAPassword.Size = new System.Drawing.Size(203, 21);
+            this.checkBoxOutsideSebEnableChangeAPassword.TabIndex = 3;
+            this.checkBoxOutsideSebEnableChangeAPassword.Text = "Enable Change a password";
+            this.checkBoxOutsideSebEnableChangeAPassword.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableChangeAPassword_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableStartTaskManager
+            // 
+            this.checkBoxOutsideSebEnableStartTaskManager.AutoSize = true;
+            this.checkBoxOutsideSebEnableStartTaskManager.Location = new System.Drawing.Point(43, 118);
+            this.checkBoxOutsideSebEnableStartTaskManager.Name = "checkBoxOutsideSebEnableStartTaskManager";
+            this.checkBoxOutsideSebEnableStartTaskManager.Size = new System.Drawing.Size(203, 21);
+            this.checkBoxOutsideSebEnableStartTaskManager.TabIndex = 2;
+            this.checkBoxOutsideSebEnableStartTaskManager.Text = "Enable Start Task Manager";
+            this.checkBoxOutsideSebEnableStartTaskManager.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableStartTaskManager_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableLogOff
+            // 
+            this.checkBoxOutsideSebEnableLogOff.AutoSize = true;
+            this.checkBoxOutsideSebEnableLogOff.Location = new System.Drawing.Point(43, 145);
+            this.checkBoxOutsideSebEnableLogOff.Name = "checkBoxOutsideSebEnableLogOff";
+            this.checkBoxOutsideSebEnableLogOff.Size = new System.Drawing.Size(122, 21);
+            this.checkBoxOutsideSebEnableLogOff.TabIndex = 6;
+            this.checkBoxOutsideSebEnableLogOff.Text = "Enable Log off";
+            this.checkBoxOutsideSebEnableLogOff.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableLogOff_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableShutDown
+            // 
+            this.checkBoxOutsideSebEnableShutDown.AutoSize = true;
+            this.checkBoxOutsideSebEnableShutDown.Location = new System.Drawing.Point(43, 172);
+            this.checkBoxOutsideSebEnableShutDown.Name = "checkBoxOutsideSebEnableShutDown";
+            this.checkBoxOutsideSebEnableShutDown.Size = new System.Drawing.Size(144, 21);
+            this.checkBoxOutsideSebEnableShutDown.TabIndex = 4;
+            this.checkBoxOutsideSebEnableShutDown.Text = "Enable Shut down";
+            this.checkBoxOutsideSebEnableShutDown.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableShutDown_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableEaseOfAccess
+            // 
+            this.checkBoxOutsideSebEnableEaseOfAccess.AutoSize = true;
+            this.checkBoxOutsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(43, 199);
+            this.checkBoxOutsideSebEnableEaseOfAccess.Name = "checkBoxOutsideSebEnableEaseOfAccess";
+            this.checkBoxOutsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(175, 21);
+            this.checkBoxOutsideSebEnableEaseOfAccess.TabIndex = 16;
+            this.checkBoxOutsideSebEnableEaseOfAccess.Text = "Enable Ease of Access";
+            this.checkBoxOutsideSebEnableEaseOfAccess.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged);
+            // 
+            // checkBoxOutsideSebEnableVmWareClientShade
+            // 
+            this.checkBoxOutsideSebEnableVmWareClientShade.AutoSize = true;
+            this.checkBoxOutsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(43, 226);
+            this.checkBoxOutsideSebEnableVmWareClientShade.Name = "checkBoxOutsideSebEnableVmWareClientShade";
+            this.checkBoxOutsideSebEnableVmWareClientShade.Size = new System.Drawing.Size(212, 21);
+            this.checkBoxOutsideSebEnableVmWareClientShade.TabIndex = 7;
+            this.checkBoxOutsideSebEnableVmWareClientShade.Text = "Enable VMware Client Shade";
+            this.checkBoxOutsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged);
             // 
             // buttonFinish
             // 
@@ -982,8 +1078,8 @@
             this.groupBoxSebStarterIni.PerformLayout();
             this.groupBoxOnlineExam.ResumeLayout(false);
             this.groupBoxOnlineExam.PerformLayout();
-            this.groupBoxRegistryValues.ResumeLayout(false);
-            this.groupBoxRegistryValues.PerformLayout();
+            this.groupBoxBluescreenOptions.ResumeLayout(false);
+            this.groupBoxBluescreenOptions.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.groupBoxMsgHookIni.ResumeLayout(false);
             this.groupBoxMsgHookIni.PerformLayout();
@@ -1002,7 +1098,7 @@
         private System.Windows.Forms.GroupBox groupBoxSebStarterIni;
         private System.Windows.Forms.GroupBox groupBoxMsgHookIni;
 
-        private System.Windows.Forms.GroupBox groupBoxRegistryValues;
+        private System.Windows.Forms.GroupBox groupBoxBluescreenOptions;
         private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
         private System.Windows.Forms.GroupBox groupBoxOnlineExam;
 
@@ -1026,14 +1122,14 @@
         private System.Windows.Forms.CheckBox checkBoxWriteLogFileMsgHookLog;
         private System.Windows.Forms.CheckBox checkBoxWriteLogFileSebStarterLog;
 
-        private System.Windows.Forms.CheckBox checkBoxEnableSwitchUser;
-        private System.Windows.Forms.CheckBox checkBoxEnableLogOff;
-        private System.Windows.Forms.CheckBox checkBoxEnableShutDown;
-        private System.Windows.Forms.CheckBox checkBoxEnableChangeAPassword;
-        private System.Windows.Forms.CheckBox checkBoxEnableStartTaskManager;
-        private System.Windows.Forms.CheckBox checkBoxEnableLockThisComputer;
-        private System.Windows.Forms.CheckBox checkBoxEnableEaseOfAccess;
-        private System.Windows.Forms.CheckBox checkBoxEnableVmWareClientShade;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableSwitchUser;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableLogOff;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableShutDown;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableChangeAPassword;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableStartTaskManager;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableLockThisComputer;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableEaseOfAccess;
+        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableVmWareClientShade;
 
         private System.Windows.Forms.CheckBox checkBoxForceWindowsService;
         private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
@@ -1082,6 +1178,14 @@
         private System.Windows.Forms.Label labelQuitHashCode;
         private System.Windows.Forms.TextBox textBoxQuitHashcode;
         private System.Windows.Forms.Button buttonFinish;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableSwitchUser;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableLockThisComputer;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableChangeAPassword;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableStartTaskManager;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableLogOff;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableShutDown;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableEaseOfAccess;
+        private System.Windows.Forms.CheckBox checkBoxInsideSebEnableVmWareClientShade;
 
     }
 }

@@ -10,6 +10,7 @@ using System.IO;
 using System.Security.Cryptography;
 
 
+
 namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
@@ -22,15 +23,16 @@ namespace SebWindowsConfig
         // The Graphical User Interface contains 5 groups
         const int IND_GroupNone = 0;
         const int IND_GroupMin  = 1;
-        const int IND_GroupMax  = 5;
-        const int IND_GroupNum  = 5;
+        const int IND_GroupMax  = 6;
+        const int IND_GroupNum  = 6;
 
         // Group indices
-        const int IND_RegistryValues  = 1;
-        const int IND_SecurityOptions = 2;
-        const int IND_SpecialKeys     = 3;
-        const int IND_FunctionKeys    = 4;
-        const int IND_OtherOptions    = 5;
+        const int IND_InsideSeb       = 1;
+        const int IND_OutsideSeb      = 2;
+        const int IND_SecurityOptions = 3;
+        const int IND_SpecialKeys     = 4;
+        const int IND_FunctionKeys    = 5;
+        const int IND_OtherOptions    = 6;
 
         // Each group contains up to 12 settings
         const int IND_SettingNone =  0;
@@ -38,7 +40,7 @@ namespace SebWindowsConfig
         const int IND_SettingMax  = 12;
         const int IND_SettingNum  = 12;
 
-        // Group "Registry values"
+        // Group "Bluescreen options inside / outside SEB"
         const int IND_EnableSwitchUser        = 1;
         const int IND_EnableLockThisComputer  = 2;
         const int IND_EnableChangeAPassword   = 3;
@@ -48,14 +50,23 @@ namespace SebWindowsConfig
         const int IND_EnableEaseOfAccess      = 7;
         const int IND_EnableVmWareClientShade = 8;
 
-        const String MSG_EnableSwitchUser        = "EnableSwitchUser";
-        const String MSG_EnableLockThisComputer  = "EnableLockThisComputer";
-        const String MSG_EnableChangeAPassword   = "EnableChangeAPassword";
-        const String MSG_EnableStartTaskManager  = "EnableStartTaskManager";
-        const String MSG_EnableLogOff            = "EnableLogOff";
-        const String MSG_EnableShutDown          = "EnableShutDown";
-        const String MSG_EnableEaseOfAccess      = "EnableEaseOfAccess";
-        const String MSG_EnableVmWareClientShade = "EnableVmWareClientShade";
+        const String MSG_InsideSebEnableSwitchUser        = "InsideSebEnableSwitchUser";
+        const String MSG_InsideSebEnableLockThisComputer  = "InsideSebEnableLockThisComputer";
+        const String MSG_InsideSebEnableChangeAPassword   = "InsideSebEnableChangeAPassword";
+        const String MSG_InsideSebEnableStartTaskManager  = "InsideSebEnableStartTaskManager";
+        const String MSG_InsideSebEnableLogOff            = "InsideSebEnableLogOff";
+        const String MSG_InsideSebEnableShutDown          = "InsideSebEnableShutDown";
+        const String MSG_InsideSebEnableEaseOfAccess      = "InsideSebEnableEaseOfAccess";
+        const String MSG_InsideSebEnableVmWareClientShade = "InsideSebEnableVmWareClientShade";
+
+        const String MSG_OutsideSebEnableSwitchUser        = "OutsideSebEnableSwitchUser";
+        const String MSG_OutsideSebEnableLockThisComputer  = "OutsideSebEnableLockThisComputer";
+        const String MSG_OutsideSebEnableChangeAPassword   = "OutsideSebEnableChangeAPassword";
+        const String MSG_OutsideSebEnableStartTaskManager  = "OutsideSebEnableStartTaskManager";
+        const String MSG_OutsideSebEnableLogOff            = "OutsideSebEnableLogOff";
+        const String MSG_OutsideSebEnableShutDown          = "OutsideSebEnableShutDown";
+        const String MSG_OutsideSebEnableEaseOfAccess      = "OutsideSebEnableEaseOfAccess";
+        const String MSG_OutsideSebEnableVmWareClientShade = "OutsideSebEnableVmWareClientShade";
 
         // Group "Security options"
         const int IND_AllowVirtualMachine       = 1;
@@ -269,14 +280,23 @@ namespace SebWindowsConfig
                 forbidSetting[indexGroup, indexSetting] = false;
             }
 
-            msgString[IND_RegistryValues, IND_EnableSwitchUser       ] = MSG_EnableSwitchUser;
-            msgString[IND_RegistryValues, IND_EnableLockThisComputer ] = MSG_EnableLockThisComputer;
-            msgString[IND_RegistryValues, IND_EnableChangeAPassword  ] = MSG_EnableChangeAPassword;
-            msgString[IND_RegistryValues, IND_EnableStartTaskManager ] = MSG_EnableStartTaskManager;
-            msgString[IND_RegistryValues, IND_EnableLogOff           ] = MSG_EnableLogOff;
-            msgString[IND_RegistryValues, IND_EnableShutDown         ] = MSG_EnableShutDown;
-            msgString[IND_RegistryValues, IND_EnableEaseOfAccess     ] = MSG_EnableEaseOfAccess;
-            msgString[IND_RegistryValues, IND_EnableVmWareClientShade] = MSG_EnableVmWareClientShade;
+            msgString[IND_InsideSeb, IND_EnableSwitchUser       ] = MSG_InsideSebEnableSwitchUser;
+            msgString[IND_InsideSeb, IND_EnableLockThisComputer ] = MSG_InsideSebEnableLockThisComputer;
+            msgString[IND_InsideSeb, IND_EnableChangeAPassword  ] = MSG_InsideSebEnableChangeAPassword;
+            msgString[IND_InsideSeb, IND_EnableStartTaskManager ] = MSG_InsideSebEnableStartTaskManager;
+            msgString[IND_InsideSeb, IND_EnableLogOff           ] = MSG_InsideSebEnableLogOff;
+            msgString[IND_InsideSeb, IND_EnableShutDown         ] = MSG_InsideSebEnableShutDown;
+            msgString[IND_InsideSeb, IND_EnableEaseOfAccess     ] = MSG_InsideSebEnableEaseOfAccess;
+            msgString[IND_InsideSeb, IND_EnableVmWareClientShade] = MSG_InsideSebEnableVmWareClientShade;
+
+            msgString[IND_OutsideSeb, IND_EnableSwitchUser       ] = MSG_OutsideSebEnableSwitchUser;
+            msgString[IND_OutsideSeb, IND_EnableLockThisComputer ] = MSG_OutsideSebEnableLockThisComputer;
+            msgString[IND_OutsideSeb, IND_EnableChangeAPassword  ] = MSG_OutsideSebEnableChangeAPassword;
+            msgString[IND_OutsideSeb, IND_EnableStartTaskManager ] = MSG_OutsideSebEnableStartTaskManager;
+            msgString[IND_OutsideSeb, IND_EnableLogOff           ] = MSG_OutsideSebEnableLogOff;
+            msgString[IND_OutsideSeb, IND_EnableShutDown         ] = MSG_OutsideSebEnableShutDown;
+            msgString[IND_OutsideSeb, IND_EnableEaseOfAccess     ] = MSG_OutsideSebEnableEaseOfAccess;
+            msgString[IND_OutsideSeb, IND_EnableVmWareClientShade] = MSG_OutsideSebEnableVmWareClientShade;
 
             msgString[IND_SecurityOptions, IND_AllowVirtualMachine      ] = MSG_AllowVirtualMachine;
             msgString[IND_SecurityOptions, IND_ForceWindowsService      ] = MSG_ForceWindowsService;
@@ -421,23 +441,32 @@ namespace SebWindowsConfig
                   fileStreamSebStarterIni.Close();
 
                 // Assign the settings from the SebStarter.ini file to the widgets
-                checkBoxEnableSwitchUser       .Checked = newSetting[IND_RegistryValues, IND_EnableSwitchUser];
-                checkBoxEnableLockThisComputer .Checked = newSetting[IND_RegistryValues, IND_EnableLockThisComputer];
-                checkBoxEnableChangeAPassword  .Checked = newSetting[IND_RegistryValues, IND_EnableChangeAPassword];
-                checkBoxEnableStartTaskManager .Checked = newSetting[IND_RegistryValues, IND_EnableStartTaskManager];
-                checkBoxEnableLogOff           .Checked = newSetting[IND_RegistryValues, IND_EnableLogOff];
-                checkBoxEnableShutDown         .Checked = newSetting[IND_RegistryValues, IND_EnableShutDown];
-                checkBoxEnableEaseOfAccess     .Checked = newSetting[IND_RegistryValues, IND_EnableEaseOfAccess];
-                checkBoxEnableVmWareClientShade.Checked = newSetting[IND_RegistryValues, IND_EnableVmWareClientShade];
+                checkBoxInsideSebEnableSwitchUser       .Checked = newSetting[IND_InsideSeb, IND_EnableSwitchUser       ];
+                checkBoxInsideSebEnableLockThisComputer .Checked = newSetting[IND_InsideSeb, IND_EnableLockThisComputer ];
+                checkBoxInsideSebEnableChangeAPassword  .Checked = newSetting[IND_InsideSeb, IND_EnableChangeAPassword  ];
+                checkBoxInsideSebEnableStartTaskManager .Checked = newSetting[IND_InsideSeb, IND_EnableStartTaskManager ];
+                checkBoxInsideSebEnableLogOff           .Checked = newSetting[IND_InsideSeb, IND_EnableLogOff           ];
+                checkBoxInsideSebEnableShutDown         .Checked = newSetting[IND_InsideSeb, IND_EnableShutDown         ];
+                checkBoxInsideSebEnableEaseOfAccess     .Checked = newSetting[IND_InsideSeb, IND_EnableEaseOfAccess     ];
+                checkBoxInsideSebEnableVmWareClientShade.Checked = newSetting[IND_InsideSeb, IND_EnableVmWareClientShade];
 
-                checkBoxAllowVirtualMachine      .Checked = newSetting[IND_SecurityOptions, IND_AllowVirtualMachine];
-                checkBoxForceWindowsService      .Checked = newSetting[IND_SecurityOptions, IND_ForceWindowsService];
-                checkBoxCreateNewDesktop         .Checked = newSetting[IND_SecurityOptions, IND_CreateNewDesktop];
+                checkBoxOutsideSebEnableSwitchUser       .Checked = newSetting[IND_OutsideSeb, IND_EnableSwitchUser       ];
+                checkBoxOutsideSebEnableLockThisComputer .Checked = newSetting[IND_OutsideSeb, IND_EnableLockThisComputer ];
+                checkBoxOutsideSebEnableChangeAPassword  .Checked = newSetting[IND_OutsideSeb, IND_EnableChangeAPassword  ];
+                checkBoxOutsideSebEnableStartTaskManager .Checked = newSetting[IND_OutsideSeb, IND_EnableStartTaskManager ];
+                checkBoxOutsideSebEnableLogOff           .Checked = newSetting[IND_OutsideSeb, IND_EnableLogOff           ];
+                checkBoxOutsideSebEnableShutDown         .Checked = newSetting[IND_OutsideSeb, IND_EnableShutDown         ];
+                checkBoxOutsideSebEnableEaseOfAccess     .Checked = newSetting[IND_OutsideSeb, IND_EnableEaseOfAccess     ];
+                checkBoxOutsideSebEnableVmWareClientShade.Checked = newSetting[IND_OutsideSeb, IND_EnableVmWareClientShade];
+
+                checkBoxAllowVirtualMachine      .Checked = newSetting[IND_SecurityOptions, IND_AllowVirtualMachine      ];
+                checkBoxForceWindowsService      .Checked = newSetting[IND_SecurityOptions, IND_ForceWindowsService      ];
+                checkBoxCreateNewDesktop         .Checked = newSetting[IND_SecurityOptions, IND_CreateNewDesktop         ];
                 checkBoxShowSebApplicationChooser.Checked = newSetting[IND_SecurityOptions, IND_ShowSebApplicationChooser];
-                checkBoxHookMessages             .Checked = newSetting[IND_SecurityOptions, IND_HookMessages];
-                checkBoxEditRegistry             .Checked = newSetting[IND_SecurityOptions, IND_EditRegistry];
-                checkBoxMonitorProcesses         .Checked = newSetting[IND_SecurityOptions, IND_MonitorProcesses];
-                checkBoxShutdownAfterAutostart   .Checked = newSetting[IND_SecurityOptions, IND_ShutdownAfterAutostart];
+                checkBoxHookMessages             .Checked = newSetting[IND_SecurityOptions, IND_HookMessages             ];
+                checkBoxEditRegistry             .Checked = newSetting[IND_SecurityOptions, IND_EditRegistry             ];
+                checkBoxMonitorProcesses         .Checked = newSetting[IND_SecurityOptions, IND_MonitorProcesses         ];
+                checkBoxShutdownAfterAutostart   .Checked = newSetting[IND_SecurityOptions, IND_ShutdownAfterAutostart   ];
 
                 checkBoxWriteLogFileSebStarterLog.Checked = newSetting[IND_OtherOptions, IND_WriteLogFileSebStarterLog];
 
@@ -522,6 +551,7 @@ namespace SebWindowsConfig
                         }
 
                         // Concatenate the modified line
+                        line = "";
                         line = leftSide + "=" + rightSide;
 
                     } // end if line.Contains("=")
@@ -758,6 +788,7 @@ namespace SebWindowsConfig
                         }
 
                         // Concatenate the modified line
+                        line = "";
                         line = leftSide + "=" + rightSide;
 
                     } // end if line.Contains("=")
@@ -792,46 +823,90 @@ namespace SebWindowsConfig
         // ******************************************************
 
 
-        // Group "Registry values"
+        // Group "Inside SEB" (Bluescreen options)
 
-        private void checkBoxEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableSwitchUser] = checkBoxEnableSwitchUser.Checked;
+            newSetting[IND_InsideSeb, IND_EnableSwitchUser] = checkBoxInsideSebEnableSwitchUser.Checked;
         }
 
-        private void checkBoxEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableLockThisComputer] = checkBoxEnableLockThisComputer.Checked;
+            newSetting[IND_InsideSeb, IND_EnableLockThisComputer] = checkBoxInsideSebEnableLockThisComputer.Checked;
         }
 
-        private void checkBoxEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableChangeAPassword] = checkBoxEnableChangeAPassword.Checked;
+            newSetting[IND_InsideSeb, IND_EnableChangeAPassword] = checkBoxInsideSebEnableChangeAPassword.Checked;
         }
 
-        private void checkBoxEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableStartTaskManager] = checkBoxEnableStartTaskManager.Checked;
+            newSetting[IND_InsideSeb, IND_EnableStartTaskManager] = checkBoxInsideSebEnableStartTaskManager.Checked;
         }
 
-        private void checkBoxEnableLogOff_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableLogOff] = checkBoxEnableLogOff.Checked;
+            newSetting[IND_InsideSeb, IND_EnableLogOff] = checkBoxInsideSebEnableLogOff.Checked;
         }
 
-        private void checkBoxEnableShutDown_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableShutDown] = checkBoxEnableShutDown.Checked;
+            newSetting[IND_InsideSeb, IND_EnableShutDown] = checkBoxInsideSebEnableShutDown.Checked;
         }
 
-        private void checkBoxEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableEaseOfAccess] = checkBoxEnableEaseOfAccess.Checked;
+            newSetting[IND_InsideSeb, IND_EnableEaseOfAccess] = checkBoxInsideSebEnableEaseOfAccess.Checked;
         }
 
-        private void checkBoxEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxInsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
         {
-            newSetting[IND_RegistryValues, IND_EnableVmWareClientShade] = checkBoxEnableVmWareClientShade.Checked;
+            newSetting[IND_InsideSeb, IND_EnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
+        }
+ 
+
+
+        // Group "Outside SEB" (Bluescreen options)
+
+        private void checkBoxOutsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
+        }
+
+        private void checkBoxOutsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableLockThisComputer] = checkBoxOutsideSebEnableLockThisComputer.Checked;
+        }
+
+        private void checkBoxOutsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableChangeAPassword] = checkBoxOutsideSebEnableChangeAPassword.Checked;
+        }
+
+        private void checkBoxOutsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableStartTaskManager] = checkBoxOutsideSebEnableStartTaskManager.Checked;
+        }
+
+        private void checkBoxOutsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableLogOff] = checkBoxOutsideSebEnableLogOff.Checked;
+        }
+
+        private void checkBoxOutsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableShutDown] = checkBoxOutsideSebEnableShutDown.Checked;
+        }
+
+        private void checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableEaseOfAccess] = checkBoxOutsideSebEnableEaseOfAccess.Checked;
+        }
+
+        private void checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
+        {
+            newSetting[IND_OutsideSeb, IND_EnableVmWareClientShade] = checkBoxOutsideSebEnableVmWareClientShade.Checked;
         }
 
 
@@ -1097,14 +1172,23 @@ namespace SebWindowsConfig
             newStringPermittedApplications = oldStringPermittedApplications;
 
             // Assign the old settings from the SebStarter.ini file to the widgets again
-            checkBoxEnableSwitchUser       .Checked = oldSetting[IND_RegistryValues, IND_EnableSwitchUser];
-            checkBoxEnableLockThisComputer .Checked = oldSetting[IND_RegistryValues, IND_EnableLockThisComputer];
-            checkBoxEnableChangeAPassword  .Checked = oldSetting[IND_RegistryValues, IND_EnableChangeAPassword];
-            checkBoxEnableStartTaskManager .Checked = oldSetting[IND_RegistryValues, IND_EnableStartTaskManager];
-            checkBoxEnableLogOff           .Checked = oldSetting[IND_RegistryValues, IND_EnableLogOff];
-            checkBoxEnableShutDown         .Checked = oldSetting[IND_RegistryValues, IND_EnableShutDown];
-            checkBoxEnableEaseOfAccess     .Checked = oldSetting[IND_RegistryValues, IND_EnableEaseOfAccess];
-            checkBoxEnableVmWareClientShade.Checked = oldSetting[IND_RegistryValues, IND_EnableVmWareClientShade];
+            checkBoxInsideSebEnableSwitchUser       .Checked = oldSetting[IND_InsideSeb, IND_EnableSwitchUser];
+            checkBoxInsideSebEnableLockThisComputer .Checked = oldSetting[IND_InsideSeb, IND_EnableLockThisComputer];
+            checkBoxInsideSebEnableChangeAPassword  .Checked = oldSetting[IND_InsideSeb, IND_EnableChangeAPassword];
+            checkBoxInsideSebEnableStartTaskManager .Checked = oldSetting[IND_InsideSeb, IND_EnableStartTaskManager];
+            checkBoxInsideSebEnableLogOff           .Checked = oldSetting[IND_InsideSeb, IND_EnableLogOff];
+            checkBoxInsideSebEnableShutDown         .Checked = oldSetting[IND_InsideSeb, IND_EnableShutDown];
+            checkBoxInsideSebEnableEaseOfAccess     .Checked = oldSetting[IND_InsideSeb, IND_EnableEaseOfAccess];
+            checkBoxInsideSebEnableVmWareClientShade.Checked = oldSetting[IND_InsideSeb, IND_EnableVmWareClientShade];
+
+            checkBoxOutsideSebEnableSwitchUser       .Checked = oldSetting[IND_OutsideSeb, IND_EnableSwitchUser];
+            checkBoxOutsideSebEnableLockThisComputer .Checked = oldSetting[IND_OutsideSeb, IND_EnableLockThisComputer];
+            checkBoxOutsideSebEnableChangeAPassword  .Checked = oldSetting[IND_OutsideSeb, IND_EnableChangeAPassword];
+            checkBoxOutsideSebEnableStartTaskManager .Checked = oldSetting[IND_OutsideSeb, IND_EnableStartTaskManager];
+            checkBoxOutsideSebEnableLogOff           .Checked = oldSetting[IND_OutsideSeb, IND_EnableLogOff];
+            checkBoxOutsideSebEnableShutDown         .Checked = oldSetting[IND_OutsideSeb, IND_EnableShutDown];
+            checkBoxOutsideSebEnableEaseOfAccess     .Checked = oldSetting[IND_OutsideSeb, IND_EnableEaseOfAccess];
+            checkBoxOutsideSebEnableVmWareClientShade.Checked = oldSetting[IND_OutsideSeb, IND_EnableVmWareClientShade];
 
             checkBoxAllowVirtualMachine      .Checked = oldSetting[IND_SecurityOptions, IND_AllowVirtualMachine];
             checkBoxForceWindowsService      .Checked = oldSetting[IND_SecurityOptions, IND_ForceWindowsService];
@@ -1191,6 +1275,7 @@ namespace SebWindowsConfig
             // Close the configuration window and exit
             this.Close();
         }
+
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig
