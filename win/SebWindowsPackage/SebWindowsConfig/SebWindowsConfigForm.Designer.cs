@@ -642,7 +642,7 @@
             // 
             this.buttonFinish.Location = new System.Drawing.Point(20, 580);
             this.buttonFinish.Name = "buttonFinish";
-            this.buttonFinish.Size = new System.Drawing.Size(180, 60);
+            this.buttonFinish.Size = new System.Drawing.Size(170, 60);
             this.buttonFinish.TabIndex = 52;
             this.buttonFinish.Text = "Configuration finished,\r\nclose window";
             this.buttonFinish.UseVisualStyleBackColor = true;
