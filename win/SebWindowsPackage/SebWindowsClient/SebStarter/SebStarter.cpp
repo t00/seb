@@ -102,8 +102,8 @@ int					SendEquationToSocketServer(char*, char*, int);
 int					RecvEquationOfSocketServer(char*, char*, int);
 
 BOOL				GetClientInfo();
-BOOL				 EditRegistry();
-BOOL				ResetRegistry();
+//BOOL				 EditRegistry();
+//BOOL				ResetRegistry();
 BOOL				AlterTaskBar(BOOL);
 BOOL				MessageHook (BOOL);
 BOOL				CreateExternalProcess(string);
@@ -127,7 +127,7 @@ BOOL				getBool      (string);
 string				getLangString(string);
 int					getInt       (string);
 BOOL				HandleOpenRegistryKey(HKEY, LPCSTR, HKEY*, BOOL);
-BOOL				HandleSetRegistryKeyValue(HKEY, LPCSTR, string);
+//BOOL				HandleSetRegistryKeyValue(HKEY, LPCSTR, string);
 DWORD				dwExitCode;
 BOOL				SetVersionInfo();
 
@@ -719,6 +719,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		return FALSE;
 	}
 
+/*
 	if (getBool("EditRegistry") && IsNewOS)
 	{
 		if (!EditRegistry())
@@ -729,6 +730,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 			mpParam["EditRegistry"] = "0"; //thats for ResetRegistry: do nothing because editing failed
 		}
 	}
+*/
 
 	sStrongKillProcessesBefore = mpParam["StrongKillProcessesBefore"];
 	if (sStrongKillProcessesBefore != "")
@@ -2171,7 +2173,7 @@ int DetermineUserSid(char* userSid)
 
 
 
-
+/*
 BOOL EditRegistry()
 {
 	HKEY hklmSystem;
@@ -2195,12 +2197,12 @@ BOOL EditRegistry()
 		openedHKLMPolicySystem = HandleOpenRegistryKey(HKLM, KEY_PoliciesSystem  , &hklmSystem  , TRUE);
 		if (openedHKLMPolicySystem)
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) succeeded", "Registry", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) succeeded", "Registry", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKLM, System) succeeded\n\n");
 		}
 		else
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) failed", "Registry Error", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKLM, System) failed", "Registry Error", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKLM, System) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
@@ -2211,12 +2213,12 @@ BOOL EditRegistry()
 		openedHKCUPolicySystem = HandleOpenRegistryKey(HKCU, KEY_PoliciesSystem  , &hkcuSystem  , TRUE);
 		if (openedHKCUPolicySystem)
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) succeeded", "Registry", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) succeeded", "Registry", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKCU, System) succeeded\n\n");
 		}
 		else
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) failed", "Registry Error", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKCU, System) failed", "Registry Error", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKCU, System) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
@@ -2227,12 +2229,12 @@ BOOL EditRegistry()
 		openedHKCUPolicyExplorer = HandleOpenRegistryKey(HKCU, KEY_PoliciesExplorer, &hkcuExplorer, TRUE);
 		if (openedHKCUPolicyExplorer)
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) succeeded", "Registry", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) succeeded", "Registry", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKCU, Explorer) succeeded\n\n");
 		}
 		else
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) failed", "Registry Error", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKCU, Explorer) failed", "Registry Error", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKCU, Explorer) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
@@ -2243,12 +2245,12 @@ BOOL EditRegistry()
 		openedHKCUVmWareClient = HandleOpenRegistryKey(HKCU, KEY_VmWareClient, &hkcuVmWareClient, TRUE);
 		if (openedHKCUVmWareClient)
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VmWareClient) succeeded", "Registry", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VmWareClient) succeeded", "Registry", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKCU, VmWareClient) succeeded\n\n");
 		}
 		else
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VmWareClient) failed", "Registry Error", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKCU, VmWareClient) failed", "Registry Error", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKCU, VmWareClient) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
@@ -2260,12 +2262,12 @@ BOOL EditRegistry()
 		openedHKLMUtilmanExe = HandleOpenRegistryKey(HKLM, KEY_UtilmanExe  , &hklmUtilmanExe  , TRUE);
 		if (openedHKLMUtilmanExe)
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, UtilmanExe) succeeded", "Registry", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKLM, UtilmanExe) succeeded", "Registry", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKLM, UtilmanExe) succeeded\n\n");
 		}
 		else
 		{
-			//MessageBox(NULL, "HandleOpenRegistryKey(HKLM, UtilmanExe) failed", "Registry Error", 16);
+		   //MessageBox(NULL, "HandleOpenRegistryKey(HKLM, UtilmanExe) failed", "Registry Error", 16);
 			logg(fp, "         HandleOpenRegistryKey(HKLM, UtilmanExe) failed\n\n");
 			logg(fp, "Leave EditRegistry()\n\n");
 			return FALSE;
@@ -2489,7 +2491,6 @@ BOOL EditRegistry()
 			logg(fp, "getBool(InsideSebEnableVmWareClientShade) = false\n\n");
 		}
 
-
 	} // end try
 
 
@@ -2502,6 +2503,7 @@ BOOL EditRegistry()
 	}
 
 	logg(fp, "Leave EditRegistry()\n\n");
+
 	return TRUE;
 
 } // end EditRegistry()
@@ -2574,7 +2576,7 @@ BOOL ResetRegistry()
 	return TRUE;
 
 } // end ResetRegistry()
-
+*/
 
 
 
@@ -2720,7 +2722,7 @@ BOOL ShutdownInstance()
 		CloseSocket();
 	}
 
-
+/*
 	// In case the Seb Windows Server is not available,
 	// the Seb Client tries to reset the registry keys itself.
 	if (getBool("EditRegistry") && IsNewOS)
@@ -2733,7 +2735,7 @@ BOOL ShutdownInstance()
 			//logg(fp, "Warning: %s\n", REGISTRY_WARNING);
 		}
 	}
-
+*/
 
 	if (getBool("HookMessages"))
 	{
@@ -3398,7 +3400,7 @@ BOOL HandleOpenRegistryKey(HKEY hKey, LPCSTR subKey, PHKEY pKey, BOOL bCreate)
 
 
 
-
+/*
 BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 {
 	DWORD type;
@@ -3452,7 +3454,7 @@ BOOL HandleSetRegistryKeyValue(HKEY hKey, LPCSTR lpVal, string sParam)
 	return TRUE;
 
 } // end HandleSetRegistryKeyValue()
-
+*/
 
 
 
