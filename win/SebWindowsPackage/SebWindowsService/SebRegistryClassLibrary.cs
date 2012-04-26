@@ -740,7 +740,7 @@ namespace SebWindowsService
                         if (flushRegistryValues)
                         {
                             DebugOutputLine(debugMode, "   Setting registry keys to outside SEB values...");
-                            EditAllRegistryValues(SET_Outside, EDIT_Restore);
+                            EditAllRegistryValues(SET_Outside, EDIT_Set);
                         }
 
                         // Exit the receiving loop for this SEB client
