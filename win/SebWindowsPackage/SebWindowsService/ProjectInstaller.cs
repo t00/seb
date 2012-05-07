@@ -23,7 +23,6 @@ namespace SebWindowsService
         }
 
 
-
         private string GetCommonDesktopDirectory()
         {
             // The common desktop directory (containîng the program shortcuts for all users)
@@ -54,21 +53,21 @@ namespace SebWindowsService
             // Write some debug data into a file
             string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
-            using (StreamWriter writer1 = new StreamWriter(UserDebugFile))
+            using (StreamWriter sw = new StreamWriter(UserDebugFile))
             {
-                writer1.WriteLine();
-                writer1.WriteLine("operatingSystem  = " + operatingSystem);
-                writer1.WriteLine("platform         = " + operatingSystem.Platform);
-                writer1.WriteLine("version          = " + operatingSystem.Version);
-                writer1.WriteLine("versionString    = " + operatingSystem.VersionString);
-                writer1.WriteLine("version.Major    = " + operatingSystem.Version.Major);
-                writer1.WriteLine();
-                writer1.WriteLine("     AllUsersDir = " +      AllUsersDir);
-                writer1.WriteLine("       PublicDir = " +        PublicDir);
-                writer1.WriteLine("CommonDesktopDir = " + CommonDesktopDir);
-                writer1.WriteLine("  UserDesktopDir = " +   UserDesktopDir);
-                writer1.WriteLine();
-                writer1.Flush();
+                sw.WriteLine();
+                sw.WriteLine("operatingSystem  = " + operatingSystem);
+                sw.WriteLine("platform         = " + operatingSystem.Platform);
+                sw.WriteLine("version          = " + operatingSystem.Version);
+                sw.WriteLine("versionString    = " + operatingSystem.VersionString);
+                sw.WriteLine("version.Major    = " + operatingSystem.Version.Major);
+                sw.WriteLine();
+                sw.WriteLine("     AllUsersDir = " +      AllUsersDir);
+                sw.WriteLine("       PublicDir = " +        PublicDir);
+                sw.WriteLine("CommonDesktopDir = " + CommonDesktopDir);
+                sw.WriteLine("  UserDesktopDir = " +   UserDesktopDir);
+                sw.WriteLine();
+                sw.Flush();
             }
 */
             return CommonDesktopDir;
@@ -77,13 +76,12 @@ namespace SebWindowsService
 
 
 
-
         private void SebServiceInstaller_Committed(object sender, InstallEventArgs e)
         {
             // Unpack the XULRunner directories after installation
 
-            string ProgramData    = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles   = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramData  = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -91,15 +89,70 @@ namespace SebWindowsService
             string Component    = "SebWindowsClient";
             string Build        = "Release";
 
-            // Get the directory of the .msi installer file as CustomActionData.
-            // To see where the "SourceDir" comes from, look at:
+            // Get the directory of the .msi installer file
+            // and the directory of the target installation as CustomActionData.
+            // To see where the "SourceDir" and "TargetDir" come from, look at:
             // Custom Actions window ->
             // Install and Commit phases ->
             // Primary output of SebWindowsService (Active) ->
             // Properties window ->
-            // CustomActionData: /SourceDir="[SOURCEDIR]\"
+            // CustomActionData: /SourceDir="[SOURCEDIR]\" /TargetDir="[TARGETDIR]\" /Shortcut=[SHORTCUT]
 
-            string SebBatchDir   = this.Context.Parameters["SourceDir"];
+            if (!this.Context.Parameters.ContainsKey("SourceDir"))
+            {
+                throw new Exception(string.Format("CustomAction SourceDir failed!"));
+            }
+
+            if (!this.Context.Parameters.ContainsKey("TargetDir"))
+            {
+                throw new Exception(string.Format("CustomAction TargetDir failed!"));
+            }
+
+            if (!this.Context.Parameters.ContainsKey("Shortcut"))
+            {
+                throw new Exception(string.Format("CustomAction Shortcut failed!"));
+            }
+
+            string SebSourceDir = this.Context.Parameters["SourceDir"];
+            string SebTargetDir = this.Context.Parameters["TargetDir"];
+            string SebShortcut  = this.Context.Parameters["Shortcut"];
+
+            Boolean ShortcutDesired = (SebShortcut != string.Empty);
+
+            // Write some debug data into a file
+            string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string UserDebugFile  = UserDesktopDir + "\\" + "ContextParameters.txt";
+
+            using (StreamWriter sw = new StreamWriter(UserDebugFile))
+            {
+                int numParams    = this.Context.Parameters.Count;
+                int numParamKeys = this.Context.Parameters.Keys.Count;
+
+                sw.WriteLine();
+                sw.WriteLine("this.Context.Parameters.Count      = " + numParams);
+                sw.WriteLine("this.Context.Parameters.Keys.Count = " + numParamKeys);
+                sw.WriteLine();
+
+                foreach (string myString in Context.Parameters.Keys)
+                {
+                    sw.WriteLine("Context.Parameters[" + myString + "] = " + Context.Parameters[myString]);
+                }
+
+                sw.WriteLine();
+                sw.WriteLine("SebSourceDir    = " + SebSourceDir);
+                sw.WriteLine("SebTargetDir    = " + SebTargetDir);
+                sw.WriteLine("SebShortcut     = " + SebShortcut);
+                sw.WriteLine("ShortcutDesired = " + ShortcutDesired);
+                sw.WriteLine();
+
+                if (ShortcutDesired == true ) sw.WriteLine("ShortcutDesired = True");
+                if (ShortcutDesired == false) sw.WriteLine("ShortcutDesired = False");
+
+                sw.WriteLine();
+                sw.Flush();
+            }
+
+            string SebBatchDir   = SebSourceDir;
 
             string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
             string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
@@ -123,7 +176,7 @@ namespace SebWindowsService
             string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
-            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
+            string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
 
             string XulSebZip           = "xul_seb.zip";
             string XulRunnerZip        = "xulrunner.zip";
@@ -294,8 +347,8 @@ namespace SebWindowsService
         {
             // Delete all remaining directories and files after uninstallation
 
-            string ProgramData    = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string ProgramFiles   = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            string ProgramData  = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
             string Manufacturer = "ETH Zuerich";
             string Product      = "SEB Windows";
@@ -306,16 +359,16 @@ namespace SebWindowsService
             string Service      = "SebWindowsService";
             string Logfile      = "SebWindowsService.logfile.txt";
 
-            string SebConfigDir  = ProgramData   + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebInstallDir = ProgramFiles  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
 
             string SebClientDir  = SebInstallDir + "\\" + Component;
-            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;  
+            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
             string SebServiceDir = SebInstallDir + "\\" + Service;
             string SebServiceLog = SebInstallDir + "\\" + Service + "\\" + Logfile;
 
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
-            string CommonDesktopIconUrl   = CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
+            string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
 
 
             // ATTENTION:
