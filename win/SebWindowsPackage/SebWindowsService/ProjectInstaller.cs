@@ -280,8 +280,10 @@ namespace SebWindowsService
                 //throw;
             }
 */
-/*
-            // Create a shortcut to the program executable "SebStarter.exe" on the common desktop
+
+            // If the user desired this, create a shortcut to the
+            // program executable "SebStarter.exe" on the Common Desktop
+            if    (ShortcutDesired)
             using (StreamWriter writer = new StreamWriter(CommonDesktopIconUrl))
             {
                 writer.WriteLine("[InternetShortcut]");
@@ -291,7 +293,6 @@ namespace SebWindowsService
                 writer.WriteLine("IconFile=" + SebWindowsIcon);
                 writer.Flush();
             }
-*/
 
             // Autostart the SEB Windows Service after installation.
             // This avoids the necessity of a machine reboot.
@@ -464,8 +465,10 @@ namespace SebWindowsService
 	        }
 
 
-            // Delete the shortcut to the program executable "SebStarter.exe" on the common desktop
-            //System.IO.File.Delete(CommonDesktopIconUrl);
+            // If existing, delete the shortcut to the
+            // program executable "SebStarter.exe" on the Common Desktop
+            if (System.IO.File.Exists(CommonDesktopIconUrl))
+                System.IO.File.Delete(CommonDesktopIconUrl);
 
             return;
 
