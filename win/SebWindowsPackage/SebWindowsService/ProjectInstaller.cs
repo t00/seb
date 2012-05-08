@@ -53,6 +53,7 @@ namespace SebWindowsService
             // Write some debug data into a file
             string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
+
             using (StreamWriter sw = new StreamWriter(UserDebugFile))
             {
                 sw.WriteLine();
@@ -96,7 +97,7 @@ namespace SebWindowsService
             // Install and Commit phases ->
             // Primary output of SebWindowsService (Active) ->
             // Properties window ->
-            // CustomActionData: /SourceDir="[SOURCEDIR]\" /TargetDir="[TARGETDIR]\" /Shortcut=[SHORTCUT]
+            // CustomActionData: /SourceDir="[SOURCEDIR]\" /TargetDir="[TARGETDIR]\" /ShortcutDesktop=[SHORTCUT_DESKTOP]
 
             if (!this.Context.Parameters.ContainsKey("SourceDir"))
             {
@@ -108,16 +109,17 @@ namespace SebWindowsService
                 throw new Exception(string.Format("CustomAction TargetDir failed!"));
             }
 
-            if (!this.Context.Parameters.ContainsKey("Shortcut"))
+            if (!this.Context.Parameters.ContainsKey("ShortcutDesktop"))
             {
-                throw new Exception(string.Format("CustomAction Shortcut failed!"));
+                throw new Exception(string.Format("CustomAction ShortcutDesktop failed!"));
             }
 
             string SebSourceDir = this.Context.Parameters["SourceDir"];
             string SebTargetDir = this.Context.Parameters["TargetDir"];
-            string SebShortcut  = this.Context.Parameters["Shortcut"];
+            string SebShortcut  = this.Context.Parameters["ShortcutDesktop"];
 
-            Boolean ShortcutDesired = (SebShortcut != string.Empty);
+            Boolean ShortcutDesktop = (SebShortcut != string.Empty);
+
 
             // Write some debug data into a file
             string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -142,22 +144,22 @@ namespace SebWindowsService
                 sw.WriteLine("SebSourceDir    = " + SebSourceDir);
                 sw.WriteLine("SebTargetDir    = " + SebTargetDir);
                 sw.WriteLine("SebShortcut     = " + SebShortcut);
-                sw.WriteLine("ShortcutDesired = " + ShortcutDesired);
+                sw.WriteLine("ShortcutDesktop = " + ShortcutDesktop);
                 sw.WriteLine();
 
-                if (ShortcutDesired == true ) sw.WriteLine("ShortcutDesired = True");
-                if (ShortcutDesired == false) sw.WriteLine("ShortcutDesired = False");
+                if (ShortcutDesktop == true ) sw.WriteLine("ShortcutDesktop = True");
+                if (ShortcutDesktop == false) sw.WriteLine("ShortcutDesktop = False");
 
                 sw.WriteLine();
                 sw.Flush();
             }
 
-            string SebBatchDir   = SebSourceDir;
 
-            string SebConfigDir  = ProgramData  + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebInstallDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version;
-            string SebClientDir  = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component;
-            string SebReleaseDir = ProgramFiles + "\\" + Manufacturer + "\\" + Product + " " + Version + "\\" + Component + "\\" + Build;
+            string SebBatchDir   = SebSourceDir;
+            string SebConfigDir  = ProgramData   + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebInstallDir = ProgramFiles  + "\\" + Manufacturer + "\\" + Product + " " + Version;
+            string SebClientDir  = SebInstallDir + "\\" + Component;
+            string SebReleaseDir = SebInstallDir + "\\" + Component + "\\" + Build;
 
             string SebInstallMsi = "SebWindowsInstall.msi";
             string SebStarterExe = "SebStarter.exe";
@@ -175,8 +177,13 @@ namespace SebWindowsService
             string SebStarterIniFileTarget = SebConfigDir  + "\\" + SebStarterIni;
             string SebMsgHookIniFileTarget = SebConfigDir  + "\\" + SebMsgHookIni;
 
+            string ShortcutName    = Product + " " + Version;
+            string ShortcutNameUrl = ShortcutName + ".url";
+          //string ShortcutNameLnk = ShortcutName + ".lnk";
+
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
-            string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
+            string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + ShortcutNameUrl;
+          //string CommonDesktopIconLnk   =    CommonDesktopDirectory + "\\" + ShortcutNameLnk;
 
             string XulSebZip           = "xul_seb.zip";
             string XulRunnerZip        = "xulrunner.zip";
@@ -283,7 +290,7 @@ namespace SebWindowsService
 
             // If the user desired this, create a shortcut to the
             // program executable "SebStarter.exe" on the Common Desktop
-            if    (ShortcutDesired)
+            if    (ShortcutDesktop)
             using (StreamWriter writer = new StreamWriter(CommonDesktopIconUrl))
             {
                 writer.WriteLine("[InternetShortcut]");
@@ -368,8 +375,13 @@ namespace SebWindowsService
             string SebServiceDir = SebInstallDir + "\\" + Service;
             string SebServiceLog = SebInstallDir + "\\" + Service + "\\" + Logfile;
 
+            string ShortcutName    = Product + " " + Version;
+            string ShortcutNameUrl = ShortcutName + ".url";
+          //string ShortcutNameLnk = ShortcutName + ".lnk";
+
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
-            string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + Product + " " + Version + ".url";
+            string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + ShortcutNameUrl;
+          //string CommonDesktopIconLnk   =    CommonDesktopDirectory + "\\" + ShortcutNameLnk;
 
 
             // ATTENTION:

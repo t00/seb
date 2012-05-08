@@ -217,7 +217,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_AD0CF09E_ADA2_41EA_9B29_43B24A029275"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\" /TargetDir=\"[TARGETDIR]\\\" /Shortcut=[SHORTCUT]"
+            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\" /TargetDir=\"[TARGETDIR]\\\" /ShortcutDesktop=[SHORTCUT_DESKTOP]"
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_8E598A9733194CDCBC2A25B6EB7081B0"
             {
@@ -245,7 +245,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_3CBAE5CE_AFEA_435E_8BB6_37C457BA8C7A"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\" /TargetDir=\"[TARGETDIR]\\\" /Shortcut=[SHORTCUT]"
+            "CustomActionData" = "8:/SourceDir=\"[SOURCEDIR]\\\" /TargetDir=\"[TARGETDIR]\\\" /ShortcutDesktop=[SHORTCUT_DESKTOP]"
             }
         }
         "DefaultFeature"
@@ -1003,7 +1003,7 @@
                             "ContextData" = "8:Public"
                             "Attributes" = "3:2"
                             "Setting" = "3:2"
-                            "Value" = "8:SHORTCUT"
+                            "Value" = "8:SHORTCUT_DESKTOP"
                             "DefaultValue" = "8:CHECKBOXA1"
                             "UsePlugInResources" = "11:TRUE"
                             }
