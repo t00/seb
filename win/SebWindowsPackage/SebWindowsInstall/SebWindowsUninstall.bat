@@ -43,7 +43,7 @@ echo ---------------------------------------------------------
 
 set Manufacturer=ETH Zuerich
 set Product=SEB Windows
-set Version=1.8.2
+set Version=1.8.3
 set Component=SebWindowsClient
 set Build=Release
 
