@@ -44,7 +44,7 @@ CAPTION "About"
 FONT 8, "System"
 BEGIN
     ICON            107,IDC_MYICON,14,9,20,20
-    LTEXT           "SEB Version 1.8.2",IDC_STATIC,49,10,119,8,SS_NOPREFIX
+    LTEXT           "SEB Version 1.8.3",IDC_STATIC,49,10,119,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2005",IDC_STATIC,49,20,119,8
     DEFPUSHBUTTON   "OK",IDOK,195,6,30,11,WS_GROUP
 END
@@ -94,7 +94,7 @@ IDI_SEB                 ICON                    "SebStarter.ico"
 
 STRINGTABLE
 BEGIN
-    IDS_APP_TITLE           "Safe Exam Browser   1.8.2"
+    IDS_APP_TITLE           "Safe Exam Browser   1.8.3"
     IDC_SEB                 "SEB"
 END
 
