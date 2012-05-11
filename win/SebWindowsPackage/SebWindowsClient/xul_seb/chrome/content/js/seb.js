@@ -18,7 +18,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Stefan Schneider <stefan.schneider@uni-hamburg.de>
+ *   Stefan Schneider <schneider@hrz.uni-marburg.de>
  *   Oliver Rahs <rahs@net.ethz.ch>
  *
  * ***** END LICENSE BLOCK ***** */
@@ -84,7 +84,7 @@ var SebSystem = {
 	
 	getUrl : function() {
 		var url = "";
-		if (window.arguments[0] != null) {
+		if (window.arguments && window.arguments[0] != null) {
 			var cmdLine = window.arguments[0].QueryInterface(Components.interfaces.nsICommandLine);
 			url = cmdLine.handleFlagWithParam("url", false);
 		}
@@ -155,8 +155,3 @@ window.addEventListener("load", function(e) {
 window.addEventListener("unload", function(e) {
 	SebSystem.shutdown();
 }, false);
-
-/* this is for popup window open events to prevent error messages */
-window.arguments.prototype = function() {
-	return this.arguments;
-}
