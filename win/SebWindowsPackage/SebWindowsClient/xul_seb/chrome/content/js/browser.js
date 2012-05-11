@@ -18,7 +18,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- *   Stefan Schneider <stefan.schneider@hrz.uni-giessen.de>
+ *   Stefan Schneider <schneider@hrz.uni-marburg.de>
  *   Oliver Rahs <rahs@net.ethz.ch>
  *
  * ***** END LICENSE BLOCK ***** */
@@ -100,7 +100,10 @@ nsBrowserStatusHandler.prototype = {
    		}	
    		return 0;
 	},
-  
+	
+	onStatusChange : function(aWebProgress, aRequest, aStatus, aMessage) {
+	},
+	
 	onProgressChange : function(aWebProgress, aRequest, aCurSelfProgress,
                               aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress) {
 	},
@@ -109,7 +112,6 @@ nsBrowserStatusHandler.prototype = {
 	},
   
 	onLocationChange : function(aWebProgress, aRequest, aLocation) {
-		UpdateBackForwardButtons();   
 	},
 
 	QueryInterface : function(aIID) {
