@@ -229,7 +229,10 @@ namespace SebWindowsConfig
         String msgStringQuitHashcode = "";
 
         String stringPathSebStarterIni = "";
+        String stringFileSebStarterIni = "";
+
         String stringPathMsgHookIni    = "";
+        String stringFileMsgHookIni    = "";
 
         // Password encryption using the SHA-256 hash algorithm
         SHA256 sha256 = new SHA256Managed();
@@ -371,6 +374,8 @@ namespace SebWindowsConfig
         {
             dialogResultSebStarterIni = openFileDialogSebStarterIni.ShowDialog();
               stringPathSebStarterIni = openFileDialogSebStarterIni.FileName;
+              stringFileSebStarterIni = openFileDialogSebStarterIni.FileName;
+            //stringFileSebStarterIni = openFileDialogSebStarterIni.SafeFileName;
 
             try 
             {
@@ -474,6 +479,7 @@ namespace SebWindowsConfig
                 textBoxAutostartProcess     .Text = newStringAutostartProcess;
                 textBoxExamUrl              .Text = newStringExamUrl;
                 textBoxPermittedApplications.Text = newStringPermittedApplications;
+                textBoxCurrentSebStarterIni .Text =    stringFileSebStarterIni;
 
             } // end try
             catch (Exception streamReadException) 
@@ -495,6 +501,8 @@ namespace SebWindowsConfig
         {
             dialogResultSebStarterIni = saveFileDialogSebStarterIni.ShowDialog();
               stringPathSebStarterIni = saveFileDialogSebStarterIni.FileName;
+              stringFileSebStarterIni = saveFileDialogSebStarterIni.FileName;
+            //stringFileSebStarterIni = saveFileDialogSebStarterIni.SafeFileName;
 
             try 
             {
@@ -566,6 +574,8 @@ namespace SebWindowsConfig
                 streamWriterSebStarterIni.Close();
                   fileStreamSebStarterIni.Close();
 
+                textBoxCurrentSebStarterIni.Text = stringFileSebStarterIni;
+
             } // end try
             catch (Exception streamWriteException) 
             {
@@ -586,6 +596,8 @@ namespace SebWindowsConfig
         {
             dialogResultMsgHookIni = openFileDialogMsgHookIni.ShowDialog();
               stringPathMsgHookIni = openFileDialogMsgHookIni.FileName;
+              stringFileMsgHookIni = openFileDialogMsgHookIni.FileName;
+            //stringFileMsgHookIni = openFileDialogMsgHookIni.SafeFileName;
 
             try 
             {
@@ -706,8 +718,9 @@ namespace SebWindowsConfig
                 listBoxExitKey2.SelectedIndex = newIndexExitKey2 - 1;
                 listBoxExitKey3.SelectedIndex = newIndexExitKey3 - 1;
 
-                textBoxQuitPassword.Text = newStringQuitPassword;
-                textBoxQuitHashcode.Text = newStringQuitHashcode;
+                textBoxQuitPassword     .Text = newStringQuitPassword;
+                textBoxQuitHashcode     .Text = newStringQuitHashcode;
+                textBoxCurrentMsgHookIni.Text =    stringFileMsgHookIni;
 
             } // end try
             catch (Exception streamReadException) 
@@ -729,6 +742,8 @@ namespace SebWindowsConfig
         {
             dialogResultMsgHookIni = saveFileDialogMsgHookIni.ShowDialog();
               stringPathMsgHookIni = saveFileDialogMsgHookIni.FileName;
+              stringFileMsgHookIni = saveFileDialogMsgHookIni.FileName;
+            //stringFileMsgHookIni = saveFileDialogMsgHookIni.SafeFileName;
 
             try 
             {
@@ -802,6 +817,8 @@ namespace SebWindowsConfig
                 // Close the MsgHook.ini file
                 streamWriterMsgHookIni.Close();
                   fileStreamMsgHookIni.Close();
+
+                textBoxCurrentMsgHookIni.Text = stringFileMsgHookIni;
 
             } // end try
             catch (Exception streamWriteException) 
