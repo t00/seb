@@ -319,11 +319,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		// If none of these directories contains a SebStarter.ini file, give up
 		else
 		{
-			OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
+//			OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
 			//MessageBox(NULL, messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
 			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
 			//logg(fp, "Leave _tWinMain() and return FALSE\n\n");
-			return FALSE;
+//			return FALSE;
 		}
 	}
 
@@ -1079,6 +1079,67 @@ bool IsSebRunningOnVirtualMachineNew()
 
 
 
+// Get the hardcoded values for SebStarter.ini,
+// in case the Exam URL etc.
+// shall be hidden from the students.
+
+void GetHardcodedSebStarterIni()
+{
+	mpParam["InsideSebEnableSwitchUser"       ] = "0";
+	mpParam["InsideSebEnableLockThisComputer" ] = "0";
+	mpParam["InsideSebEnableChangeAPassword"  ] = "0";
+	mpParam["InsideSebEnableStartTaskManager" ] = "0";
+	mpParam["InsideSebEnableLogOff"           ] = "0";
+	mpParam["InsideSebEnableShutDown"         ] = "0";
+	mpParam["InsideSebEnableEaseOfAccess"     ] = "0";
+	mpParam["InsideSebEnableVmWareClientShade"] = "0";
+
+	mpParam["OutsideSebEnableSwitchUser"       ] = "1";
+	mpParam["OutsideSebEnableLockThisComputer" ] = "1";
+	mpParam["OutsideSebEnableChangeAPassword"  ] = "1";
+	mpParam["OutsideSebEnableStartTaskManager" ] = "1";
+	mpParam["OutsideSebEnableLogOff"           ] = "1";
+	mpParam["OutsideSebEnableShutDown"         ] = "1";
+	mpParam["OutsideSebEnableEaseOfAccess"     ] = "1";
+	mpParam["OutsideSebEnableVmWareClientShade"] = "1";
+
+	mpParam["AllowVirtualMachine"      ] = "0";
+	mpParam["ForceWindowsService"      ] = "1";
+	mpParam["CreateNewDesktop"         ] = "1";
+	mpParam["ShowSebApplicationChooser"] = "1";
+	mpParam["HookMessages"             ] = "1";
+	mpParam["EditRegistry"             ] = "1";
+	mpParam["MonitorProcesses"         ] = "0";
+	mpParam["ShutdownAfterAutostartProcessTerminates"] = "0";
+
+	string s1 = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile ";
+	string s2 = "\"";
+	string s3 = "%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles";
+	string s4 = "\"";
+    string SebBrowserString = s1 + s2 + s3 + s4;
+
+  //mpParam["SebBrowser"] = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles"";
+	mpParam["SebBrowser"] = SebBrowserString;
+	mpParam["AutostartProcess"     ] = "Seb";
+	mpParam["ExamUrl"              ] = "http://blogs.fhnw.ch/learninglab/dozierende/support/onlinepruefung/";
+	mpParam["PermittedApplications"] = "";
+
+	mpParam["WriteLogFileSebStarterLog"] = "1";
+	mpParam["HookDll"                  ] = "MsgHook.dll";
+
+	mpParam["Win9xKillExplorer"        ] = "1";
+	mpParam["Win9xScreenSaverRunning"  ] = "0";
+
+	mpParam["StrongKillProcessesBefore"] = "";
+	mpParam["StrongKillProcessesAfter" ] = "";
+
+	return;
+}
+
+
+
+
+
 BOOL ReadSebStarterIni()
 {
 	string strLine  = "";
@@ -1116,46 +1177,60 @@ BOOL ReadSebStarterIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		logg(fp, "Try to open ini file %s\n", iniFileSebStarter);
-		inputStream.open(iniFileSebStarter);
 
-		// If the SebStarter.ini file could not be opened, give up
-		if (!inputStream.is_open()) 
+		// In case the Exam URL etc. shall be hidden from the students,
+		// use the hardcoded values rather than loading them from SebStarter.ini file
+
+		bool useHardCodedSebStarterIni =  true;
+
+		if  (useHardCodedSebStarterIni == true)
 		{
-			OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
-			//MessageBox(NULL       , messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
-			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
-			logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
-			return FALSE;
+			GetHardcodedSebStarterIni();
 		}
-
-		logg(fp, "\n");
-		logg(fp, "key = value\n");
-		logg(fp, "-----------\n");
-
-		while(!getline(inputStream, strLine).eof())
+		else
 		{
-			strFound = strLine.find  ("=", 0);
-			strKey   = strLine.substr(0, strFound);
-			strValue = strLine.substr(   strFound + 1, strLine.length());
+			logg(fp, "Try to open ini file %s\n", iniFileSebStarter);
+			inputStream.open(iniFileSebStarter);
 
-			// Skip lines without a "=" character
-			if (strFound == string::npos)
+			// If the SebStarter.ini file could not be opened, give up
+			if (!inputStream.is_open()) 
 			{
-				logg(fp, "%s\n", strLine.c_str());
+				OutputErrorMessage(languageIndex, IND_SebStarterIniError, IND_MessageKindError);
+				//MessageBox(NULL       , messageText[languageIndex][IND_SebStarterIniError], "Error", 16);
+				//logg(fp, "Error: %s\n", messageText[languageIndex][IND_SebStarterIniError]);
+				logg(fp, "Leave ReadSebStarterIni() and return FALSE\n\n");
+				return FALSE;
 			}
-			else
-			{
-				mpParam[strKey] = strValue;
-				//captionString = strKey  .c_str();
-				//messageString = strValue.c_str();
-				//MessageBox(NULL, messageString, captionString, 16);
-				logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
-			}
-		}
 
-		inputStream.close();
-		logg(fp, "-----------\n\n");
+			logg(fp, "\n");
+			logg(fp, "key = value\n");
+			logg(fp, "-----------\n");
+
+			while(!getline(inputStream, strLine).eof())
+			{
+				strFound = strLine.find  ("=", 0);
+				strKey   = strLine.substr(0, strFound);
+				strValue = strLine.substr(   strFound + 1, strLine.length());
+
+				// Skip lines without a "=" character
+				if (strFound == string::npos)
+				{
+					logg(fp, "%s\n", strLine.c_str());
+				}
+				else
+				{
+					mpParam[strKey] = strValue;
+					//captionString = strKey  .c_str();
+					//messageString = strValue.c_str();
+					//MessageBox(NULL, messageString, captionString, 16);
+					logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
+				}
+			}
+
+			inputStream.close();
+			logg(fp, "-----------\n\n");
+
+		} // end if  (useHardCodedSebStarterIni == true)
 
 
 		// Decide whether to write data into the logfile
