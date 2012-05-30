@@ -707,6 +707,48 @@ EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook)
 
 
 
+// Get the hardcoded values for MsgHook.ini,
+// in case the Exit Sequence etc.
+// shall be hidden from the students.
+
+void GetHardcodedMsgHookIni()
+{
+	mpParam["EnableEsc"       ] = "0";
+	mpParam["EnableCtrlEsc"   ] = "1";
+	mpParam["EnableAltEsc"    ] = "1";
+	mpParam["EnableAltTab"    ] = "1";
+	mpParam["EnableAltF4"     ] = "0";
+	mpParam["EnableStartMenu" ] = "0";
+	mpParam["EnableRightMouse"] = "0";
+
+	mpParam["EnableF1" ] = "0";
+	mpParam["EnableF2" ] = "0";
+	mpParam["EnableF3" ] = "0";
+	mpParam["EnableF4" ] = "0";
+	mpParam["EnableF5" ] = "1";
+	mpParam["EnableF6" ] = "0";
+	mpParam["EnableF7" ] = "0";
+	mpParam["EnableF8" ] = "0";
+	mpParam["EnableF9" ] = "0";
+	mpParam["EnableF10"] = "0";
+	mpParam["EnableF11"] = "0";
+	mpParam["EnableF12"] = "0";
+
+	mpParam["B1"] = "115";
+	mpParam["B2"] = "121";
+	mpParam["B3"] = "113";
+	mpParam["QuitHashcode"] = "";
+
+	mpParam["WriteLogFileMsgHookLog"] = "1";
+	mpParam["KillCallerHotkey"      ] = "Safe Exam Browser   1.8.3";
+
+	return;
+}
+
+
+
+
+
 BOOL ReadMsgHookIni()
 {
 	string strLine  = "";
@@ -741,46 +783,60 @@ BOOL ReadMsgHookIni()
 		// for both the /Debug and the /Release version without copying
 		// being necessary anymore.
 
-		logg(fp, "Try to open ini file %s\n", iniFileMsgHook);
-		inputStream.open(iniFileMsgHook);
 
-		// If the MsgHook.ini file could not be opened, give up
-		if (!inputStream.is_open()) 
+		// In case the Exit Sequence etc. shall be hidden from the students,
+		// use the hardcoded values rather than loading them from MsgHook.ini file
+
+		bool useHardCodedMsgHookIni =  true;
+
+		if  (useHardCodedMsgHookIni == true)
 		{
-			OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
-			//MessageBox(NULL       , messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
-			//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
-			logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
-			return FALSE;
+			GetHardcodedMsgHookIni();
 		}
-
-		logg(fp, "\n");
-		logg(fp, "key = value\n");
-		logg(fp, "-----------\n");
-
-		while (!getline(inputStream, strLine).eof())
+		else
 		{
-			strFound = strLine.find  ("=", 0);
-			strKey   = strLine.substr(0, strFound);
-			strValue = strLine.substr(   strFound + 1, strLine.length());
+			logg(fp, "Try to open ini file %s\n", iniFileMsgHook);
+			inputStream.open(iniFileMsgHook);
 
-			// Skip lines without a "=" character
-			if (strFound == string::npos)
+			// If the MsgHook.ini file could not be opened, give up
+			if (!inputStream.is_open()) 
 			{
-				logg(fp, "%s\n", strLine.c_str());
+				OutputErrorMessage(languageIndex, IND_MsgHookIniError, IND_MessageKindError);
+				//MessageBox(NULL       , messageText[languageIndex][IND_MsgHookIniError], "Error", 16);
+				//logg(fp, "Error: %s\n", messageText[languageIndex][IND_MsgHookIniError]);
+				logg(fp, "Leave ReadMsgHookIni() and return FALSE\n\n");
+				return FALSE;
 			}
-			else
-			{
-				mpParam[strKey] = strValue;
-				//captionString = strKey  .c_str();
-				//messageString = strValue.c_str();
-				//MessageBox(NULL, messageString, captionString, 16);
-				logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
-			}
-		}
 
-		inputStream.close();
-		logg(fp, "-----------\n\n");
+			logg(fp, "\n");
+			logg(fp, "key = value\n");
+			logg(fp, "-----------\n");
+
+			while (!getline(inputStream, strLine).eof())
+			{
+				strFound = strLine.find  ("=", 0);
+				strKey   = strLine.substr(0, strFound);
+				strValue = strLine.substr(   strFound + 1, strLine.length());
+
+				// Skip lines without a "=" character
+				if (strFound == string::npos)
+				{
+					logg(fp, "%s\n", strLine.c_str());
+				}
+				else
+				{
+					mpParam[strKey] = strValue;
+					//captionString = strKey  .c_str();
+					//messageString = strValue.c_str();
+					//MessageBox(NULL, messageString, captionString, 16);
+					logg(fp, "%s = %s\n", strKey.c_str(), strValue.c_str());
+				}
+			}
+
+			inputStream.close();
+			logg(fp, "-----------\n\n");
+
+		} // end if  (useHardCodedMsgHookIni == true)
 
 
 		// Decide whether to write data into the logfile
