@@ -1118,11 +1118,11 @@ void GetHardcodedSebStarterIni()
 	string s4 = "\"";
     string SebBrowserString = s1 + s2 + s3 + s4;
 
-  //mpParam["SebBrowser"] = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles"";
-	mpParam["SebBrowser"] = SebBrowserString;
+  //mpParam["SebBrowser"           ] = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles"";
+	mpParam["SebBrowser"           ] =  SebBrowserString;
 	mpParam["AutostartProcess"     ] = "Seb";
-	mpParam["ExamUrl"              ] = "http://blogs.fhnw.ch/learninglab/dozierende/support/onlinepruefung/";
-	mpParam["PermittedApplications"] = "";
+	mpParam["ExamUrl"              ] = "http://www.safeexambrowser.org";
+	mpParam["PermittedApplications"] = "Calculator,calc.exe;Notepad,notepad.exe;";
 
 	mpParam["WriteLogFileSebStarterLog"] = "1";
 	mpParam["HookDll"                  ] = "MsgHook.dll";
@@ -1181,7 +1181,7 @@ BOOL ReadSebStarterIni()
 		// In case the Exam URL etc. shall be hidden from the students,
 		// use the hardcoded values rather than loading them from SebStarter.ini file
 
-		bool useHardCodedSebStarterIni =  true;
+		bool useHardCodedSebStarterIni =  false;
 
 		if  (useHardCodedSebStarterIni == true)
 		{

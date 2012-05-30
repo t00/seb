@@ -734,9 +734,9 @@ void GetHardcodedMsgHookIni()
 	mpParam["EnableF11"] = "0";
 	mpParam["EnableF12"] = "0";
 
-	mpParam["B1"] = "115";
-	mpParam["B2"] = "121";
-	mpParam["B3"] = "113";
+	mpParam["B1"] = "114";
+	mpParam["B2"] = "122";
+	mpParam["B3"] = "117";
 	mpParam["QuitHashcode"] = "";
 
 	mpParam["WriteLogFileMsgHookLog"] = "1";
@@ -787,7 +787,7 @@ BOOL ReadMsgHookIni()
 		// In case the Exit Sequence etc. shall be hidden from the students,
 		// use the hardcoded values rather than loading them from MsgHook.ini file
 
-		bool useHardCodedMsgHookIni =  true;
+		bool useHardCodedMsgHookIni =  false;
 
 		if  (useHardCodedMsgHookIni == true)
 		{
