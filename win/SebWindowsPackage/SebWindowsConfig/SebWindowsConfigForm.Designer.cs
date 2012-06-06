@@ -75,7 +75,7 @@
             this.checkBoxOutsideSebEnableShutDown = new System.Windows.Forms.CheckBox();
             this.checkBoxOutsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxOutsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
-            this.buttonFinish = new System.Windows.Forms.Button();
+            this.buttonSaveAndExit = new System.Windows.Forms.Button();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
@@ -111,6 +111,7 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogMsgHookIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogMsgHookIni = new System.Windows.Forms.SaveFileDialog();
+            this.buttonExitWithoutSaving = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSebConfigExe)).BeginInit();
             this.splitContainerSebConfigExe.Panel1.SuspendLayout();
             this.splitContainerSebConfigExe.Panel2.SuspendLayout();
@@ -144,7 +145,8 @@
             // 
             this.splitContainerSebConfigExe.Panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainerSebConfigExe.Panel2.BackgroundImage")));
             this.splitContainerSebConfigExe.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonFinish);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonExitWithoutSaving);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonSaveAndExit);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxExitSequence);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookIni);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
@@ -649,15 +651,15 @@
             this.checkBoxOutsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
             this.checkBoxOutsideSebEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged);
             // 
-            // buttonFinish
+            // buttonSaveAndExit
             // 
-            this.buttonFinish.Location = new System.Drawing.Point(20, 600);
-            this.buttonFinish.Name = "buttonFinish";
-            this.buttonFinish.Size = new System.Drawing.Size(170, 60);
-            this.buttonFinish.TabIndex = 52;
-            this.buttonFinish.Text = "Configuration finished,\r\nclose window";
-            this.buttonFinish.UseVisualStyleBackColor = true;
-            this.buttonFinish.Click += new System.EventHandler(this.buttonFinish_Click);
+            this.buttonSaveAndExit.Location = new System.Drawing.Point(20, 600);
+            this.buttonSaveAndExit.Name = "buttonSaveAndExit";
+            this.buttonSaveAndExit.Size = new System.Drawing.Size(170, 60);
+            this.buttonSaveAndExit.TabIndex = 52;
+            this.buttonSaveAndExit.Text = "Save and exit";
+            this.buttonSaveAndExit.UseVisualStyleBackColor = true;
+            this.buttonSaveAndExit.Click += new System.EventHandler(this.buttonExitAndSave_Click);
             // 
             // groupBoxExitSequence
             // 
@@ -1079,6 +1081,16 @@
             this.saveFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
             this.saveFileDialogMsgHookIni.Title = "Save file MsgHook.ini";
             // 
+            // buttonExitWithoutSaving
+            // 
+            this.buttonExitWithoutSaving.Location = new System.Drawing.Point(320, 600);
+            this.buttonExitWithoutSaving.Name = "buttonExitWithoutSaving";
+            this.buttonExitWithoutSaving.Size = new System.Drawing.Size(170, 60);
+            this.buttonExitWithoutSaving.TabIndex = 53;
+            this.buttonExitWithoutSaving.Text = "Exit without saving";
+            this.buttonExitWithoutSaving.UseVisualStyleBackColor = true;
+            this.buttonExitWithoutSaving.Click += new System.EventHandler(this.buttonExitWithoutSaving_Click);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1197,7 +1209,7 @@
         private System.Windows.Forms.TextBox textBoxQuitPassword;
         private System.Windows.Forms.Label labelQuitHashCode;
         private System.Windows.Forms.TextBox textBoxQuitHashcode;
-        private System.Windows.Forms.Button buttonFinish;
+        private System.Windows.Forms.Button buttonSaveAndExit;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableSwitchUser;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableLockThisComputer;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableChangeAPassword;
@@ -1208,6 +1220,7 @@
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableVmWareClientShade;
         private System.Windows.Forms.TextBox textBoxCurrentSebStarterIni;
         private System.Windows.Forms.TextBox textBoxCurrentMsgHookIni;
+        private System.Windows.Forms.Button buttonExitWithoutSaving;
 
     }
 }

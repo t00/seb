@@ -23,38 +23,45 @@ namespace SebWindowsConfig
         // The Graphical User Interface contains 5 groups
         const int IND_GroupNon = 0;
         const int IND_GroupMin = 1;
-        const int IND_GroupMax = 8;
-        const int IND_GroupNum = 8;
+        const int IND_GroupMax = 9;
+        const int IND_GroupNum = 9;
 
-        // SebStarter contains the 4 groups
-        // 1) InsideSeb 2) OutsideSeb 3) SecurityOptions 4) OnlineExam
+        // SebStarter contains the 5 groups
+        // SebStarterFiles, InsideSeb, OutsideSeb, SecurityOptions, OnlineExam
         const int IND_GroupNonSebStarter = 0;
         const int IND_GroupMinSebStarter = 1;
-        const int IND_GroupMaxSebStarter = 4;
-        const int IND_GroupNumSebStarter = 4;
+        const int IND_GroupMaxSebStarter = 5;
+        const int IND_GroupNumSebStarter = 5;
 
-        // MsgHook contains the 3 groups
-        // 5) SpecialKeys 6) FunctionKeys 7) ExitSequence
+        // MsgHook contains the 4 groups
+        // MsgHookFiles, SpecialKeys, FunctionKeys, ExitSequence
         const int IND_GroupNonMsgHook = 0;
-        const int IND_GroupMinMsgHook = 5;
-        const int IND_GroupMaxMsgHook = 7;
-        const int IND_GroupNumMsgHook = 3;
+        const int IND_GroupMinMsgHook = 6;
+        const int IND_GroupMaxMsgHook = 9;
+        const int IND_GroupNumMsgHook = 4;
 
-        // Group indices
-        const int IND_InsideSeb       = 1;
-        const int IND_OutsideSeb      = 2;
-        const int IND_SecurityOptions = 3;
-        const int IND_OnlineExam      = 4;
-        const int IND_SpecialKeys     = 5;
-        const int IND_FunctionKeys    = 6;
-        const int IND_ExitSequence    = 7;
-        const int IND_OtherOptions    = 8;
+        // Group indices for SebStarter.ini
+        const int IND_SebStarterFiles = 1;
+        const int IND_InsideSeb       = 2;
+        const int IND_OutsideSeb      = 3;
+        const int IND_SecurityOptions = 4;
+        const int IND_OnlineExam      = 5;
+
+        // Group indices for MsgHook.ini
+        const int IND_MsgHookFiles    = 6;
+        const int IND_SpecialKeys     = 7;
+        const int IND_FunctionKeys    = 8;
+        const int IND_ExitSequence    = 9;
 
         // Each group contains up to 12 settings
         const int IND_SettingNone =  0;
         const int IND_SettingMin  =  1;
         const int IND_SettingMax  = 12;
         const int IND_SettingNum  = 12;
+
+        // Group "SebStarter files"
+        const int    IND_WriteLogFileSebStarterLog = 1;
+        const String MSG_WriteLogFileSebStarterLog = "WriteLogFileSebStarterLog";
 
         // Groups "Inside SEB" / "Outside SEB"
         const int IND_EnableSwitchUser        = 1;
@@ -122,6 +129,10 @@ namespace SebWindowsConfig
         const String MSG_QuitPassword          = "QuitPassword";
         const String MSG_QuitHashcode          = "QuitHashcode";
 
+        // Group "MsgHook files"
+        const int    IND_WriteLogFileMsgHookLog = 1;
+        const String MSG_WriteLogFileMsgHookLog = "WriteLogFileMsgHookLog";
+
         // Group "Special keys"
         const int IND_EnableEsc        = 1;
         const int IND_EnableCtrlEsc    = 2;
@@ -174,13 +185,6 @@ namespace SebWindowsConfig
         const String MSG_B1 = "B1";
         const String MSG_B2 = "B2";
         const String MSG_B3 = "B3";
-
-        // Group "Other options"
-        const int IND_WriteLogFileSebStarterLog = 1;
-        const int IND_WriteLogFileMsgHookLog    = 2;
-
-        const String MSG_WriteLogFileSebStarterLog = "WriteLogFileSebStarterLog";
-        const String MSG_WriteLogFileMsgHookLog    = "WriteLogFileMsgHookLog";
 
         // Types of settings
         const int TYPE_Boolean = 1;
@@ -271,7 +275,7 @@ namespace SebWindowsConfig
 
             // Initialise the global arrays
 
-            int lineNr, indexGroup, indexSetting;
+            int group, setting, lineNr;
 
             oldNumLinesSebStarterIni = 0;
             newNumLinesSebStarterIni = 0;
@@ -292,30 +296,34 @@ namespace SebWindowsConfig
                 tmpLinesMsgHookIni[lineNr] = "";
             }
 
-            for (indexGroup   = IND_GroupMin  ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+            for (group   = IND_GroupMin  ; group   <= IND_GroupMax  ; group++)
+            for (setting = IND_SettingMin; setting <= IND_SettingMax; setting++)
             {
-                oldBoolean[indexGroup, indexSetting] = false;
-                newBoolean[indexGroup, indexSetting] = false;
-                tmpBoolean[indexGroup, indexSetting] = false;
+                oldBoolean[group, setting] = false;
+                newBoolean[group, setting] = false;
+                tmpBoolean[group, setting] = false;
 
-                oldString[indexGroup, indexSetting] = "";
-                newString[indexGroup, indexSetting] = "";
-                tmpString[indexGroup, indexSetting] = "";
+                oldString[group, setting] = "";
+                newString[group, setting] = "";
+                tmpString[group, setting] = "";
             }
 
             // Assign the data types to the different ini settings
-            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+            for (setting = IND_SettingMin; setting <= IND_SettingMax; setting++)
             {
-                dataType[IND_InsideSeb      , indexSetting] = TYPE_Boolean;
-                dataType[IND_OutsideSeb     , indexSetting] = TYPE_Boolean;
-                dataType[IND_SecurityOptions, indexSetting] = TYPE_Boolean;
-                dataType[IND_OnlineExam     , indexSetting] = TYPE_String;
+                dataType[IND_SebStarterFiles, setting] = TYPE_Boolean;
+                dataType[IND_InsideSeb      , setting] = TYPE_Boolean;
+                dataType[IND_OutsideSeb     , setting] = TYPE_Boolean;
+                dataType[IND_SecurityOptions, setting] = TYPE_Boolean;
+                dataType[IND_OnlineExam     , setting] = TYPE_String;
 
-                dataType[IND_SpecialKeys , indexSetting] = TYPE_Boolean;
-                dataType[IND_FunctionKeys, indexSetting] = TYPE_Boolean;
-                dataType[IND_ExitSequence, indexSetting] = TYPE_String;
+                dataType[IND_MsgHookFiles, setting] = TYPE_Boolean;
+                dataType[IND_SpecialKeys , setting] = TYPE_Boolean;
+                dataType[IND_FunctionKeys, setting] = TYPE_Boolean;
+                dataType[IND_ExitSequence, setting] = TYPE_String;
             }
+
+            msgString[IND_SebStarterFiles, IND_WriteLogFileSebStarterLog] = MSG_WriteLogFileSebStarterLog;
 
             msgString[IND_InsideSeb, IND_EnableSwitchUser       ] = MSG_InsideSebEnableSwitchUser;
             msgString[IND_InsideSeb, IND_EnableLockThisComputer ] = MSG_InsideSebEnableLockThisComputer;
@@ -351,6 +359,8 @@ namespace SebWindowsConfig
             msgString[IND_OnlineExam, IND_QuitPassword         ] = MSG_QuitPassword;
             msgString[IND_OnlineExam, IND_QuitHashcode         ] = MSG_QuitHashcode;
 
+            msgString[IND_MsgHookFiles, IND_WriteLogFileMsgHookLog] = MSG_WriteLogFileMsgHookLog;
+
             msgString[IND_SpecialKeys, IND_EnableEsc       ] = MSG_EnableEsc;
             msgString[IND_SpecialKeys, IND_EnableCtrlEsc   ] = MSG_EnableCtrlEsc;
             msgString[IND_SpecialKeys, IND_EnableAltEsc    ] = MSG_EnableAltEsc;
@@ -376,9 +386,6 @@ namespace SebWindowsConfig
             msgString[IND_ExitSequence, IND_B2] = MSG_B2;
             msgString[IND_ExitSequence, IND_B3] = MSG_B3;
 
-            msgString[IND_OtherOptions, IND_WriteLogFileSebStarterLog] = MSG_WriteLogFileSebStarterLog;
-            msgString[IND_OtherOptions, IND_WriteLogFileMsgHookLog   ] = MSG_WriteLogFileMsgHookLog;
-
             virtualKeyCodeString[ 1] = "112";
             virtualKeyCodeString[ 2] = "113";
             virtualKeyCodeString[ 3] = "114";
@@ -402,14 +409,30 @@ namespace SebWindowsConfig
 
 
 
+        // ******************************
+        // Open file SebStarter.ini click
+        // ******************************
+        private void labelOpenFileSebStarterIni_Click(object sender, EventArgs e)
+        {
+                dialogResultSebStarterIni = openFileDialogSebStarterIni.ShowDialog();
+            tmpStringCurrentSebStarterIni = openFileDialogSebStarterIni.FileName;
+
+            OpenFileSebStarterIni();
+
+        } // end of method   labelOpenFileSebStarterIni_Click()
+
+
+
         // ************************
         // Open file SebStarter.ini
         // ************************
-        private void labelOpenFileSebStarterIni_Click(object sender, EventArgs e)
+        private void OpenFileSebStarterIni()
         {
-            int lineNr, indexGroup, indexSetting;
-                dialogResultSebStarterIni = openFileDialogSebStarterIni.ShowDialog();
-            tmpStringCurrentSebStarterIni = openFileDialogSebStarterIni.FileName;
+            int   group, setting, lineNr;
+            int   groupMin = IND_GroupMinSebStarter;
+            int   groupMax = IND_GroupMaxSebStarter;
+            int settingMin = IND_SettingMin;
+            int settingMax = IND_SettingMax;
 
             try 
             {
@@ -434,13 +457,14 @@ namespace SebWindowsConfig
                         String  rightString    = line.Substring(equalPosition + 1);
                         Boolean rightBoolean   = rightString.Equals("1");
 
-                        for (indexGroup   = IND_GroupMin  ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-                        for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+                        // Find the appropriate group and setting
+                        for (group   =   groupMin;   group <=   groupMax;   group++)
+                        for (setting = settingMin; setting <= settingMax; setting++)
                         {
-                            if (leftString.Equals(msgString[indexGroup, indexSetting]))
+                            if (leftString.Equals(msgString[group, setting]))
                             {
-                                tmpBoolean[indexGroup, indexSetting] = rightBoolean;
-                                tmpString [indexGroup, indexSetting] = rightString;
+                                tmpBoolean[group, setting] = rightBoolean;
+                                tmpString [group, setting] = rightString;
                             }
                         }
 
@@ -472,13 +496,13 @@ namespace SebWindowsConfig
                 newLinesSebStarterIni[lineNr] = tmpLinesSebStarterIni[lineNr];
             }
 
-            for (indexGroup   = IND_GroupMin  ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-            for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+            for (group   =   groupMin;   group <=   groupMax;   group++)
+            for (setting = settingMin; setting <= settingMax; setting++)
             {
-                oldBoolean[indexGroup, indexSetting] = tmpBoolean[indexGroup, indexSetting];
-                newBoolean[indexGroup, indexSetting] = tmpBoolean[indexGroup, indexSetting];
-                oldString [indexGroup, indexSetting] = tmpString [indexGroup, indexSetting];
-                newString [indexGroup, indexSetting] = tmpString [indexGroup, indexSetting];
+                oldBoolean[group, setting] = tmpBoolean[group, setting];
+                newBoolean[group, setting] = tmpBoolean[group, setting];
+                oldString [group, setting] = tmpString [group, setting];
+                newString [group, setting] = tmpString [group, setting];
             }
 
             oldStringCurrentSebStarterIni = tmpStringCurrentSebStarterIni;
@@ -487,19 +511,35 @@ namespace SebWindowsConfig
             // Assign the settings from the SebStarter.ini file to the widgets
             SetWidgetsToNewSettingsOfSebStarterIni();
 
-        } // end of method   labelOpenFileSebStarterIni_Click()
+        } // end of method   OpenFileSebStarterIni()
 
+
+
+
+        // ******************************
+        // Save file SebStarter.ini click
+        // ******************************
+        private void labelSaveFileSebStarterIni_Click(object sender, EventArgs e)
+        {
+                dialogResultSebStarterIni = saveFileDialogSebStarterIni.ShowDialog();
+            tmpStringCurrentSebStarterIni = saveFileDialogSebStarterIni.FileName;
+
+            SaveFileSebStarterIni();
+
+        } // end of method   labelSaveFileSebStarterIni_Click()
 
 
 
         // ************************
         // Save file SebStarter.ini
         // ************************
-        private void labelSaveFileSebStarterIni_Click(object sender, EventArgs e)
+        private void SaveFileSebStarterIni()
         {
-            int lineNr, indexGroup, indexSetting;
-                dialogResultSebStarterIni = saveFileDialogSebStarterIni.ShowDialog();
-            tmpStringCurrentSebStarterIni = saveFileDialogSebStarterIni.FileName;
+            int   group, setting, lineNr;
+            int   groupMin = IND_GroupMinSebStarter;
+            int   groupMax = IND_GroupMaxSebStarter;
+            int settingMin = IND_SettingMin;
+            int settingMax = IND_SettingMax;
 
             try 
             {
@@ -522,14 +562,15 @@ namespace SebWindowsConfig
                         Boolean rightBoolean   = rightString.Equals("1");
                         int     rightType      = TYPE_Boolean;
 
-                        for (indexGroup   = IND_GroupMin  ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-                        for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+                        // Find the appropriate group and setting
+                        for (group   =   groupMin;   group <=   groupMax;   group++)
+                        for (setting = settingMin; setting <= settingMax; setting++)
                         {
-                            if (leftString.Equals(msgString[indexGroup, indexSetting]))
+                            if (leftString.Equals(msgString[group, setting]))
                             {
-                                rightBoolean = newBoolean[indexGroup, indexSetting];
-                                rightString  = newString [indexGroup, indexSetting];
-                                rightType    =   dataType[indexGroup, indexSetting];
+                                rightBoolean = newBoolean[group, setting];
+                                rightString  = newString [group, setting];
+                                rightType    =   dataType[group, setting];
                                 if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
                                 if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
                             }
@@ -573,29 +614,45 @@ namespace SebWindowsConfig
                 newLinesSebStarterIni[lineNr] = tmpLinesSebStarterIni[lineNr];
             }
 
-            for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-            for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
+            for (group   =   groupMin;   group <=   groupMax;   group++)
+            for (setting = settingMin; setting <= settingMax; setting++)
             {
-                oldBoolean[indexGroup, indexSetting] = newBoolean[indexGroup, indexSetting];
-                oldString [indexGroup, indexSetting] = newString [indexGroup, indexSetting];
+                oldBoolean[group, setting] = newBoolean[group, setting];
+                oldString [group, setting] = newString [group, setting];
             }
 
             oldStringCurrentSebStarterIni    = newStringCurrentSebStarterIni;
             textBoxCurrentSebStarterIni.Text = newStringCurrentSebStarterIni;
 
-        } // end of method   labelSaveFileSebStarterIni_Click()
+        } // end of method   SaveFileSebStarterIni()
 
+
+
+
+        // ***************************
+        // Open file MsgHook.ini click
+        // ***************************
+        private void labelOpenFileMsgHookIni_Click(object sender, EventArgs e)
+        {
+                dialogResultMsgHookIni = openFileDialogMsgHookIni.ShowDialog();
+            tmpStringCurrentMsgHookIni = openFileDialogMsgHookIni.FileName;
+
+            OpenFileMsgHookIni();
+
+        }  // end of method   labelOpenFileMsgHookIni_Click()
 
 
 
         // *********************
         // Open file MsgHook.ini
         // *********************
-        private void labelOpenFileMsgHookIni_Click(object sender, EventArgs e)
+        private void OpenFileMsgHookIni()
         {
-            int lineNr, indexGroup, indexSetting;
-                dialogResultMsgHookIni = openFileDialogMsgHookIni.ShowDialog();
-            tmpStringCurrentMsgHookIni = openFileDialogMsgHookIni.FileName;
+            int   group, setting, lineNr;
+            int   groupMin = IND_GroupMinMsgHook;
+            int   groupMax = IND_GroupMaxMsgHook;
+            int settingMin = IND_SettingMin;
+            int settingMax = IND_SettingMax;
 
             try 
             {
@@ -620,13 +677,14 @@ namespace SebWindowsConfig
                         String  rightString    = line.Substring(equalPosition + 1);
                         Boolean rightBoolean   = rightString.Equals("1");
 
-                        for (indexGroup   = IND_GroupMin  ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-                        for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+                        // Find the appropriate group and setting
+                        for (group   =   groupMin;   group <=   groupMax;   group++)
+                        for (setting = settingMin; setting <= settingMax; setting++)
                         {
-                            if (leftString.Equals(msgString[indexGroup, indexSetting]))
+                            if (leftString.Equals(msgString[group, setting]))
                             {
-                                tmpBoolean[indexGroup, indexSetting] = rightBoolean;
-                                tmpString [indexGroup, indexSetting] = rightString;
+                                tmpBoolean[group, setting] = rightBoolean;
+                                tmpString [group, setting] = rightString;
                             }
                         }
 
@@ -658,13 +716,13 @@ namespace SebWindowsConfig
                 newLinesMsgHookIni[lineNr] = tmpLinesMsgHookIni[lineNr];
             }
 
-            for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-            for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
+            for (group   =   groupMin;   group <=   groupMax;   group++)
+            for (setting = settingMin; setting <= settingMax; setting++)
             {
-                oldBoolean[indexGroup, indexSetting] = tmpBoolean[indexGroup, indexSetting];
-                newBoolean[indexGroup, indexSetting] = tmpBoolean[indexGroup, indexSetting];
-                oldString [indexGroup, indexSetting] = tmpString [indexGroup, indexSetting];
-                newString [indexGroup, indexSetting] = tmpString [indexGroup, indexSetting];
+                oldBoolean[group, setting] = tmpBoolean[group, setting];
+                newBoolean[group, setting] = tmpBoolean[group, setting];
+                oldString [group, setting] = tmpString [group, setting];
+                newString [group, setting] = tmpString [group, setting];
             }
 
             oldStringCurrentMsgHookIni = tmpStringCurrentMsgHookIni;
@@ -673,19 +731,35 @@ namespace SebWindowsConfig
             // Assign the settings from the MsgHook.ini file to the widgets
             SetWidgetsToNewSettingsOfMsgHookIni();
 
-        }  // end of method   labelOpenFileMsgHookIni_Click()
+        }  // end of method   OpenFileMsgHookIni()
 
+
+
+
+        // ***************************
+        // Save file MsgHook.ini click
+        // ***************************
+        private void labelSaveFileMsgHookIni_Click(object sender, EventArgs e)
+        {
+                dialogResultMsgHookIni = saveFileDialogMsgHookIni.ShowDialog();
+            tmpStringCurrentMsgHookIni = saveFileDialogMsgHookIni.FileName;
+
+            SaveFileMsgHookIni();
+
+        }  // end of method   labelSaveFileMsgHookIni_Click()
 
 
 
         // *********************
         // Save file MsgHook.ini
         // *********************
-        private void labelSaveFileMsgHookIni_Click(object sender, EventArgs e)
+        private void SaveFileMsgHookIni()
         {
-            int lineNr, indexGroup, indexSetting;
-                dialogResultMsgHookIni = saveFileDialogMsgHookIni.ShowDialog();
-            tmpStringCurrentMsgHookIni = saveFileDialogMsgHookIni.FileName;
+            int   group, setting, lineNr;
+            int   groupMin = IND_GroupMinMsgHook;
+            int   groupMax = IND_GroupMaxMsgHook;
+            int settingMin = IND_SettingMin;
+            int settingMax = IND_SettingMax;
 
             newString[IND_ExitSequence, IND_B1] = virtualKeyCodeString[newIndexExitKey1];
             newString[IND_ExitSequence, IND_B2] = virtualKeyCodeString[newIndexExitKey2];
@@ -712,14 +786,15 @@ namespace SebWindowsConfig
                         Boolean rightBoolean   = rightString.Equals("1");
                         int     rightType      = TYPE_Boolean;
 
-                        for (indexGroup   = IND_GroupMin  ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-                        for (indexSetting = IND_SettingMin; indexSetting <= IND_SettingMax; indexSetting++)
+                        // Find the appropriate group and setting
+                        for (group   =   groupMin;   group <=   groupMax;   group++)
+                        for (setting = settingMin; setting <= settingMax; setting++)
                         {
-                            if (leftString.Equals(msgString[indexGroup, indexSetting]))
+                            if (leftString.Equals(msgString[group, setting]))
                             {
-                                rightBoolean = newBoolean[indexGroup, indexSetting];
-                                rightString  = newString [indexGroup, indexSetting];
-                                rightType    =   dataType[indexGroup, indexSetting];
+                                rightBoolean = newBoolean[group, setting];
+                                rightString  = newString [group, setting];
+                                rightType    =   dataType[group, setting];
                                 if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
                                 if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
                             }
@@ -763,11 +838,11 @@ namespace SebWindowsConfig
                 newLinesMsgHookIni[lineNr] = tmpLinesMsgHookIni[lineNr];
             }
 
-            for (indexGroup   = IND_GroupMin   ; indexGroup   <= IND_GroupMax  ; indexGroup++)
-            for (indexSetting = IND_SettingMin ; indexSetting <= IND_SettingMax; indexSetting++)
+            for (group   =   groupMin;   group <=   groupMax;   group++)
+            for (setting = settingMin; setting <= settingMax; setting++)
             {
-                oldBoolean[indexGroup, indexSetting] = newBoolean[indexGroup, indexSetting];
-                oldString [indexGroup, indexSetting] = newString [indexGroup, indexSetting];
+                oldBoolean[group, setting] = newBoolean[group, setting];
+                oldString [group, setting] = newString [group, setting];
             }
 
             oldIndexExitKey1 = newIndexExitKey1;
@@ -777,7 +852,7 @@ namespace SebWindowsConfig
             oldStringCurrentMsgHookIni    = newStringCurrentMsgHookIni;
             textBoxCurrentMsgHookIni.Text = newStringCurrentMsgHookIni;
 
-        }  // end of method   labelSaveFileMsgHookIni_Click()
+        }  // end of method   SaveFileMsgHookIni()
 
 
 
@@ -788,9 +863,14 @@ namespace SebWindowsConfig
         // update the setting in memory for later saving on file.
         // ******************************************************
 
+        // Group "SebStarter files"
+        private void checkBoxWriteLogFileSebStarterLog_CheckedChanged(object sender, EventArgs e)
+        {
+            newBoolean[IND_SebStarterFiles, IND_WriteLogFileSebStarterLog] = checkBoxWriteLogFileSebStarterLog.Checked;
+        }
 
-        // Group "Inside SEB" (Bluescreen options)
 
+        // Group "Inside SEB"
         private void checkBoxInsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
             newBoolean[IND_InsideSeb, IND_EnableSwitchUser] = checkBoxInsideSebEnableSwitchUser.Checked;
@@ -832,9 +912,7 @@ namespace SebWindowsConfig
         }
  
 
-
-        // Group "Outside SEB" (Bluescreen options)
-
+        // Group "Outside SEB"
         private void checkBoxOutsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
             newBoolean[IND_OutsideSeb, IND_EnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
@@ -876,9 +954,7 @@ namespace SebWindowsConfig
         }
 
 
-
         // Group "Security options"
-
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
         {
             newBoolean[IND_SecurityOptions, IND_AllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
@@ -920,9 +996,7 @@ namespace SebWindowsConfig
         }
 
 
-
         // Group "Online exam"
-
         private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
         {
             newString[IND_OnlineExam, IND_SebBrowser] = textBoxSebBrowser.Text;
@@ -944,9 +1018,14 @@ namespace SebWindowsConfig
         }
 
 
+        // Group "MsgHook files"
+        private void checkBoxWriteLogFileMsgHookLog_CheckedChanged(object sender, EventArgs e)
+        {
+            newBoolean[IND_MsgHookFiles, IND_WriteLogFileMsgHookLog] = checkBoxWriteLogFileMsgHookLog.Checked;
+        }
+
 
         // Group "Special keys"
-
         private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
         {
             newBoolean[IND_SpecialKeys, IND_EnableEsc] = checkBoxEnableEsc.Checked;
@@ -983,9 +1062,7 @@ namespace SebWindowsConfig
         }
 
 
-
         // Group "Function keys"
-
         private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
         {
             newBoolean[IND_FunctionKeys, IND_EnableF1] = checkBoxEnableF1.Checked;
@@ -1047,9 +1124,7 @@ namespace SebWindowsConfig
         }
 
 
-
         // Group "Exit sequence"
-
         private void listBoxExitKeyFirst_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Make sure that all three exit keys are different.
@@ -1062,7 +1137,6 @@ namespace SebWindowsConfig
             else newIndexExitKey1 = tmpIndexExitKey1;
         }
 
-
         private void listBoxExitKeySecond_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Make sure that all three exit keys are different.
@@ -1074,7 +1148,6 @@ namespace SebWindowsConfig
                   listBoxExitKey2.SelectedIndex = newIndexExitKey2 - 1;
             else newIndexExitKey2 = tmpIndexExitKey2;
         }
-
 
         private void listBoxExitKeyThird_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1108,19 +1181,6 @@ namespace SebWindowsConfig
             newString[IND_OnlineExam, IND_QuitHashcode] = newStringQuitHashcode;
         }
 
-
-
-        // Group "Other options"
-
-        private void checkBoxWriteLogFileSebStarterLog_CheckedChanged(object sender, EventArgs e)
-        {
-            newBoolean[IND_OtherOptions, IND_WriteLogFileSebStarterLog] = checkBoxWriteLogFileSebStarterLog.Checked;
-        }
-
-        private void checkBoxWriteLogFileMsgHookLog_CheckedChanged(object sender, EventArgs e)
-        {
-            newBoolean[IND_OtherOptions, IND_WriteLogFileMsgHookLog] = checkBoxWriteLogFileMsgHookLog.Checked;
-        }
 
 
 
@@ -1182,6 +1242,9 @@ namespace SebWindowsConfig
         private void SetWidgetsToNewSettingsOfSebStarterIni()
         {
             // Set the widgets to the new settings
+                  textBoxCurrentSebStarterIni.Text    = newStringCurrentSebStarterIni;
+            checkBoxWriteLogFileSebStarterLog.Checked = newBoolean[IND_SebStarterFiles, IND_WriteLogFileSebStarterLog];
+
             checkBoxInsideSebEnableSwitchUser       .Checked = newBoolean[IND_InsideSeb, IND_EnableSwitchUser];
             checkBoxInsideSebEnableLockThisComputer .Checked = newBoolean[IND_InsideSeb, IND_EnableLockThisComputer];
             checkBoxInsideSebEnableChangeAPassword  .Checked = newBoolean[IND_InsideSeb, IND_EnableChangeAPassword];
@@ -1209,13 +1272,12 @@ namespace SebWindowsConfig
             checkBoxMonitorProcesses         .Checked = newBoolean[IND_SecurityOptions, IND_MonitorProcesses];
             checkBoxShutdownAfterAutostart   .Checked = newBoolean[IND_SecurityOptions, IND_ShutdownAfterAutostart];
 
-            checkBoxWriteLogFileSebStarterLog.Checked = newBoolean[IND_OtherOptions, IND_WriteLogFileSebStarterLog];
-
             textBoxSebBrowser           .Text = newString[IND_OnlineExam, IND_SebBrowser];
             textBoxAutostartProcess     .Text = newString[IND_OnlineExam, IND_AutostartProcess];
             textBoxExamUrl              .Text = newString[IND_OnlineExam, IND_ExamUrl];
             textBoxPermittedApplications.Text = newString[IND_OnlineExam, IND_PermittedApplications];
-            textBoxCurrentSebStarterIni .Text = newStringCurrentSebStarterIni;
+            textBoxQuitPassword         .Text = newString[IND_OnlineExam, IND_QuitPassword];
+            textBoxQuitHashcode         .Text = newString[IND_OnlineExam, IND_QuitHashcode];
         }
 
 
@@ -1227,6 +1289,9 @@ namespace SebWindowsConfig
         private void SetWidgetsToNewSettingsOfMsgHookIni()
         {
             // Set the widgets to the new settings
+                  textBoxCurrentMsgHookIni.Text    = newStringCurrentMsgHookIni;
+            checkBoxWriteLogFileMsgHookLog.Checked = newBoolean[IND_MsgHookFiles, IND_WriteLogFileMsgHookLog];
+
             checkBoxEnableEsc       .Checked = newBoolean[IND_SpecialKeys, IND_EnableEsc];
             checkBoxEnableCtrlEsc   .Checked = newBoolean[IND_SpecialKeys, IND_EnableCtrlEsc];
             checkBoxEnableAltEsc    .Checked = newBoolean[IND_SpecialKeys, IND_EnableAltEsc];
@@ -1248,8 +1313,6 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = newBoolean[IND_FunctionKeys, IND_EnableF11];
             checkBoxEnableF12.Checked = newBoolean[IND_FunctionKeys, IND_EnableF12];
 
-            checkBoxWriteLogFileMsgHookLog.Checked = newBoolean[IND_OtherOptions, IND_WriteLogFileMsgHookLog];
-
             // Convert the B1, B2, B3 strings to integers
             int  indexFunctionKey;
             for (indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
@@ -1268,9 +1331,8 @@ namespace SebWindowsConfig
             listBoxExitKey2.SelectedIndex = newIndexExitKey2 - 1;
             listBoxExitKey3.SelectedIndex = newIndexExitKey3 - 1;
 
-            textBoxQuitPassword     .Text = newString[IND_OnlineExam, IND_QuitPassword];
-            textBoxQuitHashcode     .Text = newString[IND_OnlineExam, IND_QuitHashcode];
-            textBoxCurrentMsgHookIni.Text = newStringCurrentMsgHookIni;
+            textBoxQuitPassword.Text = newString[IND_OnlineExam, IND_QuitPassword];
+            textBoxQuitHashcode.Text = newString[IND_OnlineExam, IND_QuitHashcode];
         }
 
 
@@ -1279,9 +1341,19 @@ namespace SebWindowsConfig
         // ***********************************
         // Close the configuration application
         // ***********************************
-        private void buttonFinish_Click(object sender, EventArgs e)
+        private void buttonExitAndSave_Click(object sender, EventArgs e)
         {
+            // Save both ini files so that nothing gets lost
+            SaveFileSebStarterIni();
+            SaveFileMsgHookIni();
+
             // Close the configuration window and exit
+            this.Close();
+        }
+
+        private void buttonExitWithoutSaving_Click(object sender, EventArgs e)
+        {
+            // Close the configuration window and exit without saving
             this.Close();
         }
 
