@@ -75,6 +75,7 @@
             this.checkBoxOutsideSebEnableShutDown = new System.Windows.Forms.CheckBox();
             this.checkBoxOutsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxOutsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
+            this.buttonExitWithoutSaving = new System.Windows.Forms.Button();
             this.buttonSaveAndExit = new System.Windows.Forms.Button();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
@@ -111,7 +112,6 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogMsgHookIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogMsgHookIni = new System.Windows.Forms.SaveFileDialog();
-            this.buttonExitWithoutSaving = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSebConfigExe)).BeginInit();
             this.splitContainerSebConfigExe.Panel1.SuspendLayout();
             this.splitContainerSebConfigExe.Panel2.SuspendLayout();
@@ -276,7 +276,7 @@
             this.groupBoxSebStarterIni.Size = new System.Drawing.Size(600, 120);
             this.groupBoxSebStarterIni.TabIndex = 26;
             this.groupBoxSebStarterIni.TabStop = false;
-            this.groupBoxSebStarterIni.Text = "SebStarter configuration file";
+            this.groupBoxSebStarterIni.Text = "SebStarter files";
             // 
             // textBoxCurrentSebStarterIni
             // 
@@ -651,6 +651,16 @@
             this.checkBoxOutsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
             this.checkBoxOutsideSebEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged);
             // 
+            // buttonExitWithoutSaving
+            // 
+            this.buttonExitWithoutSaving.Location = new System.Drawing.Point(320, 600);
+            this.buttonExitWithoutSaving.Name = "buttonExitWithoutSaving";
+            this.buttonExitWithoutSaving.Size = new System.Drawing.Size(170, 60);
+            this.buttonExitWithoutSaving.TabIndex = 53;
+            this.buttonExitWithoutSaving.Text = "Exit without saving";
+            this.buttonExitWithoutSaving.UseVisualStyleBackColor = true;
+            this.buttonExitWithoutSaving.Click += new System.EventHandler(this.buttonExitWithoutSaving_Click);
+            // 
             // buttonSaveAndExit
             // 
             this.buttonSaveAndExit.Location = new System.Drawing.Point(20, 600);
@@ -754,7 +764,7 @@
             this.groupBoxMsgHookIni.Size = new System.Drawing.Size(600, 120);
             this.groupBoxMsgHookIni.TabIndex = 40;
             this.groupBoxMsgHookIni.TabStop = false;
-            this.groupBoxMsgHookIni.Text = "MsgHook configuration file";
+            this.groupBoxMsgHookIni.Text = "MsgHook files";
             // 
             // textBoxCurrentMsgHookIni
             // 
@@ -1080,16 +1090,6 @@
             this.saveFileDialogMsgHookIni.FileName = "MsgHook.ini";
             this.saveFileDialogMsgHookIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
             this.saveFileDialogMsgHookIni.Title = "Save file MsgHook.ini";
-            // 
-            // buttonExitWithoutSaving
-            // 
-            this.buttonExitWithoutSaving.Location = new System.Drawing.Point(320, 600);
-            this.buttonExitWithoutSaving.Name = "buttonExitWithoutSaving";
-            this.buttonExitWithoutSaving.Size = new System.Drawing.Size(170, 60);
-            this.buttonExitWithoutSaving.TabIndex = 53;
-            this.buttonExitWithoutSaving.Text = "Exit without saving";
-            this.buttonExitWithoutSaving.UseVisualStyleBackColor = true;
-            this.buttonExitWithoutSaving.Click += new System.EventHandler(this.buttonExitWithoutSaving_Click);
             // 
             // SebWindowsConfigForm
             // 
