@@ -1124,8 +1124,8 @@ void GetHardcodedSebStarterIni()
 	mpParam["ExamUrl"              ] = "http://www.safeexambrowser.org";
 	mpParam["PermittedApplications"] = "Calculator,calc.exe;Notepad,notepad.exe;";
 
-	mpParam["WriteLogFileSebStarterLog"] = "1";
-	mpParam["HookDll"                  ] = "MsgHook.dll";
+	mpParam["WriteSebStarterLogFile"] = "1";
+	mpParam["HookDll"               ] = "MsgHook.dll";
 
 	mpParam["Win9xKillExplorer"        ] = "1";
 	mpParam["Win9xScreenSaverRunning"  ] = "0";
@@ -1234,7 +1234,7 @@ BOOL ReadSebStarterIni()
 
 
 		// Decide whether to write data into the logfile
-		if (getBool("WriteLogFileSebStarterLog"))
+		if (getBool("WriteSebStarterLogFile"))
 		{
 			logFileDesiredSebStarter = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");

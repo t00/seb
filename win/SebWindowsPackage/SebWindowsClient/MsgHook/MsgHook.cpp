@@ -739,8 +739,8 @@ void GetHardcodedMsgHookIni()
 	mpParam["B3"] = "117";
 	mpParam["QuitHashcode"] = "";
 
-	mpParam["WriteLogFileMsgHookLog"] = "1";
-	mpParam["KillCallerHotkey"      ] = "Safe Exam Browser   1.8.3";
+	mpParam["WriteMsgHookLogFile"] = "1";
+	mpParam["KillCallerHotkey"   ] = "Safe Exam Browser   1.8.3";
 
 	return;
 }
@@ -840,7 +840,7 @@ BOOL ReadMsgHookIni()
 
 
 		// Decide whether to write data into the logfile
-		if (getBool("WriteLogFileMsgHookLog"))
+		if (getBool("WriteMsgHookLogFile"))
 		{
 			logFileDesiredMsgHook = true;
 			logg(fp, "Logfile desired, therefore keeping logfile\n\n");
