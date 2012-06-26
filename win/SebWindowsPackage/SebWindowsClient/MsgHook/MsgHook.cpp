@@ -713,6 +713,8 @@ EXPORT void MouseHook9x(HINSTANCE *hDLL, bool setHook)
 
 void GetHardcodedMsgHookIni()
 {
+	mpParam["WriteMsgHookLogFile"] = "1";
+
 	mpParam["EnableEsc"       ] = "0";
 	mpParam["EnableCtrlEsc"   ] = "1";
 	mpParam["EnableAltEsc"    ] = "1";
@@ -739,8 +741,7 @@ void GetHardcodedMsgHookIni()
 	mpParam["B3"] = "117";
 	mpParam["QuitHashcode"] = "";
 
-	mpParam["WriteMsgHookLogFile"] = "1";
-	mpParam["KillCallerHotkey"   ] = "Safe Exam Browser   1.8.3";
+	mpParam["KillCallerHotkey"] = APP_CHOOSER_TITLE;
 
 	return;
 }
@@ -837,6 +838,10 @@ BOOL ReadMsgHookIni()
 			logg(fp, "-----------\n\n");
 
 		} // end if  (useHardCodedMsgHookIni == true)
+
+
+		// In any case, set the correct Application Chooser window title
+		mpParam["KillCallerHotkey"] = APP_CHOOSER_TITLE;
 
 
 		// Decide whether to write data into the logfile

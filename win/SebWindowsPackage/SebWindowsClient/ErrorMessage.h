@@ -40,8 +40,9 @@
 
 // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
 // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
-#define MANUFACTURER "ETH Zuerich"
-#define PRODUCT_NAME "SEB Windows 1.8.3"
+#define MANUFACTURER      "ETH Zuerich"
+#define PRODUCT_NAME      "SEB Windows 1.8.3"
+#define APP_CHOOSER_TITLE "Safe Exam Browser 1.8.3"
 
 
 // C structures for logfile handling
