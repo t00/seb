@@ -40,6 +40,7 @@
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
             this.checkBoxForceWindowsService = new System.Windows.Forms.CheckBox();
             this.groupBoxSebStarterFiles = new System.Windows.Forms.GroupBox();
+            this.buttonRestoreSebStarterDefaultSettings = new System.Windows.Forms.Button();
             this.textBoxCurrentSebStarterIni = new System.Windows.Forms.TextBox();
             this.labelOpenSebStarterConfigurationFile = new System.Windows.Forms.Label();
             this.labelSaveSebStarterConfigurationFile = new System.Windows.Forms.Label();
@@ -82,6 +83,7 @@
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.groupBoxMsgHookFiles = new System.Windows.Forms.GroupBox();
+            this.buttonRestoreMsgHookDefaultSettings = new System.Windows.Forms.Button();
             this.textBoxCurrentMsgHookIni = new System.Windows.Forms.TextBox();
             this.labelOpenMsgHookConfigurationFile = new System.Windows.Forms.Label();
             this.labelSaveMsgHookConfigurationFile = new System.Windows.Forms.Label();
@@ -151,7 +153,7 @@
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookFiles);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxSpecialKeys);
-            this.splitContainerSebConfigExe.Size = new System.Drawing.Size(1332, 675);
+            this.splitContainerSebConfigExe.Size = new System.Drawing.Size(1332, 705);
             this.splitContainerSebConfigExe.SplitterDistance = 644;
             this.splitContainerSebConfigExe.TabIndex = 0;
             // 
@@ -165,7 +167,7 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxForceWindowsService);
-            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(290, 160);
+            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(290, 190);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
             this.groupBoxSecurityOptions.Size = new System.Drawing.Size(330, 270);
             this.groupBoxSecurityOptions.TabIndex = 45;
@@ -266,6 +268,7 @@
             // 
             // groupBoxSebStarterFiles
             // 
+            this.groupBoxSebStarterFiles.Controls.Add(this.buttonRestoreSebStarterDefaultSettings);
             this.groupBoxSebStarterFiles.Controls.Add(this.textBoxCurrentSebStarterIni);
             this.groupBoxSebStarterFiles.Controls.Add(this.labelOpenSebStarterConfigurationFile);
             this.groupBoxSebStarterFiles.Controls.Add(this.labelSaveSebStarterConfigurationFile);
@@ -273,10 +276,20 @@
             this.groupBoxSebStarterFiles.Controls.Add(this.checkBoxWriteSebStarterLogFile);
             this.groupBoxSebStarterFiles.Location = new System.Drawing.Point(20, 20);
             this.groupBoxSebStarterFiles.Name = "groupBoxSebStarterFiles";
-            this.groupBoxSebStarterFiles.Size = new System.Drawing.Size(600, 120);
+            this.groupBoxSebStarterFiles.Size = new System.Drawing.Size(600, 150);
             this.groupBoxSebStarterFiles.TabIndex = 26;
             this.groupBoxSebStarterFiles.TabStop = false;
             this.groupBoxSebStarterFiles.Text = "SebStarter files";
+            // 
+            // buttonRestoreSebStarterDefaultSettings
+            // 
+            this.buttonRestoreSebStarterDefaultSettings.Location = new System.Drawing.Point(270, 60);
+            this.buttonRestoreSebStarterDefaultSettings.Name = "buttonRestoreSebStarterDefaultSettings";
+            this.buttonRestoreSebStarterDefaultSettings.Size = new System.Drawing.Size(320, 25);
+            this.buttonRestoreSebStarterDefaultSettings.TabIndex = 44;
+            this.buttonRestoreSebStarterDefaultSettings.Text = "Restore SebStarter default settings";
+            this.buttonRestoreSebStarterDefaultSettings.UseVisualStyleBackColor = true;
+            this.buttonRestoreSebStarterDefaultSettings.Click += new System.EventHandler(this.buttonRestoreSebStarterDefaultSettings_Click);
             // 
             // textBoxCurrentSebStarterIni
             // 
@@ -310,7 +323,7 @@
             // 
             // buttonRestoreSebStarterConfigurationFileSettings
             // 
-            this.buttonRestoreSebStarterConfigurationFileSettings.Location = new System.Drawing.Point(270, 60);
+            this.buttonRestoreSebStarterConfigurationFileSettings.Location = new System.Drawing.Point(270, 90);
             this.buttonRestoreSebStarterConfigurationFileSettings.Name = "buttonRestoreSebStarterConfigurationFileSettings";
             this.buttonRestoreSebStarterConfigurationFileSettings.Size = new System.Drawing.Size(320, 25);
             this.buttonRestoreSebStarterConfigurationFileSettings.TabIndex = 19;
@@ -321,7 +334,7 @@
             // checkBoxWriteSebStarterLogFile
             // 
             this.checkBoxWriteSebStarterLogFile.AutoSize = true;
-            this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 90);
+            this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 120);
             this.checkBoxWriteSebStarterLogFile.Name = "checkBoxWriteSebStarterLogFile";
             this.checkBoxWriteSebStarterLogFile.Size = new System.Drawing.Size(180, 21);
             this.checkBoxWriteSebStarterLogFile.TabIndex = 42;
@@ -343,7 +356,7 @@
             this.groupBoxOnlineExam.Controls.Add(this.labelPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxExamUrl);
-            this.groupBoxOnlineExam.Location = new System.Drawing.Point(20, 450);
+            this.groupBoxOnlineExam.Location = new System.Drawing.Point(20, 480);
             this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
             this.groupBoxOnlineExam.Size = new System.Drawing.Size(600, 210);
             this.groupBoxOnlineExam.TabIndex = 25;
@@ -476,7 +489,7 @@
             this.groupBoxInsideOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableShutDown);
             this.groupBoxInsideOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableEaseOfAccess);
             this.groupBoxInsideOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableVmWareClientShade);
-            this.groupBoxInsideOutsideSeb.Location = new System.Drawing.Point(20, 160);
+            this.groupBoxInsideOutsideSeb.Location = new System.Drawing.Point(20, 190);
             this.groupBoxInsideOutsideSeb.Name = "groupBoxInsideOutsideSeb";
             this.groupBoxInsideOutsideSeb.Size = new System.Drawing.Size(250, 270);
             this.groupBoxInsideOutsideSeb.TabIndex = 24;
@@ -653,7 +666,7 @@
             // 
             // buttonExitWithoutSaving
             // 
-            this.buttonExitWithoutSaving.Location = new System.Drawing.Point(320, 600);
+            this.buttonExitWithoutSaving.Location = new System.Drawing.Point(320, 610);
             this.buttonExitWithoutSaving.Name = "buttonExitWithoutSaving";
             this.buttonExitWithoutSaving.Size = new System.Drawing.Size(170, 60);
             this.buttonExitWithoutSaving.TabIndex = 53;
@@ -663,7 +676,7 @@
             // 
             // buttonSaveAndExit
             // 
-            this.buttonSaveAndExit.Location = new System.Drawing.Point(20, 600);
+            this.buttonSaveAndExit.Location = new System.Drawing.Point(20, 610);
             this.buttonSaveAndExit.Name = "buttonSaveAndExit";
             this.buttonSaveAndExit.Size = new System.Drawing.Size(170, 60);
             this.buttonSaveAndExit.TabIndex = 52;
@@ -676,7 +689,7 @@
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey1);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey3);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey2);
-            this.groupBoxExitSequence.Location = new System.Drawing.Point(340, 160);
+            this.groupBoxExitSequence.Location = new System.Drawing.Point(340, 190);
             this.groupBoxExitSequence.Name = "groupBoxExitSequence";
             this.groupBoxExitSequence.Size = new System.Drawing.Size(160, 240);
             this.groupBoxExitSequence.TabIndex = 51;
@@ -754,6 +767,7 @@
             // 
             // groupBoxMsgHookFiles
             // 
+            this.groupBoxMsgHookFiles.Controls.Add(this.buttonRestoreMsgHookDefaultSettings);
             this.groupBoxMsgHookFiles.Controls.Add(this.textBoxCurrentMsgHookIni);
             this.groupBoxMsgHookFiles.Controls.Add(this.labelOpenMsgHookConfigurationFile);
             this.groupBoxMsgHookFiles.Controls.Add(this.labelSaveMsgHookConfigurationFile);
@@ -761,10 +775,20 @@
             this.groupBoxMsgHookFiles.Controls.Add(this.buttonRestoreMsgHookConfigurationFileSettings);
             this.groupBoxMsgHookFiles.Location = new System.Drawing.Point(20, 20);
             this.groupBoxMsgHookFiles.Name = "groupBoxMsgHookFiles";
-            this.groupBoxMsgHookFiles.Size = new System.Drawing.Size(600, 120);
+            this.groupBoxMsgHookFiles.Size = new System.Drawing.Size(600, 150);
             this.groupBoxMsgHookFiles.TabIndex = 40;
             this.groupBoxMsgHookFiles.TabStop = false;
             this.groupBoxMsgHookFiles.Text = "MsgHook files";
+            // 
+            // buttonRestoreMsgHookDefaultSettings
+            // 
+            this.buttonRestoreMsgHookDefaultSettings.Location = new System.Drawing.Point(270, 60);
+            this.buttonRestoreMsgHookDefaultSettings.Name = "buttonRestoreMsgHookDefaultSettings";
+            this.buttonRestoreMsgHookDefaultSettings.Size = new System.Drawing.Size(320, 25);
+            this.buttonRestoreMsgHookDefaultSettings.TabIndex = 47;
+            this.buttonRestoreMsgHookDefaultSettings.Text = "Restore MsgHook default settings";
+            this.buttonRestoreMsgHookDefaultSettings.UseVisualStyleBackColor = true;
+            this.buttonRestoreMsgHookDefaultSettings.Click += new System.EventHandler(this.buttonRestoreMsgHookDefaultSettings_Click);
             // 
             // textBoxCurrentMsgHookIni
             // 
@@ -799,7 +823,7 @@
             // checkBoxWriteMsgHookLogFile
             // 
             this.checkBoxWriteMsgHookLogFile.AutoSize = true;
-            this.checkBoxWriteMsgHookLogFile.Location = new System.Drawing.Point(270, 90);
+            this.checkBoxWriteMsgHookLogFile.Location = new System.Drawing.Point(270, 120);
             this.checkBoxWriteMsgHookLogFile.Name = "checkBoxWriteMsgHookLogFile";
             this.checkBoxWriteMsgHookLogFile.Size = new System.Drawing.Size(171, 21);
             this.checkBoxWriteMsgHookLogFile.TabIndex = 41;
@@ -809,7 +833,7 @@
             // 
             // buttonRestoreMsgHookConfigurationFileSettings
             // 
-            this.buttonRestoreMsgHookConfigurationFileSettings.Location = new System.Drawing.Point(270, 60);
+            this.buttonRestoreMsgHookConfigurationFileSettings.Location = new System.Drawing.Point(270, 90);
             this.buttonRestoreMsgHookConfigurationFileSettings.Name = "buttonRestoreMsgHookConfigurationFileSettings";
             this.buttonRestoreMsgHookConfigurationFileSettings.Size = new System.Drawing.Size(320, 25);
             this.buttonRestoreMsgHookConfigurationFileSettings.TabIndex = 45;
@@ -831,7 +855,7 @@
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF9);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF7);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF8);
-            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(210, 160);
+            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(210, 190);
             this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
             this.groupBoxFunctionKeys.Size = new System.Drawing.Size(110, 390);
             this.groupBoxFunctionKeys.TabIndex = 39;
@@ -979,7 +1003,7 @@
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltF4);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableStartMenu);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableRightMouse);
-            this.groupBoxSpecialKeys.Location = new System.Drawing.Point(20, 160);
+            this.groupBoxSpecialKeys.Location = new System.Drawing.Point(20, 190);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Size = new System.Drawing.Size(170, 240);
             this.groupBoxSpecialKeys.TabIndex = 38;
@@ -1096,7 +1120,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1332, 675);
+            this.ClientSize = new System.Drawing.Size(1332, 705);
             this.Controls.Add(this.splitContainerSebConfigExe);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Window";
@@ -1221,6 +1245,8 @@
         private System.Windows.Forms.TextBox textBoxCurrentSebStarterIni;
         private System.Windows.Forms.TextBox textBoxCurrentMsgHookIni;
         private System.Windows.Forms.Button buttonExitWithoutSaving;
+        private System.Windows.Forms.Button buttonRestoreSebStarterDefaultSettings;
+        private System.Windows.Forms.Button buttonRestoreMsgHookDefaultSettings;
 
     }
 }

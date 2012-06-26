@@ -15,55 +15,94 @@ namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
     {
-        // Constants for indexing the ini file settings
+        // Constants for indexing the ini file values
 
         // Maximum number of text lines in ini files
         const int MAX_LINES = 100;
 
+        // SEB has 2 different ini files:
+        // SebStarter.ini and MsgHook.ini
+        const int FileSebStarter = 1;
+        const int FileMsgHook    = 2;
+
+        const int FileNon = 0;
+        const int FileMin = 1;
+        const int FileMax = 2;
+        const int FileNum = 2;
+
+        // The values can be in 4 different states
+        const int StateNon = 0;
+        const int StateMin = 1;
+        const int StateMax = 4;
+        const int StateNum = 4;
+
+        // We deal with different states of values:
+        // old, new, temporary and default values
+        const int StateOld = 1;
+        const int StateNew = 2;
+        const int StateTmp = 3;
+        const int StateDef = 4;
+
         // The Graphical User Interface contains 5 groups
-        const int IND_GroupNon = 0;
-        const int IND_GroupMin = 1;
-        const int IND_GroupMax = 9;
-        const int IND_GroupNum = 9;
+        const int GroupNon = 0;
+        const int GroupMin = 1;
+        const int GroupMax = 9;
+        const int GroupNum = 9;
 
         // SebStarter contains the 5 groups
         // SebStarterFiles, InsideSeb, OutsideSeb, SecurityOptions, OnlineExam
-        const int IND_GroupNonSebStarter = 0;
-        const int IND_GroupMinSebStarter = 1;
-        const int IND_GroupMaxSebStarter = 5;
-        const int IND_GroupNumSebStarter = 5;
+        const int GroupNonSebStarter = 0;
+        const int GroupMinSebStarter = 1;
+        const int GroupMaxSebStarter = 5;
+        const int GroupNumSebStarter = 5;
 
         // MsgHook contains the 4 groups
         // MsgHookFiles, SpecialKeys, FunctionKeys, ExitSequence
-        const int IND_GroupNonMsgHook = 0;
-        const int IND_GroupMinMsgHook = 6;
-        const int IND_GroupMaxMsgHook = 9;
-        const int IND_GroupNumMsgHook = 4;
+        const int GroupNonMsgHook = 0;
+        const int GroupMinMsgHook = 6;
+        const int GroupMaxMsgHook = 9;
+        const int GroupNumMsgHook = 4;
 
         // Group indices for SebStarter.ini
-        const int IND_SebStarterFiles = 1;
-        const int IND_InsideSeb       = 2;
-        const int IND_OutsideSeb      = 3;
-        const int IND_SecurityOptions = 4;
-        const int IND_OnlineExam      = 5;
+        const int GroupSebStarterFiles = 1;
+        const int GroupInsideSeb       = 2;
+        const int GroupOutsideSeb      = 3;
+        const int GroupSecurityOptions = 4;
+        const int GroupOnlineExam      = 5;
 
         // Group indices for MsgHook.ini
-        const int IND_MsgHookFiles    = 6;
-        const int IND_SpecialKeys     = 7;
-        const int IND_FunctionKeys    = 8;
-        const int IND_ExitSequence    = 9;
+        const int GroupMsgHookFiles    = 6;
+        const int GroupSpecialKeys     = 7;
+        const int GroupFunctionKeys    = 8;
+        const int GroupExitSequence    = 9;
 
-        // Each group contains up to 12 settings
-        const int IND_SettingNone =  0;
-        const int IND_SettingMin  =  1;
-        const int IND_SettingMax  = 12;
-        const int IND_SettingNum  = 12;
+        // Each group contains up to 12 values
+        const int ValueNone =  0;
+        const int ValueMin  =  1;
+        const int ValueMax  = 12;
+        const int ValueNum  = 12;
+
+        // Group names
+        const String MSG_SebStarterFiles = "SebStarterFiles";
+        const String MSG_InsideSeb       = "InsideSeb";
+        const String MSG_OutsideSeb      = "OutsideSeb";
+        const String MSG_SecurityOptions = "SecurityOptions";
+        const String MSG_OnlineExam      = "OnlineExam";
+
+        const String MSG_MsgHookFiles    = "MsgHookFiles";
+        const String MSG_SpecialKeys     = "SpecialKeys";
+        const String MSG_FunctionKeys    = "FunctionKeys";
+        const String MSG_ExitSequence    = "ExitSequence";
 
         // Group "SebStarter files"
-        const int    IND_WriteSebStarterLogFile = 1;
+        const int IND_CurrentSebStarterIni   = 1;
+        const int IND_WriteSebStarterLogFile = 2;
+        const int NumValuesSebStarterFiles   = 2;
+
+        const String MSG_CurrentSebStarterIni   = "CurrentSebStarterIni";
         const String MSG_WriteSebStarterLogFile = "WriteSebStarterLogFile";
 
-        // Groups "Inside SEB" / "Outside SEB"
+        // Groups "Inside SEB" and "Outside SEB"
         const int IND_EnableSwitchUser        = 1;
         const int IND_EnableLockThisComputer  = 2;
         const int IND_EnableChangeAPassword   = 3;
@@ -72,6 +111,8 @@ namespace SebWindowsConfig
         const int IND_EnableShutDown          = 6;
         const int IND_EnableEaseOfAccess      = 7;
         const int IND_EnableVmWareClientShade = 8;
+        const int NumValuesInsideSeb          = 8;
+        const int NumValuesOutsideSeb         = 8;
 
         const String MSG_InsideSebEnableSwitchUser        = "InsideSebEnableSwitchUser";
         const String MSG_InsideSebEnableLockThisComputer  = "InsideSebEnableLockThisComputer";
@@ -102,6 +143,7 @@ namespace SebWindowsConfig
         const int IND_ShutdownAfterAutostart    = 8;
         const int IND_Win9xKillExplorer         = 9;
         const int IND_Win9xScreenSaverRunning   = 10;
+        const int NumValuesSecurityOptions      = 10;
 
         const String MSG_AllowVirtualMachine       = "AllowVirtualMachine";
         const String MSG_ForceWindowsService       = "ForceWindowsService";
@@ -121,6 +163,7 @@ namespace SebWindowsConfig
         const int IND_PermittedApplications = 4;
         const int IND_QuitPassword          = 5;
         const int IND_QuitHashcode          = 6;
+        const int NumValuesOnlineExam       = 6;
 
         const String MSG_SebBrowser            = "SebBrowser";
         const String MSG_AutostartProcess      = "AutostartProcess";
@@ -130,7 +173,11 @@ namespace SebWindowsConfig
         const String MSG_QuitHashcode          = "QuitHashcode";
 
         // Group "MsgHook files"
-        const int    IND_WriteMsgHookLogFile = 1;
+        const int IND_CurrentMsgHookIni   = 1;
+        const int IND_WriteMsgHookLogFile = 2;
+        const int NumValuesMsgHookFiles   = 2;
+
+        const String MSG_CurrentMsgHookIni   = "CurrentMsgHookIni";
         const String MSG_WriteMsgHookLogFile = "WriteMsgHookLogFile";
 
         // Group "Special keys"
@@ -141,6 +188,7 @@ namespace SebWindowsConfig
         const int IND_EnableAltF4      = 5;
         const int IND_EnableStartMenu  = 6;
         const int IND_EnableRightMouse = 7;
+        const int NumValuesSpecialKeys = 7;
 
         const String MSG_EnableEsc        = "EnableEsc";
         const String MSG_EnableCtrlEsc    = "EnableCtrlEsc";
@@ -163,6 +211,7 @@ namespace SebWindowsConfig
         const int IND_EnableF10 = 10;
         const int IND_EnableF11 = 11;
         const int IND_EnableF12 = 12;
+        const int NumValuesFunctionKeys = 12;
 
         const String MSG_EnableF1  = "EnableF1";
         const String MSG_EnableF2  = "EnableF2";
@@ -178,18 +227,19 @@ namespace SebWindowsConfig
         const String MSG_EnableF12 = "EnableF12";
 
         // Group "Exit sequence"
-        const int IND_B1 = 1;
-        const int IND_B2 = 2;
-        const int IND_B3 = 3;
+        const int IND_ExitKey1 = 1;
+        const int IND_ExitKey2 = 2;
+        const int IND_ExitKey3 = 3;
+        const int NumValuesExitSequence = 3;
 
-        const String MSG_B1 = "B1";
-        const String MSG_B2 = "B2";
-        const String MSG_B3 = "B3";
+        const String MSG_ExitKey1 = "B1";
+        const String MSG_ExitKey2 = "B2";
+        const String MSG_ExitKey3 = "B3";
 
-        // Types of settings
+        // Types of values
         const int TYPE_Boolean = 1;
-        const int TYPE_Integer = 2;
-        const int TYPE_String  = 3;
+        const int TYPE_String  = 2;
+        const int TYPE_Integer = 3;
 
 
         // Global variables
@@ -212,63 +262,23 @@ namespace SebWindowsConfig
         static String[] tmpLinesMsgHookIni    = new String[MAX_LINES + 1];
 
         // Virtual key code strings
-        static String[] virtualKeyCodeString = new String[IND_SettingNum + 1];
+        static String[] virtualKeyCodeString = new String[ValueNum + 1];
 
-        // Names and datatypes of settings (Boolean, Integer, String)
-        static String[,] msgString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
-        static    int[,] dataType  = new    int[IND_GroupNum + 1, IND_SettingNum + 1];
+        // Number of values per group
+        // Names  of groups and values
+        // Types  of values (Boolean, Integer, String)
+        static    int[ ]   numValues = new    int[GroupNum + 1];
+        static String[ ] groupString = new String[GroupNum + 1];
+        static String[,] valueString = new String[GroupNum + 1, ValueNum + 1];
+        static    int[,]  dataType   = new    int[GroupNum + 1, ValueNum + 1];
 
-        // Values of settings as Booleans ("true" or "false")
-        static Boolean[,] oldBoolean = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
-        static Boolean[,] newBoolean = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
-        static Boolean[,] tmpBoolean = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
-        static Boolean[,] defBoolean = new Boolean[IND_GroupNum + 1, IND_SettingNum + 1];
-
-        // Values of settings as Strings
-        static String[,] oldString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
-        static String[,] newString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
-        static String[,] tmpString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
-        static String[,] defString = new String[IND_GroupNum + 1, IND_SettingNum + 1];
-
-        // File names
-        String oldStringCurrentSebStarterIni = "";
-        String newStringCurrentSebStarterIni = "";
-        String tmpStringCurrentSebStarterIni = "";
-
-        String oldStringCurrentMsgHookIni = "";
-        String newStringCurrentMsgHookIni = "";
-        String tmpStringCurrentMsgHookIni = "";
-
-        int oldIndexExitKey1 = 0;
-        int oldIndexExitKey2 = 0;
-        int oldIndexExitKey3 = 0;
-
-        int newIndexExitKey1 = 0;
-        int newIndexExitKey2 = 0;
-        int newIndexExitKey3 = 0;
-
-        int tmpIndexExitKey1 = 0;
-        int tmpIndexExitKey2 = 0;
-        int tmpIndexExitKey3 = 0;
-
-        int defIndexExitKey1 = 0;
-        int defIndexExitKey2 = 0;
-        int defIndexExitKey3 = 0;
-
+        // Settings as Booleans ("true" or "false") or Strings
+        static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
+        static String [,,] settingString  = new String [StateNum + 1, GroupNum + 1, ValueNum + 1];
+        static     int[,,] settingInteger = new     int[StateNum + 1, GroupNum + 1, ValueNum + 1];
 
         // Password encryption using the SHA-256 hash algorithm
         SHA256 sha256 = new SHA256Managed();
-
-        FileStream fileStreamSebStarterIni;
-        FileStream fileStreamMsgHookIni;
-
-        StreamReader streamReaderSebStarterIni;
-        StreamWriter streamWriterSebStarterIni;
-        StreamReader streamReaderMsgHookIni;
-        StreamWriter streamWriterMsgHookIni;
-
-        DialogResult dialogResultSebStarterIni;
-        DialogResult dialogResultMsgHookIni;
 
 
 
@@ -281,7 +291,7 @@ namespace SebWindowsConfig
 
             // Initialise the global arrays
 
-            int group, setting, lineNr;
+            int state, group, value, line;
 
             oldNumLinesSebStarterIni = 0;
             newNumLinesSebStarterIni = 0;
@@ -292,64 +302,67 @@ namespace SebWindowsConfig
             tmpNumLinesMsgHookIni = 0;
 
             // Initialise the text buffer for reading/writing the ini files
-            for (lineNr = 0; lineNr <= MAX_LINES; lineNr++)
+            for (line = 0; line <= MAX_LINES; line++)
             {
-                oldLinesSebStarterIni[lineNr] = "";
-                newLinesSebStarterIni[lineNr] = "";
-                tmpLinesSebStarterIni[lineNr] = "";
+                oldLinesSebStarterIni[line] = "";
+                newLinesSebStarterIni[line] = "";
+                tmpLinesSebStarterIni[line] = "";
 
-                oldLinesMsgHookIni[lineNr] = "";
-                newLinesMsgHookIni[lineNr] = "";
-                tmpLinesMsgHookIni[lineNr] = "";
+                oldLinesMsgHookIni[line] = "";
+                newLinesMsgHookIni[line] = "";
+                tmpLinesMsgHookIni[line] = "";
             }
 
-            // Intialise the Safe Exam Browser settings
-            for (group   = IND_GroupMin  ; group   <= IND_GroupMax  ; group++)
-            for (setting = IND_SettingMin; setting <= IND_SettingMax; setting++)
+            // Intialise the Safe Exam Browser values
+            for (state = StateMin; state <= StateMax; state++)
+            for (group = GroupMin; group <= GroupMax; group++)
+            for (value = ValueMin; value <= ValueMax; value++)
             {
-                oldBoolean[group, setting] = false;
-                newBoolean[group, setting] = false;
-                tmpBoolean[group, setting] = false;
-                defBoolean[group, setting] = false;
-
-                oldString[group, setting] = "";
-                newString[group, setting] = "";
-                tmpString[group, setting] = "";
-                defString[group, setting] = "";
+                settingBoolean[state, group, value] = false;
+                settingString [state, group, value] = "";
+                settingInteger[state, group, value] = 0;
             }
 
-            // Default settings for groups "Inside SEB", "Outside SEB" etc.
-            for (setting = IND_SettingMin; setting <= IND_SettingMax; setting++)
+            // Default values for groups "Inside SEB", "Outside SEB" etc.
+            for (value = ValueMin; value <= ValueMax; value++)
             {
-                defBoolean[IND_InsideSeb      , setting] = false;
-                defBoolean[IND_OutsideSeb     , setting] = true;
-                defBoolean[IND_SecurityOptions, setting] = false;
-                defBoolean[IND_SpecialKeys    , setting] = false;
-                defBoolean[IND_FunctionKeys   , setting] = false;
+                settingBoolean[StateDef, GroupInsideSeb      , value] = false;
+                settingBoolean[StateDef, GroupOutsideSeb     , value] = true;
+                settingBoolean[StateDef, GroupSecurityOptions, value] = false;
+                settingBoolean[StateDef, GroupSpecialKeys    , value] = false;
+                settingBoolean[StateDef, GroupFunctionKeys   , value] = false;
+                settingInteger[StateDef, GroupExitSequence   , value] = 0;
             }
 
             // Default settings for groups "SebStarter files" and "MsgHook files"
-            defBoolean[IND_SebStarterFiles, IND_WriteSebStarterLogFile] = true;
-            defBoolean[IND_MsgHookFiles   , IND_WriteMsgHookLogFile   ] = true;
+            settingBoolean[StateDef, GroupSebStarterFiles, IND_WriteSebStarterLogFile] = true;
+            settingBoolean[StateDef, GroupMsgHookFiles   , IND_WriteMsgHookLogFile   ] = true;
+
+            settingString[StateDef, GroupSebStarterFiles, IND_CurrentSebStarterIni] = "";
+            settingString[StateDef, GroupMsgHookFiles   , IND_CurrentMsgHookIni   ] = "";
 
             // Default settings for group "Security options"
-            defBoolean[IND_SecurityOptions, IND_AllowVirtualMachine      ] = false;
-            defBoolean[IND_SecurityOptions, IND_ForceWindowsService      ] = true;
-            defBoolean[IND_SecurityOptions, IND_CreateNewDesktop         ] = true;
-            defBoolean[IND_SecurityOptions, IND_ShowSebApplicationChooser] = true;
-            defBoolean[IND_SecurityOptions, IND_HookMessages             ] = true;
-            defBoolean[IND_SecurityOptions, IND_EditRegistry             ] = true;
-            defBoolean[IND_SecurityOptions, IND_MonitorProcesses         ] = false;
-            defBoolean[IND_SecurityOptions, IND_ShutdownAfterAutostart   ] = false;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_AllowVirtualMachine      ] = false;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_ForceWindowsService      ] = true;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_CreateNewDesktop         ] = true;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_ShowSebApplicationChooser] = true;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_HookMessages             ] = true;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_EditRegistry             ] = true;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_MonitorProcesses         ] = false;
+            settingBoolean[StateDef, GroupSecurityOptions, IND_ShutdownAfterAutostart   ] = false;
 
             // Default settings for groups "Special keys" and "Function keys"
-            defBoolean[IND_SpecialKeys , IND_EnableAltTab] = true;
-            defBoolean[IND_FunctionKeys, IND_EnableF5    ] = true;
+            settingBoolean[StateDef, GroupSpecialKeys , IND_EnableAltTab] = true;
+            settingBoolean[StateDef, GroupFunctionKeys, IND_EnableF5    ] = true;
 
             // Default settings for group "Exit sequence"
-            defIndexExitKey1 =  3;
-            defIndexExitKey2 = 11;
-            defIndexExitKey3 =  6;
+            settingInteger[StateDef, GroupExitSequence, IND_ExitKey1] =  3;
+            settingInteger[StateDef, GroupExitSequence, IND_ExitKey2] = 11;
+            settingInteger[StateDef, GroupExitSequence, IND_ExitKey3] =  6;
+
+            settingInteger[StateNew, GroupExitSequence, IND_ExitKey1] =  3;
+            settingInteger[StateNew, GroupExitSequence, IND_ExitKey2] = 11;
+            settingInteger[StateNew, GroupExitSequence, IND_ExitKey3] =  6;
 
             // Default settings for group "Online exam"
 	        String s1 = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile ";
@@ -358,93 +371,123 @@ namespace SebWindowsConfig
 	        String s4 = "\"";
             String SebBrowserString = s1 + s2 + s3 + s4;
 
-            for (setting = IND_SettingMin; setting <= IND_SettingMax; setting++)
+            settingString[StateDef, GroupOnlineExam, IND_SebBrowser      ] = SebBrowserString;
+            settingString[StateDef, GroupOnlineExam, IND_AutostartProcess] = "Seb";
+            settingString[StateDef, GroupOnlineExam, IND_ExamUrl         ] = "http://www.safeexambrowser.org";
+            settingString[StateDef, GroupOnlineExam, IND_PermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
+            settingString[StateDef, GroupOnlineExam, IND_QuitPassword] = "";
+            settingString[StateDef, GroupOnlineExam, IND_QuitHashcode] = "";
+
+            // Data types of the different values
+            for (value = ValueMin; value <= ValueMax; value++)
             {
-                defString[IND_OnlineExam, IND_SebBrowser           ] = SebBrowserString;
-                defString[IND_OnlineExam, IND_AutostartProcess     ] = "Seb";
-                defString[IND_OnlineExam, IND_ExamUrl              ] = "http://www.safeexambrowser.org";
-                defString[IND_OnlineExam, IND_PermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
-                defString[IND_OnlineExam, IND_QuitPassword         ] = "";
-                defString[IND_OnlineExam, IND_QuitHashcode         ] = "";
+                dataType[GroupSebStarterFiles, value] = TYPE_Boolean;
+                dataType[GroupInsideSeb      , value] = TYPE_Boolean;
+                dataType[GroupOutsideSeb     , value] = TYPE_Boolean;
+                dataType[GroupSecurityOptions, value] = TYPE_Boolean;
+                dataType[GroupOnlineExam     , value] = TYPE_String;
+
+                dataType[GroupMsgHookFiles, value] = TYPE_Boolean;
+                dataType[GroupSpecialKeys , value] = TYPE_Boolean;
+                dataType[GroupFunctionKeys, value] = TYPE_Boolean;
+                dataType[GroupExitSequence, value] = TYPE_String;
             }
 
-            // Assign the data types to the different ini settings
-            for (setting = IND_SettingMin; setting <= IND_SettingMax; setting++)
-            {
-                dataType[IND_SebStarterFiles, setting] = TYPE_Boolean;
-                dataType[IND_InsideSeb      , setting] = TYPE_Boolean;
-                dataType[IND_OutsideSeb     , setting] = TYPE_Boolean;
-                dataType[IND_SecurityOptions, setting] = TYPE_Boolean;
-                dataType[IND_OnlineExam     , setting] = TYPE_String;
+            dataType[GroupSebStarterFiles, IND_CurrentSebStarterIni  ] = TYPE_String;
+            dataType[GroupSebStarterFiles, IND_WriteSebStarterLogFile] = TYPE_Boolean;
 
-                dataType[IND_MsgHookFiles, setting] = TYPE_Boolean;
-                dataType[IND_SpecialKeys , setting] = TYPE_Boolean;
-                dataType[IND_FunctionKeys, setting] = TYPE_Boolean;
-                dataType[IND_ExitSequence, setting] = TYPE_String;
-            }
+            dataType[GroupMsgHookFiles, IND_CurrentMsgHookIni  ] = TYPE_String;
+            dataType[GroupMsgHookFiles, IND_WriteMsgHookLogFile] = TYPE_Boolean;
 
-            msgString[IND_SebStarterFiles, IND_WriteSebStarterLogFile] = MSG_WriteSebStarterLogFile;
+            // Number of values per group
+            numValues[GroupSebStarterFiles] = NumValuesSebStarterFiles;
+            numValues[GroupInsideSeb      ] = NumValuesInsideSeb;
+            numValues[GroupOutsideSeb     ] = NumValuesOutsideSeb;
+            numValues[GroupSecurityOptions] = NumValuesSecurityOptions;
+            numValues[GroupOnlineExam     ] = NumValuesOnlineExam;
 
-            msgString[IND_InsideSeb, IND_EnableSwitchUser       ] = MSG_InsideSebEnableSwitchUser;
-            msgString[IND_InsideSeb, IND_EnableLockThisComputer ] = MSG_InsideSebEnableLockThisComputer;
-            msgString[IND_InsideSeb, IND_EnableChangeAPassword  ] = MSG_InsideSebEnableChangeAPassword;
-            msgString[IND_InsideSeb, IND_EnableStartTaskManager ] = MSG_InsideSebEnableStartTaskManager;
-            msgString[IND_InsideSeb, IND_EnableLogOff           ] = MSG_InsideSebEnableLogOff;
-            msgString[IND_InsideSeb, IND_EnableShutDown         ] = MSG_InsideSebEnableShutDown;
-            msgString[IND_InsideSeb, IND_EnableEaseOfAccess     ] = MSG_InsideSebEnableEaseOfAccess;
-            msgString[IND_InsideSeb, IND_EnableVmWareClientShade] = MSG_InsideSebEnableVmWareClientShade;
+            numValues[GroupMsgHookFiles   ] = NumValuesMsgHookFiles;
+            numValues[GroupSpecialKeys    ] = NumValuesSpecialKeys;
+            numValues[GroupFunctionKeys   ] = NumValuesFunctionKeys;
+            numValues[GroupExitSequence   ] = NumValuesExitSequence;
 
-            msgString[IND_OutsideSeb, IND_EnableSwitchUser       ] = MSG_OutsideSebEnableSwitchUser;
-            msgString[IND_OutsideSeb, IND_EnableLockThisComputer ] = MSG_OutsideSebEnableLockThisComputer;
-            msgString[IND_OutsideSeb, IND_EnableChangeAPassword  ] = MSG_OutsideSebEnableChangeAPassword;
-            msgString[IND_OutsideSeb, IND_EnableStartTaskManager ] = MSG_OutsideSebEnableStartTaskManager;
-            msgString[IND_OutsideSeb, IND_EnableLogOff           ] = MSG_OutsideSebEnableLogOff;
-            msgString[IND_OutsideSeb, IND_EnableShutDown         ] = MSG_OutsideSebEnableShutDown;
-            msgString[IND_OutsideSeb, IND_EnableEaseOfAccess     ] = MSG_OutsideSebEnableEaseOfAccess;
-            msgString[IND_OutsideSeb, IND_EnableVmWareClientShade] = MSG_OutsideSebEnableVmWareClientShade;
+            // Group names
+            groupString[GroupSebStarterFiles] = MSG_SebStarterFiles;
+            groupString[GroupInsideSeb      ] = MSG_InsideSeb;
+            groupString[GroupOutsideSeb     ] = MSG_OutsideSeb;
+            groupString[GroupSecurityOptions] = MSG_SecurityOptions;
+            groupString[GroupOnlineExam     ] = MSG_OnlineExam;
 
-            msgString[IND_SecurityOptions, IND_AllowVirtualMachine      ] = MSG_AllowVirtualMachine;
-            msgString[IND_SecurityOptions, IND_ForceWindowsService      ] = MSG_ForceWindowsService;
-            msgString[IND_SecurityOptions, IND_CreateNewDesktop         ] = MSG_CreateNewDesktop;
-            msgString[IND_SecurityOptions, IND_ShowSebApplicationChooser] = MSG_ShowSebApplicationChooser;
-            msgString[IND_SecurityOptions, IND_HookMessages             ] = MSG_HookMessages;
-            msgString[IND_SecurityOptions, IND_EditRegistry             ] = MSG_EditRegistry;
-            msgString[IND_SecurityOptions, IND_MonitorProcesses         ] = MSG_MonitorProcesses;
-            msgString[IND_SecurityOptions, IND_ShutdownAfterAutostart   ] = MSG_ShutdownAfterAutostart;
+            groupString[GroupMsgHookFiles   ] = MSG_MsgHookFiles;
+            groupString[GroupSpecialKeys    ] = MSG_SpecialKeys;
+            groupString[GroupFunctionKeys   ] = MSG_FunctionKeys;
+            groupString[GroupExitSequence   ] = MSG_ExitSequence;
 
-            msgString[IND_OnlineExam, IND_SebBrowser           ] = MSG_SebBrowser;
-            msgString[IND_OnlineExam, IND_AutostartProcess     ] = MSG_AutostartProcess;
-            msgString[IND_OnlineExam, IND_ExamUrl              ] = MSG_ExamUrl;
-            msgString[IND_OnlineExam, IND_PermittedApplications] = MSG_PermittedApplications;
-            msgString[IND_OnlineExam, IND_QuitPassword         ] = MSG_QuitPassword;
-            msgString[IND_OnlineExam, IND_QuitHashcode         ] = MSG_QuitHashcode;
+            // Value names
+            valueString[GroupSebStarterFiles, IND_CurrentSebStarterIni  ] = MSG_CurrentSebStarterIni;
+            valueString[GroupSebStarterFiles, IND_WriteSebStarterLogFile] = MSG_WriteSebStarterLogFile;
 
-            msgString[IND_MsgHookFiles, IND_WriteMsgHookLogFile] = MSG_WriteMsgHookLogFile;
+            valueString[GroupMsgHookFiles, IND_CurrentMsgHookIni  ] = MSG_CurrentMsgHookIni;
+            valueString[GroupMsgHookFiles, IND_WriteMsgHookLogFile] = MSG_WriteMsgHookLogFile;
 
-            msgString[IND_SpecialKeys, IND_EnableEsc       ] = MSG_EnableEsc;
-            msgString[IND_SpecialKeys, IND_EnableCtrlEsc   ] = MSG_EnableCtrlEsc;
-            msgString[IND_SpecialKeys, IND_EnableAltEsc    ] = MSG_EnableAltEsc;
-            msgString[IND_SpecialKeys, IND_EnableAltTab    ] = MSG_EnableAltTab;
-            msgString[IND_SpecialKeys, IND_EnableAltF4     ] = MSG_EnableAltF4;
-            msgString[IND_SpecialKeys, IND_EnableStartMenu ] = MSG_EnableStartMenu;
-            msgString[IND_SpecialKeys, IND_EnableRightMouse] = MSG_EnableRightMouse;
+            valueString[GroupInsideSeb, IND_EnableSwitchUser       ] = MSG_InsideSebEnableSwitchUser;
+            valueString[GroupInsideSeb, IND_EnableLockThisComputer ] = MSG_InsideSebEnableLockThisComputer;
+            valueString[GroupInsideSeb, IND_EnableChangeAPassword  ] = MSG_InsideSebEnableChangeAPassword;
+            valueString[GroupInsideSeb, IND_EnableStartTaskManager ] = MSG_InsideSebEnableStartTaskManager;
+            valueString[GroupInsideSeb, IND_EnableLogOff           ] = MSG_InsideSebEnableLogOff;
+            valueString[GroupInsideSeb, IND_EnableShutDown         ] = MSG_InsideSebEnableShutDown;
+            valueString[GroupInsideSeb, IND_EnableEaseOfAccess     ] = MSG_InsideSebEnableEaseOfAccess;
+            valueString[GroupInsideSeb, IND_EnableVmWareClientShade] = MSG_InsideSebEnableVmWareClientShade;
 
-            msgString[IND_FunctionKeys, IND_EnableF1 ] = MSG_EnableF1;
-            msgString[IND_FunctionKeys, IND_EnableF2 ] = MSG_EnableF2;
-            msgString[IND_FunctionKeys, IND_EnableF3 ] = MSG_EnableF3;
-            msgString[IND_FunctionKeys, IND_EnableF4 ] = MSG_EnableF4;
-            msgString[IND_FunctionKeys, IND_EnableF5 ] = MSG_EnableF5;
-            msgString[IND_FunctionKeys, IND_EnableF6 ] = MSG_EnableF6;
-            msgString[IND_FunctionKeys, IND_EnableF7 ] = MSG_EnableF7;
-            msgString[IND_FunctionKeys, IND_EnableF8 ] = MSG_EnableF8;
-            msgString[IND_FunctionKeys, IND_EnableF9 ] = MSG_EnableF9;
-            msgString[IND_FunctionKeys, IND_EnableF10] = MSG_EnableF10;
-            msgString[IND_FunctionKeys, IND_EnableF11] = MSG_EnableF11;
-            msgString[IND_FunctionKeys, IND_EnableF12] = MSG_EnableF12;
+            valueString[GroupOutsideSeb, IND_EnableSwitchUser       ] = MSG_OutsideSebEnableSwitchUser;
+            valueString[GroupOutsideSeb, IND_EnableLockThisComputer ] = MSG_OutsideSebEnableLockThisComputer;
+            valueString[GroupOutsideSeb, IND_EnableChangeAPassword  ] = MSG_OutsideSebEnableChangeAPassword;
+            valueString[GroupOutsideSeb, IND_EnableStartTaskManager ] = MSG_OutsideSebEnableStartTaskManager;
+            valueString[GroupOutsideSeb, IND_EnableLogOff           ] = MSG_OutsideSebEnableLogOff;
+            valueString[GroupOutsideSeb, IND_EnableShutDown         ] = MSG_OutsideSebEnableShutDown;
+            valueString[GroupOutsideSeb, IND_EnableEaseOfAccess     ] = MSG_OutsideSebEnableEaseOfAccess;
+            valueString[GroupOutsideSeb, IND_EnableVmWareClientShade] = MSG_OutsideSebEnableVmWareClientShade;
 
-            msgString[IND_ExitSequence, IND_B1] = MSG_B1;
-            msgString[IND_ExitSequence, IND_B2] = MSG_B2;
-            msgString[IND_ExitSequence, IND_B3] = MSG_B3;
+            valueString[GroupSecurityOptions, IND_AllowVirtualMachine      ] = MSG_AllowVirtualMachine;
+            valueString[GroupSecurityOptions, IND_ForceWindowsService      ] = MSG_ForceWindowsService;
+            valueString[GroupSecurityOptions, IND_CreateNewDesktop         ] = MSG_CreateNewDesktop;
+            valueString[GroupSecurityOptions, IND_ShowSebApplicationChooser] = MSG_ShowSebApplicationChooser;
+            valueString[GroupSecurityOptions, IND_HookMessages             ] = MSG_HookMessages;
+            valueString[GroupSecurityOptions, IND_EditRegistry             ] = MSG_EditRegistry;
+            valueString[GroupSecurityOptions, IND_MonitorProcesses         ] = MSG_MonitorProcesses;
+            valueString[GroupSecurityOptions, IND_ShutdownAfterAutostart   ] = MSG_ShutdownAfterAutostart;
+
+            valueString[GroupOnlineExam, IND_SebBrowser           ] = MSG_SebBrowser;
+            valueString[GroupOnlineExam, IND_AutostartProcess     ] = MSG_AutostartProcess;
+            valueString[GroupOnlineExam, IND_ExamUrl              ] = MSG_ExamUrl;
+            valueString[GroupOnlineExam, IND_PermittedApplications] = MSG_PermittedApplications;
+            valueString[GroupOnlineExam, IND_QuitPassword         ] = MSG_QuitPassword;
+            valueString[GroupOnlineExam, IND_QuitHashcode         ] = MSG_QuitHashcode;
+
+            valueString[GroupSpecialKeys, IND_EnableEsc       ] = MSG_EnableEsc;
+            valueString[GroupSpecialKeys, IND_EnableCtrlEsc   ] = MSG_EnableCtrlEsc;
+            valueString[GroupSpecialKeys, IND_EnableAltEsc    ] = MSG_EnableAltEsc;
+            valueString[GroupSpecialKeys, IND_EnableAltTab    ] = MSG_EnableAltTab;
+            valueString[GroupSpecialKeys, IND_EnableAltF4     ] = MSG_EnableAltF4;
+            valueString[GroupSpecialKeys, IND_EnableStartMenu ] = MSG_EnableStartMenu;
+            valueString[GroupSpecialKeys, IND_EnableRightMouse] = MSG_EnableRightMouse;
+
+            valueString[GroupFunctionKeys, IND_EnableF1 ] = MSG_EnableF1;
+            valueString[GroupFunctionKeys, IND_EnableF2 ] = MSG_EnableF2;
+            valueString[GroupFunctionKeys, IND_EnableF3 ] = MSG_EnableF3;
+            valueString[GroupFunctionKeys, IND_EnableF4 ] = MSG_EnableF4;
+            valueString[GroupFunctionKeys, IND_EnableF5 ] = MSG_EnableF5;
+            valueString[GroupFunctionKeys, IND_EnableF6 ] = MSG_EnableF6;
+            valueString[GroupFunctionKeys, IND_EnableF7 ] = MSG_EnableF7;
+            valueString[GroupFunctionKeys, IND_EnableF8 ] = MSG_EnableF8;
+            valueString[GroupFunctionKeys, IND_EnableF9 ] = MSG_EnableF9;
+            valueString[GroupFunctionKeys, IND_EnableF10] = MSG_EnableF10;
+            valueString[GroupFunctionKeys, IND_EnableF11] = MSG_EnableF11;
+            valueString[GroupFunctionKeys, IND_EnableF12] = MSG_EnableF12;
+
+            valueString[GroupExitSequence, IND_ExitKey1] = MSG_ExitKey1;
+            valueString[GroupExitSequence, IND_ExitKey2] = MSG_ExitKey2;
+            valueString[GroupExitSequence, IND_ExitKey3] = MSG_ExitKey3;
 
             virtualKeyCodeString[ 1] = "112";
             virtualKeyCodeString[ 2] = "113";
@@ -458,6 +501,10 @@ namespace SebWindowsConfig
             virtualKeyCodeString[10] = "121";
             virtualKeyCodeString[11] = "122";
             virtualKeyCodeString[12] = "123";
+
+            // Initialise the widgets to the default settings
+            SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
+            SetWidgetsToSettingsOfFile(FileMsgHook   , StateDef);
 
             openFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
@@ -474,10 +521,10 @@ namespace SebWindowsConfig
         // ****************************************
         private void labelOpenSebStarterConfigurationFile_Click(object sender, EventArgs e)
         {
-                dialogResultSebStarterIni = openFileDialogSebStarterIni.ShowDialog();
-            tmpStringCurrentSebStarterIni = openFileDialogSebStarterIni.FileName;
+            DialogResult fileDialog = openFileDialogSebStarterIni.ShowDialog();
+            String       fileName   = openFileDialogSebStarterIni.FileName;
 
-            OpenFileSebStarterIni();
+            OpenFileSebStarterIni(fileName);
 
         } // end of method   labelOpenSebStarterConfigurationFile_Click()
 
@@ -486,45 +533,49 @@ namespace SebWindowsConfig
         // ************************
         // Open file SebStarter.ini
         // ************************
-        private void OpenFileSebStarterIni()
+        private void OpenFileSebStarterIni(String fileName)
         {
-            int   group, setting, lineNr;
-            int   groupMin = IND_GroupMinSebStarter;
-            int   groupMax = IND_GroupMaxSebStarter;
-            int settingMin = IND_SettingMin;
-            int settingMax = IND_SettingMax;
+            int group, value, line;
+            int groupMin = GroupMinSebStarter;
+            int groupMax = GroupMaxSebStarter;
+            int valueMin = ValueMin;
+            int valueMax = ValueMax;
+            FileStream   fileStream;
+            StreamReader fileReader;
+            String       fileLine;
+
+            settingString[StateTmp, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
 
             try 
             {
                 // Open the SebStarter.ini file for reading
-                  fileStreamSebStarterIni = new   FileStream(tmpStringCurrentSebStarterIni, FileMode.Open, FileAccess.Read);
-                streamReaderSebStarterIni = new StreamReader(      fileStreamSebStarterIni);
-                String line;
+                fileStream = new   FileStream(fileName, FileMode.Open, FileAccess.Read);
+                fileReader = new StreamReader(fileStream);
 
                 // Read lines from the SebStarter.ini file until end of file is reached
                 tmpNumLinesSebStarterIni = 0;
 
-                while ((line = streamReaderSebStarterIni.ReadLine()) != null) 
+                while ((fileLine = fileReader.ReadLine()) != null) 
                 {
                     tmpNumLinesSebStarterIni++;
-                    tmpLinesSebStarterIni[tmpNumLinesSebStarterIni] = line;
+                    tmpLinesSebStarterIni[tmpNumLinesSebStarterIni] = fileLine;
 
                     // Skip empty lines and lines not in "leftSide = rightSide" format
-                    if (line.Contains("="))
+                    if (fileLine.Contains("="))
                     {
-                        int      equalPosition = line.IndexOf  ("=");
-                        String   leftString    = line.Remove   (equalPosition);
-                        String  rightString    = line.Substring(equalPosition + 1);
+                        int      equalPosition =    fileLine.IndexOf  ("=");
+                        String   leftString    =    fileLine.Remove   (equalPosition);
+                        String  rightString    =    fileLine.Substring(equalPosition + 1);
                         Boolean rightBoolean   = rightString.Equals("1");
 
                         // Find the appropriate group and setting
-                        for (group   =   groupMin;   group <=   groupMax;   group++)
-                        for (setting = settingMin; setting <= settingMax; setting++)
+                        for (group = groupMin; group <= groupMax; group++)
+                        for (value = valueMin; value <= valueMax; value++)
                         {
-                            if (leftString.Equals(msgString[group, setting]))
+                            if (leftString.Equals(valueString[group, value]))
                             {
-                                tmpBoolean[group, setting] = rightBoolean;
-                                tmpString [group, setting] = rightString;
+                                settingBoolean[StateTmp, group, value] = rightBoolean;
+                                settingString [StateTmp, group, value] = rightString;
                             }
                         }
 
@@ -532,8 +583,8 @@ namespace SebWindowsConfig
                 } // end while
 
                 // Close the SebStarter.ini file
-                streamReaderSebStarterIni.Close();
-                  fileStreamSebStarterIni.Close();
+                fileReader.Close();
+                fileStream.Close();
 
             } // end try
 
@@ -550,23 +601,20 @@ namespace SebWindowsConfig
             oldNumLinesSebStarterIni = tmpNumLinesSebStarterIni;
             newNumLinesSebStarterIni = tmpNumLinesSebStarterIni;
 
-            for (lineNr = 0; lineNr <= MAX_LINES; lineNr++)
+            for (line = 0; line <= MAX_LINES; line++)
             {
-                oldLinesSebStarterIni[lineNr] = tmpLinesSebStarterIni[lineNr];
-                newLinesSebStarterIni[lineNr] = tmpLinesSebStarterIni[lineNr];
+                oldLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
+                newLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
             }
 
-            for (group   =   groupMin;   group <=   groupMax;   group++)
-            for (setting = settingMin; setting <= settingMax; setting++)
+            for (group = groupMin; group <= groupMax; group++)
+            for (value = valueMin; value <= valueMax; value++)
             {
-                oldBoolean[group, setting] = tmpBoolean[group, setting];
-                newBoolean[group, setting] = tmpBoolean[group, setting];
-                oldString [group, setting] = tmpString [group, setting];
-                newString [group, setting] = tmpString [group, setting];
+                settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
+                settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
+                settingString [StateOld, group, value] = settingString [StateTmp, group, value];
+                settingString [StateNew, group, value] = settingString [StateTmp, group, value];
             }
-
-            oldStringCurrentSebStarterIni = tmpStringCurrentSebStarterIni;
-            newStringCurrentSebStarterIni = tmpStringCurrentSebStarterIni;
 
             // Assign the settings from the SebStarter.ini file to the widgets
             SetWidgetsToNewSettingsOfSebStarterIni();
@@ -581,10 +629,10 @@ namespace SebWindowsConfig
         // ****************************************
         private void labelSaveSebStarterConfigurationFile_Click(object sender, EventArgs e)
         {
-                dialogResultSebStarterIni = saveFileDialogSebStarterIni.ShowDialog();
-            tmpStringCurrentSebStarterIni = saveFileDialogSebStarterIni.FileName;
+            DialogResult fileDialog = saveFileDialogSebStarterIni.ShowDialog();
+            String       fileName   = saveFileDialogSebStarterIni.FileName;
 
-            SaveFileSebStarterIni();
+            SaveFileSebStarterIni(fileName);
 
         } // end of method   labelSaveSebStarterConfigurationFile_Click()
 
@@ -593,64 +641,68 @@ namespace SebWindowsConfig
         // ************************
         // Save file SebStarter.ini
         // ************************
-        private void SaveFileSebStarterIni()
+        private void SaveFileSebStarterIni(String fileName)
         {
-            int   group, setting, lineNr;
-            int   groupMin = IND_GroupMinSebStarter;
-            int   groupMax = IND_GroupMaxSebStarter;
-            int settingMin = IND_SettingMin;
-            int settingMax = IND_SettingMax;
+            int group, value, line;
+            int groupMin = GroupMinSebStarter;
+            int groupMax = GroupMaxSebStarter;
+            int valueMin = ValueMin;
+            int valueMax = ValueMax;
+            FileStream   fileStream;
+            StreamWriter fileWriter;
+            String       fileLine;
+
+            settingString[StateTmp, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
 
             try 
             {
                 // Open the SebStarter.ini file for writing
-                  fileStreamSebStarterIni = new   FileStream(tmpStringCurrentSebStarterIni, FileMode.OpenOrCreate, FileAccess.Write);
-                streamWriterSebStarterIni = new StreamWriter(      fileStreamSebStarterIni);
-                String line;
+                fileStream = new   FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
+                fileWriter = new StreamWriter(fileStream);
 
                 // Write lines into the SebStarter.ini file until end of file is reached
-                for (lineNr = 1; lineNr <= newNumLinesSebStarterIni; lineNr++)
+                for (line = 1; line <= newNumLinesSebStarterIni; line++)
                 {
-                    line = oldLinesSebStarterIni[lineNr];
+                    fileLine = oldLinesSebStarterIni[line];
 
                     // Skip empty lines and lines not in "leftSide = rightSide" format
-                    if (line.Contains("="))
+                    if (fileLine.Contains("="))
                     {
-                        int      equalPosition = line.IndexOf  ("=");
-                        String   leftString    = line.Remove   (equalPosition);
-                        String  rightString    = line.Substring(equalPosition + 1);
+                        int      equalPosition =    fileLine.IndexOf  ("=");
+                        String   leftString    =    fileLine.Remove   (equalPosition);
+                        String  rightString    =    fileLine.Substring(equalPosition + 1);
                         Boolean rightBoolean   = rightString.Equals("1");
                         int     rightType      = TYPE_Boolean;
 
                         // Find the appropriate group and setting
-                        for (group   =   groupMin;   group <=   groupMax;   group++)
-                        for (setting = settingMin; setting <= settingMax; setting++)
+                        for (group = groupMin; group <= groupMax; group++)
+                        for (value = valueMin; value <= valueMax; value++)
                         {
-                            if (leftString.Equals(msgString[group, setting]))
+                            if (leftString.Equals(valueString[group, value]))
                             {
-                                rightBoolean = newBoolean[group, setting];
-                                rightString  = newString [group, setting];
-                                rightType    =   dataType[group, setting];
+                                rightBoolean = settingBoolean[StateNew, group, value];
+                                rightString  = settingString [StateNew, group, value];
+                                rightType    =    dataType   [          group, value];
                                 if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
                                 if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
                             }
                         }
 
                         // Concatenate the modified line
-                        line = "";
-                        line = leftString + "=" + rightString;
+                        fileLine = "";
+                        fileLine = leftString + "=" + rightString;
 
                     } // end if line.Contains("=")
 
                     // Write the modified line back into the file
-                        tmpLinesSebStarterIni[lineNr] = line;
-                    streamWriterSebStarterIni.WriteLine(line);
+                    tmpLinesSebStarterIni[line] = fileLine;
+                    fileWriter.WriteLine(fileLine);
 
-                } // next lineNr
+                } // next line
 
                 // Close the SebStarter.ini file
-                streamWriterSebStarterIni.Close();
-                  fileStreamSebStarterIni.Close();
+                fileWriter.Close();
+                fileStream.Close();
 
             } // end try
 
@@ -664,25 +716,24 @@ namespace SebWindowsConfig
 
 
             // Accept the tmp values as the new values
-            oldStringCurrentSebStarterIni = tmpStringCurrentSebStarterIni;
-            newStringCurrentSebStarterIni = tmpStringCurrentSebStarterIni;
+            settingString[StateOld, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
+            settingString[StateNew, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
 
             oldNumLinesSebStarterIni = newNumLinesSebStarterIni;
-            for (lineNr = 0; lineNr <= MAX_LINES; lineNr++)
+            for (line = 0; line <= MAX_LINES; line++)
             {
-                oldLinesSebStarterIni[lineNr] = tmpLinesSebStarterIni[lineNr];
-                newLinesSebStarterIni[lineNr] = tmpLinesSebStarterIni[lineNr];
+                oldLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
+                newLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
             }
 
-            for (group   =   groupMin;   group <=   groupMax;   group++)
-            for (setting = settingMin; setting <= settingMax; setting++)
+            for (group = groupMin; group <= groupMax; group++)
+            for (value = valueMin; value <= valueMax; value++)
             {
-                oldBoolean[group, setting] = newBoolean[group, setting];
-                oldString [group, setting] = newString [group, setting];
+                settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
+                settingString [StateOld, group, value] = settingString [StateNew, group, value];
             }
 
-            oldStringCurrentSebStarterIni    = newStringCurrentSebStarterIni;
-            textBoxCurrentSebStarterIni.Text = newStringCurrentSebStarterIni;
+            textBoxCurrentSebStarterIni.Text = fileName;
 
         } // end of method   SaveFileSebStarterIni()
 
@@ -694,10 +745,10 @@ namespace SebWindowsConfig
         // *************************************
         private void labelOpenMsgHookConfigurationFile_Click(object sender, EventArgs e)
         {
-                dialogResultMsgHookIni = openFileDialogMsgHookIni.ShowDialog();
-            tmpStringCurrentMsgHookIni = openFileDialogMsgHookIni.FileName;
+            DialogResult fileDialog = openFileDialogMsgHookIni.ShowDialog();
+            String       fileName   = openFileDialogMsgHookIni.FileName;
 
-            OpenFileMsgHookIni();
+            OpenFileMsgHookIni(fileName);
 
         }  // end of method   labelOpenMsgHookConfigurationFile_Click()
 
@@ -706,45 +757,49 @@ namespace SebWindowsConfig
         // *********************
         // Open file MsgHook.ini
         // *********************
-        private void OpenFileMsgHookIni()
+        private void OpenFileMsgHookIni(String fileName)
         {
-            int   group, setting, lineNr;
-            int   groupMin = IND_GroupMinMsgHook;
-            int   groupMax = IND_GroupMaxMsgHook;
-            int settingMin = IND_SettingMin;
-            int settingMax = IND_SettingMax;
+            int group, value, line;
+            int groupMin = GroupMinMsgHook;
+            int groupMax = GroupMaxMsgHook;
+            int valueMin = ValueMin;
+            int valueMax = ValueMax;
+            FileStream   fileStream;
+            StreamReader fileReader;
+            String       fileLine;
+
+            settingString[StateTmp, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
 
             try 
             {
                 // Open the MsgHook.ini file for reading
-                  fileStreamMsgHookIni = new   FileStream(tmpStringCurrentMsgHookIni, FileMode.Open, FileAccess.Read);
-                streamReaderMsgHookIni = new StreamReader(      fileStreamMsgHookIni);
-                String line;
+                fileStream = new   FileStream(fileName, FileMode.Open, FileAccess.Read);
+                fileReader = new StreamReader(fileStream);
 
                 // Read lines from the SebStarter.ini file until end of file is reached
                 tmpNumLinesMsgHookIni = 0;
 
-                while ((line = streamReaderMsgHookIni.ReadLine()) != null)
+                while ((fileLine = fileReader.ReadLine()) != null)
                 {
                     tmpNumLinesMsgHookIni++;
-                    tmpLinesMsgHookIni[tmpNumLinesMsgHookIni] = line;
+                    tmpLinesMsgHookIni[tmpNumLinesMsgHookIni] = fileLine;
 
                     // Skip empty lines and lines not in "leftSide = rightSide" format
-                    if (line.Contains("="))
+                    if (fileLine.Contains("="))
                     {
-                        int      equalPosition = line.IndexOf  ("=");
-                        String   leftString    = line.Remove   (equalPosition);
-                        String  rightString    = line.Substring(equalPosition + 1);
+                        int      equalPosition =    fileLine.IndexOf  ("=");
+                        String   leftString    =    fileLine.Remove   (equalPosition);
+                        String  rightString    =    fileLine.Substring(equalPosition + 1);
                         Boolean rightBoolean   = rightString.Equals("1");
 
                         // Find the appropriate group and setting
-                        for (group   =   groupMin;   group <=   groupMax;   group++)
-                        for (setting = settingMin; setting <= settingMax; setting++)
+                        for (group = groupMin; group <= groupMax; group++)
+                        for (value = valueMin; value <= valueMax; value++)
                         {
-                            if (leftString.Equals(msgString[group, setting]))
+                            if (leftString.Equals(valueString[group, value]))
                             {
-                                tmpBoolean[group, setting] = rightBoolean;
-                                tmpString [group, setting] = rightString;
+                                settingBoolean[StateTmp, group, value] = rightBoolean;
+                                settingString [StateTmp, group, value] = rightString;
                             }
                         }
 
@@ -752,8 +807,8 @@ namespace SebWindowsConfig
                 } // end while
 
                 // Close the MsgHook.ini file
-                streamReaderMsgHookIni.Close();
-                  fileStreamMsgHookIni.Close();
+                fileReader.Close();
+                fileStream.Close();
 
             } // end try
 
@@ -770,23 +825,45 @@ namespace SebWindowsConfig
             oldNumLinesMsgHookIni = tmpNumLinesMsgHookIni;
             newNumLinesMsgHookIni = tmpNumLinesMsgHookIni;
 
-            for (lineNr = 0; lineNr <= MAX_LINES; lineNr++)
+            for (line = 0; line <= MAX_LINES; line++)
             {
-                oldLinesMsgHookIni[lineNr] = tmpLinesMsgHookIni[lineNr];
-                newLinesMsgHookIni[lineNr] = tmpLinesMsgHookIni[lineNr];
+                oldLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
+                newLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
             }
 
-            for (group   =   groupMin;   group <=   groupMax;   group++)
-            for (setting = settingMin; setting <= settingMax; setting++)
+
+            // Convert the B1, B2, B3 strings to integers
+            String tmpB1 = settingString[StateTmp, GroupExitSequence, IND_ExitKey1];
+            String tmpB2 = settingString[StateTmp, GroupExitSequence, IND_ExitKey2];
+            String tmpB3 = settingString[StateTmp, GroupExitSequence, IND_ExitKey3];
+
+            int tmpIndexExitKey1 = 0;
+            int tmpIndexExitKey2 = 0;
+            int tmpIndexExitKey3 = 0;
+
+            for (int indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
             {
-                oldBoolean[group, setting] = tmpBoolean[group, setting];
-                newBoolean[group, setting] = tmpBoolean[group, setting];
-                oldString [group, setting] = tmpString [group, setting];
-                newString [group, setting] = tmpString [group, setting];
+                String vkc = virtualKeyCodeString[indexFunctionKey];
+
+                if (tmpB1.Equals(vkc)) tmpIndexExitKey1 = indexFunctionKey;
+                if (tmpB2.Equals(vkc)) tmpIndexExitKey2 = indexFunctionKey;
+                if (tmpB3.Equals(vkc)) tmpIndexExitKey3 = indexFunctionKey;
             }
 
-            oldStringCurrentMsgHookIni = tmpStringCurrentMsgHookIni;
-            newStringCurrentMsgHookIni = tmpStringCurrentMsgHookIni;
+            settingInteger[StateTmp, GroupExitSequence, IND_ExitKey1] = tmpIndexExitKey1;
+            settingInteger[StateTmp, GroupExitSequence, IND_ExitKey2] = tmpIndexExitKey2;
+            settingInteger[StateTmp, GroupExitSequence, IND_ExitKey3] = tmpIndexExitKey3;
+
+            for (group = groupMin; group <= groupMax; group++)
+            for (value = valueMin; value <= valueMax; value++)
+            {
+                settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
+                settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
+                settingString [StateOld, group, value] = settingString [StateTmp, group, value];
+                settingString [StateNew, group, value] = settingString [StateTmp, group, value];
+                settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
+                settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
+            }
 
             // Assign the settings from the MsgHook.ini file to the widgets
             SetWidgetsToNewSettingsOfMsgHookIni();
@@ -801,10 +878,10 @@ namespace SebWindowsConfig
         // *************************************
         private void labelSaveMsgHookConfigurationFile_Click(object sender, EventArgs e)
         {
-                dialogResultMsgHookIni = saveFileDialogMsgHookIni.ShowDialog();
-            tmpStringCurrentMsgHookIni = saveFileDialogMsgHookIni.FileName;
+            DialogResult fileDialog = saveFileDialogMsgHookIni.ShowDialog();
+            String       fileName   = saveFileDialogMsgHookIni.FileName;
 
-            SaveFileMsgHookIni();
+            SaveFileMsgHookIni(fileName);
 
         }  // end of method   labelSaveMsgHookConfigurationFile_Click()
 
@@ -813,68 +890,76 @@ namespace SebWindowsConfig
         // *********************
         // Save file MsgHook.ini
         // *********************
-        private void SaveFileMsgHookIni()
+        private void SaveFileMsgHookIni(String fileName)
         {
-            int   group, setting, lineNr;
-            int   groupMin = IND_GroupMinMsgHook;
-            int   groupMax = IND_GroupMaxMsgHook;
-            int settingMin = IND_SettingMin;
-            int settingMax = IND_SettingMax;
+            int group, value, line;
+            int groupMin = GroupMinMsgHook;
+            int groupMax = GroupMaxMsgHook;
+            int valueMin = ValueMin;
+            int valueMax = ValueMax;
+            FileStream   fileStream;
+            StreamWriter fileWriter;
+            String       fileLine;
 
-            newString[IND_ExitSequence, IND_B1] = virtualKeyCodeString[newIndexExitKey1];
-            newString[IND_ExitSequence, IND_B2] = virtualKeyCodeString[newIndexExitKey2];
-            newString[IND_ExitSequence, IND_B3] = virtualKeyCodeString[newIndexExitKey3];
+            settingString[StateTmp, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
+
+            int newIndexExitKey1 = settingInteger[StateNew, GroupExitSequence, IND_ExitKey1];
+            int newIndexExitKey2 = settingInteger[StateNew, GroupExitSequence, IND_ExitKey2];
+            int newIndexExitKey3 = settingInteger[StateNew, GroupExitSequence, IND_ExitKey3];
+
+            settingString[StateNew, GroupExitSequence, IND_ExitKey1] = virtualKeyCodeString[newIndexExitKey1];
+            settingString[StateNew, GroupExitSequence, IND_ExitKey2] = virtualKeyCodeString[newIndexExitKey2];
+            settingString[StateNew, GroupExitSequence, IND_ExitKey3] = virtualKeyCodeString[newIndexExitKey3];
 
             try 
             {
                 // Open the MsgHook.ini file for writing
-                  fileStreamMsgHookIni = new   FileStream(tmpStringCurrentMsgHookIni, FileMode.OpenOrCreate, FileAccess.Write);
-                streamWriterMsgHookIni = new StreamWriter(      fileStreamMsgHookIni);
-                String line;
+                fileStream = new   FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
+                fileWriter = new StreamWriter(fileStream);
 
                 // Write lines into the MsgHook.ini file until end of file is reached
-                for (lineNr = 1; lineNr <= newNumLinesMsgHookIni; lineNr++)
+                for (line = 1; line <= newNumLinesMsgHookIni; line++)
                 {
-                    line = oldLinesMsgHookIni[lineNr];
+                    fileLine = oldLinesMsgHookIni[line];
 
                     // Skip empty lines and lines not in "leftSide = rightSide" format
-                    if (line.Contains("="))
+                    if (fileLine.Contains("="))
                     {
-                        int      equalPosition = line.IndexOf  ("=");
-                        String   leftString    = line.Remove   (equalPosition);
-                        String  rightString    = line.Substring(equalPosition + 1);
+                        int      equalPosition =    fileLine.IndexOf  ("=");
+                        String   leftString    =    fileLine.Remove   (equalPosition);
+                        String  rightString    =    fileLine.Substring(equalPosition + 1);
                         Boolean rightBoolean   = rightString.Equals("1");
                         int     rightType      = TYPE_Boolean;
 
                         // Find the appropriate group and setting
-                        for (group   =   groupMin;   group <=   groupMax;   group++)
-                        for (setting = settingMin; setting <= settingMax; setting++)
+                        for (group = groupMin; group <= groupMax; group++)
+                        for (value = valueMin; value <= valueMax; value++)
                         {
-                            if (leftString.Equals(msgString[group, setting]))
+                            if (leftString.Equals(valueString[group, value]))
                             {
-                                rightBoolean = newBoolean[group, setting];
-                                rightString  = newString [group, setting];
-                                rightType    =   dataType[group, setting];
+                                rightBoolean = settingBoolean[StateNew, group, value];
+                                rightString  = settingString [StateNew, group, value];
+                                rightType    =    dataType   [          group, value];
                                 if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
                                 if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
                             }
                         }
 
                         // Concatenate the modified line
-                        line = "";
-                        line = leftString + "=" + rightString;
+                        fileLine = "";
+                        fileLine = leftString + "=" + rightString;
 
                     } // end if line.Contains("=")
 
                     // Write the modified line back into the file
-                        tmpLinesMsgHookIni[lineNr] = line;
-                    streamWriterMsgHookIni.WriteLine(line);
+                    tmpLinesMsgHookIni[line] = fileLine;
+                    fileWriter.WriteLine(fileLine);
 
-                } // next lineNr
+                } // next line
 
                 // Close the MsgHook.ini file
-                streamWriterMsgHookIni.Close();
-                  fileStreamMsgHookIni.Close();
+                fileWriter.Close();
+                fileStream.Close();
 
             } // end try
 
@@ -888,29 +973,25 @@ namespace SebWindowsConfig
 
 
             // Accept the tmp values as the new values
-            oldStringCurrentMsgHookIni = tmpStringCurrentMsgHookIni;
-            newStringCurrentMsgHookIni = tmpStringCurrentMsgHookIni;
+            settingString[StateOld, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
+            settingString[StateNew, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
 
             oldNumLinesMsgHookIni = newNumLinesMsgHookIni;
-            for (lineNr = 0; lineNr <= MAX_LINES; lineNr++)
+            for (line = 0; line <= MAX_LINES; line++)
             {
-                oldLinesMsgHookIni[lineNr] = tmpLinesMsgHookIni[lineNr];
-                newLinesMsgHookIni[lineNr] = tmpLinesMsgHookIni[lineNr];
+                oldLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
+                newLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
             }
 
-            for (group   =   groupMin;   group <=   groupMax;   group++)
-            for (setting = settingMin; setting <= settingMax; setting++)
+            for (group = groupMin; group <= groupMax; group++)
+            for (value = valueMin; value <= valueMax; value++)
             {
-                oldBoolean[group, setting] = newBoolean[group, setting];
-                oldString [group, setting] = newString [group, setting];
+                settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
+                settingString [StateOld, group, value] = settingString [StateNew, group, value];
+                settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
             }
 
-            oldIndexExitKey1 = newIndexExitKey1;
-            oldIndexExitKey2 = newIndexExitKey2;
-            oldIndexExitKey3 = newIndexExitKey3;
-
-            oldStringCurrentMsgHookIni    = newStringCurrentMsgHookIni;
-            textBoxCurrentMsgHookIni.Text = newStringCurrentMsgHookIni;
+            textBoxCurrentMsgHookIni.Text = fileName;
 
         }  // end of method   SaveFileMsgHookIni()
 
@@ -926,261 +1007,261 @@ namespace SebWindowsConfig
         // Group "SebStarter files"
         private void checkBoxWriteSebStarterLogFile_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SebStarterFiles, IND_WriteSebStarterLogFile] = checkBoxWriteSebStarterLogFile.Checked;
+            settingBoolean[StateNew, GroupSebStarterFiles, IND_WriteSebStarterLogFile] = checkBoxWriteSebStarterLogFile.Checked;
         }
 
 
         // Group "Inside SEB"
         private void checkBoxInsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableSwitchUser] = checkBoxInsideSebEnableSwitchUser.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableSwitchUser] = checkBoxInsideSebEnableSwitchUser.Checked;
         }
 
         private void checkBoxInsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableLockThisComputer] = checkBoxInsideSebEnableLockThisComputer.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableLockThisComputer] = checkBoxInsideSebEnableLockThisComputer.Checked;
         }
 
         private void checkBoxInsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableChangeAPassword] = checkBoxInsideSebEnableChangeAPassword.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableChangeAPassword] = checkBoxInsideSebEnableChangeAPassword.Checked;
         }
 
         private void checkBoxInsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableStartTaskManager] = checkBoxInsideSebEnableStartTaskManager.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableStartTaskManager] = checkBoxInsideSebEnableStartTaskManager.Checked;
         }
 
         private void checkBoxInsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableLogOff] = checkBoxInsideSebEnableLogOff.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableLogOff] = checkBoxInsideSebEnableLogOff.Checked;
         }
 
         private void checkBoxInsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableShutDown] = checkBoxInsideSebEnableShutDown.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableShutDown] = checkBoxInsideSebEnableShutDown.Checked;
         }
 
         private void checkBoxInsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableEaseOfAccess] = checkBoxInsideSebEnableEaseOfAccess.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableEaseOfAccess] = checkBoxInsideSebEnableEaseOfAccess.Checked;
         }
 
         private void checkBoxInsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_InsideSeb, IND_EnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
+            settingBoolean[StateNew, GroupInsideSeb, IND_EnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
         }
  
 
         // Group "Outside SEB"
         private void checkBoxOutsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
         }
 
         private void checkBoxOutsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableLockThisComputer] = checkBoxOutsideSebEnableLockThisComputer.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableLockThisComputer] = checkBoxOutsideSebEnableLockThisComputer.Checked;
         }
 
         private void checkBoxOutsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableChangeAPassword] = checkBoxOutsideSebEnableChangeAPassword.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableChangeAPassword] = checkBoxOutsideSebEnableChangeAPassword.Checked;
         }
 
         private void checkBoxOutsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableStartTaskManager] = checkBoxOutsideSebEnableStartTaskManager.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableStartTaskManager] = checkBoxOutsideSebEnableStartTaskManager.Checked;
         }
 
         private void checkBoxOutsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableLogOff] = checkBoxOutsideSebEnableLogOff.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableLogOff] = checkBoxOutsideSebEnableLogOff.Checked;
         }
 
         private void checkBoxOutsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableShutDown] = checkBoxOutsideSebEnableShutDown.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableShutDown] = checkBoxOutsideSebEnableShutDown.Checked;
         }
 
         private void checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableEaseOfAccess] = checkBoxOutsideSebEnableEaseOfAccess.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableEaseOfAccess] = checkBoxOutsideSebEnableEaseOfAccess.Checked;
         }
 
         private void checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_OutsideSeb, IND_EnableVmWareClientShade] = checkBoxOutsideSebEnableVmWareClientShade.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, IND_EnableVmWareClientShade] = checkBoxOutsideSebEnableVmWareClientShade.Checked;
         }
 
 
         // Group "Security options"
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_AllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_AllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
         }
 
         private void checkBoxForceWindowsService_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_ForceWindowsService] = checkBoxForceWindowsService.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_ForceWindowsService] = checkBoxForceWindowsService.Checked;
         }
 
         private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_CreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_CreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
         }
 
         private void checkBoxShowSebApplicationChooser_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_ShowSebApplicationChooser] = checkBoxShowSebApplicationChooser.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_ShowSebApplicationChooser] = checkBoxShowSebApplicationChooser.Checked;
         }
 
         private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_HookMessages] = checkBoxHookMessages.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_HookMessages] = checkBoxHookMessages.Checked;
         }
 
         private void checkBoxEditRegistry_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_EditRegistry] = checkBoxEditRegistry.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_EditRegistry] = checkBoxEditRegistry.Checked;
         }
 
         private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_MonitorProcesses] = checkBoxMonitorProcesses.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_MonitorProcesses] = checkBoxMonitorProcesses.Checked;
         }
 
         private void checkBoxShutdownAfterAutostart_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SecurityOptions, IND_ShutdownAfterAutostart] = checkBoxShutdownAfterAutostart.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, IND_ShutdownAfterAutostart] = checkBoxShutdownAfterAutostart.Checked;
         }
 
 
         // Group "Online exam"
         private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
         {
-            newString[IND_OnlineExam, IND_SebBrowser] = textBoxSebBrowser.Text;
+            settingString[StateNew, GroupOnlineExam, IND_SebBrowser] = textBoxSebBrowser.Text;
         }
 
         private void textBoxAutostartProcess_TextChanged(object sender, EventArgs e)
         {
-            newString[IND_OnlineExam, IND_AutostartProcess] = textBoxAutostartProcess.Text;
+            settingString[StateNew, GroupOnlineExam, IND_AutostartProcess] = textBoxAutostartProcess.Text;
         }
 
         private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
         {
-            newString[IND_OnlineExam, IND_ExamUrl] = textBoxExamUrl.Text;
+            settingString[StateNew, GroupOnlineExam, IND_ExamUrl] = textBoxExamUrl.Text;
         }
 
         private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
         {
-            newString[IND_OnlineExam, IND_PermittedApplications] = textBoxPermittedApplications.Text;
+            settingString[StateNew, GroupOnlineExam, IND_PermittedApplications] = textBoxPermittedApplications.Text;
         }
 
 
         // Group "MsgHook files"
         private void checkBoxWriteMsgHookLogFile_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_MsgHookFiles, IND_WriteMsgHookLogFile] = checkBoxWriteMsgHookLogFile.Checked;
+            settingBoolean[StateNew, GroupMsgHookFiles, IND_WriteMsgHookLogFile] = checkBoxWriteMsgHookLogFile.Checked;
         }
 
 
         // Group "Special keys"
         private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SpecialKeys, IND_EnableEsc] = checkBoxEnableEsc.Checked;
+            settingBoolean[StateNew, GroupSpecialKeys, IND_EnableEsc] = checkBoxEnableEsc.Checked;
         }
 
         private void checkBoxEnableCtrlEsc_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SpecialKeys, IND_EnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
+            settingBoolean[StateNew, GroupSpecialKeys, IND_EnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
         }
 
         private void checkBoxEnableAltEsc_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SpecialKeys, IND_EnableAltEsc] = checkBoxEnableAltEsc.Checked;
+            settingBoolean[StateNew, GroupSpecialKeys, IND_EnableAltEsc] = checkBoxEnableAltEsc.Checked;
         }
 
         private void checkBoxEnableAltTab_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SpecialKeys, IND_EnableAltTab] = checkBoxEnableAltTab.Checked;
+            settingBoolean[StateNew, GroupSpecialKeys, IND_EnableAltTab] = checkBoxEnableAltTab.Checked;
         }
 
         private void checkBoxEnableAltF4_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SpecialKeys, IND_EnableAltF4] = checkBoxEnableAltF4.Checked;
+            settingBoolean[StateNew, GroupSpecialKeys, IND_EnableAltF4] = checkBoxEnableAltF4.Checked;
         }
 
         private void checkBoxEnableStartMenu_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SpecialKeys, IND_EnableStartMenu] = checkBoxEnableStartMenu.Checked;
+            settingBoolean[StateNew, GroupSpecialKeys, IND_EnableStartMenu] = checkBoxEnableStartMenu.Checked;
         }
 
         private void checkBoxEnableRightMouse_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_SpecialKeys, IND_EnableRightMouse] = checkBoxEnableRightMouse.Checked;
+            settingBoolean[StateNew, GroupSpecialKeys, IND_EnableRightMouse] = checkBoxEnableRightMouse.Checked;
         }
 
 
         // Group "Function keys"
         private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF1] = checkBoxEnableF1.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF1] = checkBoxEnableF1.Checked;
         }
 
         private void checkBoxEnableF2_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF2] = checkBoxEnableF2.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF2] = checkBoxEnableF2.Checked;
         }
 
         private void checkBoxEnableF3_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF3] = checkBoxEnableF3.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF3] = checkBoxEnableF3.Checked;
         }
 
         private void checkBoxEnableF4_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF4] = checkBoxEnableF4.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF4] = checkBoxEnableF4.Checked;
         }
 
         private void checkBoxEnableF5_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF5] = checkBoxEnableF5.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF5] = checkBoxEnableF5.Checked;
         }
 
         private void checkBoxEnableF6_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF6] = checkBoxEnableF6.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF6] = checkBoxEnableF6.Checked;
         }
 
         private void checkBoxEnableF7_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF7] = checkBoxEnableF7.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF7] = checkBoxEnableF7.Checked;
         }
 
         private void checkBoxEnableF8_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF8] = checkBoxEnableF8.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF8] = checkBoxEnableF8.Checked;
         }
 
         private void checkBoxEnableF9_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF9] = checkBoxEnableF9.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF9] = checkBoxEnableF9.Checked;
         }
 
         private void checkBoxEnableF10_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF10] = checkBoxEnableF10.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF10] = checkBoxEnableF10.Checked;
         }
 
         private void checkBoxEnableF11_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF11] = checkBoxEnableF11.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF11] = checkBoxEnableF11.Checked;
         }
 
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
-            newBoolean[IND_FunctionKeys, IND_EnableF12] = checkBoxEnableF12.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF12] = checkBoxEnableF12.Checked;
         }
 
 
@@ -1189,37 +1270,37 @@ namespace SebWindowsConfig
         {
             // Make sure that all three exit keys are different.
             // If selected key is already occupied, revert to previously selected key.
-            tmpIndexExitKey1 = listBoxExitKey1.SelectedIndex + 1;
+            if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
+                (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
+                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupExitSequence, IND_ExitKey1] - 1;
 
-            if ((tmpIndexExitKey1 == newIndexExitKey2) ||
-                (tmpIndexExitKey1 == newIndexExitKey3))
-                  listBoxExitKey1.SelectedIndex = newIndexExitKey1 - 1;
-            else newIndexExitKey1 = tmpIndexExitKey1;
+            settingInteger[StateNew, GroupExitSequence, IND_ExitKey1] = listBoxExitKey1.SelectedIndex + 1;
         }
+
 
         private void listBoxExitKey2_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Make sure that all three exit keys are different.
             // If selected key is already occupied, revert to previously selected key.
-            tmpIndexExitKey2 = listBoxExitKey2.SelectedIndex + 1;
+            if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
+                (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
+                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupExitSequence, IND_ExitKey2] - 1;
 
-            if ((tmpIndexExitKey2 == newIndexExitKey1) ||
-                (tmpIndexExitKey2 == newIndexExitKey3))
-                  listBoxExitKey2.SelectedIndex = newIndexExitKey2 - 1;
-            else newIndexExitKey2 = tmpIndexExitKey2;
+            settingInteger[StateNew, GroupExitSequence, IND_ExitKey2] = listBoxExitKey2.SelectedIndex + 1;
         }
+
 
         private void listBoxExitKey3_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Make sure that all three exit keys are different.
             // If selected key is already occupied, revert to previously selected key.
-            tmpIndexExitKey3 = listBoxExitKey3.SelectedIndex + 1;
+            if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
+                (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
+                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupExitSequence, IND_ExitKey3] - 1;
 
-            if ((tmpIndexExitKey3 == newIndexExitKey1) ||
-                (tmpIndexExitKey3 == newIndexExitKey2))
-                  listBoxExitKey3.SelectedIndex = newIndexExitKey3 - 1;
-            else newIndexExitKey3 = tmpIndexExitKey3;
+            settingInteger[StateNew, GroupExitSequence, IND_ExitKey3] = listBoxExitKey3.SelectedIndex + 1;
         }
+
 
 
         private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
@@ -1237,62 +1318,75 @@ namespace SebWindowsConfig
 
             textBoxQuitHashcode.Text = newStringQuitHashcode;
 
-            newString[IND_OnlineExam, IND_QuitPassword] = newStringQuitPassword;
-            newString[IND_OnlineExam, IND_QuitHashcode] = newStringQuitHashcode;
+            settingString[StateNew, GroupOnlineExam, IND_QuitPassword] = newStringQuitPassword;
+            settingString[StateNew, GroupOnlineExam, IND_QuitHashcode] = newStringQuitHashcode;
         }
 
 
 
 
-        // **********************************************
-        // Restore SebStarter configuration file settings
-        // **********************************************
+        // *****************************************
+        // Restore SebStarter default settings click
+        // *****************************************
+        private void buttonRestoreSebStarterDefaultSettings_Click(object sender, EventArgs e)
+        {
+            SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
+        }
+
+        // ****************************************************
+        // Restore SebStarter configuration file settings click
+        // ****************************************************
         private void buttonRestoreSebStarterConfigurationFileSettings_Click(object sender, EventArgs e)
         {
-            int   group, setting;
-            int   groupMin = IND_GroupMinSebStarter;
-            int   groupMax = IND_GroupMaxSebStarter;
-            int settingMin = IND_SettingMin;
-            int settingMax = IND_SettingMax;
-
-            // Restore the old settings by copying them to the new settings
-            for (group   =   groupMin; group   <=   groupMax;   group++)
-            for (setting = settingMin; setting <= settingMax; setting++)
-            {
-                newBoolean[group, setting] = oldBoolean[group, setting];
-                newString [group, setting] = oldString [group, setting];
-            }
-
-            newStringCurrentSebStarterIni = oldStringCurrentSebStarterIni;
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            SetWidgetsToSettingsOfFile(FileSebStarter, StateOld);
         }
 
+        // **************************************
+        // Restore MsgHook default settings click
+        // **************************************
+        private void buttonRestoreMsgHookDefaultSettings_Click(object sender, EventArgs e)
+        {
+            SetWidgetsToSettingsOfFile(FileMsgHook, StateDef);
+        }
 
-
-
-        // *******************************************
-        // Restore MsgHook configuration file settings
-        // *******************************************
+        // *************************************************
+        // Restore MsgHook configuration file settings click
+        // *************************************************
         private void buttonRestoreMsgHookConfigurationFileSettings_Click(object sender, EventArgs e)
         {
-            int   group, setting;
-            int   groupMin = IND_GroupMinMsgHook;
-            int   groupMax = IND_GroupMaxMsgHook;
-            int settingMin = IND_SettingMin;
-            int settingMax = IND_SettingMax;
-
-            // Restore the old settings by copying them to the new settings
-            for (group   =   groupMin; group   <=   groupMax;   group++)
-            for (setting = settingMin; setting <= settingMax; setting++)
-            {
-                newBoolean[group, setting] = oldBoolean[group, setting];
-                newString [group, setting] = oldString [group, setting];
-            }
-
-            newStringCurrentMsgHookIni = oldStringCurrentMsgHookIni;
-            SetWidgetsToNewSettingsOfMsgHookIni();
+            SetWidgetsToSettingsOfFile(FileMsgHook, StateOld);
         }
 
+
+
+        // ********************************************************
+        // Set the widgets to the desired settings of desired file
+        // ********************************************************
+        private void SetWidgetsToSettingsOfFile(int iniFile, int stateDesired)
+        {
+            int group, value;
+            int groupMin = 0;
+            int groupMax = 0;
+            int valueMin = ValueMin;
+            int valueMax = ValueMax;
+
+            if (iniFile == FileSebStarter) groupMin = GroupMinSebStarter;
+            if (iniFile == FileSebStarter) groupMax = GroupMaxSebStarter;
+            if (iniFile == FileMsgHook   ) groupMin = GroupMinMsgHook;
+            if (iniFile == FileMsgHook   ) groupMax = GroupMaxMsgHook;
+
+            // Restore the desired values by copying them to the new values
+            for (group = groupMin; group <= groupMax; group++)
+            for (value = valueMin; value <= valueMax; value++)
+            {
+                settingBoolean[StateNew, group, value] = settingBoolean[stateDesired, group, value];
+                settingString [StateNew, group, value] = settingString [stateDesired, group, value];
+                settingInteger[StateNew, group, value] = settingInteger[stateDesired, group, value];
+            }
+
+            if (iniFile == FileSebStarter) SetWidgetsToNewSettingsOfSebStarterIni();
+            if (iniFile == FileMsgHook   ) SetWidgetsToNewSettingsOfMsgHookIni();
+        }
 
 
 
@@ -1302,42 +1396,42 @@ namespace SebWindowsConfig
         private void SetWidgetsToNewSettingsOfSebStarterIni()
         {
             // Set the widgets to the new settings
-            textBoxCurrentSebStarterIni   .Text    = newStringCurrentSebStarterIni;
-            checkBoxWriteSebStarterLogFile.Checked = newBoolean[IND_SebStarterFiles, IND_WriteSebStarterLogFile];
+            textBoxCurrentSebStarterIni   .Text    = settingString [StateNew, GroupSebStarterFiles, IND_CurrentSebStarterIni];
+            checkBoxWriteSebStarterLogFile.Checked = settingBoolean[StateNew, GroupSebStarterFiles, IND_WriteSebStarterLogFile];
 
-            checkBoxInsideSebEnableSwitchUser       .Checked = newBoolean[IND_InsideSeb, IND_EnableSwitchUser];
-            checkBoxInsideSebEnableLockThisComputer .Checked = newBoolean[IND_InsideSeb, IND_EnableLockThisComputer];
-            checkBoxInsideSebEnableChangeAPassword  .Checked = newBoolean[IND_InsideSeb, IND_EnableChangeAPassword];
-            checkBoxInsideSebEnableStartTaskManager .Checked = newBoolean[IND_InsideSeb, IND_EnableStartTaskManager];
-            checkBoxInsideSebEnableLogOff           .Checked = newBoolean[IND_InsideSeb, IND_EnableLogOff];
-            checkBoxInsideSebEnableShutDown         .Checked = newBoolean[IND_InsideSeb, IND_EnableShutDown];
-            checkBoxInsideSebEnableEaseOfAccess     .Checked = newBoolean[IND_InsideSeb, IND_EnableEaseOfAccess];
-            checkBoxInsideSebEnableVmWareClientShade.Checked = newBoolean[IND_InsideSeb, IND_EnableVmWareClientShade];
+            checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableSwitchUser];
+            checkBoxInsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableLockThisComputer];
+            checkBoxInsideSebEnableChangeAPassword  .Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableChangeAPassword];
+            checkBoxInsideSebEnableStartTaskManager .Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableStartTaskManager];
+            checkBoxInsideSebEnableLogOff           .Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableLogOff];
+            checkBoxInsideSebEnableShutDown         .Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableShutDown];
+            checkBoxInsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableEaseOfAccess];
+            checkBoxInsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupInsideSeb, IND_EnableVmWareClientShade];
 
-            checkBoxOutsideSebEnableSwitchUser       .Checked = newBoolean[IND_OutsideSeb, IND_EnableSwitchUser];
-            checkBoxOutsideSebEnableLockThisComputer .Checked = newBoolean[IND_OutsideSeb, IND_EnableLockThisComputer];
-            checkBoxOutsideSebEnableChangeAPassword  .Checked = newBoolean[IND_OutsideSeb, IND_EnableChangeAPassword];
-            checkBoxOutsideSebEnableStartTaskManager .Checked = newBoolean[IND_OutsideSeb, IND_EnableStartTaskManager];
-            checkBoxOutsideSebEnableLogOff           .Checked = newBoolean[IND_OutsideSeb, IND_EnableLogOff];
-            checkBoxOutsideSebEnableShutDown         .Checked = newBoolean[IND_OutsideSeb, IND_EnableShutDown];
-            checkBoxOutsideSebEnableEaseOfAccess     .Checked = newBoolean[IND_OutsideSeb, IND_EnableEaseOfAccess];
-            checkBoxOutsideSebEnableVmWareClientShade.Checked = newBoolean[IND_OutsideSeb, IND_EnableVmWareClientShade];
+            checkBoxOutsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableSwitchUser];
+            checkBoxOutsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableLockThisComputer];
+            checkBoxOutsideSebEnableChangeAPassword  .Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableChangeAPassword];
+            checkBoxOutsideSebEnableStartTaskManager .Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableStartTaskManager];
+            checkBoxOutsideSebEnableLogOff           .Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableLogOff];
+            checkBoxOutsideSebEnableShutDown         .Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableShutDown];
+            checkBoxOutsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableEaseOfAccess];
+            checkBoxOutsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupOutsideSeb, IND_EnableVmWareClientShade];
 
-            checkBoxAllowVirtualMachine      .Checked = newBoolean[IND_SecurityOptions, IND_AllowVirtualMachine];
-            checkBoxForceWindowsService      .Checked = newBoolean[IND_SecurityOptions, IND_ForceWindowsService];
-            checkBoxCreateNewDesktop         .Checked = newBoolean[IND_SecurityOptions, IND_CreateNewDesktop];
-            checkBoxShowSebApplicationChooser.Checked = newBoolean[IND_SecurityOptions, IND_ShowSebApplicationChooser];
-            checkBoxHookMessages             .Checked = newBoolean[IND_SecurityOptions, IND_HookMessages];
-            checkBoxEditRegistry             .Checked = newBoolean[IND_SecurityOptions, IND_EditRegistry];
-            checkBoxMonitorProcesses         .Checked = newBoolean[IND_SecurityOptions, IND_MonitorProcesses];
-            checkBoxShutdownAfterAutostart   .Checked = newBoolean[IND_SecurityOptions, IND_ShutdownAfterAutostart];
+            checkBoxAllowVirtualMachine      .Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_AllowVirtualMachine];
+            checkBoxForceWindowsService      .Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_ForceWindowsService];
+            checkBoxCreateNewDesktop         .Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_CreateNewDesktop];
+            checkBoxShowSebApplicationChooser.Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_ShowSebApplicationChooser];
+            checkBoxHookMessages             .Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_HookMessages];
+            checkBoxEditRegistry             .Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_EditRegistry];
+            checkBoxMonitorProcesses         .Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_MonitorProcesses];
+            checkBoxShutdownAfterAutostart   .Checked = settingBoolean[StateNew, GroupSecurityOptions, IND_ShutdownAfterAutostart];
 
-            textBoxSebBrowser           .Text = newString[IND_OnlineExam, IND_SebBrowser];
-            textBoxAutostartProcess     .Text = newString[IND_OnlineExam, IND_AutostartProcess];
-            textBoxExamUrl              .Text = newString[IND_OnlineExam, IND_ExamUrl];
-            textBoxPermittedApplications.Text = newString[IND_OnlineExam, IND_PermittedApplications];
-            textBoxQuitPassword         .Text = newString[IND_OnlineExam, IND_QuitPassword];
-            textBoxQuitHashcode         .Text = newString[IND_OnlineExam, IND_QuitHashcode];
+            textBoxSebBrowser           .Text = settingString[StateNew, GroupOnlineExam, IND_SebBrowser];
+            textBoxAutostartProcess     .Text = settingString[StateNew, GroupOnlineExam, IND_AutostartProcess];
+            textBoxExamUrl              .Text = settingString[StateNew, GroupOnlineExam, IND_ExamUrl];
+            textBoxPermittedApplications.Text = settingString[StateNew, GroupOnlineExam, IND_PermittedApplications];
+            textBoxQuitPassword         .Text = settingString[StateNew, GroupOnlineExam, IND_QuitPassword];
+            textBoxQuitHashcode         .Text = settingString[StateNew, GroupOnlineExam, IND_QuitHashcode];
         }
 
 
@@ -1348,51 +1442,37 @@ namespace SebWindowsConfig
         // **************************************************
         private void SetWidgetsToNewSettingsOfMsgHookIni()
         {
-            // Set the widgets to the new settings
-            textBoxCurrentMsgHookIni   .Text    = newStringCurrentMsgHookIni;
-            checkBoxWriteMsgHookLogFile.Checked = newBoolean[IND_MsgHookFiles, IND_WriteMsgHookLogFile];
+            // Set the widgets to the new values
+            textBoxCurrentMsgHookIni   .Text    = settingString [StateNew, GroupMsgHookFiles, IND_CurrentMsgHookIni];
+            checkBoxWriteMsgHookLogFile.Checked = settingBoolean[StateNew, GroupMsgHookFiles, IND_WriteMsgHookLogFile];
 
-            checkBoxEnableEsc       .Checked = newBoolean[IND_SpecialKeys, IND_EnableEsc];
-            checkBoxEnableCtrlEsc   .Checked = newBoolean[IND_SpecialKeys, IND_EnableCtrlEsc];
-            checkBoxEnableAltEsc    .Checked = newBoolean[IND_SpecialKeys, IND_EnableAltEsc];
-            checkBoxEnableAltTab    .Checked = newBoolean[IND_SpecialKeys, IND_EnableAltTab];
-            checkBoxEnableAltF4     .Checked = newBoolean[IND_SpecialKeys, IND_EnableAltF4];
-            checkBoxEnableStartMenu .Checked = newBoolean[IND_SpecialKeys, IND_EnableStartMenu];
-            checkBoxEnableRightMouse.Checked = newBoolean[IND_SpecialKeys, IND_EnableRightMouse];
+            checkBoxEnableEsc       .Checked = settingBoolean[StateNew, GroupSpecialKeys, IND_EnableEsc];
+            checkBoxEnableCtrlEsc   .Checked = settingBoolean[StateNew, GroupSpecialKeys, IND_EnableCtrlEsc];
+            checkBoxEnableAltEsc    .Checked = settingBoolean[StateNew, GroupSpecialKeys, IND_EnableAltEsc];
+            checkBoxEnableAltTab    .Checked = settingBoolean[StateNew, GroupSpecialKeys, IND_EnableAltTab];
+            checkBoxEnableAltF4     .Checked = settingBoolean[StateNew, GroupSpecialKeys, IND_EnableAltF4];
+            checkBoxEnableStartMenu .Checked = settingBoolean[StateNew, GroupSpecialKeys, IND_EnableStartMenu];
+            checkBoxEnableRightMouse.Checked = settingBoolean[StateNew, GroupSpecialKeys, IND_EnableRightMouse];
 
-            checkBoxEnableF1 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF1];
-            checkBoxEnableF2 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF2];
-            checkBoxEnableF3 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF3];
-            checkBoxEnableF4 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF4];
-            checkBoxEnableF5 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF5];
-            checkBoxEnableF6 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF6];
-            checkBoxEnableF7 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF7];
-            checkBoxEnableF8 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF8];
-            checkBoxEnableF9 .Checked = newBoolean[IND_FunctionKeys, IND_EnableF9];
-            checkBoxEnableF10.Checked = newBoolean[IND_FunctionKeys, IND_EnableF10];
-            checkBoxEnableF11.Checked = newBoolean[IND_FunctionKeys, IND_EnableF11];
-            checkBoxEnableF12.Checked = newBoolean[IND_FunctionKeys, IND_EnableF12];
+            checkBoxEnableF1 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF1];
+            checkBoxEnableF2 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF2];
+            checkBoxEnableF3 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF3];
+            checkBoxEnableF4 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF4];
+            checkBoxEnableF5 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF5];
+            checkBoxEnableF6 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF6];
+            checkBoxEnableF7 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF7];
+            checkBoxEnableF8 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF8];
+            checkBoxEnableF9 .Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF9];
+            checkBoxEnableF10.Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF10];
+            checkBoxEnableF11.Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF11];
+            checkBoxEnableF12.Checked = settingBoolean[StateNew, GroupFunctionKeys, IND_EnableF12];
 
-            // Convert the B1, B2, B3 strings to integers
-            int  indexFunctionKey;
-            for (indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
-            {
-                if (newString[IND_ExitSequence, IND_B1].Equals(virtualKeyCodeString[indexFunctionKey]))
-                    newIndexExitKey1 = indexFunctionKey;
+            listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitSequence, IND_ExitKey1] - 1;
+            listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitSequence, IND_ExitKey2] - 1;
+            listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitSequence, IND_ExitKey3] - 1;
 
-                if (newString[IND_ExitSequence, IND_B2].Equals(virtualKeyCodeString[indexFunctionKey]))
-                    newIndexExitKey2 = indexFunctionKey;
-
-                if (newString[IND_ExitSequence, IND_B3].Equals(virtualKeyCodeString[indexFunctionKey]))
-                    newIndexExitKey3 = indexFunctionKey;
-            }
-
-            listBoxExitKey1.SelectedIndex = newIndexExitKey1 - 1;
-            listBoxExitKey2.SelectedIndex = newIndexExitKey2 - 1;
-            listBoxExitKey3.SelectedIndex = newIndexExitKey3 - 1;
-
-            textBoxQuitPassword.Text = newString[IND_OnlineExam, IND_QuitPassword];
-            textBoxQuitHashcode.Text = newString[IND_OnlineExam, IND_QuitHashcode];
+            textBoxQuitPassword.Text = settingString[StateNew, GroupOnlineExam, IND_QuitPassword];
+            textBoxQuitHashcode.Text = settingString[StateNew, GroupOnlineExam, IND_QuitHashcode];
         }
 
 
@@ -1404,8 +1484,11 @@ namespace SebWindowsConfig
         private void buttonExitAndSave_Click(object sender, EventArgs e)
         {
             // Save both ini files so that nothing gets lost
-            SaveFileSebStarterIni();
-            SaveFileMsgHookIni();
+            String fileName1 = settingString[StateNew, GroupSebStarterFiles, IND_CurrentSebStarterIni];
+            String fileName2 = settingString[StateNew, GroupMsgHookFiles   , IND_CurrentMsgHookIni];
+
+            SaveFileSebStarterIni(fileName1);
+            SaveFileMsgHookIni   (fileName2);
 
             // Close the configuration window and exit
             this.Close();
@@ -1416,7 +1499,6 @@ namespace SebWindowsConfig
             // Close the configuration window and exit without saving
             this.Close();
         }
-
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig
