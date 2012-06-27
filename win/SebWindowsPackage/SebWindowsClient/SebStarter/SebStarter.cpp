@@ -1085,6 +1085,8 @@ bool IsSebRunningOnVirtualMachineNew()
 
 void GetHardcodedSebStarterIni()
 {
+	mpParam["WriteSebStarterLogFile"] = "1";
+
 	mpParam["InsideSebEnableSwitchUser"       ] = "0";
 	mpParam["InsideSebEnableLockThisComputer" ] = "0";
 	mpParam["InsideSebEnableChangeAPassword"  ] = "0";
@@ -1124,14 +1126,12 @@ void GetHardcodedSebStarterIni()
 	mpParam["ExamUrl"              ] = "http://www.safeexambrowser.org";
 	mpParam["PermittedApplications"] = "Calculator,calc.exe;Notepad,notepad.exe;";
 
-	mpParam["WriteSebStarterLogFile"] = "1";
-	mpParam["HookDll"               ] = "MsgHook.dll";
-
 	mpParam["Win9xKillExplorer"        ] = "1";
 	mpParam["Win9xScreenSaverRunning"  ] = "0";
-
 	mpParam["StrongKillProcessesBefore"] = "";
 	mpParam["StrongKillProcessesAfter" ] = "";
+
+	mpParam["HookDll"] = MSG_HOOK_DLL;
 
 	return;
 }
@@ -1231,6 +1231,10 @@ BOOL ReadSebStarterIni()
 			logg(fp, "-----------\n\n");
 
 		} // end if  (useHardCodedSebStarterIni == true)
+
+
+		// In any case, set the correct MsgHook.dll library
+		mpParam["HookDll"] = MSG_HOOK_DLL;
 
 
 		// Decide whether to write data into the logfile
