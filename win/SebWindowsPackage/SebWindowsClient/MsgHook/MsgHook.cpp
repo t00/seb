@@ -739,7 +739,6 @@ void GetHardcodedMsgHookIni()
 	mpParam["B1"] = "114";
 	mpParam["B2"] = "122";
 	mpParam["B3"] = "117";
-	mpParam["QuitHashcode"] = "";
 
 	mpParam["KillCallerHotkey"] = APP_CHOOSER_TITLE;
 
