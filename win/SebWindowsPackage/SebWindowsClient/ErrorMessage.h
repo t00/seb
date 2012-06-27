@@ -37,6 +37,7 @@
 #define SEB_STARTER_LOG "SebStarter.log"
 #define    MSG_HOOK_INI    "MsgHook.ini"
 #define    MSG_HOOK_LOG    "MsgHook.log"
+#define    MSG_HOOK_DLL    "MsgHook.dll"
 
 // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
 // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
