@@ -17,9 +17,6 @@ namespace SebWindowsConfig
     {
         // Constants for indexing the ini file values
 
-        // Maximum number of text lines in ini files
-        const int MAX_LINES = 100;
-
         // SEB has 2 different ini files:
         // SebStarter.ini and MsgHook.ini
         const int FileSebStarter = 1;
@@ -44,24 +41,24 @@ namespace SebWindowsConfig
         const int StateDef = 4;
 
         // The Graphical User Interface contains 5 groups
-        const int GroupNon = 0;
-        const int GroupMin = 1;
-        const int GroupMax = 9;
-        const int GroupNum = 9;
+        const int GroupNon =  0;
+        const int GroupMin =  1;
+        const int GroupMax = 10;
+        const int GroupNum = 10;
 
         // SebStarter contains the 5 groups
-        // SebStarterFiles, InsideSeb, OutsideSeb, SecurityOptions, OnlineExam
+        // SebStarterFiles, InsideSeb, OutsideSeb, SecurityOptions, OnlineExam, OtherOptions
         const int GroupNonSebStarter = 0;
         const int GroupMinSebStarter = 1;
-        const int GroupMaxSebStarter = 5;
-        const int GroupNumSebStarter = 5;
+        const int GroupMaxSebStarter = 6;
+        const int GroupNumSebStarter = 6;
 
         // MsgHook contains the 4 groups
         // MsgHookFiles, SpecialKeys, FunctionKeys, ExitSequence
-        const int GroupNonMsgHook = 0;
-        const int GroupMinMsgHook = 6;
-        const int GroupMaxMsgHook = 9;
-        const int GroupNumMsgHook = 4;
+        const int GroupNonMsgHook =  0;
+        const int GroupMinMsgHook =  7;
+        const int GroupMaxMsgHook = 10;
+        const int GroupNumMsgHook =  4;
 
         // Group indices for SebStarter.ini
         const int GroupSebStarterFiles = 1;
@@ -69,12 +66,13 @@ namespace SebWindowsConfig
         const int GroupOutsideSeb      = 3;
         const int GroupSecurityOptions = 4;
         const int GroupOnlineExam      = 5;
+        const int GroupOtherOptions    = 6;
 
         // Group indices for MsgHook.ini
-        const int GroupMsgHookFiles    = 6;
-        const int GroupSpecialKeys     = 7;
-        const int GroupFunctionKeys    = 8;
-        const int GroupExitSequence    = 9;
+        const int GroupMsgHookFiles    =  7;
+        const int GroupSpecialKeys     =  8;
+        const int GroupFunctionKeys    =  9;
+        const int GroupExitSequence    = 10;
 
         // Each group contains up to 12 values
         const int ValueNone =  0;
@@ -88,6 +86,7 @@ namespace SebWindowsConfig
         const String MSG_OutsideSeb      = "OutsideSeb";
         const String MSG_SecurityOptions = "SecurityOptions";
         const String MSG_OnlineExam      = "OnlineExam";
+        const String MSG_OtherOptions    = "OtherOptions";
 
         const String MSG_MsgHookFiles    = "MsgHookFiles";
         const String MSG_SpecialKeys     = "SpecialKeys";
@@ -141,9 +140,7 @@ namespace SebWindowsConfig
         const int IND_EditRegistry              = 6;
         const int IND_MonitorProcesses          = 7;
         const int IND_ShutdownAfterAutostart    = 8;
-        const int IND_Win9xKillExplorer         = 9;
-        const int IND_Win9xScreenSaverRunning   = 10;
-        const int NumValuesSecurityOptions      = 10;
+        const int NumValuesSecurityOptions      = 8;
 
         const String MSG_AllowVirtualMachine       = "AllowVirtualMachine";
         const String MSG_ForceWindowsService       = "ForceWindowsService";
@@ -153,24 +150,34 @@ namespace SebWindowsConfig
         const String MSG_EditRegistry              = "EditRegistry";
         const String MSG_MonitorProcesses          = "MonitorProcesses";
         const String MSG_ShutdownAfterAutostart    = "ShutdownAfterAutostartProcessTerminates";
-        const String MSG_Win9xKillExplorer         = "Win9xKillExplorer";
-        const String MSG_Win9xScreenSaverRunning   = "Win9xScreenSaverRunning";
 
         // Group "Online exam"
         const int IND_SebBrowser            = 1;
         const int IND_AutostartProcess      = 2;
         const int IND_ExamUrl               = 3;
         const int IND_PermittedApplications = 4;
-        const int IND_QuitPassword          = 5;
-        const int IND_QuitHashcode          = 6;
-        const int NumValuesOnlineExam       = 6;
+      //const int IND_QuitPassword          = 5;
+      //const int IND_QuitHashcode          = 6;
+        const int NumValuesOnlineExam       = 4;
 
         const String MSG_SebBrowser            = "SebBrowser";
         const String MSG_AutostartProcess      = "AutostartProcess";
         const String MSG_ExamUrl               = "ExamUrl";
         const String MSG_PermittedApplications = "PermittedApplications";
-        const String MSG_QuitPassword          = "QuitPassword";
-        const String MSG_QuitHashcode          = "QuitHashcode";
+      //const String MSG_QuitPassword          = "QuitPassword";
+      //const String MSG_QuitHashcode          = "QuitHashcode";
+
+        // Group "Other options"
+        const int IND_Win9xKillExplorer         = 1;
+        const int IND_Win9xScreenSaverRunning   = 2;
+        const int IND_StrongKillProcessesBefore = 3;
+        const int IND_StrongKillProcessesAfter  = 4;
+        const int NumValuesOtherOptions         = 4;
+
+        const String MSG_Win9xKillExplorer         = "Win9xKillExplorer";
+        const String MSG_Win9xScreenSaverRunning   = "Win9xScreenSaverRunning";
+        const String MSG_StrongKillProcessesBefore = "StrongKillProcessesBefore";
+        const String MSG_StrongKillProcessesAfter  = "StrongKillProcessesAfter";
 
         // Group "MsgHook files"
         const int IND_CurrentMsgHookIni   = 1;
@@ -244,23 +251,6 @@ namespace SebWindowsConfig
 
         // Global variables
 
-        // Text lines of the ini files before and after modification
-        int oldNumLinesSebStarterIni = 0;
-        int newNumLinesSebStarterIni = 0;
-        int tmpNumLinesSebStarterIni = 0;
-
-        int oldNumLinesMsgHookIni = 0;
-        int newNumLinesMsgHookIni = 0;
-        int tmpNumLinesMsgHookIni = 0;
-
-        static String[] oldLinesSebStarterIni = new String[MAX_LINES + 1];
-        static String[] newLinesSebStarterIni = new String[MAX_LINES + 1];
-        static String[] tmpLinesSebStarterIni = new String[MAX_LINES + 1];
-
-        static String[] oldLinesMsgHookIni    = new String[MAX_LINES + 1];
-        static String[] newLinesMsgHookIni    = new String[MAX_LINES + 1];
-        static String[] tmpLinesMsgHookIni    = new String[MAX_LINES + 1];
-
         // Virtual key code strings
         static String[] virtualKeyCodeString = new String[ValueNum + 1];
 
@@ -290,28 +280,7 @@ namespace SebWindowsConfig
             InitializeComponent();
 
             // Initialise the global arrays
-
-            int state, group, value, line;
-
-            oldNumLinesSebStarterIni = 0;
-            newNumLinesSebStarterIni = 0;
-            tmpNumLinesSebStarterIni = 0;
-
-            oldNumLinesMsgHookIni = 0;
-            newNumLinesMsgHookIni = 0;
-            tmpNumLinesMsgHookIni = 0;
-
-            // Initialise the text buffer for reading/writing the ini files
-            for (line = 0; line <= MAX_LINES; line++)
-            {
-                oldLinesSebStarterIni[line] = "";
-                newLinesSebStarterIni[line] = "";
-                tmpLinesSebStarterIni[line] = "";
-
-                oldLinesMsgHookIni[line] = "";
-                newLinesMsgHookIni[line] = "";
-                tmpLinesMsgHookIni[line] = "";
-            }
+            int state, group, value;
 
             // Intialise the Safe Exam Browser values
             for (state = StateMin; state <= StateMax; state++)
@@ -329,6 +298,7 @@ namespace SebWindowsConfig
                 settingBoolean[StateDef, GroupInsideSeb      , value] = false;
                 settingBoolean[StateDef, GroupOutsideSeb     , value] = true;
                 settingBoolean[StateDef, GroupSecurityOptions, value] = false;
+                settingBoolean[StateDef, GroupOtherOptions   , value] = false;
                 settingBoolean[StateDef, GroupSpecialKeys    , value] = false;
                 settingBoolean[StateDef, GroupFunctionKeys   , value] = false;
                 settingInteger[StateDef, GroupExitSequence   , value] = 0;
@@ -337,9 +307,8 @@ namespace SebWindowsConfig
             // Default settings for groups "SebStarter files" and "MsgHook files"
             settingBoolean[StateDef, GroupSebStarterFiles, IND_WriteSebStarterLogFile] = true;
             settingBoolean[StateDef, GroupMsgHookFiles   , IND_WriteMsgHookLogFile   ] = true;
-
-            settingString[StateDef, GroupSebStarterFiles, IND_CurrentSebStarterIni] = "";
-            settingString[StateDef, GroupMsgHookFiles   , IND_CurrentMsgHookIni   ] = "";
+            settingString [StateDef, GroupSebStarterFiles, IND_CurrentSebStarterIni  ] = "";
+            settingString [StateDef, GroupMsgHookFiles   , IND_CurrentMsgHookIni     ] = "";
 
             // Default settings for group "Security options"
             settingBoolean[StateDef, GroupSecurityOptions, IND_AllowVirtualMachine      ] = false;
@@ -350,6 +319,28 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurityOptions, IND_EditRegistry             ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, IND_MonitorProcesses         ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, IND_ShutdownAfterAutostart   ] = false;
+
+            // Default settings for group "Online exam"
+	        String s1 = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile ";
+	        String s2 = "\"";
+	        String s3 = "%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles";
+	        String s4 = "\"";
+            String SebBrowserString = s1 + s2 + s3 + s4;
+
+            settingString[StateDef, GroupOnlineExam, IND_SebBrowser      ] = SebBrowserString;
+            settingString[StateDef, GroupOnlineExam, IND_AutostartProcess] = "Seb";
+            settingString[StateDef, GroupOnlineExam, IND_ExamUrl         ] = "http://www.safeexambrowser.org";
+            settingString[StateDef, GroupOnlineExam, IND_PermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
+          //settingString[StateDef, GroupOnlineExam, IND_QuitPassword] = "";
+          //settingString[StateDef, GroupOnlineExam, IND_QuitHashcode] = "";
+
+
+            // Default settings for group "Other options"
+            settingBoolean[StateDef, GroupOtherOptions, IND_Win9xKillExplorer        ] = true;
+            settingBoolean[StateDef, GroupOtherOptions, IND_Win9xScreenSaverRunning  ] = false;
+            settingString [StateDef, GroupOtherOptions, IND_StrongKillProcessesBefore] = "";
+            settingString [StateDef, GroupOtherOptions, IND_StrongKillProcessesAfter ] = "";
+
 
             // Default settings for groups "Special keys" and "Function keys"
             settingBoolean[StateDef, GroupSpecialKeys , IND_EnableAltTab] = true;
@@ -364,19 +355,6 @@ namespace SebWindowsConfig
             settingInteger[StateNew, GroupExitSequence, IND_ExitKey2] = 11;
             settingInteger[StateNew, GroupExitSequence, IND_ExitKey3] =  6;
 
-            // Default settings for group "Online exam"
-	        String s1 = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile ";
-	        String s2 = "\"";
-	        String s3 = "%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles";
-	        String s4 = "\"";
-            String SebBrowserString = s1 + s2 + s3 + s4;
-
-            settingString[StateDef, GroupOnlineExam, IND_SebBrowser      ] = SebBrowserString;
-            settingString[StateDef, GroupOnlineExam, IND_AutostartProcess] = "Seb";
-            settingString[StateDef, GroupOnlineExam, IND_ExamUrl         ] = "http://www.safeexambrowser.org";
-            settingString[StateDef, GroupOnlineExam, IND_PermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
-            settingString[StateDef, GroupOnlineExam, IND_QuitPassword] = "";
-            settingString[StateDef, GroupOnlineExam, IND_QuitHashcode] = "";
 
             // Data types of the different values
             for (value = ValueMin; value <= ValueMax; value++)
@@ -386,12 +364,18 @@ namespace SebWindowsConfig
                 dataType[GroupOutsideSeb     , value] = TYPE_Boolean;
                 dataType[GroupSecurityOptions, value] = TYPE_Boolean;
                 dataType[GroupOnlineExam     , value] = TYPE_String;
+                dataType[GroupOtherOptions   , value] = TYPE_Boolean;
 
                 dataType[GroupMsgHookFiles, value] = TYPE_Boolean;
                 dataType[GroupSpecialKeys , value] = TYPE_Boolean;
                 dataType[GroupFunctionKeys, value] = TYPE_Boolean;
                 dataType[GroupExitSequence, value] = TYPE_String;
             }
+
+            dataType[GroupOtherOptions, IND_Win9xKillExplorer        ] = TYPE_Boolean;
+            dataType[GroupOtherOptions, IND_Win9xScreenSaverRunning  ] = TYPE_Boolean;
+            dataType[GroupOtherOptions, IND_StrongKillProcessesBefore] = TYPE_String;
+            dataType[GroupOtherOptions, IND_StrongKillProcessesAfter ] = TYPE_String;
 
             dataType[GroupSebStarterFiles, IND_CurrentSebStarterIni  ] = TYPE_String;
             dataType[GroupSebStarterFiles, IND_WriteSebStarterLogFile] = TYPE_Boolean;
@@ -405,6 +389,7 @@ namespace SebWindowsConfig
             numValues[GroupOutsideSeb     ] = NumValuesOutsideSeb;
             numValues[GroupSecurityOptions] = NumValuesSecurityOptions;
             numValues[GroupOnlineExam     ] = NumValuesOnlineExam;
+            numValues[GroupOtherOptions   ] = NumValuesOtherOptions;
 
             numValues[GroupMsgHookFiles   ] = NumValuesMsgHookFiles;
             numValues[GroupSpecialKeys    ] = NumValuesSpecialKeys;
@@ -417,6 +402,7 @@ namespace SebWindowsConfig
             groupString[GroupOutsideSeb     ] = MSG_OutsideSeb;
             groupString[GroupSecurityOptions] = MSG_SecurityOptions;
             groupString[GroupOnlineExam     ] = MSG_OnlineExam;
+            groupString[GroupOtherOptions   ] = MSG_OtherOptions;
 
             groupString[GroupMsgHookFiles   ] = MSG_MsgHookFiles;
             groupString[GroupSpecialKeys    ] = MSG_SpecialKeys;
@@ -461,8 +447,13 @@ namespace SebWindowsConfig
             valueString[GroupOnlineExam, IND_AutostartProcess     ] = MSG_AutostartProcess;
             valueString[GroupOnlineExam, IND_ExamUrl              ] = MSG_ExamUrl;
             valueString[GroupOnlineExam, IND_PermittedApplications] = MSG_PermittedApplications;
-            valueString[GroupOnlineExam, IND_QuitPassword         ] = MSG_QuitPassword;
-            valueString[GroupOnlineExam, IND_QuitHashcode         ] = MSG_QuitHashcode;
+          //valueString[GroupOnlineExam, IND_QuitPassword         ] = MSG_QuitPassword;
+          //valueString[GroupOnlineExam, IND_QuitHashcode         ] = MSG_QuitHashcode;
+
+            valueString[GroupOtherOptions, IND_Win9xKillExplorer        ] = MSG_Win9xKillExplorer;
+            valueString[GroupOtherOptions, IND_Win9xScreenSaverRunning  ] = MSG_Win9xScreenSaverRunning;
+            valueString[GroupOtherOptions, IND_StrongKillProcessesBefore] = MSG_StrongKillProcessesBefore;
+            valueString[GroupOtherOptions, IND_StrongKillProcessesAfter ] = MSG_StrongKillProcessesAfter;
 
             valueString[GroupSpecialKeys, IND_EnableEsc       ] = MSG_EnableEsc;
             valueString[GroupSpecialKeys, IND_EnableCtrlEsc   ] = MSG_EnableCtrlEsc;
@@ -535,14 +526,15 @@ namespace SebWindowsConfig
         // ************************
         private void OpenFileSebStarterIni(String fileName)
         {
-            int group, value, line;
+            FileStream   fileStream;
+            StreamReader fileReader;
+            String       fileLine;
+
+            int group, value;
             int groupMin = GroupMinSebStarter;
             int groupMax = GroupMaxSebStarter;
             int valueMin = ValueMin;
             int valueMax = ValueMax;
-            FileStream   fileStream;
-            StreamReader fileReader;
-            String       fileLine;
 
             settingString[StateTmp, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
 
@@ -553,13 +545,8 @@ namespace SebWindowsConfig
                 fileReader = new StreamReader(fileStream);
 
                 // Read lines from the SebStarter.ini file until end of file is reached
-                tmpNumLinesSebStarterIni = 0;
-
                 while ((fileLine = fileReader.ReadLine()) != null) 
                 {
-                    tmpNumLinesSebStarterIni++;
-                    tmpLinesSebStarterIni[tmpNumLinesSebStarterIni] = fileLine;
-
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (fileLine.Contains("="))
                     {
@@ -596,17 +583,7 @@ namespace SebWindowsConfig
                 return;
             }
 
-
             // Accept the tmp values as the new values
-            oldNumLinesSebStarterIni = tmpNumLinesSebStarterIni;
-            newNumLinesSebStarterIni = tmpNumLinesSebStarterIni;
-
-            for (line = 0; line <= MAX_LINES; line++)
-            {
-                oldLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
-                newLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
-            }
-
             for (group = groupMin; group <= groupMax; group++)
             for (value = valueMin; value <= valueMax; value++)
             {
@@ -643,64 +620,62 @@ namespace SebWindowsConfig
         // ************************
         private void SaveFileSebStarterIni(String fileName)
         {
-            int group, value, line;
-            int groupMin = GroupMinSebStarter;
-            int groupMax = GroupMaxSebStarter;
-            int valueMin = ValueMin;
-            int valueMax = ValueMax;
             FileStream   fileStream;
             StreamWriter fileWriter;
             String       fileLine;
+
+            int group, value;
+            int groupMin = GroupMinSebStarter;
+            int groupMax = GroupMaxSebStarter;
+            int valueMin = 0;
+            int valueMax = 0;
 
             settingString[StateTmp, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
 
             try 
             {
-                // Open the SebStarter.ini file for writing
+                // Open the output file for writing
                 fileStream = new   FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
                 fileWriter = new StreamWriter(fileStream);
 
-                // Write lines into the SebStarter.ini file until end of file is reached
-                for (line = 1; line <= newNumLinesSebStarterIni; line++)
+                // Write the header lines
+                fileWriter.WriteLine("");
+                fileWriter.WriteLine("[SEB]");
+                fileWriter.WriteLine("");
+
+                // For each group and each value,
+                // write the line "...=..." into the output file
+                for (group = groupMin; group <= groupMax; group++)
                 {
-                    fileLine = oldLinesSebStarterIni[line];
+                    valueMin = 1;
+                    valueMax = numValues[group];
 
-                    // Skip empty lines and lines not in "leftSide = rightSide" format
-                    if (fileLine.Contains("="))
+                    // Write the group name
+                    fileWriter.WriteLine("[" + groupString[group] + "]");
+                    fileWriter.WriteLine("");
+
+                    for (value = valueMin; value <= valueMax; value++)
                     {
-                        int      equalPosition =    fileLine.IndexOf  ("=");
-                        String   leftString    =    fileLine.Remove   (equalPosition);
-                        String  rightString    =    fileLine.Substring(equalPosition + 1);
-                        Boolean rightBoolean   = rightString.Equals("1");
-                        int     rightType      = TYPE_Boolean;
+                        String   leftString    =   valueString [          group, value];
+                        String  rightString    = settingString [StateNew, group, value];
+                        Boolean rightBoolean   = settingBoolean[StateNew, group, value];
+                        int     rightType      =    dataType   [          group, value];
 
-                        // Find the appropriate group and setting
-                        for (group = groupMin; group <= groupMax; group++)
-                        for (value = valueMin; value <= valueMax; value++)
-                        {
-                            if (leftString.Equals(valueString[group, value]))
-                            {
-                                rightBoolean = settingBoolean[StateNew, group, value];
-                                rightString  = settingString [StateNew, group, value];
-                                rightType    =    dataType   [          group, value];
-                                if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
-                                if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
-                            }
-                        }
+                        if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
+                        if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
 
-                        // Concatenate the modified line
-                        fileLine = "";
+                        // Concatenate the "...=..." line and write it
                         fileLine = leftString + "=" + rightString;
+                        fileWriter.WriteLine(fileLine);
 
-                    } // end if line.Contains("=")
+                    } // next value
 
-                    // Write the modified line back into the file
-                    tmpLinesSebStarterIni[line] = fileLine;
-                    fileWriter.WriteLine(fileLine);
+                    // Write an empty line into the file
+                    fileWriter.WriteLine("");
 
-                } // next line
+                } // next group
 
-                // Close the SebStarter.ini file
+                // Close the output file
                 fileWriter.Close();
                 fileStream.Close();
 
@@ -714,23 +689,16 @@ namespace SebWindowsConfig
                 return;
             }
 
-
             // Accept the tmp values as the new values
             settingString[StateOld, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
             settingString[StateNew, GroupSebStarterFiles, IND_CurrentSebStarterIni] = fileName;
-
-            oldNumLinesSebStarterIni = newNumLinesSebStarterIni;
-            for (line = 0; line <= MAX_LINES; line++)
-            {
-                oldLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
-                newLinesSebStarterIni[line] = tmpLinesSebStarterIni[line];
-            }
 
             for (group = groupMin; group <= groupMax; group++)
             for (value = valueMin; value <= valueMax; value++)
             {
                 settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
                 settingString [StateOld, group, value] = settingString [StateNew, group, value];
+                settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
             }
 
             textBoxCurrentSebStarterIni.Text = fileName;
@@ -759,14 +727,15 @@ namespace SebWindowsConfig
         // *********************
         private void OpenFileMsgHookIni(String fileName)
         {
-            int group, value, line;
+            FileStream   fileStream;
+            StreamReader fileReader;
+            String       fileLine;
+
+            int group, value;
             int groupMin = GroupMinMsgHook;
             int groupMax = GroupMaxMsgHook;
             int valueMin = ValueMin;
             int valueMax = ValueMax;
-            FileStream   fileStream;
-            StreamReader fileReader;
-            String       fileLine;
 
             settingString[StateTmp, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
 
@@ -777,13 +746,8 @@ namespace SebWindowsConfig
                 fileReader = new StreamReader(fileStream);
 
                 // Read lines from the SebStarter.ini file until end of file is reached
-                tmpNumLinesMsgHookIni = 0;
-
                 while ((fileLine = fileReader.ReadLine()) != null)
                 {
-                    tmpNumLinesMsgHookIni++;
-                    tmpLinesMsgHookIni[tmpNumLinesMsgHookIni] = fileLine;
-
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (fileLine.Contains("="))
                     {
@@ -820,18 +784,6 @@ namespace SebWindowsConfig
                 return;
             }
 
-
-            // Accept the tmp values as the new values
-            oldNumLinesMsgHookIni = tmpNumLinesMsgHookIni;
-            newNumLinesMsgHookIni = tmpNumLinesMsgHookIni;
-
-            for (line = 0; line <= MAX_LINES; line++)
-            {
-                oldLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
-                newLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
-            }
-
-
             // Convert the B1, B2, B3 strings to integers
             String tmpB1 = settingString[StateTmp, GroupExitSequence, IND_ExitKey1];
             String tmpB2 = settingString[StateTmp, GroupExitSequence, IND_ExitKey2];
@@ -854,6 +806,7 @@ namespace SebWindowsConfig
             settingInteger[StateTmp, GroupExitSequence, IND_ExitKey2] = tmpIndexExitKey2;
             settingInteger[StateTmp, GroupExitSequence, IND_ExitKey3] = tmpIndexExitKey3;
 
+            // Accept the tmp values as the new values
             for (group = groupMin; group <= groupMax; group++)
             for (value = valueMin; value <= valueMax; value++)
             {
@@ -892,14 +845,15 @@ namespace SebWindowsConfig
         // *********************
         private void SaveFileMsgHookIni(String fileName)
         {
-            int group, value, line;
-            int groupMin = GroupMinMsgHook;
-            int groupMax = GroupMaxMsgHook;
-            int valueMin = ValueMin;
-            int valueMax = ValueMax;
             FileStream   fileStream;
             StreamWriter fileWriter;
             String       fileLine;
+
+            int group, value;
+            int groupMin = GroupMinMsgHook;
+            int groupMax = GroupMaxMsgHook;
+            int valueMin = 0;
+            int valueMax = 0;
 
             settingString[StateTmp, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
 
@@ -913,51 +867,48 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Open the MsgHook.ini file for writing
+                // Open the output file for writing
                 fileStream = new   FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
                 fileWriter = new StreamWriter(fileStream);
 
-                // Write lines into the MsgHook.ini file until end of file is reached
-                for (line = 1; line <= newNumLinesMsgHookIni; line++)
+                // Write the header lines
+                fileWriter.WriteLine("");
+                fileWriter.WriteLine("[SEB]");
+                fileWriter.WriteLine("");
+
+                // For each group and each value,
+                // write the line "...=..." into the output file
+                for (group = groupMin; group <= groupMax; group++)
                 {
-                    fileLine = oldLinesMsgHookIni[line];
+                    valueMin = 1;
+                    valueMax = numValues[group];
 
-                    // Skip empty lines and lines not in "leftSide = rightSide" format
-                    if (fileLine.Contains("="))
+                    // Write the group name
+                    fileWriter.WriteLine("[" + groupString[group] + "]");
+                    fileWriter.WriteLine("");
+
+                    for (value = valueMin; value <= valueMax; value++)
                     {
-                        int      equalPosition =    fileLine.IndexOf  ("=");
-                        String   leftString    =    fileLine.Remove   (equalPosition);
-                        String  rightString    =    fileLine.Substring(equalPosition + 1);
-                        Boolean rightBoolean   = rightString.Equals("1");
-                        int     rightType      = TYPE_Boolean;
+                        String   leftString    =   valueString [          group, value];
+                        String  rightString    = settingString [StateNew, group, value];
+                        Boolean rightBoolean   = settingBoolean[StateNew, group, value];
+                        int     rightType      =    dataType   [          group, value];
 
-                        // Find the appropriate group and setting
-                        for (group = groupMin; group <= groupMax; group++)
-                        for (value = valueMin; value <= valueMax; value++)
-                        {
-                            if (leftString.Equals(valueString[group, value]))
-                            {
-                                rightBoolean = settingBoolean[StateNew, group, value];
-                                rightString  = settingString [StateNew, group, value];
-                                rightType    =    dataType   [          group, value];
-                                if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
-                                if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
-                            }
-                        }
+                        if ((rightType == TYPE_Boolean) && (rightBoolean == false)) rightString = "0";
+                        if ((rightType == TYPE_Boolean) && (rightBoolean ==  true)) rightString = "1";
 
-                        // Concatenate the modified line
-                        fileLine = "";
+                        // Concatenate the "...=..." line and write it
                         fileLine = leftString + "=" + rightString;
+                        fileWriter.WriteLine(fileLine);
 
-                    } // end if line.Contains("=")
+                    } // next value
 
-                    // Write the modified line back into the file
-                    tmpLinesMsgHookIni[line] = fileLine;
-                    fileWriter.WriteLine(fileLine);
+                    // Write an empty line into the file
+                    fileWriter.WriteLine("");
 
-                } // next line
+                } // next group
 
-                // Close the MsgHook.ini file
+                // Close the output file
                 fileWriter.Close();
                 fileStream.Close();
 
@@ -971,17 +922,9 @@ namespace SebWindowsConfig
                 return;
             }
 
-
             // Accept the tmp values as the new values
             settingString[StateOld, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
             settingString[StateNew, GroupMsgHookFiles, IND_CurrentMsgHookIni] = fileName;
-
-            oldNumLinesMsgHookIni = newNumLinesMsgHookIni;
-            for (line = 0; line <= MAX_LINES; line++)
-            {
-                oldLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
-                newLinesMsgHookIni[line] = tmpLinesMsgHookIni[line];
-            }
 
             for (group = groupMin; group <= groupMax; group++)
             for (value = valueMin; value <= valueMax; value++)
@@ -1318,8 +1261,8 @@ namespace SebWindowsConfig
 
             textBoxQuitHashcode.Text = newStringQuitHashcode;
 
-            settingString[StateNew, GroupOnlineExam, IND_QuitPassword] = newStringQuitPassword;
-            settingString[StateNew, GroupOnlineExam, IND_QuitHashcode] = newStringQuitHashcode;
+            //settingString[StateNew, GroupOnlineExam, IND_QuitPassword] = newStringQuitPassword;
+            //settingString[StateNew, GroupOnlineExam, IND_QuitHashcode] = newStringQuitHashcode;
         }
 
 
@@ -1430,8 +1373,8 @@ namespace SebWindowsConfig
             textBoxAutostartProcess     .Text = settingString[StateNew, GroupOnlineExam, IND_AutostartProcess];
             textBoxExamUrl              .Text = settingString[StateNew, GroupOnlineExam, IND_ExamUrl];
             textBoxPermittedApplications.Text = settingString[StateNew, GroupOnlineExam, IND_PermittedApplications];
-            textBoxQuitPassword         .Text = settingString[StateNew, GroupOnlineExam, IND_QuitPassword];
-            textBoxQuitHashcode         .Text = settingString[StateNew, GroupOnlineExam, IND_QuitHashcode];
+          //textBoxQuitPassword         .Text = settingString[StateNew, GroupOnlineExam, IND_QuitPassword];
+          //textBoxQuitHashcode         .Text = settingString[StateNew, GroupOnlineExam, IND_QuitHashcode];
         }
 
 
@@ -1471,8 +1414,8 @@ namespace SebWindowsConfig
             listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitSequence, IND_ExitKey2] - 1;
             listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitSequence, IND_ExitKey3] - 1;
 
-            textBoxQuitPassword.Text = settingString[StateNew, GroupOnlineExam, IND_QuitPassword];
-            textBoxQuitHashcode.Text = settingString[StateNew, GroupOnlineExam, IND_QuitHashcode];
+            //textBoxQuitPassword.Text = settingString[StateNew, GroupOnlineExam, IND_QuitPassword];
+            //textBoxQuitHashcode.Text = settingString[StateNew, GroupOnlineExam, IND_QuitHashcode];
         }
 
 
