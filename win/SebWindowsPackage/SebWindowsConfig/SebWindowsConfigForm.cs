@@ -736,6 +736,11 @@ namespace SebWindowsConfig
 
             try 
             {
+                // If the ini file already exists, delete it
+                // and write it again from scratch with new data
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+
                 // Open the ini file for writing
                 fileStream = new   FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
                 fileWriter = new StreamWriter(fileStream);
