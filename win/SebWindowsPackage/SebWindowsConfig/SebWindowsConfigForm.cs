@@ -498,12 +498,21 @@ namespace SebWindowsConfig
             virtualKeyCodeString[11] = "122";
             virtualKeyCodeString[12] = "123";
 
-            // Initialise the widgets to the default settings
-            currentSebStarterIni = DefaultSebStarterIni;
-            currentMsgHookIni    = DefaultMsgHookIni;
+            // Try to load the already given ini files (SebStarter.ini and MsgHook.ini)
+            // in the local directory (where SebWindowsConfig.exe was called)
+            currentSebStarterIni = Path.GetFullPath(DefaultSebStarterIni);
+            currentMsgHookIni    = Path.GetFullPath(DefaultMsgHookIni);
 
-            SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
-            SetWidgetsToSettingsOfFile(FileMsgHook   , StateDef);
+            // Read the settings from the ini file and update their widgets
+            if (OpenIniFile(FileSebStarter, currentSebStarterIni) == true)
+                SetWidgetsToNewSettingsOfSebStarterIni();
+
+            // Read the settings from the ini file and update their widgets
+            if (OpenIniFile(FileMsgHook, currentMsgHookIni) == true)
+                SetWidgetsToNewSettingsOfMsgHookIni();
+
+            //SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
+            //SetWidgetsToSettingsOfFile(FileMsgHook   , StateDef);
 
             openFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
@@ -523,7 +532,7 @@ namespace SebWindowsConfig
             DialogResult fileDialog = openFileDialogSebStarterIni.ShowDialog();
             String       fileName   = openFileDialogSebStarterIni.FileName;
 
-            // Assign the settings read from the ini file to their widgets
+            // Read the settings from the ini file and update their widgets
             if (OpenIniFile(FileSebStarter, fileName) == true)
             {
                 currentSebStarterIni = fileName;
@@ -542,7 +551,7 @@ namespace SebWindowsConfig
             DialogResult fileDialog = openFileDialogMsgHookIni.ShowDialog();
             String       fileName   = openFileDialogMsgHookIni.FileName;
 
-            // Assign the settings read from the ini file to their widgets
+            // Read the settings from the ini file and update their widgets
             if (OpenIniFile(FileMsgHook, fileName) == true)
             {
                 currentMsgHookIni = fileName;
@@ -561,7 +570,7 @@ namespace SebWindowsConfig
             DialogResult fileDialog = saveFileDialogSebStarterIni.ShowDialog();
             String       fileName   = saveFileDialogSebStarterIni.FileName;
 
-            // Assign the name of the written ini file to its widget
+            // Write the settings to the ini file and update the filename widget
             if (SaveIniFile(FileSebStarter, fileName) == true)
             {
                 currentSebStarterIni             = fileName;
@@ -580,7 +589,7 @@ namespace SebWindowsConfig
             DialogResult fileDialog = saveFileDialogMsgHookIni.ShowDialog();
             String       fileName   = saveFileDialogMsgHookIni.FileName;
 
-            // Assign the name of the written ini file to its widget
+            // Write the settings to the ini file and update the filename widget
             if (SaveIniFile(FileMsgHook, fileName) == true)
             {
                 currentMsgHookIni             = fileName;
@@ -1144,7 +1153,7 @@ namespace SebWindowsConfig
         // *****************************************
         private void buttonRestoreSebStarterDefaultSettings_Click(object sender, EventArgs e)
         {
-            currentSebStarterIni = DefaultSebStarterIni;
+            currentSebStarterIni = Path.GetFullPath(DefaultSebStarterIni);
             SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
         }
 
@@ -1153,7 +1162,7 @@ namespace SebWindowsConfig
         // **************************************
         private void buttonRestoreMsgHookDefaultSettings_Click(object sender, EventArgs e)
         {
-            currentMsgHookIni = DefaultMsgHookIni;
+            currentMsgHookIni = Path.GetFullPath(DefaultMsgHookIni);
             SetWidgetsToSettingsOfFile(FileMsgHook, StateDef);
         }
 
