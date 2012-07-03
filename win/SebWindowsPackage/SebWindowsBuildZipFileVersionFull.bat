@@ -84,9 +84,7 @@ copy "%SourceDir%\Registry*.bat"                                     %TargetDir%
 copy "%SourceDir%\SebWindowsInstall\*.bat"                           %TargetDir%
 copy "%SourceDir%\SebWindowsInstall\Release\SebWindowsInstall.msi"   %TargetDir%
 copy "%SourceDir%\SebWindowsConfig\bin\Release\SebWindowsConfig.exe" %TargetDir%
-copy "%SourceDir%\SebWindowsClient\MsgHook\MsgHookDefault.ini"       %TargetDir%
 copy "%SourceDir%\SebWindowsClient\MsgHook\MsgHook.ini"              %TargetDir%
-copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarterDefault.ini" %TargetDir%
 copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.ini"        %TargetDir%
 copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.bat"        %TargetDir%
 
