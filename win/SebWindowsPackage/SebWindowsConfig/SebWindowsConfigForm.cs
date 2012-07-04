@@ -25,8 +25,10 @@ namespace SebWindowsConfig
         const int FileMax = 2;
         const int FileNum = 2;
 
-        const String DefaultSebStarterIni = "SebStarter.ini";
-        const String DefaultMsgHookIni    =    "MsgHook.ini";
+        // The target files the user must configure,
+        // because these are used by the application SebStarter.exe
+        const String TargetSebStarterIni = "SebStarter.ini";
+        const String TargetMsgHookIni    =    "MsgHook.ini";
 
         // The values can be in 4 different states:
         // old, new, temporary and default values
@@ -250,8 +252,14 @@ namespace SebWindowsConfig
 
         // Global variables
 
+        // The ini files that are currently being modified
         String currentSebStarterIni;
         String currentMsgHookIni;
+
+        // The target files the user must configure,
+        // because these are used by the application SebStarter.exe
+        String targetSebStarterIni;
+        String targetMsgHookIni;
 
         // Virtual key code strings
         static String[] virtualKeyCodeString = new String[ValueNum + 1];
@@ -330,9 +338,9 @@ namespace SebWindowsConfig
 	        String s4 = "\"";
             String SebBrowserString = s1 + s2 + s3 + s4;
 
-            settingString[StateDef, GroupOnlineExam, ValueSebBrowser      ] = SebBrowserString;
-            settingString[StateDef, GroupOnlineExam, ValueAutostartProcess] = "Seb";
-            settingString[StateDef, GroupOnlineExam, ValueExamUrl         ] = "http://www.safeexambrowser.org";
+            settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ] = SebBrowserString;
+            settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
+            settingString[StateDef, GroupOnlineExam, ValueExamUrl              ] = "http://www.safeexambrowser.org";
             settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
           //settingString[StateDef, GroupOnlineExam, ValueQuitPassword] = "";
           //settingString[StateDef, GroupOnlineExam, ValueQuitHashcode] = "";
@@ -498,21 +506,30 @@ namespace SebWindowsConfig
             virtualKeyCodeString[11] = "122";
             virtualKeyCodeString[12] = "123";
 
-            // Try to load the already given ini files (SebStarter.ini and MsgHook.ini)
-            // in the local directory (where SebWindowsConfig.exe was called)
-            currentSebStarterIni = Path.GetFullPath(DefaultSebStarterIni);
-            currentMsgHookIni    = Path.GetFullPath(DefaultMsgHookIni);
+            // Try to open the ini files (SebStarter.ini and MsgHook.ini)
+            // given in the local directory (where SebWindowsConfig.exe was called)
+            currentSebStarterIni = "";
+            currentMsgHookIni    = "";
 
-            // Read the settings from the ini file and update their widgets
-            if (OpenIniFile(FileSebStarter, currentSebStarterIni) == true)
-                SetWidgetsToNewSettingsOfSebStarterIni();
-
-            // Read the settings from the ini file and update their widgets
-            if (OpenIniFile(FileMsgHook, currentMsgHookIni) == true)
-                SetWidgetsToNewSettingsOfMsgHookIni();
+            targetSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
+            targetMsgHookIni    = Path.GetFullPath(TargetMsgHookIni);
 
             //SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
             //SetWidgetsToSettingsOfFile(FileMsgHook   , StateDef);
+
+            // Read the settings from the ini file and update their widgets
+            if (OpenIniFile(FileSebStarter, targetSebStarterIni) == true)
+            {
+                currentSebStarterIni = targetSebStarterIni;
+                SetWidgetsToNewSettingsOfSebStarterIni();
+            }
+
+            // Read the settings from the ini file and update their widgets
+            if (OpenIniFile(FileMsgHook, targetMsgHookIni) == true)
+            {
+                currentMsgHookIni = targetMsgHookIni;
+                SetWidgetsToNewSettingsOfMsgHookIni();
+            }
 
             openFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
@@ -529,13 +546,16 @@ namespace SebWindowsConfig
         // ****************************************
         private void labelOpenSebStarterConfigurationFile_Click(object sender, EventArgs e)
         {
-            DialogResult fileDialog = openFileDialogSebStarterIni.ShowDialog();
-            String       fileName   = openFileDialogSebStarterIni.FileName;
+            DialogResult fileDialogResult = openFileDialogSebStarterIni.ShowDialog();
+            String       tmpSebStarterIni = openFileDialogSebStarterIni.FileName;
+
+            // If the user clicked on "Cancel", do nothing
+            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
 
             // Read the settings from the ini file and update their widgets
-            if (OpenIniFile(FileSebStarter, fileName) == true)
+            if (OpenIniFile(FileSebStarter, tmpSebStarterIni) == true)
             {
-                currentSebStarterIni = fileName;
+                currentSebStarterIni = tmpSebStarterIni;
                 SetWidgetsToNewSettingsOfSebStarterIni();
             }
 
@@ -548,13 +568,16 @@ namespace SebWindowsConfig
         // *************************************
         private void labelOpenMsgHookConfigurationFile_Click(object sender, EventArgs e)
         {
-            DialogResult fileDialog = openFileDialogMsgHookIni.ShowDialog();
-            String       fileName   = openFileDialogMsgHookIni.FileName;
+            DialogResult fileDialogResult = openFileDialogMsgHookIni.ShowDialog();
+            String       tmpMsgHookIni    = openFileDialogMsgHookIni.FileName;
+
+            // If the user clicked on "Cancel", do nothing
+            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
 
             // Read the settings from the ini file and update their widgets
-            if (OpenIniFile(FileMsgHook, fileName) == true)
+            if (OpenIniFile(FileMsgHook, tmpMsgHookIni) == true)
             {
-                currentMsgHookIni = fileName;
+                currentMsgHookIni = tmpMsgHookIni;
                 SetWidgetsToNewSettingsOfMsgHookIni();
             }
 
@@ -567,14 +590,18 @@ namespace SebWindowsConfig
         // ****************************************
         private void labelSaveSebStarterConfigurationFile_Click(object sender, EventArgs e)
         {
-            DialogResult fileDialog = saveFileDialogSebStarterIni.ShowDialog();
-            String       fileName   = saveFileDialogSebStarterIni.FileName;
+            saveFileDialogSebStarterIni.FileName = currentSebStarterIni;
+            DialogResult fileDialogResult = saveFileDialogSebStarterIni.ShowDialog();
+            String       tmpSebStarterIni = saveFileDialogSebStarterIni.FileName;
+
+            // If the user clicked on "Cancel", do nothing
+            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
 
             // Write the settings to the ini file and update the filename widget
-            if (SaveIniFile(FileSebStarter, fileName) == true)
+            if (SaveIniFile(FileSebStarter, tmpSebStarterIni) == true)
             {
-                currentSebStarterIni             = fileName;
-                textBoxCurrentSebStarterIni.Text = fileName;
+                currentSebStarterIni             = tmpSebStarterIni;
+                textBoxCurrentSebStarterIni.Text = tmpSebStarterIni;
             }
 
         } // end of method   labelSaveSebStarterConfigurationFile_Click()
@@ -586,14 +613,18 @@ namespace SebWindowsConfig
         // *************************************
         private void labelSaveMsgHookConfigurationFile_Click(object sender, EventArgs e)
         {
-            DialogResult fileDialog = saveFileDialogMsgHookIni.ShowDialog();
-            String       fileName   = saveFileDialogMsgHookIni.FileName;
+            saveFileDialogMsgHookIni.FileName =    currentMsgHookIni;
+            DialogResult fileDialogResult = saveFileDialogMsgHookIni.ShowDialog();
+            String       tmpMsgHookIni    = saveFileDialogMsgHookIni.FileName;
+
+            // If the user clicked on "Cancel", do nothing
+            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
 
             // Write the settings to the ini file and update the filename widget
-            if (SaveIniFile(FileMsgHook, fileName) == true)
+            if (SaveIniFile(FileMsgHook, tmpMsgHookIni) == true)
             {
-                currentMsgHookIni             = fileName;
-                textBoxCurrentMsgHookIni.Text = fileName;
+                currentMsgHookIni             = tmpMsgHookIni;
+                textBoxCurrentMsgHookIni.Text = tmpMsgHookIni;
             }
 
         }  // end of method   labelSaveMsgHookConfigurationFile_Click()
@@ -1153,7 +1184,6 @@ namespace SebWindowsConfig
         // *****************************************
         private void buttonRestoreSebStarterDefaultSettings_Click(object sender, EventArgs e)
         {
-            currentSebStarterIni = Path.GetFullPath(DefaultSebStarterIni);
             SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
         }
 
@@ -1162,7 +1192,6 @@ namespace SebWindowsConfig
         // **************************************
         private void buttonRestoreMsgHookDefaultSettings_Click(object sender, EventArgs e)
         {
-            currentMsgHookIni = Path.GetFullPath(DefaultMsgHookIni);
             SetWidgetsToSettingsOfFile(FileMsgHook, StateDef);
         }
 
@@ -1304,6 +1333,11 @@ namespace SebWindowsConfig
         // ***********************************
         private void buttonExitAndSave_Click(object sender, EventArgs e)
         {
+            // If no file has been opened, save the current settings
+            // to the target ini files (SebStarter.ini and MsgHook.ini)
+            if (currentSebStarterIni.Equals("")) currentSebStarterIni = targetSebStarterIni;
+            if (currentMsgHookIni   .Equals("")) currentMsgHookIni    = targetMsgHookIni;
+
             // Save both ini files so that nothing gets lost
             SaveIniFile(FileSebStarter, currentSebStarterIni);
             SaveIniFile(FileMsgHook   , currentMsgHookIni);
