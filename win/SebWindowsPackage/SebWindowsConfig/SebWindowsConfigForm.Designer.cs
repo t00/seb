@@ -169,6 +169,7 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxForceWindowsService);
+            this.groupBoxSecurityOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxSecurityOptions.Location = new System.Drawing.Point(290, 190);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
             this.groupBoxSecurityOptions.Size = new System.Drawing.Size(330, 270);
@@ -180,6 +181,7 @@
             // 
             this.checkBoxShutdownAfterAutostart.AutoSize = true;
             this.checkBoxShutdownAfterAutostart.Enabled = false;
+            this.checkBoxShutdownAfterAutostart.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxShutdownAfterAutostart.Location = new System.Drawing.Point(10, 240);
             this.checkBoxShutdownAfterAutostart.Name = "checkBoxShutdownAfterAutostart";
             this.checkBoxShutdownAfterAutostart.Size = new System.Drawing.Size(309, 21);
@@ -192,6 +194,7 @@
             // 
             this.checkBoxMonitorProcesses.AutoSize = true;
             this.checkBoxMonitorProcesses.Enabled = false;
+            this.checkBoxMonitorProcesses.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(10, 210);
             this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
             this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
@@ -204,6 +207,7 @@
             // 
             this.checkBoxEditRegistry.AutoSize = true;
             this.checkBoxEditRegistry.Enabled = false;
+            this.checkBoxEditRegistry.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEditRegistry.Location = new System.Drawing.Point(10, 180);
             this.checkBoxEditRegistry.Name = "checkBoxEditRegistry";
             this.checkBoxEditRegistry.Size = new System.Drawing.Size(105, 21);
@@ -216,6 +220,7 @@
             // 
             this.checkBoxHookMessages.AutoSize = true;
             this.checkBoxHookMessages.Enabled = false;
+            this.checkBoxHookMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHookMessages.Location = new System.Drawing.Point(10, 150);
             this.checkBoxHookMessages.Name = "checkBoxHookMessages";
             this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
@@ -227,6 +232,7 @@
             // checkBoxShowSebApplicationChooser
             // 
             this.checkBoxShowSebApplicationChooser.AutoSize = true;
+            this.checkBoxShowSebApplicationChooser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxShowSebApplicationChooser.Location = new System.Drawing.Point(10, 120);
             this.checkBoxShowSebApplicationChooser.Name = "checkBoxShowSebApplicationChooser";
             this.checkBoxShowSebApplicationChooser.Size = new System.Drawing.Size(222, 21);
@@ -238,6 +244,7 @@
             // checkBoxCreateNewDesktop
             // 
             this.checkBoxCreateNewDesktop.AutoSize = true;
+            this.checkBoxCreateNewDesktop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(10, 90);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
             this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
@@ -249,6 +256,7 @@
             // checkBoxAllowVirtualMachine
             // 
             this.checkBoxAllowVirtualMachine.AutoSize = true;
+            this.checkBoxAllowVirtualMachine.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(10, 30);
             this.checkBoxAllowVirtualMachine.Name = "checkBoxAllowVirtualMachine";
             this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(161, 21);
@@ -260,6 +268,7 @@
             // checkBoxForceWindowsService
             // 
             this.checkBoxForceWindowsService.AutoSize = true;
+            this.checkBoxForceWindowsService.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxForceWindowsService.Location = new System.Drawing.Point(10, 60);
             this.checkBoxForceWindowsService.Name = "checkBoxForceWindowsService";
             this.checkBoxForceWindowsService.Size = new System.Drawing.Size(175, 21);
@@ -277,6 +286,7 @@
             this.groupBoxSebStarterFiles.Controls.Add(this.checkBoxWriteSebStarterLogFile);
             this.groupBoxSebStarterFiles.Controls.Add(this.labelSaveSebStarterConfigFile);
             this.groupBoxSebStarterFiles.Controls.Add(this.buttonRestoreSebStarterConfigFile);
+            this.groupBoxSebStarterFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxSebStarterFiles.Location = new System.Drawing.Point(20, 20);
             this.groupBoxSebStarterFiles.Name = "groupBoxSebStarterFiles";
             this.groupBoxSebStarterFiles.Size = new System.Drawing.Size(600, 150);
@@ -286,6 +296,8 @@
             // 
             // textBoxCurrentFileSebStarterIni
             // 
+            this.textBoxCurrentFileSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxCurrentFileSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCurrentFileSebStarterIni.Location = new System.Drawing.Point(10, 60);
             this.textBoxCurrentFileSebStarterIni.Name = "textBoxCurrentFileSebStarterIni";
             this.textBoxCurrentFileSebStarterIni.ReadOnly = true;
@@ -294,6 +306,7 @@
             // 
             // buttonDefaultSebStarterSettings
             // 
+            this.buttonDefaultSebStarterSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDefaultSebStarterSettings.Location = new System.Drawing.Point(270, 87);
             this.buttonDefaultSebStarterSettings.Name = "buttonDefaultSebStarterSettings";
             this.buttonDefaultSebStarterSettings.Size = new System.Drawing.Size(250, 25);
@@ -304,6 +317,8 @@
             // 
             // textBoxCurrentDireSebStarterIni
             // 
+            this.textBoxCurrentDireSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxCurrentDireSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCurrentDireSebStarterIni.Location = new System.Drawing.Point(10, 30);
             this.textBoxCurrentDireSebStarterIni.Name = "textBoxCurrentDireSebStarterIni";
             this.textBoxCurrentDireSebStarterIni.ReadOnly = true;
@@ -314,6 +329,7 @@
             // 
             this.labelOpenSebStarterConfigFile.AutoSize = true;
             this.labelOpenSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelOpenSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelOpenSebStarterConfigFile.Location = new System.Drawing.Point(10, 90);
             this.labelOpenSebStarterConfigFile.Name = "labelOpenSebStarterConfigFile";
             this.labelOpenSebStarterConfigFile.Size = new System.Drawing.Size(181, 19);
@@ -324,6 +340,7 @@
             // checkBoxWriteSebStarterLogFile
             // 
             this.checkBoxWriteSebStarterLogFile.AutoSize = true;
+            this.checkBoxWriteSebStarterLogFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 60);
             this.checkBoxWriteSebStarterLogFile.Name = "checkBoxWriteSebStarterLogFile";
             this.checkBoxWriteSebStarterLogFile.Size = new System.Drawing.Size(180, 21);
@@ -336,6 +353,7 @@
             // 
             this.labelSaveSebStarterConfigFile.AutoSize = true;
             this.labelSaveSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSaveSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSaveSebStarterConfigFile.Location = new System.Drawing.Point(13, 120);
             this.labelSaveSebStarterConfigFile.Name = "labelSaveSebStarterConfigFile";
             this.labelSaveSebStarterConfigFile.Size = new System.Drawing.Size(178, 19);
@@ -345,6 +363,7 @@
             // 
             // buttonRestoreSebStarterConfigFile
             // 
+            this.buttonRestoreSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRestoreSebStarterConfigFile.Location = new System.Drawing.Point(270, 117);
             this.buttonRestoreSebStarterConfigFile.Name = "buttonRestoreSebStarterConfigFile";
             this.buttonRestoreSebStarterConfigFile.Size = new System.Drawing.Size(250, 25);
@@ -367,6 +386,7 @@
             this.groupBoxOnlineExam.Controls.Add(this.labelPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxPermittedApplications);
             this.groupBoxOnlineExam.Controls.Add(this.textBoxExamUrl);
+            this.groupBoxOnlineExam.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxOnlineExam.Location = new System.Drawing.Point(20, 480);
             this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
             this.groupBoxOnlineExam.Size = new System.Drawing.Size(600, 210);
@@ -377,6 +397,7 @@
             // labelQuitHashCode
             // 
             this.labelQuitHashCode.AutoSize = true;
+            this.labelQuitHashCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuitHashCode.Location = new System.Drawing.Point(6, 182);
             this.labelQuitHashCode.Name = "labelQuitHashCode";
             this.labelQuitHashCode.Size = new System.Drawing.Size(100, 17);
@@ -386,6 +407,7 @@
             // 
             // textBoxQuitHashcode
             // 
+            this.textBoxQuitHashcode.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxQuitHashcode.Location = new System.Drawing.Point(153, 180);
             this.textBoxQuitHashcode.Name = "textBoxQuitHashcode";
             this.textBoxQuitHashcode.ReadOnly = true;
@@ -396,6 +418,7 @@
             // labelQuitPassword
             // 
             this.labelQuitPassword.AutoSize = true;
+            this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuitPassword.Location = new System.Drawing.Point(6, 152);
             this.labelQuitPassword.Name = "labelQuitPassword";
             this.labelQuitPassword.Size = new System.Drawing.Size(98, 17);
@@ -405,6 +428,7 @@
             // 
             // textBoxQuitPassword
             // 
+            this.textBoxQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxQuitPassword.Location = new System.Drawing.Point(153, 150);
             this.textBoxQuitPassword.Name = "textBoxQuitPassword";
             this.textBoxQuitPassword.ReadOnly = true;
@@ -416,6 +440,7 @@
             // 
             // textBoxAutostartProcess
             // 
+            this.textBoxAutostartProcess.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAutostartProcess.Location = new System.Drawing.Point(153, 60);
             this.textBoxAutostartProcess.Name = "textBoxAutostartProcess";
             this.textBoxAutostartProcess.Size = new System.Drawing.Size(430, 22);
@@ -425,6 +450,7 @@
             // labelSebBrowser
             // 
             this.labelSebBrowser.AutoSize = true;
+            this.labelSebBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSebBrowser.Location = new System.Drawing.Point(6, 32);
             this.labelSebBrowser.Name = "labelSebBrowser";
             this.labelSebBrowser.Size = new System.Drawing.Size(89, 17);
@@ -434,6 +460,7 @@
             // labelAutostartProcess
             // 
             this.labelAutostartProcess.AutoSize = true;
+            this.labelAutostartProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAutostartProcess.Location = new System.Drawing.Point(6, 62);
             this.labelAutostartProcess.Name = "labelAutostartProcess";
             this.labelAutostartProcess.Size = new System.Drawing.Size(119, 17);
@@ -442,6 +469,7 @@
             // 
             // textBoxSebBrowser
             // 
+            this.textBoxSebBrowser.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSebBrowser.Location = new System.Drawing.Point(153, 30);
             this.textBoxSebBrowser.Name = "textBoxSebBrowser";
             this.textBoxSebBrowser.Size = new System.Drawing.Size(430, 22);
@@ -451,6 +479,7 @@
             // labelExamUrl
             // 
             this.labelExamUrl.AutoSize = true;
+            this.labelExamUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelExamUrl.Location = new System.Drawing.Point(6, 92);
             this.labelExamUrl.Name = "labelExamUrl";
             this.labelExamUrl.Size = new System.Drawing.Size(74, 17);
@@ -460,6 +489,7 @@
             // labelPermittedApplications
             // 
             this.labelPermittedApplications.AutoSize = true;
+            this.labelPermittedApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPermittedApplications.Location = new System.Drawing.Point(6, 122);
             this.labelPermittedApplications.Name = "labelPermittedApplications";
             this.labelPermittedApplications.Size = new System.Drawing.Size(147, 17);
@@ -468,6 +498,7 @@
             // 
             // textBoxPermittedApplications
             // 
+            this.textBoxPermittedApplications.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPermittedApplications.Location = new System.Drawing.Point(153, 120);
             this.textBoxPermittedApplications.Name = "textBoxPermittedApplications";
             this.textBoxPermittedApplications.Size = new System.Drawing.Size(430, 22);
@@ -476,6 +507,7 @@
             // 
             // textBoxExamUrl
             // 
+            this.textBoxExamUrl.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxExamUrl.Location = new System.Drawing.Point(153, 90);
             this.textBoxExamUrl.Name = "textBoxExamUrl";
             this.textBoxExamUrl.Size = new System.Drawing.Size(430, 22);
@@ -500,6 +532,7 @@
             this.groupBoxInsideOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableShutDown);
             this.groupBoxInsideOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableEaseOfAccess);
             this.groupBoxInsideOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableVmWareClientShade);
+            this.groupBoxInsideOutsideSeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxInsideOutsideSeb.Location = new System.Drawing.Point(20, 190);
             this.groupBoxInsideOutsideSeb.Name = "groupBoxInsideOutsideSeb";
             this.groupBoxInsideOutsideSeb.Size = new System.Drawing.Size(250, 270);
@@ -590,6 +623,7 @@
             // checkBoxOutsideSebEnableSwitchUser
             // 
             this.checkBoxOutsideSebEnableSwitchUser.AutoSize = true;
+            this.checkBoxOutsideSebEnableSwitchUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableSwitchUser.Location = new System.Drawing.Point(30, 30);
             this.checkBoxOutsideSebEnableSwitchUser.Name = "checkBoxOutsideSebEnableSwitchUser";
             this.checkBoxOutsideSebEnableSwitchUser.Size = new System.Drawing.Size(152, 21);
@@ -601,6 +635,7 @@
             // checkBoxOutsideSebEnableLockThisComputer
             // 
             this.checkBoxOutsideSebEnableLockThisComputer.AutoSize = true;
+            this.checkBoxOutsideSebEnableLockThisComputer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableLockThisComputer.Location = new System.Drawing.Point(30, 60);
             this.checkBoxOutsideSebEnableLockThisComputer.Name = "checkBoxOutsideSebEnableLockThisComputer";
             this.checkBoxOutsideSebEnableLockThisComputer.Size = new System.Drawing.Size(197, 21);
@@ -612,6 +647,7 @@
             // checkBoxOutsideSebEnableChangeAPassword
             // 
             this.checkBoxOutsideSebEnableChangeAPassword.AutoSize = true;
+            this.checkBoxOutsideSebEnableChangeAPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableChangeAPassword.Location = new System.Drawing.Point(30, 90);
             this.checkBoxOutsideSebEnableChangeAPassword.Name = "checkBoxOutsideSebEnableChangeAPassword";
             this.checkBoxOutsideSebEnableChangeAPassword.Size = new System.Drawing.Size(203, 21);
@@ -623,6 +659,7 @@
             // checkBoxOutsideSebEnableStartTaskManager
             // 
             this.checkBoxOutsideSebEnableStartTaskManager.AutoSize = true;
+            this.checkBoxOutsideSebEnableStartTaskManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableStartTaskManager.Location = new System.Drawing.Point(30, 120);
             this.checkBoxOutsideSebEnableStartTaskManager.Name = "checkBoxOutsideSebEnableStartTaskManager";
             this.checkBoxOutsideSebEnableStartTaskManager.Size = new System.Drawing.Size(203, 21);
@@ -634,6 +671,7 @@
             // checkBoxOutsideSebEnableLogOff
             // 
             this.checkBoxOutsideSebEnableLogOff.AutoSize = true;
+            this.checkBoxOutsideSebEnableLogOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableLogOff.Location = new System.Drawing.Point(30, 150);
             this.checkBoxOutsideSebEnableLogOff.Name = "checkBoxOutsideSebEnableLogOff";
             this.checkBoxOutsideSebEnableLogOff.Size = new System.Drawing.Size(122, 21);
@@ -645,6 +683,7 @@
             // checkBoxOutsideSebEnableShutDown
             // 
             this.checkBoxOutsideSebEnableShutDown.AutoSize = true;
+            this.checkBoxOutsideSebEnableShutDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableShutDown.Location = new System.Drawing.Point(30, 180);
             this.checkBoxOutsideSebEnableShutDown.Name = "checkBoxOutsideSebEnableShutDown";
             this.checkBoxOutsideSebEnableShutDown.Size = new System.Drawing.Size(144, 21);
@@ -656,6 +695,7 @@
             // checkBoxOutsideSebEnableEaseOfAccess
             // 
             this.checkBoxOutsideSebEnableEaseOfAccess.AutoSize = true;
+            this.checkBoxOutsideSebEnableEaseOfAccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(30, 210);
             this.checkBoxOutsideSebEnableEaseOfAccess.Name = "checkBoxOutsideSebEnableEaseOfAccess";
             this.checkBoxOutsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(175, 21);
@@ -667,6 +707,7 @@
             // checkBoxOutsideSebEnableVmWareClientShade
             // 
             this.checkBoxOutsideSebEnableVmWareClientShade.AutoSize = true;
+            this.checkBoxOutsideSebEnableVmWareClientShade.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOutsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(30, 240);
             this.checkBoxOutsideSebEnableVmWareClientShade.Name = "checkBoxOutsideSebEnableVmWareClientShade";
             this.checkBoxOutsideSebEnableVmWareClientShade.Size = new System.Drawing.Size(212, 21);
@@ -700,7 +741,8 @@
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey1);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey3);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey2);
-            this.groupBoxExitSequence.Location = new System.Drawing.Point(340, 190);
+            this.groupBoxExitSequence.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxExitSequence.Location = new System.Drawing.Point(360, 190);
             this.groupBoxExitSequence.Name = "groupBoxExitSequence";
             this.groupBoxExitSequence.Size = new System.Drawing.Size(160, 240);
             this.groupBoxExitSequence.TabIndex = 51;
@@ -709,6 +751,7 @@
             // 
             // listBoxExitKey1
             // 
+            this.listBoxExitKey1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxExitKey1.FormattingEnabled = true;
             this.listBoxExitKey1.ItemHeight = 16;
             this.listBoxExitKey1.Items.AddRange(new object[] {
@@ -732,6 +775,7 @@
             // 
             // listBoxExitKey3
             // 
+            this.listBoxExitKey3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxExitKey3.FormattingEnabled = true;
             this.listBoxExitKey3.ItemHeight = 16;
             this.listBoxExitKey3.Items.AddRange(new object[] {
@@ -755,6 +799,7 @@
             // 
             // listBoxExitKey2
             // 
+            this.listBoxExitKey2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxExitKey2.FormattingEnabled = true;
             this.listBoxExitKey2.ItemHeight = 16;
             this.listBoxExitKey2.Items.AddRange(new object[] {
@@ -785,6 +830,7 @@
             this.groupBoxMsgHookFiles.Controls.Add(this.labelSaveMsgHookConfigFile);
             this.groupBoxMsgHookFiles.Controls.Add(this.checkBoxWriteMsgHookLogFile);
             this.groupBoxMsgHookFiles.Controls.Add(this.buttonRestoreMsgHookConfigFile);
+            this.groupBoxMsgHookFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxMsgHookFiles.Location = new System.Drawing.Point(20, 20);
             this.groupBoxMsgHookFiles.Name = "groupBoxMsgHookFiles";
             this.groupBoxMsgHookFiles.Size = new System.Drawing.Size(600, 150);
@@ -794,6 +840,8 @@
             // 
             // textBoxCurrentFileMsgHookIni
             // 
+            this.textBoxCurrentFileMsgHookIni.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxCurrentFileMsgHookIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCurrentFileMsgHookIni.Location = new System.Drawing.Point(10, 60);
             this.textBoxCurrentFileMsgHookIni.Name = "textBoxCurrentFileMsgHookIni";
             this.textBoxCurrentFileMsgHookIni.ReadOnly = true;
@@ -802,6 +850,7 @@
             // 
             // buttonDefaultMsgHookSettings
             // 
+            this.buttonDefaultMsgHookSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDefaultMsgHookSettings.Location = new System.Drawing.Point(270, 87);
             this.buttonDefaultMsgHookSettings.Name = "buttonDefaultMsgHookSettings";
             this.buttonDefaultMsgHookSettings.Size = new System.Drawing.Size(220, 25);
@@ -812,6 +861,8 @@
             // 
             // textBoxCurrentDireMsgHookIni
             // 
+            this.textBoxCurrentDireMsgHookIni.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxCurrentDireMsgHookIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCurrentDireMsgHookIni.Location = new System.Drawing.Point(10, 30);
             this.textBoxCurrentDireMsgHookIni.Name = "textBoxCurrentDireMsgHookIni";
             this.textBoxCurrentDireMsgHookIni.ReadOnly = true;
@@ -822,6 +873,7 @@
             // 
             this.labelOpenMsgHookConfigFile.AutoSize = true;
             this.labelOpenMsgHookConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelOpenMsgHookConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelOpenMsgHookConfigFile.Location = new System.Drawing.Point(10, 90);
             this.labelOpenMsgHookConfigFile.Name = "labelOpenMsgHookConfigFile";
             this.labelOpenMsgHookConfigFile.Size = new System.Drawing.Size(172, 19);
@@ -833,6 +885,7 @@
             // 
             this.labelSaveMsgHookConfigFile.AutoSize = true;
             this.labelSaveMsgHookConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSaveMsgHookConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSaveMsgHookConfigFile.Location = new System.Drawing.Point(13, 120);
             this.labelSaveMsgHookConfigFile.Name = "labelSaveMsgHookConfigFile";
             this.labelSaveMsgHookConfigFile.Size = new System.Drawing.Size(169, 19);
@@ -843,6 +896,7 @@
             // checkBoxWriteMsgHookLogFile
             // 
             this.checkBoxWriteMsgHookLogFile.AutoSize = true;
+            this.checkBoxWriteMsgHookLogFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxWriteMsgHookLogFile.Location = new System.Drawing.Point(270, 60);
             this.checkBoxWriteMsgHookLogFile.Name = "checkBoxWriteMsgHookLogFile";
             this.checkBoxWriteMsgHookLogFile.Size = new System.Drawing.Size(171, 21);
@@ -853,6 +907,7 @@
             // 
             // buttonRestoreMsgHookConfigFile
             // 
+            this.buttonRestoreMsgHookConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRestoreMsgHookConfigFile.Location = new System.Drawing.Point(270, 117);
             this.buttonRestoreMsgHookConfigFile.Name = "buttonRestoreMsgHookConfigFile";
             this.buttonRestoreMsgHookConfigFile.Size = new System.Drawing.Size(220, 25);
@@ -875,9 +930,10 @@
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF9);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF7);
             this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF8);
+            this.groupBoxFunctionKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFunctionKeys.Location = new System.Drawing.Point(210, 190);
             this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
-            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(110, 390);
+            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(130, 390);
             this.groupBoxFunctionKeys.TabIndex = 39;
             this.groupBoxFunctionKeys.TabStop = false;
             this.groupBoxFunctionKeys.Text = "Function keys";
@@ -885,6 +941,7 @@
             // checkBoxEnableF1
             // 
             this.checkBoxEnableF1.AutoSize = true;
+            this.checkBoxEnableF1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF1.Location = new System.Drawing.Point(10, 30);
             this.checkBoxEnableF1.Name = "checkBoxEnableF1";
             this.checkBoxEnableF1.Size = new System.Drawing.Size(94, 21);
@@ -896,6 +953,7 @@
             // checkBoxEnableF2
             // 
             this.checkBoxEnableF2.AutoSize = true;
+            this.checkBoxEnableF2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF2.Location = new System.Drawing.Point(10, 60);
             this.checkBoxEnableF2.Name = "checkBoxEnableF2";
             this.checkBoxEnableF2.Size = new System.Drawing.Size(94, 21);
@@ -907,6 +965,7 @@
             // checkBoxEnableF12
             // 
             this.checkBoxEnableF12.AutoSize = true;
+            this.checkBoxEnableF12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF12.Location = new System.Drawing.Point(10, 360);
             this.checkBoxEnableF12.Name = "checkBoxEnableF12";
             this.checkBoxEnableF12.Size = new System.Drawing.Size(102, 21);
@@ -918,6 +977,7 @@
             // checkBoxEnableF3
             // 
             this.checkBoxEnableF3.AutoSize = true;
+            this.checkBoxEnableF3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF3.Location = new System.Drawing.Point(10, 90);
             this.checkBoxEnableF3.Name = "checkBoxEnableF3";
             this.checkBoxEnableF3.Size = new System.Drawing.Size(94, 21);
@@ -929,6 +989,7 @@
             // checkBoxEnableF11
             // 
             this.checkBoxEnableF11.AutoSize = true;
+            this.checkBoxEnableF11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF11.Location = new System.Drawing.Point(10, 330);
             this.checkBoxEnableF11.Name = "checkBoxEnableF11";
             this.checkBoxEnableF11.Size = new System.Drawing.Size(102, 21);
@@ -940,6 +1001,7 @@
             // checkBoxEnableF4
             // 
             this.checkBoxEnableF4.AutoSize = true;
+            this.checkBoxEnableF4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF4.Location = new System.Drawing.Point(10, 120);
             this.checkBoxEnableF4.Name = "checkBoxEnableF4";
             this.checkBoxEnableF4.Size = new System.Drawing.Size(94, 21);
@@ -951,6 +1013,7 @@
             // checkBoxEnableF5
             // 
             this.checkBoxEnableF5.AutoSize = true;
+            this.checkBoxEnableF5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF5.Location = new System.Drawing.Point(10, 150);
             this.checkBoxEnableF5.Name = "checkBoxEnableF5";
             this.checkBoxEnableF5.Size = new System.Drawing.Size(94, 21);
@@ -962,6 +1025,7 @@
             // checkBoxEnableF10
             // 
             this.checkBoxEnableF10.AutoSize = true;
+            this.checkBoxEnableF10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF10.Location = new System.Drawing.Point(10, 300);
             this.checkBoxEnableF10.Name = "checkBoxEnableF10";
             this.checkBoxEnableF10.Size = new System.Drawing.Size(102, 21);
@@ -973,6 +1037,7 @@
             // checkBoxEnableF6
             // 
             this.checkBoxEnableF6.AutoSize = true;
+            this.checkBoxEnableF6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF6.Location = new System.Drawing.Point(10, 180);
             this.checkBoxEnableF6.Name = "checkBoxEnableF6";
             this.checkBoxEnableF6.Size = new System.Drawing.Size(94, 21);
@@ -984,6 +1049,7 @@
             // checkBoxEnableF9
             // 
             this.checkBoxEnableF9.AutoSize = true;
+            this.checkBoxEnableF9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF9.Location = new System.Drawing.Point(10, 270);
             this.checkBoxEnableF9.Name = "checkBoxEnableF9";
             this.checkBoxEnableF9.Size = new System.Drawing.Size(94, 21);
@@ -995,6 +1061,7 @@
             // checkBoxEnableF7
             // 
             this.checkBoxEnableF7.AutoSize = true;
+            this.checkBoxEnableF7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF7.Location = new System.Drawing.Point(10, 210);
             this.checkBoxEnableF7.Name = "checkBoxEnableF7";
             this.checkBoxEnableF7.Size = new System.Drawing.Size(94, 21);
@@ -1006,6 +1073,7 @@
             // checkBoxEnableF8
             // 
             this.checkBoxEnableF8.AutoSize = true;
+            this.checkBoxEnableF8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableF8.Location = new System.Drawing.Point(10, 240);
             this.checkBoxEnableF8.Name = "checkBoxEnableF8";
             this.checkBoxEnableF8.Size = new System.Drawing.Size(94, 21);
@@ -1023,6 +1091,7 @@
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltF4);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableStartMenu);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableRightMouse);
+            this.groupBoxSpecialKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxSpecialKeys.Location = new System.Drawing.Point(20, 190);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Size = new System.Drawing.Size(170, 240);
@@ -1033,6 +1102,7 @@
             // checkBoxEnableEsc
             // 
             this.checkBoxEnableEsc.AutoSize = true;
+            this.checkBoxEnableEsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableEsc.Location = new System.Drawing.Point(10, 30);
             this.checkBoxEnableEsc.Name = "checkBoxEnableEsc";
             this.checkBoxEnableEsc.Size = new System.Drawing.Size(101, 21);
@@ -1044,6 +1114,7 @@
             // checkBoxEnableCtrlEsc
             // 
             this.checkBoxEnableCtrlEsc.AutoSize = true;
+            this.checkBoxEnableCtrlEsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableCtrlEsc.Location = new System.Drawing.Point(10, 60);
             this.checkBoxEnableCtrlEsc.Name = "checkBoxEnableCtrlEsc";
             this.checkBoxEnableCtrlEsc.Size = new System.Drawing.Size(127, 21);
@@ -1055,6 +1126,7 @@
             // checkBoxEnableAltEsc
             // 
             this.checkBoxEnableAltEsc.AutoSize = true;
+            this.checkBoxEnableAltEsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableAltEsc.Location = new System.Drawing.Point(10, 90);
             this.checkBoxEnableAltEsc.Name = "checkBoxEnableAltEsc";
             this.checkBoxEnableAltEsc.Size = new System.Drawing.Size(122, 21);
@@ -1066,6 +1138,7 @@
             // checkBoxEnableAltTab
             // 
             this.checkBoxEnableAltTab.AutoSize = true;
+            this.checkBoxEnableAltTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableAltTab.Location = new System.Drawing.Point(10, 120);
             this.checkBoxEnableAltTab.Name = "checkBoxEnableAltTab";
             this.checkBoxEnableAltTab.Size = new System.Drawing.Size(124, 21);
@@ -1077,6 +1150,7 @@
             // checkBoxEnableAltF4
             // 
             this.checkBoxEnableAltF4.AutoSize = true;
+            this.checkBoxEnableAltF4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableAltF4.Location = new System.Drawing.Point(10, 150);
             this.checkBoxEnableAltF4.Name = "checkBoxEnableAltF4";
             this.checkBoxEnableAltF4.Size = new System.Drawing.Size(115, 21);
@@ -1088,6 +1162,7 @@
             // checkBoxEnableStartMenu
             // 
             this.checkBoxEnableStartMenu.AutoSize = true;
+            this.checkBoxEnableStartMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableStartMenu.Location = new System.Drawing.Point(10, 180);
             this.checkBoxEnableStartMenu.Name = "checkBoxEnableStartMenu";
             this.checkBoxEnableStartMenu.Size = new System.Drawing.Size(147, 21);
@@ -1099,6 +1174,7 @@
             // checkBoxEnableRightMouse
             // 
             this.checkBoxEnableRightMouse.AutoSize = true;
+            this.checkBoxEnableRightMouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableRightMouse.Location = new System.Drawing.Point(10, 210);
             this.checkBoxEnableRightMouse.Name = "checkBoxEnableRightMouse";
             this.checkBoxEnableRightMouse.Size = new System.Drawing.Size(157, 21);
