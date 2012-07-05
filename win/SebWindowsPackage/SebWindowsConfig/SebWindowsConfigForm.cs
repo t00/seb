@@ -1414,10 +1414,10 @@ namespace SebWindowsConfig
 
 
 
-        // ***********************************
-        // Close the configuration application
-        // ***********************************
-        private void buttonExitAndSave_Click(object sender, EventArgs e)
+        // *************************************
+        // Save both config files and exit click
+        // *************************************
+        private void buttonSaveBothConfigFilesAndExit_Click(object sender, EventArgs e)
         {
             // If no file has been opened, save the current settings
             // to the target ini files (SebStarter.ini and MsgHook.ini)
@@ -1441,11 +1441,16 @@ namespace SebWindowsConfig
             this.Close();
         }
 
+
+        // *************************
+        // Exit without saving click
+        // *************************
         private void buttonExitWithoutSaving_Click(object sender, EventArgs e)
         {
             // Close the configuration window and exit without saving
             this.Close();
         }
+
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

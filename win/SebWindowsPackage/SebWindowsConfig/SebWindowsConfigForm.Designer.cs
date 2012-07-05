@@ -78,7 +78,7 @@
             this.checkBoxOutsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxOutsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.buttonExitWithoutSaving = new System.Windows.Forms.Button();
-            this.buttonSaveAndExit = new System.Windows.Forms.Button();
+            this.buttonSaveBothConfigFilesAndExit = new System.Windows.Forms.Button();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
@@ -150,7 +150,7 @@
             this.splitContainerSebConfigExe.Panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainerSebConfigExe.Panel2.BackgroundImage")));
             this.splitContainerSebConfigExe.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonExitWithoutSaving);
-            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonSaveAndExit);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonSaveBothConfigFilesAndExit);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxExitSequence);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookFiles);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
@@ -685,15 +685,15 @@
             this.buttonExitWithoutSaving.UseVisualStyleBackColor = true;
             this.buttonExitWithoutSaving.Click += new System.EventHandler(this.buttonExitWithoutSaving_Click);
             // 
-            // buttonSaveAndExit
+            // buttonSaveBothConfigFilesAndExit
             // 
-            this.buttonSaveAndExit.Location = new System.Drawing.Point(20, 610);
-            this.buttonSaveAndExit.Name = "buttonSaveAndExit";
-            this.buttonSaveAndExit.Size = new System.Drawing.Size(170, 60);
-            this.buttonSaveAndExit.TabIndex = 52;
-            this.buttonSaveAndExit.Text = "Save and exit";
-            this.buttonSaveAndExit.UseVisualStyleBackColor = true;
-            this.buttonSaveAndExit.Click += new System.EventHandler(this.buttonExitAndSave_Click);
+            this.buttonSaveBothConfigFilesAndExit.Location = new System.Drawing.Point(20, 610);
+            this.buttonSaveBothConfigFilesAndExit.Name = "buttonSaveBothConfigFilesAndExit";
+            this.buttonSaveBothConfigFilesAndExit.Size = new System.Drawing.Size(170, 60);
+            this.buttonSaveBothConfigFilesAndExit.TabIndex = 52;
+            this.buttonSaveBothConfigFilesAndExit.Text = "Save both config files and exit";
+            this.buttonSaveBothConfigFilesAndExit.UseVisualStyleBackColor = true;
+            this.buttonSaveBothConfigFilesAndExit.Click += new System.EventHandler(this.buttonSaveBothConfigFilesAndExit_Click);
             // 
             // groupBoxExitSequence
             // 
@@ -1253,7 +1253,7 @@
         private System.Windows.Forms.TextBox textBoxQuitPassword;
         private System.Windows.Forms.Label labelQuitHashCode;
         private System.Windows.Forms.TextBox textBoxQuitHashcode;
-        private System.Windows.Forms.Button buttonSaveAndExit;
+        private System.Windows.Forms.Button buttonSaveBothConfigFilesAndExit;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableSwitchUser;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableLockThisComputer;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableChangeAPassword;
