@@ -40,12 +40,13 @@
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
             this.checkBoxForceWindowsService = new System.Windows.Forms.CheckBox();
             this.groupBoxSebStarterFiles = new System.Windows.Forms.GroupBox();
-            this.buttonRestoreSebStarterDefaultSettings = new System.Windows.Forms.Button();
-            this.textBoxCurrentSebStarterIni = new System.Windows.Forms.TextBox();
-            this.labelOpenSebStarterConfigurationFile = new System.Windows.Forms.Label();
-            this.labelSaveSebStarterConfigurationFile = new System.Windows.Forms.Label();
-            this.buttonRestoreSebStarterConfigurationFileSettings = new System.Windows.Forms.Button();
+            this.textBoxCurrentFileSebStarterIni = new System.Windows.Forms.TextBox();
+            this.buttonDefaultSebStarterSettings = new System.Windows.Forms.Button();
+            this.textBoxCurrentDireSebStarterIni = new System.Windows.Forms.TextBox();
+            this.labelOpenSebStarterConfigFile = new System.Windows.Forms.Label();
             this.checkBoxWriteSebStarterLogFile = new System.Windows.Forms.CheckBox();
+            this.labelSaveSebStarterConfigFile = new System.Windows.Forms.Label();
+            this.buttonRestoreSebStarterConfigFile = new System.Windows.Forms.Button();
             this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
             this.labelQuitHashCode = new System.Windows.Forms.Label();
             this.textBoxQuitHashcode = new System.Windows.Forms.TextBox();
@@ -83,12 +84,13 @@
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.groupBoxMsgHookFiles = new System.Windows.Forms.GroupBox();
-            this.buttonRestoreMsgHookDefaultSettings = new System.Windows.Forms.Button();
-            this.textBoxCurrentMsgHookIni = new System.Windows.Forms.TextBox();
-            this.labelOpenMsgHookConfigurationFile = new System.Windows.Forms.Label();
-            this.labelSaveMsgHookConfigurationFile = new System.Windows.Forms.Label();
+            this.textBoxCurrentFileMsgHookIni = new System.Windows.Forms.TextBox();
+            this.buttonDefaultMsgHookSettings = new System.Windows.Forms.Button();
+            this.textBoxCurrentDireMsgHookIni = new System.Windows.Forms.TextBox();
+            this.labelOpenMsgHookConfigFile = new System.Windows.Forms.Label();
+            this.labelSaveMsgHookConfigFile = new System.Windows.Forms.Label();
             this.checkBoxWriteMsgHookLogFile = new System.Windows.Forms.CheckBox();
-            this.buttonRestoreMsgHookConfigurationFileSettings = new System.Windows.Forms.Button();
+            this.buttonRestoreMsgHookConfigFile = new System.Windows.Forms.Button();
             this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF2 = new System.Windows.Forms.CheckBox();
@@ -268,12 +270,13 @@
             // 
             // groupBoxSebStarterFiles
             // 
-            this.groupBoxSebStarterFiles.Controls.Add(this.buttonRestoreSebStarterDefaultSettings);
-            this.groupBoxSebStarterFiles.Controls.Add(this.textBoxCurrentSebStarterIni);
-            this.groupBoxSebStarterFiles.Controls.Add(this.labelOpenSebStarterConfigurationFile);
-            this.groupBoxSebStarterFiles.Controls.Add(this.labelSaveSebStarterConfigurationFile);
-            this.groupBoxSebStarterFiles.Controls.Add(this.buttonRestoreSebStarterConfigurationFileSettings);
+            this.groupBoxSebStarterFiles.Controls.Add(this.textBoxCurrentFileSebStarterIni);
+            this.groupBoxSebStarterFiles.Controls.Add(this.buttonDefaultSebStarterSettings);
+            this.groupBoxSebStarterFiles.Controls.Add(this.textBoxCurrentDireSebStarterIni);
+            this.groupBoxSebStarterFiles.Controls.Add(this.labelOpenSebStarterConfigFile);
             this.groupBoxSebStarterFiles.Controls.Add(this.checkBoxWriteSebStarterLogFile);
+            this.groupBoxSebStarterFiles.Controls.Add(this.labelSaveSebStarterConfigFile);
+            this.groupBoxSebStarterFiles.Controls.Add(this.buttonRestoreSebStarterConfigFile);
             this.groupBoxSebStarterFiles.Location = new System.Drawing.Point(20, 20);
             this.groupBoxSebStarterFiles.Name = "groupBoxSebStarterFiles";
             this.groupBoxSebStarterFiles.Size = new System.Drawing.Size(600, 150);
@@ -281,66 +284,74 @@
             this.groupBoxSebStarterFiles.TabStop = false;
             this.groupBoxSebStarterFiles.Text = "SebStarter files";
             // 
-            // buttonRestoreSebStarterDefaultSettings
+            // textBoxCurrentFileSebStarterIni
             // 
-            this.buttonRestoreSebStarterDefaultSettings.Location = new System.Drawing.Point(270, 60);
-            this.buttonRestoreSebStarterDefaultSettings.Name = "buttonRestoreSebStarterDefaultSettings";
-            this.buttonRestoreSebStarterDefaultSettings.Size = new System.Drawing.Size(320, 25);
-            this.buttonRestoreSebStarterDefaultSettings.TabIndex = 44;
-            this.buttonRestoreSebStarterDefaultSettings.Text = "Restore SebStarter default settings";
-            this.buttonRestoreSebStarterDefaultSettings.UseVisualStyleBackColor = true;
-            this.buttonRestoreSebStarterDefaultSettings.Click += new System.EventHandler(this.buttonRestoreSebStarterDefaultSettings_Click);
+            this.textBoxCurrentFileSebStarterIni.Location = new System.Drawing.Point(10, 60);
+            this.textBoxCurrentFileSebStarterIni.Name = "textBoxCurrentFileSebStarterIni";
+            this.textBoxCurrentFileSebStarterIni.ReadOnly = true;
+            this.textBoxCurrentFileSebStarterIni.Size = new System.Drawing.Size(220, 22);
+            this.textBoxCurrentFileSebStarterIni.TabIndex = 45;
             // 
-            // textBoxCurrentSebStarterIni
+            // buttonDefaultSebStarterSettings
             // 
-            this.textBoxCurrentSebStarterIni.Location = new System.Drawing.Point(10, 30);
-            this.textBoxCurrentSebStarterIni.Name = "textBoxCurrentSebStarterIni";
-            this.textBoxCurrentSebStarterIni.ReadOnly = true;
-            this.textBoxCurrentSebStarterIni.Size = new System.Drawing.Size(580, 22);
-            this.textBoxCurrentSebStarterIni.TabIndex = 43;
+            this.buttonDefaultSebStarterSettings.Location = new System.Drawing.Point(270, 87);
+            this.buttonDefaultSebStarterSettings.Name = "buttonDefaultSebStarterSettings";
+            this.buttonDefaultSebStarterSettings.Size = new System.Drawing.Size(250, 25);
+            this.buttonDefaultSebStarterSettings.TabIndex = 44;
+            this.buttonDefaultSebStarterSettings.Text = "Default SebStarter settings";
+            this.buttonDefaultSebStarterSettings.UseVisualStyleBackColor = true;
+            this.buttonDefaultSebStarterSettings.Click += new System.EventHandler(this.buttonDefaultSebStarterSettings_Click);
             // 
-            // labelOpenSebStarterConfigurationFile
+            // textBoxCurrentDireSebStarterIni
             // 
-            this.labelOpenSebStarterConfigurationFile.AutoSize = true;
-            this.labelOpenSebStarterConfigurationFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelOpenSebStarterConfigurationFile.Location = new System.Drawing.Point(10, 60);
-            this.labelOpenSebStarterConfigurationFile.Name = "labelOpenSebStarterConfigurationFile";
-            this.labelOpenSebStarterConfigurationFile.Size = new System.Drawing.Size(225, 19);
-            this.labelOpenSebStarterConfigurationFile.TabIndex = 9;
-            this.labelOpenSebStarterConfigurationFile.Text = "Open SebStarter configuration file";
-            this.labelOpenSebStarterConfigurationFile.Click += new System.EventHandler(this.labelOpenSebStarterConfigurationFile_Click);
+            this.textBoxCurrentDireSebStarterIni.Location = new System.Drawing.Point(10, 30);
+            this.textBoxCurrentDireSebStarterIni.Name = "textBoxCurrentDireSebStarterIni";
+            this.textBoxCurrentDireSebStarterIni.ReadOnly = true;
+            this.textBoxCurrentDireSebStarterIni.Size = new System.Drawing.Size(580, 22);
+            this.textBoxCurrentDireSebStarterIni.TabIndex = 43;
             // 
-            // labelSaveSebStarterConfigurationFile
+            // labelOpenSebStarterConfigFile
             // 
-            this.labelSaveSebStarterConfigurationFile.AutoSize = true;
-            this.labelSaveSebStarterConfigurationFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelSaveSebStarterConfigurationFile.Location = new System.Drawing.Point(10, 90);
-            this.labelSaveSebStarterConfigurationFile.Name = "labelSaveSebStarterConfigurationFile";
-            this.labelSaveSebStarterConfigurationFile.Size = new System.Drawing.Size(222, 19);
-            this.labelSaveSebStarterConfigurationFile.TabIndex = 10;
-            this.labelSaveSebStarterConfigurationFile.Text = "Save SebStarter configuration file";
-            this.labelSaveSebStarterConfigurationFile.Click += new System.EventHandler(this.labelSaveSebStarterConfigurationFile_Click);
-            // 
-            // buttonRestoreSebStarterConfigurationFileSettings
-            // 
-            this.buttonRestoreSebStarterConfigurationFileSettings.Location = new System.Drawing.Point(270, 90);
-            this.buttonRestoreSebStarterConfigurationFileSettings.Name = "buttonRestoreSebStarterConfigurationFileSettings";
-            this.buttonRestoreSebStarterConfigurationFileSettings.Size = new System.Drawing.Size(320, 25);
-            this.buttonRestoreSebStarterConfigurationFileSettings.TabIndex = 19;
-            this.buttonRestoreSebStarterConfigurationFileSettings.Text = "Restore SebStarter configuration file settings";
-            this.buttonRestoreSebStarterConfigurationFileSettings.UseVisualStyleBackColor = true;
-            this.buttonRestoreSebStarterConfigurationFileSettings.Click += new System.EventHandler(this.buttonRestoreSebStarterConfigurationFileSettings_Click);
+            this.labelOpenSebStarterConfigFile.AutoSize = true;
+            this.labelOpenSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelOpenSebStarterConfigFile.Location = new System.Drawing.Point(10, 90);
+            this.labelOpenSebStarterConfigFile.Name = "labelOpenSebStarterConfigFile";
+            this.labelOpenSebStarterConfigFile.Size = new System.Drawing.Size(181, 19);
+            this.labelOpenSebStarterConfigFile.TabIndex = 9;
+            this.labelOpenSebStarterConfigFile.Text = "Open SebStarter config file";
+            this.labelOpenSebStarterConfigFile.Click += new System.EventHandler(this.labelOpenSebStarterConfigFile_Click);
             // 
             // checkBoxWriteSebStarterLogFile
             // 
             this.checkBoxWriteSebStarterLogFile.AutoSize = true;
-            this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 120);
+            this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 60);
             this.checkBoxWriteSebStarterLogFile.Name = "checkBoxWriteSebStarterLogFile";
             this.checkBoxWriteSebStarterLogFile.Size = new System.Drawing.Size(180, 21);
             this.checkBoxWriteSebStarterLogFile.TabIndex = 42;
             this.checkBoxWriteSebStarterLogFile.Text = "Write SebStarter log file";
             this.checkBoxWriteSebStarterLogFile.UseVisualStyleBackColor = true;
             this.checkBoxWriteSebStarterLogFile.CheckedChanged += new System.EventHandler(this.checkBoxWriteSebStarterLogFile_CheckedChanged);
+            // 
+            // labelSaveSebStarterConfigFile
+            // 
+            this.labelSaveSebStarterConfigFile.AutoSize = true;
+            this.labelSaveSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSaveSebStarterConfigFile.Location = new System.Drawing.Point(13, 120);
+            this.labelSaveSebStarterConfigFile.Name = "labelSaveSebStarterConfigFile";
+            this.labelSaveSebStarterConfigFile.Size = new System.Drawing.Size(178, 19);
+            this.labelSaveSebStarterConfigFile.TabIndex = 10;
+            this.labelSaveSebStarterConfigFile.Text = "Save SebStarter config file";
+            this.labelSaveSebStarterConfigFile.Click += new System.EventHandler(this.labelSaveSebStarterConfigFile_Click);
+            // 
+            // buttonRestoreSebStarterConfigFile
+            // 
+            this.buttonRestoreSebStarterConfigFile.Location = new System.Drawing.Point(270, 117);
+            this.buttonRestoreSebStarterConfigFile.Name = "buttonRestoreSebStarterConfigFile";
+            this.buttonRestoreSebStarterConfigFile.Size = new System.Drawing.Size(250, 25);
+            this.buttonRestoreSebStarterConfigFile.TabIndex = 19;
+            this.buttonRestoreSebStarterConfigFile.Text = "Restore SebStarter config file";
+            this.buttonRestoreSebStarterConfigFile.UseVisualStyleBackColor = true;
+            this.buttonRestoreSebStarterConfigFile.Click += new System.EventHandler(this.buttonRestoreSebStarterConfigFile_Click);
             // 
             // groupBoxOnlineExam
             // 
@@ -767,12 +778,13 @@
             // 
             // groupBoxMsgHookFiles
             // 
-            this.groupBoxMsgHookFiles.Controls.Add(this.buttonRestoreMsgHookDefaultSettings);
-            this.groupBoxMsgHookFiles.Controls.Add(this.textBoxCurrentMsgHookIni);
-            this.groupBoxMsgHookFiles.Controls.Add(this.labelOpenMsgHookConfigurationFile);
-            this.groupBoxMsgHookFiles.Controls.Add(this.labelSaveMsgHookConfigurationFile);
+            this.groupBoxMsgHookFiles.Controls.Add(this.textBoxCurrentFileMsgHookIni);
+            this.groupBoxMsgHookFiles.Controls.Add(this.buttonDefaultMsgHookSettings);
+            this.groupBoxMsgHookFiles.Controls.Add(this.textBoxCurrentDireMsgHookIni);
+            this.groupBoxMsgHookFiles.Controls.Add(this.labelOpenMsgHookConfigFile);
+            this.groupBoxMsgHookFiles.Controls.Add(this.labelSaveMsgHookConfigFile);
             this.groupBoxMsgHookFiles.Controls.Add(this.checkBoxWriteMsgHookLogFile);
-            this.groupBoxMsgHookFiles.Controls.Add(this.buttonRestoreMsgHookConfigurationFileSettings);
+            this.groupBoxMsgHookFiles.Controls.Add(this.buttonRestoreMsgHookConfigFile);
             this.groupBoxMsgHookFiles.Location = new System.Drawing.Point(20, 20);
             this.groupBoxMsgHookFiles.Name = "groupBoxMsgHookFiles";
             this.groupBoxMsgHookFiles.Size = new System.Drawing.Size(600, 150);
@@ -780,50 +792,58 @@
             this.groupBoxMsgHookFiles.TabStop = false;
             this.groupBoxMsgHookFiles.Text = "MsgHook files";
             // 
-            // buttonRestoreMsgHookDefaultSettings
+            // textBoxCurrentFileMsgHookIni
             // 
-            this.buttonRestoreMsgHookDefaultSettings.Location = new System.Drawing.Point(270, 60);
-            this.buttonRestoreMsgHookDefaultSettings.Name = "buttonRestoreMsgHookDefaultSettings";
-            this.buttonRestoreMsgHookDefaultSettings.Size = new System.Drawing.Size(320, 25);
-            this.buttonRestoreMsgHookDefaultSettings.TabIndex = 47;
-            this.buttonRestoreMsgHookDefaultSettings.Text = "Restore MsgHook default settings";
-            this.buttonRestoreMsgHookDefaultSettings.UseVisualStyleBackColor = true;
-            this.buttonRestoreMsgHookDefaultSettings.Click += new System.EventHandler(this.buttonRestoreMsgHookDefaultSettings_Click);
+            this.textBoxCurrentFileMsgHookIni.Location = new System.Drawing.Point(10, 60);
+            this.textBoxCurrentFileMsgHookIni.Name = "textBoxCurrentFileMsgHookIni";
+            this.textBoxCurrentFileMsgHookIni.ReadOnly = true;
+            this.textBoxCurrentFileMsgHookIni.Size = new System.Drawing.Size(220, 22);
+            this.textBoxCurrentFileMsgHookIni.TabIndex = 48;
             // 
-            // textBoxCurrentMsgHookIni
+            // buttonDefaultMsgHookSettings
             // 
-            this.textBoxCurrentMsgHookIni.Location = new System.Drawing.Point(10, 30);
-            this.textBoxCurrentMsgHookIni.Name = "textBoxCurrentMsgHookIni";
-            this.textBoxCurrentMsgHookIni.ReadOnly = true;
-            this.textBoxCurrentMsgHookIni.Size = new System.Drawing.Size(580, 22);
-            this.textBoxCurrentMsgHookIni.TabIndex = 46;
+            this.buttonDefaultMsgHookSettings.Location = new System.Drawing.Point(270, 87);
+            this.buttonDefaultMsgHookSettings.Name = "buttonDefaultMsgHookSettings";
+            this.buttonDefaultMsgHookSettings.Size = new System.Drawing.Size(220, 25);
+            this.buttonDefaultMsgHookSettings.TabIndex = 47;
+            this.buttonDefaultMsgHookSettings.Text = "Default MsgHook settings";
+            this.buttonDefaultMsgHookSettings.UseVisualStyleBackColor = true;
+            this.buttonDefaultMsgHookSettings.Click += new System.EventHandler(this.buttonDefaultMsgHookSettings_Click);
             // 
-            // labelOpenMsgHookConfigurationFile
+            // textBoxCurrentDireMsgHookIni
             // 
-            this.labelOpenMsgHookConfigurationFile.AutoSize = true;
-            this.labelOpenMsgHookConfigurationFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelOpenMsgHookConfigurationFile.Location = new System.Drawing.Point(10, 60);
-            this.labelOpenMsgHookConfigurationFile.Name = "labelOpenMsgHookConfigurationFile";
-            this.labelOpenMsgHookConfigurationFile.Size = new System.Drawing.Size(216, 19);
-            this.labelOpenMsgHookConfigurationFile.TabIndex = 17;
-            this.labelOpenMsgHookConfigurationFile.Text = "Open MsgHook configuration file";
-            this.labelOpenMsgHookConfigurationFile.Click += new System.EventHandler(this.labelOpenMsgHookConfigurationFile_Click);
+            this.textBoxCurrentDireMsgHookIni.Location = new System.Drawing.Point(10, 30);
+            this.textBoxCurrentDireMsgHookIni.Name = "textBoxCurrentDireMsgHookIni";
+            this.textBoxCurrentDireMsgHookIni.ReadOnly = true;
+            this.textBoxCurrentDireMsgHookIni.Size = new System.Drawing.Size(580, 22);
+            this.textBoxCurrentDireMsgHookIni.TabIndex = 46;
             // 
-            // labelSaveMsgHookConfigurationFile
+            // labelOpenMsgHookConfigFile
             // 
-            this.labelSaveMsgHookConfigurationFile.AutoSize = true;
-            this.labelSaveMsgHookConfigurationFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelSaveMsgHookConfigurationFile.Location = new System.Drawing.Point(10, 90);
-            this.labelSaveMsgHookConfigurationFile.Name = "labelSaveMsgHookConfigurationFile";
-            this.labelSaveMsgHookConfigurationFile.Size = new System.Drawing.Size(213, 19);
-            this.labelSaveMsgHookConfigurationFile.TabIndex = 18;
-            this.labelSaveMsgHookConfigurationFile.Text = "Save MsgHook configuration file";
-            this.labelSaveMsgHookConfigurationFile.Click += new System.EventHandler(this.labelSaveMsgHookConfigurationFile_Click);
+            this.labelOpenMsgHookConfigFile.AutoSize = true;
+            this.labelOpenMsgHookConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelOpenMsgHookConfigFile.Location = new System.Drawing.Point(10, 90);
+            this.labelOpenMsgHookConfigFile.Name = "labelOpenMsgHookConfigFile";
+            this.labelOpenMsgHookConfigFile.Size = new System.Drawing.Size(172, 19);
+            this.labelOpenMsgHookConfigFile.TabIndex = 17;
+            this.labelOpenMsgHookConfigFile.Text = "Open MsgHook config file";
+            this.labelOpenMsgHookConfigFile.Click += new System.EventHandler(this.labelOpenMsgHookConfigFile_Click);
+            // 
+            // labelSaveMsgHookConfigFile
+            // 
+            this.labelSaveMsgHookConfigFile.AutoSize = true;
+            this.labelSaveMsgHookConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSaveMsgHookConfigFile.Location = new System.Drawing.Point(13, 120);
+            this.labelSaveMsgHookConfigFile.Name = "labelSaveMsgHookConfigFile";
+            this.labelSaveMsgHookConfigFile.Size = new System.Drawing.Size(169, 19);
+            this.labelSaveMsgHookConfigFile.TabIndex = 18;
+            this.labelSaveMsgHookConfigFile.Text = "Save MsgHook config file";
+            this.labelSaveMsgHookConfigFile.Click += new System.EventHandler(this.labelSaveMsgHookConfigFile_Click);
             // 
             // checkBoxWriteMsgHookLogFile
             // 
             this.checkBoxWriteMsgHookLogFile.AutoSize = true;
-            this.checkBoxWriteMsgHookLogFile.Location = new System.Drawing.Point(270, 120);
+            this.checkBoxWriteMsgHookLogFile.Location = new System.Drawing.Point(270, 60);
             this.checkBoxWriteMsgHookLogFile.Name = "checkBoxWriteMsgHookLogFile";
             this.checkBoxWriteMsgHookLogFile.Size = new System.Drawing.Size(171, 21);
             this.checkBoxWriteMsgHookLogFile.TabIndex = 41;
@@ -831,15 +851,15 @@
             this.checkBoxWriteMsgHookLogFile.UseVisualStyleBackColor = true;
             this.checkBoxWriteMsgHookLogFile.CheckedChanged += new System.EventHandler(this.checkBoxWriteMsgHookLogFile_CheckedChanged);
             // 
-            // buttonRestoreMsgHookConfigurationFileSettings
+            // buttonRestoreMsgHookConfigFile
             // 
-            this.buttonRestoreMsgHookConfigurationFileSettings.Location = new System.Drawing.Point(270, 90);
-            this.buttonRestoreMsgHookConfigurationFileSettings.Name = "buttonRestoreMsgHookConfigurationFileSettings";
-            this.buttonRestoreMsgHookConfigurationFileSettings.Size = new System.Drawing.Size(320, 25);
-            this.buttonRestoreMsgHookConfigurationFileSettings.TabIndex = 45;
-            this.buttonRestoreMsgHookConfigurationFileSettings.Text = "Restore MsgHook configuration file settings";
-            this.buttonRestoreMsgHookConfigurationFileSettings.UseVisualStyleBackColor = true;
-            this.buttonRestoreMsgHookConfigurationFileSettings.Click += new System.EventHandler(this.buttonRestoreMsgHookConfigurationFileSettings_Click);
+            this.buttonRestoreMsgHookConfigFile.Location = new System.Drawing.Point(270, 117);
+            this.buttonRestoreMsgHookConfigFile.Name = "buttonRestoreMsgHookConfigFile";
+            this.buttonRestoreMsgHookConfigFile.Size = new System.Drawing.Size(220, 25);
+            this.buttonRestoreMsgHookConfigFile.TabIndex = 45;
+            this.buttonRestoreMsgHookConfigFile.Text = "Restore MsgHook config file";
+            this.buttonRestoreMsgHookConfigFile.UseVisualStyleBackColor = true;
+            this.buttonRestoreMsgHookConfigFile.Click += new System.EventHandler(this.buttonRestoreMsgHookConfigFile_Click);
             // 
             // groupBoxFunctionKeys
             // 
@@ -1123,7 +1143,7 @@
             this.ClientSize = new System.Drawing.Size(1332, 705);
             this.Controls.Add(this.splitContainerSebConfigExe);
             this.Name = "SebWindowsConfigForm";
-            this.Text = "SEB Windows Configuration Window";
+            this.Text = "SEB Windows Configuration Editor";
             this.splitContainerSebConfigExe.Panel1.ResumeLayout(false);
             this.splitContainerSebConfigExe.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSebConfigExe)).EndInit();
@@ -1167,13 +1187,13 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogMsgHookIni;
         private System.Windows.Forms.SaveFileDialog saveFileDialogMsgHookIni;
 
-        private System.Windows.Forms.Label labelOpenSebStarterConfigurationFile;
-        private System.Windows.Forms.Label labelSaveSebStarterConfigurationFile;
-        private System.Windows.Forms.Label labelOpenMsgHookConfigurationFile;
-        private System.Windows.Forms.Label labelSaveMsgHookConfigurationFile;
+        private System.Windows.Forms.Label labelOpenSebStarterConfigFile;
+        private System.Windows.Forms.Label labelSaveSebStarterConfigFile;
+        private System.Windows.Forms.Label labelOpenMsgHookConfigFile;
+        private System.Windows.Forms.Label labelSaveMsgHookConfigFile;
 
-        private System.Windows.Forms.Button buttonRestoreSebStarterConfigurationFileSettings;
-        private System.Windows.Forms.Button buttonRestoreMsgHookConfigurationFileSettings;
+        private System.Windows.Forms.Button buttonRestoreSebStarterConfigFile;
+        private System.Windows.Forms.Button buttonRestoreMsgHookConfigFile;
 
         private System.Windows.Forms.CheckBox checkBoxWriteMsgHookLogFile;
         private System.Windows.Forms.CheckBox checkBoxWriteSebStarterLogFile;
@@ -1242,11 +1262,13 @@
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableShutDown;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableEaseOfAccess;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableVmWareClientShade;
-        private System.Windows.Forms.TextBox textBoxCurrentSebStarterIni;
-        private System.Windows.Forms.TextBox textBoxCurrentMsgHookIni;
+        private System.Windows.Forms.TextBox textBoxCurrentDireSebStarterIni;
+        private System.Windows.Forms.TextBox textBoxCurrentDireMsgHookIni;
         private System.Windows.Forms.Button buttonExitWithoutSaving;
-        private System.Windows.Forms.Button buttonRestoreSebStarterDefaultSettings;
-        private System.Windows.Forms.Button buttonRestoreMsgHookDefaultSettings;
+        private System.Windows.Forms.Button buttonDefaultSebStarterSettings;
+        private System.Windows.Forms.Button buttonDefaultMsgHookSettings;
+        private System.Windows.Forms.TextBox textBoxCurrentFileSebStarterIni;
+        private System.Windows.Forms.TextBox textBoxCurrentFileMsgHookIni;
 
     }
 }

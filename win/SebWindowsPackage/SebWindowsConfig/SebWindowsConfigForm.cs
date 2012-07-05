@@ -398,6 +398,7 @@ namespace SebWindowsConfig
             dataType[GroupOtherOptions, ValueStrongKillProcessesBefore] = TypeString;
             dataType[GroupOtherOptions, ValueStrongKillProcessesAfter ] = TypeString;
 
+
             // Number of groups per file
             minGroup[FileSebStarter] = GroupMinSebStarter;
             maxGroup[FileSebStarter] = GroupMaxSebStarter;
@@ -547,6 +548,7 @@ namespace SebWindowsConfig
                 currentDireSebStarterIni = targetDireSebStarterIni;
                 currentFileSebStarterIni = targetFileSebStarterIni;
                 currentPathSebStarterIni = targetPathSebStarterIni;
+
                 SetWidgetsToNewSettingsOfSebStarterIni();
             }
 
@@ -556,23 +558,24 @@ namespace SebWindowsConfig
                 currentDireMsgHookIni = targetDireMsgHookIni;
                 currentFileMsgHookIni = targetFileMsgHookIni;
                 currentPathMsgHookIni = targetPathMsgHookIni;
+
                 SetWidgetsToNewSettingsOfMsgHookIni();
             }
 
-            openFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
-            saveFileDialogSebStarterIni.InitialDirectory = System.Environment.CurrentDirectory;
-            openFileDialogMsgHookIni   .InitialDirectory = System.Environment.CurrentDirectory;
-            saveFileDialogMsgHookIni   .InitialDirectory = System.Environment.CurrentDirectory;
+            openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
+            saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
+            openFileDialogMsgHookIni   .InitialDirectory = Environment.CurrentDirectory;
+            saveFileDialogMsgHookIni   .InitialDirectory = Environment.CurrentDirectory;
 
         } // end of contructor   SebWindowsConfigForm()
 
 
 
 
-        // ****************************************
-        // Open SebStarter configuration file click
-        // ****************************************
-        private void labelOpenSebStarterConfigurationFile_Click(object sender, EventArgs e)
+        // *********************************
+        // Open SebStarter config file click
+        // *********************************
+        private void labelOpenSebStarterConfigFile_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             openFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
@@ -592,17 +595,18 @@ namespace SebWindowsConfig
                 currentDireSebStarterIni = Path.GetDirectoryName(fileName);
                 currentFileSebStarterIni = Path.GetFileName     (fileName);
                 currentPathSebStarterIni = Path.GetFullPath     (fileName);
+
                 SetWidgetsToNewSettingsOfSebStarterIni();
             }
 
-        } // end of method   labelOpenSebStarterConfigurationFile_Click()
+        } // end of method   labelOpenSebStarterConfigFile_Click()
 
 
 
-        // *************************************
-        // Open MsgHook configuration file click
-        // *************************************
-        private void labelOpenMsgHookConfigurationFile_Click(object sender, EventArgs e)
+        // ******************************
+        // Open MsgHook config file click
+        // ******************************
+        private void labelOpenMsgHookConfigFile_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             openFileDialogMsgHookIni.InitialDirectory = currentDireMsgHookIni;
@@ -622,17 +626,18 @@ namespace SebWindowsConfig
                 currentDireMsgHookIni = Path.GetDirectoryName(fileName);
                 currentFileMsgHookIni = Path.GetFileName     (fileName);
                 currentPathMsgHookIni = Path.GetFullPath     (fileName);
+
                 SetWidgetsToNewSettingsOfMsgHookIni();
             }
 
-        }  // end of method   labelOpenMsgHookConfigurationFile_Click()
+        }  // end of method   labelOpenMsgHookConfigFile_Click()
 
 
 
-        // ****************************************
-        // Save SebStarter configuration file click
-        // ****************************************
-        private void labelSaveSebStarterConfigurationFile_Click(object sender, EventArgs e)
+        // *********************************
+        // Save SebStarter config file click
+        // *********************************
+        private void labelSaveSebStarterConfigFile_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             saveFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
@@ -652,17 +657,19 @@ namespace SebWindowsConfig
                 currentDireSebStarterIni = Path.GetDirectoryName(fileName);
                 currentFileSebStarterIni = Path.GetFileName     (fileName);
                 currentPathSebStarterIni = Path.GetFullPath     (fileName);
-                textBoxCurrentSebStarterIni.Text = fileName;
+
+                textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
+                textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
             }
 
-        } // end of method   labelSaveSebStarterConfigurationFile_Click()
+        } // end of method   labelSaveSebStarterConfigFile_Click()
 
 
 
-        // *************************************
-        // Save MsgHook configuration file click
-        // *************************************
-        private void labelSaveMsgHookConfigurationFile_Click(object sender, EventArgs e)
+        // ******************************
+        // Save MsgHook config file click
+        // ******************************
+        private void labelSaveMsgHookConfigFile_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             saveFileDialogMsgHookIni.InitialDirectory = currentDireMsgHookIni;
@@ -682,10 +689,12 @@ namespace SebWindowsConfig
                 currentDireMsgHookIni = Path.GetDirectoryName(fileName);
                 currentFileMsgHookIni = Path.GetFileName     (fileName);
                 currentPathMsgHookIni = Path.GetFullPath     (fileName);
-                textBoxCurrentMsgHookIni.Text = fileName;
+
+                textBoxCurrentDireMsgHookIni.Text = currentDireMsgHookIni;
+                textBoxCurrentFileMsgHookIni.Text = currentFileMsgHookIni;
             }
 
-        }  // end of method   labelSaveMsgHookConfigurationFile_Click()
+        }  // end of method   labelSaveMsgHookConfigFile_Click()
 
 
 
@@ -1252,37 +1261,37 @@ namespace SebWindowsConfig
 
 
 
-        // *****************************************
-        // Restore SebStarter default settings click
-        // *****************************************
-        private void buttonRestoreSebStarterDefaultSettings_Click(object sender, EventArgs e)
+        // *********************************
+        // Default SebStarter settings click
+        // *********************************
+        private void buttonDefaultSebStarterSettings_Click(object sender, EventArgs e)
         {
             SetNewSettingsOfFileToState(FileSebStarter, StateDef);
             SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
-        // **************************************
-        // Restore MsgHook default settings click
-        // **************************************
-        private void buttonRestoreMsgHookDefaultSettings_Click(object sender, EventArgs e)
+        // ******************************
+        // Default MsgHook settings click
+        // ******************************
+        private void buttonDefaultMsgHookSettings_Click(object sender, EventArgs e)
         {
             SetNewSettingsOfFileToState(FileMsgHook, StateDef);
             SetWidgetsToNewSettingsOfMsgHookIni();
         }
 
-        // ****************************************************
-        // Restore SebStarter configuration file settings click
-        // ****************************************************
-        private void buttonRestoreSebStarterConfigurationFileSettings_Click(object sender, EventArgs e)
+        // ************************************
+        // Restore SebStarter config file click
+        // ************************************
+        private void buttonRestoreSebStarterConfigFile_Click(object sender, EventArgs e)
         {
             SetNewSettingsOfFileToState(FileSebStarter, StateOld);
             SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
-        // *************************************************
-        // Restore MsgHook configuration file settings click
-        // *************************************************
-        private void buttonRestoreMsgHookConfigurationFileSettings_Click(object sender, EventArgs e)
+        // *********************************
+        // Restore MsgHook config file click
+        // *********************************
+        private void buttonRestoreMsgHookConfigFile_Click(object sender, EventArgs e)
         {
             SetNewSettingsOfFileToState(FileMsgHook, StateOld);
             SetWidgetsToNewSettingsOfMsgHookIni();
@@ -1319,7 +1328,9 @@ namespace SebWindowsConfig
         private void SetWidgetsToNewSettingsOfSebStarterIni()
         {
             // Set the widgets to the new settings
-            textBoxCurrentSebStarterIni   .Text    = currentPathSebStarterIni;
+            textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
+            textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
+
             checkBoxWriteSebStarterLogFile.Checked = settingBoolean[StateNew, GroupSebStarterFiles, ValueWriteSebStarterLogFile];
 
             checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser];
@@ -1366,7 +1377,9 @@ namespace SebWindowsConfig
         private void SetWidgetsToNewSettingsOfMsgHookIni()
         {
             // Set the widgets to the new values
-            textBoxCurrentMsgHookIni   .Text    = currentPathMsgHookIni;
+            textBoxCurrentDireMsgHookIni.Text = currentDireMsgHookIni;
+            textBoxCurrentFileMsgHookIni.Text = currentFileMsgHookIni;
+
             checkBoxWriteMsgHookLogFile.Checked = settingBoolean[StateNew, GroupMsgHookFiles, ValueWriteMsgHookLogFile];
 
             checkBoxEnableEsc       .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc];
