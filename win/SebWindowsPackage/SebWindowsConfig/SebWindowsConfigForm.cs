@@ -46,24 +46,24 @@ namespace SebWindowsConfig
         const int GroupNum = 10;
 
         // SebStarter contains the 5 groups
-        // SebStarterFiles, InsideSeb, OutsideSeb, SecurityOptions, OnlineExam, OtherOptions
+        // SebStarterConfigFile, InsideSeb, OutsideSeb, SecurityOptions, OnlineExam, OtherOptions
         const int GroupMinSebStarter = 1;
-        const int GroupSebStarterFiles = 1;
-        const int GroupInsideSeb       = 2;
-        const int GroupOutsideSeb      = 3;
-        const int GroupSecurityOptions = 4;
-        const int GroupOnlineExam      = 5;
-        const int GroupOtherOptions    = 6;
+        const int GroupSebStarterConfigFile = 1;
+        const int GroupInsideSeb            = 2;
+        const int GroupOutsideSeb           = 3;
+        const int GroupSecurityOptions      = 4;
+        const int GroupOnlineExam           = 5;
+        const int GroupOtherOptions         = 6;
         const int GroupMaxSebStarter = 6;
         const int GroupNumSebStarter = 6;
 
         // MsgHook contains the 4 groups
-        // MsgHookFiles, SpecialKeys, FunctionKeys, ExitSequence
+        // MsgHookConfigFile, SpecialKeys, FunctionKeys, ExitSequence
         const int GroupMinMsgHook =  7;
-        const int GroupMsgHookFiles =  7;
-        const int GroupSpecialKeys  =  8;
-        const int GroupFunctionKeys =  9;
-        const int GroupExitSequence = 10;
+        const int GroupMsgHookConfigFile =  7;
+        const int GroupSpecialKeys       =  8;
+        const int GroupFunctionKeys      =  9;
+        const int GroupExitSequence      = 10;
         const int GroupMaxMsgHook = 10;
         const int GroupNumMsgHook =  4;
 
@@ -73,22 +73,22 @@ namespace SebWindowsConfig
         const int ValueNum = 12;
 
         // Group names
-        const String MessageSebStarterFiles = "SebStarterFiles";
-        const String MessageInsideSeb       = "InsideSeb";
-        const String MessageOutsideSeb      = "OutsideSeb";
-        const String MessageSecurityOptions = "SecurityOptions";
-        const String MessageOnlineExam      = "OnlineExam";
-        const String MessageOtherOptions    = "OtherOptions";
+        const String MessageSebStarterConfigFile = "SebStarterConfigFile";
+        const String MessageInsideSeb            = "InsideSeb";
+        const String MessageOutsideSeb           = "OutsideSeb";
+        const String MessageSecurityOptions      = "SecurityOptions";
+        const String MessageOnlineExam           = "OnlineExam";
+        const String MessageOtherOptions         = "OtherOptions";
 
-        const String MessageMsgHookFiles    = "MsgHookFiles";
-        const String MessageSpecialKeys     = "SpecialKeys";
-        const String MessageFunctionKeys    = "FunctionKeys";
-        const String MessageExitSequence    = "ExitSequence";
+        const String MessageMsgHookConfigFile = "MsgHookConfigFile";
+        const String MessageSpecialKeys       = "SpecialKeys";
+        const String MessageFunctionKeys      = "FunctionKeys";
+        const String MessageExitSequence      = "ExitSequence";
 
-        // Group "SebStarter files"
-        const int MinValueSebStarterFiles     = 1;
-        const int ValueWriteSebStarterLogFile = 1;
-        const int MaxValueSebStarterFiles     = 1;
+        // Group "SebStarter config file"
+        const int MinValueSebStarterConfigFile = 1;
+        const int ValueWriteSebStarterLogFile  = 1;
+        const int MaxValueSebStarterConfigFile = 1;
 
         const String MessageCurrentSebStarterIni   = "CurrentSebStarterIni";
         const String MessageWriteSebStarterLogFile = "WriteSebStarterLogFile";
@@ -177,10 +177,10 @@ namespace SebWindowsConfig
         const String MessageStrongKillProcessesBefore = "StrongKillProcessesBefore";
         const String MessageStrongKillProcessesAfter  = "StrongKillProcessesAfter";
 
-        // Group "MsgHook files"
-        const int MinValueMsgHookFiles     = 1;
-        const int ValueWriteMsgHookLogFile = 1;
-        const int MaxValueMsgHookFiles     = 1;
+        // Group "MsgHook config file"
+        const int MinValueMsgHookConfigFile = 1;
+        const int ValueWriteMsgHookLogFile  = 1;
+        const int MaxValueMsgHookConfigFile = 1;
 
         const String MessageCurrentMsgHookIni   = "CurrentMsgHookIni";
         const String MessageWriteMsgHookLogFile = "WriteMsgHookLogFile";
@@ -327,9 +327,9 @@ namespace SebWindowsConfig
                 settingInteger[StateDef, GroupExitSequence   , value] = 0;
             }
 
-            // Default settings for groups "SebStarter files" and "MsgHook files"
-            settingBoolean[StateDef, GroupSebStarterFiles, ValueWriteSebStarterLogFile] = true;
-            settingBoolean[StateDef, GroupMsgHookFiles   , ValueWriteMsgHookLogFile   ] = true;
+            // Default settings for groups "SebStarter config file" and "MsgHook config file"
+            settingBoolean[StateDef, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = true;
+            settingBoolean[StateDef, GroupMsgHookConfigFile   , ValueWriteMsgHookLogFile   ] = true;
 
             // Default settings for group "Security options"
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowVirtualMachine      ] = false;
@@ -380,17 +380,17 @@ namespace SebWindowsConfig
             // Data types of the different values
             for (value = ValueMin; value <= ValueMax; value++)
             {
-                dataType[GroupSebStarterFiles, value] = TypeBoolean;
-                dataType[GroupInsideSeb      , value] = TypeBoolean;
-                dataType[GroupOutsideSeb     , value] = TypeBoolean;
-                dataType[GroupSecurityOptions, value] = TypeBoolean;
-                dataType[GroupOnlineExam     , value] = TypeString;
-                dataType[GroupOtherOptions   , value] = TypeBoolean;
+                dataType[GroupSebStarterConfigFile, value] = TypeBoolean;
+                dataType[GroupInsideSeb           , value] = TypeBoolean;
+                dataType[GroupOutsideSeb          , value] = TypeBoolean;
+                dataType[GroupSecurityOptions     , value] = TypeBoolean;
+                dataType[GroupOnlineExam          , value] = TypeString;
+                dataType[GroupOtherOptions        , value] = TypeBoolean;
 
-                dataType[GroupMsgHookFiles, value] = TypeBoolean;
-                dataType[GroupSpecialKeys , value] = TypeBoolean;
-                dataType[GroupFunctionKeys, value] = TypeBoolean;
-                dataType[GroupExitSequence, value] = TypeString;
+                dataType[GroupMsgHookConfigFile, value] = TypeBoolean;
+                dataType[GroupSpecialKeys      , value] = TypeBoolean;
+                dataType[GroupFunctionKeys     , value] = TypeBoolean;
+                dataType[GroupExitSequence     , value] = TypeString;
             }
 
             dataType[GroupOtherOptions, ValueWin9xKillExplorer        ] = TypeBoolean;
@@ -411,34 +411,34 @@ namespace SebWindowsConfig
                 minValue[group] = 1;
             }
 
-            maxValue[GroupSebStarterFiles] = MaxValueSebStarterFiles;
-            maxValue[GroupInsideSeb      ] = MaxValueInsideSeb;
-            maxValue[GroupOutsideSeb     ] = MaxValueOutsideSeb;
-            maxValue[GroupSecurityOptions] = MaxValueSecurityOptions;
-            maxValue[GroupOnlineExam     ] = MaxValueOnlineExam;
-            maxValue[GroupOtherOptions   ] = MaxValueOtherOptions;
+            maxValue[GroupSebStarterConfigFile] = MaxValueSebStarterConfigFile;
+            maxValue[GroupInsideSeb           ] = MaxValueInsideSeb;
+            maxValue[GroupOutsideSeb          ] = MaxValueOutsideSeb;
+            maxValue[GroupSecurityOptions     ] = MaxValueSecurityOptions;
+            maxValue[GroupOnlineExam          ] = MaxValueOnlineExam;
+            maxValue[GroupOtherOptions        ] = MaxValueOtherOptions;
 
-            maxValue[GroupMsgHookFiles   ] = MaxValueMsgHookFiles;
-            maxValue[GroupSpecialKeys    ] = MaxValueSpecialKeys;
-            maxValue[GroupFunctionKeys   ] = MaxValueFunctionKeys;
-            maxValue[GroupExitSequence   ] = MaxValueExitSequence;
+            maxValue[GroupMsgHookConfigFile] = MaxValueMsgHookConfigFile;
+            maxValue[GroupSpecialKeys      ] = MaxValueSpecialKeys;
+            maxValue[GroupFunctionKeys     ] = MaxValueFunctionKeys;
+            maxValue[GroupExitSequence     ] = MaxValueExitSequence;
 
             // Group names
-            groupString[GroupSebStarterFiles] = MessageSebStarterFiles;
-            groupString[GroupInsideSeb      ] = MessageInsideSeb;
-            groupString[GroupOutsideSeb     ] = MessageOutsideSeb;
-            groupString[GroupSecurityOptions] = MessageSecurityOptions;
-            groupString[GroupOnlineExam     ] = MessageOnlineExam;
-            groupString[GroupOtherOptions   ] = MessageOtherOptions;
+            groupString[GroupSebStarterConfigFile] = MessageSebStarterConfigFile;
+            groupString[GroupInsideSeb           ] = MessageInsideSeb;
+            groupString[GroupOutsideSeb          ] = MessageOutsideSeb;
+            groupString[GroupSecurityOptions     ] = MessageSecurityOptions;
+            groupString[GroupOnlineExam          ] = MessageOnlineExam;
+            groupString[GroupOtherOptions        ] = MessageOtherOptions;
 
-            groupString[GroupMsgHookFiles   ] = MessageMsgHookFiles;
-            groupString[GroupSpecialKeys    ] = MessageSpecialKeys;
-            groupString[GroupFunctionKeys   ] = MessageFunctionKeys;
-            groupString[GroupExitSequence   ] = MessageExitSequence;
+            groupString[GroupMsgHookConfigFile] = MessageMsgHookConfigFile;
+            groupString[GroupSpecialKeys      ] = MessageSpecialKeys;
+            groupString[GroupFunctionKeys     ] = MessageFunctionKeys;
+            groupString[GroupExitSequence     ] = MessageExitSequence;
 
             // Value names
-            valueString[GroupSebStarterFiles, ValueWriteSebStarterLogFile] = MessageWriteSebStarterLogFile;
-            valueString[GroupMsgHookFiles   , ValueWriteMsgHookLogFile   ] = MessageWriteMsgHookLogFile;
+            valueString[GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = MessageWriteSebStarterLogFile;
+            valueString[GroupMsgHookConfigFile   , ValueWriteMsgHookLogFile   ] = MessageWriteMsgHookLogFile;
 
             valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
             valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
@@ -940,10 +940,10 @@ namespace SebWindowsConfig
         // update the setting in memory for later saving on file.
         // ******************************************************
 
-        // Group "SebStarter files"
+        // Group "SebStarter config file"
         private void checkBoxWriteSebStarterLogFile_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSebStarterFiles, ValueWriteSebStarterLogFile] = checkBoxWriteSebStarterLogFile.Checked;
+            settingBoolean[StateNew, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = checkBoxWriteSebStarterLogFile.Checked;
         }
 
 
@@ -1095,10 +1095,10 @@ namespace SebWindowsConfig
         }
 
 
-        // Group "MsgHook files"
+        // Group "MsgHook config file"
         private void checkBoxWriteMsgHookLogFile_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupMsgHookFiles, ValueWriteMsgHookLogFile] = checkBoxWriteMsgHookLogFile.Checked;
+            settingBoolean[StateNew, GroupMsgHookConfigFile, ValueWriteMsgHookLogFile] = checkBoxWriteMsgHookLogFile.Checked;
         }
 
 
@@ -1331,7 +1331,7 @@ namespace SebWindowsConfig
             textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
             textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
 
-            checkBoxWriteSebStarterLogFile.Checked = settingBoolean[StateNew, GroupSebStarterFiles, ValueWriteSebStarterLogFile];
+            checkBoxWriteSebStarterLogFile.Checked = settingBoolean[StateNew, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile];
 
             checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser];
             checkBoxInsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer];
@@ -1380,7 +1380,7 @@ namespace SebWindowsConfig
             textBoxCurrentDireMsgHookIni.Text = currentDireMsgHookIni;
             textBoxCurrentFileMsgHookIni.Text = currentFileMsgHookIni;
 
-            checkBoxWriteMsgHookLogFile.Checked = settingBoolean[StateNew, GroupMsgHookFiles, ValueWriteMsgHookLogFile];
+            checkBoxWriteMsgHookLogFile.Checked = settingBoolean[StateNew, GroupMsgHookConfigFile, ValueWriteMsgHookLogFile];
 
             checkBoxEnableEsc       .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc];
             checkBoxEnableCtrlEsc   .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc];

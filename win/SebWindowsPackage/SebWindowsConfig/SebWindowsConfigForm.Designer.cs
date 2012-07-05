@@ -39,7 +39,7 @@
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
             this.checkBoxForceWindowsService = new System.Windows.Forms.CheckBox();
-            this.groupBoxSebStarterFiles = new System.Windows.Forms.GroupBox();
+            this.groupBoxSebStarterConfigFile = new System.Windows.Forms.GroupBox();
             this.textBoxCurrentFileSebStarterIni = new System.Windows.Forms.TextBox();
             this.buttonDefaultSebStarterSettings = new System.Windows.Forms.Button();
             this.textBoxCurrentDireSebStarterIni = new System.Windows.Forms.TextBox();
@@ -83,7 +83,7 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.groupBoxMsgHookFiles = new System.Windows.Forms.GroupBox();
+            this.groupBoxMsgHookConfigFile = new System.Windows.Forms.GroupBox();
             this.textBoxCurrentFileMsgHookIni = new System.Windows.Forms.TextBox();
             this.buttonDefaultMsgHookSettings = new System.Windows.Forms.Button();
             this.textBoxCurrentDireMsgHookIni = new System.Windows.Forms.TextBox();
@@ -121,11 +121,11 @@
             this.splitContainerSebConfigExe.Panel2.SuspendLayout();
             this.splitContainerSebConfigExe.SuspendLayout();
             this.groupBoxSecurityOptions.SuspendLayout();
-            this.groupBoxSebStarterFiles.SuspendLayout();
+            this.groupBoxSebStarterConfigFile.SuspendLayout();
             this.groupBoxOnlineExam.SuspendLayout();
             this.groupBoxInsideOutsideSeb.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
-            this.groupBoxMsgHookFiles.SuspendLayout();
+            this.groupBoxMsgHookConfigFile.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
             this.SuspendLayout();
@@ -141,7 +141,7 @@
             this.splitContainerSebConfigExe.Panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainerSebConfigExe.Panel1.BackgroundImage")));
             this.splitContainerSebConfigExe.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSecurityOptions);
-            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSebStarterFiles);
+            this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxSebStarterConfigFile);
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxOnlineExam);
             this.splitContainerSebConfigExe.Panel1.Controls.Add(this.groupBoxInsideOutsideSeb);
             // 
@@ -152,7 +152,7 @@
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonExitWithoutSaving);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.buttonSaveBothConfigFilesAndExit);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxExitSequence);
-            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookFiles);
+            this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxMsgHookConfigFile);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxFunctionKeys);
             this.splitContainerSebConfigExe.Panel2.Controls.Add(this.groupBoxSpecialKeys);
             this.splitContainerSebConfigExe.Size = new System.Drawing.Size(1332, 715);
@@ -277,22 +277,22 @@
             this.checkBoxForceWindowsService.UseVisualStyleBackColor = true;
             this.checkBoxForceWindowsService.CheckedChanged += new System.EventHandler(this.checkBoxForceWindowsService_CheckedChanged);
             // 
-            // groupBoxSebStarterFiles
+            // groupBoxSebStarterConfigFile
             // 
-            this.groupBoxSebStarterFiles.Controls.Add(this.textBoxCurrentFileSebStarterIni);
-            this.groupBoxSebStarterFiles.Controls.Add(this.buttonDefaultSebStarterSettings);
-            this.groupBoxSebStarterFiles.Controls.Add(this.textBoxCurrentDireSebStarterIni);
-            this.groupBoxSebStarterFiles.Controls.Add(this.labelOpenSebStarterConfigFile);
-            this.groupBoxSebStarterFiles.Controls.Add(this.checkBoxWriteSebStarterLogFile);
-            this.groupBoxSebStarterFiles.Controls.Add(this.labelSaveSebStarterConfigFile);
-            this.groupBoxSebStarterFiles.Controls.Add(this.buttonRestoreSebStarterConfigFile);
-            this.groupBoxSebStarterFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxSebStarterFiles.Location = new System.Drawing.Point(20, 20);
-            this.groupBoxSebStarterFiles.Name = "groupBoxSebStarterFiles";
-            this.groupBoxSebStarterFiles.Size = new System.Drawing.Size(600, 160);
-            this.groupBoxSebStarterFiles.TabIndex = 26;
-            this.groupBoxSebStarterFiles.TabStop = false;
-            this.groupBoxSebStarterFiles.Text = "SebStarter files";
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentFileSebStarterIni);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonDefaultSebStarterSettings);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentDireSebStarterIni);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelOpenSebStarterConfigFile);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.checkBoxWriteSebStarterLogFile);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelSaveSebStarterConfigFile);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonRestoreSebStarterConfigFile);
+            this.groupBoxSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxSebStarterConfigFile.Location = new System.Drawing.Point(20, 20);
+            this.groupBoxSebStarterConfigFile.Name = "groupBoxSebStarterConfigFile";
+            this.groupBoxSebStarterConfigFile.Size = new System.Drawing.Size(600, 160);
+            this.groupBoxSebStarterConfigFile.TabIndex = 26;
+            this.groupBoxSebStarterConfigFile.TabStop = false;
+            this.groupBoxSebStarterConfigFile.Text = "SebStarter config file";
             // 
             // textBoxCurrentFileSebStarterIni
             // 
@@ -821,22 +821,22 @@
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
-            // groupBoxMsgHookFiles
+            // groupBoxMsgHookConfigFile
             // 
-            this.groupBoxMsgHookFiles.Controls.Add(this.textBoxCurrentFileMsgHookIni);
-            this.groupBoxMsgHookFiles.Controls.Add(this.buttonDefaultMsgHookSettings);
-            this.groupBoxMsgHookFiles.Controls.Add(this.textBoxCurrentDireMsgHookIni);
-            this.groupBoxMsgHookFiles.Controls.Add(this.labelOpenMsgHookConfigFile);
-            this.groupBoxMsgHookFiles.Controls.Add(this.labelSaveMsgHookConfigFile);
-            this.groupBoxMsgHookFiles.Controls.Add(this.checkBoxWriteMsgHookLogFile);
-            this.groupBoxMsgHookFiles.Controls.Add(this.buttonRestoreMsgHookConfigFile);
-            this.groupBoxMsgHookFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxMsgHookFiles.Location = new System.Drawing.Point(20, 20);
-            this.groupBoxMsgHookFiles.Name = "groupBoxMsgHookFiles";
-            this.groupBoxMsgHookFiles.Size = new System.Drawing.Size(600, 160);
-            this.groupBoxMsgHookFiles.TabIndex = 40;
-            this.groupBoxMsgHookFiles.TabStop = false;
-            this.groupBoxMsgHookFiles.Text = "MsgHook files";
+            this.groupBoxMsgHookConfigFile.Controls.Add(this.textBoxCurrentFileMsgHookIni);
+            this.groupBoxMsgHookConfigFile.Controls.Add(this.buttonDefaultMsgHookSettings);
+            this.groupBoxMsgHookConfigFile.Controls.Add(this.textBoxCurrentDireMsgHookIni);
+            this.groupBoxMsgHookConfigFile.Controls.Add(this.labelOpenMsgHookConfigFile);
+            this.groupBoxMsgHookConfigFile.Controls.Add(this.labelSaveMsgHookConfigFile);
+            this.groupBoxMsgHookConfigFile.Controls.Add(this.checkBoxWriteMsgHookLogFile);
+            this.groupBoxMsgHookConfigFile.Controls.Add(this.buttonRestoreMsgHookConfigFile);
+            this.groupBoxMsgHookConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxMsgHookConfigFile.Location = new System.Drawing.Point(20, 20);
+            this.groupBoxMsgHookConfigFile.Name = "groupBoxMsgHookConfigFile";
+            this.groupBoxMsgHookConfigFile.Size = new System.Drawing.Size(600, 160);
+            this.groupBoxMsgHookConfigFile.TabIndex = 40;
+            this.groupBoxMsgHookConfigFile.TabStop = false;
+            this.groupBoxMsgHookConfigFile.Text = "MsgHook config file";
             // 
             // textBoxCurrentFileMsgHookIni
             // 
@@ -1226,15 +1226,15 @@
             this.splitContainerSebConfigExe.ResumeLayout(false);
             this.groupBoxSecurityOptions.ResumeLayout(false);
             this.groupBoxSecurityOptions.PerformLayout();
-            this.groupBoxSebStarterFiles.ResumeLayout(false);
-            this.groupBoxSebStarterFiles.PerformLayout();
+            this.groupBoxSebStarterConfigFile.ResumeLayout(false);
+            this.groupBoxSebStarterConfigFile.PerformLayout();
             this.groupBoxOnlineExam.ResumeLayout(false);
             this.groupBoxOnlineExam.PerformLayout();
             this.groupBoxInsideOutsideSeb.ResumeLayout(false);
             this.groupBoxInsideOutsideSeb.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
-            this.groupBoxMsgHookFiles.ResumeLayout(false);
-            this.groupBoxMsgHookFiles.PerformLayout();
+            this.groupBoxMsgHookConfigFile.ResumeLayout(false);
+            this.groupBoxMsgHookConfigFile.PerformLayout();
             this.groupBoxFunctionKeys.ResumeLayout(false);
             this.groupBoxFunctionKeys.PerformLayout();
             this.groupBoxSpecialKeys.ResumeLayout(false);
@@ -1247,8 +1247,8 @@
 
         private System.Windows.Forms.SplitContainer splitContainerSebConfigExe;
 
-        private System.Windows.Forms.GroupBox groupBoxSebStarterFiles;
-        private System.Windows.Forms.GroupBox groupBoxMsgHookFiles;
+        private System.Windows.Forms.GroupBox groupBoxSebStarterConfigFile;
+        private System.Windows.Forms.GroupBox groupBoxMsgHookConfigFile;
 
         private System.Windows.Forms.GroupBox groupBoxInsideOutsideSeb;
         private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
