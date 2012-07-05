@@ -536,8 +536,10 @@ namespace SebWindowsConfig
             targetPathSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
             targetPathMsgHookIni    = Path.GetFullPath(TargetMsgHookIni);
 
-            //SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
-            //SetWidgetsToSettingsOfFile(FileMsgHook   , StateDef);
+            //SetNewSettingsOfFileToState(FileSebStarter, StateDef);
+            //SetNewSettingsOfFileToState(FileMsgHook   , StateDef);
+            //SetWidgetsToNewSettingsOfSebStarterIni();
+            //SetWidgetsToNewSettingsOfMsgHookIni();
 
             // Read the settings from the ini file and update their widgets
             if (OpenIniFile(FileSebStarter, targetPathSebStarterIni) == true)
@@ -698,10 +700,10 @@ namespace SebWindowsConfig
             String       fileLine;
 
             int group, value;
-            int groupMin = minGroup[iniFile];
-            int groupMax = maxGroup[iniFile];
-            int valueMin = ValueMin;
-            int valueMax = ValueMax;
+            int mingroup = minGroup[iniFile];
+            int maxgroup = maxGroup[iniFile];
+            int minvalue;
+            int maxvalue;
 
             try 
             {
@@ -721,16 +723,21 @@ namespace SebWindowsConfig
                         Boolean rightBoolean   = rightString.Equals("1");
 
                         // Find the appropriate group and setting
-                        for (group = groupMin; group <= groupMax; group++)
-                        for (value = valueMin; value <= valueMax; value++)
+                        for (group = mingroup; group <= maxgroup; group++)
                         {
-                            if (leftString.Equals(valueString[group, value]))
+                            minvalue = minValue[group];
+                            maxvalue = maxValue[group];
+
+                            for (value = minvalue; value <= maxvalue; value++)
                             {
-                                settingBoolean[StateTmp, group, value] = rightBoolean;
-                                settingString [StateTmp, group, value] = rightString;
-                                break;
-                            }
-                        }
+                                if (leftString.Equals(valueString[group, value]))
+                                {
+                                    settingBoolean[StateTmp, group, value] = rightBoolean;
+                                    settingString [StateTmp, group, value] = rightString;
+                                    break;
+                                }
+                            } // next value
+                        } // next group
 
                     } // end if line.Contains("=")
                 } // end while
@@ -780,16 +787,21 @@ namespace SebWindowsConfig
 
 
             // Accept the tmp values as the new values
-            for (group = GroupMin; group <= GroupMax; group++)
-            for (value = ValueMin; value <= ValueMax; value++)
+            for (group = mingroup; group <= maxgroup; group++)
             {
-                settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
-                settingString [StateOld, group, value] = settingString [StateTmp, group, value];
-                settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
+                minvalue = minValue[group];
+                maxvalue = maxValue[group];
 
-                settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
-                settingString [StateNew, group, value] = settingString [StateTmp, group, value];
-                settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
+                for (value = minvalue; value <= maxvalue; value++)
+                {
+                    settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
+                    settingString [StateOld, group, value] = settingString [StateTmp, group, value];
+                    settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
+
+                    settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
+                    settingString [StateNew, group, value] = settingString [StateTmp, group, value];
+                    settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
+                }
             }
 
             return true;
@@ -809,10 +821,10 @@ namespace SebWindowsConfig
             String       fileLine;
 
             int group, value;
-            int groupMin = minGroup[iniFile];
-            int groupMax = maxGroup[iniFile];
-            int valueMin = 0;
-            int valueMax = 0;
+            int mingroup = minGroup[iniFile];
+            int maxgroup = maxGroup[iniFile];
+            int minvalue;
+            int maxvalue;
 
 
             #region Before writing, convert ExitKeySequence of MsgHook ini file
@@ -848,16 +860,16 @@ namespace SebWindowsConfig
 
                 // For each group and each key,
                 // write the line "key=value" into the ini file
-                for (group = groupMin; group <= groupMax; group++)
+                for (group = mingroup; group <= maxgroup; group++)
                 {
-                    valueMin = minValue[group];
-                    valueMax = maxValue[group];
+                    minvalue = minValue[group];
+                    maxvalue = maxValue[group];
 
                     // Write the group name
                     fileWriter.WriteLine("[" + groupString[group] + "]");
                     fileWriter.WriteLine("");
 
-                    for (value = valueMin; value <= valueMax; value++)
+                    for (value = minvalue; value <= maxvalue; value++)
                     {
                         String   leftString    =   valueString [          group, value];
                         String  rightString    = settingString [StateNew, group, value];
@@ -893,12 +905,17 @@ namespace SebWindowsConfig
             }
 
             // Accept the tmp values as the new values
-            for (group = GroupMin; group <= GroupMax; group++)
-            for (value = ValueMin; value <= ValueMax; value++)
+            for (group = mingroup; group <= maxgroup; group++)
             {
-                settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
-                settingString [StateOld, group, value] = settingString [StateNew, group, value];
-                settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
+                minvalue = minValue[group];
+                maxvalue = maxValue[group];
+
+                for (value = minvalue; value <= maxvalue; value++)
+                {
+                    settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
+                    settingString [StateOld, group, value] = settingString [StateNew, group, value];
+                    settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
+                }
             }
 
             return true;
@@ -1240,7 +1257,8 @@ namespace SebWindowsConfig
         // *****************************************
         private void buttonRestoreSebStarterDefaultSettings_Click(object sender, EventArgs e)
         {
-            SetWidgetsToSettingsOfFile(FileSebStarter, StateDef);
+            SetNewSettingsOfFileToState(FileSebStarter, StateDef);
+            SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
         // **************************************
@@ -1248,7 +1266,8 @@ namespace SebWindowsConfig
         // **************************************
         private void buttonRestoreMsgHookDefaultSettings_Click(object sender, EventArgs e)
         {
-            SetWidgetsToSettingsOfFile(FileMsgHook, StateDef);
+            SetNewSettingsOfFileToState(FileMsgHook, StateDef);
+            SetWidgetsToNewSettingsOfMsgHookIni();
         }
 
         // ****************************************************
@@ -1256,7 +1275,8 @@ namespace SebWindowsConfig
         // ****************************************************
         private void buttonRestoreSebStarterConfigurationFileSettings_Click(object sender, EventArgs e)
         {
-            SetWidgetsToSettingsOfFile(FileSebStarter, StateOld);
+            SetNewSettingsOfFileToState(FileSebStarter, StateOld);
+            SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
         // *************************************************
@@ -1264,15 +1284,16 @@ namespace SebWindowsConfig
         // *************************************************
         private void buttonRestoreMsgHookConfigurationFileSettings_Click(object sender, EventArgs e)
         {
-            SetWidgetsToSettingsOfFile(FileMsgHook, StateOld);
+            SetNewSettingsOfFileToState(FileMsgHook, StateOld);
+            SetWidgetsToNewSettingsOfMsgHookIni();
         }
 
 
 
-        // ********************************************************
-        // Set the widgets to the desired settings of desired file
-        // ********************************************************
-        private void SetWidgetsToSettingsOfFile(int iniFile, int stateDesired)
+        // ***************************************************
+        // Set the new settings of a file to the desired state
+        // ***************************************************
+        private void SetNewSettingsOfFileToState(int iniFile, int stateDesired)
         {
             int group, value;
             int groupMin = minGroup[iniFile];
@@ -1288,10 +1309,6 @@ namespace SebWindowsConfig
                 settingString [StateNew, group, value] = settingString [stateDesired, group, value];
                 settingInteger[StateNew, group, value] = settingInteger[stateDesired, group, value];
             }
-
-            // Assign the settings from the ini file to the widgets
-            if (iniFile == FileSebStarter) SetWidgetsToNewSettingsOfSebStarterIni();
-            if (iniFile == FileMsgHook   ) SetWidgetsToNewSettingsOfMsgHookIni();
         }
 
 
