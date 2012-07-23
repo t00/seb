@@ -25,7 +25,7 @@ namespace SebWindowsService
 
         private string GetCommonDesktopDirectory()
         {
-            // The common desktop directory (containîng the program shortcuts for all users)
+            // The common desktop directory (containing the program shortcuts for all users)
             // has changed between Windows XP and Windows Vista.
             // As usual, Microsoft annoys the developers by not providing a
             // System.Environment.SpecialFolder variable for the common desktop.
