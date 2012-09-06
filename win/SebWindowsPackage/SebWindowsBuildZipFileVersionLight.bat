@@ -36,13 +36,11 @@ set Component=SebWindowsClient
 set Build=Release
 
 set SebInstallZip=SebWindowsInstall.zip
-set SebInstallMsi=SebWindowsInstall.msi
 set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
 set SebMsgHookIni=MsgHook.ini
 
 set SebInstallZipFile=%BatchDir%%SebInstallZip%
-set SebInstallMsiFile=%BatchDir%%SebInstallMsi%
 set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
 set SebMsgHookIniFile=%BatchDir%%SebMsgHookIni%
@@ -56,13 +54,11 @@ echo Component    = %Component%
 echo Build        = %Build%
 echo.
 echo SebInstallZip      = %SebInstallZip%
-echo SebInstallMsi      = %SebInstallMsi%
 echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
 echo SebMsgHookIni      = %SebMsgHookIni%
 echo.
 echo SebInstallZipFile  = %SebInstallZipFile%
-echo SebInstallMsiFile  = %SebInstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
 echo SebMsgHookIniFile  = %SebMsgHookIniFile%

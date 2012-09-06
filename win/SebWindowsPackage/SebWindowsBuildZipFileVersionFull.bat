@@ -56,13 +56,11 @@ echo Component    = %Component%
 echo Build        = %Build%
 echo.
 echo SebInstallZip      = %SebInstallZip%
-echo SebInstallMsi      = %SebInstallMsi%
 echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
 echo SebMsgHookIni      = %SebMsgHookIni%
 echo.
 echo SebInstallZipFile  = %SebInstallZipFile%
-echo SebInstallMsiFile  = %SebInstallMsiFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
 echo SebMsgHookIniFile  = %SebMsgHookIniFile%
@@ -82,7 +80,6 @@ set TargetDir="C:\Users\Dirk\tmp\seb_%Version%_win"
 
 copy "%SourceDir%\Registry*.bat"                                     %TargetDir%
 copy "%SourceDir%\SebWindowsInstall\*.bat"                           %TargetDir%
-copy "%SourceDir%\SebWindowsInstall\Release\SebWindowsInstall.msi"   %TargetDir%
 copy "%SourceDir%\SebWindowsConfig\bin\Release\SebWindowsConfig.exe" %TargetDir%
 copy "%SourceDir%\SebWindowsClient\MsgHook\MsgHook.ini"              %TargetDir%
 copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.ini"        %TargetDir%
