@@ -7,7 +7,6 @@ using System.Linq;
 using System.ServiceProcess;
 using System.IO;
 using System.IO.Packaging;
-using Ionic.Zip;
 
 
 
@@ -22,7 +21,7 @@ namespace SebWindowsService
             InitializeComponent();
         }
 
-
+/*
         private string GetCommonDesktopDirectory()
         {
             // The common desktop directory (containing the program shortcuts for all users)
@@ -36,6 +35,7 @@ namespace SebWindowsService
             // Determine the major Windows version (actually "Windows NT" version).
             // Windows NT version <= 5 : Windows NT 4.0,..., XP
             // Windows NT version >= 6 : Windows Vista, 7, 8...
+
             OperatingSystem operatingSystem = Environment.OSVersion;
             Version         version         = operatingSystem.Version;
             int             versionMajor    = version.Major;
@@ -49,7 +49,7 @@ namespace SebWindowsService
             if (versionMajor <  6) CommonDesktopDir = AllUsersDir + "\\" + "Desktop";
             if (versionMajor >= 6) CommonDesktopDir =   PublicDir + "\\" + "Desktop";
 
-/*
+
             // Write some debug data into a file
             string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string UserDebugFile  = UserDesktopDir + "\\" + "WindowsVersion.txt";
@@ -70,13 +70,13 @@ namespace SebWindowsService
                 sw.WriteLine();
                 sw.Flush();
             }
-*/
+
             return CommonDesktopDir;
         }
+*/
 
 
-
-
+/*
         private void SebServiceInstaller_Committed(object sender, InstallEventArgs e)
         {
             // Unpack the XULRunner directories after installation
@@ -120,7 +120,7 @@ namespace SebWindowsService
 
             Boolean ShortcutDesktop = (SebShortcut != string.Empty);
 
-/*
+
             // Write some debug data into a file
             string UserDesktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string UserDebugFile  = UserDesktopDir + "\\" + "ContextParameters.txt";
@@ -153,7 +153,7 @@ namespace SebWindowsService
                 sw.WriteLine();
                 sw.Flush();
             }
-*/
+
 
             string SebBatchDir   = SebSourceDir;
             string SebConfigDir  = ProgramData   + "\\" + Manufacturer + "\\" + Product + " " + Version;
@@ -184,6 +184,7 @@ namespace SebWindowsService
             string CommonDesktopDirectory = GetCommonDesktopDirectory();
             string CommonDesktopIconUrl   =    CommonDesktopDirectory + "\\" + ShortcutNameUrl;
           //string CommonDesktopIconLnk   =    CommonDesktopDirectory + "\\" + ShortcutNameLnk;
+
 
             string XulSebZip           = "xul_seb.zip";
             string XulRunnerZip        = "xulrunner.zip";
@@ -259,7 +260,7 @@ namespace SebWindowsService
             if (System.IO.File.Exists(SebStarterBatFile))
                 System.IO.File.Copy  (SebStarterBatFile, SebStarterBatFileTarget, true);
 
-/*
+
             try
             {
                 System.IO.File.Copy(SebMsgHookIniFile, SebMsgHookIniFileTarget, true);
@@ -286,7 +287,7 @@ namespace SebWindowsService
             {
                 //throw;
             }
-*/
+
 
             // If the user desired this, create a shortcut to the
             // program executable "SebStarter.exe" on the Common Desktop
@@ -318,11 +319,11 @@ namespace SebWindowsService
             return;
 
         } // end of method   SebServiceInstaller_Committed()
+*/
 
 
 
-
-
+/*
         private void SebServiceInstaller_BeforeUninstall(object sender, InstallEventArgs e)
         {
             // Stop the SEB Windows Service before uninstallation ???
@@ -330,7 +331,7 @@ namespace SebWindowsService
             // Even more: seems to be detrimental, since the Windows service is
             // sometimes NOT started after INSTALLATION then!!!
             // So due to current knowledge, do NOT use this code!!!
-/*
+
             string sebServiceName       = this.SebServiceInstaller.ServiceName;
             var    sebServiceController = new ServiceController(sebServiceName);
 
@@ -342,15 +343,15 @@ namespace SebWindowsService
             {
                 //throw;
             }
-*/
+
             return;
 
         }   // end of method   SebServiceInstaller_BeforeUninstall()
+*/
 
 
 
-
-
+/*
         private void SebServiceInstaller_AfterUninstall(object sender, InstallEventArgs e)
         {
             // Delete all remaining directories and files after uninstallation
@@ -486,7 +487,7 @@ namespace SebWindowsService
             return;
 
         }  // end of method   SebServiceInstaller_AfterUninstall()
-
+*/
 
     }
 }
