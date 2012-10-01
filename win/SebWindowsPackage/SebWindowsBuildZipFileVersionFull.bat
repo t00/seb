@@ -79,7 +79,7 @@ set SourceDir="C:\Users\Dirk\seb\trunk\win\SebWindowsPackage"
 set TargetDir="C:\Users\Dirk\tmp\seb_%Version%_win"
 
 copy "%SourceDir%\Registry*.bat"                                     %TargetDir%
-copy "%SourceDir%\SebWindowsInstall\*.bat"                           %TargetDir%
+@REM copy "%SourceDir%\SebWindowsInstall\*.bat"                           %TargetDir%
 copy "%SourceDir%\SebWindowsConfig\bin\Release\SebWindowsConfig.exe" %TargetDir%
 copy "%SourceDir%\SebWindowsClient\MsgHook\MsgHook.ini"              %TargetDir%
 copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.ini"        %TargetDir%

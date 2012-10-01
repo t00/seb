@@ -42,8 +42,8 @@
 // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
 // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
 #define MANUFACTURER      "ETH Zuerich"
-#define PRODUCT_NAME      "SEB Windows 1.8.3"
-#define APP_CHOOSER_TITLE "Safe Exam Browser 1.8.3"
+#define PRODUCT_NAME      "SEB Windows 1.9.0"
+#define APP_CHOOSER_TITLE "Safe Exam Browser 1.9.0"
 
 
 // C structures for logfile handling
@@ -372,7 +372,7 @@ void SetIniFileDirectoryAndName()
 	strcpy(iniFileSebStarter, iniFileDirectory);
 	strcat(iniFileSebStarter, SEB_STARTER_INI);
 
-  //strcpy(iniFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8.3");
+  //strcpy(iniFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.9.0");
   //strcpy(iniFileMsgHook   , "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.ini");
   //strcpy(iniFileSebStarter, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.ini");
 
@@ -403,7 +403,7 @@ void SetLogFileDirectoryAndName()
 	strcpy(logFileSebStarter, logFileDirectory);
 	strcat(logFileSebStarter, SEB_STARTER_LOG);
 
-  //strcpy(logFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.8.3");
+  //strcpy(logFileDirectory , "C:\\ProgramData\\ETH Zuerich\\SEB Windows 1.9.0");
   //strcpy(logFileMsgHook   , "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\MsgHook.log");
   //strcpy(logFileSebStarter, "C:\\Users\\Username\\seb\\trunk\\win\\SebWindowsPackage\\SebClient\\SebStarter.log");
 
