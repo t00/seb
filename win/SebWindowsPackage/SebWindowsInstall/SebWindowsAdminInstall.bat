@@ -186,7 +186,7 @@ echo ------------------------------------------------------
 
 @echo on
 
-msiexec /a "%SebInstallMsiFile%" TARGETDIR=%SebAdminImageDir%
+msiexec /a "%SebInstallMsiFile%" TARGETDIR="%SebAdminImageDir%"
 
 @echo off
 
