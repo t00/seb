@@ -27,6 +27,8 @@ namespace SebWindowsConfig
 
         // The target files the user must configure,
         // because these are used by the application SebStarter.exe
+        const String ConfigSebStarter    = "SebStarter config file";
+        const String ConfigMsgHook       =    "MsgHook config file";
         const String TargetSebStarterIni = "SebStarter.ini";
         const String TargetMsgHookIni    =    "MsgHook.ini";
 
@@ -277,13 +279,14 @@ namespace SebWindowsConfig
         // Number of values per group
         // Names  of groups and values
         // Types  of values (Boolean, Integer, String)
-        static    int[ ]   minGroup  = new    int[ FileNum + 1];
-        static    int[ ]   maxGroup  = new    int[ FileNum + 1];
-        static    int[ ]   minValue  = new    int[GroupNum + 1];
-        static    int[ ]   maxValue  = new    int[GroupNum + 1];
-        static String[ ] groupString = new String[GroupNum + 1];
-        static String[,] valueString = new String[GroupNum + 1, ValueNum + 1];
-        static    int[,]  dataType   = new    int[GroupNum + 1, ValueNum + 1];
+        static    int[ ]    minGroup  = new    int[ FileNum + 1];
+        static    int[ ]    maxGroup  = new    int[ FileNum + 1];
+        static    int[ ]    minValue  = new    int[GroupNum + 1];
+        static    int[ ]    maxValue  = new    int[GroupNum + 1];
+        static String[ ] configString = new String[ FileNum + 1];
+        static String[ ]  groupString = new String[GroupNum + 1];
+        static String[,]  valueString = new String[GroupNum + 1, ValueNum + 1];
+        static    int[,]   dataType   = new    int[GroupNum + 1, ValueNum + 1];
 
         // Settings as Booleans ("true" or "false") or Strings
         static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
@@ -422,6 +425,10 @@ namespace SebWindowsConfig
             maxValue[GroupSpecialKeys      ] = MaxValueSpecialKeys;
             maxValue[GroupFunctionKeys     ] = MaxValueFunctionKeys;
             maxValue[GroupExitSequence     ] = MaxValueExitSequence;
+
+            // File names
+            configString[FileSebStarter] = ConfigSebStarter;
+            configString[FileMsgHook   ] = ConfigMsgHook;
 
             // Group names
             groupString[GroupSebStarterConfigFile] = MessageSebStarterConfigFile;
@@ -707,6 +714,7 @@ namespace SebWindowsConfig
             FileStream   fileStream;
             StreamReader fileReader;
             String       fileLine;
+            Boolean      fileCouldBeRead = true;
 
             int group, value;
             int mingroup = minGroup[iniFile];
@@ -730,6 +738,7 @@ namespace SebWindowsConfig
                         String   leftString    =    fileLine.Remove   (equalPosition);
                         String  rightString    =    fileLine.Substring(equalPosition + 1);
                         Boolean rightBoolean   = rightString.Equals("1");
+                        Boolean foundSetting   = false;
 
                         // Find the appropriate group and setting
                         for (group = mingroup; group <= maxgroup; group++)
@@ -743,10 +752,13 @@ namespace SebWindowsConfig
                                 {
                                     settingBoolean[StateTmp, group, value] = rightBoolean;
                                     settingString [StateTmp, group, value] = rightString;
+                                    foundSetting = true;
                                     break;
                                 }
                             } // next value
                         } // next group
+
+                        if (foundSetting == false) fileCouldBeRead = false;
 
                     } // end if line.Contains("=")
                 } // end while
@@ -762,6 +774,15 @@ namespace SebWindowsConfig
                 // Let the user know what went wrong
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(streamReadException.Message);
+                return false;
+            }
+
+            if (fileCouldBeRead == false)
+            {
+                // Let the user know what went wrong
+                MessageBox.Show("The file \"" + fileName + "\" does not match the syntax of a " + configString[iniFile],
+                                "Error when reading " + configString[iniFile],
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
