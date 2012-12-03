@@ -26,10 +26,11 @@
 typedef struct
 {
 	BYTE	DisableCtrlEsc : 1,
-			DisableCtrlP  : 1,
-			DisableAltTab : 1,
-			DisableAltEsc : 1,
-			DisableAltF4  : 1,
+			DisableCtrlP   : 1,
+			DisableAltTab   : 1,
+			DisableAltEsc   : 1,
+			DisableAltSpace : 1,
+			DisableAltF4    : 1,
 			DisableStartMenu  : 1,
 			DisableRightMouse : 1,
 			DisableLeftMouse  : 1,

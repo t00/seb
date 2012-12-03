@@ -338,6 +338,7 @@ LRESULT CALLBACK LLKeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 						((alter_flags.DisableCtrlP     && ((keyCode == VK_P      && bCtrlKeyDown)))) ||
 						((alter_flags.DisableAltTab    && ((keyCode == VK_TAB    && bAltKeyDown)))) ||
 						((alter_flags.DisableAltEsc    && ((keyCode == VK_ESCAPE && bAltKeyDown)))) ||
+						((alter_flags.DisableAltSpace  && ((keyCode == VK_SPACE  && bAltKeyDown)))) ||
 						((alter_flags.DisableAltF4     && ((keyCode == VK_F4     && bAltKeyDown)))) ||
 						((alter_flags.DisableF1  && keyCode == VK_F1 )) ||
 						((alter_flags.DisableF2  && keyCode == VK_F2 )) ||
@@ -530,6 +531,7 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					((alter_flags.DisableCtrlP     && ((wParam == VK_P      && bCtrlKeyDown)))) ||		//no effect ???
 					((alter_flags.DisableAltTab    && ((wParam == VK_TAB    && bAltKeyDown)))) ||		//no effect
 					((alter_flags.DisableAltEsc    && ((wParam == VK_ESCAPE && bAltKeyDown)))) ||		//no effect
+					((alter_flags.DisableAltSpace  && ((wParam == VK_SPACE  && bAltKeyDown)))) ||
 					((alter_flags.DisableAltF4     && ((wParam == VK_F4     && bAltKeyDown)))) ||
 					((alter_flags.DisableF1  && wParam == VK_F1 )) ||
 					((alter_flags.DisableF2  && wParam == VK_F2 )) ||
