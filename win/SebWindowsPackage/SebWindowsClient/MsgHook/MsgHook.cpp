@@ -531,7 +531,7 @@ LRESULT CALLBACK KeyboardHook(int nCode, WPARAM wParam, LPARAM lParam)
 					((alter_flags.DisableCtrlP     && ((wParam == VK_P      && bCtrlKeyDown)))) ||		//no effect ???
 					((alter_flags.DisableAltTab    && ((wParam == VK_TAB    && bAltKeyDown)))) ||		//no effect
 					((alter_flags.DisableAltEsc    && ((wParam == VK_ESCAPE && bAltKeyDown)))) ||		//no effect
-					((alter_flags.DisableAltSpace  && ((wParam == VK_SPACE  && bAltKeyDown)))) ||
+					((alter_flags.DisableAltSpace  && ((wParam == VK_SPACE  && bAltKeyDown)))) ||		//no effect
 					((alter_flags.DisableAltF4     && ((wParam == VK_F4     && bAltKeyDown)))) ||
 					((alter_flags.DisableF1  && wParam == VK_F1 )) ||
 					((alter_flags.DisableF2  && wParam == VK_F2 )) ||
