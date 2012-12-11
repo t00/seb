@@ -2,7 +2,7 @@
 	"prefs"										:	{
 														"general.useragent.override"		:	"SEB"
 													},
-	"seb.url" 									: 	"http://www.eqsoft.org/sebian",
+	"seb.url" 									: 	"http://www.safeexambrowser.org",
 	"seb.mainWindow.titlebar.enabled" 			: 	false,
 	"seb.trusted.content"						:	true,
 	"seb.pattern.regex"							:	false,
@@ -28,9 +28,9 @@
 	"seb.restart.keycode"						: 	"VK_F9",
 	"seb.restart.modifiers"						: 	"control shift",
 	"seb.popupWindows.titlebar.enabled"			:	true,
-	"seb.openwin.width"							:	800,
-	"seb.openwin.height"						:	600,
+	"seb.openwin.width"							:	200,
+	"seb.openwin.height"						:	200,
 	"seb.showall.keycode"						: 	"VK_F1",
 	"seb.distinct.popup"						:	true,
-	"seb.removeProfile"							:	true
+	"seb.removeProfile"							:	false
 }
