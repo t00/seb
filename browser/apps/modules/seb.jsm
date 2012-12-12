@@ -463,11 +463,19 @@ var seb = (function() {
 			
 			if (x.getParam(kc)) {
 				ks[i].setAttribute("keycode", x.getParam(kc)); 
-				//x.debug(kc + " set to " + x.getParam(kc));
+				x.debug(kc + " set to " + x.getParam(kc));
+			}
+			else {
+				ks[i].setAttribute("keycode", "");
+				x.debug(kc + " set to ''");
 			}
 			if (x.getParam(md)) {
 				ks[i].setAttribute("modifiers", x.getParam(md));
-				//x.debug(md + " set to " + x.getParam(md));
+				x.debug(md + " set to " + x.getParam(md));
+			}
+			else {
+				ks[i].setAttribute("modifiers", "");
+				x.debug(md + " set to ''");
 			}
 		}
 	}
