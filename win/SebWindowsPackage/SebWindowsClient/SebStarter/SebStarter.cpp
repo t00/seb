@@ -1116,11 +1116,11 @@ void GetHardcodedSebStarterIni()
 
 	string s1 = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile ";
 	string s2 = "\"";
-	string s3 = "%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles";
+	string s3 = "%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles";
 	string s4 = "\"";
     string SebBrowserString = s1 + s2 + s3 + s4;
 
-  //mpParam["SebBrowser"           ] = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles"";
+  //mpParam["SebBrowser"           ] = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile "%LOCALAPPDATA%\ETH_Zuerich\xul_seb\Profiles"";
 	mpParam["SebBrowser"           ] =  SebBrowserString;
 	mpParam["AutostartProcess"     ] = "Seb";
 	mpParam["ExamUrl"              ] = "http://www.safeexambrowser.org";
@@ -1337,13 +1337,12 @@ BOOL ReadSebStarterIni()
 		// If the xulrunner.exe command line contains the environment variable
 		// %LOCALAPPDATA%, then replace it by its current value, e.g.
 		//
-		// xulrunner.exe -profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles"
-		// xulrunner.exe -profile "C:\Users\<Username>\AppData\Local\ETH Zuerich\xul_seb\Profiles"
+		// xulrunner.exe -profile "%LOCALAPPDATA%\ETH_Zuerich\xul_seb\Profiles"
+		// xulrunner.exe -profile "C:\Users\<Username>\AppData\Local\ETH_Zuerich\xul_seb\Profiles"
 		//
-		// CAUTION: The quotation marks are mandatory because "ETH Zuerich"
-		// contains a space and this would corrupt the xulrunner.exe call,
-		// making it believe a new command line parameter
-		// "Zuerich\xul_seb\Profiles" is there!
+		// CAUTION: The quotation marks are mandatory because "%LOCALAPPDATA%"
+		// might contain spaces and this would corrupt the xulrunner.exe call,
+		// making it believe a new command line parameter is there!
 
 		string sLocalAppDataConst = "%LOCALAPPDATA%";
 		string sLocalAppDataDir   = localAppDataDirectory;
@@ -1372,12 +1371,12 @@ BOOL ReadSebStarterIni()
 		// If the xulrunner.exe command line contains a special profile,
 		// then create an empty directory at the desired location, e.g.
 		//
-		// xulrunner.exe -profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles"
-		// xulrunner.exe -profile "C:\Users\<Username>\AppData\Local\ETH Zuerich\xul_seb\Profiles"
+		// xulrunner.exe -profile "%LOCALAPPDATA%\ETH_Zuerich\xul_seb\Profiles"
+		// xulrunner.exe -profile "C:\Users\<Username>\AppData\Local\ETH_Zuerich\xul_seb\Profiles"
 
 		string sProfileConst = "-profile ";
 		string sProfileDir   = "";
-		//e.g. sProfileDir = "C:\Users\<Username>\AppData\Local\ETH Zuerich\xul_seb\Profiles";
+		//e.g. sProfileDir = "C:\Users\<Username>\AppData\Local\ETH_Zuerich\xul_seb\Profiles";
 
 		int iProfileConstPos = sCommandLine.find(sProfileConst);
 		int iProfileConstLen = sProfileConst.length();
@@ -1397,7 +1396,7 @@ BOOL ReadSebStarterIni()
 			// If the "-profile" constant is contained,
 			// create the desired profile directory
 
-			string sManufacturer = "ETH Zuerich";
+			string sManufacturer = "ETH_Zuerich";
 			string sProduct      = "xul_seb";
 			string sProfiles     = "Profiles";
 
