@@ -355,7 +355,7 @@ void SetIniFileDirectoryAndName()
 {
 	BOOL gotPath = false;
 
-	// Get the path of the "Program Data" directory.
+	// Get the path of the "ProgramData" and "LocalAppData" directory
 	gotPath = SHGetSpecialFolderPath(NULL,  programDataDirectory, CSIDL_COMMON_APPDATA, false);
 	gotPath = SHGetSpecialFolderPath(NULL, localAppDataDirectory, CSIDL_LOCAL_APPDATA , false);
 
@@ -387,8 +387,11 @@ void SetIniFileDirectoryAndName()
 // ******************************************************
 void SetLogFileDirectoryAndName()
 {
-	// Get the path of the "Program Data" directory.
-	BOOL gotPath = SHGetSpecialFolderPath(NULL, programDataDirectory, CSIDL_COMMON_APPDATA, false);
+	BOOL gotPath = false;
+
+	// Get the path of the "ProgramData" and "LocalAppData" directory
+	gotPath = SHGetSpecialFolderPath(NULL,  programDataDirectory, CSIDL_COMMON_APPDATA, false);
+	gotPath = SHGetSpecialFolderPath(NULL, localAppDataDirectory, CSIDL_LOCAL_APPDATA , false);
 
 	// Set the location of the log files directory
 	strcpy(logFileDirectory, programDataDirectory); strcat(logFileDirectory, "\\");
