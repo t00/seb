@@ -16,6 +16,8 @@
 */
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/FileUtils.jsm");
+Components.utils.import("resource://gre/modules/ctypes.jsm");
+
 var EXPORTED_SYMBOLS = ["xullib"];
 		
 // public object 
@@ -70,7 +72,6 @@ var xullib = (function () {
 					}
 				}
 			};
-			
 	
 	function nsBrowserStatusHandler() {}; // real object instance: muliple window contexts
 	
@@ -142,9 +143,10 @@ var xullib = (function () {
 		
 	function init(cmdLine) {
 		try {
-			if (__initialized == true) return;						
+			if (__initialized == true) return;	
+			Cc["@mozilla.org/net/osfileconstantsservice;1"].getService(Ci.nsIOSFileConstantsService).init();					
 			// Services.ww.registerNotification(winObserver); // needed?
-			// shutdownObserver.register();
+			// profileObserver.register();
 			cl = cmdLine;
 			DEBUG = getBool(getCmd("debug"));
 			let autostart = getBool(getCmd("autostart")); // if true, xullib will try to inject application module jsm and execute the init() function of the module;			
@@ -188,22 +190,34 @@ var xullib = (function () {
 			}
 			prefs.readUserPrefs(null); // tricky: for current prefs file use profile prefs, so my original prefs will never be overridden ;-)						
 			prefs.savePrefFile(null);
+			
 			// profile
-			profile["obj"] = profs.selectedProfile;
-			profile["dirs"] = [];
-			if (profile.obj && profile.obj.rootDir) {
-				let dirs = "";
-				profile.dirs.push(profile.obj.rootDir); 
-				dirs = profile.dirs[0].path;
-				if (profile.obj.rootDir.path != profile.obj.localDir.path) {
-					profile.dirs.push(profile.obj.localDir);
-					dirs += "\n" + profile.dirs[1].path;
+			// use the new OS.File API ( >= Gecko 18) for profile Handling
+			try {
+				profile["dirs"] = [];
+				let profilePath = OS.Constants.Path.profileDir;
+				let profileDir = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
+				profileDir.initWithPath(profilePath);
+				_debug("push profile: " + profilePath);
+				profile["dirs"].push(profileDir);
+				// push AppData Local profile directory
+				if (Services.appinfo.OS == "WINNT") {
+					let localProfilePath = profilePath.replace(/AppData\\Roaming/,"AppData\\Local"); // WIN7 o.k, XP?
+					if (localProfilePath) {
+						let localProfileDir = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
+						localProfileDir.initWithPath(localProfilePath);
+						if (localProfileDir.exists()) {
+							_debug("push local profile: " + localProfilePath);
+							profile["dirs"].push(localProfileDir);
+						}
+					}
 				}
-				_debug("init with profile: \n" + dirs);
 			}
-			else {
-				_err("no profile!"); 
+			catch (e) {
+				_err(e);
+				return false;
 			}
+			
 			// see for special files and dirs: 
 			//	https://developer.mozilla.org/en/Code_snippets/File_I%2F%2FO#Getting_special_files
 			// 	http://mxr.mozilla.org/mozilla-central/source/xpcom/io/nsDirectoryServiceDefs.h
@@ -315,6 +329,7 @@ var xullib = (function () {
 	}
 	
 	// profile
+	
 	function getProfile() {
 		return profile;
 	}

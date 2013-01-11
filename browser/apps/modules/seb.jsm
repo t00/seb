@@ -70,16 +70,15 @@ var seb = (function() {
 			shutdownObserver = {
 				observe	: function(subject, topic, data) {
 					if (topic == "xpcom-shutdown") {
-						x.getProfile().obj.remove(true);
-						
+						// x.getProfile().obj.remove(true);
+						let p = x.getProfile();
+						for (var i=0;i<p.dirs.length;i++) {
+							p.dirs[i].remove(true);
+						}
+						// on Linux everything will be deleted
+						x.getUserAppDir().remove(true);
 						// on windows the read-only file "parent.lock" blocks recursive removing of app folder "seb"
 						// setting permissions on parent.lock p.e. 0660 before removing throws an error
-						// the next time seb is shutting down, the unused and unlocked folder will be deleted.
-						// ToDo: force Unlock of profile see nsIProfileUnlocker, nsIProfileLocker
-						// don't know how to get a reference to these objects, needs a hook in startup to observe the lock event?
-						
-						// on Linux everything will be deleted
-						x.getUserAppDir().remove(true); 
 					}	  
 				},
 				get observerService() {  
@@ -161,6 +160,8 @@ var seb = (function() {
 	}
 	
 	function init(win) {
+		Cc["@mozilla.org/net/osfileconstantsservice;1"].getService(Ci.nsIOSFileConstantsService).init();
+		// x.getProfile().obj.remove(true);
 		x.debug("init window");
 		x.addWin(win);
 		currWin = win; 					// for every window call
