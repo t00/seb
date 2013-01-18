@@ -59,7 +59,6 @@ var seb = (function() {
 			locs				=	null, 
 			consts				=	null,
 			mainWin				=	null,
-			currWin				=	null,
 			netMaxTimes			=	0,
 			netTimeout			=	0,
 			net_tries			=	0,
@@ -120,27 +119,29 @@ var seb = (function() {
 				if(aStateFlags & wpl.STATE_IS_NETWORK) {
 					if (aStateFlags & wpl.STATE_STOP) {
 						x.debug("network stop: content to show: " + aRequest.name);
-						showContent(currWin);
+						let win = x.getChromeWin(aWebProgress.DOMWindow);											
+						showContent(win);
 					}
 					if (aStateFlags & wpl.STATE_START) {						
 						try {		
 							x.debug("network start: request: " + aRequest.name);
+							let win = x.getChromeWin(aWebProgress.DOMWindow);
 							if (aRequest && aRequest.name) {
 								if (!isValidUrl(aRequest.name)) {
 									aRequest.cancel(aStatus);
-									prompt.alert(currWin, getLocStr("seb.title"), getLocStr("seb.url.blocked"));
-									if (currWin === mainWin) {
+									prompt.alert(win, getLocStr("seb.title"), getLocStr("seb.url.blocked"));
+									if (win === mainWin) {
 										shutdown();
 									}
 									return 1; // 0?
 								}
 								// don't allow multiple popup instances with the same url: experimental
-								if (x.getParam("seb.distinct.popup") && (currWin !== mainWin)) { 
+								if (x.getParam("seb.distinct.popup") && (win !== mainWin)) { 
  									let w = x.getWinFromUrl(aRequest.name); // find already opened popup with the same url								
 									if (typeof w === "object") {
 										aRequest.cancel(aStatus); // if found, cancle new request
-										x.removeWin(currWin); // remove the new window with canceled request from internal window array 
-										currWin.close(); // close the win
+										x.removeWin(win); // remove the new window with canceled request from internal window array 
+										win.close(); // close the win
 										w.focus();	// focusing the already opened window from the internal array
 										return 1; // 0?								
 									}
@@ -161,10 +162,8 @@ var seb = (function() {
 	
 	function init(win) {
 		Cc["@mozilla.org/net/osfileconstantsservice;1"].getService(Ci.nsIOSFileConstantsService).init();
-		// x.getProfile().obj.remove(true);
 		x.debug("init window");
 		x.addWin(win);
-		currWin = win; 					// for every window call
 		getKeys(win); 					// for every window call
 		setBrowserHandler(win); 			// for every window call
 		if  (x.getWinType(win) == "main") {
@@ -177,7 +176,7 @@ var seb = (function() {
 			let height = x.getParam("seb.openwin.height");
 			if (width && height) {
 				x.debug("resize secondary window to: " + width + "x" + height);
-				x.debug(currWin.resizeTo(width,height));
+				win.resizeTo(width,height);
 			}
 		} 	
 	}
@@ -200,14 +199,13 @@ var seb = (function() {
 			return false;
 		}
 		x.debug("seb init with url: " + url);
-		
 		setListRegex(); 								// compile regexs 
 		locs = win.document.getElementById("locale");	
 		consts = win.document.getElementById("const");
 		setTitlebar();									
 		setLocked();
 		setUnlockEnabled();
-		showLoading();
+		showLoading(win);
 		netMaxTimes = x.getParam("seb.net.max.times");
 		netTimeout = x.getParam("seb.net.timeout");
 		loadPage(url);
@@ -224,13 +222,14 @@ var seb = (function() {
 		let channel = NetUtil.newChannel(uri);
 		channel.QueryInterface(Components.interfaces.nsIHttpChannel);
 		channel.requestMethod = "HEAD";
+		
 		//debug(channel.notificationCallbacks);
 		NetUtil.asyncFetch(channel, function(inputStream, status) {
 										net_tries += 1;
 										if (net_tries > netMaxTimes) {
 											net_tries = 0; // reset net_tries 
 											// try anyway and take a look what happens (ugly: // ToDo: internal error page and detailed response headers)
-											showError();
+											showError(mainWin);
 											return;
 										}
 										if (!Components.isSuccessCode(status)) {  // ToDo: detailed response header
@@ -272,14 +271,12 @@ var seb = (function() {
 	function setBrowserHandler(win) { // Event handler for both wintypes
 		x.debug("setBrowserHandler");
 		x.addBrowserStateListener(win,browserStateListener); // for both types
-		//x.addBrowserStatusListener(win,browserStatusListener);
 	}
 	
 	// app lifecycle
 	function shutdown(e) { // only for mainWin
 		var w = mainWin;
 		if (e != null) { // catch event
-			x.debug("event");
 			e.preventDefault();
 			e.stopPropagation();				
 		}
@@ -300,34 +297,29 @@ var seb = (function() {
 		}
 	}
 	
-	function cleanUp() {
-		x.debug("onclose " + x.getWinType(currWin));
-		if (currWin !== mainWin) {
-			x.removeWin(currWin);
-			x.debug("close " + x.getWinType(currWin));
-		}
-	}
-	
 	// browser and seb windows
 	function showLoading(win) {
-		let w = (win) ? win : currWin;
+		let w = (win) ? win : x.getRecentWin();
 		x.debug("showLoading...");
 		getFrameElement(w).setAttribute("src",xulLoad);
 		setDeckIndex(w,loadDeck);
 	}
 	
-	function showError(win) { // ? mainWin and currWin?
-		let w = (win) ? win : currWin;
+	function showError(win) {
+		let w = (win) ? win : x.getRecentWin();
 		x.debug("showError...");
 		getFrameElement(w).setAttribute("src",xulErr);
 		setDeckIndex(w,errDeck);
 	}
 	
 	function showContent(win) { 
-		let w = (win) ? win : currWin;
-		x.debug("showContent..." + x.getWinType(currWin));
+		let w = (win) ? win : x.getRecentWin();;
+		x.debug("showContent..." + x.getWinType(w));
 		setDeckIndex(w,contentDeck);
-		w.document.title = w.content.document.title;
+		try {
+			w.document.title = w.content.document.title;
+		}
+		catch(e) {}
 		w.focus();
 		w.XulLibBrowser.focus();
 	}
@@ -337,14 +329,16 @@ var seb = (function() {
 		x.showAllWin();
 	}
 	
-	function reload(win) { // ? mainWin and currWin?
+	function reload(win) {
 		x.debug("try reload...");
+		net_tries = 0;
 		var doc = (win) ? win.content.document : mainWin.content.document;
 		doc.location.reload();
 		x.debug("reload...");
 	}
 	
 	function restart() { // only mainWin, experimental
+		net_tries = 0;
 		if (x.getParam("seb.restart.mode") === 0) {
 			return;
 		}
@@ -353,15 +347,14 @@ var seb = (function() {
 		}
 		x.debug("restart...");
 		x.removeSecondaryWins();
-		currWin = mainWin;
 		let url = getUrl();
-		showLoading();
+		showLoading(mainWin);
 		loadPage(url);
 	}
 	
 	function load() {		
 		x.debug("try load...");
-		if (typeof x.getParam("seb.load") != "string") return;
+		if (typeof x.getParam("seb.load") != "string" || x.getParam("seb.load") == "") return;
 		var doc = mainWin.content.document;
 		var url = x.getParam("seb.load");
 		var ref = doc.location.href;
@@ -393,27 +386,27 @@ var seb = (function() {
 	
 	/* locales const, UI keys and commands */
 	function getDeck(win) {
-		let w = (win) ? win	: currWin;
+		let w = (win) ? win	: x.getRecentWin();
 		return w.document.getElementById("deckContents");
 	}
 	
 	function getDeckIndex(win) {
-		let w = (win) ? win	: currWin;
+		let w = (win) ? win	: x.getRecentWin();
 		return getDeck(win).selectedIndex;
 	}
 	
 	function setDeckIndex(win,index) {
-		let w = (win) ? win	: currWin;
+		let w = (win) ? win	: x.getRecentWin();
 		getDeck(win).selectedIndex = index;
 	}
 	
 	function getFrameElement(win) {
-		let w = (win) ? win	: currWin;
+		let w = (win) ? win	: x.getRecentWin();
 		return w.document.getElementById(xulFrame);
 	}
 	
 	function getBrowserElement(win) {
-		let w = (win) ? win	: currWin;
+		let w = (win) ? win	: x.getRecentWin();
 		return w.document.getElementById(xulBrowser);
 	}
 	
@@ -437,7 +430,7 @@ var seb = (function() {
 	}
 	
 	function setTitlebar(win) {
-		let w = (win) ? win : currWin; 
+		let w = (win) ? win : x.getRecentWin(); 
 		w.document.getElementById("sebWindow").setAttribute("hidechrome",!x.getParam('seb.mainWindow.titlebar.enabled'));
 		x.debug("hidechrome " + w.document.getElementById("sebWindow").getAttribute("hidechrome"));
 	}
@@ -576,7 +569,6 @@ var seb = (function() {
 		lock			:	lock,
 		unlock			:	unlock,
 		shutdown		:	shutdown,
-		cleanUp			:	cleanUp,
 		reload			:	reload,
 		restart			:	restart,
 		load			:	load,

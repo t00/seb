@@ -33,6 +33,7 @@ var xullib = (function () {
 			prefs				=	Services.prefs,
 			profs 				= 	Cc["@mozilla.org/toolkit/profile-service;1"].createInstance(Ci.nsIToolkitProfileService),
 			uuidg				=	Cc["@mozilla.org/uuid-generator;1"].getService(Ci.nsIUUIDGenerator),
+			wm					=	Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator),
 			wnav				= 	Ci.nsIWebNavigation,
 			wpl					=	Ci.nsIWebProgressListener,
 			zipr				= 	Cc["@mozilla.org/libjar/zip-reader;1"].createInstance(Ci.nsIZipReader),
@@ -521,6 +522,15 @@ var xullib = (function () {
 		appshell.registerTopLevelWindow(w);
 	}
 	
+	function getChromeWin(win) {
+		return win.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIWebNavigation)
+                   .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                   .rootTreeItem
+                   .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIDOMWindow);
+	}
+	
 	function getWins() {
 		return wins;
 	}
@@ -612,6 +622,10 @@ var xullib = (function () {
 	
 	function setWinType(win,type) {
 		win.document.getElementsByTagName("window")[0].setAttribute("windowtype",type);
+	}
+	
+	function getRecentWin() {
+		return wm.getMostRecentWindow(null);
 	}
 	
 	function showAllWin() { 
@@ -926,11 +940,13 @@ var xullib = (function () {
 		dumpObj						:	dumpObj,
 		err							:	err,
 		getBool						:	getBool,
+		getChromeWin				:	getChromeWin,
 		getCmd						:	getCmd,
 		getDebug					:	getDebug,
 		getParam					:	getParam,
 		getParams					:	getParams,
 		getProfile					:	getProfile,
+		getRecentWin				:	getRecentWin,		
 		getType						:	getType,
 		getMainWin					:	getMainWin,
 		getWinFromUrl				:	getWinFromUrl,	
