@@ -122,11 +122,11 @@ var seb = (function() {
 						let win = x.getChromeWin(aWebProgress.DOMWindow);											
 						showContent(win);
 					}
-					if (aStateFlags & wpl.STATE_START) {						
+					if (aStateFlags & wpl.STATE_START) {												
 						try {		
 							x.debug("network start: request: " + aRequest.name);
-							let win = x.getChromeWin(aWebProgress.DOMWindow);
 							if (aRequest && aRequest.name) {
+								let win = x.getChromeWin(aWebProgress.DOMWindow);
 								if (!isValidUrl(aRequest.name)) {
 									aRequest.cancel(aStatus);
 									prompt.alert(win, getLocStr("seb.title"), getLocStr("seb.url.blocked"));
@@ -136,14 +136,18 @@ var seb = (function() {
 									return 1; // 0?
 								}
 								// don't allow multiple popup instances with the same url: experimental
-								if (x.getParam("seb.distinct.popup") && (win !== mainWin)) { 
- 									let w = x.getWinFromUrl(aRequest.name); // find already opened popup with the same url								
+								if (x.getParam("seb.distinct.popup") && (win !== mainWin)) {
+ 									let w = x.getWinFromRequest(aRequest.name); // find already opened popup with the same url								
 									if (typeof w === "object") {
 										aRequest.cancel(aStatus); // if found, cancle new request
 										x.removeWin(win); // remove the new window with canceled request from internal window array 
 										win.close(); // close the win
 										w.focus();	// focusing the already opened window from the internal array
 										return 1; // 0?								
+									}
+									else {
+										x.debug("set request " + aRequest.name + " for popup.");
+										win.XulLibBrowser.setAttribute("request",aRequest.name);
 									}
 								}												
 							}							
