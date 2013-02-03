@@ -547,6 +547,18 @@ var xullib = (function () {
 		return false;
 	}
 	
+	function getWinFromRequest(req) {
+		for (i=0;i<wins.length;i++) {
+			//_debug("compare: " + wins[i].content.location.href + " : " + url);			
+			if (wins[i].XulLibBrowser.getAttribute("request") == req) {
+				_debug("getWinFromRequest found: " + req);
+				return wins[i];
+				break;
+			}
+		}
+		return false;
+	}
+	
 	function getMainWin() {
 		if (wins.length === 0) {
 			return false;
@@ -949,6 +961,7 @@ var xullib = (function () {
 		getRecentWin				:	getRecentWin,		
 		getType						:	getType,
 		getMainWin					:	getMainWin,
+		getWinFromRequest			:	getWinFromRequest,
 		getWinFromUrl				:	getWinFromUrl,	
 		getWins						:	getWins,
 		getWinType					:	getWinType,
