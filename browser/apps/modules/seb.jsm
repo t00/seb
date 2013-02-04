@@ -135,7 +135,7 @@ var seb = (function() {
 									}
 									return 1; // 0?
 								}
-								// don't allow multiple popup instances with the same url: experimental
+								// don't allow multiple popup instances with the same url: experimental, does not work on links in popup windows
 								if (x.getParam("seb.distinct.popup") && (win !== mainWin)) {
  									let w = x.getWinFromRequest(aRequest.name); // find already opened popup with the same url								
 									if (typeof w === "object") {
@@ -206,7 +206,7 @@ var seb = (function() {
 		setListRegex(); 								// compile regexs 
 		locs = win.document.getElementById("locale");	
 		consts = win.document.getElementById("const");
-		setTitlebar();									
+		setTitlebar(win);									
 		setLocked();
 		setUnlockEnabled();
 		showLoading(win);
