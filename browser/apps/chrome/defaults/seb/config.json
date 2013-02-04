@@ -31,6 +31,6 @@
 	"seb.openwin.width"							:	800,
 	"seb.openwin.height"						:	600,
 	"seb.showall.keycode"						: 	"VK_F1",
-	"seb.distinct.popup"						:	true,
+	"seb.distinct.popup"						:	false,
 	"seb.removeProfile"							:	false
 }
