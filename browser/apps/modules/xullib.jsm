@@ -232,13 +232,22 @@ var xullib = (function () {
 				while(entries.hasMoreElements()) {  
 					let entry = entries.getNext();  
 					entry.QueryInterface(Components.interfaces.nsIFile);
-					entry.copyTo(profile.dirs[0],entry.leafName);
+					// don't copy .svn
+					if (entry.leafName === ".svn") {
+						continue;
+					}
 					var cf = profile.dirs[0].clone();
 					cf.append(entry.leafName);
 					profile.customFiles.push(cf);
-					_debug("copy " + entry.leafName + " to " + profile.dirs[0].path);
+					if (!cf.exists()) {
+						entry.copyTo(profile.dirs[0],entry.leafName);
+						_debug("copy " + entry.leafName + " to " + profile.dirs[0].path);
+												
+					}
+					else {
+						_debug(entry.leafName + " already exists");
+					}														
 				}
-				// push prefs.js to custom  
 			}
 			else {
 				_debug("no default profile: " + defaultProfile.path);

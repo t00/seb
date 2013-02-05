@@ -135,8 +135,18 @@ var seb = (function() {
 									}
 									return 1; // 0?
 								}
-								// don't allow multiple popup instances with the same url: experimental, does not work on links in popup windows
-								if (x.getParam("seb.distinct.popup") && (win !== mainWin)) {
+								// don't allow multiple popup instances with the same url: experimental
+								
+								// don't affect the main window 
+								if (win === mainWin) {
+									return 0;
+								}
+								// don't do anything on already initialized windows, only new opened windows that means request attribute is not empty
+								if (win.XulLibBrowser.getAttribute("request") && win.XulLibBrowser.getAttribute("request") != "") {																		
+									return 0;								
+								}
+								// check the param
+								if (x.getParam("seb.distinct.popup")) {
  									let w = x.getWinFromRequest(aRequest.name); // find already opened popup with the same url								
 									if (typeof w === "object") {
 										aRequest.cancel(aStatus); // if found, cancle new request
@@ -154,6 +164,7 @@ var seb = (function() {
 						}
 						catch(e) {
 							x.err(e);
+							return 0;
 						}
 					}
 					return 0;
