@@ -133,6 +133,9 @@ var seb = (function() {
 									if (win === mainWin) {
 										shutdown();
 									}
+									else {
+										win.close();
+									}
 									return 1; // 0?
 								}
 								// don't allow multiple popup instances with the same url: experimental
