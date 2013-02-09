@@ -387,7 +387,7 @@ var xullib = (function () {
 		return t;
 	}
 	
-	function getPref(k) {rootDir
+	function getPref(k) {
 		switch (prefs.getPrefType(k)) {
 			case  prefs.PREF_STRING :
 				return prefs.getCharPref(k);
