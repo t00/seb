@@ -331,8 +331,8 @@ namespace SebWindowsConfig
             }
 
             // Default settings for groups "SebStarter config file" and "MsgHook config file"
-            settingBoolean[StateDef, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = true;
-            settingBoolean[StateDef, GroupMsgHookConfigFile   , ValueWriteMsgHookLogFile   ] = true;
+            settingBoolean[StateDef, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = false;
+            settingBoolean[StateDef, GroupMsgHookConfigFile   , ValueWriteMsgHookLogFile   ] = false;
 
             // Default settings for group "Security options"
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowVirtualMachine      ] = false;
@@ -351,7 +351,7 @@ namespace SebWindowsConfig
             String s2 = " -profile \"%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles\"";
             String SebBrowserString = s0 + s1 + s2;
 
-            settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ] = SebBrowserString;
+            settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ] =  SebBrowserString;
             settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, GroupOnlineExam, ValueExamUrl              ] = "http://www.safeexambrowser.org";
             settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
