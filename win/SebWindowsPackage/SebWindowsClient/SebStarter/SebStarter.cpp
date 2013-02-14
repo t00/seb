@@ -1114,13 +1114,11 @@ void GetHardcodedSebStarterIni()
 	mpParam["MonitorProcesses"         ] = "0";
 	mpParam["ShutdownAfterAutostartProcessTerminates"] = "0";
 
-	string s1 = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile ";
-	string s2 = "\"";
-	string s3 = "%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles";
-	string s4 = "\"";
-    string SebBrowserString = s1 + s2 + s3 + s4;
+	string s0 = "Seb,../xulrunner/xulrunner.exe";
+	string s1 = " -app \"..\\xul_seb\\seb.ini\"";
+	string s2 = " -profile \"%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles\"";
+	string SebBrowserString = s0 + s1 + s2;
 
-  //mpParam["SebBrowser"           ] = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile "%LOCALAPPDATA%\ETH_Zuerich\xul_seb\Profiles"";
 	mpParam["SebBrowser"           ] =  SebBrowserString;
 	mpParam["AutostartProcess"     ] = "Seb";
 	mpParam["ExamUrl"              ] = "http://www.safeexambrowser.org";
