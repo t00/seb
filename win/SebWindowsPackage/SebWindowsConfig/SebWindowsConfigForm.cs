@@ -344,12 +344,12 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurityOptions, ValueMonitorProcesses         ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueShutdownAfterAutostart   ] = false;
 
+
             // Default settings for group "Online exam"
-	        String s1 = "Seb,../xulrunner/xulrunner.exe ../xul_seb/application.ini -profile ";
-	        String s2 = "\"";
-	        String s3 = "%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles";
-	        String s4 = "\"";
-            String SebBrowserString = s1 + s2 + s3 + s4;
+            String s0 = "Seb,../xulrunner/xulrunner.exe";
+            String s1 = " -app \"..\\xul_seb\\seb.ini\"";
+            String s2 = " -profile \"%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles\"";
+            String SebBrowserString = s0 + s1 + s2;
 
             settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ] = SebBrowserString;
             settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
