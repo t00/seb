@@ -54,12 +54,11 @@ namespace SebWindowsConfig
         const int GroupOutsideSeb           = 3;
         const int GroupSecurityOptions      = 4;
         const int GroupOnlineExam           = 5;
-        const int GroupOtherOptions         = 6;
-        const int GroupSpecialKeys          = 7;
-        const int GroupFunctionKeys         = 8;
-        const int GroupExitSequence         = 9;
-        const int GroupMaxSebStarter = 9;
-        const int GroupNumSebStarter = 9;
+        const int GroupSpecialKeys          = 6;
+        const int GroupFunctionKeys         = 7;
+        const int GroupExitSequence         = 8;
+        const int GroupMaxSebStarter = 8;
+        const int GroupNumSebStarter = 8;
 
         // Each group contains up to 20 values
         const int ValueMin =  1;
@@ -72,7 +71,6 @@ namespace SebWindowsConfig
         const String MessageOutsideSeb           = "OutsideSeb";
         const String MessageSecurityOptions      = "SecurityOptions";
         const String MessageOnlineExam           = "OnlineExam";
-        const String MessageOtherOptions         = "OtherOptions";
         const String MessageSpecialKeys          = "SpecialKeys";
         const String MessageFunctionKeys         = "FunctionKeys";
         const String MessageExitSequence         = "ExitSequence";
@@ -187,19 +185,6 @@ namespace SebWindowsConfig
         const String MessagePermittedApplications = "PermittedApplications";
         const String MessageQuitPassword          = "QuitPassword";
         const String MessageQuitHashcode          = "QuitHashcode";
-
-        // Group "Other options"
-        const int MinValueOtherOptions = 1;
-        const int ValueWin9xKillExplorer         = 1;
-        const int ValueWin9xScreenSaverRunning   = 2;
-        const int ValueStrongKillProcessesBefore = 3;
-        const int ValueStrongKillProcessesAfter  = 4;
-        const int MaxValueOtherOptions = 4;
-
-        const String MessageWin9xKillExplorer         = "Win9xKillExplorer";
-        const String MessageWin9xScreenSaverRunning   = "Win9xScreenSaverRunning";
-        const String MessageStrongKillProcessesBefore = "StrongKillProcessesBefore";
-        const String MessageStrongKillProcessesAfter  = "StrongKillProcessesAfter";
 
         // Group "Special keys"
         const int MinValueSpecialKeys = 1;
@@ -331,7 +316,6 @@ namespace SebWindowsConfig
                 settingBoolean[StateDef, GroupInsideSeb      , value] = false;
                 settingBoolean[StateDef, GroupOutsideSeb     , value] = true;
                 settingBoolean[StateDef, GroupSecurityOptions, value] = false;
-                settingBoolean[StateDef, GroupOtherOptions   , value] = false;
                 settingBoolean[StateDef, GroupSpecialKeys    , value] = false;
                 settingBoolean[StateDef, GroupFunctionKeys   , value] = false;
                 settingInteger[StateDef, GroupExitSequence   , value] = 0;
@@ -351,7 +335,6 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurityOptions, ValueBlockPopupWindows        ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueCreateNewDesktop         ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueDownloadPDFFiles         ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueEnableBrowsingBackForward] = false;
 
             settingBoolean[StateDef, GroupSecurityOptions, ValueEnableBrowsingBackForward] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueEnableJava               ] = false;
@@ -379,14 +362,6 @@ namespace SebWindowsConfig
             settingString[StateDef, GroupOnlineExam, ValueQuitPassword] = "";
             settingString[StateDef, GroupOnlineExam, ValueQuitHashcode] = "";
 
-
-            // Default settings for group "Other options"
-            settingBoolean[StateDef, GroupOtherOptions, ValueWin9xKillExplorer        ] = true;
-            settingBoolean[StateDef, GroupOtherOptions, ValueWin9xScreenSaverRunning  ] = false;
-            settingString [StateDef, GroupOtherOptions, ValueStrongKillProcessesBefore] = "";
-            settingString [StateDef, GroupOtherOptions, ValueStrongKillProcessesAfter ] = "";
-
-
             // Default settings for groups "Special keys" and "Function keys"
             settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
             settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5    ] = true;
@@ -409,16 +384,10 @@ namespace SebWindowsConfig
                 dataType[GroupOutsideSeb          , value] = TypeBoolean;
                 dataType[GroupSecurityOptions     , value] = TypeBoolean;
                 dataType[GroupOnlineExam          , value] = TypeString;
-                dataType[GroupOtherOptions        , value] = TypeBoolean;
                 dataType[GroupSpecialKeys         , value] = TypeBoolean;
                 dataType[GroupFunctionKeys        , value] = TypeBoolean;
                 dataType[GroupExitSequence        , value] = TypeString;
             }
-
-            dataType[GroupOtherOptions, ValueWin9xKillExplorer        ] = TypeBoolean;
-            dataType[GroupOtherOptions, ValueWin9xScreenSaverRunning  ] = TypeBoolean;
-            dataType[GroupOtherOptions, ValueStrongKillProcessesBefore] = TypeString;
-            dataType[GroupOtherOptions, ValueStrongKillProcessesAfter ] = TypeString;
 
 
             // Number of groups per file
@@ -436,7 +405,6 @@ namespace SebWindowsConfig
             maxValue[GroupOutsideSeb          ] = MaxValueOutsideSeb;
             maxValue[GroupSecurityOptions     ] = MaxValueSecurityOptions;
             maxValue[GroupOnlineExam          ] = MaxValueOnlineExam;
-            maxValue[GroupOtherOptions        ] = MaxValueOtherOptions;
             maxValue[GroupSpecialKeys         ] = MaxValueSpecialKeys;
             maxValue[GroupFunctionKeys        ] = MaxValueFunctionKeys;
             maxValue[GroupExitSequence        ] = MaxValueExitSequence;
@@ -450,7 +418,6 @@ namespace SebWindowsConfig
             groupString[GroupOutsideSeb          ] = MessageOutsideSeb;
             groupString[GroupSecurityOptions     ] = MessageSecurityOptions;
             groupString[GroupOnlineExam          ] = MessageOnlineExam;
-            groupString[GroupOtherOptions        ] = MessageOtherOptions;
             groupString[GroupSpecialKeys         ] = MessageSpecialKeys;
             groupString[GroupFunctionKeys        ] = MessageFunctionKeys;
             groupString[GroupExitSequence        ] = MessageExitSequence;
@@ -506,11 +473,6 @@ namespace SebWindowsConfig
             valueString[GroupOnlineExam, ValuePermittedApplications] = MessagePermittedApplications;
             valueString[GroupOnlineExam, ValueQuitPassword         ] = MessageQuitPassword;
             valueString[GroupOnlineExam, ValueQuitHashcode         ] = MessageQuitHashcode;
-
-            valueString[GroupOtherOptions, ValueWin9xKillExplorer        ] = MessageWin9xKillExplorer;
-            valueString[GroupOtherOptions, ValueWin9xScreenSaverRunning  ] = MessageWin9xScreenSaverRunning;
-            valueString[GroupOtherOptions, ValueStrongKillProcessesBefore] = MessageStrongKillProcessesBefore;
-            valueString[GroupOtherOptions, ValueStrongKillProcessesAfter ] = MessageStrongKillProcessesAfter;
 
             valueString[GroupSpecialKeys, ValueEnableEsc       ] = MessageEnableEsc;
             valueString[GroupSpecialKeys, ValueEnableCtrlEsc   ] = MessageEnableCtrlEsc;
@@ -1379,16 +1341,6 @@ namespace SebWindowsConfig
             listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitSequence, ValueExitKey1] - 1;
             listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitSequence, ValueExitKey2] - 1;
             listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitSequence, ValueExitKey3] - 1;
-        }
-
-
-
-        // **************************************************
-        // Set the widgets to the new settings of MsgHook.ini
-        // **************************************************
-        private void SetWidgetsToNewSettingsOfMsgHookIni()
-        {
-
         }
 
 
