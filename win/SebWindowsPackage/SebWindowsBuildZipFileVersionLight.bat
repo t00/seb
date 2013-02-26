@@ -38,12 +38,10 @@ set Build=Release
 set SebInstallZip=SebWindowsInstall.zip
 set SebStarterBat=SebStarter.bat
 set SebStarterIni=SebStarter.ini
-set SebMsgHookIni=MsgHook.ini
 
 set SebInstallZipFile=%BatchDir%%SebInstallZip%
 set SebStarterBatFile=%BatchDir%%SebStarterBat%
 set SebStarterIniFile=%BatchDir%%SebStarterIni%
-set SebMsgHookIniFile=%BatchDir%%SebMsgHookIni%
 
 
 
@@ -56,20 +54,18 @@ echo.
 echo SebInstallZip      = %SebInstallZip%
 echo SebStarterBat      = %SebStarterBat%
 echo SebStarterIni      = %SebStarterIni%
-echo SebMsgHookIni      = %SebMsgHookIni%
 echo.
 echo SebInstallZipFile  = %SebInstallZipFile%
 echo SebStarterBatFile  = %SebStarterBatFile%
 echo SebStarterIniFile  = %SebStarterIniFile%
-echo SebMsgHookIniFile  = %SebMsgHookIniFile%
 
 
 
 echo.
 echo.
-echo Copy the default .ini files to the SEB zip directory
-echo Copy the default .bat file  to the SEB zip directory
-echo ----------------------------------------------------
+echo Copy the default .ini file to the SEB zip directory
+echo Copy the default .bat file to the SEB zip directory
+echo ---------------------------------------------------
 
 @echo on
 
@@ -79,7 +75,6 @@ set TargetDir="C:\Users\Dirk\tmp\seb_%Version%_win_light\Release"
 copy "%SourceDir%\Release\MsgHook.dll"                               %TargetDir%
 copy "%SourceDir%\Release\SebStarter.exe"                            %TargetDir%
 copy "%SourceDir%\SebWindowsConfig\bin\Release\SebWindowsConfig.exe" %TargetDir%
-copy "%SourceDir%\SebWindowsClient\MsgHook\MsgHook.ini"              %TargetDir%
 copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.ini"        %TargetDir%
 copy "%SourceDir%\SebWindowsClient\SebStarter\SebStarter.bat"        %TargetDir%
 
