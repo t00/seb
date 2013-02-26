@@ -359,8 +359,8 @@ namespace SebWindowsConfig
             settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, GroupOnlineExam, ValueExamUrl              ] = "http://www.safeexambrowser.org";
             settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
-            settingString[StateDef, GroupOnlineExam, ValueQuitPassword] = "";
-            settingString[StateDef, GroupOnlineExam, ValueQuitHashcode] = "";
+            settingString[StateDef, GroupOnlineExam, ValueQuitPassword         ] = "";
+            settingString[StateDef, GroupOnlineExam, ValueQuitHashcode         ] = "";
 
             // Default settings for groups "Special keys" and "Function keys"
             settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
@@ -1301,14 +1301,29 @@ namespace SebWindowsConfig
             checkBoxInsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess];
             checkBoxInsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade];
 
-            checkBoxAllowVirtualMachine               .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine];
-            checkBoxBlockPopupWindows                 .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueBlockPopupWindows];
-            checkBoxCreateNewDesktop                  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
-            checkBoxDownloadPDFFiles                  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles];
-            checkBoxHookMessages                      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages];
-            checkBoxIgnoreQuitPassword                .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
-            checkBoxMonitorProcesses                  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses];
-            checkBoxNewBrowserWindowByLinkBlockForeign.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLinkBlockForeign];
+            checkBoxAllowDownUploads         .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowDownUploads];
+            checkBoxAllowFlashFullscreen     .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen];
+            checkBoxAllowPreferencesWindow   .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow];
+            checkBoxAllowQuit                .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowQuit];
+            checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications];
+            checkBoxAllowVirtualMachine      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine];
+
+            checkBoxBlockPopupWindows.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueBlockPopupWindows];
+            checkBoxCreateNewDesktop .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
+            checkBoxDownloadPDFFiles .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles];
+
+            checkBoxEnableBrowsingBackForward.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableBrowsingBackForward];
+            checkBoxEnableJava               .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableJava];
+            checkBoxEnableJavaScript         .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableJavaScript];
+            checkBoxEnableLog                .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog];
+            checkBoxEnablePlugins            .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnablePlugins];
+
+            checkBoxHookMessages                        .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages];
+            checkBoxIgnoreQuitPassword                  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
+            checkBoxMonitorProcesses                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses];
+            checkBoxNewBrowserWindowByLinkBlockForeign  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLinkBlockForeign];
+            checkBoxNewBrowserWindowByScriptBlockForeign.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScriptBlockForeign];
+            checkBoxOpenDownloads                       .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueOpenDownloads];
 
             textBoxSebBrowser           .Text = settingString[StateNew, GroupOnlineExam, ValueSebBrowser];
             textBoxAutostartProcess     .Text = settingString[StateNew, GroupOnlineExam, ValueAutostartProcess];
