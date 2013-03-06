@@ -539,7 +539,6 @@ namespace SebWindowsConfig
 
 
 
-
         // *********************************
         // Open SebStarter config file click
         // *********************************
@@ -566,7 +565,6 @@ namespace SebWindowsConfig
 
                 SetWidgetsToNewSettingsOfSebStarterIni();
             }
-
         } // end of method   labelOpenSebStarterConfigFile_Click()
 
 
@@ -598,7 +596,6 @@ namespace SebWindowsConfig
                 textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
                 textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
             }
-
         } // end of method   labelSaveSebStarterConfigFile_Click()
 
 
@@ -1064,7 +1061,7 @@ namespace SebWindowsConfig
 
         private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
         {
-            settingString[StateNew, GroupOnlineExam, ValueExamUrl] = textBoxExamUrl.Text;
+            settingString[StateNew, GroupOnlineExam, ValueExamUrl] = textBoxStartUrl.Text;
         }
 
         private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
@@ -1249,6 +1246,7 @@ namespace SebWindowsConfig
         }
 
 
+
         // ***************************************************
         // Set the new settings of a file to the desired state
         // ***************************************************
@@ -1327,7 +1325,7 @@ namespace SebWindowsConfig
 
             textBoxSebBrowser           .Text = settingString[StateNew, GroupOnlineExam, ValueSebBrowser];
             textBoxAutostartProcess     .Text = settingString[StateNew, GroupOnlineExam, ValueAutostartProcess];
-            textBoxExamUrl              .Text = settingString[StateNew, GroupOnlineExam, ValueExamUrl];
+            textBoxStartUrl              .Text = settingString[StateNew, GroupOnlineExam, ValueExamUrl];
             textBoxPermittedApplications.Text = settingString[StateNew, GroupOnlineExam, ValuePermittedApplications];
             textBoxQuitPassword         .Text = settingString[StateNew, GroupOnlineExam, ValueQuitPassword];
             textBoxQuitHashcode         .Text = settingString[StateNew, GroupOnlineExam, ValueQuitHashcode];
@@ -1408,6 +1406,9 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
+
+
+
 
 
 
