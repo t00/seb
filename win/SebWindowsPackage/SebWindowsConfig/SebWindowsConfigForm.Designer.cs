@@ -35,7 +35,7 @@
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
-            this.tabPageSEBConfig = new System.Windows.Forms.TabPage();
+            this.tabPageConfigFile = new System.Windows.Forms.TabPage();
             this.groupBoxSebStarterConfigFile = new System.Windows.Forms.GroupBox();
             this.textBoxCurrentFileSebStarterIni = new System.Windows.Forms.TextBox();
             this.buttonDefaultSebStarterSettings = new System.Windows.Forms.Button();
@@ -45,6 +45,8 @@
             this.labelSaveSebStarterConfigFile = new System.Windows.Forms.Label();
             this.buttonRestoreSebStarterConfigFile = new System.Windows.Forms.Button();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.labelSEBServerURL = new System.Windows.Forms.Label();
+            this.textBoxSEBServerURL = new System.Windows.Forms.TextBox();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonRestartSEB = new System.Windows.Forms.Button();
             this.buttonQuit = new System.Windows.Forms.Button();
@@ -54,14 +56,14 @@
             this.textBoxConfirmQuitPassword = new System.Windows.Forms.TextBox();
             this.textBoxQuitHashcode = new System.Windows.Forms.TextBox();
             this.textBoxQuitPassword = new System.Windows.Forms.TextBox();
-            this.textBoxStartUrl = new System.Windows.Forms.TextBox();
+            this.textBoxStartURL = new System.Windows.Forms.TextBox();
             this.labelConfirmAdministratorPassword = new System.Windows.Forms.Label();
             this.labelAdministratorPassword = new System.Windows.Forms.Label();
             this.labelConfirmQuitPassword = new System.Windows.Forms.Label();
             this.checkBoxAllowUserToQuitSEB = new System.Windows.Forms.CheckBox();
             this.labelQuitHashCode = new System.Windows.Forms.Label();
             this.labelQuitPassword = new System.Windows.Forms.Label();
-            this.labelStartUrl = new System.Windows.Forms.Label();
+            this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
             this.tabPageExam = new System.Windows.Forms.TabPage();
@@ -146,7 +148,7 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.tabPageSEBConfig.SuspendLayout();
+            this.tabPageConfigFile.SuspendLayout();
             this.groupBoxSebStarterConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
@@ -210,17 +212,17 @@
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
             // 
-            // tabPageSEBConfig
+            // tabPageConfigFile
             // 
-            this.tabPageSEBConfig.Controls.Add(this.groupBoxSebStarterConfigFile);
-            this.tabPageSEBConfig.ImageIndex = 3;
-            this.tabPageSEBConfig.Location = new System.Drawing.Point(4, 39);
-            this.tabPageSEBConfig.Name = "tabPageSEBConfig";
-            this.tabPageSEBConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSEBConfig.Size = new System.Drawing.Size(1054, 469);
-            this.tabPageSEBConfig.TabIndex = 6;
-            this.tabPageSEBConfig.Text = "SEB Config";
-            this.tabPageSEBConfig.UseVisualStyleBackColor = true;
+            this.tabPageConfigFile.Controls.Add(this.groupBoxSebStarterConfigFile);
+            this.tabPageConfigFile.ImageIndex = 3;
+            this.tabPageConfigFile.Location = new System.Drawing.Point(4, 39);
+            this.tabPageConfigFile.Name = "tabPageConfigFile";
+            this.tabPageConfigFile.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageConfigFile.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageConfigFile.TabIndex = 6;
+            this.tabPageConfigFile.Text = "Config File";
+            this.tabPageConfigFile.UseVisualStyleBackColor = true;
             // 
             // groupBoxSebStarterConfigFile
             // 
@@ -314,6 +316,8 @@
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.labelSEBServerURL);
+            this.tabPageGeneral.Controls.Add(this.textBoxSEBServerURL);
             this.tabPageGeneral.Controls.Add(this.buttonHelp);
             this.tabPageGeneral.Controls.Add(this.buttonRestartSEB);
             this.tabPageGeneral.Controls.Add(this.buttonQuit);
@@ -323,14 +327,14 @@
             this.tabPageGeneral.Controls.Add(this.textBoxConfirmQuitPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxQuitHashcode);
             this.tabPageGeneral.Controls.Add(this.textBoxQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.textBoxStartUrl);
+            this.tabPageGeneral.Controls.Add(this.textBoxStartURL);
             this.tabPageGeneral.Controls.Add(this.labelConfirmAdministratorPassword);
             this.tabPageGeneral.Controls.Add(this.labelAdministratorPassword);
             this.tabPageGeneral.Controls.Add(this.labelConfirmQuitPassword);
             this.tabPageGeneral.Controls.Add(this.checkBoxAllowUserToQuitSEB);
             this.tabPageGeneral.Controls.Add(this.labelQuitHashCode);
             this.tabPageGeneral.Controls.Add(this.labelQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.labelStartUrl);
+            this.tabPageGeneral.Controls.Add(this.labelStartURL);
             this.tabPageGeneral.ImageIndex = 5;
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 39);
             this.tabPageGeneral.Name = "tabPageGeneral";
@@ -339,6 +343,25 @@
             this.tabPageGeneral.TabIndex = 4;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // labelSEBServerURL
+            // 
+            this.labelSEBServerURL.AutoSize = true;
+            this.labelSEBServerURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSEBServerURL.Location = new System.Drawing.Point(126, 71);
+            this.labelSEBServerURL.Name = "labelSEBServerURL";
+            this.labelSEBServerURL.Size = new System.Drawing.Size(113, 17);
+            this.labelSEBServerURL.TabIndex = 47;
+            this.labelSEBServerURL.Text = "SEB Server URL";
+            // 
+            // textBoxSEBServerURL
+            // 
+            this.textBoxSEBServerURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSEBServerURL.Location = new System.Drawing.Point(245, 66);
+            this.textBoxSEBServerURL.Name = "textBoxSEBServerURL";
+            this.textBoxSEBServerURL.Size = new System.Drawing.Size(430, 22);
+            this.textBoxSEBServerURL.TabIndex = 46;
+            this.textBoxSEBServerURL.TextChanged += new System.EventHandler(this.textBoxSEBServerURL_TextChanged);
             // 
             // buttonHelp
             // 
@@ -379,34 +402,37 @@
             // textBoxConfirmAdministratorPassword
             // 
             this.textBoxConfirmAdministratorPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfirmAdministratorPassword.Location = new System.Drawing.Point(245, 117);
+            this.textBoxConfirmAdministratorPassword.Location = new System.Drawing.Point(245, 146);
             this.textBoxConfirmAdministratorPassword.Name = "textBoxConfirmAdministratorPassword";
             this.textBoxConfirmAdministratorPassword.Size = new System.Drawing.Size(430, 22);
             this.textBoxConfirmAdministratorPassword.TabIndex = 41;
             this.textBoxConfirmAdministratorPassword.WordWrap = false;
+            this.textBoxConfirmAdministratorPassword.TextChanged += new System.EventHandler(this.textBoxConfirmAdministratorPassword_TextChanged);
             // 
             // textBoxAdministratorPassword
             // 
             this.textBoxAdministratorPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAdministratorPassword.Location = new System.Drawing.Point(245, 82);
+            this.textBoxAdministratorPassword.Location = new System.Drawing.Point(245, 115);
             this.textBoxAdministratorPassword.Name = "textBoxAdministratorPassword";
             this.textBoxAdministratorPassword.Size = new System.Drawing.Size(430, 22);
             this.textBoxAdministratorPassword.TabIndex = 39;
             this.textBoxAdministratorPassword.WordWrap = false;
+            this.textBoxAdministratorPassword.TextChanged += new System.EventHandler(this.textBoxAdministratorPassword_TextChanged);
             // 
             // textBoxConfirmQuitPassword
             // 
             this.textBoxConfirmQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfirmQuitPassword.Location = new System.Drawing.Point(245, 246);
+            this.textBoxConfirmQuitPassword.Location = new System.Drawing.Point(245, 283);
             this.textBoxConfirmQuitPassword.Name = "textBoxConfirmQuitPassword";
             this.textBoxConfirmQuitPassword.Size = new System.Drawing.Size(430, 22);
             this.textBoxConfirmQuitPassword.TabIndex = 37;
             this.textBoxConfirmQuitPassword.WordWrap = false;
+            this.textBoxConfirmQuitPassword.TextChanged += new System.EventHandler(this.textBoxConfirmQuitPassword_TextChanged);
             // 
             // textBoxQuitHashcode
             // 
             this.textBoxQuitHashcode.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuitHashcode.Location = new System.Drawing.Point(245, 288);
+            this.textBoxQuitHashcode.Location = new System.Drawing.Point(245, 321);
             this.textBoxQuitHashcode.Name = "textBoxQuitHashcode";
             this.textBoxQuitHashcode.ReadOnly = true;
             this.textBoxQuitHashcode.Size = new System.Drawing.Size(430, 22);
@@ -415,25 +441,27 @@
             // textBoxQuitPassword
             // 
             this.textBoxQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuitPassword.Location = new System.Drawing.Point(245, 207);
+            this.textBoxQuitPassword.Location = new System.Drawing.Point(245, 244);
             this.textBoxQuitPassword.Name = "textBoxQuitPassword";
             this.textBoxQuitPassword.Size = new System.Drawing.Size(430, 22);
             this.textBoxQuitPassword.TabIndex = 33;
             this.textBoxQuitPassword.WordWrap = false;
+            this.textBoxQuitPassword.TextChanged += new System.EventHandler(this.textBoxQuitPassword_TextChanged_1);
             // 
-            // textBoxStartUrl
+            // textBoxStartURL
             // 
-            this.textBoxStartUrl.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStartUrl.Location = new System.Drawing.Point(245, 38);
-            this.textBoxStartUrl.Name = "textBoxStartUrl";
-            this.textBoxStartUrl.Size = new System.Drawing.Size(430, 22);
-            this.textBoxStartUrl.TabIndex = 21;
+            this.textBoxStartURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxStartURL.Location = new System.Drawing.Point(245, 38);
+            this.textBoxStartURL.Name = "textBoxStartURL";
+            this.textBoxStartURL.Size = new System.Drawing.Size(430, 22);
+            this.textBoxStartURL.TabIndex = 21;
+            this.textBoxStartURL.TextChanged += new System.EventHandler(this.textBoxStartURL_TextChanged);
             // 
             // labelConfirmAdministratorPassword
             // 
             this.labelConfirmAdministratorPassword.AutoSize = true;
             this.labelConfirmAdministratorPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmAdministratorPassword.Location = new System.Drawing.Point(33, 117);
+            this.labelConfirmAdministratorPassword.Location = new System.Drawing.Point(33, 146);
             this.labelConfirmAdministratorPassword.Name = "labelConfirmAdministratorPassword";
             this.labelConfirmAdministratorPassword.Size = new System.Drawing.Size(206, 17);
             this.labelConfirmAdministratorPassword.TabIndex = 40;
@@ -443,7 +471,7 @@
             // 
             this.labelAdministratorPassword.AutoSize = true;
             this.labelAdministratorPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdministratorPassword.Location = new System.Drawing.Point(84, 82);
+            this.labelAdministratorPassword.Location = new System.Drawing.Point(84, 115);
             this.labelAdministratorPassword.Name = "labelAdministratorPassword";
             this.labelAdministratorPassword.Size = new System.Drawing.Size(155, 17);
             this.labelAdministratorPassword.TabIndex = 38;
@@ -453,7 +481,7 @@
             // 
             this.labelConfirmQuitPassword.AutoSize = true;
             this.labelConfirmQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(92, 246);
+            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(92, 283);
             this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
             this.labelConfirmQuitPassword.Size = new System.Drawing.Size(147, 17);
             this.labelConfirmQuitPassword.TabIndex = 36;
@@ -462,18 +490,19 @@
             // checkBoxAllowUserToQuitSEB
             // 
             this.checkBoxAllowUserToQuitSEB.AutoSize = true;
-            this.checkBoxAllowUserToQuitSEB.Location = new System.Drawing.Point(53, 164);
+            this.checkBoxAllowUserToQuitSEB.Location = new System.Drawing.Point(62, 198);
             this.checkBoxAllowUserToQuitSEB.Name = "checkBoxAllowUserToQuitSEB";
             this.checkBoxAllowUserToQuitSEB.Size = new System.Drawing.Size(168, 21);
             this.checkBoxAllowUserToQuitSEB.TabIndex = 35;
             this.checkBoxAllowUserToQuitSEB.Text = "Allow user to quit SEB";
             this.checkBoxAllowUserToQuitSEB.UseVisualStyleBackColor = true;
+            this.checkBoxAllowUserToQuitSEB.CheckedChanged += new System.EventHandler(this.checkBoxAllowUserToQuitSEB_CheckedChanged);
             // 
             // labelQuitHashCode
             // 
             this.labelQuitHashCode.AutoSize = true;
             this.labelQuitHashCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitHashCode.Location = new System.Drawing.Point(130, 288);
+            this.labelQuitHashCode.Location = new System.Drawing.Point(130, 321);
             this.labelQuitHashCode.Name = "labelQuitHashCode";
             this.labelQuitHashCode.Size = new System.Drawing.Size(100, 17);
             this.labelQuitHashCode.TabIndex = 32;
@@ -483,26 +512,26 @@
             // 
             this.labelQuitPassword.AutoSize = true;
             this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitPassword.Location = new System.Drawing.Point(141, 209);
+            this.labelQuitPassword.Location = new System.Drawing.Point(141, 244);
             this.labelQuitPassword.Name = "labelQuitPassword";
             this.labelQuitPassword.Size = new System.Drawing.Size(98, 17);
             this.labelQuitPassword.TabIndex = 30;
             this.labelQuitPassword.Text = "Quit password";
             // 
-            // labelStartUrl
+            // labelStartURL
             // 
-            this.labelStartUrl.AutoSize = true;
-            this.labelStartUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStartUrl.Location = new System.Drawing.Point(169, 40);
-            this.labelStartUrl.Name = "labelStartUrl";
-            this.labelStartUrl.Size = new System.Drawing.Size(70, 17);
-            this.labelStartUrl.TabIndex = 22;
-            this.labelStartUrl.Text = "Start URL";
+            this.labelStartURL.AutoSize = true;
+            this.labelStartURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStartURL.Location = new System.Drawing.Point(169, 40);
+            this.labelStartURL.Name = "labelStartURL";
+            this.labelStartURL.Size = new System.Drawing.Size(70, 17);
+            this.labelStartURL.TabIndex = 22;
+            this.labelStartURL.Text = "Start URL";
             // 
             // tabControlSebWindowsConfig
             // 
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageGeneral);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageSEBConfig);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageConfigFile);
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageAppearance);
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageBrowser);
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageDownUploads);
@@ -1534,7 +1563,7 @@
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Editor";
-            this.tabPageSEBConfig.ResumeLayout(false);
+            this.tabPageConfigFile.ResumeLayout(false);
             this.groupBoxSebStarterConfigFile.ResumeLayout(false);
             this.groupBoxSebStarterConfigFile.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
@@ -1572,7 +1601,7 @@
         private System.Windows.Forms.ImageList imageListTabIcons;
         private System.Windows.Forms.TabPage tabPageBrowser;
         private System.Windows.Forms.TabPage tabPageAppearance;
-        private System.Windows.Forms.TabPage tabPageSEBConfig;
+        private System.Windows.Forms.TabPage tabPageConfigFile;
         private System.Windows.Forms.GroupBox groupBoxSebStarterConfigFile;
         private System.Windows.Forms.TextBox textBoxCurrentFileSebStarterIni;
         private System.Windows.Forms.Button buttonDefaultSebStarterSettings;
@@ -1591,14 +1620,14 @@
         private System.Windows.Forms.TextBox textBoxConfirmQuitPassword;
         private System.Windows.Forms.TextBox textBoxQuitHashcode;
         private System.Windows.Forms.TextBox textBoxQuitPassword;
-        private System.Windows.Forms.TextBox textBoxStartUrl;
+        private System.Windows.Forms.TextBox textBoxStartURL;
         private System.Windows.Forms.Label labelConfirmAdministratorPassword;
         private System.Windows.Forms.Label labelAdministratorPassword;
         private System.Windows.Forms.Label labelConfirmQuitPassword;
         private System.Windows.Forms.CheckBox checkBoxAllowUserToQuitSEB;
         private System.Windows.Forms.Label labelQuitHashCode;
         private System.Windows.Forms.Label labelQuitPassword;
-        private System.Windows.Forms.Label labelStartUrl;
+        private System.Windows.Forms.Label labelStartURL;
         private System.Windows.Forms.TabControl tabControlSebWindowsConfig;
         private System.Windows.Forms.TabPage tabPageDownUploads;
         private System.Windows.Forms.TabPage tabPageExam;
@@ -1683,6 +1712,8 @@
         private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
         private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
         private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
+        private System.Windows.Forms.Label labelSEBServerURL;
+        private System.Windows.Forms.TextBox textBoxSEBServerURL;
 
     }
 }

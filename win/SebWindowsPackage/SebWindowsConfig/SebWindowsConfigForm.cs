@@ -17,13 +17,12 @@ namespace SebWindowsConfig
     {
         // Constants for indexing the ini file values
 
-        // SEB has 2 different ini files:
-        // SebStarter.ini and MsgHook.ini
+        // SEB has 1 different ini file:
+        // SebStarter.ini
         const int FileMin = 1;
         const int FileSebStarter = 1;
-        const int FileMsgHook    = 2;
-        const int FileMax = 2;
-        const int FileNum = 2;
+        const int FileMax = 1;
+        const int FileNum = 1;
 
         // The target files the user must configure,
         // because these are used by the application SebStarter.exe
@@ -40,25 +39,42 @@ namespace SebWindowsConfig
         const int StateMax = 4;
         const int StateNum = 4;
 
-        // The Graphical User Interface contains 9 groups.
-        const int GroupMin =  1;
-        const int GroupMax =  9;
-        const int GroupNum =  9;
+        // The Graphical User Interface contains 19 groups
+        const int GroupMin =   1;
+        const int GroupMax =  19;
+        const int GroupNum =  19;
 
-        // SebStarter contains the 9 groups
-        // SebStarterConfigFile, InsideSeb, OutsideSeb, SecurityOptions, OnlineExam, OtherOptions
-        // SpecialKeys, FunctionKeys, ExitSequence
+        // SebStarter contains the 19 groups
+        // General, ConfigFile, Appearance, Browser,
+        // DownUploads, Exam, Applications, Network, Security,
+        // Registry, HookedKeys, ExitKeys,
+        // InsideSeb, OutsideSeb, SecurityOptions,
+        // OnlineExam, SpecialKeys, FunctionKeys, Other
         const int GroupMinSebStarter = 1;
-        const int GroupSebStarterConfigFile = 1;
-        const int GroupInsideSeb            = 2;
-        const int GroupOutsideSeb           = 3;
-        const int GroupSecurityOptions      = 4;
-        const int GroupOnlineExam           = 5;
-        const int GroupSpecialKeys          = 6;
-        const int GroupFunctionKeys         = 7;
-        const int GroupExitSequence         = 8;
-        const int GroupMaxSebStarter = 8;
-        const int GroupNumSebStarter = 8;
+
+        const int GroupGeneral         = 1;
+        const int GroupConfigFile      = 2;
+        const int GroupAppearance      = 3;
+        const int GroupBrowser         = 4;
+        const int GroupDownUploads     = 5;
+        const int GroupExam            = 6;
+        const int GroupApplications    = 7;
+        const int GroupNetwork         = 8;
+        const int GroupSecurity        = 9;
+        const int GroupRegistry        = 10;
+        const int GroupHookedKeys      = 11;
+        const int GroupExitKeys        = 12;
+
+        const int GroupInsideSeb       = 13;
+        const int GroupOutsideSeb      = 14;
+        const int GroupSecurityOptions = 15;
+        const int GroupOnlineExam      = 16;
+        const int GroupSpecialKeys     = 17;
+        const int GroupFunctionKeys    = 18;
+        const int GroupOther           = 19;
+
+        const int GroupMaxSebStarter = 19;
+        const int GroupNumSebStarter = 19;
 
         // Each group contains up to 20 values
         const int ValueMin =  1;
@@ -66,25 +82,58 @@ namespace SebWindowsConfig
         const int ValueNum = 20;
 
         // Group names
-        const String MessageSebStarterConfigFile = "SebStarterConfigFile";
-        const String MessageInsideSeb            = "InsideSeb";
-        const String MessageOutsideSeb           = "OutsideSeb";
-        const String MessageSecurityOptions      = "SecurityOptions";
-        const String MessageOnlineExam           = "OnlineExam";
-        const String MessageSpecialKeys          = "SpecialKeys";
-        const String MessageFunctionKeys         = "FunctionKeys";
-        const String MessageExitSequence         = "ExitSequence";
+        const String MessageGeneral         = "General";
+        const String MessageConfigFile      = "ConfigFile";
+        const String MessageAppearance      = "Appearance";
+        const String MessageBrowser         = "Browser";
+        const String MessageDownUploads     = "DownUploads";
+        const String MessageExam            = "Exam";
+        const String MessageApplications    = "Applications";
+        const String MessageNetwork         = "Network";
+        const String MessageSecurity        = "Security";
+        const String MessageRegistry        = "Registry";
+        const String MessageHookedKeys      = "HookedKeys";
+        const String MessageExitKeys        = "ExitKeys";
 
-        // Group "SebStarter config file"
-        const int MinValueSebStarterConfigFile = 1;
-        const int ValueWriteSebStarterLogFile  = 1;
-        const int MaxValueSebStarterConfigFile = 1;
+        const String MessageInsideSeb       = "InsideSeb";
+        const String MessageOutsideSeb      = "OutsideSeb";
+        const String MessageSecurityOptions = "SecurityOptions";
+        const String MessageOnlineExam      = "OnlineExam";
+        const String MessageSpecialKeys     = "SpecialKeys";
+        const String MessageFunctionKeys    = "FunctionKeys";
+        const String MessageOther           = "Other";
+
+
+        // Group "General"
+        const int MinValueGeneral  = 1;
+        const int ValueStartURL                     = 1;
+        const int ValueSEBServerURL                 = 2;
+        const int ValueAdministratorPassword        = 3;
+        const int ValueConfirmAdministratorPassword = 4;
+        const int ValueAllowUserToQuitSEB           = 5;
+        const int ValueQuitPassword                 = 6;
+        const int ValueConfirmQuitPassword          = 7;
+        const int ValueQuitHashcode                 = 8;
+        const int MaxValueGeneral  = 8;
+
+        const String MessageStartURL                     = "StartURL";
+        const String MessageSEBServerURL                 = "SEBServerURL";
+        const String MessageAdministratorPassword        = "QuitPassword";
+        const String MessageConfirmAdministratorPassword = "ConfirmQuitPassword";
+        const String MessageAllowUserToQuitSEB           = "AllowUserToQuitSEB";
+        const String MessageQuitPassword                 = "QuitPassword";
+        const String MessageConfirmQuitPassword          = "ConfirmQuitPassword";
+        const String MessageQuitHashcode                 = "QuitHashcode";
+
+        // Group "Config File"
+        const int MinValueConfigFile = 1;
+        const int ValueWriteSebStarterLogFile = 1;
+        const int MaxValueConfigFile = 1;
 
         const String MessageCurrentSebStarterIni   = "CurrentSebStarterIni";
         const String MessageWriteSebStarterLogFile = "WriteSebStarterLogFile";
 
         // Groups "Inside SEB" and "Outside SEB"
-
         const int MinValueInsideSeb  = 1;
         const int MinValueOutsideSeb = 1;
         const int ValueEnableSwitchUser        = 1;
@@ -116,7 +165,7 @@ namespace SebWindowsConfig
         const String MessageOutsideSebEnableEaseOfAccess      = "OutsideSebEnableEaseOfAccess";
         const String MessageOutsideSebEnableVmWareClientShade = "OutsideSebEnableVmWareClientShade";
 
-        // Group "Security options"
+        // Group "Security Options"
         const int MinValueSecurityOptions = 1;
 
         const int ValueAllowDownUploads          = 1;
@@ -169,24 +218,18 @@ namespace SebWindowsConfig
         const String MessageNewBrowserWindowByScriptBlockForeign = "NewBrowserWindowByScriptBlockForeign";
         const String MessageOpenDownloads             = "OpenDownloads";
 
-        // Group "Online exam"
+        // Group "Online Exam"
         const int MinValueOnlineExam = 1;
         const int ValueSebBrowser            = 1;
         const int ValueAutostartProcess      = 2;
-        const int ValueExamUrl               = 3;
-        const int ValuePermittedApplications = 4;
-        const int ValueQuitPassword          = 5;
-        const int ValueQuitHashcode          = 6;
-        const int MaxValueOnlineExam = 6;
+        const int ValuePermittedApplications = 3;
+        const int MaxValueOnlineExam = 3;
 
         const String MessageSebBrowser            = "SebBrowser";
         const String MessageAutostartProcess      = "AutostartProcess";
-        const String MessageExamUrl               = "ExamUrl";
         const String MessagePermittedApplications = "PermittedApplications";
-        const String MessageQuitPassword          = "QuitPassword";
-        const String MessageQuitHashcode          = "QuitHashcode";
 
-        // Group "Special keys"
+        // Group "Special Keys"
         const int MinValueSpecialKeys = 1;
         const int ValueEnableEsc        = 1;
         const int ValueEnableCtrlEsc    = 2;
@@ -205,7 +248,7 @@ namespace SebWindowsConfig
         const String MessageEnableStartMenu  = "EnableStartMenu";
         const String MessageEnableRightMouse = "EnableRightMouse";
 
-        // Group "Function keys"
+        // Group "Function Keys"
         const int MinValueFunctionKeys = 1;
         const int ValueEnableF1  = 1;
         const int ValueEnableF2  = 2;
@@ -234,12 +277,12 @@ namespace SebWindowsConfig
         const String MessageEnableF11 = "EnableF11";
         const String MessageEnableF12 = "EnableF12";
 
-        // Group "Exit sequence"
-        const int MinValueExitSequence = 1;
+        // Group "Exit Keys"
+        const int MinValueExitKeys = 1;
         const int ValueExitKey1 = 1;
         const int ValueExitKey2 = 2;
         const int ValueExitKey3 = 3;
-        const int MaxValueExitSequence = 3;
+        const int MaxValueExitKeys = 3;
 
         const String MessageExitKey1 = "B1";
         const String MessageExitKey2 = "B2";
@@ -318,11 +361,21 @@ namespace SebWindowsConfig
                 settingBoolean[StateDef, GroupSecurityOptions, value] = false;
                 settingBoolean[StateDef, GroupSpecialKeys    , value] = false;
                 settingBoolean[StateDef, GroupFunctionKeys   , value] = false;
-                settingInteger[StateDef, GroupExitSequence   , value] = 0;
+                settingInteger[StateDef, GroupExitKeys       , value] = 0;
             }
 
-            // Default settings for group "SebStarter config file"
-            settingBoolean[StateDef, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = true;
+            // Default settings for group "General"
+            settingBoolean[StateDef, GroupGeneral, ValueAllowUserToQuitSEB          ] = true;
+            settingString [StateDef, GroupGeneral, ValueStartURL                    ] = "http://www.safeexambrowser.org";
+            settingString [StateDef, GroupGeneral, ValueSEBServerURL                ] = "";
+            settingString [StateDef, GroupGeneral, ValueAdministratorPassword       ] = "";
+            settingString [StateDef, GroupGeneral, ValueConfirmAdministratorPassword] = "";
+            settingString [StateDef, GroupGeneral, ValueQuitPassword                ] = "";
+            settingString [StateDef, GroupGeneral, ValueConfirmQuitPassword         ] = "";
+            settingString [StateDef, GroupGeneral, ValueQuitHashcode                ] = "";
+
+            // Default settings for group "Config File"
+            settingBoolean[StateDef, GroupConfigFile, ValueWriteSebStarterLogFile] = true;
 
             // Default settings for group "Security options"
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowDownUploads         ] = true;
@@ -357,36 +410,34 @@ namespace SebWindowsConfig
 
             settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ] =  SebBrowserString;
             settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
-            settingString[StateDef, GroupOnlineExam, ValueExamUrl              ] = "http://www.safeexambrowser.org";
             settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
-            settingString[StateDef, GroupOnlineExam, ValueQuitPassword         ] = "";
-            settingString[StateDef, GroupOnlineExam, ValueQuitHashcode         ] = "";
 
             // Default settings for groups "Special keys" and "Function keys"
             settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
             settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5    ] = true;
 
             // Default settings for group "Exit sequence"
-            settingInteger[StateDef, GroupExitSequence, ValueExitKey1] =  3;
-            settingInteger[StateDef, GroupExitSequence, ValueExitKey2] = 11;
-            settingInteger[StateDef, GroupExitSequence, ValueExitKey3] =  6;
+            settingInteger[StateDef, GroupExitKeys, ValueExitKey1] =  3;
+            settingInteger[StateDef, GroupExitKeys, ValueExitKey2] = 11;
+            settingInteger[StateDef, GroupExitKeys, ValueExitKey3] =  6;
 
-            settingInteger[StateNew, GroupExitSequence, ValueExitKey1] =  3;
-            settingInteger[StateNew, GroupExitSequence, ValueExitKey2] = 11;
-            settingInteger[StateNew, GroupExitSequence, ValueExitKey3] =  6;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey1] =  3;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey2] = 11;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey3] =  6;
 
 
             // Data types of the different values
             for (value = ValueMin; value <= ValueMax; value++)
             {
-                dataType[GroupSebStarterConfigFile, value] = TypeBoolean;
-                dataType[GroupInsideSeb           , value] = TypeBoolean;
-                dataType[GroupOutsideSeb          , value] = TypeBoolean;
-                dataType[GroupSecurityOptions     , value] = TypeBoolean;
-                dataType[GroupOnlineExam          , value] = TypeString;
-                dataType[GroupSpecialKeys         , value] = TypeBoolean;
-                dataType[GroupFunctionKeys        , value] = TypeBoolean;
-                dataType[GroupExitSequence        , value] = TypeString;
+                dataType[GroupGeneral        , value] = TypeString;
+                dataType[GroupConfigFile     , value] = TypeBoolean;
+                dataType[GroupInsideSeb      , value] = TypeBoolean;
+                dataType[GroupOutsideSeb     , value] = TypeBoolean;
+                dataType[GroupSecurityOptions, value] = TypeBoolean;
+                dataType[GroupOnlineExam     , value] = TypeString;
+                dataType[GroupSpecialKeys    , value] = TypeBoolean;
+                dataType[GroupFunctionKeys   , value] = TypeBoolean;
+                dataType[GroupExitKeys       , value] = TypeString;
             }
 
 
@@ -400,30 +451,43 @@ namespace SebWindowsConfig
                 minValue[group] = 1;
             }
 
-            maxValue[GroupSebStarterConfigFile] = MaxValueSebStarterConfigFile;
-            maxValue[GroupInsideSeb           ] = MaxValueInsideSeb;
-            maxValue[GroupOutsideSeb          ] = MaxValueOutsideSeb;
-            maxValue[GroupSecurityOptions     ] = MaxValueSecurityOptions;
-            maxValue[GroupOnlineExam          ] = MaxValueOnlineExam;
-            maxValue[GroupSpecialKeys         ] = MaxValueSpecialKeys;
-            maxValue[GroupFunctionKeys        ] = MaxValueFunctionKeys;
-            maxValue[GroupExitSequence        ] = MaxValueExitSequence;
+            maxValue[GroupGeneral     ] = MaxValueGeneral;
+            maxValue[GroupConfigFile  ] = MaxValueConfigFile;
+/*
+            maxValue[GroupAppearance  ] = MaxValueApperance;
+            maxValue[GroupBrowser     ] = MaxValueBrowser;
+            maxValue[GroupDownUploads ] = MaxValueDownUploads;
+            maxValue[GroupExam        ] = MaxValueExam;
+            maxValue[GroupApplications] = MaxValueApplications;
+            maxValue[GroupNetwork     ] = MaxValueNetwork;
+            maxValue[GroupSecurity    ] = MaxValueSecurity;
+            maxValue[GroupRegistry    ] = MaxValueRegistry;
+            maxValue[GroupHookedKeys  ] = MaxValueHookedKeys;
+            maxValue[GroupExitKeys    ] = MaxValueExitKeys;
+*/
+            maxValue[GroupInsideSeb      ] = MaxValueInsideSeb;
+            maxValue[GroupOutsideSeb     ] = MaxValueOutsideSeb;
+            maxValue[GroupSecurityOptions] = MaxValueSecurityOptions;
+            maxValue[GroupOnlineExam     ] = MaxValueOnlineExam;
+            maxValue[GroupSpecialKeys    ] = MaxValueSpecialKeys;
+            maxValue[GroupFunctionKeys   ] = MaxValueFunctionKeys;
+//          maxValue[GroupOther          ] = MaxValueOther;
 
             // File names
             configString[FileSebStarter] = ConfigSebStarter;
 
             // Group names
-            groupString[GroupSebStarterConfigFile] = MessageSebStarterConfigFile;
-            groupString[GroupInsideSeb           ] = MessageInsideSeb;
-            groupString[GroupOutsideSeb          ] = MessageOutsideSeb;
-            groupString[GroupSecurityOptions     ] = MessageSecurityOptions;
-            groupString[GroupOnlineExam          ] = MessageOnlineExam;
-            groupString[GroupSpecialKeys         ] = MessageSpecialKeys;
-            groupString[GroupFunctionKeys        ] = MessageFunctionKeys;
-            groupString[GroupExitSequence        ] = MessageExitSequence;
+            groupString[GroupConfigFile     ] = MessageConfigFile;
+            groupString[GroupInsideSeb      ] = MessageInsideSeb;
+            groupString[GroupOutsideSeb     ] = MessageOutsideSeb;
+            groupString[GroupSecurityOptions] = MessageSecurityOptions;
+            groupString[GroupOnlineExam     ] = MessageOnlineExam;
+            groupString[GroupSpecialKeys    ] = MessageSpecialKeys;
+            groupString[GroupFunctionKeys   ] = MessageFunctionKeys;
+            groupString[GroupExitKeys       ] = MessageExitKeys;
 
             // Value names
-            valueString[GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = MessageWriteSebStarterLogFile;
+            valueString[GroupConfigFile, ValueWriteSebStarterLogFile] = MessageWriteSebStarterLogFile;
 
             valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
             valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
@@ -469,10 +533,7 @@ namespace SebWindowsConfig
 
             valueString[GroupOnlineExam, ValueSebBrowser           ] = MessageSebBrowser;
             valueString[GroupOnlineExam, ValueAutostartProcess     ] = MessageAutostartProcess;
-            valueString[GroupOnlineExam, ValueExamUrl              ] = MessageExamUrl;
             valueString[GroupOnlineExam, ValuePermittedApplications] = MessagePermittedApplications;
-            valueString[GroupOnlineExam, ValueQuitPassword         ] = MessageQuitPassword;
-            valueString[GroupOnlineExam, ValueQuitHashcode         ] = MessageQuitHashcode;
 
             valueString[GroupSpecialKeys, ValueEnableEsc       ] = MessageEnableEsc;
             valueString[GroupSpecialKeys, ValueEnableCtrlEsc   ] = MessageEnableCtrlEsc;
@@ -495,9 +556,9 @@ namespace SebWindowsConfig
             valueString[GroupFunctionKeys, ValueEnableF11] = MessageEnableF11;
             valueString[GroupFunctionKeys, ValueEnableF12] = MessageEnableF12;
 
-            valueString[GroupExitSequence, ValueExitKey1] = MessageExitKey1;
-            valueString[GroupExitSequence, ValueExitKey2] = MessageExitKey2;
-            valueString[GroupExitSequence, ValueExitKey3] = MessageExitKey3;
+            valueString[GroupExitKeys, ValueExitKey1] = MessageExitKey1;
+            valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
+            valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
 
             virtualKeyCodeString[ 1] = "112";
             virtualKeyCodeString[ 2] = "113";
@@ -686,9 +747,9 @@ namespace SebWindowsConfig
             if (iniFile == FileSebStarter)
             {
                 // Convert the B1, B2, B3 strings to integers
-                String tmpB1 = settingString[StateTmp, GroupExitSequence, ValueExitKey1];
-                String tmpB2 = settingString[StateTmp, GroupExitSequence, ValueExitKey2];
-                String tmpB3 = settingString[StateTmp, GroupExitSequence, ValueExitKey3];
+                String tmpB1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
+                String tmpB2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
+                String tmpB3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
 
                 int tmpIndexExitKey1 = 0;
                 int tmpIndexExitKey2 = 0;
@@ -703,9 +764,9 @@ namespace SebWindowsConfig
                     if (tmpB3.Equals(vkc)) tmpIndexExitKey3 = indexFunctionKey;
                 }
 
-                settingInteger[StateTmp, GroupExitSequence, ValueExitKey1] = tmpIndexExitKey1;
-                settingInteger[StateTmp, GroupExitSequence, ValueExitKey2] = tmpIndexExitKey2;
-                settingInteger[StateTmp, GroupExitSequence, ValueExitKey3] = tmpIndexExitKey3;
+                settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = tmpIndexExitKey1;
+                settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = tmpIndexExitKey2;
+                settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = tmpIndexExitKey3;
             } 
             #endregion
 
@@ -755,13 +816,13 @@ namespace SebWindowsConfig
             // The Exit Key Sequence of the SebStarter ini file needs a special conversion
             if (iniFile == FileSebStarter)
             {
-                int newIndexExitKey1 = settingInteger[StateNew, GroupExitSequence, ValueExitKey1];
-                int newIndexExitKey2 = settingInteger[StateNew, GroupExitSequence, ValueExitKey2];
-                int newIndexExitKey3 = settingInteger[StateNew, GroupExitSequence, ValueExitKey3];
+                int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
+                int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
+                int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
 
-                settingString[StateNew, GroupExitSequence, ValueExitKey1] = virtualKeyCodeString[newIndexExitKey1];
-                settingString[StateNew, GroupExitSequence, ValueExitKey2] = virtualKeyCodeString[newIndexExitKey2];
-                settingString[StateNew, GroupExitSequence, ValueExitKey3] = virtualKeyCodeString[newIndexExitKey3];
+                settingString[StateNew, GroupExitKeys, ValueExitKey1] = virtualKeyCodeString[newIndexExitKey1];
+                settingString[StateNew, GroupExitKeys, ValueExitKey2] = virtualKeyCodeString[newIndexExitKey2];
+                settingString[StateNew, GroupExitKeys, ValueExitKey3] = virtualKeyCodeString[newIndexExitKey3];
             } 
             #endregion
 
@@ -858,7 +919,7 @@ namespace SebWindowsConfig
         // Group "SebStarter config file"
         private void checkBoxWriteSebStarterLogFile_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile] = checkBoxWriteSebStarterLogFile.Checked;
+            settingBoolean[StateNew, GroupConfigFile, ValueWriteSebStarterLogFile] = checkBoxWriteSebStarterLogFile.Checked;
         }
 
 
@@ -1059,11 +1120,6 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupOnlineExam, ValueAutostartProcess] = textBoxAutostartProcess.Text;
         }
 
-        private void textBoxExamUrl_TextChanged(object sender, EventArgs e)
-        {
-            settingString[StateNew, GroupOnlineExam, ValueExamUrl] = textBoxStartUrl.Text;
-        }
-
         private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
         {
             settingString[StateNew, GroupOnlineExam, ValuePermittedApplications] = textBoxPermittedApplications.Text;
@@ -1176,9 +1232,9 @@ namespace SebWindowsConfig
             // If selected key is already occupied, revert to previously selected key.
             if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
                 (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupExitSequence, ValueExitKey1] - 1;
+                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
 
-            settingInteger[StateNew, GroupExitSequence, ValueExitKey1] = listBoxExitKey1.SelectedIndex + 1;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey1] = listBoxExitKey1.SelectedIndex + 1;
         }
 
 
@@ -1188,9 +1244,9 @@ namespace SebWindowsConfig
             // If selected key is already occupied, revert to previously selected key.
             if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
                 (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupExitSequence, ValueExitKey2] - 1;
+                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
 
-            settingInteger[StateNew, GroupExitSequence, ValueExitKey2] = listBoxExitKey2.SelectedIndex + 1;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey2] = listBoxExitKey2.SelectedIndex + 1;
         }
 
 
@@ -1200,31 +1256,10 @@ namespace SebWindowsConfig
             // If selected key is already occupied, revert to previously selected key.
             if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
                 (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
-                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupExitSequence, ValueExitKey3] - 1;
+                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
 
-            settingInteger[StateNew, GroupExitSequence, ValueExitKey3] = listBoxExitKey3.SelectedIndex + 1;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey3] = listBoxExitKey3.SelectedIndex + 1;
         }
-
-
-        private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
-        {
-            // Get the new quit password
-            String newStringQuitPassword = textBoxQuitPassword.Text;
-
-            // Encrypt the new quit password
-            byte[] passwordBytes = Encoding.Default.GetBytes(newStringQuitPassword);
-            byte[] hashcodeBytes = sha256.ComputeHash(passwordBytes);
-
-            String newStringQuitHashcode = string.Empty;
-            for (int i = 0; i < hashcodeBytes.Length; i++)
-                newStringQuitHashcode += hashcodeBytes[i].ToString("X");
-
-            textBoxQuitHashcode.Text = newStringQuitHashcode;
-
-            //settingString[StateNew, GroupOnlineExam, ValueQuitPassword] = newStringQuitPassword;
-            //settingString[StateNew, GroupOnlineExam, ValueQuitHashcode] = newStringQuitHashcode;
-        }
-
 
 
         // *********************************
@@ -1279,7 +1314,7 @@ namespace SebWindowsConfig
             textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
             textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
 
-            checkBoxWriteSebStarterLogFile.Checked = settingBoolean[StateNew, GroupSebStarterConfigFile, ValueWriteSebStarterLogFile];
+            checkBoxWriteSebStarterLogFile.Checked = settingBoolean[StateNew, GroupConfigFile, ValueWriteSebStarterLogFile];
 
             checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser];
             checkBoxInsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer];
@@ -1325,7 +1360,7 @@ namespace SebWindowsConfig
 
             textBoxSebBrowser           .Text = settingString[StateNew, GroupOnlineExam, ValueSebBrowser];
             textBoxAutostartProcess     .Text = settingString[StateNew, GroupOnlineExam, ValueAutostartProcess];
-            textBoxStartUrl              .Text = settingString[StateNew, GroupOnlineExam, ValueExamUrl];
+            textBoxStartURL             .Text = settingString[StateNew, GroupOnlineExam, ValueStartURL];
             textBoxPermittedApplications.Text = settingString[StateNew, GroupOnlineExam, ValuePermittedApplications];
             textBoxQuitPassword         .Text = settingString[StateNew, GroupOnlineExam, ValueQuitPassword];
             textBoxQuitHashcode         .Text = settingString[StateNew, GroupOnlineExam, ValueQuitHashcode];
@@ -1351,9 +1386,9 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11];
             checkBoxEnableF12.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12];
 
-            listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitSequence, ValueExitKey1] - 1;
-            listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitSequence, ValueExitKey2] - 1;
-            listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitSequence, ValueExitKey3] - 1;
+            listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
+            listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
+            listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
         }
 
 
@@ -1406,6 +1441,65 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
+
+
+        // *************
+        // "General" tab
+        // *************
+        private void textBoxStartURL_TextChanged(object sender, EventArgs e)
+        {
+            settingString[StateNew, GroupOnlineExam, ValueStartURL] = textBoxStartURL.Text;
+        }
+
+        private void textBoxSEBServerURL_TextChanged(object sender, EventArgs e)
+        {
+            //settingString[StateNew, GroupOnlineExam, ValueSEBServerURL] = textBoxSEBServerURL.Text;
+        }
+
+        private void textBoxAdministratorPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void textBoxConfirmAdministratorPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void checkBoxAllowUserToQuitSEB_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void textBoxQuitPassword_TextChanged_1(object sender, EventArgs e)
+        {
+            // Get the new quit password
+            String newStringQuitPassword = textBoxQuitPassword.Text;
+
+            // Encrypt the new quit password
+            byte[] passwordBytes = Encoding.Default.GetBytes(newStringQuitPassword);
+            byte[] hashcodeBytes = sha256.ComputeHash(passwordBytes);
+
+            String newStringQuitHashcode = string.Empty;
+            for (int i = 0; i < hashcodeBytes.Length; i++)
+                newStringQuitHashcode += hashcodeBytes[i].ToString("X");
+
+            textBoxQuitHashcode.Text = newStringQuitHashcode;
+
+            //settingString[StateNew, GroupOnlineExam, ValueQuitPassword] = newStringQuitPassword;
+            //settingString[StateNew, GroupOnlineExam, ValueQuitHashcode] = newStringQuitHashcode;
+        }
+
+
+        private void textBoxConfirmQuitPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
 
