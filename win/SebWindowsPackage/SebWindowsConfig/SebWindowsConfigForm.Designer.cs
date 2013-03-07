@@ -32,51 +32,50 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsConfigForm));
             this.openFileDialogSebStarterIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
-            this.tabPageHookedMessageKeys = new System.Windows.Forms.TabPage();
-            this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
-            this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF12 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF11 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF5 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF10 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF6 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF9 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF7 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableF8 = new System.Windows.Forms.CheckBox();
-            this.groupBoxSpecialKeys = new System.Windows.Forms.GroupBox();
-            this.checkBoxEnableEsc = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableCtrlEsc = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableAltEsc = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableAltTab = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableAltF4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableStartMenu = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
-            this.tabPageSecurityOptions = new System.Windows.Forms.TabPage();
-            this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
-            this.checkBoxEnablePlugins = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableLog = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableBrowsingBackForward = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowQuit = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
-            this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
-            this.checkBoxNewBrowserWindowByScriptBlockForeign = new System.Windows.Forms.CheckBox();
-            this.checkBoxNewBrowserWindowByLinkBlockForeign = new System.Windows.Forms.CheckBox();
-            this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
-            this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
-            this.checkBoxHookMessages = new System.Windows.Forms.CheckBox();
-            this.checkBoxDownloadPDFFiles = new System.Windows.Forms.CheckBox();
-            this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
-            this.checkBoxBlockPopupWindows = new System.Windows.Forms.CheckBox();
-            this.tabPageRegistryValues = new System.Windows.Forms.TabPage();
+            this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
+            this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.tabPageAppearance = new System.Windows.Forms.TabPage();
+            this.tabPageSEBConfig = new System.Windows.Forms.TabPage();
+            this.groupBoxSebStarterConfigFile = new System.Windows.Forms.GroupBox();
+            this.buttonRestoreSebStarterConfigFile = new System.Windows.Forms.Button();
+            this.labelSaveSebStarterConfigFile = new System.Windows.Forms.Label();
+            this.checkBoxWriteSebStarterLogFile = new System.Windows.Forms.CheckBox();
+            this.labelOpenSebStarterConfigFile = new System.Windows.Forms.Label();
+            this.textBoxCurrentDireSebStarterIni = new System.Windows.Forms.TextBox();
+            this.buttonDefaultSebStarterSettings = new System.Windows.Forms.Button();
+            this.textBoxCurrentFileSebStarterIni = new System.Windows.Forms.TextBox();
+            this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.labelStartUrl = new System.Windows.Forms.Label();
+            this.labelQuitPassword = new System.Windows.Forms.Label();
+            this.labelQuitHashCode = new System.Windows.Forms.Label();
+            this.checkBoxAllowUserToQuitSEB = new System.Windows.Forms.CheckBox();
+            this.labelConfirmQuitPassword = new System.Windows.Forms.Label();
+            this.labelAdministratorPassword = new System.Windows.Forms.Label();
+            this.labelConfirmAdministratorPassword = new System.Windows.Forms.Label();
+            this.textBoxStartUrl = new System.Windows.Forms.TextBox();
+            this.textBoxQuitPassword = new System.Windows.Forms.TextBox();
+            this.textBoxQuitHashcode = new System.Windows.Forms.TextBox();
+            this.textBoxConfirmQuitPassword = new System.Windows.Forms.TextBox();
+            this.textBoxAdministratorPassword = new System.Windows.Forms.TextBox();
+            this.textBoxConfirmAdministratorPassword = new System.Windows.Forms.TextBox();
+            this.buttonAbout = new System.Windows.Forms.Button();
+            this.buttonQuit = new System.Windows.Forms.Button();
+            this.buttonRestartSEB = new System.Windows.Forms.Button();
+            this.buttonHelp = new System.Windows.Forms.Button();
+            this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
+            this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.tabPageExam = new System.Windows.Forms.TabPage();
+            this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
+            this.textBoxAutostartProcess = new System.Windows.Forms.TextBox();
+            this.labelSebBrowser = new System.Windows.Forms.Label();
+            this.labelAutostartProcess = new System.Windows.Forms.Label();
+            this.textBoxSebBrowser = new System.Windows.Forms.TextBox();
+            this.labelPermittedApplications = new System.Windows.Forms.Label();
+            this.textBoxPermittedApplications = new System.Windows.Forms.TextBox();
+            this.tabPageApplications = new System.Windows.Forms.TabPage();
+            this.tabPageNetwork = new System.Windows.Forms.TabPage();
+            this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.tabPageRegistry = new System.Windows.Forms.TabPage();
             this.groupBoxOutsideSeb = new System.Windows.Forms.GroupBox();
             this.checkBoxOutsideSebEnableSwitchUser = new System.Windows.Forms.CheckBox();
             this.checkBoxOutsideSebEnableLockThisComputer = new System.Windows.Forms.CheckBox();
@@ -99,66 +98,71 @@
             this.checkBoxInsideSebEnableShutDown = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
-            this.tabPageAppearance = new System.Windows.Forms.TabPage();
-            this.tabPageSEBConfig = new System.Windows.Forms.TabPage();
-            this.groupBoxSebStarterConfigFile = new System.Windows.Forms.GroupBox();
-            this.textBoxCurrentFileSebStarterIni = new System.Windows.Forms.TextBox();
-            this.buttonDefaultSebStarterSettings = new System.Windows.Forms.Button();
-            this.textBoxCurrentDireSebStarterIni = new System.Windows.Forms.TextBox();
-            this.labelOpenSebStarterConfigFile = new System.Windows.Forms.Label();
-            this.checkBoxWriteSebStarterLogFile = new System.Windows.Forms.CheckBox();
-            this.labelSaveSebStarterConfigFile = new System.Windows.Forms.Label();
-            this.buttonRestoreSebStarterConfigFile = new System.Windows.Forms.Button();
-            this.tabPageGeneral = new System.Windows.Forms.TabPage();
-            this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonRestartSEB = new System.Windows.Forms.Button();
-            this.buttonQuit = new System.Windows.Forms.Button();
-            this.buttonAbout = new System.Windows.Forms.Button();
-            this.textBoxConfirmAdministratorPassword = new System.Windows.Forms.TextBox();
-            this.labelConfirmAdministratorPassword = new System.Windows.Forms.Label();
-            this.textBoxAdministratorPassword = new System.Windows.Forms.TextBox();
-            this.labelAdministratorPassword = new System.Windows.Forms.Label();
-            this.textBoxConfirmQuitPassword = new System.Windows.Forms.TextBox();
-            this.labelConfirmQuitPassword = new System.Windows.Forms.Label();
-            this.checkBoxAllowUserToQuitSEB = new System.Windows.Forms.CheckBox();
-            this.textBoxQuitHashcode = new System.Windows.Forms.TextBox();
-            this.textBoxQuitPassword = new System.Windows.Forms.TextBox();
-            this.textBoxStartUrl = new System.Windows.Forms.TextBox();
-            this.labelQuitHashCode = new System.Windows.Forms.Label();
-            this.labelQuitPassword = new System.Windows.Forms.Label();
-            this.labelStartUrl = new System.Windows.Forms.Label();
-            this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
-            this.tabPageOnlineExam = new System.Windows.Forms.TabPage();
-            this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
-            this.textBoxAutostartProcess = new System.Windows.Forms.TextBox();
-            this.labelSebBrowser = new System.Windows.Forms.Label();
-            this.labelAutostartProcess = new System.Windows.Forms.Label();
-            this.textBoxSebBrowser = new System.Windows.Forms.TextBox();
-            this.labelPermittedApplications = new System.Windows.Forms.Label();
-            this.textBoxPermittedApplications = new System.Windows.Forms.TextBox();
+            this.tabPageHookedKeys = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.checkBox14 = new System.Windows.Forms.CheckBox();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.tabPageExitKeys = new System.Windows.Forms.TabPage();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
-            this.tabPageHookedMessageKeys.SuspendLayout();
-            this.groupBoxFunctionKeys.SuspendLayout();
-            this.groupBoxSpecialKeys.SuspendLayout();
-            this.tabPageSecurityOptions.SuspendLayout();
-            this.groupBoxSecurityOptions.SuspendLayout();
-            this.tabPageRegistryValues.SuspendLayout();
-            this.groupBoxOutsideSeb.SuspendLayout();
-            this.groupBoxSetOutsideSebValues.SuspendLayout();
-            this.groupBoxInsideSeb.SuspendLayout();
+            this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
+            this.checkBoxEnablePlugins = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableLog = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableBrowsingBackForward = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowQuit = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
+            this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
+            this.checkBoxNewBrowserWindowByScriptBlockForeign = new System.Windows.Forms.CheckBox();
+            this.checkBoxNewBrowserWindowByLinkBlockForeign = new System.Windows.Forms.CheckBox();
+            this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
+            this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
+            this.checkBoxHookMessages = new System.Windows.Forms.CheckBox();
+            this.checkBoxDownloadPDFFiles = new System.Windows.Forms.CheckBox();
+            this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
+            this.checkBoxBlockPopupWindows = new System.Windows.Forms.CheckBox();
             this.tabPageSEBConfig.SuspendLayout();
             this.groupBoxSebStarterConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
-            this.tabPageOnlineExam.SuspendLayout();
+            this.tabPageExam.SuspendLayout();
             this.groupBoxOnlineExam.SuspendLayout();
+            this.tabPageSecurity.SuspendLayout();
+            this.tabPageRegistry.SuspendLayout();
+            this.groupBoxOutsideSeb.SuspendLayout();
+            this.groupBoxSetOutsideSebValues.SuspendLayout();
+            this.groupBoxInsideSeb.SuspendLayout();
+            this.tabPageHookedKeys.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tabPageExitKeys.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
+            this.groupBoxSecurityOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialogSebStarterIni
@@ -175,548 +179,482 @@
             this.saveFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
             this.saveFileDialogSebStarterIni.Title = "Save file SebStarter.ini";
             // 
-            // tabPageHookedMessageKeys
-            // 
-            this.tabPageHookedMessageKeys.Controls.Add(this.groupBoxFunctionKeys);
-            this.tabPageHookedMessageKeys.Controls.Add(this.groupBoxSpecialKeys);
-            this.tabPageHookedMessageKeys.ImageIndex = 3;
-            this.tabPageHookedMessageKeys.Location = new System.Drawing.Point(4, 39);
-            this.tabPageHookedMessageKeys.Name = "tabPageHookedMessageKeys";
-            this.tabPageHookedMessageKeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHookedMessageKeys.Size = new System.Drawing.Size(1054, 469);
-            this.tabPageHookedMessageKeys.TabIndex = 11;
-            this.tabPageHookedMessageKeys.Text = "Hooked Message Keys";
-            this.tabPageHookedMessageKeys.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxFunctionKeys
-            // 
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF1);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF2);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF12);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF3);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF11);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF4);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF5);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF10);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF6);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF9);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF7);
-            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF8);
-            this.groupBoxFunctionKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(244, 19);
-            this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
-            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(130, 390);
-            this.groupBoxFunctionKeys.TabIndex = 41;
-            this.groupBoxFunctionKeys.TabStop = false;
-            this.groupBoxFunctionKeys.Text = "Function keys";
-            // 
-            // checkBoxEnableF1
-            // 
-            this.checkBoxEnableF1.AutoSize = true;
-            this.checkBoxEnableF1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF1.Location = new System.Drawing.Point(10, 30);
-            this.checkBoxEnableF1.Name = "checkBoxEnableF1";
-            this.checkBoxEnableF1.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF1.TabIndex = 25;
-            this.checkBoxEnableF1.Text = "Enable F1";
-            this.checkBoxEnableF1.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF2
-            // 
-            this.checkBoxEnableF2.AutoSize = true;
-            this.checkBoxEnableF2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF2.Location = new System.Drawing.Point(10, 60);
-            this.checkBoxEnableF2.Name = "checkBoxEnableF2";
-            this.checkBoxEnableF2.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF2.TabIndex = 26;
-            this.checkBoxEnableF2.Text = "Enable F2";
-            this.checkBoxEnableF2.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF12
-            // 
-            this.checkBoxEnableF12.AutoSize = true;
-            this.checkBoxEnableF12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF12.Location = new System.Drawing.Point(10, 360);
-            this.checkBoxEnableF12.Name = "checkBoxEnableF12";
-            this.checkBoxEnableF12.Size = new System.Drawing.Size(102, 21);
-            this.checkBoxEnableF12.TabIndex = 37;
-            this.checkBoxEnableF12.Text = "Enable F12";
-            this.checkBoxEnableF12.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF3
-            // 
-            this.checkBoxEnableF3.AutoSize = true;
-            this.checkBoxEnableF3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF3.Location = new System.Drawing.Point(10, 90);
-            this.checkBoxEnableF3.Name = "checkBoxEnableF3";
-            this.checkBoxEnableF3.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF3.TabIndex = 27;
-            this.checkBoxEnableF3.Text = "Enable F3";
-            this.checkBoxEnableF3.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF11
-            // 
-            this.checkBoxEnableF11.AutoSize = true;
-            this.checkBoxEnableF11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF11.Location = new System.Drawing.Point(10, 330);
-            this.checkBoxEnableF11.Name = "checkBoxEnableF11";
-            this.checkBoxEnableF11.Size = new System.Drawing.Size(102, 21);
-            this.checkBoxEnableF11.TabIndex = 36;
-            this.checkBoxEnableF11.Text = "Enable F11";
-            this.checkBoxEnableF11.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF4
-            // 
-            this.checkBoxEnableF4.AutoSize = true;
-            this.checkBoxEnableF4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF4.Location = new System.Drawing.Point(10, 120);
-            this.checkBoxEnableF4.Name = "checkBoxEnableF4";
-            this.checkBoxEnableF4.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF4.TabIndex = 28;
-            this.checkBoxEnableF4.Text = "Enable F4";
-            this.checkBoxEnableF4.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF5
-            // 
-            this.checkBoxEnableF5.AutoSize = true;
-            this.checkBoxEnableF5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF5.Location = new System.Drawing.Point(10, 150);
-            this.checkBoxEnableF5.Name = "checkBoxEnableF5";
-            this.checkBoxEnableF5.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF5.TabIndex = 29;
-            this.checkBoxEnableF5.Text = "Enable F5";
-            this.checkBoxEnableF5.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF10
-            // 
-            this.checkBoxEnableF10.AutoSize = true;
-            this.checkBoxEnableF10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF10.Location = new System.Drawing.Point(10, 300);
-            this.checkBoxEnableF10.Name = "checkBoxEnableF10";
-            this.checkBoxEnableF10.Size = new System.Drawing.Size(102, 21);
-            this.checkBoxEnableF10.TabIndex = 34;
-            this.checkBoxEnableF10.Text = "Enable F10";
-            this.checkBoxEnableF10.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF6
-            // 
-            this.checkBoxEnableF6.AutoSize = true;
-            this.checkBoxEnableF6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF6.Location = new System.Drawing.Point(10, 180);
-            this.checkBoxEnableF6.Name = "checkBoxEnableF6";
-            this.checkBoxEnableF6.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF6.TabIndex = 30;
-            this.checkBoxEnableF6.Text = "Enable F6";
-            this.checkBoxEnableF6.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF9
-            // 
-            this.checkBoxEnableF9.AutoSize = true;
-            this.checkBoxEnableF9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF9.Location = new System.Drawing.Point(10, 270);
-            this.checkBoxEnableF9.Name = "checkBoxEnableF9";
-            this.checkBoxEnableF9.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF9.TabIndex = 33;
-            this.checkBoxEnableF9.Text = "Enable F9";
-            this.checkBoxEnableF9.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF7
-            // 
-            this.checkBoxEnableF7.AutoSize = true;
-            this.checkBoxEnableF7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF7.Location = new System.Drawing.Point(10, 210);
-            this.checkBoxEnableF7.Name = "checkBoxEnableF7";
-            this.checkBoxEnableF7.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF7.TabIndex = 31;
-            this.checkBoxEnableF7.Text = "Enable F7";
-            this.checkBoxEnableF7.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableF8
-            // 
-            this.checkBoxEnableF8.AutoSize = true;
-            this.checkBoxEnableF8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableF8.Location = new System.Drawing.Point(10, 240);
-            this.checkBoxEnableF8.Name = "checkBoxEnableF8";
-            this.checkBoxEnableF8.Size = new System.Drawing.Size(94, 21);
-            this.checkBoxEnableF8.TabIndex = 32;
-            this.checkBoxEnableF8.Text = "Enable F8";
-            this.checkBoxEnableF8.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxSpecialKeys
-            // 
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableEsc);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableCtrlEsc);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltEsc);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltTab);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltF4);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableStartMenu);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableRightMouse);
-            this.groupBoxSpecialKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxSpecialKeys.Location = new System.Drawing.Point(20, 19);
-            this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
-            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(170, 240);
-            this.groupBoxSpecialKeys.TabIndex = 39;
-            this.groupBoxSpecialKeys.TabStop = false;
-            this.groupBoxSpecialKeys.Text = "Special keys";
-            // 
-            // checkBoxEnableEsc
-            // 
-            this.checkBoxEnableEsc.AutoSize = true;
-            this.checkBoxEnableEsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableEsc.Location = new System.Drawing.Point(10, 30);
-            this.checkBoxEnableEsc.Name = "checkBoxEnableEsc";
-            this.checkBoxEnableEsc.Size = new System.Drawing.Size(101, 21);
-            this.checkBoxEnableEsc.TabIndex = 41;
-            this.checkBoxEnableEsc.Text = "Enable Esc";
-            this.checkBoxEnableEsc.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableCtrlEsc
-            // 
-            this.checkBoxEnableCtrlEsc.AutoSize = true;
-            this.checkBoxEnableCtrlEsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableCtrlEsc.Location = new System.Drawing.Point(10, 60);
-            this.checkBoxEnableCtrlEsc.Name = "checkBoxEnableCtrlEsc";
-            this.checkBoxEnableCtrlEsc.Size = new System.Drawing.Size(127, 21);
-            this.checkBoxEnableCtrlEsc.TabIndex = 19;
-            this.checkBoxEnableCtrlEsc.Text = "Enable Ctrl-Esc";
-            this.checkBoxEnableCtrlEsc.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableAltEsc
-            // 
-            this.checkBoxEnableAltEsc.AutoSize = true;
-            this.checkBoxEnableAltEsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableAltEsc.Location = new System.Drawing.Point(10, 90);
-            this.checkBoxEnableAltEsc.Name = "checkBoxEnableAltEsc";
-            this.checkBoxEnableAltEsc.Size = new System.Drawing.Size(122, 21);
-            this.checkBoxEnableAltEsc.TabIndex = 20;
-            this.checkBoxEnableAltEsc.Text = "Enable Alt-Esc";
-            this.checkBoxEnableAltEsc.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableAltTab
-            // 
-            this.checkBoxEnableAltTab.AutoSize = true;
-            this.checkBoxEnableAltTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableAltTab.Location = new System.Drawing.Point(10, 120);
-            this.checkBoxEnableAltTab.Name = "checkBoxEnableAltTab";
-            this.checkBoxEnableAltTab.Size = new System.Drawing.Size(124, 21);
-            this.checkBoxEnableAltTab.TabIndex = 21;
-            this.checkBoxEnableAltTab.Text = "Enable Alt-Tab";
-            this.checkBoxEnableAltTab.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableAltF4
-            // 
-            this.checkBoxEnableAltF4.AutoSize = true;
-            this.checkBoxEnableAltF4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableAltF4.Location = new System.Drawing.Point(10, 150);
-            this.checkBoxEnableAltF4.Name = "checkBoxEnableAltF4";
-            this.checkBoxEnableAltF4.Size = new System.Drawing.Size(115, 21);
-            this.checkBoxEnableAltF4.TabIndex = 22;
-            this.checkBoxEnableAltF4.Text = "Enable Alt-F4";
-            this.checkBoxEnableAltF4.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableStartMenu
-            // 
-            this.checkBoxEnableStartMenu.AutoSize = true;
-            this.checkBoxEnableStartMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableStartMenu.Location = new System.Drawing.Point(10, 180);
-            this.checkBoxEnableStartMenu.Name = "checkBoxEnableStartMenu";
-            this.checkBoxEnableStartMenu.Size = new System.Drawing.Size(147, 21);
-            this.checkBoxEnableStartMenu.TabIndex = 23;
-            this.checkBoxEnableStartMenu.Text = "Enable Start Menu";
-            this.checkBoxEnableStartMenu.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableRightMouse
-            // 
-            this.checkBoxEnableRightMouse.AutoSize = true;
-            this.checkBoxEnableRightMouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableRightMouse.Location = new System.Drawing.Point(10, 210);
-            this.checkBoxEnableRightMouse.Name = "checkBoxEnableRightMouse";
-            this.checkBoxEnableRightMouse.Size = new System.Drawing.Size(157, 21);
-            this.checkBoxEnableRightMouse.TabIndex = 24;
-            this.checkBoxEnableRightMouse.Text = "Enable Right Mouse";
-            this.checkBoxEnableRightMouse.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSecurityOptions
-            // 
-            this.tabPageSecurityOptions.Controls.Add(this.groupBoxSecurityOptions);
-            this.tabPageSecurityOptions.ImageIndex = 2;
-            this.tabPageSecurityOptions.Location = new System.Drawing.Point(4, 39);
-            this.tabPageSecurityOptions.Name = "tabPageSecurityOptions";
-            this.tabPageSecurityOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSecurityOptions.Size = new System.Drawing.Size(817, 469);
-            this.tabPageSecurityOptions.TabIndex = 10;
-            this.tabPageSecurityOptions.Text = "Security Options";
-            this.tabPageSecurityOptions.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxSecurityOptions
-            // 
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnablePlugins);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableLog);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableJavaScript);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableJava);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableBrowsingBackForward);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowDownUploads);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowFlashFullscreen);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowPreferencesWindow);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowQuit);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowSwitchToApplications);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxOpenDownloads);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxNewBrowserWindowByScriptBlockForeign);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxNewBrowserWindowByLinkBlockForeign);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxMonitorProcesses);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxIgnoreQuitPassword);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxHookMessages);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxDownloadPDFFiles);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxBlockPopupWindows);
-            this.groupBoxSecurityOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(27, 30);
-            this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
-            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(701, 414);
-            this.groupBoxSecurityOptions.TabIndex = 46;
-            this.groupBoxSecurityOptions.TabStop = false;
-            this.groupBoxSecurityOptions.Text = "Security options";
-            // 
-            // checkBoxEnablePlugins
-            // 
-            this.checkBoxEnablePlugins.AutoSize = true;
-            this.checkBoxEnablePlugins.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnablePlugins.Location = new System.Drawing.Point(267, 137);
-            this.checkBoxEnablePlugins.Name = "checkBoxEnablePlugins";
-            this.checkBoxEnablePlugins.Size = new System.Drawing.Size(123, 21);
-            this.checkBoxEnablePlugins.TabIndex = 62;
-            this.checkBoxEnablePlugins.Text = "Enable plugins";
-            this.checkBoxEnablePlugins.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableLog
-            // 
-            this.checkBoxEnableLog.AutoSize = true;
-            this.checkBoxEnableLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableLog.Location = new System.Drawing.Point(267, 110);
-            this.checkBoxEnableLog.Name = "checkBoxEnableLog";
-            this.checkBoxEnableLog.Size = new System.Drawing.Size(97, 21);
-            this.checkBoxEnableLog.TabIndex = 61;
-            this.checkBoxEnableLog.Text = "Enable log";
-            this.checkBoxEnableLog.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableJavaScript
-            // 
-            this.checkBoxEnableJavaScript.AutoSize = true;
-            this.checkBoxEnableJavaScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(267, 83);
-            this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
-            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(144, 21);
-            this.checkBoxEnableJavaScript.TabIndex = 60;
-            this.checkBoxEnableJavaScript.Text = "Enable JavaScript";
-            this.checkBoxEnableJavaScript.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableJava
-            // 
-            this.checkBoxEnableJava.AutoSize = true;
-            this.checkBoxEnableJava.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableJava.Location = new System.Drawing.Point(267, 56);
-            this.checkBoxEnableJava.Name = "checkBoxEnableJava";
-            this.checkBoxEnableJava.Size = new System.Drawing.Size(108, 21);
-            this.checkBoxEnableJava.TabIndex = 59;
-            this.checkBoxEnableJava.Text = "Enable Java";
-            this.checkBoxEnableJava.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableBrowsingBackForward
-            // 
-            this.checkBoxEnableBrowsingBackForward.AutoSize = true;
-            this.checkBoxEnableBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableBrowsingBackForward.Location = new System.Drawing.Point(267, 29);
-            this.checkBoxEnableBrowsingBackForward.Name = "checkBoxEnableBrowsingBackForward";
-            this.checkBoxEnableBrowsingBackForward.Size = new System.Drawing.Size(219, 21);
-            this.checkBoxEnableBrowsingBackForward.TabIndex = 58;
-            this.checkBoxEnableBrowsingBackForward.Text = "Enable browsing back/forward";
-            this.checkBoxEnableBrowsingBackForward.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAllowDownUploads
-            // 
-            this.checkBoxAllowDownUploads.AutoSize = true;
-            this.checkBoxAllowDownUploads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowDownUploads.Location = new System.Drawing.Point(10, 29);
-            this.checkBoxAllowDownUploads.Name = "checkBoxAllowDownUploads";
-            this.checkBoxAllowDownUploads.Size = new System.Drawing.Size(153, 21);
-            this.checkBoxAllowDownUploads.TabIndex = 57;
-            this.checkBoxAllowDownUploads.Text = "Allow down/uploads";
-            this.checkBoxAllowDownUploads.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAllowFlashFullscreen
-            // 
-            this.checkBoxAllowFlashFullscreen.AutoSize = true;
-            this.checkBoxAllowFlashFullscreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(10, 56);
-            this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
-            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(165, 21);
-            this.checkBoxAllowFlashFullscreen.TabIndex = 56;
-            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash fullscreen";
-            this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAllowPreferencesWindow
-            // 
-            this.checkBoxAllowPreferencesWindow.AutoSize = true;
-            this.checkBoxAllowPreferencesWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowPreferencesWindow.Location = new System.Drawing.Point(10, 83);
-            this.checkBoxAllowPreferencesWindow.Name = "checkBoxAllowPreferencesWindow";
-            this.checkBoxAllowPreferencesWindow.Size = new System.Drawing.Size(191, 21);
-            this.checkBoxAllowPreferencesWindow.TabIndex = 55;
-            this.checkBoxAllowPreferencesWindow.Text = "Allow preferences window";
-            this.checkBoxAllowPreferencesWindow.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAllowQuit
-            // 
-            this.checkBoxAllowQuit.AutoSize = true;
-            this.checkBoxAllowQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowQuit.Location = new System.Drawing.Point(10, 110);
-            this.checkBoxAllowQuit.Name = "checkBoxAllowQuit";
-            this.checkBoxAllowQuit.Size = new System.Drawing.Size(89, 21);
-            this.checkBoxAllowQuit.TabIndex = 54;
-            this.checkBoxAllowQuit.Text = "Allow quit";
-            this.checkBoxAllowQuit.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAllowSwitchToApplications
-            // 
-            this.checkBoxAllowSwitchToApplications.AutoSize = true;
-            this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(10, 137);
-            this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
-            this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(199, 21);
-            this.checkBoxAllowSwitchToApplications.TabIndex = 53;
-            this.checkBoxAllowSwitchToApplications.Text = "Allow switch to applications";
-            this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxOpenDownloads
-            // 
-            this.checkBoxOpenDownloads.AutoSize = true;
-            this.checkBoxOpenDownloads.Enabled = false;
-            this.checkBoxOpenDownloads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOpenDownloads.Location = new System.Drawing.Point(267, 360);
-            this.checkBoxOpenDownloads.Name = "checkBoxOpenDownloads";
-            this.checkBoxOpenDownloads.Size = new System.Drawing.Size(136, 21);
-            this.checkBoxOpenDownloads.TabIndex = 52;
-            this.checkBoxOpenDownloads.Text = "Open downloads";
-            this.checkBoxOpenDownloads.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxNewBrowserWindowByScriptBlockForeign
-            // 
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.AutoSize = true;
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.Enabled = false;
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.Location = new System.Drawing.Point(267, 333);
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.Name = "checkBoxNewBrowserWindowByScriptBlockForeign";
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.Size = new System.Drawing.Size(302, 21);
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.TabIndex = 51;
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.Text = "New browser window by script block foreign";
-            this.checkBoxNewBrowserWindowByScriptBlockForeign.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxNewBrowserWindowByLinkBlockForeign
-            // 
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.AutoSize = true;
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.Enabled = false;
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.Location = new System.Drawing.Point(267, 306);
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.Name = "checkBoxNewBrowserWindowByLinkBlockForeign";
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.Size = new System.Drawing.Size(289, 21);
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.TabIndex = 50;
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.Text = "New browser window by link block foreign";
-            this.checkBoxNewBrowserWindowByLinkBlockForeign.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxMonitorProcesses
-            // 
-            this.checkBoxMonitorProcesses.AutoSize = true;
-            this.checkBoxMonitorProcesses.Enabled = false;
-            this.checkBoxMonitorProcesses.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(267, 279);
-            this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
-            this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
-            this.checkBoxMonitorProcesses.TabIndex = 49;
-            this.checkBoxMonitorProcesses.Text = "Monitor processes";
-            this.checkBoxMonitorProcesses.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxIgnoreQuitPassword
-            // 
-            this.checkBoxIgnoreQuitPassword.AutoSize = true;
-            this.checkBoxIgnoreQuitPassword.Enabled = false;
-            this.checkBoxIgnoreQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(267, 252);
-            this.checkBoxIgnoreQuitPassword.Name = "checkBoxIgnoreQuitPassword";
-            this.checkBoxIgnoreQuitPassword.Size = new System.Drawing.Size(161, 21);
-            this.checkBoxIgnoreQuitPassword.TabIndex = 48;
-            this.checkBoxIgnoreQuitPassword.Text = "Ignore quit password";
-            this.checkBoxIgnoreQuitPassword.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxHookMessages
-            // 
-            this.checkBoxHookMessages.AutoSize = true;
-            this.checkBoxHookMessages.Enabled = false;
-            this.checkBoxHookMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxHookMessages.Location = new System.Drawing.Point(267, 225);
-            this.checkBoxHookMessages.Name = "checkBoxHookMessages";
-            this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
-            this.checkBoxHookMessages.TabIndex = 47;
-            this.checkBoxHookMessages.Text = "Hook messages";
-            this.checkBoxHookMessages.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxDownloadPDFFiles
-            // 
-            this.checkBoxDownloadPDFFiles.AutoSize = true;
-            this.checkBoxDownloadPDFFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(11, 279);
-            this.checkBoxDownloadPDFFiles.Name = "checkBoxDownloadPDFFiles";
-            this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(152, 21);
-            this.checkBoxDownloadPDFFiles.TabIndex = 46;
-            this.checkBoxDownloadPDFFiles.Text = "Download PDF files";
-            this.checkBoxDownloadPDFFiles.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxCreateNewDesktop
-            // 
-            this.checkBoxCreateNewDesktop.AutoSize = true;
-            this.checkBoxCreateNewDesktop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(11, 252);
-            this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
-            this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
-            this.checkBoxCreateNewDesktop.TabIndex = 45;
-            this.checkBoxCreateNewDesktop.Text = "Create new desktop";
-            this.checkBoxCreateNewDesktop.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAllowVirtualMachine
-            // 
-            this.checkBoxAllowVirtualMachine.AutoSize = true;
-            this.checkBoxAllowVirtualMachine.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(10, 167);
-            this.checkBoxAllowVirtualMachine.Name = "checkBoxAllowVirtualMachine";
-            this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(161, 21);
-            this.checkBoxAllowVirtualMachine.TabIndex = 43;
-            this.checkBoxAllowVirtualMachine.Text = "Allow virtual machine";
-            this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxBlockPopupWindows
-            // 
-            this.checkBoxBlockPopupWindows.AutoSize = true;
-            this.checkBoxBlockPopupWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxBlockPopupWindows.Location = new System.Drawing.Point(11, 225);
-            this.checkBoxBlockPopupWindows.Name = "checkBoxBlockPopupWindows";
-            this.checkBoxBlockPopupWindows.Size = new System.Drawing.Size(164, 21);
-            this.checkBoxBlockPopupWindows.TabIndex = 44;
-            this.checkBoxBlockPopupWindows.Text = "Block popup windows";
-            this.checkBoxBlockPopupWindows.UseVisualStyleBackColor = true;
-            // 
-            // tabPageRegistryValues
-            // 
-            this.tabPageRegistryValues.Controls.Add(this.groupBoxOutsideSeb);
-            this.tabPageRegistryValues.Controls.Add(this.groupBoxSetOutsideSebValues);
-            this.tabPageRegistryValues.Controls.Add(this.groupBoxInsideSeb);
-            this.tabPageRegistryValues.ImageIndex = 4;
-            this.tabPageRegistryValues.Location = new System.Drawing.Point(4, 39);
-            this.tabPageRegistryValues.Name = "tabPageRegistryValues";
-            this.tabPageRegistryValues.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRegistryValues.Size = new System.Drawing.Size(817, 469);
-            this.tabPageRegistryValues.TabIndex = 9;
-            this.tabPageRegistryValues.Text = "Registry Values";
-            this.tabPageRegistryValues.UseVisualStyleBackColor = true;
+            // imageListTabIcons
+            // 
+            this.imageListTabIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTabIcons.ImageStream")));
+            this.imageListTabIcons.TransparentColor = System.Drawing.Color.White;
+            this.imageListTabIcons.Images.SetKeyName(0, "041_Sort_32x32_72.png");
+            this.imageListTabIcons.Images.SetKeyName(1, "109_AllAnnotations_Help_32x32_72.png");
+            this.imageListTabIcons.Images.SetKeyName(2, "EntityDataModel_ADODotNetDataService_Better.png");
+            this.imageListTabIcons.Images.SetKeyName(3, "Gear.png");
+            this.imageListTabIcons.Images.SetKeyName(4, "SebIcon.png");
+            // 
+            // tabPageBrowser
+            // 
+            this.tabPageBrowser.ImageIndex = 4;
+            this.tabPageBrowser.Location = new System.Drawing.Point(4, 39);
+            this.tabPageBrowser.Name = "tabPageBrowser";
+            this.tabPageBrowser.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageBrowser.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageBrowser.TabIndex = 14;
+            this.tabPageBrowser.Text = "Browser";
+            this.tabPageBrowser.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAppearance
+            // 
+            this.tabPageAppearance.Location = new System.Drawing.Point(4, 39);
+            this.tabPageAppearance.Name = "tabPageAppearance";
+            this.tabPageAppearance.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAppearance.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageAppearance.TabIndex = 8;
+            this.tabPageAppearance.Text = "Appearance";
+            this.tabPageAppearance.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSEBConfig
+            // 
+            this.tabPageSEBConfig.Controls.Add(this.groupBoxSebStarterConfigFile);
+            this.tabPageSEBConfig.ImageIndex = 3;
+            this.tabPageSEBConfig.Location = new System.Drawing.Point(4, 39);
+            this.tabPageSEBConfig.Name = "tabPageSEBConfig";
+            this.tabPageSEBConfig.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSEBConfig.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageSEBConfig.TabIndex = 6;
+            this.tabPageSEBConfig.Text = "SEB Config";
+            this.tabPageSEBConfig.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxSebStarterConfigFile
+            // 
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentFileSebStarterIni);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonDefaultSebStarterSettings);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentDireSebStarterIni);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelOpenSebStarterConfigFile);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.checkBoxWriteSebStarterLogFile);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelSaveSebStarterConfigFile);
+            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonRestoreSebStarterConfigFile);
+            this.groupBoxSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxSebStarterConfigFile.Location = new System.Drawing.Point(50, 43);
+            this.groupBoxSebStarterConfigFile.Name = "groupBoxSebStarterConfigFile";
+            this.groupBoxSebStarterConfigFile.Size = new System.Drawing.Size(600, 160);
+            this.groupBoxSebStarterConfigFile.TabIndex = 30;
+            this.groupBoxSebStarterConfigFile.TabStop = false;
+            this.groupBoxSebStarterConfigFile.Text = "SebStarter config file";
+            // 
+            // buttonRestoreSebStarterConfigFile
+            // 
+            this.buttonRestoreSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRestoreSebStarterConfigFile.Location = new System.Drawing.Point(270, 127);
+            this.buttonRestoreSebStarterConfigFile.Name = "buttonRestoreSebStarterConfigFile";
+            this.buttonRestoreSebStarterConfigFile.Size = new System.Drawing.Size(250, 25);
+            this.buttonRestoreSebStarterConfigFile.TabIndex = 19;
+            this.buttonRestoreSebStarterConfigFile.Text = "Restore SebStarter config file";
+            this.buttonRestoreSebStarterConfigFile.UseVisualStyleBackColor = true;
+            // 
+            // labelSaveSebStarterConfigFile
+            // 
+            this.labelSaveSebStarterConfigFile.AutoSize = true;
+            this.labelSaveSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSaveSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSaveSebStarterConfigFile.Location = new System.Drawing.Point(13, 130);
+            this.labelSaveSebStarterConfigFile.Name = "labelSaveSebStarterConfigFile";
+            this.labelSaveSebStarterConfigFile.Size = new System.Drawing.Size(178, 19);
+            this.labelSaveSebStarterConfigFile.TabIndex = 10;
+            this.labelSaveSebStarterConfigFile.Text = "Save SebStarter config file";
+            // 
+            // checkBoxWriteSebStarterLogFile
+            // 
+            this.checkBoxWriteSebStarterLogFile.AutoSize = true;
+            this.checkBoxWriteSebStarterLogFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 62);
+            this.checkBoxWriteSebStarterLogFile.Name = "checkBoxWriteSebStarterLogFile";
+            this.checkBoxWriteSebStarterLogFile.Size = new System.Drawing.Size(180, 21);
+            this.checkBoxWriteSebStarterLogFile.TabIndex = 42;
+            this.checkBoxWriteSebStarterLogFile.Text = "Write SebStarter log file";
+            this.checkBoxWriteSebStarterLogFile.UseVisualStyleBackColor = true;
+            // 
+            // labelOpenSebStarterConfigFile
+            // 
+            this.labelOpenSebStarterConfigFile.AutoSize = true;
+            this.labelOpenSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelOpenSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOpenSebStarterConfigFile.Location = new System.Drawing.Point(10, 100);
+            this.labelOpenSebStarterConfigFile.Name = "labelOpenSebStarterConfigFile";
+            this.labelOpenSebStarterConfigFile.Size = new System.Drawing.Size(181, 19);
+            this.labelOpenSebStarterConfigFile.TabIndex = 9;
+            this.labelOpenSebStarterConfigFile.Text = "Open SebStarter config file";
+            // 
+            // textBoxCurrentDireSebStarterIni
+            // 
+            this.textBoxCurrentDireSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxCurrentDireSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCurrentDireSebStarterIni.Location = new System.Drawing.Point(10, 30);
+            this.textBoxCurrentDireSebStarterIni.Name = "textBoxCurrentDireSebStarterIni";
+            this.textBoxCurrentDireSebStarterIni.ReadOnly = true;
+            this.textBoxCurrentDireSebStarterIni.Size = new System.Drawing.Size(580, 22);
+            this.textBoxCurrentDireSebStarterIni.TabIndex = 43;
+            // 
+            // buttonDefaultSebStarterSettings
+            // 
+            this.buttonDefaultSebStarterSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDefaultSebStarterSettings.Location = new System.Drawing.Point(270, 97);
+            this.buttonDefaultSebStarterSettings.Name = "buttonDefaultSebStarterSettings";
+            this.buttonDefaultSebStarterSettings.Size = new System.Drawing.Size(250, 25);
+            this.buttonDefaultSebStarterSettings.TabIndex = 44;
+            this.buttonDefaultSebStarterSettings.Text = "Default SebStarter settings";
+            this.buttonDefaultSebStarterSettings.UseVisualStyleBackColor = true;
+            // 
+            // textBoxCurrentFileSebStarterIni
+            // 
+            this.textBoxCurrentFileSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxCurrentFileSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCurrentFileSebStarterIni.Location = new System.Drawing.Point(10, 60);
+            this.textBoxCurrentFileSebStarterIni.Name = "textBoxCurrentFileSebStarterIni";
+            this.textBoxCurrentFileSebStarterIni.ReadOnly = true;
+            this.textBoxCurrentFileSebStarterIni.Size = new System.Drawing.Size(220, 22);
+            this.textBoxCurrentFileSebStarterIni.TabIndex = 45;
+            // 
+            // tabPageGeneral
+            // 
+            this.tabPageGeneral.Controls.Add(this.buttonHelp);
+            this.tabPageGeneral.Controls.Add(this.buttonRestartSEB);
+            this.tabPageGeneral.Controls.Add(this.buttonQuit);
+            this.tabPageGeneral.Controls.Add(this.buttonAbout);
+            this.tabPageGeneral.Controls.Add(this.textBoxConfirmAdministratorPassword);
+            this.tabPageGeneral.Controls.Add(this.textBoxAdministratorPassword);
+            this.tabPageGeneral.Controls.Add(this.textBoxConfirmQuitPassword);
+            this.tabPageGeneral.Controls.Add(this.textBoxQuitHashcode);
+            this.tabPageGeneral.Controls.Add(this.textBoxQuitPassword);
+            this.tabPageGeneral.Controls.Add(this.textBoxStartUrl);
+            this.tabPageGeneral.Controls.Add(this.labelConfirmAdministratorPassword);
+            this.tabPageGeneral.Controls.Add(this.labelAdministratorPassword);
+            this.tabPageGeneral.Controls.Add(this.labelConfirmQuitPassword);
+            this.tabPageGeneral.Controls.Add(this.checkBoxAllowUserToQuitSEB);
+            this.tabPageGeneral.Controls.Add(this.labelQuitHashCode);
+            this.tabPageGeneral.Controls.Add(this.labelQuitPassword);
+            this.tabPageGeneral.Controls.Add(this.labelStartUrl);
+            this.tabPageGeneral.ImageIndex = 5;
+            this.tabPageGeneral.Location = new System.Drawing.Point(4, 39);
+            this.tabPageGeneral.Name = "tabPageGeneral";
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGeneral.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageGeneral.TabIndex = 4;
+            this.tabPageGeneral.Text = "General";
+            this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // labelStartUrl
+            // 
+            this.labelStartUrl.AutoSize = true;
+            this.labelStartUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStartUrl.Location = new System.Drawing.Point(169, 40);
+            this.labelStartUrl.Name = "labelStartUrl";
+            this.labelStartUrl.Size = new System.Drawing.Size(70, 17);
+            this.labelStartUrl.TabIndex = 22;
+            this.labelStartUrl.Text = "Start URL";
+            // 
+            // labelQuitPassword
+            // 
+            this.labelQuitPassword.AutoSize = true;
+            this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuitPassword.Location = new System.Drawing.Point(141, 209);
+            this.labelQuitPassword.Name = "labelQuitPassword";
+            this.labelQuitPassword.Size = new System.Drawing.Size(98, 17);
+            this.labelQuitPassword.TabIndex = 30;
+            this.labelQuitPassword.Text = "Quit password";
+            // 
+            // labelQuitHashCode
+            // 
+            this.labelQuitHashCode.AutoSize = true;
+            this.labelQuitHashCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuitHashCode.Location = new System.Drawing.Point(130, 288);
+            this.labelQuitHashCode.Name = "labelQuitHashCode";
+            this.labelQuitHashCode.Size = new System.Drawing.Size(100, 17);
+            this.labelQuitHashCode.TabIndex = 32;
+            this.labelQuitHashCode.Text = "Quit hashcode";
+            // 
+            // checkBoxAllowUserToQuitSEB
+            // 
+            this.checkBoxAllowUserToQuitSEB.AutoSize = true;
+            this.checkBoxAllowUserToQuitSEB.Location = new System.Drawing.Point(53, 164);
+            this.checkBoxAllowUserToQuitSEB.Name = "checkBoxAllowUserToQuitSEB";
+            this.checkBoxAllowUserToQuitSEB.Size = new System.Drawing.Size(168, 21);
+            this.checkBoxAllowUserToQuitSEB.TabIndex = 35;
+            this.checkBoxAllowUserToQuitSEB.Text = "Allow user to quit SEB";
+            this.checkBoxAllowUserToQuitSEB.UseVisualStyleBackColor = true;
+            // 
+            // labelConfirmQuitPassword
+            // 
+            this.labelConfirmQuitPassword.AutoSize = true;
+            this.labelConfirmQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(92, 246);
+            this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
+            this.labelConfirmQuitPassword.Size = new System.Drawing.Size(147, 17);
+            this.labelConfirmQuitPassword.TabIndex = 36;
+            this.labelConfirmQuitPassword.Text = "Confirm quit password";
+            // 
+            // labelAdministratorPassword
+            // 
+            this.labelAdministratorPassword.AutoSize = true;
+            this.labelAdministratorPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAdministratorPassword.Location = new System.Drawing.Point(84, 82);
+            this.labelAdministratorPassword.Name = "labelAdministratorPassword";
+            this.labelAdministratorPassword.Size = new System.Drawing.Size(155, 17);
+            this.labelAdministratorPassword.TabIndex = 38;
+            this.labelAdministratorPassword.Text = "Administrator password";
+            // 
+            // labelConfirmAdministratorPassword
+            // 
+            this.labelConfirmAdministratorPassword.AutoSize = true;
+            this.labelConfirmAdministratorPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConfirmAdministratorPassword.Location = new System.Drawing.Point(33, 117);
+            this.labelConfirmAdministratorPassword.Name = "labelConfirmAdministratorPassword";
+            this.labelConfirmAdministratorPassword.Size = new System.Drawing.Size(206, 17);
+            this.labelConfirmAdministratorPassword.TabIndex = 40;
+            this.labelConfirmAdministratorPassword.Text = "Confirm administrator password";
+            // 
+            // textBoxStartUrl
+            // 
+            this.textBoxStartUrl.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxStartUrl.Location = new System.Drawing.Point(245, 38);
+            this.textBoxStartUrl.Name = "textBoxStartUrl";
+            this.textBoxStartUrl.Size = new System.Drawing.Size(430, 22);
+            this.textBoxStartUrl.TabIndex = 21;
+            // 
+            // textBoxQuitPassword
+            // 
+            this.textBoxQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxQuitPassword.Location = new System.Drawing.Point(245, 207);
+            this.textBoxQuitPassword.Name = "textBoxQuitPassword";
+            this.textBoxQuitPassword.Size = new System.Drawing.Size(430, 22);
+            this.textBoxQuitPassword.TabIndex = 33;
+            this.textBoxQuitPassword.WordWrap = false;
+            // 
+            // textBoxQuitHashcode
+            // 
+            this.textBoxQuitHashcode.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxQuitHashcode.Location = new System.Drawing.Point(245, 288);
+            this.textBoxQuitHashcode.Name = "textBoxQuitHashcode";
+            this.textBoxQuitHashcode.ReadOnly = true;
+            this.textBoxQuitHashcode.Size = new System.Drawing.Size(430, 22);
+            this.textBoxQuitHashcode.TabIndex = 34;
+            // 
+            // textBoxConfirmQuitPassword
+            // 
+            this.textBoxConfirmQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfirmQuitPassword.Location = new System.Drawing.Point(245, 246);
+            this.textBoxConfirmQuitPassword.Name = "textBoxConfirmQuitPassword";
+            this.textBoxConfirmQuitPassword.Size = new System.Drawing.Size(430, 22);
+            this.textBoxConfirmQuitPassword.TabIndex = 37;
+            this.textBoxConfirmQuitPassword.WordWrap = false;
+            // 
+            // textBoxAdministratorPassword
+            // 
+            this.textBoxAdministratorPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAdministratorPassword.Location = new System.Drawing.Point(245, 82);
+            this.textBoxAdministratorPassword.Name = "textBoxAdministratorPassword";
+            this.textBoxAdministratorPassword.Size = new System.Drawing.Size(430, 22);
+            this.textBoxAdministratorPassword.TabIndex = 39;
+            this.textBoxAdministratorPassword.WordWrap = false;
+            // 
+            // textBoxConfirmAdministratorPassword
+            // 
+            this.textBoxConfirmAdministratorPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfirmAdministratorPassword.Location = new System.Drawing.Point(245, 117);
+            this.textBoxConfirmAdministratorPassword.Name = "textBoxConfirmAdministratorPassword";
+            this.textBoxConfirmAdministratorPassword.Size = new System.Drawing.Size(430, 22);
+            this.textBoxConfirmAdministratorPassword.TabIndex = 41;
+            this.textBoxConfirmAdministratorPassword.WordWrap = false;
+            // 
+            // buttonAbout
+            // 
+            this.buttonAbout.Location = new System.Drawing.Point(108, 384);
+            this.buttonAbout.Name = "buttonAbout";
+            this.buttonAbout.Size = new System.Drawing.Size(75, 23);
+            this.buttonAbout.TabIndex = 42;
+            this.buttonAbout.Text = "About";
+            this.buttonAbout.UseVisualStyleBackColor = true;
+            // 
+            // buttonQuit
+            // 
+            this.buttonQuit.Location = new System.Drawing.Point(363, 384);
+            this.buttonQuit.Name = "buttonQuit";
+            this.buttonQuit.Size = new System.Drawing.Size(75, 23);
+            this.buttonQuit.TabIndex = 43;
+            this.buttonQuit.Text = "Quit";
+            this.buttonQuit.UseVisualStyleBackColor = true;
+            // 
+            // buttonRestartSEB
+            // 
+            this.buttonRestartSEB.Location = new System.Drawing.Point(492, 384);
+            this.buttonRestartSEB.Name = "buttonRestartSEB";
+            this.buttonRestartSEB.Size = new System.Drawing.Size(103, 23);
+            this.buttonRestartSEB.TabIndex = 44;
+            this.buttonRestartSEB.Text = "Restart SEB";
+            this.buttonRestartSEB.UseVisualStyleBackColor = true;
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Location = new System.Drawing.Point(230, 384);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(75, 23);
+            this.buttonHelp.TabIndex = 45;
+            this.buttonHelp.Text = "Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            // 
+            // tabControlSebWindowsConfig
+            // 
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageGeneral);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageSEBConfig);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageAppearance);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageBrowser);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageDownUploads);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageExam);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageApplications);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageNetwork);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageSecurity);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageRegistry);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageHookedKeys);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageExitKeys);
+            this.tabControlSebWindowsConfig.ImageList = this.imageListTabIcons;
+            this.tabControlSebWindowsConfig.Location = new System.Drawing.Point(45, 31);
+            this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
+            this.tabControlSebWindowsConfig.SelectedIndex = 0;
+            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
+            this.tabControlSebWindowsConfig.TabIndex = 2;
+            // 
+            // tabPageDownUploads
+            // 
+            this.tabPageDownUploads.ImageIndex = 0;
+            this.tabPageDownUploads.Location = new System.Drawing.Point(4, 39);
+            this.tabPageDownUploads.Name = "tabPageDownUploads";
+            this.tabPageDownUploads.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDownUploads.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageDownUploads.TabIndex = 17;
+            this.tabPageDownUploads.Text = "Down/Uploads";
+            this.tabPageDownUploads.UseVisualStyleBackColor = true;
+            // 
+            // tabPageExam
+            // 
+            this.tabPageExam.Controls.Add(this.groupBoxOnlineExam);
+            this.tabPageExam.Location = new System.Drawing.Point(4, 39);
+            this.tabPageExam.Name = "tabPageExam";
+            this.tabPageExam.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageExam.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageExam.TabIndex = 18;
+            this.tabPageExam.Text = "Exam";
+            this.tabPageExam.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxOnlineExam
+            // 
+            this.groupBoxOnlineExam.Controls.Add(this.textBoxAutostartProcess);
+            this.groupBoxOnlineExam.Controls.Add(this.labelSebBrowser);
+            this.groupBoxOnlineExam.Controls.Add(this.labelAutostartProcess);
+            this.groupBoxOnlineExam.Controls.Add(this.textBoxSebBrowser);
+            this.groupBoxOnlineExam.Controls.Add(this.labelPermittedApplications);
+            this.groupBoxOnlineExam.Controls.Add(this.textBoxPermittedApplications);
+            this.groupBoxOnlineExam.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxOnlineExam.Location = new System.Drawing.Point(23, 22);
+            this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
+            this.groupBoxOnlineExam.Size = new System.Drawing.Size(600, 210);
+            this.groupBoxOnlineExam.TabIndex = 26;
+            this.groupBoxOnlineExam.TabStop = false;
+            this.groupBoxOnlineExam.Text = "Online exam";
+            // 
+            // textBoxAutostartProcess
+            // 
+            this.textBoxAutostartProcess.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAutostartProcess.Location = new System.Drawing.Point(153, 60);
+            this.textBoxAutostartProcess.Name = "textBoxAutostartProcess";
+            this.textBoxAutostartProcess.Size = new System.Drawing.Size(430, 22);
+            this.textBoxAutostartProcess.TabIndex = 27;
+            // 
+            // labelSebBrowser
+            // 
+            this.labelSebBrowser.AutoSize = true;
+            this.labelSebBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSebBrowser.Location = new System.Drawing.Point(6, 32);
+            this.labelSebBrowser.Name = "labelSebBrowser";
+            this.labelSebBrowser.Size = new System.Drawing.Size(89, 17);
+            this.labelSebBrowser.TabIndex = 26;
+            this.labelSebBrowser.Text = "SEB browser";
+            // 
+            // labelAutostartProcess
+            // 
+            this.labelAutostartProcess.AutoSize = true;
+            this.labelAutostartProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAutostartProcess.Location = new System.Drawing.Point(6, 62);
+            this.labelAutostartProcess.Name = "labelAutostartProcess";
+            this.labelAutostartProcess.Size = new System.Drawing.Size(119, 17);
+            this.labelAutostartProcess.TabIndex = 25;
+            this.labelAutostartProcess.Text = "Autostart process";
+            // 
+            // textBoxSebBrowser
+            // 
+            this.textBoxSebBrowser.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSebBrowser.Location = new System.Drawing.Point(153, 30);
+            this.textBoxSebBrowser.Name = "textBoxSebBrowser";
+            this.textBoxSebBrowser.Size = new System.Drawing.Size(430, 22);
+            this.textBoxSebBrowser.TabIndex = 24;
+            // 
+            // labelPermittedApplications
+            // 
+            this.labelPermittedApplications.AutoSize = true;
+            this.labelPermittedApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPermittedApplications.Location = new System.Drawing.Point(6, 122);
+            this.labelPermittedApplications.Name = "labelPermittedApplications";
+            this.labelPermittedApplications.Size = new System.Drawing.Size(147, 17);
+            this.labelPermittedApplications.TabIndex = 22;
+            this.labelPermittedApplications.Text = "Permitted applications";
+            // 
+            // textBoxPermittedApplications
+            // 
+            this.textBoxPermittedApplications.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPermittedApplications.Location = new System.Drawing.Point(153, 120);
+            this.textBoxPermittedApplications.Name = "textBoxPermittedApplications";
+            this.textBoxPermittedApplications.Size = new System.Drawing.Size(430, 22);
+            this.textBoxPermittedApplications.TabIndex = 23;
+            // 
+            // tabPageApplications
+            // 
+            this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
+            this.tabPageApplications.Name = "tabPageApplications";
+            this.tabPageApplications.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageApplications.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageApplications.TabIndex = 21;
+            this.tabPageApplications.Text = "Applications";
+            this.tabPageApplications.UseVisualStyleBackColor = true;
+            // 
+            // tabPageNetwork
+            // 
+            this.tabPageNetwork.Location = new System.Drawing.Point(4, 39);
+            this.tabPageNetwork.Name = "tabPageNetwork";
+            this.tabPageNetwork.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageNetwork.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageNetwork.TabIndex = 23;
+            this.tabPageNetwork.Text = "Network";
+            this.tabPageNetwork.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSecurity
+            // 
+            this.tabPageSecurity.Controls.Add(this.groupBoxSecurityOptions);
+            this.tabPageSecurity.Location = new System.Drawing.Point(4, 39);
+            this.tabPageSecurity.Name = "tabPageSecurity";
+            this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSecurity.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageSecurity.TabIndex = 24;
+            this.tabPageSecurity.Text = "Security";
+            this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // tabPageRegistry
+            // 
+            this.tabPageRegistry.Controls.Add(this.groupBoxOutsideSeb);
+            this.tabPageRegistry.Controls.Add(this.groupBoxSetOutsideSebValues);
+            this.tabPageRegistry.Controls.Add(this.groupBoxInsideSeb);
+            this.tabPageRegistry.Location = new System.Drawing.Point(4, 39);
+            this.tabPageRegistry.Name = "tabPageRegistry";
+            this.tabPageRegistry.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageRegistry.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageRegistry.TabIndex = 25;
+            this.tabPageRegistry.Text = "Registry";
+            this.tabPageRegistry.UseVisualStyleBackColor = true;
             // 
             // groupBoxOutsideSeb
             // 
@@ -975,413 +913,276 @@
             this.checkBoxInsideSebEnableVmWareClientShade.Text = "Enable VMware Client Shade";
             this.checkBoxInsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
             // 
-            // tabPageAppearance
-            // 
-            this.tabPageAppearance.ImageIndex = 0;
-            this.tabPageAppearance.Location = new System.Drawing.Point(4, 39);
-            this.tabPageAppearance.Name = "tabPageAppearance";
-            this.tabPageAppearance.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAppearance.Size = new System.Drawing.Size(817, 469);
-            this.tabPageAppearance.TabIndex = 8;
-            this.tabPageAppearance.Text = "Appearance";
-            this.tabPageAppearance.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSEBConfig
-            // 
-            this.tabPageSEBConfig.Controls.Add(this.groupBoxSebStarterConfigFile);
-            this.tabPageSEBConfig.ImageIndex = 5;
-            this.tabPageSEBConfig.Location = new System.Drawing.Point(4, 39);
-            this.tabPageSEBConfig.Name = "tabPageSEBConfig";
-            this.tabPageSEBConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSEBConfig.Size = new System.Drawing.Size(817, 469);
-            this.tabPageSEBConfig.TabIndex = 6;
-            this.tabPageSEBConfig.Text = "SEB Config";
-            this.tabPageSEBConfig.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxSebStarterConfigFile
-            // 
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentFileSebStarterIni);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonDefaultSebStarterSettings);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentDireSebStarterIni);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelOpenSebStarterConfigFile);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.checkBoxWriteSebStarterLogFile);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelSaveSebStarterConfigFile);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonRestoreSebStarterConfigFile);
-            this.groupBoxSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxSebStarterConfigFile.Location = new System.Drawing.Point(50, 43);
-            this.groupBoxSebStarterConfigFile.Name = "groupBoxSebStarterConfigFile";
-            this.groupBoxSebStarterConfigFile.Size = new System.Drawing.Size(600, 160);
-            this.groupBoxSebStarterConfigFile.TabIndex = 30;
-            this.groupBoxSebStarterConfigFile.TabStop = false;
-            this.groupBoxSebStarterConfigFile.Text = "SebStarter config file";
-            // 
-            // textBoxCurrentFileSebStarterIni
-            // 
-            this.textBoxCurrentFileSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
-            this.textBoxCurrentFileSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCurrentFileSebStarterIni.Location = new System.Drawing.Point(10, 60);
-            this.textBoxCurrentFileSebStarterIni.Name = "textBoxCurrentFileSebStarterIni";
-            this.textBoxCurrentFileSebStarterIni.ReadOnly = true;
-            this.textBoxCurrentFileSebStarterIni.Size = new System.Drawing.Size(220, 22);
-            this.textBoxCurrentFileSebStarterIni.TabIndex = 45;
-            // 
-            // buttonDefaultSebStarterSettings
-            // 
-            this.buttonDefaultSebStarterSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDefaultSebStarterSettings.Location = new System.Drawing.Point(270, 97);
-            this.buttonDefaultSebStarterSettings.Name = "buttonDefaultSebStarterSettings";
-            this.buttonDefaultSebStarterSettings.Size = new System.Drawing.Size(250, 25);
-            this.buttonDefaultSebStarterSettings.TabIndex = 44;
-            this.buttonDefaultSebStarterSettings.Text = "Default SebStarter settings";
-            this.buttonDefaultSebStarterSettings.UseVisualStyleBackColor = true;
-            // 
-            // textBoxCurrentDireSebStarterIni
-            // 
-            this.textBoxCurrentDireSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
-            this.textBoxCurrentDireSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCurrentDireSebStarterIni.Location = new System.Drawing.Point(10, 30);
-            this.textBoxCurrentDireSebStarterIni.Name = "textBoxCurrentDireSebStarterIni";
-            this.textBoxCurrentDireSebStarterIni.ReadOnly = true;
-            this.textBoxCurrentDireSebStarterIni.Size = new System.Drawing.Size(580, 22);
-            this.textBoxCurrentDireSebStarterIni.TabIndex = 43;
-            // 
-            // labelOpenSebStarterConfigFile
-            // 
-            this.labelOpenSebStarterConfigFile.AutoSize = true;
-            this.labelOpenSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelOpenSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOpenSebStarterConfigFile.Location = new System.Drawing.Point(10, 100);
-            this.labelOpenSebStarterConfigFile.Name = "labelOpenSebStarterConfigFile";
-            this.labelOpenSebStarterConfigFile.Size = new System.Drawing.Size(181, 19);
-            this.labelOpenSebStarterConfigFile.TabIndex = 9;
-            this.labelOpenSebStarterConfigFile.Text = "Open SebStarter config file";
-            // 
-            // checkBoxWriteSebStarterLogFile
-            // 
-            this.checkBoxWriteSebStarterLogFile.AutoSize = true;
-            this.checkBoxWriteSebStarterLogFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 62);
-            this.checkBoxWriteSebStarterLogFile.Name = "checkBoxWriteSebStarterLogFile";
-            this.checkBoxWriteSebStarterLogFile.Size = new System.Drawing.Size(180, 21);
-            this.checkBoxWriteSebStarterLogFile.TabIndex = 42;
-            this.checkBoxWriteSebStarterLogFile.Text = "Write SebStarter log file";
-            this.checkBoxWriteSebStarterLogFile.UseVisualStyleBackColor = true;
-            // 
-            // labelSaveSebStarterConfigFile
-            // 
-            this.labelSaveSebStarterConfigFile.AutoSize = true;
-            this.labelSaveSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelSaveSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSaveSebStarterConfigFile.Location = new System.Drawing.Point(13, 130);
-            this.labelSaveSebStarterConfigFile.Name = "labelSaveSebStarterConfigFile";
-            this.labelSaveSebStarterConfigFile.Size = new System.Drawing.Size(178, 19);
-            this.labelSaveSebStarterConfigFile.TabIndex = 10;
-            this.labelSaveSebStarterConfigFile.Text = "Save SebStarter config file";
-            // 
-            // buttonRestoreSebStarterConfigFile
-            // 
-            this.buttonRestoreSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRestoreSebStarterConfigFile.Location = new System.Drawing.Point(270, 127);
-            this.buttonRestoreSebStarterConfigFile.Name = "buttonRestoreSebStarterConfigFile";
-            this.buttonRestoreSebStarterConfigFile.Size = new System.Drawing.Size(250, 25);
-            this.buttonRestoreSebStarterConfigFile.TabIndex = 19;
-            this.buttonRestoreSebStarterConfigFile.Text = "Restore SebStarter config file";
-            this.buttonRestoreSebStarterConfigFile.UseVisualStyleBackColor = true;
-            // 
-            // tabPageGeneral
-            // 
-            this.tabPageGeneral.Controls.Add(this.buttonHelp);
-            this.tabPageGeneral.Controls.Add(this.buttonRestartSEB);
-            this.tabPageGeneral.Controls.Add(this.buttonQuit);
-            this.tabPageGeneral.Controls.Add(this.buttonAbout);
-            this.tabPageGeneral.Controls.Add(this.textBoxConfirmAdministratorPassword);
-            this.tabPageGeneral.Controls.Add(this.labelConfirmAdministratorPassword);
-            this.tabPageGeneral.Controls.Add(this.textBoxAdministratorPassword);
-            this.tabPageGeneral.Controls.Add(this.labelAdministratorPassword);
-            this.tabPageGeneral.Controls.Add(this.textBoxConfirmQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.labelConfirmQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.checkBoxAllowUserToQuitSEB);
-            this.tabPageGeneral.Controls.Add(this.textBoxQuitHashcode);
-            this.tabPageGeneral.Controls.Add(this.textBoxQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.textBoxStartUrl);
-            this.tabPageGeneral.Controls.Add(this.labelQuitHashCode);
-            this.tabPageGeneral.Controls.Add(this.labelQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.labelStartUrl);
-            this.tabPageGeneral.Location = new System.Drawing.Point(4, 39);
-            this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(817, 469);
-            this.tabPageGeneral.TabIndex = 4;
-            this.tabPageGeneral.Text = "General";
-            this.tabPageGeneral.UseVisualStyleBackColor = true;
-            // 
-            // buttonHelp
-            // 
-            this.buttonHelp.Location = new System.Drawing.Point(230, 384);
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(75, 23);
-            this.buttonHelp.TabIndex = 45;
-            this.buttonHelp.Text = "Help";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            // 
-            // buttonRestartSEB
-            // 
-            this.buttonRestartSEB.Location = new System.Drawing.Point(492, 384);
-            this.buttonRestartSEB.Name = "buttonRestartSEB";
-            this.buttonRestartSEB.Size = new System.Drawing.Size(103, 23);
-            this.buttonRestartSEB.TabIndex = 44;
-            this.buttonRestartSEB.Text = "Restart SEB";
-            this.buttonRestartSEB.UseVisualStyleBackColor = true;
-            // 
-            // buttonQuit
-            // 
-            this.buttonQuit.Location = new System.Drawing.Point(363, 384);
-            this.buttonQuit.Name = "buttonQuit";
-            this.buttonQuit.Size = new System.Drawing.Size(75, 23);
-            this.buttonQuit.TabIndex = 43;
-            this.buttonQuit.Text = "Quit";
-            this.buttonQuit.UseVisualStyleBackColor = true;
-            // 
-            // buttonAbout
-            // 
-            this.buttonAbout.Location = new System.Drawing.Point(108, 384);
-            this.buttonAbout.Name = "buttonAbout";
-            this.buttonAbout.Size = new System.Drawing.Size(75, 23);
-            this.buttonAbout.TabIndex = 42;
-            this.buttonAbout.Text = "About";
-            this.buttonAbout.UseVisualStyleBackColor = true;
-            // 
-            // textBoxConfirmAdministratorPassword
-            // 
-            this.textBoxConfirmAdministratorPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfirmAdministratorPassword.Location = new System.Drawing.Point(245, 117);
-            this.textBoxConfirmAdministratorPassword.Name = "textBoxConfirmAdministratorPassword";
-            this.textBoxConfirmAdministratorPassword.Size = new System.Drawing.Size(430, 22);
-            this.textBoxConfirmAdministratorPassword.TabIndex = 41;
-            this.textBoxConfirmAdministratorPassword.WordWrap = false;
-            // 
-            // labelConfirmAdministratorPassword
-            // 
-            this.labelConfirmAdministratorPassword.AutoSize = true;
-            this.labelConfirmAdministratorPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmAdministratorPassword.Location = new System.Drawing.Point(33, 117);
-            this.labelConfirmAdministratorPassword.Name = "labelConfirmAdministratorPassword";
-            this.labelConfirmAdministratorPassword.Size = new System.Drawing.Size(206, 17);
-            this.labelConfirmAdministratorPassword.TabIndex = 40;
-            this.labelConfirmAdministratorPassword.Text = "Confirm administrator password";
-            // 
-            // textBoxAdministratorPassword
-            // 
-            this.textBoxAdministratorPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAdministratorPassword.Location = new System.Drawing.Point(245, 82);
-            this.textBoxAdministratorPassword.Name = "textBoxAdministratorPassword";
-            this.textBoxAdministratorPassword.Size = new System.Drawing.Size(430, 22);
-            this.textBoxAdministratorPassword.TabIndex = 39;
-            this.textBoxAdministratorPassword.WordWrap = false;
-            // 
-            // labelAdministratorPassword
-            // 
-            this.labelAdministratorPassword.AutoSize = true;
-            this.labelAdministratorPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdministratorPassword.Location = new System.Drawing.Point(84, 82);
-            this.labelAdministratorPassword.Name = "labelAdministratorPassword";
-            this.labelAdministratorPassword.Size = new System.Drawing.Size(155, 17);
-            this.labelAdministratorPassword.TabIndex = 38;
-            this.labelAdministratorPassword.Text = "Administrator password";
-            // 
-            // textBoxConfirmQuitPassword
-            // 
-            this.textBoxConfirmQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfirmQuitPassword.Location = new System.Drawing.Point(245, 246);
-            this.textBoxConfirmQuitPassword.Name = "textBoxConfirmQuitPassword";
-            this.textBoxConfirmQuitPassword.Size = new System.Drawing.Size(430, 22);
-            this.textBoxConfirmQuitPassword.TabIndex = 37;
-            this.textBoxConfirmQuitPassword.WordWrap = false;
-            // 
-            // labelConfirmQuitPassword
-            // 
-            this.labelConfirmQuitPassword.AutoSize = true;
-            this.labelConfirmQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(92, 246);
-            this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
-            this.labelConfirmQuitPassword.Size = new System.Drawing.Size(147, 17);
-            this.labelConfirmQuitPassword.TabIndex = 36;
-            this.labelConfirmQuitPassword.Text = "Confirm quit password";
-            // 
-            // checkBoxAllowUserToQuitSEB
-            // 
-            this.checkBoxAllowUserToQuitSEB.AutoSize = true;
-            this.checkBoxAllowUserToQuitSEB.Location = new System.Drawing.Point(53, 164);
-            this.checkBoxAllowUserToQuitSEB.Name = "checkBoxAllowUserToQuitSEB";
-            this.checkBoxAllowUserToQuitSEB.Size = new System.Drawing.Size(168, 21);
-            this.checkBoxAllowUserToQuitSEB.TabIndex = 35;
-            this.checkBoxAllowUserToQuitSEB.Text = "Allow user to quit SEB";
-            this.checkBoxAllowUserToQuitSEB.UseVisualStyleBackColor = true;
-            // 
-            // textBoxQuitHashcode
-            // 
-            this.textBoxQuitHashcode.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuitHashcode.Location = new System.Drawing.Point(245, 288);
-            this.textBoxQuitHashcode.Name = "textBoxQuitHashcode";
-            this.textBoxQuitHashcode.ReadOnly = true;
-            this.textBoxQuitHashcode.Size = new System.Drawing.Size(430, 22);
-            this.textBoxQuitHashcode.TabIndex = 34;
-            // 
-            // textBoxQuitPassword
-            // 
-            this.textBoxQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuitPassword.Location = new System.Drawing.Point(245, 207);
-            this.textBoxQuitPassword.Name = "textBoxQuitPassword";
-            this.textBoxQuitPassword.Size = new System.Drawing.Size(430, 22);
-            this.textBoxQuitPassword.TabIndex = 33;
-            this.textBoxQuitPassword.WordWrap = false;
-            // 
-            // textBoxStartUrl
-            // 
-            this.textBoxStartUrl.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStartUrl.Location = new System.Drawing.Point(245, 38);
-            this.textBoxStartUrl.Name = "textBoxStartUrl";
-            this.textBoxStartUrl.Size = new System.Drawing.Size(430, 22);
-            this.textBoxStartUrl.TabIndex = 21;
-            // 
-            // labelQuitHashCode
-            // 
-            this.labelQuitHashCode.AutoSize = true;
-            this.labelQuitHashCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitHashCode.Location = new System.Drawing.Point(130, 288);
-            this.labelQuitHashCode.Name = "labelQuitHashCode";
-            this.labelQuitHashCode.Size = new System.Drawing.Size(100, 17);
-            this.labelQuitHashCode.TabIndex = 32;
-            this.labelQuitHashCode.Text = "Quit hashcode";
-            // 
-            // labelQuitPassword
-            // 
-            this.labelQuitPassword.AutoSize = true;
-            this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitPassword.Location = new System.Drawing.Point(141, 209);
-            this.labelQuitPassword.Name = "labelQuitPassword";
-            this.labelQuitPassword.Size = new System.Drawing.Size(98, 17);
-            this.labelQuitPassword.TabIndex = 30;
-            this.labelQuitPassword.Text = "Quit password";
-            // 
-            // labelStartUrl
-            // 
-            this.labelStartUrl.AutoSize = true;
-            this.labelStartUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStartUrl.Location = new System.Drawing.Point(169, 40);
-            this.labelStartUrl.Name = "labelStartUrl";
-            this.labelStartUrl.Size = new System.Drawing.Size(70, 17);
-            this.labelStartUrl.TabIndex = 22;
-            this.labelStartUrl.Text = "Start URL";
-            // 
-            // tabControlSebWindowsConfig
-            // 
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageGeneral);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageSEBConfig);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageAppearance);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageRegistryValues);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageSecurityOptions);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageHookedMessageKeys);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageOnlineExam);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageExitKeys);
-            this.tabControlSebWindowsConfig.ImageList = this.imageListTabIcons;
-            this.tabControlSebWindowsConfig.Location = new System.Drawing.Point(45, 31);
-            this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
-            this.tabControlSebWindowsConfig.SelectedIndex = 0;
-            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
-            this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // tabPageOnlineExam
-            // 
-            this.tabPageOnlineExam.Controls.Add(this.groupBoxOnlineExam);
-            this.tabPageOnlineExam.Location = new System.Drawing.Point(4, 39);
-            this.tabPageOnlineExam.Name = "tabPageOnlineExam";
-            this.tabPageOnlineExam.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOnlineExam.Size = new System.Drawing.Size(817, 469);
-            this.tabPageOnlineExam.TabIndex = 12;
-            this.tabPageOnlineExam.Text = "Online Exam";
-            this.tabPageOnlineExam.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxOnlineExam
-            // 
-            this.groupBoxOnlineExam.Controls.Add(this.textBoxAutostartProcess);
-            this.groupBoxOnlineExam.Controls.Add(this.labelSebBrowser);
-            this.groupBoxOnlineExam.Controls.Add(this.labelAutostartProcess);
-            this.groupBoxOnlineExam.Controls.Add(this.textBoxSebBrowser);
-            this.groupBoxOnlineExam.Controls.Add(this.labelPermittedApplications);
-            this.groupBoxOnlineExam.Controls.Add(this.textBoxPermittedApplications);
-            this.groupBoxOnlineExam.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxOnlineExam.Location = new System.Drawing.Point(23, 22);
-            this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
-            this.groupBoxOnlineExam.Size = new System.Drawing.Size(600, 210);
-            this.groupBoxOnlineExam.TabIndex = 26;
-            this.groupBoxOnlineExam.TabStop = false;
-            this.groupBoxOnlineExam.Text = "Online exam";
-            // 
-            // textBoxAutostartProcess
-            // 
-            this.textBoxAutostartProcess.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAutostartProcess.Location = new System.Drawing.Point(153, 60);
-            this.textBoxAutostartProcess.Name = "textBoxAutostartProcess";
-            this.textBoxAutostartProcess.Size = new System.Drawing.Size(430, 22);
-            this.textBoxAutostartProcess.TabIndex = 27;
-            // 
-            // labelSebBrowser
-            // 
-            this.labelSebBrowser.AutoSize = true;
-            this.labelSebBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSebBrowser.Location = new System.Drawing.Point(6, 32);
-            this.labelSebBrowser.Name = "labelSebBrowser";
-            this.labelSebBrowser.Size = new System.Drawing.Size(89, 17);
-            this.labelSebBrowser.TabIndex = 26;
-            this.labelSebBrowser.Text = "SEB browser";
-            // 
-            // labelAutostartProcess
-            // 
-            this.labelAutostartProcess.AutoSize = true;
-            this.labelAutostartProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAutostartProcess.Location = new System.Drawing.Point(6, 62);
-            this.labelAutostartProcess.Name = "labelAutostartProcess";
-            this.labelAutostartProcess.Size = new System.Drawing.Size(119, 17);
-            this.labelAutostartProcess.TabIndex = 25;
-            this.labelAutostartProcess.Text = "Autostart process";
-            // 
-            // textBoxSebBrowser
-            // 
-            this.textBoxSebBrowser.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSebBrowser.Location = new System.Drawing.Point(153, 30);
-            this.textBoxSebBrowser.Name = "textBoxSebBrowser";
-            this.textBoxSebBrowser.Size = new System.Drawing.Size(430, 22);
-            this.textBoxSebBrowser.TabIndex = 24;
-            // 
-            // labelPermittedApplications
-            // 
-            this.labelPermittedApplications.AutoSize = true;
-            this.labelPermittedApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPermittedApplications.Location = new System.Drawing.Point(6, 122);
-            this.labelPermittedApplications.Name = "labelPermittedApplications";
-            this.labelPermittedApplications.Size = new System.Drawing.Size(147, 17);
-            this.labelPermittedApplications.TabIndex = 22;
-            this.labelPermittedApplications.Text = "Permitted applications";
-            // 
-            // textBoxPermittedApplications
-            // 
-            this.textBoxPermittedApplications.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPermittedApplications.Location = new System.Drawing.Point(153, 120);
-            this.textBoxPermittedApplications.Name = "textBoxPermittedApplications";
-            this.textBoxPermittedApplications.Size = new System.Drawing.Size(430, 22);
-            this.textBoxPermittedApplications.TabIndex = 23;
+            // tabPageHookedKeys
+            // 
+            this.tabPageHookedKeys.Controls.Add(this.groupBox1);
+            this.tabPageHookedKeys.Controls.Add(this.groupBox2);
+            this.tabPageHookedKeys.Location = new System.Drawing.Point(4, 39);
+            this.tabPageHookedKeys.Name = "tabPageHookedKeys";
+            this.tabPageHookedKeys.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHookedKeys.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageHookedKeys.TabIndex = 27;
+            this.tabPageHookedKeys.Text = "Hooked Keys";
+            this.tabPageHookedKeys.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.checkBox3);
+            this.groupBox1.Controls.Add(this.checkBox4);
+            this.groupBox1.Controls.Add(this.checkBox5);
+            this.groupBox1.Controls.Add(this.checkBox6);
+            this.groupBox1.Controls.Add(this.checkBox7);
+            this.groupBox1.Controls.Add(this.checkBox8);
+            this.groupBox1.Controls.Add(this.checkBox9);
+            this.groupBox1.Controls.Add(this.checkBox10);
+            this.groupBox1.Controls.Add(this.checkBox11);
+            this.groupBox1.Controls.Add(this.checkBox12);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(244, 19);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(130, 390);
+            this.groupBox1.TabIndex = 41;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Function keys";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(10, 30);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(94, 21);
+            this.checkBox1.TabIndex = 25;
+            this.checkBox1.Text = "Enable F1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(10, 60);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(94, 21);
+            this.checkBox2.TabIndex = 26;
+            this.checkBox2.Text = "Enable F2";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox3.Location = new System.Drawing.Point(10, 360);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(102, 21);
+            this.checkBox3.TabIndex = 37;
+            this.checkBox3.Text = "Enable F12";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox4.Location = new System.Drawing.Point(10, 90);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(94, 21);
+            this.checkBox4.TabIndex = 27;
+            this.checkBox4.Text = "Enable F3";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox5.Location = new System.Drawing.Point(10, 330);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(102, 21);
+            this.checkBox5.TabIndex = 36;
+            this.checkBox5.Text = "Enable F11";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox6.Location = new System.Drawing.Point(10, 120);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(94, 21);
+            this.checkBox6.TabIndex = 28;
+            this.checkBox6.Text = "Enable F4";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox7.Location = new System.Drawing.Point(10, 150);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(94, 21);
+            this.checkBox7.TabIndex = 29;
+            this.checkBox7.Text = "Enable F5";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox8.Location = new System.Drawing.Point(10, 300);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(102, 21);
+            this.checkBox8.TabIndex = 34;
+            this.checkBox8.Text = "Enable F10";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox9.Location = new System.Drawing.Point(10, 180);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(94, 21);
+            this.checkBox9.TabIndex = 30;
+            this.checkBox9.Text = "Enable F6";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox10.Location = new System.Drawing.Point(10, 270);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(94, 21);
+            this.checkBox10.TabIndex = 33;
+            this.checkBox10.Text = "Enable F9";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox11.Location = new System.Drawing.Point(10, 210);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(94, 21);
+            this.checkBox11.TabIndex = 31;
+            this.checkBox11.Text = "Enable F7";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox12.Location = new System.Drawing.Point(10, 240);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(94, 21);
+            this.checkBox12.TabIndex = 32;
+            this.checkBox12.Text = "Enable F8";
+            this.checkBox12.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBox13);
+            this.groupBox2.Controls.Add(this.checkBox14);
+            this.groupBox2.Controls.Add(this.checkBox15);
+            this.groupBox2.Controls.Add(this.checkBox16);
+            this.groupBox2.Controls.Add(this.checkBox17);
+            this.groupBox2.Controls.Add(this.checkBox18);
+            this.groupBox2.Controls.Add(this.checkBox19);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(20, 19);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(170, 240);
+            this.groupBox2.TabIndex = 39;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Special keys";
+            // 
+            // checkBox13
+            // 
+            this.checkBox13.AutoSize = true;
+            this.checkBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox13.Location = new System.Drawing.Point(10, 30);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.Size = new System.Drawing.Size(101, 21);
+            this.checkBox13.TabIndex = 41;
+            this.checkBox13.Text = "Enable Esc";
+            this.checkBox13.UseVisualStyleBackColor = true;
+            // 
+            // checkBox14
+            // 
+            this.checkBox14.AutoSize = true;
+            this.checkBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox14.Location = new System.Drawing.Point(10, 60);
+            this.checkBox14.Name = "checkBox14";
+            this.checkBox14.Size = new System.Drawing.Size(127, 21);
+            this.checkBox14.TabIndex = 19;
+            this.checkBox14.Text = "Enable Ctrl-Esc";
+            this.checkBox14.UseVisualStyleBackColor = true;
+            // 
+            // checkBox15
+            // 
+            this.checkBox15.AutoSize = true;
+            this.checkBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox15.Location = new System.Drawing.Point(10, 90);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.Size = new System.Drawing.Size(122, 21);
+            this.checkBox15.TabIndex = 20;
+            this.checkBox15.Text = "Enable Alt-Esc";
+            this.checkBox15.UseVisualStyleBackColor = true;
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox16.Location = new System.Drawing.Point(10, 120);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(124, 21);
+            this.checkBox16.TabIndex = 21;
+            this.checkBox16.Text = "Enable Alt-Tab";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // checkBox17
+            // 
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox17.Location = new System.Drawing.Point(10, 150);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(115, 21);
+            this.checkBox17.TabIndex = 22;
+            this.checkBox17.Text = "Enable Alt-F4";
+            this.checkBox17.UseVisualStyleBackColor = true;
+            // 
+            // checkBox18
+            // 
+            this.checkBox18.AutoSize = true;
+            this.checkBox18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox18.Location = new System.Drawing.Point(10, 180);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.Size = new System.Drawing.Size(147, 21);
+            this.checkBox18.TabIndex = 23;
+            this.checkBox18.Text = "Enable Start Menu";
+            this.checkBox18.UseVisualStyleBackColor = true;
+            // 
+            // checkBox19
+            // 
+            this.checkBox19.AutoSize = true;
+            this.checkBox19.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox19.Location = new System.Drawing.Point(10, 210);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(157, 21);
+            this.checkBox19.TabIndex = 24;
+            this.checkBox19.Text = "Enable Right Mouse";
+            this.checkBox19.UseVisualStyleBackColor = true;
             // 
             // tabPageExitKeys
             // 
             this.tabPageExitKeys.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPageExitKeys.BackgroundImage")));
             this.tabPageExitKeys.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tabPageExitKeys.Controls.Add(this.groupBoxExitSequence);
-            this.tabPageExitKeys.Location = new System.Drawing.Point(4, 25);
+            this.tabPageExitKeys.Location = new System.Drawing.Point(4, 39);
             this.tabPageExitKeys.Name = "tabPageExitKeys";
             this.tabPageExitKeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExitKeys.Size = new System.Drawing.Size(817, 483);
-            this.tabPageExitKeys.TabIndex = 13;
+            this.tabPageExitKeys.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageExitKeys.TabIndex = 28;
             this.tabPageExitKeys.Text = "Exit Keys";
             this.tabPageExitKeys.UseVisualStyleBackColor = true;
             // 
@@ -1467,16 +1268,261 @@
             this.listBoxExitKey2.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey2.TabIndex = 49;
             // 
-            // imageListTabIcons
+            // groupBoxSecurityOptions
             // 
-            this.imageListTabIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTabIcons.ImageStream")));
-            this.imageListTabIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListTabIcons.Images.SetKeyName(0, "041_Sort_32x32_72.png");
-            this.imageListTabIcons.Images.SetKeyName(1, "109_AllAnnotations_Help_32x32_72.png");
-            this.imageListTabIcons.Images.SetKeyName(2, "112_DownArrowLong_Blue_32x32_72.png");
-            this.imageListTabIcons.Images.SetKeyName(3, "112_UpArrowLong_Blue_32x32_72.png");
-            this.imageListTabIcons.Images.SetKeyName(4, "EntityDataModel_ADODotNetDataService_Better.png");
-            this.imageListTabIcons.Images.SetKeyName(5, "Gear.png");
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnablePlugins);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableLog);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableJavaScript);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableJava);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableBrowsingBackForward);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowDownUploads);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowFlashFullscreen);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowPreferencesWindow);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowQuit);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowSwitchToApplications);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxOpenDownloads);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxNewBrowserWindowByScriptBlockForeign);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxNewBrowserWindowByLinkBlockForeign);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxMonitorProcesses);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxIgnoreQuitPassword);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxHookMessages);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxDownloadPDFFiles);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
+            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxBlockPopupWindows);
+            this.groupBoxSecurityOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(46, 21);
+            this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
+            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(701, 414);
+            this.groupBoxSecurityOptions.TabIndex = 47;
+            this.groupBoxSecurityOptions.TabStop = false;
+            this.groupBoxSecurityOptions.Text = "Security options";
+            // 
+            // checkBoxEnablePlugins
+            // 
+            this.checkBoxEnablePlugins.AutoSize = true;
+            this.checkBoxEnablePlugins.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnablePlugins.Location = new System.Drawing.Point(267, 137);
+            this.checkBoxEnablePlugins.Name = "checkBoxEnablePlugins";
+            this.checkBoxEnablePlugins.Size = new System.Drawing.Size(123, 21);
+            this.checkBoxEnablePlugins.TabIndex = 62;
+            this.checkBoxEnablePlugins.Text = "Enable plugins";
+            this.checkBoxEnablePlugins.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableLog
+            // 
+            this.checkBoxEnableLog.AutoSize = true;
+            this.checkBoxEnableLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableLog.Location = new System.Drawing.Point(267, 110);
+            this.checkBoxEnableLog.Name = "checkBoxEnableLog";
+            this.checkBoxEnableLog.Size = new System.Drawing.Size(97, 21);
+            this.checkBoxEnableLog.TabIndex = 61;
+            this.checkBoxEnableLog.Text = "Enable log";
+            this.checkBoxEnableLog.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableJavaScript
+            // 
+            this.checkBoxEnableJavaScript.AutoSize = true;
+            this.checkBoxEnableJavaScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(267, 83);
+            this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
+            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(144, 21);
+            this.checkBoxEnableJavaScript.TabIndex = 60;
+            this.checkBoxEnableJavaScript.Text = "Enable JavaScript";
+            this.checkBoxEnableJavaScript.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableJava
+            // 
+            this.checkBoxEnableJava.AutoSize = true;
+            this.checkBoxEnableJava.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableJava.Location = new System.Drawing.Point(267, 56);
+            this.checkBoxEnableJava.Name = "checkBoxEnableJava";
+            this.checkBoxEnableJava.Size = new System.Drawing.Size(108, 21);
+            this.checkBoxEnableJava.TabIndex = 59;
+            this.checkBoxEnableJava.Text = "Enable Java";
+            this.checkBoxEnableJava.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableBrowsingBackForward
+            // 
+            this.checkBoxEnableBrowsingBackForward.AutoSize = true;
+            this.checkBoxEnableBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableBrowsingBackForward.Location = new System.Drawing.Point(267, 29);
+            this.checkBoxEnableBrowsingBackForward.Name = "checkBoxEnableBrowsingBackForward";
+            this.checkBoxEnableBrowsingBackForward.Size = new System.Drawing.Size(219, 21);
+            this.checkBoxEnableBrowsingBackForward.TabIndex = 58;
+            this.checkBoxEnableBrowsingBackForward.Text = "Enable browsing back/forward";
+            this.checkBoxEnableBrowsingBackForward.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowDownUploads
+            // 
+            this.checkBoxAllowDownUploads.AutoSize = true;
+            this.checkBoxAllowDownUploads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowDownUploads.Location = new System.Drawing.Point(10, 29);
+            this.checkBoxAllowDownUploads.Name = "checkBoxAllowDownUploads";
+            this.checkBoxAllowDownUploads.Size = new System.Drawing.Size(153, 21);
+            this.checkBoxAllowDownUploads.TabIndex = 57;
+            this.checkBoxAllowDownUploads.Text = "Allow down/uploads";
+            this.checkBoxAllowDownUploads.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowFlashFullscreen
+            // 
+            this.checkBoxAllowFlashFullscreen.AutoSize = true;
+            this.checkBoxAllowFlashFullscreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(10, 56);
+            this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
+            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(165, 21);
+            this.checkBoxAllowFlashFullscreen.TabIndex = 56;
+            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash fullscreen";
+            this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowPreferencesWindow
+            // 
+            this.checkBoxAllowPreferencesWindow.AutoSize = true;
+            this.checkBoxAllowPreferencesWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowPreferencesWindow.Location = new System.Drawing.Point(10, 83);
+            this.checkBoxAllowPreferencesWindow.Name = "checkBoxAllowPreferencesWindow";
+            this.checkBoxAllowPreferencesWindow.Size = new System.Drawing.Size(191, 21);
+            this.checkBoxAllowPreferencesWindow.TabIndex = 55;
+            this.checkBoxAllowPreferencesWindow.Text = "Allow preferences window";
+            this.checkBoxAllowPreferencesWindow.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowQuit
+            // 
+            this.checkBoxAllowQuit.AutoSize = true;
+            this.checkBoxAllowQuit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowQuit.Location = new System.Drawing.Point(10, 110);
+            this.checkBoxAllowQuit.Name = "checkBoxAllowQuit";
+            this.checkBoxAllowQuit.Size = new System.Drawing.Size(89, 21);
+            this.checkBoxAllowQuit.TabIndex = 54;
+            this.checkBoxAllowQuit.Text = "Allow quit";
+            this.checkBoxAllowQuit.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowSwitchToApplications
+            // 
+            this.checkBoxAllowSwitchToApplications.AutoSize = true;
+            this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(10, 137);
+            this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
+            this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(199, 21);
+            this.checkBoxAllowSwitchToApplications.TabIndex = 53;
+            this.checkBoxAllowSwitchToApplications.Text = "Allow switch to applications";
+            this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxOpenDownloads
+            // 
+            this.checkBoxOpenDownloads.AutoSize = true;
+            this.checkBoxOpenDownloads.Enabled = false;
+            this.checkBoxOpenDownloads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxOpenDownloads.Location = new System.Drawing.Point(267, 360);
+            this.checkBoxOpenDownloads.Name = "checkBoxOpenDownloads";
+            this.checkBoxOpenDownloads.Size = new System.Drawing.Size(136, 21);
+            this.checkBoxOpenDownloads.TabIndex = 52;
+            this.checkBoxOpenDownloads.Text = "Open downloads";
+            this.checkBoxOpenDownloads.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxNewBrowserWindowByScriptBlockForeign
+            // 
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.AutoSize = true;
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.Enabled = false;
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.Location = new System.Drawing.Point(267, 333);
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.Name = "checkBoxNewBrowserWindowByScriptBlockForeign";
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.Size = new System.Drawing.Size(302, 21);
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.TabIndex = 51;
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.Text = "New browser window by script block foreign";
+            this.checkBoxNewBrowserWindowByScriptBlockForeign.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxNewBrowserWindowByLinkBlockForeign
+            // 
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.AutoSize = true;
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.Enabled = false;
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.Location = new System.Drawing.Point(267, 306);
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.Name = "checkBoxNewBrowserWindowByLinkBlockForeign";
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.Size = new System.Drawing.Size(289, 21);
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.TabIndex = 50;
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.Text = "New browser window by link block foreign";
+            this.checkBoxNewBrowserWindowByLinkBlockForeign.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMonitorProcesses
+            // 
+            this.checkBoxMonitorProcesses.AutoSize = true;
+            this.checkBoxMonitorProcesses.Enabled = false;
+            this.checkBoxMonitorProcesses.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(267, 279);
+            this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
+            this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
+            this.checkBoxMonitorProcesses.TabIndex = 49;
+            this.checkBoxMonitorProcesses.Text = "Monitor processes";
+            this.checkBoxMonitorProcesses.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxIgnoreQuitPassword
+            // 
+            this.checkBoxIgnoreQuitPassword.AutoSize = true;
+            this.checkBoxIgnoreQuitPassword.Enabled = false;
+            this.checkBoxIgnoreQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(267, 252);
+            this.checkBoxIgnoreQuitPassword.Name = "checkBoxIgnoreQuitPassword";
+            this.checkBoxIgnoreQuitPassword.Size = new System.Drawing.Size(161, 21);
+            this.checkBoxIgnoreQuitPassword.TabIndex = 48;
+            this.checkBoxIgnoreQuitPassword.Text = "Ignore quit password";
+            this.checkBoxIgnoreQuitPassword.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxHookMessages
+            // 
+            this.checkBoxHookMessages.AutoSize = true;
+            this.checkBoxHookMessages.Enabled = false;
+            this.checkBoxHookMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxHookMessages.Location = new System.Drawing.Point(267, 225);
+            this.checkBoxHookMessages.Name = "checkBoxHookMessages";
+            this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
+            this.checkBoxHookMessages.TabIndex = 47;
+            this.checkBoxHookMessages.Text = "Hook messages";
+            this.checkBoxHookMessages.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDownloadPDFFiles
+            // 
+            this.checkBoxDownloadPDFFiles.AutoSize = true;
+            this.checkBoxDownloadPDFFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(11, 279);
+            this.checkBoxDownloadPDFFiles.Name = "checkBoxDownloadPDFFiles";
+            this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(152, 21);
+            this.checkBoxDownloadPDFFiles.TabIndex = 46;
+            this.checkBoxDownloadPDFFiles.Text = "Download PDF files";
+            this.checkBoxDownloadPDFFiles.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCreateNewDesktop
+            // 
+            this.checkBoxCreateNewDesktop.AutoSize = true;
+            this.checkBoxCreateNewDesktop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(11, 252);
+            this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
+            this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
+            this.checkBoxCreateNewDesktop.TabIndex = 45;
+            this.checkBoxCreateNewDesktop.Text = "Create new desktop";
+            this.checkBoxCreateNewDesktop.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowVirtualMachine
+            // 
+            this.checkBoxAllowVirtualMachine.AutoSize = true;
+            this.checkBoxAllowVirtualMachine.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(10, 167);
+            this.checkBoxAllowVirtualMachine.Name = "checkBoxAllowVirtualMachine";
+            this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(161, 21);
+            this.checkBoxAllowVirtualMachine.TabIndex = 43;
+            this.checkBoxAllowVirtualMachine.Text = "Allow virtual machine";
+            this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxBlockPopupWindows
+            // 
+            this.checkBoxBlockPopupWindows.AutoSize = true;
+            this.checkBoxBlockPopupWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxBlockPopupWindows.Location = new System.Drawing.Point(11, 225);
+            this.checkBoxBlockPopupWindows.Name = "checkBoxBlockPopupWindows";
+            this.checkBoxBlockPopupWindows.Size = new System.Drawing.Size(164, 21);
+            this.checkBoxBlockPopupWindows.TabIndex = 44;
+            this.checkBoxBlockPopupWindows.Text = "Block popup windows";
+            this.checkBoxBlockPopupWindows.UseVisualStyleBackColor = true;
             // 
             // SebWindowsConfigForm
             // 
@@ -1484,36 +1530,36 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1157, 633);
+            this.ClientSize = new System.Drawing.Size(1323, 633);
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Editor";
-            this.tabPageHookedMessageKeys.ResumeLayout(false);
-            this.groupBoxFunctionKeys.ResumeLayout(false);
-            this.groupBoxFunctionKeys.PerformLayout();
-            this.groupBoxSpecialKeys.ResumeLayout(false);
-            this.groupBoxSpecialKeys.PerformLayout();
-            this.tabPageSecurityOptions.ResumeLayout(false);
-            this.groupBoxSecurityOptions.ResumeLayout(false);
-            this.groupBoxSecurityOptions.PerformLayout();
-            this.tabPageRegistryValues.ResumeLayout(false);
-            this.groupBoxOutsideSeb.ResumeLayout(false);
-            this.groupBoxOutsideSeb.PerformLayout();
-            this.groupBoxSetOutsideSebValues.ResumeLayout(false);
-            this.groupBoxSetOutsideSebValues.PerformLayout();
-            this.groupBoxInsideSeb.ResumeLayout(false);
-            this.groupBoxInsideSeb.PerformLayout();
             this.tabPageSEBConfig.ResumeLayout(false);
             this.groupBoxSebStarterConfigFile.ResumeLayout(false);
             this.groupBoxSebStarterConfigFile.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
             this.tabControlSebWindowsConfig.ResumeLayout(false);
-            this.tabPageOnlineExam.ResumeLayout(false);
+            this.tabPageExam.ResumeLayout(false);
             this.groupBoxOnlineExam.ResumeLayout(false);
             this.groupBoxOnlineExam.PerformLayout();
+            this.tabPageSecurity.ResumeLayout(false);
+            this.tabPageRegistry.ResumeLayout(false);
+            this.groupBoxOutsideSeb.ResumeLayout(false);
+            this.groupBoxOutsideSeb.PerformLayout();
+            this.groupBoxSetOutsideSebValues.ResumeLayout(false);
+            this.groupBoxSetOutsideSebValues.PerformLayout();
+            this.groupBoxInsideSeb.ResumeLayout(false);
+            this.groupBoxInsideSeb.PerformLayout();
+            this.tabPageHookedKeys.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tabPageExitKeys.ResumeLayout(false);
             this.groupBoxExitSequence.ResumeLayout(false);
+            this.groupBoxSecurityOptions.ResumeLayout(false);
+            this.groupBoxSecurityOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1523,51 +1569,50 @@
 
         private System.Windows.Forms.OpenFileDialog openFileDialogSebStarterIni;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSebStarterIni;
-        private System.Windows.Forms.TabPage tabPageHookedMessageKeys;
-        private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
-        private System.Windows.Forms.CheckBox checkBoxEnableF1;
-        private System.Windows.Forms.CheckBox checkBoxEnableF2;
-        private System.Windows.Forms.CheckBox checkBoxEnableF12;
-        private System.Windows.Forms.CheckBox checkBoxEnableF3;
-        private System.Windows.Forms.CheckBox checkBoxEnableF11;
-        private System.Windows.Forms.CheckBox checkBoxEnableF4;
-        private System.Windows.Forms.CheckBox checkBoxEnableF5;
-        private System.Windows.Forms.CheckBox checkBoxEnableF10;
-        private System.Windows.Forms.CheckBox checkBoxEnableF6;
-        private System.Windows.Forms.CheckBox checkBoxEnableF9;
-        private System.Windows.Forms.CheckBox checkBoxEnableF7;
-        private System.Windows.Forms.CheckBox checkBoxEnableF8;
-        private System.Windows.Forms.GroupBox groupBoxSpecialKeys;
-        private System.Windows.Forms.CheckBox checkBoxEnableEsc;
-        private System.Windows.Forms.CheckBox checkBoxEnableCtrlEsc;
-        private System.Windows.Forms.CheckBox checkBoxEnableAltEsc;
-        private System.Windows.Forms.CheckBox checkBoxEnableAltTab;
-        private System.Windows.Forms.CheckBox checkBoxEnableAltF4;
-        private System.Windows.Forms.CheckBox checkBoxEnableStartMenu;
-        private System.Windows.Forms.CheckBox checkBoxEnableRightMouse;
-        private System.Windows.Forms.TabPage tabPageSecurityOptions;
-        private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
-        private System.Windows.Forms.CheckBox checkBoxEnablePlugins;
-        private System.Windows.Forms.CheckBox checkBoxEnableLog;
-        private System.Windows.Forms.CheckBox checkBoxEnableJavaScript;
-        private System.Windows.Forms.CheckBox checkBoxEnableJava;
-        private System.Windows.Forms.CheckBox checkBoxEnableBrowsingBackForward;
-        private System.Windows.Forms.CheckBox checkBoxAllowDownUploads;
-        private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreen;
-        private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
-        private System.Windows.Forms.CheckBox checkBoxAllowQuit;
-        private System.Windows.Forms.CheckBox checkBoxAllowSwitchToApplications;
-        private System.Windows.Forms.CheckBox checkBoxOpenDownloads;
-        private System.Windows.Forms.CheckBox checkBoxNewBrowserWindowByScriptBlockForeign;
-        private System.Windows.Forms.CheckBox checkBoxNewBrowserWindowByLinkBlockForeign;
-        private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
-        private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
-        private System.Windows.Forms.CheckBox checkBoxHookMessages;
-        private System.Windows.Forms.CheckBox checkBoxDownloadPDFFiles;
-        private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
-        private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
-        private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
-        private System.Windows.Forms.TabPage tabPageRegistryValues;
+        private System.Windows.Forms.ImageList imageListTabIcons;
+        private System.Windows.Forms.TabPage tabPageBrowser;
+        private System.Windows.Forms.TabPage tabPageAppearance;
+        private System.Windows.Forms.TabPage tabPageSEBConfig;
+        private System.Windows.Forms.GroupBox groupBoxSebStarterConfigFile;
+        private System.Windows.Forms.TextBox textBoxCurrentFileSebStarterIni;
+        private System.Windows.Forms.Button buttonDefaultSebStarterSettings;
+        private System.Windows.Forms.TextBox textBoxCurrentDireSebStarterIni;
+        private System.Windows.Forms.Label labelOpenSebStarterConfigFile;
+        private System.Windows.Forms.CheckBox checkBoxWriteSebStarterLogFile;
+        private System.Windows.Forms.Label labelSaveSebStarterConfigFile;
+        private System.Windows.Forms.Button buttonRestoreSebStarterConfigFile;
+        private System.Windows.Forms.TabPage tabPageGeneral;
+        private System.Windows.Forms.Button buttonHelp;
+        private System.Windows.Forms.Button buttonRestartSEB;
+        private System.Windows.Forms.Button buttonQuit;
+        private System.Windows.Forms.Button buttonAbout;
+        private System.Windows.Forms.TextBox textBoxConfirmAdministratorPassword;
+        private System.Windows.Forms.TextBox textBoxAdministratorPassword;
+        private System.Windows.Forms.TextBox textBoxConfirmQuitPassword;
+        private System.Windows.Forms.TextBox textBoxQuitHashcode;
+        private System.Windows.Forms.TextBox textBoxQuitPassword;
+        private System.Windows.Forms.TextBox textBoxStartUrl;
+        private System.Windows.Forms.Label labelConfirmAdministratorPassword;
+        private System.Windows.Forms.Label labelAdministratorPassword;
+        private System.Windows.Forms.Label labelConfirmQuitPassword;
+        private System.Windows.Forms.CheckBox checkBoxAllowUserToQuitSEB;
+        private System.Windows.Forms.Label labelQuitHashCode;
+        private System.Windows.Forms.Label labelQuitPassword;
+        private System.Windows.Forms.Label labelStartUrl;
+        private System.Windows.Forms.TabControl tabControlSebWindowsConfig;
+        private System.Windows.Forms.TabPage tabPageDownUploads;
+        private System.Windows.Forms.TabPage tabPageExam;
+        private System.Windows.Forms.GroupBox groupBoxOnlineExam;
+        private System.Windows.Forms.TextBox textBoxAutostartProcess;
+        private System.Windows.Forms.Label labelSebBrowser;
+        private System.Windows.Forms.Label labelAutostartProcess;
+        private System.Windows.Forms.TextBox textBoxSebBrowser;
+        private System.Windows.Forms.Label labelPermittedApplications;
+        private System.Windows.Forms.TextBox textBoxPermittedApplications;
+        private System.Windows.Forms.TabPage tabPageApplications;
+        private System.Windows.Forms.TabPage tabPageNetwork;
+        private System.Windows.Forms.TabPage tabPageSecurity;
+        private System.Windows.Forms.TabPage tabPageRegistry;
         private System.Windows.Forms.GroupBox groupBoxOutsideSeb;
         private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableSwitchUser;
         private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableLockThisComputer;
@@ -1590,49 +1635,54 @@
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableShutDown;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableEaseOfAccess;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableVmWareClientShade;
-        private System.Windows.Forms.TabPage tabPageAppearance;
-        private System.Windows.Forms.TabPage tabPageSEBConfig;
-        private System.Windows.Forms.TabPage tabPageGeneral;
-        private System.Windows.Forms.CheckBox checkBoxAllowUserToQuitSEB;
-        private System.Windows.Forms.TextBox textBoxQuitHashcode;
-        private System.Windows.Forms.TextBox textBoxQuitPassword;
-        private System.Windows.Forms.TextBox textBoxStartUrl;
-        private System.Windows.Forms.Label labelQuitHashCode;
-        private System.Windows.Forms.Label labelQuitPassword;
-        private System.Windows.Forms.Label labelStartUrl;
-        private System.Windows.Forms.TabControl tabControlSebWindowsConfig;
-        private System.Windows.Forms.TabPage tabPageOnlineExam;
-        private System.Windows.Forms.GroupBox groupBoxOnlineExam;
-        private System.Windows.Forms.TextBox textBoxAutostartProcess;
-        private System.Windows.Forms.Label labelSebBrowser;
-        private System.Windows.Forms.Label labelAutostartProcess;
-        private System.Windows.Forms.TextBox textBoxSebBrowser;
-        private System.Windows.Forms.Label labelPermittedApplications;
-        private System.Windows.Forms.TextBox textBoxPermittedApplications;
-        private System.Windows.Forms.GroupBox groupBoxSebStarterConfigFile;
-        private System.Windows.Forms.TextBox textBoxCurrentFileSebStarterIni;
-        private System.Windows.Forms.Button buttonDefaultSebStarterSettings;
-        private System.Windows.Forms.TextBox textBoxCurrentDireSebStarterIni;
-        private System.Windows.Forms.Label labelOpenSebStarterConfigFile;
-        private System.Windows.Forms.CheckBox checkBoxWriteSebStarterLogFile;
-        private System.Windows.Forms.Label labelSaveSebStarterConfigFile;
-        private System.Windows.Forms.Button buttonRestoreSebStarterConfigFile;
+        private System.Windows.Forms.TabPage tabPageHookedKeys;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox checkBox11;
+        private System.Windows.Forms.CheckBox checkBox12;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBox13;
+        private System.Windows.Forms.CheckBox checkBox14;
+        private System.Windows.Forms.CheckBox checkBox15;
+        private System.Windows.Forms.CheckBox checkBox16;
+        private System.Windows.Forms.CheckBox checkBox17;
+        private System.Windows.Forms.CheckBox checkBox18;
+        private System.Windows.Forms.CheckBox checkBox19;
         private System.Windows.Forms.TabPage tabPageExitKeys;
         private System.Windows.Forms.GroupBox groupBoxExitSequence;
         private System.Windows.Forms.ListBox listBoxExitKey1;
         private System.Windows.Forms.ListBox listBoxExitKey3;
         private System.Windows.Forms.ListBox listBoxExitKey2;
-        private System.Windows.Forms.TextBox textBoxConfirmQuitPassword;
-        private System.Windows.Forms.Label labelConfirmQuitPassword;
-        private System.Windows.Forms.TextBox textBoxAdministratorPassword;
-        private System.Windows.Forms.Label labelAdministratorPassword;
-        private System.Windows.Forms.TextBox textBoxConfirmAdministratorPassword;
-        private System.Windows.Forms.Label labelConfirmAdministratorPassword;
-        private System.Windows.Forms.Button buttonQuit;
-        private System.Windows.Forms.Button buttonAbout;
-        private System.Windows.Forms.Button buttonRestartSEB;
-        private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.ImageList imageListTabIcons;
+        private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
+        private System.Windows.Forms.CheckBox checkBoxEnablePlugins;
+        private System.Windows.Forms.CheckBox checkBoxEnableLog;
+        private System.Windows.Forms.CheckBox checkBoxEnableJavaScript;
+        private System.Windows.Forms.CheckBox checkBoxEnableJava;
+        private System.Windows.Forms.CheckBox checkBoxEnableBrowsingBackForward;
+        private System.Windows.Forms.CheckBox checkBoxAllowDownUploads;
+        private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreen;
+        private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
+        private System.Windows.Forms.CheckBox checkBoxAllowQuit;
+        private System.Windows.Forms.CheckBox checkBoxAllowSwitchToApplications;
+        private System.Windows.Forms.CheckBox checkBoxOpenDownloads;
+        private System.Windows.Forms.CheckBox checkBoxNewBrowserWindowByScriptBlockForeign;
+        private System.Windows.Forms.CheckBox checkBoxNewBrowserWindowByLinkBlockForeign;
+        private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
+        private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
+        private System.Windows.Forms.CheckBox checkBoxHookMessages;
+        private System.Windows.Forms.CheckBox checkBoxDownloadPDFFiles;
+        private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
+        private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
+        private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
 
     }
 }
