@@ -1125,7 +1125,7 @@ namespace SebWindowsConfig
 
         private void checkBoxEnableF4_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4] = checkBoxEnableF4.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4] = checkBoxEnableF3.Checked;
         }
 
         private void checkBoxEnableF5_CheckedChanged(object sender, EventArgs e)
@@ -1341,7 +1341,7 @@ namespace SebWindowsConfig
             checkBoxEnableF1 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF1];
             checkBoxEnableF2 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF2];
             checkBoxEnableF3 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF3];
-            checkBoxEnableF4 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4];
+            checkBoxEnableF3 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4];
             checkBoxEnableF5 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF5];
             checkBoxEnableF6 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF6];
             checkBoxEnableF7 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF7];
