@@ -41,7 +41,6 @@
             this.buttonDefaultSebStarterSettings = new System.Windows.Forms.Button();
             this.textBoxCurrentDireSebStarterIni = new System.Windows.Forms.TextBox();
             this.labelOpenSebStarterConfigFile = new System.Windows.Forms.Label();
-            this.checkBoxWriteSebStarterLogFile = new System.Windows.Forms.CheckBox();
             this.labelSaveSebStarterConfigFile = new System.Windows.Forms.Label();
             this.buttonRestoreSebStarterConfigFile = new System.Windows.Forms.Button();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
@@ -77,6 +76,7 @@
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
             this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
             this.checkBoxEnablePlugins = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableLog = new System.Windows.Forms.CheckBox();
@@ -148,6 +148,7 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
+            this.checkBoxStartingAnExam = new System.Windows.Forms.CheckBox();
             this.tabPageConfigFile.SuspendLayout();
             this.groupBoxSebStarterConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -214,6 +215,7 @@
             // 
             // tabPageConfigFile
             // 
+            this.tabPageConfigFile.Controls.Add(this.checkBoxStartingAnExam);
             this.tabPageConfigFile.Controls.Add(this.groupBoxSebStarterConfigFile);
             this.tabPageConfigFile.ImageIndex = 3;
             this.tabPageConfigFile.Location = new System.Drawing.Point(4, 39);
@@ -230,7 +232,6 @@
             this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonDefaultSebStarterSettings);
             this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentDireSebStarterIni);
             this.groupBoxSebStarterConfigFile.Controls.Add(this.labelOpenSebStarterConfigFile);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.checkBoxWriteSebStarterLogFile);
             this.groupBoxSebStarterConfigFile.Controls.Add(this.labelSaveSebStarterConfigFile);
             this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonRestoreSebStarterConfigFile);
             this.groupBoxSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -281,17 +282,6 @@
             this.labelOpenSebStarterConfigFile.Size = new System.Drawing.Size(181, 19);
             this.labelOpenSebStarterConfigFile.TabIndex = 9;
             this.labelOpenSebStarterConfigFile.Text = "Open SebStarter config file";
-            // 
-            // checkBoxWriteSebStarterLogFile
-            // 
-            this.checkBoxWriteSebStarterLogFile.AutoSize = true;
-            this.checkBoxWriteSebStarterLogFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxWriteSebStarterLogFile.Location = new System.Drawing.Point(270, 62);
-            this.checkBoxWriteSebStarterLogFile.Name = "checkBoxWriteSebStarterLogFile";
-            this.checkBoxWriteSebStarterLogFile.Size = new System.Drawing.Size(180, 21);
-            this.checkBoxWriteSebStarterLogFile.TabIndex = 42;
-            this.checkBoxWriteSebStarterLogFile.Text = "Write SebStarter log file";
-            this.checkBoxWriteSebStarterLogFile.UseVisualStyleBackColor = true;
             // 
             // labelSaveSebStarterConfigFile
             // 
@@ -663,6 +653,7 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.checkBoxEnableLogging);
             this.tabPageSecurity.Controls.Add(this.groupBoxSecurityOptions);
             this.tabPageSecurity.Location = new System.Drawing.Point(4, 39);
             this.tabPageSecurity.Name = "tabPageSecurity";
@@ -671,6 +662,18 @@
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableLogging
+            // 
+            this.checkBoxEnableLogging.AutoSize = true;
+            this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(801, 50);
+            this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
+            this.checkBoxEnableLogging.Size = new System.Drawing.Size(124, 21);
+            this.checkBoxEnableLogging.TabIndex = 48;
+            this.checkBoxEnableLogging.Text = "Enable logging";
+            this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLogging.CheckedChanged += new System.EventHandler(this.checkBoxEnableLogging_CheckedChanged);
             // 
             // groupBoxSecurityOptions
             // 
@@ -1553,6 +1556,18 @@
             this.listBoxExitKey2.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey2.TabIndex = 49;
             // 
+            // checkBoxStartingAnExam
+            // 
+            this.checkBoxStartingAnExam.AutoSize = true;
+            this.checkBoxStartingAnExam.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxStartingAnExam.Location = new System.Drawing.Point(63, 245);
+            this.checkBoxStartingAnExam.Name = "checkBoxStartingAnExam";
+            this.checkBoxStartingAnExam.Size = new System.Drawing.Size(136, 21);
+            this.checkBoxStartingAnExam.TabIndex = 49;
+            this.checkBoxStartingAnExam.Text = "Starting an exam";
+            this.checkBoxStartingAnExam.UseVisualStyleBackColor = true;
+            this.checkBoxStartingAnExam.CheckedChanged += new System.EventHandler(this.checkBoxStartingAnExam_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1564,6 +1579,7 @@
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Editor";
             this.tabPageConfigFile.ResumeLayout(false);
+            this.tabPageConfigFile.PerformLayout();
             this.groupBoxSebStarterConfigFile.ResumeLayout(false);
             this.groupBoxSebStarterConfigFile.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
@@ -1573,6 +1589,7 @@
             this.groupBoxOnlineExam.ResumeLayout(false);
             this.groupBoxOnlineExam.PerformLayout();
             this.tabPageSecurity.ResumeLayout(false);
+            this.tabPageSecurity.PerformLayout();
             this.groupBoxSecurityOptions.ResumeLayout(false);
             this.groupBoxSecurityOptions.PerformLayout();
             this.tabPageRegistry.ResumeLayout(false);
@@ -1607,7 +1624,6 @@
         private System.Windows.Forms.Button buttonDefaultSebStarterSettings;
         private System.Windows.Forms.TextBox textBoxCurrentDireSebStarterIni;
         private System.Windows.Forms.Label labelOpenSebStarterConfigFile;
-        private System.Windows.Forms.CheckBox checkBoxWriteSebStarterLogFile;
         private System.Windows.Forms.Label labelSaveSebStarterConfigFile;
         private System.Windows.Forms.Button buttonRestoreSebStarterConfigFile;
         private System.Windows.Forms.TabPage tabPageGeneral;
@@ -1714,6 +1730,8 @@
         private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
         private System.Windows.Forms.Label labelSEBServerURL;
         private System.Windows.Forms.TextBox textBoxSEBServerURL;
+        private System.Windows.Forms.CheckBox checkBoxEnableLogging;
+        private System.Windows.Forms.CheckBox checkBoxStartingAnExam;
 
     }
 }
