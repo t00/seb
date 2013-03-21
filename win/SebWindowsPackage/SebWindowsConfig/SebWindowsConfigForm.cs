@@ -19,9 +19,7 @@ namespace SebWindowsConfig
 
         // SEB has 1 different ini file:
         // SebStarter.ini
-        const int FileMin = 1;
         const int FileSebStarter = 1;
-        const int FileMax = 1;
         const int FileNum = 1;
 
         // The target files the user must configure,
@@ -31,18 +29,14 @@ namespace SebWindowsConfig
 
         // The values can be in 4 different states:
         // old, new, temporary and default values
-        const int StateMin = 1;
-        const int StateOld   = 1;
-        const int StateNew   = 2;
-        const int StateTmp   = 3;
-        const int StateDef   = 4;
-        const int StateMax = 4;
+        const int StateOld = 1;
+        const int StateNew = 2;
+        const int StateTmp = 3;
+        const int StateDef = 4;
         const int StateNum = 4;
 
         // The Graphical User Interface contains 19 groups
-        const int GroupMin =   1;
-        const int GroupMax =  19;
-        const int GroupNum =  19;
+        const int GroupNum = 19;
 
         // SebStarter contains the 19 groups
         // General, ConfigFile, Appearance, Browser,
@@ -50,7 +44,6 @@ namespace SebWindowsConfig
         // Registry, HookedKeys, ExitKeys,
         // InsideSeb, OutsideSeb, SecurityOptions,
         // OnlineExam, SpecialKeys, FunctionKeys, Other
-        const int GroupMinSebStarter = 1;
 
         const int GroupGeneral         = 1;
         const int GroupConfigFile      = 2;
@@ -73,12 +66,9 @@ namespace SebWindowsConfig
         const int GroupFunctionKeys    = 18;
         const int GroupOther           = 19;
 
-        const int GroupMaxSebStarter = 19;
         const int GroupNumSebStarter = 19;
 
         // Each group contains up to 20 values
-        const int ValueMin =  1;
-        const int ValueMax = 20;
         const int ValueNum = 20;
 
         // Group names
@@ -105,7 +95,6 @@ namespace SebWindowsConfig
 
 
         // Group "General"
-        const int MinValueGeneral  = 1;
         const int ValueStartURL                     = 1;
         const int ValueSEBServerURL                 = 2;
         const int ValueAdministratorPassword        = 3;
@@ -114,62 +103,57 @@ namespace SebWindowsConfig
         const int ValueQuitPassword                 = 6;
         const int ValueConfirmQuitPassword          = 7;
         const int ValueQuitHashcode                 = 8;
-        const int MaxValueGeneral  = 8;
+        const int NumValueGeneral = 8;
 
         const String MessageStartURL                     = "StartURL";
         const String MessageSEBServerURL                 = "SEBServerURL";
-        const String MessageAdministratorPassword        = "QuitPassword";
-        const String MessageConfirmAdministratorPassword = "ConfirmQuitPassword";
+        const String MessageAdministratorPassword        = "AdministratorPassword";
+        const String MessageConfirmAdministratorPassword = "ConfirmAdministratorPassword";
         const String MessageAllowUserToQuitSEB           = "AllowUserToQuitSEB";
         const String MessageQuitPassword                 = "QuitPassword";
         const String MessageConfirmQuitPassword          = "ConfirmQuitPassword";
         const String MessageQuitHashcode                 = "QuitHashcode";
 
         // Group "Config File"
-        const int MinValueConfigFile = 1;
         const int ValueStartingAnExam = 1;
-        const int MaxValueConfigFile = 1;
+        const int NumValueConfigFile = 1;
 
         const String MessageCurrentSebStarterIni = "CurrentSebStarterIni";
         const String MessageStartingAnExam       = "StartingAnExam";
 
 
         // Group "Security"
-        const int MinValueSecurity = 1;
         const int ValueEnableLogging = 1;
-        const int MaxValueSecurity = 1;
+        const int NumValueSecurity = 1;
 
         const String MessageEnableLogging = "EnableLogging";
 
 
         // Group "Exit Keys"
-        const int MinValueExitKeys = 1;
         const int ValueExitKey1 = 1;
         const int ValueExitKey2 = 2;
         const int ValueExitKey3 = 3;
-        const int MaxValueExitKeys = 3;
+        const int NumValueExitKeys = 3;
 
         const String MessageExitKey1 = "B1";
         const String MessageExitKey2 = "B2";
         const String MessageExitKey3 = "B3";
 
-//      const int MaxValueGeneral      = 0;
-//      const int MaxValueConfigFile   = 0;
-        const int MaxValueAppearance   = 0;
-        const int MaxValueBrowser      = 0;
-        const int MaxValueDownUploads  = 0;
-        const int MaxValueExam         = 0;
-        const int MaxValueApplications = 0;
-        const int MaxValueNetwork      = 0;
-//      const int MaxValueSecurity     = 0;
-        const int MaxValueRegistry     = 0;
-        const int MaxValueHookedKeys   = 0;
-//      const int MaxValueExitKeys     = 0;
+//      const int NumValueGeneral      = 0;
+//      const int NumValueConfigFile   = 0;
+        const int NumValueAppearance   = 0;
+        const int NumValueBrowser      = 0;
+        const int NumValueDownUploads  = 0;
+        const int NumValueExam         = 0;
+        const int NumValueApplications = 0;
+        const int NumValueNetwork      = 0;
+//      const int NumValueSecurity     = 0;
+        const int NumValueRegistry     = 0;
+        const int NumValueHookedKeys   = 0;
+//      const int NumValueExitKeys     = 0;
 
 
         // Groups "Inside SEB" and "Outside SEB"
-        const int MinValueInsideSeb  = 1;
-        const int MinValueOutsideSeb = 1;
         const int ValueEnableSwitchUser        = 1;
         const int ValueEnableLockThisComputer  = 2;
         const int ValueEnableChangeAPassword   = 3;
@@ -178,8 +162,8 @@ namespace SebWindowsConfig
         const int ValueEnableShutDown          = 6;
         const int ValueEnableEaseOfAccess      = 7;
         const int ValueEnableVmWareClientShade = 8;
-        const int MaxValueInsideSeb  = 8;
-        const int MaxValueOutsideSeb = 8;
+        const int NumValueInsideSeb  = 8;
+        const int NumValueOutsideSeb = 8;
 
         const String MessageInsideSebEnableSwitchUser        = "InsideSebEnableSwitchUser";
         const String MessageInsideSebEnableLockThisComputer  = "InsideSebEnableLockThisComputer";
@@ -200,8 +184,6 @@ namespace SebWindowsConfig
         const String MessageOutsideSebEnableVmWareClientShade = "OutsideSebEnableVmWareClientShade";
 
         // Group "Security Options"
-        const int MinValueSecurityOptions = 1;
-
         const int ValueAllowDownUploads          = 1;
         const int ValueAllowFlashFullscreen      = 2;
         const int ValueAllowPreferencesWindow    = 3;
@@ -226,7 +208,7 @@ namespace SebWindowsConfig
         const int ValueNewBrowserWindowByScriptBlockForeign = 19;
         const int ValueOpenDownloads             = 20;
 
-        const int MaxValueSecurityOptions = 20;
+        const int NumValueSecurityOptions = 20;
 
         const String MessageAllowDownUploads          = "AllowDownUploads";
         const String MessageAllowFlashFullscreen      = "AllowFlashFullscreen";
@@ -253,18 +235,16 @@ namespace SebWindowsConfig
         const String MessageOpenDownloads             = "OpenDownloads";
 
         // Group "Online Exam"
-        const int MinValueOnlineExam = 1;
         const int ValueSebBrowser            = 1;
         const int ValueAutostartProcess      = 2;
         const int ValuePermittedApplications = 3;
-        const int MaxValueOnlineExam = 3;
+        const int NumValueOnlineExam = 3;
 
         const String MessageSebBrowser            = "SebBrowser";
         const String MessageAutostartProcess      = "AutostartProcess";
         const String MessagePermittedApplications = "PermittedApplications";
 
         // Group "Special Keys"
-        const int MinValueSpecialKeys = 1;
         const int ValueEnableEsc        = 1;
         const int ValueEnableCtrlEsc    = 2;
         const int ValueEnableAltEsc     = 3;
@@ -272,7 +252,7 @@ namespace SebWindowsConfig
         const int ValueEnableAltF4      = 5;
         const int ValueEnableStartMenu  = 6;
         const int ValueEnableRightMouse = 7;
-        const int MaxValueSpecialKeys = 7;
+        const int NumValueSpecialKeys = 7;
 
         const String MessageEnableEsc        = "EnableEsc";
         const String MessageEnableCtrlEsc    = "EnableCtrlEsc";
@@ -283,7 +263,6 @@ namespace SebWindowsConfig
         const String MessageEnableRightMouse = "EnableRightMouse";
 
         // Group "Function Keys"
-        const int MinValueFunctionKeys = 1;
         const int ValueEnableF1  = 1;
         const int ValueEnableF2  = 2;
         const int ValueEnableF3  = 3;
@@ -296,7 +275,7 @@ namespace SebWindowsConfig
         const int ValueEnableF10 = 10;
         const int ValueEnableF11 = 11;
         const int ValueEnableF12 = 12;
-        const int MaxValueFunctionKeys = 12;
+        const int NumValueFunctionKeys = 12;
 
         const String MessageEnableF1  = "EnableF1";
         const String MessageEnableF2  = "EnableF2";
@@ -310,6 +289,9 @@ namespace SebWindowsConfig
         const String MessageEnableF10 = "EnableF10";
         const String MessageEnableF11 = "EnableF11";
         const String MessageEnableF12 = "EnableF12";
+
+        // Group "Other"
+        const int NumValueOther = 0;
 
 
         // Types of values
@@ -368,9 +350,9 @@ namespace SebWindowsConfig
             int state, group, value;
 
             // Intialise the Safe Exam Browser values
-            for (state = StateMin; state <= StateMax; state++)
-            for (group = GroupMin; group <= GroupMax; group++)
-            for (value = ValueMin; value <= ValueMax; value++)
+            for (state = 1; state <= StateNum; state++)
+            for (group = 1; group <= GroupNum; group++)
+            for (value = 1; value <= ValueNum; value++)
             {
                 settingBoolean[state, group, value] = false;
                 settingString [state, group, value] = "";
@@ -396,7 +378,7 @@ namespace SebWindowsConfig
 
 
             // Default values for groups "Inside SEB", "Outside SEB" etc.
-            for (value = ValueMin; value <= ValueMax; value++)
+            for (value = 1; value <= ValueNum; value++)
             {
                 settingInteger[StateDef, GroupExitKeys       , value] = 0;
                 settingBoolean[StateDef, GroupInsideSeb      , value] = false;
@@ -456,7 +438,7 @@ namespace SebWindowsConfig
 
 
             // Data types of the different values
-            for (value = ValueMin; value <= ValueMax; value++)
+            for (value = 1; value <= ValueNum; value++)
             {
                 dataType[GroupGeneral        , value] = TypeString;
                 dataType[GroupConfigFile     , value] = TypeBoolean;
@@ -475,35 +457,35 @@ namespace SebWindowsConfig
 
 
             // Number of groups per file
-            minGroup[FileSebStarter] = GroupMinSebStarter;
-            maxGroup[FileSebStarter] = GroupMaxSebStarter;
+            minGroup[FileSebStarter] = 1;
+            maxGroup[FileSebStarter] = GroupNumSebStarter;
 
             // Number of values per group
-            for (group = GroupMin; group <= GroupMax; group++)
+            for (group = 1; group <= GroupNum; group++)
             {
                 minValue[group] = 1;
             }
 
-            maxValue[GroupGeneral     ] = MaxValueGeneral;
-            maxValue[GroupConfigFile  ] = MaxValueConfigFile;
-            maxValue[GroupAppearance  ] = MaxValueAppearance;
-            maxValue[GroupBrowser     ] = MaxValueBrowser;
-            maxValue[GroupDownUploads ] = MaxValueDownUploads;
-            maxValue[GroupExam        ] = MaxValueExam;
-            maxValue[GroupApplications] = MaxValueApplications;
-            maxValue[GroupNetwork     ] = MaxValueNetwork;
-            maxValue[GroupSecurity    ] = MaxValueSecurity;
-            maxValue[GroupRegistry    ] = MaxValueRegistry;
-            maxValue[GroupHookedKeys  ] = MaxValueHookedKeys;
-            maxValue[GroupExitKeys    ] = MaxValueExitKeys;
+            maxValue[GroupGeneral     ] = NumValueGeneral;
+            maxValue[GroupConfigFile  ] = NumValueConfigFile;
+            maxValue[GroupAppearance  ] = NumValueAppearance;
+            maxValue[GroupBrowser     ] = NumValueBrowser;
+            maxValue[GroupDownUploads ] = NumValueDownUploads;
+            maxValue[GroupExam        ] = NumValueExam;
+            maxValue[GroupApplications] = NumValueApplications;
+            maxValue[GroupNetwork     ] = NumValueNetwork;
+            maxValue[GroupSecurity    ] = NumValueSecurity;
+            maxValue[GroupRegistry    ] = NumValueRegistry;
+            maxValue[GroupHookedKeys  ] = NumValueHookedKeys;
+            maxValue[GroupExitKeys    ] = NumValueExitKeys;
 
-            maxValue[GroupInsideSeb      ] = MaxValueInsideSeb;
-            maxValue[GroupOutsideSeb     ] = MaxValueOutsideSeb;
-            maxValue[GroupSecurityOptions] = MaxValueSecurityOptions;
-            maxValue[GroupOnlineExam     ] = MaxValueOnlineExam;
-            maxValue[GroupSpecialKeys    ] = MaxValueSpecialKeys;
-            maxValue[GroupFunctionKeys   ] = MaxValueFunctionKeys;
-//          maxValue[GroupOther          ] = MaxValueOther;
+            maxValue[GroupInsideSeb      ] = NumValueInsideSeb;
+            maxValue[GroupOutsideSeb     ] = NumValueOutsideSeb;
+            maxValue[GroupSecurityOptions] = NumValueSecurityOptions;
+            maxValue[GroupOnlineExam     ] = NumValueOnlineExam;
+            maxValue[GroupSpecialKeys    ] = NumValueSpecialKeys;
+            maxValue[GroupFunctionKeys   ] = NumValueFunctionKeys;
+            maxValue[GroupOther          ] = NumValueOther;
 
             // File names
             configString[FileSebStarter] = ConfigSebStarter;
@@ -640,7 +622,7 @@ namespace SebWindowsConfig
              targetPathSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
 
             // Read the settings from the ini file and update their widgets
-            if (OpenIniFile(FileSebStarter, targetPathSebStarterIni) == true)
+            if (OpenIniFile(targetPathSebStarterIni) == true)
             {
                 currentDireSebStarterIni = targetDireSebStarterIni;
                 currentFileSebStarterIni = targetFileSebStarterIni;
@@ -674,7 +656,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK",
             // read the settings from the ini file and update their widgets
-            if (OpenIniFile(FileSebStarter, fileName) == true)
+            if (OpenIniFile(fileName) == true)
             {
                 currentDireSebStarterIni = Path.GetDirectoryName(fileName);
                 currentFileSebStarterIni = Path.GetFileName     (fileName);
@@ -704,7 +686,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK",
             // write the settings to the ini file and update the filename widget
-            if (SaveIniFile(FileSebStarter, fileName) == true)
+            if (SaveIniFile(fileName) == true)
             {
                 currentDireSebStarterIni = Path.GetDirectoryName(fileName);
                 currentFileSebStarterIni = Path.GetFileName     (fileName);
@@ -720,7 +702,7 @@ namespace SebWindowsConfig
         // ***********************************
         // Open ini file and read the settings
         // ***********************************
-        private Boolean OpenIniFile(int iniFile, String fileName)
+        private Boolean OpenIniFile(String fileName)
         {
             FileStream   fileStream;
             StreamReader fileReader;
@@ -728,10 +710,14 @@ namespace SebWindowsConfig
             Boolean      fileCouldBeRead = true;
 
             int group, value;
-            int mingroup = minGroup[iniFile];
-            int maxgroup = maxGroup[iniFile];
             int minvalue;
             int maxvalue;
+
+            int     equalPosition = 0;
+            String   leftString   = "";
+            String  rightString   = "";
+            Boolean rightBoolean  = false;
+            Boolean foundSetting  = false;
 
             try 
             {
@@ -745,14 +731,14 @@ namespace SebWindowsConfig
                     // Skip empty lines and lines not in "leftSide = rightSide" format
                     if (fileLine.Contains("="))
                     {
-                        int      equalPosition =    fileLine.IndexOf  ("=");
-                        String   leftString    =    fileLine.Remove   (equalPosition);
-                        String  rightString    =    fileLine.Substring(equalPosition + 1);
-                        Boolean rightBoolean   = rightString.Equals("1");
-                        Boolean foundSetting   = false;
+                        equalPosition =    fileLine.IndexOf  ("=");
+                         leftString   =    fileLine.Remove   (equalPosition);
+                        rightString   =    fileLine.Substring(equalPosition + 1);
+                        rightBoolean  = rightString.Equals("1");
+                        foundSetting  = false;
 
                         // Find the appropriate group and setting
-                        for (group = mingroup; group <= maxgroup; group++)
+                        for (group = 1; group <= GroupNum; group++)
                         {
                             minvalue = minValue[group];
                             maxvalue = maxValue[group];
@@ -770,6 +756,7 @@ namespace SebWindowsConfig
                         } // next group
 
                         if (foundSetting == false) fileCouldBeRead = false;
+                        if (foundSetting == false) break;
 
                     } // end if line.Contains("=")
                 } // end while
@@ -791,44 +778,44 @@ namespace SebWindowsConfig
             if (fileCouldBeRead == false)
             {
                 // Let the user know what went wrong
-                MessageBox.Show("The file \"" + fileName + "\" does not match the syntax of a " + configString[iniFile],
-                                "Error when reading " + configString[iniFile],
+                MessageBox.Show("The file \"" + fileName + "\" does not match the syntax of a " + ConfigSebStarter
+                                + ". Debug data: "
+                                + " fileLine   = " +  fileLine
+                                + " leftString = " +  leftString
+                                +" rightString = " + rightString,
+                                "Error when reading " + ConfigSebStarter,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
 
-            #region After reading, convert ExitKeySequence of SebStarter ini file
             // The Exit Key Sequence of the SebStarter ini file needs a special conversion
-            if (iniFile == FileSebStarter)
+
+            // Convert the B1, B2, B3 strings to integers
+            String tmpB1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
+            String tmpB2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
+            String tmpB3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
+
+            int tmpIndexExitKey1 = 0;
+            int tmpIndexExitKey2 = 0;
+            int tmpIndexExitKey3 = 0;
+
+            for (int indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
             {
-                // Convert the B1, B2, B3 strings to integers
-                String tmpB1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
-                String tmpB2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
-                String tmpB3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
+                String vkc = virtualKeyCodeString[indexFunctionKey];
 
-                int tmpIndexExitKey1 = 0;
-                int tmpIndexExitKey2 = 0;
-                int tmpIndexExitKey3 = 0;
+                if (tmpB1.Equals(vkc)) tmpIndexExitKey1 = indexFunctionKey;
+                if (tmpB2.Equals(vkc)) tmpIndexExitKey2 = indexFunctionKey;
+                if (tmpB3.Equals(vkc)) tmpIndexExitKey3 = indexFunctionKey;
+            }
 
-                for (int indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
-                {
-                    String vkc = virtualKeyCodeString[indexFunctionKey];
-
-                    if (tmpB1.Equals(vkc)) tmpIndexExitKey1 = indexFunctionKey;
-                    if (tmpB2.Equals(vkc)) tmpIndexExitKey2 = indexFunctionKey;
-                    if (tmpB3.Equals(vkc)) tmpIndexExitKey3 = indexFunctionKey;
-                }
-
-                settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = tmpIndexExitKey1;
-                settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = tmpIndexExitKey2;
-                settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = tmpIndexExitKey3;
-            } 
-            #endregion
+            settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = tmpIndexExitKey1;
+            settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = tmpIndexExitKey2;
+            settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = tmpIndexExitKey3;
 
 
             // Accept the tmp values as the new values
-            for (group = mingroup; group <= maxgroup; group++)
+            for (group = 1; group <= GroupNum; group++)
             {
                 minvalue = minValue[group];
                 maxvalue = maxValue[group];
@@ -855,33 +842,25 @@ namespace SebWindowsConfig
         // **************************************
         // Write settings to ini file and save it
         // **************************************
-        private Boolean SaveIniFile(int iniFile, String fileName)
+        private Boolean SaveIniFile(String fileName)
         {
             FileStream   fileStream;
             StreamWriter fileWriter;
             String       fileLine;
 
             int group, value;
-            int mingroup = minGroup[iniFile];
-            int maxgroup = maxGroup[iniFile];
             int minvalue;
             int maxvalue;
 
-
-            #region Before writing, convert ExitKeySequence of SebStarter ini file
             // The Exit Key Sequence of the SebStarter ini file needs a special conversion
-            if (iniFile == FileSebStarter)
-            {
-                int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
-                int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
-                int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
 
-                settingString[StateNew, GroupExitKeys, ValueExitKey1] = virtualKeyCodeString[newIndexExitKey1];
-                settingString[StateNew, GroupExitKeys, ValueExitKey2] = virtualKeyCodeString[newIndexExitKey2];
-                settingString[StateNew, GroupExitKeys, ValueExitKey3] = virtualKeyCodeString[newIndexExitKey3];
-            } 
-            #endregion
+            int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
+            int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
+            int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
 
+            settingString[StateNew, GroupExitKeys, ValueExitKey1] = virtualKeyCodeString[newIndexExitKey1];
+            settingString[StateNew, GroupExitKeys, ValueExitKey2] = virtualKeyCodeString[newIndexExitKey2];
+            settingString[StateNew, GroupExitKeys, ValueExitKey3] = virtualKeyCodeString[newIndexExitKey3];
 
             try 
             {
@@ -901,7 +880,7 @@ namespace SebWindowsConfig
 
                 // For each group and each key,
                 // write the line "key=value" into the ini file
-                for (group = mingroup; group <= maxgroup; group++)
+                for (group = 1; group <= GroupNum; group++)
                 {
                     minvalue = minValue[group];
                     maxvalue = maxValue[group];
@@ -946,7 +925,7 @@ namespace SebWindowsConfig
             }
 
             // Accept the tmp values as the new values
-            for (group = mingroup; group <= maxgroup; group++)
+            for (group = 1; group <= GroupNum; group++)
             {
                 minvalue = minValue[group];
                 maxvalue = maxValue[group];
@@ -1401,7 +1380,7 @@ namespace SebWindowsConfig
         // *********************************
         private void buttonDefaultSebStarterSettings_Click(object sender, EventArgs e)
         {
-            SetNewSettingsOfFileToState(FileSebStarter, StateDef);
+            SetNewSettingsOfFileToState(StateDef);
             SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
@@ -1410,7 +1389,7 @@ namespace SebWindowsConfig
         // ************************************
         private void buttonRestoreSebStarterConfigFile_Click(object sender, EventArgs e)
         {
-            SetNewSettingsOfFileToState(FileSebStarter, StateOld);
+            SetNewSettingsOfFileToState(StateOld);
             SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
@@ -1419,17 +1398,13 @@ namespace SebWindowsConfig
         // ***************************************************
         // Set the new settings of a file to the desired state
         // ***************************************************
-        private void SetNewSettingsOfFileToState(int iniFile, int stateDesired)
+        private void SetNewSettingsOfFileToState(int stateDesired)
         {
             int group, value;
-            int groupMin = minGroup[iniFile];
-            int groupMax = maxGroup[iniFile];
-            int valueMin = ValueMin;
-            int valueMax = ValueMax;
 
             // Restore the desired values by copying them to the new values
-            for (group = groupMin; group <= groupMax; group++)
-            for (value = valueMin; value <= valueMax; value++)
+            for (group = 1; group <= GroupNum; group++)
+            for (value = 1; value <= ValueNum; value++)
             {
                 settingBoolean[StateNew, group, value] = settingBoolean[stateDesired, group, value];
                 settingString [StateNew, group, value] = settingString [stateDesired, group, value];
@@ -1448,8 +1423,15 @@ namespace SebWindowsConfig
             textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
             textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
 
-            checkBoxStartingAnExam.Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
+            textBoxStartURL                    .Text    = settingString [StateNew, GroupGeneral, ValueStartURL];
+            textBoxSEBServerURL                .Text    = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
+            textBoxAdministratorPassword       .Text    = settingString [StateNew, GroupGeneral, ValueAdministratorPassword];
+            textBoxConfirmAdministratorPassword.Text    = settingString [StateNew, GroupGeneral, ValueConfirmAdministratorPassword];
+            checkBoxAllowUserToQuitSEB         .Checked = settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB];
+            textBoxQuitPassword                .Text    = settingString [StateNew, GroupGeneral, ValueQuitPassword];
+            textBoxConfirmQuitPassword         .Text    = settingString [StateNew, GroupGeneral, ValueConfirmQuitPassword];
 
+            checkBoxStartingAnExam.Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
             checkBoxEnableLogging.Checked = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
             listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
@@ -1543,7 +1525,7 @@ namespace SebWindowsConfig
             }
 
             // Save the ini file so that nothing gets lost
-            SaveIniFile(FileSebStarter, currentPathSebStarterIni);
+            SaveIniFile(currentPathSebStarterIni);
 
             // Close the configuration window and exit
             this.Close();
