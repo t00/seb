@@ -490,7 +490,7 @@ namespace SebWindowsConfig
             // Exceptional data types of some special values
             dataType[GroupGeneral   , ValueAllowUserToQuitSEB     ] = TypeBoolean;
 
-            dataType[GroupConfigFile, ValueChooseIdentity         ] = TypeInteger;
+            dataType[GroupConfigFile, ValueChooseIdentity         ] = TypeString;
             dataType[GroupConfigFile, ValueSettingsPassword       ] = TypeString;
             dataType[GroupConfigFile, ValueConfirmSettingsPassword] = TypeString;
 
@@ -679,6 +679,14 @@ namespace SebWindowsConfig
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
+
+            String[] blabla = new String[3];
+
+            blabla[0] = "alpha";
+            blabla[1] = "beta";
+            blabla[2] = "gamma";
+
+            comboBoxChooseIdentity.Items.AddRange(blabla);
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -1500,7 +1508,8 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam           .Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
             radioButtonConfiguringAClient       .Checked = settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient];
             checkBoxAllowToOpenPreferencesWindow.Checked = settingBoolean[StateNew, GroupConfigFile, ValueAllowToOpenPreferencesWindow];
-            comboBoxChooseIdentity      .SelectedIndex   = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+            //comboBoxChooseIdentity      .SelectedIndex   = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+            //comboBoxChooseIdentity      .SelectedIndex   = 0;
             textBoxSettingsPassword             .Text    = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
             textBoxConfirmSettingsPassword      .Text    = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
 

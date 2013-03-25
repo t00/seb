@@ -156,6 +156,7 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.tabPageConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
@@ -172,6 +173,7 @@
             this.groupBox2.SuspendLayout();
             this.tabPageExitKeys.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialogSebStarterIni
@@ -346,14 +348,14 @@
             this.radioButtonStartingAnExam.UseVisualStyleBackColor = true;
             this.radioButtonStartingAnExam.CheckedChanged += new System.EventHandler(this.radioButtonStartingAnExam_CheckedChanged);
             // 
-            // checkBoxAllowToOpenPreferencesWindowOnClient
+            // checkBoxAllowToOpenPreferencesWindow
             // 
             this.checkBoxAllowToOpenPreferencesWindow.AutoSize = true;
             this.checkBoxAllowToOpenPreferencesWindow.Checked = true;
             this.checkBoxAllowToOpenPreferencesWindow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAllowToOpenPreferencesWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAllowToOpenPreferencesWindow.Location = new System.Drawing.Point(60, 128);
-            this.checkBoxAllowToOpenPreferencesWindow.Name = "checkBoxAllowToOpenPreferencesWindowOnClient";
+            this.checkBoxAllowToOpenPreferencesWindow.Name = "checkBoxAllowToOpenPreferencesWindow";
             this.checkBoxAllowToOpenPreferencesWindow.Size = new System.Drawing.Size(300, 21);
             this.checkBoxAllowToOpenPreferencesWindow.TabIndex = 49;
             this.checkBoxAllowToOpenPreferencesWindow.Text = "Allow to open preferences window on client";
@@ -1567,6 +1569,7 @@
             // 
             this.tabPageExitKeys.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPageExitKeys.BackgroundImage")));
             this.tabPageExitKeys.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPageExitKeys.Controls.Add(this.numericUpDown2);
             this.tabPageExitKeys.Controls.Add(this.groupBoxExitSequence);
             this.tabPageExitKeys.Location = new System.Drawing.Point(4, 39);
             this.tabPageExitKeys.Name = "tabPageExitKeys";
@@ -1658,6 +1661,13 @@
             this.listBoxExitKey2.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey2.TabIndex = 49;
             // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(715, 190);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDown2.TabIndex = 53;
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1694,6 +1704,7 @@
             this.groupBox2.PerformLayout();
             this.tabPageExitKeys.ResumeLayout(false);
             this.groupBoxExitSequence.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1827,6 +1838,7 @@
         private System.Windows.Forms.Label labelChooseIdentity;
         private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
         private System.Windows.Forms.Label labelUseEither;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
 
     }
 }
