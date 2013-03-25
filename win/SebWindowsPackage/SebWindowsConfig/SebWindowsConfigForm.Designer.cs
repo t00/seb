@@ -36,13 +36,21 @@
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
-            this.groupBoxSebStarterConfigFile = new System.Windows.Forms.GroupBox();
-            this.textBoxCurrentFileSebStarterIni = new System.Windows.Forms.TextBox();
-            this.buttonDefaultSebStarterSettings = new System.Windows.Forms.Button();
-            this.textBoxCurrentDireSebStarterIni = new System.Windows.Forms.TextBox();
-            this.labelOpenSebStarterConfigFile = new System.Windows.Forms.Label();
-            this.labelSaveSebStarterConfigFile = new System.Windows.Forms.Label();
-            this.buttonRestoreSebStarterConfigFile = new System.Windows.Forms.Button();
+            this.labelUseEither = new System.Windows.Forms.Label();
+            this.labelChooseIdentity = new System.Windows.Forms.Label();
+            this.comboBoxChooseIdentity = new System.Windows.Forms.ComboBox();
+            this.labelConfirmSettingsPassword = new System.Windows.Forms.Label();
+            this.labelSettingsPassword = new System.Windows.Forms.Label();
+            this.textBoxConfirmSettingsPassword = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsPassword = new System.Windows.Forms.TextBox();
+            this.labelUseSEBSettingsFileFor = new System.Windows.Forms.Label();
+            this.radioButtonConfiguringAClient = new System.Windows.Forms.RadioButton();
+            this.radioButtonStartingAnExam = new System.Windows.Forms.RadioButton();
+            this.checkBoxAllowToOpenPreferencesWindow = new System.Windows.Forms.CheckBox();
+            this.buttonDefaultSettings = new System.Windows.Forms.Button();
+            this.buttonRevertToLastOpened = new System.Windows.Forms.Button();
+            this.labelOpenSettings = new System.Windows.Forms.Label();
+            this.labelSaveSettingsAs = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.labelSEBServerURL = new System.Windows.Forms.Label();
             this.textBoxSEBServerURL = new System.Windows.Forms.TextBox();
@@ -148,9 +156,7 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.checkBoxStartingAnExam = new System.Windows.Forms.CheckBox();
             this.tabPageConfigFile.SuspendLayout();
-            this.groupBoxSebStarterConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
             this.tabPageExam.SuspendLayout();
@@ -215,8 +221,21 @@
             // 
             // tabPageConfigFile
             // 
-            this.tabPageConfigFile.Controls.Add(this.checkBoxStartingAnExam);
-            this.tabPageConfigFile.Controls.Add(this.groupBoxSebStarterConfigFile);
+            this.tabPageConfigFile.Controls.Add(this.labelUseEither);
+            this.tabPageConfigFile.Controls.Add(this.labelChooseIdentity);
+            this.tabPageConfigFile.Controls.Add(this.comboBoxChooseIdentity);
+            this.tabPageConfigFile.Controls.Add(this.labelConfirmSettingsPassword);
+            this.tabPageConfigFile.Controls.Add(this.labelSettingsPassword);
+            this.tabPageConfigFile.Controls.Add(this.textBoxConfirmSettingsPassword);
+            this.tabPageConfigFile.Controls.Add(this.textBoxSettingsPassword);
+            this.tabPageConfigFile.Controls.Add(this.labelUseSEBSettingsFileFor);
+            this.tabPageConfigFile.Controls.Add(this.radioButtonConfiguringAClient);
+            this.tabPageConfigFile.Controls.Add(this.radioButtonStartingAnExam);
+            this.tabPageConfigFile.Controls.Add(this.checkBoxAllowToOpenPreferencesWindow);
+            this.tabPageConfigFile.Controls.Add(this.buttonDefaultSettings);
+            this.tabPageConfigFile.Controls.Add(this.buttonRevertToLastOpened);
+            this.tabPageConfigFile.Controls.Add(this.labelOpenSettings);
+            this.tabPageConfigFile.Controls.Add(this.labelSaveSettingsAs);
             this.tabPageConfigFile.ImageIndex = 3;
             this.tabPageConfigFile.Location = new System.Drawing.Point(4, 39);
             this.tabPageConfigFile.Name = "tabPageConfigFile";
@@ -226,83 +245,166 @@
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
             // 
-            // groupBoxSebStarterConfigFile
+            // labelUseEither
             // 
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentFileSebStarterIni);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonDefaultSebStarterSettings);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.textBoxCurrentDireSebStarterIni);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelOpenSebStarterConfigFile);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.labelSaveSebStarterConfigFile);
-            this.groupBoxSebStarterConfigFile.Controls.Add(this.buttonRestoreSebStarterConfigFile);
-            this.groupBoxSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxSebStarterConfigFile.Location = new System.Drawing.Point(50, 43);
-            this.groupBoxSebStarterConfigFile.Name = "groupBoxSebStarterConfigFile";
-            this.groupBoxSebStarterConfigFile.Size = new System.Drawing.Size(600, 160);
-            this.groupBoxSebStarterConfigFile.TabIndex = 30;
-            this.groupBoxSebStarterConfigFile.TabStop = false;
-            this.groupBoxSebStarterConfigFile.Text = "SebStarter config file";
+            this.labelUseEither.AutoSize = true;
+            this.labelUseEither.Location = new System.Drawing.Point(67, 218);
+            this.labelUseEither.Name = "labelUseEither";
+            this.labelUseEither.Size = new System.Drawing.Size(366, 17);
+            this.labelUseEither.TabIndex = 59;
+            this.labelUseEither.Text = "Use either a cryptographic identity or a password or both";
             // 
-            // textBoxCurrentFileSebStarterIni
+            // labelChooseIdentity
             // 
-            this.textBoxCurrentFileSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
-            this.textBoxCurrentFileSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCurrentFileSebStarterIni.Location = new System.Drawing.Point(10, 60);
-            this.textBoxCurrentFileSebStarterIni.Name = "textBoxCurrentFileSebStarterIni";
-            this.textBoxCurrentFileSebStarterIni.ReadOnly = true;
-            this.textBoxCurrentFileSebStarterIni.Size = new System.Drawing.Size(220, 22);
-            this.textBoxCurrentFileSebStarterIni.TabIndex = 45;
+            this.labelChooseIdentity.AutoSize = true;
+            this.labelChooseIdentity.Location = new System.Drawing.Point(64, 164);
+            this.labelChooseIdentity.Name = "labelChooseIdentity";
+            this.labelChooseIdentity.Size = new System.Drawing.Size(385, 17);
+            this.labelChooseIdentity.TabIndex = 58;
+            this.labelChooseIdentity.Text = "Choose identity to be used for encrypting SEB settings file...";
             // 
-            // buttonDefaultSebStarterSettings
+            // comboBoxChooseIdentity
             // 
-            this.buttonDefaultSebStarterSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDefaultSebStarterSettings.Location = new System.Drawing.Point(270, 97);
-            this.buttonDefaultSebStarterSettings.Name = "buttonDefaultSebStarterSettings";
-            this.buttonDefaultSebStarterSettings.Size = new System.Drawing.Size(250, 25);
-            this.buttonDefaultSebStarterSettings.TabIndex = 44;
-            this.buttonDefaultSebStarterSettings.Text = "Default SebStarter settings";
-            this.buttonDefaultSebStarterSettings.UseVisualStyleBackColor = true;
+            this.comboBoxChooseIdentity.FormattingEnabled = true;
+            this.comboBoxChooseIdentity.Location = new System.Drawing.Point(60, 187);
+            this.comboBoxChooseIdentity.Name = "comboBoxChooseIdentity";
+            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxChooseIdentity.TabIndex = 57;
+            this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
             // 
-            // textBoxCurrentDireSebStarterIni
+            // labelConfirmSettingsPassword
             // 
-            this.textBoxCurrentDireSebStarterIni.BackColor = System.Drawing.SystemColors.Info;
-            this.textBoxCurrentDireSebStarterIni.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCurrentDireSebStarterIni.Location = new System.Drawing.Point(10, 30);
-            this.textBoxCurrentDireSebStarterIni.Name = "textBoxCurrentDireSebStarterIni";
-            this.textBoxCurrentDireSebStarterIni.ReadOnly = true;
-            this.textBoxCurrentDireSebStarterIni.Size = new System.Drawing.Size(580, 22);
-            this.textBoxCurrentDireSebStarterIni.TabIndex = 43;
+            this.labelConfirmSettingsPassword.AutoSize = true;
+            this.labelConfirmSettingsPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConfirmSettingsPassword.Location = new System.Drawing.Point(61, 295);
+            this.labelConfirmSettingsPassword.Name = "labelConfirmSettingsPassword";
+            this.labelConfirmSettingsPassword.Size = new System.Drawing.Size(173, 17);
+            this.labelConfirmSettingsPassword.TabIndex = 56;
+            this.labelConfirmSettingsPassword.Text = "Confirm settings password";
             // 
-            // labelOpenSebStarterConfigFile
+            // labelSettingsPassword
             // 
-            this.labelOpenSebStarterConfigFile.AutoSize = true;
-            this.labelOpenSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelOpenSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOpenSebStarterConfigFile.Location = new System.Drawing.Point(10, 100);
-            this.labelOpenSebStarterConfigFile.Name = "labelOpenSebStarterConfigFile";
-            this.labelOpenSebStarterConfigFile.Size = new System.Drawing.Size(181, 19);
-            this.labelOpenSebStarterConfigFile.TabIndex = 9;
-            this.labelOpenSebStarterConfigFile.Text = "Open SebStarter config file";
+            this.labelSettingsPassword.AutoSize = true;
+            this.labelSettingsPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSettingsPassword.Location = new System.Drawing.Point(61, 260);
+            this.labelSettingsPassword.Name = "labelSettingsPassword";
+            this.labelSettingsPassword.Size = new System.Drawing.Size(123, 17);
+            this.labelSettingsPassword.TabIndex = 55;
+            this.labelSettingsPassword.Text = "Settings password";
             // 
-            // labelSaveSebStarterConfigFile
+            // textBoxConfirmSettingsPassword
             // 
-            this.labelSaveSebStarterConfigFile.AutoSize = true;
-            this.labelSaveSebStarterConfigFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelSaveSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSaveSebStarterConfigFile.Location = new System.Drawing.Point(13, 130);
-            this.labelSaveSebStarterConfigFile.Name = "labelSaveSebStarterConfigFile";
-            this.labelSaveSebStarterConfigFile.Size = new System.Drawing.Size(178, 19);
-            this.labelSaveSebStarterConfigFile.TabIndex = 10;
-            this.labelSaveSebStarterConfigFile.Text = "Save SebStarter config file";
+            this.textBoxConfirmSettingsPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfirmSettingsPassword.Location = new System.Drawing.Point(287, 295);
+            this.textBoxConfirmSettingsPassword.Name = "textBoxConfirmSettingsPassword";
+            this.textBoxConfirmSettingsPassword.Size = new System.Drawing.Size(430, 22);
+            this.textBoxConfirmSettingsPassword.TabIndex = 54;
+            this.textBoxConfirmSettingsPassword.WordWrap = false;
+            this.textBoxConfirmSettingsPassword.TextChanged += new System.EventHandler(this.textBoxConfirmSettingsPassword_TextChanged);
             // 
-            // buttonRestoreSebStarterConfigFile
+            // textBoxSettingsPassword
             // 
-            this.buttonRestoreSebStarterConfigFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRestoreSebStarterConfigFile.Location = new System.Drawing.Point(270, 127);
-            this.buttonRestoreSebStarterConfigFile.Name = "buttonRestoreSebStarterConfigFile";
-            this.buttonRestoreSebStarterConfigFile.Size = new System.Drawing.Size(250, 25);
-            this.buttonRestoreSebStarterConfigFile.TabIndex = 19;
-            this.buttonRestoreSebStarterConfigFile.Text = "Restore SebStarter config file";
-            this.buttonRestoreSebStarterConfigFile.UseVisualStyleBackColor = true;
+            this.textBoxSettingsPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSettingsPassword.Location = new System.Drawing.Point(287, 255);
+            this.textBoxSettingsPassword.Name = "textBoxSettingsPassword";
+            this.textBoxSettingsPassword.Size = new System.Drawing.Size(430, 22);
+            this.textBoxSettingsPassword.TabIndex = 53;
+            this.textBoxSettingsPassword.WordWrap = false;
+            this.textBoxSettingsPassword.TextChanged += new System.EventHandler(this.textBoxSettingsPassword_TextChanged);
+            // 
+            // labelUseSEBSettingsFileFor
+            // 
+            this.labelUseSEBSettingsFileFor.AutoSize = true;
+            this.labelUseSEBSettingsFileFor.Location = new System.Drawing.Point(60, 34);
+            this.labelUseSEBSettingsFileFor.Name = "labelUseSEBSettingsFileFor";
+            this.labelUseSEBSettingsFileFor.Size = new System.Drawing.Size(172, 17);
+            this.labelUseSEBSettingsFileFor.TabIndex = 52;
+            this.labelUseSEBSettingsFileFor.Text = "Use SEB settings file for...";
+            // 
+            // radioButtonConfiguringAClient
+            // 
+            this.radioButtonConfiguringAClient.AutoSize = true;
+            this.radioButtonConfiguringAClient.Location = new System.Drawing.Point(60, 90);
+            this.radioButtonConfiguringAClient.Name = "radioButtonConfiguringAClient";
+            this.radioButtonConfiguringAClient.Size = new System.Drawing.Size(148, 21);
+            this.radioButtonConfiguringAClient.TabIndex = 51;
+            this.radioButtonConfiguringAClient.TabStop = true;
+            this.radioButtonConfiguringAClient.Text = "configuring a client";
+            this.radioButtonConfiguringAClient.UseVisualStyleBackColor = true;
+            this.radioButtonConfiguringAClient.CheckedChanged += new System.EventHandler(this.radioButtonConfiguringAClient_CheckedChanged);
+            // 
+            // radioButtonStartingAnExam
+            // 
+            this.radioButtonStartingAnExam.AutoSize = true;
+            this.radioButtonStartingAnExam.Checked = true;
+            this.radioButtonStartingAnExam.Location = new System.Drawing.Point(60, 63);
+            this.radioButtonStartingAnExam.Name = "radioButtonStartingAnExam";
+            this.radioButtonStartingAnExam.Size = new System.Drawing.Size(133, 21);
+            this.radioButtonStartingAnExam.TabIndex = 50;
+            this.radioButtonStartingAnExam.TabStop = true;
+            this.radioButtonStartingAnExam.Text = "starting an exam";
+            this.radioButtonStartingAnExam.UseVisualStyleBackColor = true;
+            this.radioButtonStartingAnExam.CheckedChanged += new System.EventHandler(this.radioButtonStartingAnExam_CheckedChanged);
+            // 
+            // checkBoxAllowToOpenPreferencesWindowOnClient
+            // 
+            this.checkBoxAllowToOpenPreferencesWindow.AutoSize = true;
+            this.checkBoxAllowToOpenPreferencesWindow.Checked = true;
+            this.checkBoxAllowToOpenPreferencesWindow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowToOpenPreferencesWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowToOpenPreferencesWindow.Location = new System.Drawing.Point(60, 128);
+            this.checkBoxAllowToOpenPreferencesWindow.Name = "checkBoxAllowToOpenPreferencesWindowOnClient";
+            this.checkBoxAllowToOpenPreferencesWindow.Size = new System.Drawing.Size(300, 21);
+            this.checkBoxAllowToOpenPreferencesWindow.TabIndex = 49;
+            this.checkBoxAllowToOpenPreferencesWindow.Text = "Allow to open preferences window on client";
+            this.checkBoxAllowToOpenPreferencesWindow.UseVisualStyleBackColor = true;
+            this.checkBoxAllowToOpenPreferencesWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowToOpenPreferencesWindowOnClient_CheckedChanged);
+            // 
+            // buttonDefaultSettings
+            // 
+            this.buttonDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDefaultSettings.Location = new System.Drawing.Point(63, 349);
+            this.buttonDefaultSettings.Name = "buttonDefaultSettings";
+            this.buttonDefaultSettings.Size = new System.Drawing.Size(191, 25);
+            this.buttonDefaultSettings.TabIndex = 44;
+            this.buttonDefaultSettings.Text = "Default Settings";
+            this.buttonDefaultSettings.UseVisualStyleBackColor = true;
+            this.buttonDefaultSettings.Click += new System.EventHandler(this.buttonDefaultSettings_Click);
+            // 
+            // buttonRevertToLastOpened
+            // 
+            this.buttonRevertToLastOpened.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRevertToLastOpened.Location = new System.Drawing.Point(63, 389);
+            this.buttonRevertToLastOpened.Name = "buttonRevertToLastOpened";
+            this.buttonRevertToLastOpened.Size = new System.Drawing.Size(191, 25);
+            this.buttonRevertToLastOpened.TabIndex = 19;
+            this.buttonRevertToLastOpened.Text = "Revert To Last Opened";
+            this.buttonRevertToLastOpened.UseVisualStyleBackColor = true;
+            this.buttonRevertToLastOpened.Click += new System.EventHandler(this.buttonRevertToLastOpened_Click);
+            // 
+            // labelOpenSettings
+            // 
+            this.labelOpenSettings.AutoSize = true;
+            this.labelOpenSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelOpenSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOpenSettings.Location = new System.Drawing.Point(287, 349);
+            this.labelOpenSettings.Name = "labelOpenSettings";
+            this.labelOpenSettings.Size = new System.Drawing.Size(112, 19);
+            this.labelOpenSettings.TabIndex = 9;
+            this.labelOpenSettings.Text = "Open Settings...";
+            this.labelOpenSettings.Click += new System.EventHandler(this.labelOpenSettings_Click);
+            // 
+            // labelSaveSettingsAs
+            // 
+            this.labelSaveSettingsAs.AutoSize = true;
+            this.labelSaveSettingsAs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelSaveSettingsAs.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSaveSettingsAs.Location = new System.Drawing.Point(287, 389);
+            this.labelSaveSettingsAs.Name = "labelSaveSettingsAs";
+            this.labelSaveSettingsAs.Size = new System.Drawing.Size(129, 19);
+            this.labelSaveSettingsAs.TabIndex = 10;
+            this.labelSaveSettingsAs.Text = "Save Settings As...";
+            this.labelSaveSettingsAs.Click += new System.EventHandler(this.labelSaveSettingsAs_Click);
             // 
             // tabPageGeneral
             // 
@@ -1556,18 +1658,6 @@
             this.listBoxExitKey2.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey2.TabIndex = 49;
             // 
-            // checkBoxStartingAnExam
-            // 
-            this.checkBoxStartingAnExam.AutoSize = true;
-            this.checkBoxStartingAnExam.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxStartingAnExam.Location = new System.Drawing.Point(63, 245);
-            this.checkBoxStartingAnExam.Name = "checkBoxStartingAnExam";
-            this.checkBoxStartingAnExam.Size = new System.Drawing.Size(136, 21);
-            this.checkBoxStartingAnExam.TabIndex = 49;
-            this.checkBoxStartingAnExam.Text = "Starting an exam";
-            this.checkBoxStartingAnExam.UseVisualStyleBackColor = true;
-            this.checkBoxStartingAnExam.CheckedChanged += new System.EventHandler(this.checkBoxStartingAnExam_CheckedChanged);
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1580,8 +1670,6 @@
             this.Text = "SEB Windows Configuration Editor";
             this.tabPageConfigFile.ResumeLayout(false);
             this.tabPageConfigFile.PerformLayout();
-            this.groupBoxSebStarterConfigFile.ResumeLayout(false);
-            this.groupBoxSebStarterConfigFile.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
             this.tabControlSebWindowsConfig.ResumeLayout(false);
@@ -1619,13 +1707,10 @@
         private System.Windows.Forms.TabPage tabPageBrowser;
         private System.Windows.Forms.TabPage tabPageAppearance;
         private System.Windows.Forms.TabPage tabPageConfigFile;
-        private System.Windows.Forms.GroupBox groupBoxSebStarterConfigFile;
-        private System.Windows.Forms.TextBox textBoxCurrentFileSebStarterIni;
-        private System.Windows.Forms.Button buttonDefaultSebStarterSettings;
-        private System.Windows.Forms.TextBox textBoxCurrentDireSebStarterIni;
-        private System.Windows.Forms.Label labelOpenSebStarterConfigFile;
-        private System.Windows.Forms.Label labelSaveSebStarterConfigFile;
-        private System.Windows.Forms.Button buttonRestoreSebStarterConfigFile;
+        private System.Windows.Forms.Button buttonDefaultSettings;
+        private System.Windows.Forms.Label labelOpenSettings;
+        private System.Windows.Forms.Label labelSaveSettingsAs;
+        private System.Windows.Forms.Button buttonRevertToLastOpened;
         private System.Windows.Forms.TabPage tabPageGeneral;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonRestartSEB;
@@ -1731,7 +1816,17 @@
         private System.Windows.Forms.Label labelSEBServerURL;
         private System.Windows.Forms.TextBox textBoxSEBServerURL;
         private System.Windows.Forms.CheckBox checkBoxEnableLogging;
-        private System.Windows.Forms.CheckBox checkBoxStartingAnExam;
+        private System.Windows.Forms.CheckBox checkBoxAllowToOpenPreferencesWindow;
+        private System.Windows.Forms.RadioButton radioButtonConfiguringAClient;
+        private System.Windows.Forms.RadioButton radioButtonStartingAnExam;
+        private System.Windows.Forms.Label labelUseSEBSettingsFileFor;
+        private System.Windows.Forms.Label labelConfirmSettingsPassword;
+        private System.Windows.Forms.Label labelSettingsPassword;
+        private System.Windows.Forms.TextBox textBoxConfirmSettingsPassword;
+        private System.Windows.Forms.TextBox textBoxSettingsPassword;
+        private System.Windows.Forms.Label labelChooseIdentity;
+        private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
+        private System.Windows.Forms.Label labelUseEither;
 
     }
 }

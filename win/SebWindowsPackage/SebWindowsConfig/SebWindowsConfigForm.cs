@@ -15,7 +15,14 @@ namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
     {
-        // Constants for indexing the ini file values
+
+
+        // ******************************
+        //
+        // Constants and global variables
+        //
+        // ******************************
+
 
         // SEB has 1 different ini file:
         // SebStarter.ini
@@ -114,12 +121,22 @@ namespace SebWindowsConfig
         const String MessageConfirmQuitPassword          = "ConfirmQuitPassword";
         const String MessageQuitHashcode                 = "QuitHashcode";
 
-        // Group "Config File"
-        const int ValueStartingAnExam = 1;
-        const int NumValueConfigFile = 1;
 
-        const String MessageCurrentSebStarterIni = "CurrentSebStarterIni";
-        const String MessageStartingAnExam       = "StartingAnExam";
+        // Group "Config File"
+        const int ValueStartingAnExam               = 1;
+        const int ValueConfiguringAClient           = 2;
+        const int ValueAllowToOpenPreferencesWindow = 3;
+        const int ValueChooseIdentity               = 4;
+        const int ValueSettingsPassword             = 5;
+        const int ValueConfirmSettingsPassword      = 6;
+        const int NumValueConfigFile = 6;
+
+        const String MessageStartingAnExam               = "StartingAnExam";
+        const String MessageConfiguringAClient           = "ConfiguringAClient";
+        const String MessageAllowToOpenPreferencesWindow = "AllowToOpenPreferencesWindow";
+        const String MessageChooseIdentity               = "ChooseIdentity";
+        const String MessageSettingsPassword             = "SettingsPassword";
+        const String MessageConfirmSettingsPassword      = "ConfirmSettingsPassword";
 
 
         // Group "Security"
@@ -340,8 +357,13 @@ namespace SebWindowsConfig
 
 
         // ***********
+        //
         // Constructor
+        //
         // ***********
+
+
+
         public SebWindowsConfigForm()
         {
             InitializeComponent();
@@ -370,8 +392,12 @@ namespace SebWindowsConfig
             settingString [StateDef, GroupGeneral, ValueQuitHashcode                ] = "";
 
             // Default settings for group "Config File"
-            settingBoolean[StateDef, GroupConfigFile, ValueStartingAnExam] = true;
-
+            settingBoolean[StateDef, GroupConfigFile, ValueStartingAnExam              ] = true;
+            settingBoolean[StateDef, GroupConfigFile, ValueConfiguringAClient          ] = false;
+            settingBoolean[StateDef, GroupConfigFile, ValueAllowToOpenPreferencesWindow] = true;
+            settingInteger[StateDef, GroupConfigFile, ValueChooseIdentity              ] = 0;
+            settingString [StateDef, GroupConfigFile, ValueSettingsPassword            ] = "";
+            settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword     ] = "";
 
             // Default settings for group "Security"
             settingBoolean[StateDef, GroupSecurity, ValueEnableLogging] = true;
@@ -437,14 +463,20 @@ namespace SebWindowsConfig
             settingInteger[StateNew, GroupExitKeys, ValueExitKey3] =  6;
 
 
-            // Data types of the different values
+            // Standard data types of the different groups
             for (value = 1; value <= ValueNum; value++)
             {
                 dataType[GroupGeneral        , value] = TypeString;
                 dataType[GroupConfigFile     , value] = TypeBoolean;
-
+                dataType[GroupAppearance     , value] = TypeBoolean;
+                dataType[GroupBrowser        , value] = TypeBoolean;
+                dataType[GroupDownUploads    , value] = TypeBoolean;
+                dataType[GroupExam           , value] = TypeBoolean;
+                dataType[GroupApplications   , value] = TypeBoolean;
+                dataType[GroupNetwork        , value] = TypeBoolean;
                 dataType[GroupSecurity       , value] = TypeBoolean;
-
+                dataType[GroupRegistry       , value] = TypeBoolean;
+                dataType[GroupHookedKeys     , value] = TypeBoolean;
                 dataType[GroupExitKeys       , value] = TypeString;
 
                 dataType[GroupInsideSeb      , value] = TypeBoolean;
@@ -454,6 +486,13 @@ namespace SebWindowsConfig
                 dataType[GroupSpecialKeys    , value] = TypeBoolean;
                 dataType[GroupFunctionKeys   , value] = TypeBoolean;
             }
+
+            // Exceptional data types of some special values
+            dataType[GroupGeneral   , ValueAllowUserToQuitSEB     ] = TypeBoolean;
+
+            dataType[GroupConfigFile, ValueChooseIdentity         ] = TypeInteger;
+            dataType[GroupConfigFile, ValueSettingsPassword       ] = TypeString;
+            dataType[GroupConfigFile, ValueConfirmSettingsPassword] = TypeString;
 
 
             // Number of groups per file
@@ -522,7 +561,13 @@ namespace SebWindowsConfig
             valueString[GroupGeneral, ValueConfirmQuitPassword         ] = MessageConfirmQuitPassword;
             valueString[GroupGeneral, ValueQuitHashcode                ] = MessageQuitHashcode;
 
-            valueString[GroupConfigFile, ValueStartingAnExam] = MessageStartingAnExam;
+            valueString[GroupConfigFile, ValueStartingAnExam              ] = MessageStartingAnExam;
+            valueString[GroupConfigFile, ValueConfiguringAClient          ] = MessageConfiguringAClient;
+            valueString[GroupConfigFile, ValueAllowToOpenPreferencesWindow] = MessageAllowToOpenPreferencesWindow;
+            valueString[GroupConfigFile, ValueChooseIdentity              ] = MessageChooseIdentity;
+            valueString[GroupConfigFile, ValueSettingsPassword            ] = MessageSettingsPassword;
+            valueString[GroupConfigFile, ValueConfirmSettingsPassword     ] = MessageConfirmSettingsPassword;
+
 
             valueString[GroupSecurity, ValueEnableLogging] = MessageEnableLogging;
 
@@ -621,13 +666,14 @@ namespace SebWindowsConfig
              targetFileSebStarterIni = TargetSebStarterIni;
              targetPathSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
 
-            // Read the settings from the ini file and update their widgets
+            // Read the settings from the ini file
             if (OpenIniFile(targetPathSebStarterIni) == true)
             {
                 currentDireSebStarterIni = targetDireSebStarterIni;
                 currentFileSebStarterIni = targetFileSebStarterIni;
                 currentPathSebStarterIni = targetPathSebStarterIni;
 
+                // Update the widgets
                 SetWidgetsToNewSettingsOfSebStarterIni();
             }
 
@@ -636,66 +682,6 @@ namespace SebWindowsConfig
 
         } // end of contructor   SebWindowsConfigForm()
 
-
-
-        // *********************************
-        // Open SebStarter config file click
-        // *********************************
-        private void labelOpenSebStarterConfigFile_Click(object sender, EventArgs e)
-        {
-            // Set the default directory and file name in the File Dialog
-            openFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
-            openFileDialogSebStarterIni.FileName         = currentFileSebStarterIni;
-
-            // Get the user inputs in the File Dialog
-            DialogResult fileDialogResult = openFileDialogSebStarterIni.ShowDialog();
-            String       fileName         = openFileDialogSebStarterIni.FileName;
-
-            // If the user clicked "Cancel", do nothing
-            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-
-            // If the user clicked "OK",
-            // read the settings from the ini file and update their widgets
-            if (OpenIniFile(fileName) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileName);
-                currentFileSebStarterIni = Path.GetFileName     (fileName);
-                currentPathSebStarterIni = Path.GetFullPath     (fileName);
-
-                SetWidgetsToNewSettingsOfSebStarterIni();
-            }
-        } // end of method   labelOpenSebStarterConfigFile_Click()
-
-
-
-        // *********************************
-        // Save SebStarter config file click
-        // *********************************
-        private void labelSaveSebStarterConfigFile_Click(object sender, EventArgs e)
-        {
-            // Set the default directory and file name in the File Dialog
-            saveFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
-            saveFileDialogSebStarterIni.FileName         = currentFileSebStarterIni;
-
-            // Get the user inputs in the File Dialog
-            DialogResult fileDialogResult = saveFileDialogSebStarterIni.ShowDialog();
-            String       fileName         = saveFileDialogSebStarterIni.FileName;
-
-            // If the user clicked "Cancel", do nothing
-            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-
-            // If the user clicked "OK",
-            // write the settings to the ini file and update the filename widget
-            if (SaveIniFile(fileName) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileName);
-                currentFileSebStarterIni = Path.GetFileName     (fileName);
-                currentPathSebStarterIni = Path.GetFullPath     (fileName);
-
-                textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
-                textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
-            }
-        } // end of method   labelSaveSebStarterConfigFile_Click()
 
 
 
@@ -838,7 +824,6 @@ namespace SebWindowsConfig
 
 
 
-
         // **************************************
         // Write settings to ini file and save it
         // **************************************
@@ -944,12 +929,12 @@ namespace SebWindowsConfig
 
 
 
+        // **************
+        //
+        // Event handlers
+        //
+        // **************
 
-        // ******************************************************
-        // Event handlers:
-        // If the user changes a setting by clicking or typing,
-        // update the setting in memory for later saving on file.
-        // ******************************************************
 
 
         // ***************
@@ -995,23 +980,118 @@ namespace SebWindowsConfig
 
             textBoxQuitHashcode.Text = newStringQuitHashcode;
 
-            //settingString[StateNew, GroupOnlineExam, ValueQuitPassword] = newStringQuitPassword;
-            //settingString[StateNew, GroupOnlineExam, ValueQuitHashcode] = newStringQuitHashcode;
+            settingString[StateNew, GroupGeneral, ValueQuitPassword] = newStringQuitPassword;
+            settingString[StateNew, GroupGeneral, ValueQuitHashcode] = newStringQuitHashcode;
         }
 
         private void textBoxConfirmQuitPassword_TextChanged(object sender, EventArgs e)
         {
-
+            settingString[StateNew, GroupGeneral, ValueConfirmQuitPassword] = textBoxConfirmQuitPassword.Text;
         }
+
 
 
         // *******************
         // Group "Config File"
         // *******************
-        private void checkBoxStartingAnExam_CheckedChanged(object sender, EventArgs e)
+
+        private void radioButtonStartingAnExam_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam] = checkBoxStartingAnExam.Checked;
+            settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam] = (radioButtonStartingAnExam.Checked == true);
         }
+
+        private void radioButtonConfiguringAClient_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient] = (radioButtonConfiguringAClient.Checked == true);
+        }
+
+        private void checkBoxAllowToOpenPreferencesWindowOnClient_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupConfigFile, ValueAllowToOpenPreferencesWindow] = checkBoxAllowToOpenPreferencesWindow.Checked;
+        }
+
+        private void comboBoxChooseIdentity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.SelectedIndex;
+        }
+
+        private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
+        {
+            settingString[StateNew, GroupConfigFile, ValueSettingsPassword] = textBoxSettingsPassword.Text;
+        }
+
+        private void textBoxConfirmSettingsPassword_TextChanged(object sender, EventArgs e)
+        {
+            settingString[StateNew, GroupConfigFile, ValueConfirmSettingsPassword] = textBoxConfirmSettingsPassword.Text;
+        }
+
+
+        private void buttonDefaultSettings_Click(object sender, EventArgs e)
+        {
+            SetNewSettingsOfFileToState(StateDef);
+            SetWidgetsToNewSettingsOfSebStarterIni();
+        }
+
+        private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
+        {
+            SetNewSettingsOfFileToState(StateOld);
+            SetWidgetsToNewSettingsOfSebStarterIni();
+        }
+
+
+        private void labelOpenSettings_Click(object sender, EventArgs e)
+        {
+            // Set the default directory and file name in the File Dialog
+            openFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
+            openFileDialogSebStarterIni.FileName         = currentFileSebStarterIni;
+
+            // Get the user inputs in the File Dialog
+            DialogResult fileDialogResult = openFileDialogSebStarterIni.ShowDialog();
+            String       fileName         = openFileDialogSebStarterIni.FileName;
+
+            // If the user clicked "Cancel", do nothing
+            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
+
+            // If the user clicked "OK", read the settings from the ini file
+            if (OpenIniFile(fileName) == true)
+            {
+                currentDireSebStarterIni = Path.GetDirectoryName(fileName);
+                currentFileSebStarterIni = Path.GetFileName     (fileName);
+                currentPathSebStarterIni = Path.GetFullPath     (fileName);
+
+                // Update the widgets
+                SetWidgetsToNewSettingsOfSebStarterIni();
+            }
+        }
+
+
+        private void labelSaveSettingsAs_Click(object sender, EventArgs e)
+        {
+            // Set the default directory and file name in the File Dialog
+            saveFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
+            saveFileDialogSebStarterIni.FileName         = currentFileSebStarterIni;
+
+            // Get the user inputs in the File Dialog
+            DialogResult fileDialogResult = saveFileDialogSebStarterIni.ShowDialog();
+            String       fileName         = saveFileDialogSebStarterIni.FileName;
+
+            // If the user clicked "Cancel", do nothing
+            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
+
+            // If the user clicked "OK", write the settings to the ini file
+            if (SaveIniFile(fileName) == true)
+            {
+                currentDireSebStarterIni = Path.GetDirectoryName(fileName);
+                currentFileSebStarterIni = Path.GetFileName     (fileName);
+                currentPathSebStarterIni = Path.GetFullPath     (fileName);
+
+                // Update the filename in the title bar
+                this.Text  = this.ProductName;
+                this.Text += " - ";
+                this.Text += currentPathSebStarterIni;
+            }
+        }
+
 
 
         // ****************
@@ -1375,23 +1455,7 @@ namespace SebWindowsConfig
 
 
 
-        // *********************************
-        // Default SebStarter settings click
-        // *********************************
-        private void buttonDefaultSebStarterSettings_Click(object sender, EventArgs e)
-        {
-            SetNewSettingsOfFileToState(StateDef);
-            SetWidgetsToNewSettingsOfSebStarterIni();
-        }
 
-        // ************************************
-        // Restore SebStarter config file click
-        // ************************************
-        private void buttonRestoreSebStarterConfigFile_Click(object sender, EventArgs e)
-        {
-            SetNewSettingsOfFileToState(StateOld);
-            SetWidgetsToNewSettingsOfSebStarterIni();
-        }
 
 
 
@@ -1419,10 +1483,12 @@ namespace SebWindowsConfig
         // *****************************************************
         private void SetWidgetsToNewSettingsOfSebStarterIni()
         {
-            // Set the widgets to the new settings
-            textBoxCurrentDireSebStarterIni.Text = currentDireSebStarterIni;
-            textBoxCurrentFileSebStarterIni.Text = currentFileSebStarterIni;
+            // Update the filename in the title bar
+            this.Text  = this.ProductName;
+            this.Text += " - ";
+            this.Text += currentPathSebStarterIni;
 
+            // Update the widgets
             textBoxStartURL                    .Text    = settingString [StateNew, GroupGeneral, ValueStartURL];
             textBoxSEBServerURL                .Text    = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
             textBoxAdministratorPassword       .Text    = settingString [StateNew, GroupGeneral, ValueAdministratorPassword];
@@ -1431,7 +1497,13 @@ namespace SebWindowsConfig
             textBoxQuitPassword                .Text    = settingString [StateNew, GroupGeneral, ValueQuitPassword];
             textBoxConfirmQuitPassword         .Text    = settingString [StateNew, GroupGeneral, ValueConfirmQuitPassword];
 
-            checkBoxStartingAnExam.Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
+            radioButtonStartingAnExam           .Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
+            radioButtonConfiguringAClient       .Checked = settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient];
+            checkBoxAllowToOpenPreferencesWindow.Checked = settingBoolean[StateNew, GroupConfigFile, ValueAllowToOpenPreferencesWindow];
+            comboBoxChooseIdentity      .SelectedIndex   = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+            textBoxSettingsPassword             .Text    = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
+            textBoxConfirmSettingsPassword      .Text    = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
+
             checkBoxEnableLogging.Checked = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
             listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
@@ -1559,6 +1631,9 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
+
+
+
 
 
 
