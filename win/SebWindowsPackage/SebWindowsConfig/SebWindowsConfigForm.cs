@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -100,7 +101,6 @@ namespace SebWindowsConfig
         const String MessageFunctionKeys    = "FunctionKeys";
         const String MessageOther           = "Other";
 
-
         // Group "General"
         const int ValueStartURL                     = 1;
         const int ValueSEBServerURL                 = 2;
@@ -121,7 +121,6 @@ namespace SebWindowsConfig
         const String MessageConfirmQuitPassword          = "ConfirmQuitPassword";
         const String MessageQuitHashcode                 = "QuitHashcode";
 
-
         // Group "Config File"
         const int ValueStartingAnExam               = 1;
         const int ValueConfiguringAClient           = 2;
@@ -138,13 +137,11 @@ namespace SebWindowsConfig
         const String MessageSettingsPassword             = "SettingsPassword";
         const String MessageConfirmSettingsPassword      = "ConfirmSettingsPassword";
 
-
         // Group "Security"
         const int ValueEnableLogging = 1;
         const int NumValueSecurity = 1;
 
         const String MessageEnableLogging = "EnableLogging";
-
 
         // Group "Exit Keys"
         const int ValueExitKey1 = 1;
@@ -168,7 +165,6 @@ namespace SebWindowsConfig
         const int NumValueRegistry     = 0;
         const int NumValueHookedKeys   = 0;
 //      const int NumValueExitKeys     = 0;
-
 
         // Groups "Inside SEB" and "Outside SEB"
         const int ValueEnableSwitchUser        = 1;
@@ -221,8 +217,8 @@ namespace SebWindowsConfig
         const int ValueHookMessages              = 15;
         const int ValueIgnoreQuitPassword        = 16;
         const int ValueMonitorProcesses          = 17;
-        const int ValueNewBrowserWindowByLinkBlockForeign   = 18;
-        const int ValueNewBrowserWindowByScriptBlockForeign = 19;
+        const int ValueNewBrowserWindowByLink   = 18;
+        const int ValueNewBrowserWindowByScript = 19;
         const int ValueOpenDownloads             = 20;
 
         const int NumValueSecurityOptions = 20;
@@ -247,8 +243,8 @@ namespace SebWindowsConfig
         const String MessageHookMessages              = "HookMessages";
         const String MessageIgnoreQuitPassword        = "IgnoreQuitPassword";
         const String MessageMonitorProcesses          = "MonitorProcesses";
-        const String MessageNewBrowserWindowByLinkBlockForeign   = "NewBrowserWindowByLinkBlockForeign";
-        const String MessageNewBrowserWindowByScriptBlockForeign = "NewBrowserWindowByScriptBlockForeign";
+        const String MessageNewBrowserWindowByLink    = "NewBrowserWindowByLink";
+        const String MessageNewBrowserWindowByScript  = "NewBrowserWindowByScript";
         const String MessageOpenDownloads             = "OpenDownloads";
 
         // Group "Online Exam"
@@ -399,14 +395,27 @@ namespace SebWindowsConfig
             settingString [StateDef, GroupConfigFile, ValueSettingsPassword            ] = "";
             settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword     ] = "";
 
+            // Default settings for group "Appearance"
+            // Default settings for group "Browser"
+            // Default settings for group "DownUploads"
+            // Default settings for group "Exam"
+            // Default settings for group "Applications"
+            // Default settings for group "Network"
+
             // Default settings for group "Security"
             settingBoolean[StateDef, GroupSecurity, ValueEnableLogging] = true;
 
+            // Default settings for group "Registry"
+            // Default settings for group "HookedKeys"
+
+            // Default settings for group "ExitKeys"
+            settingInteger[StateDef, GroupExitKeys, ValueExitKey1] =  3;
+            settingInteger[StateDef, GroupExitKeys, ValueExitKey2] = 11;
+            settingInteger[StateDef, GroupExitKeys, ValueExitKey3] =  6;
 
             // Default values for groups "Inside SEB", "Outside SEB" etc.
             for (value = 1; value <= ValueNum; value++)
             {
-                settingInteger[StateDef, GroupExitKeys       , value] = 0;
                 settingBoolean[StateDef, GroupInsideSeb      , value] = false;
                 settingBoolean[StateDef, GroupOutsideSeb     , value] = true;
                 settingBoolean[StateDef, GroupSecurityOptions, value] = false;
@@ -435,8 +444,8 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurityOptions, ValueHookMessages             ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueIgnoreQuitPassword       ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueMonitorProcesses         ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByLinkBlockForeign  ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByScriptBlockForeign] = false;
+            settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByLink   ] = false;
+            settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByScript ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueOpenDownloads            ] = false;
 
             // Default settings for group "Online exam"
@@ -449,18 +458,11 @@ namespace SebWindowsConfig
             settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
 
-            // Default settings for groups "Special keys" and "Function keys"
+            // Default settings for groups "Special keys"
             settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
-            settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5    ] = true;
 
-            // Default settings for group "Exit sequence"
-            settingInteger[StateDef, GroupExitKeys, ValueExitKey1] =  3;
-            settingInteger[StateDef, GroupExitKeys, ValueExitKey2] = 11;
-            settingInteger[StateDef, GroupExitKeys, ValueExitKey3] =  6;
-
-            settingInteger[StateNew, GroupExitKeys, ValueExitKey1] =  3;
-            settingInteger[StateNew, GroupExitKeys, ValueExitKey2] = 11;
-            settingInteger[StateNew, GroupExitKeys, ValueExitKey3] =  6;
+            // Default settings for groups "Function keys"
+            settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5] = true;
 
 
             // Standard data types of the different groups
@@ -571,6 +573,7 @@ namespace SebWindowsConfig
 
             valueString[GroupSecurity, ValueEnableLogging] = MessageEnableLogging;
 
+
             valueString[GroupExitKeys, ValueExitKey1] = MessageExitKey1;
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
             valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
@@ -626,8 +629,8 @@ namespace SebWindowsConfig
             valueString[GroupSecurityOptions, ValueHookMessages             ] = MessageHookMessages;
             valueString[GroupSecurityOptions, ValueIgnoreQuitPassword       ] = MessageIgnoreQuitPassword;
             valueString[GroupSecurityOptions, ValueMonitorProcesses         ] = MessageMonitorProcesses;
-            valueString[GroupSecurityOptions, ValueNewBrowserWindowByLinkBlockForeign  ] = MessageNewBrowserWindowByLinkBlockForeign;
-            valueString[GroupSecurityOptions, ValueNewBrowserWindowByScriptBlockForeign] = MessageNewBrowserWindowByScriptBlockForeign;
+            valueString[GroupSecurityOptions, ValueNewBrowserWindowByLink   ] = MessageNewBrowserWindowByLink;
+            valueString[GroupSecurityOptions, ValueNewBrowserWindowByScript ] = MessageNewBrowserWindowByScript;
             valueString[GroupSecurityOptions, ValueOpenDownloads            ] = MessageOpenDownloads;
 
             valueString[GroupOnlineExam, ValueSebBrowser           ] = MessageSebBrowser;
@@ -680,13 +683,24 @@ namespace SebWindowsConfig
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
 
-            String[] blabla = new String[3];
+            // Fill the ComboBox for choosing identity for encrypting SEB settings
+            String[]  identityArray     = new String[3];
+            ArrayList identityArrayList = new ArrayList();
 
-            blabla[0] = "alpha";
-            blabla[1] = "beta";
-            blabla[2] = "gamma";
+            identityArrayList.Add("1 alpha");
+            identityArrayList.Add("2 beta");
+            identityArrayList.Add("3 gamma");
 
-            comboBoxChooseIdentity.Items.AddRange(blabla);
+            for (int i = 0; i < 3; i++)
+            {
+                comboBoxChooseIdentity.Items.Add(identityArrayList[i]);
+            }
+
+            identityArray[0] = "4 alpha";
+            identityArray[1] = "5 beta";
+            identityArray[2] = "6 gamma";
+
+            comboBoxChooseIdentity.Items.AddRange(identityArray);
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -1326,12 +1340,12 @@ namespace SebWindowsConfig
 
         private void checkBoxNewBrowserWindowByLinkBlockForeign_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLinkBlockForeign] = checkBoxNewBrowserWindowByLinkBlockForeign.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLink] = checkBoxNewBrowserWindowByLinkBlockForeign.Checked;
         }
 
         private void checkBoxNewBrowserWindowByScriptBlockForeign_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScriptBlockForeign] = checkBoxNewBrowserWindowByScriptBlockForeign.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScript] = checkBoxNewBrowserWindowByScriptBlockForeign.Checked;
         }
 
         private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
@@ -1557,16 +1571,13 @@ namespace SebWindowsConfig
             checkBoxHookMessages                        .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages];
             checkBoxIgnoreQuitPassword                  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
             checkBoxMonitorProcesses                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses];
-            checkBoxNewBrowserWindowByLinkBlockForeign  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLinkBlockForeign];
-            checkBoxNewBrowserWindowByScriptBlockForeign.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScriptBlockForeign];
+            checkBoxNewBrowserWindowByLinkBlockForeign  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLink];
+            checkBoxNewBrowserWindowByScriptBlockForeign.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScript];
             checkBoxOpenDownloads                       .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueOpenDownloads];
 
             textBoxSebBrowser           .Text = settingString[StateNew, GroupOnlineExam, ValueSebBrowser];
             textBoxAutostartProcess     .Text = settingString[StateNew, GroupOnlineExam, ValueAutostartProcess];
-            textBoxStartURL             .Text = settingString[StateNew, GroupOnlineExam, ValueStartURL];
             textBoxPermittedApplications.Text = settingString[StateNew, GroupOnlineExam, ValuePermittedApplications];
-            textBoxQuitPassword         .Text = settingString[StateNew, GroupOnlineExam, ValueQuitPassword];
-            textBoxQuitHashcode         .Text = settingString[StateNew, GroupOnlineExam, ValueQuitHashcode];
 
             checkBoxEnableEsc       .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc];
             checkBoxEnableCtrlEsc   .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc];
