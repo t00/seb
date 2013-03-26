@@ -780,20 +780,12 @@ namespace SebWindowsConfig
             }
 
 
-            // Choose Identity needs a conversion from string to integer
-            String tmpStringChooseIdentity = settingString[StateTmp, GroupConfigFile, ValueChooseIdentity];
-
-            int tmpIndexChooseIdentity = 0;
-            int maxIndexChooseIdentity = chooseIdentityString.Length;
-
-            for (int indexChooseIdentity = 0; indexChooseIdentity < maxIndexChooseIdentity; indexChooseIdentity++)
-            {
-                String ci = chooseIdentityString[indexChooseIdentity];
-                if (tmpStringChooseIdentity.Equals(ci)) tmpIndexChooseIdentity = indexChooseIdentity;
-            }
-
-            settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = tmpIndexChooseIdentity;
-
+            // Choose Identity needs a conversion from string to integer.
+            // The SEB Windows configuration editor never reads the identity
+            // from the config file but instead searches it in the
+            // Certificate Store of the computer where it is running,
+            // so initially the 0th list entry is displayed ("none").
+            settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
 
             // Exit Key Sequence needs a conversion from string to integer
             String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
@@ -1473,10 +1465,6 @@ namespace SebWindowsConfig
         {
             settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12] = checkBoxEnableF12.Checked;
         }
-
-
-
-
 
 
 
