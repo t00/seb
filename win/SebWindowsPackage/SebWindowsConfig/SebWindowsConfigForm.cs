@@ -579,6 +579,7 @@ namespace SebWindowsConfig
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
             valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
 
+
             // Define the strings for the encryption identities
             chooseIdentityString[0] = "none";
             chooseIdentityString[1] = "alpha";
