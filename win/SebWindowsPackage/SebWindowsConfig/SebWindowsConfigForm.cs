@@ -149,9 +149,9 @@ namespace SebWindowsConfig
         const int ValueExitKey3 = 3;
         const int NumValueExitKeys = 3;
 
-        const String MessageExitKey1 = "B1";
-        const String MessageExitKey2 = "B2";
-        const String MessageExitKey3 = "B3";
+        const String MessageExitKey1 = "ExitKey1";
+        const String MessageExitKey2 = "ExitKey2";
+        const String MessageExitKey3 = "ExitKey3";
 
 //      const int NumValueGeneral      = 0;
 //      const int NumValueConfigFile   = 0;
@@ -217,8 +217,8 @@ namespace SebWindowsConfig
         const int ValueHookMessages              = 15;
         const int ValueIgnoreQuitPassword        = 16;
         const int ValueMonitorProcesses          = 17;
-        const int ValueNewBrowserWindowByLink   = 18;
-        const int ValueNewBrowserWindowByScript = 19;
+        const int ValueNewBrowserWindowByLink    = 18;
+        const int ValueNewBrowserWindowByScript  = 19;
         const int ValueOpenDownloads             = 20;
 
         const int NumValueSecurityOptions = 20;
@@ -326,8 +326,9 @@ namespace SebWindowsConfig
         String targetFileSebStarterIni;
         String targetPathSebStarterIni;
 
-        // Virtual key code strings
-        static String[] virtualKeyCodeString = new String[ValueNum + 1];
+        // Strings for encryption identities (KeyChain, Certificate Store) and function keys
+        static String[] chooseIdentityString = new String[ValueNum + 1];
+        static String[]    functionKeyString = new String[ValueNum + 1];
 
         // Number of groups per file
         // Number of values per group
@@ -391,7 +392,7 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupConfigFile, ValueStartingAnExam              ] = true;
             settingBoolean[StateDef, GroupConfigFile, ValueConfiguringAClient          ] = false;
             settingBoolean[StateDef, GroupConfigFile, ValueAllowToOpenPreferencesWindow] = true;
-            settingInteger[StateDef, GroupConfigFile, ValueChooseIdentity              ] = 0;
+            settingString [StateDef, GroupConfigFile, ValueChooseIdentity              ] = "";
             settingString [StateDef, GroupConfigFile, ValueSettingsPassword            ] = "";
             settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword     ] = "";
 
@@ -578,18 +579,19 @@ namespace SebWindowsConfig
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
             valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
 
-            virtualKeyCodeString[ 1] = "112";
-            virtualKeyCodeString[ 2] = "113";
-            virtualKeyCodeString[ 3] = "114";
-            virtualKeyCodeString[ 4] = "115";
-            virtualKeyCodeString[ 5] = "116";
-            virtualKeyCodeString[ 6] = "117";
-            virtualKeyCodeString[ 7] = "118";
-            virtualKeyCodeString[ 8] = "119";
-            virtualKeyCodeString[ 9] = "120";
-            virtualKeyCodeString[10] = "121";
-            virtualKeyCodeString[11] = "122";
-            virtualKeyCodeString[12] = "123";
+            // Define the strings for the encryption identities
+            chooseIdentityString[0] = "none";
+            chooseIdentityString[1] = "alpha";
+            chooseIdentityString[2] = "beta";
+            chooseIdentityString[3] = "gamma";
+
+            // Fill the ComboBox for choosing identity for encrypting SEB settings
+            //comboBoxChooseIdentity.Items.AddRange(chooseIdentityString);
+            //comboBoxChooseIdentity.SelectedIndex = 0;
+
+            // Define the strings for the function keys: "F1", "F2", ...,  "F12"
+            for (int i = 1; i <= 12; i++)
+                functionKeyString[i] = "F" + i.ToString();
 
             valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
             valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
@@ -682,25 +684,6 @@ namespace SebWindowsConfig
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
-
-            // Fill the ComboBox for choosing identity for encrypting SEB settings
-            String[]  identityArray     = new String[3];
-            ArrayList identityArrayList = new ArrayList();
-
-            identityArrayList.Add("1 alpha");
-            identityArrayList.Add("2 beta");
-            identityArrayList.Add("3 gamma");
-
-            for (int i = 0; i < 3; i++)
-            {
-                comboBoxChooseIdentity.Items.Add(identityArrayList[i]);
-            }
-
-            identityArray[0] = "4 alpha";
-            identityArray[1] = "5 beta";
-            identityArray[2] = "6 gamma";
-
-            comboBoxChooseIdentity.Items.AddRange(identityArray);
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -797,12 +780,25 @@ namespace SebWindowsConfig
             }
 
 
-            // The Exit Key Sequence of the SebStarter ini file needs a special conversion
+            // Choose Identity needs a conversion from string to integer
+            String tmpStringChooseIdentity = settingString[StateTmp, GroupConfigFile, ValueChooseIdentity];
 
-            // Convert the B1, B2, B3 strings to integers
-            String tmpB1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
-            String tmpB2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
-            String tmpB3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
+            int tmpIndexChooseIdentity = 0;
+            int maxIndexChooseIdentity = chooseIdentityString.Length;
+
+            for (int indexChooseIdentity = 0; indexChooseIdentity < maxIndexChooseIdentity; indexChooseIdentity++)
+            {
+                String ci = chooseIdentityString[indexChooseIdentity];
+                if (tmpStringChooseIdentity.Equals(ci)) tmpIndexChooseIdentity = indexChooseIdentity;
+            }
+
+            settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = tmpIndexChooseIdentity;
+
+
+            // Exit Key Sequence needs a conversion from string to integer
+            String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
+            String tmpStringExitKey2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
+            String tmpStringExitKey3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
 
             int tmpIndexExitKey1 = 0;
             int tmpIndexExitKey2 = 0;
@@ -810,11 +806,11 @@ namespace SebWindowsConfig
 
             for (int indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
             {
-                String vkc = virtualKeyCodeString[indexFunctionKey];
+                String vkc = functionKeyString[indexFunctionKey];
 
-                if (tmpB1.Equals(vkc)) tmpIndexExitKey1 = indexFunctionKey;
-                if (tmpB2.Equals(vkc)) tmpIndexExitKey2 = indexFunctionKey;
-                if (tmpB3.Equals(vkc)) tmpIndexExitKey3 = indexFunctionKey;
+                if (tmpStringExitKey1.Equals(vkc)) tmpIndexExitKey1 = indexFunctionKey;
+                if (tmpStringExitKey2.Equals(vkc)) tmpIndexExitKey2 = indexFunctionKey;
+                if (tmpStringExitKey3.Equals(vkc)) tmpIndexExitKey3 = indexFunctionKey;
             }
 
             settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = tmpIndexExitKey1;
@@ -859,15 +855,18 @@ namespace SebWindowsConfig
             int minvalue;
             int maxvalue;
 
-            // The Exit Key Sequence of the SebStarter ini file needs a special conversion
+            // Choose Identity needs a conversion from integer to string
+            int newIndexChooseIdentity = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+            settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityString[newIndexChooseIdentity];
 
+            // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
             int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
             int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
 
-            settingString[StateNew, GroupExitKeys, ValueExitKey1] = virtualKeyCodeString[newIndexExitKey1];
-            settingString[StateNew, GroupExitKeys, ValueExitKey2] = virtualKeyCodeString[newIndexExitKey2];
-            settingString[StateNew, GroupExitKeys, ValueExitKey3] = virtualKeyCodeString[newIndexExitKey3];
+            settingString[StateNew, GroupExitKeys, ValueExitKey1] = functionKeyString[newIndexExitKey1];
+            settingString[StateNew, GroupExitKeys, ValueExitKey2] = functionKeyString[newIndexExitKey2];
+            settingString[StateNew, GroupExitKeys, ValueExitKey3] = functionKeyString[newIndexExitKey3];
 
             try 
             {
