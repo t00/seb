@@ -580,11 +580,8 @@ namespace SebWindowsConfig
             valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
 
 
-            // Define the strings for the encryption identities
-            chooseIdentityString[0] = "none";
-            chooseIdentityString[1] = "alpha";
-            chooseIdentityString[2] = "beta";
-            chooseIdentityString[3] = "gamma";
+
+
 
             // Fill the ComboBox for choosing identity for encrypting SEB settings
             //comboBoxChooseIdentity.Items.AddRange(chooseIdentityString);
@@ -685,6 +682,16 @@ namespace SebWindowsConfig
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
+
+            //String[] chooseIdentityString = new String[4];
+
+            // Define the strings for the encryption identities
+            chooseIdentityString[0] = "none";
+            chooseIdentityString[1] = "alpha";
+            chooseIdentityString[2] = "beta";
+            chooseIdentityString[3] = "gamma";
+
+            comboBoxChooseIdentity.Items.AddRange(chooseIdentityString);
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -850,7 +857,7 @@ namespace SebWindowsConfig
 
             // Choose Identity needs a conversion from integer to string
             int newIndexChooseIdentity = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
-            settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityString[newIndexChooseIdentity];
+            //settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityString[newIndexChooseIdentity];
 
             // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
