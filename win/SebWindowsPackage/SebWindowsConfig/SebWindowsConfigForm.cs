@@ -326,22 +326,24 @@ namespace SebWindowsConfig
         String targetFileSebStarterIni;
         String targetPathSebStarterIni;
 
-        // Strings for encryption identities (KeyChain, Certificate Store) and function keys
-        static String[] chooseIdentityString = new String[ValueNum + 1];
-        static String[]    functionKeyString = new String[ValueNum + 1];
+        // Strings for encryption identities (KeyChain, Certificate Store)
+        //static ArrayList chooseIdentityStringArrayList = new ArrayList();
+        //static String[]  chooseIdentityStringArray = new String[1];
+        static List<String> chooseIdentityStringList = new List<String>();
 
         // Number of groups per file
         // Number of values per group
         // Names  of groups and values
         // Types  of values (Boolean, Integer, String)
-        static    int[ ]    minGroup  = new    int[ FileNum + 1];
-        static    int[ ]    maxGroup  = new    int[ FileNum + 1];
-        static    int[ ]    minValue  = new    int[GroupNum + 1];
-        static    int[ ]    maxValue  = new    int[GroupNum + 1];
-        static String[ ] configString = new String[ FileNum + 1];
-        static String[ ]  groupString = new String[GroupNum + 1];
-        static String[,]  valueString = new String[GroupNum + 1, ValueNum + 1];
-        static    int[,]   dataType   = new    int[GroupNum + 1, ValueNum + 1];
+        static    int[ ]         minGroup  = new    int[ FileNum + 1];
+        static    int[ ]         maxGroup  = new    int[ FileNum + 1];
+        static    int[ ]         minValue  = new    int[GroupNum + 1];
+        static    int[ ]         maxValue  = new    int[GroupNum + 1];
+        static String[ ] functionKeyString = new String[ValueNum + 1];
+        static String[ ]      configString = new String[ FileNum + 1];
+        static String[ ]       groupString = new String[GroupNum + 1];
+        static String[,]       valueString = new String[GroupNum + 1, ValueNum + 1];
+        static    int[,]        dataType   = new    int[GroupNum + 1, ValueNum + 1];
 
         // Settings as Booleans ("true" or "false") or Strings
         static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
@@ -579,14 +581,6 @@ namespace SebWindowsConfig
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
             valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
 
-
-
-
-
-            // Fill the ComboBox for choosing identity for encrypting SEB settings
-            //comboBoxChooseIdentity.Items.AddRange(chooseIdentityString);
-            //comboBoxChooseIdentity.SelectedIndex = 0;
-
             // Define the strings for the function keys: "F1", "F2", ...,  "F12"
             for (int i = 1; i <= 12; i++)
                 functionKeyString[i] = "F" + i.ToString();
@@ -683,15 +677,16 @@ namespace SebWindowsConfig
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
 
-            //String[] chooseIdentityString = new String[4];
-
             // Define the strings for the encryption identities
-            chooseIdentityString[0] = "none";
-            chooseIdentityString[1] = "alpha";
-            chooseIdentityString[2] = "beta";
-            chooseIdentityString[3] = "gamma";
+            chooseIdentityStringList.Add("none");
+            chooseIdentityStringList.Add("alpha");
+            chooseIdentityStringList.Add("beta");
+            chooseIdentityStringList.Add("gamma");
+            chooseIdentityStringList.Add("delta");
 
-            comboBoxChooseIdentity.Items.AddRange(chooseIdentityString);
+            String[] chooseIdentityStringArray   = chooseIdentityStringList.ToArray();
+             comboBoxChooseIdentity.Items.AddRange(chooseIdentityStringArray);
+             comboBoxChooseIdentity.SelectedIndex = 0;
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -857,7 +852,7 @@ namespace SebWindowsConfig
 
             // Choose Identity needs a conversion from integer to string
             int newIndexChooseIdentity = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
-            //settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityString[newIndexChooseIdentity];
+            settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
 
             // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
