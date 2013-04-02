@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SEBSettings.cs" />
     <Compile Include="SebWindowsConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>

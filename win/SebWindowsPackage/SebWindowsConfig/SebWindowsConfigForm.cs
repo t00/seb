@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
+using System.Xml.Serialization;
 
 
 
@@ -353,6 +354,11 @@ namespace SebWindowsConfig
         // Password encryption using the SHA-256 hash algorithm
         SHA256 sha256 = new SHA256Managed();
 
+        // Class SEBSettings contains all settings
+        // and is userd for importing/exporting the settings
+        // from/to a human-readable .xml and an encrypted.seb file format
+        static SEBSettings sebSettings = new SEBSettings();
+
 
 
         // ***********
@@ -693,9 +699,9 @@ namespace SebWindowsConfig
 
 
 
-        // ***********************************
-        // Open ini file and read the settings
-        // ***********************************
+        // ****************************************
+        // Open the .ini file and read the settings
+        // ****************************************
         private Boolean OpenIniFile(String fileName)
         {
             FileStream   fileStream;
@@ -715,11 +721,11 @@ namespace SebWindowsConfig
 
             try 
             {
-                // Open the ini file for reading
+                // Open the .ini file for reading
                 fileStream = new   FileStream(fileName, FileMode.Open, FileAccess.Read);
                 fileReader = new StreamReader(fileStream);
 
-                // Read lines from the ini file until end of file is reached
+                // Read lines from the .ini file until end of file is reached
                 while ((fileLine = fileReader.ReadLine()) != null) 
                 {
                     // Skip empty lines and lines not in "leftSide = rightSide" format
@@ -755,7 +761,7 @@ namespace SebWindowsConfig
                     } // end if line.Contains("=")
                 } // end while
 
-                // Close the ini file
+                // Close the .ini file
                 fileReader.Close();
                 fileStream.Close();
 
@@ -837,9 +843,53 @@ namespace SebWindowsConfig
 
 
 
-        // **************************************
-        // Write settings to ini file and save it
-        // **************************************
+        // ****************************************
+        // Open the .xml file and read the settings
+        // ****************************************
+        private Boolean OpenXmlFile(String fileName)
+        {
+            XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+            TextReader      textReader = new StreamReader (fileName);
+
+            sebSettings = (SEBSettings)deserializer.Deserialize(textReader);
+            textReader.Close();
+
+            // Get settings
+
+          //settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.getUrlAddress("startURL");
+            settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.UrlAddresses[0].Url;
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebSettings.getSecurityOption("allowQuit").getBool();
+
+            int group, value;
+            int minvalue;
+            int maxvalue;
+
+            // Accept the tmp values as the new values
+            for (group = 1; group <= GroupNum; group++)
+            {
+                minvalue = minValue[group];
+                maxvalue = maxValue[group];
+
+                for (value = minvalue; value <= maxvalue; value++)
+                {
+                    settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
+                    settingString [StateOld, group, value] = settingString [StateTmp, group, value];
+                    settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
+
+                    settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
+                    settingString [StateNew, group, value] = settingString [StateTmp, group, value];
+                    settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
+                }
+            }
+
+            return true;
+        }
+
+
+
+        // ***********************************************
+        // Write the settings to the .ini file and save it
+        // ***********************************************
         private Boolean SaveIniFile(String fileName)
         {
             FileStream   fileStream;
@@ -865,12 +915,12 @@ namespace SebWindowsConfig
 
             try 
             {
-                // If the ini file already exists, delete it
+                // If the .ini file already exists, delete it
                 // and write it again from scratch with new data
                 if (File.Exists(fileName))
                     File.Delete(fileName);
 
-                // Open the ini file for writing
+                // Open the .ini file for writing
                 fileStream = new   FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
                 fileWriter = new StreamWriter(fileStream);
 
@@ -880,7 +930,7 @@ namespace SebWindowsConfig
                 fileWriter.WriteLine("");
 
                 // For each group and each key,
-                // write the line "key=value" into the ini file
+                // write the line "key=value" into the .ini file
                 for (group = 1; group <= GroupNum; group++)
                 {
                     minvalue = minValue[group];
@@ -1068,16 +1118,47 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
 
-            // If the user clicked "OK", read the settings from the ini file
-            if (OpenIniFile(fileName) == true)
+            //String fileNameRaw = fileName.Trim
+            String fileNameRaw = "SebStarter";
+            String fileNameIni = fileNameRaw + ".ini";
+            String fileNameXml = fileNameRaw + ".xml";
+            String fileNameSeb = fileNameRaw + ".seb";
+
+            // If the user clicked "OK", read the settings from the .ini file
+            if (OpenIniFile(fileNameIni) == true)
             {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileName);
-                currentFileSebStarterIni = Path.GetFileName     (fileName);
-                currentPathSebStarterIni = Path.GetFullPath     (fileName);
+                currentDireSebStarterIni = Path.GetDirectoryName(fileNameIni);
+                currentFileSebStarterIni = Path.GetFileName     (fileNameIni);
+                currentPathSebStarterIni = Path.GetFullPath     (fileNameIni);
 
                 // Update the widgets
                 SetWidgetsToNewSettingsOfSebStarterIni();
             }
+
+            // If the user clicked "OK", read the settings from the .xml file
+            if (OpenXmlFile(fileNameXml) == true)
+            {
+                currentDireSebStarterIni = Path.GetDirectoryName(fileNameXml);
+                currentFileSebStarterIni = Path.GetFileName     (fileNameXml);
+                currentPathSebStarterIni = Path.GetFullPath     (fileNameXml);
+
+                // Update the widgets
+                SetWidgetsToNewSettingsOfSebStarterIni();
+            }
+
+/*
+            // If the user clicked "OK", read the settings from the .seb file
+            if (OpenSebFile(fileNameSeb) == true)
+            {
+                currentDireSebStarterIni = Path.GetDirectoryName(fileNameSeb);
+                currentFileSebStarterIni = Path.GetFileName     (fileNameSeb);
+                currentPathSebStarterIni = Path.GetFullPath     (fileNameSeb);
+
+                // Update the widgets
+                SetWidgetsToNewSettingsOfSebStarterIni();
+            }
+*/
+
         }
 
 
