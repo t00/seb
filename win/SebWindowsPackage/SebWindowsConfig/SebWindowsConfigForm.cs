@@ -856,9 +856,20 @@ namespace SebWindowsConfig
 
             // Get settings
 
-          //settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.getUrlAddress("startURL");
-            settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.UrlAddresses[0].Url;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebSettings.getSecurityOption("allowQuit").getBool();
+            settingString [StateTmp, GroupGeneral, ValueStartURL             ] = sebSettings.getUrlAddress("startURL").Url;
+          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL         ] = sebSettings.getUrlAddress("***").Url;
+            settingString [StateTmp, GroupGeneral, ValueAdministratorPassword] = sebSettings.getPassword("hashedAdminPassword").Value;
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB   ] = sebSettings.getSecurityOption("allowQuit").getBool();
+            settingString [StateTmp, GroupGeneral, ValueQuitPassword         ] = sebSettings.getPassword("hashedQuitPassword").Value;
+
+          //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("***").getBool();
+          //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient    ] = sebSettings.getSecurityOption("***").getBool();
+            settingBoolean[StateTmp, GroupConfigFile, ValueAllowPreferencesWindow] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
+
+          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity  ] = sebSettings.getPassword("***").Value;
+          //settingString [StateTmp, GroupConfigFile, ValueSettingsPassword] = sebSettings.getPassword("***").Value;
+
+          //settingString [StateTmp, GroupExam   , ValueQuitUrl] = sebSettings.getUrlAddress("quitURL" ).Url;
 
             int group, value;
             int minvalue;

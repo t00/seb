@@ -151,6 +151,35 @@ public  class SEBSettings {
         return messageKey;
     }
 
+    public UrlAddress getUrlAddress(string key)
+    {
+        UrlAddress address = null;
+        for (int i = 0; i < UrlAddresses.Length; i++)
+        {
+            if (UrlAddresses[i].Key.CompareTo(key) == 0)
+            {
+                address = UrlAddresses[i];
+                break;
+            }
+        }
+        return address;
+    }
+
+    public Password getPassword(string key)
+    {
+        Password password = null;
+        for (int i = 0; i < Passwords.Length; i++)
+        {
+            if (Passwords[i].Key.CompareTo(key) == 0)
+            {
+                password = Passwords[i];
+                break;
+            }
+        }
+        return password;
+    }
+
+
 
     /// <remarks/>
     [XmlArrayItem("SecurityOption", typeof(SecurityOption))]
