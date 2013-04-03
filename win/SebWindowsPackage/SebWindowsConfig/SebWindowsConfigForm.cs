@@ -26,15 +26,18 @@ namespace SebWindowsConfig
         // ******************************
 
 
-        // SEB has 1 different ini file:
-        // SebStarter.ini
-        const int FileSebStarter = 1;
-        const int FileNum = 1;
+        // SEB has 3 different configuration file types:
+        // .ini, .xml and .seb
+        const int FileSebStarterIni = 1;
+        const int FileSebStarterXml = 2;
+        const int FileSebStarterSeb = 3;
+        const int FileNum = 3;
 
         // The target files the user must configure,
         // because these are used by the application SebStarter.exe
-        const String ConfigSebStarter    = "SebStarter config file";
         const String TargetSebStarterIni = "SebStarter.ini";
+        const String TargetSebStarterXml = "SebStarter.xml";
+        const String TargetSebStarterSeb = "SebStarter.seb";
 
         // The values can be in 4 different states:
         // old, new, temporary and default values
@@ -137,6 +140,13 @@ namespace SebWindowsConfig
         const String MessageChooseIdentity               = "ChooseIdentity";
         const String MessageSettingsPassword             = "SettingsPassword";
         const String MessageConfirmSettingsPassword      = "ConfirmSettingsPassword";
+
+        // Group "Appearance"
+        // Group "Browser"
+        // Group "DownUploads"
+        // Group "Exam"
+        // Group "Applications"
+        // Group "Network"
 
         // Group "Security"
         const int ValueEnableLogging = 1;
@@ -332,15 +342,11 @@ namespace SebWindowsConfig
         //static String[]  chooseIdentityStringArray = new String[1];
         static List<String> chooseIdentityStringList = new List<String>();
 
-        // Number of groups per file
         // Number of values per group
         // Names  of groups and values
         // Types  of values (Boolean, Integer, String)
-        static    int[ ]         minGroup  = new    int[ FileNum + 1];
-        static    int[ ]         maxGroup  = new    int[ FileNum + 1];
         static    int[ ]         minValue  = new    int[GroupNum + 1];
         static    int[ ]         maxValue  = new    int[GroupNum + 1];
-        static String[ ] functionKeyString = new String[ValueNum + 1];
         static String[ ]      configString = new String[ FileNum + 1];
         static String[ ]       groupString = new String[GroupNum + 1];
         static String[,]       valueString = new String[GroupNum + 1, ValueNum + 1];
@@ -506,10 +512,6 @@ namespace SebWindowsConfig
             dataType[GroupConfigFile, ValueConfirmSettingsPassword] = TypeString;
 
 
-            // Number of groups per file
-            minGroup[FileSebStarter] = 1;
-            maxGroup[FileSebStarter] = GroupNumSebStarter;
-
             // Number of values per group
             for (group = 1; group <= GroupNum; group++)
             {
@@ -538,7 +540,9 @@ namespace SebWindowsConfig
             maxValue[GroupOther          ] = NumValueOther;
 
             // File names
-            configString[FileSebStarter] = ConfigSebStarter;
+            configString[FileSebStarterIni] = TargetSebStarterIni;
+            configString[FileSebStarterXml] = TargetSebStarterXml;
+            configString[FileSebStarterSeb] = TargetSebStarterSeb;
 
             // Group names
             groupString[GroupGeneral        ] = MessageGeneral;
@@ -586,10 +590,6 @@ namespace SebWindowsConfig
             valueString[GroupExitKeys, ValueExitKey1] = MessageExitKey1;
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
             valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
-
-            // Define the strings for the function keys: "F1", "F2", ...,  "F12"
-            for (int i = 1; i <= 12; i++)
-                functionKeyString[i] = "F" + i.ToString();
 
             valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
             valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
@@ -699,6 +699,103 @@ namespace SebWindowsConfig
 
 
 
+        // **************************************************
+        // Convert some settings after reading them from file
+        // **************************************************
+        private void ConvertSomeSettingsAfterReadingThemFromFile()
+        {
+            // Choose Identity needs a conversion from string to integer.
+            // The SEB Windows configuration editor never reads the identity
+            // from the config file but instead searches it in the
+            // Certificate Store of the computer where it is running,
+            // so initially the 0th list entry is displayed ("none").
+            settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
+
+            // Exit Key Sequence needs a conversion from string to integer
+            String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
+            String tmpStringExitKey2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
+            String tmpStringExitKey3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
+
+            // Remove the first character "F", e.g. convert "F12" to "12"
+            tmpStringExitKey1 = tmpStringExitKey1.Substring(1);
+            tmpStringExitKey2 = tmpStringExitKey2.Substring(1);
+            tmpStringExitKey3 = tmpStringExitKey3.Substring(1);
+
+            // Finally, convert the string to an integer, e.g. "12" to 12
+            settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = Int32.Parse(tmpStringExitKey1);
+            settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = Int32.Parse(tmpStringExitKey2);
+            settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = Int32.Parse(tmpStringExitKey3);
+
+            // Accept the tmp values as the old and new values
+            for (int group = 1; group <= GroupNum; group++)
+            {
+                int minvalue = minValue[group];
+                int maxvalue = maxValue[group];
+
+                for (int value = minvalue; value <= maxvalue; value++)
+                {
+                    settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
+                    settingString [StateOld, group, value] = settingString [StateTmp, group, value];
+                    settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
+
+                    settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
+                    settingString [StateNew, group, value] = settingString [StateTmp, group, value];
+                    settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
+                }
+            }
+
+            return;
+        }
+
+
+
+        // *************************************************
+        // Convert some settings before writing them to file
+        // *************************************************
+        private void ConvertSomeSettingsBeforeWritingThemToFile()
+        {
+            // Choose Identity needs a conversion from integer to string
+            int newIndexChooseIdentity = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+            settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
+
+            // Exit Key Sequence needs a conversion from integer to string
+            int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
+            int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
+            int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
+
+            settingString[StateNew, GroupExitKeys, ValueExitKey1] = "F" + newIndexExitKey1.ToString();
+            settingString[StateNew, GroupExitKeys, ValueExitKey2] = "F" + newIndexExitKey2.ToString();
+            settingString[StateNew, GroupExitKeys, ValueExitKey3] = "F" + newIndexExitKey3.ToString();
+
+            return;
+        }
+
+
+
+        // ************************************************
+        // Convert some settings after writing them to file
+        // ************************************************
+        private void ConvertSomeSettingsAfterWritingThemToFile()
+        {
+            // Accept the old values as the new values
+            for (int group = 1; group <= GroupNum; group++)
+            {
+                int minvalue = minValue[group];
+                int maxvalue = maxValue[group];
+
+                for (int value = minvalue; value <= maxvalue; value++)
+                {
+                    settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
+                    settingString [StateOld, group, value] = settingString [StateNew, group, value];
+                    settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
+                }
+            }
+
+            return;
+        }
+
+
+
         // ****************************************
         // Open the .ini file and read the settings
         // ****************************************
@@ -709,7 +806,8 @@ namespace SebWindowsConfig
             String       fileLine;
             Boolean      fileCouldBeRead = true;
 
-            int group, value;
+            int group;
+            int value;
             int minvalue;
             int maxvalue;
 
@@ -766,11 +864,10 @@ namespace SebWindowsConfig
                 fileStream.Close();
 
             } // end try
-
             catch (Exception streamReadException) 
             {
                 // Let the user know what went wrong
-                Console.WriteLine("The file could not be read:");
+                Console.WriteLine("The .ini file could not be read:");
                 Console.WriteLine(streamReadException.Message);
                 return false;
             }
@@ -778,68 +875,20 @@ namespace SebWindowsConfig
             if (fileCouldBeRead == false)
             {
                 // Let the user know what went wrong
-                MessageBox.Show("The file \"" + fileName + "\" does not match the syntax of a " + ConfigSebStarter
-                                + ". Debug data: "
+                MessageBox.Show("The file \"" + fileName + "\" does not match the syntax of a "
+                                + configString[FileSebStarterIni] + " config file."
+                                + " Debug data: "
                                 + " fileLine   = " +  fileLine
                                 + " leftString = " +  leftString
                                 +" rightString = " + rightString,
-                                "Error when reading " + ConfigSebStarter,
+                                "Error when reading " + configString[FileSebStarterIni],
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
-
-            // Choose Identity needs a conversion from string to integer.
-            // The SEB Windows configuration editor never reads the identity
-            // from the config file but instead searches it in the
-            // Certificate Store of the computer where it is running,
-            // so initially the 0th list entry is displayed ("none").
-            settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
-
-            // Exit Key Sequence needs a conversion from string to integer
-            String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
-            String tmpStringExitKey2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
-            String tmpStringExitKey3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
-
-            int tmpIndexExitKey1 = 0;
-            int tmpIndexExitKey2 = 0;
-            int tmpIndexExitKey3 = 0;
-
-            for (int indexFunctionKey = 1; indexFunctionKey <= 12; indexFunctionKey++)
-            {
-                String vkc = functionKeyString[indexFunctionKey];
-
-                if (tmpStringExitKey1.Equals(vkc)) tmpIndexExitKey1 = indexFunctionKey;
-                if (tmpStringExitKey2.Equals(vkc)) tmpIndexExitKey2 = indexFunctionKey;
-                if (tmpStringExitKey3.Equals(vkc)) tmpIndexExitKey3 = indexFunctionKey;
-            }
-
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = tmpIndexExitKey1;
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = tmpIndexExitKey2;
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = tmpIndexExitKey3;
-
-
-            // Accept the tmp values as the new values
-            for (group = 1; group <= GroupNum; group++)
-            {
-                minvalue = minValue[group];
-                maxvalue = maxValue[group];
-
-                for (value = minvalue; value <= maxvalue; value++)
-                {
-                    settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
-                    settingString [StateOld, group, value] = settingString [StateTmp, group, value];
-                    settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
-
-                    settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
-                    settingString [StateNew, group, value] = settingString [StateTmp, group, value];
-                    settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
-                }
-            }
-
+            ConvertSomeSettingsAfterReadingThemFromFile();
             return true;
-
-        } // end of method   OpenIniFile()
+        }
 
 
 
@@ -848,13 +897,28 @@ namespace SebWindowsConfig
         // ****************************************
         private Boolean OpenXmlFile(String fileName)
         {
-            XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
-            TextReader      textReader = new StreamReader (fileName);
+            try 
+            {
+                // Open the .xml file for reading
+                XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+                TextReader      textReader = new StreamReader (fileName);
 
-            sebSettings = (SEBSettings)deserializer.Deserialize(textReader);
-            textReader.Close();
+                // Parse the XML structure into a C# object
+                sebSettings = (SEBSettings)deserializer.Deserialize(textReader);
 
-            // Get settings
+                // Close the .xml file
+                textReader.Close();
+            }
+            catch (Exception streamReadException)
+            {
+                // Let the user know what went wrong
+                Console.WriteLine("The .xml file could not be read:");
+                Console.WriteLine(streamReadException.Message);
+                return false;
+            }
+
+
+            // Copy the C# object to the arrays
 
             settingString [StateTmp, GroupGeneral, ValueStartURL             ] = sebSettings.getUrlAddress("startURL").Url;
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL         ] = sebSettings.getUrlAddress("***").Url;
@@ -871,30 +935,10 @@ namespace SebWindowsConfig
 
           //settingString [StateTmp, GroupExam   , ValueQuitUrl] = sebSettings.getUrlAddress("quitURL" ).Url;
 
-            int group, value;
-            int minvalue;
-            int maxvalue;
 
-            // Accept the tmp values as the new values
-            for (group = 1; group <= GroupNum; group++)
-            {
-                minvalue = minValue[group];
-                maxvalue = maxValue[group];
-
-                for (value = minvalue; value <= maxvalue; value++)
-                {
-                    settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
-                    settingString [StateOld, group, value] = settingString [StateTmp, group, value];
-                    settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
-
-                    settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
-                    settingString [StateNew, group, value] = settingString [StateTmp, group, value];
-                    settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
-                }
-            }
-
+            ConvertSomeSettingsAfterReadingThemFromFile();
             return true;
-        }
+        } 
 
 
 
@@ -907,22 +951,12 @@ namespace SebWindowsConfig
             StreamWriter fileWriter;
             String       fileLine;
 
-            int group, value;
+            int group;
+            int value;
             int minvalue;
             int maxvalue;
 
-            // Choose Identity needs a conversion from integer to string
-            int newIndexChooseIdentity = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
-            settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
-
-            // Exit Key Sequence needs a conversion from integer to string
-            int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
-            int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
-            int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
-
-            settingString[StateNew, GroupExitKeys, ValueExitKey1] = functionKeyString[newIndexExitKey1];
-            settingString[StateNew, GroupExitKeys, ValueExitKey2] = functionKeyString[newIndexExitKey2];
-            settingString[StateNew, GroupExitKeys, ValueExitKey3] = functionKeyString[newIndexExitKey3];
+            ConvertSomeSettingsBeforeWritingThemToFile();
 
             try 
             {
@@ -972,7 +1006,7 @@ namespace SebWindowsConfig
 
                 } // next group
 
-                // Close the output file
+                // Close the .ini file
                 fileWriter.Close();
                 fileStream.Close();
 
@@ -981,28 +1015,72 @@ namespace SebWindowsConfig
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
-                Console.WriteLine("The file could not be written:");
+                Console.WriteLine("The .ini file could not be written:");
                 Console.WriteLine(streamWriteException.Message);
                 return false;
             }
 
-            // Accept the tmp values as the new values
-            for (group = 1; group <= GroupNum; group++)
-            {
-                minvalue = minValue[group];
-                maxvalue = maxValue[group];
+            ConvertSomeSettingsAfterWritingThemToFile();
+            return true;
+        }
 
-                for (value = minvalue; value <= maxvalue; value++)
-                {
-                    settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
-                    settingString [StateOld, group, value] = settingString [StateNew, group, value];
-                    settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
-                }
+
+
+        // ***********************************************
+        // Write the settings to the .xml file and save it
+        // ***********************************************
+        private Boolean SaveXmlFile(String fileName)
+        {
+            ConvertSomeSettingsBeforeWritingThemToFile();
+
+            // Copy the arrays to the C# object
+
+            sebSettings.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
+          //sebSettings.getUrlAddress("********")         .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
+            sebSettings.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdministratorPassword];
+            sebSettings.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
+            sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
+
+          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
+          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
+            sebSettings.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow]);
+
+          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueChooseIdentity  ];
+          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueSettingsPassword];
+
+          //sebSettings.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitUrl];
+
+
+            try 
+            {
+                // If the .xml file already exists, delete it
+                // and write it again from scratch with new data
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+
+                // Open the .xml file for writing
+                XmlSerializer serializer = new XmlSerializer(typeof(SEBSettings));
+                TextWriter    textWriter = new StreamWriter(fileName);
+
+                // Copy the C# object into an XML structure
+                serializer.Serialize(textWriter, sebSettings);
+
+                // Close the .xml file
+                textWriter.Close();
+
+            } // end try
+
+            catch (Exception streamWriteException) 
+            {
+                // Let the user know what went wrong
+                Console.WriteLine("The .xml file could not be written:");
+                Console.WriteLine(streamWriteException.Message);
+                return false;
             }
 
+            ConvertSomeSettingsAfterWritingThemToFile();
             return true;
-
-        } // end of method   SaveIniFile()
+        }
 
 
 
@@ -1129,8 +1207,9 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
 
-            //String fileNameRaw = fileName.Trim
-            String fileNameRaw = "SebStarter";
+            // Cut off the file extension ".ini", ".xml" or ".seb",
+            // that is the last 4 characters of the file name
+            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
             String fileNameIni = fileNameRaw + ".ini";
             String fileNameXml = fileNameRaw + ".xml";
             String fileNameSeb = fileNameRaw + ".seb";
@@ -1145,6 +1224,7 @@ namespace SebWindowsConfig
                 // Update the widgets
                 SetWidgetsToNewSettingsOfSebStarterIni();
             }
+
 
             // If the user clicked "OK", read the settings from the .xml file
             if (OpenXmlFile(fileNameXml) == true)
@@ -1186,18 +1266,54 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
 
-            // If the user clicked "OK", write the settings to the ini file
-            if (SaveIniFile(fileName) == true)
+            // Cut off the file extension ".ini", ".xml" or ".seb",
+            // that is the last 4 characters of the file name
+            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameIni = fileNameRaw + ".ini";
+            String fileNameXml = fileNameRaw + ".xml";
+            String fileNameSeb = fileNameRaw + ".seb";
+
+            // If the user clicked "OK", write the settings to the .ini file
+            if (SaveIniFile(fileNameIni) == true)
             {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileName);
-                currentFileSebStarterIni = Path.GetFileName     (fileName);
-                currentPathSebStarterIni = Path.GetFullPath     (fileName);
+                currentDireSebStarterIni = Path.GetDirectoryName(fileNameIni);
+                currentFileSebStarterIni = Path.GetFileName     (fileNameIni);
+                currentPathSebStarterIni = Path.GetFullPath     (fileNameIni);
 
                 // Update the filename in the title bar
                 this.Text  = this.ProductName;
                 this.Text += " - ";
                 this.Text += currentPathSebStarterIni;
             }
+
+            // If the user clicked "OK", write the settings to the .xml file
+            if (SaveXmlFile(fileNameXml) == true)
+            {
+                currentDireSebStarterIni = Path.GetDirectoryName(fileNameXml);
+                currentFileSebStarterIni = Path.GetFileName     (fileNameXml);
+                currentPathSebStarterIni = Path.GetFullPath     (fileNameXml);
+
+                // Update the filename in the title bar
+                this.Text  = this.ProductName;
+                this.Text += " - ";
+                this.Text += currentPathSebStarterIni;
+            }
+
+/*
+            // If the user clicked "OK", write the settings to the .seb file
+            if (SaveSebFile(fileNameSeb) == true)
+            {
+                currentDireSebStarterIni = Path.GetDirectoryName(fileNameSeb);
+                currentFileSebStarterIni = Path.GetFileName     (fileNameSeb);
+                currentPathSebStarterIni = Path.GetFullPath     (fileNameSeb);
+
+                // Update the filename in the title bar
+                this.Text  = this.ProductName;
+                this.Text += " - ";
+                this.Text += currentPathSebStarterIni;
+            }
+*/
+
         }
 
 
