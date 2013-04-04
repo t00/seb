@@ -669,16 +669,10 @@ namespace SebWindowsConfig
              targetFileSebStarterIni = TargetSebStarterIni;
              targetPathSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
 
-            // Read the settings from the ini file
-            if (OpenIniFile(targetPathSebStarterIni) == true)
-            {
-                currentDireSebStarterIni = targetDireSebStarterIni;
-                currentFileSebStarterIni = targetFileSebStarterIni;
-                currentPathSebStarterIni = targetPathSebStarterIni;
-
-                // Update the widgets
-                SetWidgetsToNewSettingsOfSebStarterIni();
-            }
+            // Read the settings from the standard configuration file
+            OpenIniFile(targetPathSebStarterIni);
+          //OpenXmlFile(targetPathSebStarterIni);
+          //OpenSebFile(targetPathSebStarterIni);
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
@@ -702,7 +696,7 @@ namespace SebWindowsConfig
         // **************************************************
         // Convert some settings after reading them from file
         // **************************************************
-        private void ConvertSomeSettingsAfterReadingThemFromFile()
+        private void ConvertSomeSettingsAfterReadingThemFromFile(String fileName)
         {
             // Choose Identity needs a conversion from string to integer.
             // The SEB Windows configuration editor never reads the identity
@@ -744,6 +738,10 @@ namespace SebWindowsConfig
                 }
             }
 
+            currentDireSebStarterIni = Path.GetDirectoryName(fileName);
+            currentFileSebStarterIni = Path.GetFileName     (fileName);
+            currentPathSebStarterIni = Path.GetFullPath     (fileName);
+
             return;
         }
 
@@ -775,7 +773,7 @@ namespace SebWindowsConfig
         // ************************************************
         // Convert some settings after writing them to file
         // ************************************************
-        private void ConvertSomeSettingsAfterWritingThemToFile()
+        private void ConvertSomeSettingsAfterWritingThemToFile(String fileName)
         {
             // Accept the old values as the new values
             for (int group = 1; group <= GroupNum; group++)
@@ -790,6 +788,10 @@ namespace SebWindowsConfig
                     settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
                 }
             }
+
+            currentDireSebStarterIni = Path.GetDirectoryName(fileName);
+            currentFileSebStarterIni = Path.GetFileName     (fileName);
+            currentPathSebStarterIni = Path.GetFullPath     (fileName);
 
             return;
         }
@@ -886,7 +888,9 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            ConvertSomeSettingsAfterReadingThemFromFile();
+            // If config file has been successfully loaded, update the widgets
+            ConvertSomeSettingsAfterReadingThemFromFile(fileName);
+            SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
         }
 
@@ -936,7 +940,9 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupExam   , ValueQuitUrl] = sebSettings.getUrlAddress("quitURL" ).Url;
 
 
-            ConvertSomeSettingsAfterReadingThemFromFile();
+            // If config file has been successfully loaded, update the widgets
+            ConvertSomeSettingsAfterReadingThemFromFile(fileName);
+            SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
         } 
 
@@ -1011,7 +1017,6 @@ namespace SebWindowsConfig
                 fileStream.Close();
 
             } // end try
-
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
@@ -1020,7 +1025,9 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            ConvertSomeSettingsAfterWritingThemToFile();
+            // If config file has been successfully saved, update the widgets
+            ConvertSomeSettingsAfterWritingThemToFile(fileName);
+            SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
         }
 
@@ -1069,7 +1076,6 @@ namespace SebWindowsConfig
                 textWriter.Close();
 
             } // end try
-
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
@@ -1078,7 +1084,9 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            ConvertSomeSettingsAfterWritingThemToFile();
+            // If config file has been successfully saved, update the widgets
+            ConvertSomeSettingsAfterWritingThemToFile(fileName);
+            SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
         }
 
@@ -1214,42 +1222,10 @@ namespace SebWindowsConfig
             String fileNameXml = fileNameRaw + ".xml";
             String fileNameSeb = fileNameRaw + ".seb";
 
-            // If the user clicked "OK", read the settings from the .ini file
-            if (OpenIniFile(fileNameIni) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileNameIni);
-                currentFileSebStarterIni = Path.GetFileName     (fileNameIni);
-                currentPathSebStarterIni = Path.GetFullPath     (fileNameIni);
-
-                // Update the widgets
-                SetWidgetsToNewSettingsOfSebStarterIni();
-            }
-
-
-            // If the user clicked "OK", read the settings from the .xml file
-            if (OpenXmlFile(fileNameXml) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileNameXml);
-                currentFileSebStarterIni = Path.GetFileName     (fileNameXml);
-                currentPathSebStarterIni = Path.GetFullPath     (fileNameXml);
-
-                // Update the widgets
-                SetWidgetsToNewSettingsOfSebStarterIni();
-            }
-
-/*
-            // If the user clicked "OK", read the settings from the .seb file
-            if (OpenSebFile(fileNameSeb) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileNameSeb);
-                currentFileSebStarterIni = Path.GetFileName     (fileNameSeb);
-                currentPathSebStarterIni = Path.GetFullPath     (fileNameSeb);
-
-                // Update the widgets
-                SetWidgetsToNewSettingsOfSebStarterIni();
-            }
-*/
-
+            // If the user clicked "OK", read the settings from the configuration file
+            OpenIniFile(fileNameIni);
+            OpenXmlFile(fileNameXml);
+          //OpenSebFile(fileNameSeb);
         }
 
 
@@ -1273,47 +1249,10 @@ namespace SebWindowsConfig
             String fileNameXml = fileNameRaw + ".xml";
             String fileNameSeb = fileNameRaw + ".seb";
 
-            // If the user clicked "OK", write the settings to the .ini file
-            if (SaveIniFile(fileNameIni) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileNameIni);
-                currentFileSebStarterIni = Path.GetFileName     (fileNameIni);
-                currentPathSebStarterIni = Path.GetFullPath     (fileNameIni);
-
-                // Update the filename in the title bar
-                this.Text  = this.ProductName;
-                this.Text += " - ";
-                this.Text += currentPathSebStarterIni;
-            }
-
-            // If the user clicked "OK", write the settings to the .xml file
-            if (SaveXmlFile(fileNameXml) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileNameXml);
-                currentFileSebStarterIni = Path.GetFileName     (fileNameXml);
-                currentPathSebStarterIni = Path.GetFullPath     (fileNameXml);
-
-                // Update the filename in the title bar
-                this.Text  = this.ProductName;
-                this.Text += " - ";
-                this.Text += currentPathSebStarterIni;
-            }
-
-/*
-            // If the user clicked "OK", write the settings to the .seb file
-            if (SaveSebFile(fileNameSeb) == true)
-            {
-                currentDireSebStarterIni = Path.GetDirectoryName(fileNameSeb);
-                currentFileSebStarterIni = Path.GetFileName     (fileNameSeb);
-                currentPathSebStarterIni = Path.GetFullPath     (fileNameSeb);
-
-                // Update the filename in the title bar
-                this.Text  = this.ProductName;
-                this.Text += " - ";
-                this.Text += currentPathSebStarterIni;
-            }
-*/
-
+            // If the user clicked "OK", write the settings to the configuration file
+            SaveIniFile(fileNameIni);
+          //SaveXmlFile(fileNameXml);
+          //SaveSebFile(fileNameSeb);
         }
 
 
