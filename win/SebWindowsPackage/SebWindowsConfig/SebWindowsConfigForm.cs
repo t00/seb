@@ -361,9 +361,10 @@ namespace SebWindowsConfig
         SHA256 sha256 = new SHA256Managed();
 
         // Class SEBSettings contains all settings
-        // and is userd for importing/exporting the settings
-        // from/to a human-readable .xml and an encrypted.seb file format
-        static SEBSettings sebSettings = new SEBSettings();
+        // and is used for importing/exporting the settings
+        // from/to a human-readable .xml and an encrypted.seb file format.
+        static SEBSettings            sebSettings            = new SEBSettings();
+        static SEBProtectionControler sebProtectionControler = new SEBProtectionControler();
 
 
 
@@ -921,8 +922,76 @@ namespace SebWindowsConfig
                 return false;
             }
 
+            // If config file has been successfully loaded,
+            // convert C# object to arrays and update the widgets
+            ConvertCSharpObjectToArrays();
+            ConvertSomeSettingsAfterReadingThemFromFile(fileName);
+            SetWidgetsToNewSettingsOfSebStarterIni();
+            return true;
+        }
 
-            // Copy the C# object to the arrays
+
+
+        // ****************************************
+        // Open the .seb file and read the settings
+        // ****************************************
+        private Boolean OpenSebFile(String fileName)
+        {
+            try 
+            {
+                // Decrypt seb client settings
+                string decriptedSebClientSettings = sebProtectionControler.DecryptSebClientSettings(encryptedTextWithPrefix);
+
+                // Deserialise seb client settings
+                // Deserialise decrypted string
+                decriptedSebClientSettings = decriptedSebClientSettings.Trim();
+                MemoryStream     memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
+
+                XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+                //TextReader textReader = new StreamReader(fileName);
+
+                // Parse the XML structure into a C# object
+                sebSettings = (SEBSettings)deserializer.Deserialize(memStream);
+
+                // Close the .seb file
+                //textReader.Close();
+
+/*
+                // Open the .seb file for reading
+                XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+                TextReader      textReader = new StreamReader (fileName);
+
+                // Parse the XML structure into a C# object
+                sebSettings = (SEBSettings)deserializer.Deserialize(textReader);
+
+                // Close the .seb file
+                textReader.Close();
+*/
+            }
+            catch (Exception streamReadException)
+            {
+                // Let the user know what went wrong
+                Console.WriteLine("The .seb file could not be read:");
+                Console.WriteLine(streamReadException.Message);
+                return false;
+            }
+
+            // If config file has been successfully loaded,
+            // convert C# object to arrays and update the widgets
+            ConvertCSharpObjectToArrays();
+            ConvertSomeSettingsAfterReadingThemFromFile(fileName);
+            SetWidgetsToNewSettingsOfSebStarterIni();
+            return true;
+        }
+
+
+
+        // ****************************************
+        // Open the .xml file and read the settings
+        // ****************************************
+        private Boolean ConvertCSharpObjectToArrays()
+        {
+            // Copy the C# object "sebSettings" to the "setting" arrays
 
             settingString [StateTmp, GroupGeneral, ValueStartURL             ] = sebSettings.getUrlAddress("startURL").Url;
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL         ] = sebSettings.getUrlAddress("***").Url;
@@ -939,12 +1008,7 @@ namespace SebWindowsConfig
 
           //settingString [StateTmp, GroupExam   , ValueQuitUrl] = sebSettings.getUrlAddress("quitURL" ).Url;
 
-
-            // If config file has been successfully loaded, update the widgets
-            ConvertSomeSettingsAfterReadingThemFromFile(fileName);
-            SetWidgetsToNewSettingsOfSebStarterIni();
-            return true;
-        } 
+        }
 
 
 
