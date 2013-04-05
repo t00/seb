@@ -152,11 +152,11 @@
             this.checkBoxEnableStartMenu = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
             this.tabPageExitKeys = new System.Windows.Forms.TabPage();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.tabPageConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
@@ -172,8 +172,8 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPageExitKeys.SuspendLayout();
-            this.groupBoxExitSequence.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            this.groupBoxExitSequence.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialogSebStarterIni
@@ -1579,6 +1579,13 @@
             this.tabPageExitKeys.Text = "Exit Keys";
             this.tabPageExitKeys.UseVisualStyleBackColor = true;
             // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(715, 190);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDown2.TabIndex = 53;
+            // 
             // groupBoxExitSequence
             // 
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey1);
@@ -1614,6 +1621,7 @@
             this.listBoxExitKey1.Name = "listBoxExitKey1";
             this.listBoxExitKey1.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey1.TabIndex = 47;
+            this.listBoxExitKey1.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey1_SelectedIndexChanged);
             // 
             // listBoxExitKey3
             // 
@@ -1637,6 +1645,7 @@
             this.listBoxExitKey3.Name = "listBoxExitKey3";
             this.listBoxExitKey3.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey3.TabIndex = 50;
+            this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey3_SelectedIndexChanged);
             // 
             // listBoxExitKey2
             // 
@@ -1660,13 +1669,7 @@
             this.listBoxExitKey2.Name = "listBoxExitKey2";
             this.listBoxExitKey2.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey2.TabIndex = 49;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(715, 190);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown2.TabIndex = 53;
+            this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -1703,8 +1706,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPageExitKeys.ResumeLayout(false);
-            this.groupBoxExitSequence.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            this.groupBoxExitSequence.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

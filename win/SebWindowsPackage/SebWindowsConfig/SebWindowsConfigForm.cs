@@ -1224,7 +1224,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK", read the settings from the configuration file
             OpenIniFile(fileNameIni);
-            OpenXmlFile(fileNameXml);
+          //OpenXmlFile(fileNameXml);
           //OpenSebFile(fileNameSeb);
         }
 
@@ -1276,7 +1276,6 @@ namespace SebWindowsConfig
             if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
                 (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
                  listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
-
             settingInteger[StateNew, GroupExitKeys, ValueExitKey1] = listBoxExitKey1.SelectedIndex + 1;
         }
 
@@ -1287,7 +1286,6 @@ namespace SebWindowsConfig
             if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
                 (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
                  listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
-
             settingInteger[StateNew, GroupExitKeys, ValueExitKey2] = listBoxExitKey2.SelectedIndex + 1;
         }
 
@@ -1298,9 +1296,9 @@ namespace SebWindowsConfig
             if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
                 (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
                  listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
-
             settingInteger[StateNew, GroupExitKeys, ValueExitKey3] = listBoxExitKey3.SelectedIndex + 1;
         }
+
 
 
         // ******************
@@ -1788,8 +1786,6 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
-
-
 
 
 
