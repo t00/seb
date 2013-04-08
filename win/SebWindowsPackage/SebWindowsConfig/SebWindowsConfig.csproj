@@ -46,8 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SEBConfigurationSection.cs" />
-    <Compile Include="SEBProtectionControler.cs" />
     <Compile Include="SEBSettings.cs" />
     <Compile Include="SebWindowsConfigForm.cs">
       <SubType>Form</SubType>

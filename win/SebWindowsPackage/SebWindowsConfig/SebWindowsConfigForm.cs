@@ -364,7 +364,7 @@ namespace SebWindowsConfig
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
         static SEBSettings            sebSettings            = new SEBSettings();
-        static SEBProtectionControler sebProtectionControler = new SEBProtectionControler();
+//      static SEBProtectionControler sebProtectionControler = new SEBProtectionControler();
 
 
 
@@ -889,7 +889,7 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            // If config file has been successfully loaded, update the widgets
+            // After reading the settings from file, update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
@@ -922,8 +922,8 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            // If config file has been successfully loaded,
-            // convert C# object to arrays and update the widgets
+            // After reading the settings from file,
+            // convert the C# object to arrays and update the widgets
             ConvertCSharpObjectToArrays();
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
@@ -939,6 +939,7 @@ namespace SebWindowsConfig
         {
             try 
             {
+/*
                 // Decrypt seb client settings
                 string decriptedSebClientSettings = sebProtectionControler.DecryptSebClientSettings(encryptedTextWithPrefix);
 
@@ -955,8 +956,8 @@ namespace SebWindowsConfig
 
                 // Close the .seb file
                 //textReader.Close();
+*/
 
-/*
                 // Open the .seb file for reading
                 XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
                 TextReader      textReader = new StreamReader (fileName);
@@ -966,7 +967,7 @@ namespace SebWindowsConfig
 
                 // Close the .seb file
                 textReader.Close();
-*/
+
             }
             catch (Exception streamReadException)
             {
@@ -976,38 +977,12 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            // If config file has been successfully loaded,
-            // convert C# object to arrays and update the widgets
+            // After reading the settings from file,
+            // convert the C# object to arrays and update the widgets
             ConvertCSharpObjectToArrays();
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
-        }
-
-
-
-        // ****************************************
-        // Open the .xml file and read the settings
-        // ****************************************
-        private Boolean ConvertCSharpObjectToArrays()
-        {
-            // Copy the C# object "sebSettings" to the "setting" arrays
-
-            settingString [StateTmp, GroupGeneral, ValueStartURL             ] = sebSettings.getUrlAddress("startURL").Url;
-          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL         ] = sebSettings.getUrlAddress("***").Url;
-            settingString [StateTmp, GroupGeneral, ValueAdministratorPassword] = sebSettings.getPassword("hashedAdminPassword").Value;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB   ] = sebSettings.getSecurityOption("allowQuit").getBool();
-            settingString [StateTmp, GroupGeneral, ValueQuitPassword         ] = sebSettings.getPassword("hashedQuitPassword").Value;
-
-          //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("***").getBool();
-          //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient    ] = sebSettings.getSecurityOption("***").getBool();
-            settingBoolean[StateTmp, GroupConfigFile, ValueAllowPreferencesWindow] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
-
-          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity  ] = sebSettings.getPassword("***").Value;
-          //settingString [StateTmp, GroupConfigFile, ValueSettingsPassword] = sebSettings.getPassword("***").Value;
-
-          //settingString [StateTmp, GroupExam   , ValueQuitUrl] = sebSettings.getUrlAddress("quitURL" ).Url;
-
         }
 
 
@@ -1089,7 +1064,7 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            // If config file has been successfully saved, update the widgets
+            // After writing the settings to file, update the widgets
             ConvertSomeSettingsAfterWritingThemToFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
@@ -1102,25 +1077,10 @@ namespace SebWindowsConfig
         // ***********************************************
         private Boolean SaveXmlFile(String fileName)
         {
+            // Before writing the settings to file,
+            // convert the arrays to the C# object
             ConvertSomeSettingsBeforeWritingThemToFile();
-
-            // Copy the arrays to the C# object
-
-            sebSettings.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
-          //sebSettings.getUrlAddress("********")         .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
-            sebSettings.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdministratorPassword];
-            sebSettings.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
-            sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
-
-          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
-          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
-            sebSettings.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow]);
-
-          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueChooseIdentity  ];
-          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueSettingsPassword];
-
-          //sebSettings.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitUrl];
-
+            ConvertArraysToCSharpObject();
 
             try 
             {
@@ -1148,9 +1108,107 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            // If config file has been successfully saved, update the widgets
+            // After writing the settings to file, update the widgets
             ConvertSomeSettingsAfterWritingThemToFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
+            return true;
+        }
+
+
+
+        // ***********************************************
+        // Write the settings to the .seb file and save it
+        // ***********************************************
+        private Boolean SaveSebFile(String fileName)
+        {
+            // Before writing the settings to file,
+            // convert the arrays to the C# object
+            ConvertSomeSettingsBeforeWritingThemToFile();
+            ConvertArraysToCSharpObject();
+
+            try 
+            {
+                // If the .seb file already exists, delete it
+                // and write it again from scratch with new data
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+
+                // Open the .seb file for writing
+                XmlSerializer serializer = new XmlSerializer(typeof(SEBSettings));
+                TextWriter    textWriter = new StreamWriter(fileName);
+
+                // Copy the C# object into an XML structure
+                serializer.Serialize(textWriter, sebSettings);
+
+                // Close the .seb file
+                textWriter.Close();
+
+            } // end try
+            catch (Exception streamWriteException) 
+            {
+                // Let the user know what went wrong
+                Console.WriteLine("The .seb file could not be written:");
+                Console.WriteLine(streamWriteException.Message);
+                return false;
+            }
+
+            // After writing the settings to file, update the widgets
+            ConvertSomeSettingsAfterWritingThemToFile(fileName);
+            SetWidgetsToNewSettingsOfSebStarterIni();
+            return true;
+        }
+
+
+
+        // *********************************************************************
+        // Convert C# object (having been read from .xml or .seb file) to arrays
+        // *********************************************************************
+        private Boolean ConvertCSharpObjectToArrays()
+        {
+            // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
+
+            settingString [StateTmp, GroupGeneral, ValueStartURL             ] = sebSettings.getUrlAddress("startURL").Url;
+          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL         ] = sebSettings.getUrlAddress("***").Url;
+            settingString [StateTmp, GroupGeneral, ValueAdministratorPassword] = sebSettings.getPassword("hashedAdminPassword").Value;
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB   ] = sebSettings.getSecurityOption("allowQuit").getBool();
+            settingString [StateTmp, GroupGeneral, ValueQuitPassword         ] = sebSettings.getPassword("hashedQuitPassword").Value;
+
+          //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("***").getBool();
+          //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient    ] = sebSettings.getSecurityOption("***").getBool();
+            settingBoolean[StateTmp, GroupConfigFile, ValueAllowPreferencesWindow] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
+
+          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity  ] = sebSettings.getPassword("***").Value;
+          //settingString [StateTmp, GroupConfigFile, ValueSettingsPassword] = sebSettings.getPassword("***").Value;
+
+          //settingString [StateTmp, GroupExam   , ValueQuitUrl] = sebSettings.getUrlAddress("quitURL" ).Url;
+
+            return true;
+        }
+
+
+
+        // ****************************************************************
+        // Convert arrays to C# object (to be written to .xml or .seb file)
+        // ****************************************************************
+        private Boolean ConvertArraysToCSharpObject()
+        {
+            // Copy the arrays "settingString"/"settingBoolean" to the C# object "sebSettings"
+
+            sebSettings.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
+          //sebSettings.getUrlAddress("********")         .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
+            sebSettings.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdministratorPassword];
+            sebSettings.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
+            sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
+
+          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
+          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
+            sebSettings.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow]);
+
+          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueChooseIdentity  ];
+          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueSettingsPassword];
+
+          //sebSettings.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitUrl];
+
             return true;
         }
 
