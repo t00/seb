@@ -142,6 +142,25 @@ namespace SebWindowsConfig
         const String MessageConfirmSettingsPassword      = "ConfirmSettingsPassword";
 
         // Group "Appearance"
+        const int ValueUseBrowserWindow            = 1;
+        const int ValueUseFullScreenMode           = 2;
+        const int ValueMainBrowserWindowSizeWidth  = 3;
+        const int ValueMainBrowserWindowSizeHeight = 4;
+        const int ValueEnableBrowserWindowToolbar  = 5;
+        const int ValueHideToolbarAsDefault        = 6;
+        const int ValueShowMenuBar                 = 7;
+        const int ValueDisplaySEBDockTaskBar       = 8;
+        const int NumValueAppearance = 8;
+
+        const String MessageUseBrowserWindow            = "UseBrowserWindow";
+        const String MessageUseFullScreenMode           = "UseFullScreenMode";
+        const String MessageMainBrowserWindowSizeWidth  = "MainBrowserWindowSizeWidth";
+        const String MessageMainBrowserWindowSizeHeight = "MainBrowserWindowSizeHeight";
+        const String MessageEnableBrowserWindowToolbar  = "EnableBrowserWindowToolbar";
+        const String MessageHideToolbarAsDefault        = "HideToolbarAsDefault";
+        const String MessageShowMenuBar                 = "ShowMenuBar";
+        const String MessageDisplaySEBDockTaskBar       = "DisplaySEBDockTaskBar";
+
         // Group "Browser"
         // Group "DownUploads"
         // Group "Exam"
@@ -164,9 +183,6 @@ namespace SebWindowsConfig
         const String MessageExitKey2 = "ExitKey2";
         const String MessageExitKey3 = "ExitKey3";
 
-//      const int NumValueGeneral      = 0;
-//      const int NumValueConfigFile   = 0;
-        const int NumValueAppearance   = 0;
         const int NumValueBrowser      = 0;
         const int NumValueDownUploads  = 0;
         const int NumValueExam         = 0;
@@ -412,6 +428,15 @@ namespace SebWindowsConfig
             settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword     ] = "";
 
             // Default settings for group "Appearance"
+            settingBoolean[StateDef, GroupAppearance, ValueUseBrowserWindow           ] = true;
+            settingBoolean[StateDef, GroupAppearance, ValueUseFullScreenMode          ] = false;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeWidth ] = 0;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeHeight] = 0;
+            settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueHideToolbarAsDefault       ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueShowMenuBar                ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueDisplaySEBDockTaskBar      ] = false;
+
             // Default settings for group "Browser"
             // Default settings for group "DownUploads"
             // Default settings for group "Exam"
@@ -512,6 +537,8 @@ namespace SebWindowsConfig
             dataType[GroupConfigFile, ValueSettingsPassword       ] = TypeString;
             dataType[GroupConfigFile, ValueConfirmSettingsPassword] = TypeString;
 
+            dataType[GroupAppearance, ValueMainBrowserWindowSizeWidth ] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowSizeHeight] = TypeString;
 
             // Number of values per group
             for (group = 1; group <= GroupNum; group++)
@@ -583,6 +610,15 @@ namespace SebWindowsConfig
             valueString[GroupConfigFile, ValueChooseIdentity              ] = MessageChooseIdentity;
             valueString[GroupConfigFile, ValueSettingsPassword            ] = MessageSettingsPassword;
             valueString[GroupConfigFile, ValueConfirmSettingsPassword     ] = MessageConfirmSettingsPassword;
+
+            valueString[GroupAppearance, ValueUseBrowserWindow           ] = MessageUseBrowserWindow;
+            valueString[GroupAppearance, ValueUseFullScreenMode          ] = MessageUseFullScreenMode;
+            valueString[GroupAppearance, ValueMainBrowserWindowSizeWidth ] = MessageMainBrowserWindowSizeWidth;
+            valueString[GroupAppearance, ValueMainBrowserWindowSizeHeight] = MessageMainBrowserWindowSizeHeight;
+            valueString[GroupAppearance, ValueEnableBrowserWindowToolbar ] = MessageEnableBrowserWindowToolbar;
+            valueString[GroupAppearance, ValueHideToolbarAsDefault       ] = MessageHideToolbarAsDefault;
+            valueString[GroupAppearance, ValueShowMenuBar                ] = MessageShowMenuBar;
+            valueString[GroupAppearance, ValueDisplaySEBDockTaskBar      ] = MessageDisplaySEBDockTaskBar;
 
 
             valueString[GroupSecurity, ValueEnableLogging] = MessageEnableLogging;
@@ -1279,7 +1315,6 @@ namespace SebWindowsConfig
         // *******************
         // Group "Config File"
         // *******************
-
         private void radioButtonStartingAnExam_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam] = (radioButtonStartingAnExam.Checked == true);
@@ -1376,6 +1411,47 @@ namespace SebWindowsConfig
           //SaveXmlFile(fileNameXml);
           //SaveSebFile(fileNameSeb);
         }
+
+
+
+        // ******************
+        // Group "Appearance"
+        // ******************
+        private void radioButtonUseBrowserWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow] = radioButtonUseBrowserWindow.Checked;
+        }
+
+        private void radioButtonUseFullScreenMode_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode] = radioButtonUseFullScreenMode.Checked;
+        }
+
+        private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar] = checkBoxEnableBrowserWindowToolbar.Checked;
+        }
+
+        private void checkBoxHideToolbarAsDefault_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault] = checkBoxHideToolbarAsDefault.Checked;
+        }
+
+        private void checkBoxShowMenuBar_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar] = checkBoxShowMenuBar.Checked;
+        }
+
+        private void checkBoxDisplaySEBDockTaskBar_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar] = checkBoxDisplaySEBDockTaskBar.Checked;
+        }
+
+
+
+        // ****************
+        // Group "Browser"
+        // ****************
 
 
 
@@ -1784,6 +1860,13 @@ namespace SebWindowsConfig
             textBoxSettingsPassword             .Text    = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
             textBoxConfirmSettingsPassword      .Text    = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
 
+            radioButtonUseBrowserWindow       .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
+            radioButtonUseFullScreenMode      .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
+            checkBoxEnableBrowserWindowToolbar.Checked = settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar];
+            checkBoxHideToolbarAsDefault      .Checked = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
+            checkBoxShowMenuBar               .Checked = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
+            checkBoxDisplaySEBDockTaskBar     .Checked = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
+
             checkBoxEnableLogging.Checked = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
             listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
@@ -1908,8 +1991,6 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
-
-
 
 
 

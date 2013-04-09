@@ -157,6 +157,13 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
+            this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
+            this.checkBoxEnableBrowserWindowToolbar = new System.Windows.Forms.CheckBox();
+            this.checkBoxHideToolbarAsDefault = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowMenuBar = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisplaySEBDockTaskBar = new System.Windows.Forms.CheckBox();
+            this.tabPageAppearance.SuspendLayout();
             this.tabPageConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
@@ -213,6 +220,12 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.checkBoxDisplaySEBDockTaskBar);
+            this.tabPageAppearance.Controls.Add(this.checkBoxShowMenuBar);
+            this.tabPageAppearance.Controls.Add(this.checkBoxHideToolbarAsDefault);
+            this.tabPageAppearance.Controls.Add(this.checkBoxEnableBrowserWindowToolbar);
+            this.tabPageAppearance.Controls.Add(this.radioButtonUseFullScreenMode);
+            this.tabPageAppearance.Controls.Add(this.radioButtonUseBrowserWindow);
             this.tabPageAppearance.Location = new System.Drawing.Point(4, 39);
             this.tabPageAppearance.Name = "tabPageAppearance";
             this.tabPageAppearance.Padding = new System.Windows.Forms.Padding(3);
@@ -1671,6 +1684,75 @@
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
+            // radioButtonUseBrowserWindow
+            // 
+            this.radioButtonUseBrowserWindow.AutoSize = true;
+            this.radioButtonUseBrowserWindow.Checked = true;
+            this.radioButtonUseBrowserWindow.Location = new System.Drawing.Point(95, 58);
+            this.radioButtonUseBrowserWindow.Name = "radioButtonUseBrowserWindow";
+            this.radioButtonUseBrowserWindow.Size = new System.Drawing.Size(157, 21);
+            this.radioButtonUseBrowserWindow.TabIndex = 51;
+            this.radioButtonUseBrowserWindow.TabStop = true;
+            this.radioButtonUseBrowserWindow.Text = "Use browser window";
+            this.radioButtonUseBrowserWindow.UseVisualStyleBackColor = true;
+            this.radioButtonUseBrowserWindow.CheckedChanged += new System.EventHandler(this.radioButtonUseBrowserWindow_CheckedChanged);
+            // 
+            // radioButtonUseFullScreenMode
+            // 
+            this.radioButtonUseFullScreenMode.AutoSize = true;
+            this.radioButtonUseFullScreenMode.Location = new System.Drawing.Point(95, 85);
+            this.radioButtonUseFullScreenMode.Name = "radioButtonUseFullScreenMode";
+            this.radioButtonUseFullScreenMode.Size = new System.Drawing.Size(162, 21);
+            this.radioButtonUseFullScreenMode.TabIndex = 52;
+            this.radioButtonUseFullScreenMode.TabStop = true;
+            this.radioButtonUseFullScreenMode.Text = "Use full screen mode";
+            this.radioButtonUseFullScreenMode.UseVisualStyleBackColor = true;
+            this.radioButtonUseFullScreenMode.CheckedChanged += new System.EventHandler(this.radioButtonUseFullScreenMode_CheckedChanged);
+            // 
+            // checkBoxEnableBrowserWindowToolbar
+            // 
+            this.checkBoxEnableBrowserWindowToolbar.AutoSize = true;
+            this.checkBoxEnableBrowserWindowToolbar.Location = new System.Drawing.Point(95, 185);
+            this.checkBoxEnableBrowserWindowToolbar.Name = "checkBoxEnableBrowserWindowToolbar";
+            this.checkBoxEnableBrowserWindowToolbar.Size = new System.Drawing.Size(225, 21);
+            this.checkBoxEnableBrowserWindowToolbar.TabIndex = 53;
+            this.checkBoxEnableBrowserWindowToolbar.Text = "Enable browser window toolbar";
+            this.checkBoxEnableBrowserWindowToolbar.UseVisualStyleBackColor = true;
+            this.checkBoxEnableBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxEnableBrowserWindowToolbar_CheckedChanged);
+            // 
+            // checkBoxHideToolbarAsDefault
+            // 
+            this.checkBoxHideToolbarAsDefault.AutoSize = true;
+            this.checkBoxHideToolbarAsDefault.Location = new System.Drawing.Point(119, 212);
+            this.checkBoxHideToolbarAsDefault.Name = "checkBoxHideToolbarAsDefault";
+            this.checkBoxHideToolbarAsDefault.Size = new System.Drawing.Size(173, 21);
+            this.checkBoxHideToolbarAsDefault.TabIndex = 54;
+            this.checkBoxHideToolbarAsDefault.Text = "Hide toolbar as default";
+            this.checkBoxHideToolbarAsDefault.UseVisualStyleBackColor = true;
+            this.checkBoxHideToolbarAsDefault.CheckedChanged += new System.EventHandler(this.checkBoxHideToolbarAsDefault_CheckedChanged);
+            // 
+            // checkBoxShowMenuBar
+            // 
+            this.checkBoxShowMenuBar.AutoSize = true;
+            this.checkBoxShowMenuBar.Location = new System.Drawing.Point(95, 239);
+            this.checkBoxShowMenuBar.Name = "checkBoxShowMenuBar";
+            this.checkBoxShowMenuBar.Size = new System.Drawing.Size(128, 21);
+            this.checkBoxShowMenuBar.TabIndex = 55;
+            this.checkBoxShowMenuBar.Text = "Show menu bar";
+            this.checkBoxShowMenuBar.UseVisualStyleBackColor = true;
+            this.checkBoxShowMenuBar.CheckedChanged += new System.EventHandler(this.checkBoxShowMenuBar_CheckedChanged);
+            // 
+            // checkBoxDisplaySEBDockTaskBar
+            // 
+            this.checkBoxDisplaySEBDockTaskBar.AutoSize = true;
+            this.checkBoxDisplaySEBDockTaskBar.Location = new System.Drawing.Point(95, 277);
+            this.checkBoxDisplaySEBDockTaskBar.Name = "checkBoxDisplaySEBDockTaskBar";
+            this.checkBoxDisplaySEBDockTaskBar.Size = new System.Drawing.Size(418, 21);
+            this.checkBoxDisplaySEBDockTaskBar.TabIndex = 56;
+            this.checkBoxDisplaySEBDockTaskBar.Text = "Display SEB dock/task bar when using third party applications";
+            this.checkBoxDisplaySEBDockTaskBar.UseVisualStyleBackColor = true;
+            this.checkBoxDisplaySEBDockTaskBar.CheckedChanged += new System.EventHandler(this.checkBoxDisplaySEBDockTaskBar_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1681,6 +1763,8 @@
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Editor";
+            this.tabPageAppearance.ResumeLayout(false);
+            this.tabPageAppearance.PerformLayout();
             this.tabPageConfigFile.ResumeLayout(false);
             this.tabPageConfigFile.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
@@ -1842,6 +1926,12 @@
         private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
         private System.Windows.Forms.Label labelUseEither;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.RadioButton radioButtonUseFullScreenMode;
+        private System.Windows.Forms.RadioButton radioButtonUseBrowserWindow;
+        private System.Windows.Forms.CheckBox checkBoxEnableBrowserWindowToolbar;
+        private System.Windows.Forms.CheckBox checkBoxHideToolbarAsDefault;
+        private System.Windows.Forms.CheckBox checkBoxShowMenuBar;
+        private System.Windows.Forms.CheckBox checkBoxDisplaySEBDockTaskBar;
 
     }
 }
