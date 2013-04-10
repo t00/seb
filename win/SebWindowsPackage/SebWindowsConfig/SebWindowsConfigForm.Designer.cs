@@ -34,6 +34,20 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkBoxBlockPopupWindows = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowBrowsingBackForward = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnablePlugIns = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseSEBWithoutBrowserWindow = new System.Windows.Forms.CheckBox();
+            this.checkBoxBlockJavaScriptToADifferentServer = new System.Windows.Forms.CheckBox();
+            this.labelLinksInJavaScriptPlugIns = new System.Windows.Forms.Label();
+            this.labelLinksRequestingToBeOpened = new System.Windows.Forms.Label();
+            this.checkBoxBlockLinksToADifferentServer = new System.Windows.Forms.CheckBox();
+            this.groupBoxNewBrowserWindow = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.listBoxNewBrowserWindowHorizPos = new System.Windows.Forms.ListBox();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
             this.groupBoxMainBrowserWindow = new System.Windows.Forms.GroupBox();
             this.labelHorizontalPositioning = new System.Windows.Forms.Label();
@@ -95,11 +109,7 @@
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
             this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
             this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
-            this.checkBoxEnablePlugins = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableLog = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableBrowsingBackForward = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
@@ -114,7 +124,6 @@
             this.checkBoxDownloadPDFFiles = new System.Windows.Forms.CheckBox();
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
-            this.checkBoxBlockPopupWindows = new System.Windows.Forms.CheckBox();
             this.tabPageRegistry = new System.Windows.Forms.TabPage();
             this.groupBoxOutsideSeb = new System.Windows.Forms.GroupBox();
             this.checkBoxOutsideSebEnableSwitchUser = new System.Windows.Forms.CheckBox();
@@ -165,6 +174,8 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
+            this.tabPageBrowser.SuspendLayout();
+            this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
             this.groupBoxMainBrowserWindow.SuspendLayout();
             this.tabPageConfigFile.SuspendLayout();
@@ -211,6 +222,18 @@
             // 
             // tabPageBrowser
             // 
+            this.tabPageBrowser.Controls.Add(this.label2);
+            this.tabPageBrowser.Controls.Add(this.checkBoxBlockPopupWindows);
+            this.tabPageBrowser.Controls.Add(this.checkBoxAllowBrowsingBackForward);
+            this.tabPageBrowser.Controls.Add(this.checkBoxEnableJavaScript);
+            this.tabPageBrowser.Controls.Add(this.checkBoxEnableJava);
+            this.tabPageBrowser.Controls.Add(this.checkBoxEnablePlugIns);
+            this.tabPageBrowser.Controls.Add(this.checkBoxUseSEBWithoutBrowserWindow);
+            this.tabPageBrowser.Controls.Add(this.checkBoxBlockJavaScriptToADifferentServer);
+            this.tabPageBrowser.Controls.Add(this.labelLinksInJavaScriptPlugIns);
+            this.tabPageBrowser.Controls.Add(this.labelLinksRequestingToBeOpened);
+            this.tabPageBrowser.Controls.Add(this.checkBoxBlockLinksToADifferentServer);
+            this.tabPageBrowser.Controls.Add(this.groupBoxNewBrowserWindow);
             this.tabPageBrowser.ImageIndex = 4;
             this.tabPageBrowser.Location = new System.Drawing.Point(4, 39);
             this.tabPageBrowser.Name = "tabPageBrowser";
@@ -219,6 +242,169 @@
             this.tabPageBrowser.TabIndex = 14;
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 406);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(1153, 17);
+            this.label2.TabIndex = 72;
+            this.label2.Text = "Disable SEB browser if you don\'t need a browser component because SEB should only" +
+    " start up another application in a kiosk mode (for example a virtual desktop inf" +
+    "rastructure client)";
+            // 
+            // checkBoxBlockPopupWindows
+            // 
+            this.checkBoxBlockPopupWindows.AutoSize = true;
+            this.checkBoxBlockPopupWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxBlockPopupWindows.Location = new System.Drawing.Point(226, 370);
+            this.checkBoxBlockPopupWindows.Name = "checkBoxBlockPopupWindows";
+            this.checkBoxBlockPopupWindows.Size = new System.Drawing.Size(169, 21);
+            this.checkBoxBlockPopupWindows.TabIndex = 71;
+            this.checkBoxBlockPopupWindows.Text = "Block pop-up windows";
+            this.checkBoxBlockPopupWindows.UseVisualStyleBackColor = true;
+            this.checkBoxBlockPopupWindows.CheckedChanged += new System.EventHandler(this.checkBoxBlockPopupWindows_CheckedChanged);
+            // 
+            // checkBoxAllowBrowsingBackForward
+            // 
+            this.checkBoxAllowBrowsingBackForward.AutoSize = true;
+            this.checkBoxAllowBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(487, 343);
+            this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
+            this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(207, 21);
+            this.checkBoxAllowBrowsingBackForward.TabIndex = 70;
+            this.checkBoxAllowBrowsingBackForward.Text = "Allow browsing back/forward";
+            this.checkBoxAllowBrowsingBackForward.UseVisualStyleBackColor = true;
+            this.checkBoxAllowBrowsingBackForward.CheckedChanged += new System.EventHandler(this.checkBoxAllowBrowsingBackForward_CheckedChanged);
+            // 
+            // checkBoxEnableJavaScript
+            // 
+            this.checkBoxEnableJavaScript.AutoSize = true;
+            this.checkBoxEnableJavaScript.Checked = true;
+            this.checkBoxEnableJavaScript.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEnableJavaScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(226, 343);
+            this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
+            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(144, 21);
+            this.checkBoxEnableJavaScript.TabIndex = 69;
+            this.checkBoxEnableJavaScript.Text = "Enable JavaScript";
+            this.checkBoxEnableJavaScript.UseVisualStyleBackColor = true;
+            this.checkBoxEnableJavaScript.CheckedChanged += new System.EventHandler(this.checkBoxEnableJavaScript_CheckedChanged);
+            // 
+            // checkBoxEnableJava
+            // 
+            this.checkBoxEnableJava.AutoSize = true;
+            this.checkBoxEnableJava.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableJava.Location = new System.Drawing.Point(31, 370);
+            this.checkBoxEnableJava.Name = "checkBoxEnableJava";
+            this.checkBoxEnableJava.Size = new System.Drawing.Size(108, 21);
+            this.checkBoxEnableJava.TabIndex = 68;
+            this.checkBoxEnableJava.Text = "Enable Java";
+            this.checkBoxEnableJava.UseVisualStyleBackColor = true;
+            this.checkBoxEnableJava.CheckedChanged += new System.EventHandler(this.checkBoxEnableJava_CheckedChanged);
+            // 
+            // checkBoxEnablePlugIns
+            // 
+            this.checkBoxEnablePlugIns.AutoSize = true;
+            this.checkBoxEnablePlugIns.Checked = true;
+            this.checkBoxEnablePlugIns.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxEnablePlugIns.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnablePlugIns.Location = new System.Drawing.Point(31, 343);
+            this.checkBoxEnablePlugIns.Name = "checkBoxEnablePlugIns";
+            this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(128, 21);
+            this.checkBoxEnablePlugIns.TabIndex = 67;
+            this.checkBoxEnablePlugIns.Text = "Enable plug-ins";
+            this.checkBoxEnablePlugIns.UseVisualStyleBackColor = true;
+            this.checkBoxEnablePlugIns.CheckedChanged += new System.EventHandler(this.checkBoxEnablePlugins_CheckedChanged);
+            // 
+            // checkBoxUseSEBWithoutBrowserWindow
+            // 
+            this.checkBoxUseSEBWithoutBrowserWindow.AutoSize = true;
+            this.checkBoxUseSEBWithoutBrowserWindow.Checked = true;
+            this.checkBoxUseSEBWithoutBrowserWindow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUseSEBWithoutBrowserWindow.Location = new System.Drawing.Point(487, 370);
+            this.checkBoxUseSEBWithoutBrowserWindow.Name = "checkBoxUseSEBWithoutBrowserWindow";
+            this.checkBoxUseSEBWithoutBrowserWindow.Size = new System.Drawing.Size(237, 21);
+            this.checkBoxUseSEBWithoutBrowserWindow.TabIndex = 66;
+            this.checkBoxUseSEBWithoutBrowserWindow.Text = "Use SEB without browser window";
+            this.checkBoxUseSEBWithoutBrowserWindow.UseVisualStyleBackColor = true;
+            this.checkBoxUseSEBWithoutBrowserWindow.CheckedChanged += new System.EventHandler(this.checkBoxUseSEBWithoutBrowserWindow_CheckedChanged);
+            // 
+            // checkBoxBlockJavaScriptToADifferentServer
+            // 
+            this.checkBoxBlockJavaScriptToADifferentServer.AutoSize = true;
+            this.checkBoxBlockJavaScriptToADifferentServer.Location = new System.Drawing.Point(31, 303);
+            this.checkBoxBlockJavaScriptToADifferentServer.Name = "checkBoxBlockJavaScriptToADifferentServer";
+            this.checkBoxBlockJavaScriptToADifferentServer.Size = new System.Drawing.Size(286, 21);
+            this.checkBoxBlockJavaScriptToADifferentServer.TabIndex = 62;
+            this.checkBoxBlockJavaScriptToADifferentServer.Text = "block when directing to a different server";
+            this.checkBoxBlockJavaScriptToADifferentServer.UseVisualStyleBackColor = true;
+            this.checkBoxBlockJavaScriptToADifferentServer.CheckedChanged += new System.EventHandler(this.checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged);
+            // 
+            // labelLinksInJavaScriptPlugIns
+            // 
+            this.labelLinksInJavaScriptPlugIns.AutoSize = true;
+            this.labelLinksInJavaScriptPlugIns.Location = new System.Drawing.Point(28, 248);
+            this.labelLinksInJavaScriptPlugIns.Name = "labelLinksInJavaScriptPlugIns";
+            this.labelLinksInJavaScriptPlugIns.Size = new System.Drawing.Size(200, 17);
+            this.labelLinksInJavaScriptPlugIns.TabIndex = 61;
+            this.labelLinksInJavaScriptPlugIns.Text = "Links in JavaScript / plug-ins...";
+            // 
+            // labelLinksRequestingToBeOpened
+            // 
+            this.labelLinksRequestingToBeOpened.AutoSize = true;
+            this.labelLinksRequestingToBeOpened.Location = new System.Drawing.Point(28, 19);
+            this.labelLinksRequestingToBeOpened.Name = "labelLinksRequestingToBeOpened";
+            this.labelLinksRequestingToBeOpened.Size = new System.Drawing.Size(371, 17);
+            this.labelLinksRequestingToBeOpened.TabIndex = 60;
+            this.labelLinksRequestingToBeOpened.Text = "Links requesting to be opened in a new browser window...";
+            // 
+            // checkBoxBlockLinksToADifferentServer
+            // 
+            this.checkBoxBlockLinksToADifferentServer.AutoSize = true;
+            this.checkBoxBlockLinksToADifferentServer.Location = new System.Drawing.Point(31, 77);
+            this.checkBoxBlockLinksToADifferentServer.Name = "checkBoxBlockLinksToADifferentServer";
+            this.checkBoxBlockLinksToADifferentServer.Size = new System.Drawing.Size(286, 21);
+            this.checkBoxBlockLinksToADifferentServer.TabIndex = 59;
+            this.checkBoxBlockLinksToADifferentServer.Text = "block when directing to a different server";
+            this.checkBoxBlockLinksToADifferentServer.UseVisualStyleBackColor = true;
+            this.checkBoxBlockLinksToADifferentServer.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksWhenDirectingToADifferentServer_CheckedChanged);
+            // 
+            // groupBoxNewBrowserWindow
+            // 
+            this.groupBoxNewBrowserWindow.Controls.Add(this.label1);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.listBoxNewBrowserWindowHorizPos);
+            this.groupBoxNewBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxNewBrowserWindow.Location = new System.Drawing.Point(31, 115);
+            this.groupBoxNewBrowserWindow.Name = "groupBoxNewBrowserWindow";
+            this.groupBoxNewBrowserWindow.Size = new System.Drawing.Size(885, 111);
+            this.groupBoxNewBrowserWindow.TabIndex = 58;
+            this.groupBoxNewBrowserWindow.TabStop = false;
+            this.groupBoxNewBrowserWindow.Text = "New browser window size and position";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(453, 37);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(166, 17);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "Horizontal positioning";
+            // 
+            // listBoxNewBrowserWindowHorizPos
+            // 
+            this.listBoxNewBrowserWindowHorizPos.FormattingEnabled = true;
+            this.listBoxNewBrowserWindowHorizPos.ItemHeight = 16;
+            this.listBoxNewBrowserWindowHorizPos.Items.AddRange(new object[] {
+            "Left",
+            "Center",
+            "Right"});
+            this.listBoxNewBrowserWindowHorizPos.Location = new System.Drawing.Point(636, 21);
+            this.listBoxNewBrowserWindowHorizPos.Name = "listBoxNewBrowserWindowHorizPos";
+            this.listBoxNewBrowserWindowHorizPos.Size = new System.Drawing.Size(120, 68);
+            this.listBoxNewBrowserWindowHorizPos.TabIndex = 57;
+            this.listBoxNewBrowserWindowHorizPos.SelectedIndexChanged += new System.EventHandler(this.listBoxNewBrowserWindowHorizPos_SelectedIndexChanged);
             // 
             // tabPageAppearance
             // 
@@ -244,7 +430,7 @@
             this.groupBoxMainBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxMainBrowserWindow.Location = new System.Drawing.Point(31, 115);
             this.groupBoxMainBrowserWindow.Name = "groupBoxMainBrowserWindow";
-            this.groupBoxMainBrowserWindow.Size = new System.Drawing.Size(885, 152);
+            this.groupBoxMainBrowserWindow.Size = new System.Drawing.Size(885, 111);
             this.groupBoxMainBrowserWindow.TabIndex = 57;
             this.groupBoxMainBrowserWindow.TabStop = false;
             this.groupBoxMainBrowserWindow.Text = "Main browser window size and position";
@@ -266,7 +452,7 @@
             "Left",
             "Center",
             "Right"});
-            this.listBoxMainBrowserWindowHorizPos.Location = new System.Drawing.Point(637, 37);
+            this.listBoxMainBrowserWindowHorizPos.Location = new System.Drawing.Point(637, 21);
             this.listBoxMainBrowserWindowHorizPos.Name = "listBoxMainBrowserWindowHorizPos";
             this.listBoxMainBrowserWindowHorizPos.Size = new System.Drawing.Size(120, 68);
             this.listBoxMainBrowserWindowHorizPos.TabIndex = 57;
@@ -904,11 +1090,7 @@
             // 
             // groupBoxSecurityOptions
             // 
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnablePlugins);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableLog);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableJavaScript);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableJava);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxEnableBrowsingBackForward);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowDownUploads);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowFlashFullscreen);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowPreferencesWindow);
@@ -923,7 +1105,6 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxDownloadPDFFiles);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxBlockPopupWindows);
             this.groupBoxSecurityOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxSecurityOptions.Location = new System.Drawing.Point(46, 21);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
@@ -931,17 +1112,6 @@
             this.groupBoxSecurityOptions.TabIndex = 47;
             this.groupBoxSecurityOptions.TabStop = false;
             this.groupBoxSecurityOptions.Text = "Security options";
-            // 
-            // checkBoxEnablePlugins
-            // 
-            this.checkBoxEnablePlugins.AutoSize = true;
-            this.checkBoxEnablePlugins.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnablePlugins.Location = new System.Drawing.Point(267, 137);
-            this.checkBoxEnablePlugins.Name = "checkBoxEnablePlugins";
-            this.checkBoxEnablePlugins.Size = new System.Drawing.Size(123, 21);
-            this.checkBoxEnablePlugins.TabIndex = 62;
-            this.checkBoxEnablePlugins.Text = "Enable plugins";
-            this.checkBoxEnablePlugins.UseVisualStyleBackColor = true;
             // 
             // checkBoxEnableLog
             // 
@@ -953,39 +1123,6 @@
             this.checkBoxEnableLog.TabIndex = 61;
             this.checkBoxEnableLog.Text = "Enable log";
             this.checkBoxEnableLog.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableJavaScript
-            // 
-            this.checkBoxEnableJavaScript.AutoSize = true;
-            this.checkBoxEnableJavaScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(267, 83);
-            this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
-            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(144, 21);
-            this.checkBoxEnableJavaScript.TabIndex = 60;
-            this.checkBoxEnableJavaScript.Text = "Enable JavaScript";
-            this.checkBoxEnableJavaScript.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableJava
-            // 
-            this.checkBoxEnableJava.AutoSize = true;
-            this.checkBoxEnableJava.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableJava.Location = new System.Drawing.Point(267, 56);
-            this.checkBoxEnableJava.Name = "checkBoxEnableJava";
-            this.checkBoxEnableJava.Size = new System.Drawing.Size(108, 21);
-            this.checkBoxEnableJava.TabIndex = 59;
-            this.checkBoxEnableJava.Text = "Enable Java";
-            this.checkBoxEnableJava.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableBrowsingBackForward
-            // 
-            this.checkBoxEnableBrowsingBackForward.AutoSize = true;
-            this.checkBoxEnableBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableBrowsingBackForward.Location = new System.Drawing.Point(267, 29);
-            this.checkBoxEnableBrowsingBackForward.Name = "checkBoxEnableBrowsingBackForward";
-            this.checkBoxEnableBrowsingBackForward.Size = new System.Drawing.Size(219, 21);
-            this.checkBoxEnableBrowsingBackForward.TabIndex = 58;
-            this.checkBoxEnableBrowsingBackForward.Text = "Enable browsing back/forward";
-            this.checkBoxEnableBrowsingBackForward.UseVisualStyleBackColor = true;
             // 
             // checkBoxAllowDownUploads
             // 
@@ -1146,17 +1283,6 @@
             this.checkBoxAllowVirtualMachine.TabIndex = 43;
             this.checkBoxAllowVirtualMachine.Text = "Allow virtual machine";
             this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxBlockPopupWindows
-            // 
-            this.checkBoxBlockPopupWindows.AutoSize = true;
-            this.checkBoxBlockPopupWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxBlockPopupWindows.Location = new System.Drawing.Point(11, 225);
-            this.checkBoxBlockPopupWindows.Name = "checkBoxBlockPopupWindows";
-            this.checkBoxBlockPopupWindows.Size = new System.Drawing.Size(164, 21);
-            this.checkBoxBlockPopupWindows.TabIndex = 44;
-            this.checkBoxBlockPopupWindows.Text = "Block popup windows";
-            this.checkBoxBlockPopupWindows.UseVisualStyleBackColor = true;
             // 
             // tabPageRegistry
             // 
@@ -1796,6 +1922,10 @@
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Editor";
+            this.tabPageBrowser.ResumeLayout(false);
+            this.tabPageBrowser.PerformLayout();
+            this.groupBoxNewBrowserWindow.ResumeLayout(false);
+            this.groupBoxNewBrowserWindow.PerformLayout();
             this.tabPageAppearance.ResumeLayout(false);
             this.tabPageAppearance.PerformLayout();
             this.groupBoxMainBrowserWindow.ResumeLayout(false);
@@ -1925,11 +2055,7 @@
         private System.Windows.Forms.ListBox listBoxExitKey3;
         private System.Windows.Forms.ListBox listBoxExitKey2;
         private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
-        private System.Windows.Forms.CheckBox checkBoxEnablePlugins;
         private System.Windows.Forms.CheckBox checkBoxEnableLog;
-        private System.Windows.Forms.CheckBox checkBoxEnableJavaScript;
-        private System.Windows.Forms.CheckBox checkBoxEnableJava;
-        private System.Windows.Forms.CheckBox checkBoxEnableBrowsingBackForward;
         private System.Windows.Forms.CheckBox checkBoxAllowDownUploads;
         private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreen;
         private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
@@ -1944,7 +2070,6 @@
         private System.Windows.Forms.CheckBox checkBoxDownloadPDFFiles;
         private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
         private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
-        private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
         private System.Windows.Forms.Label labelSEBServerURL;
         private System.Windows.Forms.TextBox textBoxSEBServerURL;
         private System.Windows.Forms.CheckBox checkBoxEnableLogging;
@@ -1968,6 +2093,20 @@
         private System.Windows.Forms.GroupBox groupBoxMainBrowserWindow;
         private System.Windows.Forms.ListBox listBoxMainBrowserWindowHorizPos;
         private System.Windows.Forms.Label labelHorizontalPositioning;
+        private System.Windows.Forms.GroupBox groupBoxNewBrowserWindow;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox listBoxNewBrowserWindowHorizPos;
+        private System.Windows.Forms.CheckBox checkBoxBlockLinksToADifferentServer;
+        private System.Windows.Forms.Label labelLinksRequestingToBeOpened;
+        private System.Windows.Forms.Label labelLinksInJavaScriptPlugIns;
+        private System.Windows.Forms.CheckBox checkBoxBlockJavaScriptToADifferentServer;
+        private System.Windows.Forms.CheckBox checkBoxUseSEBWithoutBrowserWindow;
+        private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
+        private System.Windows.Forms.CheckBox checkBoxAllowBrowsingBackForward;
+        private System.Windows.Forms.CheckBox checkBoxEnableJavaScript;
+        private System.Windows.Forms.CheckBox checkBoxEnableJava;
+        private System.Windows.Forms.CheckBox checkBoxEnablePlugIns;
+        private System.Windows.Forms.Label label2;
 
     }
 }

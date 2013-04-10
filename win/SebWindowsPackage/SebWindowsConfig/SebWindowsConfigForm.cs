@@ -164,6 +164,35 @@ namespace SebWindowsConfig
         const String MessageDisplaySEBDockTaskBar       = "DisplaySEBDockTaskBar";
 
         // Group "Browser"
+        const int ValueOpenLinksInNewWindow              = 1;
+        const int ValueBlockLinksToADifferentServer      = 2;
+        const int ValueNewBrowserWindowSizeWidth         = 3;
+        const int ValueNewBrowserWindowSizeHeight        = 4;
+        const int ValueNewBrowserWindowHorizPos          = 5;
+        const int ValueOpenJavaScriptInNewWindow         = 6;
+        const int ValueBlockJavaScriptToADifferentServer = 7;
+        const int ValueEnablePlugIns                     = 8;
+        const int ValueEnableJava                        = 9;
+        const int ValueEnableJavaScript                  = 10;
+        const int ValueBlockPopupWindows                 = 11;
+        const int ValueAllowBrowsingBackForward          = 12;
+        const int ValueUseSEBWithoutBrowserWindow        = 13;
+        const int NumValueBrowser = 13;
+
+        const String MessageOpenLinksInNewWindow              = "OpenLinksInNewWindow";
+        const String MessageBlockLinksToADifferentServer      = "BlockLinksToADifferentServer";
+        const String MessageNewBrowserWindowSizeWidth         = "NewBrowserWindowSizeWidth";
+        const String MessageNewBrowserWindowSizeHeight        = "NewBrowserWindowSizeHeight";
+        const String MessageNewBrowserWindowHorizPos          = "NewBrowserWindowHorizPos";
+        const String MessageOpenJavaScriptInNewWindow         = "OpenJavaScriptInNewWindow";
+        const String MessageBlockJavaScriptToADifferentServer = "BlockJavaScriptToADifferentServer";
+        const String MessageEnablePlugIns                     = "EnablePlugIns";
+        const String MessageEnableJava                        = "EnableJava";
+        const String MessageEnableJavaScript                  = "EnableJavaScript";
+        const String MessageBlockPopupWindows                 = "BlockPopupWindows";
+        const String MessageAllowBrowsingBackForward          = "AllowBrowsingBackForward";
+        const String MessageUseSEBWithoutBrowserWindow        = "UseSEBWithoutBrowserWindow";
+
         // Group "DownUploads"
         // Group "Exam"
         // Group "Applications"
@@ -185,7 +214,6 @@ namespace SebWindowsConfig
         const String MessageExitKey2 = "ExitKey2";
         const String MessageExitKey3 = "ExitKey3";
 
-        const int NumValueBrowser      = 0;
         const int NumValueDownUploads  = 0;
         const int NumValueExam         = 0;
         const int NumValueApplications = 0;
@@ -232,25 +260,16 @@ namespace SebWindowsConfig
         const int ValueAllowQuit                 = 4;
         const int ValueAllowSwitchToApplications = 5;
         const int ValueAllowVirtualMachine       = 6;
-
-        const int ValueBlockPopupWindows         = 7;
-        const int ValueCreateNewDesktop          = 8;
-        const int ValueDownloadPDFFiles          = 9;
-
-        const int ValueEnableBrowsingBackForward = 10;
-        const int ValueEnableJava                = 11;
-        const int ValueEnableJavaScript          = 12;
-        const int ValueEnableLog                 = 13;
-        const int ValueEnablePlugins             = 14;
-
-        const int ValueHookMessages              = 15;
-        const int ValueIgnoreQuitPassword        = 16;
-        const int ValueMonitorProcesses          = 17;
-        const int ValueNewBrowserWindowByLink    = 18;
-        const int ValueNewBrowserWindowByScript  = 19;
-        const int ValueOpenDownloads             = 20;
-
-        const int NumValueSecurityOptions = 20;
+        const int ValueCreateNewDesktop          = 7;
+        const int ValueDownloadPDFFiles          = 8;
+        const int ValueEnableLog                 = 9;
+        const int ValueHookMessages              = 10;
+        const int ValueIgnoreQuitPassword        = 11;
+        const int ValueMonitorProcesses          = 12;
+        const int ValueNewBrowserWindowByLink    = 13;
+        const int ValueNewBrowserWindowByScript  = 14;
+        const int ValueOpenDownloads             = 15;
+        const int NumValueSecurityOptions = 15;
 
         const String MessageAllowDownUploads          = "AllowDownUploads";
         const String MessageAllowFlashFullscreen      = "AllowFlashFullscreen";
@@ -258,17 +277,9 @@ namespace SebWindowsConfig
         const String MessageAllowQuit                 = "AllowQuit";
         const String MessageAllowSwitchToApplications = "AllowSwitchToApplications";
         const String MessageAllowVirtualMachine       = "AllowVirtualMachine";
-
-        const String MessageBlockPopupWindows         = "BlockPopupWindows";
         const String MessageCreateNewDesktop          = "CreateNewDesktop";
         const String MessageDownloadPDFFiles          = "DownloadPDFFiles";
-
-        const String MessageEnableBrowsingBackForward = "EnableBrowsingBackForward";
-        const String MessageEnableJava                = "EnableJava";
-        const String MessageEnableJavaScript          = "EnableJavaScript";
         const String MessageEnableLog                 = "EnableLog";
-        const String MessageEnablePlugins             = "EnablePlugins";
-
         const String MessageHookMessages              = "HookMessages";
         const String MessageIgnoreQuitPassword        = "IgnoreQuitPassword";
         const String MessageMonitorProcesses          = "MonitorProcesses";
@@ -441,6 +452,7 @@ namespace SebWindowsConfig
             settingString [StateDef, GroupAppearance, ValueMainBrowserWindowSizeWidth ] = "100%";
             settingString [StateDef, GroupAppearance, ValueMainBrowserWindowSizeHeight] = "100%";
             settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos  ] = "Center";
+
             settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar ] = false;
             settingBoolean[StateDef, GroupAppearance, ValueHideToolbarAsDefault       ] = false;
             settingBoolean[StateDef, GroupAppearance, ValueShowMenuBar                ] = false;
@@ -451,6 +463,25 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos  ] = 2;
 
             // Default settings for group "Browser"
+            settingString [StateDef, GroupBrowser, ValueOpenLinksInNewWindow             ] = "open in new window";
+            settingBoolean[StateDef, GroupBrowser, ValueBlockLinksToADifferentServer     ] = false;
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowSizeWidth        ] = "100%";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowSizeHeight       ] = "100%";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos         ] = "Center";
+            settingString [StateDef, GroupBrowser, ValueOpenJavaScriptInNewWindow        ] = "open in new window";
+            settingBoolean[StateDef, GroupBrowser, ValueBlockJavaScriptToADifferentServer] = false;
+
+            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns                    ] = true;
+            settingBoolean[StateDef, GroupBrowser, ValueEnableJava                       ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueEnableJavaScript                 ] = true;
+            settingBoolean[StateDef, GroupBrowser, ValueBlockPopupWindows                ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueAllowBrowsingBackForward         ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueUseSEBWithoutBrowserWindow       ] = false;
+
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowSizeWidth ] = 0;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowSizeHeight] = 0;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos  ] = 2;
+
             // Default settings for group "DownUploads"
             // Default settings for group "Exam"
             // Default settings for group "Applications"
@@ -484,17 +515,9 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowQuit                ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowSwitchToApplications] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowVirtualMachine      ] = false;
-
-            settingBoolean[StateDef, GroupSecurityOptions, ValueBlockPopupWindows        ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueCreateNewDesktop         ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueDownloadPDFFiles         ] = false;
-
-            settingBoolean[StateDef, GroupSecurityOptions, ValueEnableBrowsingBackForward] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueEnableJava               ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueEnableJavaScript         ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueEnableLog                ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueEnablePlugins            ] = true;
-
             settingBoolean[StateDef, GroupSecurityOptions, ValueHookMessages             ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueIgnoreQuitPassword       ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueMonitorProcesses         ] = false;
@@ -553,6 +576,13 @@ namespace SebWindowsConfig
             dataType[GroupAppearance, ValueMainBrowserWindowSizeWidth ] = TypeString;
             dataType[GroupAppearance, ValueMainBrowserWindowSizeHeight] = TypeString;
             dataType[GroupAppearance, ValueMainBrowserWindowHorizPos  ] = TypeString;
+
+            dataType[GroupBrowser, ValueNewBrowserWindowSizeWidth ] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowSizeHeight] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowHorizPos  ] = TypeString;
+
+            dataType[GroupBrowser, ValueOpenLinksInNewWindow     ] = TypeString;
+            dataType[GroupBrowser, ValueOpenJavaScriptInNewWindow] = TypeString;
 
             // Number of values per group
             for (group = 1; group <= GroupNum; group++)
@@ -635,9 +665,21 @@ namespace SebWindowsConfig
             valueString[GroupAppearance, ValueShowMenuBar                ] = MessageShowMenuBar;
             valueString[GroupAppearance, ValueDisplaySEBDockTaskBar      ] = MessageDisplaySEBDockTaskBar;
 
+            valueString[GroupBrowser, ValueOpenLinksInNewWindow             ] = MessageOpenLinksInNewWindow;
+            valueString[GroupBrowser, ValueBlockLinksToADifferentServer     ] = MessageBlockLinksToADifferentServer;
+            valueString[GroupBrowser, ValueNewBrowserWindowSizeWidth        ] = MessageNewBrowserWindowSizeWidth;
+            valueString[GroupBrowser, ValueNewBrowserWindowSizeHeight       ] = MessageNewBrowserWindowSizeHeight;
+            valueString[GroupBrowser, ValueNewBrowserWindowHorizPos         ] = MessageNewBrowserWindowHorizPos;
+            valueString[GroupBrowser, ValueOpenJavaScriptInNewWindow        ] = MessageOpenJavaScriptInNewWindow;
+            valueString[GroupBrowser, ValueBlockJavaScriptToADifferentServer] = MessageBlockJavaScriptToADifferentServer;
+            valueString[GroupBrowser, ValueEnablePlugIns                    ] = MessageEnablePlugIns;
+            valueString[GroupBrowser, ValueEnableJava                       ] = MessageEnableJava;
+            valueString[GroupBrowser, ValueEnableJavaScript                 ] = MessageEnableJavaScript;
+            valueString[GroupBrowser, ValueBlockPopupWindows                ] = MessageBlockPopupWindows;
+            valueString[GroupBrowser, ValueAllowBrowsingBackForward         ] = MessageAllowBrowsingBackForward;
+            valueString[GroupBrowser, ValueUseSEBWithoutBrowserWindow       ] = MessageUseSEBWithoutBrowserWindow;
 
             valueString[GroupSecurity, ValueEnableLogging] = MessageEnableLogging;
-
 
             valueString[GroupExitKeys, ValueExitKey1] = MessageExitKey1;
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
@@ -667,17 +709,9 @@ namespace SebWindowsConfig
             valueString[GroupSecurityOptions, ValueAllowQuit                ] = MessageAllowQuit;
             valueString[GroupSecurityOptions, ValueAllowSwitchToApplications] = MessageAllowSwitchToApplications;
             valueString[GroupSecurityOptions, ValueAllowVirtualMachine      ] = MessageAllowVirtualMachine;
-
-            valueString[GroupSecurityOptions, ValueBlockPopupWindows        ] = MessageBlockPopupWindows;
             valueString[GroupSecurityOptions, ValueCreateNewDesktop         ] = MessageCreateNewDesktop;
             valueString[GroupSecurityOptions, ValueDownloadPDFFiles         ] = MessageDownloadPDFFiles;
-
-            valueString[GroupSecurityOptions, ValueEnableBrowsingBackForward] = MessageEnableBrowsingBackForward;
-            valueString[GroupSecurityOptions, ValueEnableJava               ] = MessageEnableJava;
-            valueString[GroupSecurityOptions, ValueEnableJavaScript         ] = MessageEnableJavaScript;
             valueString[GroupSecurityOptions, ValueEnableLog                ] = MessageEnableLog;
-            valueString[GroupSecurityOptions, ValueEnablePlugins            ] = MessageEnablePlugins;
-
             valueString[GroupSecurityOptions, ValueHookMessages             ] = MessageHookMessages;
             valueString[GroupSecurityOptions, ValueIgnoreQuitPassword       ] = MessageIgnoreQuitPassword;
             valueString[GroupSecurityOptions, ValueMonitorProcesses         ] = MessageMonitorProcesses;
@@ -771,14 +805,19 @@ namespace SebWindowsConfig
             settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
 
             // Horizontal Positioning needs a conversion from string to integer
-            String tmpStringHorizPos = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos];
-            int    tmpIndexHorizPos  = 0;
-            for (int  indexHorizPos = 1; indexHorizPos <= 3; indexHorizPos++)
+            String tmpStringHorizPosMain = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos];
+            String tmpStringHorizPosNew  = settingString[StateTmp, GroupBrowser   , ValueNewBrowserWindowHorizPos];
+
+            int tmpIndexHorizPosMain = 0;
+            int tmpIndexHorizPosNew  = 0;
+            for (int indexHorizPos = 1; indexHorizPos <= 3; indexHorizPos++)
             {
                 String hps = horizontalPositioningString[indexHorizPos];
-                if (tmpStringHorizPos.Equals(hps)) tmpIndexHorizPos = indexHorizPos;
+                if (tmpStringHorizPosMain.Equals(hps)) tmpIndexHorizPosMain = indexHorizPos;
+                if (tmpStringHorizPosNew .Equals(hps)) tmpIndexHorizPosNew  = indexHorizPos;
             }
-            settingInteger[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos] = tmpIndexHorizPos;
+            settingInteger[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos] = tmpIndexHorizPosMain;
+            settingInteger[StateTmp, GroupBrowser   , ValueNewBrowserWindowHorizPos ] = tmpIndexHorizPosNew;
 
             // Exit Key Sequence needs a conversion from string to integer
             String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
@@ -832,8 +871,11 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
 
             // Horizontal Positioning needs a conversion from integer to string
-            int newIndexHorizPos = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos];
-            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = horizontalPositioningString[newIndexHorizPos];
+            int newIndexHorizPosMain = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos];
+            int newIndexHorizPosNew  = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos];
+
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = horizontalPositioningString[newIndexHorizPosMain];
+            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos]  = horizontalPositioningString[newIndexHorizPosNew];
 
             // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
@@ -1500,6 +1542,50 @@ namespace SebWindowsConfig
         // ****************
         // Group "Browser"
         // ****************
+        private void checkBoxBlockLinksWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToADifferentServer] = checkBoxBlockLinksToADifferentServer.Checked;
+        }
+
+        private void listBoxNewBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHorizPos] = listBoxNewBrowserWindowHorizPos.SelectedIndex + 1;
+        }
+
+        private void checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToADifferentServer] = checkBoxBlockJavaScriptToADifferentServer.Checked;
+        }
+
+        private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns] = checkBoxEnablePlugIns.Checked;
+        }
+
+        private void checkBoxEnableJava_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueEnableJava] = checkBoxEnableJava.Checked;
+        }
+
+        private void checkBoxEnableJavaScript_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript] = checkBoxEnableJavaScript.Checked;
+        }
+
+        private void checkBoxBlockPopupWindows_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows] = checkBoxBlockPopupWindows.Checked;
+        }
+
+        private void checkBoxAllowBrowsingBackForward_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward] = checkBoxAllowBrowsingBackForward.Checked;
+        }
+
+        private void checkBoxUseSEBWithoutBrowserWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowserWindow] = checkBoxUseSEBWithoutBrowserWindow.Checked;
+        }
 
 
 
@@ -1668,11 +1754,6 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
         }
 
-        private void checkBoxBlockPopupWindows_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueBlockPopupWindows] = checkBoxBlockPopupWindows.Checked;
-        }
-
         private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
@@ -1683,29 +1764,9 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles] = checkBoxDownloadPDFFiles.Checked;
         }
 
-        private void checkBoxEnableBrowsingBackForward_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueEnableBrowsingBackForward] = checkBoxEnableBrowsingBackForward.Checked;
-        }
-
-        private void checkBoxEnableJava_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueEnableJava] = checkBoxEnableJava.Checked;
-        }
-
-        private void checkBoxEnableJavaScript_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueEnableJavaScript] = checkBoxEnableJavaScript.Checked;
-        }
-
         private void checkBoxEnableLog_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog] = checkBoxEnableLog.Checked;
-        }
-
-        private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueEnablePlugins] = checkBoxEnablePlugins.Checked;
         }
 
         private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
@@ -1908,13 +1969,32 @@ namespace SebWindowsConfig
             textBoxSettingsPassword             .Text    = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
             textBoxConfirmSettingsPassword      .Text    = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
 
-            radioButtonUseBrowserWindow       .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
-            radioButtonUseFullScreenMode      .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
-             listBoxMainBrowserWindowHorizPos .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] - 1;
-            checkBoxEnableBrowserWindowToolbar.Checked       = settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar];
-            checkBoxHideToolbarAsDefault      .Checked       = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
-            checkBoxShowMenuBar               .Checked       = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
-            checkBoxDisplaySEBDockTaskBar     .Checked       = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
+            radioButtonUseBrowserWindow        .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
+            radioButtonUseFullScreenMode       .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
+            checkBoxEnableBrowserWindowToolbar .Checked       = settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar];
+            checkBoxHideToolbarAsDefault       .Checked       = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
+            checkBoxShowMenuBar                .Checked       = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
+            checkBoxDisplaySEBDockTaskBar      .Checked       = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
+
+           //listBoxMainBrowserWindowSizeWidth .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowSizeWidth ] - 1;
+           //listBoxMainBrowserWindowSizeHeight.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowSizeHeight] - 1;
+             listBoxMainBrowserWindowHorizPos  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos  ] - 1;
+
+           //listBoxNewBrowserWindowSizeWidth  .SelectedIndex = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowSizeWidth ] - 1;
+           //listBoxNewBrowserWindowSizeHeight .SelectedIndex = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowSizeHeight] - 1;
+             listBoxNewBrowserWindowHorizPos   .SelectedIndex = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos  ] - 1;
+
+          //checkBoxOpenLinksInNewWindow             .Checked = settingBoolean[StateNew, GroupBrowser, ValueOpenLinksInNewWindow];
+          //checkBoxOpenJavaScriptInNewWindow        .Checked = settingBoolean[StateNew, GroupBrowser, ValueOpenJavaScriptInNewWindow];
+            checkBoxBlockLinksToADifferentServer     .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToADifferentServer];
+            checkBoxBlockJavaScriptToADifferentServer.Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToADifferentServer];
+
+            checkBoxEnablePlugIns             .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns];
+            checkBoxEnableJava                .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
+            checkBoxEnableJavaScript          .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript];
+            checkBoxBlockPopupWindows         .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows];
+            checkBoxAllowBrowsingBackForward  .Checked = settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward];
+            checkBoxUseSEBWithoutBrowserWindow.Checked = settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowserWindow];
 
             checkBoxEnableLogging.Checked = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
@@ -1946,17 +2026,9 @@ namespace SebWindowsConfig
             checkBoxAllowQuit                .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowQuit];
             checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications];
             checkBoxAllowVirtualMachine      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine];
-
-            checkBoxBlockPopupWindows.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueBlockPopupWindows];
-            checkBoxCreateNewDesktop .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
-            checkBoxDownloadPDFFiles .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles];
-
-            checkBoxEnableBrowsingBackForward.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableBrowsingBackForward];
-            checkBoxEnableJava               .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableJava];
-            checkBoxEnableJavaScript         .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableJavaScript];
-            checkBoxEnableLog                .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog];
-            checkBoxEnablePlugins            .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnablePlugins];
-
+            checkBoxCreateNewDesktop                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
+            checkBoxDownloadPDFFiles                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles];
+            checkBoxEnableLog                           .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog];
             checkBoxHookMessages                        .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages];
             checkBoxIgnoreQuitPassword                  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
             checkBoxMonitorProcesses                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses];
