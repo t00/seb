@@ -146,16 +146,18 @@ namespace SebWindowsConfig
         const int ValueUseFullScreenMode           = 2;
         const int ValueMainBrowserWindowSizeWidth  = 3;
         const int ValueMainBrowserWindowSizeHeight = 4;
-        const int ValueEnableBrowserWindowToolbar  = 5;
-        const int ValueHideToolbarAsDefault        = 6;
-        const int ValueShowMenuBar                 = 7;
-        const int ValueDisplaySEBDockTaskBar       = 8;
-        const int NumValueAppearance = 8;
+        const int ValueMainBrowserWindowHorizPos   = 5;
+        const int ValueEnableBrowserWindowToolbar  = 6;
+        const int ValueHideToolbarAsDefault        = 7;
+        const int ValueShowMenuBar                 = 8;
+        const int ValueDisplaySEBDockTaskBar       = 9;
+        const int NumValueAppearance = 9;
 
         const String MessageUseBrowserWindow            = "UseBrowserWindow";
         const String MessageUseFullScreenMode           = "UseFullScreenMode";
         const String MessageMainBrowserWindowSizeWidth  = "MainBrowserWindowSizeWidth";
         const String MessageMainBrowserWindowSizeHeight = "MainBrowserWindowSizeHeight";
+        const String MessageMainBrowserWindowHorizPos   = "MainBrowserWindowHorizPos";
         const String MessageEnableBrowserWindowToolbar  = "EnableBrowserWindowToolbar";
         const String MessageHideToolbarAsDefault        = "HideToolbarAsDefault";
         const String MessageShowMenuBar                 = "ShowMenuBar";
@@ -358,6 +360,10 @@ namespace SebWindowsConfig
         //static String[]  chooseIdentityStringArray = new String[1];
         static List<String> chooseIdentityStringList = new List<String>();
 
+        // Entries of ListBoxes
+        static String[] horizontalPositioningString = new String[4];
+        static String[]           functionKeyString = new String[13];
+
         // Number of values per group
         // Names  of groups and values
         // Types  of values (Boolean, Integer, String)
@@ -423,19 +429,26 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupConfigFile, ValueStartingAnExam              ] = true;
             settingBoolean[StateDef, GroupConfigFile, ValueConfiguringAClient          ] = false;
             settingBoolean[StateDef, GroupConfigFile, ValueAllowToOpenPreferencesWindow] = true;
-            settingString [StateDef, GroupConfigFile, ValueChooseIdentity              ] = "";
+            settingString [StateDef, GroupConfigFile, ValueChooseIdentity              ] = "none";
             settingString [StateDef, GroupConfigFile, ValueSettingsPassword            ] = "";
             settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword     ] = "";
+
+            settingInteger[StateDef, GroupConfigFile, ValueChooseIdentity] = 0;
 
             // Default settings for group "Appearance"
             settingBoolean[StateDef, GroupAppearance, ValueUseBrowserWindow           ] = true;
             settingBoolean[StateDef, GroupAppearance, ValueUseFullScreenMode          ] = false;
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeWidth ] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeHeight] = 0;
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowSizeWidth ] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowSizeHeight] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos  ] = "Center";
             settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar ] = false;
             settingBoolean[StateDef, GroupAppearance, ValueHideToolbarAsDefault       ] = false;
             settingBoolean[StateDef, GroupAppearance, ValueShowMenuBar                ] = false;
             settingBoolean[StateDef, GroupAppearance, ValueDisplaySEBDockTaskBar      ] = false;
+
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeWidth ] = 0;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeHeight] = 0;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos  ] = 2;
 
             // Default settings for group "Browser"
             // Default settings for group "DownUploads"
@@ -539,6 +552,7 @@ namespace SebWindowsConfig
 
             dataType[GroupAppearance, ValueMainBrowserWindowSizeWidth ] = TypeString;
             dataType[GroupAppearance, ValueMainBrowserWindowSizeHeight] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowHorizPos  ] = TypeString;
 
             // Number of values per group
             for (group = 1; group <= GroupNum; group++)
@@ -615,6 +629,7 @@ namespace SebWindowsConfig
             valueString[GroupAppearance, ValueUseFullScreenMode          ] = MessageUseFullScreenMode;
             valueString[GroupAppearance, ValueMainBrowserWindowSizeWidth ] = MessageMainBrowserWindowSizeWidth;
             valueString[GroupAppearance, ValueMainBrowserWindowSizeHeight] = MessageMainBrowserWindowSizeHeight;
+            valueString[GroupAppearance, ValueMainBrowserWindowHorizPos  ] = MessageMainBrowserWindowHorizPos;
             valueString[GroupAppearance, ValueEnableBrowserWindowToolbar ] = MessageEnableBrowserWindowToolbar;
             valueString[GroupAppearance, ValueHideToolbarAsDefault       ] = MessageHideToolbarAsDefault;
             valueString[GroupAppearance, ValueShowMenuBar                ] = MessageShowMenuBar;
@@ -696,6 +711,25 @@ namespace SebWindowsConfig
             valueString[GroupFunctionKeys, ValueEnableF12] = MessageEnableF12;
 
 
+            // Define the strings for the encryption identity
+            chooseIdentityStringList.Add("none");
+            chooseIdentityStringList.Add("alpha");
+            chooseIdentityStringList.Add("beta");
+            chooseIdentityStringList.Add("gamma");
+            chooseIdentityStringList.Add("delta");
+            String[] chooseIdentityStringArray = chooseIdentityStringList.ToArray();
+
+            // Define the strings for the horizontal positioning
+            horizontalPositioningString[0] = "";
+            horizontalPositioningString[1] = "Left";
+            horizontalPositioningString[2] = "Center";
+            horizontalPositioningString[3] = "Right";
+
+            // Define the strings for the function keys F1, F2, ..., F12
+            for (int i = 1; i <= 12; i++)
+                functionKeyString[i] = "F" + i.ToString();
+
+
             // Try to open the ini file (SebStarter.ini)
             // given in the local directory (where SebWindowsConfig.exe was called)
             currentDireSebStarterIni = Directory.GetCurrentDirectory();
@@ -714,16 +748,10 @@ namespace SebWindowsConfig
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
 
-            // Define the strings for the encryption identities
-            chooseIdentityStringList.Add("none");
-            chooseIdentityStringList.Add("alpha");
-            chooseIdentityStringList.Add("beta");
-            chooseIdentityStringList.Add("gamma");
-            chooseIdentityStringList.Add("delta");
 
-            String[] chooseIdentityStringArray   = chooseIdentityStringList.ToArray();
-             comboBoxChooseIdentity.Items.AddRange(chooseIdentityStringArray);
-             comboBoxChooseIdentity.SelectedIndex = 0;
+            // Soll das hier stehen oder in SetWidgetsToNewSettingsOfSebStarterIni() ???
+            comboBoxChooseIdentity.Items.AddRange(chooseIdentityStringArray);
+            comboBoxChooseIdentity.SelectedIndex = 0;
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -741,6 +769,16 @@ namespace SebWindowsConfig
             // Certificate Store of the computer where it is running,
             // so initially the 0th list entry is displayed ("none").
             settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
+
+            // Horizontal Positioning needs a conversion from string to integer
+            String tmpStringHorizPos = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos];
+            int    tmpIndexHorizPos  = 0;
+            for (int  indexHorizPos = 1; indexHorizPos <= 3; indexHorizPos++)
+            {
+                String hps = horizontalPositioningString[indexHorizPos];
+                if (tmpStringHorizPos.Equals(hps)) tmpIndexHorizPos = indexHorizPos;
+            }
+            settingInteger[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos] = tmpIndexHorizPos;
 
             // Exit Key Sequence needs a conversion from string to integer
             String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
@@ -793,14 +831,18 @@ namespace SebWindowsConfig
             int newIndexChooseIdentity = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
             settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
 
+            // Horizontal Positioning needs a conversion from integer to string
+            int newIndexHorizPos = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = horizontalPositioningString[newIndexHorizPos];
+
             // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
             int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
             int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
 
-            settingString[StateNew, GroupExitKeys, ValueExitKey1] = "F" + newIndexExitKey1.ToString();
-            settingString[StateNew, GroupExitKeys, ValueExitKey2] = "F" + newIndexExitKey2.ToString();
-            settingString[StateNew, GroupExitKeys, ValueExitKey3] = "F" + newIndexExitKey3.ToString();
+            settingString[StateNew, GroupExitKeys, ValueExitKey1] = functionKeyString[newIndexExitKey1];
+            settingString[StateNew, GroupExitKeys, ValueExitKey2] = functionKeyString[newIndexExitKey2];
+            settingString[StateNew, GroupExitKeys, ValueExitKey3] = functionKeyString[newIndexExitKey3];
 
             return;
         }
@@ -1427,6 +1469,11 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode] = radioButtonUseFullScreenMode.Checked;
         }
 
+        private void listBoxMainBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = listBoxMainBrowserWindowHorizPos.SelectedIndex + 1;
+        }
+
         private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar] = checkBoxEnableBrowserWindowToolbar.Checked;
@@ -1856,17 +1903,18 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam           .Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
             radioButtonConfiguringAClient       .Checked = settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient];
             checkBoxAllowToOpenPreferencesWindow.Checked = settingBoolean[StateNew, GroupConfigFile, ValueAllowToOpenPreferencesWindow];
-            //comboBoxChooseIdentity      .SelectedIndex   = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
-            //comboBoxChooseIdentity      .SelectedIndex   = 0;
+          //comboBoxChooseIdentity      .SelectedIndex   = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+          //comboBoxChooseIdentity      .SelectedIndex   = 0;
             textBoxSettingsPassword             .Text    = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
             textBoxConfirmSettingsPassword      .Text    = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
 
-            radioButtonUseBrowserWindow       .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
-            radioButtonUseFullScreenMode      .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
-            checkBoxEnableBrowserWindowToolbar.Checked = settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar];
-            checkBoxHideToolbarAsDefault      .Checked = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
-            checkBoxShowMenuBar               .Checked = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
-            checkBoxDisplaySEBDockTaskBar     .Checked = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
+            radioButtonUseBrowserWindow       .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
+            radioButtonUseFullScreenMode      .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
+             listBoxMainBrowserWindowHorizPos .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] - 1;
+            checkBoxEnableBrowserWindowToolbar.Checked       = settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar];
+            checkBoxHideToolbarAsDefault      .Checked       = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
+            checkBoxShowMenuBar               .Checked       = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
+            checkBoxDisplaySEBDockTaskBar     .Checked       = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
 
             checkBoxEnableLogging.Checked = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
@@ -1992,8 +2040,6 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
-
-
 
 
 

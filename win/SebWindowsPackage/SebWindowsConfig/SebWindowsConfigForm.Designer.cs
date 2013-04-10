@@ -35,6 +35,9 @@
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
+            this.groupBoxMainBrowserWindow = new System.Windows.Forms.GroupBox();
+            this.labelHorizontalPositioning = new System.Windows.Forms.Label();
+            this.listBoxMainBrowserWindowHorizPos = new System.Windows.Forms.ListBox();
             this.checkBoxDisplaySEBDockTaskBar = new System.Windows.Forms.CheckBox();
             this.checkBoxShowMenuBar = new System.Windows.Forms.CheckBox();
             this.checkBoxHideToolbarAsDefault = new System.Windows.Forms.CheckBox();
@@ -136,7 +139,7 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF2 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF12 = new System.Windows.Forms.CheckBox();
@@ -149,7 +152,7 @@
             this.checkBoxEnableF9 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF7 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF8 = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxSpecialKeys = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableEsc = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableCtrlEsc = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableAltEsc = new System.Windows.Forms.CheckBox();
@@ -158,12 +161,12 @@
             this.checkBoxEnableStartMenu = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
             this.tabPageExitKeys = new System.Windows.Forms.TabPage();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.tabPageAppearance.SuspendLayout();
+            this.groupBoxMainBrowserWindow.SuspendLayout();
             this.tabPageConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
@@ -176,10 +179,9 @@
             this.groupBoxSetOutsideSebValues.SuspendLayout();
             this.groupBoxInsideSeb.SuspendLayout();
             this.tabPageHookedKeys.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxFunctionKeys.SuspendLayout();
+            this.groupBoxSpecialKeys.SuspendLayout();
             this.tabPageExitKeys.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.groupBoxExitSequence.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -220,6 +222,7 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.groupBoxMainBrowserWindow);
             this.tabPageAppearance.Controls.Add(this.checkBoxDisplaySEBDockTaskBar);
             this.tabPageAppearance.Controls.Add(this.checkBoxShowMenuBar);
             this.tabPageAppearance.Controls.Add(this.checkBoxHideToolbarAsDefault);
@@ -233,6 +236,41 @@
             this.tabPageAppearance.TabIndex = 8;
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxMainBrowserWindow
+            // 
+            this.groupBoxMainBrowserWindow.Controls.Add(this.labelHorizontalPositioning);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.listBoxMainBrowserWindowHorizPos);
+            this.groupBoxMainBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxMainBrowserWindow.Location = new System.Drawing.Point(31, 115);
+            this.groupBoxMainBrowserWindow.Name = "groupBoxMainBrowserWindow";
+            this.groupBoxMainBrowserWindow.Size = new System.Drawing.Size(885, 152);
+            this.groupBoxMainBrowserWindow.TabIndex = 57;
+            this.groupBoxMainBrowserWindow.TabStop = false;
+            this.groupBoxMainBrowserWindow.Text = "Main browser window size and position";
+            // 
+            // labelHorizontalPositioning
+            // 
+            this.labelHorizontalPositioning.AutoSize = true;
+            this.labelHorizontalPositioning.Location = new System.Drawing.Point(453, 37);
+            this.labelHorizontalPositioning.Name = "labelHorizontalPositioning";
+            this.labelHorizontalPositioning.Size = new System.Drawing.Size(166, 17);
+            this.labelHorizontalPositioning.TabIndex = 58;
+            this.labelHorizontalPositioning.Text = "Horizontal positioning";
+            // 
+            // listBoxMainBrowserWindowHorizPos
+            // 
+            this.listBoxMainBrowserWindowHorizPos.FormattingEnabled = true;
+            this.listBoxMainBrowserWindowHorizPos.ItemHeight = 16;
+            this.listBoxMainBrowserWindowHorizPos.Items.AddRange(new object[] {
+            "Left",
+            "Center",
+            "Right"});
+            this.listBoxMainBrowserWindowHorizPos.Location = new System.Drawing.Point(637, 37);
+            this.listBoxMainBrowserWindowHorizPos.Name = "listBoxMainBrowserWindowHorizPos";
+            this.listBoxMainBrowserWindowHorizPos.Size = new System.Drawing.Size(120, 68);
+            this.listBoxMainBrowserWindowHorizPos.TabIndex = 57;
+            this.listBoxMainBrowserWindowHorizPos.SelectedIndexChanged += new System.EventHandler(this.listBoxMainBrowserWindowHorizPos_SelectedIndexChanged);
             // 
             // checkBoxDisplaySEBDockTaskBar
             // 
@@ -1392,8 +1430,8 @@
             // 
             // tabPageHookedKeys
             // 
-            this.tabPageHookedKeys.Controls.Add(this.groupBox1);
-            this.tabPageHookedKeys.Controls.Add(this.groupBox2);
+            this.tabPageHookedKeys.Controls.Add(this.groupBoxFunctionKeys);
+            this.tabPageHookedKeys.Controls.Add(this.groupBoxSpecialKeys);
             this.tabPageHookedKeys.Location = new System.Drawing.Point(4, 39);
             this.tabPageHookedKeys.Name = "tabPageHookedKeys";
             this.tabPageHookedKeys.Padding = new System.Windows.Forms.Padding(3);
@@ -1402,27 +1440,27 @@
             this.tabPageHookedKeys.Text = "Hooked Keys";
             this.tabPageHookedKeys.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // groupBoxFunctionKeys
             // 
-            this.groupBox1.Controls.Add(this.checkBoxEnableF1);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF2);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF12);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF3);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF11);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF4);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF5);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF10);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF6);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF9);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF7);
-            this.groupBox1.Controls.Add(this.checkBoxEnableF8);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(244, 19);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(130, 390);
-            this.groupBox1.TabIndex = 41;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Function keys";
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF1);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF2);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF12);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF3);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF11);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF4);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF5);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF10);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF6);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF9);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF7);
+            this.groupBoxFunctionKeys.Controls.Add(this.checkBoxEnableF8);
+            this.groupBoxFunctionKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxFunctionKeys.Location = new System.Drawing.Point(244, 19);
+            this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
+            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(130, 390);
+            this.groupBoxFunctionKeys.TabIndex = 41;
+            this.groupBoxFunctionKeys.TabStop = false;
+            this.groupBoxFunctionKeys.Text = "Function keys";
             // 
             // checkBoxEnableF1
             // 
@@ -1556,22 +1594,22 @@
             this.checkBoxEnableF8.Text = "Enable F8";
             this.checkBoxEnableF8.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // groupBoxSpecialKeys
             // 
-            this.groupBox2.Controls.Add(this.checkBoxEnableEsc);
-            this.groupBox2.Controls.Add(this.checkBoxEnableCtrlEsc);
-            this.groupBox2.Controls.Add(this.checkBoxEnableAltEsc);
-            this.groupBox2.Controls.Add(this.checkBoxEnableAltTab);
-            this.groupBox2.Controls.Add(this.checkBoxEnableAltF4);
-            this.groupBox2.Controls.Add(this.checkBoxEnableStartMenu);
-            this.groupBox2.Controls.Add(this.checkBoxEnableRightMouse);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(20, 19);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(170, 240);
-            this.groupBox2.TabIndex = 39;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Special keys";
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableEsc);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableCtrlEsc);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltEsc);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltTab);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltF4);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableStartMenu);
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableRightMouse);
+            this.groupBoxSpecialKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxSpecialKeys.Location = new System.Drawing.Point(20, 19);
+            this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
+            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(170, 240);
+            this.groupBoxSpecialKeys.TabIndex = 39;
+            this.groupBoxSpecialKeys.TabStop = false;
+            this.groupBoxSpecialKeys.Text = "Special keys";
             // 
             // checkBoxEnableEsc
             // 
@@ -1654,7 +1692,6 @@
             // 
             this.tabPageExitKeys.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPageExitKeys.BackgroundImage")));
             this.tabPageExitKeys.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPageExitKeys.Controls.Add(this.numericUpDown2);
             this.tabPageExitKeys.Controls.Add(this.groupBoxExitSequence);
             this.tabPageExitKeys.Location = new System.Drawing.Point(4, 39);
             this.tabPageExitKeys.Name = "tabPageExitKeys";
@@ -1663,13 +1700,6 @@
             this.tabPageExitKeys.TabIndex = 28;
             this.tabPageExitKeys.Text = "Exit Keys";
             this.tabPageExitKeys.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(715, 190);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown2.TabIndex = 53;
             // 
             // groupBoxExitSequence
             // 
@@ -1768,6 +1798,8 @@
             this.Text = "SEB Windows Configuration Editor";
             this.tabPageAppearance.ResumeLayout(false);
             this.tabPageAppearance.PerformLayout();
+            this.groupBoxMainBrowserWindow.ResumeLayout(false);
+            this.groupBoxMainBrowserWindow.PerformLayout();
             this.tabPageConfigFile.ResumeLayout(false);
             this.tabPageConfigFile.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
@@ -1788,12 +1820,11 @@
             this.groupBoxInsideSeb.ResumeLayout(false);
             this.groupBoxInsideSeb.PerformLayout();
             this.tabPageHookedKeys.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxFunctionKeys.ResumeLayout(false);
+            this.groupBoxFunctionKeys.PerformLayout();
+            this.groupBoxSpecialKeys.ResumeLayout(false);
+            this.groupBoxSpecialKeys.PerformLayout();
             this.tabPageExitKeys.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1867,7 +1898,7 @@
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableEaseOfAccess;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableVmWareClientShade;
         private System.Windows.Forms.TabPage tabPageHookedKeys;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
         private System.Windows.Forms.CheckBox checkBoxEnableF1;
         private System.Windows.Forms.CheckBox checkBoxEnableF2;
         private System.Windows.Forms.CheckBox checkBoxEnableF12;
@@ -1880,7 +1911,7 @@
         private System.Windows.Forms.CheckBox checkBoxEnableF9;
         private System.Windows.Forms.CheckBox checkBoxEnableF7;
         private System.Windows.Forms.CheckBox checkBoxEnableF8;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxSpecialKeys;
         private System.Windows.Forms.CheckBox checkBoxEnableEsc;
         private System.Windows.Forms.CheckBox checkBoxEnableCtrlEsc;
         private System.Windows.Forms.CheckBox checkBoxEnableAltEsc;
@@ -1928,13 +1959,15 @@
         private System.Windows.Forms.Label labelChooseIdentity;
         private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
         private System.Windows.Forms.Label labelUseEither;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.RadioButton radioButtonUseFullScreenMode;
         private System.Windows.Forms.RadioButton radioButtonUseBrowserWindow;
         private System.Windows.Forms.CheckBox checkBoxEnableBrowserWindowToolbar;
         private System.Windows.Forms.CheckBox checkBoxHideToolbarAsDefault;
         private System.Windows.Forms.CheckBox checkBoxShowMenuBar;
         private System.Windows.Forms.CheckBox checkBoxDisplaySEBDockTaskBar;
+        private System.Windows.Forms.GroupBox groupBoxMainBrowserWindow;
+        private System.Windows.Forms.ListBox listBoxMainBrowserWindowHorizPos;
+        private System.Windows.Forms.Label labelHorizontalPositioning;
 
     }
 }
