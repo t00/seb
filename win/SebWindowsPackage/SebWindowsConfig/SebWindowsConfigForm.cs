@@ -1430,6 +1430,7 @@ namespace SebWindowsConfig
         private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar] = checkBoxEnableBrowserWindowToolbar.Checked;
+            checkBoxHideToolbarAsDefault.Enabled = checkBoxEnableBrowserWindowToolbar.Checked;
         }
 
         private void checkBoxHideToolbarAsDefault_CheckedChanged(object sender, EventArgs e)
@@ -1991,6 +1992,8 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
+
+
 
 
 
