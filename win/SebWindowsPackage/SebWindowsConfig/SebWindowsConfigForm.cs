@@ -465,7 +465,7 @@ namespace SebWindowsConfig
 
             // Default settings for group "Browser"
             settingString [StateDef, GroupBrowser, ValueLinksRequesting                 ] = "open in new window";
-            settingString [StateDef, GroupBrowser, ValueLinksJavaScript               ] = "open in new window";
+            settingString [StateDef, GroupBrowser, ValueLinksJavaScript                 ] = "open in new window";
             settingBoolean[StateDef, GroupBrowser, ValueBlockLinksToDifferentServer     ] = false;
             settingBoolean[StateDef, GroupBrowser, ValueBlockJavaScriptToDifferentServer] = false;
 
@@ -479,6 +479,9 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupBrowser, ValueBlockPopupWindows               ] = false;
             settingBoolean[StateDef, GroupBrowser, ValueAllowBrowsingBackForward        ] = false;
             settingBoolean[StateDef, GroupBrowser, ValueUseSEBWithoutBrowserWindow      ] = false;
+
+            settingInteger[StateDef, GroupBrowser, ValueLinksRequesting] = 1;
+            settingInteger[StateDef, GroupBrowser, ValueLinksJavaScript] = 1;
 
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowWidth   ] = 0;
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHeight  ] = 0;
