@@ -34,23 +34,30 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelToStartAppInKioskMode = new System.Windows.Forms.Label();
             this.checkBoxBlockPopupWindows = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowBrowsingBackForward = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
             this.checkBoxEnablePlugIns = new System.Windows.Forms.CheckBox();
             this.checkBoxUseSEBWithoutBrowserWindow = new System.Windows.Forms.CheckBox();
-            this.checkBoxBlockJavaScriptToADifferentServer = new System.Windows.Forms.CheckBox();
-            this.labelLinksInJavaScriptPlugIns = new System.Windows.Forms.Label();
-            this.labelLinksRequestingToBeOpened = new System.Windows.Forms.Label();
-            this.checkBoxBlockLinksToADifferentServer = new System.Windows.Forms.CheckBox();
+            this.checkBoxBlockJavaScriptToDifferentServer = new System.Windows.Forms.CheckBox();
+            this.labelLinksInJavaScript = new System.Windows.Forms.Label();
+            this.labelLinksRequesting = new System.Windows.Forms.Label();
+            this.checkBoxBlockLinksToDifferentServer = new System.Windows.Forms.CheckBox();
             this.groupBoxNewBrowserWindow = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxNewBrowserWindowWidth = new System.Windows.Forms.ComboBox();
+            this.labelNewBrowserWindowHeight = new System.Windows.Forms.Label();
+            this.labelNewBrowserWindowWidth = new System.Windows.Forms.Label();
+            this.labelNewBrowserWindowHorizPos = new System.Windows.Forms.Label();
             this.listBoxNewBrowserWindowHorizPos = new System.Windows.Forms.ListBox();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
             this.groupBoxMainBrowserWindow = new System.Windows.Forms.GroupBox();
-            this.labelHorizontalPositioning = new System.Windows.Forms.Label();
+            this.comboBoxMainBrowserWindowHeight = new System.Windows.Forms.ComboBox();
+            this.comboBoxMainBrowserWindowWidth = new System.Windows.Forms.ComboBox();
+            this.labelMainBrowserWindowHeight = new System.Windows.Forms.Label();
+            this.labelMainBrowserWindowWidth = new System.Windows.Forms.Label();
+            this.labelMainBrowserWindowHorizPos = new System.Windows.Forms.Label();
             this.listBoxMainBrowserWindowHorizPos = new System.Windows.Forms.ListBox();
             this.checkBoxDisplaySEBDockTaskBar = new System.Windows.Forms.CheckBox();
             this.checkBoxShowMenuBar = new System.Windows.Forms.CheckBox();
@@ -174,6 +181,9 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
+            this.comboBoxNewBrowserWindowHeight = new System.Windows.Forms.ComboBox();
+            this.listBoxLinksRequesting = new System.Windows.Forms.ListBox();
+            this.listBoxLinksJavaScript = new System.Windows.Forms.ListBox();
             this.tabPageBrowser.SuspendLayout();
             this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
@@ -222,17 +232,19 @@
             // 
             // tabPageBrowser
             // 
-            this.tabPageBrowser.Controls.Add(this.label2);
+            this.tabPageBrowser.Controls.Add(this.listBoxLinksJavaScript);
+            this.tabPageBrowser.Controls.Add(this.listBoxLinksRequesting);
+            this.tabPageBrowser.Controls.Add(this.labelToStartAppInKioskMode);
             this.tabPageBrowser.Controls.Add(this.checkBoxBlockPopupWindows);
             this.tabPageBrowser.Controls.Add(this.checkBoxAllowBrowsingBackForward);
             this.tabPageBrowser.Controls.Add(this.checkBoxEnableJavaScript);
             this.tabPageBrowser.Controls.Add(this.checkBoxEnableJava);
             this.tabPageBrowser.Controls.Add(this.checkBoxEnablePlugIns);
             this.tabPageBrowser.Controls.Add(this.checkBoxUseSEBWithoutBrowserWindow);
-            this.tabPageBrowser.Controls.Add(this.checkBoxBlockJavaScriptToADifferentServer);
-            this.tabPageBrowser.Controls.Add(this.labelLinksInJavaScriptPlugIns);
-            this.tabPageBrowser.Controls.Add(this.labelLinksRequestingToBeOpened);
-            this.tabPageBrowser.Controls.Add(this.checkBoxBlockLinksToADifferentServer);
+            this.tabPageBrowser.Controls.Add(this.checkBoxBlockJavaScriptToDifferentServer);
+            this.tabPageBrowser.Controls.Add(this.labelLinksInJavaScript);
+            this.tabPageBrowser.Controls.Add(this.labelLinksRequesting);
+            this.tabPageBrowser.Controls.Add(this.checkBoxBlockLinksToDifferentServer);
             this.tabPageBrowser.Controls.Add(this.groupBoxNewBrowserWindow);
             this.tabPageBrowser.ImageIndex = 4;
             this.tabPageBrowser.Location = new System.Drawing.Point(4, 39);
@@ -243,16 +255,15 @@
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // labelToStartAppInKioskMode
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 406);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1153, 17);
-            this.label2.TabIndex = 72;
-            this.label2.Text = "Disable SEB browser if you don\'t need a browser component because SEB should only" +
-    " start up another application in a kiosk mode (for example a virtual desktop inf" +
-    "rastructure client)";
+            this.labelToStartAppInKioskMode.AutoSize = true;
+            this.labelToStartAppInKioskMode.Location = new System.Drawing.Point(264, 405);
+            this.labelToStartAppInKioskMode.Name = "labelToStartAppInKioskMode";
+            this.labelToStartAppInKioskMode.Size = new System.Drawing.Size(587, 17);
+            this.labelToStartAppInKioskMode.TabIndex = 72;
+            this.labelToStartAppInKioskMode.Text = "to start another application in kiosk mode (for example a virtual desktop infrast" +
+    "ructure client)";
             // 
             // checkBoxBlockPopupWindows
             // 
@@ -323,7 +334,7 @@
             this.checkBoxUseSEBWithoutBrowserWindow.AutoSize = true;
             this.checkBoxUseSEBWithoutBrowserWindow.Checked = true;
             this.checkBoxUseSEBWithoutBrowserWindow.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxUseSEBWithoutBrowserWindow.Location = new System.Drawing.Point(487, 370);
+            this.checkBoxUseSEBWithoutBrowserWindow.Location = new System.Drawing.Point(31, 404);
             this.checkBoxUseSEBWithoutBrowserWindow.Name = "checkBoxUseSEBWithoutBrowserWindow";
             this.checkBoxUseSEBWithoutBrowserWindow.Size = new System.Drawing.Size(237, 21);
             this.checkBoxUseSEBWithoutBrowserWindow.TabIndex = 66;
@@ -331,66 +342,104 @@
             this.checkBoxUseSEBWithoutBrowserWindow.UseVisualStyleBackColor = true;
             this.checkBoxUseSEBWithoutBrowserWindow.CheckedChanged += new System.EventHandler(this.checkBoxUseSEBWithoutBrowserWindow_CheckedChanged);
             // 
-            // checkBoxBlockJavaScriptToADifferentServer
+            // checkBoxBlockJavaScriptToDifferentServer
             // 
-            this.checkBoxBlockJavaScriptToADifferentServer.AutoSize = true;
-            this.checkBoxBlockJavaScriptToADifferentServer.Location = new System.Drawing.Point(31, 303);
-            this.checkBoxBlockJavaScriptToADifferentServer.Name = "checkBoxBlockJavaScriptToADifferentServer";
-            this.checkBoxBlockJavaScriptToADifferentServer.Size = new System.Drawing.Size(286, 21);
-            this.checkBoxBlockJavaScriptToADifferentServer.TabIndex = 62;
-            this.checkBoxBlockJavaScriptToADifferentServer.Text = "block when directing to a different server";
-            this.checkBoxBlockJavaScriptToADifferentServer.UseVisualStyleBackColor = true;
-            this.checkBoxBlockJavaScriptToADifferentServer.CheckedChanged += new System.EventHandler(this.checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged);
+            this.checkBoxBlockJavaScriptToDifferentServer.AutoSize = true;
+            this.checkBoxBlockJavaScriptToDifferentServer.Location = new System.Drawing.Point(31, 303);
+            this.checkBoxBlockJavaScriptToDifferentServer.Name = "checkBoxBlockJavaScriptToDifferentServer";
+            this.checkBoxBlockJavaScriptToDifferentServer.Size = new System.Drawing.Size(286, 21);
+            this.checkBoxBlockJavaScriptToDifferentServer.TabIndex = 62;
+            this.checkBoxBlockJavaScriptToDifferentServer.Text = "block when directing to a different server";
+            this.checkBoxBlockJavaScriptToDifferentServer.UseVisualStyleBackColor = true;
+            this.checkBoxBlockJavaScriptToDifferentServer.CheckedChanged += new System.EventHandler(this.checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged);
             // 
-            // labelLinksInJavaScriptPlugIns
+            // labelLinksInJavaScript
             // 
-            this.labelLinksInJavaScriptPlugIns.AutoSize = true;
-            this.labelLinksInJavaScriptPlugIns.Location = new System.Drawing.Point(28, 248);
-            this.labelLinksInJavaScriptPlugIns.Name = "labelLinksInJavaScriptPlugIns";
-            this.labelLinksInJavaScriptPlugIns.Size = new System.Drawing.Size(200, 17);
-            this.labelLinksInJavaScriptPlugIns.TabIndex = 61;
-            this.labelLinksInJavaScriptPlugIns.Text = "Links in JavaScript / plug-ins...";
+            this.labelLinksInJavaScript.AutoSize = true;
+            this.labelLinksInJavaScript.Location = new System.Drawing.Point(28, 248);
+            this.labelLinksInJavaScript.Name = "labelLinksInJavaScript";
+            this.labelLinksInJavaScript.Size = new System.Drawing.Size(200, 17);
+            this.labelLinksInJavaScript.TabIndex = 61;
+            this.labelLinksInJavaScript.Text = "Links in JavaScript / plug-ins...";
             // 
-            // labelLinksRequestingToBeOpened
+            // labelLinksRequesting
             // 
-            this.labelLinksRequestingToBeOpened.AutoSize = true;
-            this.labelLinksRequestingToBeOpened.Location = new System.Drawing.Point(28, 19);
-            this.labelLinksRequestingToBeOpened.Name = "labelLinksRequestingToBeOpened";
-            this.labelLinksRequestingToBeOpened.Size = new System.Drawing.Size(371, 17);
-            this.labelLinksRequestingToBeOpened.TabIndex = 60;
-            this.labelLinksRequestingToBeOpened.Text = "Links requesting to be opened in a new browser window...";
+            this.labelLinksRequesting.AutoSize = true;
+            this.labelLinksRequesting.Location = new System.Drawing.Point(28, 19);
+            this.labelLinksRequesting.Name = "labelLinksRequesting";
+            this.labelLinksRequesting.Size = new System.Drawing.Size(371, 17);
+            this.labelLinksRequesting.TabIndex = 60;
+            this.labelLinksRequesting.Text = "Links requesting to be opened in a new browser window...";
             // 
-            // checkBoxBlockLinksToADifferentServer
+            // checkBoxBlockLinksToDifferentServer
             // 
-            this.checkBoxBlockLinksToADifferentServer.AutoSize = true;
-            this.checkBoxBlockLinksToADifferentServer.Location = new System.Drawing.Point(31, 77);
-            this.checkBoxBlockLinksToADifferentServer.Name = "checkBoxBlockLinksToADifferentServer";
-            this.checkBoxBlockLinksToADifferentServer.Size = new System.Drawing.Size(286, 21);
-            this.checkBoxBlockLinksToADifferentServer.TabIndex = 59;
-            this.checkBoxBlockLinksToADifferentServer.Text = "block when directing to a different server";
-            this.checkBoxBlockLinksToADifferentServer.UseVisualStyleBackColor = true;
-            this.checkBoxBlockLinksToADifferentServer.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksWhenDirectingToADifferentServer_CheckedChanged);
+            this.checkBoxBlockLinksToDifferentServer.AutoSize = true;
+            this.checkBoxBlockLinksToDifferentServer.Location = new System.Drawing.Point(31, 77);
+            this.checkBoxBlockLinksToDifferentServer.Name = "checkBoxBlockLinksToDifferentServer";
+            this.checkBoxBlockLinksToDifferentServer.Size = new System.Drawing.Size(286, 21);
+            this.checkBoxBlockLinksToDifferentServer.TabIndex = 59;
+            this.checkBoxBlockLinksToDifferentServer.Text = "block when directing to a different server";
+            this.checkBoxBlockLinksToDifferentServer.UseVisualStyleBackColor = true;
+            this.checkBoxBlockLinksToDifferentServer.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksWhenDirectingToADifferentServer_CheckedChanged);
             // 
             // groupBoxNewBrowserWindow
             // 
-            this.groupBoxNewBrowserWindow.Controls.Add(this.label1);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.comboBoxNewBrowserWindowHeight);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.comboBoxNewBrowserWindowWidth);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.labelNewBrowserWindowHeight);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.labelNewBrowserWindowWidth);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.labelNewBrowserWindowHorizPos);
             this.groupBoxNewBrowserWindow.Controls.Add(this.listBoxNewBrowserWindowHorizPos);
-            this.groupBoxNewBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxNewBrowserWindow.Location = new System.Drawing.Point(31, 115);
+            this.groupBoxNewBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxNewBrowserWindow.Location = new System.Drawing.Point(31, 119);
             this.groupBoxNewBrowserWindow.Name = "groupBoxNewBrowserWindow";
             this.groupBoxNewBrowserWindow.Size = new System.Drawing.Size(885, 111);
             this.groupBoxNewBrowserWindow.TabIndex = 58;
             this.groupBoxNewBrowserWindow.TabStop = false;
             this.groupBoxNewBrowserWindow.Text = "New browser window size and position";
             // 
-            // label1
+            // comboBoxNewBrowserWindowWidth
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(453, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 17);
-            this.label1.TabIndex = 58;
-            this.label1.Text = "Horizontal positioning";
+            this.comboBoxNewBrowserWindowWidth.FormattingEnabled = true;
+            this.comboBoxNewBrowserWindowWidth.Items.AddRange(new object[] {
+            "50%",
+            "100%",
+            "800",
+            "1000"});
+            this.comboBoxNewBrowserWindowWidth.Location = new System.Drawing.Point(88, 34);
+            this.comboBoxNewBrowserWindowWidth.Name = "comboBoxNewBrowserWindowWidth";
+            this.comboBoxNewBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxNewBrowserWindowWidth.TabIndex = 62;
+            this.comboBoxNewBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowWidth_SelectedIndexChanged);
+            // 
+            // labelNewBrowserWindowHeight
+            // 
+            this.labelNewBrowserWindowHeight.AutoSize = true;
+            this.labelNewBrowserWindowHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNewBrowserWindowHeight.Location = new System.Drawing.Point(29, 72);
+            this.labelNewBrowserWindowHeight.Name = "labelNewBrowserWindowHeight";
+            this.labelNewBrowserWindowHeight.Size = new System.Drawing.Size(49, 17);
+            this.labelNewBrowserWindowHeight.TabIndex = 61;
+            this.labelNewBrowserWindowHeight.Text = "Height";
+            // 
+            // labelNewBrowserWindowWidth
+            // 
+            this.labelNewBrowserWindowWidth.AutoSize = true;
+            this.labelNewBrowserWindowWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNewBrowserWindowWidth.Location = new System.Drawing.Point(29, 37);
+            this.labelNewBrowserWindowWidth.Name = "labelNewBrowserWindowWidth";
+            this.labelNewBrowserWindowWidth.Size = new System.Drawing.Size(44, 17);
+            this.labelNewBrowserWindowWidth.TabIndex = 60;
+            this.labelNewBrowserWindowWidth.Text = "Width";
+            // 
+            // labelNewBrowserWindowHorizPos
+            // 
+            this.labelNewBrowserWindowHorizPos.AutoSize = true;
+            this.labelNewBrowserWindowHorizPos.Location = new System.Drawing.Point(308, 41);
+            this.labelNewBrowserWindowHorizPos.Name = "labelNewBrowserWindowHorizPos";
+            this.labelNewBrowserWindowHorizPos.Size = new System.Drawing.Size(144, 17);
+            this.labelNewBrowserWindowHorizPos.TabIndex = 58;
+            this.labelNewBrowserWindowHorizPos.Text = "Horizontal positioning";
             // 
             // listBoxNewBrowserWindowHorizPos
             // 
@@ -400,7 +449,7 @@
             "Left",
             "Center",
             "Right"});
-            this.listBoxNewBrowserWindowHorizPos.Location = new System.Drawing.Point(636, 21);
+            this.listBoxNewBrowserWindowHorizPos.Location = new System.Drawing.Point(458, 21);
             this.listBoxNewBrowserWindowHorizPos.Name = "listBoxNewBrowserWindowHorizPos";
             this.listBoxNewBrowserWindowHorizPos.Size = new System.Drawing.Size(120, 68);
             this.listBoxNewBrowserWindowHorizPos.TabIndex = 57;
@@ -425,9 +474,13 @@
             // 
             // groupBoxMainBrowserWindow
             // 
-            this.groupBoxMainBrowserWindow.Controls.Add(this.labelHorizontalPositioning);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.comboBoxMainBrowserWindowHeight);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.comboBoxMainBrowserWindowWidth);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.labelMainBrowserWindowHeight);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.labelMainBrowserWindowWidth);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.labelMainBrowserWindowHorizPos);
             this.groupBoxMainBrowserWindow.Controls.Add(this.listBoxMainBrowserWindowHorizPos);
-            this.groupBoxMainBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxMainBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxMainBrowserWindow.Location = new System.Drawing.Point(31, 115);
             this.groupBoxMainBrowserWindow.Name = "groupBoxMainBrowserWindow";
             this.groupBoxMainBrowserWindow.Size = new System.Drawing.Size(885, 111);
@@ -435,24 +488,74 @@
             this.groupBoxMainBrowserWindow.TabStop = false;
             this.groupBoxMainBrowserWindow.Text = "Main browser window size and position";
             // 
-            // labelHorizontalPositioning
+            // comboBoxMainBrowserWindowHeight
             // 
-            this.labelHorizontalPositioning.AutoSize = true;
-            this.labelHorizontalPositioning.Location = new System.Drawing.Point(453, 37);
-            this.labelHorizontalPositioning.Name = "labelHorizontalPositioning";
-            this.labelHorizontalPositioning.Size = new System.Drawing.Size(166, 17);
-            this.labelHorizontalPositioning.TabIndex = 58;
-            this.labelHorizontalPositioning.Text = "Horizontal positioning";
+            this.comboBoxMainBrowserWindowHeight.FormattingEnabled = true;
+            this.comboBoxMainBrowserWindowHeight.Items.AddRange(new object[] {
+            "80%",
+            "100%",
+            "600",
+            "800"});
+            this.comboBoxMainBrowserWindowHeight.Location = new System.Drawing.Point(95, 69);
+            this.comboBoxMainBrowserWindowHeight.Name = "comboBoxMainBrowserWindowHeight";
+            this.comboBoxMainBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxMainBrowserWindowHeight.TabIndex = 62;
+            this.comboBoxMainBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowHeight_SelectedIndexChanged);
+            // 
+            // comboBoxMainBrowserWindowWidth
+            // 
+            this.comboBoxMainBrowserWindowWidth.FormattingEnabled = true;
+            this.comboBoxMainBrowserWindowWidth.Items.AddRange(new object[] {
+            "50%",
+            "100%",
+            "800",
+            "1000"});
+            this.comboBoxMainBrowserWindowWidth.Location = new System.Drawing.Point(95, 34);
+            this.comboBoxMainBrowserWindowWidth.Name = "comboBoxMainBrowserWindowWidth";
+            this.comboBoxMainBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxMainBrowserWindowWidth.TabIndex = 61;
+            this.comboBoxMainBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowWidth_SelectedIndexChanged);
+            // 
+            // labelMainBrowserWindowHeight
+            // 
+            this.labelMainBrowserWindowHeight.AutoSize = true;
+            this.labelMainBrowserWindowHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMainBrowserWindowHeight.Location = new System.Drawing.Point(32, 72);
+            this.labelMainBrowserWindowHeight.Name = "labelMainBrowserWindowHeight";
+            this.labelMainBrowserWindowHeight.Size = new System.Drawing.Size(49, 17);
+            this.labelMainBrowserWindowHeight.TabIndex = 60;
+            this.labelMainBrowserWindowHeight.Text = "Height";
+            // 
+            // labelMainBrowserWindowWidth
+            // 
+            this.labelMainBrowserWindowWidth.AutoSize = true;
+            this.labelMainBrowserWindowWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMainBrowserWindowWidth.Location = new System.Drawing.Point(32, 37);
+            this.labelMainBrowserWindowWidth.Name = "labelMainBrowserWindowWidth";
+            this.labelMainBrowserWindowWidth.Size = new System.Drawing.Size(44, 17);
+            this.labelMainBrowserWindowWidth.TabIndex = 59;
+            this.labelMainBrowserWindowWidth.Text = "Width";
+            // 
+            // labelMainBrowserWindowHorizPos
+            // 
+            this.labelMainBrowserWindowHorizPos.AutoSize = true;
+            this.labelMainBrowserWindowHorizPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMainBrowserWindowHorizPos.Location = new System.Drawing.Point(318, 34);
+            this.labelMainBrowserWindowHorizPos.Name = "labelMainBrowserWindowHorizPos";
+            this.labelMainBrowserWindowHorizPos.Size = new System.Drawing.Size(144, 17);
+            this.labelMainBrowserWindowHorizPos.TabIndex = 58;
+            this.labelMainBrowserWindowHorizPos.Text = "Horizontal positioning";
             // 
             // listBoxMainBrowserWindowHorizPos
             // 
+            this.listBoxMainBrowserWindowHorizPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxMainBrowserWindowHorizPos.FormattingEnabled = true;
             this.listBoxMainBrowserWindowHorizPos.ItemHeight = 16;
             this.listBoxMainBrowserWindowHorizPos.Items.AddRange(new object[] {
             "Left",
             "Center",
             "Right"});
-            this.listBoxMainBrowserWindowHorizPos.Location = new System.Drawing.Point(637, 21);
+            this.listBoxMainBrowserWindowHorizPos.Location = new System.Drawing.Point(468, 25);
             this.listBoxMainBrowserWindowHorizPos.Name = "listBoxMainBrowserWindowHorizPos";
             this.listBoxMainBrowserWindowHorizPos.Size = new System.Drawing.Size(120, 68);
             this.listBoxMainBrowserWindowHorizPos.TabIndex = 57;
@@ -1912,6 +2015,48 @@
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
+            // comboBoxNewBrowserWindowHeight
+            // 
+            this.comboBoxNewBrowserWindowHeight.FormattingEnabled = true;
+            this.comboBoxNewBrowserWindowHeight.Items.AddRange(new object[] {
+            "80%",
+            "100%",
+            "600",
+            "800"});
+            this.comboBoxNewBrowserWindowHeight.Location = new System.Drawing.Point(88, 72);
+            this.comboBoxNewBrowserWindowHeight.Name = "comboBoxNewBrowserWindowHeight";
+            this.comboBoxNewBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxNewBrowserWindowHeight.TabIndex = 63;
+            this.comboBoxNewBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_SelectedIndexChanged);
+            // 
+            // listBoxLinksRequesting
+            // 
+            this.listBoxLinksRequesting.FormattingEnabled = true;
+            this.listBoxLinksRequesting.ItemHeight = 16;
+            this.listBoxLinksRequesting.Items.AddRange(new object[] {
+            "open in new window",
+            "open in same window",
+            "get generally blocked"});
+            this.listBoxLinksRequesting.Location = new System.Drawing.Point(31, 51);
+            this.listBoxLinksRequesting.Name = "listBoxLinksRequesting";
+            this.listBoxLinksRequesting.Size = new System.Drawing.Size(159, 20);
+            this.listBoxLinksRequesting.TabIndex = 73;
+            this.listBoxLinksRequesting.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksRequesting_SelectedIndexChanged);
+            // 
+            // listBoxLinksInJavaScript
+            // 
+            this.listBoxLinksJavaScript.FormattingEnabled = true;
+            this.listBoxLinksJavaScript.ItemHeight = 16;
+            this.listBoxLinksJavaScript.Items.AddRange(new object[] {
+            "open in new window",
+            "open in same window",
+            "get generally blocked"});
+            this.listBoxLinksJavaScript.Location = new System.Drawing.Point(31, 277);
+            this.listBoxLinksJavaScript.Name = "listBoxLinksInJavaScript";
+            this.listBoxLinksJavaScript.Size = new System.Drawing.Size(159, 20);
+            this.listBoxLinksJavaScript.TabIndex = 74;
+            this.listBoxLinksJavaScript.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksInJavaScript_SelectedIndexChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2092,21 +2237,31 @@
         private System.Windows.Forms.CheckBox checkBoxDisplaySEBDockTaskBar;
         private System.Windows.Forms.GroupBox groupBoxMainBrowserWindow;
         private System.Windows.Forms.ListBox listBoxMainBrowserWindowHorizPos;
-        private System.Windows.Forms.Label labelHorizontalPositioning;
+        private System.Windows.Forms.Label labelMainBrowserWindowHorizPos;
         private System.Windows.Forms.GroupBox groupBoxNewBrowserWindow;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelNewBrowserWindowHorizPos;
         private System.Windows.Forms.ListBox listBoxNewBrowserWindowHorizPos;
-        private System.Windows.Forms.CheckBox checkBoxBlockLinksToADifferentServer;
-        private System.Windows.Forms.Label labelLinksRequestingToBeOpened;
-        private System.Windows.Forms.Label labelLinksInJavaScriptPlugIns;
-        private System.Windows.Forms.CheckBox checkBoxBlockJavaScriptToADifferentServer;
+        private System.Windows.Forms.CheckBox checkBoxBlockLinksToDifferentServer;
+        private System.Windows.Forms.Label labelLinksRequesting;
+        private System.Windows.Forms.Label labelLinksInJavaScript;
+        private System.Windows.Forms.CheckBox checkBoxBlockJavaScriptToDifferentServer;
         private System.Windows.Forms.CheckBox checkBoxUseSEBWithoutBrowserWindow;
         private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
         private System.Windows.Forms.CheckBox checkBoxAllowBrowsingBackForward;
         private System.Windows.Forms.CheckBox checkBoxEnableJavaScript;
         private System.Windows.Forms.CheckBox checkBoxEnableJava;
         private System.Windows.Forms.CheckBox checkBoxEnablePlugIns;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelToStartAppInKioskMode;
+        private System.Windows.Forms.Label labelMainBrowserWindowHeight;
+        private System.Windows.Forms.Label labelMainBrowserWindowWidth;
+        private System.Windows.Forms.ComboBox comboBoxMainBrowserWindowWidth;
+        private System.Windows.Forms.ComboBox comboBoxMainBrowserWindowHeight;
+        private System.Windows.Forms.Label labelNewBrowserWindowHeight;
+        private System.Windows.Forms.Label labelNewBrowserWindowWidth;
+        private System.Windows.Forms.ComboBox comboBoxNewBrowserWindowWidth;
+        private System.Windows.Forms.ComboBox comboBoxNewBrowserWindowHeight;
+        private System.Windows.Forms.ListBox listBoxLinksRequesting;
+        private System.Windows.Forms.ListBox listBoxLinksJavaScript;
 
     }
 }

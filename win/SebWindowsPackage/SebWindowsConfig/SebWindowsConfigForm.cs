@@ -144,8 +144,8 @@ namespace SebWindowsConfig
         // Group "Appearance"
         const int ValueUseBrowserWindow            = 1;
         const int ValueUseFullScreenMode           = 2;
-        const int ValueMainBrowserWindowSizeWidth  = 3;
-        const int ValueMainBrowserWindowSizeHeight = 4;
+        const int ValueMainBrowserWindowWidth  = 3;
+        const int ValueMainBrowserWindowHeight = 4;
         const int ValueMainBrowserWindowHorizPos   = 5;
         const int ValueEnableBrowserWindowToolbar  = 6;
         const int ValueHideToolbarAsDefault        = 7;
@@ -164,34 +164,34 @@ namespace SebWindowsConfig
         const String MessageDisplaySEBDockTaskBar       = "DisplaySEBDockTaskBar";
 
         // Group "Browser"
-        const int ValueOpenLinksInNewWindow              = 1;
-        const int ValueBlockLinksToADifferentServer      = 2;
-        const int ValueNewBrowserWindowSizeWidth         = 3;
-        const int ValueNewBrowserWindowSizeHeight        = 4;
-        const int ValueNewBrowserWindowHorizPos          = 5;
-        const int ValueOpenJavaScriptInNewWindow         = 6;
-        const int ValueBlockJavaScriptToADifferentServer = 7;
-        const int ValueEnablePlugIns                     = 8;
-        const int ValueEnableJava                        = 9;
-        const int ValueEnableJavaScript                  = 10;
-        const int ValueBlockPopupWindows                 = 11;
-        const int ValueAllowBrowsingBackForward          = 12;
-        const int ValueUseSEBWithoutBrowserWindow        = 13;
+        const int ValueLinksRequesting                  = 1;
+        const int ValueLinksJavaScript                = 2;
+        const int ValueBlockLinksToDifferentServer      = 3;
+        const int ValueBlockJavaScriptToDifferentServer = 4;
+        const int ValueNewBrowserWindowWidth            = 5;
+        const int ValueNewBrowserWindowHeight           = 6;
+        const int ValueNewBrowserWindowHorizPos         = 7;
+        const int ValueEnablePlugIns                    = 8;
+        const int ValueEnableJava                       = 9;
+        const int ValueEnableJavaScript                 = 10;
+        const int ValueBlockPopupWindows                = 11;
+        const int ValueAllowBrowsingBackForward         = 12;
+        const int ValueUseSEBWithoutBrowserWindow       = 13;
         const int NumValueBrowser = 13;
 
-        const String MessageOpenLinksInNewWindow              = "OpenLinksInNewWindow";
-        const String MessageBlockLinksToADifferentServer      = "BlockLinksToADifferentServer";
-        const String MessageNewBrowserWindowSizeWidth         = "NewBrowserWindowSizeWidth";
-        const String MessageNewBrowserWindowSizeHeight        = "NewBrowserWindowSizeHeight";
-        const String MessageNewBrowserWindowHorizPos          = "NewBrowserWindowHorizPos";
-        const String MessageOpenJavaScriptInNewWindow         = "OpenJavaScriptInNewWindow";
-        const String MessageBlockJavaScriptToADifferentServer = "BlockJavaScriptToADifferentServer";
-        const String MessageEnablePlugIns                     = "EnablePlugIns";
-        const String MessageEnableJava                        = "EnableJava";
-        const String MessageEnableJavaScript                  = "EnableJavaScript";
-        const String MessageBlockPopupWindows                 = "BlockPopupWindows";
-        const String MessageAllowBrowsingBackForward          = "AllowBrowsingBackForward";
-        const String MessageUseSEBWithoutBrowserWindow        = "UseSEBWithoutBrowserWindow";
+        const String MessageLinksRequesting                  = "LinksRequesting";
+        const String MessageLinksInJavaScript                = "LinksJavaScript";
+        const String MessageBlockLinksToDifferentServer      = "BlockLinksToDifferentServer";
+        const String MessageBlockJavaScriptToDifferentServer = "BlockJavaScriptToDifferentServer";
+        const String MessageNewBrowserWindowSizeWidth        = "NewBrowserWindowSizeWidth";
+        const String MessageNewBrowserWindowSizeHeight       = "NewBrowserWindowSizeHeight";
+        const String MessageNewBrowserWindowHorizPos         = "NewBrowserWindowHorizPos";
+        const String MessageEnablePlugIns                    = "EnablePlugIns";
+        const String MessageEnableJava                       = "EnableJava";
+        const String MessageEnableJavaScript                 = "EnableJavaScript";
+        const String MessageBlockPopupWindows                = "BlockPopupWindows";
+        const String MessageAllowBrowsingBackForward         = "AllowBrowsingBackForward";
+        const String MessageUseSEBWithoutBrowserWindow       = "UseSEBWithoutBrowserWindow";
 
         // Group "DownUploads"
         // Group "Exam"
@@ -372,8 +372,9 @@ namespace SebWindowsConfig
         static List<String> chooseIdentityStringList = new List<String>();
 
         // Entries of ListBoxes
-        static String[] horizontalPositioningString = new String[4];
-        static String[]           functionKeyString = new String[13];
+        static String[] linkTreatmentString = new String[4];
+        static String[]      horizPosString = new String[4];
+        static String[]   functionKeyString = new String[13];
 
         // Number of values per group
         // Names  of groups and values
@@ -447,40 +448,41 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupConfigFile, ValueChooseIdentity] = 0;
 
             // Default settings for group "Appearance"
-            settingBoolean[StateDef, GroupAppearance, ValueUseBrowserWindow           ] = true;
-            settingBoolean[StateDef, GroupAppearance, ValueUseFullScreenMode          ] = false;
-            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowSizeWidth ] = "100%";
-            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowSizeHeight] = "100%";
-            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos  ] = "Center";
+            settingBoolean[StateDef, GroupAppearance, ValueUseBrowserWindow         ] = true;
+            settingBoolean[StateDef, GroupAppearance, ValueUseFullScreenMode        ] = false;
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowWidth   ] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHeight  ] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos] = "Center";
 
-            settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar ] = false;
-            settingBoolean[StateDef, GroupAppearance, ValueHideToolbarAsDefault       ] = false;
-            settingBoolean[StateDef, GroupAppearance, ValueShowMenuBar                ] = false;
-            settingBoolean[StateDef, GroupAppearance, ValueDisplaySEBDockTaskBar      ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueHideToolbarAsDefault      ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueShowMenuBar               ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueDisplaySEBDockTaskBar     ] = false;
 
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeWidth ] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowSizeHeight] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos  ] = 2;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowWidth   ] = 0;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHeight  ] = 0;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos] = 2;
 
             // Default settings for group "Browser"
-            settingString [StateDef, GroupBrowser, ValueOpenLinksInNewWindow             ] = "open in new window";
-            settingBoolean[StateDef, GroupBrowser, ValueBlockLinksToADifferentServer     ] = false;
-            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowSizeWidth        ] = "100%";
-            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowSizeHeight       ] = "100%";
-            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos         ] = "Center";
-            settingString [StateDef, GroupBrowser, ValueOpenJavaScriptInNewWindow        ] = "open in new window";
-            settingBoolean[StateDef, GroupBrowser, ValueBlockJavaScriptToADifferentServer] = false;
+            settingString [StateDef, GroupBrowser, ValueLinksRequesting                 ] = "open in new window";
+            settingString [StateDef, GroupBrowser, ValueLinksJavaScript               ] = "open in new window";
+            settingBoolean[StateDef, GroupBrowser, ValueBlockLinksToDifferentServer     ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueBlockJavaScriptToDifferentServer] = false;
 
-            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns                    ] = true;
-            settingBoolean[StateDef, GroupBrowser, ValueEnableJava                       ] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueEnableJavaScript                 ] = true;
-            settingBoolean[StateDef, GroupBrowser, ValueBlockPopupWindows                ] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueAllowBrowsingBackForward         ] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueUseSEBWithoutBrowserWindow       ] = false;
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowWidth           ] = "100%";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowHeight          ] = "100%";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos        ] = "Center";
 
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowSizeWidth ] = 0;
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowSizeHeight] = 0;
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos  ] = 2;
+            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns                   ] = true;
+            settingBoolean[StateDef, GroupBrowser, ValueEnableJava                      ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueEnableJavaScript                ] = true;
+            settingBoolean[StateDef, GroupBrowser, ValueBlockPopupWindows               ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueAllowBrowsingBackForward        ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueUseSEBWithoutBrowserWindow      ] = false;
+
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowWidth   ] = 0;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHeight  ] = 0;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos] = 2;
 
             // Default settings for group "DownUploads"
             // Default settings for group "Exam"
@@ -573,16 +575,15 @@ namespace SebWindowsConfig
             dataType[GroupConfigFile, ValueSettingsPassword       ] = TypeString;
             dataType[GroupConfigFile, ValueConfirmSettingsPassword] = TypeString;
 
-            dataType[GroupAppearance, ValueMainBrowserWindowSizeWidth ] = TypeString;
-            dataType[GroupAppearance, ValueMainBrowserWindowSizeHeight] = TypeString;
-            dataType[GroupAppearance, ValueMainBrowserWindowHorizPos  ] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowWidth   ] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowHeight  ] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowHorizPos] = TypeString;
 
-            dataType[GroupBrowser, ValueNewBrowserWindowSizeWidth ] = TypeString;
-            dataType[GroupBrowser, ValueNewBrowserWindowSizeHeight] = TypeString;
-            dataType[GroupBrowser, ValueNewBrowserWindowHorizPos  ] = TypeString;
-
-            dataType[GroupBrowser, ValueOpenLinksInNewWindow     ] = TypeString;
-            dataType[GroupBrowser, ValueOpenJavaScriptInNewWindow] = TypeString;
+            dataType[GroupBrowser, ValueLinksRequesting         ] = TypeString;
+            dataType[GroupBrowser, ValueLinksJavaScript       ] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowWidth   ] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowHeight  ] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowHorizPos] = TypeString;
 
             // Number of values per group
             for (group = 1; group <= GroupNum; group++)
@@ -657,27 +658,27 @@ namespace SebWindowsConfig
 
             valueString[GroupAppearance, ValueUseBrowserWindow           ] = MessageUseBrowserWindow;
             valueString[GroupAppearance, ValueUseFullScreenMode          ] = MessageUseFullScreenMode;
-            valueString[GroupAppearance, ValueMainBrowserWindowSizeWidth ] = MessageMainBrowserWindowSizeWidth;
-            valueString[GroupAppearance, ValueMainBrowserWindowSizeHeight] = MessageMainBrowserWindowSizeHeight;
+            valueString[GroupAppearance, ValueMainBrowserWindowWidth     ] = MessageMainBrowserWindowSizeWidth;
+            valueString[GroupAppearance, ValueMainBrowserWindowHeight    ] = MessageMainBrowserWindowSizeHeight;
             valueString[GroupAppearance, ValueMainBrowserWindowHorizPos  ] = MessageMainBrowserWindowHorizPos;
             valueString[GroupAppearance, ValueEnableBrowserWindowToolbar ] = MessageEnableBrowserWindowToolbar;
             valueString[GroupAppearance, ValueHideToolbarAsDefault       ] = MessageHideToolbarAsDefault;
             valueString[GroupAppearance, ValueShowMenuBar                ] = MessageShowMenuBar;
             valueString[GroupAppearance, ValueDisplaySEBDockTaskBar      ] = MessageDisplaySEBDockTaskBar;
 
-            valueString[GroupBrowser, ValueOpenLinksInNewWindow             ] = MessageOpenLinksInNewWindow;
-            valueString[GroupBrowser, ValueBlockLinksToADifferentServer     ] = MessageBlockLinksToADifferentServer;
-            valueString[GroupBrowser, ValueNewBrowserWindowSizeWidth        ] = MessageNewBrowserWindowSizeWidth;
-            valueString[GroupBrowser, ValueNewBrowserWindowSizeHeight       ] = MessageNewBrowserWindowSizeHeight;
-            valueString[GroupBrowser, ValueNewBrowserWindowHorizPos         ] = MessageNewBrowserWindowHorizPos;
-            valueString[GroupBrowser, ValueOpenJavaScriptInNewWindow        ] = MessageOpenJavaScriptInNewWindow;
-            valueString[GroupBrowser, ValueBlockJavaScriptToADifferentServer] = MessageBlockJavaScriptToADifferentServer;
-            valueString[GroupBrowser, ValueEnablePlugIns                    ] = MessageEnablePlugIns;
-            valueString[GroupBrowser, ValueEnableJava                       ] = MessageEnableJava;
-            valueString[GroupBrowser, ValueEnableJavaScript                 ] = MessageEnableJavaScript;
-            valueString[GroupBrowser, ValueBlockPopupWindows                ] = MessageBlockPopupWindows;
-            valueString[GroupBrowser, ValueAllowBrowsingBackForward         ] = MessageAllowBrowsingBackForward;
-            valueString[GroupBrowser, ValueUseSEBWithoutBrowserWindow       ] = MessageUseSEBWithoutBrowserWindow;
+            valueString[GroupBrowser, ValueLinksRequesting                 ] = MessageLinksRequesting;
+            valueString[GroupBrowser, ValueLinksJavaScript               ] = MessageLinksInJavaScript;
+            valueString[GroupBrowser, ValueBlockLinksToDifferentServer     ] = MessageBlockLinksToDifferentServer;
+            valueString[GroupBrowser, ValueBlockJavaScriptToDifferentServer] = MessageBlockJavaScriptToDifferentServer;
+            valueString[GroupBrowser, ValueNewBrowserWindowWidth           ] = MessageNewBrowserWindowSizeWidth;
+            valueString[GroupBrowser, ValueNewBrowserWindowHeight          ] = MessageNewBrowserWindowSizeHeight;
+            valueString[GroupBrowser, ValueNewBrowserWindowHorizPos        ] = MessageNewBrowserWindowHorizPos;
+            valueString[GroupBrowser, ValueEnablePlugIns                   ] = MessageEnablePlugIns;
+            valueString[GroupBrowser, ValueEnableJava                      ] = MessageEnableJava;
+            valueString[GroupBrowser, ValueEnableJavaScript                ] = MessageEnableJavaScript;
+            valueString[GroupBrowser, ValueBlockPopupWindows               ] = MessageBlockPopupWindows;
+            valueString[GroupBrowser, ValueAllowBrowsingBackForward        ] = MessageAllowBrowsingBackForward;
+            valueString[GroupBrowser, ValueUseSEBWithoutBrowserWindow      ] = MessageUseSEBWithoutBrowserWindow;
 
             valueString[GroupSecurity, ValueEnableLogging] = MessageEnableLogging;
 
@@ -753,11 +754,17 @@ namespace SebWindowsConfig
             chooseIdentityStringList.Add("delta");
             String[] chooseIdentityStringArray = chooseIdentityStringList.ToArray();
 
+            // Define the strings for the link treatment
+            linkTreatmentString[0] = "";
+            linkTreatmentString[1] = "open in new window";
+            linkTreatmentString[2] = "open in same window";
+            linkTreatmentString[3] = "get generally blocked";
+
             // Define the strings for the horizontal positioning
-            horizontalPositioningString[0] = "";
-            horizontalPositioningString[1] = "Left";
-            horizontalPositioningString[2] = "Center";
-            horizontalPositioningString[3] = "Right";
+            horizPosString[0] = "";
+            horizPosString[1] = "Left";
+            horizPosString[2] = "Center";
+            horizPosString[3] = "Right";
 
             // Define the strings for the function keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
@@ -804,6 +811,7 @@ namespace SebWindowsConfig
             // so initially the 0th list entry is displayed ("none").
             settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
 
+
             // Horizontal Positioning needs a conversion from string to integer
             String tmpStringHorizPosMain = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos];
             String tmpStringHorizPosNew  = settingString[StateTmp, GroupBrowser   , ValueNewBrowserWindowHorizPos];
@@ -812,12 +820,29 @@ namespace SebWindowsConfig
             int tmpIndexHorizPosNew  = 0;
             for (int indexHorizPos = 1; indexHorizPos <= 3; indexHorizPos++)
             {
-                String hps = horizontalPositioningString[indexHorizPos];
+                String hps = horizPosString[indexHorizPos];
                 if (tmpStringHorizPosMain.Equals(hps)) tmpIndexHorizPosMain = indexHorizPos;
                 if (tmpStringHorizPosNew .Equals(hps)) tmpIndexHorizPosNew  = indexHorizPos;
             }
             settingInteger[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos] = tmpIndexHorizPosMain;
             settingInteger[StateTmp, GroupBrowser   , ValueNewBrowserWindowHorizPos ] = tmpIndexHorizPosNew;
+
+
+            // Link Treatment needs a conversion from string to integer
+            String tmpStringLinksRequesting = settingString[StateTmp, GroupBrowser, ValueLinksRequesting];
+            String tmpStringLinksJavaScript = settingString[StateTmp, GroupBrowser, ValueLinksJavaScript];
+
+            int tmpIndexLinksRequesting = 0;
+            int tmpIndexLinksJavaScript = 0;
+            for (int indexLinks = 1; indexLinks <= 3; indexLinks++)
+            {
+                String lts = linkTreatmentString[indexLinks];
+                if (tmpStringLinksRequesting.Equals(lts)) tmpIndexLinksRequesting = indexLinks;
+                if (tmpStringLinksJavaScript.Equals(lts)) tmpIndexLinksJavaScript = indexLinks;
+            }
+            settingInteger[StateTmp, GroupBrowser, ValueLinksRequesting] = tmpIndexLinksRequesting;
+            settingInteger[StateTmp, GroupBrowser, ValueLinksJavaScript] = tmpIndexLinksJavaScript;
+
 
             // Exit Key Sequence needs a conversion from string to integer
             String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
@@ -833,6 +858,7 @@ namespace SebWindowsConfig
             settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = Int32.Parse(tmpStringExitKey1);
             settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = Int32.Parse(tmpStringExitKey2);
             settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = Int32.Parse(tmpStringExitKey3);
+
 
             // Accept the tmp values as the old and new values
             for (int group = 1; group <= GroupNum; group++)
@@ -874,8 +900,15 @@ namespace SebWindowsConfig
             int newIndexHorizPosMain = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos];
             int newIndexHorizPosNew  = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos];
 
-            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = horizontalPositioningString[newIndexHorizPosMain];
-            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos]  = horizontalPositioningString[newIndexHorizPosNew];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = horizPosString[newIndexHorizPosMain];
+            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos]  = horizPosString[newIndexHorizPosNew];
+
+            // Link Treatment needs a conversion from integer to string
+            int newIndexLinksRequesting = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting];
+            int newIndexLinksJavaScript = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript];
+
+            settingString[StateNew, GroupBrowser, ValueLinksRequesting] = linkTreatmentString[newIndexLinksRequesting];
+            settingString[StateNew, GroupBrowser, ValueLinksJavaScript] = linkTreatmentString[newIndexLinksJavaScript];
 
             // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
@@ -1511,6 +1544,16 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode] = radioButtonUseFullScreenMode.Checked;
         }
 
+        private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex + 1;
+        }
+
+        private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex + 1;
+        }
+
         private void listBoxMainBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = listBoxMainBrowserWindowHorizPos.SelectedIndex + 1;
@@ -1542,19 +1585,39 @@ namespace SebWindowsConfig
         // ****************
         // Group "Browser"
         // ****************
+        private void listBoxLinksRequesting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueLinksRequesting] = listBoxLinksRequesting.SelectedIndex + 1;
+        }
+
+        private void listBoxLinksInJavaScript_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript] = listBoxLinksJavaScript.SelectedIndex + 1;
+        }
+
         private void checkBoxBlockLinksWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToADifferentServer] = checkBoxBlockLinksToADifferentServer.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToDifferentServer] = checkBoxBlockLinksToDifferentServer.Checked;
+        }
+
+        private void checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToDifferentServer] = checkBoxBlockJavaScriptToDifferentServer.Checked;
+        }
+
+        private void comboBoxNewBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex + 1;
+        }
+
+        private void comboBoxNewBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex + 1;
         }
 
         private void listBoxNewBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHorizPos] = listBoxNewBrowserWindowHorizPos.SelectedIndex + 1;
-        }
-
-        private void checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToADifferentServer] = checkBoxBlockJavaScriptToADifferentServer.Checked;
         }
 
         private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
@@ -1976,18 +2039,18 @@ namespace SebWindowsConfig
             checkBoxShowMenuBar                .Checked       = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
             checkBoxDisplaySEBDockTaskBar      .Checked       = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
 
-           //listBoxMainBrowserWindowSizeWidth .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowSizeWidth ] - 1;
-           //listBoxMainBrowserWindowSizeHeight.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowSizeHeight] - 1;
-             listBoxMainBrowserWindowHorizPos  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos  ] - 1;
+            comboBoxMainBrowserWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth   ] - 1;
+            comboBoxMainBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight  ] - 1;
+             listBoxMainBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] - 1;
 
-           //listBoxNewBrowserWindowSizeWidth  .SelectedIndex = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowSizeWidth ] - 1;
-           //listBoxNewBrowserWindowSizeHeight .SelectedIndex = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowSizeHeight] - 1;
-             listBoxNewBrowserWindowHorizPos   .SelectedIndex = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos  ] - 1;
+            comboBoxNewBrowserWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowWidth   ] - 1;
+            comboBoxNewBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight  ] - 1;
+             listBoxNewBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHorizPos] - 1;
 
-          //checkBoxOpenLinksInNewWindow             .Checked = settingBoolean[StateNew, GroupBrowser, ValueOpenLinksInNewWindow];
-          //checkBoxOpenJavaScriptInNewWindow        .Checked = settingBoolean[StateNew, GroupBrowser, ValueOpenJavaScriptInNewWindow];
-            checkBoxBlockLinksToADifferentServer     .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToADifferentServer];
-            checkBoxBlockJavaScriptToADifferentServer.Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToADifferentServer];
+             listBoxLinksRequesting           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting];
+             listBoxLinksJavaScript           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript];
+            checkBoxBlockLinksToDifferentServer     .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToDifferentServer];
+            checkBoxBlockJavaScriptToDifferentServer.Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToDifferentServer];
 
             checkBoxEnablePlugIns             .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns];
             checkBoxEnableJava                .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
