@@ -1590,7 +1590,7 @@ namespace SebWindowsConfig
             settingInteger[StateNew, GroupBrowser, ValueLinksRequesting] = listBoxLinksRequesting.SelectedIndex + 1;
         }
 
-        private void listBoxLinksInJavaScript_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxLinksJavaScript_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript] = listBoxLinksJavaScript.SelectedIndex + 1;
         }
@@ -2047,8 +2047,8 @@ namespace SebWindowsConfig
             comboBoxNewBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight  ] - 1;
              listBoxNewBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHorizPos] - 1;
 
-             listBoxLinksRequesting           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting];
-             listBoxLinksJavaScript           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript];
+             listBoxLinksRequesting           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting] - 1;
+             listBoxLinksJavaScript           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript] - 1;
             checkBoxBlockLinksToDifferentServer     .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToDifferentServer];
             checkBoxBlockJavaScriptToDifferentServer.Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToDifferentServer];
 

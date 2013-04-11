@@ -2055,7 +2055,7 @@
             this.listBoxLinksJavaScript.Name = "listBoxLinksInJavaScript";
             this.listBoxLinksJavaScript.Size = new System.Drawing.Size(159, 20);
             this.listBoxLinksJavaScript.TabIndex = 74;
-            this.listBoxLinksJavaScript.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksInJavaScript_SelectedIndexChanged);
+            this.listBoxLinksJavaScript.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksJavaScript_SelectedIndexChanged);
             // 
             // SebWindowsConfigForm
             // 
