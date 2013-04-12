@@ -33,8 +33,8 @@ namespace SebWindowsClient.ConfigurationUtils
  
         // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
         // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
-        private const string MANUFACTURER = "ETH Zuerich";
-        private const string PRODUCT_NAME = "SEB Windows 1.9.1";
+        private const string MANUFACTURER = "ETHZuerich";
+        private const string PRODUCT_NAME = "SEBWindows1.9.1";
 
         public const string END_OF_STRING_KEYWORD = "---SEB---";
         private const string DEFAULT_USERNAME = "";
@@ -130,15 +130,15 @@ namespace SebWindowsClient.ConfigurationUtils
             string programDirectory = Path.GetDirectoryName(Application.ExecutablePath);
 
             // Get the path of the "Program Data" directory.
-            string programDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string localAppDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             //string programDataDirectory = Environment.GetEnvironmentVariable("PROGRAMMDATA");
 
             // Set the location of the SebClientConfigFileDirectory
-            StringBuilder sebClientConfigFileDirectoryBuilder = new StringBuilder(programDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
+            StringBuilder sebClientConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
             SebClientConfigFileDirectory = sebClientConfigFileDirectoryBuilder.ToString();
 
             // Set the location of the SebLogConfigFileDirectory
-            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(programDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
+            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
             SebClientLogFileDirectory = SebClientLogFileDirectoryBuilder.ToString();
 
 
@@ -202,11 +202,11 @@ namespace SebWindowsClient.ConfigurationUtils
              try 
              {
                  // Get the path of the "Program Data" directory.
-                 string programDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                 string localAppDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                  //string programDataDirectory = Environment.GetEnvironmentVariable("PROGRAMMDATA");
  
                  // Set the location of the XULRunnerConfigFileDirectory
-                 StringBuilder xulRunnerConfigFileDirectoryBuilder = new StringBuilder(programDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
+                 StringBuilder xulRunnerConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
                  XulRunnerConfigFileDirectory = xulRunnerConfigFileDirectoryBuilder.ToString();
 
                  // Set the location of the config.json file
