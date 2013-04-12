@@ -8,11 +8,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SebWindowsClient.DiagnosticsUtils;
+using System.Threading;
 
 namespace SebWindowsClient.ProcessUtils
 {
-    public static class SEBClipboard
+    public class SEBClipboard
     {
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Clean clipboard.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private static void _CleanClipboard()
+        {
+            try
+            {
+                Clipboard.Clear();
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("Error ocurred by cleaning Clipboard.", null, ex, ex.Message);
+ 
+            }
+
+        }
+
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Clean clipboard.
@@ -20,7 +41,11 @@ namespace SebWindowsClient.ProcessUtils
         /// ----------------------------------------------------------------------------------------
         public static void CleanClipboard()
         {
-            Clipboard.Clear();
+            Thread staThread = new Thread(SEBClipboard._CleanClipboard);
+            staThread.SetApartmentState(ApartmentState.STA);
+            staThread.Start();
+            staThread.Join();
         }
+
     }
 }
