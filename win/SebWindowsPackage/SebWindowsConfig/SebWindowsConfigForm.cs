@@ -48,7 +48,7 @@ namespace SebWindowsConfig
         const int StateNum = 4;
 
         // The Graphical User Interface contains 19 groups
-        const int GroupNum = 19;
+        const int GroupNum = 18;
 
         // SebStarter contains the 19 groups
         // General, ConfigFile, Appearance, Browser,
@@ -73,12 +73,11 @@ namespace SebWindowsConfig
         const int GroupInsideSeb       = 13;
         const int GroupOutsideSeb      = 14;
         const int GroupSecurityOptions = 15;
-        const int GroupOnlineExam      = 16;
-        const int GroupSpecialKeys     = 17;
-        const int GroupFunctionKeys    = 18;
-        const int GroupOther           = 19;
+        const int GroupSpecialKeys     = 16;
+        const int GroupFunctionKeys    = 17;
+        const int GroupOther           = 18;
 
-        const int GroupNumSebStarter = 19;
+        const int GroupNumSebStarter = 18;
 
         // Each group contains up to 20 values
         const int ValueNum = 20;
@@ -100,7 +99,6 @@ namespace SebWindowsConfig
         const String MessageInsideSeb       = "InsideSeb";
         const String MessageOutsideSeb      = "OutsideSeb";
         const String MessageSecurityOptions = "SecurityOptions";
-        const String MessageOnlineExam      = "OnlineExam";
         const String MessageSpecialKeys     = "SpecialKeys";
         const String MessageFunctionKeys    = "FunctionKeys";
         const String MessageOther           = "Other";
@@ -165,7 +163,7 @@ namespace SebWindowsConfig
 
         // Group "Browser"
         const int ValueLinksRequesting                  = 1;
-        const int ValueLinksJavaScript                = 2;
+        const int ValueLinksJavaScript                  = 2;
         const int ValueBlockLinksToDifferentServer      = 3;
         const int ValueBlockJavaScriptToDifferentServer = 4;
         const int ValueNewBrowserWindowWidth            = 5;
@@ -194,9 +192,38 @@ namespace SebWindowsConfig
         const String MessageUseSEBWithoutBrowserWindow       = "UseSEBWithoutBrowserWindow";
 
         // Group "DownUploads"
+        const int ValueAllowDownUploadingFiles   = 1;
+        const int ValueSaveDownloadedFilesTo     = 2;
+        const int ValueOpenFilesAfterDownloading = 3;
+        const int ValueChooseFileToUpload        = 4;
+        const int ValueDownloadAndOpenPDFFiles   = 5;
+        const int NumValueDownUploads = 5;
+
+        const String MessageAllowDownUploadingFiles   = "AllowDownUploadingFiles";
+        const String MessageSaveDownloadedFilesTo     = "SaveDownloadedFilesTo";
+        const String MessageOpenFilesAfterDownloading = "OpenFilesAfterDownloading";
+        const String MessageChooseFileToUpload        = "ChooseFileToUpload";
+        const String MessageDownloadAndOpenPDFFiles   = "DownloadAndOpenPDFFiles";
+
         // Group "Exam"
+        const int ValueBrowserExamKey                 = 1;
+        const int ValueCopyBrowserExamKeyToClipboard  = 2;
+        const int ValueSendBrowserExamKeyInHTTPHeader = 3;
+        const int ValueQuitURL                        = 4;
+        const int NumValueExam = 4;
+
+        const String MessageBrowserExamKey                 = "BrowserExamKey";
+        const String MessageCopyBrowserExamKeyToClipboard  = "CopyBrowserExamKeyToClipboard";
+        const String MessageSendBrowserExamKeyInHTTPHeader = "SendBrowserExamKeyInHTTPHeader";
+        const String MessageQuitURL                        = "QuitURL";
+
         // Group "Applications"
+        //const int Value = 1;
+        const int NumValueApplications = 0;
+
         // Group "Network"
+        //const int Value = 1;
+        const int NumValueNetwork = 0;
 
         // Group "Security"
         const int ValueEnableLogging = 1;
@@ -214,14 +241,10 @@ namespace SebWindowsConfig
         const String MessageExitKey2 = "ExitKey2";
         const String MessageExitKey3 = "ExitKey3";
 
-        const int NumValueDownUploads  = 0;
-        const int NumValueExam         = 0;
-        const int NumValueApplications = 0;
-        const int NumValueNetwork      = 0;
-//      const int NumValueSecurity     = 0;
+
         const int NumValueRegistry     = 0;
         const int NumValueHookedKeys   = 0;
-//      const int NumValueExitKeys     = 0;
+
 
         // Groups "Inside SEB" and "Outside SEB"
         const int ValueEnableSwitchUser        = 1;
@@ -286,16 +309,6 @@ namespace SebWindowsConfig
         const String MessageNewBrowserWindowByLink    = "NewBrowserWindowByLink";
         const String MessageNewBrowserWindowByScript  = "NewBrowserWindowByScript";
         const String MessageOpenDownloads             = "OpenDownloads";
-
-        // Group "Online Exam"
-        const int ValueSebBrowser            = 1;
-        const int ValueAutostartProcess      = 2;
-        const int ValuePermittedApplications = 3;
-        const int NumValueOnlineExam = 3;
-
-        const String MessageSebBrowser            = "SebBrowser";
-        const String MessageAutostartProcess      = "AutostartProcess";
-        const String MessagePermittedApplications = "PermittedApplications";
 
         // Group "Special Keys"
         const int ValueEnableEsc        = 1;
@@ -372,9 +385,10 @@ namespace SebWindowsConfig
         static List<String> chooseIdentityStringList = new List<String>();
 
         // Entries of ListBoxes
-        static String[] linkTreatmentString = new String[4];
-        static String[]      horizPosString = new String[4];
-        static String[]   functionKeyString = new String[13];
+        static String[]      linkTreatmentString = new String[4];
+        static String[]           horizPosString = new String[4];
+        static String[] chooseFileToUploadString = new String[4];
+        static String[]        functionKeyString = new String[13];
 
         // Number of values per group
         // Names  of groups and values
@@ -488,8 +502,20 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos] = 2;
 
             // Default settings for group "DownUploads"
+            settingBoolean[StateDef, GroupDownUploads, ValueAllowDownUploadingFiles  ] = true;
+            settingString [StateDef, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = "Downloads";
+            settingBoolean[StateDef, GroupDownUploads, ValueOpenFilesAfterDownloading] = true;
+            settingString [StateDef, GroupDownUploads, ValueChooseFileToUpload       ] = chooseFileToUploadString[1];
+            settingBoolean[StateDef, GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = false;
+
             // Default settings for group "Exam"
+            settingString [StateDef, GroupExam, ValueBrowserExamKey                ] = "";
+            settingBoolean[StateDef, GroupExam, ValueCopyBrowserExamKeyToClipboard ] = false;
+            settingBoolean[StateDef, GroupExam, ValueSendBrowserExamKeyInHTTPHeader] = true;
+            settingString [StateDef, GroupExam, ValueQuitURL                       ] = "http://www.safeexambrowser.org/exit";
+
             // Default settings for group "Applications"
+
             // Default settings for group "Network"
 
             // Default settings for group "Security"
@@ -529,7 +555,7 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByLink   ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByScript ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueOpenDownloads            ] = false;
-
+/*
             // Default settings for group "Online exam"
             String s0 = "Seb,../xulrunner/xulrunner.exe";
             String s1 = " -app \"..\\xul_seb\\seb.ini\"";
@@ -539,7 +565,7 @@ namespace SebWindowsConfig
             settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ] =  SebBrowserString;
             settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
-
+*/
             // Default settings for groups "Special keys"
             settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
 
@@ -566,7 +592,6 @@ namespace SebWindowsConfig
                 dataType[GroupInsideSeb      , value] = TypeBoolean;
                 dataType[GroupOutsideSeb     , value] = TypeBoolean;
                 dataType[GroupSecurityOptions, value] = TypeBoolean;
-                dataType[GroupOnlineExam     , value] = TypeString;
                 dataType[GroupSpecialKeys    , value] = TypeBoolean;
                 dataType[GroupFunctionKeys   , value] = TypeBoolean;
             }
@@ -583,10 +608,18 @@ namespace SebWindowsConfig
             dataType[GroupAppearance, ValueMainBrowserWindowHorizPos] = TypeString;
 
             dataType[GroupBrowser, ValueLinksRequesting         ] = TypeString;
-            dataType[GroupBrowser, ValueLinksJavaScript       ] = TypeString;
+            dataType[GroupBrowser, ValueLinksJavaScript         ] = TypeString;
             dataType[GroupBrowser, ValueNewBrowserWindowWidth   ] = TypeString;
             dataType[GroupBrowser, ValueNewBrowserWindowHeight  ] = TypeString;
             dataType[GroupBrowser, ValueNewBrowserWindowHorizPos] = TypeString;
+
+            dataType[GroupDownUploads, ValueSaveDownloadedFilesTo] = TypeString;
+            dataType[GroupDownUploads, ValueChooseFileToUpload   ] = TypeString;
+
+            dataType[GroupExam, ValueBrowserExamKey] = TypeString;
+            dataType[GroupExam, ValueQuitURL       ] = TypeString;
+
+
 
             // Number of values per group
             for (group = 1; group <= GroupNum; group++)
@@ -610,7 +643,6 @@ namespace SebWindowsConfig
             maxValue[GroupInsideSeb      ] = NumValueInsideSeb;
             maxValue[GroupOutsideSeb     ] = NumValueOutsideSeb;
             maxValue[GroupSecurityOptions] = NumValueSecurityOptions;
-            maxValue[GroupOnlineExam     ] = NumValueOnlineExam;
             maxValue[GroupSpecialKeys    ] = NumValueSpecialKeys;
             maxValue[GroupFunctionKeys   ] = NumValueFunctionKeys;
             maxValue[GroupOther          ] = NumValueOther;
@@ -637,7 +669,6 @@ namespace SebWindowsConfig
             groupString[GroupInsideSeb      ] = MessageInsideSeb;
             groupString[GroupOutsideSeb     ] = MessageOutsideSeb;
             groupString[GroupSecurityOptions] = MessageSecurityOptions;
-            groupString[GroupOnlineExam     ] = MessageOnlineExam;
             groupString[GroupSpecialKeys    ] = MessageSpecialKeys;
             groupString[GroupFunctionKeys   ] = MessageFunctionKeys;
 
@@ -670,7 +701,7 @@ namespace SebWindowsConfig
             valueString[GroupAppearance, ValueDisplaySEBDockTaskBar      ] = MessageDisplaySEBDockTaskBar;
 
             valueString[GroupBrowser, ValueLinksRequesting                 ] = MessageLinksRequesting;
-            valueString[GroupBrowser, ValueLinksJavaScript               ] = MessageLinksInJavaScript;
+            valueString[GroupBrowser, ValueLinksJavaScript                 ] = MessageLinksInJavaScript;
             valueString[GroupBrowser, ValueBlockLinksToDifferentServer     ] = MessageBlockLinksToDifferentServer;
             valueString[GroupBrowser, ValueBlockJavaScriptToDifferentServer] = MessageBlockJavaScriptToDifferentServer;
             valueString[GroupBrowser, ValueNewBrowserWindowWidth           ] = MessageNewBrowserWindowSizeWidth;
@@ -682,6 +713,17 @@ namespace SebWindowsConfig
             valueString[GroupBrowser, ValueBlockPopupWindows               ] = MessageBlockPopupWindows;
             valueString[GroupBrowser, ValueAllowBrowsingBackForward        ] = MessageAllowBrowsingBackForward;
             valueString[GroupBrowser, ValueUseSEBWithoutBrowserWindow      ] = MessageUseSEBWithoutBrowserWindow;
+
+            valueString[GroupDownUploads, ValueAllowDownUploadingFiles  ] = MessageAllowDownUploadingFiles;
+            valueString[GroupDownUploads, ValueSaveDownloadedFilesTo    ] = MessageSaveDownloadedFilesTo;
+            valueString[GroupDownUploads, ValueOpenFilesAfterDownloading] = MessageOpenFilesAfterDownloading;
+            valueString[GroupDownUploads, ValueChooseFileToUpload       ] = MessageChooseFileToUpload;
+            valueString[GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = MessageDownloadAndOpenPDFFiles;
+
+            valueString[GroupExam, ValueBrowserExamKey                ] = MessageBrowserExamKey;
+            valueString[GroupExam, ValueCopyBrowserExamKeyToClipboard ] = MessageCopyBrowserExamKeyToClipboard;
+            valueString[GroupExam, ValueSendBrowserExamKeyInHTTPHeader] = MessageSendBrowserExamKeyInHTTPHeader;
+            valueString[GroupExam, ValueQuitURL                       ] = MessageQuitURL;
 
             valueString[GroupSecurity, ValueEnableLogging] = MessageEnableLogging;
 
@@ -722,10 +764,6 @@ namespace SebWindowsConfig
             valueString[GroupSecurityOptions, ValueNewBrowserWindowByLink   ] = MessageNewBrowserWindowByLink;
             valueString[GroupSecurityOptions, ValueNewBrowserWindowByScript ] = MessageNewBrowserWindowByScript;
             valueString[GroupSecurityOptions, ValueOpenDownloads            ] = MessageOpenDownloads;
-
-            valueString[GroupOnlineExam, ValueSebBrowser           ] = MessageSebBrowser;
-            valueString[GroupOnlineExam, ValueAutostartProcess     ] = MessageAutostartProcess;
-            valueString[GroupOnlineExam, ValuePermittedApplications] = MessagePermittedApplications;
 
             valueString[GroupSpecialKeys, ValueEnableEsc       ] = MessageEnableEsc;
             valueString[GroupSpecialKeys, ValueEnableCtrlEsc   ] = MessageEnableCtrlEsc;
@@ -768,6 +806,12 @@ namespace SebWindowsConfig
             horizPosString[1] = "Left";
             horizPosString[2] = "Center";
             horizPosString[3] = "Right";
+
+            // Define the strings for the link treatment
+            chooseFileToUploadString[0] = "";
+            chooseFileToUploadString[1] = "manually with file requester";
+            chooseFileToUploadString[2] = "by attempting to upload the same file downloaded before";
+            chooseFileToUploadString[3] = "by only allowing to upload the same file downloaded before";
 
             // Define the strings for the function keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
@@ -847,6 +891,18 @@ namespace SebWindowsConfig
             settingInteger[StateTmp, GroupBrowser, ValueLinksJavaScript] = tmpIndexLinksJavaScript;
 
 
+            // Choose File To Upload needs a conversion from string to integer
+            String tmpStringChooseFileToUpload = settingString[StateTmp, GroupDownUploads, ValueChooseFileToUpload];
+
+            int tmpIndexChooseFileToUpload = 0;
+            for (int indexChoose = 1; indexChoose <= 3; indexChoose++)
+            {
+                String cftu = chooseFileToUploadString[indexChoose];
+                if (tmpStringChooseFileToUpload.Equals(cftu)) tmpIndexChooseFileToUpload = indexChoose;
+            }
+            settingInteger[StateTmp, GroupDownUploads, ValueChooseFileToUpload] = tmpIndexChooseFileToUpload;
+
+
             // Exit Key Sequence needs a conversion from string to integer
             String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
             String tmpStringExitKey2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
@@ -912,6 +968,10 @@ namespace SebWindowsConfig
 
             settingString[StateNew, GroupBrowser, ValueLinksRequesting] = linkTreatmentString[newIndexLinksRequesting];
             settingString[StateNew, GroupBrowser, ValueLinksJavaScript] = linkTreatmentString[newIndexLinksJavaScript];
+
+            // Choose File To Upload needs a conversion from integer to string
+            int newIndexChooseFileToUpload = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload];
+            settingString[StateNew, GroupDownUploads, ValueChooseFileToUpload] = chooseFileToUploadString[newIndexChooseFileToUpload];
 
             // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
@@ -1585,9 +1645,9 @@ namespace SebWindowsConfig
 
 
 
-        // ****************
+        // ***************
         // Group "Browser"
-        // ****************
+        // ***************
         private void listBoxLinksRequesting_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupBrowser, ValueLinksRequesting] = listBoxLinksRequesting.SelectedIndex + 1;
@@ -1655,6 +1715,68 @@ namespace SebWindowsConfig
 
 
 
+        // ********************
+        // Group "Down/Uploads"
+        // ********************
+        private void checkBoxAllowDownUploadingFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles] = checkBoxAllowDownUploadingFiles.Checked;
+        }
+
+        private void checkBoxOpenFilesAfterDownloading_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading] = checkBoxOpenFilesAfterDownloading.Checked;
+        }
+
+        private void listBoxChooseFileToUpload_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload] = listBoxChooseFileToUpload.SelectedIndex + 1;
+        }
+
+        private void checkBoxDownloadAndOpenPDFFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles] = checkBoxDownloadAndOpenPDFFiles.Checked;
+        }
+
+
+        // ************
+        // Group "Exam"
+        // ************
+        private void buttonGenerateBrowserExamKey_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxBrowserExamKey_TextChanged(object sender, EventArgs e)
+        {
+            settingString[StateNew, GroupExam, ValueBrowserExamKey] = textBoxBrowserExamKey.Text;
+        }
+
+        private void checkBoxCopyBrowserExamKeyToClipboard_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKeyToClipboard] = checkBoxCopyBrowserExamKeyToClipboard.Checked;
+        }
+
+        private void checkBoxSendBrowserExamKeyInHTTPHeader_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKeyInHTTPHeader] = checkBoxSendBrowserExamKeyInHTTPHeader.Checked;
+        }
+
+        private void textBoxQuitURL_TextChanged(object sender, EventArgs e)
+        {
+            settingString[StateNew, GroupExam, ValueQuitURL] = textBoxQuitURL.Text;
+        }
+
+
+
+        // ********************
+        // Group "Applications"
+        // ********************
+
+        // ***************
+        // Group "Network"
+        // ***************
+
         // ****************
         // Group "Security"
         // ****************
@@ -1662,6 +1784,7 @@ namespace SebWindowsConfig
         {
             settingBoolean[StateNew, GroupSecurity, ValueEnableLogging] = checkBoxEnableLogging.Checked;
         }
+
 
 
         // *****************
@@ -1743,6 +1866,7 @@ namespace SebWindowsConfig
         }
 
 
+
         // *******************
         // Group "Outside SEB"
         // *******************
@@ -1785,6 +1909,7 @@ namespace SebWindowsConfig
         {
             settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
         }
+
 
 
         // ************************
@@ -1866,24 +1991,6 @@ namespace SebWindowsConfig
         }
 
 
-        // *******************
-        // Group "Online Exam"
-        // *******************
-        private void textBoxSebBrowser_TextChanged(object sender, EventArgs e)
-        {
-            settingString[StateNew, GroupOnlineExam, ValueSebBrowser] = textBoxSebBrowser.Text;
-        }
-
-        private void textBoxAutostartProcess_TextChanged(object sender, EventArgs e)
-        {
-            settingString[StateNew, GroupOnlineExam, ValueAutostartProcess] = textBoxAutostartProcess.Text;
-        }
-
-        private void textBoxPermittedApplications_TextChanged(object sender, EventArgs e)
-        {
-            settingString[StateNew, GroupOnlineExam, ValuePermittedApplications] = textBoxPermittedApplications.Text;
-        }
-
 
         // ********************
         // Group "Special Keys"
@@ -1922,6 +2029,7 @@ namespace SebWindowsConfig
         {
             settingBoolean[StateNew, GroupSpecialKeys, ValueEnableRightMouse] = checkBoxEnableRightMouse.Checked;
         }
+
 
 
         // *********************
@@ -2062,6 +2170,19 @@ namespace SebWindowsConfig
             checkBoxAllowBrowsingBackForward  .Checked = settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward];
             checkBoxUseSEBWithoutBrowserWindow.Checked = settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowserWindow];
 
+            checkBoxAllowDownUploadingFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles];
+            checkBoxOpenFilesAfterDownloading.Checked = settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading];
+            checkBoxDownloadAndOpenPDFFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles];
+             listBoxChooseFileToUpload.SelectedIndex  = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload] - 1;
+           //textBoxSaveDownloadedFilesTo    .Text    = settingString [StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo];
+
+             textBoxBrowserExamKey                .Text    = settingString [StateNew, GroupExam, ValueBrowserExamKey];
+             textBoxQuitURL                       .Text    = settingString [StateNew, GroupExam, ValueQuitURL];
+            checkBoxCopyBrowserExamKeyToClipboard .Checked = settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKeyToClipboard];
+            checkBoxSendBrowserExamKeyInHTTPHeader.Checked = settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKeyInHTTPHeader];
+
+
+
             checkBoxEnableLogging.Checked = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
             listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
@@ -2101,10 +2222,6 @@ namespace SebWindowsConfig
             checkBoxNewBrowserWindowByLinkBlockForeign  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLink];
             checkBoxNewBrowserWindowByScriptBlockForeign.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScript];
             checkBoxOpenDownloads                       .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueOpenDownloads];
-
-            textBoxSebBrowser           .Text = settingString[StateNew, GroupOnlineExam, ValueSebBrowser];
-            textBoxAutostartProcess     .Text = settingString[StateNew, GroupOnlineExam, ValueAutostartProcess];
-            textBoxPermittedApplications.Text = settingString[StateNew, GroupOnlineExam, ValuePermittedApplications];
 
             checkBoxEnableEsc       .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc];
             checkBoxEnableCtrlEsc   .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc];
@@ -2178,6 +2295,7 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
+
 
 
 

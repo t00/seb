@@ -34,6 +34,8 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.listBoxLinksJavaScript = new System.Windows.Forms.ListBox();
+            this.listBoxLinksRequesting = new System.Windows.Forms.ListBox();
             this.labelToStartAppInKioskMode = new System.Windows.Forms.Label();
             this.checkBoxBlockPopupWindows = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowBrowsingBackForward = new System.Windows.Forms.CheckBox();
@@ -46,6 +48,7 @@
             this.labelLinksRequesting = new System.Windows.Forms.Label();
             this.checkBoxBlockLinksToDifferentServer = new System.Windows.Forms.CheckBox();
             this.groupBoxNewBrowserWindow = new System.Windows.Forms.GroupBox();
+            this.comboBoxNewBrowserWindowHeight = new System.Windows.Forms.ComboBox();
             this.comboBoxNewBrowserWindowWidth = new System.Windows.Forms.ComboBox();
             this.labelNewBrowserWindowHeight = new System.Windows.Forms.Label();
             this.labelNewBrowserWindowWidth = new System.Windows.Forms.Label();
@@ -103,14 +106,19 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.checkBoxDownloadAndOpenPDFFiles = new System.Windows.Forms.CheckBox();
+            this.checkBoxOpenFilesAfterDownloading = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowDownUploadingFiles = new System.Windows.Forms.CheckBox();
             this.tabPageExam = new System.Windows.Forms.TabPage();
-            this.groupBoxOnlineExam = new System.Windows.Forms.GroupBox();
-            this.textBoxAutostartProcess = new System.Windows.Forms.TextBox();
-            this.labelSebBrowser = new System.Windows.Forms.Label();
-            this.labelAutostartProcess = new System.Windows.Forms.Label();
-            this.textBoxSebBrowser = new System.Windows.Forms.TextBox();
-            this.labelPermittedApplications = new System.Windows.Forms.Label();
-            this.textBoxPermittedApplications = new System.Windows.Forms.TextBox();
+            this.labelPlaceThisQuitLink = new System.Windows.Forms.Label();
+            this.labelCopyBrowserExamKey = new System.Windows.Forms.Label();
+            this.buttonGenerateBrowserExamKey = new System.Windows.Forms.Button();
+            this.labelBrowserExamKey = new System.Windows.Forms.Label();
+            this.textBoxBrowserExamKey = new System.Windows.Forms.TextBox();
+            this.textBoxQuitURL = new System.Windows.Forms.TextBox();
+            this.labelQuitURL = new System.Windows.Forms.Label();
+            this.checkBoxSendBrowserExamKeyInHTTPHeader = new System.Windows.Forms.CheckBox();
+            this.checkBoxCopyBrowserExamKeyToClipboard = new System.Windows.Forms.CheckBox();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
@@ -181,9 +189,9 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.comboBoxNewBrowserWindowHeight = new System.Windows.Forms.ComboBox();
-            this.listBoxLinksRequesting = new System.Windows.Forms.ListBox();
-            this.listBoxLinksJavaScript = new System.Windows.Forms.ListBox();
+            this.labelSaveDownloadedFilesTo = new System.Windows.Forms.Label();
+            this.labelChooseFileToUpload = new System.Windows.Forms.Label();
+            this.listBoxChooseFileToUpload = new System.Windows.Forms.ListBox();
             this.tabPageBrowser.SuspendLayout();
             this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
@@ -191,8 +199,8 @@
             this.tabPageConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
+            this.tabPageDownUploads.SuspendLayout();
             this.tabPageExam.SuspendLayout();
-            this.groupBoxOnlineExam.SuspendLayout();
             this.tabPageSecurity.SuspendLayout();
             this.groupBoxSecurityOptions.SuspendLayout();
             this.tabPageRegistry.SuspendLayout();
@@ -254,6 +262,34 @@
             this.tabPageBrowser.TabIndex = 14;
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
+            // 
+            // listBoxLinksJavaScript
+            // 
+            this.listBoxLinksJavaScript.FormattingEnabled = true;
+            this.listBoxLinksJavaScript.ItemHeight = 16;
+            this.listBoxLinksJavaScript.Items.AddRange(new object[] {
+            "open in new window",
+            "open in same window",
+            "get generally blocked"});
+            this.listBoxLinksJavaScript.Location = new System.Drawing.Point(31, 277);
+            this.listBoxLinksJavaScript.Name = "listBoxLinksJavaScript";
+            this.listBoxLinksJavaScript.Size = new System.Drawing.Size(159, 20);
+            this.listBoxLinksJavaScript.TabIndex = 74;
+            this.listBoxLinksJavaScript.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksJavaScript_SelectedIndexChanged);
+            // 
+            // listBoxLinksRequesting
+            // 
+            this.listBoxLinksRequesting.FormattingEnabled = true;
+            this.listBoxLinksRequesting.ItemHeight = 16;
+            this.listBoxLinksRequesting.Items.AddRange(new object[] {
+            "open in new window",
+            "open in same window",
+            "get generally blocked"});
+            this.listBoxLinksRequesting.Location = new System.Drawing.Point(31, 51);
+            this.listBoxLinksRequesting.Name = "listBoxLinksRequesting";
+            this.listBoxLinksRequesting.Size = new System.Drawing.Size(159, 20);
+            this.listBoxLinksRequesting.TabIndex = 73;
+            this.listBoxLinksRequesting.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksRequesting_SelectedIndexChanged);
             // 
             // labelToStartAppInKioskMode
             // 
@@ -397,6 +433,20 @@
             this.groupBoxNewBrowserWindow.TabIndex = 58;
             this.groupBoxNewBrowserWindow.TabStop = false;
             this.groupBoxNewBrowserWindow.Text = "New browser window size and position";
+            // 
+            // comboBoxNewBrowserWindowHeight
+            // 
+            this.comboBoxNewBrowserWindowHeight.FormattingEnabled = true;
+            this.comboBoxNewBrowserWindowHeight.Items.AddRange(new object[] {
+            "80%",
+            "100%",
+            "600",
+            "800"});
+            this.comboBoxNewBrowserWindowHeight.Location = new System.Drawing.Point(88, 72);
+            this.comboBoxNewBrowserWindowHeight.Name = "comboBoxNewBrowserWindowHeight";
+            this.comboBoxNewBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxNewBrowserWindowHeight.TabIndex = 63;
+            this.comboBoxNewBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_SelectedIndexChanged);
             // 
             // comboBoxNewBrowserWindowWidth
             // 
@@ -1057,6 +1107,12 @@
             // 
             // tabPageDownUploads
             // 
+            this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUpload);
+            this.tabPageDownUploads.Controls.Add(this.labelChooseFileToUpload);
+            this.tabPageDownUploads.Controls.Add(this.labelSaveDownloadedFilesTo);
+            this.tabPageDownUploads.Controls.Add(this.checkBoxDownloadAndOpenPDFFiles);
+            this.tabPageDownUploads.Controls.Add(this.checkBoxOpenFilesAfterDownloading);
+            this.tabPageDownUploads.Controls.Add(this.checkBoxAllowDownUploadingFiles);
             this.tabPageDownUploads.ImageIndex = 0;
             this.tabPageDownUploads.Location = new System.Drawing.Point(4, 39);
             this.tabPageDownUploads.Name = "tabPageDownUploads";
@@ -1066,9 +1122,57 @@
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDownloadAndOpenPDFFiles
+            // 
+            this.checkBoxDownloadAndOpenPDFFiles.AutoSize = true;
+            this.checkBoxDownloadAndOpenPDFFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDownloadAndOpenPDFFiles.Location = new System.Drawing.Point(33, 323);
+            this.checkBoxDownloadAndOpenPDFFiles.Name = "checkBoxDownloadAndOpenPDFFiles";
+            this.checkBoxDownloadAndOpenPDFFiles.Size = new System.Drawing.Size(421, 21);
+            this.checkBoxDownloadAndOpenPDFFiles.TabIndex = 73;
+            this.checkBoxDownloadAndOpenPDFFiles.Text = "Download and open PDF files instead of displaying them inline";
+            this.checkBoxDownloadAndOpenPDFFiles.UseVisualStyleBackColor = true;
+            this.checkBoxDownloadAndOpenPDFFiles.CheckedChanged += new System.EventHandler(this.checkBoxDownloadAndOpenPDFFiles_CheckedChanged);
+            // 
+            // checkBoxOpenFilesAfterDownloading
+            // 
+            this.checkBoxOpenFilesAfterDownloading.AutoSize = true;
+            this.checkBoxOpenFilesAfterDownloading.Checked = true;
+            this.checkBoxOpenFilesAfterDownloading.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOpenFilesAfterDownloading.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxOpenFilesAfterDownloading.Location = new System.Drawing.Point(422, 178);
+            this.checkBoxOpenFilesAfterDownloading.Name = "checkBoxOpenFilesAfterDownloading";
+            this.checkBoxOpenFilesAfterDownloading.Size = new System.Drawing.Size(210, 21);
+            this.checkBoxOpenFilesAfterDownloading.TabIndex = 72;
+            this.checkBoxOpenFilesAfterDownloading.Text = "Open files after downloading";
+            this.checkBoxOpenFilesAfterDownloading.UseVisualStyleBackColor = true;
+            this.checkBoxOpenFilesAfterDownloading.CheckedChanged += new System.EventHandler(this.checkBoxOpenFilesAfterDownloading_CheckedChanged);
+            // 
+            // checkBoxAllowDownUploadingFiles
+            // 
+            this.checkBoxAllowDownUploadingFiles.AutoSize = true;
+            this.checkBoxAllowDownUploadingFiles.Checked = true;
+            this.checkBoxAllowDownUploadingFiles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowDownUploadingFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowDownUploadingFiles.Location = new System.Drawing.Point(33, 32);
+            this.checkBoxAllowDownUploadingFiles.Name = "checkBoxAllowDownUploadingFiles";
+            this.checkBoxAllowDownUploadingFiles.Size = new System.Drawing.Size(268, 21);
+            this.checkBoxAllowDownUploadingFiles.TabIndex = 71;
+            this.checkBoxAllowDownUploadingFiles.Text = "Allow downloading and uploading files";
+            this.checkBoxAllowDownUploadingFiles.UseVisualStyleBackColor = true;
+            this.checkBoxAllowDownUploadingFiles.CheckedChanged += new System.EventHandler(this.checkBoxAllowDownUploadingFiles_CheckedChanged);
+            // 
             // tabPageExam
             // 
-            this.tabPageExam.Controls.Add(this.groupBoxOnlineExam);
+            this.tabPageExam.Controls.Add(this.labelPlaceThisQuitLink);
+            this.tabPageExam.Controls.Add(this.labelCopyBrowserExamKey);
+            this.tabPageExam.Controls.Add(this.buttonGenerateBrowserExamKey);
+            this.tabPageExam.Controls.Add(this.labelBrowserExamKey);
+            this.tabPageExam.Controls.Add(this.textBoxBrowserExamKey);
+            this.tabPageExam.Controls.Add(this.textBoxQuitURL);
+            this.tabPageExam.Controls.Add(this.labelQuitURL);
+            this.tabPageExam.Controls.Add(this.checkBoxSendBrowserExamKeyInHTTPHeader);
+            this.tabPageExam.Controls.Add(this.checkBoxCopyBrowserExamKeyToClipboard);
             this.tabPageExam.Location = new System.Drawing.Point(4, 39);
             this.tabPageExam.Name = "tabPageExam";
             this.tabPageExam.Padding = new System.Windows.Forms.Padding(3);
@@ -1077,75 +1181,104 @@
             this.tabPageExam.Text = "Exam";
             this.tabPageExam.UseVisualStyleBackColor = true;
             // 
-            // groupBoxOnlineExam
+            // labelPlaceThisQuitLink
             // 
-            this.groupBoxOnlineExam.Controls.Add(this.textBoxAutostartProcess);
-            this.groupBoxOnlineExam.Controls.Add(this.labelSebBrowser);
-            this.groupBoxOnlineExam.Controls.Add(this.labelAutostartProcess);
-            this.groupBoxOnlineExam.Controls.Add(this.textBoxSebBrowser);
-            this.groupBoxOnlineExam.Controls.Add(this.labelPermittedApplications);
-            this.groupBoxOnlineExam.Controls.Add(this.textBoxPermittedApplications);
-            this.groupBoxOnlineExam.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxOnlineExam.Location = new System.Drawing.Point(23, 22);
-            this.groupBoxOnlineExam.Name = "groupBoxOnlineExam";
-            this.groupBoxOnlineExam.Size = new System.Drawing.Size(600, 210);
-            this.groupBoxOnlineExam.TabIndex = 26;
-            this.groupBoxOnlineExam.TabStop = false;
-            this.groupBoxOnlineExam.Text = "Online exam";
+            this.labelPlaceThisQuitLink.AutoSize = true;
+            this.labelPlaceThisQuitLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlaceThisQuitLink.Location = new System.Drawing.Point(29, 323);
+            this.labelPlaceThisQuitLink.Name = "labelPlaceThisQuitLink";
+            this.labelPlaceThisQuitLink.Size = new System.Drawing.Size(1039, 17);
+            this.labelPlaceThisQuitLink.TabIndex = 81;
+            this.labelPlaceThisQuitLink.Text = "Place this quit link to the \"feedback\" page displayed after an exam was successfu" +
+    "lly finished. Clicking that link will quit SEB without having to enter the quit " +
+    "password.";
             // 
-            // textBoxAutostartProcess
+            // labelCopyBrowserExamKey
             // 
-            this.textBoxAutostartProcess.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAutostartProcess.Location = new System.Drawing.Point(153, 60);
-            this.textBoxAutostartProcess.Name = "textBoxAutostartProcess";
-            this.textBoxAutostartProcess.Size = new System.Drawing.Size(430, 22);
-            this.textBoxAutostartProcess.TabIndex = 27;
+            this.labelCopyBrowserExamKey.AutoSize = true;
+            this.labelCopyBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCopyBrowserExamKey.Location = new System.Drawing.Point(29, 101);
+            this.labelCopyBrowserExamKey.Name = "labelCopyBrowserExamKey";
+            this.labelCopyBrowserExamKey.Size = new System.Drawing.Size(1031, 17);
+            this.labelCopyBrowserExamKey.TabIndex = 80;
+            this.labelCopyBrowserExamKey.Text = "Copy this key (which depends on your SEB configuration) to the according field in" +
+    " your quiz settings in the exam system having support for SEB 2.0 or later built" +
+    " in.";
             // 
-            // labelSebBrowser
+            // buttonGenerateBrowserExamKey
             // 
-            this.labelSebBrowser.AutoSize = true;
-            this.labelSebBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSebBrowser.Location = new System.Drawing.Point(6, 32);
-            this.labelSebBrowser.Name = "labelSebBrowser";
-            this.labelSebBrowser.Size = new System.Drawing.Size(89, 17);
-            this.labelSebBrowser.TabIndex = 26;
-            this.labelSebBrowser.Text = "SEB browser";
+            this.buttonGenerateBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGenerateBrowserExamKey.Location = new System.Drawing.Point(176, 27);
+            this.buttonGenerateBrowserExamKey.Name = "buttonGenerateBrowserExamKey";
+            this.buttonGenerateBrowserExamKey.Size = new System.Drawing.Size(133, 25);
+            this.buttonGenerateBrowserExamKey.TabIndex = 79;
+            this.buttonGenerateBrowserExamKey.Text = "Generate";
+            this.buttonGenerateBrowserExamKey.UseVisualStyleBackColor = true;
+            this.buttonGenerateBrowserExamKey.Click += new System.EventHandler(this.buttonGenerateBrowserExamKey_Click);
             // 
-            // labelAutostartProcess
+            // labelBrowserExamKey
             // 
-            this.labelAutostartProcess.AutoSize = true;
-            this.labelAutostartProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAutostartProcess.Location = new System.Drawing.Point(6, 62);
-            this.labelAutostartProcess.Name = "labelAutostartProcess";
-            this.labelAutostartProcess.Size = new System.Drawing.Size(119, 17);
-            this.labelAutostartProcess.TabIndex = 25;
-            this.labelAutostartProcess.Text = "Autostart process";
+            this.labelBrowserExamKey.AutoSize = true;
+            this.labelBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelBrowserExamKey.Location = new System.Drawing.Point(29, 31);
+            this.labelBrowserExamKey.Name = "labelBrowserExamKey";
+            this.labelBrowserExamKey.Size = new System.Drawing.Size(125, 17);
+            this.labelBrowserExamKey.TabIndex = 78;
+            this.labelBrowserExamKey.Text = "Browser Exam Key";
             // 
-            // textBoxSebBrowser
+            // textBoxBrowserExamKey
             // 
-            this.textBoxSebBrowser.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSebBrowser.Location = new System.Drawing.Point(153, 30);
-            this.textBoxSebBrowser.Name = "textBoxSebBrowser";
-            this.textBoxSebBrowser.Size = new System.Drawing.Size(430, 22);
-            this.textBoxSebBrowser.TabIndex = 24;
+            this.textBoxBrowserExamKey.Location = new System.Drawing.Point(32, 67);
+            this.textBoxBrowserExamKey.Name = "textBoxBrowserExamKey";
+            this.textBoxBrowserExamKey.Size = new System.Drawing.Size(700, 22);
+            this.textBoxBrowserExamKey.TabIndex = 77;
+            this.textBoxBrowserExamKey.TextChanged += new System.EventHandler(this.textBoxBrowserExamKey_TextChanged);
             // 
-            // labelPermittedApplications
+            // textBoxQuitURL
             // 
-            this.labelPermittedApplications.AutoSize = true;
-            this.labelPermittedApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPermittedApplications.Location = new System.Drawing.Point(6, 122);
-            this.labelPermittedApplications.Name = "labelPermittedApplications";
-            this.labelPermittedApplications.Size = new System.Drawing.Size(147, 17);
-            this.labelPermittedApplications.TabIndex = 22;
-            this.labelPermittedApplications.Text = "Permitted applications";
+            this.textBoxQuitURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxQuitURL.Location = new System.Drawing.Point(32, 288);
+            this.textBoxQuitURL.Name = "textBoxQuitURL";
+            this.textBoxQuitURL.Size = new System.Drawing.Size(535, 22);
+            this.textBoxQuitURL.TabIndex = 76;
+            this.textBoxQuitURL.TextChanged += new System.EventHandler(this.textBoxQuitURL_TextChanged);
             // 
-            // textBoxPermittedApplications
+            // labelQuitURL
             // 
-            this.textBoxPermittedApplications.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPermittedApplications.Location = new System.Drawing.Point(153, 120);
-            this.textBoxPermittedApplications.Name = "textBoxPermittedApplications";
-            this.textBoxPermittedApplications.Size = new System.Drawing.Size(430, 22);
-            this.textBoxPermittedApplications.TabIndex = 23;
+            this.labelQuitURL.AutoSize = true;
+            this.labelQuitURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuitURL.Location = new System.Drawing.Point(29, 255);
+            this.labelQuitURL.Name = "labelQuitURL";
+            this.labelQuitURL.Size = new System.Drawing.Size(178, 17);
+            this.labelQuitURL.TabIndex = 75;
+            this.labelQuitURL.Text = "Link to quit SEB after exam";
+            // 
+            // checkBoxSendBrowserExamKeyInHTTPHeader
+            // 
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.AutoSize = true;
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.Checked = true;
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.Location = new System.Drawing.Point(32, 176);
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.Name = "checkBoxSendBrowserExamKeyInHTTPHeader";
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.Size = new System.Drawing.Size(289, 21);
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.TabIndex = 74;
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.Text = "Send Browser Exam Key in HTTP header";
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.UseVisualStyleBackColor = true;
+            this.checkBoxSendBrowserExamKeyInHTTPHeader.CheckedChanged += new System.EventHandler(this.checkBoxSendBrowserExamKeyInHTTPHeader_CheckedChanged);
+            // 
+            // checkBoxCopyBrowserExamKeyToClipboard
+            // 
+            this.checkBoxCopyBrowserExamKeyToClipboard.AutoSize = true;
+            this.checkBoxCopyBrowserExamKeyToClipboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCopyBrowserExamKeyToClipboard.Location = new System.Drawing.Point(66, 139);
+            this.checkBoxCopyBrowserExamKeyToClipboard.Name = "checkBoxCopyBrowserExamKeyToClipboard";
+            this.checkBoxCopyBrowserExamKeyToClipboard.Size = new System.Drawing.Size(568, 21);
+            this.checkBoxCopyBrowserExamKeyToClipboard.TabIndex = 73;
+            this.checkBoxCopyBrowserExamKeyToClipboard.Text = "Copy Browser Exam Key to clipboard when quitting SEB Windows Configuration Editor" +
+    "";
+            this.checkBoxCopyBrowserExamKeyToClipboard.UseVisualStyleBackColor = true;
+            this.checkBoxCopyBrowserExamKeyToClipboard.CheckedChanged += new System.EventHandler(this.checkBoxCopyBrowserExamKeyToClipboard_CheckedChanged);
             // 
             // tabPageApplications
             // 
@@ -2015,47 +2148,37 @@
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
-            // comboBoxNewBrowserWindowHeight
+            // labelSaveDownloadedFilesTo
             // 
-            this.comboBoxNewBrowserWindowHeight.FormattingEnabled = true;
-            this.comboBoxNewBrowserWindowHeight.Items.AddRange(new object[] {
-            "80%",
-            "100%",
-            "600",
-            "800"});
-            this.comboBoxNewBrowserWindowHeight.Location = new System.Drawing.Point(88, 72);
-            this.comboBoxNewBrowserWindowHeight.Name = "comboBoxNewBrowserWindowHeight";
-            this.comboBoxNewBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxNewBrowserWindowHeight.TabIndex = 63;
-            this.comboBoxNewBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_SelectedIndexChanged);
+            this.labelSaveDownloadedFilesTo.AutoSize = true;
+            this.labelSaveDownloadedFilesTo.Location = new System.Drawing.Point(210, 76);
+            this.labelSaveDownloadedFilesTo.Name = "labelSaveDownloadedFilesTo";
+            this.labelSaveDownloadedFilesTo.Size = new System.Drawing.Size(169, 17);
+            this.labelSaveDownloadedFilesTo.TabIndex = 74;
+            this.labelSaveDownloadedFilesTo.Text = "Save downloaded files to:";
             // 
-            // listBoxLinksRequesting
+            // labelChooseFileToUpload
             // 
-            this.listBoxLinksRequesting.FormattingEnabled = true;
-            this.listBoxLinksRequesting.ItemHeight = 16;
-            this.listBoxLinksRequesting.Items.AddRange(new object[] {
+            this.labelChooseFileToUpload.AutoSize = true;
+            this.labelChooseFileToUpload.Location = new System.Drawing.Point(30, 244);
+            this.labelChooseFileToUpload.Name = "labelChooseFileToUpload";
+            this.labelChooseFileToUpload.Size = new System.Drawing.Size(153, 17);
+            this.labelChooseFileToUpload.TabIndex = 75;
+            this.labelChooseFileToUpload.Text = "Choose file to upload...";
+            // 
+            // listBoxChooseFileToUpload
+            // 
+            this.listBoxChooseFileToUpload.FormattingEnabled = true;
+            this.listBoxChooseFileToUpload.ItemHeight = 16;
+            this.listBoxChooseFileToUpload.Items.AddRange(new object[] {
             "open in new window",
             "open in same window",
             "get generally blocked"});
-            this.listBoxLinksRequesting.Location = new System.Drawing.Point(31, 51);
-            this.listBoxLinksRequesting.Name = "listBoxLinksRequesting";
-            this.listBoxLinksRequesting.Size = new System.Drawing.Size(159, 20);
-            this.listBoxLinksRequesting.TabIndex = 73;
-            this.listBoxLinksRequesting.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksRequesting_SelectedIndexChanged);
-            // 
-            // listBoxLinksInJavaScript
-            // 
-            this.listBoxLinksJavaScript.FormattingEnabled = true;
-            this.listBoxLinksJavaScript.ItemHeight = 16;
-            this.listBoxLinksJavaScript.Items.AddRange(new object[] {
-            "open in new window",
-            "open in same window",
-            "get generally blocked"});
-            this.listBoxLinksJavaScript.Location = new System.Drawing.Point(31, 277);
-            this.listBoxLinksJavaScript.Name = "listBoxLinksInJavaScript";
-            this.listBoxLinksJavaScript.Size = new System.Drawing.Size(159, 20);
-            this.listBoxLinksJavaScript.TabIndex = 74;
-            this.listBoxLinksJavaScript.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksJavaScript_SelectedIndexChanged);
+            this.listBoxChooseFileToUpload.Location = new System.Drawing.Point(33, 279);
+            this.listBoxChooseFileToUpload.Name = "listBoxChooseFileToUpload";
+            this.listBoxChooseFileToUpload.Size = new System.Drawing.Size(159, 20);
+            this.listBoxChooseFileToUpload.TabIndex = 76;
+            this.listBoxChooseFileToUpload.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUpload_SelectedIndexChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -2080,9 +2203,10 @@
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
             this.tabControlSebWindowsConfig.ResumeLayout(false);
+            this.tabPageDownUploads.ResumeLayout(false);
+            this.tabPageDownUploads.PerformLayout();
             this.tabPageExam.ResumeLayout(false);
-            this.groupBoxOnlineExam.ResumeLayout(false);
-            this.groupBoxOnlineExam.PerformLayout();
+            this.tabPageExam.PerformLayout();
             this.tabPageSecurity.ResumeLayout(false);
             this.tabPageSecurity.PerformLayout();
             this.groupBoxSecurityOptions.ResumeLayout(false);
@@ -2139,13 +2263,6 @@
         private System.Windows.Forms.TabControl tabControlSebWindowsConfig;
         private System.Windows.Forms.TabPage tabPageDownUploads;
         private System.Windows.Forms.TabPage tabPageExam;
-        private System.Windows.Forms.GroupBox groupBoxOnlineExam;
-        private System.Windows.Forms.TextBox textBoxAutostartProcess;
-        private System.Windows.Forms.Label labelSebBrowser;
-        private System.Windows.Forms.Label labelAutostartProcess;
-        private System.Windows.Forms.TextBox textBoxSebBrowser;
-        private System.Windows.Forms.Label labelPermittedApplications;
-        private System.Windows.Forms.TextBox textBoxPermittedApplications;
         private System.Windows.Forms.TabPage tabPageApplications;
         private System.Windows.Forms.TabPage tabPageNetwork;
         private System.Windows.Forms.TabPage tabPageSecurity;
@@ -2262,6 +2379,21 @@
         private System.Windows.Forms.ComboBox comboBoxNewBrowserWindowHeight;
         private System.Windows.Forms.ListBox listBoxLinksRequesting;
         private System.Windows.Forms.ListBox listBoxLinksJavaScript;
+        private System.Windows.Forms.CheckBox checkBoxDownloadAndOpenPDFFiles;
+        private System.Windows.Forms.CheckBox checkBoxOpenFilesAfterDownloading;
+        private System.Windows.Forms.CheckBox checkBoxAllowDownUploadingFiles;
+        private System.Windows.Forms.CheckBox checkBoxSendBrowserExamKeyInHTTPHeader;
+        private System.Windows.Forms.CheckBox checkBoxCopyBrowserExamKeyToClipboard;
+        private System.Windows.Forms.Label labelBrowserExamKey;
+        private System.Windows.Forms.TextBox textBoxBrowserExamKey;
+        private System.Windows.Forms.TextBox textBoxQuitURL;
+        private System.Windows.Forms.Label labelQuitURL;
+        private System.Windows.Forms.Button buttonGenerateBrowserExamKey;
+        private System.Windows.Forms.Label labelCopyBrowserExamKey;
+        private System.Windows.Forms.Label labelPlaceThisQuitLink;
+        private System.Windows.Forms.Label labelChooseFileToUpload;
+        private System.Windows.Forms.Label labelSaveDownloadedFilesTo;
+        private System.Windows.Forms.ListBox listBoxChooseFileToUpload;
 
     }
 }
