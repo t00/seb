@@ -85,6 +85,7 @@
             this.labelOpenSettings = new System.Windows.Forms.Label();
             this.labelSaveSettingsAs = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.buttonPasteFromSavedClipboard = new System.Windows.Forms.Button();
             this.labelSEBServerURL = new System.Windows.Forms.Label();
             this.textBoxSEBServerURL = new System.Windows.Forms.TextBox();
             this.buttonHelp = new System.Windows.Forms.Button();
@@ -106,9 +107,9 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.buttonSaveDownloadedFilesTo = new System.Windows.Forms.Button();
             this.listBoxChooseFileToUpload = new System.Windows.Forms.ListBox();
             this.labelChooseFileToUpload = new System.Windows.Forms.Label();
-            this.labelSaveDownloadedFilesTo = new System.Windows.Forms.Label();
             this.checkBoxDownloadAndOpenPDFFiles = new System.Windows.Forms.CheckBox();
             this.checkBoxOpenFilesAfterDownloading = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploadingFiles = new System.Windows.Forms.CheckBox();
@@ -192,7 +193,7 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.buttonPasteFromSavedClipboard = new System.Windows.Forms.Button();
+            this.folderBrowserDialogDownloadFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.tabPageBrowser.SuspendLayout();
             this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
@@ -905,6 +906,16 @@
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
+            // buttonPasteFromSavedClipboard
+            // 
+            this.buttonPasteFromSavedClipboard.Location = new System.Drawing.Point(736, 36);
+            this.buttonPasteFromSavedClipboard.Name = "buttonPasteFromSavedClipboard";
+            this.buttonPasteFromSavedClipboard.Size = new System.Drawing.Size(210, 23);
+            this.buttonPasteFromSavedClipboard.TabIndex = 48;
+            this.buttonPasteFromSavedClipboard.Text = "Paste from saved clipboard";
+            this.buttonPasteFromSavedClipboard.UseVisualStyleBackColor = true;
+            this.buttonPasteFromSavedClipboard.Click += new System.EventHandler(this.buttonPasteFromSavedClipboard_Click);
+            // 
             // labelSEBServerURL
             // 
             this.labelSEBServerURL.AutoSize = true;
@@ -1118,9 +1129,9 @@
             // 
             // tabPageDownUploads
             // 
+            this.tabPageDownUploads.Controls.Add(this.buttonSaveDownloadedFilesTo);
             this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUpload);
             this.tabPageDownUploads.Controls.Add(this.labelChooseFileToUpload);
-            this.tabPageDownUploads.Controls.Add(this.labelSaveDownloadedFilesTo);
             this.tabPageDownUploads.Controls.Add(this.checkBoxDownloadAndOpenPDFFiles);
             this.tabPageDownUploads.Controls.Add(this.checkBoxOpenFilesAfterDownloading);
             this.tabPageDownUploads.Controls.Add(this.checkBoxAllowDownUploadingFiles);
@@ -1132,6 +1143,17 @@
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
+            // 
+            // buttonSaveDownloadedFilesTo
+            // 
+            this.buttonSaveDownloadedFilesTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSaveDownloadedFilesTo.Location = new System.Drawing.Point(152, 79);
+            this.buttonSaveDownloadedFilesTo.Name = "buttonSaveDownloadedFilesTo";
+            this.buttonSaveDownloadedFilesTo.Size = new System.Drawing.Size(191, 25);
+            this.buttonSaveDownloadedFilesTo.TabIndex = 77;
+            this.buttonSaveDownloadedFilesTo.Text = "Save downloaded files to...";
+            this.buttonSaveDownloadedFilesTo.UseVisualStyleBackColor = true;
+            this.buttonSaveDownloadedFilesTo.Click += new System.EventHandler(this.buttonSaveDownloadedFilesTo_Click);
             // 
             // listBoxChooseFileToUpload
             // 
@@ -1155,15 +1177,6 @@
             this.labelChooseFileToUpload.Size = new System.Drawing.Size(153, 17);
             this.labelChooseFileToUpload.TabIndex = 75;
             this.labelChooseFileToUpload.Text = "Choose file to upload...";
-            // 
-            // labelSaveDownloadedFilesTo
-            // 
-            this.labelSaveDownloadedFilesTo.AutoSize = true;
-            this.labelSaveDownloadedFilesTo.Location = new System.Drawing.Point(210, 76);
-            this.labelSaveDownloadedFilesTo.Name = "labelSaveDownloadedFilesTo";
-            this.labelSaveDownloadedFilesTo.Size = new System.Drawing.Size(169, 17);
-            this.labelSaveDownloadedFilesTo.TabIndex = 74;
-            this.labelSaveDownloadedFilesTo.Text = "Save downloaded files to:";
             // 
             // checkBoxDownloadAndOpenPDFFiles
             // 
@@ -2191,15 +2204,9 @@
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
-            // buttonPasteFromSavedClipboard
+            // folderBrowserDialogDownloadFolder
             // 
-            this.buttonPasteFromSavedClipboard.Location = new System.Drawing.Point(736, 36);
-            this.buttonPasteFromSavedClipboard.Name = "buttonPasteFromSavedClipboard";
-            this.buttonPasteFromSavedClipboard.Size = new System.Drawing.Size(210, 23);
-            this.buttonPasteFromSavedClipboard.TabIndex = 48;
-            this.buttonPasteFromSavedClipboard.Text = "Paste from saved clipboard";
-            this.buttonPasteFromSavedClipboard.UseVisualStyleBackColor = true;
-            this.buttonPasteFromSavedClipboard.Click += new System.EventHandler(this.buttonPasteFromSavedClipboard_Click);
+            this.folderBrowserDialogDownloadFolder.HelpRequest += new System.EventHandler(this.folderBrowserDialogDownloadFolder_HelpRequest);
             // 
             // SebWindowsConfigForm
             // 
@@ -2413,9 +2420,10 @@
         private System.Windows.Forms.Label labelCopyBrowserExamKey;
         private System.Windows.Forms.Label labelPlaceThisQuitLink;
         private System.Windows.Forms.Label labelChooseFileToUpload;
-        private System.Windows.Forms.Label labelSaveDownloadedFilesTo;
         private System.Windows.Forms.ListBox listBoxChooseFileToUpload;
         private System.Windows.Forms.Button buttonPasteFromSavedClipboard;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadFolder;
+        private System.Windows.Forms.Button buttonSaveDownloadedFilesTo;
 
     }
 }

@@ -1807,6 +1807,27 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles] = checkBoxAllowDownUploadingFiles.Checked;
         }
 
+        private void folderBrowserDialogDownloadFolder_HelpRequest(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSaveDownloadedFilesTo_Click(object sender, EventArgs e)
+        {
+            // Set the default directory in the Folder Browser Dialog
+            folderBrowserDialogDownloadFolder.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+
+            // Get the user inputs in the File Dialog
+            DialogResult   dialogResult = folderBrowserDialogDownloadFolder.ShowDialog();
+            String       downloadFolder = folderBrowserDialogDownloadFolder.SelectedPath;
+
+            // If the user clicked "Cancel", do nothing
+            if (dialogResult.Equals(DialogResult.Cancel)) return;
+
+            // If the user clicked "OK", ...
+            settingString[StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo] = downloadFolder;
+        }
+
         private void checkBoxOpenFilesAfterDownloading_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading] = checkBoxOpenFilesAfterDownloading.Checked;
@@ -2348,7 +2369,6 @@ namespace SebWindowsConfig
             groupBoxOutsideSeb.Visible = true;
             groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
-
 
 
 
