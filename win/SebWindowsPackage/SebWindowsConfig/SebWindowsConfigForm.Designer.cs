@@ -106,6 +106,9 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.listBoxChooseFileToUpload = new System.Windows.Forms.ListBox();
+            this.labelChooseFileToUpload = new System.Windows.Forms.Label();
+            this.labelSaveDownloadedFilesTo = new System.Windows.Forms.Label();
             this.checkBoxDownloadAndOpenPDFFiles = new System.Windows.Forms.CheckBox();
             this.checkBoxOpenFilesAfterDownloading = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploadingFiles = new System.Windows.Forms.CheckBox();
@@ -189,9 +192,7 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.labelSaveDownloadedFilesTo = new System.Windows.Forms.Label();
-            this.labelChooseFileToUpload = new System.Windows.Forms.Label();
-            this.listBoxChooseFileToUpload = new System.Windows.Forms.ListBox();
+            this.buttonPasteFromSavedClipboard = new System.Windows.Forms.Button();
             this.tabPageBrowser.SuspendLayout();
             this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
@@ -447,6 +448,7 @@
             this.comboBoxNewBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
             this.comboBoxNewBrowserWindowHeight.TabIndex = 63;
             this.comboBoxNewBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_SelectedIndexChanged);
+            this.comboBoxNewBrowserWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_TextUpdate);
             // 
             // comboBoxNewBrowserWindowWidth
             // 
@@ -461,6 +463,7 @@
             this.comboBoxNewBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
             this.comboBoxNewBrowserWindowWidth.TabIndex = 62;
             this.comboBoxNewBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowWidth_SelectedIndexChanged);
+            this.comboBoxNewBrowserWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxNewBrowserWindowWidth_TextUpdate);
             // 
             // labelNewBrowserWindowHeight
             // 
@@ -551,6 +554,7 @@
             this.comboBoxMainBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
             this.comboBoxMainBrowserWindowHeight.TabIndex = 62;
             this.comboBoxMainBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowHeight_SelectedIndexChanged);
+            this.comboBoxMainBrowserWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxMainBrowserWindowHeight_TextUpdate);
             // 
             // comboBoxMainBrowserWindowWidth
             // 
@@ -565,6 +569,7 @@
             this.comboBoxMainBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
             this.comboBoxMainBrowserWindowWidth.TabIndex = 61;
             this.comboBoxMainBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowWidth_SelectedIndexChanged);
+            this.comboBoxMainBrowserWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxMainBrowserWindowWidth_TextUpdate);
             // 
             // labelMainBrowserWindowHeight
             // 
@@ -733,6 +738,7 @@
             this.comboBoxChooseIdentity.Size = new System.Drawing.Size(657, 24);
             this.comboBoxChooseIdentity.TabIndex = 57;
             this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
+            this.comboBoxChooseIdentity.TextUpdate += new System.EventHandler(this.comboBoxChooseIdentity_TextUpdate);
             // 
             // labelConfirmSettingsPassword
             // 
@@ -870,6 +876,7 @@
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.buttonPasteFromSavedClipboard);
             this.tabPageGeneral.Controls.Add(this.labelSEBServerURL);
             this.tabPageGeneral.Controls.Add(this.textBoxSEBServerURL);
             this.tabPageGeneral.Controls.Add(this.buttonHelp);
@@ -925,6 +932,7 @@
             this.buttonHelp.TabIndex = 45;
             this.buttonHelp.Text = "Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
             // buttonRestartSEB
             // 
@@ -934,6 +942,7 @@
             this.buttonRestartSEB.TabIndex = 44;
             this.buttonRestartSEB.Text = "Restart SEB";
             this.buttonRestartSEB.UseVisualStyleBackColor = true;
+            this.buttonRestartSEB.Click += new System.EventHandler(this.buttonRestartSEB_Click);
             // 
             // buttonQuit
             // 
@@ -943,6 +952,7 @@
             this.buttonQuit.TabIndex = 43;
             this.buttonQuit.Text = "Quit";
             this.buttonQuit.UseVisualStyleBackColor = true;
+            this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
             // 
             // buttonAbout
             // 
@@ -952,6 +962,7 @@
             this.buttonAbout.TabIndex = 42;
             this.buttonAbout.Text = "About";
             this.buttonAbout.UseVisualStyleBackColor = true;
+            this.buttonAbout.Click += new System.EventHandler(this.buttonAbout_Click);
             // 
             // textBoxConfirmAdministratorPassword
             // 
@@ -1121,6 +1132,38 @@
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
+            // 
+            // listBoxChooseFileToUpload
+            // 
+            this.listBoxChooseFileToUpload.FormattingEnabled = true;
+            this.listBoxChooseFileToUpload.ItemHeight = 16;
+            this.listBoxChooseFileToUpload.Items.AddRange(new object[] {
+            "open in new window",
+            "open in same window",
+            "get generally blocked"});
+            this.listBoxChooseFileToUpload.Location = new System.Drawing.Point(33, 279);
+            this.listBoxChooseFileToUpload.Name = "listBoxChooseFileToUpload";
+            this.listBoxChooseFileToUpload.Size = new System.Drawing.Size(159, 20);
+            this.listBoxChooseFileToUpload.TabIndex = 76;
+            this.listBoxChooseFileToUpload.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUpload_SelectedIndexChanged);
+            // 
+            // labelChooseFileToUpload
+            // 
+            this.labelChooseFileToUpload.AutoSize = true;
+            this.labelChooseFileToUpload.Location = new System.Drawing.Point(30, 244);
+            this.labelChooseFileToUpload.Name = "labelChooseFileToUpload";
+            this.labelChooseFileToUpload.Size = new System.Drawing.Size(153, 17);
+            this.labelChooseFileToUpload.TabIndex = 75;
+            this.labelChooseFileToUpload.Text = "Choose file to upload...";
+            // 
+            // labelSaveDownloadedFilesTo
+            // 
+            this.labelSaveDownloadedFilesTo.AutoSize = true;
+            this.labelSaveDownloadedFilesTo.Location = new System.Drawing.Point(210, 76);
+            this.labelSaveDownloadedFilesTo.Name = "labelSaveDownloadedFilesTo";
+            this.labelSaveDownloadedFilesTo.Size = new System.Drawing.Size(169, 17);
+            this.labelSaveDownloadedFilesTo.TabIndex = 74;
+            this.labelSaveDownloadedFilesTo.Text = "Save downloaded files to:";
             // 
             // checkBoxDownloadAndOpenPDFFiles
             // 
@@ -2148,37 +2191,15 @@
             this.listBoxExitKey2.TabIndex = 49;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
-            // labelSaveDownloadedFilesTo
+            // buttonPasteFromSavedClipboard
             // 
-            this.labelSaveDownloadedFilesTo.AutoSize = true;
-            this.labelSaveDownloadedFilesTo.Location = new System.Drawing.Point(210, 76);
-            this.labelSaveDownloadedFilesTo.Name = "labelSaveDownloadedFilesTo";
-            this.labelSaveDownloadedFilesTo.Size = new System.Drawing.Size(169, 17);
-            this.labelSaveDownloadedFilesTo.TabIndex = 74;
-            this.labelSaveDownloadedFilesTo.Text = "Save downloaded files to:";
-            // 
-            // labelChooseFileToUpload
-            // 
-            this.labelChooseFileToUpload.AutoSize = true;
-            this.labelChooseFileToUpload.Location = new System.Drawing.Point(30, 244);
-            this.labelChooseFileToUpload.Name = "labelChooseFileToUpload";
-            this.labelChooseFileToUpload.Size = new System.Drawing.Size(153, 17);
-            this.labelChooseFileToUpload.TabIndex = 75;
-            this.labelChooseFileToUpload.Text = "Choose file to upload...";
-            // 
-            // listBoxChooseFileToUpload
-            // 
-            this.listBoxChooseFileToUpload.FormattingEnabled = true;
-            this.listBoxChooseFileToUpload.ItemHeight = 16;
-            this.listBoxChooseFileToUpload.Items.AddRange(new object[] {
-            "open in new window",
-            "open in same window",
-            "get generally blocked"});
-            this.listBoxChooseFileToUpload.Location = new System.Drawing.Point(33, 279);
-            this.listBoxChooseFileToUpload.Name = "listBoxChooseFileToUpload";
-            this.listBoxChooseFileToUpload.Size = new System.Drawing.Size(159, 20);
-            this.listBoxChooseFileToUpload.TabIndex = 76;
-            this.listBoxChooseFileToUpload.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUpload_SelectedIndexChanged);
+            this.buttonPasteFromSavedClipboard.Location = new System.Drawing.Point(736, 36);
+            this.buttonPasteFromSavedClipboard.Name = "buttonPasteFromSavedClipboard";
+            this.buttonPasteFromSavedClipboard.Size = new System.Drawing.Size(210, 23);
+            this.buttonPasteFromSavedClipboard.TabIndex = 48;
+            this.buttonPasteFromSavedClipboard.Text = "Paste from saved clipboard";
+            this.buttonPasteFromSavedClipboard.UseVisualStyleBackColor = true;
+            this.buttonPasteFromSavedClipboard.Click += new System.EventHandler(this.buttonPasteFromSavedClipboard_Click);
             // 
             // SebWindowsConfigForm
             // 
@@ -2394,6 +2415,7 @@
         private System.Windows.Forms.Label labelChooseFileToUpload;
         private System.Windows.Forms.Label labelSaveDownloadedFilesTo;
         private System.Windows.Forms.ListBox listBoxChooseFileToUpload;
+        private System.Windows.Forms.Button buttonPasteFromSavedClipboard;
 
     }
 }

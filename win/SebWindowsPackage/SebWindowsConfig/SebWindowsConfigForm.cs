@@ -1446,6 +1446,11 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupGeneral, ValueStartURL] = textBoxStartURL.Text;
         }
 
+        private void buttonPasteFromSavedClipboard_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void textBoxSEBServerURL_TextChanged(object sender, EventArgs e)
         {
             settingString[StateNew, GroupGeneral, ValueSEBServerURL] = textBoxSEBServerURL.Text;
@@ -1490,6 +1495,50 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupGeneral, ValueConfirmQuitPassword] = textBoxConfirmQuitPassword.Text;
         }
 
+        private void buttonAbout_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonQuit_Click(object sender, EventArgs e)
+        {
+/*
+            // If no file has been opened, save the current settings
+            // to the target configuration file ("SebStarter.ini/xml/seb")
+            if (currentFileSebStarterIni.Equals(""))
+            {
+                currentFileSebStarterIni = targetFileSebStarterIni;
+                currentPathSebStarterIni = targetPathSebStarterIni;
+            }
+
+            String fileName = currentPathSebStarterIni;
+
+            // Cut off the file extension ".ini", ".xml" or ".seb",
+            // that is the last 4 characters of the file name
+            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameIni = fileNameRaw + ".ini";
+            String fileNameXml = fileNameRaw + ".xml";
+            String fileNameSeb = fileNameRaw + ".seb";
+
+            // Save the configuration file so that nothing gets lost
+            SaveIniFile(fileNameIni);
+          //SaveXmlFile(fileNameXml);
+          //SaveSebFile(fileNameSeb);
+*/
+            // Close the configuration window and exit
+            this.Close();
+        }
+
+        private void buttonRestartSEB_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
         // *******************
@@ -1513,6 +1562,13 @@ namespace SebWindowsConfig
         private void comboBoxChooseIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.SelectedIndex;
+            settingString [StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.Text;
+        }
+
+        private void comboBoxChooseIdentity_TextUpdate(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.SelectedIndex;
+            settingString [StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.Text;
         }
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -1610,11 +1666,25 @@ namespace SebWindowsConfig
         private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+        }
+
+        private void comboBoxMainBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+        }
+
+        private void comboBoxMainBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void listBoxMainBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
@@ -1653,34 +1723,48 @@ namespace SebWindowsConfig
             settingInteger[StateNew, GroupBrowser, ValueLinksRequesting] = listBoxLinksRequesting.SelectedIndex + 1;
         }
 
-        private void listBoxLinksJavaScript_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript] = listBoxLinksJavaScript.SelectedIndex + 1;
-        }
-
         private void checkBoxBlockLinksWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupBrowser, ValueBlockLinksToDifferentServer] = checkBoxBlockLinksToDifferentServer.Checked;
         }
 
-        private void checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToDifferentServer] = checkBoxBlockJavaScriptToDifferentServer.Checked;
-        }
-
         private void comboBoxNewBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowWidth] = comboBoxNewBrowserWindowWidth.Text;
+        }
+
+        private void comboBoxNewBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
 
         private void comboBoxNewBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowHeight] = comboBoxNewBrowserWindowHeight.Text;
+        }
+
+        private void comboBoxNewBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
 
         private void listBoxNewBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHorizPos] = listBoxNewBrowserWindowHorizPos.SelectedIndex + 1;
+        }
+
+        private void listBoxLinksJavaScript_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript] = listBoxLinksJavaScript.SelectedIndex + 1;
+        }
+
+        private void checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupBrowser, ValueBlockJavaScriptToDifferentServer] = checkBoxBlockJavaScriptToDifferentServer.Checked;
         }
 
         private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
@@ -2245,37 +2329,6 @@ namespace SebWindowsConfig
             checkBoxEnableF12.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12];
         }
 
-
-
-        // *************************************
-        // Save both config files and exit click
-        // *************************************
-        private void buttonSaveConfigFileAndExit_Click(object sender, EventArgs e)
-        {
-            // If no file has been opened, save the current settings
-            // to the target ini file (SebStarter.ini)
-            if (currentFileSebStarterIni.Equals(""))
-            {
-                currentFileSebStarterIni = targetFileSebStarterIni;
-                currentPathSebStarterIni = targetPathSebStarterIni;
-            }
-
-            // Save the ini file so that nothing gets lost
-            SaveIniFile(currentPathSebStarterIni);
-
-            // Close the configuration window and exit
-            this.Close();
-        }
-
-
-        // *************************
-        // Exit without saving click
-        // *************************
-        private void buttonExitWithoutSaving_Click(object sender, EventArgs e)
-        {
-            // Close the configuration window and exit without saving
-            this.Close();
-        }
 
 
         private void radioButtonPreviousValuesFromFile_CheckedChanged(object sender, EventArgs e)
