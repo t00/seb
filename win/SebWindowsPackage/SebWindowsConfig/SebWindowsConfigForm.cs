@@ -144,7 +144,7 @@ namespace SebWindowsConfig
         const int ValueUseFullScreenMode           = 2;
         const int ValueMainBrowserWindowWidth  = 3;
         const int ValueMainBrowserWindowHeight = 4;
-        const int ValueMainBrowserWindowHorizPos   = 5;
+        const int ValueMainBrowserWindowPosition   = 5;
         const int ValueEnableBrowserWindowToolbar  = 6;
         const int ValueHideToolbarAsDefault        = 7;
         const int ValueShowMenuBar                 = 8;
@@ -168,7 +168,7 @@ namespace SebWindowsConfig
         const int ValueBlockJavaScriptToDifferentServer = 4;
         const int ValueNewBrowserWindowWidth            = 5;
         const int ValueNewBrowserWindowHeight           = 6;
-        const int ValueNewBrowserWindowHorizPos         = 7;
+        const int ValueNewBrowserWindowPosition         = 7;
         const int ValueEnablePlugIns                    = 8;
         const int ValueEnableJava                       = 9;
         const int ValueEnableJavaScript                 = 10;
@@ -226,10 +226,12 @@ namespace SebWindowsConfig
         const int NumValueNetwork = 0;
 
         // Group "Security"
-        const int ValueEnableLogging = 1;
-        const int NumValueSecurity = 1;
+        const int ValueSEBServicePolicy = 1;
+        const int ValueEnableLogging    = 2;
+        const int NumValueSecurity = 2;
 
-        const String MessageEnableLogging = "EnableLogging";
+        const String MessageSEBServicePolicy = "SEBServicePolicy";
+        const String MessageEnableLogging    = "EnableLogging";
 
         // Group "Exit Keys"
         const int ValueExitKey1 = 1;
@@ -385,9 +387,12 @@ namespace SebWindowsConfig
         static List<String> chooseIdentityStringList = new List<String>();
 
         // Entries of ListBoxes
-        static String[]      linkTreatmentString = new String[4];
-        static String[]           horizPosString = new String[4];
+        static String[]        windowWidthString = new String[5];
+        static String[]       windowHeightString = new String[5];
+        static String[]     windowPositionString = new String[4];
+        static String[]         linkPolicyString = new String[4];
         static String[] chooseFileToUploadString = new String[4];
+        static String[]   sebServicePolicyString = new String[4];
         static String[]        functionKeyString = new String[13];
 
         // Number of values per group
@@ -466,7 +471,7 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupAppearance, ValueUseFullScreenMode        ] = false;
             settingString [StateDef, GroupAppearance, ValueMainBrowserWindowWidth   ] = "100%";
             settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHeight  ] = "100%";
-            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos] = "Center";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowPosition] = "Center";
 
             settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar] = false;
             settingBoolean[StateDef, GroupAppearance, ValueHideToolbarAsDefault      ] = false;
@@ -475,7 +480,7 @@ namespace SebWindowsConfig
 
             settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowWidth   ] = 0;
             settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHeight  ] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHorizPos] = 2;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowPosition] = 2;
 
             // Default settings for group "Browser"
             settingString [StateDef, GroupBrowser, ValueLinksRequesting                 ] = "open in new window";
@@ -485,7 +490,7 @@ namespace SebWindowsConfig
 
             settingString [StateDef, GroupBrowser, ValueNewBrowserWindowWidth           ] = "100%";
             settingString [StateDef, GroupBrowser, ValueNewBrowserWindowHeight          ] = "100%";
-            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos        ] = "Center";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowPosition        ] = "Center";
 
             settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns                   ] = true;
             settingBoolean[StateDef, GroupBrowser, ValueEnableJava                      ] = false;
@@ -499,14 +504,16 @@ namespace SebWindowsConfig
 
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowWidth   ] = 0;
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHeight  ] = 0;
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowHorizPos] = 2;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowPosition] = 2;
 
             // Default settings for group "DownUploads"
             settingBoolean[StateDef, GroupDownUploads, ValueAllowDownUploadingFiles  ] = true;
-            settingString [StateDef, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = "Downloads";
+            settingString [StateDef, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = "Desktop";
             settingBoolean[StateDef, GroupDownUploads, ValueOpenFilesAfterDownloading] = true;
-            settingString [StateDef, GroupDownUploads, ValueChooseFileToUpload       ] = chooseFileToUploadString[1];
+            settingString [StateDef, GroupDownUploads, ValueChooseFileToUpload       ] = "manually with file requester";
             settingBoolean[StateDef, GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = false;
+
+            settingInteger[StateDef, GroupDownUploads, ValueChooseFileToUpload] = 1;
 
             // Default settings for group "Exam"
             settingString [StateDef, GroupExam, ValueBrowserExamKey                ] = "";
@@ -519,7 +526,10 @@ namespace SebWindowsConfig
             // Default settings for group "Network"
 
             // Default settings for group "Security"
-            settingBoolean[StateDef, GroupSecurity, ValueEnableLogging] = true;
+            settingString [StateDef, GroupSecurity, ValueSEBServicePolicy] = "allow to use SEB only with service";
+            settingBoolean[StateDef, GroupSecurity, ValueEnableLogging   ] = true;
+
+            settingInteger[StateDef, GroupSecurity, ValueSEBServicePolicy] = 1;
 
             // Default settings for group "Registry"
             // Default settings for group "HookedKeys"
@@ -605,13 +615,14 @@ namespace SebWindowsConfig
 
             dataType[GroupAppearance, ValueMainBrowserWindowWidth   ] = TypeString;
             dataType[GroupAppearance, ValueMainBrowserWindowHeight  ] = TypeString;
-            dataType[GroupAppearance, ValueMainBrowserWindowHorizPos] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowPosition] = TypeString;
 
-            dataType[GroupBrowser, ValueLinksRequesting         ] = TypeString;
-            dataType[GroupBrowser, ValueLinksJavaScript         ] = TypeString;
             dataType[GroupBrowser, ValueNewBrowserWindowWidth   ] = TypeString;
             dataType[GroupBrowser, ValueNewBrowserWindowHeight  ] = TypeString;
-            dataType[GroupBrowser, ValueNewBrowserWindowHorizPos] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowPosition] = TypeString;
+
+            dataType[GroupBrowser, ValueLinksRequesting] = TypeString;
+            dataType[GroupBrowser, ValueLinksJavaScript] = TypeString;
 
             dataType[GroupDownUploads, ValueSaveDownloadedFilesTo] = TypeString;
             dataType[GroupDownUploads, ValueChooseFileToUpload   ] = TypeString;
@@ -619,6 +630,7 @@ namespace SebWindowsConfig
             dataType[GroupExam, ValueBrowserExamKey] = TypeString;
             dataType[GroupExam, ValueQuitURL       ] = TypeString;
 
+            dataType[GroupSecurity, ValueSEBServicePolicy] = TypeString;
 
 
             // Number of values per group
@@ -694,7 +706,7 @@ namespace SebWindowsConfig
             valueString[GroupAppearance, ValueUseFullScreenMode          ] = MessageUseFullScreenMode;
             valueString[GroupAppearance, ValueMainBrowserWindowWidth     ] = MessageMainBrowserWindowSizeWidth;
             valueString[GroupAppearance, ValueMainBrowserWindowHeight    ] = MessageMainBrowserWindowSizeHeight;
-            valueString[GroupAppearance, ValueMainBrowserWindowHorizPos  ] = MessageMainBrowserWindowHorizPos;
+            valueString[GroupAppearance, ValueMainBrowserWindowPosition  ] = MessageMainBrowserWindowHorizPos;
             valueString[GroupAppearance, ValueEnableBrowserWindowToolbar ] = MessageEnableBrowserWindowToolbar;
             valueString[GroupAppearance, ValueHideToolbarAsDefault       ] = MessageHideToolbarAsDefault;
             valueString[GroupAppearance, ValueShowMenuBar                ] = MessageShowMenuBar;
@@ -706,7 +718,7 @@ namespace SebWindowsConfig
             valueString[GroupBrowser, ValueBlockJavaScriptToDifferentServer] = MessageBlockJavaScriptToDifferentServer;
             valueString[GroupBrowser, ValueNewBrowserWindowWidth           ] = MessageNewBrowserWindowSizeWidth;
             valueString[GroupBrowser, ValueNewBrowserWindowHeight          ] = MessageNewBrowserWindowSizeHeight;
-            valueString[GroupBrowser, ValueNewBrowserWindowHorizPos        ] = MessageNewBrowserWindowHorizPos;
+            valueString[GroupBrowser, ValueNewBrowserWindowPosition        ] = MessageNewBrowserWindowHorizPos;
             valueString[GroupBrowser, ValueEnablePlugIns                   ] = MessageEnablePlugIns;
             valueString[GroupBrowser, ValueEnableJava                      ] = MessageEnableJava;
             valueString[GroupBrowser, ValueEnableJavaScript                ] = MessageEnableJavaScript;
@@ -725,7 +737,8 @@ namespace SebWindowsConfig
             valueString[GroupExam, ValueSendBrowserExamKeyInHTTPHeader] = MessageSendBrowserExamKeyInHTTPHeader;
             valueString[GroupExam, ValueQuitURL                       ] = MessageQuitURL;
 
-            valueString[GroupSecurity, ValueEnableLogging] = MessageEnableLogging;
+            valueString[GroupSecurity, ValueSEBServicePolicy] = MessageSEBServicePolicy;
+            valueString[GroupSecurity, ValueEnableLogging   ] = MessageEnableLogging;
 
             valueString[GroupExitKeys, ValueExitKey1] = MessageExitKey1;
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
@@ -796,22 +809,42 @@ namespace SebWindowsConfig
             String[] chooseIdentityStringArray = chooseIdentityStringList.ToArray();
 
             // Define the strings for the link treatment
-            linkTreatmentString[0] = "";
-            linkTreatmentString[1] = "open in new window";
-            linkTreatmentString[2] = "open in same window";
-            linkTreatmentString[3] = "get generally blocked";
+            linkPolicyString[0] = "";
+            linkPolicyString[1] = "open in new window";
+            linkPolicyString[2] = "open in same window";
+            linkPolicyString[3] = "get generally blocked";
 
-            // Define the strings for the horizontal positioning
-            horizPosString[0] = "";
-            horizPosString[1] = "Left";
-            horizPosString[2] = "Center";
-            horizPosString[3] = "Right";
+            // Define the strings for the window width
+            windowWidthString[0] = "";
+            windowWidthString[1] = "50%";
+            windowWidthString[2] = "100%";
+            windowWidthString[3] = "800";
+            windowWidthString[4] = "1000";
+
+            // Define the strings for the window height
+            windowHeightString[0] = "";
+            windowHeightString[1] = "80%";
+            windowHeightString[2] = "100%";
+            windowHeightString[3] = "600";
+            windowHeightString[4] = "800";
+
+            // Define the strings for the window horizontal positioning
+            windowPositionString[0] = "";
+            windowPositionString[1] = "Left";
+            windowPositionString[2] = "Center";
+            windowPositionString[3] = "Right";
 
             // Define the strings for the link treatment
             chooseFileToUploadString[0] = "";
             chooseFileToUploadString[1] = "manually with file requester";
             chooseFileToUploadString[2] = "by attempting to upload the same file downloaded before";
             chooseFileToUploadString[3] = "by only allowing to upload the same file downloaded before";
+
+            // Define the strings for the SEB service policy
+            sebServicePolicyString[0] = "";
+            sebServicePolicyString[1] = "allow to use SEB only with service";
+            sebServicePolicyString[2] = "display warning when service is not running";
+            sebServicePolicyString[3] = "allow to run SEB without service";
 
             // Define the strings for the function keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
@@ -835,14 +868,13 @@ namespace SebWindowsConfig
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
-
+//          folderBrowserDialogDownloadFolder.RootFolder = Environment.SpecialFolder.DesktopDirectory;
 
             // Soll das hier stehen oder in SetWidgetsToNewSettingsOfSebStarterIni() ???
             comboBoxChooseIdentity.Items.AddRange(chooseIdentityStringArray);
             comboBoxChooseIdentity.SelectedIndex = 0;
 
         } // end of contructor   SebWindowsConfigForm()
-
 
 
 
@@ -858,65 +890,90 @@ namespace SebWindowsConfig
             // so initially the 0th list entry is displayed ("none").
             settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
 
+            // Main Window Width/Height/Position needs a conversion from string to integer
+            // New  Window Width/Height/Position needs a conversion from string to integer
+            // Link Treatment         needs a conversion from string to integer
+            // Choose File To Upload  needs a conversion from string to integer
+            // Exit Key Sequence      needs a conversion from string to integer
 
-            // Horizontal Positioning needs a conversion from string to integer
-            String tmpStringHorizPosMain = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos];
-            String tmpStringHorizPosNew  = settingString[StateTmp, GroupBrowser   , ValueNewBrowserWindowHorizPos];
+            String tmpStringMainWindowWidth    = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowWidth];
+            String tmpStringMainWindowHeight   = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHeight];
+            String tmpStringMainWindowPosition = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowPosition];
 
-            int tmpIndexHorizPosMain = 0;
-            int tmpIndexHorizPosNew  = 0;
-            for (int indexHorizPos = 1; indexHorizPos <= 3; indexHorizPos++)
-            {
-                String hps = horizPosString[indexHorizPos];
-                if (tmpStringHorizPosMain.Equals(hps)) tmpIndexHorizPosMain = indexHorizPos;
-                if (tmpStringHorizPosNew .Equals(hps)) tmpIndexHorizPosNew  = indexHorizPos;
-            }
-            settingInteger[StateTmp, GroupAppearance, ValueMainBrowserWindowHorizPos] = tmpIndexHorizPosMain;
-            settingInteger[StateTmp, GroupBrowser   , ValueNewBrowserWindowHorizPos ] = tmpIndexHorizPosNew;
+            String tmpStringNewWindowWidth     = settingString[StateTmp, GroupBrowser   , ValueNewBrowserWindowWidth];
+            String tmpStringNewWindowHeight    = settingString[StateTmp, GroupBrowser   , ValueNewBrowserWindowHeight];
+            String tmpStringNewWindowPosition  = settingString[StateTmp, GroupBrowser   , ValueNewBrowserWindowPosition];
 
-
-            // Link Treatment needs a conversion from string to integer
-            String tmpStringLinksRequesting = settingString[StateTmp, GroupBrowser, ValueLinksRequesting];
-            String tmpStringLinksJavaScript = settingString[StateTmp, GroupBrowser, ValueLinksJavaScript];
-
-            int tmpIndexLinksRequesting = 0;
-            int tmpIndexLinksJavaScript = 0;
-            for (int indexLinks = 1; indexLinks <= 3; indexLinks++)
-            {
-                String lts = linkTreatmentString[indexLinks];
-                if (tmpStringLinksRequesting.Equals(lts)) tmpIndexLinksRequesting = indexLinks;
-                if (tmpStringLinksJavaScript.Equals(lts)) tmpIndexLinksJavaScript = indexLinks;
-            }
-            settingInteger[StateTmp, GroupBrowser, ValueLinksRequesting] = tmpIndexLinksRequesting;
-            settingInteger[StateTmp, GroupBrowser, ValueLinksJavaScript] = tmpIndexLinksJavaScript;
-
-
-            // Choose File To Upload needs a conversion from string to integer
+            String tmpStringLinksRequesting    = settingString[StateTmp, GroupBrowser    , ValueLinksRequesting];
+            String tmpStringLinksJavaScript    = settingString[StateTmp, GroupBrowser    , ValueLinksJavaScript];
             String tmpStringChooseFileToUpload = settingString[StateTmp, GroupDownUploads, ValueChooseFileToUpload];
+            String tmpStringSEBServicePolicy   = settingString[StateTmp, GroupSecurity   , ValueSEBServicePolicy];
 
+            String tmpStringExitKey1           = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
+            String tmpStringExitKey2           = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
+            String tmpStringExitKey3           = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
+
+            int tmpIndexMainWindowWidth    = 0;
+            int tmpIndexMainWindowHeight   = 0;
+            int tmpIndexMainWindowPosition = 0;
+
+            int tmpIndexNewWindowWidth    = 0;
+            int tmpIndexNewWindowHeight   = 0;
+            int tmpIndexNewWindowPosition = 0;
+
+            int tmpIndexLinksRequesting    = 0;
+            int tmpIndexLinksJavaScript    = 0;
             int tmpIndexChooseFileToUpload = 0;
-            for (int indexChoose = 1; indexChoose <= 3; indexChoose++)
+            int tmpIndexSEBServicePolicy   = 0;
+
+            int tmpIndexExitKey1 = 0;
+            int tmpIndexExitKey2 = 0;
+            int tmpIndexExitKey3 = 0;
+
+            for (int index = 1; index <= 20; index++)
             {
-                String cftu = chooseFileToUploadString[indexChoose];
-                if (tmpStringChooseFileToUpload.Equals(cftu)) tmpIndexChooseFileToUpload = indexChoose;
+                String width    =        windowWidthString[index];
+                String height   =       windowHeightString[index];
+                String position =     windowPositionString[index];
+                String link     =         linkPolicyString[index];
+                String upload   = chooseFileToUploadString[index];
+                String service  =   sebServicePolicyString[index];
+                String key      =        functionKeyString[index];
+
+                if (tmpStringMainWindowWidth   .Equals(width   )) tmpIndexMainWindowWidth    = index;
+                if (tmpStringMainWindowHeight  .Equals(height  )) tmpIndexMainWindowHeight   = index;
+                if (tmpStringMainWindowPosition.Equals(position)) tmpIndexMainWindowPosition = index;
+
+                if (tmpStringNewWindowWidth   .Equals(width   )) tmpIndexNewWindowWidth    = index;
+                if (tmpStringNewWindowHeight  .Equals(height  )) tmpIndexNewWindowHeight   = index;
+                if (tmpStringNewWindowPosition.Equals(position)) tmpIndexNewWindowPosition = index;
+
+                if (tmpStringLinksRequesting   .Equals(link   )) tmpIndexLinksRequesting    = index;
+                if (tmpStringLinksJavaScript   .Equals(link   )) tmpIndexLinksJavaScript    = index;
+                if (tmpStringChooseFileToUpload.Equals(upload )) tmpIndexChooseFileToUpload = index;
+                if (tmpStringSEBServicePolicy  .Equals(service)) tmpIndexSEBServicePolicy   = index;
+
+                if (tmpStringExitKey1.Equals(key)) tmpIndexExitKey1 = index;
+                if (tmpStringExitKey2.Equals(key)) tmpIndexExitKey2 = index;
+                if (tmpStringExitKey3.Equals(key)) tmpIndexExitKey3 = index;
             }
-            settingInteger[StateTmp, GroupDownUploads, ValueChooseFileToUpload] = tmpIndexChooseFileToUpload;
 
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowWidth   ] = tmpIndexMainWindowWidth;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowHeight  ] = tmpIndexMainWindowHeight;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowPosition] = tmpIndexMainWindowPosition;
 
-            // Exit Key Sequence needs a conversion from string to integer
-            String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
-            String tmpStringExitKey2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
-            String tmpStringExitKey3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
+            settingInteger[StateTmp, GroupBrowser    , ValueNewBrowserWindowWidth    ] = tmpIndexNewWindowWidth;
+            settingInteger[StateTmp, GroupBrowser    , ValueNewBrowserWindowHeight   ] = tmpIndexNewWindowHeight;
+            settingInteger[StateTmp, GroupBrowser    , ValueNewBrowserWindowPosition ] = tmpIndexNewWindowPosition;
 
-            // Remove the first character "F", e.g. convert "F12" to "12"
-            tmpStringExitKey1 = tmpStringExitKey1.Substring(1);
-            tmpStringExitKey2 = tmpStringExitKey2.Substring(1);
-            tmpStringExitKey3 = tmpStringExitKey3.Substring(1);
+            settingInteger[StateTmp, GroupBrowser    , ValueLinksRequesting          ] = tmpIndexLinksRequesting;
+            settingInteger[StateTmp, GroupBrowser    , ValueLinksJavaScript          ] = tmpIndexLinksJavaScript;
+            settingInteger[StateTmp, GroupDownUploads, ValueChooseFileToUpload       ] = tmpIndexChooseFileToUpload;
+            settingInteger[StateTmp, GroupSecurity   , ValueSEBServicePolicy         ] = tmpIndexSEBServicePolicy;
 
-            // Finally, convert the string to an integer, e.g. "12" to 12
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = Int32.Parse(tmpStringExitKey1);
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = Int32.Parse(tmpStringExitKey2);
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = Int32.Parse(tmpStringExitKey3);
+            settingInteger[StateTmp, GroupExitKeys   , ValueExitKey1                 ] = tmpIndexExitKey1;
+            settingInteger[StateTmp, GroupExitKeys   , ValueExitKey2                 ] = tmpIndexExitKey2;
+            settingInteger[StateTmp, GroupExitKeys   , ValueExitKey3                 ] = tmpIndexExitKey3;
 
 
             // Accept the tmp values as the old and new values
@@ -956,18 +1013,18 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
 
             // Horizontal Positioning needs a conversion from integer to string
-            int newIndexHorizPosMain = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos];
-            int newIndexHorizPosNew  = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos];
+            int newIndexHorizPosMain = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPosition];
+            int newIndexHorizPosNew  = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowPosition];
 
-            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = horizPosString[newIndexHorizPosMain];
-            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowHorizPos]  = horizPosString[newIndexHorizPosNew];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowPosition] = windowPositionString[newIndexHorizPosMain];
+            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowPosition]  = windowPositionString[newIndexHorizPosNew];
 
             // Link Treatment needs a conversion from integer to string
             int newIndexLinksRequesting = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting];
             int newIndexLinksJavaScript = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript];
 
-            settingString[StateNew, GroupBrowser, ValueLinksRequesting] = linkTreatmentString[newIndexLinksRequesting];
-            settingString[StateNew, GroupBrowser, ValueLinksJavaScript] = linkTreatmentString[newIndexLinksJavaScript];
+            settingString[StateNew, GroupBrowser, ValueLinksRequesting] = linkPolicyString[newIndexLinksRequesting];
+            settingString[StateNew, GroupBrowser, ValueLinksJavaScript] = linkPolicyString[newIndexLinksJavaScript];
 
             // Choose File To Upload needs a conversion from integer to string
             int newIndexChooseFileToUpload = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload];
@@ -1689,7 +1746,7 @@ namespace SebWindowsConfig
 
         private void listBoxMainBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] = listBoxMainBrowserWindowHorizPos.SelectedIndex + 1;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPosition] = listBoxMainBrowserWindowHorizPos.SelectedIndex + 1;
         }
 
         private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
@@ -1754,7 +1811,7 @@ namespace SebWindowsConfig
 
         private void listBoxNewBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHorizPos] = listBoxNewBrowserWindowHorizPos.SelectedIndex + 1;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowPosition] = listBoxNewBrowserWindowHorizPos.SelectedIndex + 1;
         }
 
         private void listBoxLinksJavaScript_SelectedIndexChanged(object sender, EventArgs e)
@@ -1816,16 +1873,18 @@ namespace SebWindowsConfig
         {
             // Set the default directory in the Folder Browser Dialog
             folderBrowserDialogDownloadFolder.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+//          folderBrowserDialogDownloadFolder.RootFolder = Environment.CurrentDirectory;
 
             // Get the user inputs in the File Dialog
-            DialogResult   dialogResult = folderBrowserDialogDownloadFolder.ShowDialog();
-            String       downloadFolder = folderBrowserDialogDownloadFolder.SelectedPath;
+            DialogResult dialogResult = folderBrowserDialogDownloadFolder.ShowDialog();
+            String       downloadPath = folderBrowserDialogDownloadFolder.SelectedPath;
 
             // If the user clicked "Cancel", do nothing
             if (dialogResult.Equals(DialogResult.Cancel)) return;
 
             // If the user clicked "OK", ...
-            settingString[StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo] = downloadFolder;
+            settingString[StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo] = downloadPath;
+                                                  labelSaveDownloadedFilesTo.Text = downloadPath;
         }
 
         private void checkBoxOpenFilesAfterDownloading_CheckedChanged(object sender, EventArgs e)
@@ -1842,6 +1901,7 @@ namespace SebWindowsConfig
         {
             settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles] = checkBoxDownloadAndOpenPDFFiles.Checked;
         }
+
 
 
         // ************
@@ -1885,6 +1945,11 @@ namespace SebWindowsConfig
         // ****************
         // Group "Security"
         // ****************
+        private void listBoxSEBServicePolicy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, GroupSecurity, ValueSEBServicePolicy] = listBoxSEBServicePolicy.SelectedIndex + 1;
+        }
+
         private void checkBoxEnableLogging_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurity, ValueEnableLogging] = checkBoxEnableLogging.Checked;
@@ -2257,11 +2322,11 @@ namespace SebWindowsConfig
 
             comboBoxMainBrowserWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth   ] - 1;
             comboBoxMainBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight  ] - 1;
-             listBoxMainBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHorizPos] - 1;
+             listBoxMainBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPosition] - 1;
 
             comboBoxNewBrowserWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowWidth   ] - 1;
             comboBoxNewBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight  ] - 1;
-             listBoxNewBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHorizPos] - 1;
+             listBoxNewBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowPosition] - 1;
 
              listBoxLinksRequesting           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting] - 1;
              listBoxLinksJavaScript           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript] - 1;
@@ -2279,7 +2344,7 @@ namespace SebWindowsConfig
             checkBoxOpenFilesAfterDownloading.Checked = settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading];
             checkBoxDownloadAndOpenPDFFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles];
              listBoxChooseFileToUpload.SelectedIndex  = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload] - 1;
-           //textBoxSaveDownloadedFilesTo    .Text    = settingString [StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo];
+            labelSaveDownloadedFilesTo       .Text    = settingString [StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo];
 
              textBoxBrowserExamKey                .Text    = settingString [StateNew, GroupExam, ValueBrowserExamKey];
              textBoxQuitURL                       .Text    = settingString [StateNew, GroupExam, ValueQuitURL];

@@ -107,6 +107,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.labelSaveDownloadedFilesTo = new System.Windows.Forms.Label();
             this.buttonSaveDownloadedFilesTo = new System.Windows.Forms.Button();
             this.listBoxChooseFileToUpload = new System.Windows.Forms.ListBox();
             this.labelChooseFileToUpload = new System.Windows.Forms.Label();
@@ -194,6 +195,8 @@
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.folderBrowserDialogDownloadFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.listBoxSEBServicePolicy = new System.Windows.Forms.ListBox();
+            this.labelSEBServicePolicy = new System.Windows.Forms.Label();
             this.tabPageBrowser.SuspendLayout();
             this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
@@ -1129,6 +1132,7 @@
             // 
             // tabPageDownUploads
             // 
+            this.tabPageDownUploads.Controls.Add(this.labelSaveDownloadedFilesTo);
             this.tabPageDownUploads.Controls.Add(this.buttonSaveDownloadedFilesTo);
             this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUpload);
             this.tabPageDownUploads.Controls.Add(this.labelChooseFileToUpload);
@@ -1143,6 +1147,14 @@
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
+            // 
+            // labelSaveDownloadedFilesTo
+            // 
+            this.labelSaveDownloadedFilesTo.AutoSize = true;
+            this.labelSaveDownloadedFilesTo.Location = new System.Drawing.Point(433, 83);
+            this.labelSaveDownloadedFilesTo.Name = "labelSaveDownloadedFilesTo";
+            this.labelSaveDownloadedFilesTo.Size = new System.Drawing.Size(0, 17);
+            this.labelSaveDownloadedFilesTo.TabIndex = 78;
             // 
             // buttonSaveDownloadedFilesTo
             // 
@@ -1358,6 +1370,8 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.labelSEBServicePolicy);
+            this.tabPageSecurity.Controls.Add(this.listBoxSEBServicePolicy);
             this.tabPageSecurity.Controls.Add(this.checkBoxEnableLogging);
             this.tabPageSecurity.Controls.Add(this.groupBoxSecurityOptions);
             this.tabPageSecurity.Location = new System.Drawing.Point(4, 39);
@@ -1372,7 +1386,7 @@
             // 
             this.checkBoxEnableLogging.AutoSize = true;
             this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(801, 50);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(42, 332);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(124, 21);
             this.checkBoxEnableLogging.TabIndex = 48;
@@ -1398,9 +1412,9 @@
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.groupBoxSecurityOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(46, 21);
+            this.groupBoxSecurityOptions.Location = new System.Drawing.Point(446, 33);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
-            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(701, 414);
+            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(588, 414);
             this.groupBoxSecurityOptions.TabIndex = 47;
             this.groupBoxSecurityOptions.TabStop = false;
             this.groupBoxSecurityOptions.Text = "Security options";
@@ -2208,6 +2222,29 @@
             // 
             this.folderBrowserDialogDownloadFolder.HelpRequest += new System.EventHandler(this.folderBrowserDialogDownloadFolder_HelpRequest);
             // 
+            // listBoxSEBServicePolicy
+            // 
+            this.listBoxSEBServicePolicy.FormattingEnabled = true;
+            this.listBoxSEBServicePolicy.ItemHeight = 16;
+            this.listBoxSEBServicePolicy.Items.AddRange(new object[] {
+            "allow to use SEB only with service",
+            "display warning then service is not running",
+            "allow to run SEB without service"});
+            this.listBoxSEBServicePolicy.Location = new System.Drawing.Point(31, 63);
+            this.listBoxSEBServicePolicy.Name = "listBoxSEBServicePolicy";
+            this.listBoxSEBServicePolicy.Size = new System.Drawing.Size(237, 20);
+            this.listBoxSEBServicePolicy.TabIndex = 74;
+            this.listBoxSEBServicePolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxSEBServicePolicy_SelectedIndexChanged);
+            // 
+            // labelSEBServicePolicy
+            // 
+            this.labelSEBServicePolicy.AutoSize = true;
+            this.labelSEBServicePolicy.Location = new System.Drawing.Point(28, 33);
+            this.labelSEBServicePolicy.Name = "labelSEBServicePolicy";
+            this.labelSEBServicePolicy.Size = new System.Drawing.Size(126, 17);
+            this.labelSEBServicePolicy.TabIndex = 75;
+            this.labelSEBServicePolicy.Text = "SEB Service policy";
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2424,6 +2461,9 @@
         private System.Windows.Forms.Button buttonPasteFromSavedClipboard;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadFolder;
         private System.Windows.Forms.Button buttonSaveDownloadedFilesTo;
+        private System.Windows.Forms.Label labelSaveDownloadedFilesTo;
+        private System.Windows.Forms.Label labelSEBServicePolicy;
+        private System.Windows.Forms.ListBox listBoxSEBServicePolicy;
 
     }
 }
