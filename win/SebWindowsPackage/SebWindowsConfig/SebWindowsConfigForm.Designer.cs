@@ -125,6 +125,8 @@
             this.checkBoxSendBrowserExamKeyInHTTPHeader = new System.Windows.Forms.CheckBox();
             this.checkBoxCopyBrowserExamKeyToClipboard = new System.Windows.Forms.CheckBox();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
+            this.checkBoxAllowFlashFullscreenMode = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
             this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
@@ -132,7 +134,6 @@
             this.listBoxSEBServicePolicy = new System.Windows.Forms.ListBox();
             this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
             this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
-            this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
             this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
@@ -189,7 +190,6 @@
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.folderBrowserDialogDownloadFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser.SuspendLayout();
             this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
@@ -272,7 +272,7 @@
             "get generally blocked"});
             this.listBoxLinksJavaScript.Location = new System.Drawing.Point(31, 277);
             this.listBoxLinksJavaScript.Name = "listBoxLinksJavaScript";
-            this.listBoxLinksJavaScript.Size = new System.Drawing.Size(159, 20);
+            this.listBoxLinksJavaScript.Size = new System.Drawing.Size(197, 20);
             this.listBoxLinksJavaScript.TabIndex = 74;
             this.listBoxLinksJavaScript.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksJavaScript_SelectedIndexChanged);
             // 
@@ -286,7 +286,7 @@
             "get generally blocked"});
             this.listBoxLinksRequesting.Location = new System.Drawing.Point(31, 51);
             this.listBoxLinksRequesting.Name = "listBoxLinksRequesting";
-            this.listBoxLinksRequesting.Size = new System.Drawing.Size(159, 20);
+            this.listBoxLinksRequesting.Size = new System.Drawing.Size(197, 20);
             this.listBoxLinksRequesting.TabIndex = 73;
             this.listBoxLinksRequesting.SelectedIndexChanged += new System.EventHandler(this.listBoxLinksRequesting_SelectedIndexChanged);
             // 
@@ -617,7 +617,7 @@
             // checkBoxDisplaySEBDockTaskBar
             // 
             this.checkBoxDisplaySEBDockTaskBar.AutoSize = true;
-            this.checkBoxDisplaySEBDockTaskBar.Location = new System.Drawing.Point(31, 388);
+            this.checkBoxDisplaySEBDockTaskBar.Location = new System.Drawing.Point(31, 357);
             this.checkBoxDisplaySEBDockTaskBar.Name = "checkBoxDisplaySEBDockTaskBar";
             this.checkBoxDisplaySEBDockTaskBar.Size = new System.Drawing.Size(418, 21);
             this.checkBoxDisplaySEBDockTaskBar.TabIndex = 56;
@@ -628,7 +628,7 @@
             // checkBoxShowMenuBar
             // 
             this.checkBoxShowMenuBar.AutoSize = true;
-            this.checkBoxShowMenuBar.Location = new System.Drawing.Point(31, 361);
+            this.checkBoxShowMenuBar.Location = new System.Drawing.Point(31, 330);
             this.checkBoxShowMenuBar.Name = "checkBoxShowMenuBar";
             this.checkBoxShowMenuBar.Size = new System.Drawing.Size(128, 21);
             this.checkBoxShowMenuBar.TabIndex = 55;
@@ -640,7 +640,7 @@
             // 
             this.checkBoxHideToolbarAsDefault.AutoSize = true;
             this.checkBoxHideToolbarAsDefault.Enabled = false;
-            this.checkBoxHideToolbarAsDefault.Location = new System.Drawing.Point(52, 334);
+            this.checkBoxHideToolbarAsDefault.Location = new System.Drawing.Point(51, 286);
             this.checkBoxHideToolbarAsDefault.Name = "checkBoxHideToolbarAsDefault";
             this.checkBoxHideToolbarAsDefault.Size = new System.Drawing.Size(173, 21);
             this.checkBoxHideToolbarAsDefault.TabIndex = 54;
@@ -651,7 +651,7 @@
             // checkBoxEnableBrowserWindowToolbar
             // 
             this.checkBoxEnableBrowserWindowToolbar.AutoSize = true;
-            this.checkBoxEnableBrowserWindowToolbar.Location = new System.Drawing.Point(31, 307);
+            this.checkBoxEnableBrowserWindowToolbar.Location = new System.Drawing.Point(31, 259);
             this.checkBoxEnableBrowserWindowToolbar.Name = "checkBoxEnableBrowserWindowToolbar";
             this.checkBoxEnableBrowserWindowToolbar.Size = new System.Drawing.Size(225, 21);
             this.checkBoxEnableBrowserWindowToolbar.TabIndex = 53;
@@ -916,6 +916,7 @@
             // labelSEBServerURL
             // 
             this.labelSEBServerURL.AutoSize = true;
+            this.labelSEBServerURL.Enabled = false;
             this.labelSEBServerURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSEBServerURL.Location = new System.Drawing.Point(21, 71);
             this.labelSEBServerURL.Name = "labelSEBServerURL";
@@ -925,6 +926,7 @@
             // 
             // textBoxSEBServerURL
             // 
+            this.textBoxSEBServerURL.Enabled = false;
             this.textBoxSEBServerURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSEBServerURL.Location = new System.Drawing.Point(140, 66);
             this.textBoxSEBServerURL.Name = "textBoxSEBServerURL";
@@ -1166,12 +1168,12 @@
             this.listBoxChooseFileToUpload.FormattingEnabled = true;
             this.listBoxChooseFileToUpload.ItemHeight = 16;
             this.listBoxChooseFileToUpload.Items.AddRange(new object[] {
-            "open in new window",
-            "open in same window",
-            "get generally blocked"});
+            "manually with file requester",
+            "by attempting to upload the same file downloaded before",
+            "by only allowing to upload the same file uploaded before"});
             this.listBoxChooseFileToUpload.Location = new System.Drawing.Point(33, 279);
             this.listBoxChooseFileToUpload.Name = "listBoxChooseFileToUpload";
-            this.listBoxChooseFileToUpload.Size = new System.Drawing.Size(159, 20);
+            this.listBoxChooseFileToUpload.Size = new System.Drawing.Size(310, 20);
             this.listBoxChooseFileToUpload.TabIndex = 76;
             this.listBoxChooseFileToUpload.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUpload_SelectedIndexChanged);
             // 
@@ -1344,6 +1346,7 @@
             // 
             // tabPageApplications
             // 
+            this.tabPageApplications.Controls.Add(this.checkBoxAllowFlashFullscreenMode);
             this.tabPageApplications.Controls.Add(this.checkBoxAllowSwitchToApplications);
             this.tabPageApplications.Controls.Add(this.checkBoxMonitorProcesses);
             this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
@@ -1353,6 +1356,32 @@
             this.tabPageApplications.TabIndex = 21;
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowFlashFullscreenMode
+            // 
+            this.checkBoxAllowFlashFullscreenMode.AutoSize = true;
+            this.checkBoxAllowFlashFullscreenMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowFlashFullscreenMode.Location = new System.Drawing.Point(295, 55);
+            this.checkBoxAllowFlashFullscreenMode.Name = "checkBoxAllowFlashFullscreenMode";
+            this.checkBoxAllowFlashFullscreenMode.Size = new System.Drawing.Size(278, 21);
+            this.checkBoxAllowFlashFullscreenMode.TabIndex = 78;
+            this.checkBoxAllowFlashFullscreenMode.Text = "Allow Flash to switch to fullscreen mode";
+            this.checkBoxAllowFlashFullscreenMode.UseVisualStyleBackColor = true;
+            this.checkBoxAllowFlashFullscreenMode.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreenMode_CheckedChanged);
+            // 
+            // checkBoxAllowSwitchToApplications
+            // 
+            this.checkBoxAllowSwitchToApplications.AutoSize = true;
+            this.checkBoxAllowSwitchToApplications.Checked = true;
+            this.checkBoxAllowSwitchToApplications.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(277, 28);
+            this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
+            this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(286, 21);
+            this.checkBoxAllowSwitchToApplications.TabIndex = 77;
+            this.checkBoxAllowSwitchToApplications.Text = "Allow switching to third party applications";
+            this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
+            this.checkBoxAllowSwitchToApplications.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToApplications_CheckedChanged);
             // 
             // checkBoxMonitorProcesses
             // 
@@ -1411,7 +1440,7 @@
             "allow to run SEB without service"});
             this.listBoxSEBServicePolicy.Location = new System.Drawing.Point(31, 63);
             this.listBoxSEBServicePolicy.Name = "listBoxSEBServicePolicy";
-            this.listBoxSEBServicePolicy.Size = new System.Drawing.Size(237, 20);
+            this.listBoxSEBServicePolicy.Size = new System.Drawing.Size(374, 20);
             this.listBoxSEBServicePolicy.TabIndex = 74;
             this.listBoxSEBServicePolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxSEBServicePolicy_SelectedIndexChanged);
             // 
@@ -1421,7 +1450,7 @@
             this.checkBoxEnableLogging.Checked = true;
             this.checkBoxEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(31, 143);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(31, 170);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(124, 21);
             this.checkBoxEnableLogging.TabIndex = 48;
@@ -1431,7 +1460,6 @@
             // 
             // groupBoxSecurityOptions
             // 
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowFlashFullscreen);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowPreferencesWindow);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxIgnoreQuitPassword);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
@@ -1442,17 +1470,6 @@
             this.groupBoxSecurityOptions.TabIndex = 47;
             this.groupBoxSecurityOptions.TabStop = false;
             this.groupBoxSecurityOptions.Text = "Security Options";
-            // 
-            // checkBoxAllowFlashFullscreen
-            // 
-            this.checkBoxAllowFlashFullscreen.AutoSize = true;
-            this.checkBoxAllowFlashFullscreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(10, 56);
-            this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
-            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(165, 21);
-            this.checkBoxAllowFlashFullscreen.TabIndex = 56;
-            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash fullscreen";
-            this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
             // 
             // checkBoxAllowPreferencesWindow
             // 
@@ -2148,19 +2165,6 @@
             // 
             this.folderBrowserDialogDownloadFolder.HelpRequest += new System.EventHandler(this.folderBrowserDialogDownloadFolder_HelpRequest);
             // 
-            // checkBoxAllowSwitchToApplications
-            // 
-            this.checkBoxAllowSwitchToApplications.AutoSize = true;
-            this.checkBoxAllowSwitchToApplications.Checked = true;
-            this.checkBoxAllowSwitchToApplications.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(277, 28);
-            this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
-            this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(199, 21);
-            this.checkBoxAllowSwitchToApplications.TabIndex = 77;
-            this.checkBoxAllowSwitchToApplications.Text = "Allow switch to applications";
-            this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2301,7 +2305,6 @@
         private System.Windows.Forms.ListBox listBoxExitKey3;
         private System.Windows.Forms.ListBox listBoxExitKey2;
         private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
-        private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreen;
         private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
         private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
         private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
@@ -2376,6 +2379,7 @@
         private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
         private System.Windows.Forms.CheckBox checkBoxHookMessages;
         private System.Windows.Forms.CheckBox checkBoxAllowSwitchToApplications;
+        private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreenMode;
 
     }
 }

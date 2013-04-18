@@ -210,10 +210,12 @@ namespace SebWindowsConfig
         // Group "Applications"
         const int ValueMonitorProcesses          = 1;
         const int ValueAllowSwitchToApplications = 2;
-        const int NumValueApplications = 2;
+        const int ValueAllowFlashFullscreenMode  = 3;
+        const int NumValueApplications = 3;
 
         const String MessageMonitorProcesses          = "MonitorProcesses";
         const String MessageAllowSwitchToApplications = "AllowSwitchToApplications";
+        const String MessageAllowFlashFullscreenMode  = "AllowFlashFullscreenMode";
 
         // Group "Network"
         //const int Value = 1;
@@ -325,13 +327,11 @@ namespace SebWindowsConfig
         const String MessageExitKey3 = "ExitKey3";
 
         // Group "Security Options"
-        const int ValueAllowFlashFullscreen      = 1;
-        const int ValueAllowPreferencesWindow    = 2;
-        const int ValueCreateNewDesktop          = 3;
-        const int ValueIgnoreQuitPassword        = 4;
-        const int NumValueSecurityOptions = 4;
+        const int ValueAllowPreferencesWindow = 1;
+        const int ValueCreateNewDesktop       = 2;
+        const int ValueIgnoreQuitPassword     = 3;
+        const int NumValueSecurityOptions = 3;
 
-        const String MessageAllowFlashFullscreen      = "AllowFlashFullscreen";
         const String MessageAllowPreferencesWindow    = "AllowPreferencesWindow";
         const String MessageCreateNewDesktop          = "CreateNewDesktop";
         const String MessageIgnoreQuitPassword        = "IgnoreQuitPassword";
@@ -499,6 +499,7 @@ namespace SebWindowsConfig
             // Default settings for group "Applications"
             settingBoolean[StateDef, GroupApplications, ValueMonitorProcesses         ] = false;
             settingBoolean[StateDef, GroupApplications, ValueAllowSwitchToApplications] = true;
+            settingBoolean[StateDef, GroupApplications, ValueAllowFlashFullscreenMode ] = false;
 
             // Default settings for group "Network"
 
@@ -515,10 +516,10 @@ namespace SebWindowsConfig
             // Default settings for groups "Special Keys", "Function Keys"
             for (value = 1; value <= ValueNum; value++)
             {
-                settingBoolean[StateDef, GroupInsideSeb      , value] = false;
-                settingBoolean[StateDef, GroupOutsideSeb     , value] = true;
-                settingBoolean[StateDef, GroupSpecialKeys    , value] = false;
-                settingBoolean[StateDef, GroupFunctionKeys   , value] = false;
+                settingBoolean[StateDef, GroupInsideSeb   , value] = false;
+                settingBoolean[StateDef, GroupOutsideSeb  , value] = true;
+                settingBoolean[StateDef, GroupSpecialKeys , value] = false;
+                settingBoolean[StateDef, GroupFunctionKeys, value] = false;
                 settingBoolean[StateDef, GroupSecurityOptions, value] = false;
             }
 
@@ -534,7 +535,6 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupExitKeys, ValueExitKey3] =  6;
 
             // Default settings for group "Security Options"
-            settingBoolean[StateDef, GroupSecurityOptions, ValueAllowFlashFullscreen     ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowPreferencesWindow   ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueCreateNewDesktop         ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueIgnoreQuitPassword       ] = false;
@@ -705,6 +705,7 @@ namespace SebWindowsConfig
 
             valueString[GroupApplications, ValueMonitorProcesses         ] = MessageMonitorProcesses;
             valueString[GroupApplications, ValueAllowSwitchToApplications] = MessageAllowSwitchToApplications;
+            valueString[GroupApplications, ValueAllowFlashFullscreenMode ] = MessageAllowFlashFullscreenMode;
 
             valueString[GroupSecurity, ValueSEBServicePolicy   ] = MessageSEBServicePolicy;
             valueString[GroupSecurity, ValueAllowVirtualMachine] = MessageAllowVirtualMachine;
@@ -755,10 +756,9 @@ namespace SebWindowsConfig
             valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
             valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
 
-            valueString[GroupSecurityOptions, ValueAllowFlashFullscreen     ] = MessageAllowFlashFullscreen;
-            valueString[GroupSecurityOptions, ValueAllowPreferencesWindow   ] = MessageAllowPreferencesWindow;
-            valueString[GroupSecurityOptions, ValueCreateNewDesktop         ] = MessageCreateNewDesktop;
-            valueString[GroupSecurityOptions, ValueIgnoreQuitPassword       ] = MessageIgnoreQuitPassword;
+            valueString[GroupSecurityOptions, ValueAllowPreferencesWindow] = MessageAllowPreferencesWindow;
+            valueString[GroupSecurityOptions, ValueCreateNewDesktop      ] = MessageCreateNewDesktop;
+            valueString[GroupSecurityOptions, ValueIgnoreQuitPassword    ] = MessageIgnoreQuitPassword;
 
 
             // Define the strings for the encryption identity
@@ -1926,6 +1926,16 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses] = checkBoxMonitorProcesses.Checked;
         }
 
+        private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
+        }
+
+        private void checkBoxAllowFlashFullscreenMode_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreenMode] = checkBoxAllowFlashFullscreenMode.Checked;
+        }
+
 
 
         // ***************
@@ -2223,11 +2233,6 @@ namespace SebWindowsConfig
         // ************************
         // Group "Security Options"
         // ************************
-        private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
-        }
-
         private void checkBoxAllowPreferencesWindow_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow] = checkBoxAllowPreferencesWindow.Checked;
@@ -2331,6 +2336,7 @@ namespace SebWindowsConfig
 
             checkBoxMonitorProcesses         .Checked = settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses];
             checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications];
+            checkBoxAllowFlashFullscreenMode .Checked = settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreenMode];
 
              listBoxSEBServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSEBServicePolicy] - 1;
             checkBoxAllowVirtualMachine.Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine];
@@ -2381,7 +2387,6 @@ namespace SebWindowsConfig
             listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
             listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
 
-            checkBoxAllowFlashFullscreen  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen];
             checkBoxAllowPreferencesWindow.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow];
             checkBoxCreateNewDesktop      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
             checkBoxIgnoreQuitPassword    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
