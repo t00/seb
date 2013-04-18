@@ -1955,11 +1955,6 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
         }
 
-        private void checkBoxAllowUserSwitching_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkBoxEnableLogging_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurity, ValueEnableLogging] = checkBoxEnableLogging.Checked;

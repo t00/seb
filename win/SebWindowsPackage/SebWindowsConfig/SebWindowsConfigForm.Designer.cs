@@ -1386,7 +1386,6 @@
             // checkBoxMonitorProcesses
             // 
             this.checkBoxMonitorProcesses.AutoSize = true;
-            this.checkBoxMonitorProcesses.Enabled = false;
             this.checkBoxMonitorProcesses.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(32, 28);
             this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
