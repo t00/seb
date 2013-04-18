@@ -390,7 +390,7 @@ namespace SebWindowsConfig
         static String[]        windowWidthString = new String[5];
         static String[]       windowHeightString = new String[5];
         static String[]     windowPositionString = new String[4];
-        static String[]         linkPolicyString = new String[4];
+        static String[]         linkOpeningPolicyString = new String[4];
         static String[] chooseFileToUploadString = new String[4];
         static String[]   sebServicePolicyString = new String[4];
         static String[]        functionKeyString = new String[13];
@@ -809,10 +809,10 @@ namespace SebWindowsConfig
             String[] chooseIdentityStringArray = chooseIdentityStringList.ToArray();
 
             // Define the strings for the link treatment
-            linkPolicyString[0] = "";
-            linkPolicyString[1] = "open in new window";
-            linkPolicyString[2] = "open in same window";
-            linkPolicyString[3] = "get generally blocked";
+            linkOpeningPolicyString[0] = "";
+            linkOpeningPolicyString[1] = "open in new window";
+            linkOpeningPolicyString[2] = "open in same window";
+            linkOpeningPolicyString[3] = "get generally blocked";
 
             // Define the strings for the window width
             windowWidthString[0] = "";
@@ -890,11 +890,14 @@ namespace SebWindowsConfig
             // so initially the 0th list entry is displayed ("none").
             settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
 
-            // Main Window Width/Height/Position needs a conversion from string to integer
-            // New  Window Width/Height/Position needs a conversion from string to integer
-            // Link Treatment         needs a conversion from string to integer
-            // Choose File To Upload  needs a conversion from string to integer
-            // Exit Key Sequence      needs a conversion from string to integer
+            // These ListBox and ComboBox entries need a conversion from string to integer:
+            //
+            // Main Window Width/Height/Position
+            // New  Window Width/Height/Position
+            // Link Opening Policy for Requesting/JavaScript
+            // Choose File To Upload
+            // SEB Service Policy
+            // Exit Key Sequence (exit keys 1,2,3)
 
             String tmpStringMainWindowWidth    = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowWidth];
             String tmpStringMainWindowHeight   = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHeight];
@@ -935,7 +938,7 @@ namespace SebWindowsConfig
                 String width    =        windowWidthString[index];
                 String height   =       windowHeightString[index];
                 String position =     windowPositionString[index];
-                String link     =         linkPolicyString[index];
+                String link     =  linkOpeningPolicyString[index];
                 String upload   = chooseFileToUploadString[index];
                 String service  =   sebServicePolicyString[index];
                 String key      =        functionKeyString[index];
@@ -1008,32 +1011,49 @@ namespace SebWindowsConfig
         // *************************************************
         private void ConvertSomeSettingsBeforeWritingThemToFile()
         {
-            // Choose Identity needs a conversion from integer to string
-            int newIndexChooseIdentity = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
-            settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
+            // These ListBox and ComboBox entries need a conversion from integer to string:
+            //
+            // Choose Identity
+            // Main Window Width/Height/Position
+            // New  Window Width/Height/Position
+            // Link Opening Policy for Requesting/JavaScript
+            // Choose File To Upload
+            // SEB Service Policy
+            // Exit Key Sequence (exit keys 1,2,3)
 
-            // Horizontal Positioning needs a conversion from integer to string
-            int newIndexHorizPosMain = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPosition];
-            int newIndexHorizPosNew  = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowPosition];
+            int newIndexChooseIdentity     = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
 
-            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowPosition] = windowPositionString[newIndexHorizPosMain];
-            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowPosition]  = windowPositionString[newIndexHorizPosNew];
+            int newIndexMainWindowWidth    = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth];
+            int newIndexMainWindowHeight   = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight];
+            int newIndexMainWindowPosition = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPosition];
 
-            // Link Treatment needs a conversion from integer to string
-            int newIndexLinksRequesting = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting];
-            int newIndexLinksJavaScript = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript];
+            int newIndexNewWindowWidth     = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowWidth];
+            int newIndexNewWindowHeight    = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowHeight];
+            int newIndexNewWindowPosition  = settingInteger[StateNew, GroupBrowser   , ValueNewBrowserWindowPosition];
 
-            settingString[StateNew, GroupBrowser, ValueLinksRequesting] = linkPolicyString[newIndexLinksRequesting];
-            settingString[StateNew, GroupBrowser, ValueLinksJavaScript] = linkPolicyString[newIndexLinksJavaScript];
-
-            // Choose File To Upload needs a conversion from integer to string
+            int newIndexLinksRequesting    = settingInteger[StateNew, GroupBrowser    , ValueLinksRequesting];
+            int newIndexLinksJavaScript    = settingInteger[StateNew, GroupBrowser    , ValueLinksJavaScript];
             int newIndexChooseFileToUpload = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload];
-            settingString[StateNew, GroupDownUploads, ValueChooseFileToUpload] = chooseFileToUploadString[newIndexChooseFileToUpload];
+            int newIndexSEBServicePolicy   = settingInteger[StateNew, GroupSecurity   , ValueSEBServicePolicy];
 
-            // Exit Key Sequence needs a conversion from integer to string
             int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
             int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
             int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
+
+            settingString[StateNew, GroupConfigFile, ValueChooseIdentity           ] = chooseIdentityStringList[newIndexChooseIdentity];
+
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowWidth   ] =    windowWidthString[newIndexMainWindowWidth];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHeight  ] =   windowHeightString[newIndexMainWindowHeight];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowPosition] = windowPositionString[newIndexMainWindowPosition];
+
+            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowWidth    ] =    windowWidthString[newIndexNewWindowWidth];
+            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowHeight   ] =   windowHeightString[newIndexNewWindowHeight];
+            settingString[StateNew, GroupBrowser   , ValueNewBrowserWindowPosition ] = windowPositionString[newIndexNewWindowPosition];
+
+            settingString[StateNew, GroupBrowser    , ValueLinksRequesting   ] =  linkOpeningPolicyString[newIndexLinksRequesting];
+            settingString[StateNew, GroupBrowser    , ValueLinksJavaScript   ] =  linkOpeningPolicyString[newIndexLinksJavaScript];
+            settingString[StateNew, GroupDownUploads, ValueChooseFileToUpload] = chooseFileToUploadString[newIndexChooseFileToUpload];
+            settingString[StateTmp, GroupSecurity   , ValueSEBServicePolicy  ] =   sebServicePolicyString[newIndexSEBServicePolicy];
 
             settingString[StateNew, GroupExitKeys, ValueExitKey1] = functionKeyString[newIndexExitKey1];
             settingString[StateNew, GroupExitKeys, ValueExitKey2] = functionKeyString[newIndexExitKey2];
@@ -1957,37 +1977,25 @@ namespace SebWindowsConfig
 
 
 
-        // *****************
-        // Group "Exit Keys"
-        // *****************
-        private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
+        // ****************
+        // Group "Registry"
+        // ****************
+        private void radioButtonPreviousValuesFromFile_CheckedChanged(object sender, EventArgs e)
         {
-            // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previously selected key.
-            if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
-                (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
-            settingInteger[StateNew, GroupExitKeys, ValueExitKey1] = listBoxExitKey1.SelectedIndex + 1;
+            groupBoxOutsideSeb.Visible = (radioButtonInsideValuesManually.Checked == true);
+            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
 
-        private void listBoxExitKey2_SelectedIndexChanged(object sender, EventArgs e)
+        private void radioButtonEnvironmentValues_CheckedChanged(object sender, EventArgs e)
         {
-            // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previously selected key.
-            if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
-                (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
-            settingInteger[StateNew, GroupExitKeys, ValueExitKey2] = listBoxExitKey2.SelectedIndex + 1;
+            groupBoxOutsideSeb.Visible = true;
+            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
 
-        private void listBoxExitKey3_SelectedIndexChanged(object sender, EventArgs e)
+        private void radioButtonInsideValuesManually_CheckedChanged(object sender, EventArgs e)
         {
-            // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previously selected key.
-            if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
-                (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
-                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
-            settingInteger[StateNew, GroupExitKeys, ValueExitKey3] = listBoxExitKey3.SelectedIndex + 1;
+            groupBoxOutsideSeb.Visible = true;
+            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
 
 
@@ -2082,85 +2090,9 @@ namespace SebWindowsConfig
 
 
 
-        // ************************
-        // Group "Security Options"
-        // ************************
-        private void checkBoxAllowDownUploads_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowDownUploads] = checkBoxAllowDownUploads.Checked;
-        }
-
-        private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
-        }
-
-        private void checkBoxAllowPreferencesWindow_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow] = checkBoxAllowPreferencesWindow.Checked;
-        }
-
-        private void checkBoxAllowQuit_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowQuit] = checkBoxAllowQuit.Checked;
-        }
-
-        private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
-        }
-
-        private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
-        }
-
-        private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
-        }
-
-        private void checkBoxDownloadPDFFiles_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles] = checkBoxDownloadPDFFiles.Checked;
-        }
-
-        private void checkBoxEnableLog_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog] = checkBoxEnableLog.Checked;
-        }
-
-        private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages] = checkBoxHookMessages.Checked;
-        }
-
-        private void checkBoxIgnoreQuitPassword_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword] = checkBoxIgnoreQuitPassword.Checked;
-        }
-
-        private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses] = checkBoxMonitorProcesses.Checked;
-        }
-
-        private void checkBoxNewBrowserWindowByLinkBlockForeign_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLink] = checkBoxNewBrowserWindowByLinkBlockForeign.Checked;
-        }
-
-        private void checkBoxNewBrowserWindowByScriptBlockForeign_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScript] = checkBoxNewBrowserWindowByScriptBlockForeign.Checked;
-        }
-
-        private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueOpenDownloads] = checkBoxOpenDownloads.Checked;
-        }
-
-
+        // *******************
+        // Group "Hooked Keys"
+        // *******************
 
         // ********************
         // Group "Special Keys"
@@ -2267,6 +2199,121 @@ namespace SebWindowsConfig
 
 
 
+        // *****************
+        // Group "Exit Keys"
+        // *****************
+        private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previously selected key.
+            if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
+                (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
+                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey1] = listBoxExitKey1.SelectedIndex + 1;
+        }
+
+        private void listBoxExitKey2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previously selected key.
+            if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
+                (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
+                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey2] = listBoxExitKey2.SelectedIndex + 1;
+        }
+
+        private void listBoxExitKey3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previously selected key.
+            if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
+                (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
+                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
+            settingInteger[StateNew, GroupExitKeys, ValueExitKey3] = listBoxExitKey3.SelectedIndex + 1;
+        }
+
+
+
+        // ************************
+        // Group "Security Options"
+        // ************************
+        private void checkBoxAllowDownUploads_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowDownUploads] = checkBoxAllowDownUploads.Checked;
+        }
+
+        private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
+        }
+
+        private void checkBoxAllowPreferencesWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow] = checkBoxAllowPreferencesWindow.Checked;
+        }
+
+        private void checkBoxAllowQuit_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowQuit] = checkBoxAllowQuit.Checked;
+        }
+
+        private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
+        }
+
+        private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
+        }
+
+        private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
+        }
+
+        private void checkBoxDownloadPDFFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles] = checkBoxDownloadPDFFiles.Checked;
+        }
+
+        private void checkBoxEnableLog_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog] = checkBoxEnableLog.Checked;
+        }
+
+        private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages] = checkBoxHookMessages.Checked;
+        }
+
+        private void checkBoxIgnoreQuitPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword] = checkBoxIgnoreQuitPassword.Checked;
+        }
+
+        private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses] = checkBoxMonitorProcesses.Checked;
+        }
+
+        private void checkBoxNewBrowserWindowByLinkBlockForeign_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLink] = checkBoxNewBrowserWindowByLinkBlockForeign.Checked;
+        }
+
+        private void checkBoxNewBrowserWindowByScriptBlockForeign_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScript] = checkBoxNewBrowserWindowByScriptBlockForeign.Checked;
+        }
+
+        private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurityOptions, ValueOpenDownloads] = checkBoxOpenDownloads.Checked;
+        }
+
+
+
         // ***************************************************
         // Set the new settings of a file to the desired state
         // ***************************************************
@@ -2324,9 +2371,9 @@ namespace SebWindowsConfig
             comboBoxMainBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight  ] - 1;
              listBoxMainBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPosition] - 1;
 
-            comboBoxNewBrowserWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowWidth   ] - 1;
-            comboBoxNewBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight  ] - 1;
-             listBoxNewBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowPosition] - 1;
+            comboBoxNewBrowserWindowWidth    .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowWidth   ] - 1;
+            comboBoxNewBrowserWindowHeight   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowHeight  ] - 1;
+             listBoxNewBrowserWindowHorizPos .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowPosition] - 1;
 
              listBoxLinksRequesting           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksRequesting] - 1;
              listBoxLinksJavaScript           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueLinksJavaScript] - 1;
@@ -2351,9 +2398,8 @@ namespace SebWindowsConfig
             checkBoxCopyBrowserExamKeyToClipboard .Checked = settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKeyToClipboard];
             checkBoxSendBrowserExamKeyInHTTPHeader.Checked = settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKeyInHTTPHeader];
 
-
-
-            checkBoxEnableLogging.Checked = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
+             listBoxSEBServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSEBServicePolicy] - 1;
+            checkBoxEnableLogging   .Checked       = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
             listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
             listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
@@ -2413,26 +2459,6 @@ namespace SebWindowsConfig
             checkBoxEnableF10.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10];
             checkBoxEnableF11.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11];
             checkBoxEnableF12.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12];
-        }
-
-
-
-        private void radioButtonPreviousValuesFromFile_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxOutsideSeb.Visible = (radioButtonInsideValuesManually.Checked == true);
-            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
-        }
-
-        private void radioButtonEnvironmentValues_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxOutsideSeb.Visible = true;
-            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
-        }
-
-        private void radioButtonInsideValuesManually_CheckedChanged(object sender, EventArgs e)
-        {
-            groupBoxOutsideSeb.Visible = true;
-            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
 
 
