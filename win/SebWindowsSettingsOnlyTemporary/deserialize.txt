@@ -1,0 +1,10 @@
+        static SEBSettings DeserializeFromXML(string sebClientConfigPath)
+        {
+            XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+            TextReader textReader = new StreamReader(sebClientConfigPath);
+            SEBSettings sEBSettings;
+            sEBSettings = (SEBSettings)deserializer.Deserialize(textReader);
+            textReader.Close();
+
+            return sEBSettings;
+        }

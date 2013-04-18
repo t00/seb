@@ -1,0 +1,34 @@
+         // Decrypt seb client settings
+        string decriptedSebClientSettings = sEBProtectionControler.DecryptSebClientSettings(encryptedTextWithPrefix);
+
+        // Deserialise seb client settings
+        sebSettings = DeserializeFromEnryptedXML(decriptedSebClientSettings);
+
+	// Get settings value
+        if (sebSettings.getSecurityOption("enableLog").getBool())
+        {
+            // Initialise Loger
+            Logger.initLoger(CurrentSebClientLog);
+        }
+
+	int i = 0;
+	string processName = sebSettings.ProhibitedProcesses[i].Name;
+
+	//Set settings value
+	sebSettings.getSecurityOption("enableLog").setBool(true);
+
+
+	
+	// Deserialise decrypted string
+        private static SEBSettings DeserializeFromEnryptedXML(string decriptedSebClientSettings)
+        {
+            decriptedSebClientSettings = decriptedSebClientSettings.Trim();
+            MemoryStream memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
+            XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+            //TextReader textReader = new StreamReader(sebClientConfigPath);
+            SEBSettings sEBSettings;
+            sEBSettings = (SEBSettings)deserializer.Deserialize(memStream);
+            //textReader.Close();
+
+            return sEBSettings;
+        }
