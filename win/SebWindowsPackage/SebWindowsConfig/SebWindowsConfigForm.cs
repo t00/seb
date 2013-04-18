@@ -1919,6 +1919,12 @@ namespace SebWindowsConfig
         // ********************
         // Group "Applications"
         // ********************
+        private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses] = checkBoxMonitorProcesses.Checked;
+        }
+
+
 
         // ***************
         // Group "Network"
@@ -1930,6 +1936,16 @@ namespace SebWindowsConfig
         private void listBoxSEBServicePolicy_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, GroupSecurity, ValueSEBServicePolicy] = listBoxSEBServicePolicy.SelectedIndex + 1;
+        }
+
+        private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
+        {
+            settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
+        }
+
+        private void checkBoxAllowUserSwitching_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void checkBoxEnableLogging_CheckedChanged(object sender, EventArgs e)
@@ -2211,12 +2227,7 @@ namespace SebWindowsConfig
 
         private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
-        }
-
-        private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
+            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications] = checkBoxAllowUserSwitching.Checked;
         }
 
         private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
@@ -2232,11 +2243,6 @@ namespace SebWindowsConfig
         private void checkBoxIgnoreQuitPassword_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword] = checkBoxIgnoreQuitPassword.Checked;
-        }
-
-        private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses] = checkBoxMonitorProcesses.Checked;
         }
 
 
@@ -2373,7 +2379,7 @@ namespace SebWindowsConfig
 
             checkBoxAllowFlashFullscreen     .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen];
             checkBoxAllowPreferencesWindow   .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow];
-            checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications];
+            checkBoxAllowUserSwitching.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications];
             checkBoxAllowVirtualMachine      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine];
             checkBoxCreateNewDesktop         .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
             checkBoxHookMessages             .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages];

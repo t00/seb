@@ -125,16 +125,16 @@
             this.checkBoxSendBrowserExamKeyInHTTPHeader = new System.Windows.Forms.CheckBox();
             this.checkBoxCopyBrowserExamKeyToClipboard = new System.Windows.Forms.CheckBox();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
+            this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
             this.labelSEBServicePolicy = new System.Windows.Forms.Label();
             this.listBoxSEBServicePolicy = new System.Windows.Forms.ListBox();
+            this.checkBoxAllowUserSwitching = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
             this.groupBoxSecurityOptions = new System.Windows.Forms.GroupBox();
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
-            this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
             this.checkBoxHookMessages = new System.Windows.Forms.CheckBox();
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
@@ -199,6 +199,7 @@
             this.tabControlSebWindowsConfig.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
             this.tabPageExam.SuspendLayout();
+            this.tabPageApplications.SuspendLayout();
             this.tabPageSecurity.SuspendLayout();
             this.groupBoxSecurityOptions.SuspendLayout();
             this.tabPageRegistry.SuspendLayout();
@@ -1343,6 +1344,7 @@
             // 
             // tabPageApplications
             // 
+            this.tabPageApplications.Controls.Add(this.checkBoxMonitorProcesses);
             this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
             this.tabPageApplications.Name = "tabPageApplications";
             this.tabPageApplications.Padding = new System.Windows.Forms.Padding(3);
@@ -1350,6 +1352,19 @@
             this.tabPageApplications.TabIndex = 21;
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMonitorProcesses
+            // 
+            this.checkBoxMonitorProcesses.AutoSize = true;
+            this.checkBoxMonitorProcesses.Enabled = false;
+            this.checkBoxMonitorProcesses.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(32, 28);
+            this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
+            this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
+            this.checkBoxMonitorProcesses.TabIndex = 50;
+            this.checkBoxMonitorProcesses.Text = "Monitor processes";
+            this.checkBoxMonitorProcesses.UseVisualStyleBackColor = true;
+            this.checkBoxMonitorProcesses.CheckedChanged += new System.EventHandler(this.checkBoxMonitorProcesses_CheckedChanged);
             // 
             // tabPageNetwork
             // 
@@ -1365,8 +1380,10 @@
             // 
             this.tabPageSecurity.Controls.Add(this.labelSEBServicePolicy);
             this.tabPageSecurity.Controls.Add(this.listBoxSEBServicePolicy);
+            this.tabPageSecurity.Controls.Add(this.checkBoxAllowUserSwitching);
             this.tabPageSecurity.Controls.Add(this.checkBoxEnableLogging);
             this.tabPageSecurity.Controls.Add(this.groupBoxSecurityOptions);
+            this.tabPageSecurity.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.tabPageSecurity.Location = new System.Drawing.Point(4, 39);
             this.tabPageSecurity.Name = "tabPageSecurity";
             this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(3);
@@ -1398,11 +1415,27 @@
             this.listBoxSEBServicePolicy.TabIndex = 74;
             this.listBoxSEBServicePolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxSEBServicePolicy_SelectedIndexChanged);
             // 
+            // checkBoxAllowUserSwitching
+            // 
+            this.checkBoxAllowUserSwitching.AutoSize = true;
+            this.checkBoxAllowUserSwitching.Checked = true;
+            this.checkBoxAllowUserSwitching.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowUserSwitching.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowUserSwitching.Location = new System.Drawing.Point(31, 143);
+            this.checkBoxAllowUserSwitching.Name = "checkBoxAllowUserSwitching";
+            this.checkBoxAllowUserSwitching.Size = new System.Drawing.Size(155, 21);
+            this.checkBoxAllowUserSwitching.TabIndex = 53;
+            this.checkBoxAllowUserSwitching.Text = "Allow user switching";
+            this.checkBoxAllowUserSwitching.UseVisualStyleBackColor = true;
+            this.checkBoxAllowUserSwitching.CheckedChanged += new System.EventHandler(this.checkBoxAllowUserSwitching_CheckedChanged);
+            // 
             // checkBoxEnableLogging
             // 
             this.checkBoxEnableLogging.AutoSize = true;
+            this.checkBoxEnableLogging.Checked = true;
+            this.checkBoxEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(42, 332);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(31, 170);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(124, 21);
             this.checkBoxEnableLogging.TabIndex = 48;
@@ -1414,16 +1447,13 @@
             // 
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowFlashFullscreen);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowPreferencesWindow);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowSwitchToApplications);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxMonitorProcesses);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxIgnoreQuitPassword);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxHookMessages);
             this.groupBoxSecurityOptions.Controls.Add(this.checkBoxCreateNewDesktop);
-            this.groupBoxSecurityOptions.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.groupBoxSecurityOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxSecurityOptions.Location = new System.Drawing.Point(446, 33);
             this.groupBoxSecurityOptions.Name = "groupBoxSecurityOptions";
-            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(588, 414);
+            this.groupBoxSecurityOptions.Size = new System.Drawing.Size(246, 223);
             this.groupBoxSecurityOptions.TabIndex = 47;
             this.groupBoxSecurityOptions.TabStop = false;
             this.groupBoxSecurityOptions.Text = "Security options";
@@ -1450,35 +1480,12 @@
             this.checkBoxAllowPreferencesWindow.Text = "Allow preferences window";
             this.checkBoxAllowPreferencesWindow.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAllowSwitchToApplications
-            // 
-            this.checkBoxAllowSwitchToApplications.AutoSize = true;
-            this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(10, 137);
-            this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
-            this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(199, 21);
-            this.checkBoxAllowSwitchToApplications.TabIndex = 53;
-            this.checkBoxAllowSwitchToApplications.Text = "Allow switch to applications";
-            this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxMonitorProcesses
-            // 
-            this.checkBoxMonitorProcesses.AutoSize = true;
-            this.checkBoxMonitorProcesses.Enabled = false;
-            this.checkBoxMonitorProcesses.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(267, 279);
-            this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
-            this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(146, 21);
-            this.checkBoxMonitorProcesses.TabIndex = 49;
-            this.checkBoxMonitorProcesses.Text = "Monitor processes";
-            this.checkBoxMonitorProcesses.UseVisualStyleBackColor = true;
-            // 
             // checkBoxIgnoreQuitPassword
             // 
             this.checkBoxIgnoreQuitPassword.AutoSize = true;
             this.checkBoxIgnoreQuitPassword.Enabled = false;
             this.checkBoxIgnoreQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(267, 252);
+            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(10, 164);
             this.checkBoxIgnoreQuitPassword.Name = "checkBoxIgnoreQuitPassword";
             this.checkBoxIgnoreQuitPassword.Size = new System.Drawing.Size(161, 21);
             this.checkBoxIgnoreQuitPassword.TabIndex = 48;
@@ -1490,7 +1497,7 @@
             this.checkBoxHookMessages.AutoSize = true;
             this.checkBoxHookMessages.Enabled = false;
             this.checkBoxHookMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxHookMessages.Location = new System.Drawing.Point(267, 225);
+            this.checkBoxHookMessages.Location = new System.Drawing.Point(10, 137);
             this.checkBoxHookMessages.Name = "checkBoxHookMessages";
             this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
             this.checkBoxHookMessages.TabIndex = 47;
@@ -1501,7 +1508,7 @@
             // 
             this.checkBoxCreateNewDesktop.AutoSize = true;
             this.checkBoxCreateNewDesktop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(11, 252);
+            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(10, 110);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
             this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
             this.checkBoxCreateNewDesktop.TabIndex = 45;
@@ -1512,12 +1519,13 @@
             // 
             this.checkBoxAllowVirtualMachine.AutoSize = true;
             this.checkBoxAllowVirtualMachine.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(10, 167);
+            this.checkBoxAllowVirtualMachine.Location = new System.Drawing.Point(31, 116);
             this.checkBoxAllowVirtualMachine.Name = "checkBoxAllowVirtualMachine";
-            this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(161, 21);
+            this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(274, 21);
             this.checkBoxAllowVirtualMachine.TabIndex = 43;
-            this.checkBoxAllowVirtualMachine.Text = "Allow virtual machine";
+            this.checkBoxAllowVirtualMachine.Text = "Allow SEB to run inside virtual machine";
             this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
+            this.checkBoxAllowVirtualMachine.CheckedChanged += new System.EventHandler(this.checkBoxAllowVirtualMachine_CheckedChanged);
             // 
             // tabPageRegistry
             // 
@@ -2178,6 +2186,8 @@
             this.tabPageDownUploads.PerformLayout();
             this.tabPageExam.ResumeLayout(false);
             this.tabPageExam.PerformLayout();
+            this.tabPageApplications.ResumeLayout(false);
+            this.tabPageApplications.PerformLayout();
             this.tabPageSecurity.ResumeLayout(false);
             this.tabPageSecurity.PerformLayout();
             this.groupBoxSecurityOptions.ResumeLayout(false);
@@ -2290,8 +2300,7 @@
         private System.Windows.Forms.GroupBox groupBoxSecurityOptions;
         private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreen;
         private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
-        private System.Windows.Forms.CheckBox checkBoxAllowSwitchToApplications;
-        private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
+        private System.Windows.Forms.CheckBox checkBoxAllowUserSwitching;
         private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
         private System.Windows.Forms.CheckBox checkBoxHookMessages;
         private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
@@ -2363,6 +2372,7 @@
         private System.Windows.Forms.Label labelSaveDownloadedFilesTo;
         private System.Windows.Forms.Label labelSEBServicePolicy;
         private System.Windows.Forms.ListBox listBoxSEBServicePolicy;
+        private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
 
     }
 }
