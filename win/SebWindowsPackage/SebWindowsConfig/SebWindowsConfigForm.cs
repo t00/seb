@@ -50,13 +50,7 @@ namespace SebWindowsConfig
         // The Graphical User Interface contains 19 groups
         const int GroupNum = 18;
 
-        // SebStarter contains the 19 groups
-        // General, ConfigFile, Appearance, Browser,
-        // DownUploads, Exam, Applications, Network, Security,
-        // Registry, HookedKeys, ExitKeys,
-        // InsideSeb, OutsideSeb, SecurityOptions,
-        // OnlineExam, SpecialKeys, FunctionKeys, Other
-
+        // SebStarter contains 17 groups
         const int GroupGeneral         = 1;
         const int GroupConfigFile      = 2;
         const int GroupAppearance      = 3;
@@ -67,17 +61,15 @@ namespace SebWindowsConfig
         const int GroupNetwork         = 8;
         const int GroupSecurity        = 9;
         const int GroupRegistry        = 10;
-        const int GroupHookedKeys      = 11;
-        const int GroupExitKeys        = 12;
+        const int GroupInsideSeb       = 11;
+        const int GroupOutsideSeb      = 12;
+        const int GroupHookedKeys      = 13;
+        const int GroupSpecialKeys     = 14;
+        const int GroupFunctionKeys    = 15;
+        const int GroupExitKeys        = 16;
+        const int GroupSecurityOptions = 17;
 
-        const int GroupInsideSeb       = 13;
-        const int GroupOutsideSeb      = 14;
-        const int GroupSecurityOptions = 15;
-        const int GroupSpecialKeys     = 16;
-        const int GroupFunctionKeys    = 17;
-        const int GroupOther           = 18;
-
-        const int GroupNumSebStarter = 18;
+        const int GroupNumSebStarter = 17;
 
         // Each group contains up to 20 values
         const int ValueNum = 20;
@@ -93,15 +85,13 @@ namespace SebWindowsConfig
         const String MessageNetwork         = "Network";
         const String MessageSecurity        = "Security";
         const String MessageRegistry        = "Registry";
-        const String MessageHookedKeys      = "HookedKeys";
-        const String MessageExitKeys        = "ExitKeys";
-
         const String MessageInsideSeb       = "InsideSeb";
         const String MessageOutsideSeb      = "OutsideSeb";
-        const String MessageSecurityOptions = "SecurityOptions";
+        const String MessageHookedKeys      = "HookedKeys";
         const String MessageSpecialKeys     = "SpecialKeys";
         const String MessageFunctionKeys    = "FunctionKeys";
-        const String MessageOther           = "Other";
+        const String MessageExitKeys        = "ExitKeys";
+        const String MessageSecurityOptions = "SecurityOptions";
 
         // Group "General"
         const int ValueStartURL                     = 1;
@@ -142,8 +132,8 @@ namespace SebWindowsConfig
         // Group "Appearance"
         const int ValueUseBrowserWindow            = 1;
         const int ValueUseFullScreenMode           = 2;
-        const int ValueMainBrowserWindowWidth  = 3;
-        const int ValueMainBrowserWindowHeight = 4;
+        const int ValueMainBrowserWindowWidth      = 3;
+        const int ValueMainBrowserWindowHeight     = 4;
         const int ValueMainBrowserWindowPosition   = 5;
         const int ValueEnableBrowserWindowToolbar  = 6;
         const int ValueHideToolbarAsDefault        = 7;
@@ -233,20 +223,8 @@ namespace SebWindowsConfig
         const String MessageSEBServicePolicy = "SEBServicePolicy";
         const String MessageEnableLogging    = "EnableLogging";
 
-        // Group "Exit Keys"
-        const int ValueExitKey1 = 1;
-        const int ValueExitKey2 = 2;
-        const int ValueExitKey3 = 3;
-        const int NumValueExitKeys = 3;
-
-        const String MessageExitKey1 = "ExitKey1";
-        const String MessageExitKey2 = "ExitKey2";
-        const String MessageExitKey3 = "ExitKey3";
-
-
+        // Group "Registry"
         const int NumValueRegistry     = 0;
-        const int NumValueHookedKeys   = 0;
-
 
         // Groups "Inside SEB" and "Outside SEB"
         const int ValueEnableSwitchUser        = 1;
@@ -278,39 +256,8 @@ namespace SebWindowsConfig
         const String MessageOutsideSebEnableEaseOfAccess      = "OutsideSebEnableEaseOfAccess";
         const String MessageOutsideSebEnableVmWareClientShade = "OutsideSebEnableVmWareClientShade";
 
-        // Group "Security Options"
-        const int ValueAllowDownUploads          = 1;
-        const int ValueAllowFlashFullscreen      = 2;
-        const int ValueAllowPreferencesWindow    = 3;
-        const int ValueAllowQuit                 = 4;
-        const int ValueAllowSwitchToApplications = 5;
-        const int ValueAllowVirtualMachine       = 6;
-        const int ValueCreateNewDesktop          = 7;
-        const int ValueDownloadPDFFiles          = 8;
-        const int ValueEnableLog                 = 9;
-        const int ValueHookMessages              = 10;
-        const int ValueIgnoreQuitPassword        = 11;
-        const int ValueMonitorProcesses          = 12;
-        const int ValueNewBrowserWindowByLink    = 13;
-        const int ValueNewBrowserWindowByScript  = 14;
-        const int ValueOpenDownloads             = 15;
-        const int NumValueSecurityOptions = 15;
-
-        const String MessageAllowDownUploads          = "AllowDownUploads";
-        const String MessageAllowFlashFullscreen      = "AllowFlashFullscreen";
-        const String MessageAllowPreferencesWindow    = "AllowPreferencesWindow";
-        const String MessageAllowQuit                 = "AllowQuit";
-        const String MessageAllowSwitchToApplications = "AllowSwitchToApplications";
-        const String MessageAllowVirtualMachine       = "AllowVirtualMachine";
-        const String MessageCreateNewDesktop          = "CreateNewDesktop";
-        const String MessageDownloadPDFFiles          = "DownloadPDFFiles";
-        const String MessageEnableLog                 = "EnableLog";
-        const String MessageHookMessages              = "HookMessages";
-        const String MessageIgnoreQuitPassword        = "IgnoreQuitPassword";
-        const String MessageMonitorProcesses          = "MonitorProcesses";
-        const String MessageNewBrowserWindowByLink    = "NewBrowserWindowByLink";
-        const String MessageNewBrowserWindowByScript  = "NewBrowserWindowByScript";
-        const String MessageOpenDownloads             = "OpenDownloads";
+        // Group "HookedKeys"
+        const int NumValueHookedKeys = 0;
 
         // Group "Special Keys"
         const int ValueEnableEsc        = 1;
@@ -358,8 +305,35 @@ namespace SebWindowsConfig
         const String MessageEnableF11 = "EnableF11";
         const String MessageEnableF12 = "EnableF12";
 
-        // Group "Other"
-        const int NumValueOther = 0;
+        // Group "Exit Keys"
+        const int ValueExitKey1 = 1;
+        const int ValueExitKey2 = 2;
+        const int ValueExitKey3 = 3;
+        const int NumValueExitKeys = 3;
+
+        const String MessageExitKey1 = "ExitKey1";
+        const String MessageExitKey2 = "ExitKey2";
+        const String MessageExitKey3 = "ExitKey3";
+
+        // Group "Security Options"
+        const int ValueAllowFlashFullscreen      = 1;
+        const int ValueAllowPreferencesWindow    = 2;
+        const int ValueAllowSwitchToApplications = 3;
+        const int ValueAllowVirtualMachine       = 4;
+        const int ValueCreateNewDesktop          = 5;
+        const int ValueHookMessages              = 6;
+        const int ValueIgnoreQuitPassword        = 7;
+        const int ValueMonitorProcesses          = 8;
+        const int NumValueSecurityOptions = 8;
+
+        const String MessageAllowFlashFullscreen      = "AllowFlashFullscreen";
+        const String MessageAllowPreferencesWindow    = "AllowPreferencesWindow";
+        const String MessageAllowSwitchToApplications = "AllowSwitchToApplications";
+        const String MessageAllowVirtualMachine       = "AllowVirtualMachine";
+        const String MessageCreateNewDesktop          = "CreateNewDesktop";
+        const String MessageHookMessages              = "HookMessages";
+        const String MessageIgnoreQuitPassword        = "IgnoreQuitPassword";
+        const String MessageMonitorProcesses          = "MonitorProcesses";
 
 
         // Types of values
@@ -531,40 +505,41 @@ namespace SebWindowsConfig
 
             settingInteger[StateDef, GroupSecurity, ValueSEBServicePolicy] = 1;
 
-            // Default settings for group "Registry"
+            // Default settings for groups "Registry", "Inside SEB", "Outside SEB"
+            // Default settings for groups "Hooked Keys", "Special Keys", "Function Keys"
+            for (value = 1; value <= ValueNum; value++)
+            {
+                settingBoolean[StateDef, GroupInsideSeb      , value] = false;
+                settingBoolean[StateDef, GroupOutsideSeb     , value] = true;
+                settingBoolean[StateDef, GroupSpecialKeys    , value] = false;
+                settingBoolean[StateDef, GroupFunctionKeys   , value] = false;
+                settingBoolean[StateDef, GroupSecurityOptions, value] = false;
+            }
+
             // Default settings for group "HookedKeys"
+
+            // Default settings for groups "Special keys"
+            settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
+
+            // Default settings for groups "Function keys"
+            settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5] = true;
 
             // Default settings for group "ExitKeys"
             settingInteger[StateDef, GroupExitKeys, ValueExitKey1] =  3;
             settingInteger[StateDef, GroupExitKeys, ValueExitKey2] = 11;
             settingInteger[StateDef, GroupExitKeys, ValueExitKey3] =  6;
 
-            // Default values for groups "Inside SEB", "Outside SEB" etc.
-            for (value = 1; value <= ValueNum; value++)
-            {
-                settingBoolean[StateDef, GroupInsideSeb      , value] = false;
-                settingBoolean[StateDef, GroupOutsideSeb     , value] = true;
-                settingBoolean[StateDef, GroupSecurityOptions, value] = false;
-                settingBoolean[StateDef, GroupSpecialKeys    , value] = false;
-                settingBoolean[StateDef, GroupFunctionKeys   , value] = false;
-            }
-
             // Default settings for group "Security options"
-            settingBoolean[StateDef, GroupSecurityOptions, ValueAllowDownUploads         ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowFlashFullscreen     ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowPreferencesWindow   ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueAllowQuit                ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowSwitchToApplications] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueAllowVirtualMachine      ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueCreateNewDesktop         ] = true;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueDownloadPDFFiles         ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueEnableLog                ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueHookMessages             ] = true;
             settingBoolean[StateDef, GroupSecurityOptions, ValueIgnoreQuitPassword       ] = false;
             settingBoolean[StateDef, GroupSecurityOptions, ValueMonitorProcesses         ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByLink   ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueNewBrowserWindowByScript ] = false;
-            settingBoolean[StateDef, GroupSecurityOptions, ValueOpenDownloads            ] = false;
+
+
 /*
             // Default settings for group "Online exam"
             String s0 = "Seb,../xulrunner/xulrunner.exe";
@@ -576,11 +551,6 @@ namespace SebWindowsConfig
             settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
 */
-            // Default settings for groups "Special keys"
-            settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
-
-            // Default settings for groups "Function keys"
-            settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5] = true;
 
 
             // Standard data types of the different groups
@@ -596,14 +566,13 @@ namespace SebWindowsConfig
                 dataType[GroupNetwork        , value] = TypeBoolean;
                 dataType[GroupSecurity       , value] = TypeBoolean;
                 dataType[GroupRegistry       , value] = TypeBoolean;
-                dataType[GroupHookedKeys     , value] = TypeBoolean;
-                dataType[GroupExitKeys       , value] = TypeString;
-
                 dataType[GroupInsideSeb      , value] = TypeBoolean;
                 dataType[GroupOutsideSeb     , value] = TypeBoolean;
-                dataType[GroupSecurityOptions, value] = TypeBoolean;
+                dataType[GroupHookedKeys     , value] = TypeBoolean;
                 dataType[GroupSpecialKeys    , value] = TypeBoolean;
                 dataType[GroupFunctionKeys   , value] = TypeBoolean;
+                dataType[GroupExitKeys       , value] = TypeString;
+                dataType[GroupSecurityOptions, value] = TypeBoolean;
             }
 
             // Exceptional data types of some special values
@@ -649,15 +618,14 @@ namespace SebWindowsConfig
             maxValue[GroupNetwork     ] = NumValueNetwork;
             maxValue[GroupSecurity    ] = NumValueSecurity;
             maxValue[GroupRegistry    ] = NumValueRegistry;
+            maxValue[GroupInsideSeb   ] = NumValueInsideSeb;
+            maxValue[GroupOutsideSeb  ] = NumValueOutsideSeb;
             maxValue[GroupHookedKeys  ] = NumValueHookedKeys;
+            maxValue[GroupSpecialKeys ] = NumValueSpecialKeys;
+            maxValue[GroupFunctionKeys] = NumValueFunctionKeys;
             maxValue[GroupExitKeys    ] = NumValueExitKeys;
-
-            maxValue[GroupInsideSeb      ] = NumValueInsideSeb;
-            maxValue[GroupOutsideSeb     ] = NumValueOutsideSeb;
             maxValue[GroupSecurityOptions] = NumValueSecurityOptions;
-            maxValue[GroupSpecialKeys    ] = NumValueSpecialKeys;
-            maxValue[GroupFunctionKeys   ] = NumValueFunctionKeys;
-            maxValue[GroupOther          ] = NumValueOther;
+
 
             // File names
             configString[FileSebStarterIni] = TargetSebStarterIni;
@@ -675,15 +643,13 @@ namespace SebWindowsConfig
             groupString[GroupNetwork        ] = MessageNetwork;
             groupString[GroupSecurity       ] = MessageSecurity;
             groupString[GroupRegistry       ] = MessageRegistry;
-            groupString[GroupHookedKeys     ] = MessageHookedKeys;
-            groupString[GroupExitKeys       ] = MessageExitKeys;
-
             groupString[GroupInsideSeb      ] = MessageInsideSeb;
             groupString[GroupOutsideSeb     ] = MessageOutsideSeb;
-            groupString[GroupSecurityOptions] = MessageSecurityOptions;
+            groupString[GroupHookedKeys     ] = MessageHookedKeys;
             groupString[GroupSpecialKeys    ] = MessageSpecialKeys;
             groupString[GroupFunctionKeys   ] = MessageFunctionKeys;
-
+            groupString[GroupExitKeys       ] = MessageExitKeys;
+            groupString[GroupSecurityOptions] = MessageSecurityOptions;
 
             // Value names
             valueString[GroupGeneral, ValueStartURL                    ] = MessageStartURL;
@@ -740,10 +706,6 @@ namespace SebWindowsConfig
             valueString[GroupSecurity, ValueSEBServicePolicy] = MessageSEBServicePolicy;
             valueString[GroupSecurity, ValueEnableLogging   ] = MessageEnableLogging;
 
-            valueString[GroupExitKeys, ValueExitKey1] = MessageExitKey1;
-            valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
-            valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
-
             valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
             valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
             valueString[GroupInsideSeb, ValueEnableChangeAPassword  ] = MessageInsideSebEnableChangeAPassword;
@@ -761,22 +723,6 @@ namespace SebWindowsConfig
             valueString[GroupOutsideSeb, ValueEnableShutDown         ] = MessageOutsideSebEnableShutDown;
             valueString[GroupOutsideSeb, ValueEnableEaseOfAccess     ] = MessageOutsideSebEnableEaseOfAccess;
             valueString[GroupOutsideSeb, ValueEnableVmWareClientShade] = MessageOutsideSebEnableVmWareClientShade;
-
-            valueString[GroupSecurityOptions, ValueAllowDownUploads         ] = MessageAllowDownUploads;
-            valueString[GroupSecurityOptions, ValueAllowFlashFullscreen     ] = MessageAllowFlashFullscreen;
-            valueString[GroupSecurityOptions, ValueAllowPreferencesWindow   ] = MessageAllowPreferencesWindow;
-            valueString[GroupSecurityOptions, ValueAllowQuit                ] = MessageAllowQuit;
-            valueString[GroupSecurityOptions, ValueAllowSwitchToApplications] = MessageAllowSwitchToApplications;
-            valueString[GroupSecurityOptions, ValueAllowVirtualMachine      ] = MessageAllowVirtualMachine;
-            valueString[GroupSecurityOptions, ValueCreateNewDesktop         ] = MessageCreateNewDesktop;
-            valueString[GroupSecurityOptions, ValueDownloadPDFFiles         ] = MessageDownloadPDFFiles;
-            valueString[GroupSecurityOptions, ValueEnableLog                ] = MessageEnableLog;
-            valueString[GroupSecurityOptions, ValueHookMessages             ] = MessageHookMessages;
-            valueString[GroupSecurityOptions, ValueIgnoreQuitPassword       ] = MessageIgnoreQuitPassword;
-            valueString[GroupSecurityOptions, ValueMonitorProcesses         ] = MessageMonitorProcesses;
-            valueString[GroupSecurityOptions, ValueNewBrowserWindowByLink   ] = MessageNewBrowserWindowByLink;
-            valueString[GroupSecurityOptions, ValueNewBrowserWindowByScript ] = MessageNewBrowserWindowByScript;
-            valueString[GroupSecurityOptions, ValueOpenDownloads            ] = MessageOpenDownloads;
 
             valueString[GroupSpecialKeys, ValueEnableEsc       ] = MessageEnableEsc;
             valueString[GroupSpecialKeys, ValueEnableCtrlEsc   ] = MessageEnableCtrlEsc;
@@ -798,6 +744,19 @@ namespace SebWindowsConfig
             valueString[GroupFunctionKeys, ValueEnableF10] = MessageEnableF10;
             valueString[GroupFunctionKeys, ValueEnableF11] = MessageEnableF11;
             valueString[GroupFunctionKeys, ValueEnableF12] = MessageEnableF12;
+
+            valueString[GroupExitKeys, ValueExitKey1] = MessageExitKey1;
+            valueString[GroupExitKeys, ValueExitKey2] = MessageExitKey2;
+            valueString[GroupExitKeys, ValueExitKey3] = MessageExitKey3;
+
+            valueString[GroupSecurityOptions, ValueAllowFlashFullscreen     ] = MessageAllowFlashFullscreen;
+            valueString[GroupSecurityOptions, ValueAllowPreferencesWindow   ] = MessageAllowPreferencesWindow;
+            valueString[GroupSecurityOptions, ValueAllowSwitchToApplications] = MessageAllowSwitchToApplications;
+            valueString[GroupSecurityOptions, ValueAllowVirtualMachine      ] = MessageAllowVirtualMachine;
+            valueString[GroupSecurityOptions, ValueCreateNewDesktop         ] = MessageCreateNewDesktop;
+            valueString[GroupSecurityOptions, ValueHookMessages             ] = MessageHookMessages;
+            valueString[GroupSecurityOptions, ValueIgnoreQuitPassword       ] = MessageIgnoreQuitPassword;
+            valueString[GroupSecurityOptions, ValueMonitorProcesses         ] = MessageMonitorProcesses;
 
 
             // Define the strings for the encryption identity
@@ -848,7 +807,9 @@ namespace SebWindowsConfig
 
             // Define the strings for the function keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
+            {
                 functionKeyString[i] = "F" + i.ToString();
+            }
 
 
             // Try to open the ini file (SebStarter.ini)
@@ -875,6 +836,7 @@ namespace SebWindowsConfig
             comboBoxChooseIdentity.SelectedIndex = 0;
 
         } // end of contructor   SebWindowsConfigForm()
+
 
 
 
@@ -2237,11 +2199,6 @@ namespace SebWindowsConfig
         // ************************
         // Group "Security Options"
         // ************************
-        private void checkBoxAllowDownUploads_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowDownUploads] = checkBoxAllowDownUploads.Checked;
-        }
-
         private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
@@ -2250,11 +2207,6 @@ namespace SebWindowsConfig
         private void checkBoxAllowPreferencesWindow_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow] = checkBoxAllowPreferencesWindow.Checked;
-        }
-
-        private void checkBoxAllowQuit_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowQuit] = checkBoxAllowQuit.Checked;
         }
 
         private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
@@ -2272,16 +2224,6 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
         }
 
-        private void checkBoxDownloadPDFFiles_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles] = checkBoxDownloadPDFFiles.Checked;
-        }
-
-        private void checkBoxEnableLog_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog] = checkBoxEnableLog.Checked;
-        }
-
         private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages] = checkBoxHookMessages.Checked;
@@ -2295,21 +2237,6 @@ namespace SebWindowsConfig
         private void checkBoxMonitorProcesses_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses] = checkBoxMonitorProcesses.Checked;
-        }
-
-        private void checkBoxNewBrowserWindowByLinkBlockForeign_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLink] = checkBoxNewBrowserWindowByLinkBlockForeign.Checked;
-        }
-
-        private void checkBoxNewBrowserWindowByScriptBlockForeign_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScript] = checkBoxNewBrowserWindowByScriptBlockForeign.Checked;
-        }
-
-        private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueOpenDownloads] = checkBoxOpenDownloads.Checked;
         }
 
 
@@ -2401,10 +2328,6 @@ namespace SebWindowsConfig
              listBoxSEBServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSEBServicePolicy] - 1;
             checkBoxEnableLogging   .Checked       = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
-            listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
-            listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
-            listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
-
             checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser];
             checkBoxInsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer];
             checkBoxInsideSebEnableChangeAPassword  .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableChangeAPassword];
@@ -2422,22 +2345,6 @@ namespace SebWindowsConfig
             checkBoxInsideSebEnableShutDown         .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown];
             checkBoxInsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess];
             checkBoxInsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade];
-
-            checkBoxAllowDownUploads         .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowDownUploads];
-            checkBoxAllowFlashFullscreen     .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen];
-            checkBoxAllowPreferencesWindow   .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow];
-            checkBoxAllowQuit                .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowQuit];
-            checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications];
-            checkBoxAllowVirtualMachine      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine];
-            checkBoxCreateNewDesktop                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
-            checkBoxDownloadPDFFiles                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueDownloadPDFFiles];
-            checkBoxEnableLog                           .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueEnableLog];
-            checkBoxHookMessages                        .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages];
-            checkBoxIgnoreQuitPassword                  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
-            checkBoxMonitorProcesses                    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses];
-            checkBoxNewBrowserWindowByLinkBlockForeign  .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByLink];
-            checkBoxNewBrowserWindowByScriptBlockForeign.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueNewBrowserWindowByScript];
-            checkBoxOpenDownloads                       .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueOpenDownloads];
 
             checkBoxEnableEsc       .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc];
             checkBoxEnableCtrlEsc   .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc];
@@ -2459,6 +2366,19 @@ namespace SebWindowsConfig
             checkBoxEnableF10.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10];
             checkBoxEnableF11.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11];
             checkBoxEnableF12.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12];
+
+            listBoxExitKey1.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey1] - 1;
+            listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
+            listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
+
+            checkBoxAllowFlashFullscreen     .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowFlashFullscreen];
+            checkBoxAllowPreferencesWindow   .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow];
+            checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowSwitchToApplications];
+            checkBoxAllowVirtualMachine      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowVirtualMachine];
+            checkBoxCreateNewDesktop         .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
+            checkBoxHookMessages             .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueHookMessages];
+            checkBoxIgnoreQuitPassword       .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
+            checkBoxMonitorProcesses         .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueMonitorProcesses];
         }
 
 
