@@ -44,6 +44,8 @@ namespace SebWindowsClient.ConfigurationUtils
         private const int DEFAULT_RECV_TIMEOUT = 100;
         private const int DEFAULT_NUM_MESSAGES = 3;
 
+        public const string SEB_NEW_DESKTOP_NAME = "SEBDesktop";
+
         #endregion
 
         #region Public Properties
@@ -64,7 +66,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public static SEBDesktopController OriginalDesktop { get; set; }
         public static SEBDesktopController SEBNewlDesktop { get; set; }
-        //public static string OriginalDesktopName { get; set; }
+        public static string DesktopName { get; set; }
 
        // SEB Client Directories properties
         public static string ProgramDataDirectory { get; set; }
@@ -127,7 +129,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBErrorMessages.InitErrorMessages();
 
             // Get the path of the "Program" directory.
-            string programDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            ProgramDataDirectory = Path.GetDirectoryName(Application.ExecutablePath);
 
             // Get the path of the "Program Data" directory.
             string localAppDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
