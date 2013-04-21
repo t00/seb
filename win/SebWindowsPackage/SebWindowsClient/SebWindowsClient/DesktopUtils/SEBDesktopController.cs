@@ -792,6 +792,22 @@ namespace SebWindowsClient.DesktopUtils
 			return d.CreateProcess(path);
 		}
 
+        /// <summary>
+        /// Enumerates the windows on a desktop.
+        /// </summary>
+        /// <param name="windows">Array of Desktop.Window objects to recieve windows.</param>
+        /// <returns>A window colleciton if successful, otherwise null.</returns>
+        public static WindowCollection GetWindows(string desktop)
+        {
+            if (!SEBDesktopController.Exists(desktop)) return null;
+
+            // get windows.
+            SEBDesktopController d = SEBDesktopController.OpenDesktop(desktop);
+            return d.GetWindows();
+        }
+
+
+
 		/// <summary>
 		/// Gets an array of all the processes running on the Input desktop.
 		/// </summary>
@@ -829,6 +845,47 @@ namespace SebWindowsClient.DesktopUtils
 
 			return procs;
 		}
+
+        /// <summary>
+        /// Gets an array of all the processes running on the Input desktop.
+        /// </summary>
+        /// <returns>An array of the processes.</returns>
+        public static Process[] GetInputProcessesWithGI()
+        {
+            // get all processes.
+            Process[] processes = Process.GetProcesses();
+
+            ArrayList m_procs = new ArrayList();
+
+            // get the current desktop name.
+            string currentDesktop = GetDesktopName(SEBDesktopController.Input.DesktopHandle);
+
+            // cycle through the processes.
+            foreach (Process process in processes)
+            {
+                //// check the threads of the process - are they in this one?
+                //foreach (ProcessThread pt in process.Threads)
+                //{
+                //    // check for a desktop name match.
+                //    if (GetDesktopName(GetThreadDesktop(pt.Id)) == currentDesktop)
+                //    {
+                        if (process.MainWindowTitle.Length > 0)
+                        {
+                            // found a match, add to list, and bail.
+                            m_procs.Add(process);
+                        }
+                //    }
+                //}
+            }
+
+            // put ArrayList into array.
+            Process[] procs = new Process[m_procs.Count];
+
+            for (int i = 0; i < procs.Length; i++) procs[i] = (Process)m_procs[i];
+
+            return procs;
+        }
+
 		#endregion
 
 		#region IDisposable
