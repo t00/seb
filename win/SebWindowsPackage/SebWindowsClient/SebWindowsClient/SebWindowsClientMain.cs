@@ -189,9 +189,6 @@ namespace SebWindowsClient
             SEBClipboard.CleanClipboard();
             Logger.AddInformation("Clipboard deleted.", null, null);
 
-            //string[] desktops = SEBDesktopControler.GetDesktops();
-            //Process[] processes = SEBDesktopControler.GetInputProcesses();
-
             // locks OS
             if (!SEBClientInfo.IsNewOS)
             {
@@ -226,11 +223,18 @@ namespace SebWindowsClient
                     SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
                     SEBDesktopController OriginalInput = SEBDesktopController.OpenInputDesktop();
 
-                    SEBClientInfo.SEBNewlDesktop = SEBDesktopController.CreateDesktop("SEBDesktop");
+                    SEBClientInfo.SEBNewlDesktop = SEBDesktopController.CreateDesktop(SEBClientInfo.SEB_NEW_DESKTOP_NAME);
                     SEBDesktopController.Show(SEBClientInfo.SEBNewlDesktop.DesktopName);
                     SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
+                    SEBClientInfo.DesktopName = SEBClientInfo.SEB_NEW_DESKTOP_NAME;
 
-                 }
+                }
+                else
+                {
+                    SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
+                    SEBClientInfo.DesktopName = SEBClientInfo.OriginalDesktop.DesktopName;
+                    SebWindowsClientForm.SetVisibility(false);
+                }
             }
 
             return true;
