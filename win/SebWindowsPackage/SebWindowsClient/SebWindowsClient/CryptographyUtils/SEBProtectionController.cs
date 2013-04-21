@@ -61,6 +61,17 @@ namespace SebWindowsClient.CryptographyUtils
             set { _keyCertPassword = value; }
         }
 
+
+        public string ComputeQuitPasswordHash(string input)
+        {
+            HashAlgorithm algorithm = new SHA256CryptoServiceProvider();
+            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+            Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
+
+            return BitConverter.ToString(hashedBytes);
+        }
+
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         ///  Get certificate from store.

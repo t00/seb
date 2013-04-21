@@ -40,12 +40,13 @@ namespace SebWindowsClient
             // 
             // btn_Exit
             // 
-            this.btn_Exit.Location = new System.Drawing.Point(513, 0);
+            this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Exit.Location = new System.Drawing.Point(812, 378);
             this.btn_Exit.MaximumSize = new System.Drawing.Size(102, 23);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(102, 23);
             this.btn_Exit.TabIndex = 0;
-            this.btn_Exit.Text = "Exit";
+            this.btn_Exit.Text = "Quit";
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
@@ -53,7 +54,7 @@ namespace SebWindowsClient
             // 
             this.lbl_User.AutoSize = true;
             this.lbl_User.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lbl_User.Location = new System.Drawing.Point(691, 0);
+            this.lbl_User.Location = new System.Drawing.Point(851, 0);
             this.lbl_User.Name = "lbl_User";
             this.lbl_User.Size = new System.Drawing.Size(45, 13);
             this.lbl_User.TabIndex = 1;
@@ -64,7 +65,7 @@ namespace SebWindowsClient
             this.tsPermittedProcesses.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tsPermittedProcesses.Location = new System.Drawing.Point(0, 376);
             this.tsPermittedProcesses.Name = "tsPermittedProcesses";
-            this.tsPermittedProcesses.Size = new System.Drawing.Size(691, 25);
+            this.tsPermittedProcesses.Size = new System.Drawing.Size(851, 25);
             this.tsPermittedProcesses.TabIndex = 2;
             this.tsPermittedProcesses.Text = "tsPermittedProcesses";
             // 
@@ -73,13 +74,14 @@ namespace SebWindowsClient
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(736, 401);
+            this.ClientSize = new System.Drawing.Size(896, 401);
             this.Controls.Add(this.tsPermittedProcesses);
             this.Controls.Add(this.lbl_User);
             this.Controls.Add(this.btn_Exit);
             this.Name = "SebWindowsClientForm";
             this.Text = "Safe Exam Browser";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsClientForm_FormClosing);
             this.Load += new System.EventHandler(this.SebWindowsClientForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

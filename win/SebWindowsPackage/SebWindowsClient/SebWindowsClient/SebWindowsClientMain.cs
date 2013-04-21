@@ -112,14 +112,15 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private static bool InitSebDesktop()
         {
-            // Set SebClient configuration
+
+           // Set SebClient configuration
             if (!SEBClientInfo.SetSebClientConfiguration())
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                 Logger.AddError("Error when opening the file SebClient.seb!", null, null);
                 return false;
             }
-
+ 
             // Set XulRunner configuration
             if (!SEBClientInfo.SetXulRunnerConfiguration())
             {

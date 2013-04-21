@@ -103,7 +103,7 @@
     </ExitKeys>
     <Passwords>
       <Password key="hashedAdminPassword" type = "string" value="" />
-      <Password key="hashedQuitPassword" type = "string" value="" />
+      <Password key="hashedQuitPassword" type = "string" value="1F-F3-BE-20-BA-64-98-63-84-90-18-B5-13-ED-72-7A-45-15-76-72-3B-41-74-01-BF-88-C8-44-24-F1-DF-18" />
     </Passwords>
     <PermittedProcesses>
       <PermittedProcess active="true" title="SEB" nameWin="xulrunner.exe" pathWin="../xulrunner/" autostart="true" description="" identifier="" hideProcess="" allowUserToChooseApp="" signatureWin="">

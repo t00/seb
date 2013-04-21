@@ -17,6 +17,7 @@ using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.BlockShortcutsUtils;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using SebWindowsClient.CryptographyUtils;
 
 // -------------------------------------------------------------
 //     Viktor tomas
@@ -65,6 +66,13 @@ namespace SebWindowsClient
         private static IntPtr vistaStartMenuWnd = IntPtr.Zero;
         private delegate bool EnumThreadProc(IntPtr hwnd, IntPtr lParam);
 
+        private SebSocketClient sebSocketClient = new SebSocketClient();
+
+        //private Process xulRunner = new Process();
+        //private int xulRunnerExitCode;
+        //private DateTime xulRunnerExitTime;
+        //private bool xulRunnerExitEventHandled;
+
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Constructor - initialise components.
@@ -73,9 +81,56 @@ namespace SebWindowsClient
         public SebWindowsClientForm()
         {
             InitializeComponent();
-            addPermittedProcessesToTS();
-            SetFormOnDesktop();
         }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        // Start xulRunner process.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private void StartXulRunner()
+        {
+
+//            xulRunnerExitEventHandled = false;
+
+            try
+            {
+                string path = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
+                path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
+                SEBDesktopController.CreateProcess(path, SEBClientInfo.DesktopName);
+                //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
+                ////xulRunner.StartInfo.Verb = "XulRunner";
+                //xulRunner.StartInfo.Arguments = " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
+                //xulRunner.StartInfo.CreateNoWindow = true;
+                //xulRunner.EnableRaisingEvents = true;
+                //xulRunner.Exited += new EventHandler(xulRunner_Exited);
+                //xulRunner.Start();
+
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("An error occurred by starting XulRunner", this, ex, ex.Message);
+                return;
+            }
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        // Handle xulRunner_Exited event and display process information.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        //private void xulRunner_Exited(object sender, System.EventArgs e)
+        //{
+
+        //    xulRunnerExitEventHandled = true;
+        //    xulRunnerExitCode = xulRunner.ExitCode;
+        //    xulRunnerExitTime = xulRunner.ExitTime;
+        //    if (xulRunnerExitCode != 0)
+        //    {
+        //       Logger.AddError("An error occurred by exitting XulRunner. Exit code: " + xulRunnerExitCode.ToString() , this, null);
+        //    }
+ 
+        //}
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
@@ -238,19 +293,8 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            if (SEBClientInfo.sebClientConfig.getSecurityOption("createNewDesktop").getBool())
-            {
-                SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
-                SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
-                SEBClientInfo.SEBNewlDesktop.Close();
-            }
-            else
-            {
-                SetVisibility(true);
-            }
-
-            Logger.closeLoger();
-            this.Close();
+ 
+             this.Close();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -271,8 +315,7 @@ namespace SebWindowsClient
             Logger.AddInformation("HostName: " + hostInfo.HostName + " PortNumber: " + SEBClientInfo.PortNumber.ToString(), this, null);
 
             // Open socket
-            SebSocketClient sebSocketClient = new SebSocketClient();
-            bool bSocketConnected = sebSocketClient.OpenSocket(hostInfo.HostName, SEBClientInfo.PortNumber.ToString());
+            bool bSocketConnected = sebSocketClient.OpenSocket("127.0.0.1", SEBClientInfo.PortNumber.ToString());
 
             if (bSocketConnected)
             {
@@ -291,15 +334,14 @@ namespace SebWindowsClient
                 bool bSetRecvTimeout = sebSocketClient.SetRecvTimeout(SEBClientInfo.RecvTimeout);
 
                 //Set registry flags
-                StringBuilder registryFlagsBuilder = new StringBuilder(
-                 SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableSwitchUser").Value).Append(",")
-                .Append(SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableLockThisComputer").Value).Append(",")
-                .Append(SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableChangePassword").Value).Append(",")
-                .Append(SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableStartTaskManager").Value).Append(",")
-                .Append(SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableLogOff").Value).Append(",")
-                .Append(SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableShutDown").Value).Append(",")
-                .Append(SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableEaseOfAccess").Value).Append(",")
-                .Append(SEBClientInfo.sebClientConfig.getPolicySetting("insideSebEnableVmWareClientShade").Value);
+                StringBuilder registryFlagsBuilder = new StringBuilder(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableSwitchUser").getNumStr());
+               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableLockThisComputer").getNumStr());
+               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableChangePassword").getNumStr());
+               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableStartTaskManager").getNumStr());
+               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableLogOff").getNumStr());
+               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableShutDown").getNumStr());
+               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableEaseOfAccess").getNumStr());
+               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableVmWareClientShade").getNumStr());
                 string registryFlags = registryFlagsBuilder.ToString();
 
                 Logger.AddInformation("UserName: " + userName + " UserSid: " + userSid.ToString() + " RegistryFlags: " + registryFlags, this, null);
@@ -373,7 +415,42 @@ namespace SebWindowsClient
 
             // Disable unwanted keys.
             SebKeyCapture.FilterKeys = true;
+
+            addPermittedProcessesToTS();
+            //SetFormOnDesktop();
+            StartXulRunner();
         }
 
+        private void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+            string hPassword = sEBProtectionControler.ComputeQuitPasswordHash("QuitPassword");
+
+            int ok = SEBClientInfo.sebClientConfig.Passwords[1].Value.CompareTo(hPassword);
+
+            bool bSocketResult;
+            SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
+            string userName = sEBLocalHostInfo.GetUserName();
+
+            // Send RegistryFlags to server
+            bSocketResult = sebSocketClient.SendEquationToSocketServer("ShutDown", userName, SEBClientInfo.SendInterval);
+            string[] resultRegistryFlags = sebSocketClient.RecvEquationOfSocketServer();
+            this.sebSocketClient.CloseSocket();
+
+            if (SEBClientInfo.sebClientConfig.getSecurityOption("createNewDesktop").getBool())
+            {
+                SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+                SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
+                SEBClientInfo.SEBNewlDesktop.Close();
+            }
+            else
+            {
+                SetVisibility(true);
+            }
+
+            Logger.closeLoger();
+        }
+
+ 
      }
 }

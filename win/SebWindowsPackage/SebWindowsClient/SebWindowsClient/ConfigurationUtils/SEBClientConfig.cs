@@ -517,6 +517,30 @@ public  class RegistryValue {
             this._value = "false";
         }
     }
+
+    public string getNumStr()
+    {
+        if (this._value.ToLower().CompareTo("true") == 0)
+        {
+            return "1";
+        }
+        else
+        {
+            return "0";
+        }
+    }
+
+    public void setNumStr(string value)
+    {
+        if (value.CompareTo("1") == 0)
+        {
+            this._value = "true";
+        }
+        else
+        {
+            this._value = "false";
+        }
+    }
 }
 
 /// <remarks/>

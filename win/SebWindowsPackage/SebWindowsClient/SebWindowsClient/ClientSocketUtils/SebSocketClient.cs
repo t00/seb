@@ -74,7 +74,7 @@ namespace SebWindowsClient.ClientSocketUtils
         /// Closes socket.
         /// </summary>
         /// <returns></returns>
-        public void CloseSocket(object sender, EventArgs e)
+        public void CloseSocket()
         {
             if (_clientSocket == null)
             {
@@ -156,7 +156,7 @@ namespace SebWindowsClient.ClientSocketUtils
             try
             {
                 // Sende Daten
-                StringBuilder buffer = new StringBuilder(leftSide).Append("0").Append(rightSide).Append(SEBClientInfo.END_OF_STRING_KEYWORD);
+                StringBuilder buffer = new StringBuilder(leftSide).Append("=").Append(rightSide).Append(SEBClientInfo.END_OF_STRING_KEYWORD);
                 byte[] byteBuffer = System.Text.Encoding.ASCII.GetBytes(buffer.ToString());
                 _clientSocket.Send(byteBuffer, 0, byteBuffer.Length, SocketFlags.None);
 
