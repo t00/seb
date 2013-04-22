@@ -61,11 +61,11 @@ namespace SebWindowsClient.ClientSocketUtils
             }
             catch (SocketException se)
             {
-                Logger.AddError("OpenSocket failed with socket error. " + se.Message, null, se);
+                Logger.AddError("OpenSocket: Failed with socket error. " + se.Message, null, se);
             }
             catch (Exception ex)
             {
-                Logger.AddError("OpenSocket failed with error. " + ex.Message, null, ex);
+                Logger.AddError("OpenSocket: Failed with error. " + ex.Message, null, ex);
             }
             return result;
         }
@@ -78,8 +78,9 @@ namespace SebWindowsClient.ClientSocketUtils
         {
             if (_clientSocket == null)
             {
-                MessageBox.Show("You must first connect to a Server!", "MessageBox",
+                MessageBox.Show("CloseSocket: Socket to SebWindowsSercice is not opened.", "MessageBox",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.AddInformation("CloseSocket: Socket to SebWindowsSercice is not opened.", null, null);
                 return;
             }
 
@@ -93,17 +94,17 @@ namespace SebWindowsClient.ClientSocketUtils
 
                 _clientSocket.Close();
 
-                MessageBox.Show("Disconnected!", "MessageBox",
+                MessageBox.Show("CloseSocket: Successful disconnected.", "MessageBox",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Logger.AddInformation("Disconnected!", null, null);
+                Logger.AddInformation("CloseSocket: Successful disconnected.", null, null);
             }
             catch (SocketException se)
             {
-                Logger.AddError("CloseSocket failed with socket error. " + se.Message, null, se);
+                Logger.AddError("CloseSocket: Failed with socket error. " + se.Message, null, se);
             }
             catch (Exception ex)
             {
-                Logger.AddError("CloseSocket failed with error. " + ex.Message, null, ex);
+                Logger.AddError("CloseSocket: Failed with error. " + ex.Message, null, ex);
             }
 
         }
@@ -116,8 +117,9 @@ namespace SebWindowsClient.ClientSocketUtils
         {
             if (_clientSocket == null || !_clientSocket.Connected)
             {
-                MessageBox.Show("You must first connect to a Server!", "MessageBox",
+                MessageBox.Show("SetRecvTimeout: Socket to SebWindowsSercice is not opened.", "MessageBox",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.AddInformation("SetRecvTimeout: Socket to SebWindowsSercice is not opened.", null, null);
                 return false;
             }
 
@@ -130,11 +132,11 @@ namespace SebWindowsClient.ClientSocketUtils
              }
             catch (SocketException se)
             {
-                Logger.AddError("SetRecvTimeout failed with socket error. " + se.Message, null, se);
+                Logger.AddError("SetRecvTimeout: Failed with socket error. " + se.Message, null, se);
             }
             catch (Exception ex)
             {
-                Logger.AddError("SetRecvTimeout failed with error. " + ex.Message, null, ex);
+                Logger.AddError("SetRecvTimeout: Failed with error. " + ex.Message, null, ex);
             }
             return result;
         }
@@ -147,8 +149,9 @@ namespace SebWindowsClient.ClientSocketUtils
         {
             if (_clientSocket == null || !_clientSocket.Connected)
             {
-                MessageBox.Show("You must first connect to a Server!", "MessageBox",
+                MessageBox.Show("SendEquationToSocketServer: Socket to SebWindowsSercice is not opened.", "MessageBox",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.AddInformation("SendEquationToSocketServer: Socket to SebWindowsSercice is not opened.", null, null);
                 return false;
             }
 
@@ -165,11 +168,11 @@ namespace SebWindowsClient.ClientSocketUtils
             }
             catch (SocketException se)
             {
-                Logger.AddError("SendEquationToSocketServer failed with socket error. " + se.Message, null, se);
+                Logger.AddError("SendEquationToSocketServer: Failed with socket error. " + se.Message, null, se);
             }
             catch (Exception ex)
             {
-                Logger.AddError("SendEquationToSocketServer failed with error. " + ex.Message, null, ex);
+                Logger.AddError("SendEquationToSocketServer: Failed with error. " + ex.Message, null, ex);
             }
             return result;
         }
@@ -184,8 +187,9 @@ namespace SebWindowsClient.ClientSocketUtils
  
             if (_clientSocket == null || !_clientSocket.Connected)
             {
-                MessageBox.Show("You must first connect to a Server!", "MessageBox",
+                MessageBox.Show("RecvEquationOfSocketServer: Socket to SebWindowsSercice is not opened.", "MessageBox",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.AddInformation("RecvEquationOfSocketServer: Socket to SebWindowsSercice is not opened.", null, null);
                 return leftRightSide;
             }
 
@@ -209,11 +213,11 @@ namespace SebWindowsClient.ClientSocketUtils
             }
             catch (SocketException se)
             {
-                Logger.AddError("RecvEquationOfSocketServer failed with socket error. " + se.Message, null, se);
+                Logger.AddError("RecvEquationOfSocketServer: Failed with socket error. " + se.Message, null, se);
             }
             catch (Exception ex)
             {
-                Logger.AddError("RecvEquationOfSocketServer failed with error. " + ex.Message, null, ex);
+                Logger.AddError("RecvEquationOfSocketServer: Failed with error. " + ex.Message, null, ex);
             }
 
             return leftRightSide;

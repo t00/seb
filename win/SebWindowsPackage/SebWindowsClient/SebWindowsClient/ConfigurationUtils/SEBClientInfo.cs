@@ -30,21 +30,28 @@ namespace SebWindowsClient.ConfigurationUtils
         private const string SEB_CLIENT_CONFIG = "SebClient.seb";
         private const string SEB_CLIENT_LOG = "SebClient.log";
         private const string XUL_RUNNER_CONFIG = "config.json";
+        public const string XUL_RUNNER = "xulrunner.exe";
+        private const string XUL_RUNNER_INI = "seb.ini";
  
         // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
         // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
-        private const string MANUFACTURER = "ETH_Zuerich";
-        private const string PRODUCT_NAME = "SEBWindows1.9.1";
+        private const string MANUFACTURER_LOCAL = "ETH_Zuerich";
+        private const string MANUFACTURER = "ETH Zuerich";
+        private const string PRODUCT_NAME = "SEB Windows 1.9.1";
+        private const string XUL_RUNNER_DIRECTORY = "SebWindowsClient\\xulrunner";
+        private const string XUL_SEB_DIRECTORY = "SebWindowsClient\\xul_seb";
 
         public const string END_OF_STRING_KEYWORD = "---SEB---";
         private const string DEFAULT_USERNAME = "";
         private const string DEFAULT_HOSTNAME = "localhost";
+        private const string DEFAULT_HOST_IP_ADDRESS = "127.0.0.1";
         private const int DEFAULT_PORTNUMBER = 57016;
         private const int DEFAULT_SEND_INTERVAL = 100;
         private const int DEFAULT_RECV_TIMEOUT = 100;
         private const int DEFAULT_NUM_MESSAGES = 3;
 
         public const string SEB_NEW_DESKTOP_NAME = "SEBDesktop";
+        public const string SEB_WINDOWS_SERVICE_NAME = "SebWindowsService";
 
         #endregion
 
@@ -56,7 +63,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public static char[] UserNameRegistryFlags { get; set; }
         public static char[] RegistryFlags { get; set; }
         public static string HostName { get; set; }
-        public static string UserName  { get; set; }
+        public static string HostIpAddress { get; set; }
+        public static string UserName { get; set; }
         public static char[] UserSid  { get; set; }
         public static int PortNumber  { get; set; }
         public static int SendInterval  { get; set; }
@@ -69,15 +77,21 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string DesktopName { get; set; }
 
        // SEB Client Directories properties
-        public static string ProgramDataDirectory { get; set; }
+        public static string ApplicationExecutableDirectory { get; set; }
+        public static string ProgramFilesX86Directory { get; set; }
         public static bool LogFileDesiredMsgHook { get; set; }
         public static bool LogFileDesiredSebClient { get; set; }
         public static string SebClientLogFileDirectory { get; set; }
+        public static string SebClientDirectory { get; set; }
         public static string SebClientLogFile { get; set; }
         public static string SebClientConfigFileDirectory { get; set; }
+        public static string XulRunnerDirectory { get; set; }
+        public static string XulSebDirectory { get; set; }
         public static string SebClientConfigFile; 
         public static string XulRunnerConfigFileDirectory { get; set; }
         public static string XulRunnerConfigFile;
+        public static string XulRunnerExePath;
+        public static string XulRunnerSebIniPath;
         public static string ExamUrl { get; set; }
         public static string QuitPassword { get; set; }
         public static string QuitHashcode { get; set; }
@@ -119,6 +133,7 @@ namespace SebWindowsClient.ConfigurationUtils
             UserSid = new char[512];
             UserName = DEFAULT_USERNAME;
             HostName = DEFAULT_HOSTNAME;
+            HostIpAddress = DEFAULT_HOST_IP_ADDRESS;
             PortNumber = DEFAULT_PORTNUMBER;
             SendInterval = DEFAULT_SEND_INTERVAL;
             RecvTimeout = DEFAULT_RECV_TIMEOUT;
@@ -129,18 +144,41 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBErrorMessages.InitErrorMessages();
 
             // Get the path of the "Program" directory.
-            ProgramDataDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            ApplicationExecutableDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+
+            // Get the path of the "Program Files X86" directory.
+            ProgramFilesX86Directory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
 
             // Get the path of the "Program Data" directory.
             string localAppDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             //string programDataDirectory = Environment.GetEnvironmentVariable("PROGRAMMDATA");
 
             // Set the location of the SebClientConfigFileDirectory
-            StringBuilder sebClientConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
+            StringBuilder sebClientConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
             SebClientConfigFileDirectory = sebClientConfigFileDirectoryBuilder.ToString();
 
+            // Set the location of the SebWindowsClientDirectory
+            StringBuilder sebClientDirectoryBuilder = new StringBuilder(ProgramFilesX86Directory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
+            SebClientDirectory = sebClientDirectoryBuilder.ToString();
+
+            // Set the location of the XulRunnerDirectory
+            StringBuilder xulRunnerDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_RUNNER_DIRECTORY).Append("\\");
+            XulRunnerDirectory = xulRunnerDirectoryBuilder.ToString();
+
+            // Set the location of the XulSebDirectory
+            StringBuilder xulSebDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_SEB_DIRECTORY).Append("\\");
+            XulSebDirectory = xulSebDirectoryBuilder.ToString();
+
+            // Set the location of the XulRunnerExePath
+            StringBuilder xulRunnerExePathBuilder = new StringBuilder("\"").Append(XulRunnerDirectory).Append(XUL_RUNNER).Append("\"");
+            XulRunnerExePath = xulRunnerExePathBuilder.ToString();
+
+            // Set the location of the seb.ini
+            StringBuilder xulRunnerSebIniPathBuilder = new StringBuilder("\"").Append(XulSebDirectory).Append(XUL_RUNNER_INI).Append("\"");
+            XulRunnerSebIniPath = xulRunnerSebIniPathBuilder.ToString();
+
             // Set the location of the SebLogConfigFileDirectory
-            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
+            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
             SebClientLogFileDirectory = SebClientLogFileDirectoryBuilder.ToString();
 
 
@@ -208,7 +246,7 @@ namespace SebWindowsClient.ConfigurationUtils
                  //string programDataDirectory = Environment.GetEnvironmentVariable("PROGRAMMDATA");
  
                  // Set the location of the XULRunnerConfigFileDirectory
-                 StringBuilder xulRunnerConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
+                 StringBuilder xulRunnerConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
                  XulRunnerConfigFileDirectory = xulRunnerConfigFileDirectoryBuilder.ToString();
 
                  // Set the location of the config.json file

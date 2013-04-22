@@ -138,7 +138,7 @@ namespace SebWindowsClient
             }
 
             // Test if Windows Service is running
-            bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable("SebWindowsService");
+            bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
             if (serviceAvailable)
             {
                 Logger.AddInformation("SEB Windows service available", null, null);

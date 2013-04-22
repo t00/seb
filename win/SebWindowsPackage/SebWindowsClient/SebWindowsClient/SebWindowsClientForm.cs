@@ -18,6 +18,7 @@ using SebWindowsClient.BlockShortcutsUtils;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.ServiceUtils;
 
 // -------------------------------------------------------------
 //     Viktor tomas
@@ -95,9 +96,16 @@ namespace SebWindowsClient
 
             try
             {
-                string path = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
-                path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
-                SEBDesktopController.CreateProcess(path, SEBClientInfo.DesktopName);
+                StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
+                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).
+                                                        Append(" -configpath ").Append(SEBClientInfo.XulRunnerConfigFile);
+                string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
+                xulRunnerPathBuilder.Append(xulRunnerArguments);
+                string xulRunnerPath = xulRunnerPathBuilder.ToString();
+
+                //string path = SEBClientInfo.XulRunnerExePath;
+                //path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
+                SEBDesktopController.CreateProcess(xulRunnerPath, SEBClientInfo.DesktopName);
                 //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
                 ////xulRunner.StartInfo.Verb = "XulRunner";
                 //xulRunner.StartInfo.Arguments = " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
@@ -146,10 +154,13 @@ namespace SebWindowsClient
                     ToolStripButton toolStripButton = new ToolStripButton();
                     string tsbName = SEBClientInfo.sebClientConfig.PermittedProcesses[i].NameWin;
                     toolStripButton.Name = tsbName;
+                    toolStripButton.ToolTipText = tsbName;
                     if (tsbName.CompareTo("notepad.exe") == 0)
-                        toolStripButton.Image = Bitmap.FromFile(@"C:\Users\viktor\seb\trunk\win\SebWindowsPackage\SebWindowsClient\SebWindowsClient\icons\microsoft Notepad 2007.png");
+                        toolStripButton.Image = ilProcessIcons.Images[2];
                     else if (tsbName.CompareTo("calc.exe") == 0)
-                        toolStripButton.Image = Bitmap.FromFile(@"C:\Users\viktor\seb\trunk\win\SebWindowsPackage\SebWindowsClient\SebWindowsClient\icons\calc_exe_01_10.png");
+                        toolStripButton.Image = ilProcessIcons.Images[1];
+                    else if (tsbName.CompareTo("xulrunner.exe") == 0)
+                        toolStripButton.Image = ilProcessIcons.Images[3];
                     else
                         toolStripButton.Text = tsbName;
 
@@ -177,9 +188,27 @@ namespace SebWindowsClient
                 {
                     if (toolStripButton.Name.CompareTo(SEBClientInfo.sebClientConfig.PermittedProcesses[i].NameWin) == 0)
                     {
-                        StringBuilder startProcessNameBuilder = new StringBuilder(SEBClientInfo.sebClientConfig.PermittedProcesses[i].NameWin).Append(" ").
-                            Append(SEBClientInfo.sebClientConfig.PermittedProcesses[i].Arguments);
-                        SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                        string processName = SEBClientInfo.sebClientConfig.PermittedProcesses[i].NameWin;
+                        if (processName.CompareTo(SEBClientInfo.XUL_RUNNER) == 0)
+                        {
+                            bool xulRunnerRunning = false;
+                            Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
+                            for (int j = 0; j < runningApplications.Count(); j++)
+                            {
+                                if (processName.Contains(runningApplications[j].ProcessName))
+                                {
+                                    xulRunnerRunning = true;                               
+                                }
+                            }
+                            if (!xulRunnerRunning)
+                                StartXulRunner();
+                        }
+                        else
+                        {
+                            StringBuilder startProcessNameBuilder = new StringBuilder(processName).Append(" ").
+                                Append(SEBClientInfo.sebClientConfig.PermittedProcesses[i].Arguments);
+                            SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                        }
                     }
                 }
             }
@@ -293,13 +322,12 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void btn_Exit_Click(object sender, EventArgs e)
         {
- 
              this.Close();
         }
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Initialise Client Socket.
+        /// Initialise Client Socket.  Send User, UserSid, Registry Flags string to SebWindowsService
         /// </summary>
         /// <returns>true if succeed</returns>
         /// ----------------------------------------------------------------------------------------
@@ -310,55 +338,59 @@ namespace SebWindowsClient
             SecurityIdentifier userSid = sEBLocalHostInfo.GetSID();
             string userName = sEBLocalHostInfo.GetUserName();
 
-            lbl_User.Text = "Logged in as " + userName;
+            lbl_User.Text = "Logged in as: " + userName;
 
-            Logger.AddInformation("HostName: " + hostInfo.HostName + " PortNumber: " + SEBClientInfo.PortNumber.ToString(), this, null);
+            Logger.AddInformation("HostName: " + hostInfo.HostName + "HostAddress: " + SEBClientInfo.HostIpAddress + "PortNumber: " + SEBClientInfo.PortNumber.ToString(), this, null);
 
-            // Open socket
-            bool bSocketConnected = sebSocketClient.OpenSocket("127.0.0.1", SEBClientInfo.PortNumber.ToString());
-
-            if (bSocketConnected)
+            bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
+            if (serviceAvailable)
             {
-                // Set receive timeout
-                if (int.Parse(SEBClientInfo.sebClientConfig.getPolicySetting("sebServicePolicy").Value) == (int)sebServicePolicies.forceSebService)
+                // Open socket
+                bool bSocketConnected = sebSocketClient.OpenSocket(SEBClientInfo.HostIpAddress, SEBClientInfo.PortNumber.ToString());
+
+                if (bSocketConnected)
                 {
-                    SEBClientInfo.RecvTimeout = 0;   // timeout "0" means "infinite" in this case !!!
-                    Logger.AddInformation("Force Windows Service demanded, therefore socket recvTimeout = infinite", this, null);
+                    // Set receive timeout
+                    if (int.Parse(SEBClientInfo.sebClientConfig.getPolicySetting("sebServicePolicy").Value) == (int)sebServicePolicies.forceSebService)
+                    {
+                        SEBClientInfo.RecvTimeout = 0;   // timeout "0" means "infinite" in this case !!!
+                        Logger.AddInformation("Force Windows Service demanded, therefore socket recvTimeout = infinite", this, null);
+
+                    }
+                    else
+                    {
+                        Logger.AddInformation("Force Windows Service not demanded, therefore socket recvTimeout = " + SEBClientInfo.RecvTimeout, this, null);
+                    }
+
+                    bool bSetRecvTimeout = sebSocketClient.SetRecvTimeout(SEBClientInfo.RecvTimeout);
+
+                    //Set registry flags
+                    StringBuilder registryFlagsBuilder = new StringBuilder(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableSwitchUser").getNumStr());
+                    registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableLockThisComputer").getNumStr());
+                    registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableChangePassword").getNumStr());
+                    registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableStartTaskManager").getNumStr());
+                    registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableLogOff").getNumStr());
+                    registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableShutDown").getNumStr());
+                    registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableEaseOfAccess").getNumStr());
+                    registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableVmWareClientShade").getNumStr());
+                    string registryFlags = registryFlagsBuilder.ToString();
+
+                    Logger.AddInformation("UserName: " + userName + " UserSid: " + userSid.ToString() + " RegistryFlags: " + registryFlags, this, null);
+
+                    bool bSocketResult;
+                    // Send UserName to server
+                    bSocketResult = sebSocketClient.SendEquationToSocketServer("UserName", userName, SEBClientInfo.SendInterval);
+                    string[] resultUserName = sebSocketClient.RecvEquationOfSocketServer();
+
+                    // Send UserSid to server
+                    bSocketResult = sebSocketClient.SendEquationToSocketServer("UserSid", userSid.ToString(), SEBClientInfo.SendInterval);
+                    string[] resultUserSid = sebSocketClient.RecvEquationOfSocketServer();
+
+                    // Send RegistryFlags to server
+                    bSocketResult = sebSocketClient.SendEquationToSocketServer("RegistryFlags", registryFlags, SEBClientInfo.SendInterval);
+                    string[] resultRegistryFlags = sebSocketClient.RecvEquationOfSocketServer();
 
                 }
-                else
-                {
-                    Logger.AddInformation("Force Windows Service not demanded, therefore socket recvTimeout = " + SEBClientInfo.RecvTimeout, this, null);
-                }
-
-                bool bSetRecvTimeout = sebSocketClient.SetRecvTimeout(SEBClientInfo.RecvTimeout);
-
-                //Set registry flags
-                StringBuilder registryFlagsBuilder = new StringBuilder(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableSwitchUser").getNumStr());
-               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableLockThisComputer").getNumStr());
-               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableChangePassword").getNumStr());
-               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableStartTaskManager").getNumStr());
-               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableLogOff").getNumStr());
-               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableShutDown").getNumStr());
-               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableEaseOfAccess").getNumStr());
-               registryFlagsBuilder.Append(SEBClientInfo.sebClientConfig.getRegistryValue("insideSebEnableVmWareClientShade").getNumStr());
-                string registryFlags = registryFlagsBuilder.ToString();
-
-                Logger.AddInformation("UserName: " + userName + " UserSid: " + userSid.ToString() + " RegistryFlags: " + registryFlags, this, null);
-
-                bool bSocketResult;
-                // Send UserName to server
-                bSocketResult = sebSocketClient.SendEquationToSocketServer("UserName", userName, SEBClientInfo.SendInterval);
-                string[] resultUserName = sebSocketClient.RecvEquationOfSocketServer();
-
-                // Send UserSid to server
-                bSocketResult = sebSocketClient.SendEquationToSocketServer("UserSid", userSid.ToString(), SEBClientInfo.SendInterval);
-                string[] resultUserSid = sebSocketClient.RecvEquationOfSocketServer();
-
-                // Send RegistryFlags to server
-                bSocketResult = sebSocketClient.SendEquationToSocketServer("RegistryFlags", registryFlags, SEBClientInfo.SendInterval);
-                string[] resultRegistryFlags = sebSocketClient.RecvEquationOfSocketServer();
-
             }
             return true;
         }
@@ -421,36 +453,95 @@ namespace SebWindowsClient
             StartXulRunner();
         }
 
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Close form, if Quit Password is correct.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------------------
         private void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-            string hPassword = sEBProtectionControler.ComputeQuitPasswordHash("QuitPassword");
+            SebCloseDialogForm sebCloseDialogForm = new SebCloseDialogForm();
 
-            int ok = SEBClientInfo.sebClientConfig.Passwords[1].Value.CompareTo(hPassword);
-
-            bool bSocketResult;
-            SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
-            string userName = sEBLocalHostInfo.GetUserName();
-
-            // Send RegistryFlags to server
-            bSocketResult = sebSocketClient.SendEquationToSocketServer("ShutDown", userName, SEBClientInfo.SendInterval);
-            string[] resultRegistryFlags = sebSocketClient.RecvEquationOfSocketServer();
-            this.sebSocketClient.CloseSocket();
-
-            if (SEBClientInfo.sebClientConfig.getSecurityOption("createNewDesktop").getBool())
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            if (sebCloseDialogForm.ShowDialog(this) == DialogResult.OK)
             {
-                SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
-                SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
-                SEBClientInfo.SEBNewlDesktop.Close();
+                // Read the contents of testDialog's TextBox.
+                string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
+
+                SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+                string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
+
+                int quit = SEBClientInfo.sebClientConfig.Passwords[1].Value.CompareTo(hPassword);
+
+                if (quit == 0)
+                {
+                    bool bSocketResult;
+                    SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
+                    string userName = sEBLocalHostInfo.GetUserName();
+
+                    // ShutDown message to SebWindowsService
+                    bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
+                    if (serviceAvailable)
+                    {
+                        // Send ShutDown to server
+                        bSocketResult = sebSocketClient.SendEquationToSocketServer("ShutDown", userName, SEBClientInfo.SendInterval);
+                        string[] resultShutDown = sebSocketClient.RecvEquationOfSocketServer();
+                        this.sebSocketClient.CloseSocket();
+                    }
+                    // ShutDown Processes
+                    Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
+                    for (int i = 0; i < SEBClientInfo.sebClientConfig.PermittedProcesses.Count(); i++)
+                    {
+                        for (int j = 0; j < runningApplications.Count(); j++)
+                        {
+                            if (SEBClientInfo.sebClientConfig.PermittedProcesses[i].NameWin.Contains(runningApplications[j].ProcessName))
+                            {
+                                // Close process
+                                SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
+
+                                if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
+                                {
+                                    if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
+                                    {
+                                        SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    // Switch to Default Desktop
+                    if (SEBClientInfo.sebClientConfig.getSecurityOption("createNewDesktop").getBool())
+                    {
+                        SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+                        SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
+                        SEBClientInfo.SEBNewlDesktop.Close();
+                    }
+                    else
+                    {
+                        SetVisibility(true);
+                    }
+
+                    // Clean clipboard
+                    SEBClipboard.CleanClipboard();
+                    Logger.AddInformation("Clipboard deleted.", null, null);
+                    SebKeyCapture.FilterKeys = false;
+                    Logger.closeLoger();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+
             }
             else
             {
-                SetVisibility(true);
+                e.Cancel = true;
             }
-
-            Logger.closeLoger();
+            sebCloseDialogForm.Dispose();
         }
-
- 
      }
 }

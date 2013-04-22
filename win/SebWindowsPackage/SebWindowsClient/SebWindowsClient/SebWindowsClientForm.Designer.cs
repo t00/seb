@@ -33,9 +33,12 @@ namespace SebWindowsClient
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsClientForm));
             this.btn_Exit = new System.Windows.Forms.Button();
             this.lbl_User = new System.Windows.Forms.Label();
             this.tsPermittedProcesses = new System.Windows.Forms.ToolStrip();
+            this.ilProcessIcons = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // btn_Exit
@@ -69,6 +72,15 @@ namespace SebWindowsClient
             this.tsPermittedProcesses.TabIndex = 2;
             this.tsPermittedProcesses.Text = "tsPermittedProcesses";
             // 
+            // ilProcessIcons
+            // 
+            this.ilProcessIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilProcessIcons.ImageStream")));
+            this.ilProcessIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilProcessIcons.Images.SetKeyName(0, "AcrobatReader");
+            this.ilProcessIcons.Images.SetKeyName(1, "calc");
+            this.ilProcessIcons.Images.SetKeyName(2, "notepad");
+            this.ilProcessIcons.Images.SetKeyName(3, "xulrunner");
+            // 
             // SebWindowsClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +105,7 @@ namespace SebWindowsClient
         private System.Windows.Forms.Button btn_Exit;
         private System.Windows.Forms.Label lbl_User;
         private System.Windows.Forms.ToolStrip tsPermittedProcesses;
+        private System.Windows.Forms.ImageList ilProcessIcons;
     }
 }
 
