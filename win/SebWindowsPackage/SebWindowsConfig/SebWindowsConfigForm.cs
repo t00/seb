@@ -1520,14 +1520,14 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupGeneral, ValueSEBServerURL] = textBoxSEBServerURL.Text;
         }
 
-        private void textBoxAdministratorPassword_TextChanged(object sender, EventArgs e)
+        private void textBoxAdminPassword_TextChanged(object sender, EventArgs e)
         {
-            settingString[StateNew, GroupGeneral, ValueAdminPassword] = textBoxAdministratorPassword.Text;
+            settingString[StateNew, GroupGeneral, ValueAdminPassword] = textBoxAdminPassword.Text;
         }
 
-        private void textBoxConfirmAdministratorPassword_TextChanged(object sender, EventArgs e)
+        private void textBoxConfirmAdminPassword_TextChanged(object sender, EventArgs e)
         {
-            settingString[StateNew, GroupGeneral, ValueConfirmAdminPassword] = textBoxConfirmAdministratorPassword.Text;
+            settingString[StateNew, GroupGeneral, ValueConfirmAdminPassword] = textBoxConfirmAdminPassword.Text;
         }
 
         private void checkBoxAllowUserToQuitSEB_CheckedChanged(object sender, EventArgs e)
@@ -1618,9 +1618,9 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient] = (radioButtonConfiguringAClient.Checked == true);
         }
 
-        private void checkBoxAllowToOpenPreferencesWindowOnClient_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxAllowOpenPrefWindowOnClient_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow] = checkBoxAllowToOpenPreferencesWindow.Checked;
+            settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow] = checkBoxAllowOpenPrefWindow.Checked;
         }
 
         private void comboBoxChooseIdentity_SelectedIndexChanged(object sender, EventArgs e)
@@ -1727,39 +1727,39 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode] = radioButtonUseFullScreenMode.Checked;
         }
 
-        private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxMainWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.Text;
         }
 
-        private void comboBoxMainBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
+        private void comboBoxMainWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.Text;
         }
 
-        private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxMainWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.Text;
         }
 
-        private void comboBoxMainBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
+        private void comboBoxMainWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.Text;
         }
 
-        private void listBoxMainBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxMainWindowPosition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowPosition] = listBoxMainBrowserWindowHorizPos.SelectedIndex + 1;
+            settingInteger[StateNew, GroupAppearance, ValueMainWindowPosition] = listBoxMainWindowPosition.SelectedIndex + 1;
         }
 
-        private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxEnableWindowToolbar_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar] = checkBoxEnableBrowserWindowToolbar.Checked;
-            checkBoxHideToolbarAsDefault.Enabled = checkBoxEnableBrowserWindowToolbar.Checked;
+            settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar] = checkBoxEnableWindowToolbar.Checked;
+            checkBoxHideToolbarAsDefault.Enabled = checkBoxEnableWindowToolbar.Checked;
         }
 
         private void checkBoxHideToolbarAsDefault_CheckedChanged(object sender, EventArgs e)
@@ -1782,53 +1782,53 @@ namespace SebWindowsConfig
         // ***************
         // Group "Browser"
         // ***************
-        private void listBoxLinksRequesting_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxOpenLinksHTML_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueOpenLinksHTML] = listBoxLinksRequesting.SelectedIndex + 1;
+            settingInteger[StateNew, GroupBrowser, ValueOpenLinksHTML] = listBoxOpenLinksHTML.SelectedIndex + 1;
         }
 
-        private void checkBoxBlockLinksWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
+        private void listBoxOpenLinksJava_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML] = checkBoxBlockLinksToDifferentServer.Checked;
+            settingInteger[StateNew, GroupBrowser, ValueOpenLinksJava] = listBoxOpenLinksJava.SelectedIndex + 1;
         }
 
-        private void comboBoxNewBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
+        private void checkBoxBlockLinksHTML_CheckedChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewBrowserWindowWidth.Text;
+            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML] = checkBoxBlockLinksHTML.Checked;
         }
 
-        private void comboBoxNewBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
+        private void checkBoxBlockLinksJava_CheckedChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewBrowserWindowWidth.Text;
+            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava] = checkBoxBlockLinksJava.Checked;
         }
 
-        private void comboBoxNewBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxNewWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewBrowserWindowHeight.Text;
+            settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.Text;
         }
 
-        private void comboBoxNewBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
+        private void comboBoxNewWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewBrowserWindowHeight.Text;
+            settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.Text;
         }
 
-        private void listBoxNewBrowserWindowHorizPos_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxNewWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowPosition] = listBoxNewBrowserWindowHorizPos.SelectedIndex + 1;
+            settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.Text;
         }
 
-        private void listBoxLinksJavaScript_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxNewWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueOpenLinksJava] = listBoxLinksJavaScript.SelectedIndex + 1;
+            settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.Text;
         }
 
-        private void checkBoxBlockJavaScriptWhenDirectingToADifferentServer_CheckedChanged(object sender, EventArgs e)
+        private void listBoxNewWindowPosition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava] = checkBoxBlockJavaScriptToDifferentServer.Checked;
+            settingInteger[StateNew, GroupBrowser, ValueNewWindowPosition] = listBoxNewWindowPosition.SelectedIndex + 1;
         }
 
         private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
@@ -1856,9 +1856,9 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward] = checkBoxAllowBrowsingBackForward.Checked;
         }
 
-        private void checkBoxUseSEBWithoutBrowserWindow_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxUseSEBWithoutBrowser_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser] = checkBoxUseSEBWithoutBrowserWindow.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser] = checkBoxUseSEBWithoutBrowser.Checked;
         }
 
 
@@ -1924,14 +1924,14 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupExam, ValueBrowserExamKey] = textBoxBrowserExamKey.Text;
         }
 
-        private void checkBoxCopyBrowserExamKeyToClipboard_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey] = checkBoxCopyBrowserExamKeyToClipboard.Checked;
+            settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey] = checkBoxCopyBrowserExamKey.Checked;
         }
 
-        private void checkBoxSendBrowserExamKeyInHTTPHeader_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxSendBrowserExamKey_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey] = checkBoxSendBrowserExamKeyInHTTPHeader.Checked;
+            settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey] = checkBoxSendBrowserExamKey.Checked;
         }
 
         private void textBoxQuitURL_TextChanged(object sender, EventArgs e)
@@ -2058,42 +2058,42 @@ namespace SebWindowsConfig
         // *******************
         private void checkBoxOutsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser] = checkBoxInsideSebEnableSwitchUser.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
         }
 
         private void checkBoxOutsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer] = checkBoxInsideSebEnableLockThisComputer.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer] = checkBoxOutsideSebEnableLockThisComputer.Checked;
         }
 
         private void checkBoxOutsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword] = checkBoxInsideSebEnableChangeAPassword.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword] = checkBoxOutsideSebEnableChangeAPassword.Checked;
         }
 
         private void checkBoxOutsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager] = checkBoxInsideSebEnableStartTaskManager.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager] = checkBoxOutsideSebEnableStartTaskManager.Checked;
         }
 
         private void checkBoxOutsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff] = checkBoxInsideSebEnableLogOff.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff] = checkBoxOutsideSebEnableLogOff.Checked;
         }
 
         private void checkBoxOutsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown] = checkBoxInsideSebEnableShutDown.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown] = checkBoxOutsideSebEnableShutDown.Checked;
         }
 
         private void checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess] = checkBoxInsideSebEnableEaseOfAccess.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess] = checkBoxOutsideSebEnableEaseOfAccess.Checked;
         }
 
         private void checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
+            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade] = checkBoxOutsideSebEnableVmWareClientShade.Checked;
         }
 
 
@@ -2168,7 +2168,7 @@ namespace SebWindowsConfig
 
         private void checkBoxEnableF4_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4] = checkBoxEnableF3.Checked;
+            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4] = checkBoxEnableF4.Checked;
         }
 
         private void checkBoxEnableF5_CheckedChanged(object sender, EventArgs e)
@@ -2251,11 +2251,6 @@ namespace SebWindowsConfig
         // ************************
         // Group "Security Options"
         // ************************
-        private void checkBoxAllowPreferencesWindow_CheckedChanged(object sender, EventArgs e)
-        {
-            settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow] = checkBoxAllowPreferencesWindow.Checked;
-        }
-
         private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
             settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
@@ -2298,59 +2293,59 @@ namespace SebWindowsConfig
             this.Text += currentPathSebStarterIni;
 
             // Update the widgets
-            textBoxStartURL                    .Text    = settingString [StateNew, GroupGeneral, ValueStartURL];
-            textBoxSEBServerURL                .Text    = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
-            textBoxAdministratorPassword       .Text    = settingString [StateNew, GroupGeneral, ValueAdminPassword];
-            textBoxConfirmAdministratorPassword.Text    = settingString [StateNew, GroupGeneral, ValueConfirmAdminPassword];
-            checkBoxAllowUserToQuitSEB         .Checked = settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB];
-            textBoxQuitPassword                .Text    = settingString [StateNew, GroupGeneral, ValueQuitPassword];
-            textBoxConfirmQuitPassword         .Text    = settingString [StateNew, GroupGeneral, ValueConfirmQuitPassword];
+            textBoxStartURL            .Text    = settingString [StateNew, GroupGeneral, ValueStartURL];
+            textBoxSEBServerURL        .Text    = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
+            textBoxAdminPassword       .Text    = settingString [StateNew, GroupGeneral, ValueAdminPassword];
+            textBoxConfirmAdminPassword.Text    = settingString [StateNew, GroupGeneral, ValueConfirmAdminPassword];
+            checkBoxAllowUserToQuitSEB .Checked = settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB];
+            textBoxQuitPassword        .Text    = settingString [StateNew, GroupGeneral, ValueQuitPassword];
+            textBoxConfirmQuitPassword .Text    = settingString [StateNew, GroupGeneral, ValueConfirmQuitPassword];
 
-            radioButtonStartingAnExam           .Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
-            radioButtonConfiguringAClient       .Checked = settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient];
-            checkBoxAllowToOpenPreferencesWindow.Checked = settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow];
-          //comboBoxChooseIdentity      .SelectedIndex   = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
-          //comboBoxChooseIdentity      .SelectedIndex   = 0;
-            textBoxSettingsPassword             .Text    = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
-            textBoxConfirmSettingsPassword      .Text    = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
+            radioButtonStartingAnExam    .Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
+            radioButtonConfiguringAClient.Checked = settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient];
+            checkBoxAllowOpenPrefWindow  .Checked = settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow];
+          //comboBoxChooseIdentity.SelectedIndex  = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+          //comboBoxChooseIdentity.SelectedIndex  = 0;
+            textBoxSettingsPassword       .Text   = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
+            textBoxConfirmSettingsPassword.Text   = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
 
-            radioButtonUseBrowserWindow        .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
-            radioButtonUseFullScreenMode       .Checked       = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
-            checkBoxEnableBrowserWindowToolbar .Checked       = settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar];
-            checkBoxHideToolbarAsDefault       .Checked       = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
-            checkBoxShowMenuBar                .Checked       = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
-            checkBoxDisplaySEBDockTaskBar      .Checked       = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
+            radioButtonUseBrowserWindow  .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
+            radioButtonUseFullScreenMode .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
+            checkBoxEnableWindowToolbar  .Checked = settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar];
+            checkBoxHideToolbarAsDefault .Checked = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
+            checkBoxShowMenuBar          .Checked = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
+            checkBoxDisplaySEBDockTaskBar.Checked = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
 
-            comboBoxMainBrowserWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth   ] - 1;
-            comboBoxMainBrowserWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight  ] - 1;
-             listBoxMainBrowserWindowHorizPos.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowPosition] - 1;
+            comboBoxMainWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth   ] - 1;
+            comboBoxMainWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight  ] - 1;
+             listBoxMainWindowPosition.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowPosition] - 1;
 
-            comboBoxNewBrowserWindowWidth    .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth   ] - 1;
-            comboBoxNewBrowserWindowHeight   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight  ] - 1;
-             listBoxNewBrowserWindowHorizPos .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowPosition] - 1;
+            comboBoxNewWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth   ] - 1;
+            comboBoxNewWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight  ] - 1;
+             listBoxNewWindowPosition.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowPosition] - 1;
 
-             listBoxLinksRequesting           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueOpenLinksHTML] - 1;
-             listBoxLinksJavaScript           .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueOpenLinksJava] - 1;
-            checkBoxBlockLinksToDifferentServer     .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML];
-            checkBoxBlockJavaScriptToDifferentServer.Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava];
+             listBoxOpenLinksHTML .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueOpenLinksHTML] - 1;
+             listBoxOpenLinksJava .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueOpenLinksJava] - 1;
+            checkBoxBlockLinksHTML.Checked       = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML];
+            checkBoxBlockLinksJava.Checked       = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava];
 
-            checkBoxEnablePlugIns             .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns];
-            checkBoxEnableJava                .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
-            checkBoxEnableJavaScript          .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript];
-            checkBoxBlockPopupWindows         .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows];
-            checkBoxAllowBrowsingBackForward  .Checked = settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward];
-            checkBoxUseSEBWithoutBrowserWindow.Checked = settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser];
+            checkBoxEnablePlugIns           .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns];
+            checkBoxEnableJava              .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
+            checkBoxEnableJavaScript        .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript];
+            checkBoxBlockPopupWindows       .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows];
+            checkBoxAllowBrowsingBackForward.Checked = settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward];
+            checkBoxUseSEBWithoutBrowser    .Checked = settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser];
 
             checkBoxAllowDownUploadingFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles];
             checkBoxOpenFilesAfterDownloading.Checked = settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading];
             checkBoxDownloadAndOpenPDFFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles];
-             listBoxChooseFileToUpload.SelectedIndex  = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload] - 1;
             labelSaveDownloadedFilesTo       .Text    = settingString [StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo];
+             listBoxChooseFileToUpload.SelectedIndex  = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload] - 1;
 
              textBoxBrowserExamKey                .Text    = settingString [StateNew, GroupExam, ValueBrowserExamKey];
              textBoxQuitURL                       .Text    = settingString [StateNew, GroupExam, ValueQuitURL];
-            checkBoxCopyBrowserExamKeyToClipboard .Checked = settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey];
-            checkBoxSendBrowserExamKeyInHTTPHeader.Checked = settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey];
+            checkBoxCopyBrowserExamKey .Checked = settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey];
+            checkBoxSendBrowserExamKey.Checked = settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey];
 
             checkBoxMonitorProcesses         .Checked = settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses];
             checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications];
@@ -2369,14 +2364,14 @@ namespace SebWindowsConfig
             checkBoxInsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableEaseOfAccess];
             checkBoxInsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableVmWareClientShade];
 
-            checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser];
-            checkBoxInsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer];
-            checkBoxInsideSebEnableChangeAPassword  .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword];
-            checkBoxInsideSebEnableStartTaskManager .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager];
-            checkBoxInsideSebEnableLogOff           .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff];
-            checkBoxInsideSebEnableShutDown         .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown];
-            checkBoxInsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess];
-            checkBoxInsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade];
+            checkBoxOutsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser];
+            checkBoxOutsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer];
+            checkBoxOutsideSebEnableChangeAPassword  .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword];
+            checkBoxOutsideSebEnableStartTaskManager .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager];
+            checkBoxOutsideSebEnableLogOff           .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff];
+            checkBoxOutsideSebEnableShutDown         .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown];
+            checkBoxOutsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess];
+            checkBoxOutsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade];
 
             checkBoxHookMessages.Checked = settingBoolean[StateNew, GroupHookedKeys, ValueHookMessages];
 
@@ -2391,7 +2386,7 @@ namespace SebWindowsConfig
             checkBoxEnableF1 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF1];
             checkBoxEnableF2 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF2];
             checkBoxEnableF3 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF3];
-            checkBoxEnableF3 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4];
+            checkBoxEnableF4 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4];
             checkBoxEnableF5 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF5];
             checkBoxEnableF6 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF6];
             checkBoxEnableF7 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF7];
@@ -2405,10 +2400,10 @@ namespace SebWindowsConfig
             listBoxExitKey2.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey2] - 1;
             listBoxExitKey3.SelectedIndex = settingInteger[StateNew, GroupExitKeys, ValueExitKey3] - 1;
 
-            checkBoxAllowPreferencesWindow.Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueAllowPreferencesWindow];
             checkBoxCreateNewDesktop      .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueCreateNewDesktop];
             checkBoxIgnoreQuitPassword    .Checked = settingBoolean[StateNew, GroupSecurityOptions, ValueIgnoreQuitPassword];
         }
+
 
 
 
