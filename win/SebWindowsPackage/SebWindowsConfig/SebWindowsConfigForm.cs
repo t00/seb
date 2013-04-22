@@ -811,7 +811,7 @@ namespace SebWindowsConfig
             }
 
 
-            // Try to open the ini file (SebStarter.ini)
+            // Try to open the configuration file (SebStarter.ini/xml/seb)
             // given in the local directory (where SebWindowsConfig.exe was called)
             currentDireSebStarterIni = Directory.GetCurrentDirectory();
             currentFileSebStarterIni = "";
@@ -821,10 +821,19 @@ namespace SebWindowsConfig
              targetFileSebStarterIni = TargetSebStarterIni;
              targetPathSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
 
+            String fileName = targetPathSebStarterIni;
+
+            // Cut off the file extension ".ini", ".xml" or ".seb",
+            // that is the last 4 characters of the file name
+            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameIni = fileNameRaw + ".ini";
+            String fileNameXml = fileNameRaw + ".xml";
+            String fileNameSeb = fileNameRaw + ".seb";
+
             // Read the settings from the standard configuration file
-            OpenIniFile(targetPathSebStarterIni);
-          //OpenXmlFile(targetPathSebStarterIni);
-          //OpenSebFile(targetPathSebStarterIni);
+            OpenIniFile(fileNameIni);
+          //OpenXmlFile(fileNameXml);
+          //OpenSebFile(fileNameSeb);
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
