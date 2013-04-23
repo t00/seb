@@ -1250,7 +1250,7 @@ namespace SebWindowsConfig
 
 
                 // Open the .seb file for reading
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
+                //XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextReader      textReader = new StreamReader (fileName);
 
                 // Parse the XML structure into a C# object
