@@ -462,21 +462,21 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SebCloseDialogForm sebCloseDialogForm = new SebCloseDialogForm();
+            //SebCloseDialogForm sebCloseDialogForm = new SebCloseDialogForm();
 
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            if (sebCloseDialogForm.ShowDialog(this) == DialogResult.OK)
-            {
-                // Read the contents of testDialog's TextBox.
-                string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
+            //// Show testDialog as a modal dialog and determine if DialogResult = OK.
+            //if (sebCloseDialogForm.ShowDialog(this) == DialogResult.OK)
+            //{
+            //    // Read the contents of testDialog's TextBox.
+                //string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
 
-                SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-                string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
+                //SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+                //string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
 
-                int quit = SEBClientInfo.sebClientConfig.Passwords[1].Value.CompareTo(hPassword);
+                //int quit = SEBClientInfo.sebClientConfig.Passwords[1].Value.CompareTo(hPassword);
 
-                if (quit == 0)
-                {
+                //if (quit == 0)
+                //{
                     bool bSocketResult;
                     SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
                     string userName = sEBLocalHostInfo.GetUserName();
@@ -531,17 +531,17 @@ namespace SebWindowsClient
                     SebKeyCapture.FilterKeys = false;
                     Logger.closeLoger();
                 }
-                else
-                {
-                    e.Cancel = true;
-                }
+                //else
+                //{
+                //    e.Cancel = true;
+                //}
 
-            }
-            else
-            {
-                e.Cancel = true;
-            }
-            sebCloseDialogForm.Dispose();
-        }
+            //}
+            //else
+            //{
+            //    e.Cancel = true;
+            //}
+            //sebCloseDialogForm.Dispose();
+        //}
      }
 }

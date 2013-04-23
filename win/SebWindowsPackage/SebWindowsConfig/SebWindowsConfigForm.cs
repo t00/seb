@@ -1225,8 +1225,14 @@ namespace SebWindowsConfig
             try 
             {
 
+                // Load encrypted SebClient configuration and seserialise it in SEBClientConfig class 
+                SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+                TextReader sebClientConfigFileReader = new StreamReader(fileName);
+                string encryptedSebClientConfig = sebClientConfigFileReader.ReadToEnd();
+                sebClientConfigFileReader.Close();
+
                 // Decrypt seb client settings
-                string decriptedSebClientSettings = sebProtectionController.DecryptSebClientSettings(encryptedTextWithPrefix);
+                string decriptedSebClientSettings = sebProtectionController.DecryptSebClientSettings(encryptedSebClientConfig);
 
                 // Deserialise seb client settings
                 // Deserialise decrypted string
