@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
-using SebWindowsClient.ConfigurationUtils;
 
 namespace SebWindowsClient.CryptographyUtils
 {
@@ -112,13 +111,11 @@ namespace SebWindowsClient.CryptographyUtils
         ///  Encrypt with Certifikat and save settings.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public void EncryptWithCertifikatAndSave(string settings, byte[] publicKeyHash)
+        public void EncryptWithCertifikatAndSave(string settings, byte[] publicKeyHash, string sebEncryptedWithCertClientConfigPath)
         {
             string encrypted = EncryptWithCertifikat(settings, GetCertificateFromStore(publicKeyHash));
 
-            StringBuilder iniFileSebClientPKBuilder = new StringBuilder(SEBClientInfo.SebClientConfigFileDirectory).Append("SebClientPK.seb");
-            string iniFileSebClientPK = iniFileSebClientPKBuilder.ToString();
-            TextWriter tx = new StreamWriter(iniFileSebClientPK);
+            TextWriter tx = new StreamWriter(sebEncryptedWithCertClientConfigPath);
             tx.Write(encrypted);
             tx.Close();
         }
@@ -128,13 +125,11 @@ namespace SebWindowsClient.CryptographyUtils
         ///  Encrypt with Password and save settings.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public void EncryptWithPasswordAndSave(string settings)
+        public void EncryptWithPasswordAndSave(string settings, string sebEncryptedWithPswClientConfigPath)
         {
             string encrypted = EncryptWithPassword(settings, "seb");
  
-            StringBuilder iniFileSebClientPSWBuilder = new StringBuilder(SEBClientInfo.SebClientConfigFileDirectory).Append("SebClientPSW.seb");
-            string iniFileSebClientPSW = iniFileSebClientPSWBuilder.ToString();
-            TextWriter tx = new StreamWriter(iniFileSebClientPSW);
+            TextWriter tx = new StreamWriter(sebEncryptedWithPswClientConfigPath);
             tx.Write(encrypted);
             tx.Close();
         }
