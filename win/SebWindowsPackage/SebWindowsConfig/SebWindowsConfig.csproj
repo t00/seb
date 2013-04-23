@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SEBSettings.cs" />
+    <Compile Include="SEBClientConfig.cs" />
+    <Compile Include="SEBProtectionController.cs" />
     <Compile Include="SebWindowsConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +77,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SebWindowsClient\SebWindowsClient\SebWindowsClient.csproj">
+      <Project>{EFF410A4-2656-4426-8489-89B1232EA0F0}</Project>
+      <Name>SebWindowsClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

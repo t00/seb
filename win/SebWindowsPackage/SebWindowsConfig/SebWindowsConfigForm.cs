@@ -9,8 +9,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
-
+using SebWindowsClient;
+using SebWindowsClient.CryptographyUtils;
 
 
 namespace SebWindowsConfig
@@ -389,8 +391,8 @@ namespace SebWindowsConfig
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
-        static SEBSettings            sebSettings            = new SEBSettings();
-//      static SEBProtectionControler sebProtectionControler = new SEBProtectionControler();
+        static SEBClientConfig         sebClientConfig         = new SEBClientConfig();
+        static SEBProtectionController sebProtectionController = new SEBProtectionController();
 
 
 
@@ -1188,11 +1190,11 @@ namespace SebWindowsConfig
             try 
             {
                 // Open the .xml file for reading
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextReader      textReader = new StreamReader (fileName);
 
                 // Parse the XML structure into a C# object
-                sebSettings = (SEBSettings)deserializer.Deserialize(textReader);
+                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(textReader);
 
                 // Close the .xml file
                 textReader.Close();
@@ -1222,31 +1224,31 @@ namespace SebWindowsConfig
         {
             try 
             {
-/*
+
                 // Decrypt seb client settings
-                string decriptedSebClientSettings = sebProtectionControler.DecryptSebClientSettings(encryptedTextWithPrefix);
+                string decriptedSebClientSettings = sebProtectionController.DecryptSebClientSettings(encryptedTextWithPrefix);
 
                 // Deserialise seb client settings
                 // Deserialise decrypted string
                 decriptedSebClientSettings = decriptedSebClientSettings.Trim();
                 MemoryStream     memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
 
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
                 //TextReader textReader = new StreamReader(fileName);
 
                 // Parse the XML structure into a C# object
-                sebSettings = (SEBSettings)deserializer.Deserialize(memStream);
+                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(memStream);
 
                 // Close the .seb file
                 //textReader.Close();
-*/
+
 
                 // Open the .seb file for reading
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBSettings));
+                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextReader      textReader = new StreamReader (fileName);
 
                 // Parse the XML structure into a C# object
-                sebSettings = (SEBSettings)deserializer.Deserialize(textReader);
+                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(textReader);
 
                 // Close the .seb file
                 textReader.Close();
@@ -1373,11 +1375,11 @@ namespace SebWindowsConfig
                     File.Delete(fileName);
 
                 // Open the .xml file for writing
-                XmlSerializer serializer = new XmlSerializer(typeof(SEBSettings));
+                XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextWriter    textWriter = new StreamWriter(fileName);
 
                 // Copy the C# object into an XML structure
-                serializer.Serialize(textWriter, sebSettings);
+                serializer.Serialize(textWriter, sebClientConfig);
 
                 // Close the .xml file
                 textWriter.Close();
@@ -1417,11 +1419,11 @@ namespace SebWindowsConfig
                     File.Delete(fileName);
 
                 // Open the .seb file for writing
-                XmlSerializer serializer = new XmlSerializer(typeof(SEBSettings));
+                XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextWriter    textWriter = new StreamWriter(fileName);
 
                 // Copy the C# object into an XML structure
-                serializer.Serialize(textWriter, sebSettings);
+                serializer.Serialize(textWriter, sebClientConfig);
 
                 // Close the .seb file
                 textWriter.Close();
@@ -1450,15 +1452,15 @@ namespace SebWindowsConfig
         {
             // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
 
-            settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.getUrlAddress("startURL").Url;
+            settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebClientConfig.getUrlAddress("startURL").Url;
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL      ] = sebSettings.getUrlAddress("***").Url;
-            settingString [StateTmp, GroupGeneral, ValueAdminPassword     ] = sebSettings.getPassword("hashedAdminPassword").Value;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebSettings.getSecurityOption("allowQuit").getBool();
-            settingString [StateTmp, GroupGeneral, ValueQuitPassword      ] = sebSettings.getPassword("hashedQuitPassword").Value;
+            settingString [StateTmp, GroupGeneral, ValueAdminPassword     ] = sebClientConfig.getPassword("hashedAdminPassword").Value;
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebClientConfig.getSecurityOption("allowQuit").getBool();
+            settingString [StateTmp, GroupGeneral, ValueQuitPassword      ] = sebClientConfig.getPassword("hashedQuitPassword").Value;
 
           //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam     ] = sebSettings.getSecurityOption("***").getBool();
           //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient ] = sebSettings.getSecurityOption("***").getBool();
-            settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
+            settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow] = sebClientConfig.getSecurityOption("allowPreferencesWindow").getBool();
 
           //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity  ] = sebSettings.getPassword("***").Value;
           //settingString [StateTmp, GroupConfigFile, ValueSettingsPassword] = sebSettings.getPassword("***").Value;
@@ -1466,7 +1468,7 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupExam, ValueBrowserExamKey    ] = sebSettings.getUrlAddress("browserExamKey" ).Url;
           //settingString [StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettings.getSecurityOption("copyBrowserExamKey").getBool();
           //settingString [StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
-          //settingString [StateTmp, GroupExam, ValueQuitUrl           ] = sebSettings.getUrlAddress("quitURL" ).Url;
+            settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebClientConfig.getUrlAddress("quitURL" ).Url;
 
             return true;
         }
@@ -1480,15 +1482,15 @@ namespace SebWindowsConfig
         {
             // Copy the arrays "settingString"/"settingBoolean" to the C# object "sebSettings"
 
-            sebSettings.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
+            sebClientConfig.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
           //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
-            sebSettings.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdminPassword];
-            sebSettings.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
-            sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
+            sebClientConfig.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdminPassword];
+            sebClientConfig.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
+            sebClientConfig.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
 
           //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
           //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
-            sebSettings.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow]);
+            sebClientConfig.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow]);
 
           //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueChooseIdentity  ];
           //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueSettingsPassword];
@@ -1689,8 +1691,8 @@ namespace SebWindowsConfig
             String fileNameSeb = fileNameRaw + ".seb";
 
             // If the user clicked "OK", read the settings from the configuration file
-            OpenIniFile(fileNameIni);
-          //OpenXmlFile(fileNameXml);
+          //OpenIniFile(fileNameIni);
+            OpenXmlFile(fileNameXml);
           //OpenSebFile(fileNameSeb);
         }
 
@@ -1716,8 +1718,8 @@ namespace SebWindowsConfig
             String fileNameSeb = fileNameRaw + ".seb";
 
             // If the user clicked "OK", write the settings to the configuration file
-            SaveIniFile(fileNameIni);
-          //SaveXmlFile(fileNameXml);
+          //SaveIniFile(fileNameIni);
+            SaveXmlFile(fileNameXml);
           //SaveSebFile(fileNameSeb);
         }
 

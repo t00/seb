@@ -216,14 +216,12 @@
             // 
             this.openFileDialogSebStarterIni.DefaultExt = "ini";
             this.openFileDialogSebStarterIni.FileName = "SebStarter.ini";
-            this.openFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
             this.openFileDialogSebStarterIni.Title = "Open file SebStarter.ini";
             // 
             // saveFileDialogSebStarterIni
             // 
             this.saveFileDialogSebStarterIni.DefaultExt = "ini";
             this.saveFileDialogSebStarterIni.FileName = "SebStarter.ini";
-            this.saveFileDialogSebStarterIni.Filter = "Initialisierungsdatei (*.ini) | *.ini";
             this.saveFileDialogSebStarterIni.Title = "Save file SebStarter.ini";
             // 
             // imageListTabIcons
