@@ -92,10 +92,10 @@
       <DownloadDirectory key="downloadDirectoryOSX" type = "string" path="~/Downloads" />
       <DownloadDirectory key="downloadDirectoryWin" type = "string" path="~/Downloads" />
     </DownloadDirectories>
-    <Urls>
-      <Url key="startURL" type = "string" url="http://www.safeexambrowser.org/exams" />
-      <Url key="quitURL" type = "string" url="http://www.safeexambrowser.org/exit" />
-    </Urls>
+    <UrlAddresses>
+      <UrlAddress key="startURL" type = "string" url="http://www.safeexambrowser.org/exams2" />
+      <UrlAddress key="quitURL" type = "string" url="http://www.safeexambrowser.org/exit2" />
+    </UrlAddresses>
     <ExitKeys>
       <ExitKey key="exitKey1" type = "string" value="" />
       <ExitKey key="exitKey2" type = "string" value="" />
