@@ -89,6 +89,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static void SerialiseAndEncryptSettings(byte[] publicKeyHash)
         {
+            string sebEncryptedWithPswClientConfigPath = "";
             MemoryStream settingsMemStream = new MemoryStream();
             XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
             serializer.Serialize(settingsMemStream, SEBClientInfo.sebClientConfig);
@@ -100,7 +101,7 @@ namespace SebWindowsClient
             //X509Certificate2 myCertificate = new X509Certificate2(sEBProtectionControler.KeyCertFilename, sEBProtectionControler.KeyCertPassword, X509KeyStorageFlags.Exportable);
             // Encrypt seb client settings
             string settingsData = Encoding.ASCII.GetString(settingsDataBytes);
-            sEBProtectionControler.EncryptWithPasswordAndSave(settingsData);
+            sEBProtectionControler.EncryptWithPasswordAndSave(settingsData, sebEncryptedWithPswClientConfigPath);
         }
 
 
