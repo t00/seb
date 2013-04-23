@@ -83,7 +83,7 @@ public  class SEBClientConfig {
     
     private DownloadDirectory[] _downloadDirectories;
     
-    private Url[] _urls;
+    private UrlAddress[] _urlAddresses;
     
     private ExitKey[] _exitKeys;
     
@@ -150,6 +150,35 @@ public  class SEBClientConfig {
         }
         return messageKey;
     }
+
+    public UrlAddress getUrlAddress(string key)
+    {
+        UrlAddress address = null;
+        for (int i = 0; i < UrlAddresses.Length; i++)
+        {
+            if (UrlAddresses[i].Key.CompareTo(key) == 0)
+            {
+                address = UrlAddresses[i];
+                break;
+            }
+        }
+        return address;
+    }
+
+    public Password getPassword(string key)
+    {
+        Password password = null;
+        for (int i = 0; i < Passwords.Length; i++)
+        {
+            if (Passwords[i].Key.CompareTo(key) == 0)
+            {
+                password = Passwords[i];
+                break;
+            }
+        }
+        return password;
+    }
+
 
 
     /// <remarks/>
@@ -261,15 +290,15 @@ public  class SEBClientConfig {
     }
     
     /// <remarks/>
-    [XmlArrayItem("Url", typeof(Url))]
-    [XmlArray("Urls")]
-    public Url[] Urls
+    [XmlArrayItem("UrlAddress", typeof(UrlAddress))]
+    [XmlArray("UrlAddresses")]
+    public UrlAddress[] UrlAddresses
     {
         get {
-            return this._urls;
+            return this._urlAddresses;
         }
         set {
-            this._urls = value;
+            this._urlAddresses = value;
         }
     }
     
@@ -654,7 +683,7 @@ public  class DownloadDirectory {
 }
 
 /// <remarks/>
-public  class Url {
+public  class UrlAddress {
     
     private string _key;
     
@@ -686,7 +715,7 @@ public  class Url {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttribute("url")]
-    public string url {
+    public string Url {
         get {
             return this._url;
         }
