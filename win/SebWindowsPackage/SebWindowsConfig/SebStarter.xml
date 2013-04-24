@@ -40,7 +40,8 @@
       <PolicySetting key ="browserViewMode" type = "integer" value ="0" />
       <PolicySetting key ="mainBrowserWindowHeight" type = "integer" value ="0" />
       <PolicySetting key ="mainBrowserWindowWidth" type = "integer" value ="0" />
-      <PolicySetting key ="newBrowserWindowByLinkHeight" type = "integer" value ="0" />
+      <PolicySetting key ="newBrowserWindowByLinkHeight" type = "integer" value ="700" />
+      <PolicySetting key ="newBrowserWindowByLinkWidth" type = "integer" value ="900" />
       <PolicySetting key ="newBrowserWindowByLinkPolicy" type = "integer" value ="2" />
       <PolicySetting key ="sebPurpose" type = "integer" value ="0" />
     </PolicySettings>
