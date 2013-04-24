@@ -1224,41 +1224,30 @@ namespace SebWindowsConfig
         {
             try 
             {
-
-                // Load encrypted SebClient configuration and seserialise it in SEBClientConfig class 
-                SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-                TextReader sebClientConfigFileReader = new StreamReader(fileName);
-                string encryptedSebClientConfig = sebClientConfigFileReader.ReadToEnd();
-                sebClientConfigFileReader.Close();
-
-                // Decrypt seb client settings
-                string decriptedSebClientSettings = sebProtectionController.DecryptSebClientSettings(encryptedSebClientConfig);
-
-                // Deserialise seb client settings
-                // Deserialise decrypted string
-                decriptedSebClientSettings = decriptedSebClientSettings.Trim();
-                MemoryStream     memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
-
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-                //TextReader textReader = new StreamReader(fileName);
-
-                // Parse the XML structure into a C# object
-                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(memStream);
-
-                // Close the .seb file
-                //textReader.Close();
-
-
                 // Open the .seb file for reading
-                //XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-                TextReader      textReader = new StreamReader (fileName);
-
-                // Parse the XML structure into a C# object
-                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(textReader);
+                // Load the encrypted SebClient settings
+                SEBProtectionController controller        = new SEBProtectionController();
+                TextReader              textReader        = new StreamReader(fileName);
+                string                  encryptedSettings = textReader.ReadToEnd();
 
                 // Close the .seb file
                 textReader.Close();
 
+                // Decrypt seb client settings
+                string decryptedSettings;
+                decryptedSettings = controller.DecryptSebClientSettings(encryptedSettings);
+                decryptedSettings = decryptedSettings.Trim();
+
+                // Deserialise SebClient settings
+                // Deserialise decrypted string
+                MemoryStream  memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
+
+                // Parse the XML structure into a C# object
+                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(memoryStream);
+
+                // Close the memory stream
+                memoryStream.Close();
             }
             catch (Exception streamReadException)
             {
