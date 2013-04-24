@@ -391,8 +391,9 @@ namespace SebWindowsConfig
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
-        static SEBClientConfig         sebClientConfig         = new SEBClientConfig();
-        static SEBProtectionController sebProtectionController = new SEBProtectionController();
+        static SEBClientConfig         sebSettings   = new SEBClientConfig();
+        static SEBProtectionController sebController = new SEBProtectionController();
+        static XmlSerializer           sebSerializer = new XmlSerializer(typeof(SEBClientConfig));
 
 
 
@@ -1194,7 +1195,7 @@ namespace SebWindowsConfig
                 TextReader      textReader = new StreamReader (fileName);
 
                 // Parse the XML structure into a C# object
-                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(textReader);
+                sebSettings = (SEBClientConfig)deserializer.Deserialize(textReader);
 
                 // Close the .xml file
                 textReader.Close();
@@ -1225,29 +1226,20 @@ namespace SebWindowsConfig
             try 
             {
                 // Open the .seb file for reading
-                // Load the encrypted SebClient settings
-                SEBProtectionController controller        = new SEBProtectionController();
-                TextReader              textReader        = new StreamReader(fileName);
-                string                  encryptedSettings = textReader.ReadToEnd();
-
-                // Close the .seb file
-                textReader.Close();
-
-                // Decrypt seb client settings
-                string decryptedSettings;
-                decryptedSettings = controller.DecryptSebClientSettings(encryptedSettings);
-                decryptedSettings = decryptedSettings.Trim();
-
-                // Deserialise SebClient settings
-                // Deserialise decrypted string
-                MemoryStream  memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
+                // Load the encrypted configuration settings
+                // Decrypt the configuration settings
+                // Deserialise the decrypted string
+                TextReader     textReader = new StreamReader(fileName);
+                String  encryptedSettings = textReader.ReadToEnd();
+                String  decryptedSettings = sebController.DecryptSebClientSettings (encryptedSettings).Trim();
+                MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
 
                 // Parse the XML structure into a C# object
-                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(memoryStream);
+                sebSettings = (SEBClientConfig)sebSerializer.Deserialize(memoryStream);
 
-                // Close the memory stream
+                // Close the memory stream and text reader
                 memoryStream.Close();
+                  textReader.Close();
             }
             catch (Exception streamReadException)
             {
@@ -1374,7 +1366,7 @@ namespace SebWindowsConfig
                 TextWriter    textWriter = new StreamWriter(fileName);
 
                 // Copy the C# object into an XML structure
-                serializer.Serialize(textWriter, sebClientConfig);
+                serializer.Serialize(textWriter, sebSettings);
 
                 // Close the .xml file
                 textWriter.Close();
@@ -1413,15 +1405,26 @@ namespace SebWindowsConfig
                 if (File.Exists(fileName))
                     File.Delete(fileName);
 
-                // Open the .seb file for writing
-                XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
-                TextWriter    textWriter = new StreamWriter(fileName);
+/*
+                MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
 
                 // Copy the C# object into an XML structure
-                serializer.Serialize(textWriter, sebClientConfig);
+                // Serialise the decrypted string
+                sebSerializer.Serialize(memoryStream, sebSettings);
 
-                // Close the .seb file
-                textWriter.Close();
+                // Encrypt the configuration settings
+                String encryptedSettings = sebController.EncryptWithPassword(decryptedSettings, passPhrase);
+
+                // Open the .seb file for writing
+                // Save the encrypted configuration settings
+
+                TextWriter     textWriter = new StreamWriter(fileName);
+                textWriter.Write(encryptedSettings);
+
+                // Close the memory stream and text writer
+                memoryStream.Close();
+                  textWriter.Close();
+*/
 
             } // end try
             catch (Exception streamWriteException) 
@@ -1447,15 +1450,15 @@ namespace SebWindowsConfig
         {
             // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
 
-            settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebClientConfig.getUrlAddress("startURL").Url;
+            settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.getUrlAddress("startURL").Url;
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL      ] = sebSettings.getUrlAddress("***").Url;
-            settingString [StateTmp, GroupGeneral, ValueAdminPassword     ] = sebClientConfig.getPassword("hashedAdminPassword").Value;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebClientConfig.getSecurityOption("allowQuit").getBool();
-            settingString [StateTmp, GroupGeneral, ValueQuitPassword      ] = sebClientConfig.getPassword("hashedQuitPassword").Value;
+            settingString [StateTmp, GroupGeneral, ValueAdminPassword     ] = sebSettings.getPassword("hashedAdminPassword").Value;
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebSettings.getSecurityOption("allowQuit").getBool();
+            settingString [StateTmp, GroupGeneral, ValueQuitPassword      ] = sebSettings.getPassword("hashedQuitPassword").Value;
 
           //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam     ] = sebSettings.getSecurityOption("***").getBool();
           //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient ] = sebSettings.getSecurityOption("***").getBool();
-            settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow] = sebClientConfig.getSecurityOption("allowPreferencesWindow").getBool();
+            settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
 
           //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity  ] = sebSettings.getPassword("***").Value;
           //settingString [StateTmp, GroupConfigFile, ValueSettingsPassword] = sebSettings.getPassword("***").Value;
@@ -1463,7 +1466,7 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupExam, ValueBrowserExamKey    ] = sebSettings.getUrlAddress("browserExamKey" ).Url;
           //settingString [StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettings.getSecurityOption("copyBrowserExamKey").getBool();
           //settingString [StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
-            settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebClientConfig.getUrlAddress("quitURL" ).Url;
+            settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebSettings.getUrlAddress("quitURL" ).Url;
 
             return true;
         }
@@ -1477,15 +1480,15 @@ namespace SebWindowsConfig
         {
             // Copy the arrays "settingString"/"settingBoolean" to the C# object "sebSettings"
 
-            sebClientConfig.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
+            sebSettings.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
           //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
-            sebClientConfig.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdminPassword];
-            sebClientConfig.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
-            sebClientConfig.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
+            sebSettings.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdminPassword];
+            sebSettings.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
+            sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
 
           //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
           //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
-            sebClientConfig.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow]);
+            sebSettings.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow]);
 
           //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueChooseIdentity  ];
           //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueSettingsPassword];

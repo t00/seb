@@ -93,8 +93,8 @@
       <DownloadDirectory key="downloadDirectoryWin" type = "string" path="~/Downloads" />
     </DownloadDirectories>
     <UrlAddresses>
-      <UrlAddress key="startURL" type = "string" url="http://www.safeexambrowser.org/exams2" />
-      <UrlAddress key="quitURL" type = "string" url="http://www.safeexambrowser.org/exit2" />
+      <UrlAddress key="startURL" type = "string" url="http://www.safeexambrowser.org/exams" />
+      <UrlAddress key="quitURL" type = "string" url="http://www.safeexambrowser.org/exit" />
     </UrlAddresses>
     <ExitKeys>
       <ExitKey key="exitKey1" type = "string" value="" />
