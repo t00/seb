@@ -15,6 +15,7 @@ using SebWindowsClient;
 using SebWindowsClient.CryptographyUtils;
 
 
+
 namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
@@ -37,9 +38,9 @@ namespace SebWindowsConfig
 
         // The target files the user must configure,
         // because these are used by the application SebStarter.exe
-        const String TargetSebStarterIni = "SebStarter.ini";
-        const String TargetSebStarterXml = "SebStarter.xml";
-        const String TargetSebStarterSeb = "SebStarter.seb";
+        const String TargetSebStarterIni = "SebClient.ini";
+        const String TargetSebStarterXml = "SebClient.xml";
+        const String TargetSebStarterSeb = "SebClient.seb";
 
         // The values can be in 4 different states:
         // old, new, temporary and default values
@@ -829,14 +830,15 @@ namespace SebWindowsConfig
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
             String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
             String fileNameIni = fileNameRaw + ".ini";
             String fileNameXml = fileNameRaw + ".xml";
             String fileNameSeb = fileNameRaw + ".seb";
 
             // Read the settings from the standard configuration file
-            OpenIniFile(fileNameIni);
-          //OpenXmlFile(fileNameXml);
-          //OpenSebFile(fileNameSeb);
+            if (fileNameExt.Equals(".ini")) OpenIniFile(fileNameIni);
+            if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
+            if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
@@ -1496,7 +1498,7 @@ namespace SebWindowsConfig
           //sebSettings.getUrlAddress("browserExamKey").Url = settingString[StateNew, GroupExam, ValueBrowserExamKey];
           //sebSettings.getSecurityOption("copyBrowserExamKey").setBool(settingBoolean[StateNew, GroupGeneral, ValueCopyBrowserExamKey]);
           //sebSettings.getSecurityOption("sendBrowserExamKey").setBool(settingBoolean[StateNew, GroupGeneral, ValueSendBrowserExamKey]);
-          //sebSettings.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitUrl];
+            sebSettings.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitURL];
 
             return true;
         }
@@ -1594,14 +1596,15 @@ namespace SebWindowsConfig
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
             String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
             String fileNameIni = fileNameRaw + ".ini";
             String fileNameXml = fileNameRaw + ".xml";
             String fileNameSeb = fileNameRaw + ".seb";
 
             // Save the configuration file so that nothing gets lost
             SaveIniFile(fileNameIni);
-          //SaveXmlFile(fileNameXml);
-          //SaveSebFile(fileNameSeb);
+            SaveXmlFile(fileNameXml);
+            SaveSebFile(fileNameSeb);
 */
             // Close the configuration window and exit
             this.Close();
@@ -1684,14 +1687,15 @@ namespace SebWindowsConfig
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
             String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
             String fileNameIni = fileNameRaw + ".ini";
             String fileNameXml = fileNameRaw + ".xml";
             String fileNameSeb = fileNameRaw + ".seb";
 
             // If the user clicked "OK", read the settings from the configuration file
-          //OpenIniFile(fileNameIni);
-            OpenXmlFile(fileNameXml);
-          //OpenSebFile(fileNameSeb);
+            if (fileNameExt.Equals(".ini")) OpenIniFile(fileNameIni);
+            if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
+            if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
         }
 
 
@@ -1711,14 +1715,21 @@ namespace SebWindowsConfig
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
             String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
             String fileNameIni = fileNameRaw + ".ini";
             String fileNameXml = fileNameRaw + ".xml";
             String fileNameSeb = fileNameRaw + ".seb";
 
             // If the user clicked "OK", write the settings to the configuration file
-          //SaveIniFile(fileNameIni);
+
+            if (fileNameExt.Equals(".ini")) SaveIniFile(fileNameIni);
+            if (fileNameExt.Equals(".xml")) SaveXmlFile(fileNameXml);
+            if (fileNameExt.Equals(".seb")) SaveSebFile(fileNameSeb);
+/*
+            SaveIniFile(fileNameIni);
             SaveXmlFile(fileNameXml);
-          //SaveSebFile(fileNameSeb);
+            SaveSebFile(fileNameSeb);
+*/
         }
 
 
