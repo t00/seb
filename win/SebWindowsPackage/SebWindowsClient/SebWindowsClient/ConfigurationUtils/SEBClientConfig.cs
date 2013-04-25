@@ -151,6 +151,20 @@ public  class SEBClientConfig {
         return messageKey;
     }
 
+    public DownloadDirectory getDownloadDirectory(string key)
+    {
+        DownloadDirectory directory = null;
+        for (int i = 0; i < DownloadDirectories.Length; i++)
+        {
+            if (DownloadDirectories[i].Key.CompareTo(key) == 0)
+            {
+                directory = DownloadDirectories[i];
+                break;
+            }
+        }
+        return directory;
+    }
+
     public UrlAddress getUrlAddress(string key)
     {
         UrlAddress address = null;
@@ -163,6 +177,20 @@ public  class SEBClientConfig {
             }
         }
         return address;
+    }
+
+    public ExitKey getExitKey(string key)
+    {
+        ExitKey exitkey = null;
+        for (int i = 0; i < ExitKeys.Length; i++)
+        {
+            if (ExitKeys[i].Key.CompareTo(exitkey) == 0)
+            {
+                exitkey = ExitKeys[i];
+                break;
+            }
+        }
+        return exitkey;
     }
 
     public Password getPassword(string key)
