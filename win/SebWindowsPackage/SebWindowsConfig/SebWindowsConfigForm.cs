@@ -166,7 +166,7 @@ namespace SebWindowsConfig
         const int ValueNewWindowWidth           = 5;
         const int ValueNewWindowHeight          = 6;
         const int ValueNewWindowPosition        = 7;
-        const int ValueEnablePlugIns            = 8;
+        const int ValueEnablePlugins            = 8;
         const int ValueEnableJava               = 9;
         const int ValueEnableJavaScript         = 10;
         const int ValueBlockPopupWindows        = 11;
@@ -474,7 +474,7 @@ namespace SebWindowsConfig
             settingString [StateDef, GroupBrowser, ValueNewWindowHeight  ] = "100%";
             settingString [StateDef, GroupBrowser, ValueNewWindowPosition] = "Center";
 
-            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns           ] = true;
+            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugins           ] = true;
             settingBoolean[StateDef, GroupBrowser, ValueEnableJava              ] = false;
             settingBoolean[StateDef, GroupBrowser, ValueEnableJavaScript        ] = true;
             settingBoolean[StateDef, GroupBrowser, ValueBlockPopupWindows       ] = false;
@@ -691,7 +691,7 @@ namespace SebWindowsConfig
             valueString[GroupBrowser, ValueNewWindowWidth          ] = MessageNewWindowWidth;
             valueString[GroupBrowser, ValueNewWindowHeight         ] = MessageNewWindowHeight;
             valueString[GroupBrowser, ValueNewWindowPosition       ] = MessageNewWindowPosition;
-            valueString[GroupBrowser, ValueEnablePlugIns           ] = MessageEnablePlugIns;
+            valueString[GroupBrowser, ValueEnablePlugins           ] = MessageEnablePlugIns;
             valueString[GroupBrowser, ValueEnableJava              ] = MessageEnableJava;
             valueString[GroupBrowser, ValueEnableJavaScript        ] = MessageEnableJavaScript;
             valueString[GroupBrowser, ValueBlockPopupWindows       ] = MessageBlockPopupWindows;
@@ -1468,6 +1468,28 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity        ] = sebSettings.getPassword("chooseIdentity"        ).Value;
           //settingString [StateTmp, GroupConfigFile, ValueHashedSettingsPassword] = sebSettings.getPassword("hashedSettingsPassword").Value;
 
+          //settingBoolean[StateTmp, GroupAppearance, ValueUseBrowserWindow     ] = sebSettings.getSecurityOption("useBrowserWindow" ).getBool();
+          //settingBoolean[StateTmp, GroupAppearance, ValueUseFullScreenMode    ] = sebSettings.getSecurityOption("useFullScreenMode").getBool();
+            settingString [StateTmp, GroupAppearance, ValueMainWindowWidth      ] = sebSettings.getPolicySetting ("mainBrowserWindowWidth" ).Value;
+            settingString [StateTmp, GroupAppearance, ValueMainWindowHeight     ] = sebSettings.getPolicySetting ("mainBrowserWindowHeight").Value;
+            settingBoolean[StateTmp, GroupAppearance, ValueEnableWindowToolbar  ] = sebSettings.getSecurityOption("enableBrowserWindowToolbar").getBool();
+            settingBoolean[StateTmp, GroupAppearance, ValueHideToolbarAsDefault ] = sebSettings.getSecurityOption(  "hideBrowserWindowToolbar").getBool();
+            settingBoolean[StateTmp, GroupAppearance, ValueShowMenuBar          ] = sebSettings.getSecurityOption("showMenuBar").getBool();
+            settingBoolean[StateTmp, GroupAppearance, ValueDisplaySEBDockTaskBar] = sebSettings.getSecurityOption("showTaskBar").getBool();
+
+          //settingString [StateTmp, GroupBrowser, ValueNewWindowPolicyHTML ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy").Value;
+          //settingString [StateTmp, GroupBrowser, ValueNewWindowPolicyJava ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy").Value;
+            settingBoolean[StateTmp, GroupBrowser, ValueBlockLinksHTML      ] = sebSettings.getSecurityOption("newBrowserWindowByLinkBlockForeign"  ).getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueBlockLinksJava      ] = sebSettings.getSecurityOption("newBrowserWindowByScriptBlockForeign").getBool();
+            settingString [StateTmp, GroupBrowser, ValueNewWindowWidth      ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkWidth" ).Value;
+            settingString [StateTmp, GroupBrowser, ValueNewWindowHeight     ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkHeight").Value;
+            settingBoolean[StateTmp, GroupBrowser, ValueEnablePlugins       ] = sebSettings.getSecurityOption("enablePlugins"   ).getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueEnableJava          ] = sebSettings.getSecurityOption("enableJava"      ).getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueEnableJavaScript    ] = sebSettings.getSecurityOption("enableJavaScript").getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueBlockPopupWindows   ] = sebSettings.getSecurityOption("blockPopUpWindows").getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueAllowBrowsingBackForward] = sebSettings.getSecurityOption("enableBrowsingBackForward").getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueUseSEBWithoutBrowser] = sebSettings.getSecurityOption("enableSebBrowser").getBool();
+
           //settingString [StateTmp, GroupExam, ValueBrowserExamKey    ] = sebSettings.getUrlAddress("browserExamKey" ).Url;
             settingBoolean[StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").getBool();
             settingBoolean[StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
@@ -1855,7 +1877,7 @@ namespace SebWindowsConfig
 
         private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns] = checkBoxEnablePlugIns.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins] = checkBoxEnablePlugIns.Checked;
         }
 
         private void checkBoxEnableJava_CheckedChanged(object sender, EventArgs e)
@@ -2351,7 +2373,7 @@ namespace SebWindowsConfig
             checkBoxBlockLinksHTML.Checked       = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML];
             checkBoxBlockLinksJava.Checked       = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava];
 
-            checkBoxEnablePlugIns           .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns];
+            checkBoxEnablePlugIns           .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins];
             checkBoxEnableJava              .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
             checkBoxEnableJavaScript        .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript];
             checkBoxBlockPopupWindows       .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows];
