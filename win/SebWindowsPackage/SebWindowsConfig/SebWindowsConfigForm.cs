@@ -1554,6 +1554,10 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF11] = sebSettings.getHookedMessageKey("enableF11").getBool();
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF12] = sebSettings.getHookedMessageKey("enableF12").getBool();
 
+            settingString[StateTmp, GroupExitKeys, ValueExitKey1] = sebSettings.getExitKey("exitKey1").Value;
+            settingString[StateTmp, GroupExitKeys, ValueExitKey2] = sebSettings.getExitKey("exitKey2").Value;
+            settingString[StateTmp, GroupExitKeys, ValueExitKey3] = sebSettings.getExitKey("exitKey3").Value;
+
             return true;
         }
 
@@ -1663,6 +1667,10 @@ namespace SebWindowsConfig
             sebSettings.getHookedMessageKey("enableF10").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10]);
             sebSettings.getHookedMessageKey("enableF11").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11]);
             sebSettings.getHookedMessageKey("enableF12").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12]);
+
+            sebSettings.getExitKey("exitKey1").Value = settingString[StateNew, GroupExitKeys, ValueExitKey1];
+            sebSettings.getExitKey("exitKey2").Value = settingString[StateNew, GroupExitKeys, ValueExitKey2];
+            sebSettings.getExitKey("exitKey3").Value = settingString[StateNew, GroupExitKeys, ValueExitKey3];
 
             return true;
         }
