@@ -1456,23 +1456,22 @@ namespace SebWindowsConfig
         {
             // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
 
-            settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.getUrlAddress("startURL").Url;
-          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL      ] = sebSettings.getUrlAddress("sebServerURL").Url;
-            settingString [StateTmp, GroupGeneral, ValueAdminPassword     ] = sebSettings.getPassword("hashedAdminPassword").Value;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebSettings.getSecurityOption("allowQuit").getBool();
-            settingString [StateTmp, GroupGeneral, ValueQuitPassword      ] = sebSettings.getPassword("hashedQuitPassword").Value;
+            settingString [StateTmp, GroupGeneral, ValueStartURL           ] = sebSettings.getUrlAddress("startURL").Url;
+          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress("sebServerURL").Url;
+            settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettings.getPassword("hashedAdminPassword").Value;
+            settingString [StateTmp, GroupGeneral, ValueHashedQuitPassword ] = sebSettings.getPassword("hashedQuitPassword").Value;
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB ] = sebSettings.getSecurityOption("allowQuit").getBool();
 
-          //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam     ] = sebSettings.getSecurityOption("***").getBool();
-          //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient ] = sebSettings.getSecurityOption("***").getBool();
-            settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
-
-          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity  ] = sebSettings.getPassword("***").Value;
-          //settingString [StateTmp, GroupConfigFile, ValueSettingsPassword] = sebSettings.getPassword("***").Value;
+          //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("startingAnExam"        ).getBool();
+          //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient    ] = sebSettings.getSecurityOption("configuringAClient"    ).getBool();
+            settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow   ] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
+          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity        ] = sebSettings.getPassword("chooseIdentity"        ).Value;
+          //settingString [StateTmp, GroupConfigFile, ValueHashedSettingsPassword] = sebSettings.getPassword("hashedSettingsPassword").Value;
 
           //settingString [StateTmp, GroupExam, ValueBrowserExamKey    ] = sebSettings.getUrlAddress("browserExamKey" ).Url;
-          //settingString [StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettings.getSecurityOption("copyBrowserExamKey").getBool();
-          //settingString [StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
-            settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebSettings.getUrlAddress("quitURL" ).Url;
+            settingBoolean[StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").getBool();
+            settingBoolean[StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
+            settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebSettings.getUrlAddress("quitURL").Url;
 
             return true;
         }
@@ -1488,20 +1487,19 @@ namespace SebWindowsConfig
 
             sebSettings.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
           //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
-            sebSettings.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueAdminPassword];
+            sebSettings.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueHashedAdminPassword];
+            sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueHashedQuitPassword];
             sebSettings.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
-            sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueQuitPassword];
 
-          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
-          //sebSettings.getSecurityOption("**********************").setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
+          //sebSettings.getSecurityOption("startingAnExam"        ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
+          //sebSettings.getSecurityOption("configuringAClient"    ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
             sebSettings.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow]);
-
-          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueChooseIdentity  ];
-          //sebSettings.getPassword("***").Value = settingString[StateNew, GroupConfigFile, ValueSettingsPassword];
+          //sebSettings.getPassword("chooseIdentity"              ).Value = settingString [StateNew, GroupConfigFile, ValueChooseIdentity];
+          //sebSettings.getPassword("hashedSettingsPassword"      ).Value = settingString [StateNew, GroupConfigFile, ValueHashedSettingsPassword];
 
           //sebSettings.getUrlAddress("browserExamKey").Url = settingString[StateNew, GroupExam, ValueBrowserExamKey];
-          //sebSettings.getSecurityOption("copyBrowserExamKey").setBool(settingBoolean[StateNew, GroupGeneral, ValueCopyBrowserExamKey]);
-          //sebSettings.getSecurityOption("sendBrowserExamKey").setBool(settingBoolean[StateNew, GroupGeneral, ValueSendBrowserExamKey]);
+            sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").setBool(settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey]);
+            sebSettings.getSecurityOption("sendBrowserExamKey"                ).setBool(settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey]);
             sebSettings.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitURL];
 
             return true;
