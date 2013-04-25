@@ -101,20 +101,22 @@ namespace SebWindowsConfig
         const int ValueSEBServerURL         = 2;
         const int ValueAdminPassword        = 3;
         const int ValueConfirmAdminPassword = 4;
-        const int ValueAllowUserToQuitSEB   = 5;
-        const int ValueQuitPassword         = 6;
-        const int ValueConfirmQuitPassword  = 7;
-        const int ValueQuitHashcode         = 8;
-        const int NumValueGeneral = 8;
+        const int ValueHashedAdminPassword  = 5;
+        const int ValueAllowUserToQuitSEB   = 6;
+        const int ValueQuitPassword         = 7;
+        const int ValueConfirmQuitPassword  = 8;
+        const int ValueHashedQuitPassword   = 9;
+        const int NumValueGeneral = 9;
 
         const String MessageStartURL             = "StartURL";
         const String MessageSEBServerURL         = "SEBServerURL";
         const String MessageAdminPassword        = "AdminPassword";
         const String MessageConfirmAdminPassword = "ConfirmAdminPassword";
+        const String MessageHashedAdminPassword  = "HashedAdminPassword";
         const String MessageAllowUserToQuitSEB   = "AllowUserToQuitSEB";
         const String MessageQuitPassword         = "QuitPassword";
         const String MessageConfirmQuitPassword  = "ConfirmQuitPassword";
-        const String MessageQuitHashcode         = "QuitHashcode";
+        const String MessageHashedQuitPassword   = "HashedQuitPassword";
 
         // Group "Config File"
         const int ValueStartingAnExam          = 1;
@@ -123,7 +125,8 @@ namespace SebWindowsConfig
         const int ValueChooseIdentity          = 4;
         const int ValueSettingsPassword        = 5;
         const int ValueConfirmSettingsPassword = 6;
-        const int NumValueConfigFile = 6;
+        const int ValueHashedSettingsPassword  = 7;
+        const int NumValueConfigFile = 7;
 
         const String MessageStartingAnExam          = "StartingAnExam";
         const String MessageConfiguringAClient      = "ConfiguringAClient";
@@ -131,6 +134,7 @@ namespace SebWindowsConfig
         const String MessageChooseIdentity          = "ChooseIdentity";
         const String MessageSettingsPassword        = "SettingsPassword";
         const String MessageConfirmSettingsPassword = "ConfirmSettingsPassword";
+        const String MessageHashedSettingsPassword  = "HashedSettingsPassword";
 
         // Group "Appearance"
         const int ValueUseBrowserWindow      = 1;
@@ -431,7 +435,7 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupGeneral, ValueAllowUserToQuitSEB  ] = true;
             settingString [StateDef, GroupGeneral, ValueQuitPassword        ] = "";
             settingString [StateDef, GroupGeneral, ValueConfirmQuitPassword ] = "";
-            settingString [StateDef, GroupGeneral, ValueQuitHashcode        ] = "";
+            settingString [StateDef, GroupGeneral, ValueHashedQuitPassword        ] = "";
 
             // Default settings for group "Config File"
             settingBoolean[StateDef, GroupConfigFile, ValueStartingAnExam         ] = true;
@@ -661,7 +665,7 @@ namespace SebWindowsConfig
             valueString[GroupGeneral, ValueAllowUserToQuitSEB  ] = MessageAllowUserToQuitSEB;
             valueString[GroupGeneral, ValueQuitPassword        ] = MessageQuitPassword;
             valueString[GroupGeneral, ValueConfirmQuitPassword ] = MessageConfirmQuitPassword;
-            valueString[GroupGeneral, ValueQuitHashcode        ] = MessageQuitHashcode;
+            valueString[GroupGeneral, ValueHashedQuitPassword        ] = MessageHashedQuitPassword;
 
             valueString[GroupConfigFile, ValueStartingAnExam         ] = MessageStartingAnExam;
             valueString[GroupConfigFile, ValueConfiguringAClient     ] = MessageConfiguringAClient;
@@ -1453,7 +1457,7 @@ namespace SebWindowsConfig
             // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
 
             settingString [StateTmp, GroupGeneral, ValueStartURL          ] = sebSettings.getUrlAddress("startURL").Url;
-          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL      ] = sebSettings.getUrlAddress("***").Url;
+          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL      ] = sebSettings.getUrlAddress("sebServerURL").Url;
             settingString [StateTmp, GroupGeneral, ValueAdminPassword     ] = sebSettings.getPassword("hashedAdminPassword").Value;
             settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB] = sebSettings.getSecurityOption("allowQuit").getBool();
             settingString [StateTmp, GroupGeneral, ValueQuitPassword      ] = sebSettings.getPassword("hashedQuitPassword").Value;
@@ -1562,7 +1566,7 @@ namespace SebWindowsConfig
             textBoxQuitHashcode.Text = newStringQuitHashcode;
 
             settingString[StateNew, GroupGeneral, ValueQuitPassword] = newStringQuitPassword;
-            settingString[StateNew, GroupGeneral, ValueQuitHashcode] = newStringQuitHashcode;
+            settingString[StateNew, GroupGeneral, ValueHashedQuitPassword] = newStringQuitHashcode;
         }
 
         private void textBoxConfirmQuitPassword_TextChanged(object sender, EventArgs e)
