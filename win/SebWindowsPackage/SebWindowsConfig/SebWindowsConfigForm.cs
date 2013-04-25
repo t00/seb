@@ -1513,6 +1513,24 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupSecurity, ValueAllowVirtualMachine] = sebSettings.getSecurityOption("allowVirtualMachine").getBool();
             settingBoolean[StateTmp, GroupSecurity, ValueEnableLogging      ] = sebSettings.getSecurityOption("enableLog"          ).getBool();
 
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableSwitchUser       ] = sebSettings.getRegistryValue("insideSebEnableSwitchUser"       ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableLockThisComputer ] = sebSettings.getRegistryValue("insideSebEnableLockThisComputer" ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableChangeAPassword  ] = sebSettings.getRegistryValue("insideSebEnableChangePassword"   ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableStartTaskManager ] = sebSettings.getRegistryValue("insideSebEnableStartTaskManager" ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableLogOff           ] = sebSettings.getRegistryValue("insideSebEnableLogOff"           ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableShutDown         ] = sebSettings.getRegistryValue("insideSebEnableShutDown"         ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableEaseOfAccess     ] = sebSettings.getRegistryValue("insideSebEnableEaseOfAccess"     ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableVmWareClientShade] = sebSettings.getRegistryValue("insideSebEnableVmWareClientShade").getBool();
+
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableSwitchUser       ] = sebSettings.getRegistryValue("outsideSebEnableSwitchUser"       ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableLockThisComputer ] = sebSettings.getRegistryValue("outsideSebEnableLockThisComputer" ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableChangeAPassword  ] = sebSettings.getRegistryValue("outsideSebEnableChangePassword"   ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableStartTaskManager ] = sebSettings.getRegistryValue("outsideSebEnableStartTaskManager" ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableLogOff           ] = sebSettings.getRegistryValue("outsideSebEnableLogOff"           ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableShutDown         ] = sebSettings.getRegistryValue("outsideSebEnableShutDown"         ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableEaseOfAccess     ] = sebSettings.getRegistryValue("outsideSebEnableEaseOfAccess"     ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableVmWareClientShade] = sebSettings.getRegistryValue("outsideSebEnableVmWareClientShade").getBool();
+
             return true;
         }
 
@@ -1581,6 +1599,24 @@ namespace SebWindowsConfig
             sebSettings.getPolicySetting ("sebServicePolicy"   ).Value = settingString [StateNew, GroupSecurity, ValueSEBServicePolicy];
             sebSettings.getSecurityOption("allowVirtualMachine").setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine]);
             sebSettings.getSecurityOption("enableLog"          ).setBool(settingBoolean[StateNew, GroupSecurity, ValueEnableLogging]);
+
+            sebSettings.getRegistryValue("insideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser]);
+            sebSettings.getRegistryValue("insideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer]);
+            sebSettings.getRegistryValue("insideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableChangeAPassword]);
+            sebSettings.getRegistryValue("insideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableStartTaskManager]);
+            sebSettings.getRegistryValue("insideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableLogOff]);
+            sebSettings.getRegistryValue("insideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableShutDown]);
+            sebSettings.getRegistryValue("insideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableEaseOfAccess]);
+            sebSettings.getRegistryValue("insideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableVmWareClientShade]);
+
+            sebSettings.getRegistryValue("outsideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser]);
+            sebSettings.getRegistryValue("outsideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer]);
+            sebSettings.getRegistryValue("outsideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword]);
+            sebSettings.getRegistryValue("outsideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager]);
+            sebSettings.getRegistryValue("outsideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff]);
+            sebSettings.getRegistryValue("outsideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown]);
+            sebSettings.getRegistryValue("outsideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess]);
+            sebSettings.getRegistryValue("outsideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade]);
 
             return true;
         }
