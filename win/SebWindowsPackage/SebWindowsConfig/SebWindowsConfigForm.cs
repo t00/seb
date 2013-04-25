@@ -1456,22 +1456,25 @@ namespace SebWindowsConfig
         {
             // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
 
-            settingString [StateTmp, GroupGeneral, ValueStartURL           ] = sebSettings.getUrlAddress("startURL").Url;
-          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress("sebServerURL").Url;
-            settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettings.getPassword("hashedAdminPassword").Value;
-            settingString [StateTmp, GroupGeneral, ValueHashedQuitPassword ] = sebSettings.getPassword("hashedQuitPassword").Value;
+            settingString [StateTmp, GroupGeneral, ValueStartURL           ] = sebSettings.getUrlAddress    ("startURL"    ).Url;
+          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress    ("sebServerURL").Url;
+            settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettings.getPassword      ("hashedAdminPassword").Value;
+            settingString [StateTmp, GroupGeneral, ValueHashedQuitPassword ] = sebSettings.getPassword      ("hashedQuitPassword" ).Value;
             settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB ] = sebSettings.getSecurityOption("allowQuit").getBool();
 
+          //settingString [StateTmp, GroupConfigFile, ValueSebPurpose            ] = sebSettings.getPolicySetting ("sebPurpose"            ).Value;
           //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("startingAnExam"        ).getBool();
           //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient    ] = sebSettings.getSecurityOption("configuringAClient"    ).getBool();
             settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow   ] = sebSettings.getSecurityOption("allowPreferencesWindow").getBool();
-          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity        ] = sebSettings.getPassword("chooseIdentity"        ).Value;
-          //settingString [StateTmp, GroupConfigFile, ValueHashedSettingsPassword] = sebSettings.getPassword("hashedSettingsPassword").Value;
+          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity        ] = sebSettings.getPassword      ("chooseIdentity"        ).Value;
+          //settingString [StateTmp, GroupConfigFile, ValueHashedSettingsPassword] = sebSettings.getPassword      ("hashedSettingsPassword").Value;
 
+          //settingString [StateTmp, GroupAppearance, ValueBrowserViewMode      ] = sebSettings.getPolicySetting ("browserViewMode").Value;
           //settingBoolean[StateTmp, GroupAppearance, ValueUseBrowserWindow     ] = sebSettings.getSecurityOption("useBrowserWindow" ).getBool();
           //settingBoolean[StateTmp, GroupAppearance, ValueUseFullScreenMode    ] = sebSettings.getSecurityOption("useFullScreenMode").getBool();
-            settingString [StateTmp, GroupAppearance, ValueMainWindowWidth      ] = sebSettings.getPolicySetting ("mainBrowserWindowWidth" ).Value;
-            settingString [StateTmp, GroupAppearance, ValueMainWindowHeight     ] = sebSettings.getPolicySetting ("mainBrowserWindowHeight").Value;
+            settingString [StateTmp, GroupAppearance, ValueMainWindowWidth      ] = sebSettings.getPolicySetting ("mainBrowserWindowWidth"   ).Value;
+            settingString [StateTmp, GroupAppearance, ValueMainWindowHeight     ] = sebSettings.getPolicySetting ("mainBrowserWindowHeight"  ).Value;
+          //settingString [StateTmp, GroupAppearance, ValueMainWindowPosition   ] = sebSettings.getPolicySetting ("mainBrowserWindowPosition").Value;
             settingBoolean[StateTmp, GroupAppearance, ValueEnableWindowToolbar  ] = sebSettings.getSecurityOption("enableBrowserWindowToolbar").getBool();
             settingBoolean[StateTmp, GroupAppearance, ValueHideToolbarAsDefault ] = sebSettings.getSecurityOption(  "hideBrowserWindowToolbar").getBool();
             settingBoolean[StateTmp, GroupAppearance, ValueShowMenuBar          ] = sebSettings.getSecurityOption("showMenuBar").getBool();
@@ -1481,8 +1484,9 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupBrowser, ValueNewWindowPolicyJava ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy").Value;
             settingBoolean[StateTmp, GroupBrowser, ValueBlockLinksHTML      ] = sebSettings.getSecurityOption("newBrowserWindowByLinkBlockForeign"  ).getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueBlockLinksJava      ] = sebSettings.getSecurityOption("newBrowserWindowByScriptBlockForeign").getBool();
-            settingString [StateTmp, GroupBrowser, ValueNewWindowWidth      ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkWidth" ).Value;
-            settingString [StateTmp, GroupBrowser, ValueNewWindowHeight     ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkHeight").Value;
+            settingString [StateTmp, GroupBrowser, ValueNewWindowWidth      ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value;
+            settingString [StateTmp, GroupBrowser, ValueNewWindowHeight     ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value;
+          //settingString [StateTmp, GroupBrowser, ValueNewWindowPosition   ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value;
             settingBoolean[StateTmp, GroupBrowser, ValueEnablePlugins       ] = sebSettings.getSecurityOption("enablePlugins"   ).getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueEnableJava          ] = sebSettings.getSecurityOption("enableJava"      ).getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueEnableJavaScript    ] = sebSettings.getSecurityOption("enableJavaScript").getBool();
@@ -1513,11 +1517,37 @@ namespace SebWindowsConfig
             sebSettings.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueHashedQuitPassword];
             sebSettings.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
 
+          //sebSettings.getPolicySetting ("sebPurpose"            ).Value = settingString [StateNew, GroupConfigFile, ValueSebPurpose];
           //sebSettings.getSecurityOption("startingAnExam"        ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
           //sebSettings.getSecurityOption("configuringAClient"    ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
             sebSettings.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow]);
           //sebSettings.getPassword("chooseIdentity"              ).Value = settingString [StateNew, GroupConfigFile, ValueChooseIdentity];
           //sebSettings.getPassword("hashedSettingsPassword"      ).Value = settingString [StateNew, GroupConfigFile, ValueHashedSettingsPassword];
+
+          //sebSettings.getPolicySetting ("browserViewMode"           ).Value = settingString [StateNew, GroupAppearance, ValueBrowserViewMode];
+          //sebSettings.getSecurityOption("useBrowserWindow"          ).setBool(settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow]);
+          //sebSettings.getSecurityOption("useFullScreenMode"         ).setBool(settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode]);
+            sebSettings.getPolicySetting ("mainBrowserWindowWidth"    ).Value = settingString [StateNew, GroupAppearance, ValueMainWindowWidth];
+            sebSettings.getPolicySetting ("mainBrowserWindowHeight"   ).Value = settingString [StateNew, GroupAppearance, ValueMainWindowHeight];
+          //sebSettings.getPolicySetting ("mainBrowserWindowPosition" ).Value = settingString [StateNew, GroupAppearance, ValueMainWindowPosition];
+            sebSettings.getSecurityOption("enableBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar]);
+            sebSettings.getSecurityOption(  "hideBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault]);
+            sebSettings.getSecurityOption("showMenuBar"               ).setBool(settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar]);
+            sebSettings.getSecurityOption("showTaskBar"               ).setBool(settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar]);
+
+          //sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowPolicyHTML];
+          //sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowPolicyJava];
+            sebSettings.getSecurityOption("newBrowserWindowByLinkBlockForeign  ").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML]);
+            sebSettings.getSecurityOption("newBrowserWindowByScriptBlockForeign").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava]);
+            sebSettings.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowWidth];
+            sebSettings.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowHeight];
+          //sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value = settingString[StateNew, GroupBrowser, ValueNewWindowPosition];
+            sebSettings.getSecurityOption("enablePlugins"    ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins]);
+            sebSettings.getSecurityOption("enableJava"       ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJava]);
+            sebSettings.getSecurityOption("enableJavaScript" ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript]);
+            sebSettings.getSecurityOption("blockPopUpWindows").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows]);
+            sebSettings.getSecurityOption("enableBrowsingBackForward").setBool(settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward]);
+            sebSettings.getSecurityOption("enableSebBrowser"         ).setBool(settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser]);
 
           //sebSettings.getUrlAddress("browserExamKey").Url = settingString[StateNew, GroupExam, ValueBrowserExamKey];
             sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").setBool(settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey]);
