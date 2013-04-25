@@ -1505,7 +1505,13 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
             settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebSettings.getUrlAddress("quitURL").Url;
 
-            settingBoolean[StateTmp, GroupApplications, ValueMonitorProcesses] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
+            settingBoolean[StateTmp, GroupApplications, ValueMonitorProcesses         ] = sebSettings.getSecurityOption("monitorProcesses         ").getBool();
+            settingBoolean[StateTmp, GroupApplications, ValueAllowSwitchToApplications] = sebSettings.getSecurityOption("allowSwitchToApplications").getBool();
+            settingBoolean[StateTmp, GroupApplications, ValueAllowFlashFullscreenMode ] = sebSettings.getSecurityOption("allowFlashFullscreen     ").getBool();
+
+            settingString [StateTmp, GroupSecurity, ValueSEBServicePolicy   ] = sebSettings.getPolicySetting ("sebServicePolicy"   ).Value;
+            settingBoolean[StateTmp, GroupSecurity, ValueAllowVirtualMachine] = sebSettings.getSecurityOption("allowVirtualMachine").getBool();
+            settingBoolean[StateTmp, GroupSecurity, ValueEnableLogging      ] = sebSettings.getSecurityOption("enableLog"          ).getBool();
 
             return true;
         }
@@ -1567,6 +1573,14 @@ namespace SebWindowsConfig
             sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").setBool(settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey]);
             sebSettings.getSecurityOption("sendBrowserExamKey"                ).setBool(settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey]);
             sebSettings.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitURL];
+
+            sebSettings.getSecurityOption("monitorProcesses         ").setBool(settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses]);
+            sebSettings.getSecurityOption("allowSwitchToApplications").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications]);
+            sebSettings.getSecurityOption("allowFlashFullscreen     ").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreenMode]);
+
+            sebSettings.getPolicySetting ("sebServicePolicy"   ).Value = settingString [StateNew, GroupSecurity, ValueSEBServicePolicy];
+            sebSettings.getSecurityOption("allowVirtualMachine").setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine]);
+            sebSettings.getSecurityOption("enableLog"          ).setBool(settingBoolean[StateNew, GroupSecurity, ValueEnableLogging]);
 
             return true;
         }
