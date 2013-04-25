@@ -1531,6 +1531,29 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableEaseOfAccess     ] = sebSettings.getRegistryValue("outsideSebEnableEaseOfAccess"     ).getBool();
             settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableVmWareClientShade] = sebSettings.getRegistryValue("outsideSebEnableVmWareClientShade").getBool();
 
+            settingBoolean[StateTmp, GroupHookedKeys, ValueHookMessages] = sebSettings.getSecurityOption("hookMessages").getBool();
+
+            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableEsc       ] = sebSettings.getHookedMessageKey("enableEsc"       ).getBool();
+            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableCtrlEsc   ] = sebSettings.getHookedMessageKey("enableCtrlEsc"   ).getBool();
+            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableAltEsc    ] = sebSettings.getHookedMessageKey("enableAltEsc"    ).getBool();
+            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableAltTab    ] = sebSettings.getHookedMessageKey("enableAltTab"    ).getBool();
+            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableAltF4     ] = sebSettings.getHookedMessageKey("enableAltF4"     ).getBool();
+          //settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableStartMenu ] = sebSettings.getHookedMessageKey("enableStartMenu" ).getBool();
+            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableRightMouse] = sebSettings.getHookedMessageKey("enableRightMouse").getBool();
+
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF1 ] = sebSettings.getHookedMessageKey("enableF1" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF2 ] = sebSettings.getHookedMessageKey("enableF2" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF3 ] = sebSettings.getHookedMessageKey("enableF3" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF4 ] = sebSettings.getHookedMessageKey("enableF4" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF5 ] = sebSettings.getHookedMessageKey("enableF5" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF6 ] = sebSettings.getHookedMessageKey("enableF6" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF7 ] = sebSettings.getHookedMessageKey("enableF7" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF8 ] = sebSettings.getHookedMessageKey("enableF8" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF9 ] = sebSettings.getHookedMessageKey("enableF9" ).getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF10] = sebSettings.getHookedMessageKey("enableF10").getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF11] = sebSettings.getHookedMessageKey("enableF11").getBool();
+            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF12] = sebSettings.getHookedMessageKey("enableF12").getBool();
+
             return true;
         }
 
@@ -1617,6 +1640,29 @@ namespace SebWindowsConfig
             sebSettings.getRegistryValue("outsideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown]);
             sebSettings.getRegistryValue("outsideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess]);
             sebSettings.getRegistryValue("outsideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade]);
+
+            sebSettings.getSecurityOption("hookMessages").setBool(settingBoolean[StateNew, GroupHookedKeys, ValueHookMessages]);
+
+            sebSettings.getHookedMessageKey("enableEsc"       ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc]);
+            sebSettings.getHookedMessageKey("enableCtrlEsc"   ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc]);
+            sebSettings.getHookedMessageKey("enableAltEsc"    ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltEsc]);
+            sebSettings.getHookedMessageKey("enableAltTab"    ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltTab]);
+            sebSettings.getHookedMessageKey("enableAltF4"     ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltF4]);
+          //sebSettings.getHookedMessageKey("enableStartMenu" ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableStartMenu]);
+            sebSettings.getHookedMessageKey("enableRightMouse").setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableRightMouse]);
+
+            sebSettings.getHookedMessageKey("enableF1" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF1 ]);
+            sebSettings.getHookedMessageKey("enableF2" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF2 ]);
+            sebSettings.getHookedMessageKey("enableF3" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF3 ]);
+            sebSettings.getHookedMessageKey("enableF4" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4 ]);
+            sebSettings.getHookedMessageKey("enableF5" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF5 ]);
+            sebSettings.getHookedMessageKey("enableF6" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF6 ]);
+            sebSettings.getHookedMessageKey("enableF7" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF7 ]);
+            sebSettings.getHookedMessageKey("enableF8" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF8 ]);
+            sebSettings.getHookedMessageKey("enableF9" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF9 ]);
+            sebSettings.getHookedMessageKey("enableF10").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10]);
+            sebSettings.getHookedMessageKey("enableF11").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11]);
+            sebSettings.getHookedMessageKey("enableF12").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12]);
 
             return true;
         }
