@@ -1505,6 +1505,8 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
             settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebSettings.getUrlAddress("quitURL").Url;
 
+            settingBoolean[StateTmp, GroupApplications, ValueMonitorProcesses] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
+
             return true;
         }
 
@@ -1555,11 +1557,11 @@ namespace SebWindowsConfig
             sebSettings.getSecurityOption("enableBrowsingBackForward").setBool(settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward]);
             sebSettings.getSecurityOption("enableSebBrowser"         ).setBool(settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser]);
 
-            settingBoolean[StateTmp, GroupDownUploads, ValueAllowDownUploadingFiles  ] = sebSettings.getSecurityOption   ("allowDownUploads").getBool();
-            settingBoolean[StateTmp, GroupDownUploads, ValueOpenFilesAfterDownloading] = sebSettings.getSecurityOption   ("openDownloads"   ).getBool();
-            settingBoolean[StateTmp, GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = sebSettings.getSecurityOption   ("downloadPDFFiles").getBool();
-            settingString [StateTmp, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = sebSettings.getDownloadDirectory("downloadDirectoryWin"    ).Path;
-            settingString [StateTmp, GroupDownUploads, ValueChooseFileToUpload       ] = sebSettings.getPolicySetting    ("chooseFileToUploadPolicy").Value;
+            sebSettings.getSecurityOption   ("allowDownUploads").setBool(settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles]);
+            sebSettings.getSecurityOption   ("openDownloads"   ).setBool(settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading]);
+            sebSettings.getSecurityOption   ("downloadPDFFiles").setBool(settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles]);
+            sebSettings.getDownloadDirectory("downloadDirectoryWin"    ).Path  = settingString[StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo];
+            sebSettings.getPolicySetting    ("chooseFileToUploadPolicy").Value = settingString[StateNew, GroupDownUploads, ValueChooseFileToUpload];
 
           //sebSettings.getUrlAddress("browserExamKey").Url = settingString[StateNew, GroupExam, ValueBrowserExamKey];
             sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").setBool(settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey]);
