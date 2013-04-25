@@ -181,7 +181,7 @@ namespace SebWindowsConfig
         const String MessageNewWindowWidth           = "NewWindowWidth";
         const String MessageNewWindowHeight          = "NewWindowHeight";
         const String MessageNewWindowPosition        = "NewWindowPosition";
-        const String MessageEnablePlugIns            = "EnablePlugIns";
+        const String MessageEnablePlugins            = "EnablePlugins";
         const String MessageEnableJava               = "EnableJava";
         const String MessageEnableJavaScript         = "EnableJavaScript";
         const String MessageBlockPopupWindows        = "BlockPopupWindows";
@@ -691,7 +691,7 @@ namespace SebWindowsConfig
             valueString[GroupBrowser, ValueNewWindowWidth          ] = MessageNewWindowWidth;
             valueString[GroupBrowser, ValueNewWindowHeight         ] = MessageNewWindowHeight;
             valueString[GroupBrowser, ValueNewWindowPosition       ] = MessageNewWindowPosition;
-            valueString[GroupBrowser, ValueEnablePlugins           ] = MessageEnablePlugIns;
+            valueString[GroupBrowser, ValueEnablePlugins           ] = MessageEnablePlugins;
             valueString[GroupBrowser, ValueEnableJava              ] = MessageEnableJava;
             valueString[GroupBrowser, ValueEnableJavaScript        ] = MessageEnableJavaScript;
             valueString[GroupBrowser, ValueBlockPopupWindows       ] = MessageBlockPopupWindows;
@@ -1494,6 +1494,12 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupBrowser, ValueAllowBrowsingBackForward] = sebSettings.getSecurityOption("enableBrowsingBackForward").getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueUseSEBWithoutBrowser] = sebSettings.getSecurityOption("enableSebBrowser").getBool();
 
+            settingBoolean[StateTmp, GroupDownUploads, ValueAllowDownUploadingFiles  ] = sebSettings.getSecurityOption   ("allowDownUploads").getBool();
+            settingBoolean[StateTmp, GroupDownUploads, ValueOpenFilesAfterDownloading] = sebSettings.getSecurityOption   ("openDownloads"   ).getBool();
+            settingBoolean[StateTmp, GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = sebSettings.getSecurityOption   ("downloadPDFFiles").getBool();
+            settingString [StateTmp, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = sebSettings.getDownloadDirectory("downloadDirectoryWin"    ).Path;
+            settingString [StateTmp, GroupDownUploads, ValueChooseFileToUpload       ] = sebSettings.getPolicySetting    ("chooseFileToUploadPolicy").Value;
+
           //settingString [StateTmp, GroupExam, ValueBrowserExamKey    ] = sebSettings.getUrlAddress("browserExamKey" ).Url;
             settingBoolean[StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").getBool();
             settingBoolean[StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettings.getSecurityOption("sendBrowserExamKey").getBool();
@@ -1548,6 +1554,12 @@ namespace SebWindowsConfig
             sebSettings.getSecurityOption("blockPopUpWindows").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows]);
             sebSettings.getSecurityOption("enableBrowsingBackForward").setBool(settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward]);
             sebSettings.getSecurityOption("enableSebBrowser"         ).setBool(settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser]);
+
+            settingBoolean[StateTmp, GroupDownUploads, ValueAllowDownUploadingFiles  ] = sebSettings.getSecurityOption   ("allowDownUploads").getBool();
+            settingBoolean[StateTmp, GroupDownUploads, ValueOpenFilesAfterDownloading] = sebSettings.getSecurityOption   ("openDownloads"   ).getBool();
+            settingBoolean[StateTmp, GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = sebSettings.getSecurityOption   ("downloadPDFFiles").getBool();
+            settingString [StateTmp, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = sebSettings.getDownloadDirectory("downloadDirectoryWin"    ).Path;
+            settingString [StateTmp, GroupDownUploads, ValueChooseFileToUpload       ] = sebSettings.getPolicySetting    ("chooseFileToUploadPolicy").Value;
 
           //sebSettings.getUrlAddress("browserExamKey").Url = settingString[StateNew, GroupExam, ValueBrowserExamKey];
             sebSettings.getSecurityOption("copyExamKeyToClipboardWhenQuitting").setBool(settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey]);
