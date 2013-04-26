@@ -1449,7 +1449,11 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress    ("sebServerURL").Url;
             settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettObso.getPassword      ("hashedAdminPassword").Value;
             settingString [StateTmp, GroupGeneral, ValueHashedQuitPassword ] = sebSettObso.getPassword      ("hashedQuitPassword" ).Value;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB ] = sebSettObso.getSecurityOption("allowQuit").getBool();
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB ] = sebSettObso.getSecurityOption("allowQuit"         ).getBool();
+            settingBoolean[StateTmp, GroupGeneral, ValueIgnoreQuitPassword ] = sebSettObso.getSecurityOption("ignoreQuitPassword").getBool();
+            settingString [StateTmp, GroupGeneral, ValueExitKey1           ] = sebSettObso.getExitKey       ("exitKey1").Value;
+            settingString [StateTmp, GroupGeneral, ValueExitKey2           ] = sebSettObso.getExitKey       ("exitKey2").Value;
+            settingString [StateTmp, GroupGeneral, ValueExitKey3           ] = sebSettObso.getExitKey       ("exitKey3").Value;
 
           //settingString [StateTmp, GroupConfigFile, ValueSebPurpose            ] = sebSettings.getPolicySetting ("sebPurpose"            ).Value;
           //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("startingAnExam"        ).getBool();
@@ -1500,6 +1504,8 @@ namespace SebWindowsConfig
 
             settingString [StateTmp, GroupSecurity, ValueSEBServicePolicy   ] = sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value;
             settingBoolean[StateTmp, GroupSecurity, ValueAllowVirtualMachine] = sebSettObso.getSecurityOption("allowVirtualMachine").getBool();
+            settingBoolean[StateTmp, GroupSecurity, ValueCreateNewDesktop   ] = sebSettObso.getSecurityOption("createNewDesktop"   ).getBool();
+            settingBoolean[StateTmp, GroupSecurity, ValueAllowUserSwitching ] = sebSettObso.getSecurityOption("allowUserSwitching" ).getBool();
             settingBoolean[StateTmp, GroupSecurity, ValueEnableLogging      ] = sebSettObso.getSecurityOption("enableLog"          ).getBool();
 
             settingBoolean[StateTmp, GroupInsideSeb, ValueEnableSwitchUser       ] = sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).getBool();
@@ -1543,10 +1549,6 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF11] = sebSettObso.getHookedMessageKey("enableF11").getBool();
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF12] = sebSettObso.getHookedMessageKey("enableF12").getBool();
 
-            settingString[StateTmp, GroupExitKeys, ValueExitKey1] = sebSettObso.getExitKey("exitKey1").Value;
-            settingString[StateTmp, GroupExitKeys, ValueExitKey2] = sebSettObso.getExitKey("exitKey2").Value;
-            settingString[StateTmp, GroupExitKeys, ValueExitKey3] = sebSettObso.getExitKey("exitKey3").Value;
-
             return true;
         }
 
@@ -1563,7 +1565,11 @@ namespace SebWindowsConfig
           //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
             sebSettObso.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueHashedAdminPassword];
             sebSettObso.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueHashedQuitPassword];
-            sebSettObso.getSecurityOption("allowQuit")    .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
+            sebSettObso.getSecurityOption("allowQuit")          .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
+            sebSettObso.getSecurityOption("irgnoreQuitPassword").setBool(settingBoolean[StateNew, GroupGeneral, ValueIgnoreQuitPassword]);
+            sebSettObso.getExitKey("exitKey1")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey1];
+            sebSettObso.getExitKey("exitKey2")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey2];
+            sebSettObso.getExitKey("exitKey3")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey3];
 
           //sebSettings.getPolicySetting ("sebPurpose"            ).Value = settingString [StateNew, GroupConfigFile, ValueSebPurpose];
           //sebSettings.getSecurityOption("startingAnExam"        ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
@@ -1614,6 +1620,8 @@ namespace SebWindowsConfig
 
             sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value = settingString [StateNew, GroupSecurity, ValueSEBServicePolicy];
             sebSettObso.getSecurityOption("allowVirtualMachine").setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine]);
+            sebSettObso.getSecurityOption("createNewDesktop"   ).setBool(settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop]);
+            sebSettObso.getSecurityOption("allowUserSwitching" ).setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching]);
             sebSettObso.getSecurityOption("enableLog"          ).setBool(settingBoolean[StateNew, GroupSecurity, ValueEnableLogging]);
 
             sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser]);
@@ -1656,10 +1664,6 @@ namespace SebWindowsConfig
             sebSettObso.getHookedMessageKey("enableF10").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10]);
             sebSettObso.getHookedMessageKey("enableF11").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11]);
             sebSettObso.getHookedMessageKey("enableF12").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12]);
-
-            sebSettObso.getExitKey("exitKey1").Value = settingString[StateNew, GroupExitKeys, ValueExitKey1];
-            sebSettObso.getExitKey("exitKey2").Value = settingString[StateNew, GroupExitKeys, ValueExitKey2];
-            sebSettObso.getExitKey("exitKey3").Value = settingString[StateNew, GroupExitKeys, ValueExitKey3];
 
             return true;
         }
