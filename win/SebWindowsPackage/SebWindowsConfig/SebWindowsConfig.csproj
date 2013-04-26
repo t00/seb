@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plist.cs" />
     <Compile Include="SEBClientConfig.cs" />
     <Compile Include="SEBProtectionController.cs" />
     <Compile Include="SebWindowsConfigForm.cs">
