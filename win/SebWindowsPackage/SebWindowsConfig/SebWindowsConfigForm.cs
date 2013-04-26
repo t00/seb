@@ -851,12 +851,16 @@ namespace SebWindowsConfig
 
             // These ListBox and ComboBox entries need a conversion from string to integer:
             //
+            // Exit Key Sequence (exit keys 1,2,3)
             // Main Window Width/Height/Position
             // New  Window Width/Height/Position
             // Link Opening Policy for HTML/JavaScript
             // SEB  Service Policy
             // Choose File To Upload
-            // Exit Key Sequence (exit keys 1,2,3)
+
+            String tmpStringExitKey1 = settingString[StateTmp, GroupGeneral, ValueExitKey1];
+            String tmpStringExitKey2 = settingString[StateTmp, GroupGeneral, ValueExitKey2];
+            String tmpStringExitKey3 = settingString[StateTmp, GroupGeneral, ValueExitKey3];
 
             String tmpStringMainWindowWidth    = settingString[StateTmp, GroupAppearance, ValueMainWindowWidth];
             String tmpStringMainWindowHeight   = settingString[StateTmp, GroupAppearance, ValueMainWindowHeight];
@@ -872,11 +876,11 @@ namespace SebWindowsConfig
             String tmpStringSEBServicePolicy   = settingString[StateTmp, GroupSecurity   , ValueSEBServicePolicy];
             String tmpStringChooseFileToUpload = settingString[StateTmp, GroupDownUploads, ValueChooseFileToUpload];
 
-            String tmpStringExitKey1 = settingString[StateTmp, GroupExitKeys, ValueExitKey1];
-            String tmpStringExitKey2 = settingString[StateTmp, GroupExitKeys, ValueExitKey2];
-            String tmpStringExitKey3 = settingString[StateTmp, GroupExitKeys, ValueExitKey3];
-
             int index;
+
+            int tmpIndexExitKey1 = 0;
+            int tmpIndexExitKey2 = 0;
+            int tmpIndexExitKey3 = 0;
 
             int tmpIndexMainWindowWidth    = 0;
             int tmpIndexMainWindowHeight   = 0;
@@ -891,9 +895,15 @@ namespace SebWindowsConfig
             int tmpIndexSEBServicePolicy   = 0;
             int tmpIndexChooseFileToUpload = 0;
 
-            int tmpIndexExitKey1 = 0;
-            int tmpIndexExitKey2 = 0;
-            int tmpIndexExitKey3 = 0;
+            // Function keys have 12 possible list entries
+            for (index = 1; index <= 12; index++)
+            {
+                String key = StringFunctionKey[index];
+
+                if (tmpStringExitKey1.Equals(key)) tmpIndexExitKey1 = index;
+                if (tmpStringExitKey2.Equals(key)) tmpIndexExitKey2 = index;
+                if (tmpStringExitKey3.Equals(key)) tmpIndexExitKey3 = index;
+            }
 
             // Window width and height have 4 possible list entries
             for (index = 1; index <= 4; index++)
@@ -926,17 +936,11 @@ namespace SebWindowsConfig
                 if (tmpStringChooseFileToUpload.Equals(upload )) tmpIndexChooseFileToUpload = index;
             }
 
-            // Function keys have 12 possible list entries
-            for (index = 1; index <= 12; index++)
-            {
-                String key = StringFunctionKey[index];
-
-                if (tmpStringExitKey1.Equals(key)) tmpIndexExitKey1 = index;
-                if (tmpStringExitKey2.Equals(key)) tmpIndexExitKey2 = index;
-                if (tmpStringExitKey3.Equals(key)) tmpIndexExitKey3 = index;
-            }
-
             // Store the determined integers
+            settingInteger[StateTmp, GroupGeneral, ValueExitKey1] = tmpIndexExitKey1;
+            settingInteger[StateTmp, GroupGeneral, ValueExitKey2] = tmpIndexExitKey2;
+            settingInteger[StateTmp, GroupGeneral, ValueExitKey3] = tmpIndexExitKey3;
+
             settingInteger[StateTmp, GroupAppearance , ValueMainWindowWidth   ] = tmpIndexMainWindowWidth;
             settingInteger[StateTmp, GroupAppearance , ValueMainWindowHeight  ] = tmpIndexMainWindowHeight;
             settingInteger[StateTmp, GroupAppearance , ValueMainWindowPosition] = tmpIndexMainWindowPosition;
@@ -950,10 +954,6 @@ namespace SebWindowsConfig
 
             settingInteger[StateTmp, GroupDownUploads, ValueChooseFileToUpload] = tmpIndexChooseFileToUpload;
             settingInteger[StateTmp, GroupSecurity   , ValueSEBServicePolicy  ] = tmpIndexSEBServicePolicy;
-
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey1] = tmpIndexExitKey1;
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey2] = tmpIndexExitKey2;
-            settingInteger[StateTmp, GroupExitKeys, ValueExitKey3] = tmpIndexExitKey3;
 
             // Accept the tmp values as the old and new values
             for (int group = 1; group <= GroupNum; group++)
@@ -989,13 +989,17 @@ namespace SebWindowsConfig
         {
             // These ListBox and ComboBox entries need a conversion from integer to string:
             //
+            // Exit Key Sequence (exit keys 1,2,3)
             // Choose Identity
             // Main Window Width/Height/Position
             // New  Window Width/Height/Position
             // Link Opening Policy for Requesting/JavaScript
             // Choose File To Upload
             // SEB Service Policy
-            // Exit Key Sequence (exit keys 1,2,3)
+
+            int newIndexExitKey1 = settingInteger[StateNew, GroupGeneral, ValueExitKey1];
+            int newIndexExitKey2 = settingInteger[StateNew, GroupGeneral, ValueExitKey2];
+            int newIndexExitKey3 = settingInteger[StateNew, GroupGeneral, ValueExitKey3];
 
             int newIndexChooseIdentity     = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
 
@@ -1013,11 +1017,11 @@ namespace SebWindowsConfig
             int newIndexChooseFileToUpload = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload];
             int newIndexSEBServicePolicy   = settingInteger[StateNew, GroupSecurity   , ValueSEBServicePolicy];
 
-            int newIndexExitKey1 = settingInteger[StateNew, GroupExitKeys, ValueExitKey1];
-            int newIndexExitKey2 = settingInteger[StateNew, GroupExitKeys, ValueExitKey2];
-            int newIndexExitKey3 = settingInteger[StateNew, GroupExitKeys, ValueExitKey3];
-
             // Store the determined strings
+            settingString[StateNew, GroupGeneral, ValueExitKey1] = StringFunctionKey[newIndexExitKey1];
+            settingString[StateNew, GroupGeneral, ValueExitKey2] = StringFunctionKey[newIndexExitKey2];
+            settingString[StateNew, GroupGeneral, ValueExitKey3] = StringFunctionKey[newIndexExitKey3];
+
             settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
 
             settingString[StateNew, GroupAppearance, ValueMainWindowWidth   ] = StringWindowWidth   [newIndexMainWindowWidth];
@@ -1033,10 +1037,6 @@ namespace SebWindowsConfig
 
             settingString[StateNew, GroupDownUploads, ValueChooseFileToUpload] = StringFileToUpload    [newIndexChooseFileToUpload];
             settingString[StateNew, GroupSecurity   , ValueSEBServicePolicy  ] = StringPolicySEBService[newIndexSEBServicePolicy];
-
-            settingString[StateNew, GroupExitKeys, ValueExitKey1] = StringFunctionKey[newIndexExitKey1];
-            settingString[StateNew, GroupExitKeys, ValueExitKey2] = StringFunctionKey[newIndexExitKey2];
-            settingString[StateNew, GroupExitKeys, ValueExitKey3] = StringFunctionKey[newIndexExitKey3];
 
             return;
         }
