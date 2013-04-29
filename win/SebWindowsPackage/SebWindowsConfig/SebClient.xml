@@ -1,133 +1,273 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-  <SEBSettings>
-    <SecurityOptions>
-      <SecurityOption key ="allowDownUploads" type = "boolean" value ="true" />
-      <SecurityOption key ="allowFlashFullscreen" type = "boolean" value ="false" />
-      <SecurityOption key ="allowPreferencesWindow" type = "boolean" value ="false" />
-      <SecurityOption key ="allowQuit" type = "boolean" value ="true" />
-      <SecurityOption key ="allowSwitchToApplications" type = "boolean" value ="false" />
-      <SecurityOption key ="allowUserSwitching" type = "boolean" value ="true" />
-      <SecurityOption key ="allowVirtualMachine" type = "boolean" value ="false" />
-      <SecurityOption key ="blockPopUpWindows" type = "boolean" value ="true" />
-      <SecurityOption key ="createNewDesktop" type = "boolean" value ="true" />
-      <SecurityOption key ="downloadPDFFiles" type = "boolean" value ="false" />
-      <SecurityOption key ="copyExamKeyToClipboardWhenQuitting" type = "boolean" value ="false" />
-      <SecurityOption key ="enableBrowsingBackForward" type = "boolean" value ="false" />
-      <SecurityOption key ="enableJava" type = "boolean" value ="false" />
-      <SecurityOption key ="enableJavaScript" type = "boolean" value ="true" />
-      <SecurityOption key ="enableLog" type = "boolean" value ="false" />
-      <SecurityOption key ="enablePlugins" type = "boolean" value ="true" />
-      <SecurityOption key ="enableBrowserWindowToolbar" type = "boolean" value ="false" />
-      <SecurityOption key ="hideBrowserWindowToolbar" type = "boolean" value ="false" />
-      <SecurityOption key ="enableSebBrowser" type = "boolean" value ="true" />
-      <SecurityOption key ="enableUrlContentFilter" type = "boolean" value ="false" />
-      <SecurityOption key ="enableUrlFilter" type = "boolean" value ="false" />
-      <SecurityOption key ="hookMessages" type = "boolean" value ="true" />
-      <SecurityOption key ="ignoreQuitPassword" type = "boolean" value ="false" />
-      <SecurityOption key ="monitorProcesses" type = "boolean" value ="false" />
-      <SecurityOption key ="newBrowserWindowByLinkBlockForeign" type = "boolean" value ="false" />
-      <SecurityOption key ="newBrowserWindowByScriptBlockForeign" type = "boolean" value ="false" />
-      <SecurityOption key ="openDownloads" type = "boolean" value ="false" />
-      <SecurityOption key ="showMenuBar" type = "boolean" value ="false" />
-      <SecurityOption key ="showTaskBar" type = "boolean" value ="true" />
-      <SecurityOption key ="sendBrowserExamKey" type = "boolean" value ="false" />
-    </SecurityOptions>
-    <PolicySettings>
-      <PolicySetting key ="chooseFileToUploadPolicy" type = "integer" value ="0" />
-      <PolicySetting key ="newBrowserWindowByLinkPolicy" type = "integer" value ="2" />
-      <PolicySetting key ="newBrowserWindowByScriptPolicy" type = "integer" value ="2" />
-      <PolicySetting key ="sebServicePolicy" type = "integer" value ="2" />
-      <PolicySetting key ="browserViewMode" type = "integer" value ="0" />
-      <PolicySetting key ="mainBrowserWindowHeight" type = "integer" value ="0" />
-      <PolicySetting key ="mainBrowserWindowWidth" type = "integer" value ="0" />
-      <PolicySetting key ="newBrowserWindowByLinkHeight" type = "integer" value ="700" />
-      <PolicySetting key ="newBrowserWindowByLinkWidth" type = "integer" value ="900" />
-      <PolicySetting key ="newBrowserWindowByLinkPolicy" type = "integer" value ="2" />
-      <PolicySetting key ="sebPurpose" type = "integer" value ="0" />
-    </PolicySettings>
-    <RegistryValues>
-      <RegistryValue key ="insideSebEnableSwitchUser" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableSwitchUser" type = "boolean" value ="true" />
-      <RegistryValue key ="insideSebEnableLockThisComputer" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableLockThisComputer" type = "boolean" value ="true" />
-      <RegistryValue key ="insideSebEnableChangePassword" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableChangePassword" type = "boolean" value ="true" />
-      <RegistryValue key ="insideSebEnableStartTaskManager" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableStartTaskManager" type = "boolean" value ="true" />
-      <RegistryValue key ="insideSebEnableLogOff" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableLogOff" type = "boolean" value ="true" />
-      <RegistryValue key ="insideSebEnableShutDown" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableShutDown" type = "boolean" value ="true" />
-      <RegistryValue key ="insideSebEnableEaseOfAccess" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableEaseOfAccess" type = "boolean" value ="true" />
-      <RegistryValue key ="insideSebEnableVmWareClientShade" type = "boolean" value ="false" />
-      <RegistryValue key ="outsideSebEnableVmWareClientShade" type = "boolean" value ="true" />
-    </RegistryValues>
-    <HookedMessageKeys>
-      <HookedMessageKey key ="enableEsc" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableCtrlEsc" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableAltEsc" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableAltTab" type = "boolean" value ="true" />
-      <HookedMessageKey key ="enableAltF4" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableRightMouse" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF1" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF2" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF3" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF4" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF5" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF6" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF7" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF8" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF9" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF10" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF11" type = "boolean" value ="false" />
-      <HookedMessageKey key ="enableF12" type = "boolean" value ="false" />
-    </HookedMessageKeys>
-    <ExamKeySalt></ExamKeySalt>
-    <LogDirectoryWIN></LogDirectoryWIN>
-    <SebBrowsers>
-      <SebBrowser>xulrunner.exe</SebBrowser>
-    </SebBrowsers>
-    <DownloadDirectories>
-      <DownloadDirectory key="downloadDirectoryOSX" type = "string" path="~/Downloads" />
-      <DownloadDirectory key="downloadDirectoryWin" type = "string" path="~/Downloads" />
-    </DownloadDirectories>
-    <UrlAddresses>
-      <UrlAddress key="startURL" type = "string" url="http://www.safeexambrowser.org/exams" />
-      <UrlAddress key="quitURL" type = "string" url="http://www.safeexambrowser.org/exit" />
-    </UrlAddresses>
-    <ExitKeys>
-      <ExitKey key="exitKey1" type = "string" value="" />
-      <ExitKey key="exitKey2" type = "string" value="" />
-      <ExitKey key="exitKey3" type = "string" value="" />
-    </ExitKeys>
-    <Passwords>
-      <Password key="hashedAdminPassword" type = "string" value="" />
-      <Password key="hashedQuitPassword" type = "string" value="" />
-    </Passwords>
-    <PermittedProcesses>
-      <PermittedProcess active="true" title="SEB" nameWin="xulrunner.exe" pathWin="../xulrunner/" autostart="true" description="" identifier="" hideProcess="" allowUserToChooseApp="" signatureWin="">
-        <Arguments>-app "..\xul_seb\seb.ini, -profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles</Arguments>
-      </PermittedProcess>
-      <PermittedProcess active="true" title="Calculator" nameWin="calc.exe" pathWin="" autostart="false" description="" identifier="" hideProcess="" allowUserToChooseApp="" signatureWin="">
-        <Arguments />
-      </PermittedProcess>
-      <PermittedProcess active="true" title="Notepad" nameWin="notepad.exe" pathWin="" autostart="false" description="" identifier="" hideProcess="" allowUserToChooseApp="" signatureWin="">
-        <Arguments />
-      </PermittedProcess>
-    </PermittedProcesses>
-    <ProhibitedProcesses>
-      <ProhibitedProcess active="true"  nameWin="" description="" identifier="" user="" currentUser="" strongKill="" signatureWin="" />
-    </ProhibitedProcesses>
-    <UrlFilterRules>
-      <UrlFilterRule active="true" description="Rule 1: allow .seb files only from safeexambrowser.org and https://exams.ethz.ch">
-        <Rule active="true" regex="false" action="4" expression="safeexambrowser.org" />
-        <Rule active="true" regex="false" action="2" expression="https://exams.ethz.ch" />
-        <Rule active="true" regex="false" action="0" expression="/*.seb" />
-      </UrlFilterRule>
-      <UrlFilterRule active="true" description="Rule 2: allow maps.google.*, block google.* and all its other subdomains">
-        <Rule  active="true" regex="false" action="1" expression="maps.google.*" />
-        <Rule  active="true" regex="false" action="0" expression="google.*" />
-      </UrlFilterRule>
-    </UrlFilterRules>
-  </SEBSettings>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SebPurpose</key>
+	<integer>1</integer>
+	<key>allowDownUploads</key>
+	<true/>
+	<key>allowFlashFullscreen</key>
+	<false/>
+	<key>allowPreferencesWindow</key>
+	<true/>
+	<key>allowQuit</key>
+	<true/>
+	<key>allowSwitchToApplications</key>
+	<true/>
+	<key>allowSwitchToThirdPartyApps</key>
+	<true/>
+	<key>allowUserSwitching</key>
+	<true/>
+	<key>allowVirtualMachine</key>
+	<false/>
+	<key>blockPopUpWindows</key>
+	<false/>
+	<key>browserViewMode</key>
+	<integer>0</integer>
+	<key>chooseFileToUploadPolicy</key>
+	<integer>0</integer>
+	<key>copyBrowserExamKeyToClipboardWhenQuitting</key>
+	<false/>
+	<key>cryptoIdentity</key>
+	<integer>0</integer>
+	<key>downloadDirectory</key>
+	<string>/Users/drs/Downloads</string>
+	<key>downloadDirectoryOSX</key>
+	<string>~/Downloads</string>
+	<key>downloadPDFFiles</key>
+	<false/>
+	<key>enableBrowserWindowToolbar</key>
+	<true/>
+	<key>enableBrowsingBackForward</key>
+	<false/>
+	<key>enableJava</key>
+	<false/>
+	<key>enableJavaScript</key>
+	<true/>
+	<key>enableLog</key>
+	<true/>
+	<key>enablePlugins</key>
+	<true/>
+	<key>enableSebBrowser</key>
+	<true/>
+	<key>enableUrlContentFilter</key>
+	<true/>
+	<key>enableUrlFilter</key>
+	<true/>
+	<key>examKeySalt</key>
+	<data>Z8gD5C8Dt2mzRweoUA/26N/E6LE7UHUTpcxSvDnv9rE=</data>
+	<key>hashedAdminPassword</key>
+	<string>155290511d5c4bfb1369217d6846c8eef1ed6a564579516eaf36cf5598ac92de</string>
+	<key>hashedQuitPassword</key>
+	<string>8577da2ea54085708b3b851bc50315a36bb740ba5135e747cfb12457b5d3060f</string>
+	<key>hideBrowserWindowToolbar</key>
+	<false/>
+	<key>logDirectoryOSX</key>
+	<string>/Users/drs/Documents</string>
+	<key>mainBrowserWindowHeight</key>
+	<string>100%</string>
+	<key>mainBrowserWindowPositioning</key>
+	<integer>1</integer>
+	<key>mainBrowserWindowWidth</key>
+	<string>50%</string>
+	<key>monitorProcesses</key>
+	<true/>
+	<key>newBrowserWindowByLinkBlockForeign</key>
+	<false/>
+	<key>newBrowserWindowByLinkHeight</key>
+	<string>100%</string>
+	<key>newBrowserWindowByLinkPolicy</key>
+	<integer>2</integer>
+	<key>newBrowserWindowByLinkPositioning</key>
+	<integer>2</integer>
+	<key>newBrowserWindowByLinkWidth</key>
+	<string>800</string>
+	<key>newBrowserWindowByScriptBlockForeign</key>
+	<false/>
+	<key>newBrowserWindowByScriptPolicy</key>
+	<integer>2</integer>
+	<key>openDownloads</key>
+	<true/>
+	<key>permittedProcesses</key>
+	<array>
+		<dict>
+			<key>active</key>
+			<true/>
+			<key>allowUserToChooseApp</key>
+			<true/>
+			<key>arguments</key>
+			<array>
+				<dict>
+					<key>active</key>
+					<true/>
+					<key>argument</key>
+					<string>-profile</string>
+				</dict>
+				<dict>
+					<key>active</key>
+					<true/>
+					<key>argument</key>
+					<string>-app &quot;..\xul_seb\seb.ini&quot;</string>
+				</dict>
+			</array>
+			<key>autostart</key>
+			<true/>
+			<key>identifier</key>
+			<string>com.microsoft.Excel</string>
+			<key>name</key>
+			<string>Microsoft Excel</string>
+			<key>nameOSX</key>
+			<string>Excel.app</string>
+			<key>path</key>
+			<string>Microsoft Office 2011/Microsoft Excel.app/Contents/MacOS</string>
+			<key>title</key>
+			<string>Excel</string>
+		</dict>
+		<dict>
+			<key>active</key>
+			<true/>
+			<key>allowUserToChooseApp</key>
+			<false/>
+			<key>arguments</key>
+			<array>
+				<dict>
+					<key>active</key>
+					<true/>
+					<key>argument</key>
+					<string>-display</string>
+				</dict>
+			</array>
+			<key>autostart</key>
+			<true/>
+			<key>identifier</key>
+			<string>com.apple.TextEdit</string>
+			<key>name</key>
+			<string>TextEdit</string>
+			<key>nameOSX</key>
+			<string>TextEdit.app</string>
+			<key>path</key>
+			<string>TextEdit.app/Contents/MacOS</string>
+			<key>title</key>
+			<string>TextEdit</string>
+		</dict>
+	</array>
+	<key>prefsInBundle</key>
+	<false/>
+	<key>prohibitedProcesses</key>
+	<array>
+		<dict>
+			<key>active</key>
+			<true/>
+			<key>description</key>
+			<string>OS X screencapture tool invoked by cmd-shift-3 or 4</string>
+			<key>name</key>
+			<string>screencapture</string>
+			<key>strongKill</key>
+			<true/>
+		</dict>
+	</array>
+	<key>proxies</key>
+	<dict>
+		<key>FTPPassive</key>
+		<true/>
+		<key>RTSPPort</key>
+		<string>80</string>
+		<key>RTSPProxy</key>
+		<string>john.ch</string>
+	</dict>
+	<key>proxySettingsPolicy</key>
+	<integer>1</integer>
+	<key>quitURL</key>
+	<string>http://safeexambrowser.org/exit</string>
+	<key>sebPurpose</key>
+	<integer>0</integer>
+	<key>sebServicePolicy</key>
+	<integer>2</integer>
+	<key>sendBrowserExamKey</key>
+	<true/>
+	<key>settingsPassword</key>
+	<string></string>
+	<key>showMenuBar</key>
+	<false/>
+	<key>showTaskBar</key>
+	<false/>
+	<key>startURL</key>
+	<string>https://moodle-app1-skal.let.ethz.ch/mod/quiz/view.php?id=10524</string>
+	<key>urlFilterRules</key>
+	<array>
+		<dict>
+			<key>active</key>
+			<true/>
+			<key>expression</key>
+			<string>Allow .seb files only from safeexambrowser.org and https://exams.ethz.ch</string>
+			<key>ruleActions</key>
+			<array>
+				<dict>
+					<key>action</key>
+					<integer>4</integer>
+					<key>active</key>
+					<true/>
+					<key>expression</key>
+					<string>safeexambrowser.org</string>
+					<key>ruleActions</key>
+					<array/>
+				</dict>
+				<dict>
+					<key>action</key>
+					<integer>2</integer>
+					<key>active</key>
+					<true/>
+					<key>expression</key>
+					<string>https://exams.ethz.ch</string>
+				</dict>
+				<dict>
+					<key>active</key>
+					<true/>
+					<key>expression</key>
+					<string>*/*.seb</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>active</key>
+			<true/>
+			<key>expression</key>
+			<string>Allow maps.google.*, block google.* and all other subdomains</string>
+			<key>ruleActions</key>
+			<array>
+				<dict>
+					<key>action</key>
+					<integer>1</integer>
+					<key>active</key>
+					<true/>
+					<key>expression</key>
+					<string>maps.google.*</string>
+				</dict>
+				<dict>
+					<key>active</key>
+					<true/>
+					<key>expression</key>
+					<string>google.*</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>active</key>
+			<true/>
+			<key>expression</key>
+			<string>Allow all other domains</string>
+			<key>ruleActions</key>
+			<array>
+				<dict>
+					<key>action</key>
+					<integer>1</integer>
+					<key>active</key>
+					<true/>
+					<key>expression</key>
+					<string>*</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
