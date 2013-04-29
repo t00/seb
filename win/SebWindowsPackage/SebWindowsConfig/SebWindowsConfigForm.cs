@@ -95,11 +95,11 @@ namespace SebWindowsConfig
 
         // Group "General"
         const int ValueStartURL             = 1;
-        const int ValueSEBServerURL         = 2;
+        const int ValueSebServerURL         = 2;
         const int ValueAdminPassword        = 3;
         const int ValueConfirmAdminPassword = 4;
         const int ValueHashedAdminPassword  = 5;
-        const int ValueAllowUserToQuitSEB   = 6;
+        const int ValueAllowQuit            = 6;
         const int ValueIgnoreQuitPassword   = 7;
         const int ValueQuitPassword         = 8;
         const int ValueConfirmQuitPassword  = 9;
@@ -109,103 +109,101 @@ namespace SebWindowsConfig
         const int ValueExitKey3             = 13;
         const int NumValueGeneral = 13;
 
-        const String MessageStartURL             = "StartURL";
-        const String MessageSEBServerURL         = "SEBServerURL";
-        const String MessageAdminPassword        = "AdminPassword";
-        const String MessageConfirmAdminPassword = "ConfirmAdminPassword";
-        const String MessageHashedAdminPassword  = "HashedAdminPassword";
-        const String MessageAllowUserToQuitSEB   = "AllowUserToQuitSEB";
-        const String MessageIgnoreQuitPassword   = "IgnoreQuitPassword";
-        const String MessageQuitPassword         = "QuitPassword";
-        const String MessageConfirmQuitPassword  = "ConfirmQuitPassword";
-        const String MessageHashedQuitPassword   = "HashedQuitPassword";
-        const String MessageExitKey1             = "ExitKey1";
-        const String MessageExitKey2             = "ExitKey2";
-        const String MessageExitKey3             = "ExitKey3";
+        const String MessageStartURL             = "startURL";
+        const String MessageSebServerURL         = "sebServerURL";
+        const String MessageAdminPassword        = "adminPassword";
+        const String MessageConfirmAdminPassword = "confirmAdminPassword";
+        const String MessageHashedAdminPassword  = "hashedAdminPassword";
+        const String MessageAllowQuit            = "allowQuit";
+        const String MessageIgnoreQuitPassword   = "ignoreQuitPassword";
+        const String MessageQuitPassword         = "quitPassword";
+        const String MessageConfirmQuitPassword  = "confirmQuitPassword";
+        const String MessageHashedQuitPassword   = "hashedQuitPassword";
+        const String MessageExitKey1             = "exitKey1";
+        const String MessageExitKey2             = "exitKey2";
+        const String MessageExitKey3             = "exitKey3";
 
         // Group "Config File"
-        const int ValueStartingAnExam          = 1;
-        const int ValueConfiguringAClient      = 2;
-        const int ValueAllowOpenPrefWindow     = 3;
-        const int ValueChooseIdentity          = 4;
-        const int ValueSettingsPassword        = 5;
-        const int ValueConfirmSettingsPassword = 6;
-        const int ValueHashedSettingsPassword  = 7;
-        const int NumValueConfigFile = 7;
+        const int ValueSebPurpose              = 1;
+        const int ValueAllowPreferencesWindow  = 2;
+        const int ValueCryptoIdentity          = 3;
+        const int ValueSettingsPassword        = 4;
+        const int ValueConfirmSettingsPassword = 5;
+        const int ValueHashedSettingsPassword  = 6;
+        const int NumValueConfigFile = 6;
 
-        const String MessageStartingAnExam          = "StartingAnExam";
-        const String MessageConfiguringAClient      = "ConfiguringAClient";
-        const String MessageAllowOpenPrefWindow     = "AllowOpenPrefWindow";
-        const String MessageChooseIdentity          = "ChooseIdentity";
-        const String MessageSettingsPassword        = "SettingsPassword";
-        const String MessageConfirmSettingsPassword = "ConfirmSettingsPassword";
-        const String MessageHashedSettingsPassword  = "HashedSettingsPassword";
+        const String MessageSebPurpose              = "sebPurpose";
+        const String MessageAllowPreferencesWindow  = "allowPreferencesWindow";
+        const String MessageCryptoIdentity          = "cryptoIdentity";
+        const String MessageSettingsPassword        = "settingsPassword";
+        const String MessageConfirmSettingsPassword = "confirmSettingsPassword";
+        const String MessageHashedSettingsPassword  = "hashedSettingsPassword";
 
         // Group "Appearance"
-        const int ValueUseBrowserWindow      = 1;
-        const int ValueUseFullScreenMode     = 2;
-        const int ValueMainWindowWidth       = 3;
-        const int ValueMainWindowHeight      = 4;
-        const int ValueMainWindowPosition    = 5;
-        const int ValueEnableWindowToolbar   = 6;
-        const int ValueHideToolbarAsDefault  = 7;
-        const int ValueShowMenuBar           = 8;
-        const int ValueDisplaySEBDockTaskBar = 9;
-        const int NumValueAppearance = 9;
+        const int ValueBrowserViewMode              = 1;
+        const int ValueMainBrowserWindowWidth       = 2;
+        const int ValueMainBrowserWindowHeight      = 3;
+        const int ValueMainBrowserWindowPositioning = 4;
+        const int ValueEnableBrowserWindowToolbar   = 5;
+        const int ValueHideBrowserWindowToolbar     = 6;
+        const int ValueShowMenuBar                  = 7;
+        const int ValueShowTaskBar                  = 8;
+        const int NumValueAppearance = 8;
 
-        const String MessageUseBrowserWindow      = "UseBrowserWindow";
-        const String MessageUseFullScreenMode     = "UseFullScreenMode";
-        const String MessageMainWindowWidth       = "MainWindowWidth";
-        const String MessageMainWindowHeight      = "MainWindowHeight";
-        const String MessageMainWindowPosition    = "MainWindowPosition";
-        const String MessageEnableWindowToolbar   = "EnableWindowToolbar";
-        const String MessageHideToolbarAsDefault  = "HideToolbarAsDefault";
-        const String MessageShowMenuBar           = "ShowMenuBar";
-        const String MessageDisplaySEBDockTaskBar = "DisplaySEBDockTaskBar";
+        const String MessageBrowserViewMode              = "browserViewMode";
+        const String MessageMainBrowserWindowWidth       = "mainBrowserWindowWidth";
+        const String MessageMainBrowserWindowHeight      = "mainBrowserWindowHeight";
+        const String MessageMainBrowserWindowPositioning = "mainBrowserWindowPositioning";
+        const String MessageEnableBrowserWindowToolbar   = "enableBrowserWindowToolbar";
+        const String MessageHideBrowserWindowToolbar     = "hideBrowserWindowToolbar";
+        const String MessageShowMenuBar                  = "showMenuBar";
+        const String MessageShowTaskBar                  = "showTaskBar";
 
         // Group "Browser"
-        const int ValueOpenLinksHTML            = 1;
-        const int ValueOpenLinksJava            = 2;
-        const int ValueBlockLinksHTML           = 3;
-        const int ValueBlockLinksJava           = 4;
-        const int ValueNewWindowWidth           = 5;
-        const int ValueNewWindowHeight          = 6;
-        const int ValueNewWindowPosition        = 7;
-        const int ValueEnablePlugins            = 8;
-        const int ValueEnableJava               = 9;
-        const int ValueEnableJavaScript         = 10;
-        const int ValueBlockPopupWindows        = 11;
-        const int ValueAllowBrowsingBackForward = 12;
-        const int ValueUseSEBWithoutBrowser     = 13;
+        const int ValueNewBrowserWindowByLinkPolicy         = 1;
+        const int ValueNewBrowserWindowByScriptPolicy       = 2;
+        const int ValueNewBrowserWindowByLinkBlockForeign   = 3;
+        const int ValueNewBrowserWindowByScriptBlockForeign = 4;
+        const int ValueNewBrowserWindowByLinkWidth          = 5;
+        const int ValueNewBrowserWindowByLinkHeight         = 6;
+        const int ValueNewBrowserWindowByLinkPositioning    = 7;
+        const int ValueEnablePlugins             = 8;
+        const int ValueEnableJava                = 9;
+        const int ValueEnableJavaScript          = 10;
+        const int ValueBlockPopupWindows         = 11;
+        const int ValueEnableBrowsingBackForward = 12;
+        const int ValueEnableSebBrowser          = 13;
         const int NumValueBrowser = 13;
 
-        const String MessageOpenLinksHTML            = "OpenLinksHTML";
-        const String MessageOpenLinksJava            = "OpenLinksJava";
-        const String MessageBlockLinksHTML           = "BlockLinksHTML";
-        const String MessageBlockLinksJava           = "BlockLinksJava";
-        const String MessageNewWindowWidth           = "NewWindowWidth";
-        const String MessageNewWindowHeight          = "NewWindowHeight";
-        const String MessageNewWindowPosition        = "NewWindowPosition";
-        const String MessageEnablePlugins            = "EnablePlugins";
-        const String MessageEnableJava               = "EnableJava";
-        const String MessageEnableJavaScript         = "EnableJavaScript";
-        const String MessageBlockPopupWindows        = "BlockPopupWindows";
-        const String MessageAllowBrowsingBackForward = "AllowBrowsingBackForward";
-        const String MessageUseSEBWithoutBrowser     = "UseSEBWithoutBrowser";
+        const String MessageNewBrowserWindowByLinkPolicy         = "newBrowserWindowByLinkPolicy";
+        const String MessageNewBrowserWindowByScriptPolicy       = "newBrowserWindowByScriptPolicy";
+        const String MessageNewBrowserWindowByLinkBlockForeign   = "newBrowserWindowByLinkBlockForeign";
+        const String MessageNewBrowserWindowByScriptBlockForeign = "newBrowserWindowByScriptBlockForeign";
+        const String MessageNewBrowserWindowByLinkWidth          = "newBrowserWindowByLinkWidth";
+        const String MessageNewBrowserWindowByLinkHeight         = "newBrowserWindowByLinkHeight";
+        const String MessageNewBrowserWindowByLinkPositioning    = "newBrowserWindowByLinkPositioning";
+        const String MessageEnablePlugins             = "enablePlugins";
+        const String MessageEnableJava                = "enableJava";
+        const String MessageEnableJavaScript          = "enableJavaScript";
+        const String MessageBlockPopupWindows         = "blockPopupWindows";
+        const String MessageEnableBrowsingBackForward = "enableBrowsingBackForward";
+        const String MessageEnableSebBrowser          = "enableSebBrowser";
 
         // Group "DownUploads"
-        const int ValueAllowDownUploadingFiles   = 1;
-        const int ValueSaveDownloadedFilesTo     = 2;
-        const int ValueOpenFilesAfterDownloading = 3;
-        const int ValueChooseFileToUpload        = 4;
-        const int ValueDownloadAndOpenPDFFiles   = 5;
-        const int NumValueDownUploads = 5;
+        const int ValueAllowDownUploads         = 1;
+        const int ValueDownloadDirectoryWin     = 2;
+        const int ValueDownloadDirectoryOSX     = 3;
+        const int ValueOpenDownloads            = 4;
+        const int ValueChooseFileToUploadPolicy = 5;
+        const int ValueDownloadPDFFiles         = 6;
+        const int NumValueDownUploads = 6;
 
-        const String MessageAllowDownUploadingFiles   = "AllowDownUploadingFiles";
-        const String MessageSaveDownloadedFilesTo     = "SaveDownloadedFilesTo";
-        const String MessageOpenFilesAfterDownloading = "OpenFilesAfterDownloading";
-        const String MessageChooseFileToUpload        = "ChooseFileToUpload";
-        const String MessageDownloadAndOpenPDFFiles   = "DownloadAndOpenPDFFiles";
+        const String MessageAllowDownUploads         = "allowDownUploads";
+        const String MessageDownloadDirectoryWin     = "downloadDirectoryWin";
+        const String MessageDownloadDirectoryOSX     = "downloadDirectoryOSX";
+        const String MessageOpenDownloads            = "openDownloads";
+        const String MessageChooseFileToUploadPolicy = "chooseFileToUploadPolicy";
+        const String MessageDownloadPDFFiles         = "downloadPDFFiles";
 
         // Group "Exam"
         const int ValueBrowserExamKey     = 1;
@@ -214,38 +212,38 @@ namespace SebWindowsConfig
         const int ValueQuitURL            = 4;
         const int NumValueExam = 4;
 
-        const String MessageBrowserExamKey     = "BrowserExamKey";
-        const String MessageCopyBrowserExamKey = "CopyBrowserExamKey";
-        const String MessageSendBrowserExamKey = "SendBrowserExamKey";
-        const String MessageQuitURL            = "QuitURL";
+        const String MessageBrowserExamKey     = "browserExamKey";
+        const String MessageCopyBrowserExamKey = "copyBrowserExamKeyToClipboardWhenQuitting";
+        const String MessageSendBrowserExamKey = "sendBrowserExamKey";
+        const String MessageQuitURL            = "quitURL";
 
         // Group "Applications"
         const int ValueMonitorProcesses          = 1;
         const int ValueAllowSwitchToApplications = 2;
-        const int ValueAllowFlashFullscreenMode  = 3;
+        const int ValueAllowFlashFullscreen      = 3;
         const int NumValueApplications = 3;
 
-        const String MessageMonitorProcesses          = "MonitorProcesses";
-        const String MessageAllowSwitchToApplications = "AllowSwitchToApplications";
-        const String MessageAllowFlashFullscreenMode  = "AllowFlashFullscreenMode";
+        const String MessageMonitorProcesses          = "monitorProcesses";
+        const String MessageAllowSwitchToApplications = "allowSwitchToApplications";
+        const String MessageAllowFlashFullscreen      = "allowFlashFullscreen";
 
         // Group "Network"
         //const int Value = 1;
         const int NumValueNetwork = 0;
 
         // Group "Security"
-        const int ValueSEBServicePolicy    = 1;
+        const int ValueSebServicePolicy    = 1;
         const int ValueAllowVirtualMachine = 2;
         const int ValueCreateNewDesktop    = 3;
         const int ValueAllowUserSwitching  = 4;
         const int ValueEnableLogging       = 5;
         const int NumValueSecurity = 5;
 
-        const String MessageSEBServicePolicy    = "SEBServicePolicy";
-        const String MessageAllowVirtualMachine = "AllowVirtualMachine";
-        const String MessageCreateNewDesktop    = "CreateNewDesktop";
-        const String MessageAllowUserSwitching  = "AllowUserSwitching";
-        const String MessageEnableLogging       = "EnableLogging";
+        const String MessageSebServicePolicy    = "sebServicePolicy";
+        const String MessageAllowVirtualMachine = "allowVirtualMachine";
+        const String MessageCreateNewDesktop    = "createNewDesktop";
+        const String MessageAllowUserSwitching  = "allowUserSwitching";
+        const String MessageEnableLogging       = "enableLogging";
 
         // Group "Registry"
         const int NumValueRegistry = 0;
@@ -262,29 +260,29 @@ namespace SebWindowsConfig
         const int NumValueInsideSeb  = 8;
         const int NumValueOutsideSeb = 8;
 
-        const String MessageInsideSebEnableSwitchUser        = "InsideSebEnableSwitchUser";
-        const String MessageInsideSebEnableLockThisComputer  = "InsideSebEnableLockThisComputer";
-        const String MessageInsideSebEnableChangeAPassword   = "InsideSebEnableChangeAPassword";
-        const String MessageInsideSebEnableStartTaskManager  = "InsideSebEnableStartTaskManager";
-        const String MessageInsideSebEnableLogOff            = "InsideSebEnableLogOff";
-        const String MessageInsideSebEnableShutDown          = "InsideSebEnableShutDown";
-        const String MessageInsideSebEnableEaseOfAccess      = "InsideSebEnableEaseOfAccess";
-        const String MessageInsideSebEnableVmWareClientShade = "InsideSebEnableVmWareClientShade";
+        const String MessageInsideSebEnableSwitchUser        = "insideSebEnableSwitchUser";
+        const String MessageInsideSebEnableLockThisComputer  = "insideSebEnableLockThisComputer";
+        const String MessageInsideSebEnableChangeAPassword   = "insideSebEnableChangeAPassword";
+        const String MessageInsideSebEnableStartTaskManager  = "insideSebEnableStartTaskManager";
+        const String MessageInsideSebEnableLogOff            = "insideSebEnableLogOff";
+        const String MessageInsideSebEnableShutDown          = "insideSebEnableShutDown";
+        const String MessageInsideSebEnableEaseOfAccess      = "insideSebEnableEaseOfAccess";
+        const String MessageInsideSebEnableVmWareClientShade = "insideSebEnableVmWareClientShade";
 
-        const String MessageOutsideSebEnableSwitchUser        = "OutsideSebEnableSwitchUser";
-        const String MessageOutsideSebEnableLockThisComputer  = "OutsideSebEnableLockThisComputer";
-        const String MessageOutsideSebEnableChangeAPassword   = "OutsideSebEnableChangeAPassword";
-        const String MessageOutsideSebEnableStartTaskManager  = "OutsideSebEnableStartTaskManager";
-        const String MessageOutsideSebEnableLogOff            = "OutsideSebEnableLogOff";
-        const String MessageOutsideSebEnableShutDown          = "OutsideSebEnableShutDown";
-        const String MessageOutsideSebEnableEaseOfAccess      = "OutsideSebEnableEaseOfAccess";
-        const String MessageOutsideSebEnableVmWareClientShade = "OutsideSebEnableVmWareClientShade";
+        const String MessageOutsideSebEnableSwitchUser        = "outsideSebEnableSwitchUser";
+        const String MessageOutsideSebEnableLockThisComputer  = "outsideSebEnableLockThisComputer";
+        const String MessageOutsideSebEnableChangeAPassword   = "outsideSebEnableChangeAPassword";
+        const String MessageOutsideSebEnableStartTaskManager  = "outsideSebEnableStartTaskManager";
+        const String MessageOutsideSebEnableLogOff            = "outsideSebEnableLogOff";
+        const String MessageOutsideSebEnableShutDown          = "outsideSebEnableShutDown";
+        const String MessageOutsideSebEnableEaseOfAccess      = "outsideSebEnableEaseOfAccess";
+        const String MessageOutsideSebEnableVmWareClientShade = "outsideSebEnableVmWareClientShade";
 
         // Group "HookedKeys"
         const int ValueHookMessages = 1;
         const int NumValueHookedKeys = 1;
 
-        const String MessageHookMessages = "HookMessages";
+        const String MessageHookMessages = "hookMessages";
 
         // Group "Special Keys"
         const int ValueEnableEsc        = 1;
@@ -296,13 +294,13 @@ namespace SebWindowsConfig
         const int ValueEnableRightMouse = 7;
         const int NumValueSpecialKeys = 7;
 
-        const String MessageEnableEsc        = "EnableEsc";
-        const String MessageEnableCtrlEsc    = "EnableCtrlEsc";
-        const String MessageEnableAltEsc     = "EnableAltEsc";
-        const String MessageEnableAltTab     = "EnableAltTab";
-        const String MessageEnableAltF4      = "EnableAltF4";
-        const String MessageEnableStartMenu  = "EnableStartMenu";
-        const String MessageEnableRightMouse = "EnableRightMouse";
+        const String MessageEnableEsc        = "enableEsc";
+        const String MessageEnableCtrlEsc    = "enableCtrlEsc";
+        const String MessageEnableAltEsc     = "enableAltEsc";
+        const String MessageEnableAltTab     = "enableAltTab";
+        const String MessageEnableAltF4      = "enableAltF4";
+        const String MessageEnableStartMenu  = "enableStartMenu";
+        const String MessageEnableRightMouse = "enableRightMouse";
 
         // Group "Function Keys"
         const int ValueEnableF1  = 1;
@@ -319,18 +317,18 @@ namespace SebWindowsConfig
         const int ValueEnableF12 = 12;
         const int NumValueFunctionKeys = 12;
 
-        const String MessageEnableF1  = "EnableF1";
-        const String MessageEnableF2  = "EnableF2";
-        const String MessageEnableF3  = "EnableF3";
-        const String MessageEnableF4  = "EnableF4";
-        const String MessageEnableF5  = "EnableF5";
-        const String MessageEnableF6  = "EnableF6";
-        const String MessageEnableF7  = "EnableF7";
-        const String MessageEnableF8  = "EnableF8";
-        const String MessageEnableF9  = "EnableF9";
-        const String MessageEnableF10 = "EnableF10";
-        const String MessageEnableF11 = "EnableF11";
-        const String MessageEnableF12 = "EnableF12";
+        const String MessageEnableF1  = "enableF1";
+        const String MessageEnableF2  = "enableF2";
+        const String MessageEnableF3  = "enableF3";
+        const String MessageEnableF4  = "enableF4";
+        const String MessageEnableF5  = "enableF5";
+        const String MessageEnableF6  = "enableF6";
+        const String MessageEnableF7  = "enableF7";
+        const String MessageEnableF8  = "enableF8";
+        const String MessageEnableF9  = "enableF9";
+        const String MessageEnableF10 = "enableF10";
+        const String MessageEnableF11 = "enableF11";
+        const String MessageEnableF12 = "enableF12";
 
 
         // Types of values
@@ -358,13 +356,13 @@ namespace SebWindowsConfig
         static List<String> chooseIdentityStringList = new List<String>();
 
         // Entries of ListBoxes
-        static String[] StringWindowWidth       = new String[5];
-        static String[] StringWindowHeight      = new String[5];
-        static String[] StringWindowPosition    = new String[4];
-        static String[] StringFileToUpload      = new String[4];
-        static String[] StringPolicyLinkOpening = new String[4];
-        static String[] StringPolicySEBService  = new String[4];
-        static String[] StringFunctionKey       = new String[13];
+        static String[] StringWindowWidth       = new String[4];
+        static String[] StringWindowHeight      = new String[4];
+        static String[] StringWindowPosition    = new String[3];
+        static String[] StringFileToUpload      = new String[3];
+        static String[] StringPolicyLinkOpening = new String[3];
+        static String[] StringPolicySebService  = new String[3];
+        static String[] StringFunctionKey       = new String[12];
 
         // Number of values per group
         // Names  of groups and values
@@ -387,10 +385,13 @@ namespace SebWindowsConfig
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
-        static Dictionary<string, object> sebSettings   = new Dictionary<string, object>();
-        static SEBClientConfig            sebSettObso   = new SEBClientConfig();
-        static SEBProtectionController    sebController = new SEBProtectionController();
-        static XmlSerializer              sebSerializer = new XmlSerializer(typeof(SEBClientConfig));
+        static Dictionary<string, object> sebSettingsOld = new Dictionary<string, object>();
+        static Dictionary<string, object> sebSettingsNew = new Dictionary<string, object>();
+        static Dictionary<string, object> sebSettingsTmp = new Dictionary<string, object>();
+        static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
+        static SEBClientConfig            sebSettObso    = new SEBClientConfig();
+        static SEBProtectionController    sebController  = new SEBProtectionController();
+        static XmlSerializer              sebSerializer  = new XmlSerializer(typeof(SEBClientConfig));
 
 
 
@@ -421,10 +422,10 @@ namespace SebWindowsConfig
 
             // Default settings for group "General"
             settingString [StateDef, GroupGeneral, ValueStartURL            ] = "http://www.safeexambrowser.org";
-            settingString [StateDef, GroupGeneral, ValueSEBServerURL        ] = "";
+            settingString [StateDef, GroupGeneral, ValueSebServerURL        ] = "";
             settingString [StateDef, GroupGeneral, ValueAdminPassword       ] = "";
             settingString [StateDef, GroupGeneral, ValueConfirmAdminPassword] = "";
-            settingBoolean[StateDef, GroupGeneral, ValueAllowUserToQuitSEB  ] = true;
+            settingBoolean[StateDef, GroupGeneral, ValueAllowQuit  ] = true;
             settingBoolean[StateDef, GroupGeneral, ValueIgnoreQuitPassword  ] = false;
             settingString [StateDef, GroupGeneral, ValueQuitPassword        ] = "";
             settingString [StateDef, GroupGeneral, ValueConfirmQuitPassword ] = "";
@@ -434,64 +435,64 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupGeneral, ValueExitKey3            ] =  6;
 
             // Default settings for group "Config File"
-            settingBoolean[StateDef, GroupConfigFile, ValueStartingAnExam         ] = true;
+            settingBoolean[StateDef, GroupConfigFile, ValueSebPurpose         ] = true;
             settingBoolean[StateDef, GroupConfigFile, ValueConfiguringAClient     ] = false;
-            settingBoolean[StateDef, GroupConfigFile, ValueAllowOpenPrefWindow    ] = true;
-            settingString [StateDef, GroupConfigFile, ValueChooseIdentity         ] = "none";
+            settingBoolean[StateDef, GroupConfigFile, ValueAllowPreferencesWindow    ] = true;
+            settingString [StateDef, GroupConfigFile, ValueCryptoIdentity         ] = "none";
             settingString [StateDef, GroupConfigFile, ValueSettingsPassword       ] = "";
             settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword] = "";
 
-            settingInteger[StateDef, GroupConfigFile, ValueChooseIdentity] = 0;
+            settingInteger[StateDef, GroupConfigFile, ValueCryptoIdentity] = 0;
 
             // Default settings for group "Appearance"
             settingBoolean[StateDef, GroupAppearance, ValueUseBrowserWindow ] = true;
-            settingBoolean[StateDef, GroupAppearance, ValueUseFullScreenMode] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueBrowserViewMode] = false;
 
-            settingString [StateDef, GroupAppearance, ValueMainWindowWidth   ] = "100%";
-            settingString [StateDef, GroupAppearance, ValueMainWindowHeight  ] = "100%";
-            settingString [StateDef, GroupAppearance, ValueMainWindowPosition] = "Center";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowWidth   ] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHeight  ] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowPositioning] = "Center";
 
-            settingBoolean[StateDef, GroupAppearance, ValueEnableWindowToolbar  ] = false;
-            settingBoolean[StateDef, GroupAppearance, ValueHideToolbarAsDefault ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar  ] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueHideBrowserWindowToolbar ] = false;
             settingBoolean[StateDef, GroupAppearance, ValueShowMenuBar          ] = false;
-            settingBoolean[StateDef, GroupAppearance, ValueDisplaySEBDockTaskBar] = false;
+            settingBoolean[StateDef, GroupAppearance, ValueShowTaskBar] = false;
 
-            settingInteger[StateDef, GroupAppearance, ValueMainWindowWidth   ] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainWindowHeight  ] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainWindowPosition] = 2;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowWidth   ] = 0;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHeight  ] = 0;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowPositioning] = 2;
 
             // Default settings for group "Browser"
-            settingString [StateDef, GroupBrowser, ValueOpenLinksHTML ] = "open in new window";
-            settingString [StateDef, GroupBrowser, ValueOpenLinksJava ] = "open in new window";
-            settingBoolean[StateDef, GroupBrowser, ValueBlockLinksHTML] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueBlockLinksJava] = false;
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPolicy ] = "open in new window";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByScriptPolicy ] = "open in new window";
+            settingBoolean[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign] = false;
 
-            settingString [StateDef, GroupBrowser, ValueNewWindowWidth   ] = "100%";
-            settingString [StateDef, GroupBrowser, ValueNewWindowHeight  ] = "100%";
-            settingString [StateDef, GroupBrowser, ValueNewWindowPosition] = "Center";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] = "100%";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] = "100%";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = "Center";
 
             settingBoolean[StateDef, GroupBrowser, ValueEnablePlugins           ] = true;
             settingBoolean[StateDef, GroupBrowser, ValueEnableJava              ] = false;
             settingBoolean[StateDef, GroupBrowser, ValueEnableJavaScript        ] = true;
             settingBoolean[StateDef, GroupBrowser, ValueBlockPopupWindows       ] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueAllowBrowsingBackForward] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueUseSEBWithoutBrowser    ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueEnableBrowsingBackForward] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueEnableSebBrowser    ] = false;
 
-            settingInteger[StateDef, GroupBrowser, ValueOpenLinksHTML] = 1;
-            settingInteger[StateDef, GroupBrowser, ValueOpenLinksJava] = 1;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPolicy] = 1;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = 1;
 
-            settingInteger[StateDef, GroupBrowser, ValueNewWindowWidth   ] = 0;
-            settingInteger[StateDef, GroupBrowser, ValueNewWindowHeight  ] = 0;
-            settingInteger[StateDef, GroupBrowser, ValueNewWindowPosition] = 2;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] = 0;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] = 0;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = 2;
 
             // Default settings for group "DownUploads"
-            settingBoolean[StateDef, GroupDownUploads, ValueAllowDownUploadingFiles  ] = true;
-            settingString [StateDef, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = "Desktop";
-            settingBoolean[StateDef, GroupDownUploads, ValueOpenFilesAfterDownloading] = true;
-            settingString [StateDef, GroupDownUploads, ValueChooseFileToUpload       ] = "manually with file requester";
-            settingBoolean[StateDef, GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = false;
+            settingBoolean[StateDef, GroupDownUploads, ValueAllowDownUploads  ] = true;
+            settingString [StateDef, GroupDownUploads, ValueDownloadDirectoryWin    ] = "Desktop";
+            settingBoolean[StateDef, GroupDownUploads, ValueOpenDownloads] = true;
+            settingString [StateDef, GroupDownUploads, ValueChooseFileToUploadPolicy       ] = "manually with file requester";
+            settingBoolean[StateDef, GroupDownUploads, ValueDownloadPDFFiles  ] = false;
 
-            settingInteger[StateDef, GroupDownUploads, ValueChooseFileToUpload] = 1;
+            settingInteger[StateDef, GroupDownUploads, ValueChooseFileToUploadPolicy] = 1;
 
             // Default settings for group "Exam"
             settingString [StateDef, GroupExam, ValueBrowserExamKey    ] = "";
@@ -502,13 +503,13 @@ namespace SebWindowsConfig
             // Default settings for group "Applications"
             settingBoolean[StateDef, GroupApplications, ValueMonitorProcesses         ] = false;
             settingBoolean[StateDef, GroupApplications, ValueAllowSwitchToApplications] = true;
-            settingBoolean[StateDef, GroupApplications, ValueAllowFlashFullscreenMode ] = false;
+            settingBoolean[StateDef, GroupApplications, ValueAllowFlashFullscreen ] = false;
 
             // Default settings for group "Network"
 
             // Default settings for group "Security"
-            settingInteger[StateDef, GroupSecurity, ValueSEBServicePolicy   ] = 1;
-            settingString [StateDef, GroupSecurity, ValueSEBServicePolicy   ] = "allow to use SEB only with service";
+            settingInteger[StateDef, GroupSecurity, ValueSebServicePolicy   ] = 1;
+            settingString [StateDef, GroupSecurity, ValueSebServicePolicy   ] = "allow to use SEB only with service";
             settingBoolean[StateDef, GroupSecurity, ValueAllowVirtualMachine] = false;
             settingBoolean[StateDef, GroupSecurity, ValueCreateNewDesktop   ] = true;
             settingBoolean[StateDef, GroupSecurity, ValueAllowUserSwitching ] = true;
@@ -566,31 +567,31 @@ namespace SebWindowsConfig
             }
 
             // Exceptional data types of some special values
-            dataType[GroupGeneral, ValueAllowUserToQuitSEB] = TypeBoolean;
+            dataType[GroupGeneral, ValueAllowQuit] = TypeBoolean;
             dataType[GroupGeneral, ValueIgnoreQuitPassword] = TypeBoolean;
 
-            dataType[GroupConfigFile, ValueChooseIdentity         ] = TypeString;
+            dataType[GroupConfigFile, ValueCryptoIdentity         ] = TypeString;
             dataType[GroupConfigFile, ValueSettingsPassword       ] = TypeString;
             dataType[GroupConfigFile, ValueConfirmSettingsPassword] = TypeString;
 
-            dataType[GroupAppearance, ValueMainWindowWidth   ] = TypeString;
-            dataType[GroupAppearance, ValueMainWindowHeight  ] = TypeString;
-            dataType[GroupAppearance, ValueMainWindowPosition] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowWidth   ] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowHeight  ] = TypeString;
+            dataType[GroupAppearance, ValueMainBrowserWindowPositioning] = TypeString;
 
-            dataType[GroupBrowser, ValueNewWindowWidth   ] = TypeString;
-            dataType[GroupBrowser, ValueNewWindowHeight  ] = TypeString;
-            dataType[GroupBrowser, ValueNewWindowPosition] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = TypeString;
 
-            dataType[GroupBrowser, ValueOpenLinksHTML] = TypeString;
-            dataType[GroupBrowser, ValueOpenLinksJava] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowByLinkPolicy] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = TypeString;
 
-            dataType[GroupDownUploads, ValueSaveDownloadedFilesTo] = TypeString;
-            dataType[GroupDownUploads, ValueChooseFileToUpload   ] = TypeString;
+            dataType[GroupDownUploads, ValueDownloadDirectoryWin] = TypeString;
+            dataType[GroupDownUploads, ValueChooseFileToUploadPolicy   ] = TypeString;
 
             dataType[GroupExam, ValueBrowserExamKey] = TypeString;
             dataType[GroupExam, ValueQuitURL       ] = TypeString;
 
-            dataType[GroupSecurity, ValueSEBServicePolicy] = TypeString;
+            dataType[GroupSecurity, ValueSebServicePolicy] = TypeString;
 
 
             // Number of values per group
@@ -640,10 +641,10 @@ namespace SebWindowsConfig
 
             // Value names
             valueString[GroupGeneral, ValueStartURL            ] = MessageStartURL;
-            valueString[GroupGeneral, ValueSEBServerURL        ] = MessageSEBServerURL;
+            valueString[GroupGeneral, ValueSebServerURL        ] = MessageSebServerURL;
             valueString[GroupGeneral, ValueAdminPassword       ] = MessageAdminPassword;
             valueString[GroupGeneral, ValueConfirmAdminPassword] = MessageConfirmAdminPassword;
-            valueString[GroupGeneral, ValueAllowUserToQuitSEB  ] = MessageAllowUserToQuitSEB;
+            valueString[GroupGeneral, ValueAllowQuit  ] = MessageAllowQuit;
             valueString[GroupGeneral, ValueIgnoreQuitPassword  ] = MessageIgnoreQuitPassword;
             valueString[GroupGeneral, ValueQuitPassword        ] = MessageQuitPassword;
             valueString[GroupGeneral, ValueConfirmQuitPassword ] = MessageConfirmQuitPassword;
@@ -652,42 +653,42 @@ namespace SebWindowsConfig
             valueString[GroupGeneral, ValueExitKey2            ] = MessageExitKey2;
             valueString[GroupGeneral, ValueExitKey3            ] = MessageExitKey3;
 
-            valueString[GroupConfigFile, ValueStartingAnExam         ] = MessageStartingAnExam;
-            valueString[GroupConfigFile, ValueConfiguringAClient     ] = MessageConfiguringAClient;
-            valueString[GroupConfigFile, ValueAllowOpenPrefWindow    ] = MessageAllowOpenPrefWindow;
-            valueString[GroupConfigFile, ValueChooseIdentity         ] = MessageChooseIdentity;
+            valueString[GroupConfigFile, ValueSebPurpose         ] = MessageStartingAnExam;
+            valueString[GroupConfigFile, ValueConfiguringAClient     ] = MessageSebPurpose;
+            valueString[GroupConfigFile, ValueAllowPreferencesWindow    ] = MessageAllowPreferencesWindow;
+            valueString[GroupConfigFile, ValueCryptoIdentity         ] = MessageCryptoIdentity;
             valueString[GroupConfigFile, ValueSettingsPassword       ] = MessageSettingsPassword;
             valueString[GroupConfigFile, ValueConfirmSettingsPassword] = MessageConfirmSettingsPassword;
 
             valueString[GroupAppearance, ValueUseBrowserWindow     ] = MessageUseBrowserWindow;
-            valueString[GroupAppearance, ValueUseFullScreenMode    ] = MessageUseFullScreenMode;
-            valueString[GroupAppearance, ValueMainWindowWidth      ] = MessageMainWindowWidth;
-            valueString[GroupAppearance, ValueMainWindowHeight     ] = MessageMainWindowHeight;
-            valueString[GroupAppearance, ValueMainWindowPosition   ] = MessageMainWindowPosition;
-            valueString[GroupAppearance, ValueEnableWindowToolbar  ] = MessageEnableWindowToolbar;
-            valueString[GroupAppearance, ValueHideToolbarAsDefault ] = MessageHideToolbarAsDefault;
+            valueString[GroupAppearance, ValueBrowserViewMode    ] = MessageBrowserViewMode;
+            valueString[GroupAppearance, ValueMainBrowserWindowWidth      ] = MessageMainBrowserWindowWidth;
+            valueString[GroupAppearance, ValueMainBrowserWindowHeight     ] = MessageMainBrowserWindowHeight;
+            valueString[GroupAppearance, ValueMainBrowserWindowPositioning   ] = MessageMainBrowserWindowPositioning;
+            valueString[GroupAppearance, ValueEnableBrowserWindowToolbar  ] = MessageEnableBrowserWindowToolbar;
+            valueString[GroupAppearance, ValueHideBrowserWindowToolbar ] = MessageHideBrowserWindowToolbar;
             valueString[GroupAppearance, ValueShowMenuBar          ] = MessageShowMenuBar;
-            valueString[GroupAppearance, ValueDisplaySEBDockTaskBar] = MessageDisplaySEBDockTaskBar;
+            valueString[GroupAppearance, ValueShowTaskBar] = MessageShowTaskBar;
 
-            valueString[GroupBrowser, ValueOpenLinksHTML           ] = MessageOpenLinksHTML;
-            valueString[GroupBrowser, ValueOpenLinksJava           ] = MessageOpenLinksJava;
-            valueString[GroupBrowser, ValueBlockLinksHTML          ] = MessageBlockLinksHTML;
-            valueString[GroupBrowser, ValueBlockLinksJava          ] = MessageBlockLinksJava;
-            valueString[GroupBrowser, ValueNewWindowWidth          ] = MessageNewWindowWidth;
-            valueString[GroupBrowser, ValueNewWindowHeight         ] = MessageNewWindowHeight;
-            valueString[GroupBrowser, ValueNewWindowPosition       ] = MessageNewWindowPosition;
+            valueString[GroupBrowser, ValueNewBrowserWindowByLinkPolicy           ] = MessageNewBrowserWindowByLinkPolicy;
+            valueString[GroupBrowser, ValueNewBrowserWindowByScriptPolicy           ] = MessageNewBrowserWindowByScriptPolicy;
+            valueString[GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign          ] = MessageNewBrowserWindowByLinkBlockForeign;
+            valueString[GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign          ] = MessageNewBrowserWindowByScriptBlockForeign;
+            valueString[GroupBrowser, ValueNewBrowserWindowByLinkWidth          ] = MessageNewBrowserWindowByLinkWidth;
+            valueString[GroupBrowser, ValueNewBrowserWindowByLinkHeight         ] = MessageNewBrowserWindowByLinkHeight;
+            valueString[GroupBrowser, ValueNewBrowserWindowByLinkPositioning       ] = MessageNewBrowserWindowByLinkPositioning;
             valueString[GroupBrowser, ValueEnablePlugins           ] = MessageEnablePlugins;
             valueString[GroupBrowser, ValueEnableJava              ] = MessageEnableJava;
             valueString[GroupBrowser, ValueEnableJavaScript        ] = MessageEnableJavaScript;
             valueString[GroupBrowser, ValueBlockPopupWindows       ] = MessageBlockPopupWindows;
-            valueString[GroupBrowser, ValueAllowBrowsingBackForward] = MessageAllowBrowsingBackForward;
-            valueString[GroupBrowser, ValueUseSEBWithoutBrowser    ] = MessageUseSEBWithoutBrowser;
+            valueString[GroupBrowser, ValueEnableBrowsingBackForward] = MessageEnableBrowsingBackForward;
+            valueString[GroupBrowser, ValueEnableSebBrowser    ] = MessageEnableSebBrowser;
 
-            valueString[GroupDownUploads, ValueAllowDownUploadingFiles  ] = MessageAllowDownUploadingFiles;
-            valueString[GroupDownUploads, ValueSaveDownloadedFilesTo    ] = MessageSaveDownloadedFilesTo;
-            valueString[GroupDownUploads, ValueOpenFilesAfterDownloading] = MessageOpenFilesAfterDownloading;
-            valueString[GroupDownUploads, ValueChooseFileToUpload       ] = MessageChooseFileToUpload;
-            valueString[GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = MessageDownloadAndOpenPDFFiles;
+            valueString[GroupDownUploads, ValueAllowDownUploads  ] = MessageAllowDownUploads;
+            valueString[GroupDownUploads, ValueDownloadDirectoryWin    ] = MessageDownloadDirectoryWin;
+            valueString[GroupDownUploads, ValueOpenDownloads] = MessageOpenDownloads;
+            valueString[GroupDownUploads, ValueChooseFileToUploadPolicy       ] = MessageChooseFileToUploadPolicy;
+            valueString[GroupDownUploads, ValueDownloadPDFFiles  ] = MessageDownloadPDFFiles;
 
             valueString[GroupExam, ValueBrowserExamKey    ] = MessageBrowserExamKey;
             valueString[GroupExam, ValueCopyBrowserExamKey] = MessageCopyBrowserExamKey;
@@ -696,9 +697,9 @@ namespace SebWindowsConfig
 
             valueString[GroupApplications, ValueMonitorProcesses         ] = MessageMonitorProcesses;
             valueString[GroupApplications, ValueAllowSwitchToApplications] = MessageAllowSwitchToApplications;
-            valueString[GroupApplications, ValueAllowFlashFullscreenMode ] = MessageAllowFlashFullscreenMode;
+            valueString[GroupApplications, ValueAllowFlashFullscreen ] = MessageAllowFlashFullscreen;
 
-            valueString[GroupSecurity, ValueSEBServicePolicy   ] = MessageSEBServicePolicy;
+            valueString[GroupSecurity, ValueSebServicePolicy   ] = MessageSebServicePolicy;
             valueString[GroupSecurity, ValueAllowVirtualMachine] = MessageAllowVirtualMachine;
             valueString[GroupSecurity, ValueCreateNewDesktop   ] = MessageCreateNewDesktop;
             valueString[GroupSecurity, ValueAllowUserSwitching ] = MessageAllowUserSwitching;
@@ -755,47 +756,41 @@ namespace SebWindowsConfig
             String[] chooseIdentityStringArray = chooseIdentityStringList.ToArray();
 
             // Define the strings for the window width
-            StringWindowWidth[0] = "";
-            StringWindowWidth[1] = "50%";
-            StringWindowWidth[2] = "100%";
-            StringWindowWidth[3] = "800";
-            StringWindowWidth[4] = "1000";
+            StringWindowWidth[0] = "50%";
+            StringWindowWidth[1] = "100%";
+            StringWindowWidth[2] = "800";
+            StringWindowWidth[3] = "1000";
 
             // Define the strings for the window height
-            StringWindowHeight[0] = "";
-            StringWindowHeight[1] = "80%";
-            StringWindowHeight[2] = "100%";
-            StringWindowHeight[3] = "600";
-            StringWindowHeight[4] = "800";
+            StringWindowHeight[0] = "80%";
+            StringWindowHeight[1] = "100%";
+            StringWindowHeight[2] = "600";
+            StringWindowHeight[3] = "800";
 
             // Define the strings for the window position
-            StringWindowPosition[0] = "";
-            StringWindowPosition[1] = "Left";
-            StringWindowPosition[2] = "Center";
-            StringWindowPosition[3] = "Right";
+            StringWindowPosition[0] = "Left";
+            StringWindowPosition[1] = "Center";
+            StringWindowPosition[2] = "Right";
 
             // Define the strings for the link opening policy
-            StringPolicyLinkOpening[0] = "";
-            StringPolicyLinkOpening[1] = "open in new window";
-            StringPolicyLinkOpening[2] = "open in same window";
-            StringPolicyLinkOpening[3] = "get generally blocked";
+            StringPolicyLinkOpening[0] = "open in new window";
+            StringPolicyLinkOpening[1] = "open in same window";
+            StringPolicyLinkOpening[2] = "get generally blocked";
 
             // Define the strings for the SEB service policy
-            StringPolicySEBService[0] = "";
-            StringPolicySEBService[1] = "allow to use SEB only with service";
-            StringPolicySEBService[2] = "display warning when service is not running";
-            StringPolicySEBService[3] = "allow to run SEB without service";
+            StringPolicySebService[0] = "allow to use SEB only with service";
+            StringPolicySebService[1] = "display warning when service is not running";
+            StringPolicySebService[2] = "allow to run SEB without service";
 
             // Define the strings for the choosing a file to upload
-            StringFileToUpload[0] = "";
-            StringFileToUpload[1] = "manually with file requester";
-            StringFileToUpload[2] = "by attempting to upload the same file downloaded before";
-            StringFileToUpload[3] = "by only allowing to upload the same file downloaded before";
+            StringFileToUpload[0] = "manually with file requester";
+            StringFileToUpload[1] = "by attempting to upload the same file downloaded before";
+            StringFileToUpload[2] = "by only allowing to upload the same file downloaded before";
 
             // Define the strings for the function keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
             {
-                StringFunctionKey[i] = "F" + i.ToString();
+                StringFunctionKey[i-1] = "F" + i.ToString();
             }
 
 
@@ -847,7 +842,7 @@ namespace SebWindowsConfig
             // from the config file but instead searches it in the
             // Certificate Store of the computer where it is running,
             // so initially the 0th list entry is displayed ("none").
-            settingInteger[StateTmp, GroupConfigFile, ValueChooseIdentity] = 0;
+            settingInteger[StateTmp, GroupConfigFile, ValueCryptoIdentity] = 0;
 
             // These ListBox and ComboBox entries need a conversion from string to integer:
             //
@@ -862,19 +857,19 @@ namespace SebWindowsConfig
             String tmpStringExitKey2 = settingString[StateTmp, GroupGeneral, ValueExitKey2];
             String tmpStringExitKey3 = settingString[StateTmp, GroupGeneral, ValueExitKey3];
 
-            String tmpStringMainWindowWidth    = settingString[StateTmp, GroupAppearance, ValueMainWindowWidth];
-            String tmpStringMainWindowHeight   = settingString[StateTmp, GroupAppearance, ValueMainWindowHeight];
-            String tmpStringMainWindowPosition = settingString[StateTmp, GroupAppearance, ValueMainWindowPosition];
+            String tmpStringMainWindowWidth    = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowWidth];
+            String tmpStringMainWindowHeight   = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHeight];
+            String tmpStringMainWindowPosition = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowPositioning];
 
-            String tmpStringNewWindowWidth    = settingString[StateTmp, GroupBrowser, ValueNewWindowWidth];
-            String tmpStringNewWindowHeight   = settingString[StateTmp, GroupBrowser, ValueNewWindowHeight];
-            String tmpStringNewWindowPosition = settingString[StateTmp, GroupBrowser, ValueNewWindowPosition];
+            String tmpStringNewWindowWidth    = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
+            String tmpStringNewWindowHeight   = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
+            String tmpStringNewWindowPosition = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPositioning];
 
-            String tmpStringLinksInHTML = settingString[StateTmp, GroupBrowser, ValueOpenLinksHTML];
-            String tmpStringLinksInJava = settingString[StateTmp, GroupBrowser, ValueOpenLinksJava];
+            String tmpStringLinksInHTML = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPolicy];
+            String tmpStringLinksInJava = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptPolicy];
 
-            String tmpStringSEBServicePolicy   = settingString[StateTmp, GroupSecurity   , ValueSEBServicePolicy];
-            String tmpStringChooseFileToUpload = settingString[StateTmp, GroupDownUploads, ValueChooseFileToUpload];
+            String tmpStringSEBServicePolicy   = settingString[StateTmp, GroupSecurity   , ValueSebServicePolicy];
+            String tmpStringChooseFileToUpload = settingString[StateTmp, GroupDownUploads, ValueChooseFileToUploadPolicy];
 
             int index;
 
@@ -896,7 +891,7 @@ namespace SebWindowsConfig
             int tmpIndexChooseFileToUpload = 0;
 
             // Function keys have 12 possible list entries
-            for (index = 1; index <= 12; index++)
+            for (index = 0; index <= 11; index++)
             {
                 String key = StringFunctionKey[index];
 
@@ -906,7 +901,7 @@ namespace SebWindowsConfig
             }
 
             // Window width and height have 4 possible list entries
-            for (index = 1; index <= 4; index++)
+            for (index = 0; index <= 3; index++)
             {
                 String width  = StringWindowWidth [index];
                 String height = StringWindowHeight[index];
@@ -919,11 +914,11 @@ namespace SebWindowsConfig
             }
 
             // Window position, policies etc. have 3 possible list entries
-            for (index = 1; index <= 3; index++)
+            for (index = 0; index <= 2; index++)
             {
                 String position = StringWindowPosition   [index];
                 String link     = StringPolicyLinkOpening[index];
-                String service  = StringPolicySEBService [index];
+                String service  = StringPolicySebService [index];
                 String upload   = StringFileToUpload     [index];
 
                 if (tmpStringMainWindowPosition.Equals(position)) tmpIndexMainWindowPosition = index;
@@ -941,19 +936,19 @@ namespace SebWindowsConfig
             settingInteger[StateTmp, GroupGeneral, ValueExitKey2] = tmpIndexExitKey2;
             settingInteger[StateTmp, GroupGeneral, ValueExitKey3] = tmpIndexExitKey3;
 
-            settingInteger[StateTmp, GroupAppearance , ValueMainWindowWidth   ] = tmpIndexMainWindowWidth;
-            settingInteger[StateTmp, GroupAppearance , ValueMainWindowHeight  ] = tmpIndexMainWindowHeight;
-            settingInteger[StateTmp, GroupAppearance , ValueMainWindowPosition] = tmpIndexMainWindowPosition;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowWidth   ] = tmpIndexMainWindowWidth;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowHeight  ] = tmpIndexMainWindowHeight;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowPositioning] = tmpIndexMainWindowPosition;
 
-            settingInteger[StateTmp, GroupBrowser, ValueNewWindowWidth   ] = tmpIndexNewWindowWidth;
-            settingInteger[StateTmp, GroupBrowser, ValueNewWindowHeight  ] = tmpIndexNewWindowHeight;
-            settingInteger[StateTmp, GroupBrowser, ValueNewWindowPosition] = tmpIndexNewWindowPosition;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] = tmpIndexNewWindowWidth;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] = tmpIndexNewWindowHeight;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = tmpIndexNewWindowPosition;
 
-            settingInteger[StateTmp, GroupBrowser, ValueOpenLinksHTML] = tmpIndexLinksInHTML;
-            settingInteger[StateTmp, GroupBrowser, ValueOpenLinksJava] = tmpIndexLinksInJava;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPolicy] = tmpIndexLinksInHTML;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = tmpIndexLinksInJava;
 
-            settingInteger[StateTmp, GroupDownUploads, ValueChooseFileToUpload] = tmpIndexChooseFileToUpload;
-            settingInteger[StateTmp, GroupSecurity   , ValueSEBServicePolicy  ] = tmpIndexSEBServicePolicy;
+            settingInteger[StateTmp, GroupDownUploads, ValueChooseFileToUploadPolicy] = tmpIndexChooseFileToUpload;
+            settingInteger[StateTmp, GroupSecurity   , ValueSebServicePolicy  ] = tmpIndexSEBServicePolicy;
 
             // Accept the tmp values as the old and new values
             for (int group = 1; group <= GroupNum; group++)
@@ -1001,42 +996,42 @@ namespace SebWindowsConfig
             int newIndexExitKey2 = settingInteger[StateNew, GroupGeneral, ValueExitKey2];
             int newIndexExitKey3 = settingInteger[StateNew, GroupGeneral, ValueExitKey3];
 
-            int newIndexChooseIdentity     = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
+            int newIndexChooseIdentity     = settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity];
 
-            int newIndexMainWindowWidth    = settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth];
-            int newIndexMainWindowHeight   = settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight];
-            int newIndexMainWindowPosition = settingInteger[StateNew, GroupAppearance, ValueMainWindowPosition];
+            int newIndexMainWindowWidth    = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth];
+            int newIndexMainWindowHeight   = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight];
+            int newIndexMainWindowPosition = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning];
 
-            int newIndexNewWindowWidth     = settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth];
-            int newIndexNewWindowHeight    = settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight];
-            int newIndexNewWindowPosition  = settingInteger[StateNew, GroupBrowser, ValueNewWindowPosition];
+            int newIndexNewWindowWidth     = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
+            int newIndexNewWindowHeight    = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
+            int newIndexNewWindowPosition  = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning];
 
-            int newIndexLinksRequesting    = settingInteger[StateNew, GroupBrowser, ValueOpenLinksHTML];
-            int newIndexLinksJavaScript    = settingInteger[StateNew, GroupBrowser, ValueOpenLinksJava];
+            int newIndexLinksRequesting    = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy];
+            int newIndexLinksJavaScript    = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy];
 
-            int newIndexChooseFileToUpload = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload];
-            int newIndexSEBServicePolicy   = settingInteger[StateNew, GroupSecurity   , ValueSEBServicePolicy];
+            int newIndexChooseFileToUpload = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy];
+            int newIndexSEBServicePolicy   = settingInteger[StateNew, GroupSecurity   , ValueSebServicePolicy];
 
             // Store the determined strings
             settingString[StateNew, GroupGeneral, ValueExitKey1] = StringFunctionKey[newIndexExitKey1];
             settingString[StateNew, GroupGeneral, ValueExitKey2] = StringFunctionKey[newIndexExitKey2];
             settingString[StateNew, GroupGeneral, ValueExitKey3] = StringFunctionKey[newIndexExitKey3];
 
-            settingString[StateNew, GroupConfigFile, ValueChooseIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
+            settingString[StateNew, GroupConfigFile, ValueCryptoIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
 
-            settingString[StateNew, GroupAppearance, ValueMainWindowWidth   ] = StringWindowWidth   [newIndexMainWindowWidth];
-            settingString[StateNew, GroupAppearance, ValueMainWindowHeight  ] = StringWindowHeight  [newIndexMainWindowHeight];
-            settingString[StateNew, GroupAppearance, ValueMainWindowPosition] = StringWindowPosition[newIndexMainWindowPosition];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowWidth   ] = StringWindowWidth   [newIndexMainWindowWidth];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHeight  ] = StringWindowHeight  [newIndexMainWindowHeight];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning] = StringWindowPosition[newIndexMainWindowPosition];
 
-            settingString[StateNew, GroupBrowser, ValueNewWindowWidth   ] = StringWindowWidth   [newIndexNewWindowWidth];
-            settingString[StateNew, GroupBrowser, ValueNewWindowHeight  ] = StringWindowHeight  [newIndexNewWindowHeight];
-            settingString[StateNew, GroupBrowser, ValueNewWindowPosition] = StringWindowPosition[newIndexNewWindowPosition];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] = StringWindowWidth   [newIndexNewWindowWidth];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] = StringWindowHeight  [newIndexNewWindowHeight];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = StringWindowPosition[newIndexNewWindowPosition];
 
-            settingString[StateNew, GroupBrowser, ValueOpenLinksHTML] = StringPolicyLinkOpening[newIndexLinksRequesting];
-            settingString[StateNew, GroupBrowser, ValueOpenLinksJava] = StringPolicyLinkOpening[newIndexLinksJavaScript];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy] = StringPolicyLinkOpening[newIndexLinksRequesting];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = StringPolicyLinkOpening[newIndexLinksJavaScript];
 
-            settingString[StateNew, GroupDownUploads, ValueChooseFileToUpload] = StringFileToUpload    [newIndexChooseFileToUpload];
-            settingString[StateNew, GroupSecurity   , ValueSEBServicePolicy  ] = StringPolicySEBService[newIndexSEBServicePolicy];
+            settingString[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy] = StringFileToUpload    [newIndexChooseFileToUpload];
+            settingString[StateNew, GroupSecurity   , ValueSebServicePolicy  ] = StringPolicySebService[newIndexSEBServicePolicy];
 
             return;
         }
@@ -1178,20 +1173,7 @@ namespace SebWindowsConfig
             {
                 // Read the .xml file
                 // Parse the XML structure into a C# object
-                sebSettings = (Dictionary<string, object>)Plist.readPlist(fileName);
-
-                textBoxStartURL    .Text = sebSettings["startURL"    ].ToString();
-              //textBoxSEBServerURL.Text = sebSettings["sebServerURL"].ToString();
-                textBoxQuitURL     .Text = sebSettings["quitURL"     ].ToString();
-
-                checkBoxAllowDownUploadingFiles.Checked = (Boolean)sebSettings["allowDownUploads"];
-                int index = (int)sebSettings["newBrowserWindowByLinkPolicy"];
-
-                textBoxStartURL     .Text = index.ToString();
-                textBoxSEBServerURL .Text = StringPolicyLinkOpening[index];
-                listBoxOpenLinksHTML.SelectedIndex = index;
-
-
+                sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
 /*
                 // Open the .xml file for reading
                 XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
@@ -1458,7 +1440,7 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress    ("sebServerURL").Url;
             settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettObso.getPassword      ("hashedAdminPassword").Value;
             settingString [StateTmp, GroupGeneral, ValueHashedQuitPassword ] = sebSettObso.getPassword      ("hashedQuitPassword" ).Value;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowUserToQuitSEB ] = sebSettObso.getSecurityOption("allowQuit"         ).getBool();
+            settingBoolean[StateTmp, GroupGeneral, ValueAllowQuit ] = sebSettObso.getSecurityOption("allowQuit"         ).getBool();
             settingBoolean[StateTmp, GroupGeneral, ValueIgnoreQuitPassword ] = sebSettObso.getSecurityOption("ignoreQuitPassword").getBool();
             settingString [StateTmp, GroupGeneral, ValueExitKey1           ] = sebSettObso.getExitKey       ("exitKey1").Value;
             settingString [StateTmp, GroupGeneral, ValueExitKey2           ] = sebSettObso.getExitKey       ("exitKey2").Value;
@@ -1467,40 +1449,40 @@ namespace SebWindowsConfig
           //settingString [StateTmp, GroupConfigFile, ValueSebPurpose            ] = sebSettings.getPolicySetting ("sebPurpose"            ).Value;
           //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("startingAnExam"        ).getBool();
           //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient    ] = sebSettings.getSecurityOption("configuringAClient"    ).getBool();
-            settingBoolean[StateTmp, GroupConfigFile, ValueAllowOpenPrefWindow   ] = sebSettObso.getSecurityOption("allowPreferencesWindow").getBool();
+            settingBoolean[StateTmp, GroupConfigFile, ValueAllowPreferencesWindow   ] = sebSettObso.getSecurityOption("allowPreferencesWindow").getBool();
           //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity        ] = sebSettings.getPassword      ("chooseIdentity"        ).Value;
           //settingString [StateTmp, GroupConfigFile, ValueHashedSettingsPassword] = sebSettings.getPassword      ("hashedSettingsPassword").Value;
 
           //settingString [StateTmp, GroupAppearance, ValueBrowserViewMode      ] = sebSettings.getPolicySetting ("browserViewMode").Value;
           //settingBoolean[StateTmp, GroupAppearance, ValueUseBrowserWindow     ] = sebSettings.getSecurityOption("useBrowserWindow" ).getBool();
           //settingBoolean[StateTmp, GroupAppearance, ValueUseFullScreenMode    ] = sebSettings.getSecurityOption("useFullScreenMode").getBool();
-            settingString [StateTmp, GroupAppearance, ValueMainWindowWidth      ] = sebSettObso.getPolicySetting ("mainBrowserWindowWidth"   ).Value;
-            settingString [StateTmp, GroupAppearance, ValueMainWindowHeight     ] = sebSettObso.getPolicySetting ("mainBrowserWindowHeight"  ).Value;
+            settingString [StateTmp, GroupAppearance, ValueMainBrowserWindowWidth      ] = sebSettObso.getPolicySetting ("mainBrowserWindowWidth"   ).Value;
+            settingString [StateTmp, GroupAppearance, ValueMainBrowserWindowHeight     ] = sebSettObso.getPolicySetting ("mainBrowserWindowHeight"  ).Value;
           //settingString [StateTmp, GroupAppearance, ValueMainWindowPosition   ] = sebSettings.getPolicySetting ("mainBrowserWindowPosition").Value;
-            settingBoolean[StateTmp, GroupAppearance, ValueEnableWindowToolbar  ] = sebSettObso.getSecurityOption("enableBrowserWindowToolbar").getBool();
-            settingBoolean[StateTmp, GroupAppearance, ValueHideToolbarAsDefault ] = sebSettObso.getSecurityOption(  "hideBrowserWindowToolbar").getBool();
+            settingBoolean[StateTmp, GroupAppearance, ValueEnableBrowserWindowToolbar  ] = sebSettObso.getSecurityOption("enableBrowserWindowToolbar").getBool();
+            settingBoolean[StateTmp, GroupAppearance, ValueHideBrowserWindowToolbar ] = sebSettObso.getSecurityOption(  "hideBrowserWindowToolbar").getBool();
             settingBoolean[StateTmp, GroupAppearance, ValueShowMenuBar          ] = sebSettObso.getSecurityOption("showMenuBar").getBool();
-            settingBoolean[StateTmp, GroupAppearance, ValueDisplaySEBDockTaskBar] = sebSettObso.getSecurityOption("showTaskBar").getBool();
+            settingBoolean[StateTmp, GroupAppearance, ValueShowTaskBar] = sebSettObso.getSecurityOption("showTaskBar").getBool();
 
           //settingString [StateTmp, GroupBrowser, ValueNewWindowPolicyHTML ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy").Value;
           //settingString [StateTmp, GroupBrowser, ValueNewWindowPolicyJava ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy").Value;
-            settingBoolean[StateTmp, GroupBrowser, ValueBlockLinksHTML      ] = sebSettObso.getSecurityOption("newBrowserWindowByLinkBlockForeign"  ).getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueBlockLinksJava      ] = sebSettObso.getSecurityOption("newBrowserWindowByScriptBlockForeign").getBool();
-            settingString [StateTmp, GroupBrowser, ValueNewWindowWidth      ] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value;
-            settingString [StateTmp, GroupBrowser, ValueNewWindowHeight     ] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value;
+            settingBoolean[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign      ] = sebSettObso.getSecurityOption("newBrowserWindowByLinkBlockForeign"  ).getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign      ] = sebSettObso.getSecurityOption("newBrowserWindowByScriptBlockForeign").getBool();
+            settingString [StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth      ] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value;
+            settingString [StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight     ] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value;
           //settingString [StateTmp, GroupBrowser, ValueNewWindowPosition   ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value;
             settingBoolean[StateTmp, GroupBrowser, ValueEnablePlugins       ] = sebSettObso.getSecurityOption("enablePlugins"   ).getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueEnableJava          ] = sebSettObso.getSecurityOption("enableJava"      ).getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueEnableJavaScript    ] = sebSettObso.getSecurityOption("enableJavaScript").getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueBlockPopupWindows   ] = sebSettObso.getSecurityOption("blockPopUpWindows").getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueAllowBrowsingBackForward] = sebSettObso.getSecurityOption("enableBrowsingBackForward").getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueUseSEBWithoutBrowser] = sebSettObso.getSecurityOption("enableSebBrowser").getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueEnableBrowsingBackForward] = sebSettObso.getSecurityOption("enableBrowsingBackForward").getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueEnableSebBrowser] = sebSettObso.getSecurityOption("enableSebBrowser").getBool();
 
-            settingBoolean[StateTmp, GroupDownUploads, ValueAllowDownUploadingFiles  ] = sebSettObso.getSecurityOption   ("allowDownUploads").getBool();
-            settingBoolean[StateTmp, GroupDownUploads, ValueOpenFilesAfterDownloading] = sebSettObso.getSecurityOption   ("openDownloads"   ).getBool();
-            settingBoolean[StateTmp, GroupDownUploads, ValueDownloadAndOpenPDFFiles  ] = sebSettObso.getSecurityOption   ("downloadPDFFiles").getBool();
-            settingString [StateTmp, GroupDownUploads, ValueSaveDownloadedFilesTo    ] = sebSettObso.getDownloadDirectory("downloadDirectoryWin"    ).Path;
-            settingString [StateTmp, GroupDownUploads, ValueChooseFileToUpload       ] = sebSettObso.getPolicySetting    ("chooseFileToUploadPolicy").Value;
+            settingBoolean[StateTmp, GroupDownUploads, ValueAllowDownUploads  ] = sebSettObso.getSecurityOption   ("allowDownUploads").getBool();
+            settingBoolean[StateTmp, GroupDownUploads, ValueOpenDownloads] = sebSettObso.getSecurityOption   ("openDownloads"   ).getBool();
+            settingBoolean[StateTmp, GroupDownUploads, ValueDownloadPDFFiles  ] = sebSettObso.getSecurityOption   ("downloadPDFFiles").getBool();
+            settingString [StateTmp, GroupDownUploads, ValueDownloadDirectoryWin    ] = sebSettObso.getDownloadDirectory("downloadDirectoryWin"    ).Path;
+            settingString [StateTmp, GroupDownUploads, ValueChooseFileToUploadPolicy       ] = sebSettObso.getPolicySetting    ("chooseFileToUploadPolicy").Value;
 
           //settingString [StateTmp, GroupExam, ValueBrowserExamKey    ] = sebSettings.getUrlAddress("browserExamKey" ).Url;
             settingBoolean[StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettObso.getSecurityOption("copyExamKeyToClipboardWhenQuitting").getBool();
@@ -1509,9 +1491,9 @@ namespace SebWindowsConfig
 
             settingBoolean[StateTmp, GroupApplications, ValueMonitorProcesses         ] = sebSettObso.getSecurityOption("monitorProcesses").getBool();
             settingBoolean[StateTmp, GroupApplications, ValueAllowSwitchToApplications] = sebSettObso.getSecurityOption("allowSwitchToApplications").getBool();
-            settingBoolean[StateTmp, GroupApplications, ValueAllowFlashFullscreenMode ] = sebSettObso.getSecurityOption("allowFlashFullscreen").getBool();
+            settingBoolean[StateTmp, GroupApplications, ValueAllowFlashFullscreen ] = sebSettObso.getSecurityOption("allowFlashFullscreen").getBool();
 
-            settingString [StateTmp, GroupSecurity, ValueSEBServicePolicy   ] = sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value;
+            settingString [StateTmp, GroupSecurity, ValueSebServicePolicy   ] = sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value;
             settingBoolean[StateTmp, GroupSecurity, ValueAllowVirtualMachine] = sebSettObso.getSecurityOption("allowVirtualMachine").getBool();
             settingBoolean[StateTmp, GroupSecurity, ValueCreateNewDesktop   ] = sebSettObso.getSecurityOption("createNewDesktop"   ).getBool();
             settingBoolean[StateTmp, GroupSecurity, ValueAllowUserSwitching ] = sebSettObso.getSecurityOption("allowUserSwitching" ).getBool();
@@ -1574,7 +1556,7 @@ namespace SebWindowsConfig
           //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
             sebSettObso.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueHashedAdminPassword];
             sebSettObso.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueHashedQuitPassword];
-            sebSettObso.getSecurityOption("allowQuit")          .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB]);
+            sebSettObso.getSecurityOption("allowQuit")          .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowQuit]);
             sebSettObso.getSecurityOption("irgnoreQuitPassword").setBool(settingBoolean[StateNew, GroupGeneral, ValueIgnoreQuitPassword]);
             sebSettObso.getExitKey("exitKey1")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey1];
             sebSettObso.getExitKey("exitKey2")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey2];
@@ -1583,40 +1565,40 @@ namespace SebWindowsConfig
           //sebSettings.getPolicySetting ("sebPurpose"            ).Value = settingString [StateNew, GroupConfigFile, ValueSebPurpose];
           //sebSettings.getSecurityOption("startingAnExam"        ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
           //sebSettings.getSecurityOption("configuringAClient"    ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
-            sebSettObso.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow]);
+            sebSettObso.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow]);
           //sebSettings.getPassword("chooseIdentity"              ).Value = settingString [StateNew, GroupConfigFile, ValueChooseIdentity];
           //sebSettings.getPassword("hashedSettingsPassword"      ).Value = settingString [StateNew, GroupConfigFile, ValueHashedSettingsPassword];
 
           //sebSettings.getPolicySetting ("browserViewMode"           ).Value = settingString [StateNew, GroupAppearance, ValueBrowserViewMode];
           //sebSettings.getSecurityOption("useBrowserWindow"          ).setBool(settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow]);
           //sebSettings.getSecurityOption("useFullScreenMode"         ).setBool(settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode]);
-            sebSettObso.getPolicySetting ("mainBrowserWindowWidth"    ).Value = settingString [StateNew, GroupAppearance, ValueMainWindowWidth];
-            sebSettObso.getPolicySetting ("mainBrowserWindowHeight"   ).Value = settingString [StateNew, GroupAppearance, ValueMainWindowHeight];
+            sebSettObso.getPolicySetting ("mainBrowserWindowWidth"    ).Value = settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth];
+            sebSettObso.getPolicySetting ("mainBrowserWindowHeight"   ).Value = settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight];
           //sebSettings.getPolicySetting ("mainBrowserWindowPosition" ).Value = settingString [StateNew, GroupAppearance, ValueMainWindowPosition];
-            sebSettObso.getSecurityOption("enableBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar]);
-            sebSettObso.getSecurityOption(  "hideBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault]);
+            sebSettObso.getSecurityOption("enableBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar]);
+            sebSettObso.getSecurityOption(  "hideBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueHideBrowserWindowToolbar]);
             sebSettObso.getSecurityOption("showMenuBar"               ).setBool(settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar]);
-            sebSettObso.getSecurityOption("showTaskBar"               ).setBool(settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar]);
+            sebSettObso.getSecurityOption("showTaskBar"               ).setBool(settingBoolean[StateNew, GroupAppearance, ValueShowTaskBar]);
 
           //sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowPolicyHTML];
           //sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowPolicyJava];
-            sebSettObso.getSecurityOption("newBrowserWindowByLinkBlockForeign  ").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML]);
-            sebSettObso.getSecurityOption("newBrowserWindowByScriptBlockForeign").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava]);
-            sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowWidth];
-            sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowHeight];
+            sebSettObso.getSecurityOption("newBrowserWindowByLinkBlockForeign  ").setBool(settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign]);
+            sebSettObso.getSecurityOption("newBrowserWindowByScriptBlockForeign").setBool(settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign]);
+            sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value = settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
+            sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value = settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
           //sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value = settingString[StateNew, GroupBrowser, ValueNewWindowPosition];
             sebSettObso.getSecurityOption("enablePlugins"    ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins]);
             sebSettObso.getSecurityOption("enableJava"       ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJava]);
             sebSettObso.getSecurityOption("enableJavaScript" ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript]);
             sebSettObso.getSecurityOption("blockPopUpWindows").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows]);
-            sebSettObso.getSecurityOption("enableBrowsingBackForward").setBool(settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward]);
-            sebSettObso.getSecurityOption("enableSebBrowser"         ).setBool(settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser]);
+            sebSettObso.getSecurityOption("enableBrowsingBackForward").setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableBrowsingBackForward]);
+            sebSettObso.getSecurityOption("enableSebBrowser"         ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableSebBrowser]);
 
-            sebSettObso.getSecurityOption   ("allowDownUploads").setBool(settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles]);
-            sebSettObso.getSecurityOption   ("openDownloads"   ).setBool(settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading]);
-            sebSettObso.getSecurityOption   ("downloadPDFFiles").setBool(settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles]);
-            sebSettObso.getDownloadDirectory("downloadDirectoryWin"    ).Path  = settingString[StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo];
-            sebSettObso.getPolicySetting    ("chooseFileToUploadPolicy").Value = settingString[StateNew, GroupDownUploads, ValueChooseFileToUpload];
+            sebSettObso.getSecurityOption   ("allowDownUploads").setBool(settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploads]);
+            sebSettObso.getSecurityOption   ("openDownloads"   ).setBool(settingBoolean[StateNew, GroupDownUploads, ValueOpenDownloads]);
+            sebSettObso.getSecurityOption   ("downloadPDFFiles").setBool(settingBoolean[StateNew, GroupDownUploads, ValueDownloadPDFFiles]);
+            sebSettObso.getDownloadDirectory("downloadDirectoryWin"    ).Path  = settingString[StateNew, GroupDownUploads, ValueDownloadDirectoryWin];
+            sebSettObso.getPolicySetting    ("chooseFileToUploadPolicy").Value = settingString[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy];
 
           //sebSettings.getUrlAddress("browserExamKey").Url = settingString[StateNew, GroupExam, ValueBrowserExamKey];
             sebSettObso.getSecurityOption("copyExamKeyToClipboardWhenQuitting").setBool(settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey]);
@@ -1625,9 +1607,9 @@ namespace SebWindowsConfig
 
             sebSettObso.getSecurityOption("monitorProcesses         ").setBool(settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses]);
             sebSettObso.getSecurityOption("allowSwitchToApplications").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications]);
-            sebSettObso.getSecurityOption("allowFlashFullscreen     ").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreenMode]);
+            sebSettObso.getSecurityOption("allowFlashFullscreen     ").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen]);
 
-            sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value = settingString [StateNew, GroupSecurity, ValueSEBServicePolicy];
+            sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value = settingString [StateNew, GroupSecurity, ValueSebServicePolicy];
             sebSettObso.getSecurityOption("allowVirtualMachine").setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine]);
             sebSettObso.getSecurityOption("createNewDesktop"   ).setBool(settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop]);
             sebSettObso.getSecurityOption("allowUserSwitching" ).setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching]);
@@ -1702,7 +1684,7 @@ namespace SebWindowsConfig
 
         private void textBoxSEBServerURL_TextChanged(object sender, EventArgs e)
         {
-            settingString[StateNew, GroupGeneral, ValueSEBServerURL] = textBoxSEBServerURL.Text;
+            settingString[StateNew, GroupGeneral, ValueSebServerURL] = textBoxSEBServerURL.Text;
         }
 
         private void textBoxAdminPassword_TextChanged(object sender, EventArgs e)
@@ -1717,7 +1699,7 @@ namespace SebWindowsConfig
 
         private void checkBoxAllowUserToQuitSEB_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB] = checkBoxAllowUserToQuitSEB.Checked;
+            settingBoolean[StateNew, GroupGeneral, ValueAllowQuit] = checkBoxAllowUserToQuitSEB.Checked;
         }
 
         private void checkBoxIgnoreQuitPassword_CheckedChanged(object sender, EventArgs e)
@@ -1801,7 +1783,7 @@ namespace SebWindowsConfig
         // *******************
         private void radioButtonStartingAnExam_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam] = (radioButtonStartingAnExam.Checked == true);
+            settingBoolean[StateNew, GroupConfigFile, ValueSebPurpose] = (radioButtonStartingAnExam.Checked == true);
         }
 
         private void radioButtonConfiguringAClient_CheckedChanged(object sender, EventArgs e)
@@ -1811,19 +1793,19 @@ namespace SebWindowsConfig
 
         private void checkBoxAllowOpenPrefWindowOnClient_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow] = checkBoxAllowOpenPrefWindow.Checked;
+            settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow] = checkBoxAllowOpenPrefWindow.Checked;
         }
 
         private void comboBoxChooseIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.SelectedIndex;
-            settingString [StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.Text;
+            settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxChooseIdentity.SelectedIndex;
+            settingString [StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxChooseIdentity.Text;
         }
 
         private void comboBoxChooseIdentity_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.SelectedIndex;
-            settingString [StateNew, GroupConfigFile, ValueChooseIdentity] = comboBoxChooseIdentity.Text;
+            settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxChooseIdentity.SelectedIndex;
+            settingString [StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxChooseIdentity.Text;
         }
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -1923,47 +1905,47 @@ namespace SebWindowsConfig
 
         private void radioButtonUseFullScreenMode_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode] = radioButtonUseFullScreenMode.Checked;
+            settingBoolean[StateNew, GroupAppearance, ValueBrowserViewMode] = radioButtonUseFullScreenMode.Checked;
         }
 
         private void comboBoxMainWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainWindowWidth.Text;
         }
 
         private void comboBoxMainWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowWidth] = comboBoxMainWindowWidth.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainWindowWidth.Text;
         }
 
         private void comboBoxMainWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainWindowHeight.Text;
         }
 
         private void comboBoxMainWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupAppearance, ValueMainWindowHeight] = comboBoxMainWindowHeight.Text;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainWindowHeight.Text;
         }
 
         private void listBoxMainWindowPosition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupAppearance, ValueMainWindowPosition] = listBoxMainWindowPosition.SelectedIndex + 1;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning] = listBoxMainWindowPosition.SelectedIndex + 1;
         }
 
         private void checkBoxEnableWindowToolbar_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar] = checkBoxEnableWindowToolbar.Checked;
+            settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar] = checkBoxEnableWindowToolbar.Checked;
             checkBoxHideToolbarAsDefault.Enabled = checkBoxEnableWindowToolbar.Checked;
         }
 
         private void checkBoxHideToolbarAsDefault_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault] = checkBoxHideToolbarAsDefault.Checked;
+            settingBoolean[StateNew, GroupAppearance, ValueHideBrowserWindowToolbar] = checkBoxHideToolbarAsDefault.Checked;
         }
 
         private void checkBoxShowMenuBar_CheckedChanged(object sender, EventArgs e)
@@ -1973,7 +1955,7 @@ namespace SebWindowsConfig
 
         private void checkBoxDisplaySEBDockTaskBar_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar] = checkBoxDisplaySEBDockTaskBar.Checked;
+            settingBoolean[StateNew, GroupAppearance, ValueShowTaskBar] = checkBoxDisplaySEBDockTaskBar.Checked;
         }
 
 
@@ -1983,51 +1965,51 @@ namespace SebWindowsConfig
         // ***************
         private void listBoxOpenLinksHTML_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueOpenLinksHTML] = listBoxOpenLinksHTML.SelectedIndex + 1;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy] = listBoxOpenLinksHTML.SelectedIndex + 1;
         }
 
         private void listBoxOpenLinksJava_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueOpenLinksJava] = listBoxOpenLinksJava.SelectedIndex + 1;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = listBoxOpenLinksJava.SelectedIndex + 1;
         }
 
         private void checkBoxBlockLinksHTML_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML] = checkBoxBlockLinksHTML.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign] = checkBoxBlockLinksHTML.Checked;
         }
 
         private void checkBoxBlockLinksJava_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava] = checkBoxBlockLinksJava.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign] = checkBoxBlockLinksJava.Checked;
         }
 
         private void comboBoxNewWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.Text;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewWindowWidth.Text;
         }
 
         private void comboBoxNewWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowWidth] = comboBoxNewWindowWidth.Text;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewWindowWidth.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewWindowWidth.Text;
         }
 
         private void comboBoxNewWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.Text;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewWindowHeight.Text;
         }
 
         private void comboBoxNewWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.SelectedIndex + 1;
-            settingString [StateNew, GroupBrowser, ValueNewWindowHeight] = comboBoxNewWindowHeight.Text;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewWindowHeight.SelectedIndex + 1;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewWindowHeight.Text;
         }
 
         private void listBoxNewWindowPosition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupBrowser, ValueNewWindowPosition] = listBoxNewWindowPosition.SelectedIndex + 1;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = listBoxNewWindowPosition.SelectedIndex + 1;
         }
 
         private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
@@ -2052,12 +2034,12 @@ namespace SebWindowsConfig
 
         private void checkBoxAllowBrowsingBackForward_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward] = checkBoxAllowBrowsingBackForward.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueEnableBrowsingBackForward] = checkBoxAllowBrowsingBackForward.Checked;
         }
 
         private void checkBoxUseSEBWithoutBrowser_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser] = checkBoxUseSEBWithoutBrowser.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueEnableSebBrowser] = checkBoxUseSEBWithoutBrowser.Checked;
         }
 
 
@@ -2067,7 +2049,7 @@ namespace SebWindowsConfig
         // ********************
         private void checkBoxAllowDownUploadingFiles_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles] = checkBoxAllowDownUploadingFiles.Checked;
+            settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploads] = checkBoxAllowDownUploadingFiles.Checked;
         }
 
         private void folderBrowserDialogDownloadFolder_HelpRequest(object sender, EventArgs e)
@@ -2089,23 +2071,23 @@ namespace SebWindowsConfig
             if (dialogResult.Equals(DialogResult.Cancel)) return;
 
             // If the user clicked "OK", ...
-            settingString[StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo] = downloadPath;
+            settingString[StateNew, GroupDownUploads, ValueDownloadDirectoryWin] = downloadPath;
                                                   labelSaveDownloadedFilesTo.Text = downloadPath;
         }
 
         private void checkBoxOpenFilesAfterDownloading_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading] = checkBoxOpenFilesAfterDownloading.Checked;
+            settingBoolean[StateNew, GroupDownUploads, ValueOpenDownloads] = checkBoxOpenFilesAfterDownloading.Checked;
         }
 
         private void listBoxChooseFileToUpload_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload] = listBoxChooseFileToUpload.SelectedIndex + 1;
+            settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy] = listBoxChooseFileToUpload.SelectedIndex + 1;
         }
 
         private void checkBoxDownloadAndOpenPDFFiles_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles] = checkBoxDownloadAndOpenPDFFiles.Checked;
+            settingBoolean[StateNew, GroupDownUploads, ValueDownloadPDFFiles] = checkBoxDownloadAndOpenPDFFiles.Checked;
         }
 
 
@@ -2155,7 +2137,7 @@ namespace SebWindowsConfig
 
         private void checkBoxAllowFlashFullscreenMode_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreenMode] = checkBoxAllowFlashFullscreenMode.Checked;
+            settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen] = checkBoxAllowFlashFullscreenMode.Checked;
         }
 
 
@@ -2169,7 +2151,7 @@ namespace SebWindowsConfig
         // ****************
         private void listBoxSEBServicePolicy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupSecurity, ValueSEBServicePolicy] = listBoxSEBServicePolicy.SelectedIndex + 1;
+            settingInteger[StateNew, GroupSecurity, ValueSebServicePolicy] = listBoxSEBServicePolicy.SelectedIndex + 1;
         }
 
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
@@ -2486,12 +2468,20 @@ namespace SebWindowsConfig
             this.Text += " - ";
             this.Text += currentPathSebStarterIni;
 
+            textBoxStartURL    .Text = (String)sebSettingsTmp[MessageStartURL];
+          //textBoxSEBServerURL.Text = (String)sebSettingsTmp[MessageSebServerURL];
+            textBoxQuitURL     .Text = (String)sebSettingsTmp[MessageQuitURL];
+
+            checkBoxAllowDownUploadingFiles.Checked = (Boolean)sebSettingsTmp[MessageAllowDownUploads];
+
+            listBoxOpenLinksHTML.SelectedIndex = (int)sebSettingsTmp[MessageNewBrowserWindowByLinkPolicy];
+
             // Update the widgets
             textBoxStartURL            .Text    = settingString [StateNew, GroupGeneral, ValueStartURL];
-            textBoxSEBServerURL        .Text    = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
+            textBoxSEBServerURL        .Text    = settingString [StateNew, GroupGeneral, ValueSebServerURL];
             textBoxAdminPassword       .Text    = settingString [StateNew, GroupGeneral, ValueAdminPassword];
             textBoxConfirmAdminPassword.Text    = settingString [StateNew, GroupGeneral, ValueConfirmAdminPassword];
-            checkBoxAllowUserToQuitSEB .Checked = settingBoolean[StateNew, GroupGeneral, ValueAllowUserToQuitSEB];
+            checkBoxAllowUserToQuitSEB .Checked = settingBoolean[StateNew, GroupGeneral, ValueAllowQuit];
             checkBoxIgnoreQuitPassword .Checked = settingBoolean[StateNew, GroupGeneral, ValueIgnoreQuitPassword];
             textBoxQuitPassword        .Text    = settingString [StateNew, GroupGeneral, ValueQuitPassword];
             textBoxConfirmQuitPassword .Text    = settingString [StateNew, GroupGeneral, ValueConfirmQuitPassword];
@@ -2499,46 +2489,46 @@ namespace SebWindowsConfig
             listBoxExitKey2.SelectedIndex       = settingInteger[StateNew, GroupGeneral, ValueExitKey2] - 1;
             listBoxExitKey3.SelectedIndex       = settingInteger[StateNew, GroupGeneral, ValueExitKey3] - 1;
 
-            radioButtonStartingAnExam    .Checked = settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam];
+            radioButtonStartingAnExam    .Checked = settingBoolean[StateNew, GroupConfigFile, ValueSebPurpose];
             radioButtonConfiguringAClient.Checked = settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient];
-            checkBoxAllowOpenPrefWindow  .Checked = settingBoolean[StateNew, GroupConfigFile, ValueAllowOpenPrefWindow];
+            checkBoxAllowOpenPrefWindow  .Checked = settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow];
           //comboBoxChooseIdentity.SelectedIndex  = settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
           //comboBoxChooseIdentity.SelectedIndex  = 0;
             textBoxSettingsPassword       .Text   = settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
             textBoxConfirmSettingsPassword.Text   = settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
 
             radioButtonUseBrowserWindow  .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow];
-            radioButtonUseFullScreenMode .Checked = settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode];
-            checkBoxEnableWindowToolbar  .Checked = settingBoolean[StateNew, GroupAppearance, ValueEnableWindowToolbar];
-            checkBoxHideToolbarAsDefault .Checked = settingBoolean[StateNew, GroupAppearance, ValueHideToolbarAsDefault];
+            radioButtonUseFullScreenMode .Checked = settingBoolean[StateNew, GroupAppearance, ValueBrowserViewMode];
+            checkBoxEnableWindowToolbar  .Checked = settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar];
+            checkBoxHideToolbarAsDefault .Checked = settingBoolean[StateNew, GroupAppearance, ValueHideBrowserWindowToolbar];
             checkBoxShowMenuBar          .Checked = settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
-            checkBoxDisplaySEBDockTaskBar.Checked = settingBoolean[StateNew, GroupAppearance, ValueDisplaySEBDockTaskBar];
+            checkBoxDisplaySEBDockTaskBar.Checked = settingBoolean[StateNew, GroupAppearance, ValueShowTaskBar];
 
-            comboBoxMainWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowWidth   ] - 1;
-            comboBoxMainWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowHeight  ] - 1;
-             listBoxMainWindowPosition.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainWindowPosition] - 1;
+            comboBoxMainWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth   ] - 1;
+            comboBoxMainWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight  ] - 1;
+             listBoxMainWindowPosition.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning] - 1;
 
-            comboBoxNewWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowWidth   ] - 1;
-            comboBoxNewWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowHeight  ] - 1;
-             listBoxNewWindowPosition.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewWindowPosition] - 1;
+            comboBoxNewWindowWidth   .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] - 1;
+            comboBoxNewWindowHeight  .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] - 1;
+             listBoxNewWindowPosition.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] - 1;
 
-             listBoxOpenLinksHTML .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueOpenLinksHTML] - 1;
-             listBoxOpenLinksJava .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueOpenLinksJava] - 1;
-            checkBoxBlockLinksHTML.Checked       = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksHTML];
-            checkBoxBlockLinksJava.Checked       = settingBoolean[StateNew, GroupBrowser, ValueBlockLinksJava];
+             listBoxOpenLinksHTML .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy] - 1;
+             listBoxOpenLinksJava .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] - 1;
+            checkBoxBlockLinksHTML.Checked       = settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign];
+            checkBoxBlockLinksJava.Checked       = settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign];
 
             checkBoxEnablePlugIns           .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins];
             checkBoxEnableJava              .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
             checkBoxEnableJavaScript        .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript];
             checkBoxBlockPopupWindows       .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows];
-            checkBoxAllowBrowsingBackForward.Checked = settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward];
-            checkBoxUseSEBWithoutBrowser    .Checked = settingBoolean[StateNew, GroupBrowser, ValueUseSEBWithoutBrowser];
+            checkBoxAllowBrowsingBackForward.Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableBrowsingBackForward];
+            checkBoxUseSEBWithoutBrowser    .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableSebBrowser];
 
-            checkBoxAllowDownUploadingFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploadingFiles];
-            checkBoxOpenFilesAfterDownloading.Checked = settingBoolean[StateNew, GroupDownUploads, ValueOpenFilesAfterDownloading];
-            checkBoxDownloadAndOpenPDFFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueDownloadAndOpenPDFFiles];
-            labelSaveDownloadedFilesTo       .Text    = settingString [StateNew, GroupDownUploads, ValueSaveDownloadedFilesTo];
-             listBoxChooseFileToUpload.SelectedIndex  = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUpload] - 1;
+            checkBoxAllowDownUploadingFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploads];
+            checkBoxOpenFilesAfterDownloading.Checked = settingBoolean[StateNew, GroupDownUploads, ValueOpenDownloads];
+            checkBoxDownloadAndOpenPDFFiles  .Checked = settingBoolean[StateNew, GroupDownUploads, ValueDownloadPDFFiles];
+            labelSaveDownloadedFilesTo       .Text    = settingString [StateNew, GroupDownUploads, ValueDownloadDirectoryWin];
+             listBoxChooseFileToUpload.SelectedIndex  = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy] - 1;
 
              textBoxBrowserExamKey    .Text    = settingString [StateNew, GroupExam, ValueBrowserExamKey];
              textBoxQuitURL           .Text    = settingString [StateNew, GroupExam, ValueQuitURL];
@@ -2547,9 +2537,9 @@ namespace SebWindowsConfig
 
             checkBoxMonitorProcesses         .Checked = settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses];
             checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications];
-            checkBoxAllowFlashFullscreenMode .Checked = settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreenMode];
+            checkBoxAllowFlashFullscreenMode .Checked = settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen];
 
-             listBoxSEBServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSEBServicePolicy] - 1;
+             listBoxSEBServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSebServicePolicy] - 1;
             checkBoxAllowVirtualMachine.Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine];
             checkBoxCreateNewDesktop   .Checked    = settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop];
             checkBoxAllowUserSwitching .Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching];
