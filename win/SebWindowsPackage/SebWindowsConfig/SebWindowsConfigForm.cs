@@ -2118,7 +2118,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK", ...
             settingString[StateNew, GroupDownUploads, ValueDownloadDirectoryWin] = downloadPath;
-                                                  labelSaveDownloadedFilesTo.Text = downloadPath;
+                                                 labelSaveDownloadedFilesTo.Text = downloadPath;
         }
 
         private void checkBoxOpenFilesAfterDownloading_CheckedChanged(object sender, EventArgs e)
@@ -2481,13 +2481,13 @@ namespace SebWindowsConfig
             this.Text += " - ";
             this.Text += currentPathSebStarterIni;
 
-            textBoxStartURL    .Text = (String)sebSettingsTmp[MessageStartURL];
-          //textBoxSEBServerURL.Text = (String)sebSettingsTmp[MessageSebServerURL];
-            textBoxQuitURL     .Text = (String)sebSettingsTmp[MessageQuitURL];
+            textBoxStartURL    .Text = (String)sebSettingsNew[MessageStartURL];
+          //textBoxSEBServerURL.Text = (String)sebSettingsNew[MessageSebServerURL];
+            textBoxQuitURL     .Text = (String)sebSettingsNew[MessageQuitURL];
 
-            checkBoxAllowDownUploadingFiles.Checked = (Boolean)sebSettingsTmp[MessageAllowDownUploads];
+            checkBoxAllowDownUploadingFiles.Checked = (Boolean)sebSettingsNew[MessageAllowDownUploads];
 
-            listBoxOpenLinksHTML.SelectedIndex = (int)sebSettingsTmp[MessageNewBrowserWindowByLinkPolicy];
+            listBoxOpenLinksHTML.SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
 
             // Update the widgets
             textBoxStartURL            .Text    = settingString [StateNew, GroupGeneral, ValueStartURL];
