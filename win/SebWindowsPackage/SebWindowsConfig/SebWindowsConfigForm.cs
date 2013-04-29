@@ -353,14 +353,16 @@ namespace SebWindowsConfig
         // Strings for encryption identities (KeyChain, Certificate Store)
         //static ArrayList chooseIdentityStringArrayList = new ArrayList();
         //static String[]  chooseIdentityStringArray = new String[1];
-        static List<String> chooseIdentityStringList = new List<String>();
+        static List<String> StringCryptoIdentity = new List<String>();
 
         // Entries of ListBoxes
+        static String[] StringSebPurpose        = new String[2];
+        static String[] StringBrowserViewMode   = new String[2];
         static String[] StringWindowWidth       = new String[4];
         static String[] StringWindowHeight      = new String[4];
-        static String[] StringWindowPosition    = new String[3];
-        static String[] StringFileToUpload      = new String[3];
+        static String[] StringWindowPositioning = new String[3];
         static String[] StringPolicyLinkOpening = new String[3];
+        static String[] StringPolicyFileUpload  = new String[3];
         static String[] StringPolicySebService  = new String[3];
         static String[] StringFunctionKey       = new String[12];
 
@@ -727,47 +729,55 @@ namespace SebWindowsConfig
             valueString[GroupFunctionKeys, ValueEnableF12] = MessageEnableF12;
 
 
-            // Define the strings for the encryption identity
-            chooseIdentityStringList.Add("none");
-            chooseIdentityStringList.Add("alpha");
-            chooseIdentityStringList.Add("beta");
-            chooseIdentityStringList.Add("gamma");
-            chooseIdentityStringList.Add("delta");
-            String[] chooseIdentityStringArray = chooseIdentityStringList.ToArray();
+            // Define the strings for the Encryption Identity
+            StringCryptoIdentity.Add("none");
+            StringCryptoIdentity.Add("alpha");
+            StringCryptoIdentity.Add("beta");
+            StringCryptoIdentity.Add("gamma");
+            StringCryptoIdentity.Add("delta");
+            String[] chooseIdentityStringArray = StringCryptoIdentity.ToArray();
 
-            // Define the strings for the window width
+            // Define the strings for the SEB purpose
+            StringSebPurpose[0] = "starting an exam";
+            StringSebPurpose[1] = "configuring a client";
+
+            // Define the strings for the Browser View Mode
+            StringBrowserViewMode[0] = "use browser window";
+            StringBrowserViewMode[1] = "use full screen mode";
+
+            // Define the strings for the Window Width
             StringWindowWidth[0] = "50%";
             StringWindowWidth[1] = "100%";
             StringWindowWidth[2] = "800";
             StringWindowWidth[3] = "1000";
 
-            // Define the strings for the window height
+            // Define the strings for the Window Height
             StringWindowHeight[0] = "80%";
             StringWindowHeight[1] = "100%";
             StringWindowHeight[2] = "600";
             StringWindowHeight[3] = "800";
 
-            // Define the strings for the window position
-            StringWindowPosition[0] = "Left";
-            StringWindowPosition[1] = "Center";
-            StringWindowPosition[2] = "Right";
+            // Define the strings for the Window Positioning
+            StringWindowPositioning[0] = "Left";
+            StringWindowPositioning[1] = "Center";
+            StringWindowPositioning[2] = "Right";
 
-            // Define the strings for the link opening policy
+            // Define the strings for the Link Opening Policy
             StringPolicyLinkOpening[0] = "open in new window";
             StringPolicyLinkOpening[1] = "open in same window";
             StringPolicyLinkOpening[2] = "get generally blocked";
 
-            // Define the strings for the SEB service policy
+            // Define the strings for the File Upload Policy
+            StringPolicyFileUpload[0] = "manually with file requester";
+            StringPolicyFileUpload[1] = "by attempting to upload the same file downloaded before";
+            StringPolicyFileUpload[2] = "by only allowing to upload the same file downloaded before";
+
+            // Define the strings for the SEB Service Policy
             StringPolicySebService[0] = "allow to use SEB only with service";
             StringPolicySebService[1] = "display warning when service is not running";
             StringPolicySebService[2] = "allow to run SEB without service";
 
-            // Define the strings for the choosing a file to upload
-            StringFileToUpload[0] = "manually with file requester";
-            StringFileToUpload[1] = "by attempting to upload the same file downloaded before";
-            StringFileToUpload[2] = "by only allowing to upload the same file downloaded before";
-
-            // Define the strings for the function keys F1, F2, ..., F12
+            // Define the strings for the Function Keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
             {
                 StringFunctionKey[i-1] = "F" + i.ToString();
@@ -827,8 +837,11 @@ namespace SebWindowsConfig
             // These ListBox and ComboBox entries need a conversion from string to integer:
             //
             // Exit Key Sequence (exit keys 1,2,3)
-            // Main Window Width/Height/Position
-            // New  Window Width/Height/Position
+            // SEB Purpose
+            // Crypto Identity
+            // Browser View Mode
+            // Main Window Width/Height/Positioning
+            // New  Window Width/Height/Positioning
             // Link Opening Policy for HTML/JavaScript
             // SEB  Service Policy
             // Choose File To Upload
@@ -837,19 +850,22 @@ namespace SebWindowsConfig
             String tmpStringExitKey2 = settingString[StateTmp, GroupGeneral, ValueExitKey2];
             String tmpStringExitKey3 = settingString[StateTmp, GroupGeneral, ValueExitKey3];
 
-            String tmpStringMainWindowWidth    = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowWidth];
-            String tmpStringMainWindowHeight   = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHeight];
-            String tmpStringMainWindowPosition = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowPositioning];
+            String tmpStringSebPurpose     = settingString[StateTmp, GroupConfigFile, ValueSebPurpose];
+          //String tmpStringCryptoIdentity = settingString[StateTmp, GroupConfigFile, ValueCryptoIdentity];
 
-            String tmpStringNewWindowWidth    = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
-            String tmpStringNewWindowHeight   = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
-            String tmpStringNewWindowPosition = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPositioning];
+            String tmpStringBrowserViewMode       = settingString[StateTmp, GroupAppearance, ValueBrowserViewMode];
+            String tmpStringMainWindowWidth       = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowWidth];
+            String tmpStringMainWindowHeight      = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowHeight];
+            String tmpStringMainWindowPositioning = settingString[StateTmp, GroupAppearance, ValueMainBrowserWindowPositioning];
 
-            String tmpStringLinksInHTML = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPolicy];
-            String tmpStringLinksInJava = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptPolicy];
+            String tmpStringNewWindowByLinkWidth       = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
+            String tmpStringNewWindowByLinkHeight      = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
+            String tmpStringNewWindowByLinkPositioning = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPositioning];
+            String tmpStringNewWindowByLinkPolicy      = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPolicy];
+            String tmpStringNewWindowByScriptPolicy    = settingString[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptPolicy];
 
-            String tmpStringSEBServicePolicy   = settingString[StateTmp, GroupSecurity   , ValueSebServicePolicy];
-            String tmpStringChooseFileToUpload = settingString[StateTmp, GroupDownUploads, ValueChooseFileToUploadPolicy];
+            String tmpStringSebServicePolicy = settingString[StateTmp, GroupSecurity   , ValueSebServicePolicy];
+            String tmpStringFileUploadPolicy = settingString[StateTmp, GroupDownUploads, ValueChooseFileToUploadPolicy];
 
             int index;
 
@@ -857,17 +873,20 @@ namespace SebWindowsConfig
             int tmpIndexExitKey2 = 0;
             int tmpIndexExitKey3 = 0;
 
-            int tmpIndexMainWindowWidth    = 0;
-            int tmpIndexMainWindowHeight   = 0;
-            int tmpIndexMainWindowPosition = 0;
+            int tmpIndexSebPurpose = 0;
+ 
+            int tmpIndexBrowserViewMode       = 0;
+            int tmpIndexMainWindowWidth       = 0;
+            int tmpIndexMainWindowHeight      = 0;
+            int tmpIndexMainWindowPositioning = 0;
 
-            int tmpIndexNewWindowWidth    = 0;
-            int tmpIndexNewWindowHeight   = 0;
-            int tmpIndexNewWindowPosition = 0;
+            int tmpIndexNewWindowByLinkWidth       = 0;
+            int tmpIndexNewWindowByLinkHeight      = 0;
+            int tmpIndexNewWindowByLinkPositioning = 0;
+            int tmpIndexNewWindowByLinkPolicy      = 0;
+            int tmpIndexNewWindowByScriptPolicy    = 0;
 
-            int tmpIndexLinksInHTML        = 0;
-            int tmpIndexLinksInJava        = 0;
-            int tmpIndexSEBServicePolicy   = 0;
+            int tmpIndexSebServicePolicy   = 0;
             int tmpIndexChooseFileToUpload = 0;
 
             // Function keys have 12 possible list entries
@@ -880,6 +899,16 @@ namespace SebWindowsConfig
                 if (tmpStringExitKey3.Equals(key)) tmpIndexExitKey3 = index;
             }
 
+            // SEB Purpose and Browser View Mode have 2 possible list entries
+            for (index = 0; index <= 2; index++)
+            {
+                String purpose  = StringSebPurpose     [index];
+                String viewmode = StringBrowserViewMode[index];
+
+                if (tmpStringSebPurpose     .Equals(purpose )) tmpIndexSebPurpose      = index;
+                if (tmpStringBrowserViewMode.Equals(viewmode)) tmpIndexBrowserViewMode = index;
+            }
+
             // Window width and height have 4 possible list entries
             for (index = 0; index <= 3; index++)
             {
@@ -889,26 +918,26 @@ namespace SebWindowsConfig
                 if (tmpStringMainWindowWidth .Equals(width )) tmpIndexMainWindowWidth  = index;
                 if (tmpStringMainWindowHeight.Equals(height)) tmpIndexMainWindowHeight = index;
 
-                if (tmpStringNewWindowWidth  .Equals(width )) tmpIndexNewWindowWidth   = index;
-                if (tmpStringNewWindowHeight .Equals(height)) tmpIndexNewWindowHeight  = index;
+                if (tmpStringNewWindowByLinkWidth  .Equals(width )) tmpIndexNewWindowByLinkWidth  = index;
+                if (tmpStringNewWindowByLinkHeight .Equals(height)) tmpIndexNewWindowByLinkHeight = index;
             }
 
             // Window position, policies etc. have 3 possible list entries
             for (index = 0; index <= 2; index++)
             {
-                String position = StringWindowPosition   [index];
+                String position = StringWindowPositioning[index];
                 String link     = StringPolicyLinkOpening[index];
                 String service  = StringPolicySebService [index];
-                String upload   = StringFileToUpload     [index];
+                String upload   = StringPolicyFileUpload [index];
 
-                if (tmpStringMainWindowPosition.Equals(position)) tmpIndexMainWindowPosition = index;
-                if (tmpStringNewWindowPosition .Equals(position)) tmpIndexNewWindowPosition  = index;
+                if (tmpStringMainWindowPositioning     .Equals(position)) tmpIndexMainWindowPositioning      = index;
+                if (tmpStringNewWindowByLinkPositioning.Equals(position)) tmpIndexNewWindowByLinkPositioning = index;
 
-                if (tmpStringLinksInHTML.Equals(link)) tmpIndexLinksInHTML = index;
-                if (tmpStringLinksInJava.Equals(link)) tmpIndexLinksInJava = index;
+                if (tmpStringNewWindowByLinkPolicy  .Equals(link)) tmpIndexNewWindowByLinkPolicy   = index;
+                if (tmpStringNewWindowByScriptPolicy.Equals(link)) tmpIndexNewWindowByScriptPolicy = index;
 
-                if (tmpStringSEBServicePolicy  .Equals(service)) tmpIndexSEBServicePolicy   = index;
-                if (tmpStringChooseFileToUpload.Equals(upload )) tmpIndexChooseFileToUpload = index;
+                if (tmpStringSebServicePolicy.Equals(service)) tmpIndexSebServicePolicy   = index;
+                if (tmpStringFileUploadPolicy.Equals(upload )) tmpIndexChooseFileToUpload = index;
             }
 
             // Store the determined integers
@@ -916,19 +945,22 @@ namespace SebWindowsConfig
             settingInteger[StateTmp, GroupGeneral, ValueExitKey2] = tmpIndexExitKey2;
             settingInteger[StateTmp, GroupGeneral, ValueExitKey3] = tmpIndexExitKey3;
 
-            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowWidth   ] = tmpIndexMainWindowWidth;
-            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowHeight  ] = tmpIndexMainWindowHeight;
-            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowPositioning] = tmpIndexMainWindowPosition;
+            settingInteger[StateTmp, GroupConfigFile, ValueSebPurpose] = tmpIndexSebPurpose;
 
-            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] = tmpIndexNewWindowWidth;
-            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] = tmpIndexNewWindowHeight;
-            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = tmpIndexNewWindowPosition;
+            settingInteger[StateTmp, GroupAppearance , ValueBrowserViewMode             ] = tmpIndexBrowserViewMode;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowWidth      ] = tmpIndexMainWindowWidth;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowHeight     ] = tmpIndexMainWindowHeight;
+            settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowPositioning] = tmpIndexMainWindowPositioning;
 
-            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPolicy] = tmpIndexLinksInHTML;
-            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = tmpIndexLinksInJava;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth      ] = tmpIndexNewWindowByLinkWidth;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight     ] = tmpIndexNewWindowByLinkHeight;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = tmpIndexNewWindowByLinkPositioning;
+
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkPolicy  ] = tmpIndexNewWindowByLinkPolicy;
+            settingInteger[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = tmpIndexNewWindowByScriptPolicy;
 
             settingInteger[StateTmp, GroupDownUploads, ValueChooseFileToUploadPolicy] = tmpIndexChooseFileToUpload;
-            settingInteger[StateTmp, GroupSecurity   , ValueSebServicePolicy  ] = tmpIndexSEBServicePolicy;
+            settingInteger[StateTmp, GroupSecurity   , ValueSebServicePolicy        ] = tmpIndexSebServicePolicy;
 
             // Accept the tmp values as the old and new values
             for (int group = 1; group <= GroupNum; group++)
@@ -965,9 +997,11 @@ namespace SebWindowsConfig
             // These ListBox and ComboBox entries need a conversion from integer to string:
             //
             // Exit Key Sequence (exit keys 1,2,3)
-            // Choose Identity
-            // Main Window Width/Height/Position
-            // New  Window Width/Height/Position
+            // SEB Purpose
+            // Crypto Identity
+            // Browser View Mode
+            // Main Window Width/Height/Positioning
+            // New  Window Width/Height/Positioning
             // Link Opening Policy for Requesting/JavaScript
             // Choose File To Upload
             // SEB Service Policy
@@ -976,42 +1010,44 @@ namespace SebWindowsConfig
             int newIndexExitKey2 = settingInteger[StateNew, GroupGeneral, ValueExitKey2];
             int newIndexExitKey3 = settingInteger[StateNew, GroupGeneral, ValueExitKey3];
 
-            int newIndexChooseIdentity     = settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity];
+            int newIndexSebPurpose     = settingInteger[StateNew, GroupConfigFile, ValueSebPurpose];
+            int newIndexCryptoIdentity = settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity];
 
-            int newIndexMainWindowWidth    = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth];
-            int newIndexMainWindowHeight   = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight];
-            int newIndexMainWindowPosition = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning];
+            int newIndexBrowserViewMode       = settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode];
+            int newIndexMainWindowWidth       = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth];
+            int newIndexMainWindowHeight      = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight];
+            int newIndexMainWindowPositioning = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning];
 
-            int newIndexNewWindowWidth     = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
-            int newIndexNewWindowHeight    = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
-            int newIndexNewWindowPosition  = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning];
+            int newIndexNewWindowWidth          = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
+            int newIndexNewWindowHeight         = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
+            int newIndexNewWindowPositioning    = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning];
+            int newIndexNewWindowByLinkPolicy   = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy];
+            int newIndexNewWindowByScriptPolicy = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy];
 
-            int newIndexLinksRequesting    = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy];
-            int newIndexLinksJavaScript    = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy];
-
-            int newIndexChooseFileToUpload = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy];
-            int newIndexSEBServicePolicy   = settingInteger[StateNew, GroupSecurity   , ValueSebServicePolicy];
+            int newIndexChooseFileToUploadPolicy = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy];
+            int newIndexSebServicePolicy         = settingInteger[StateNew, GroupSecurity   , ValueSebServicePolicy];
 
             // Store the determined strings
             settingString[StateNew, GroupGeneral, ValueExitKey1] = StringFunctionKey[newIndexExitKey1];
             settingString[StateNew, GroupGeneral, ValueExitKey2] = StringFunctionKey[newIndexExitKey2];
             settingString[StateNew, GroupGeneral, ValueExitKey3] = StringFunctionKey[newIndexExitKey3];
 
-            settingString[StateNew, GroupConfigFile, ValueCryptoIdentity] = chooseIdentityStringList[newIndexChooseIdentity];
+            settingString[StateNew, GroupConfigFile, ValueSebPurpose    ] = StringSebPurpose    [newIndexSebPurpose];
+            settingString[StateNew, GroupConfigFile, ValueCryptoIdentity] = StringCryptoIdentity[newIndexCryptoIdentity];
 
-            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowWidth   ] = StringWindowWidth   [newIndexMainWindowWidth];
-            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHeight  ] = StringWindowHeight  [newIndexMainWindowHeight];
-            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning] = StringWindowPosition[newIndexMainWindowPosition];
+            settingString[StateNew, GroupAppearance, ValueBrowserViewMode             ] = StringBrowserViewMode  [newIndexBrowserViewMode];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowWidth      ] = StringWindowWidth      [newIndexMainWindowWidth];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowHeight     ] = StringWindowHeight     [newIndexMainWindowHeight];
+            settingString[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning] = StringWindowPositioning[newIndexMainWindowPositioning];
 
-            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth   ] = StringWindowWidth   [newIndexNewWindowWidth];
-            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight  ] = StringWindowHeight  [newIndexNewWindowHeight];
-            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = StringWindowPosition[newIndexNewWindowPosition];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth      ] = StringWindowWidth      [newIndexNewWindowWidth];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight     ] = StringWindowHeight     [newIndexNewWindowHeight];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = StringWindowPositioning[newIndexNewWindowPositioning];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy     ] = StringPolicyLinkOpening[newIndexNewWindowByLinkPolicy];
+            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy   ] = StringPolicyLinkOpening[newIndexNewWindowByScriptPolicy];
 
-            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy] = StringPolicyLinkOpening[newIndexLinksRequesting];
-            settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = StringPolicyLinkOpening[newIndexLinksJavaScript];
-
-            settingString[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy] = StringFileToUpload    [newIndexChooseFileToUpload];
-            settingString[StateNew, GroupSecurity   , ValueSebServicePolicy  ] = StringPolicySebService[newIndexSEBServicePolicy];
+            settingString[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy] = StringPolicyFileUpload[newIndexChooseFileToUploadPolicy];
+            settingString[StateNew, GroupSecurity   , ValueSebServicePolicy        ] = StringPolicySebService[newIndexSebServicePolicy];
 
             return;
         }
@@ -1711,6 +1747,36 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupGeneral, ValueConfirmQuitPassword] = textBoxConfirmQuitPassword.Text;
         }
 
+        private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previously selected key.
+            if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
+                (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
+                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey1] - 1;
+            settingInteger[StateNew, GroupGeneral, ValueExitKey1] = listBoxExitKey1.SelectedIndex + 1;
+        }
+
+        private void listBoxExitKey2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previously selected key.
+            if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
+                (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
+                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey2] - 1;
+            settingInteger[StateNew, GroupGeneral, ValueExitKey2] = listBoxExitKey2.SelectedIndex + 1;
+        }
+
+        private void listBoxExitKey3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Make sure that all three exit keys are different.
+            // If selected key is already occupied, revert to previously selected key.
+            if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
+                (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
+                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey3] - 1;
+            settingInteger[StateNew, GroupGeneral, ValueExitKey3] = listBoxExitKey3.SelectedIndex + 1;
+        }
+
         private void buttonAbout_Click(object sender, EventArgs e)
         {
 
@@ -2383,39 +2449,6 @@ namespace SebWindowsConfig
         }
 
 
-
-        // *****************
-        // Group "Exit Keys"
-        // *****************
-        private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previously selected key.
-            if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
-                (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey1] - 1;
-            settingInteger[StateNew, GroupGeneral, ValueExitKey1] = listBoxExitKey1.SelectedIndex + 1;
-        }
-
-        private void listBoxExitKey2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previously selected key.
-            if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
-                (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey2] - 1;
-            settingInteger[StateNew, GroupGeneral, ValueExitKey2] = listBoxExitKey2.SelectedIndex + 1;
-        }
-
-        private void listBoxExitKey3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Make sure that all three exit keys are different.
-            // If selected key is already occupied, revert to previously selected key.
-            if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
-                (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
-                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey3] - 1;
-            settingInteger[StateNew, GroupGeneral, ValueExitKey3] = listBoxExitKey3.SelectedIndex + 1;
-        }
 
 
 
