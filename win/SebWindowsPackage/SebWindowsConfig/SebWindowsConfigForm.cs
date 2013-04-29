@@ -1176,14 +1176,23 @@ namespace SebWindowsConfig
         {
             try 
             {
-                sebSettings = (Dictionary<string, object>)Plist.readPlist("Moodle_ExamKeyTest.plist");
+                // Read the .xml file
+                // Parse the XML structure into a C# object
+                sebSettings = (Dictionary<string, object>)Plist.readPlist(fileName);
 
                 textBoxStartURL    .Text = sebSettings["startURL"    ].ToString();
               //textBoxSEBServerURL.Text = sebSettings["sebServerURL"].ToString();
                 textBoxQuitURL     .Text = sebSettings["quitURL"     ].ToString();
 
                 checkBoxAllowDownUploadingFiles.Checked = (Boolean)sebSettings["allowDownUploads"];
+                int index = (int)sebSettings["newBrowserWindowByLinkPolicy"];
 
+                textBoxStartURL     .Text = index.ToString();
+                textBoxSEBServerURL .Text = StringPolicyLinkOpening[index];
+                listBoxOpenLinksHTML.SelectedIndex = index;
+
+
+/*
                 // Open the .xml file for reading
                 XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextReader      textReader = new StreamReader (fileName);
@@ -1193,6 +1202,7 @@ namespace SebWindowsConfig
 
                 // Close the .xml file
                 textReader.Close();
+*/
             }
             catch (Exception streamReadException)
             {
