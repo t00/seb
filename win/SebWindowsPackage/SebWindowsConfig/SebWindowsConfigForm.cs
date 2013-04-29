@@ -1176,14 +1176,13 @@ namespace SebWindowsConfig
         {
             try 
             {
-                sebSettings = (Dictionary<string, object>)Plist.readPlist("testXml.plist");
+                sebSettings = (Dictionary<string, object>)Plist.readPlist("Moodle_ExamKeyTest.plist");
 
-                if (sebSettings.ContainsKey("testString"))
-                    textBoxStartURL.Text = sebSettings["testString"].ToString();
+                textBoxStartURL    .Text = sebSettings["startURL"    ].ToString();
+              //textBoxSEBServerURL.Text = sebSettings["sebServerURL"].ToString();
+                textBoxQuitURL     .Text = sebSettings["quitURL"     ].ToString();
 
-                if (sebSettings.ContainsKey("testInt"))
-                    textBoxSEBServerURL.Text = sebSettings["testInt"].ToString();
-
+                checkBoxAllowDownUploadingFiles.Checked = (Boolean)sebSettings["allowDownUploads"];
 
                 // Open the .xml file for reading
                 XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
