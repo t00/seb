@@ -2515,7 +2515,7 @@ namespace SebWindowsConfig
             this.Text += currentPathSebStarterIni;
 
             textBoxStartURL    .Text = (String)sebSettingsNew[MessageStartURL];
-          //textBoxSEBServerURL.Text = (String)sebSettingsNew[MessageSebServerURL];
+            textBoxSebServerURL.Text = (String)sebSettingsNew[MessageSebServerURL];
             textBoxQuitURL     .Text = (String)sebSettingsNew[MessageQuitURL];
 
             checkBoxAllowDownUploads.Checked = (Boolean)sebSettingsNew[MessageAllowDownUploads];
