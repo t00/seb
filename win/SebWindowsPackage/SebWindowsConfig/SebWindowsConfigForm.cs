@@ -191,16 +191,16 @@ namespace SebWindowsConfig
 
         // Group "DownUploads"
         const int ValueAllowDownUploads         = 1;
-        const int ValueDownloadDirectoryWin     = 2;
-        const int ValueDownloadDirectoryOSX     = 3;
+        const int ValueDownloadDirectoryOSX     = 2;
+        const int ValueDownloadDirectoryWin     = 3;
         const int ValueOpenDownloads            = 4;
         const int ValueChooseFileToUploadPolicy = 5;
         const int ValueDownloadPDFFiles         = 6;
         const int NumValueDownUploads = 6;
 
         const String MessageAllowDownUploads         = "allowDownUploads";
-        const String MessageDownloadDirectoryWin     = "downloadDirectoryWin";
         const String MessageDownloadDirectoryOSX     = "downloadDirectoryOSX";
+        const String MessageDownloadDirectoryWin     = "downloadDirectoryWin";
         const String MessageOpenDownloads            = "openDownloads";
         const String MessageChooseFileToUploadPolicy = "chooseFileToUploadPolicy";
         const String MessageDownloadPDFFiles         = "downloadPDFFiles";
@@ -237,8 +237,8 @@ namespace SebWindowsConfig
         const int ValueCreateNewDesktop    = 3;
         const int ValueAllowUserSwitching  = 4;
         const int ValueEnableLogging       = 5;
-        const int ValueLogDirectoryWin     = 6;
-        const int ValueLogDirectoryOSX     = 7;
+        const int ValueLogDirectoryOSX     = 6;
+        const int ValueLogDirectoryWin     = 7;
         const int NumValueSecurity = 7;
 
         const String MessageSebServicePolicy    = "sebServicePolicy";
@@ -246,8 +246,8 @@ namespace SebWindowsConfig
         const String MessageCreateNewDesktop    = "createNewDesktop";
         const String MessageAllowUserSwitching  = "allowUserSwitching";
         const String MessageEnableLogging       = "enableLogging";
-        const String MessageLogDirectoryWin     = "logDirectoryWin";
         const String MessageLogDirectoryOSX     = "logDirectoryOSX";
+        const String MessageLogDirectoryWin     = "logDirectoryWin";
 
         // Group "Registry"
         const int NumValueRegistry = 0;
@@ -431,6 +431,7 @@ namespace SebWindowsConfig
             settingString [StateDef, GroupGeneral, ValueSebServerURL        ] = "http://www.switch.ch";
             settingString [StateDef, GroupGeneral, ValueAdminPassword       ] = "";
             settingString [StateDef, GroupGeneral, ValueConfirmAdminPassword] = "";
+            settingString [StateDef, GroupGeneral, ValueHashedAdminPassword ] = "";
             settingBoolean[StateDef, GroupGeneral, ValueAllowQuit           ] = true;
             settingBoolean[StateDef, GroupGeneral, ValueIgnoreQuitPassword  ] = false;
             settingString [StateDef, GroupGeneral, ValueQuitPassword        ] = "";
@@ -446,11 +447,14 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupConfigFile, ValueCryptoIdentity         ] = 0;
             settingString [StateDef, GroupConfigFile, ValueSettingsPassword       ] = "";
             settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword] = "";
+            settingString [StateDef, GroupConfigFile, ValueHashedSettingsPassword ] = "";
 
             // Default settings for group "Appearance"
             settingInteger[StateDef, GroupAppearance, ValueBrowserViewMode             ] = 0;
             settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowWidth      ] = 0;
             settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHeight     ] = 0;
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowWidth      ] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHeight     ] = "100%";
             settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowPositioning] = 1;
             settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar  ] = true;
             settingBoolean[StateDef, GroupAppearance, ValueHideBrowserWindowToolbar    ] = false;
@@ -464,6 +468,8 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign] = false;
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth         ] = 0;
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight        ] = 0;
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth         ] = "800";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight        ] = "600";
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPositioning   ] = 2;
 
             settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns           ] = true;
@@ -475,8 +481,8 @@ namespace SebWindowsConfig
 
             // Default settings for group "DownUploads"
             settingBoolean[StateDef, GroupDownUploads, ValueAllowDownUploads        ] = true;
-            settingString [StateDef, GroupDownUploads, ValueDownloadDirectoryWin    ] = "Desktop";
             settingString [StateDef, GroupDownUploads, ValueDownloadDirectoryOSX    ] = "~/Downloads";
+            settingString [StateDef, GroupDownUploads, ValueDownloadDirectoryWin    ] = "Desktop";
             settingBoolean[StateDef, GroupDownUploads, ValueOpenDownloads           ] = true;
             settingInteger[StateDef, GroupDownUploads, ValueChooseFileToUploadPolicy] = 0;
             settingBoolean[StateDef, GroupDownUploads, ValueDownloadPDFFiles        ] = false;
@@ -500,6 +506,8 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurity, ValueCreateNewDesktop   ] = true;
             settingBoolean[StateDef, GroupSecurity, ValueAllowUserSwitching ] = true;
             settingBoolean[StateDef, GroupSecurity, ValueEnableLogging      ] = true;
+            settingString [StateDef, GroupSecurity, ValueLogDirectoryOSX    ] = "~/Documents";
+            settingString [StateDef, GroupSecurity, ValueLogDirectoryWin    ] = "My Documents";
 
             // Default settings for group "Hooked Keys"
             settingBoolean[StateDef, GroupHookedKeys, ValueHookMessages] = true;
@@ -560,6 +568,7 @@ namespace SebWindowsConfig
             dataType[GroupConfigFile, ValueSettingsPassword       ] = TypeString;
             dataType[GroupConfigFile, ValueConfirmSettingsPassword] = TypeString;
 
+            dataType[GroupAppearance, ValueBrowserViewMode             ] = TypeString;
             dataType[GroupAppearance, ValueMainBrowserWindowWidth      ] = TypeString;
             dataType[GroupAppearance, ValueMainBrowserWindowHeight     ] = TypeString;
             dataType[GroupAppearance, ValueMainBrowserWindowPositioning] = TypeString;
@@ -567,10 +576,10 @@ namespace SebWindowsConfig
             dataType[GroupBrowser, ValueNewBrowserWindowByLinkWidth      ] = TypeString;
             dataType[GroupBrowser, ValueNewBrowserWindowByLinkHeight     ] = TypeString;
             dataType[GroupBrowser, ValueNewBrowserWindowByLinkPositioning] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowByLinkPolicy     ] = TypeString;
+            dataType[GroupBrowser, ValueNewBrowserWindowByScriptPolicy   ] = TypeString;
 
-            dataType[GroupBrowser, ValueNewBrowserWindowByLinkPolicy  ] = TypeString;
-            dataType[GroupBrowser, ValueNewBrowserWindowByScriptPolicy] = TypeString;
-
+            dataType[GroupDownUploads, ValueDownloadDirectoryOSX    ] = TypeString;
             dataType[GroupDownUploads, ValueDownloadDirectoryWin    ] = TypeString;
             dataType[GroupDownUploads, ValueChooseFileToUploadPolicy] = TypeString;
 
@@ -578,6 +587,8 @@ namespace SebWindowsConfig
             dataType[GroupExam, ValueQuitURL       ] = TypeString;
 
             dataType[GroupSecurity, ValueSebServicePolicy] = TypeString;
+            dataType[GroupSecurity, ValueLogDirectoryOSX ] = TypeString;
+            dataType[GroupSecurity, ValueLogDirectoryWin ] = TypeString;
 
 
             // Number of values per group
@@ -672,6 +683,7 @@ namespace SebWindowsConfig
             valueString[GroupBrowser, ValueEnableSebBrowser        ] = MessageEnableSebBrowser;
 
             valueString[GroupDownUploads, ValueAllowDownUploads        ] = MessageAllowDownUploads;
+            valueString[GroupDownUploads, ValueDownloadDirectoryOSX    ] = MessageDownloadDirectoryOSX;
             valueString[GroupDownUploads, ValueDownloadDirectoryWin    ] = MessageDownloadDirectoryWin;
             valueString[GroupDownUploads, ValueOpenDownloads           ] = MessageOpenDownloads;
             valueString[GroupDownUploads, ValueChooseFileToUploadPolicy] = MessageChooseFileToUploadPolicy;
@@ -691,6 +703,8 @@ namespace SebWindowsConfig
             valueString[GroupSecurity, ValueCreateNewDesktop   ] = MessageCreateNewDesktop;
             valueString[GroupSecurity, ValueAllowUserSwitching ] = MessageAllowUserSwitching;
             valueString[GroupSecurity, ValueEnableLogging      ] = MessageEnableLogging;
+            valueString[GroupSecurity, ValueLogDirectoryOSX    ] = MessageLogDirectoryOSX;
+            valueString[GroupSecurity, ValueLogDirectoryWin    ] = MessageLogDirectoryWin;
 
             valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
             valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
@@ -800,6 +814,7 @@ namespace SebWindowsConfig
              targetPathSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
 
             String fileName = targetPathSebStarterIni;
+            fileName = "SebClient.xml";
 
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
