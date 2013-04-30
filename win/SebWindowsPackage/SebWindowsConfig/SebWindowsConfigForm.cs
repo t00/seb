@@ -218,14 +218,14 @@ namespace SebWindowsConfig
         const String MessageQuitURL            = "quitURL";
 
         // Group "Applications"
-        const int ValueMonitorProcesses          = 1;
+        const int ValueMonitorProcesses            = 1;
         const int ValueAllowSwitchToThirdPartyApps = 2;
-        const int ValueAllowFlashFullscreen      = 3;
+        const int ValueAllowFlashFullscreen        = 3;
         const int NumValueApplications = 3;
 
-        const String MessageMonitorProcesses          = "monitorProcesses";
-        const String MessageAllowSwitchToApplications = "allowSwitchToApplications";
-        const String MessageAllowFlashFullscreen      = "allowFlashFullscreen";
+        const String MessageMonitorProcesses            = "monitorProcesses";
+        const String MessageAllowSwitchToThirdPartyApps = "allowSwitchToThirdPartyApps";
+        const String MessageAllowFlashFullscreen        = "allowFlashFullscreen";
 
         // Group "Network"
         //const int Value = 1;
@@ -682,7 +682,7 @@ namespace SebWindowsConfig
             valueString[GroupExam, ValueQuitURL           ] = MessageQuitURL;
 
             valueString[GroupApplications, ValueMonitorProcesses         ] = MessageMonitorProcesses;
-            valueString[GroupApplications, ValueAllowSwitchToThirdPartyApps] = MessageAllowSwitchToApplications;
+            valueString[GroupApplications, ValueAllowSwitchToThirdPartyApps] = MessageAllowSwitchToThirdPartyApps;
             valueString[GroupApplications, ValueAllowFlashFullscreen     ] = MessageAllowFlashFullscreen;
 
             valueString[GroupSecurity, ValueSebServicePolicy   ] = MessageSebServicePolicy;
