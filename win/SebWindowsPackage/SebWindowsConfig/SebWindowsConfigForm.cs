@@ -2529,8 +2529,7 @@ namespace SebWindowsConfig
             this.Text += " - ";
             this.Text += currentPathSebStarterIni;
 
-            textBoxStartURL    .Text = (String)sebSettingsNew[MessageStartURL];
-            textBoxSebServerURL.Text = (String)sebSettingsNew[MessageSebServerURL];
+
             textBoxQuitURL     .Text = (String)sebSettingsNew[MessageQuitURL];
 
             checkBoxAllowDownUploads.Checked = (Boolean)sebSettingsNew[MessageAllowDownUploads];
@@ -2538,8 +2537,9 @@ namespace SebWindowsConfig
             listBoxOpenLinksHTML.SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
 
             // Update the widgets
-            textBoxStartURL            .Text    = settingString [StateNew, GroupGeneral, ValueStartURL];
-            textBoxSebServerURL        .Text    = settingString [StateNew, GroupGeneral, ValueSebServerURL];
+            textBoxStartURL    .Text = (String)sebSettingsNew[MessageStartURL];
+            textBoxSebServerURL.Text = (String)sebSettingsNew[MessageSebServerURL];
+
             textBoxAdminPassword       .Text    = settingString [StateNew, GroupGeneral, ValueAdminPassword];
             textBoxConfirmAdminPassword.Text    = settingString [StateNew, GroupGeneral, ValueConfirmAdminPassword];
             checkBoxAllowQuit          .Checked = settingBoolean[StateNew, GroupGeneral, ValueAllowQuit];
