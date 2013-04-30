@@ -1829,12 +1829,16 @@ namespace SebWindowsConfig
         // *******************
         private void radioButtonStartingAnExam_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupConfigFile, ValueSebPurpose] = (radioButtonStartingAnExam.Checked == true);
+            if (radioButtonStartingAnExam.Checked == true)
+                 settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 0;
+            else settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 1;
         }
 
         private void radioButtonConfiguringAClient_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient] = (radioButtonConfiguringAClient.Checked == true);
+            if (radioButtonConfiguringAClient.Checked == true)
+                 settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 1;
+            else settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 0;
         }
 
         private void checkBoxAllowOpenPrefWindowOnClient_CheckedChanged(object sender, EventArgs e)
@@ -1946,12 +1950,16 @@ namespace SebWindowsConfig
         // ******************
         private void radioButtonUseBrowserWindow_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow] = radioButtonUseBrowserWindow.Checked;
+            if (radioButtonUseBrowserWindow.Checked == true)
+                 settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode] = 0;
+            else settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode] = 1;
         }
 
         private void radioButtonUseFullScreenMode_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupAppearance, ValueBrowserViewMode] = radioButtonUseFullScreenMode.Checked;
+            if (radioButtonUseFullScreenMode.Checked == true)
+                 settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode] = 1;
+            else settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode] = 0;
         }
 
         private void comboBoxMainWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
