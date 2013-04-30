@@ -33,7 +33,7 @@
             this.openFileDialogSebStarterIni = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
-            this.folderBrowserDialogDownloadFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.folderBrowserDialogDownloadDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.tabPageHookedKeys = new System.Windows.Forms.TabPage();
             this.checkBoxHookMessages = new System.Windows.Forms.CheckBox();
             this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
@@ -103,13 +103,13 @@
             this.checkBoxSendBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.checkBoxCopyBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
-            this.labelSaveDownloadedFilesTo = new System.Windows.Forms.Label();
-            this.buttonSaveDownloadedFilesTo = new System.Windows.Forms.Button();
-            this.listBoxChooseFileToUpload = new System.Windows.Forms.ListBox();
-            this.labelChooseFileToUpload = new System.Windows.Forms.Label();
-            this.checkBoxDownloadAndOpenPDFFiles = new System.Windows.Forms.CheckBox();
-            this.checkBoxOpenFilesAfterDownloading = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowDownUploadingFiles = new System.Windows.Forms.CheckBox();
+            this.labelDownloadDirectoryWin = new System.Windows.Forms.Label();
+            this.buttonDownloadDirectoryWin = new System.Windows.Forms.Button();
+            this.listBoxChooseFileToUploadPolicy = new System.Windows.Forms.ListBox();
+            this.labelChooseFileToUploadPolicy = new System.Windows.Forms.Label();
+            this.checkBoxDownloadPDFFiles = new System.Windows.Forms.CheckBox();
+            this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
             this.listBoxOpenLinksJava = new System.Windows.Forms.ListBox();
             this.listBoxOpenLinksHTML = new System.Windows.Forms.ListBox();
@@ -119,36 +119,36 @@
             this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
             this.checkBoxEnablePlugIns = new System.Windows.Forms.CheckBox();
-            this.checkBoxUseSEBWithoutBrowser = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseSebWithoutBrowser = new System.Windows.Forms.CheckBox();
             this.checkBoxBlockLinksJava = new System.Windows.Forms.CheckBox();
             this.labelOpenLinksJava = new System.Windows.Forms.Label();
             this.labelOpenLinksHTML = new System.Windows.Forms.Label();
             this.checkBoxBlockLinksHTML = new System.Windows.Forms.CheckBox();
-            this.groupBoxNewWindow = new System.Windows.Forms.GroupBox();
-            this.comboBoxNewWindowHeight = new System.Windows.Forms.ComboBox();
-            this.comboBoxNewWindowWidth = new System.Windows.Forms.ComboBox();
+            this.groupBoxNewBrowserWindow = new System.Windows.Forms.GroupBox();
+            this.comboBoxNewBrowserWindowHeight = new System.Windows.Forms.ComboBox();
+            this.comboBoxNewBrowserWindowWidth = new System.Windows.Forms.ComboBox();
             this.labelNewWindowHeight = new System.Windows.Forms.Label();
             this.labelNewWindowWidth = new System.Windows.Forms.Label();
             this.labelNewWindowPosition = new System.Windows.Forms.Label();
-            this.listBoxNewWindowPosition = new System.Windows.Forms.ListBox();
+            this.listBoxNewBrowserWindowPositioning = new System.Windows.Forms.ListBox();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
-            this.groupBoxMainWindow = new System.Windows.Forms.GroupBox();
-            this.comboBoxMainWindowHeight = new System.Windows.Forms.ComboBox();
-            this.comboBoxMainWindowWidth = new System.Windows.Forms.ComboBox();
+            this.groupBoxMainBrowserWindow = new System.Windows.Forms.GroupBox();
+            this.comboBoxMainBrowserWindowHeight = new System.Windows.Forms.ComboBox();
+            this.comboBoxMainBrowserWindowWidth = new System.Windows.Forms.ComboBox();
             this.labelMainWindowHeight = new System.Windows.Forms.Label();
             this.labelMainWindowWidth = new System.Windows.Forms.Label();
             this.labelMainWindowPosition = new System.Windows.Forms.Label();
-            this.listBoxMainWindowPosition = new System.Windows.Forms.ListBox();
-            this.checkBoxDisplaySEBDockTaskBar = new System.Windows.Forms.CheckBox();
+            this.listBoxMainBrowserWindowPositioning = new System.Windows.Forms.ListBox();
+            this.checkBoxShowTaskBar = new System.Windows.Forms.CheckBox();
             this.checkBoxShowMenuBar = new System.Windows.Forms.CheckBox();
-            this.checkBoxHideToolbarAsDefault = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableWindowToolbar = new System.Windows.Forms.CheckBox();
+            this.checkBoxHideBrowserWindowToolbar = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableBrowserWindowToolbar = new System.Windows.Forms.CheckBox();
             this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
             this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
             this.labelUseEither = new System.Windows.Forms.Label();
             this.labelChooseIdentity = new System.Windows.Forms.Label();
-            this.comboBoxChooseIdentity = new System.Windows.Forms.ComboBox();
+            this.comboBoxCryptoIdentity = new System.Windows.Forms.ComboBox();
             this.labelConfirmSettingsPassword = new System.Windows.Forms.Label();
             this.labelSettingsPassword = new System.Windows.Forms.Label();
             this.textBoxConfirmSettingsPassword = new System.Windows.Forms.TextBox();
@@ -156,7 +156,7 @@
             this.labelUseSEBSettingsFileFor = new System.Windows.Forms.Label();
             this.radioButtonConfiguringAClient = new System.Windows.Forms.RadioButton();
             this.radioButtonStartingAnExam = new System.Windows.Forms.RadioButton();
-            this.checkBoxAllowOpenPrefWindow = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
             this.buttonDefaultSettings = new System.Windows.Forms.Button();
             this.buttonRevertToLastOpened = new System.Windows.Forms.Button();
             this.labelOpenSettings = new System.Windows.Forms.Label();
@@ -169,7 +169,7 @@
             this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
             this.buttonPasteFromSavedClipboard = new System.Windows.Forms.Button();
             this.labelSEBServerURL = new System.Windows.Forms.Label();
-            this.textBoxSEBServerURL = new System.Windows.Forms.TextBox();
+            this.textBoxSebServerURL = new System.Windows.Forms.TextBox();
             this.textBoxConfirmAdminPassword = new System.Windows.Forms.TextBox();
             this.textBoxAdminPassword = new System.Windows.Forms.TextBox();
             this.textBoxConfirmQuitPassword = new System.Windows.Forms.TextBox();
@@ -183,7 +183,7 @@
             this.labelConfirmAdminPassword = new System.Windows.Forms.Label();
             this.labelAdminPassword = new System.Windows.Forms.Label();
             this.labelConfirmQuitPassword = new System.Windows.Forms.Label();
-            this.checkBoxAllowUserToQuitSEB = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowQuit = new System.Windows.Forms.CheckBox();
             this.labelQuitHashCode = new System.Windows.Forms.Label();
             this.labelQuitPassword = new System.Windows.Forms.Label();
             this.labelStartURL = new System.Windows.Forms.Label();
@@ -200,9 +200,9 @@
             this.tabPageExam.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
-            this.groupBoxNewWindow.SuspendLayout();
+            this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
-            this.groupBoxMainWindow.SuspendLayout();
+            this.groupBoxMainBrowserWindow.SuspendLayout();
             this.tabPageConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
@@ -231,9 +231,9 @@
             this.imageListTabIcons.Images.SetKeyName(3, "Gear.png");
             this.imageListTabIcons.Images.SetKeyName(4, "SebIcon.png");
             // 
-            // folderBrowserDialogDownloadFolder
+            // folderBrowserDialogDownloadDirectoryWin
             // 
-            this.folderBrowserDialogDownloadFolder.HelpRequest += new System.EventHandler(this.folderBrowserDialogDownloadFolder_HelpRequest);
+            this.folderBrowserDialogDownloadDirectoryWin.HelpRequest += new System.EventHandler(this.folderBrowserDialogDownloadDirectoryWin_HelpRequest);
             // 
             // tabPageHookedKeys
             // 
@@ -1053,13 +1053,13 @@
             // 
             // tabPageDownUploads
             // 
-            this.tabPageDownUploads.Controls.Add(this.labelSaveDownloadedFilesTo);
-            this.tabPageDownUploads.Controls.Add(this.buttonSaveDownloadedFilesTo);
-            this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUpload);
-            this.tabPageDownUploads.Controls.Add(this.labelChooseFileToUpload);
-            this.tabPageDownUploads.Controls.Add(this.checkBoxDownloadAndOpenPDFFiles);
-            this.tabPageDownUploads.Controls.Add(this.checkBoxOpenFilesAfterDownloading);
-            this.tabPageDownUploads.Controls.Add(this.checkBoxAllowDownUploadingFiles);
+            this.tabPageDownUploads.Controls.Add(this.labelDownloadDirectoryWin);
+            this.tabPageDownUploads.Controls.Add(this.buttonDownloadDirectoryWin);
+            this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUploadPolicy);
+            this.tabPageDownUploads.Controls.Add(this.labelChooseFileToUploadPolicy);
+            this.tabPageDownUploads.Controls.Add(this.checkBoxDownloadPDFFiles);
+            this.tabPageDownUploads.Controls.Add(this.checkBoxOpenDownloads);
+            this.tabPageDownUploads.Controls.Add(this.checkBoxAllowDownUploads);
             this.tabPageDownUploads.ImageIndex = 0;
             this.tabPageDownUploads.Location = new System.Drawing.Point(4, 39);
             this.tabPageDownUploads.Name = "tabPageDownUploads";
@@ -1069,87 +1069,87 @@
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
             // 
-            // labelSaveDownloadedFilesTo
+            // labelDownloadDirectoryWin
             // 
-            this.labelSaveDownloadedFilesTo.AutoSize = true;
-            this.labelSaveDownloadedFilesTo.Location = new System.Drawing.Point(433, 83);
-            this.labelSaveDownloadedFilesTo.Name = "labelSaveDownloadedFilesTo";
-            this.labelSaveDownloadedFilesTo.Size = new System.Drawing.Size(0, 17);
-            this.labelSaveDownloadedFilesTo.TabIndex = 78;
+            this.labelDownloadDirectoryWin.AutoSize = true;
+            this.labelDownloadDirectoryWin.Location = new System.Drawing.Point(433, 83);
+            this.labelDownloadDirectoryWin.Name = "labelDownloadDirectoryWin";
+            this.labelDownloadDirectoryWin.Size = new System.Drawing.Size(0, 17);
+            this.labelDownloadDirectoryWin.TabIndex = 78;
             // 
-            // buttonSaveDownloadedFilesTo
+            // buttonDownloadDirectoryWin
             // 
-            this.buttonSaveDownloadedFilesTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSaveDownloadedFilesTo.Location = new System.Drawing.Point(152, 79);
-            this.buttonSaveDownloadedFilesTo.Name = "buttonSaveDownloadedFilesTo";
-            this.buttonSaveDownloadedFilesTo.Size = new System.Drawing.Size(191, 25);
-            this.buttonSaveDownloadedFilesTo.TabIndex = 77;
-            this.buttonSaveDownloadedFilesTo.Text = "Save downloaded files to...";
-            this.buttonSaveDownloadedFilesTo.UseVisualStyleBackColor = true;
-            this.buttonSaveDownloadedFilesTo.Click += new System.EventHandler(this.buttonSaveDownloadedFilesTo_Click);
+            this.buttonDownloadDirectoryWin.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDownloadDirectoryWin.Location = new System.Drawing.Point(152, 79);
+            this.buttonDownloadDirectoryWin.Name = "buttonDownloadDirectoryWin";
+            this.buttonDownloadDirectoryWin.Size = new System.Drawing.Size(191, 25);
+            this.buttonDownloadDirectoryWin.TabIndex = 77;
+            this.buttonDownloadDirectoryWin.Text = "Save downloaded files to...";
+            this.buttonDownloadDirectoryWin.UseVisualStyleBackColor = true;
+            this.buttonDownloadDirectoryWin.Click += new System.EventHandler(this.buttonDownloadDirectoryWin_Click);
             // 
-            // listBoxChooseFileToUpload
+            // listBoxChooseFileToUploadPolicy
             // 
-            this.listBoxChooseFileToUpload.FormattingEnabled = true;
-            this.listBoxChooseFileToUpload.ItemHeight = 16;
-            this.listBoxChooseFileToUpload.Items.AddRange(new object[] {
+            this.listBoxChooseFileToUploadPolicy.FormattingEnabled = true;
+            this.listBoxChooseFileToUploadPolicy.ItemHeight = 16;
+            this.listBoxChooseFileToUploadPolicy.Items.AddRange(new object[] {
             "manually with file requester",
             "by attempting to upload the same file downloaded before",
             "by only allowing to upload the same file uploaded before"});
-            this.listBoxChooseFileToUpload.Location = new System.Drawing.Point(33, 279);
-            this.listBoxChooseFileToUpload.Name = "listBoxChooseFileToUpload";
-            this.listBoxChooseFileToUpload.Size = new System.Drawing.Size(310, 20);
-            this.listBoxChooseFileToUpload.TabIndex = 76;
-            this.listBoxChooseFileToUpload.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUpload_SelectedIndexChanged);
+            this.listBoxChooseFileToUploadPolicy.Location = new System.Drawing.Point(33, 279);
+            this.listBoxChooseFileToUploadPolicy.Name = "listBoxChooseFileToUploadPolicy";
+            this.listBoxChooseFileToUploadPolicy.Size = new System.Drawing.Size(310, 20);
+            this.listBoxChooseFileToUploadPolicy.TabIndex = 76;
+            this.listBoxChooseFileToUploadPolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUploadPolicy_SelectedIndexChanged);
             // 
-            // labelChooseFileToUpload
+            // labelChooseFileToUploadPolicy
             // 
-            this.labelChooseFileToUpload.AutoSize = true;
-            this.labelChooseFileToUpload.Location = new System.Drawing.Point(30, 244);
-            this.labelChooseFileToUpload.Name = "labelChooseFileToUpload";
-            this.labelChooseFileToUpload.Size = new System.Drawing.Size(153, 17);
-            this.labelChooseFileToUpload.TabIndex = 75;
-            this.labelChooseFileToUpload.Text = "Choose file to upload...";
+            this.labelChooseFileToUploadPolicy.AutoSize = true;
+            this.labelChooseFileToUploadPolicy.Location = new System.Drawing.Point(30, 244);
+            this.labelChooseFileToUploadPolicy.Name = "labelChooseFileToUploadPolicy";
+            this.labelChooseFileToUploadPolicy.Size = new System.Drawing.Size(153, 17);
+            this.labelChooseFileToUploadPolicy.TabIndex = 75;
+            this.labelChooseFileToUploadPolicy.Text = "Choose file to upload...";
             // 
-            // checkBoxDownloadAndOpenPDFFiles
+            // checkBoxDownloadPDFFiles
             // 
-            this.checkBoxDownloadAndOpenPDFFiles.AutoSize = true;
-            this.checkBoxDownloadAndOpenPDFFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDownloadAndOpenPDFFiles.Location = new System.Drawing.Point(33, 323);
-            this.checkBoxDownloadAndOpenPDFFiles.Name = "checkBoxDownloadAndOpenPDFFiles";
-            this.checkBoxDownloadAndOpenPDFFiles.Size = new System.Drawing.Size(421, 21);
-            this.checkBoxDownloadAndOpenPDFFiles.TabIndex = 73;
-            this.checkBoxDownloadAndOpenPDFFiles.Text = "Download and open PDF files instead of displaying them inline";
-            this.checkBoxDownloadAndOpenPDFFiles.UseVisualStyleBackColor = true;
-            this.checkBoxDownloadAndOpenPDFFiles.CheckedChanged += new System.EventHandler(this.checkBoxDownloadAndOpenPDFFiles_CheckedChanged);
+            this.checkBoxDownloadPDFFiles.AutoSize = true;
+            this.checkBoxDownloadPDFFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(33, 323);
+            this.checkBoxDownloadPDFFiles.Name = "checkBoxDownloadPDFFiles";
+            this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(421, 21);
+            this.checkBoxDownloadPDFFiles.TabIndex = 73;
+            this.checkBoxDownloadPDFFiles.Text = "Download and open PDF files instead of displaying them inline";
+            this.checkBoxDownloadPDFFiles.UseVisualStyleBackColor = true;
+            this.checkBoxDownloadPDFFiles.CheckedChanged += new System.EventHandler(this.checkBoxDownloadPDFFiles_CheckedChanged);
             // 
-            // checkBoxOpenFilesAfterDownloading
+            // checkBoxOpenDownloads
             // 
-            this.checkBoxOpenFilesAfterDownloading.AutoSize = true;
-            this.checkBoxOpenFilesAfterDownloading.Checked = true;
-            this.checkBoxOpenFilesAfterDownloading.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxOpenFilesAfterDownloading.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOpenFilesAfterDownloading.Location = new System.Drawing.Point(152, 132);
-            this.checkBoxOpenFilesAfterDownloading.Name = "checkBoxOpenFilesAfterDownloading";
-            this.checkBoxOpenFilesAfterDownloading.Size = new System.Drawing.Size(210, 21);
-            this.checkBoxOpenFilesAfterDownloading.TabIndex = 72;
-            this.checkBoxOpenFilesAfterDownloading.Text = "Open files after downloading";
-            this.checkBoxOpenFilesAfterDownloading.UseVisualStyleBackColor = true;
-            this.checkBoxOpenFilesAfterDownloading.CheckedChanged += new System.EventHandler(this.checkBoxOpenFilesAfterDownloading_CheckedChanged);
+            this.checkBoxOpenDownloads.AutoSize = true;
+            this.checkBoxOpenDownloads.Checked = true;
+            this.checkBoxOpenDownloads.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOpenDownloads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxOpenDownloads.Location = new System.Drawing.Point(152, 132);
+            this.checkBoxOpenDownloads.Name = "checkBoxOpenDownloads";
+            this.checkBoxOpenDownloads.Size = new System.Drawing.Size(210, 21);
+            this.checkBoxOpenDownloads.TabIndex = 72;
+            this.checkBoxOpenDownloads.Text = "Open files after downloading";
+            this.checkBoxOpenDownloads.UseVisualStyleBackColor = true;
+            this.checkBoxOpenDownloads.CheckedChanged += new System.EventHandler(this.checkBoxOpenDownloads_CheckedChanged);
             // 
-            // checkBoxAllowDownUploadingFiles
+            // checkBoxAllowDownUploads
             // 
-            this.checkBoxAllowDownUploadingFiles.AutoSize = true;
-            this.checkBoxAllowDownUploadingFiles.Checked = true;
-            this.checkBoxAllowDownUploadingFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowDownUploadingFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowDownUploadingFiles.Location = new System.Drawing.Point(33, 32);
-            this.checkBoxAllowDownUploadingFiles.Name = "checkBoxAllowDownUploadingFiles";
-            this.checkBoxAllowDownUploadingFiles.Size = new System.Drawing.Size(268, 21);
-            this.checkBoxAllowDownUploadingFiles.TabIndex = 71;
-            this.checkBoxAllowDownUploadingFiles.Text = "Allow downloading and uploading files";
-            this.checkBoxAllowDownUploadingFiles.UseVisualStyleBackColor = true;
-            this.checkBoxAllowDownUploadingFiles.CheckedChanged += new System.EventHandler(this.checkBoxAllowDownUploadingFiles_CheckedChanged);
+            this.checkBoxAllowDownUploads.AutoSize = true;
+            this.checkBoxAllowDownUploads.Checked = true;
+            this.checkBoxAllowDownUploads.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowDownUploads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowDownUploads.Location = new System.Drawing.Point(33, 32);
+            this.checkBoxAllowDownUploads.Name = "checkBoxAllowDownUploads";
+            this.checkBoxAllowDownUploads.Size = new System.Drawing.Size(268, 21);
+            this.checkBoxAllowDownUploads.TabIndex = 71;
+            this.checkBoxAllowDownUploads.Text = "Allow downloading and uploading files";
+            this.checkBoxAllowDownUploads.UseVisualStyleBackColor = true;
+            this.checkBoxAllowDownUploads.CheckedChanged += new System.EventHandler(this.checkBoxAllowDownUploads_CheckedChanged);
             // 
             // tabPageBrowser
             // 
@@ -1161,12 +1161,12 @@
             this.tabPageBrowser.Controls.Add(this.checkBoxEnableJavaScript);
             this.tabPageBrowser.Controls.Add(this.checkBoxEnableJava);
             this.tabPageBrowser.Controls.Add(this.checkBoxEnablePlugIns);
-            this.tabPageBrowser.Controls.Add(this.checkBoxUseSEBWithoutBrowser);
+            this.tabPageBrowser.Controls.Add(this.checkBoxUseSebWithoutBrowser);
             this.tabPageBrowser.Controls.Add(this.checkBoxBlockLinksJava);
             this.tabPageBrowser.Controls.Add(this.labelOpenLinksJava);
             this.tabPageBrowser.Controls.Add(this.labelOpenLinksHTML);
             this.tabPageBrowser.Controls.Add(this.checkBoxBlockLinksHTML);
-            this.tabPageBrowser.Controls.Add(this.groupBoxNewWindow);
+            this.tabPageBrowser.Controls.Add(this.groupBoxNewBrowserWindow);
             this.tabPageBrowser.ImageIndex = 4;
             this.tabPageBrowser.Location = new System.Drawing.Point(4, 39);
             this.tabPageBrowser.Name = "tabPageBrowser";
@@ -1278,18 +1278,18 @@
             this.checkBoxEnablePlugIns.UseVisualStyleBackColor = true;
             this.checkBoxEnablePlugIns.CheckedChanged += new System.EventHandler(this.checkBoxEnablePlugins_CheckedChanged);
             // 
-            // checkBoxUseSEBWithoutBrowser
+            // checkBoxUseSebWithoutBrowser
             // 
-            this.checkBoxUseSEBWithoutBrowser.AutoSize = true;
-            this.checkBoxUseSEBWithoutBrowser.Checked = true;
-            this.checkBoxUseSEBWithoutBrowser.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxUseSEBWithoutBrowser.Location = new System.Drawing.Point(31, 404);
-            this.checkBoxUseSEBWithoutBrowser.Name = "checkBoxUseSEBWithoutBrowser";
-            this.checkBoxUseSEBWithoutBrowser.Size = new System.Drawing.Size(237, 21);
-            this.checkBoxUseSEBWithoutBrowser.TabIndex = 66;
-            this.checkBoxUseSEBWithoutBrowser.Text = "Use SEB without browser window";
-            this.checkBoxUseSEBWithoutBrowser.UseVisualStyleBackColor = true;
-            this.checkBoxUseSEBWithoutBrowser.CheckedChanged += new System.EventHandler(this.checkBoxUseSEBWithoutBrowser_CheckedChanged);
+            this.checkBoxUseSebWithoutBrowser.AutoSize = true;
+            this.checkBoxUseSebWithoutBrowser.Checked = true;
+            this.checkBoxUseSebWithoutBrowser.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(31, 404);
+            this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
+            this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(237, 21);
+            this.checkBoxUseSebWithoutBrowser.TabIndex = 66;
+            this.checkBoxUseSebWithoutBrowser.Text = "Use SEB without browser window";
+            this.checkBoxUseSebWithoutBrowser.UseVisualStyleBackColor = true;
+            this.checkBoxUseSebWithoutBrowser.CheckedChanged += new System.EventHandler(this.checkBoxUseSebWithoutBrowser_CheckedChanged);
             // 
             // checkBoxBlockLinksJava
             // 
@@ -1331,51 +1331,51 @@
             this.checkBoxBlockLinksHTML.UseVisualStyleBackColor = true;
             this.checkBoxBlockLinksHTML.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksHTML_CheckedChanged);
             // 
-            // groupBoxNewWindow
+            // groupBoxNewBrowserWindow
             // 
-            this.groupBoxNewWindow.Controls.Add(this.comboBoxNewWindowHeight);
-            this.groupBoxNewWindow.Controls.Add(this.comboBoxNewWindowWidth);
-            this.groupBoxNewWindow.Controls.Add(this.labelNewWindowHeight);
-            this.groupBoxNewWindow.Controls.Add(this.labelNewWindowWidth);
-            this.groupBoxNewWindow.Controls.Add(this.labelNewWindowPosition);
-            this.groupBoxNewWindow.Controls.Add(this.listBoxNewWindowPosition);
-            this.groupBoxNewWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxNewWindow.Location = new System.Drawing.Point(31, 119);
-            this.groupBoxNewWindow.Name = "groupBoxNewWindow";
-            this.groupBoxNewWindow.Size = new System.Drawing.Size(885, 111);
-            this.groupBoxNewWindow.TabIndex = 58;
-            this.groupBoxNewWindow.TabStop = false;
-            this.groupBoxNewWindow.Text = "New browser window size and position";
+            this.groupBoxNewBrowserWindow.Controls.Add(this.comboBoxNewBrowserWindowHeight);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.comboBoxNewBrowserWindowWidth);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.labelNewWindowHeight);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.labelNewWindowWidth);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.labelNewWindowPosition);
+            this.groupBoxNewBrowserWindow.Controls.Add(this.listBoxNewBrowserWindowPositioning);
+            this.groupBoxNewBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxNewBrowserWindow.Location = new System.Drawing.Point(31, 119);
+            this.groupBoxNewBrowserWindow.Name = "groupBoxNewBrowserWindow";
+            this.groupBoxNewBrowserWindow.Size = new System.Drawing.Size(885, 111);
+            this.groupBoxNewBrowserWindow.TabIndex = 58;
+            this.groupBoxNewBrowserWindow.TabStop = false;
+            this.groupBoxNewBrowserWindow.Text = "New browser window size and position";
             // 
-            // comboBoxNewWindowHeight
+            // comboBoxNewBrowserWindowHeight
             // 
-            this.comboBoxNewWindowHeight.FormattingEnabled = true;
-            this.comboBoxNewWindowHeight.Items.AddRange(new object[] {
+            this.comboBoxNewBrowserWindowHeight.FormattingEnabled = true;
+            this.comboBoxNewBrowserWindowHeight.Items.AddRange(new object[] {
             "80%",
             "100%",
             "600",
             "800"});
-            this.comboBoxNewWindowHeight.Location = new System.Drawing.Point(88, 72);
-            this.comboBoxNewWindowHeight.Name = "comboBoxNewWindowHeight";
-            this.comboBoxNewWindowHeight.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxNewWindowHeight.TabIndex = 63;
-            this.comboBoxNewWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewWindowHeight_SelectedIndexChanged);
-            this.comboBoxNewWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxNewWindowHeight_TextUpdate);
+            this.comboBoxNewBrowserWindowHeight.Location = new System.Drawing.Point(88, 72);
+            this.comboBoxNewBrowserWindowHeight.Name = "comboBoxNewBrowserWindowHeight";
+            this.comboBoxNewBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxNewBrowserWindowHeight.TabIndex = 63;
+            this.comboBoxNewBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_SelectedIndexChanged);
+            this.comboBoxNewBrowserWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_TextUpdate);
             // 
-            // comboBoxNewWindowWidth
+            // comboBoxNewBrowserWindowWidth
             // 
-            this.comboBoxNewWindowWidth.FormattingEnabled = true;
-            this.comboBoxNewWindowWidth.Items.AddRange(new object[] {
+            this.comboBoxNewBrowserWindowWidth.FormattingEnabled = true;
+            this.comboBoxNewBrowserWindowWidth.Items.AddRange(new object[] {
             "50%",
             "100%",
             "800",
             "1000"});
-            this.comboBoxNewWindowWidth.Location = new System.Drawing.Point(88, 34);
-            this.comboBoxNewWindowWidth.Name = "comboBoxNewWindowWidth";
-            this.comboBoxNewWindowWidth.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxNewWindowWidth.TabIndex = 62;
-            this.comboBoxNewWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewWindowWidth_SelectedIndexChanged);
-            this.comboBoxNewWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxNewWindowWidth_TextUpdate);
+            this.comboBoxNewBrowserWindowWidth.Location = new System.Drawing.Point(88, 34);
+            this.comboBoxNewBrowserWindowWidth.Name = "comboBoxNewBrowserWindowWidth";
+            this.comboBoxNewBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxNewBrowserWindowWidth.TabIndex = 62;
+            this.comboBoxNewBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowWidth_SelectedIndexChanged);
+            this.comboBoxNewBrowserWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxNewBrowserWindowWidth_TextUpdate);
             // 
             // labelNewWindowHeight
             // 
@@ -1406,27 +1406,27 @@
             this.labelNewWindowPosition.TabIndex = 58;
             this.labelNewWindowPosition.Text = "Horizontal positioning";
             // 
-            // listBoxNewWindowPosition
+            // listBoxNewBrowserWindowPositioning
             // 
-            this.listBoxNewWindowPosition.FormattingEnabled = true;
-            this.listBoxNewWindowPosition.ItemHeight = 16;
-            this.listBoxNewWindowPosition.Items.AddRange(new object[] {
+            this.listBoxNewBrowserWindowPositioning.FormattingEnabled = true;
+            this.listBoxNewBrowserWindowPositioning.ItemHeight = 16;
+            this.listBoxNewBrowserWindowPositioning.Items.AddRange(new object[] {
             "Left",
             "Center",
             "Right"});
-            this.listBoxNewWindowPosition.Location = new System.Drawing.Point(458, 21);
-            this.listBoxNewWindowPosition.Name = "listBoxNewWindowPosition";
-            this.listBoxNewWindowPosition.Size = new System.Drawing.Size(120, 52);
-            this.listBoxNewWindowPosition.TabIndex = 57;
-            this.listBoxNewWindowPosition.SelectedIndexChanged += new System.EventHandler(this.listBoxNewWindowPosition_SelectedIndexChanged);
+            this.listBoxNewBrowserWindowPositioning.Location = new System.Drawing.Point(458, 21);
+            this.listBoxNewBrowserWindowPositioning.Name = "listBoxNewBrowserWindowPositioning";
+            this.listBoxNewBrowserWindowPositioning.Size = new System.Drawing.Size(120, 52);
+            this.listBoxNewBrowserWindowPositioning.TabIndex = 57;
+            this.listBoxNewBrowserWindowPositioning.SelectedIndexChanged += new System.EventHandler(this.listBoxNewBrowserWindowPositioning_SelectedIndexChanged);
             // 
             // tabPageAppearance
             // 
-            this.tabPageAppearance.Controls.Add(this.groupBoxMainWindow);
-            this.tabPageAppearance.Controls.Add(this.checkBoxDisplaySEBDockTaskBar);
+            this.tabPageAppearance.Controls.Add(this.groupBoxMainBrowserWindow);
+            this.tabPageAppearance.Controls.Add(this.checkBoxShowTaskBar);
             this.tabPageAppearance.Controls.Add(this.checkBoxShowMenuBar);
-            this.tabPageAppearance.Controls.Add(this.checkBoxHideToolbarAsDefault);
-            this.tabPageAppearance.Controls.Add(this.checkBoxEnableWindowToolbar);
+            this.tabPageAppearance.Controls.Add(this.checkBoxHideBrowserWindowToolbar);
+            this.tabPageAppearance.Controls.Add(this.checkBoxEnableBrowserWindowToolbar);
             this.tabPageAppearance.Controls.Add(this.radioButtonUseFullScreenMode);
             this.tabPageAppearance.Controls.Add(this.radioButtonUseBrowserWindow);
             this.tabPageAppearance.Location = new System.Drawing.Point(4, 39);
@@ -1437,51 +1437,51 @@
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
             // 
-            // groupBoxMainWindow
+            // groupBoxMainBrowserWindow
             // 
-            this.groupBoxMainWindow.Controls.Add(this.comboBoxMainWindowHeight);
-            this.groupBoxMainWindow.Controls.Add(this.comboBoxMainWindowWidth);
-            this.groupBoxMainWindow.Controls.Add(this.labelMainWindowHeight);
-            this.groupBoxMainWindow.Controls.Add(this.labelMainWindowWidth);
-            this.groupBoxMainWindow.Controls.Add(this.labelMainWindowPosition);
-            this.groupBoxMainWindow.Controls.Add(this.listBoxMainWindowPosition);
-            this.groupBoxMainWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxMainWindow.Location = new System.Drawing.Point(31, 115);
-            this.groupBoxMainWindow.Name = "groupBoxMainWindow";
-            this.groupBoxMainWindow.Size = new System.Drawing.Size(885, 111);
-            this.groupBoxMainWindow.TabIndex = 57;
-            this.groupBoxMainWindow.TabStop = false;
-            this.groupBoxMainWindow.Text = "Main browser window size and position";
+            this.groupBoxMainBrowserWindow.Controls.Add(this.comboBoxMainBrowserWindowHeight);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.comboBoxMainBrowserWindowWidth);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.labelMainWindowHeight);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.labelMainWindowWidth);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.labelMainWindowPosition);
+            this.groupBoxMainBrowserWindow.Controls.Add(this.listBoxMainBrowserWindowPositioning);
+            this.groupBoxMainBrowserWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxMainBrowserWindow.Location = new System.Drawing.Point(31, 115);
+            this.groupBoxMainBrowserWindow.Name = "groupBoxMainBrowserWindow";
+            this.groupBoxMainBrowserWindow.Size = new System.Drawing.Size(885, 111);
+            this.groupBoxMainBrowserWindow.TabIndex = 57;
+            this.groupBoxMainBrowserWindow.TabStop = false;
+            this.groupBoxMainBrowserWindow.Text = "Main browser window size and position";
             // 
-            // comboBoxMainWindowHeight
+            // comboBoxMainBrowserWindowHeight
             // 
-            this.comboBoxMainWindowHeight.FormattingEnabled = true;
-            this.comboBoxMainWindowHeight.Items.AddRange(new object[] {
+            this.comboBoxMainBrowserWindowHeight.FormattingEnabled = true;
+            this.comboBoxMainBrowserWindowHeight.Items.AddRange(new object[] {
             "80%",
             "100%",
             "600",
             "800"});
-            this.comboBoxMainWindowHeight.Location = new System.Drawing.Point(95, 69);
-            this.comboBoxMainWindowHeight.Name = "comboBoxMainWindowHeight";
-            this.comboBoxMainWindowHeight.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxMainWindowHeight.TabIndex = 62;
-            this.comboBoxMainWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainWindowHeight_SelectedIndexChanged);
-            this.comboBoxMainWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxMainWindowHeight_TextUpdate);
+            this.comboBoxMainBrowserWindowHeight.Location = new System.Drawing.Point(95, 69);
+            this.comboBoxMainBrowserWindowHeight.Name = "comboBoxMainBrowserWindowHeight";
+            this.comboBoxMainBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxMainBrowserWindowHeight.TabIndex = 62;
+            this.comboBoxMainBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowHeight_SelectedIndexChanged);
+            this.comboBoxMainBrowserWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxMainBrowserWindowHeight_TextUpdate);
             // 
-            // comboBoxMainWindowWidth
+            // comboBoxMainBrowserWindowWidth
             // 
-            this.comboBoxMainWindowWidth.FormattingEnabled = true;
-            this.comboBoxMainWindowWidth.Items.AddRange(new object[] {
+            this.comboBoxMainBrowserWindowWidth.FormattingEnabled = true;
+            this.comboBoxMainBrowserWindowWidth.Items.AddRange(new object[] {
             "50%",
             "100%",
             "800",
             "1000"});
-            this.comboBoxMainWindowWidth.Location = new System.Drawing.Point(95, 34);
-            this.comboBoxMainWindowWidth.Name = "comboBoxMainWindowWidth";
-            this.comboBoxMainWindowWidth.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxMainWindowWidth.TabIndex = 61;
-            this.comboBoxMainWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainWindowWidth_SelectedIndexChanged);
-            this.comboBoxMainWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxMainWindowWidth_TextUpdate);
+            this.comboBoxMainBrowserWindowWidth.Location = new System.Drawing.Point(95, 34);
+            this.comboBoxMainBrowserWindowWidth.Name = "comboBoxMainBrowserWindowWidth";
+            this.comboBoxMainBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxMainBrowserWindowWidth.TabIndex = 61;
+            this.comboBoxMainBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowWidth_SelectedIndexChanged);
+            this.comboBoxMainBrowserWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxMainBrowserWindowWidth_TextUpdate);
             // 
             // labelMainWindowHeight
             // 
@@ -1513,31 +1513,31 @@
             this.labelMainWindowPosition.TabIndex = 58;
             this.labelMainWindowPosition.Text = "Horizontal positioning";
             // 
-            // listBoxMainWindowPosition
+            // listBoxMainBrowserWindowPositioning
             // 
-            this.listBoxMainWindowPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxMainWindowPosition.FormattingEnabled = true;
-            this.listBoxMainWindowPosition.ItemHeight = 16;
-            this.listBoxMainWindowPosition.Items.AddRange(new object[] {
+            this.listBoxMainBrowserWindowPositioning.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxMainBrowserWindowPositioning.FormattingEnabled = true;
+            this.listBoxMainBrowserWindowPositioning.ItemHeight = 16;
+            this.listBoxMainBrowserWindowPositioning.Items.AddRange(new object[] {
             "Left",
             "Center",
             "Right"});
-            this.listBoxMainWindowPosition.Location = new System.Drawing.Point(468, 25);
-            this.listBoxMainWindowPosition.Name = "listBoxMainWindowPosition";
-            this.listBoxMainWindowPosition.Size = new System.Drawing.Size(120, 52);
-            this.listBoxMainWindowPosition.TabIndex = 57;
-            this.listBoxMainWindowPosition.SelectedIndexChanged += new System.EventHandler(this.listBoxMainWindowPosition_SelectedIndexChanged);
+            this.listBoxMainBrowserWindowPositioning.Location = new System.Drawing.Point(468, 25);
+            this.listBoxMainBrowserWindowPositioning.Name = "listBoxMainBrowserWindowPositioning";
+            this.listBoxMainBrowserWindowPositioning.Size = new System.Drawing.Size(120, 52);
+            this.listBoxMainBrowserWindowPositioning.TabIndex = 57;
+            this.listBoxMainBrowserWindowPositioning.SelectedIndexChanged += new System.EventHandler(this.listBoxMainBrowserWindowPositioning_SelectedIndexChanged);
             // 
-            // checkBoxDisplaySEBDockTaskBar
+            // checkBoxShowTaskBar
             // 
-            this.checkBoxDisplaySEBDockTaskBar.AutoSize = true;
-            this.checkBoxDisplaySEBDockTaskBar.Location = new System.Drawing.Point(31, 357);
-            this.checkBoxDisplaySEBDockTaskBar.Name = "checkBoxDisplaySEBDockTaskBar";
-            this.checkBoxDisplaySEBDockTaskBar.Size = new System.Drawing.Size(418, 21);
-            this.checkBoxDisplaySEBDockTaskBar.TabIndex = 56;
-            this.checkBoxDisplaySEBDockTaskBar.Text = "Display SEB dock/task bar when using third party applications";
-            this.checkBoxDisplaySEBDockTaskBar.UseVisualStyleBackColor = true;
-            this.checkBoxDisplaySEBDockTaskBar.CheckedChanged += new System.EventHandler(this.checkBoxDisplaySEBDockTaskBar_CheckedChanged);
+            this.checkBoxShowTaskBar.AutoSize = true;
+            this.checkBoxShowTaskBar.Location = new System.Drawing.Point(31, 357);
+            this.checkBoxShowTaskBar.Name = "checkBoxShowTaskBar";
+            this.checkBoxShowTaskBar.Size = new System.Drawing.Size(418, 21);
+            this.checkBoxShowTaskBar.TabIndex = 56;
+            this.checkBoxShowTaskBar.Text = "Display SEB dock/task bar when using third party applications";
+            this.checkBoxShowTaskBar.UseVisualStyleBackColor = true;
+            this.checkBoxShowTaskBar.CheckedChanged += new System.EventHandler(this.checkBoxShowTaskBar_CheckedChanged);
             // 
             // checkBoxShowMenuBar
             // 
@@ -1550,28 +1550,28 @@
             this.checkBoxShowMenuBar.UseVisualStyleBackColor = true;
             this.checkBoxShowMenuBar.CheckedChanged += new System.EventHandler(this.checkBoxShowMenuBar_CheckedChanged);
             // 
-            // checkBoxHideToolbarAsDefault
+            // checkBoxHideBrowserWindowToolbar
             // 
-            this.checkBoxHideToolbarAsDefault.AutoSize = true;
-            this.checkBoxHideToolbarAsDefault.Enabled = false;
-            this.checkBoxHideToolbarAsDefault.Location = new System.Drawing.Point(51, 286);
-            this.checkBoxHideToolbarAsDefault.Name = "checkBoxHideToolbarAsDefault";
-            this.checkBoxHideToolbarAsDefault.Size = new System.Drawing.Size(173, 21);
-            this.checkBoxHideToolbarAsDefault.TabIndex = 54;
-            this.checkBoxHideToolbarAsDefault.Text = "Hide toolbar as default";
-            this.checkBoxHideToolbarAsDefault.UseVisualStyleBackColor = true;
-            this.checkBoxHideToolbarAsDefault.CheckedChanged += new System.EventHandler(this.checkBoxHideToolbarAsDefault_CheckedChanged);
+            this.checkBoxHideBrowserWindowToolbar.AutoSize = true;
+            this.checkBoxHideBrowserWindowToolbar.Enabled = false;
+            this.checkBoxHideBrowserWindowToolbar.Location = new System.Drawing.Point(51, 286);
+            this.checkBoxHideBrowserWindowToolbar.Name = "checkBoxHideBrowserWindowToolbar";
+            this.checkBoxHideBrowserWindowToolbar.Size = new System.Drawing.Size(173, 21);
+            this.checkBoxHideBrowserWindowToolbar.TabIndex = 54;
+            this.checkBoxHideBrowserWindowToolbar.Text = "Hide toolbar as default";
+            this.checkBoxHideBrowserWindowToolbar.UseVisualStyleBackColor = true;
+            this.checkBoxHideBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxHideBrowserWindowToolbar_CheckedChanged);
             // 
-            // checkBoxEnableWindowToolbar
+            // checkBoxEnableBrowserWindowToolbar
             // 
-            this.checkBoxEnableWindowToolbar.AutoSize = true;
-            this.checkBoxEnableWindowToolbar.Location = new System.Drawing.Point(31, 259);
-            this.checkBoxEnableWindowToolbar.Name = "checkBoxEnableWindowToolbar";
-            this.checkBoxEnableWindowToolbar.Size = new System.Drawing.Size(225, 21);
-            this.checkBoxEnableWindowToolbar.TabIndex = 53;
-            this.checkBoxEnableWindowToolbar.Text = "Enable browser window toolbar";
-            this.checkBoxEnableWindowToolbar.UseVisualStyleBackColor = true;
-            this.checkBoxEnableWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxEnableWindowToolbar_CheckedChanged);
+            this.checkBoxEnableBrowserWindowToolbar.AutoSize = true;
+            this.checkBoxEnableBrowserWindowToolbar.Location = new System.Drawing.Point(31, 259);
+            this.checkBoxEnableBrowserWindowToolbar.Name = "checkBoxEnableBrowserWindowToolbar";
+            this.checkBoxEnableBrowserWindowToolbar.Size = new System.Drawing.Size(225, 21);
+            this.checkBoxEnableBrowserWindowToolbar.TabIndex = 53;
+            this.checkBoxEnableBrowserWindowToolbar.Text = "Enable browser window toolbar";
+            this.checkBoxEnableBrowserWindowToolbar.UseVisualStyleBackColor = true;
+            this.checkBoxEnableBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxEnableBrowserWindowToolbar_CheckedChanged);
             // 
             // radioButtonUseFullScreenMode
             // 
@@ -1602,7 +1602,7 @@
             // 
             this.tabPageConfigFile.Controls.Add(this.labelUseEither);
             this.tabPageConfigFile.Controls.Add(this.labelChooseIdentity);
-            this.tabPageConfigFile.Controls.Add(this.comboBoxChooseIdentity);
+            this.tabPageConfigFile.Controls.Add(this.comboBoxCryptoIdentity);
             this.tabPageConfigFile.Controls.Add(this.labelConfirmSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.labelSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.textBoxConfirmSettingsPassword);
@@ -1610,7 +1610,7 @@
             this.tabPageConfigFile.Controls.Add(this.labelUseSEBSettingsFileFor);
             this.tabPageConfigFile.Controls.Add(this.radioButtonConfiguringAClient);
             this.tabPageConfigFile.Controls.Add(this.radioButtonStartingAnExam);
-            this.tabPageConfigFile.Controls.Add(this.checkBoxAllowOpenPrefWindow);
+            this.tabPageConfigFile.Controls.Add(this.checkBoxAllowPreferencesWindow);
             this.tabPageConfigFile.Controls.Add(this.buttonDefaultSettings);
             this.tabPageConfigFile.Controls.Add(this.buttonRevertToLastOpened);
             this.tabPageConfigFile.Controls.Add(this.labelOpenSettings);
@@ -1642,15 +1642,15 @@
             this.labelChooseIdentity.TabIndex = 58;
             this.labelChooseIdentity.Text = "Choose identity to be used for encrypting SEB settings file...";
             // 
-            // comboBoxChooseIdentity
+            // comboBoxCryptoIdentity
             // 
-            this.comboBoxChooseIdentity.FormattingEnabled = true;
-            this.comboBoxChooseIdentity.Location = new System.Drawing.Point(39, 187);
-            this.comboBoxChooseIdentity.Name = "comboBoxChooseIdentity";
-            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(657, 24);
-            this.comboBoxChooseIdentity.TabIndex = 57;
-            this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
-            this.comboBoxChooseIdentity.TextUpdate += new System.EventHandler(this.comboBoxChooseIdentity_TextUpdate);
+            this.comboBoxCryptoIdentity.FormattingEnabled = true;
+            this.comboBoxCryptoIdentity.Location = new System.Drawing.Point(39, 187);
+            this.comboBoxCryptoIdentity.Name = "comboBoxCryptoIdentity";
+            this.comboBoxCryptoIdentity.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxCryptoIdentity.TabIndex = 57;
+            this.comboBoxCryptoIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxCryptoIdentity_SelectedIndexChanged);
+            this.comboBoxCryptoIdentity.TextUpdate += new System.EventHandler(this.comboBoxCryptoIdentity_TextUpdate);
             // 
             // labelConfirmSettingsPassword
             // 
@@ -1726,19 +1726,19 @@
             this.radioButtonStartingAnExam.UseVisualStyleBackColor = true;
             this.radioButtonStartingAnExam.CheckedChanged += new System.EventHandler(this.radioButtonStartingAnExam_CheckedChanged);
             // 
-            // checkBoxAllowOpenPrefWindow
+            // checkBoxAllowPreferencesWindow
             // 
-            this.checkBoxAllowOpenPrefWindow.AutoSize = true;
-            this.checkBoxAllowOpenPrefWindow.Checked = true;
-            this.checkBoxAllowOpenPrefWindow.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowOpenPrefWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowOpenPrefWindow.Location = new System.Drawing.Point(60, 117);
-            this.checkBoxAllowOpenPrefWindow.Name = "checkBoxAllowOpenPrefWindow";
-            this.checkBoxAllowOpenPrefWindow.Size = new System.Drawing.Size(300, 21);
-            this.checkBoxAllowOpenPrefWindow.TabIndex = 49;
-            this.checkBoxAllowOpenPrefWindow.Text = "Allow to open preferences window on client";
-            this.checkBoxAllowOpenPrefWindow.UseVisualStyleBackColor = true;
-            this.checkBoxAllowOpenPrefWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowOpenPrefWindowOnClient_CheckedChanged);
+            this.checkBoxAllowPreferencesWindow.AutoSize = true;
+            this.checkBoxAllowPreferencesWindow.Checked = true;
+            this.checkBoxAllowPreferencesWindow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowPreferencesWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowPreferencesWindow.Location = new System.Drawing.Point(60, 117);
+            this.checkBoxAllowPreferencesWindow.Name = "checkBoxAllowPreferencesWindow";
+            this.checkBoxAllowPreferencesWindow.Size = new System.Drawing.Size(300, 21);
+            this.checkBoxAllowPreferencesWindow.TabIndex = 49;
+            this.checkBoxAllowPreferencesWindow.Text = "Allow to open preferences window on client";
+            this.checkBoxAllowPreferencesWindow.UseVisualStyleBackColor = true;
+            this.checkBoxAllowPreferencesWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowPreferencesWindow_CheckedChanged);
             // 
             // buttonDefaultSettings
             // 
@@ -1792,7 +1792,7 @@
             this.tabPageGeneral.Controls.Add(this.checkBoxIgnoreQuitPassword);
             this.tabPageGeneral.Controls.Add(this.buttonPasteFromSavedClipboard);
             this.tabPageGeneral.Controls.Add(this.labelSEBServerURL);
-            this.tabPageGeneral.Controls.Add(this.textBoxSEBServerURL);
+            this.tabPageGeneral.Controls.Add(this.textBoxSebServerURL);
             this.tabPageGeneral.Controls.Add(this.textBoxConfirmAdminPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxAdminPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxConfirmQuitPassword);
@@ -1806,7 +1806,7 @@
             this.tabPageGeneral.Controls.Add(this.labelConfirmAdminPassword);
             this.tabPageGeneral.Controls.Add(this.labelAdminPassword);
             this.tabPageGeneral.Controls.Add(this.labelConfirmQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.checkBoxAllowUserToQuitSEB);
+            this.tabPageGeneral.Controls.Add(this.checkBoxAllowQuit);
             this.tabPageGeneral.Controls.Add(this.labelQuitHashCode);
             this.tabPageGeneral.Controls.Add(this.labelQuitPassword);
             this.tabPageGeneral.Controls.Add(this.labelStartURL);
@@ -1938,15 +1938,15 @@
             this.labelSEBServerURL.TabIndex = 47;
             this.labelSEBServerURL.Text = "SEB Server URL";
             // 
-            // textBoxSEBServerURL
+            // textBoxSebServerURL
             // 
-            this.textBoxSEBServerURL.Enabled = false;
-            this.textBoxSEBServerURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSEBServerURL.Location = new System.Drawing.Point(140, 66);
-            this.textBoxSEBServerURL.Name = "textBoxSEBServerURL";
-            this.textBoxSEBServerURL.Size = new System.Drawing.Size(535, 22);
-            this.textBoxSEBServerURL.TabIndex = 46;
-            this.textBoxSEBServerURL.TextChanged += new System.EventHandler(this.textBoxSEBServerURL_TextChanged);
+            this.textBoxSebServerURL.Enabled = false;
+            this.textBoxSebServerURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSebServerURL.Location = new System.Drawing.Point(140, 66);
+            this.textBoxSebServerURL.Name = "textBoxSebServerURL";
+            this.textBoxSebServerURL.Size = new System.Drawing.Size(535, 22);
+            this.textBoxSebServerURL.TabIndex = 46;
+            this.textBoxSebServerURL.TextChanged += new System.EventHandler(this.textBoxSebServerURL_TextChanged);
             // 
             // textBoxConfirmAdminPassword
             // 
@@ -1995,7 +1995,7 @@
             this.textBoxQuitPassword.Size = new System.Drawing.Size(231, 22);
             this.textBoxQuitPassword.TabIndex = 33;
             this.textBoxQuitPassword.WordWrap = false;
-            this.textBoxQuitPassword.TextChanged += new System.EventHandler(this.textBoxQuitPassword_TextChanged_1);
+            this.textBoxQuitPassword.TextChanged += new System.EventHandler(this.textBoxQuitPassword_TextChanged);
             // 
             // textBoxStartURL
             // 
@@ -2076,18 +2076,18 @@
             this.labelConfirmQuitPassword.TabIndex = 36;
             this.labelConfirmQuitPassword.Text = "Confirm quit password";
             // 
-            // checkBoxAllowUserToQuitSEB
+            // checkBoxAllowQuit
             // 
-            this.checkBoxAllowUserToQuitSEB.AutoSize = true;
-            this.checkBoxAllowUserToQuitSEB.Checked = true;
-            this.checkBoxAllowUserToQuitSEB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowUserToQuitSEB.Location = new System.Drawing.Point(62, 198);
-            this.checkBoxAllowUserToQuitSEB.Name = "checkBoxAllowUserToQuitSEB";
-            this.checkBoxAllowUserToQuitSEB.Size = new System.Drawing.Size(168, 21);
-            this.checkBoxAllowUserToQuitSEB.TabIndex = 35;
-            this.checkBoxAllowUserToQuitSEB.Text = "Allow user to quit SEB";
-            this.checkBoxAllowUserToQuitSEB.UseVisualStyleBackColor = true;
-            this.checkBoxAllowUserToQuitSEB.CheckedChanged += new System.EventHandler(this.checkBoxAllowUserToQuitSEB_CheckedChanged);
+            this.checkBoxAllowQuit.AutoSize = true;
+            this.checkBoxAllowQuit.Checked = true;
+            this.checkBoxAllowQuit.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowQuit.Location = new System.Drawing.Point(62, 198);
+            this.checkBoxAllowQuit.Name = "checkBoxAllowQuit";
+            this.checkBoxAllowQuit.Size = new System.Drawing.Size(168, 21);
+            this.checkBoxAllowQuit.TabIndex = 35;
+            this.checkBoxAllowQuit.Text = "Allow user to quit SEB";
+            this.checkBoxAllowQuit.UseVisualStyleBackColor = true;
+            this.checkBoxAllowQuit.CheckedChanged += new System.EventHandler(this.checkBoxAllowQuit_CheckedChanged);
             // 
             // labelQuitHashCode
             // 
@@ -2172,12 +2172,12 @@
             this.tabPageDownUploads.PerformLayout();
             this.tabPageBrowser.ResumeLayout(false);
             this.tabPageBrowser.PerformLayout();
-            this.groupBoxNewWindow.ResumeLayout(false);
-            this.groupBoxNewWindow.PerformLayout();
+            this.groupBoxNewBrowserWindow.ResumeLayout(false);
+            this.groupBoxNewBrowserWindow.PerformLayout();
             this.tabPageAppearance.ResumeLayout(false);
             this.tabPageAppearance.PerformLayout();
-            this.groupBoxMainWindow.ResumeLayout(false);
-            this.groupBoxMainWindow.PerformLayout();
+            this.groupBoxMainBrowserWindow.ResumeLayout(false);
+            this.groupBoxMainBrowserWindow.PerformLayout();
             this.tabPageConfigFile.ResumeLayout(false);
             this.tabPageConfigFile.PerformLayout();
             this.tabPageGeneral.ResumeLayout(false);
@@ -2194,7 +2194,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogSebStarterIni;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSebStarterIni;
         private System.Windows.Forms.ImageList imageListTabIcons;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadFolder;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadDirectoryWin;
         private System.Windows.Forms.TabPage tabPageHookedKeys;
         private System.Windows.Forms.CheckBox checkBoxHookMessages;
         private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
@@ -2264,13 +2264,13 @@
         private System.Windows.Forms.CheckBox checkBoxSendBrowserExamKey;
         private System.Windows.Forms.CheckBox checkBoxCopyBrowserExamKey;
         private System.Windows.Forms.TabPage tabPageDownUploads;
-        private System.Windows.Forms.Label labelSaveDownloadedFilesTo;
-        private System.Windows.Forms.Button buttonSaveDownloadedFilesTo;
-        private System.Windows.Forms.ListBox listBoxChooseFileToUpload;
-        private System.Windows.Forms.Label labelChooseFileToUpload;
-        private System.Windows.Forms.CheckBox checkBoxDownloadAndOpenPDFFiles;
-        private System.Windows.Forms.CheckBox checkBoxOpenFilesAfterDownloading;
-        private System.Windows.Forms.CheckBox checkBoxAllowDownUploadingFiles;
+        private System.Windows.Forms.Label labelDownloadDirectoryWin;
+        private System.Windows.Forms.Button buttonDownloadDirectoryWin;
+        private System.Windows.Forms.ListBox listBoxChooseFileToUploadPolicy;
+        private System.Windows.Forms.Label labelChooseFileToUploadPolicy;
+        private System.Windows.Forms.CheckBox checkBoxDownloadPDFFiles;
+        private System.Windows.Forms.CheckBox checkBoxOpenDownloads;
+        private System.Windows.Forms.CheckBox checkBoxAllowDownUploads;
         private System.Windows.Forms.TabPage tabPageBrowser;
         private System.Windows.Forms.ListBox listBoxOpenLinksJava;
         private System.Windows.Forms.ListBox listBoxOpenLinksHTML;
@@ -2280,36 +2280,36 @@
         private System.Windows.Forms.CheckBox checkBoxEnableJavaScript;
         private System.Windows.Forms.CheckBox checkBoxEnableJava;
         private System.Windows.Forms.CheckBox checkBoxEnablePlugIns;
-        private System.Windows.Forms.CheckBox checkBoxUseSEBWithoutBrowser;
+        private System.Windows.Forms.CheckBox checkBoxUseSebWithoutBrowser;
         private System.Windows.Forms.CheckBox checkBoxBlockLinksJava;
         private System.Windows.Forms.Label labelOpenLinksJava;
         private System.Windows.Forms.Label labelOpenLinksHTML;
         private System.Windows.Forms.CheckBox checkBoxBlockLinksHTML;
-        private System.Windows.Forms.GroupBox groupBoxNewWindow;
-        private System.Windows.Forms.ComboBox comboBoxNewWindowHeight;
-        private System.Windows.Forms.ComboBox comboBoxNewWindowWidth;
+        private System.Windows.Forms.GroupBox groupBoxNewBrowserWindow;
+        private System.Windows.Forms.ComboBox comboBoxNewBrowserWindowHeight;
+        private System.Windows.Forms.ComboBox comboBoxNewBrowserWindowWidth;
         private System.Windows.Forms.Label labelNewWindowHeight;
         private System.Windows.Forms.Label labelNewWindowWidth;
         private System.Windows.Forms.Label labelNewWindowPosition;
-        private System.Windows.Forms.ListBox listBoxNewWindowPosition;
+        private System.Windows.Forms.ListBox listBoxNewBrowserWindowPositioning;
         private System.Windows.Forms.TabPage tabPageAppearance;
-        private System.Windows.Forms.GroupBox groupBoxMainWindow;
-        private System.Windows.Forms.ComboBox comboBoxMainWindowHeight;
-        private System.Windows.Forms.ComboBox comboBoxMainWindowWidth;
+        private System.Windows.Forms.GroupBox groupBoxMainBrowserWindow;
+        private System.Windows.Forms.ComboBox comboBoxMainBrowserWindowHeight;
+        private System.Windows.Forms.ComboBox comboBoxMainBrowserWindowWidth;
         private System.Windows.Forms.Label labelMainWindowHeight;
         private System.Windows.Forms.Label labelMainWindowWidth;
         private System.Windows.Forms.Label labelMainWindowPosition;
-        private System.Windows.Forms.ListBox listBoxMainWindowPosition;
-        private System.Windows.Forms.CheckBox checkBoxDisplaySEBDockTaskBar;
+        private System.Windows.Forms.ListBox listBoxMainBrowserWindowPositioning;
+        private System.Windows.Forms.CheckBox checkBoxShowTaskBar;
         private System.Windows.Forms.CheckBox checkBoxShowMenuBar;
-        private System.Windows.Forms.CheckBox checkBoxHideToolbarAsDefault;
-        private System.Windows.Forms.CheckBox checkBoxEnableWindowToolbar;
+        private System.Windows.Forms.CheckBox checkBoxHideBrowserWindowToolbar;
+        private System.Windows.Forms.CheckBox checkBoxEnableBrowserWindowToolbar;
         private System.Windows.Forms.RadioButton radioButtonUseFullScreenMode;
         private System.Windows.Forms.RadioButton radioButtonUseBrowserWindow;
         private System.Windows.Forms.TabPage tabPageConfigFile;
         private System.Windows.Forms.Label labelUseEither;
         private System.Windows.Forms.Label labelChooseIdentity;
-        private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
+        private System.Windows.Forms.ComboBox comboBoxCryptoIdentity;
         private System.Windows.Forms.Label labelConfirmSettingsPassword;
         private System.Windows.Forms.Label labelSettingsPassword;
         private System.Windows.Forms.TextBox textBoxConfirmSettingsPassword;
@@ -2317,7 +2317,7 @@
         private System.Windows.Forms.Label labelUseSEBSettingsFileFor;
         private System.Windows.Forms.RadioButton radioButtonConfiguringAClient;
         private System.Windows.Forms.RadioButton radioButtonStartingAnExam;
-        private System.Windows.Forms.CheckBox checkBoxAllowOpenPrefWindow;
+        private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
         private System.Windows.Forms.Button buttonDefaultSettings;
         private System.Windows.Forms.Button buttonRevertToLastOpened;
         private System.Windows.Forms.Label labelOpenSettings;
@@ -2330,7 +2330,7 @@
         private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
         private System.Windows.Forms.Button buttonPasteFromSavedClipboard;
         private System.Windows.Forms.Label labelSEBServerURL;
-        private System.Windows.Forms.TextBox textBoxSEBServerURL;
+        private System.Windows.Forms.TextBox textBoxSebServerURL;
         private System.Windows.Forms.TextBox textBoxConfirmAdminPassword;
         private System.Windows.Forms.TextBox textBoxAdminPassword;
         private System.Windows.Forms.TextBox textBoxConfirmQuitPassword;
@@ -2344,7 +2344,7 @@
         private System.Windows.Forms.Label labelConfirmAdminPassword;
         private System.Windows.Forms.Label labelAdminPassword;
         private System.Windows.Forms.Label labelConfirmQuitPassword;
-        private System.Windows.Forms.CheckBox checkBoxAllowUserToQuitSEB;
+        private System.Windows.Forms.CheckBox checkBoxAllowQuit;
         private System.Windows.Forms.Label labelQuitHashCode;
         private System.Windows.Forms.Label labelQuitPassword;
         private System.Windows.Forms.Label labelStartURL;
