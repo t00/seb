@@ -177,6 +177,8 @@
 	<string>http://safeexambrowser.org/exit</string>
 	<key>sebPurpose</key>
 	<integer>0</integer>
+	<key>sebServerURL</key>
+	<string>http://www.switch.ch/</string>
 	<key>sebServicePolicy</key>
 	<integer>2</integer>
 	<key>sendBrowserExamKey</key>
