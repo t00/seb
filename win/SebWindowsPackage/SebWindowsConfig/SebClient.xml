@@ -20,7 +20,7 @@
 	<true/>
 	<key>allowVirtualMachine</key>
 	<false/>
-	<key>blockPopupWindows</key>
+	<key>blockPopUpWindows</key>
 	<false/>
 	<key>browserViewMode</key>
 	<integer>0</integer>
@@ -44,7 +44,7 @@
 	<true/>
 	<key>enableLogging</key>
 	<true/>
-	<key>enablePlugins</key>
+	<key>enablePlugIns</key>
 	<true/>
 	<key>enableSebBrowser</key>
 	<true/>
