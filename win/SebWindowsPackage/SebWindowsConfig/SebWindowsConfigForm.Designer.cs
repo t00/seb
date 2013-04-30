@@ -81,6 +81,8 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.labelLogDirectoryWin = new System.Windows.Forms.Label();
+            this.buttonLogDirectoryWin = new System.Windows.Forms.Button();
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowUserSwitching = new System.Windows.Forms.CheckBox();
             this.labelSEBServicePolicy = new System.Windows.Forms.Label();
@@ -103,6 +105,7 @@
             this.checkBoxSendBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.checkBoxCopyBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.labelDownloadDirectory = new System.Windows.Forms.Label();
             this.labelDownloadDirectoryWin = new System.Windows.Forms.Label();
             this.buttonDownloadDirectoryWin = new System.Windows.Forms.Button();
             this.listBoxChooseFileToUploadPolicy = new System.Windows.Forms.ListBox();
@@ -114,7 +117,7 @@
             this.listBoxOpenLinksJava = new System.Windows.Forms.ListBox();
             this.listBoxOpenLinksHTML = new System.Windows.Forms.ListBox();
             this.labelUseSEBWithoutBrowser = new System.Windows.Forms.Label();
-            this.checkBoxBlockPopupWindows = new System.Windows.Forms.CheckBox();
+            this.checkBoxBlockPopUpWindows = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowBrowsingBackForward = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
@@ -188,6 +191,7 @@
             this.labelQuitPassword = new System.Windows.Forms.Label();
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
+            this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -230,10 +234,6 @@
             this.imageListTabIcons.Images.SetKeyName(2, "EntityDataModel_ADODotNetDataService_Better.png");
             this.imageListTabIcons.Images.SetKeyName(3, "Gear.png");
             this.imageListTabIcons.Images.SetKeyName(4, "SebIcon.png");
-            // 
-            // folderBrowserDialogDownloadDirectoryWin
-            // 
-            this.folderBrowserDialogDownloadDirectoryWin.HelpRequest += new System.EventHandler(this.folderBrowserDialogDownloadDirectoryWin_HelpRequest);
             // 
             // tabPageHookedKeys
             // 
@@ -783,6 +783,8 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.labelLogDirectoryWin);
+            this.tabPageSecurity.Controls.Add(this.buttonLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.checkBoxCreateNewDesktop);
             this.tabPageSecurity.Controls.Add(this.checkBoxAllowUserSwitching);
             this.tabPageSecurity.Controls.Add(this.labelSEBServicePolicy);
@@ -796,6 +798,26 @@
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // labelLogDirectoryWin
+            // 
+            this.labelLogDirectoryWin.AutoSize = true;
+            this.labelLogDirectoryWin.Location = new System.Drawing.Point(382, 306);
+            this.labelLogDirectoryWin.Name = "labelLogDirectoryWin";
+            this.labelLogDirectoryWin.Size = new System.Drawing.Size(93, 17);
+            this.labelLogDirectoryWin.TabIndex = 79;
+            this.labelLogDirectoryWin.Text = "Log Directory";
+            // 
+            // buttonLogDirectoryWin
+            // 
+            this.buttonLogDirectoryWin.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLogDirectoryWin.Location = new System.Drawing.Point(75, 302);
+            this.buttonLogDirectoryWin.Name = "buttonLogDirectoryWin";
+            this.buttonLogDirectoryWin.Size = new System.Drawing.Size(191, 25);
+            this.buttonLogDirectoryWin.TabIndex = 78;
+            this.buttonLogDirectoryWin.Text = "Save log file to...";
+            this.buttonLogDirectoryWin.UseVisualStyleBackColor = true;
+            this.buttonLogDirectoryWin.Click += new System.EventHandler(this.buttonLogDirectoryWin_Click);
             // 
             // checkBoxCreateNewDesktop
             // 
@@ -852,7 +874,7 @@
             this.checkBoxEnableLogging.Checked = true;
             this.checkBoxEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(31, 240);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(30, 266);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(124, 21);
             this.checkBoxEnableLogging.TabIndex = 48;
@@ -1053,6 +1075,7 @@
             // 
             // tabPageDownUploads
             // 
+            this.tabPageDownUploads.Controls.Add(this.labelDownloadDirectory);
             this.tabPageDownUploads.Controls.Add(this.labelDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.buttonDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUploadPolicy);
@@ -1068,6 +1091,15 @@
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
+            // 
+            // labelDownloadDirectory
+            // 
+            this.labelDownloadDirectory.AutoSize = true;
+            this.labelDownloadDirectory.Location = new System.Drawing.Point(458, 87);
+            this.labelDownloadDirectory.Name = "labelDownloadDirectory";
+            this.labelDownloadDirectory.Size = new System.Drawing.Size(131, 17);
+            this.labelDownloadDirectory.TabIndex = 79;
+            this.labelDownloadDirectory.Text = "Download Directory";
             // 
             // labelDownloadDirectoryWin
             // 
@@ -1156,7 +1188,7 @@
             this.tabPageBrowser.Controls.Add(this.listBoxOpenLinksJava);
             this.tabPageBrowser.Controls.Add(this.listBoxOpenLinksHTML);
             this.tabPageBrowser.Controls.Add(this.labelUseSEBWithoutBrowser);
-            this.tabPageBrowser.Controls.Add(this.checkBoxBlockPopupWindows);
+            this.tabPageBrowser.Controls.Add(this.checkBoxBlockPopUpWindows);
             this.tabPageBrowser.Controls.Add(this.checkBoxAllowBrowsingBackForward);
             this.tabPageBrowser.Controls.Add(this.checkBoxEnableJavaScript);
             this.tabPageBrowser.Controls.Add(this.checkBoxEnableJava);
@@ -1214,17 +1246,17 @@
             this.labelUseSEBWithoutBrowser.Text = "to start another application in kiosk mode (for example a virtual desktop infrast" +
     "ructure client)";
             // 
-            // checkBoxBlockPopupWindows
+            // checkBoxBlockPopUpWindows
             // 
-            this.checkBoxBlockPopupWindows.AutoSize = true;
-            this.checkBoxBlockPopupWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxBlockPopupWindows.Location = new System.Drawing.Point(226, 370);
-            this.checkBoxBlockPopupWindows.Name = "checkBoxBlockPopupWindows";
-            this.checkBoxBlockPopupWindows.Size = new System.Drawing.Size(169, 21);
-            this.checkBoxBlockPopupWindows.TabIndex = 71;
-            this.checkBoxBlockPopupWindows.Text = "Block pop-up windows";
-            this.checkBoxBlockPopupWindows.UseVisualStyleBackColor = true;
-            this.checkBoxBlockPopupWindows.CheckedChanged += new System.EventHandler(this.checkBoxBlockPopupWindows_CheckedChanged);
+            this.checkBoxBlockPopUpWindows.AutoSize = true;
+            this.checkBoxBlockPopUpWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxBlockPopUpWindows.Location = new System.Drawing.Point(226, 370);
+            this.checkBoxBlockPopUpWindows.Name = "checkBoxBlockPopUpWindows";
+            this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(169, 21);
+            this.checkBoxBlockPopUpWindows.TabIndex = 71;
+            this.checkBoxBlockPopUpWindows.Text = "Block pop-up windows";
+            this.checkBoxBlockPopUpWindows.UseVisualStyleBackColor = true;
+            this.checkBoxBlockPopUpWindows.CheckedChanged += new System.EventHandler(this.checkBoxBlockPopUpWindows_CheckedChanged);
             // 
             // checkBoxAllowBrowsingBackForward
             // 
@@ -2275,7 +2307,7 @@
         private System.Windows.Forms.ListBox listBoxOpenLinksJava;
         private System.Windows.Forms.ListBox listBoxOpenLinksHTML;
         private System.Windows.Forms.Label labelUseSEBWithoutBrowser;
-        private System.Windows.Forms.CheckBox checkBoxBlockPopupWindows;
+        private System.Windows.Forms.CheckBox checkBoxBlockPopUpWindows;
         private System.Windows.Forms.CheckBox checkBoxAllowBrowsingBackForward;
         private System.Windows.Forms.CheckBox checkBoxEnableJavaScript;
         private System.Windows.Forms.CheckBox checkBoxEnableJava;
@@ -2349,6 +2381,10 @@
         private System.Windows.Forms.Label labelQuitPassword;
         private System.Windows.Forms.Label labelStartURL;
         private System.Windows.Forms.TabControl tabControlSebWindowsConfig;
+        private System.Windows.Forms.Button buttonLogDirectoryWin;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogLogDirectoryWin;
+        private System.Windows.Forms.Label labelLogDirectoryWin;
+        private System.Windows.Forms.Label labelDownloadDirectory;
 
     }
 }

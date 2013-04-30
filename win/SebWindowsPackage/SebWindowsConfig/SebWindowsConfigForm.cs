@@ -167,12 +167,12 @@ namespace SebWindowsConfig
         const int ValueNewBrowserWindowByLinkWidth          = 5;
         const int ValueNewBrowserWindowByLinkHeight         = 6;
         const int ValueNewBrowserWindowByLinkPositioning    = 7;
-        const int ValueEnablePlugins             = 8;
-        const int ValueEnableJava                = 9;
-        const int ValueEnableJavaScript          = 10;
-        const int ValueBlockPopupWindows         = 11;
-        const int ValueAllowBrowsingBackForward  = 12;
-        const int ValueEnableSebBrowser          = 13;
+        const int ValueEnablePlugIns                        = 8;
+        const int ValueEnableJava                           = 9;
+        const int ValueEnableJavaScript                     = 10;
+        const int ValueBlockPopUpWindows                    = 11;
+        const int ValueAllowBrowsingBackForward             = 12;
+        const int ValueEnableSebBrowser                     = 13;
         const int NumValueBrowser = 13;
 
         const String MessageNewBrowserWindowByLinkPolicy         = "newBrowserWindowByLinkPolicy";
@@ -182,12 +182,12 @@ namespace SebWindowsConfig
         const String MessageNewBrowserWindowByLinkWidth          = "newBrowserWindowByLinkWidth";
         const String MessageNewBrowserWindowByLinkHeight         = "newBrowserWindowByLinkHeight";
         const String MessageNewBrowserWindowByLinkPositioning    = "newBrowserWindowByLinkPositioning";
-        const String MessageEnablePlugins            = "enablePlugins";
-        const String MessageEnableJava               = "enableJava";
-        const String MessageEnableJavaScript         = "enableJavaScript";
-        const String MessageBlockPopupWindows        = "blockPopupWindows";
-        const String MessageAllowBrowsingBackForward = "allowBrowsingBackForward";
-        const String MessageEnableSebBrowser         = "enableSebBrowser";
+        const String MessageEnablePlugIns                        = "enablePlugIns";
+        const String MessageEnableJava                           = "enableJava";
+        const String MessageEnableJavaScript                     = "enableJavaScript";
+        const String MessageBlockPopUpWindows                    = "blockPopUpWindows";
+        const String MessageAllowBrowsingBackForward             = "allowBrowsingBackForward";
+        const String MessageEnableSebBrowser                     = "enableSebBrowser";
 
         // Group "DownUploads"
         const int ValueAllowDownUploads         = 1;
@@ -236,14 +236,18 @@ namespace SebWindowsConfig
         const int ValueAllowVirtualMachine = 2;
         const int ValueCreateNewDesktop    = 3;
         const int ValueAllowUserSwitching  = 4;
-        const int ValueEnableLog           = 5;
-        const int NumValueSecurity = 5;
+        const int ValueEnableLogging       = 5;
+        const int ValueLogDirectoryWin     = 6;
+        const int ValueLogDirectoryOSX     = 7;
+        const int NumValueSecurity = 7;
 
         const String MessageSebServicePolicy    = "sebServicePolicy";
         const String MessageAllowVirtualMachine = "allowVirtualMachine";
         const String MessageCreateNewDesktop    = "createNewDesktop";
         const String MessageAllowUserSwitching  = "allowUserSwitching";
-        const String MessageEnableLog           = "enableLog";
+        const String MessageEnableLogging       = "enableLogging";
+        const String MessageLogDirectoryWin     = "logDirectoryWin";
+        const String MessageLogDirectoryOSX     = "logDirectoryOSX";
 
         // Group "Registry"
         const int NumValueRegistry = 0;
@@ -462,10 +466,10 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight        ] = 0;
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPositioning   ] = 2;
 
-            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugins            ] = true;
+            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns            ] = true;
             settingBoolean[StateDef, GroupBrowser, ValueEnableJava               ] = false;
             settingBoolean[StateDef, GroupBrowser, ValueEnableJavaScript         ] = true;
-            settingBoolean[StateDef, GroupBrowser, ValueBlockPopupWindows        ] = false;
+            settingBoolean[StateDef, GroupBrowser, ValueBlockPopUpWindows        ] = false;
             settingBoolean[StateDef, GroupBrowser, ValueAllowBrowsingBackForward] = false;
             settingBoolean[StateDef, GroupBrowser, ValueEnableSebBrowser         ] = true;
 
@@ -495,7 +499,7 @@ namespace SebWindowsConfig
             settingBoolean[StateDef, GroupSecurity, ValueAllowVirtualMachine] = false;
             settingBoolean[StateDef, GroupSecurity, ValueCreateNewDesktop   ] = true;
             settingBoolean[StateDef, GroupSecurity, ValueAllowUserSwitching ] = true;
-            settingBoolean[StateDef, GroupSecurity, ValueEnableLog          ] = true;
+            settingBoolean[StateDef, GroupSecurity, ValueEnableLogging          ] = true;
 
             // Default settings for group "Hooked Keys"
             settingBoolean[StateDef, GroupHookedKeys, ValueHookMessages] = true;
@@ -659,10 +663,10 @@ namespace SebWindowsConfig
             valueString[GroupBrowser, ValueNewBrowserWindowByLinkWidth         ] = MessageNewBrowserWindowByLinkWidth;
             valueString[GroupBrowser, ValueNewBrowserWindowByLinkHeight        ] = MessageNewBrowserWindowByLinkHeight;
             valueString[GroupBrowser, ValueNewBrowserWindowByLinkPositioning   ] = MessageNewBrowserWindowByLinkPositioning;
-            valueString[GroupBrowser, ValueEnablePlugins            ] = MessageEnablePlugins;
+            valueString[GroupBrowser, ValueEnablePlugIns            ] = MessageEnablePlugIns;
             valueString[GroupBrowser, ValueEnableJava               ] = MessageEnableJava;
             valueString[GroupBrowser, ValueEnableJavaScript         ] = MessageEnableJavaScript;
-            valueString[GroupBrowser, ValueBlockPopupWindows        ] = MessageBlockPopupWindows;
+            valueString[GroupBrowser, ValueBlockPopUpWindows        ] = MessageBlockPopUpWindows;
             valueString[GroupBrowser, ValueAllowBrowsingBackForward] = MessageAllowBrowsingBackForward;
             valueString[GroupBrowser, ValueEnableSebBrowser         ] = MessageEnableSebBrowser;
 
@@ -685,7 +689,7 @@ namespace SebWindowsConfig
             valueString[GroupSecurity, ValueAllowVirtualMachine] = MessageAllowVirtualMachine;
             valueString[GroupSecurity, ValueCreateNewDesktop   ] = MessageCreateNewDesktop;
             valueString[GroupSecurity, ValueAllowUserSwitching ] = MessageAllowUserSwitching;
-            valueString[GroupSecurity, ValueEnableLog          ] = MessageEnableLog;
+            valueString[GroupSecurity, ValueEnableLogging          ] = MessageEnableLogging;
 
             valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
             valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
@@ -1487,10 +1491,10 @@ namespace SebWindowsConfig
             settingString [StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth      ] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value;
             settingString [StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight     ] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value;
           //settingString [StateTmp, GroupBrowser, ValueNewWindowPosition   ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value;
-            settingBoolean[StateTmp, GroupBrowser, ValueEnablePlugins       ] = sebSettObso.getSecurityOption("enablePlugins"   ).getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueEnablePlugIns       ] = sebSettObso.getSecurityOption("enablePlugins"   ).getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueEnableJava          ] = sebSettObso.getSecurityOption("enableJava"      ).getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueEnableJavaScript    ] = sebSettObso.getSecurityOption("enableJavaScript").getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueBlockPopupWindows   ] = sebSettObso.getSecurityOption("blockPopUpWindows").getBool();
+            settingBoolean[StateTmp, GroupBrowser, ValueBlockPopUpWindows   ] = sebSettObso.getSecurityOption("blockPopUpWindows").getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueAllowBrowsingBackForward] = sebSettObso.getSecurityOption("enableBrowsingBackForward").getBool();
             settingBoolean[StateTmp, GroupBrowser, ValueEnableSebBrowser] = sebSettObso.getSecurityOption("enableSebBrowser").getBool();
 
@@ -1513,7 +1517,7 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupSecurity, ValueAllowVirtualMachine] = sebSettObso.getSecurityOption("allowVirtualMachine").getBool();
             settingBoolean[StateTmp, GroupSecurity, ValueCreateNewDesktop   ] = sebSettObso.getSecurityOption("createNewDesktop"   ).getBool();
             settingBoolean[StateTmp, GroupSecurity, ValueAllowUserSwitching ] = sebSettObso.getSecurityOption("allowUserSwitching" ).getBool();
-            settingBoolean[StateTmp, GroupSecurity, ValueEnableLog      ] = sebSettObso.getSecurityOption("enableLog"          ).getBool();
+            settingBoolean[StateTmp, GroupSecurity, ValueEnableLogging      ] = sebSettObso.getSecurityOption("enableLog"          ).getBool();
 
             settingBoolean[StateTmp, GroupInsideSeb, ValueEnableSwitchUser       ] = sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).getBool();
             settingBoolean[StateTmp, GroupInsideSeb, ValueEnableLockThisComputer ] = sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).getBool();
@@ -1603,10 +1607,10 @@ namespace SebWindowsConfig
             sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value = settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
             sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value = settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
           //sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value = settingString[StateNew, GroupBrowser, ValueNewWindowPosition];
-            sebSettObso.getSecurityOption("enablePlugins"    ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins]);
+            sebSettObso.getSecurityOption("enablePlugins"    ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns]);
             sebSettObso.getSecurityOption("enableJava"       ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJava]);
             sebSettObso.getSecurityOption("enableJavaScript" ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript]);
-            sebSettObso.getSecurityOption("blockPopUpWindows").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows]);
+            sebSettObso.getSecurityOption("blockPopUpWindows").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockPopUpWindows]);
             sebSettObso.getSecurityOption("enableBrowsingBackForward").setBool(settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward]);
             sebSettObso.getSecurityOption("enableSebBrowser"         ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableSebBrowser]);
 
@@ -1629,7 +1633,7 @@ namespace SebWindowsConfig
             sebSettObso.getSecurityOption("allowVirtualMachine").setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine]);
             sebSettObso.getSecurityOption("createNewDesktop"   ).setBool(settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop]);
             sebSettObso.getSecurityOption("allowUserSwitching" ).setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching]);
-            sebSettObso.getSecurityOption("enableLog"          ).setBool(settingBoolean[StateNew, GroupSecurity, ValueEnableLog]);
+            sebSettObso.getSecurityOption("enableLog"          ).setBool(settingBoolean[StateNew, GroupSecurity, ValueEnableLogging]);
 
             sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser]);
             sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer]);
@@ -2068,7 +2072,7 @@ namespace SebWindowsConfig
 
         private void checkBoxEnablePlugins_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins] = checkBoxEnablePlugIns.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns] = checkBoxEnablePlugIns.Checked;
         }
 
         private void checkBoxEnableJava_CheckedChanged(object sender, EventArgs e)
@@ -2081,9 +2085,9 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript] = checkBoxEnableJavaScript.Checked;
         }
 
-        private void checkBoxBlockPopupWindows_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxBlockPopUpWindows_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows] = checkBoxBlockPopupWindows.Checked;
+            settingBoolean[StateNew, GroupBrowser, ValueBlockPopUpWindows] = checkBoxBlockPopUpWindows.Checked;
         }
 
         private void checkBoxAllowBrowsingBackForward_CheckedChanged(object sender, EventArgs e)
@@ -2106,11 +2110,6 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploads] = checkBoxAllowDownUploads.Checked;
         }
 
-        private void folderBrowserDialogDownloadDirectoryWin_HelpRequest(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonDownloadDirectoryWin_Click(object sender, EventArgs e)
         {
             // Set the default directory in the Folder Browser Dialog
@@ -2119,14 +2118,16 @@ namespace SebWindowsConfig
 
             // Get the user inputs in the File Dialog
             DialogResult dialogResult = folderBrowserDialogDownloadDirectoryWin.ShowDialog();
-            String       downloadPath = folderBrowserDialogDownloadDirectoryWin.SelectedPath;
+            String               path = folderBrowserDialogDownloadDirectoryWin.SelectedPath;
 
             // If the user clicked "Cancel", do nothing
             if (dialogResult.Equals(DialogResult.Cancel)) return;
 
+            labelDownloadDirectory.Text = "";
+
             // If the user clicked "OK", ...
-            settingString[StateNew, GroupDownUploads, ValueDownloadDirectoryWin]     = downloadPath;
-                                                      labelDownloadDirectoryWin.Text = downloadPath;
+            settingString[StateNew, GroupDownUploads, ValueDownloadDirectoryWin]     = path;
+                                                      labelDownloadDirectoryWin.Text = path;
         }
 
         private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
@@ -2225,10 +2226,26 @@ namespace SebWindowsConfig
 
         private void checkBoxEnableLogging_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSecurity, ValueEnableLog] = checkBoxEnableLogging.Checked;
+            settingBoolean[StateNew, GroupSecurity, ValueEnableLogging] = checkBoxEnableLogging.Checked;
         }
 
+        private void buttonLogDirectoryWin_Click(object sender, EventArgs e)
+        {
+            // Set the default directory in the Folder Browser Dialog
+            folderBrowserDialogLogDirectoryWin.RootFolder = Environment.SpecialFolder.MyDocuments;
+//          folderBrowserDialogLogDirectoryWin.RootFolder = Environment.CurrentDirectory;
 
+            // Get the user inputs in the File Dialog
+            DialogResult dialogResult = folderBrowserDialogLogDirectoryWin.ShowDialog();
+            String               path = folderBrowserDialogLogDirectoryWin.SelectedPath;
+
+            // If the user clicked "Cancel", do nothing
+            if (dialogResult.Equals(DialogResult.Cancel)) return;
+
+            // If the user clicked "OK", ...
+            settingString[StateNew, GroupSecurity, ValueLogDirectoryWin]     = path;
+                                                   labelLogDirectoryWin.Text = path;
+        }
 
         // ****************
         // Group "Registry"
@@ -2538,10 +2555,10 @@ namespace SebWindowsConfig
             checkBoxBlockLinksHTML.Checked       = settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign];
             checkBoxBlockLinksJava.Checked       = settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign];
 
-            checkBoxEnablePlugIns           .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugins];
+            checkBoxEnablePlugIns           .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns];
             checkBoxEnableJava              .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
             checkBoxEnableJavaScript        .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript];
-            checkBoxBlockPopupWindows       .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopupWindows];
+            checkBoxBlockPopUpWindows       .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopUpWindows];
             checkBoxAllowBrowsingBackForward.Checked = settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward];
             checkBoxUseSebWithoutBrowser    .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableSebBrowser];
 
@@ -2564,7 +2581,7 @@ namespace SebWindowsConfig
             checkBoxAllowVirtualMachine.Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine];
             checkBoxCreateNewDesktop   .Checked    = settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop];
             checkBoxAllowUserSwitching .Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching];
-            checkBoxEnableLogging      .Checked    = settingBoolean[StateNew, GroupSecurity, ValueEnableLog];
+            checkBoxEnableLogging      .Checked    = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
 
             checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser];
             checkBoxInsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer];
@@ -2607,7 +2624,6 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11];
             checkBoxEnableF12.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12];
         }
-
 
 
 
