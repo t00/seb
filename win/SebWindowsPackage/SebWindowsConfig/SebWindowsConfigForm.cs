@@ -219,7 +219,7 @@ namespace SebWindowsConfig
 
         // Group "Applications"
         const int ValueMonitorProcesses          = 1;
-        const int ValueAllowSwitchToApplications = 2;
+        const int ValueAllowSwitchToThirdPartyApps = 2;
         const int ValueAllowFlashFullscreen      = 3;
         const int NumValueApplications = 3;
 
@@ -489,7 +489,7 @@ namespace SebWindowsConfig
 
             // Default settings for group "Applications"
             settingBoolean[StateDef, GroupApplications, ValueMonitorProcesses         ] = true;
-            settingBoolean[StateDef, GroupApplications, ValueAllowSwitchToApplications] = true;
+            settingBoolean[StateDef, GroupApplications, ValueAllowSwitchToThirdPartyApps] = true;
             settingBoolean[StateDef, GroupApplications, ValueAllowFlashFullscreen     ] = false;
 
             // Default settings for group "Network"
@@ -682,7 +682,7 @@ namespace SebWindowsConfig
             valueString[GroupExam, ValueQuitURL           ] = MessageQuitURL;
 
             valueString[GroupApplications, ValueMonitorProcesses         ] = MessageMonitorProcesses;
-            valueString[GroupApplications, ValueAllowSwitchToApplications] = MessageAllowSwitchToApplications;
+            valueString[GroupApplications, ValueAllowSwitchToThirdPartyApps] = MessageAllowSwitchToApplications;
             valueString[GroupApplications, ValueAllowFlashFullscreen     ] = MessageAllowFlashFullscreen;
 
             valueString[GroupSecurity, ValueSebServicePolicy   ] = MessageSebServicePolicy;
@@ -1510,7 +1510,7 @@ namespace SebWindowsConfig
             settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebSettObso.getUrlAddress("quitURL").Url;
 
             settingBoolean[StateTmp, GroupApplications, ValueMonitorProcesses         ] = sebSettObso.getSecurityOption("monitorProcesses").getBool();
-            settingBoolean[StateTmp, GroupApplications, ValueAllowSwitchToApplications] = sebSettObso.getSecurityOption("allowSwitchToApplications").getBool();
+            settingBoolean[StateTmp, GroupApplications, ValueAllowSwitchToThirdPartyApps] = sebSettObso.getSecurityOption("allowSwitchToApplications").getBool();
             settingBoolean[StateTmp, GroupApplications, ValueAllowFlashFullscreen ] = sebSettObso.getSecurityOption("allowFlashFullscreen").getBool();
 
             settingString [StateTmp, GroupSecurity, ValueSebServicePolicy   ] = sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value;
@@ -1626,7 +1626,7 @@ namespace SebWindowsConfig
             sebSettObso.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitURL];
 
             sebSettObso.getSecurityOption("monitorProcesses         ").setBool(settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses]);
-            sebSettObso.getSecurityOption("allowSwitchToApplications").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications]);
+            sebSettObso.getSecurityOption("allowSwitchToApplications").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToThirdPartyApps]);
             sebSettObso.getSecurityOption("allowFlashFullscreen     ").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen]);
 
             sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value = settingString [StateNew, GroupSecurity, ValueSebServicePolicy];
@@ -2123,8 +2123,6 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             if (dialogResult.Equals(DialogResult.Cancel)) return;
 
-            labelDownloadDirectory.Text = "";
-
             // If the user clicked "OK", ...
             settingString[StateNew, GroupDownUploads, ValueDownloadDirectoryWin]     = path;
                                                       labelDownloadDirectoryWin.Text = path;
@@ -2185,14 +2183,14 @@ namespace SebWindowsConfig
             settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses] = checkBoxMonitorProcesses.Checked;
         }
 
-        private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxAllowSwitchToThirdPartyApps_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
+            settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToThirdPartyApps] = checkBoxAllowSwitchToThirdPartyApps.Checked;
         }
 
-        private void checkBoxAllowFlashFullscreenMode_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen] = checkBoxAllowFlashFullscreenMode.Checked;
+            settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
         }
 
 
@@ -2204,9 +2202,9 @@ namespace SebWindowsConfig
         // ****************
         // Group "Security"
         // ****************
-        private void listBoxSEBServicePolicy_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxSebServicePolicy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingInteger[StateNew, GroupSecurity, ValueSebServicePolicy] = listBoxSEBServicePolicy.SelectedIndex + 1;
+            settingInteger[StateNew, GroupSecurity, ValueSebServicePolicy] = listBoxSebServicePolicy.SelectedIndex + 1;
         }
 
         private void checkBoxAllowVirtualMachine_CheckedChanged(object sender, EventArgs e)
@@ -2246,6 +2244,8 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupSecurity, ValueLogDirectoryWin]     = path;
                                                    labelLogDirectoryWin.Text = path;
         }
+
+
 
         // ****************
         // Group "Registry"
@@ -2574,10 +2574,10 @@ namespace SebWindowsConfig
             checkBoxSendBrowserExamKey.Checked = settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey];
 
             checkBoxMonitorProcesses         .Checked = settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses];
-            checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications];
-            checkBoxAllowFlashFullscreenMode .Checked = settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen];
+            checkBoxAllowSwitchToThirdPartyApps.Checked = settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToThirdPartyApps];
+            checkBoxAllowFlashFullscreen .Checked = settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen];
 
-             listBoxSEBServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSebServicePolicy] - 1;
+             listBoxSebServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSebServicePolicy] - 1;
             checkBoxAllowVirtualMachine.Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine];
             checkBoxCreateNewDesktop   .Checked    = settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop];
             checkBoxAllowUserSwitching .Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching];

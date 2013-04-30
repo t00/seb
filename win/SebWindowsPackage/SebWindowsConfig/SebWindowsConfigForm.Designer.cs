@@ -85,14 +85,14 @@
             this.buttonLogDirectoryWin = new System.Windows.Forms.Button();
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowUserSwitching = new System.Windows.Forms.CheckBox();
-            this.labelSEBServicePolicy = new System.Windows.Forms.Label();
-            this.listBoxSEBServicePolicy = new System.Windows.Forms.ListBox();
+            this.labelSebServicePolicy = new System.Windows.Forms.Label();
+            this.listBoxSebServicePolicy = new System.Windows.Forms.ListBox();
             this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
-            this.checkBoxAllowFlashFullscreenMode = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowSwitchToThirdPartyApps = new System.Windows.Forms.CheckBox();
             this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.tabPageExam = new System.Windows.Forms.TabPage();
             this.labelPlaceThisQuitLink = new System.Windows.Forms.Label();
@@ -105,7 +105,6 @@
             this.checkBoxSendBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.checkBoxCopyBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
-            this.labelDownloadDirectory = new System.Windows.Forms.Label();
             this.labelDownloadDirectoryWin = new System.Windows.Forms.Label();
             this.buttonDownloadDirectoryWin = new System.Windows.Forms.Button();
             this.listBoxChooseFileToUploadPolicy = new System.Windows.Forms.ListBox();
@@ -787,8 +786,8 @@
             this.tabPageSecurity.Controls.Add(this.buttonLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.checkBoxCreateNewDesktop);
             this.tabPageSecurity.Controls.Add(this.checkBoxAllowUserSwitching);
-            this.tabPageSecurity.Controls.Add(this.labelSEBServicePolicy);
-            this.tabPageSecurity.Controls.Add(this.listBoxSEBServicePolicy);
+            this.tabPageSecurity.Controls.Add(this.labelSebServicePolicy);
+            this.tabPageSecurity.Controls.Add(this.listBoxSebServicePolicy);
             this.tabPageSecurity.Controls.Add(this.checkBoxEnableLogging);
             this.tabPageSecurity.Controls.Add(this.checkBoxAllowVirtualMachine);
             this.tabPageSecurity.Location = new System.Drawing.Point(4, 39);
@@ -802,11 +801,10 @@
             // labelLogDirectoryWin
             // 
             this.labelLogDirectoryWin.AutoSize = true;
-            this.labelLogDirectoryWin.Location = new System.Drawing.Point(382, 306);
+            this.labelLogDirectoryWin.Location = new System.Drawing.Point(376, 306);
             this.labelLogDirectoryWin.Name = "labelLogDirectoryWin";
-            this.labelLogDirectoryWin.Size = new System.Drawing.Size(93, 17);
+            this.labelLogDirectoryWin.Size = new System.Drawing.Size(0, 17);
             this.labelLogDirectoryWin.TabIndex = 79;
-            this.labelLogDirectoryWin.Text = "Log Directory";
             // 
             // buttonLogDirectoryWin
             // 
@@ -845,28 +843,28 @@
             this.checkBoxAllowUserSwitching.UseVisualStyleBackColor = true;
             this.checkBoxAllowUserSwitching.CheckedChanged += new System.EventHandler(this.checkBoxAllowUserSwitching_CheckedChanged);
             // 
-            // labelSEBServicePolicy
+            // labelSebServicePolicy
             // 
-            this.labelSEBServicePolicy.AutoSize = true;
-            this.labelSEBServicePolicy.Location = new System.Drawing.Point(28, 33);
-            this.labelSEBServicePolicy.Name = "labelSEBServicePolicy";
-            this.labelSEBServicePolicy.Size = new System.Drawing.Size(126, 17);
-            this.labelSEBServicePolicy.TabIndex = 75;
-            this.labelSEBServicePolicy.Text = "SEB Service policy";
+            this.labelSebServicePolicy.AutoSize = true;
+            this.labelSebServicePolicy.Location = new System.Drawing.Point(28, 33);
+            this.labelSebServicePolicy.Name = "labelSebServicePolicy";
+            this.labelSebServicePolicy.Size = new System.Drawing.Size(126, 17);
+            this.labelSebServicePolicy.TabIndex = 75;
+            this.labelSebServicePolicy.Text = "SEB Service policy";
             // 
-            // listBoxSEBServicePolicy
+            // listBoxSebServicePolicy
             // 
-            this.listBoxSEBServicePolicy.FormattingEnabled = true;
-            this.listBoxSEBServicePolicy.ItemHeight = 16;
-            this.listBoxSEBServicePolicy.Items.AddRange(new object[] {
+            this.listBoxSebServicePolicy.FormattingEnabled = true;
+            this.listBoxSebServicePolicy.ItemHeight = 16;
+            this.listBoxSebServicePolicy.Items.AddRange(new object[] {
             "allow to use SEB only with service",
             "display warning then service is not running",
             "allow to run SEB without service"});
-            this.listBoxSEBServicePolicy.Location = new System.Drawing.Point(31, 63);
-            this.listBoxSEBServicePolicy.Name = "listBoxSEBServicePolicy";
-            this.listBoxSEBServicePolicy.Size = new System.Drawing.Size(374, 52);
-            this.listBoxSEBServicePolicy.TabIndex = 74;
-            this.listBoxSEBServicePolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxSEBServicePolicy_SelectedIndexChanged);
+            this.listBoxSebServicePolicy.Location = new System.Drawing.Point(31, 63);
+            this.listBoxSebServicePolicy.Name = "listBoxSebServicePolicy";
+            this.listBoxSebServicePolicy.Size = new System.Drawing.Size(374, 52);
+            this.listBoxSebServicePolicy.TabIndex = 74;
+            this.listBoxSebServicePolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxSebServicePolicy_SelectedIndexChanged);
             // 
             // checkBoxEnableLogging
             // 
@@ -906,8 +904,8 @@
             // 
             // tabPageApplications
             // 
-            this.tabPageApplications.Controls.Add(this.checkBoxAllowFlashFullscreenMode);
-            this.tabPageApplications.Controls.Add(this.checkBoxAllowSwitchToApplications);
+            this.tabPageApplications.Controls.Add(this.checkBoxAllowFlashFullscreen);
+            this.tabPageApplications.Controls.Add(this.checkBoxAllowSwitchToThirdPartyApps);
             this.tabPageApplications.Controls.Add(this.checkBoxMonitorProcesses);
             this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
             this.tabPageApplications.Name = "tabPageApplications";
@@ -917,31 +915,31 @@
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAllowFlashFullscreenMode
+            // checkBoxAllowFlashFullscreen
             // 
-            this.checkBoxAllowFlashFullscreenMode.AutoSize = true;
-            this.checkBoxAllowFlashFullscreenMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowFlashFullscreenMode.Location = new System.Drawing.Point(295, 55);
-            this.checkBoxAllowFlashFullscreenMode.Name = "checkBoxAllowFlashFullscreenMode";
-            this.checkBoxAllowFlashFullscreenMode.Size = new System.Drawing.Size(278, 21);
-            this.checkBoxAllowFlashFullscreenMode.TabIndex = 78;
-            this.checkBoxAllowFlashFullscreenMode.Text = "Allow Flash to switch to fullscreen mode";
-            this.checkBoxAllowFlashFullscreenMode.UseVisualStyleBackColor = true;
-            this.checkBoxAllowFlashFullscreenMode.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreenMode_CheckedChanged);
+            this.checkBoxAllowFlashFullscreen.AutoSize = true;
+            this.checkBoxAllowFlashFullscreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(295, 55);
+            this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
+            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(278, 21);
+            this.checkBoxAllowFlashFullscreen.TabIndex = 78;
+            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash to switch to fullscreen mode";
+            this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
+            this.checkBoxAllowFlashFullscreen.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreen_CheckedChanged);
             // 
-            // checkBoxAllowSwitchToApplications
+            // checkBoxAllowSwitchToThirdPartyApps
             // 
-            this.checkBoxAllowSwitchToApplications.AutoSize = true;
-            this.checkBoxAllowSwitchToApplications.Checked = true;
-            this.checkBoxAllowSwitchToApplications.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(277, 28);
-            this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
-            this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(286, 21);
-            this.checkBoxAllowSwitchToApplications.TabIndex = 77;
-            this.checkBoxAllowSwitchToApplications.Text = "Allow switching to third party applications";
-            this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
-            this.checkBoxAllowSwitchToApplications.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToApplications_CheckedChanged);
+            this.checkBoxAllowSwitchToThirdPartyApps.AutoSize = true;
+            this.checkBoxAllowSwitchToThirdPartyApps.Checked = true;
+            this.checkBoxAllowSwitchToThirdPartyApps.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowSwitchToThirdPartyApps.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowSwitchToThirdPartyApps.Location = new System.Drawing.Point(277, 28);
+            this.checkBoxAllowSwitchToThirdPartyApps.Name = "checkBoxAllowSwitchToThirdPartyApps";
+            this.checkBoxAllowSwitchToThirdPartyApps.Size = new System.Drawing.Size(286, 21);
+            this.checkBoxAllowSwitchToThirdPartyApps.TabIndex = 77;
+            this.checkBoxAllowSwitchToThirdPartyApps.Text = "Allow switching to third party applications";
+            this.checkBoxAllowSwitchToThirdPartyApps.UseVisualStyleBackColor = true;
+            this.checkBoxAllowSwitchToThirdPartyApps.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToThirdPartyApps_CheckedChanged);
             // 
             // checkBoxMonitorProcesses
             // 
@@ -1075,7 +1073,6 @@
             // 
             // tabPageDownUploads
             // 
-            this.tabPageDownUploads.Controls.Add(this.labelDownloadDirectory);
             this.tabPageDownUploads.Controls.Add(this.labelDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.buttonDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUploadPolicy);
@@ -1091,15 +1088,6 @@
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
-            // 
-            // labelDownloadDirectory
-            // 
-            this.labelDownloadDirectory.AutoSize = true;
-            this.labelDownloadDirectory.Location = new System.Drawing.Point(458, 87);
-            this.labelDownloadDirectory.Name = "labelDownloadDirectory";
-            this.labelDownloadDirectory.Size = new System.Drawing.Size(131, 17);
-            this.labelDownloadDirectory.TabIndex = 79;
-            this.labelDownloadDirectory.Text = "Download Directory";
             // 
             // labelDownloadDirectoryWin
             // 
@@ -2276,14 +2264,14 @@
         private System.Windows.Forms.TabPage tabPageSecurity;
         private System.Windows.Forms.CheckBox checkBoxCreateNewDesktop;
         private System.Windows.Forms.CheckBox checkBoxAllowUserSwitching;
-        private System.Windows.Forms.Label labelSEBServicePolicy;
-        private System.Windows.Forms.ListBox listBoxSEBServicePolicy;
+        private System.Windows.Forms.Label labelSebServicePolicy;
+        private System.Windows.Forms.ListBox listBoxSebServicePolicy;
         private System.Windows.Forms.CheckBox checkBoxEnableLogging;
         private System.Windows.Forms.CheckBox checkBoxAllowVirtualMachine;
         private System.Windows.Forms.TabPage tabPageNetwork;
         private System.Windows.Forms.TabPage tabPageApplications;
-        private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreenMode;
-        private System.Windows.Forms.CheckBox checkBoxAllowSwitchToApplications;
+        private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreen;
+        private System.Windows.Forms.CheckBox checkBoxAllowSwitchToThirdPartyApps;
         private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
         private System.Windows.Forms.TabPage tabPageExam;
         private System.Windows.Forms.Label labelPlaceThisQuitLink;
@@ -2384,7 +2372,6 @@
         private System.Windows.Forms.Button buttonLogDirectoryWin;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogLogDirectoryWin;
         private System.Windows.Forms.Label labelLogDirectoryWin;
-        private System.Windows.Forms.Label labelDownloadDirectory;
 
     }
 }
