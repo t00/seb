@@ -42,7 +42,7 @@
 	<false/>
 	<key>enableJavaScript</key>
 	<true/>
-	<key>enableLog</key>
+	<key>enableLogging</key>
 	<true/>
 	<key>enablePlugins</key>
 	<true/>
