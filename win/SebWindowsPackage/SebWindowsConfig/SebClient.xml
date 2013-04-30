@@ -14,8 +14,6 @@
 	<true/>
 	<key>allowSwitchToApplications</key>
 	<true/>
-	<key>allowSwitchToThirdPartyApps</key>
-	<true/>
 	<key>allowUserSwitching</key>
 	<true/>
 	<key>allowVirtualMachine</key>
@@ -30,7 +28,7 @@
 	<false/>
 	<key>cryptoIdentity</key>
 	<integer>0</integer>
-	<key>downloadDirectory</key>
+	<key>downloadDirectoryWin</key>
 	<string>/Users/drs/Downloads</string>
 	<key>downloadDirectoryOSX</key>
 	<string>~/Downloads</string>
