@@ -905,7 +905,7 @@ namespace SebWindowsConfig
             }
 
             // SEB Purpose and Browser View Mode have 2 possible list entries
-            for (index = 0; index <= 2; index++)
+            for (index = 0; index <= 1; index++)
             {
                 String purpose  = StringSebPurpose     [index];
                 String viewmode = StringBrowserViewMode[index];
