@@ -92,7 +92,7 @@
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllowSwitchToThirdPartyApps = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
             this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.tabPageExam = new System.Windows.Forms.TabPage();
             this.labelPlaceThisQuitLink = new System.Windows.Forms.Label();
@@ -905,7 +905,7 @@
             // tabPageApplications
             // 
             this.tabPageApplications.Controls.Add(this.checkBoxAllowFlashFullscreen);
-            this.tabPageApplications.Controls.Add(this.checkBoxAllowSwitchToThirdPartyApps);
+            this.tabPageApplications.Controls.Add(this.checkBoxAllowSwitchToApplications);
             this.tabPageApplications.Controls.Add(this.checkBoxMonitorProcesses);
             this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
             this.tabPageApplications.Name = "tabPageApplications";
@@ -927,19 +927,19 @@
             this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
             this.checkBoxAllowFlashFullscreen.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreen_CheckedChanged);
             // 
-            // checkBoxAllowSwitchToThirdPartyApps
+            // checkBoxAllowSwitchToApplications
             // 
-            this.checkBoxAllowSwitchToThirdPartyApps.AutoSize = true;
-            this.checkBoxAllowSwitchToThirdPartyApps.Checked = true;
-            this.checkBoxAllowSwitchToThirdPartyApps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowSwitchToThirdPartyApps.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowSwitchToThirdPartyApps.Location = new System.Drawing.Point(277, 28);
-            this.checkBoxAllowSwitchToThirdPartyApps.Name = "checkBoxAllowSwitchToThirdPartyApps";
-            this.checkBoxAllowSwitchToThirdPartyApps.Size = new System.Drawing.Size(286, 21);
-            this.checkBoxAllowSwitchToThirdPartyApps.TabIndex = 77;
-            this.checkBoxAllowSwitchToThirdPartyApps.Text = "Allow switching to third party applications";
-            this.checkBoxAllowSwitchToThirdPartyApps.UseVisualStyleBackColor = true;
-            this.checkBoxAllowSwitchToThirdPartyApps.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToThirdPartyApps_CheckedChanged);
+            this.checkBoxAllowSwitchToApplications.AutoSize = true;
+            this.checkBoxAllowSwitchToApplications.Checked = true;
+            this.checkBoxAllowSwitchToApplications.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(277, 28);
+            this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
+            this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(286, 21);
+            this.checkBoxAllowSwitchToApplications.TabIndex = 77;
+            this.checkBoxAllowSwitchToApplications.Text = "Allow switching to third party applications";
+            this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
+            this.checkBoxAllowSwitchToApplications.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToApplications_CheckedChanged);
             // 
             // checkBoxMonitorProcesses
             // 
@@ -2271,7 +2271,7 @@
         private System.Windows.Forms.TabPage tabPageNetwork;
         private System.Windows.Forms.TabPage tabPageApplications;
         private System.Windows.Forms.CheckBox checkBoxAllowFlashFullscreen;
-        private System.Windows.Forms.CheckBox checkBoxAllowSwitchToThirdPartyApps;
+        private System.Windows.Forms.CheckBox checkBoxAllowSwitchToApplications;
         private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
         private System.Windows.Forms.TabPage tabPageExam;
         private System.Windows.Forms.Label labelPlaceThisQuitLink;
