@@ -148,6 +148,8 @@
             this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
             this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
+            this.textBoxHashedSettingsPassword = new System.Windows.Forms.TextBox();
+            this.labelHashedSettingsPassword = new System.Windows.Forms.Label();
             this.labelUseEither = new System.Windows.Forms.Label();
             this.labelChooseIdentity = new System.Windows.Forms.Label();
             this.comboBoxCryptoIdentity = new System.Windows.Forms.ComboBox();
@@ -164,6 +166,8 @@
             this.labelOpenSettings = new System.Windows.Forms.Label();
             this.labelSaveSettingsAs = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.labelHashedAdminPassword = new System.Windows.Forms.Label();
+            this.textBoxHashedAdminPassword = new System.Windows.Forms.TextBox();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
@@ -175,7 +179,7 @@
             this.textBoxConfirmAdminPassword = new System.Windows.Forms.TextBox();
             this.textBoxAdminPassword = new System.Windows.Forms.TextBox();
             this.textBoxConfirmQuitPassword = new System.Windows.Forms.TextBox();
-            this.textBoxQuitHashcode = new System.Windows.Forms.TextBox();
+            this.textBoxHashedQuitPassword = new System.Windows.Forms.TextBox();
             this.textBoxQuitPassword = new System.Windows.Forms.TextBox();
             this.textBoxStartURL = new System.Windows.Forms.TextBox();
             this.buttonHelp = new System.Windows.Forms.Button();
@@ -186,7 +190,7 @@
             this.labelAdminPassword = new System.Windows.Forms.Label();
             this.labelConfirmQuitPassword = new System.Windows.Forms.Label();
             this.checkBoxAllowQuit = new System.Windows.Forms.CheckBox();
-            this.labelQuitHashCode = new System.Windows.Forms.Label();
+            this.labelHashedQuitPassword = new System.Windows.Forms.Label();
             this.labelQuitPassword = new System.Windows.Forms.Label();
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
@@ -1620,6 +1624,8 @@
             // 
             // tabPageConfigFile
             // 
+            this.tabPageConfigFile.Controls.Add(this.textBoxHashedSettingsPassword);
+            this.tabPageConfigFile.Controls.Add(this.labelHashedSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.labelUseEither);
             this.tabPageConfigFile.Controls.Add(this.labelChooseIdentity);
             this.tabPageConfigFile.Controls.Add(this.comboBoxCryptoIdentity);
@@ -1643,6 +1649,25 @@
             this.tabPageConfigFile.TabIndex = 6;
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
+            // 
+            // textBoxHashedSettingsPassword
+            // 
+            this.textBoxHashedSettingsPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxHashedSettingsPassword.Location = new System.Drawing.Point(465, 311);
+            this.textBoxHashedSettingsPassword.Name = "textBoxHashedSettingsPassword";
+            this.textBoxHashedSettingsPassword.ReadOnly = true;
+            this.textBoxHashedSettingsPassword.Size = new System.Drawing.Size(441, 22);
+            this.textBoxHashedSettingsPassword.TabIndex = 61;
+            // 
+            // labelHashedSettingsPassword
+            // 
+            this.labelHashedSettingsPassword.AutoSize = true;
+            this.labelHashedSettingsPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHashedSettingsPassword.Location = new System.Drawing.Point(277, 316);
+            this.labelHashedSettingsPassword.Name = "labelHashedSettingsPassword";
+            this.labelHashedSettingsPassword.Size = new System.Drawing.Size(174, 17);
+            this.labelHashedSettingsPassword.TabIndex = 60;
+            this.labelHashedSettingsPassword.Text = "Hashed settings password";
             // 
             // labelUseEither
             // 
@@ -1808,6 +1833,8 @@
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.labelHashedAdminPassword);
+            this.tabPageGeneral.Controls.Add(this.textBoxHashedAdminPassword);
             this.tabPageGeneral.Controls.Add(this.groupBoxExitSequence);
             this.tabPageGeneral.Controls.Add(this.checkBoxIgnoreQuitPassword);
             this.tabPageGeneral.Controls.Add(this.buttonPasteFromSavedClipboard);
@@ -1816,7 +1843,7 @@
             this.tabPageGeneral.Controls.Add(this.textBoxConfirmAdminPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxAdminPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxConfirmQuitPassword);
-            this.tabPageGeneral.Controls.Add(this.textBoxQuitHashcode);
+            this.tabPageGeneral.Controls.Add(this.textBoxHashedQuitPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxQuitPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxStartURL);
             this.tabPageGeneral.Controls.Add(this.buttonHelp);
@@ -1827,7 +1854,7 @@
             this.tabPageGeneral.Controls.Add(this.labelAdminPassword);
             this.tabPageGeneral.Controls.Add(this.labelConfirmQuitPassword);
             this.tabPageGeneral.Controls.Add(this.checkBoxAllowQuit);
-            this.tabPageGeneral.Controls.Add(this.labelQuitHashCode);
+            this.tabPageGeneral.Controls.Add(this.labelHashedQuitPassword);
             this.tabPageGeneral.Controls.Add(this.labelQuitPassword);
             this.tabPageGeneral.Controls.Add(this.labelStartURL);
             this.tabPageGeneral.ImageIndex = 5;
@@ -1838,6 +1865,25 @@
             this.tabPageGeneral.TabIndex = 4;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // labelHashedAdminPassword
+            // 
+            this.labelHashedAdminPassword.AutoSize = true;
+            this.labelHashedAdminPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHashedAdminPassword.Location = new System.Drawing.Point(21, 166);
+            this.labelHashedAdminPassword.Name = "labelHashedAdminPassword";
+            this.labelHashedAdminPassword.Size = new System.Drawing.Size(207, 17);
+            this.labelHashedAdminPassword.TabIndex = 55;
+            this.labelHashedAdminPassword.Text = "Hashed administrator password";
+            // 
+            // textBoxHashedAdminPassword
+            // 
+            this.textBoxHashedAdminPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxHashedAdminPassword.Location = new System.Drawing.Point(234, 166);
+            this.textBoxHashedAdminPassword.Name = "textBoxHashedAdminPassword";
+            this.textBoxHashedAdminPassword.ReadOnly = true;
+            this.textBoxHashedAdminPassword.Size = new System.Drawing.Size(441, 22);
+            this.textBoxHashedAdminPassword.TabIndex = 54;
             // 
             // groupBoxExitSequence
             // 
@@ -1971,7 +2017,7 @@
             // textBoxConfirmAdminPassword
             // 
             this.textBoxConfirmAdminPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfirmAdminPassword.Location = new System.Drawing.Point(444, 161);
+            this.textBoxConfirmAdminPassword.Location = new System.Drawing.Point(444, 138);
             this.textBoxConfirmAdminPassword.Name = "textBoxConfirmAdminPassword";
             this.textBoxConfirmAdminPassword.Size = new System.Drawing.Size(231, 22);
             this.textBoxConfirmAdminPassword.TabIndex = 41;
@@ -1981,7 +2027,7 @@
             // textBoxAdminPassword
             // 
             this.textBoxAdminPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAdminPassword.Location = new System.Drawing.Point(444, 133);
+            this.textBoxAdminPassword.Location = new System.Drawing.Point(444, 109);
             this.textBoxAdminPassword.Name = "textBoxAdminPassword";
             this.textBoxAdminPassword.Size = new System.Drawing.Size(231, 22);
             this.textBoxAdminPassword.TabIndex = 39;
@@ -1998,14 +2044,14 @@
             this.textBoxConfirmQuitPassword.WordWrap = false;
             this.textBoxConfirmQuitPassword.TextChanged += new System.EventHandler(this.textBoxConfirmQuitPassword_TextChanged);
             // 
-            // textBoxQuitHashcode
+            // textBoxHashedQuitPassword
             // 
-            this.textBoxQuitHashcode.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuitHashcode.Location = new System.Drawing.Point(140, 302);
-            this.textBoxQuitHashcode.Name = "textBoxQuitHashcode";
-            this.textBoxQuitHashcode.ReadOnly = true;
-            this.textBoxQuitHashcode.Size = new System.Drawing.Size(535, 22);
-            this.textBoxQuitHashcode.TabIndex = 34;
+            this.textBoxHashedQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxHashedQuitPassword.Location = new System.Drawing.Point(175, 289);
+            this.textBoxHashedQuitPassword.Name = "textBoxHashedQuitPassword";
+            this.textBoxHashedQuitPassword.ReadOnly = true;
+            this.textBoxHashedQuitPassword.Size = new System.Drawing.Size(502, 22);
+            this.textBoxHashedQuitPassword.TabIndex = 34;
             // 
             // textBoxQuitPassword
             // 
@@ -2070,7 +2116,7 @@
             // 
             this.labelConfirmAdminPassword.AutoSize = true;
             this.labelConfirmAdminPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmAdminPassword.Location = new System.Drawing.Point(232, 161);
+            this.labelConfirmAdminPassword.Location = new System.Drawing.Point(232, 138);
             this.labelConfirmAdminPassword.Name = "labelConfirmAdminPassword";
             this.labelConfirmAdminPassword.Size = new System.Drawing.Size(206, 17);
             this.labelConfirmAdminPassword.TabIndex = 40;
@@ -2080,7 +2126,7 @@
             // 
             this.labelAdminPassword.AutoSize = true;
             this.labelAdminPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdminPassword.Location = new System.Drawing.Point(283, 133);
+            this.labelAdminPassword.Location = new System.Drawing.Point(283, 109);
             this.labelAdminPassword.Name = "labelAdminPassword";
             this.labelAdminPassword.Size = new System.Drawing.Size(155, 17);
             this.labelAdminPassword.TabIndex = 38;
@@ -2109,15 +2155,15 @@
             this.checkBoxAllowQuit.UseVisualStyleBackColor = true;
             this.checkBoxAllowQuit.CheckedChanged += new System.EventHandler(this.checkBoxAllowQuit_CheckedChanged);
             // 
-            // labelQuitHashCode
+            // labelHashedQuitPassword
             // 
-            this.labelQuitHashCode.AutoSize = true;
-            this.labelQuitHashCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitHashCode.Location = new System.Drawing.Point(34, 302);
-            this.labelQuitHashCode.Name = "labelQuitHashCode";
-            this.labelQuitHashCode.Size = new System.Drawing.Size(100, 17);
-            this.labelQuitHashCode.TabIndex = 32;
-            this.labelQuitHashCode.Text = "Quit hashcode";
+            this.labelHashedQuitPassword.AutoSize = true;
+            this.labelHashedQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHashedQuitPassword.Location = new System.Drawing.Point(21, 291);
+            this.labelHashedQuitPassword.Name = "labelHashedQuitPassword";
+            this.labelHashedQuitPassword.Size = new System.Drawing.Size(148, 17);
+            this.labelHashedQuitPassword.TabIndex = 32;
+            this.labelHashedQuitPassword.Text = "Hashed quit password";
             // 
             // labelQuitPassword
             // 
@@ -2354,7 +2400,7 @@
         private System.Windows.Forms.TextBox textBoxConfirmAdminPassword;
         private System.Windows.Forms.TextBox textBoxAdminPassword;
         private System.Windows.Forms.TextBox textBoxConfirmQuitPassword;
-        private System.Windows.Forms.TextBox textBoxQuitHashcode;
+        private System.Windows.Forms.TextBox textBoxHashedQuitPassword;
         private System.Windows.Forms.TextBox textBoxQuitPassword;
         private System.Windows.Forms.TextBox textBoxStartURL;
         private System.Windows.Forms.Button buttonHelp;
@@ -2365,13 +2411,17 @@
         private System.Windows.Forms.Label labelAdminPassword;
         private System.Windows.Forms.Label labelConfirmQuitPassword;
         private System.Windows.Forms.CheckBox checkBoxAllowQuit;
-        private System.Windows.Forms.Label labelQuitHashCode;
+        private System.Windows.Forms.Label labelHashedQuitPassword;
         private System.Windows.Forms.Label labelQuitPassword;
         private System.Windows.Forms.Label labelStartURL;
         private System.Windows.Forms.TabControl tabControlSebWindowsConfig;
         private System.Windows.Forms.Button buttonLogDirectoryWin;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogLogDirectoryWin;
         private System.Windows.Forms.Label labelLogDirectoryWin;
+        private System.Windows.Forms.Label labelHashedAdminPassword;
+        private System.Windows.Forms.TextBox textBoxHashedAdminPassword;
+        private System.Windows.Forms.Label labelHashedSettingsPassword;
+        private System.Windows.Forms.TextBox textBoxHashedSettingsPassword;
 
     }
 }

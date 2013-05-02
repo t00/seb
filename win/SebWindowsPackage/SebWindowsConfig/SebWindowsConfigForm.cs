@@ -124,7 +124,7 @@ namespace SebWindowsConfig
         const String MessageExitKey3             = "exitKey3";
 
         // Group "Config File"
-        const int ValueSebPurpose              = 1;
+        const int ValueSebConfigPurpose        = 1;
         const int ValueAllowPreferencesWindow  = 2;
         const int ValueCryptoIdentity          = 3;
         const int ValueSettingsPassword        = 4;
@@ -132,7 +132,7 @@ namespace SebWindowsConfig
         const int ValueHashedSettingsPassword  = 6;
         const int NumValueConfigFile = 6;
 
-        const String MessageSebPurpose              = "sebPurpose";
+        const String MessageSebConfigPurpose        = "sebConfigPurpose";
         const String MessageAllowPreferencesWindow  = "allowPreferencesWindow";
         const String MessageCryptoIdentity          = "cryptoIdentity";
         const String MessageSettingsPassword        = "settingsPassword";
@@ -442,7 +442,7 @@ namespace SebWindowsConfig
             settingInteger[StateDef, GroupGeneral, ValueExitKey3            ] =  5;
 
             // Default settings for group "Config File"
-            settingInteger[StateDef, GroupConfigFile, ValueSebPurpose             ] = 0;
+            settingInteger[StateDef, GroupConfigFile, ValueSebConfigPurpose             ] = 0;
             settingBoolean[StateDef, GroupConfigFile, ValueAllowPreferencesWindow ] = true;
             settingInteger[StateDef, GroupConfigFile, ValueCryptoIdentity         ] = 0;
             settingString [StateDef, GroupConfigFile, ValueSettingsPassword       ] = "";
@@ -651,7 +651,7 @@ namespace SebWindowsConfig
             valueString[GroupGeneral, ValueExitKey2            ] = MessageExitKey2;
             valueString[GroupGeneral, ValueExitKey3            ] = MessageExitKey3;
 
-            valueString[GroupConfigFile, ValueSebPurpose             ] = MessageSebPurpose;
+            valueString[GroupConfigFile, ValueSebConfigPurpose             ] = MessageSebConfigPurpose;
             valueString[GroupConfigFile, ValueAllowPreferencesWindow ] = MessageAllowPreferencesWindow;
             valueString[GroupConfigFile, ValueCryptoIdentity         ] = MessageCryptoIdentity;
             valueString[GroupConfigFile, ValueSettingsPassword       ] = MessageSettingsPassword;
@@ -870,7 +870,7 @@ namespace SebWindowsConfig
             String tmpStringExitKey2 = settingString[StateTmp, GroupGeneral, ValueExitKey2];
             String tmpStringExitKey3 = settingString[StateTmp, GroupGeneral, ValueExitKey3];
 
-            String tmpStringSebPurpose     = settingString[StateTmp, GroupConfigFile, ValueSebPurpose];
+            String tmpStringSebPurpose     = settingString[StateTmp, GroupConfigFile, ValueSebConfigPurpose];
           //String tmpStringCryptoIdentity = settingString[StateTmp, GroupConfigFile, ValueCryptoIdentity];
 
             String tmpStringBrowserViewMode       = settingString[StateTmp, GroupAppearance, ValueBrowserViewMode];
@@ -965,7 +965,7 @@ namespace SebWindowsConfig
             settingInteger[StateTmp, GroupGeneral, ValueExitKey2] = tmpIndexExitKey2;
             settingInteger[StateTmp, GroupGeneral, ValueExitKey3] = tmpIndexExitKey3;
 
-            settingInteger[StateTmp, GroupConfigFile, ValueSebPurpose] = tmpIndexSebPurpose;
+            settingInteger[StateTmp, GroupConfigFile, ValueSebConfigPurpose] = tmpIndexSebPurpose;
 
             settingInteger[StateTmp, GroupAppearance , ValueBrowserViewMode             ] = tmpIndexBrowserViewMode;
             settingInteger[StateTmp, GroupAppearance , ValueMainBrowserWindowWidth      ] = tmpIndexMainWindowWidth;
@@ -1030,7 +1030,7 @@ namespace SebWindowsConfig
             int newIndexExitKey2 = settingInteger[StateNew, GroupGeneral, ValueExitKey2];
             int newIndexExitKey3 = settingInteger[StateNew, GroupGeneral, ValueExitKey3];
 
-            int newIndexSebPurpose     = settingInteger[StateNew, GroupConfigFile, ValueSebPurpose];
+            int newIndexSebPurpose     = settingInteger[StateNew, GroupConfigFile, ValueSebConfigPurpose];
             int newIndexCryptoIdentity = settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity];
 
             int newIndexBrowserViewMode       = settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode];
@@ -1052,7 +1052,7 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupGeneral, ValueExitKey2] = StringFunctionKey[newIndexExitKey2];
             settingString[StateNew, GroupGeneral, ValueExitKey3] = StringFunctionKey[newIndexExitKey3];
 
-            settingString[StateNew, GroupConfigFile, ValueSebPurpose    ] = StringSebPurpose    [newIndexSebPurpose];
+            settingString[StateNew, GroupConfigFile, ValueSebConfigPurpose    ] = StringSebPurpose    [newIndexSebPurpose];
             settingString[StateNew, GroupConfigFile, ValueCryptoIdentity] = StringCryptoIdentity[newIndexCryptoIdentity];
 
             settingString[StateNew, GroupAppearance, ValueBrowserViewMode             ] = StringBrowserViewMode  [newIndexBrowserViewMode];
@@ -1759,7 +1759,7 @@ namespace SebWindowsConfig
             for (int i = 0; i < hashcodeBytes.Length; i++)
                 newStringQuitHashcode += hashcodeBytes[i].ToString("X");
 
-            textBoxQuitHashcode.Text = newStringQuitHashcode;
+            textBoxHashedQuitPassword.Text = newStringQuitHashcode;
 
             settingString[StateNew, GroupGeneral, ValueQuitPassword] = newStringQuitPassword;
             settingString[StateNew, GroupGeneral, ValueHashedQuitPassword] = newStringQuitHashcode;
@@ -1853,15 +1853,15 @@ namespace SebWindowsConfig
         private void radioButtonStartingAnExam_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonStartingAnExam.Checked == true)
-                 settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 0;
-            else settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 1;
+                 settingInteger[StateNew, GroupConfigFile, ValueSebConfigPurpose] = 0;
+            else settingInteger[StateNew, GroupConfigFile, ValueSebConfigPurpose] = 1;
         }
 
         private void radioButtonConfiguringAClient_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonConfiguringAClient.Checked == true)
-                 settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 1;
-            else settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] = 0;
+                 settingInteger[StateNew, GroupConfigFile, ValueSebConfigPurpose] = 1;
+            else settingInteger[StateNew, GroupConfigFile, ValueSebConfigPurpose] = 0;
         }
 
         private void checkBoxAllowPreferencesWindow_CheckedChanged(object sender, EventArgs e)
@@ -2529,124 +2529,123 @@ namespace SebWindowsConfig
             this.Text += " - ";
             this.Text += currentPathSebStarterIni;
 
+            // Update the widgets
 
-            textBoxQuitURL     .Text = (String)sebSettingsNew[MessageQuitURL];
+            // Group "General"
+            textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
+            textBoxSebServerURL        .Text   =  (String)sebSettingsNew[MessageSebServerURL];
+            textBoxAdminPassword       .Text   =  (String)sebSettingsNew[MessageAdminPassword];
+            textBoxConfirmAdminPassword.Text   =  (String)sebSettingsNew[MessageConfirmAdminPassword];
+            textBoxHashedAdminPassword .Text   =  (String)sebSettingsNew[MessageHashedAdminPassword];
+            checkBoxAllowQuit         .Checked = (Boolean)sebSettingsNew[MessageAllowQuit];
+            checkBoxIgnoreQuitPassword.Checked = (Boolean)sebSettingsNew[MessageIgnoreQuitPassword];
+            textBoxQuitPassword        .Text   =  (String)sebSettingsNew[MessageQuitPassword];
+            textBoxConfirmQuitPassword .Text   =  (String)sebSettingsNew[MessageConfirmQuitPassword];
+            textBoxHashedQuitPassword  .Text   =  (String)sebSettingsNew[MessageHashedQuitPassword];
+            listBoxExitKey1.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey1];
+            listBoxExitKey2.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey2];
+            listBoxExitKey3.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey3];
+
+            // Group "Config File"
+            radioButtonStartingAnExam     .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 0);
+            radioButtonConfiguringAClient .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 1);
+            checkBoxAllowPreferencesWindow.Checked = (Boolean)sebSettingsNew[MessageAllowPreferencesWindow];
+            comboBoxCryptoIdentity.SelectedIndex   =     (int)sebSettingsNew[MessageCryptoIdentity];
+            textBoxSettingsPassword       .Text    =  (String)sebSettingsNew[MessageSettingsPassword];
+            textBoxConfirmSettingsPassword.Text    =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
+            textBoxHashedSettingsPassword .Text    =  (String)sebSettingsNew[MessageHashedSettingsPassword];
+
+            // Group "Appearance"
+            radioButtonUseBrowserWindow       .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 0);
+            radioButtonUseFullScreenMode      .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 1);
+            comboBoxMainBrowserWindowWidth      .SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowWidth ];
+            comboBoxMainBrowserWindowHeight     .SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowHeight];
+             listBoxMainBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowPositioning];
+            checkBoxEnableBrowserWindowToolbar.Checked = (Boolean)sebSettingsNew[MessageEnableBrowserWindowToolbar];
+            checkBoxHideBrowserWindowToolbar  .Checked = (Boolean)sebSettingsNew[MessageHideBrowserWindowToolbar];
+            checkBoxShowMenuBar               .Checked = (Boolean)sebSettingsNew[MessageShowMenuBar];
+            checkBoxShowTaskBar               .Checked = (Boolean)sebSettingsNew[MessageShowTaskBar];
+
+            // Group "Browser"
+            comboBoxNewBrowserWindowWidth      .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkWidth ];
+            comboBoxNewBrowserWindowHeight     .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
+             listBoxNewBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkPositioning];
+
+             listBoxOpenLinksHTML .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
+             listBoxOpenLinksJava .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByScriptPolicy];
+            checkBoxBlockLinksHTML.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByLinkBlockForeign];
+            checkBoxBlockLinksJava.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByScriptBlockForeign];
+
+            checkBoxEnablePlugIns           .Checked = (Boolean)sebSettingsNew[MessageEnablePlugIns];
+            checkBoxEnableJava              .Checked = (Boolean)sebSettingsNew[MessageEnableJava];
+            checkBoxEnableJavaScript        .Checked = (Boolean)sebSettingsNew[MessageEnableJavaScript];
+            checkBoxBlockPopUpWindows       .Checked = (Boolean)sebSettingsNew[MessageBlockPopUpWindows];
+            checkBoxAllowBrowsingBackForward.Checked = (Boolean)sebSettingsNew[MessageAllowBrowsingBackForward];
+            checkBoxUseSebWithoutBrowser    .Checked = (Boolean)sebSettingsNew[MessageEnableSebBrowser];
 
             checkBoxAllowDownUploads.Checked = (Boolean)sebSettingsNew[MessageAllowDownUploads];
+            checkBoxOpenDownloads   .Checked = (Boolean)sebSettingsNew[MessageOpenDownloads];
+            checkBoxDownloadPDFFiles.Checked = (Boolean)sebSettingsNew[MessageDownloadPDFFiles];
+            labelDownloadDirectoryWin.Text   =  (String)sebSettingsNew[MessageDownloadDirectoryWin];
+             listBoxChooseFileToUploadPolicy.SelectedIndex = (int)sebSettingsNew[MessageChooseFileToUploadPolicy];
 
-            listBoxOpenLinksHTML.SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
+             textBoxBrowserExamKey    .Text    =  (String)sebSettingsNew[MessageBrowserExamKey];
+             textBoxQuitURL           .Text    =  (String)sebSettingsNew[MessageQuitURL];
+            checkBoxCopyBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageCopyBrowserExamKey];
+            checkBoxSendBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageSendBrowserExamKey];
 
-            // Update the widgets
-            textBoxStartURL    .Text = (String)sebSettingsNew[MessageStartURL];
-            textBoxSebServerURL.Text = (String)sebSettingsNew[MessageSebServerURL];
+            checkBoxMonitorProcesses         .Checked = (Boolean)sebSettingsNew[MessageMonitorProcesses];
+            checkBoxAllowSwitchToApplications.Checked = (Boolean)sebSettingsNew[MessageAllowSwitchToApplications];
+            checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
 
-            textBoxAdminPassword       .Text    = settingString [StateNew, GroupGeneral, ValueAdminPassword];
-            textBoxConfirmAdminPassword.Text    = settingString [StateNew, GroupGeneral, ValueConfirmAdminPassword];
-            checkBoxAllowQuit          .Checked = settingBoolean[StateNew, GroupGeneral, ValueAllowQuit];
-            checkBoxIgnoreQuitPassword .Checked = settingBoolean[StateNew, GroupGeneral, ValueIgnoreQuitPassword];
-            textBoxQuitPassword        .Text    = settingString [StateNew, GroupGeneral, ValueQuitPassword];
-            textBoxConfirmQuitPassword .Text    = settingString [StateNew, GroupGeneral, ValueConfirmQuitPassword];
-            listBoxExitKey1.SelectedIndex       = settingInteger[StateNew, GroupGeneral, ValueExitKey1];
-            listBoxExitKey2.SelectedIndex       = settingInteger[StateNew, GroupGeneral, ValueExitKey2];
-            listBoxExitKey3.SelectedIndex       = settingInteger[StateNew, GroupGeneral, ValueExitKey3];
+             listBoxSebServicePolicy.SelectedIndex = (int)sebSettingsNew[MessageSebServicePolicy];
+            checkBoxAllowVirtualMachine.Checked    = (Boolean)sebSettingsNew[MessageAllowVirtualMachine];
+            checkBoxCreateNewDesktop   .Checked    = (Boolean)sebSettingsNew[MessageCreateNewDesktop];
+            checkBoxAllowUserSwitching .Checked    = (Boolean)sebSettingsNew[MessageAllowUserSwitching];
+            checkBoxEnableLogging      .Checked    = (Boolean)sebSettingsNew[MessageEnableLogging];
 
-            radioButtonStartingAnExam     .Checked = (settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] == 0);
-            radioButtonConfiguringAClient .Checked = (settingInteger[StateNew, GroupConfigFile, ValueSebPurpose] == 1);
-            checkBoxAllowPreferencesWindow.Checked =  settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow];
-          //comboBoxChooseIdentity.SelectedIndex   =  settingInteger[StateNew, GroupConfigFile, ValueChooseIdentity];
-          //comboBoxChooseIdentity.SelectedIndex   =  0;
-            textBoxSettingsPassword       .Text    =  settingString [StateNew, GroupConfigFile, ValueSettingsPassword];
-            textBoxConfirmSettingsPassword.Text    =  settingString [StateNew, GroupConfigFile, ValueConfirmSettingsPassword];
+            checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableSwitchUser];
+            checkBoxInsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLockThisComputer];
+            checkBoxInsideSebEnableChangeAPassword  .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableChangeAPassword];
+            checkBoxInsideSebEnableStartTaskManager .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableStartTaskManager];
+            checkBoxInsideSebEnableLogOff           .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLogOff];
+            checkBoxInsideSebEnableShutDown         .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableShutDown];
+            checkBoxInsideSebEnableEaseOfAccess     .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableEaseOfAccess];
+            checkBoxInsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableVmWareClientShade];
 
-            radioButtonUseBrowserWindow       .Checked = (settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode] == 0);
-            radioButtonUseFullScreenMode      .Checked = (settingInteger[StateNew, GroupAppearance, ValueBrowserViewMode] == 1);
-            checkBoxEnableBrowserWindowToolbar.Checked =  settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar];
-            checkBoxHideBrowserWindowToolbar  .Checked =  settingBoolean[StateNew, GroupAppearance, ValueHideBrowserWindowToolbar];
-            checkBoxShowMenuBar               .Checked =  settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar];
-            checkBoxShowTaskBar               .Checked =  settingBoolean[StateNew, GroupAppearance, ValueShowTaskBar];
+            checkBoxOutsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableSwitchUser];
+            checkBoxOutsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableLockThisComputer];
+            checkBoxOutsideSebEnableChangeAPassword  .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableChangeAPassword];
+            checkBoxOutsideSebEnableStartTaskManager .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableStartTaskManager];
+            checkBoxOutsideSebEnableLogOff           .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableLogOff];
+            checkBoxOutsideSebEnableShutDown         .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableShutDown];
+            checkBoxOutsideSebEnableEaseOfAccess     .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableEaseOfAccess];
+            checkBoxOutsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableVmWareClientShade];
 
-            comboBoxMainBrowserWindowWidth      .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth ];
-            comboBoxMainBrowserWindowHeight     .SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight];
-             listBoxMainBrowserWindowPositioning.SelectedIndex = settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowPositioning];
+            checkBoxHookMessages.Checked = (Boolean)sebSettingsNew[MessageHookMessages];
 
-            comboBoxNewBrowserWindowWidth      .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth ];
-            comboBoxNewBrowserWindowHeight     .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
-             listBoxNewBrowserWindowPositioning.SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPositioning];
+            checkBoxEnableEsc       .Checked = (Boolean)sebSettingsNew[MessageEnableEsc];
+            checkBoxEnableCtrlEsc   .Checked = (Boolean)sebSettingsNew[MessageEnableCtrlEsc];
+            checkBoxEnableAltEsc    .Checked = (Boolean)sebSettingsNew[MessageEnableAltEsc];
+            checkBoxEnableAltTab    .Checked = (Boolean)sebSettingsNew[MessageEnableAltTab];
+            checkBoxEnableAltF4     .Checked = (Boolean)sebSettingsNew[MessageEnableAltF4];
+            checkBoxEnableStartMenu .Checked = (Boolean)sebSettingsNew[MessageEnableStartMenu];
+            checkBoxEnableRightMouse.Checked = (Boolean)sebSettingsNew[MessageEnableRightMouse];
 
-             listBoxOpenLinksHTML .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkPolicy];
-             listBoxOpenLinksJava .SelectedIndex = settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptPolicy];
-            checkBoxBlockLinksHTML.Checked       = settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign];
-            checkBoxBlockLinksJava.Checked       = settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign];
-
-            checkBoxEnablePlugIns           .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns];
-            checkBoxEnableJava              .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJava];
-            checkBoxEnableJavaScript        .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript];
-            checkBoxBlockPopUpWindows       .Checked = settingBoolean[StateNew, GroupBrowser, ValueBlockPopUpWindows];
-            checkBoxAllowBrowsingBackForward.Checked = settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward];
-            checkBoxUseSebWithoutBrowser    .Checked = settingBoolean[StateNew, GroupBrowser, ValueEnableSebBrowser];
-
-            checkBoxAllowDownUploads        .Checked       = settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploads];
-            checkBoxOpenDownloads           .Checked       = settingBoolean[StateNew, GroupDownUploads, ValueOpenDownloads];
-            checkBoxDownloadPDFFiles        .Checked       = settingBoolean[StateNew, GroupDownUploads, ValueDownloadPDFFiles];
-            labelDownloadDirectoryWin       .Text          = settingString [StateNew, GroupDownUploads, ValueDownloadDirectoryWin];
-             listBoxChooseFileToUploadPolicy.SelectedIndex = settingInteger[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy];
-
-             textBoxBrowserExamKey    .Text    = settingString [StateNew, GroupExam, ValueBrowserExamKey];
-             textBoxQuitURL           .Text    = settingString [StateNew, GroupExam, ValueQuitURL];
-            checkBoxCopyBrowserExamKey.Checked = settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey];
-            checkBoxSendBrowserExamKey.Checked = settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey];
-
-            checkBoxMonitorProcesses         .Checked = settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses];
-            checkBoxAllowSwitchToApplications.Checked = settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications];
-            checkBoxAllowFlashFullscreen     .Checked = settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen];
-
-             listBoxSebServicePolicy.SelectedIndex = settingInteger[StateNew, GroupSecurity, ValueSebServicePolicy];
-            checkBoxAllowVirtualMachine.Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine];
-            checkBoxCreateNewDesktop   .Checked    = settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop];
-            checkBoxAllowUserSwitching .Checked    = settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching];
-            checkBoxEnableLogging      .Checked    = settingBoolean[StateNew, GroupSecurity, ValueEnableLogging];
-
-            checkBoxInsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser];
-            checkBoxInsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer];
-            checkBoxInsideSebEnableChangeAPassword  .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableChangeAPassword];
-            checkBoxInsideSebEnableStartTaskManager .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableStartTaskManager];
-            checkBoxInsideSebEnableLogOff           .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableLogOff];
-            checkBoxInsideSebEnableShutDown         .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableShutDown];
-            checkBoxInsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableEaseOfAccess];
-            checkBoxInsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupInsideSeb, ValueEnableVmWareClientShade];
-
-            checkBoxOutsideSebEnableSwitchUser       .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser];
-            checkBoxOutsideSebEnableLockThisComputer .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer];
-            checkBoxOutsideSebEnableChangeAPassword  .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword];
-            checkBoxOutsideSebEnableStartTaskManager .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager];
-            checkBoxOutsideSebEnableLogOff           .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff];
-            checkBoxOutsideSebEnableShutDown         .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown];
-            checkBoxOutsideSebEnableEaseOfAccess     .Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess];
-            checkBoxOutsideSebEnableVmWareClientShade.Checked = settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade];
-
-            checkBoxHookMessages.Checked = settingBoolean[StateNew, GroupHookedKeys, ValueHookMessages];
-
-            checkBoxEnableEsc       .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc];
-            checkBoxEnableCtrlEsc   .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc];
-            checkBoxEnableAltEsc    .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltEsc];
-            checkBoxEnableAltTab    .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltTab];
-            checkBoxEnableAltF4     .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltF4];
-            checkBoxEnableStartMenu .Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableStartMenu];
-            checkBoxEnableRightMouse.Checked = settingBoolean[StateNew, GroupSpecialKeys, ValueEnableRightMouse];
-
-            checkBoxEnableF1 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF1];
-            checkBoxEnableF2 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF2];
-            checkBoxEnableF3 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF3];
-            checkBoxEnableF4 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4];
-            checkBoxEnableF5 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF5];
-            checkBoxEnableF6 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF6];
-            checkBoxEnableF7 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF7];
-            checkBoxEnableF8 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF8];
-            checkBoxEnableF9 .Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF9];
-            checkBoxEnableF10.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10];
-            checkBoxEnableF11.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11];
-            checkBoxEnableF12.Checked = settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12];
+            checkBoxEnableF1 .Checked = (Boolean)sebSettingsNew[MessageEnableF1];
+            checkBoxEnableF2 .Checked = (Boolean)sebSettingsNew[MessageEnableF2];
+            checkBoxEnableF3 .Checked = (Boolean)sebSettingsNew[MessageEnableF3];
+            checkBoxEnableF4 .Checked = (Boolean)sebSettingsNew[MessageEnableF4];
+            checkBoxEnableF5 .Checked = (Boolean)sebSettingsNew[MessageEnableF5];
+            checkBoxEnableF6 .Checked = (Boolean)sebSettingsNew[MessageEnableF6];
+            checkBoxEnableF7 .Checked = (Boolean)sebSettingsNew[MessageEnableF7];
+            checkBoxEnableF8 .Checked = (Boolean)sebSettingsNew[MessageEnableF8];
+            checkBoxEnableF9 .Checked = (Boolean)sebSettingsNew[MessageEnableF9];
+            checkBoxEnableF10.Checked = (Boolean)sebSettingsNew[MessageEnableF10];
+            checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
+            checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
+
 
 
 
