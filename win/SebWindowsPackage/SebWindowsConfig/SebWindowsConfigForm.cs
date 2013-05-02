@@ -344,15 +344,14 @@ namespace SebWindowsConfig
         // Global variables
 
         // The ini file currently being modified
-        String currentDireSebStarterIni;
-        String currentFileSebStarterIni;
-        String currentPathSebStarterIni;
+        String currentDireSebConfigFile;
+        String currentFileSebConfigFile;
+        String currentPathSebConfigFile;
 
         // The target file the user must configure,
         // because this is used by the application SebStarter.exe
-        String targetDireSebStarterIni;
-        String targetFileSebStarterIni;
-        String targetPathSebStarterIni;
+        String targetDireSebConfigFile;
+        String targetPathSebConfigFile;
 
         // Strings for encryption identities (KeyChain, Certificate Store)
         //static ArrayList chooseIdentityStringArrayList = new ArrayList();
@@ -805,16 +804,14 @@ namespace SebWindowsConfig
 
             // Try to open the configuration file (SebStarter.ini/xml/seb)
             // given in the local directory (where SebWindowsConfig.exe was called)
-            currentDireSebStarterIni = Directory.GetCurrentDirectory();
-            currentFileSebStarterIni = "";
-            currentPathSebStarterIni = "";
+            currentDireSebConfigFile = Directory.GetCurrentDirectory();
+            currentFileSebConfigFile = "";
+            currentPathSebConfigFile = "";
 
-             targetDireSebStarterIni = Directory.GetCurrentDirectory();
-             targetFileSebStarterIni = TargetSebStarterIni;
-             targetPathSebStarterIni = Path.GetFullPath(TargetSebStarterIni);
+             targetDireSebConfigFile = Directory.GetCurrentDirectory();
+             targetPathSebConfigFile = Path.GetFullPath(TargetSebStarterXml);
 
-            String fileName = targetPathSebStarterIni;
-            fileName = "SebClient.xml";
+            String fileName = targetPathSebConfigFile;
 
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
@@ -1000,9 +997,9 @@ namespace SebWindowsConfig
                 }
             }
 
-            currentDireSebStarterIni = Path.GetDirectoryName(fileName);
-            currentFileSebStarterIni = Path.GetFileName     (fileName);
-            currentPathSebStarterIni = Path.GetFullPath     (fileName);
+            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
+            currentFileSebConfigFile = Path.GetFileName     (fileName);
+            currentPathSebConfigFile = Path.GetFullPath     (fileName);
 
             return;
         }
@@ -1095,9 +1092,9 @@ namespace SebWindowsConfig
 
             sebSettingsOld = sebSettingsNew;
 
-            currentDireSebStarterIni = Path.GetDirectoryName(fileName);
-            currentFileSebStarterIni = Path.GetFileName     (fileName);
-            currentPathSebStarterIni = Path.GetFullPath     (fileName);
+            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
+            currentFileSebConfigFile = Path.GetFileName     (fileName);
+            currentPathSebConfigFile = Path.GetFullPath     (fileName);
 
             return;
         }
@@ -1912,8 +1909,8 @@ namespace SebWindowsConfig
         private void labelOpenSettings_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
-            openFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
-            openFileDialogSebStarterIni.FileName         = currentFileSebStarterIni;
+            openFileDialogSebStarterIni.InitialDirectory = currentDireSebConfigFile;
+            openFileDialogSebStarterIni.FileName         = currentFileSebConfigFile;
 
             // Get the user inputs in the File Dialog
             DialogResult fileDialogResult = openFileDialogSebStarterIni.ShowDialog();
@@ -1940,8 +1937,8 @@ namespace SebWindowsConfig
         private void labelSaveSettingsAs_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
-            saveFileDialogSebStarterIni.InitialDirectory = currentDireSebStarterIni;
-            saveFileDialogSebStarterIni.FileName         = currentFileSebStarterIni;
+            saveFileDialogSebStarterIni.InitialDirectory = currentDireSebConfigFile;
+            saveFileDialogSebStarterIni.FileName         = currentFileSebConfigFile;
 
             // Get the user inputs in the File Dialog
             DialogResult fileDialogResult = saveFileDialogSebStarterIni.ShowDialog();
@@ -2532,7 +2529,7 @@ namespace SebWindowsConfig
             // Update the filename in the title bar
             this.Text  = this.ProductName;
             this.Text += " - ";
-            this.Text += currentPathSebStarterIni;
+            this.Text += currentPathSebConfigFile;
 
             // Update the widgets
 
