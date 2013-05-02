@@ -2563,8 +2563,8 @@ namespace SebWindowsConfig
             // Group "Appearance"
             radioButtonUseBrowserWindow       .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 0);
             radioButtonUseFullScreenMode      .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 1);
-            comboBoxMainBrowserWindowWidth      .SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowWidth ];
-            comboBoxMainBrowserWindowHeight     .SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowHeight];
+            comboBoxMainBrowserWindowWidth    .Text    =  (String)sebSettingsNew[MessageMainBrowserWindowWidth];
+            comboBoxMainBrowserWindowHeight   .Text    =  (String)sebSettingsNew[MessageMainBrowserWindowHeight];
              listBoxMainBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowPositioning];
             checkBoxEnableBrowserWindowToolbar.Checked = (Boolean)sebSettingsNew[MessageEnableBrowserWindowToolbar];
             checkBoxHideBrowserWindowToolbar  .Checked = (Boolean)sebSettingsNew[MessageHideBrowserWindowToolbar];
@@ -2577,9 +2577,9 @@ namespace SebWindowsConfig
             checkBoxBlockLinksHTML.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByLinkBlockForeign];
             checkBoxBlockLinksJava.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByScriptBlockForeign];
 
-            comboBoxNewBrowserWindowWidth      .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkWidth ];
-            comboBoxNewBrowserWindowHeight     .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
-             listBoxNewBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkPositioning];
+            comboBoxNewBrowserWindowWidth      .Text          = (String)sebSettingsNew[MessageNewBrowserWindowByLinkWidth ];
+            comboBoxNewBrowserWindowHeight     .Text          = (String)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
+             listBoxNewBrowserWindowPositioning.SelectedIndex =    (int)sebSettingsNew[MessageNewBrowserWindowByLinkPositioning];
 
             checkBoxEnablePlugIns           .Checked =   (Boolean)sebSettingsNew[MessageEnablePlugIns];
             checkBoxEnableJava              .Checked =   (Boolean)sebSettingsNew[MessageEnableJava];
@@ -2597,7 +2597,7 @@ namespace SebWindowsConfig
              listBoxChooseFileToUploadPolicy.SelectedIndex = (int)sebSettingsNew[MessageChooseFileToUploadPolicy];
 
             // Group "Exam"
-             textBoxBrowserExamKey    .Text    =  (String)sebSettingsNew[MessageBrowserExamKey];
+           //textBoxBrowserExamKey    .Text    =  (String)sebSettingsNew[MessageBrowserExamKey];
              textBoxQuitURL           .Text    =  (String)sebSettingsNew[MessageQuitURL];
             checkBoxCopyBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageCopyBrowserExamKey];
             checkBoxSendBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageSendBrowserExamKey];
