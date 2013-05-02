@@ -26,6 +26,8 @@
 	<integer>0</integer>
 	<key>copyBrowserExamKeyToClipboardWhenQuitting</key>
 	<false/>
+	<key>createNewDesktop</key>
+	<true/>
 	<key>cryptoIdentity</key>
 	<integer>0</integer>
 	<key>downloadDirectoryOSX</key>
