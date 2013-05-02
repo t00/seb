@@ -2567,43 +2567,51 @@ namespace SebWindowsConfig
             checkBoxShowTaskBar               .Checked = (Boolean)sebSettingsNew[MessageShowTaskBar];
 
             // Group "Browser"
-            comboBoxNewBrowserWindowWidth      .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkWidth ];
-            comboBoxNewBrowserWindowHeight     .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
-             listBoxNewBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkPositioning];
-
              listBoxOpenLinksHTML .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
              listBoxOpenLinksJava .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByScriptPolicy];
             checkBoxBlockLinksHTML.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByLinkBlockForeign];
             checkBoxBlockLinksJava.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByScriptBlockForeign];
 
-            checkBoxEnablePlugIns           .Checked = (Boolean)sebSettingsNew[MessageEnablePlugIns];
-            checkBoxEnableJava              .Checked = (Boolean)sebSettingsNew[MessageEnableJava];
-            checkBoxEnableJavaScript        .Checked = (Boolean)sebSettingsNew[MessageEnableJavaScript];
-            checkBoxBlockPopUpWindows       .Checked = (Boolean)sebSettingsNew[MessageBlockPopUpWindows];
-            checkBoxAllowBrowsingBackForward.Checked = (Boolean)sebSettingsNew[MessageAllowBrowsingBackForward];
-            checkBoxUseSebWithoutBrowser    .Checked = (Boolean)sebSettingsNew[MessageEnableSebBrowser];
+            comboBoxNewBrowserWindowWidth      .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkWidth ];
+            comboBoxNewBrowserWindowHeight     .SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
+             listBoxNewBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageNewBrowserWindowByLinkPositioning];
 
+            checkBoxEnablePlugIns           .Checked =   (Boolean)sebSettingsNew[MessageEnablePlugIns];
+            checkBoxEnableJava              .Checked =   (Boolean)sebSettingsNew[MessageEnableJava];
+            checkBoxEnableJavaScript        .Checked =   (Boolean)sebSettingsNew[MessageEnableJavaScript];
+            checkBoxBlockPopUpWindows       .Checked =   (Boolean)sebSettingsNew[MessageBlockPopUpWindows];
+            checkBoxAllowBrowsingBackForward.Checked =   (Boolean)sebSettingsNew[MessageAllowBrowsingBackForward];
+            checkBoxUseSebWithoutBrowser    .Checked = !((Boolean)sebSettingsNew[MessageEnableSebBrowser]);
+
+            // Group "Down/Uploads"
             checkBoxAllowDownUploads.Checked = (Boolean)sebSettingsNew[MessageAllowDownUploads];
             checkBoxOpenDownloads   .Checked = (Boolean)sebSettingsNew[MessageOpenDownloads];
             checkBoxDownloadPDFFiles.Checked = (Boolean)sebSettingsNew[MessageDownloadPDFFiles];
             labelDownloadDirectoryWin.Text   =  (String)sebSettingsNew[MessageDownloadDirectoryWin];
              listBoxChooseFileToUploadPolicy.SelectedIndex = (int)sebSettingsNew[MessageChooseFileToUploadPolicy];
 
+            // Group "Exam"
              textBoxBrowserExamKey    .Text    =  (String)sebSettingsNew[MessageBrowserExamKey];
              textBoxQuitURL           .Text    =  (String)sebSettingsNew[MessageQuitURL];
             checkBoxCopyBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageCopyBrowserExamKey];
             checkBoxSendBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageSendBrowserExamKey];
 
+            // Group "Applications"
             checkBoxMonitorProcesses         .Checked = (Boolean)sebSettingsNew[MessageMonitorProcesses];
             checkBoxAllowSwitchToApplications.Checked = (Boolean)sebSettingsNew[MessageAllowSwitchToApplications];
             checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
 
-             listBoxSebServicePolicy.SelectedIndex = (int)sebSettingsNew[MessageSebServicePolicy];
+            // Group "Network"
+
+            // Group "Security"
+             listBoxSebServicePolicy.SelectedIndex =     (int)sebSettingsNew[MessageSebServicePolicy];
             checkBoxAllowVirtualMachine.Checked    = (Boolean)sebSettingsNew[MessageAllowVirtualMachine];
             checkBoxCreateNewDesktop   .Checked    = (Boolean)sebSettingsNew[MessageCreateNewDesktop];
             checkBoxAllowUserSwitching .Checked    = (Boolean)sebSettingsNew[MessageAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)sebSettingsNew[MessageEnableLogging];
+            labelLogDirectoryWin       .Text       =  (String)sebSettingsNew[MessageLogDirectoryWin];
 
+            // Group "Registry"
             checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableSwitchUser];
             checkBoxInsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLockThisComputer];
             checkBoxInsideSebEnableChangeAPassword  .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableChangeAPassword];
@@ -2622,6 +2630,7 @@ namespace SebWindowsConfig
             checkBoxOutsideSebEnableEaseOfAccess     .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableEaseOfAccess];
             checkBoxOutsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableVmWareClientShade];
 
+            // Group "Hooked Keys"
             checkBoxHookMessages.Checked = (Boolean)sebSettingsNew[MessageHookMessages];
 
             checkBoxEnableEsc       .Checked = (Boolean)sebSettingsNew[MessageEnableEsc];
