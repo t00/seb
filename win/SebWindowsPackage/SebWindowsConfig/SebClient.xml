@@ -175,7 +175,7 @@
 	<integer>1</integer>
 	<key>quitURL</key>
 	<string>http://safeexambrowser.org/exit</string>
-	<key>sebPurpose</key>
+	<key>sebConfigPurpose</key>
 	<integer>0</integer>
 	<key>sebServerURL</key>
 	<string>http://www.switch.ch/</string>
