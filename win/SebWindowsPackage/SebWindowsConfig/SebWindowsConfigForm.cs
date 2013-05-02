@@ -2294,42 +2294,42 @@ namespace SebWindowsConfig
         // ******************
         private void checkBoxInsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser] = checkBoxInsideSebEnableSwitchUser.Checked;
+            sebSettingsNew[MessageInsideSebEnableSwitchUser] = checkBoxInsideSebEnableSwitchUser.Checked;
         }
 
         private void checkBoxInsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer] = checkBoxInsideSebEnableLockThisComputer.Checked;
+            sebSettingsNew[MessageInsideSebEnableLockThisComputer] = checkBoxInsideSebEnableLockThisComputer.Checked;
         }
 
         private void checkBoxInsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableChangeAPassword] = checkBoxInsideSebEnableChangeAPassword.Checked;
+            sebSettingsNew[MessageInsideSebEnableChangeAPassword] = checkBoxInsideSebEnableChangeAPassword.Checked;
         }
 
         private void checkBoxInsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableStartTaskManager] = checkBoxInsideSebEnableStartTaskManager.Checked;
+            sebSettingsNew[MessageInsideSebEnableStartTaskManager] = checkBoxInsideSebEnableStartTaskManager.Checked;
         }
 
         private void checkBoxInsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableLogOff] = checkBoxInsideSebEnableLogOff.Checked;
+            sebSettingsNew[MessageInsideSebEnableLogOff] = checkBoxInsideSebEnableLogOff.Checked;
         }
 
         private void checkBoxInsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableShutDown] = checkBoxInsideSebEnableShutDown.Checked;
+            sebSettingsNew[MessageInsideSebEnableShutDown] = checkBoxInsideSebEnableShutDown.Checked;
         }
 
         private void checkBoxInsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableEaseOfAccess] = checkBoxInsideSebEnableEaseOfAccess.Checked;
+            sebSettingsNew[MessageInsideSebEnableEaseOfAccess] = checkBoxInsideSebEnableEaseOfAccess.Checked;
         }
 
         private void checkBoxInsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupInsideSeb, ValueEnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
+            sebSettingsNew[MessageInsideSebEnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
         }
 
 
@@ -2339,42 +2339,42 @@ namespace SebWindowsConfig
         // *******************
         private void checkBoxOutsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
+            sebSettingsNew[MessageOutsideSebEnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
         }
 
         private void checkBoxOutsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer] = checkBoxOutsideSebEnableLockThisComputer.Checked;
+            sebSettingsNew[MessageOutsideSebEnableLockThisComputer] = checkBoxOutsideSebEnableLockThisComputer.Checked;
         }
 
         private void checkBoxOutsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword] = checkBoxOutsideSebEnableChangeAPassword.Checked;
+            sebSettingsNew[MessageOutsideSebEnableChangeAPassword] = checkBoxOutsideSebEnableChangeAPassword.Checked;
         }
 
         private void checkBoxOutsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager] = checkBoxOutsideSebEnableStartTaskManager.Checked;
+            sebSettingsNew[MessageOutsideSebEnableStartTaskManager] = checkBoxOutsideSebEnableStartTaskManager.Checked;
         }
 
         private void checkBoxOutsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff] = checkBoxOutsideSebEnableLogOff.Checked;
+            sebSettingsNew[MessageOutsideSebEnableLogOff] = checkBoxOutsideSebEnableLogOff.Checked;
         }
 
         private void checkBoxOutsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown] = checkBoxOutsideSebEnableShutDown.Checked;
+            sebSettingsNew[MessageOutsideSebEnableShutDown] = checkBoxOutsideSebEnableShutDown.Checked;
         }
 
         private void checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess] = checkBoxOutsideSebEnableEaseOfAccess.Checked;
+            sebSettingsNew[MessageOutsideSebEnableEaseOfAccess] = checkBoxOutsideSebEnableEaseOfAccess.Checked;
         }
 
         private void checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade] = checkBoxOutsideSebEnableVmWareClientShade.Checked;
+            sebSettingsNew[MessageOutsideSebEnableVmWareClientShade] = checkBoxOutsideSebEnableVmWareClientShade.Checked;
         }
 
 
@@ -2384,7 +2384,7 @@ namespace SebWindowsConfig
         // *******************
         private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupHookedKeys, ValueHookMessages] = checkBoxHookMessages.Checked;
+            sebSettingsNew[MessageHookMessages] = checkBoxHookMessages.Checked;
         }
 
 
@@ -2394,37 +2394,37 @@ namespace SebWindowsConfig
         // ********************
         private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc] = checkBoxEnableEsc.Checked;
+            sebSettingsNew[MessageEnableEsc] = checkBoxEnableEsc.Checked;
         }
 
         private void checkBoxEnableCtrlEsc_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
+            sebSettingsNew[MessageEnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
         }
 
         private void checkBoxEnableAltEsc_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltEsc] = checkBoxEnableAltEsc.Checked;
+            sebSettingsNew[MessageEnableAltEsc] = checkBoxEnableAltEsc.Checked;
         }
 
         private void checkBoxEnableAltTab_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltTab] = checkBoxEnableAltTab.Checked;
+            sebSettingsNew[MessageEnableAltTab] = checkBoxEnableAltTab.Checked;
         }
 
         private void checkBoxEnableAltF4_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltF4] = checkBoxEnableAltF4.Checked;
+            sebSettingsNew[MessageEnableAltF4] = checkBoxEnableAltF4.Checked;
         }
 
         private void checkBoxEnableStartMenu_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSpecialKeys, ValueEnableStartMenu] = checkBoxEnableStartMenu.Checked;
+            sebSettingsNew[MessageEnableStartMenu] = checkBoxEnableStartMenu.Checked;
         }
 
         private void checkBoxEnableRightMouse_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupSpecialKeys, ValueEnableRightMouse] = checkBoxEnableRightMouse.Checked;
+            sebSettingsNew[MessageEnableRightMouse] = checkBoxEnableRightMouse.Checked;
         }
 
 
@@ -2434,62 +2434,62 @@ namespace SebWindowsConfig
         // *********************
         private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF1] = checkBoxEnableF1.Checked;
+            sebSettingsNew[MessageEnableF1] = checkBoxEnableF1.Checked;
         }
 
         private void checkBoxEnableF2_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF2] = checkBoxEnableF2.Checked;
+            sebSettingsNew[MessageEnableF2] = checkBoxEnableF2.Checked;
         }
 
         private void checkBoxEnableF3_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF3] = checkBoxEnableF3.Checked;
+            sebSettingsNew[MessageEnableF3] = checkBoxEnableF3.Checked;
         }
 
         private void checkBoxEnableF4_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4] = checkBoxEnableF4.Checked;
+            sebSettingsNew[MessageEnableF4] = checkBoxEnableF4.Checked;
         }
 
         private void checkBoxEnableF5_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF5] = checkBoxEnableF5.Checked;
+            sebSettingsNew[MessageEnableF5] = checkBoxEnableF5.Checked;
         }
 
         private void checkBoxEnableF6_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF6] = checkBoxEnableF6.Checked;
+            sebSettingsNew[MessageEnableF6] = checkBoxEnableF6.Checked;
         }
 
         private void checkBoxEnableF7_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF7] = checkBoxEnableF7.Checked;
+            sebSettingsNew[MessageEnableF7] = checkBoxEnableF7.Checked;
         }
 
         private void checkBoxEnableF8_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF8] = checkBoxEnableF8.Checked;
+            sebSettingsNew[MessageEnableF8] = checkBoxEnableF8.Checked;
         }
 
         private void checkBoxEnableF9_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF9] = checkBoxEnableF9.Checked;
+            sebSettingsNew[MessageEnableF9] = checkBoxEnableF9.Checked;
         }
 
         private void checkBoxEnableF10_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10] = checkBoxEnableF10.Checked;
+            sebSettingsNew[MessageEnableF10] = checkBoxEnableF10.Checked;
         }
 
         private void checkBoxEnableF11_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11] = checkBoxEnableF11.Checked;
+            sebSettingsNew[MessageEnableF11] = checkBoxEnableF11.Checked;
         }
 
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
-            settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12] = checkBoxEnableF12.Checked;
+            sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
 
 
