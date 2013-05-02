@@ -825,9 +825,9 @@ namespace SebWindowsConfig
             String fileNameSeb = fileNameRaw + ".seb";
 
             // Read the settings from the standard configuration file
-            if (fileNameExt.Equals(".ini")) OpenIniFile(fileNameIni);
-            if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
-            if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
+            //if (fileNameExt.Equals(".ini")) OpenIniFile(fileNameIni);
+            //if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
+            //if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
 
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
@@ -2539,13 +2539,13 @@ namespace SebWindowsConfig
             // Group "General"
             textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
             textBoxSebServerURL        .Text   =  (String)sebSettingsNew[MessageSebServerURL];
-            textBoxAdminPassword       .Text   =  (String)sebSettingsNew[MessageAdminPassword];
-            textBoxConfirmAdminPassword.Text   =  (String)sebSettingsNew[MessageConfirmAdminPassword];
+          //textBoxAdminPassword       .Text   =  (String)sebSettingsNew[MessageAdminPassword];
+          //textBoxConfirmAdminPassword.Text   =  (String)sebSettingsNew[MessageConfirmAdminPassword];
             textBoxHashedAdminPassword .Text   =  (String)sebSettingsNew[MessageHashedAdminPassword];
             checkBoxAllowQuit         .Checked = (Boolean)sebSettingsNew[MessageAllowQuit];
             checkBoxIgnoreQuitPassword.Checked = (Boolean)sebSettingsNew[MessageIgnoreQuitPassword];
-            textBoxQuitPassword        .Text   =  (String)sebSettingsNew[MessageQuitPassword];
-            textBoxConfirmQuitPassword .Text   =  (String)sebSettingsNew[MessageConfirmQuitPassword];
+          //textBoxQuitPassword        .Text   =  (String)sebSettingsNew[MessageQuitPassword];
+          //textBoxConfirmQuitPassword .Text   =  (String)sebSettingsNew[MessageConfirmQuitPassword];
             textBoxHashedQuitPassword  .Text   =  (String)sebSettingsNew[MessageHashedQuitPassword];
             listBoxExitKey1.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey1];
             listBoxExitKey2.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey2];
@@ -2557,8 +2557,8 @@ namespace SebWindowsConfig
             checkBoxAllowPreferencesWindow.Checked = (Boolean)sebSettingsNew[MessageAllowPreferencesWindow];
             comboBoxCryptoIdentity.SelectedIndex   =     (int)sebSettingsNew[MessageCryptoIdentity];
             textBoxSettingsPassword       .Text    =  (String)sebSettingsNew[MessageSettingsPassword];
-            textBoxConfirmSettingsPassword.Text    =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
-            textBoxHashedSettingsPassword .Text    =  (String)sebSettingsNew[MessageHashedSettingsPassword];
+          //textBoxConfirmSettingsPassword.Text    =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
+          //textBoxHashedSettingsPassword .Text    =  (String)sebSettingsNew[MessageHashedSettingsPassword];
 
             // Group "Appearance"
             radioButtonUseBrowserWindow       .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 0);
