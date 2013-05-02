@@ -53,11 +53,11 @@
 	<key>examKeySalt</key>
 	<data>Z8gD5C8Dt2mzRweoUA/26N/E6LE7UHUTpcxSvDnv9rE=</data>
 	<key>exitKey1</key>
-	<string>F3</string>
+	<integer>2</integer>
 	<key>exitKey2</key>
-	<string>F11</string>
+	<integer>10</integer>
 	<key>exitKey3</key>
-	<string>F6</string>
+	<integer>5</integer>
 	<key>hashedAdminPassword</key>
 	<string>155290511d5c4bfb1369217d6846c8eef1ed6a564579516eaf36cf5598ac92de</string>
 	<key>hashedQuitPassword</key>
@@ -66,6 +66,8 @@
 	<false/>
 	<key>hookMessages</key>
 	<true/>
+	<key>ignoreQuitPassword</key>
+	<false/>
 	<key>logDirectoryOSX</key>
 	<string>/Users/drs/Documents</string>
 	<key>logDirectoryWin</key>
