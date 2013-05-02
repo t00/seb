@@ -2616,7 +2616,7 @@ namespace SebWindowsConfig
             checkBoxAllowUserSwitching .Checked    = (Boolean)sebSettingsNew[MessageAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)sebSettingsNew[MessageEnableLogging];
             labelLogDirectoryWin       .Text       =  (String)sebSettingsNew[MessageLogDirectoryWin];
-
+/*
             // Group "Registry"
             checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableSwitchUser];
             checkBoxInsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLockThisComputer];
@@ -2659,6 +2659,7 @@ namespace SebWindowsConfig
             checkBoxEnableF10.Checked = (Boolean)sebSettingsNew[MessageEnableF10];
             checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
+*/
         }
 
 
