@@ -651,7 +651,7 @@ namespace SebWindowsConfig
             valueString[GroupGeneral, ValueExitKey2            ] = MessageExitKey2;
             valueString[GroupGeneral, ValueExitKey3            ] = MessageExitKey3;
 
-            valueString[GroupConfigFile, ValueSebConfigPurpose             ] = MessageSebConfigPurpose;
+            valueString[GroupConfigFile, ValueSebConfigPurpose       ] = MessageSebConfigPurpose;
             valueString[GroupConfigFile, ValueAllowPreferencesWindow ] = MessageAllowPreferencesWindow;
             valueString[GroupConfigFile, ValueCryptoIdentity         ] = MessageCryptoIdentity;
             valueString[GroupConfigFile, ValueSettingsPassword       ] = MessageSettingsPassword;
@@ -1052,8 +1052,8 @@ namespace SebWindowsConfig
             settingString[StateNew, GroupGeneral, ValueExitKey2] = StringFunctionKey[newIndexExitKey2];
             settingString[StateNew, GroupGeneral, ValueExitKey3] = StringFunctionKey[newIndexExitKey3];
 
-            settingString[StateNew, GroupConfigFile, ValueSebConfigPurpose    ] = StringSebPurpose    [newIndexSebPurpose];
-            settingString[StateNew, GroupConfigFile, ValueCryptoIdentity] = StringCryptoIdentity[newIndexCryptoIdentity];
+            settingString[StateNew, GroupConfigFile, ValueSebConfigPurpose] = StringSebPurpose    [newIndexSebPurpose];
+            settingString[StateNew, GroupConfigFile, ValueCryptoIdentity  ] = StringCryptoIdentity[newIndexCryptoIdentity];
 
             settingString[StateNew, GroupAppearance, ValueBrowserViewMode             ] = StringBrowserViewMode  [newIndexBrowserViewMode];
             settingString[StateNew, GroupAppearance, ValueMainBrowserWindowWidth      ] = StringWindowWidth      [newIndexMainWindowWidth];
@@ -1376,7 +1376,7 @@ namespace SebWindowsConfig
             // Before writing the settings to file,
             // convert the arrays to the C# object
             ConvertSomeSettingsBeforeWritingThemToFile();
-            ConvertArraysToCSharpObject();
+            //ConvertArraysToCSharpObject();
 
             try 
             {
@@ -1385,6 +1385,11 @@ namespace SebWindowsConfig
                 if (File.Exists(fileName))
                     File.Delete(fileName);
 
+                // Convert the C# object to an XML structure
+                // Write the .xml file
+                Plist.writeXml(sebSettingsNew, fileName);
+
+/*
                 // Open the .xml file for writing
                 XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextWriter    textWriter = new StreamWriter(fileName);
@@ -1394,7 +1399,7 @@ namespace SebWindowsConfig
 
                 // Close the .xml file
                 textWriter.Close();
-
+*/
             } // end try
             catch (Exception streamWriteException) 
             {
