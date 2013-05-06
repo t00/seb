@@ -253,16 +253,25 @@ namespace SebWindowsConfig
         const int NumValueRegistry = 0;
 
         // Groups "Inside SEB" and "Outside SEB"
-        const int ValueEnableSwitchUser        = 1;
-        const int ValueEnableLockThisComputer  = 2;
-        const int ValueEnableChangeAPassword   = 3;
-        const int ValueEnableStartTaskManager  = 4;
-        const int ValueEnableLogOff            = 5;
-        const int ValueEnableShutDown          = 6;
-        const int ValueEnableEaseOfAccess      = 7;
-        const int ValueEnableVmWareClientShade = 8;
+        const int ValueInsideSebEnableSwitchUser        = 1;
+        const int ValueInsideSebEnableLockThisComputer  = 2;
+        const int ValueInsideSebEnableChangeAPassword   = 3;
+        const int ValueInsideSebEnableStartTaskManager  = 4;
+        const int ValueInsideSebEnableLogOff            = 5;
+        const int ValueInsideSebEnableShutDown          = 6;
+        const int ValueInsideSebEnableEaseOfAccess      = 7;
+        const int ValueInsideSebEnableVmWareClientShade = 8;
         const int NumValueInsideSeb  = 8;
-        const int NumValueOutsideSeb = 8;
+
+        const int ValueOutsideSebEnableSwitchUser        = 1;
+        const int ValueOutsideSebEnableLockThisComputer  = 2;
+        const int ValueOutsideSebEnableChangeAPassword   = 3;
+        const int ValueOutsideSebEnableStartTaskManager  = 4;
+        const int ValueOutsideSebEnableLogOff            = 5;
+        const int ValueOutsideSebEnableShutDown          = 6;
+        const int ValueOutsideSebEnableEaseOfAccess      = 7;
+        const int ValueOutsideSebEnableVmWareClientShade = 8;
+        const int NumValueOutsideSeb  = 8;
 
         const String MessageInsideSebEnableSwitchUser        = "insideSebEnableSwitchUser";
         const String MessageInsideSebEnableLockThisComputer  = "insideSebEnableLockThisComputer";
@@ -705,23 +714,23 @@ namespace SebWindowsConfig
             valueString[GroupSecurity, ValueLogDirectoryOSX    ] = MessageLogDirectoryOSX;
             valueString[GroupSecurity, ValueLogDirectoryWin    ] = MessageLogDirectoryWin;
 
-            valueString[GroupInsideSeb, ValueEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
-            valueString[GroupInsideSeb, ValueEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
-            valueString[GroupInsideSeb, ValueEnableChangeAPassword  ] = MessageInsideSebEnableChangeAPassword;
-            valueString[GroupInsideSeb, ValueEnableStartTaskManager ] = MessageInsideSebEnableStartTaskManager;
-            valueString[GroupInsideSeb, ValueEnableLogOff           ] = MessageInsideSebEnableLogOff;
-            valueString[GroupInsideSeb, ValueEnableShutDown         ] = MessageInsideSebEnableShutDown;
-            valueString[GroupInsideSeb, ValueEnableEaseOfAccess     ] = MessageInsideSebEnableEaseOfAccess;
-            valueString[GroupInsideSeb, ValueEnableVmWareClientShade] = MessageInsideSebEnableVmWareClientShade;
+            valueString[GroupInsideSeb, ValueInsideSebEnableSwitchUser       ] = MessageInsideSebEnableSwitchUser;
+            valueString[GroupInsideSeb, ValueInsideSebEnableLockThisComputer ] = MessageInsideSebEnableLockThisComputer;
+            valueString[GroupInsideSeb, ValueInsideSebEnableChangeAPassword  ] = MessageInsideSebEnableChangeAPassword;
+            valueString[GroupInsideSeb, ValueInsideSebEnableStartTaskManager ] = MessageInsideSebEnableStartTaskManager;
+            valueString[GroupInsideSeb, ValueInsideSebEnableLogOff           ] = MessageInsideSebEnableLogOff;
+            valueString[GroupInsideSeb, ValueInsideSebEnableShutDown         ] = MessageInsideSebEnableShutDown;
+            valueString[GroupInsideSeb, ValueInsideSebEnableEaseOfAccess     ] = MessageInsideSebEnableEaseOfAccess;
+            valueString[GroupInsideSeb, ValueInsideSebEnableVmWareClientShade] = MessageInsideSebEnableVmWareClientShade;
 
-            valueString[GroupOutsideSeb, ValueEnableSwitchUser       ] = MessageOutsideSebEnableSwitchUser;
-            valueString[GroupOutsideSeb, ValueEnableLockThisComputer ] = MessageOutsideSebEnableLockThisComputer;
-            valueString[GroupOutsideSeb, ValueEnableChangeAPassword  ] = MessageOutsideSebEnableChangeAPassword;
-            valueString[GroupOutsideSeb, ValueEnableStartTaskManager ] = MessageOutsideSebEnableStartTaskManager;
-            valueString[GroupOutsideSeb, ValueEnableLogOff           ] = MessageOutsideSebEnableLogOff;
-            valueString[GroupOutsideSeb, ValueEnableShutDown         ] = MessageOutsideSebEnableShutDown;
-            valueString[GroupOutsideSeb, ValueEnableEaseOfAccess     ] = MessageOutsideSebEnableEaseOfAccess;
-            valueString[GroupOutsideSeb, ValueEnableVmWareClientShade] = MessageOutsideSebEnableVmWareClientShade;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableSwitchUser       ] = MessageOutsideSebEnableSwitchUser;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableLockThisComputer ] = MessageOutsideSebEnableLockThisComputer;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableChangeAPassword  ] = MessageOutsideSebEnableChangeAPassword;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableStartTaskManager ] = MessageOutsideSebEnableStartTaskManager;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableLogOff           ] = MessageOutsideSebEnableLogOff;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableShutDown         ] = MessageOutsideSebEnableShutDown;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableEaseOfAccess     ] = MessageOutsideSebEnableEaseOfAccess;
+            valueString[GroupOutsideSeb, ValueOutsideSebEnableVmWareClientShade] = MessageOutsideSebEnableVmWareClientShade;
 
             valueString[GroupHookedKeys, ValueHookMessages] = MessageHookMessages;
 
@@ -1539,23 +1548,23 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupSecurity, ValueAllowUserSwitching ] = sebSettObso.getSecurityOption("allowUserSwitching" ).getBool();
             settingBoolean[StateTmp, GroupSecurity, ValueEnableLogging      ] = sebSettObso.getSecurityOption("enableLog"          ).getBool();
 
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableSwitchUser       ] = sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableLockThisComputer ] = sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableChangeAPassword  ] = sebSettObso.getRegistryValue("insideSebEnableChangePassword"   ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableStartTaskManager ] = sebSettObso.getRegistryValue("insideSebEnableStartTaskManager" ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableLogOff           ] = sebSettObso.getRegistryValue("insideSebEnableLogOff"           ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableShutDown         ] = sebSettObso.getRegistryValue("insideSebEnableShutDown"         ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableEaseOfAccess     ] = sebSettObso.getRegistryValue("insideSebEnableEaseOfAccess"     ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueEnableVmWareClientShade] = sebSettObso.getRegistryValue("insideSebEnableVmWareClientShade").getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableSwitchUser       ] = sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableLockThisComputer ] = sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableChangeAPassword  ] = sebSettObso.getRegistryValue("insideSebEnableChangePassword"   ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableStartTaskManager ] = sebSettObso.getRegistryValue("insideSebEnableStartTaskManager" ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableLogOff           ] = sebSettObso.getRegistryValue("insideSebEnableLogOff"           ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableShutDown         ] = sebSettObso.getRegistryValue("insideSebEnableShutDown"         ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableEaseOfAccess     ] = sebSettObso.getRegistryValue("insideSebEnableEaseOfAccess"     ).getBool();
+            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableVmWareClientShade] = sebSettObso.getRegistryValue("insideSebEnableVmWareClientShade").getBool();
 
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableSwitchUser       ] = sebSettObso.getRegistryValue("outsideSebEnableSwitchUser"       ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableLockThisComputer ] = sebSettObso.getRegistryValue("outsideSebEnableLockThisComputer" ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableChangeAPassword  ] = sebSettObso.getRegistryValue("outsideSebEnableChangePassword"   ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableStartTaskManager ] = sebSettObso.getRegistryValue("outsideSebEnableStartTaskManager" ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableLogOff           ] = sebSettObso.getRegistryValue("outsideSebEnableLogOff"           ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableShutDown         ] = sebSettObso.getRegistryValue("outsideSebEnableShutDown"         ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableEaseOfAccess     ] = sebSettObso.getRegistryValue("outsideSebEnableEaseOfAccess"     ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueEnableVmWareClientShade] = sebSettObso.getRegistryValue("outsideSebEnableVmWareClientShade").getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableSwitchUser       ] = sebSettObso.getRegistryValue("outsideSebEnableSwitchUser"       ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableLockThisComputer ] = sebSettObso.getRegistryValue("outsideSebEnableLockThisComputer" ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableChangeAPassword  ] = sebSettObso.getRegistryValue("outsideSebEnableChangePassword"   ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableStartTaskManager ] = sebSettObso.getRegistryValue("outsideSebEnableStartTaskManager" ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableLogOff           ] = sebSettObso.getRegistryValue("outsideSebEnableLogOff"           ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableShutDown         ] = sebSettObso.getRegistryValue("outsideSebEnableShutDown"         ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableEaseOfAccess     ] = sebSettObso.getRegistryValue("outsideSebEnableEaseOfAccess"     ).getBool();
+            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableVmWareClientShade] = sebSettObso.getRegistryValue("outsideSebEnableVmWareClientShade").getBool();
 
             settingBoolean[StateTmp, GroupHookedKeys, ValueHookMessages] = sebSettObso.getSecurityOption("hookMessages").getBool();
 
@@ -1655,23 +1664,23 @@ namespace SebWindowsConfig
             sebSettObso.getSecurityOption("allowUserSwitching" ).setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching]);
             sebSettObso.getSecurityOption("enableLog"          ).setBool(settingBoolean[StateNew, GroupSecurity, ValueEnableLogging]);
 
-            sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableSwitchUser]);
-            sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableLockThisComputer]);
-            sebSettObso.getRegistryValue("insideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableChangeAPassword]);
-            sebSettObso.getRegistryValue("insideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableStartTaskManager]);
-            sebSettObso.getRegistryValue("insideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableLogOff]);
-            sebSettObso.getRegistryValue("insideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableShutDown]);
-            sebSettObso.getRegistryValue("insideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableEaseOfAccess]);
-            sebSettObso.getRegistryValue("insideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupInsideSeb, ValueEnableVmWareClientShade]);
+            sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableSwitchUser]);
+            sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableLockThisComputer]);
+            sebSettObso.getRegistryValue("insideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableChangeAPassword]);
+            sebSettObso.getRegistryValue("insideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableStartTaskManager]);
+            sebSettObso.getRegistryValue("insideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableLogOff]);
+            sebSettObso.getRegistryValue("insideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableShutDown]);
+            sebSettObso.getRegistryValue("insideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableEaseOfAccess]);
+            sebSettObso.getRegistryValue("insideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableVmWareClientShade]);
 
-            sebSettObso.getRegistryValue("outsideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableSwitchUser]);
-            sebSettObso.getRegistryValue("outsideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLockThisComputer]);
-            sebSettObso.getRegistryValue("outsideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableChangeAPassword]);
-            sebSettObso.getRegistryValue("outsideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableStartTaskManager]);
-            sebSettObso.getRegistryValue("outsideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableLogOff]);
-            sebSettObso.getRegistryValue("outsideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableShutDown]);
-            sebSettObso.getRegistryValue("outsideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableEaseOfAccess]);
-            sebSettObso.getRegistryValue("outsideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueEnableVmWareClientShade]);
+            sebSettObso.getRegistryValue("outsideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableSwitchUser]);
+            sebSettObso.getRegistryValue("outsideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableLockThisComputer]);
+            sebSettObso.getRegistryValue("outsideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableChangeAPassword]);
+            sebSettObso.getRegistryValue("outsideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableStartTaskManager]);
+            sebSettObso.getRegistryValue("outsideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableLogOff]);
+            sebSettObso.getRegistryValue("outsideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableShutDown]);
+            sebSettObso.getRegistryValue("outsideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableEaseOfAccess]);
+            sebSettObso.getRegistryValue("outsideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableVmWareClientShade]);
 
             sebSettObso.getSecurityOption("hookMessages").setBool(settingBoolean[StateNew, GroupHookedKeys, ValueHookMessages]);
 
