@@ -55,21 +55,21 @@ namespace SebWindowsConfig
         const int GroupNum = 15;
 
         // SebStarter contains 15 groups
-        const int GroupGeneral      = 1;
-        const int GroupConfigFile   = 2;
-        const int GroupAppearance   = 3;
-        const int GroupBrowser      = 4;
-        const int GroupDownUploads  = 5;
-        const int GroupExam         = 6;
-        const int GroupApplications = 7;
-        const int GroupNetwork      = 8;
-        const int GroupSecurity     = 9;
-        const int GroupRegistry     = 10;
-        const int GroupInsideSeb    = 11;
-        const int GroupOutsideSeb   = 12;
-        const int GroupHookedKeys   = 13;
-        const int GroupSpecialKeys  = 14;
-        const int GroupFunctionKeys = 15;
+        const int GroupGeneral         = 1;
+        const int GroupConfigFile      = 2;
+        const int GroupAppearance      = 3;
+        const int GroupBrowser         = 4;
+        const int GroupDownUploads     = 5;
+        const int GroupExam            = 6;
+        const int GroupApplications    = 7;
+        const int GroupNetwork         = 8;
+        const int GroupSecurity        = 9;
+        const int GroupRegistry        = 10;
+        const int GroupInsideSeb       = 11;
+        const int GroupOutsideSeb      = 12;
+        const int GroupInterceptedKeys = 13;
+        const int GroupSpecialKeys     = 14;
+        const int GroupFunctionKeys    = 15;
 
         const int GroupNumSebStarter = 15;
 
@@ -77,21 +77,21 @@ namespace SebWindowsConfig
         const int ValueNum = 20;
 
         // Group names
-        const String MessageGeneral      = "General";
-        const String MessageConfigFile   = "ConfigFile";
-        const String MessageAppearance   = "Appearance";
-        const String MessageBrowser      = "Browser";
-        const String MessageDownUploads  = "DownUploads";
-        const String MessageExam         = "Exam";
-        const String MessageApplications = "Applications";
-        const String MessageNetwork      = "Network";
-        const String MessageSecurity     = "Security";
-        const String MessageRegistry     = "Registry";
-        const String MessageInsideSeb    = "InsideSeb";
-        const String MessageOutsideSeb   = "OutsideSeb";
-        const String MessageHookedKeys   = "HookedKeys";
-        const String MessageSpecialKeys  = "SpecialKeys";
-        const String MessageFunctionKeys = "FunctionKeys";
+        const String MessageGeneral         = "General";
+        const String MessageConfigFile      = "ConfigFile";
+        const String MessageAppearance      = "Appearance";
+        const String MessageBrowser         = "Browser";
+        const String MessageDownUploads     = "DownUploads";
+        const String MessageExam            = "Exam";
+        const String MessageApplications    = "Applications";
+        const String MessageNetwork         = "Network";
+        const String MessageSecurity        = "Security";
+        const String MessageRegistry        = "Registry";
+        const String MessageInsideSeb       = "InsideSeb";
+        const String MessageOutsideSeb      = "OutsideSeb";
+        const String MessageInterceptedKeys = "InterceptedKeys";
+        const String MessageSpecialKeys     = "SpecialKeys";
+        const String MessageFunctionKeys    = "FunctionKeys";
 
         // Group "General"
         const int ValueStartURL             = 1;
@@ -292,11 +292,11 @@ namespace SebWindowsConfig
         const String MessageOutsideSebEnableEaseOfAccess      = "outsideSebEnableEaseOfAccess";
         const String MessageOutsideSebEnableVmWareClientShade = "outsideSebEnableVmWareClientShade";
 
-        // Group "HookedKeys"
-        const int ValueHookMessages = 1;
+        // Group "Intercepted Keys"
+        const int ValueInterceptKeys = 1;
         const int NumValueHookedKeys = 1;
 
-        const String MessageHookMessages = "hookMessages";
+        const String MessageInterceptKeys = "interceptKeys";
 
         // Group "Special Keys"
         const int ValueEnableEsc        = 1;
@@ -463,18 +463,18 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageMainBrowserWindowWidth      , "100%");
             sebSettingsNew.Add(MessageMainBrowserWindowHeight     , "100%");
             sebSettingsNew.Add(MessageMainBrowserWindowPositioning, 1);
-            sebSettingsNew.Add(MessageEnableBrowserWindowToolbar  , true);
+            sebSettingsNew.Add(MessageEnableBrowserWindowToolbar  , false);
             sebSettingsNew.Add(MessageHideBrowserWindowToolbar    , false);
             sebSettingsNew.Add(MessageShowMenuBar                 , false);
-            sebSettingsNew.Add(MessageShowTaskBar                 , false);
+            sebSettingsNew.Add(MessageShowTaskBar                 , true);
 
             // Default settings for group "Browser"
             sebSettingsNew.Add(MessageNewBrowserWindowByLinkPolicy        , 2);
             sebSettingsNew.Add(MessageNewBrowserWindowByScriptPolicy      , 2);
             sebSettingsNew.Add(MessageNewBrowserWindowByLinkBlockForeign  , false);
             sebSettingsNew.Add(MessageNewBrowserWindowByScriptBlockForeign, false);
-            sebSettingsNew.Add(MessageNewBrowserWindowByLinkWidth         , "800");
-            sebSettingsNew.Add(MessageNewBrowserWindowByLinkHeight        , "600");
+            sebSettingsNew.Add(MessageNewBrowserWindowByLinkWidth         , "1000");
+            sebSettingsNew.Add(MessageNewBrowserWindowByLinkHeight        , "100%");
             sebSettingsNew.Add(MessageNewBrowserWindowByLinkPositioning   , 2);
 
             sebSettingsNew.Add(MessageEnablePlugIns           , true);
@@ -485,22 +485,22 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageEnableSebBrowser        , true);
 
             // Default settings for group "DownUploads"
-            sebSettingsNew.Add(MessageAllowDownUploads        , true);
+            sebSettingsNew.Add(MessageAllowDownUploads        , false);
             sebSettingsNew.Add(MessageDownloadDirectoryOSX    , "~/Downloads");
             sebSettingsNew.Add(MessageDownloadDirectoryWin    , "Desktop");
-            sebSettingsNew.Add(MessageOpenDownloads           , true);
+            sebSettingsNew.Add(MessageOpenDownloads           , false);
             sebSettingsNew.Add(MessageChooseFileToUploadPolicy, 0);
             sebSettingsNew.Add(MessageDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
             sebSettingsNew.Add(MessageBrowserExamKey    , "");
             sebSettingsNew.Add(MessageCopyBrowserExamKey, false);
-            sebSettingsNew.Add(MessageSendBrowserExamKey, true);
+            sebSettingsNew.Add(MessageSendBrowserExamKey, false);
             sebSettingsNew.Add(MessageQuitURL           , "http://www.safeexambrowser.org/exit");
 
             // Default settings for group "Applications"
-            sebSettingsNew.Add(MessageMonitorProcesses         , true);
-            sebSettingsNew.Add(MessageAllowSwitchToApplications, true);
+            sebSettingsNew.Add(MessageMonitorProcesses         , false);
+            sebSettingsNew.Add(MessageAllowSwitchToApplications, false);
             sebSettingsNew.Add(MessageAllowFlashFullscreen     , false);
 
             // Default settings for group "Network"
@@ -510,7 +510,7 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageAllowVirtualMachine, false);
             sebSettingsNew.Add(MessageCreateNewDesktop   , true);
             sebSettingsNew.Add(MessageAllowUserSwitching , true);
-            sebSettingsNew.Add(MessageEnableLogging      , true);
+            sebSettingsNew.Add(MessageEnableLogging      , false);
             sebSettingsNew.Add(MessageLogDirectoryOSX    , "~/Documents");
             sebSettingsNew.Add(MessageLogDirectoryWin    , "My Documents");
 
@@ -534,8 +534,8 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageOutsideSebEnableEaseOfAccess     , true);
             sebSettingsNew.Add(MessageOutsideSebEnableVmWareClientShade, true);
 
-            // Default settings for group "Hooked Keys"
-            sebSettingsNew.Add(MessageHookMessages, true);
+            // Default settings for group "Intercepted Keys"
+            sebSettingsNew.Add(MessageInterceptKeys, true);
 
             // Default settings for group "Special Keys"
             sebSettingsNew.Add(MessageEnableEsc       , false);
@@ -587,7 +587,7 @@ namespace SebWindowsConfig
                 dataType[GroupRegistry    , value] = TypeBoolean;
                 dataType[GroupInsideSeb   , value] = TypeBoolean;
                 dataType[GroupOutsideSeb  , value] = TypeBoolean;
-                dataType[GroupHookedKeys  , value] = TypeBoolean;
+                dataType[GroupInterceptedKeys  , value] = TypeBoolean;
                 dataType[GroupSpecialKeys , value] = TypeBoolean;
                 dataType[GroupFunctionKeys, value] = TypeBoolean;
             }
@@ -641,7 +641,7 @@ namespace SebWindowsConfig
             maxValue[GroupRegistry    ] = NumValueRegistry;
             maxValue[GroupInsideSeb   ] = NumValueInsideSeb;
             maxValue[GroupOutsideSeb  ] = NumValueOutsideSeb;
-            maxValue[GroupHookedKeys  ] = NumValueHookedKeys;
+            maxValue[GroupInterceptedKeys  ] = NumValueHookedKeys;
             maxValue[GroupSpecialKeys ] = NumValueSpecialKeys;
             maxValue[GroupFunctionKeys] = NumValueFunctionKeys;
 
@@ -664,7 +664,7 @@ namespace SebWindowsConfig
             groupString[GroupRegistry    ] = MessageRegistry;
             groupString[GroupInsideSeb   ] = MessageInsideSeb;
             groupString[GroupOutsideSeb  ] = MessageOutsideSeb;
-            groupString[GroupHookedKeys  ] = MessageHookedKeys;
+            groupString[GroupInterceptedKeys  ] = MessageInterceptedKeys;
             groupString[GroupSpecialKeys ] = MessageSpecialKeys;
             groupString[GroupFunctionKeys] = MessageFunctionKeys;
 
@@ -756,7 +756,7 @@ namespace SebWindowsConfig
             valueString[GroupOutsideSeb, ValueOutsideSebEnableEaseOfAccess     ] = MessageOutsideSebEnableEaseOfAccess;
             valueString[GroupOutsideSeb, ValueOutsideSebEnableVmWareClientShade] = MessageOutsideSebEnableVmWareClientShade;
 
-            valueString[GroupHookedKeys, ValueHookMessages] = MessageHookMessages;
+            valueString[GroupInterceptedKeys, ValueInterceptKeys] = MessageInterceptKeys;
 
             valueString[GroupSpecialKeys, ValueEnableEsc       ] = MessageEnableEsc;
             valueString[GroupSpecialKeys, ValueEnableCtrlEsc   ] = MessageEnableCtrlEsc;
@@ -814,9 +814,9 @@ namespace SebWindowsConfig
             StringWindowPositioning[2] = "Right";
 
             // Define the strings for the Link Opening Policy
-            StringPolicyLinkOpening[0] = "open in new window";
+            StringPolicyLinkOpening[0] = "get generally blocked";
             StringPolicyLinkOpening[1] = "open in same window";
-            StringPolicyLinkOpening[2] = "get generally blocked";
+            StringPolicyLinkOpening[2] = "open in new window";
 
             // Define the strings for the File Upload Policy
             StringPolicyFileUpload[0] = "manually with file requester";
@@ -824,9 +824,9 @@ namespace SebWindowsConfig
             StringPolicyFileUpload[2] = "by only allowing to upload the same file downloaded before";
 
             // Define the strings for the SEB Service Policy
-            StringPolicySebService[0] = "allow to use SEB only with service";
+            StringPolicySebService[0] = "allow to run SEB without service";
             StringPolicySebService[1] = "display warning when service is not running";
-            StringPolicySebService[2] = "allow to run SEB without service";
+            StringPolicySebService[2] = "allow to use SEB only with service";
 
             // Define the strings for the Function Keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
@@ -2289,12 +2289,12 @@ namespace SebWindowsConfig
 
 
 
-        // *******************
-        // Group "Hooked Keys"
-        // *******************
-        private void checkBoxHookMessages_CheckedChanged(object sender, EventArgs e)
+        // ************************
+        // Group "Intercepted Keys"
+        // ************************
+        private void checkBoxInterceptedKeys_CheckedChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageHookMessages] = checkBoxHookMessages.Checked;
+            sebSettingsNew[MessageInterceptKeys] = checkBoxInterceptKeys.Checked;
         }
 
 
@@ -2461,7 +2461,7 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam     .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 0);
             radioButtonConfiguringAClient .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)sebSettingsNew[MessageAllowPreferencesWindow];
-            comboBoxCryptoIdentity.SelectedIndex   =     (int)sebSettingsNew[MessageCryptoIdentity];
+          //comboBoxCryptoIdentity.SelectedIndex   =     (int)sebSettingsNew[MessageCryptoIdentity];
             textBoxSettingsPassword       .Text    =  (String)sebSettingsNew[MessageSettingsPassword];
           //textBoxConfirmSettingsPassword.Text    =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
           //textBoxHashedSettingsPassword .Text    =  (String)sebSettingsNew[MessageHashedSettingsPassword];
@@ -2543,7 +2543,7 @@ namespace SebWindowsConfig
             checkBoxOutsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableVmWareClientShade];
 
             // Group "Hooked Keys"
-            checkBoxHookMessages.Checked = (Boolean)sebSettingsNew[MessageHookMessages];
+            checkBoxInterceptKeys.Checked = (Boolean)sebSettingsNew[MessageInterceptKeys];
 
             checkBoxEnableEsc       .Checked = (Boolean)sebSettingsNew[MessageEnableEsc];
             checkBoxEnableCtrlEsc   .Checked = (Boolean)sebSettingsNew[MessageEnableCtrlEsc];

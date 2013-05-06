@@ -35,7 +35,7 @@
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.folderBrowserDialogDownloadDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.tabPageHookedKeys = new System.Windows.Forms.TabPage();
-            this.checkBoxHookMessages = new System.Windows.Forms.CheckBox();
+            this.checkBoxInterceptKeys = new System.Windows.Forms.CheckBox();
             this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF2 = new System.Windows.Forms.CheckBox();
@@ -240,7 +240,7 @@
             // 
             // tabPageHookedKeys
             // 
-            this.tabPageHookedKeys.Controls.Add(this.checkBoxHookMessages);
+            this.tabPageHookedKeys.Controls.Add(this.checkBoxInterceptKeys);
             this.tabPageHookedKeys.Controls.Add(this.groupBoxFunctionKeys);
             this.tabPageHookedKeys.Controls.Add(this.groupBoxSpecialKeys);
             this.tabPageHookedKeys.Location = new System.Drawing.Point(4, 39);
@@ -251,20 +251,20 @@
             this.tabPageHookedKeys.Text = "Hooked Keys";
             this.tabPageHookedKeys.UseVisualStyleBackColor = true;
             // 
-            // checkBoxHookMessages
+            // checkBoxInterceptKeys
             // 
-            this.checkBoxHookMessages.AutoSize = true;
-            this.checkBoxHookMessages.Checked = true;
-            this.checkBoxHookMessages.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxHookMessages.Enabled = false;
-            this.checkBoxHookMessages.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxHookMessages.Location = new System.Drawing.Point(46, 319);
-            this.checkBoxHookMessages.Name = "checkBoxHookMessages";
-            this.checkBoxHookMessages.Size = new System.Drawing.Size(131, 21);
-            this.checkBoxHookMessages.TabIndex = 48;
-            this.checkBoxHookMessages.Text = "Hook messages";
-            this.checkBoxHookMessages.UseVisualStyleBackColor = true;
-            this.checkBoxHookMessages.CheckedChanged += new System.EventHandler(this.checkBoxHookMessages_CheckedChanged);
+            this.checkBoxInterceptKeys.AutoSize = true;
+            this.checkBoxInterceptKeys.Checked = true;
+            this.checkBoxInterceptKeys.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxInterceptKeys.Enabled = false;
+            this.checkBoxInterceptKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxInterceptKeys.Location = new System.Drawing.Point(46, 319);
+            this.checkBoxInterceptKeys.Name = "checkBoxInterceptKeys";
+            this.checkBoxInterceptKeys.Size = new System.Drawing.Size(118, 21);
+            this.checkBoxInterceptKeys.TabIndex = 48;
+            this.checkBoxInterceptKeys.Text = "Intercept keys";
+            this.checkBoxInterceptKeys.UseVisualStyleBackColor = true;
+            this.checkBoxInterceptKeys.CheckedChanged += new System.EventHandler(this.checkBoxInterceptedKeys_CheckedChanged);
             // 
             // groupBoxFunctionKeys
             // 
@@ -2262,7 +2262,7 @@
         private System.Windows.Forms.ImageList imageListTabIcons;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadDirectoryWin;
         private System.Windows.Forms.TabPage tabPageHookedKeys;
-        private System.Windows.Forms.CheckBox checkBoxHookMessages;
+        private System.Windows.Forms.CheckBox checkBoxInterceptKeys;
         private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
         private System.Windows.Forms.CheckBox checkBoxEnableF1;
         private System.Windows.Forms.CheckBox checkBoxEnableF2;
