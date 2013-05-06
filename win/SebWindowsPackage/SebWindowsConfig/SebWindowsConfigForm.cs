@@ -252,7 +252,7 @@ namespace SebWindowsConfig
         // Group "Registry"
         const int NumValueRegistry = 0;
 
-        // Groups "Inside SEB" and "Outside SEB"
+        // Group "Inside SEB"
         const int ValueInsideSebEnableSwitchUser        = 1;
         const int ValueInsideSebEnableLockThisComputer  = 2;
         const int ValueInsideSebEnableChangeAPassword   = 3;
@@ -263,6 +263,7 @@ namespace SebWindowsConfig
         const int ValueInsideSebEnableVmWareClientShade = 8;
         const int NumValueInsideSeb  = 8;
 
+        // Group "Outside SEB"
         const int ValueOutsideSebEnableSwitchUser        = 1;
         const int ValueOutsideSebEnableLockThisComputer  = 2;
         const int ValueOutsideSebEnableChangeAPassword   = 3;
@@ -513,24 +514,57 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageLogDirectoryOSX    , "~/Documents");
             sebSettingsNew.Add(MessageLogDirectoryWin    , "My Documents");
 
+            // Default settings for group "Inside SEB"
+            sebSettingsNew.Add(MessageInsideSebEnableSwitchUser       , false);
+            sebSettingsNew.Add(MessageInsideSebEnableLockThisComputer , false);
+            sebSettingsNew.Add(MessageInsideSebEnableChangeAPassword  , false);
+            sebSettingsNew.Add(MessageInsideSebEnableStartTaskManager , false);
+            sebSettingsNew.Add(MessageInsideSebEnableLogOff           , false);
+            sebSettingsNew.Add(MessageInsideSebEnableShutDown         , false);
+            sebSettingsNew.Add(MessageInsideSebEnableEaseOfAccess     , false);
+            sebSettingsNew.Add(MessageInsideSebEnableVmWareClientShade, false);
+
+            // Default settings for group "Outside SEB"
+            sebSettingsNew.Add(MessageOutsideSebEnableSwitchUser       , true);
+            sebSettingsNew.Add(MessageOutsideSebEnableLockThisComputer , true);
+            sebSettingsNew.Add(MessageOutsideSebEnableChangeAPassword  , true);
+            sebSettingsNew.Add(MessageOutsideSebEnableStartTaskManager , true);
+            sebSettingsNew.Add(MessageOutsideSebEnableLogOff           , true);
+            sebSettingsNew.Add(MessageOutsideSebEnableShutDown         , true);
+            sebSettingsNew.Add(MessageOutsideSebEnableEaseOfAccess     , true);
+            sebSettingsNew.Add(MessageOutsideSebEnableVmWareClientShade, true);
+
             // Default settings for group "Hooked Keys"
             sebSettingsNew.Add(MessageHookMessages, true);
 
-            // Default settings for groups "Inside SEB", "Outside SEB"
-            // Default settings for groups "Special Keys", "Function Keys"
-            for (value = 1; value <= ValueNum; value++)
-            {
-                settingBoolean[StateDef, GroupInsideSeb   , value, false;
-                settingBoolean[StateDef, GroupOutsideSeb  , value, true;
-                settingBoolean[StateDef, GroupSpecialKeys , value, false;
-                settingBoolean[StateDef, GroupFunctionKeys, value, false;
-            }
+            // Default settings for group "Special Keys"
+            sebSettingsNew.Add(MessageEnableEsc       , false);
+            sebSettingsNew.Add(MessageEnableCtrlEsc   , false);
+            sebSettingsNew.Add(MessageEnableAltEsc    , false);
+            sebSettingsNew.Add(MessageEnableAltTab    , true);
+            sebSettingsNew.Add(MessageEnableAltF4     , false);
+            sebSettingsNew.Add(MessageEnableStartMenu , false);
+            sebSettingsNew.Add(MessageEnableRightMouse, false);
+
+            // Default settings for group "Function Keys"
+            sebSettingsNew.Add(MessageEnableF1 , false);
+            sebSettingsNew.Add(MessageEnableF2 , false);
+            sebSettingsNew.Add(MessageEnableF3 , false);
+            sebSettingsNew.Add(MessageEnableF4 , false);
+            sebSettingsNew.Add(MessageEnableF5 , true);
+            sebSettingsNew.Add(MessageEnableF6 , false);
+            sebSettingsNew.Add(MessageEnableF7 , false);
+            sebSettingsNew.Add(MessageEnableF8 , false);
+            sebSettingsNew.Add(MessageEnableF9 , false);
+            sebSettingsNew.Add(MessageEnableF10, false);
+            sebSettingsNew.Add(MessageEnableF11, false);
+            sebSettingsNew.Add(MessageEnableF12, false);
 
             // Default settings for groups "Special Keys"
-            settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab, true;
+            sebSettingsNew.Add(MessageEnableAltTab, true);
 
             // Default settings for groups "Function Keys"
-            settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5, true;
+            sebSettingsNew.Add(MessageEnableF5, true);
 
 /*
             // Default settings for group "Online exam"
@@ -539,9 +573,9 @@ namespace SebWindowsConfig
             String s2 = " -profile \"%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles\"";
             String SebBrowserString = s0 + s1 + s2;
 
-            settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ,  SebBrowserString;
-            settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     , "Seb";
-            settingString[StateDef, GroupOnlineExam, ValuePermittedApplications, "Calculator,calc.exe;Notepad,notepad.exe;";
+            settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ,  SebBrowserString);
+            settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     , "Seb");
+            settingString[StateDef, GroupOnlineExam, ValuePermittedApplications, "Calculator,calc.exe;Notepad,notepad.exe;");
 */
 
             // Standard data types of the different groups
