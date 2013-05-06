@@ -91,7 +91,7 @@
 	<key>newBrowserWindowByLinkPositioning</key>
 	<integer>2</integer>
 	<key>newBrowserWindowByLinkWidth</key>
-	<string>800</string>
+	<string>1000</string>
 	<key>newBrowserWindowByScriptBlockForeign</key>
 	<false/>
 	<key>newBrowserWindowByScriptPolicy</key>
