@@ -390,9 +390,9 @@ namespace SebWindowsConfig
         static    int[,]        dataType   = new    int[GroupNum + 1, ValueNum + 1];
 
         // Settings as Booleans ("true" or "false") or Strings
-        static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
-        static String [,,] settingString  = new String [StateNum + 1, GroupNum + 1, ValueNum + 1];
-        static     int[,,] settingInteger = new     int[StateNum + 1, GroupNum + 1, ValueNum + 1];
+        //static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
+        //static String [,,] settingString  = new String [StateNum + 1, GroupNum + 1, ValueNum + 1];
+        //static     int[,,] settingInteger = new     int[StateNum + 1, GroupNum + 1, ValueNum + 1];
 
         // Password encryption using the SHA-256 hash algorithm
         SHA256 sha256 = new SHA256Managed();
@@ -430,9 +430,9 @@ namespace SebWindowsConfig
             for (group = 1; group <= GroupNum; group++)
             for (value = 1; value <= ValueNum; value++)
             {
-                settingBoolean[state, group, value] = false;
-                settingString [state, group, value] = "";
-                settingInteger[state, group, value] = 0;
+                //settingBoolean[state, group, value] = false;
+                //settingString [state, group, value] = "";
+                //settingInteger[state, group, value] = 0;
             }
 
             // Default settings for group "General"
@@ -928,6 +928,7 @@ namespace SebWindowsConfig
 */
 
             // Accept the tmp values as the old and new values
+/*
             for (int group = 1; group <= GroupNum; group++)
             {
                 int minvalue = minValue[group];
@@ -944,7 +945,7 @@ namespace SebWindowsConfig
                     settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
                 }
             }
-
+*/
             //sebSettingsOld = sebSettingsTmp;
             //sebSettingsNew = sebSettingsTmp;
 
@@ -989,6 +990,7 @@ namespace SebWindowsConfig
         private void ConvertSomeSettingsAfterWritingThemToFile(String fileName)
         {
             // Accept the old values as the new values
+/*
             for (int group = 1; group <= GroupNum; group++)
             {
                 int minvalue = minValue[group];
@@ -1001,7 +1003,7 @@ namespace SebWindowsConfig
                     settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
                 }
             }
-
+*/
             //sebSettingsOld = sebSettingsNew;
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -1062,8 +1064,8 @@ namespace SebWindowsConfig
                             {
                                 if (leftString.Equals(valueString[group, value]))
                                 {
-                                    settingBoolean[StateTmp, group, value] = rightBoolean;
-                                    settingString [StateTmp, group, value] = rightString;
+                                    //settingBoolean[StateTmp, group, value] = rightBoolean;
+                                    //settingString [StateTmp, group, value] = rightString;
                                     foundSetting = true;
                                     break;
                                 }
@@ -1238,16 +1240,16 @@ namespace SebWindowsConfig
                     for (value = minvalue; value <= maxvalue; value++)
                     {
                         String   leftString    =   valueString [          group, value];
-                        String  rightString    = settingString [StateNew, group, value];
-                        Boolean rightBoolean   = settingBoolean[StateNew, group, value];
+                      //String  rightString    = settingString [StateNew, group, value];
+                      //Boolean rightBoolean   = settingBoolean[StateNew, group, value];
                         int     rightType      =    dataType   [          group, value];
 
-                        if ((rightType == TypeBoolean) && (rightBoolean == false)) rightString = "0";
-                        if ((rightType == TypeBoolean) && (rightBoolean ==  true)) rightString = "1";
+                      //if ((rightType == TypeBoolean) && (rightBoolean == false)) rightString = "0";
+                      //if ((rightType == TypeBoolean) && (rightBoolean ==  true)) rightString = "1";
 
                         // Concatenate the "...=..." line and write it
-                        fileLine = leftString + "=" + rightString;
-                        fileWriter.WriteLine(fileLine);
+                      //fileLine = leftString + "=" + rightString;
+                      //fileWriter.WriteLine(fileLine);
 
                     } // next value
 
@@ -1387,7 +1389,7 @@ namespace SebWindowsConfig
         private Boolean ConvertCSharpObjectToArrays()
         {
             // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
-
+/*
             settingString [StateTmp, GroupGeneral, ValueStartURL           ] = sebSettObso.getUrlAddress    ("startURL"    ).Url;
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress    ("sebServerURL").Url;
             settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettObso.getPassword      ("hashedAdminPassword").Value;
@@ -1491,7 +1493,7 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF10] = sebSettObso.getHookedMessageKey("enableF10").getBool();
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF11] = sebSettObso.getHookedMessageKey("enableF11").getBool();
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF12] = sebSettObso.getHookedMessageKey("enableF12").getBool();
-
+*/
             return true;
         }
 
@@ -1503,7 +1505,7 @@ namespace SebWindowsConfig
         private Boolean ConvertArraysToCSharpObject()
         {
             // Copy the arrays "settingString"/"settingBoolean" to the C# object "sebSettings"
-
+/*
             sebSettObso.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
           //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
             sebSettObso.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueHashedAdminPassword];
@@ -1607,7 +1609,7 @@ namespace SebWindowsConfig
             sebSettObso.getHookedMessageKey("enableF10").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10]);
             sebSettObso.getHookedMessageKey("enableF11").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11]);
             sebSettObso.getHookedMessageKey("enableF12").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12]);
-
+*/
             return true;
         }
 
@@ -1689,7 +1691,7 @@ namespace SebWindowsConfig
             // If selected key is already occupied, revert to previously selected key.
             if ((listBoxExitKey1.SelectedIndex == listBoxExitKey2.SelectedIndex) ||
                 (listBoxExitKey1.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey1.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey1];
+                 listBoxExitKey1.SelectedIndex =  (int)sebSettingsNew[MessageExitKey1];
             sebSettingsNew[MessageExitKey1] = listBoxExitKey1.SelectedIndex;
         }
 
@@ -1699,7 +1701,7 @@ namespace SebWindowsConfig
             // If selected key is already occupied, revert to previously selected key.
             if ((listBoxExitKey2.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
                 (listBoxExitKey2.SelectedIndex == listBoxExitKey3.SelectedIndex))
-                 listBoxExitKey2.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey2];
+                 listBoxExitKey2.SelectedIndex =  (int)sebSettingsNew[MessageExitKey2];
             sebSettingsNew[MessageExitKey2] = listBoxExitKey2.SelectedIndex;
         }
 
@@ -1709,7 +1711,7 @@ namespace SebWindowsConfig
             // If selected key is already occupied, revert to previously selected key.
             if ((listBoxExitKey3.SelectedIndex == listBoxExitKey1.SelectedIndex) ||
                 (listBoxExitKey3.SelectedIndex == listBoxExitKey2.SelectedIndex))
-                 listBoxExitKey3.SelectedIndex =  settingInteger[StateNew, GroupGeneral, ValueExitKey3];
+                 listBoxExitKey3.SelectedIndex =  (int)sebSettingsNew[MessageExitKey3];
             sebSettingsNew[MessageExitKey3] = listBoxExitKey3.SelectedIndex;
         }
 
@@ -2415,9 +2417,10 @@ namespace SebWindowsConfig
         // ***************************************************
         private void SetNewSettingsOfFileToState(int stateDesired)
         {
+            // Restore the desired values by copying them to the new values
+/*
             int group, value;
 
-            // Restore the desired values by copying them to the new values
             for (group = 1; group <= GroupNum; group++)
             for (value = 1; value <= ValueNum; value++)
             {
@@ -2425,7 +2428,7 @@ namespace SebWindowsConfig
                 settingString [StateNew, group, value] = settingString [stateDesired, group, value];
                 settingInteger[StateNew, group, value] = settingInteger[stateDesired, group, value];
             }
-
+*/
             //if (stateDesired == StateOld) sebSettingsNew = sebSettingsOld;
             //if (stateDesired == StateTmp) sebSettingsNew = sebSettingsTmp;
             //if (stateDesired == StateDef) sebSettingsNew = sebSettingsDef;
