@@ -2567,6 +2567,103 @@ namespace SebWindowsConfig
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
 
+        private void checkBoxEnableEsc_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableCtrlEsc_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableAltEsc_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableAltTab_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableAltF4_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableStartMenu_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableRightMouse_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF1_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF2_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF3_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF4_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF5_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF6_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF7_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF8_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF9_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF10_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF11_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableF12_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+
+
 
 
 

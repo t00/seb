@@ -34,7 +34,7 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.folderBrowserDialogDownloadDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabPageHookedKeys = new System.Windows.Forms.TabPage();
+            this.tabPageInterceptedKeys = new System.Windows.Forms.TabPage();
             this.checkBoxInterceptKeys = new System.Windows.Forms.CheckBox();
             this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
@@ -195,7 +195,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabPageHookedKeys.SuspendLayout();
+            this.tabPageInterceptedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
             this.tabPageRegistry.SuspendLayout();
@@ -238,18 +238,18 @@
             this.imageListTabIcons.Images.SetKeyName(3, "Gear.png");
             this.imageListTabIcons.Images.SetKeyName(4, "SebIcon.png");
             // 
-            // tabPageHookedKeys
+            // tabPageInterceptedKeys
             // 
-            this.tabPageHookedKeys.Controls.Add(this.checkBoxInterceptKeys);
-            this.tabPageHookedKeys.Controls.Add(this.groupBoxFunctionKeys);
-            this.tabPageHookedKeys.Controls.Add(this.groupBoxSpecialKeys);
-            this.tabPageHookedKeys.Location = new System.Drawing.Point(4, 39);
-            this.tabPageHookedKeys.Name = "tabPageHookedKeys";
-            this.tabPageHookedKeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHookedKeys.Size = new System.Drawing.Size(1054, 469);
-            this.tabPageHookedKeys.TabIndex = 27;
-            this.tabPageHookedKeys.Text = "Hooked Keys";
-            this.tabPageHookedKeys.UseVisualStyleBackColor = true;
+            this.tabPageInterceptedKeys.Controls.Add(this.checkBoxInterceptKeys);
+            this.tabPageInterceptedKeys.Controls.Add(this.groupBoxFunctionKeys);
+            this.tabPageInterceptedKeys.Controls.Add(this.groupBoxSpecialKeys);
+            this.tabPageInterceptedKeys.Location = new System.Drawing.Point(4, 39);
+            this.tabPageInterceptedKeys.Name = "tabPageInterceptedKeys";
+            this.tabPageInterceptedKeys.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInterceptedKeys.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageInterceptedKeys.TabIndex = 27;
+            this.tabPageInterceptedKeys.Text = "Hooked Keys";
+            this.tabPageInterceptedKeys.UseVisualStyleBackColor = true;
             // 
             // checkBoxInterceptKeys
             // 
@@ -298,6 +298,7 @@
             this.checkBoxEnableF1.TabIndex = 25;
             this.checkBoxEnableF1.Text = "Enable F1";
             this.checkBoxEnableF1.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF1.CheckedChanged += new System.EventHandler(this.checkBoxEnableF1_CheckedChanged_1);
             // 
             // checkBoxEnableF2
             // 
@@ -309,6 +310,7 @@
             this.checkBoxEnableF2.TabIndex = 26;
             this.checkBoxEnableF2.Text = "Enable F2";
             this.checkBoxEnableF2.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF2.CheckedChanged += new System.EventHandler(this.checkBoxEnableF2_CheckedChanged_1);
             // 
             // checkBoxEnableF12
             // 
@@ -320,6 +322,7 @@
             this.checkBoxEnableF12.TabIndex = 37;
             this.checkBoxEnableF12.Text = "Enable F12";
             this.checkBoxEnableF12.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF12.CheckedChanged += new System.EventHandler(this.checkBoxEnableF12_CheckedChanged_1);
             // 
             // checkBoxEnableF3
             // 
@@ -331,6 +334,7 @@
             this.checkBoxEnableF3.TabIndex = 27;
             this.checkBoxEnableF3.Text = "Enable F3";
             this.checkBoxEnableF3.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF3.CheckedChanged += new System.EventHandler(this.checkBoxEnableF3_CheckedChanged_1);
             // 
             // checkBoxEnableF11
             // 
@@ -342,6 +346,7 @@
             this.checkBoxEnableF11.TabIndex = 36;
             this.checkBoxEnableF11.Text = "Enable F11";
             this.checkBoxEnableF11.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF11.CheckedChanged += new System.EventHandler(this.checkBoxEnableF11_CheckedChanged_1);
             // 
             // checkBoxEnableF4
             // 
@@ -353,6 +358,7 @@
             this.checkBoxEnableF4.TabIndex = 28;
             this.checkBoxEnableF4.Text = "Enable F4";
             this.checkBoxEnableF4.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableF4_CheckedChanged_1);
             // 
             // checkBoxEnableF5
             // 
@@ -364,6 +370,7 @@
             this.checkBoxEnableF5.TabIndex = 29;
             this.checkBoxEnableF5.Text = "Enable F5";
             this.checkBoxEnableF5.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF5.CheckedChanged += new System.EventHandler(this.checkBoxEnableF5_CheckedChanged_1);
             // 
             // checkBoxEnableF10
             // 
@@ -375,6 +382,7 @@
             this.checkBoxEnableF10.TabIndex = 34;
             this.checkBoxEnableF10.Text = "Enable F10";
             this.checkBoxEnableF10.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF10.CheckedChanged += new System.EventHandler(this.checkBoxEnableF10_CheckedChanged_1);
             // 
             // checkBoxEnableF6
             // 
@@ -386,6 +394,7 @@
             this.checkBoxEnableF6.TabIndex = 30;
             this.checkBoxEnableF6.Text = "Enable F6";
             this.checkBoxEnableF6.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF6.CheckedChanged += new System.EventHandler(this.checkBoxEnableF6_CheckedChanged_1);
             // 
             // checkBoxEnableF9
             // 
@@ -397,6 +406,7 @@
             this.checkBoxEnableF9.TabIndex = 33;
             this.checkBoxEnableF9.Text = "Enable F9";
             this.checkBoxEnableF9.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF9.CheckedChanged += new System.EventHandler(this.checkBoxEnableF9_CheckedChanged_1);
             // 
             // checkBoxEnableF7
             // 
@@ -408,6 +418,7 @@
             this.checkBoxEnableF7.TabIndex = 31;
             this.checkBoxEnableF7.Text = "Enable F7";
             this.checkBoxEnableF7.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF7.CheckedChanged += new System.EventHandler(this.checkBoxEnableF7_CheckedChanged_1);
             // 
             // checkBoxEnableF8
             // 
@@ -419,6 +430,7 @@
             this.checkBoxEnableF8.TabIndex = 32;
             this.checkBoxEnableF8.Text = "Enable F8";
             this.checkBoxEnableF8.UseVisualStyleBackColor = true;
+            this.checkBoxEnableF8.CheckedChanged += new System.EventHandler(this.checkBoxEnableF8_CheckedChanged_1);
             // 
             // groupBoxSpecialKeys
             // 
@@ -447,6 +459,7 @@
             this.checkBoxEnableEsc.TabIndex = 41;
             this.checkBoxEnableEsc.Text = "Enable Esc";
             this.checkBoxEnableEsc.UseVisualStyleBackColor = true;
+            this.checkBoxEnableEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableEsc_CheckedChanged_1);
             // 
             // checkBoxEnableCtrlEsc
             // 
@@ -458,6 +471,7 @@
             this.checkBoxEnableCtrlEsc.TabIndex = 19;
             this.checkBoxEnableCtrlEsc.Text = "Enable Ctrl-Esc";
             this.checkBoxEnableCtrlEsc.UseVisualStyleBackColor = true;
+            this.checkBoxEnableCtrlEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableCtrlEsc_CheckedChanged_1);
             // 
             // checkBoxEnableAltEsc
             // 
@@ -469,6 +483,7 @@
             this.checkBoxEnableAltEsc.TabIndex = 20;
             this.checkBoxEnableAltEsc.Text = "Enable Alt-Esc";
             this.checkBoxEnableAltEsc.UseVisualStyleBackColor = true;
+            this.checkBoxEnableAltEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltEsc_CheckedChanged_1);
             // 
             // checkBoxEnableAltTab
             // 
@@ -480,6 +495,7 @@
             this.checkBoxEnableAltTab.TabIndex = 21;
             this.checkBoxEnableAltTab.Text = "Enable Alt-Tab";
             this.checkBoxEnableAltTab.UseVisualStyleBackColor = true;
+            this.checkBoxEnableAltTab.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltTab_CheckedChanged_1);
             // 
             // checkBoxEnableAltF4
             // 
@@ -491,6 +507,7 @@
             this.checkBoxEnableAltF4.TabIndex = 22;
             this.checkBoxEnableAltF4.Text = "Enable Alt-F4";
             this.checkBoxEnableAltF4.UseVisualStyleBackColor = true;
+            this.checkBoxEnableAltF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltF4_CheckedChanged_1);
             // 
             // checkBoxEnableStartMenu
             // 
@@ -502,6 +519,7 @@
             this.checkBoxEnableStartMenu.TabIndex = 23;
             this.checkBoxEnableStartMenu.Text = "Enable Start Menu";
             this.checkBoxEnableStartMenu.UseVisualStyleBackColor = true;
+            this.checkBoxEnableStartMenu.CheckedChanged += new System.EventHandler(this.checkBoxEnableStartMenu_CheckedChanged_1);
             // 
             // checkBoxEnableRightMouse
             // 
@@ -513,6 +531,7 @@
             this.checkBoxEnableRightMouse.TabIndex = 24;
             this.checkBoxEnableRightMouse.Text = "Enable Right Mouse";
             this.checkBoxEnableRightMouse.UseVisualStyleBackColor = true;
+            this.checkBoxEnableRightMouse.CheckedChanged += new System.EventHandler(this.checkBoxEnableRightMouse_CheckedChanged_1);
             // 
             // tabPageRegistry
             // 
@@ -860,10 +879,6 @@
             // 
             this.listBoxSebServicePolicy.FormattingEnabled = true;
             this.listBoxSebServicePolicy.ItemHeight = 16;
-            this.listBoxSebServicePolicy.Items.AddRange(new object[] {
-            "allow to use SEB only with service",
-            "display warning then service is not running",
-            "allow to run SEB without service"});
             this.listBoxSebServicePolicy.Location = new System.Drawing.Point(31, 63);
             this.listBoxSebServicePolicy.Name = "listBoxSebServicePolicy";
             this.listBoxSebServicePolicy.Size = new System.Drawing.Size(374, 52);
@@ -1116,13 +1131,9 @@
             // 
             this.listBoxChooseFileToUploadPolicy.FormattingEnabled = true;
             this.listBoxChooseFileToUploadPolicy.ItemHeight = 16;
-            this.listBoxChooseFileToUploadPolicy.Items.AddRange(new object[] {
-            "manually with file requester",
-            "by attempting to upload the same file downloaded before",
-            "by only allowing to upload the same file uploaded before"});
             this.listBoxChooseFileToUploadPolicy.Location = new System.Drawing.Point(33, 279);
             this.listBoxChooseFileToUploadPolicy.Name = "listBoxChooseFileToUploadPolicy";
-            this.listBoxChooseFileToUploadPolicy.Size = new System.Drawing.Size(310, 20);
+            this.listBoxChooseFileToUploadPolicy.Size = new System.Drawing.Size(310, 52);
             this.listBoxChooseFileToUploadPolicy.TabIndex = 76;
             this.listBoxChooseFileToUploadPolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUploadPolicy_SelectedIndexChanged);
             // 
@@ -1139,7 +1150,7 @@
             // 
             this.checkBoxDownloadPDFFiles.AutoSize = true;
             this.checkBoxDownloadPDFFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(33, 323);
+            this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(33, 351);
             this.checkBoxDownloadPDFFiles.Name = "checkBoxDownloadPDFFiles";
             this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(421, 21);
             this.checkBoxDownloadPDFFiles.TabIndex = 73;
@@ -1204,10 +1215,6 @@
             // 
             this.listBoxOpenLinksJava.FormattingEnabled = true;
             this.listBoxOpenLinksJava.ItemHeight = 16;
-            this.listBoxOpenLinksJava.Items.AddRange(new object[] {
-            "open in new window",
-            "open in same window",
-            "get generally blocked"});
             this.listBoxOpenLinksJava.Location = new System.Drawing.Point(31, 277);
             this.listBoxOpenLinksJava.Name = "listBoxOpenLinksJava";
             this.listBoxOpenLinksJava.Size = new System.Drawing.Size(197, 52);
@@ -1218,10 +1225,6 @@
             // 
             this.listBoxOpenLinksHTML.FormattingEnabled = true;
             this.listBoxOpenLinksHTML.ItemHeight = 16;
-            this.listBoxOpenLinksHTML.Items.AddRange(new object[] {
-            "open in new window",
-            "open in same window",
-            "get generally blocked"});
             this.listBoxOpenLinksHTML.Location = new System.Drawing.Point(31, 51);
             this.listBoxOpenLinksHTML.Name = "listBoxOpenLinksHTML";
             this.listBoxOpenLinksHTML.Size = new System.Drawing.Size(197, 52);
@@ -1434,10 +1437,6 @@
             // 
             this.listBoxNewBrowserWindowPositioning.FormattingEnabled = true;
             this.listBoxNewBrowserWindowPositioning.ItemHeight = 16;
-            this.listBoxNewBrowserWindowPositioning.Items.AddRange(new object[] {
-            "Left",
-            "Center",
-            "Right"});
             this.listBoxNewBrowserWindowPositioning.Location = new System.Drawing.Point(458, 21);
             this.listBoxNewBrowserWindowPositioning.Name = "listBoxNewBrowserWindowPositioning";
             this.listBoxNewBrowserWindowPositioning.Size = new System.Drawing.Size(120, 52);
@@ -1542,10 +1541,6 @@
             this.listBoxMainBrowserWindowPositioning.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxMainBrowserWindowPositioning.FormattingEnabled = true;
             this.listBoxMainBrowserWindowPositioning.ItemHeight = 16;
-            this.listBoxMainBrowserWindowPositioning.Items.AddRange(new object[] {
-            "Left",
-            "Center",
-            "Right"});
             this.listBoxMainBrowserWindowPositioning.Location = new System.Drawing.Point(468, 25);
             this.listBoxMainBrowserWindowPositioning.Name = "listBoxMainBrowserWindowPositioning";
             this.listBoxMainBrowserWindowPositioning.Size = new System.Drawing.Size(120, 52);
@@ -2197,7 +2192,7 @@
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageNetwork);
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageSecurity);
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageRegistry);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageHookedKeys);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageInterceptedKeys);
             this.tabControlSebWindowsConfig.ImageList = this.imageListTabIcons;
             this.tabControlSebWindowsConfig.Location = new System.Drawing.Point(45, 31);
             this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
@@ -2215,8 +2210,8 @@
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Editor";
-            this.tabPageHookedKeys.ResumeLayout(false);
-            this.tabPageHookedKeys.PerformLayout();
+            this.tabPageInterceptedKeys.ResumeLayout(false);
+            this.tabPageInterceptedKeys.PerformLayout();
             this.groupBoxFunctionKeys.ResumeLayout(false);
             this.groupBoxFunctionKeys.PerformLayout();
             this.groupBoxSpecialKeys.ResumeLayout(false);
@@ -2261,7 +2256,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialogSebStarterIni;
         private System.Windows.Forms.ImageList imageListTabIcons;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadDirectoryWin;
-        private System.Windows.Forms.TabPage tabPageHookedKeys;
+        private System.Windows.Forms.TabPage tabPageInterceptedKeys;
         private System.Windows.Forms.CheckBox checkBoxInterceptKeys;
         private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
         private System.Windows.Forms.CheckBox checkBoxEnableF1;
