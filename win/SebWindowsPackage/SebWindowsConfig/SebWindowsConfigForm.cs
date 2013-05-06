@@ -560,12 +560,6 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageEnableF11, false);
             sebSettingsNew.Add(MessageEnableF12, false);
 
-            // Default settings for groups "Special Keys"
-            sebSettingsNew.Add(MessageEnableAltTab, true);
-
-            // Default settings for groups "Function Keys"
-            sebSettingsNew.Add(MessageEnableF5, true);
-
 /*
             // Default settings for group "Online exam"
             String s0 = "Seb,../xulrunner/xulrunner.exe";
