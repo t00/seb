@@ -435,106 +435,102 @@ namespace SebWindowsConfig
             }
 
             // Default settings for group "General"
-            settingString [StateDef, GroupGeneral, ValueStartURL            ] = "http://www.safeexambrowser.org";
-            settingString [StateDef, GroupGeneral, ValueSebServerURL        ] = "http://www.switch.ch";
-            settingString [StateDef, GroupGeneral, ValueAdminPassword       ] = "";
-            settingString [StateDef, GroupGeneral, ValueConfirmAdminPassword] = "";
-            settingString [StateDef, GroupGeneral, ValueHashedAdminPassword ] = "";
-            settingBoolean[StateDef, GroupGeneral, ValueAllowQuit           ] = true;
-            settingBoolean[StateDef, GroupGeneral, ValueIgnoreQuitPassword  ] = false;
-            settingString [StateDef, GroupGeneral, ValueQuitPassword        ] = "";
-            settingString [StateDef, GroupGeneral, ValueConfirmQuitPassword ] = "";
-            settingString [StateDef, GroupGeneral, ValueHashedQuitPassword  ] = "";
-            settingInteger[StateDef, GroupGeneral, ValueExitKey1            ] =  2;
-            settingInteger[StateDef, GroupGeneral, ValueExitKey2            ] = 10;
-            settingInteger[StateDef, GroupGeneral, ValueExitKey3            ] =  5;
+            sebSettingsNew.Add(MessageStartURL            , "http://www.safeexambrowser.org");
+            sebSettingsNew.Add(MessageSebServerURL        , "http://www.switch.ch");
+            sebSettingsNew.Add(MessageAdminPassword       , "");
+            sebSettingsNew.Add(MessageConfirmAdminPassword, "");
+            sebSettingsNew.Add(MessageHashedAdminPassword , "");
+            sebSettingsNew.Add(MessageAllowQuit           , true);
+            sebSettingsNew.Add(MessageIgnoreQuitPassword  , false);
+            sebSettingsNew.Add(MessageQuitPassword        , "");
+            sebSettingsNew.Add(MessageConfirmQuitPassword , "");
+            sebSettingsNew.Add(MessageHashedQuitPassword  , "");
+            sebSettingsNew.Add(MessageExitKey1,  2);
+            sebSettingsNew.Add(MessageExitKey2, 10);
+            sebSettingsNew.Add(MessageExitKey3,  5);
 
             // Default settings for group "Config File"
-            settingInteger[StateDef, GroupConfigFile, ValueSebConfigPurpose             ] = 0;
-            settingBoolean[StateDef, GroupConfigFile, ValueAllowPreferencesWindow ] = true;
-            settingInteger[StateDef, GroupConfigFile, ValueCryptoIdentity         ] = 0;
-            settingString [StateDef, GroupConfigFile, ValueSettingsPassword       ] = "";
-            settingString [StateDef, GroupConfigFile, ValueConfirmSettingsPassword] = "";
-            settingString [StateDef, GroupConfigFile, ValueHashedSettingsPassword ] = "";
+            sebSettingsNew.Add(MessageSebConfigPurpose       , 0);
+            sebSettingsNew.Add(MessageAllowPreferencesWindow , true);
+            sebSettingsNew.Add(MessageCryptoIdentity         , 0);
+            sebSettingsNew.Add(MessageSettingsPassword       , "");
+            sebSettingsNew.Add(MessageConfirmSettingsPassword, "");
+            sebSettingsNew.Add(MessageHashedSettingsPassword , "");
 
             // Default settings for group "Appearance"
-            settingInteger[StateDef, GroupAppearance, ValueBrowserViewMode             ] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowWidth      ] = 0;
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHeight     ] = 0;
-            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowWidth      ] = "100%";
-            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHeight     ] = "100%";
-            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowPositioning] = 1;
-            settingBoolean[StateDef, GroupAppearance, ValueEnableBrowserWindowToolbar  ] = true;
-            settingBoolean[StateDef, GroupAppearance, ValueHideBrowserWindowToolbar    ] = false;
-            settingBoolean[StateDef, GroupAppearance, ValueShowMenuBar                 ] = false;
-            settingBoolean[StateDef, GroupAppearance, ValueShowTaskBar                 ] = false;
+            sebSettingsNew.Add(MessageBrowserViewMode             , 0);
+            sebSettingsNew.Add(MessageMainBrowserWindowWidth      , "100%");
+            sebSettingsNew.Add(MessageMainBrowserWindowHeight     , "100%");
+            sebSettingsNew.Add(MessageMainBrowserWindowPositioning, 1);
+            sebSettingsNew.Add(MessageEnableBrowserWindowToolbar  , true);
+            sebSettingsNew.Add(MessageHideBrowserWindowToolbar    , false);
+            sebSettingsNew.Add(MessageShowMenuBar                 , false);
+            sebSettingsNew.Add(MessageShowTaskBar                 , false);
 
             // Default settings for group "Browser"
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPolicy        ] = 2;
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByScriptPolicy      ] = 2;
-            settingBoolean[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign  ] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign] = false;
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth         ] = 0;
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight        ] = 0;
-            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth         ] = "800";
-            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight        ] = "600";
-            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkPositioning   ] = 2;
+            sebSettingsNew.Add(MessageNewBrowserWindowByLinkPolicy        , 2);
+            sebSettingsNew.Add(MessageNewBrowserWindowByScriptPolicy      , 2);
+            sebSettingsNew.Add(MessageNewBrowserWindowByLinkBlockForeign  , false);
+            sebSettingsNew.Add(MessageNewBrowserWindowByScriptBlockForeign, false);
+            sebSettingsNew.Add(MessageNewBrowserWindowByLinkWidth         , "800");
+            sebSettingsNew.Add(MessageNewBrowserWindowByLinkHeight        , "600");
+            sebSettingsNew.Add(MessageNewBrowserWindowByLinkPositioning   , 2);
 
-            settingBoolean[StateDef, GroupBrowser, ValueEnablePlugIns           ] = true;
-            settingBoolean[StateDef, GroupBrowser, ValueEnableJava              ] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueEnableJavaScript        ] = true;
-            settingBoolean[StateDef, GroupBrowser, ValueBlockPopUpWindows       ] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueAllowBrowsingBackForward] = false;
-            settingBoolean[StateDef, GroupBrowser, ValueEnableSebBrowser        ] = true;
+            sebSettingsNew.Add(MessageEnablePlugIns           , true);
+            sebSettingsNew.Add(MessageEnableJava              , false);
+            sebSettingsNew.Add(MessageEnableJavaScript        , true);
+            sebSettingsNew.Add(MessageBlockPopUpWindows       , false);
+            sebSettingsNew.Add(MessageAllowBrowsingBackForward, false);
+            sebSettingsNew.Add(MessageEnableSebBrowser        , true);
 
             // Default settings for group "DownUploads"
-            settingBoolean[StateDef, GroupDownUploads, ValueAllowDownUploads        ] = true;
-            settingString [StateDef, GroupDownUploads, ValueDownloadDirectoryOSX    ] = "~/Downloads";
-            settingString [StateDef, GroupDownUploads, ValueDownloadDirectoryWin    ] = "Desktop";
-            settingBoolean[StateDef, GroupDownUploads, ValueOpenDownloads           ] = true;
-            settingInteger[StateDef, GroupDownUploads, ValueChooseFileToUploadPolicy] = 0;
-            settingBoolean[StateDef, GroupDownUploads, ValueDownloadPDFFiles        ] = false;
+            sebSettingsNew.Add(MessageAllowDownUploads        , true);
+            sebSettingsNew.Add(MessageDownloadDirectoryOSX    , "~/Downloads");
+            sebSettingsNew.Add(MessageDownloadDirectoryWin    , "Desktop");
+            sebSettingsNew.Add(MessageOpenDownloads           , true);
+            sebSettingsNew.Add(MessageChooseFileToUploadPolicy, 0);
+            sebSettingsNew.Add(MessageDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
-            settingString [StateDef, GroupExam, ValueBrowserExamKey    ] = "";
-            settingBoolean[StateDef, GroupExam, ValueCopyBrowserExamKey] = false;
-            settingBoolean[StateDef, GroupExam, ValueSendBrowserExamKey] = true;
-            settingString [StateDef, GroupExam, ValueQuitURL           ] = "http://www.safeexambrowser.org/exit";
+            sebSettingsNew.Add(MessageBrowserExamKey    , "");
+            sebSettingsNew.Add(MessageCopyBrowserExamKey, false);
+            sebSettingsNew.Add(MessageSendBrowserExamKey, true);
+            sebSettingsNew.Add(MessageQuitURL           , "http://www.safeexambrowser.org/exit");
 
             // Default settings for group "Applications"
-            settingBoolean[StateDef, GroupApplications, ValueMonitorProcesses         ] = true;
-            settingBoolean[StateDef, GroupApplications, ValueAllowSwitchToApplications] = true;
-            settingBoolean[StateDef, GroupApplications, ValueAllowFlashFullscreen     ] = false;
+            sebSettingsNew.Add(MessageMonitorProcesses         , true);
+            sebSettingsNew.Add(MessageAllowSwitchToApplications, true);
+            sebSettingsNew.Add(MessageAllowFlashFullscreen     , false);
 
             // Default settings for group "Network"
 
             // Default settings for group "Security"
-            settingInteger[StateDef, GroupSecurity, ValueSebServicePolicy   ] = 2;
-            settingBoolean[StateDef, GroupSecurity, ValueAllowVirtualMachine] = false;
-            settingBoolean[StateDef, GroupSecurity, ValueCreateNewDesktop   ] = true;
-            settingBoolean[StateDef, GroupSecurity, ValueAllowUserSwitching ] = true;
-            settingBoolean[StateDef, GroupSecurity, ValueEnableLogging      ] = true;
-            settingString [StateDef, GroupSecurity, ValueLogDirectoryOSX    ] = "~/Documents";
-            settingString [StateDef, GroupSecurity, ValueLogDirectoryWin    ] = "My Documents";
+            sebSettingsNew.Add(MessageSebServicePolicy   , 2);
+            sebSettingsNew.Add(MessageAllowVirtualMachine, false);
+            sebSettingsNew.Add(MessageCreateNewDesktop   , true);
+            sebSettingsNew.Add(MessageAllowUserSwitching , true);
+            sebSettingsNew.Add(MessageEnableLogging      , true);
+            sebSettingsNew.Add(MessageLogDirectoryOSX    , "~/Documents");
+            sebSettingsNew.Add(MessageLogDirectoryWin    , "My Documents");
 
             // Default settings for group "Hooked Keys"
-            settingBoolean[StateDef, GroupHookedKeys, ValueHookMessages] = true;
+            sebSettingsNew.Add(MessageHookMessages, true);
 
             // Default settings for groups "Inside SEB", "Outside SEB"
             // Default settings for groups "Special Keys", "Function Keys"
             for (value = 1; value <= ValueNum; value++)
             {
-                settingBoolean[StateDef, GroupInsideSeb   , value] = false;
-                settingBoolean[StateDef, GroupOutsideSeb  , value] = true;
-                settingBoolean[StateDef, GroupSpecialKeys , value] = false;
-                settingBoolean[StateDef, GroupFunctionKeys, value] = false;
+                settingBoolean[StateDef, GroupInsideSeb   , value, false;
+                settingBoolean[StateDef, GroupOutsideSeb  , value, true;
+                settingBoolean[StateDef, GroupSpecialKeys , value, false;
+                settingBoolean[StateDef, GroupFunctionKeys, value, false;
             }
 
             // Default settings for groups "Special Keys"
-            settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab] = true;
+            settingBoolean[StateDef, GroupSpecialKeys , ValueEnableAltTab, true;
 
             // Default settings for groups "Function Keys"
-            settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5] = true;
+            settingBoolean[StateDef, GroupFunctionKeys, ValueEnableF5, true;
 
 /*
             // Default settings for group "Online exam"
@@ -543,9 +539,9 @@ namespace SebWindowsConfig
             String s2 = " -profile \"%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles\"";
             String SebBrowserString = s0 + s1 + s2;
 
-            settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ] =  SebBrowserString;
-            settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     ] = "Seb";
-            settingString[StateDef, GroupOnlineExam, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
+            settingString[StateDef, GroupOnlineExam, ValueSebBrowser           ,  SebBrowserString;
+            settingString[StateDef, GroupOnlineExam, ValueAutostartProcess     , "Seb";
+            settingString[StateDef, GroupOnlineExam, ValuePermittedApplications, "Calculator,calc.exe;Notepad,notepad.exe;";
 */
 
             // Standard data types of the different groups
