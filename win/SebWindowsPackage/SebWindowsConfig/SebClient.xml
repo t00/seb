@@ -196,7 +196,7 @@
 	<key>sebServicePolicy</key>
 	<integer>2</integer>
 	<key>sendBrowserExamKey</key>
-	<true/>
+	<false/>
 	<key>settingsPassword</key>
 	<string></string>
 	<key>showMenuBar</key>
