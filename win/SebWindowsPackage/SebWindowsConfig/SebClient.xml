@@ -5,7 +5,7 @@
 	<key>allowBrowsingBackForward</key>
 	<false/>
 	<key>allowDownUploads</key>
-	<true/>
+	<false/>
 	<key>allowFlashFullscreen</key>
 	<false/>
 	<key>allowPreferencesWindow</key>
@@ -97,7 +97,7 @@
 	<key>newBrowserWindowByScriptPolicy</key>
 	<integer>2</integer>
 	<key>openDownloads</key>
-	<true/>
+	<false/>
 	<key>permittedProcesses</key>
 	<array>
 		<dict>
