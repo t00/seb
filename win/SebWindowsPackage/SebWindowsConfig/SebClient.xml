@@ -28,8 +28,6 @@
 	<false/>
 	<key>createNewDesktop</key>
 	<true/>
-	<key>cryptoIdentity</key>
-	<integer>0</integer>
 	<key>downloadDirectoryOSX</key>
 	<string>~/Downloads</string>
 	<key>downloadDirectoryWin</key>
