@@ -55,21 +55,21 @@ namespace SebWindowsConfig
         const int GroupNum = 15;
 
         // SebStarter contains 15 groups
-        const int GroupGeneral         = 1;
-        const int GroupConfigFile      = 2;
-        const int GroupAppearance      = 3;
-        const int GroupBrowser         = 4;
-        const int GroupDownUploads     = 5;
-        const int GroupExam            = 6;
-        const int GroupApplications    = 7;
-        const int GroupNetwork         = 8;
-        const int GroupSecurity        = 9;
-        const int GroupRegistry        = 10;
-        const int GroupInsideSeb       = 11;
-        const int GroupOutsideSeb      = 12;
-        const int GroupInterceptedKeys = 13;
-        const int GroupSpecialKeys     = 14;
-        const int GroupFunctionKeys    = 15;
+        const int GroupGeneral      = 1;
+        const int GroupConfigFile   = 2;
+        const int GroupAppearance   = 3;
+        const int GroupBrowser      = 4;
+        const int GroupDownUploads  = 5;
+        const int GroupExam         = 6;
+        const int GroupApplications = 7;
+        const int GroupNetwork      = 8;
+        const int GroupSecurity     = 9;
+        const int GroupRegistry     = 10;
+        const int GroupInsideSeb    = 11;
+        const int GroupOutsideSeb   = 12;
+        const int GroupHookedKeys   = 13;
+        const int GroupSpecialKeys  = 14;
+        const int GroupFunctionKeys = 15;
 
         const int GroupNumSebStarter = 15;
 
@@ -77,21 +77,21 @@ namespace SebWindowsConfig
         const int ValueNum = 20;
 
         // Group names
-        const String MessageGeneral         = "General";
-        const String MessageConfigFile      = "ConfigFile";
-        const String MessageAppearance      = "Appearance";
-        const String MessageBrowser         = "Browser";
-        const String MessageDownUploads     = "DownUploads";
-        const String MessageExam            = "Exam";
-        const String MessageApplications    = "Applications";
-        const String MessageNetwork         = "Network";
-        const String MessageSecurity        = "Security";
-        const String MessageRegistry        = "Registry";
-        const String MessageInsideSeb       = "InsideSeb";
-        const String MessageOutsideSeb      = "OutsideSeb";
-        const String MessageInterceptedKeys = "InterceptedKeys";
-        const String MessageSpecialKeys     = "SpecialKeys";
-        const String MessageFunctionKeys    = "FunctionKeys";
+        const String MessageGeneral      = "General";
+        const String MessageConfigFile   = "ConfigFile";
+        const String MessageAppearance   = "Appearance";
+        const String MessageBrowser      = "Browser";
+        const String MessageDownUploads  = "DownUploads";
+        const String MessageExam         = "Exam";
+        const String MessageApplications = "Applications";
+        const String MessageNetwork      = "Network";
+        const String MessageSecurity     = "Security";
+        const String MessageRegistry     = "Registry";
+        const String MessageInsideSeb    = "InsideSeb";
+        const String MessageOutsideSeb   = "OutsideSeb";
+        const String MessageHookedKeys   = "HookedKeys";
+        const String MessageSpecialKeys  = "SpecialKeys";
+        const String MessageFunctionKeys = "FunctionKeys";
 
         // Group "General"
         const int ValueStartURL             = 1;
@@ -292,11 +292,11 @@ namespace SebWindowsConfig
         const String MessageOutsideSebEnableEaseOfAccess      = "outsideSebEnableEaseOfAccess";
         const String MessageOutsideSebEnableVmWareClientShade = "outsideSebEnableVmWareClientShade";
 
-        // Group "Intercepted Keys"
-        const int ValueInterceptKeys = 1;
+        // Group "Hooked Keys"
+        const int ValueHookKeys = 1;
         const int NumValueHookedKeys = 1;
 
-        const String MessageInterceptKeys = "interceptKeys";
+        const String MessageHookKeys = "hookKeys";
 
         // Group "Special Keys"
         const int ValueEnableEsc        = 1;
@@ -383,17 +383,17 @@ namespace SebWindowsConfig
         // Number of values per group
         // Names  of groups and values
         // Types  of values (Boolean, Integer, String)
-        static    int[ ]         minValue  = new    int[GroupNum + 1];
-        static    int[ ]         maxValue  = new    int[GroupNum + 1];
-        static String[ ]      configString = new String[ FileNum + 1];
-        static String[ ]       groupString = new String[GroupNum + 1];
-        static String[,]       valueString = new String[GroupNum + 1, ValueNum + 1];
-        static    int[,]        dataType   = new    int[GroupNum + 1, ValueNum + 1];
+        static    int[ ]    minValue  = new    int[GroupNum + 1];
+        static    int[ ]    maxValue  = new    int[GroupNum + 1];
+        static String[ ] configString = new String[ FileNum + 1];
+        static String[ ]  groupString = new String[GroupNum + 1];
+        static String[,]  valueString = new String[GroupNum + 1, ValueNum + 1];
+        static    int[,]   dataType   = new    int[GroupNum + 1, ValueNum + 1];
 
         // Settings as Booleans ("true" or "false") or Strings
-        //static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
-        //static String [,,] settingString  = new String [StateNum + 1, GroupNum + 1, ValueNum + 1];
-        //static     int[,,] settingInteger = new     int[StateNum + 1, GroupNum + 1, ValueNum + 1];
+        static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
+        static String [,,] settingString  = new String [StateNum + 1, GroupNum + 1, ValueNum + 1];
+        static     int[,,] settingInteger = new     int[StateNum + 1, GroupNum + 1, ValueNum + 1];
 
         // Password encryption using the SHA-256 hash algorithm
         SHA256 sha256 = new SHA256Managed();
@@ -431,9 +431,9 @@ namespace SebWindowsConfig
             for (group = 1; group <= GroupNum; group++)
             for (value = 1; value <= ValueNum; value++)
             {
-                //settingBoolean[state, group, value] = false;
-                //settingString [state, group, value] = "";
-                //settingInteger[state, group, value] = 0;
+                settingBoolean[state, group, value] = false;
+                settingInteger[state, group, value] = 0;
+                settingString [state, group, value] = "";
             }
 
             // Default settings for group "General"
@@ -454,10 +454,14 @@ namespace SebWindowsConfig
             // Default settings for group "Config File"
             sebSettingsNew.Add(MessageSebConfigPurpose       , 0);
             sebSettingsNew.Add(MessageAllowPreferencesWindow , true);
-            sebSettingsNew.Add(MessageCryptoIdentity         , 0);
             sebSettingsNew.Add(MessageSettingsPassword       , "");
             sebSettingsNew.Add(MessageConfirmSettingsPassword, "");
             sebSettingsNew.Add(MessageHashedSettingsPassword , "");
+
+            // CryptoIdentity is stored additionally
+            settingInteger[StateDef, GroupConfigFile, ValueCryptoIdentity] = 0;
+            settingString [StateDef, GroupConfigFile, ValueCryptoIdentity] = "";
+
 
             // Default settings for group "Appearance"
             sebSettingsNew.Add(MessageBrowserViewMode             , 0);
@@ -468,6 +472,13 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageHideBrowserWindowToolbar    , false);
             sebSettingsNew.Add(MessageShowMenuBar                 , false);
             sebSettingsNew.Add(MessageShowTaskBar                 , true);
+
+            // MainBrowserWindow Width and Height is stored additionally
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowWidth ] = 1;
+            settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowHeight] = 1;
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowWidth ] = "100%";
+            settingString [StateDef, GroupAppearance, ValueMainBrowserWindowHeight] = "100%";
+
 
             // Default settings for group "Browser"
             sebSettingsNew.Add(MessageNewBrowserWindowByLinkPolicy        , 2);
@@ -484,6 +495,13 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageBlockPopUpWindows       , false);
             sebSettingsNew.Add(MessageAllowBrowsingBackForward, false);
             sebSettingsNew.Add(MessageEnableSebBrowser        , true);
+
+            // NewBrowserWindow Width and Height is stored additionally
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth ] = 3;
+            settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = 1;
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth ] = "1000";
+            settingString [StateDef, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = "100%";
+
 
             // Default settings for group "DownUploads"
             sebSettingsNew.Add(MessageAllowDownUploads        , true);
@@ -536,7 +554,7 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageOutsideSebEnableVmWareClientShade, true);
 
             // Default settings for group "Intercepted Keys"
-            sebSettingsNew.Add(MessageInterceptKeys, true);
+            sebSettingsNew.Add(MessageHookKeys, true);
 
             // Default settings for group "Special Keys"
             sebSettingsNew.Add(MessageEnableEsc       , false);
@@ -576,21 +594,21 @@ namespace SebWindowsConfig
             // Standard data types of the different groups
             for (value = 1; value <= ValueNum; value++)
             {
-                dataType[GroupGeneral        , value] = TypeString;
-                dataType[GroupConfigFile     , value] = TypeBoolean;
-                dataType[GroupAppearance     , value] = TypeBoolean;
-                dataType[GroupBrowser        , value] = TypeBoolean;
-                dataType[GroupDownUploads    , value] = TypeBoolean;
-                dataType[GroupExam           , value] = TypeBoolean;
-                dataType[GroupApplications   , value] = TypeBoolean;
-                dataType[GroupNetwork        , value] = TypeBoolean;
-                dataType[GroupSecurity       , value] = TypeBoolean;
-                dataType[GroupRegistry       , value] = TypeBoolean;
-                dataType[GroupInsideSeb      , value] = TypeBoolean;
-                dataType[GroupOutsideSeb     , value] = TypeBoolean;
-                dataType[GroupInterceptedKeys, value] = TypeBoolean;
-                dataType[GroupSpecialKeys    , value] = TypeBoolean;
-                dataType[GroupFunctionKeys   , value] = TypeBoolean;
+                dataType[GroupGeneral     , value] = TypeString;
+                dataType[GroupConfigFile  , value] = TypeBoolean;
+                dataType[GroupAppearance  , value] = TypeBoolean;
+                dataType[GroupBrowser     , value] = TypeBoolean;
+                dataType[GroupDownUploads , value] = TypeBoolean;
+                dataType[GroupExam        , value] = TypeBoolean;
+                dataType[GroupApplications, value] = TypeBoolean;
+                dataType[GroupNetwork     , value] = TypeBoolean;
+                dataType[GroupSecurity    , value] = TypeBoolean;
+                dataType[GroupRegistry    , value] = TypeBoolean;
+                dataType[GroupInsideSeb   , value] = TypeBoolean;
+                dataType[GroupOutsideSeb  , value] = TypeBoolean;
+                dataType[GroupHookedKeys  , value] = TypeBoolean;
+                dataType[GroupSpecialKeys , value] = TypeBoolean;
+                dataType[GroupFunctionKeys, value] = TypeBoolean;
             }
 
             // Exceptional data types of some special values
@@ -642,7 +660,7 @@ namespace SebWindowsConfig
             maxValue[GroupRegistry    ] = NumValueRegistry;
             maxValue[GroupInsideSeb   ] = NumValueInsideSeb;
             maxValue[GroupOutsideSeb  ] = NumValueOutsideSeb;
-            maxValue[GroupInterceptedKeys  ] = NumValueHookedKeys;
+            maxValue[GroupHookedKeys  ] = NumValueHookedKeys;
             maxValue[GroupSpecialKeys ] = NumValueSpecialKeys;
             maxValue[GroupFunctionKeys] = NumValueFunctionKeys;
 
@@ -653,21 +671,21 @@ namespace SebWindowsConfig
             configString[FileSebStarterSeb] = TargetSebStarterSeb;
 
             // Group names
-            groupString[GroupGeneral        ] = MessageGeneral;
-            groupString[GroupConfigFile     ] = MessageConfigFile;
-            groupString[GroupAppearance     ] = MessageAppearance;
-            groupString[GroupBrowser        ] = MessageBrowser;
-            groupString[GroupDownUploads    ] = MessageDownUploads;
-            groupString[GroupExam           ] = MessageExam;
-            groupString[GroupApplications   ] = MessageApplications;
-            groupString[GroupNetwork        ] = MessageNetwork;
-            groupString[GroupSecurity       ] = MessageSecurity;
-            groupString[GroupRegistry       ] = MessageRegistry;
-            groupString[GroupInsideSeb      ] = MessageInsideSeb;
-            groupString[GroupOutsideSeb     ] = MessageOutsideSeb;
-            groupString[GroupInterceptedKeys] = MessageInterceptedKeys;
-            groupString[GroupSpecialKeys    ] = MessageSpecialKeys;
-            groupString[GroupFunctionKeys   ] = MessageFunctionKeys;
+            groupString[GroupGeneral     ] = MessageGeneral;
+            groupString[GroupConfigFile  ] = MessageConfigFile;
+            groupString[GroupAppearance  ] = MessageAppearance;
+            groupString[GroupBrowser     ] = MessageBrowser;
+            groupString[GroupDownUploads ] = MessageDownUploads;
+            groupString[GroupExam        ] = MessageExam;
+            groupString[GroupApplications] = MessageApplications;
+            groupString[GroupNetwork     ] = MessageNetwork;
+            groupString[GroupSecurity    ] = MessageSecurity;
+            groupString[GroupRegistry    ] = MessageRegistry;
+            groupString[GroupInsideSeb   ] = MessageInsideSeb;
+            groupString[GroupOutsideSeb  ] = MessageOutsideSeb;
+            groupString[GroupHookedKeys  ] = MessageHookedKeys;
+            groupString[GroupSpecialKeys ] = MessageSpecialKeys;
+            groupString[GroupFunctionKeys] = MessageFunctionKeys;
 
             // Value names
             valueString[GroupGeneral, ValueStartURL            ] = MessageStartURL;
@@ -757,7 +775,7 @@ namespace SebWindowsConfig
             valueString[GroupOutsideSeb, ValueOutsideSebEnableEaseOfAccess     ] = MessageOutsideSebEnableEaseOfAccess;
             valueString[GroupOutsideSeb, ValueOutsideSebEnableVmWareClientShade] = MessageOutsideSebEnableVmWareClientShade;
 
-            valueString[GroupInterceptedKeys, ValueInterceptKeys] = MessageInterceptKeys;
+            valueString[GroupHookedKeys, ValueHookKeys] = MessageHookKeys;
 
             valueString[GroupSpecialKeys, ValueEnableEsc       ] = MessageEnableEsc;
             valueString[GroupSpecialKeys, ValueEnableCtrlEsc   ] = MessageEnableCtrlEsc;
@@ -840,7 +858,7 @@ namespace SebWindowsConfig
             listBoxExitKey2.Items.AddRange(StringFunctionKey);
             listBoxExitKey3.Items.AddRange(StringFunctionKey);
 
-            comboBoxCryptoIdentity              .Items.AddRange(StringCryptoIdentityArray);
+            comboBoxCryptoIdentity.Items.AddRange(StringCryptoIdentity.ToArray());
 
             comboBoxMainBrowserWindowWidth      .Items.AddRange(StringWindowWidth);
             comboBoxMainBrowserWindowHeight     .Items.AddRange(StringWindowHeight);
@@ -900,8 +918,9 @@ namespace SebWindowsConfig
             // from the config file but instead searches it in the
             // Certificate Store of the computer where it is running,
             // so initially the 0th list entry is displayed ("none").
-            //sebSettingsTmp[MessageCryptoIdentity] = 0;
-            //sebSettingsNew[MessageCryptoIdentity] = 0;
+            //
+            //tmpCryptoIdentityInteger = 0;
+            //tmpCryptoIdentityString  = 0;
 
             // These ComboBox entries need a conversion from string to integer:
             //
@@ -940,7 +959,6 @@ namespace SebWindowsConfig
 */
 
             // Accept the tmp values as the old and new values
-/*
             for (int group = 1; group <= GroupNum; group++)
             {
                 int minvalue = minValue[group];
@@ -957,7 +975,7 @@ namespace SebWindowsConfig
                     settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
                 }
             }
-*/
+
             //sebSettingsOld = sebSettingsTmp;
             //sebSettingsNew = sebSettingsTmp;
 
@@ -1002,7 +1020,6 @@ namespace SebWindowsConfig
         private void ConvertSomeSettingsAfterWritingThemToFile(String fileName)
         {
             // Accept the old values as the new values
-/*
             for (int group = 1; group <= GroupNum; group++)
             {
                 int minvalue = minValue[group];
@@ -1015,7 +1032,7 @@ namespace SebWindowsConfig
                     settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
                 }
             }
-*/
+
             //sebSettingsOld = sebSettingsNew;
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -1076,8 +1093,8 @@ namespace SebWindowsConfig
                             {
                                 if (leftString.Equals(valueString[group, value]))
                                 {
-                                    //settingBoolean[StateTmp, group, value] = rightBoolean;
-                                    //settingString [StateTmp, group, value] = rightString;
+                                    settingBoolean[StateTmp, group, value] = rightBoolean;
+                                    settingString [StateTmp, group, value] = rightString;
                                     foundSetting = true;
                                     break;
                                 }
@@ -1252,16 +1269,16 @@ namespace SebWindowsConfig
                     for (value = minvalue; value <= maxvalue; value++)
                     {
                         String   leftString    =   valueString [          group, value];
-                      //String  rightString    = settingString [StateNew, group, value];
-                      //Boolean rightBoolean   = settingBoolean[StateNew, group, value];
+                        String  rightString    = settingString [StateNew, group, value];
+                        Boolean rightBoolean   = settingBoolean[StateNew, group, value];
                         int     rightType      =    dataType   [          group, value];
 
-                      //if ((rightType == TypeBoolean) && (rightBoolean == false)) rightString = "0";
-                      //if ((rightType == TypeBoolean) && (rightBoolean ==  true)) rightString = "1";
+                        if ((rightType == TypeBoolean) && (rightBoolean == false)) rightString = "0";
+                        if ((rightType == TypeBoolean) && (rightBoolean ==  true)) rightString = "1";
 
                         // Concatenate the "...=..." line and write it
-                      //fileLine = leftString + "=" + rightString;
-                      //fileWriter.WriteLine(fileLine);
+                        fileLine = leftString + "=" + rightString;
+                        fileWriter.WriteLine(fileLine);
 
                     } // next value
 
@@ -1798,14 +1815,14 @@ namespace SebWindowsConfig
 
         private void comboBoxCryptoIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            sebSettingsNew[MessageCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            settingString [StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void comboBoxCryptoIdentity_TextUpdate(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            sebSettingsNew[MessageCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            settingString [StateNew, GroupConfigFile, ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -1914,25 +1931,33 @@ namespace SebWindowsConfig
 
         private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            settingInteger[StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
@@ -1989,25 +2014,33 @@ namespace SebWindowsConfig
 
         private void comboBoxNewBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
+          //sebSettingsNew[MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             sebSettingsNew[MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
 
         private void comboBoxNewBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
+          //sebSettingsNew[MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             sebSettingsNew[MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
 
         private void comboBoxNewBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
+          //sebSettingsNew[MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             sebSettingsNew[MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
 
         private void comboBoxNewBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            settingInteger[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            settingString [StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
+          //sebSettingsNew[MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             sebSettingsNew[MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
 
@@ -2307,12 +2340,12 @@ namespace SebWindowsConfig
 
 
 
-        // ************************
-        // Group "Intercepted Keys"
-        // ************************
-        private void checkBoxInterceptedKeys_CheckedChanged(object sender, EventArgs e)
+        // *******************
+        // Group "Hooked Keys"
+        // *******************
+        private void checkBoxHookKeys_CheckedChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageInterceptKeys] = checkBoxInterceptKeys.Checked;
+            sebSettingsNew[MessageHookKeys] = checkBoxHookKeys.Checked;
         }
 
 
@@ -2430,7 +2463,6 @@ namespace SebWindowsConfig
         private void SetNewSettingsOfFileToState(int stateDesired)
         {
             // Restore the desired values by copying them to the new values
-/*
             int group, value;
 
             for (group = 1; group <= GroupNum; group++)
@@ -2440,7 +2472,7 @@ namespace SebWindowsConfig
                 settingString [StateNew, group, value] = settingString [stateDesired, group, value];
                 settingInteger[StateNew, group, value] = settingInteger[stateDesired, group, value];
             }
-*/
+
             //if (stateDesired == StateOld) sebSettingsNew = sebSettingsOld;
             //if (stateDesired == StateTmp) sebSettingsNew = sebSettingsTmp;
             //if (stateDesired == StateDef) sebSettingsNew = sebSettingsDef;
@@ -2479,7 +2511,7 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam     .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 0);
             radioButtonConfiguringAClient .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)sebSettingsNew[MessageAllowPreferencesWindow];
-            comboBoxCryptoIdentity.SelectedIndex   =     (int)sebSettingsNew[MessageCryptoIdentity];
+            comboBoxCryptoIdentity.SelectedIndex   =   settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity];
              textBoxSettingsPassword       .Text   =  (String)sebSettingsNew[MessageSettingsPassword];
            //textBoxConfirmSettingsPassword.Text   =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
            //textBoxHashedSettingsPassword .Text   =  (String)sebSettingsNew[MessageHashedSettingsPassword];
@@ -2561,7 +2593,7 @@ namespace SebWindowsConfig
             checkBoxOutsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableVmWareClientShade];
 
             // Group "Hooked Keys"
-            checkBoxInterceptKeys.Checked = (Boolean)sebSettingsNew[MessageInterceptKeys];
+            checkBoxHookKeys.Checked = (Boolean)sebSettingsNew[MessageHookKeys];
 
             checkBoxEnableEsc       .Checked = (Boolean)sebSettingsNew[MessageEnableEsc];
             checkBoxEnableCtrlEsc   .Checked = (Boolean)sebSettingsNew[MessageEnableCtrlEsc];
@@ -2583,41 +2615,6 @@ namespace SebWindowsConfig
             checkBoxEnableF10.Checked = (Boolean)sebSettingsNew[MessageEnableF10];
             checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
-        }
-
-        private void checkBoxEnableEsc_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableCtrlEsc_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableAltEsc_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableAltTab_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableAltF4_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableStartMenu_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableRightMouse_CheckedChanged_1(object sender, EventArgs e)
-        {
-
         }
 
         private void checkBoxEnableF1_CheckedChanged_1(object sender, EventArgs e)
@@ -2680,9 +2677,42 @@ namespace SebWindowsConfig
 
         }
 
+        private void checkBoxEnableEsc_CheckedChanged_1(object sender, EventArgs e)
+        {
 
+        }
 
+        private void checkBoxEnableCtrlEsc_CheckedChanged_1(object sender, EventArgs e)
+        {
 
+        }
+
+        private void checkBoxEnableAltEsc_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableAltTab_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableAltF4_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableStartMenu_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnableRightMouse_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+ 
 
 
 

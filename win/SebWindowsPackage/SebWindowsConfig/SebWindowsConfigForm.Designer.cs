@@ -34,8 +34,8 @@
             this.saveFileDialogSebStarterIni = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
             this.folderBrowserDialogDownloadDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabPageInterceptedKeys = new System.Windows.Forms.TabPage();
-            this.checkBoxInterceptKeys = new System.Windows.Forms.CheckBox();
+            this.tabPageHookedKeys = new System.Windows.Forms.TabPage();
+            this.checkBoxHookKeys = new System.Windows.Forms.CheckBox();
             this.groupBoxFunctionKeys = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableF1 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF2 = new System.Windows.Forms.CheckBox();
@@ -170,6 +170,7 @@
             this.textBoxHashedAdminPassword = new System.Windows.Forms.TextBox();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
+            this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
             this.buttonPasteFromSavedClipboard = new System.Windows.Forms.Button();
@@ -194,8 +195,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
-            this.tabPageInterceptedKeys.SuspendLayout();
+            this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
             this.tabPageRegistry.SuspendLayout();
@@ -238,33 +238,33 @@
             this.imageListTabIcons.Images.SetKeyName(3, "Gear.png");
             this.imageListTabIcons.Images.SetKeyName(4, "SebIcon.png");
             // 
-            // tabPageInterceptedKeys
+            // tabPageHookedKeys
             // 
-            this.tabPageInterceptedKeys.Controls.Add(this.checkBoxInterceptKeys);
-            this.tabPageInterceptedKeys.Controls.Add(this.groupBoxFunctionKeys);
-            this.tabPageInterceptedKeys.Controls.Add(this.groupBoxSpecialKeys);
-            this.tabPageInterceptedKeys.Location = new System.Drawing.Point(4, 39);
-            this.tabPageInterceptedKeys.Name = "tabPageInterceptedKeys";
-            this.tabPageInterceptedKeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInterceptedKeys.Size = new System.Drawing.Size(1054, 469);
-            this.tabPageInterceptedKeys.TabIndex = 27;
-            this.tabPageInterceptedKeys.Text = "Hooked Keys";
-            this.tabPageInterceptedKeys.UseVisualStyleBackColor = true;
+            this.tabPageHookedKeys.Controls.Add(this.checkBoxHookKeys);
+            this.tabPageHookedKeys.Controls.Add(this.groupBoxFunctionKeys);
+            this.tabPageHookedKeys.Controls.Add(this.groupBoxSpecialKeys);
+            this.tabPageHookedKeys.Location = new System.Drawing.Point(4, 39);
+            this.tabPageHookedKeys.Name = "tabPageHookedKeys";
+            this.tabPageHookedKeys.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHookedKeys.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageHookedKeys.TabIndex = 27;
+            this.tabPageHookedKeys.Text = "Hooked Keys";
+            this.tabPageHookedKeys.UseVisualStyleBackColor = true;
             // 
-            // checkBoxInterceptKeys
+            // checkBoxHookKeys
             // 
-            this.checkBoxInterceptKeys.AutoSize = true;
-            this.checkBoxInterceptKeys.Checked = true;
-            this.checkBoxInterceptKeys.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxInterceptKeys.Enabled = false;
-            this.checkBoxInterceptKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxInterceptKeys.Location = new System.Drawing.Point(46, 319);
-            this.checkBoxInterceptKeys.Name = "checkBoxInterceptKeys";
-            this.checkBoxInterceptKeys.Size = new System.Drawing.Size(118, 21);
-            this.checkBoxInterceptKeys.TabIndex = 48;
-            this.checkBoxInterceptKeys.Text = "Intercept keys";
-            this.checkBoxInterceptKeys.UseVisualStyleBackColor = true;
-            this.checkBoxInterceptKeys.CheckedChanged += new System.EventHandler(this.checkBoxInterceptedKeys_CheckedChanged);
+            this.checkBoxHookKeys.AutoSize = true;
+            this.checkBoxHookKeys.Checked = true;
+            this.checkBoxHookKeys.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxHookKeys.Enabled = false;
+            this.checkBoxHookKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxHookKeys.Location = new System.Drawing.Point(46, 319);
+            this.checkBoxHookKeys.Name = "checkBoxHookKeys";
+            this.checkBoxHookKeys.Size = new System.Drawing.Size(96, 21);
+            this.checkBoxHookKeys.TabIndex = 48;
+            this.checkBoxHookKeys.Text = "Hook keys";
+            this.checkBoxHookKeys.UseVisualStyleBackColor = true;
+            this.checkBoxHookKeys.CheckedChanged += new System.EventHandler(this.checkBoxHookKeys_CheckedChanged);
             // 
             // groupBoxFunctionKeys
             // 
@@ -1884,6 +1884,17 @@
             this.listBoxExitKey1.TabIndex = 47;
             this.listBoxExitKey1.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey1_SelectedIndexChanged);
             // 
+            // listBoxExitKey3
+            // 
+            this.listBoxExitKey3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxExitKey3.FormattingEnabled = true;
+            this.listBoxExitKey3.ItemHeight = 16;
+            this.listBoxExitKey3.Location = new System.Drawing.Point(110, 30);
+            this.listBoxExitKey3.Name = "listBoxExitKey3";
+            this.listBoxExitKey3.Size = new System.Drawing.Size(40, 196);
+            this.listBoxExitKey3.TabIndex = 50;
+            this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey3_SelectedIndexChanged);
+            // 
             // listBoxExitKey2
             // 
             this.listBoxExitKey2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2122,24 +2133,13 @@
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageNetwork);
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageSecurity);
             this.tabControlSebWindowsConfig.Controls.Add(this.tabPageRegistry);
-            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageInterceptedKeys);
+            this.tabControlSebWindowsConfig.Controls.Add(this.tabPageHookedKeys);
             this.tabControlSebWindowsConfig.ImageList = this.imageListTabIcons;
             this.tabControlSebWindowsConfig.Location = new System.Drawing.Point(45, 31);
             this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // listBoxExitKey3
-            // 
-            this.listBoxExitKey3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxExitKey3.FormattingEnabled = true;
-            this.listBoxExitKey3.ItemHeight = 16;
-            this.listBoxExitKey3.Location = new System.Drawing.Point(110, 30);
-            this.listBoxExitKey3.Name = "listBoxExitKey3";
-            this.listBoxExitKey3.Size = new System.Drawing.Size(40, 196);
-            this.listBoxExitKey3.TabIndex = 50;
-            this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey3_SelectedIndexChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -2151,8 +2151,8 @@
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Name = "SebWindowsConfigForm";
             this.Text = "SEB Windows Configuration Editor";
-            this.tabPageInterceptedKeys.ResumeLayout(false);
-            this.tabPageInterceptedKeys.PerformLayout();
+            this.tabPageHookedKeys.ResumeLayout(false);
+            this.tabPageHookedKeys.PerformLayout();
             this.groupBoxFunctionKeys.ResumeLayout(false);
             this.groupBoxFunctionKeys.PerformLayout();
             this.groupBoxSpecialKeys.ResumeLayout(false);
@@ -2197,8 +2197,8 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialogSebStarterIni;
         private System.Windows.Forms.ImageList imageListTabIcons;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadDirectoryWin;
-        private System.Windows.Forms.TabPage tabPageInterceptedKeys;
-        private System.Windows.Forms.CheckBox checkBoxInterceptKeys;
+        private System.Windows.Forms.TabPage tabPageHookedKeys;
+        private System.Windows.Forms.CheckBox checkBoxHookKeys;
         private System.Windows.Forms.GroupBox groupBoxFunctionKeys;
         private System.Windows.Forms.CheckBox checkBoxEnableF1;
         private System.Windows.Forms.CheckBox checkBoxEnableF2;
