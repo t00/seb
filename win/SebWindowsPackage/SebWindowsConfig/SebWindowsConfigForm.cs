@@ -437,26 +437,26 @@ namespace SebWindowsConfig
             }
 
             // Default settings for group "General"
-            sebSettingsNew.Add(MessageStartURL            , "http://www.safeexambrowser.org");
-            sebSettingsNew.Add(MessageSebServerURL        , "http://www.switch.ch");
-            sebSettingsNew.Add(MessageAdminPassword       , "");
-            sebSettingsNew.Add(MessageConfirmAdminPassword, "");
-            sebSettingsNew.Add(MessageHashedAdminPassword , "");
-            sebSettingsNew.Add(MessageAllowQuit           , true);
-            sebSettingsNew.Add(MessageIgnoreQuitPassword  , false);
-            sebSettingsNew.Add(MessageQuitPassword        , "");
-            sebSettingsNew.Add(MessageConfirmQuitPassword , "");
-            sebSettingsNew.Add(MessageHashedQuitPassword  , "");
-            sebSettingsNew.Add(MessageExitKey1,  2);
-            sebSettingsNew.Add(MessageExitKey2, 10);
-            sebSettingsNew.Add(MessageExitKey3,  5);
+            sebSettingsDef.Add(MessageStartURL            , "http://www.safeexambrowser.org");
+            sebSettingsDef.Add(MessageSebServerURL        , "http://www.switch.ch");
+            sebSettingsDef.Add(MessageAdminPassword       , "");
+            sebSettingsDef.Add(MessageConfirmAdminPassword, "");
+            sebSettingsDef.Add(MessageHashedAdminPassword , "");
+            sebSettingsDef.Add(MessageAllowQuit           , true);
+            sebSettingsDef.Add(MessageIgnoreQuitPassword  , false);
+            sebSettingsDef.Add(MessageQuitPassword        , "");
+            sebSettingsDef.Add(MessageConfirmQuitPassword , "");
+            sebSettingsDef.Add(MessageHashedQuitPassword  , "");
+            sebSettingsDef.Add(MessageExitKey1,  2);
+            sebSettingsDef.Add(MessageExitKey2, 10);
+            sebSettingsDef.Add(MessageExitKey3,  5);
 
             // Default settings for group "Config File"
-            sebSettingsNew.Add(MessageSebConfigPurpose       , 0);
-            sebSettingsNew.Add(MessageAllowPreferencesWindow , true);
-            sebSettingsNew.Add(MessageSettingsPassword       , "");
-            sebSettingsNew.Add(MessageConfirmSettingsPassword, "");
-            sebSettingsNew.Add(MessageHashedSettingsPassword , "");
+            sebSettingsDef.Add(MessageSebConfigPurpose       , 0);
+            sebSettingsDef.Add(MessageAllowPreferencesWindow , true);
+            sebSettingsDef.Add(MessageSettingsPassword       , "");
+            sebSettingsDef.Add(MessageConfirmSettingsPassword, "");
+            sebSettingsDef.Add(MessageHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
             settingInteger[StateDef, GroupConfigFile, ValueCryptoIdentity] = 0;
@@ -464,14 +464,14 @@ namespace SebWindowsConfig
 
 
             // Default settings for group "Appearance"
-            sebSettingsNew.Add(MessageBrowserViewMode             , 0);
-            sebSettingsNew.Add(MessageMainBrowserWindowWidth      , "100%");
-            sebSettingsNew.Add(MessageMainBrowserWindowHeight     , "100%");
-            sebSettingsNew.Add(MessageMainBrowserWindowPositioning, 1);
-            sebSettingsNew.Add(MessageEnableBrowserWindowToolbar  , false);
-            sebSettingsNew.Add(MessageHideBrowserWindowToolbar    , false);
-            sebSettingsNew.Add(MessageShowMenuBar                 , false);
-            sebSettingsNew.Add(MessageShowTaskBar                 , true);
+            sebSettingsDef.Add(MessageBrowserViewMode             , 0);
+            sebSettingsDef.Add(MessageMainBrowserWindowWidth      , "100%");
+            sebSettingsDef.Add(MessageMainBrowserWindowHeight     , "100%");
+            sebSettingsDef.Add(MessageMainBrowserWindowPositioning, 1);
+            sebSettingsDef.Add(MessageEnableBrowserWindowToolbar  , false);
+            sebSettingsDef.Add(MessageHideBrowserWindowToolbar    , false);
+            sebSettingsDef.Add(MessageShowMenuBar                 , false);
+            sebSettingsDef.Add(MessageShowTaskBar                 , true);
 
             // MainBrowserWindow Width and Height is stored additionally
             settingInteger[StateDef, GroupAppearance, ValueMainBrowserWindowWidth ] = 1;
@@ -481,20 +481,20 @@ namespace SebWindowsConfig
 
 
             // Default settings for group "Browser"
-            sebSettingsNew.Add(MessageNewBrowserWindowByLinkPolicy        , 2);
-            sebSettingsNew.Add(MessageNewBrowserWindowByScriptPolicy      , 2);
-            sebSettingsNew.Add(MessageNewBrowserWindowByLinkBlockForeign  , false);
-            sebSettingsNew.Add(MessageNewBrowserWindowByScriptBlockForeign, false);
-            sebSettingsNew.Add(MessageNewBrowserWindowByLinkWidth         , "1000");
-            sebSettingsNew.Add(MessageNewBrowserWindowByLinkHeight        , "100%");
-            sebSettingsNew.Add(MessageNewBrowserWindowByLinkPositioning   , 2);
+            sebSettingsDef.Add(MessageNewBrowserWindowByLinkPolicy        , 2);
+            sebSettingsDef.Add(MessageNewBrowserWindowByScriptPolicy      , 2);
+            sebSettingsDef.Add(MessageNewBrowserWindowByLinkBlockForeign  , false);
+            sebSettingsDef.Add(MessageNewBrowserWindowByScriptBlockForeign, false);
+            sebSettingsDef.Add(MessageNewBrowserWindowByLinkWidth         , "1000");
+            sebSettingsDef.Add(MessageNewBrowserWindowByLinkHeight        , "100%");
+            sebSettingsDef.Add(MessageNewBrowserWindowByLinkPositioning   , 2);
 
-            sebSettingsNew.Add(MessageEnablePlugIns           , true);
-            sebSettingsNew.Add(MessageEnableJava              , false);
-            sebSettingsNew.Add(MessageEnableJavaScript        , true);
-            sebSettingsNew.Add(MessageBlockPopUpWindows       , false);
-            sebSettingsNew.Add(MessageAllowBrowsingBackForward, false);
-            sebSettingsNew.Add(MessageEnableSebBrowser        , true);
+            sebSettingsDef.Add(MessageEnablePlugIns           , true);
+            sebSettingsDef.Add(MessageEnableJava              , false);
+            sebSettingsDef.Add(MessageEnableJavaScript        , true);
+            sebSettingsDef.Add(MessageBlockPopUpWindows       , false);
+            sebSettingsDef.Add(MessageAllowBrowsingBackForward, false);
+            sebSettingsDef.Add(MessageEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
             settingInteger[StateDef, GroupBrowser, ValueNewBrowserWindowByLinkWidth ] = 3;
@@ -504,80 +504,80 @@ namespace SebWindowsConfig
 
 
             // Default settings for group "DownUploads"
-            sebSettingsNew.Add(MessageAllowDownUploads        , true);
-            sebSettingsNew.Add(MessageDownloadDirectoryOSX    , "~/Downloads");
-            sebSettingsNew.Add(MessageDownloadDirectoryWin    , "Desktop");
-            sebSettingsNew.Add(MessageOpenDownloads           , false);
-            sebSettingsNew.Add(MessageChooseFileToUploadPolicy, 0);
-            sebSettingsNew.Add(MessageDownloadPDFFiles        , false);
+            sebSettingsDef.Add(MessageAllowDownUploads        , true);
+            sebSettingsDef.Add(MessageDownloadDirectoryOSX    , "~/Downloads");
+            sebSettingsDef.Add(MessageDownloadDirectoryWin    , "Desktop");
+            sebSettingsDef.Add(MessageOpenDownloads           , false);
+            sebSettingsDef.Add(MessageChooseFileToUploadPolicy, 0);
+            sebSettingsDef.Add(MessageDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
-            sebSettingsNew.Add(MessageBrowserExamKey    , "");
-            sebSettingsNew.Add(MessageCopyBrowserExamKey, false);
-            sebSettingsNew.Add(MessageSendBrowserExamKey, false);
-            sebSettingsNew.Add(MessageQuitURL           , "http://www.safeexambrowser.org/exit");
+            sebSettingsDef.Add(MessageBrowserExamKey    , "");
+            sebSettingsDef.Add(MessageCopyBrowserExamKey, false);
+            sebSettingsDef.Add(MessageSendBrowserExamKey, false);
+            sebSettingsDef.Add(MessageQuitURL           , "http://www.safeexambrowser.org/exit");
 
             // Default settings for group "Applications"
-            sebSettingsNew.Add(MessageMonitorProcesses         , false);
-            sebSettingsNew.Add(MessageAllowSwitchToApplications, false);
-            sebSettingsNew.Add(MessageAllowFlashFullscreen     , false);
+            sebSettingsDef.Add(MessageMonitorProcesses         , false);
+            sebSettingsDef.Add(MessageAllowSwitchToApplications, false);
+            sebSettingsDef.Add(MessageAllowFlashFullscreen     , false);
 
             // Default settings for group "Network"
 
             // Default settings for group "Security"
-            sebSettingsNew.Add(MessageSebServicePolicy   , 2);
-            sebSettingsNew.Add(MessageAllowVirtualMachine, false);
-            sebSettingsNew.Add(MessageCreateNewDesktop   , true);
-            sebSettingsNew.Add(MessageAllowUserSwitching , true);
-            sebSettingsNew.Add(MessageEnableLogging      , false);
-            sebSettingsNew.Add(MessageLogDirectoryOSX    , "~/Documents");
-            sebSettingsNew.Add(MessageLogDirectoryWin    , "My Documents");
+            sebSettingsDef.Add(MessageSebServicePolicy   , 2);
+            sebSettingsDef.Add(MessageAllowVirtualMachine, false);
+            sebSettingsDef.Add(MessageCreateNewDesktop   , true);
+            sebSettingsDef.Add(MessageAllowUserSwitching , true);
+            sebSettingsDef.Add(MessageEnableLogging      , false);
+            sebSettingsDef.Add(MessageLogDirectoryOSX    , "~/Documents");
+            sebSettingsDef.Add(MessageLogDirectoryWin    , "My Documents");
 
             // Default settings for group "Inside SEB"
-            sebSettingsNew.Add(MessageInsideSebEnableSwitchUser       , false);
-            sebSettingsNew.Add(MessageInsideSebEnableLockThisComputer , false);
-            sebSettingsNew.Add(MessageInsideSebEnableChangeAPassword  , false);
-            sebSettingsNew.Add(MessageInsideSebEnableStartTaskManager , false);
-            sebSettingsNew.Add(MessageInsideSebEnableLogOff           , false);
-            sebSettingsNew.Add(MessageInsideSebEnableShutDown         , false);
-            sebSettingsNew.Add(MessageInsideSebEnableEaseOfAccess     , false);
-            sebSettingsNew.Add(MessageInsideSebEnableVmWareClientShade, false);
+            sebSettingsDef.Add(MessageInsideSebEnableSwitchUser       , false);
+            sebSettingsDef.Add(MessageInsideSebEnableLockThisComputer , false);
+            sebSettingsDef.Add(MessageInsideSebEnableChangeAPassword  , false);
+            sebSettingsDef.Add(MessageInsideSebEnableStartTaskManager , false);
+            sebSettingsDef.Add(MessageInsideSebEnableLogOff           , false);
+            sebSettingsDef.Add(MessageInsideSebEnableShutDown         , false);
+            sebSettingsDef.Add(MessageInsideSebEnableEaseOfAccess     , false);
+            sebSettingsDef.Add(MessageInsideSebEnableVmWareClientShade, false);
 
             // Default settings for group "Outside SEB"
-            sebSettingsNew.Add(MessageOutsideSebEnableSwitchUser       , true);
-            sebSettingsNew.Add(MessageOutsideSebEnableLockThisComputer , true);
-            sebSettingsNew.Add(MessageOutsideSebEnableChangeAPassword  , true);
-            sebSettingsNew.Add(MessageOutsideSebEnableStartTaskManager , true);
-            sebSettingsNew.Add(MessageOutsideSebEnableLogOff           , true);
-            sebSettingsNew.Add(MessageOutsideSebEnableShutDown         , true);
-            sebSettingsNew.Add(MessageOutsideSebEnableEaseOfAccess     , true);
-            sebSettingsNew.Add(MessageOutsideSebEnableVmWareClientShade, true);
+            sebSettingsDef.Add(MessageOutsideSebEnableSwitchUser       , true);
+            sebSettingsDef.Add(MessageOutsideSebEnableLockThisComputer , true);
+            sebSettingsDef.Add(MessageOutsideSebEnableChangeAPassword  , true);
+            sebSettingsDef.Add(MessageOutsideSebEnableStartTaskManager , true);
+            sebSettingsDef.Add(MessageOutsideSebEnableLogOff           , true);
+            sebSettingsDef.Add(MessageOutsideSebEnableShutDown         , true);
+            sebSettingsDef.Add(MessageOutsideSebEnableEaseOfAccess     , true);
+            sebSettingsDef.Add(MessageOutsideSebEnableVmWareClientShade, true);
 
             // Default settings for group "Intercepted Keys"
-            sebSettingsNew.Add(MessageHookKeys, true);
+            sebSettingsDef.Add(MessageHookKeys, true);
 
             // Default settings for group "Special Keys"
-            sebSettingsNew.Add(MessageEnableEsc       , false);
-            sebSettingsNew.Add(MessageEnableCtrlEsc   , false);
-            sebSettingsNew.Add(MessageEnableAltEsc    , false);
-            sebSettingsNew.Add(MessageEnableAltTab    , true);
-            sebSettingsNew.Add(MessageEnableAltF4     , false);
-            sebSettingsNew.Add(MessageEnableStartMenu , false);
-            sebSettingsNew.Add(MessageEnableRightMouse, false);
+            sebSettingsDef.Add(MessageEnableEsc       , false);
+            sebSettingsDef.Add(MessageEnableCtrlEsc   , false);
+            sebSettingsDef.Add(MessageEnableAltEsc    , false);
+            sebSettingsDef.Add(MessageEnableAltTab    , true);
+            sebSettingsDef.Add(MessageEnableAltF4     , false);
+            sebSettingsDef.Add(MessageEnableStartMenu , false);
+            sebSettingsDef.Add(MessageEnableRightMouse, false);
 
             // Default settings for group "Function Keys"
-            sebSettingsNew.Add(MessageEnableF1 , false);
-            sebSettingsNew.Add(MessageEnableF2 , false);
-            sebSettingsNew.Add(MessageEnableF3 , false);
-            sebSettingsNew.Add(MessageEnableF4 , false);
-            sebSettingsNew.Add(MessageEnableF5 , true);
-            sebSettingsNew.Add(MessageEnableF6 , false);
-            sebSettingsNew.Add(MessageEnableF7 , false);
-            sebSettingsNew.Add(MessageEnableF8 , false);
-            sebSettingsNew.Add(MessageEnableF9 , false);
-            sebSettingsNew.Add(MessageEnableF10, false);
-            sebSettingsNew.Add(MessageEnableF11, false);
-            sebSettingsNew.Add(MessageEnableF12, false);
+            sebSettingsDef.Add(MessageEnableF1 , false);
+            sebSettingsDef.Add(MessageEnableF2 , false);
+            sebSettingsDef.Add(MessageEnableF3 , false);
+            sebSettingsDef.Add(MessageEnableF4 , false);
+            sebSettingsDef.Add(MessageEnableF5 , true);
+            sebSettingsDef.Add(MessageEnableF6 , false);
+            sebSettingsDef.Add(MessageEnableF7 , false);
+            sebSettingsDef.Add(MessageEnableF8 , false);
+            sebSettingsDef.Add(MessageEnableF9 , false);
+            sebSettingsDef.Add(MessageEnableF10, false);
+            sebSettingsDef.Add(MessageEnableF11, false);
+            sebSettingsDef.Add(MessageEnableF12, false);
 
 /*
             // Default settings for group "Online exam"
@@ -978,6 +978,8 @@ namespace SebWindowsConfig
 
             //sebSettingsOld = sebSettingsTmp;
             //sebSettingsNew = sebSettingsTmp;
+            CopySettingsDictionary(StateOld, StateTmp);
+            CopySettingsDictionary(StateNew, StateTmp);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -1034,6 +1036,7 @@ namespace SebWindowsConfig
             }
 
             //sebSettingsOld = sebSettingsNew;
+            CopySettingsDictionary(StateOld, StateNew);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -1151,7 +1154,7 @@ namespace SebWindowsConfig
             {
                 // Read the .xml file
                 // Parse the XML structure into a C# object
-                sebSettingsNew = (Dictionary<string, object>)Plist.readPlist(fileName);
+                sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
 /*
                 // Open the .xml file for reading
                 XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
@@ -1174,7 +1177,7 @@ namespace SebWindowsConfig
 
             // After reading the settings from file,
             // convert the C# object to arrays and update the widgets
-            //ConvertCSharpObjectToArrays();
+            ConvertCSharpObjectToArrays();
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
@@ -1838,13 +1841,13 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
-            SetNewSettingsOfFileToState(StateDef);
+            SetNewSettingsOfFileToState(StateNew, StateDef);
             SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
-            SetNewSettingsOfFileToState(StateOld);
+            SetNewSettingsOfFileToState(StateNew, StateOld);
             SetWidgetsToNewSettingsOfSebStarterIni();
         }
 
@@ -2455,12 +2458,10 @@ namespace SebWindowsConfig
 
 
 
-
-
         // ***************************************************
         // Set the new settings of a file to the desired state
         // ***************************************************
-        private void SetNewSettingsOfFileToState(int stateDesired)
+        private void SetNewSettingsOfFileToState(int stateTarget, int stateSource)
         {
             // Restore the desired values by copying them to the new values
             int group, value;
@@ -2468,9 +2469,43 @@ namespace SebWindowsConfig
             for (group = 1; group <= GroupNum; group++)
             for (value = 1; value <= ValueNum; value++)
             {
-                settingBoolean[StateNew, group, value] = settingBoolean[stateDesired, group, value];
-                settingString [StateNew, group, value] = settingString [stateDesired, group, value];
-                settingInteger[StateNew, group, value] = settingInteger[stateDesired, group, value];
+                settingBoolean[stateTarget, group, value] = settingBoolean[stateSource, group, value];
+                settingString [stateTarget, group, value] = settingString [stateSource, group, value];
+                settingInteger[stateTarget, group, value] = settingInteger[stateSource, group, value];
+            }
+
+            CopySettingsDictionary(stateTarget, stateSource);
+        }
+
+
+
+        // ************************
+        // Copy settings dictionary
+        // ************************
+        private void CopySettingsDictionary(int stateTarget, int stateSource)
+        {
+/*
+            if (stateSource == StateOld) sebSettingsSource = sebSettingsOld;
+            if (stateSource == StateNew) sebSettingsSource = sebSettingsNew;
+            if (stateSource == StateTmp) sebSettingsSource = sebSettingsTmp;
+            if (stateSource == StateDef) sebSettingsSource = sebSettingsDef;
+
+            if (stateTarget == StateOld) sebSettingsTarget = sebSettingsOld;
+            if (stateTarget == StateNew) sebSettingsTarget = sebSettingsNew;
+            if (stateTarget == StateTmp) sebSettingsTarget = sebSettingsTmp;
+            if (stateTarget == StateDef) sebSettingsTarget = sebSettingsDef;
+*/
+
+            // Restore the desired values by copying them to the new values
+            Dictionary<string, object>.Enumerator enumerator = sebSettingsTmp.GetEnumerator();
+
+            foreach (KeyValuePair<string, object> pair in sebSettingsTmp)
+            {
+                string key   = pair.Key;
+                object value = pair.Value;
+
+                if (sebSettingsNew.ContainsKey(key))
+                    sebSettingsNew[key] = value;
             }
 
             //if (stateDesired == StateOld) sebSettingsNew = sebSettingsOld;
@@ -2617,102 +2652,6 @@ namespace SebWindowsConfig
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
 
-        private void checkBoxEnableF1_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF2_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF3_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF4_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF5_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF6_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF7_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF8_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF9_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF10_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF11_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableF12_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableEsc_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableCtrlEsc_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableAltEsc_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableAltTab_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableAltF4_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableStartMenu_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableRightMouse_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
- 
 
 
 

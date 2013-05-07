@@ -298,7 +298,7 @@
             this.checkBoxEnableF1.TabIndex = 25;
             this.checkBoxEnableF1.Text = "Enable F1";
             this.checkBoxEnableF1.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF1.CheckedChanged += new System.EventHandler(this.checkBoxEnableF1_CheckedChanged_1);
+            this.checkBoxEnableF1.CheckedChanged += new System.EventHandler(this.checkBoxEnableF1_CheckedChanged);
             // 
             // checkBoxEnableF2
             // 
@@ -310,7 +310,7 @@
             this.checkBoxEnableF2.TabIndex = 26;
             this.checkBoxEnableF2.Text = "Enable F2";
             this.checkBoxEnableF2.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF2.CheckedChanged += new System.EventHandler(this.checkBoxEnableF2_CheckedChanged_1);
+            this.checkBoxEnableF2.CheckedChanged += new System.EventHandler(this.checkBoxEnableF2_CheckedChanged);
             // 
             // checkBoxEnableF12
             // 
@@ -322,7 +322,7 @@
             this.checkBoxEnableF12.TabIndex = 37;
             this.checkBoxEnableF12.Text = "Enable F12";
             this.checkBoxEnableF12.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF12.CheckedChanged += new System.EventHandler(this.checkBoxEnableF12_CheckedChanged_1);
+            this.checkBoxEnableF12.CheckedChanged += new System.EventHandler(this.checkBoxEnableF12_CheckedChanged);
             // 
             // checkBoxEnableF3
             // 
@@ -334,7 +334,7 @@
             this.checkBoxEnableF3.TabIndex = 27;
             this.checkBoxEnableF3.Text = "Enable F3";
             this.checkBoxEnableF3.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF3.CheckedChanged += new System.EventHandler(this.checkBoxEnableF3_CheckedChanged_1);
+            this.checkBoxEnableF3.CheckedChanged += new System.EventHandler(this.checkBoxEnableF3_CheckedChanged);
             // 
             // checkBoxEnableF11
             // 
@@ -346,7 +346,7 @@
             this.checkBoxEnableF11.TabIndex = 36;
             this.checkBoxEnableF11.Text = "Enable F11";
             this.checkBoxEnableF11.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF11.CheckedChanged += new System.EventHandler(this.checkBoxEnableF11_CheckedChanged_1);
+            this.checkBoxEnableF11.CheckedChanged += new System.EventHandler(this.checkBoxEnableF11_CheckedChanged);
             // 
             // checkBoxEnableF4
             // 
@@ -358,7 +358,7 @@
             this.checkBoxEnableF4.TabIndex = 28;
             this.checkBoxEnableF4.Text = "Enable F4";
             this.checkBoxEnableF4.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableF4_CheckedChanged_1);
+            this.checkBoxEnableF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableF4_CheckedChanged);
             // 
             // checkBoxEnableF5
             // 
@@ -370,7 +370,7 @@
             this.checkBoxEnableF5.TabIndex = 29;
             this.checkBoxEnableF5.Text = "Enable F5";
             this.checkBoxEnableF5.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF5.CheckedChanged += new System.EventHandler(this.checkBoxEnableF5_CheckedChanged_1);
+            this.checkBoxEnableF5.CheckedChanged += new System.EventHandler(this.checkBoxEnableF5_CheckedChanged);
             // 
             // checkBoxEnableF10
             // 
@@ -382,7 +382,7 @@
             this.checkBoxEnableF10.TabIndex = 34;
             this.checkBoxEnableF10.Text = "Enable F10";
             this.checkBoxEnableF10.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF10.CheckedChanged += new System.EventHandler(this.checkBoxEnableF10_CheckedChanged_1);
+            this.checkBoxEnableF10.CheckedChanged += new System.EventHandler(this.checkBoxEnableF10_CheckedChanged);
             // 
             // checkBoxEnableF6
             // 
@@ -394,7 +394,7 @@
             this.checkBoxEnableF6.TabIndex = 30;
             this.checkBoxEnableF6.Text = "Enable F6";
             this.checkBoxEnableF6.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF6.CheckedChanged += new System.EventHandler(this.checkBoxEnableF6_CheckedChanged_1);
+            this.checkBoxEnableF6.CheckedChanged += new System.EventHandler(this.checkBoxEnableF6_CheckedChanged);
             // 
             // checkBoxEnableF9
             // 
@@ -406,7 +406,7 @@
             this.checkBoxEnableF9.TabIndex = 33;
             this.checkBoxEnableF9.Text = "Enable F9";
             this.checkBoxEnableF9.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF9.CheckedChanged += new System.EventHandler(this.checkBoxEnableF9_CheckedChanged_1);
+            this.checkBoxEnableF9.CheckedChanged += new System.EventHandler(this.checkBoxEnableF9_CheckedChanged);
             // 
             // checkBoxEnableF7
             // 
@@ -418,7 +418,7 @@
             this.checkBoxEnableF7.TabIndex = 31;
             this.checkBoxEnableF7.Text = "Enable F7";
             this.checkBoxEnableF7.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF7.CheckedChanged += new System.EventHandler(this.checkBoxEnableF7_CheckedChanged_1);
+            this.checkBoxEnableF7.CheckedChanged += new System.EventHandler(this.checkBoxEnableF7_CheckedChanged);
             // 
             // checkBoxEnableF8
             // 
@@ -430,7 +430,7 @@
             this.checkBoxEnableF8.TabIndex = 32;
             this.checkBoxEnableF8.Text = "Enable F8";
             this.checkBoxEnableF8.UseVisualStyleBackColor = true;
-            this.checkBoxEnableF8.CheckedChanged += new System.EventHandler(this.checkBoxEnableF8_CheckedChanged_1);
+            this.checkBoxEnableF8.CheckedChanged += new System.EventHandler(this.checkBoxEnableF8_CheckedChanged);
             // 
             // groupBoxSpecialKeys
             // 
@@ -459,7 +459,7 @@
             this.checkBoxEnableEsc.TabIndex = 41;
             this.checkBoxEnableEsc.Text = "Enable Esc";
             this.checkBoxEnableEsc.UseVisualStyleBackColor = true;
-            this.checkBoxEnableEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableEsc_CheckedChanged_1);
+            this.checkBoxEnableEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableEsc_CheckedChanged);
             // 
             // checkBoxEnableCtrlEsc
             // 
@@ -471,7 +471,7 @@
             this.checkBoxEnableCtrlEsc.TabIndex = 19;
             this.checkBoxEnableCtrlEsc.Text = "Enable Ctrl-Esc";
             this.checkBoxEnableCtrlEsc.UseVisualStyleBackColor = true;
-            this.checkBoxEnableCtrlEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableCtrlEsc_CheckedChanged_1);
+            this.checkBoxEnableCtrlEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableCtrlEsc_CheckedChanged);
             // 
             // checkBoxEnableAltEsc
             // 
@@ -483,7 +483,7 @@
             this.checkBoxEnableAltEsc.TabIndex = 20;
             this.checkBoxEnableAltEsc.Text = "Enable Alt-Esc";
             this.checkBoxEnableAltEsc.UseVisualStyleBackColor = true;
-            this.checkBoxEnableAltEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltEsc_CheckedChanged_1);
+            this.checkBoxEnableAltEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltEsc_CheckedChanged);
             // 
             // checkBoxEnableAltTab
             // 
@@ -495,7 +495,7 @@
             this.checkBoxEnableAltTab.TabIndex = 21;
             this.checkBoxEnableAltTab.Text = "Enable Alt-Tab";
             this.checkBoxEnableAltTab.UseVisualStyleBackColor = true;
-            this.checkBoxEnableAltTab.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltTab_CheckedChanged_1);
+            this.checkBoxEnableAltTab.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltTab_CheckedChanged);
             // 
             // checkBoxEnableAltF4
             // 
@@ -507,7 +507,7 @@
             this.checkBoxEnableAltF4.TabIndex = 22;
             this.checkBoxEnableAltF4.Text = "Enable Alt-F4";
             this.checkBoxEnableAltF4.UseVisualStyleBackColor = true;
-            this.checkBoxEnableAltF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltF4_CheckedChanged_1);
+            this.checkBoxEnableAltF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltF4_CheckedChanged);
             // 
             // checkBoxEnableStartMenu
             // 
@@ -519,7 +519,7 @@
             this.checkBoxEnableStartMenu.TabIndex = 23;
             this.checkBoxEnableStartMenu.Text = "Enable Start Menu";
             this.checkBoxEnableStartMenu.UseVisualStyleBackColor = true;
-            this.checkBoxEnableStartMenu.CheckedChanged += new System.EventHandler(this.checkBoxEnableStartMenu_CheckedChanged_1);
+            this.checkBoxEnableStartMenu.CheckedChanged += new System.EventHandler(this.checkBoxEnableStartMenu_CheckedChanged);
             // 
             // checkBoxEnableRightMouse
             // 
@@ -531,7 +531,7 @@
             this.checkBoxEnableRightMouse.TabIndex = 24;
             this.checkBoxEnableRightMouse.Text = "Enable Right Mouse";
             this.checkBoxEnableRightMouse.UseVisualStyleBackColor = true;
-            this.checkBoxEnableRightMouse.CheckedChanged += new System.EventHandler(this.checkBoxEnableRightMouse_CheckedChanged_1);
+            this.checkBoxEnableRightMouse.CheckedChanged += new System.EventHandler(this.checkBoxEnableRightMouse_CheckedChanged);
             // 
             // tabPageRegistry
             // 
