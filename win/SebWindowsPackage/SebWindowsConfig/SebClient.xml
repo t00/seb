@@ -5,7 +5,7 @@
 	<key>allowBrowsingBackForward</key>
 	<false/>
 	<key>allowDownUploads</key>
-	<false/>
+	<true/>
 	<key>allowFlashFullscreen</key>
 	<false/>
 	<key>allowPreferencesWindow</key>
