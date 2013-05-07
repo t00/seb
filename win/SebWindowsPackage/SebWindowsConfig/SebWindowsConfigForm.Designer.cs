@@ -170,7 +170,6 @@
             this.textBoxHashedAdminPassword = new System.Windows.Forms.TextBox();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
-            this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
             this.buttonPasteFromSavedClipboard = new System.Windows.Forms.Button();
@@ -195,6 +194,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.tabPageInterceptedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1377,11 +1377,6 @@
             // comboBoxNewBrowserWindowHeight
             // 
             this.comboBoxNewBrowserWindowHeight.FormattingEnabled = true;
-            this.comboBoxNewBrowserWindowHeight.Items.AddRange(new object[] {
-            "80%",
-            "100%",
-            "600",
-            "800"});
             this.comboBoxNewBrowserWindowHeight.Location = new System.Drawing.Point(88, 72);
             this.comboBoxNewBrowserWindowHeight.Name = "comboBoxNewBrowserWindowHeight";
             this.comboBoxNewBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
@@ -1392,11 +1387,6 @@
             // comboBoxNewBrowserWindowWidth
             // 
             this.comboBoxNewBrowserWindowWidth.FormattingEnabled = true;
-            this.comboBoxNewBrowserWindowWidth.Items.AddRange(new object[] {
-            "50%",
-            "100%",
-            "800",
-            "1000"});
             this.comboBoxNewBrowserWindowWidth.Location = new System.Drawing.Point(88, 34);
             this.comboBoxNewBrowserWindowWidth.Name = "comboBoxNewBrowserWindowWidth";
             this.comboBoxNewBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
@@ -1479,11 +1469,6 @@
             // comboBoxMainBrowserWindowHeight
             // 
             this.comboBoxMainBrowserWindowHeight.FormattingEnabled = true;
-            this.comboBoxMainBrowserWindowHeight.Items.AddRange(new object[] {
-            "80%",
-            "100%",
-            "600",
-            "800"});
             this.comboBoxMainBrowserWindowHeight.Location = new System.Drawing.Point(95, 69);
             this.comboBoxMainBrowserWindowHeight.Name = "comboBoxMainBrowserWindowHeight";
             this.comboBoxMainBrowserWindowHeight.Size = new System.Drawing.Size(121, 24);
@@ -1494,11 +1479,6 @@
             // comboBoxMainBrowserWindowWidth
             // 
             this.comboBoxMainBrowserWindowWidth.FormattingEnabled = true;
-            this.comboBoxMainBrowserWindowWidth.Items.AddRange(new object[] {
-            "50%",
-            "100%",
-            "800",
-            "1000"});
             this.comboBoxMainBrowserWindowWidth.Location = new System.Drawing.Point(95, 34);
             this.comboBoxMainBrowserWindowWidth.Name = "comboBoxMainBrowserWindowWidth";
             this.comboBoxMainBrowserWindowWidth.Size = new System.Drawing.Size(121, 24);
@@ -1898,67 +1878,17 @@
             this.listBoxExitKey1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxExitKey1.FormattingEnabled = true;
             this.listBoxExitKey1.ItemHeight = 16;
-            this.listBoxExitKey1.Items.AddRange(new object[] {
-            "F1",
-            "F2",
-            "F3",
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "F8",
-            "F9",
-            "F10",
-            "F11",
-            "F12"});
             this.listBoxExitKey1.Location = new System.Drawing.Point(10, 30);
             this.listBoxExitKey1.Name = "listBoxExitKey1";
             this.listBoxExitKey1.Size = new System.Drawing.Size(40, 196);
             this.listBoxExitKey1.TabIndex = 47;
             this.listBoxExitKey1.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey1_SelectedIndexChanged);
             // 
-            // listBoxExitKey3
-            // 
-            this.listBoxExitKey3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxExitKey3.FormattingEnabled = true;
-            this.listBoxExitKey3.ItemHeight = 16;
-            this.listBoxExitKey3.Items.AddRange(new object[] {
-            "F1",
-            "F2",
-            "F3",
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "F8",
-            "F9",
-            "F10",
-            "F11",
-            "F12"});
-            this.listBoxExitKey3.Location = new System.Drawing.Point(110, 30);
-            this.listBoxExitKey3.Name = "listBoxExitKey3";
-            this.listBoxExitKey3.Size = new System.Drawing.Size(40, 196);
-            this.listBoxExitKey3.TabIndex = 50;
-            this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey3_SelectedIndexChanged);
-            // 
             // listBoxExitKey2
             // 
             this.listBoxExitKey2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxExitKey2.FormattingEnabled = true;
             this.listBoxExitKey2.ItemHeight = 16;
-            this.listBoxExitKey2.Items.AddRange(new object[] {
-            "F1",
-            "F2",
-            "F3",
-            "F4",
-            "F5",
-            "F6",
-            "F7",
-            "F8",
-            "F9",
-            "F10",
-            "F11",
-            "F12"});
             this.listBoxExitKey2.Location = new System.Drawing.Point(60, 30);
             this.listBoxExitKey2.Name = "listBoxExitKey2";
             this.listBoxExitKey2.Size = new System.Drawing.Size(40, 196);
@@ -2200,6 +2130,17 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // listBoxExitKey3
+            // 
+            this.listBoxExitKey3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxExitKey3.FormattingEnabled = true;
+            this.listBoxExitKey3.ItemHeight = 16;
+            this.listBoxExitKey3.Location = new System.Drawing.Point(110, 30);
+            this.listBoxExitKey3.Name = "listBoxExitKey3";
+            this.listBoxExitKey3.Size = new System.Drawing.Size(40, 196);
+            this.listBoxExitKey3.TabIndex = 50;
+            this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey3_SelectedIndexChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2386,7 +2327,6 @@
         private System.Windows.Forms.TabPage tabPageGeneral;
         private System.Windows.Forms.GroupBox groupBoxExitSequence;
         private System.Windows.Forms.ListBox listBoxExitKey1;
-        private System.Windows.Forms.ListBox listBoxExitKey3;
         private System.Windows.Forms.ListBox listBoxExitKey2;
         private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
         private System.Windows.Forms.Button buttonPasteFromSavedClipboard;
@@ -2417,6 +2357,7 @@
         private System.Windows.Forms.TextBox textBoxHashedAdminPassword;
         private System.Windows.Forms.Label labelHashedSettingsPassword;
         private System.Windows.Forms.TextBox textBoxHashedSettingsPassword;
+        private System.Windows.Forms.ListBox listBoxExitKey3;
 
     }
 }

@@ -369,6 +369,7 @@ namespace SebWindowsConfig
         static List<String> StringCryptoIdentity = new List<String>();
 
         // Entries of ListBoxes
+        static String[] StringCryptoIdentityArray;
         static String[] StringSebPurpose        = new String[2];
         static String[] StringBrowserViewMode   = new String[2];
         static String[] StringWindowWidth       = new String[4];
@@ -485,7 +486,7 @@ namespace SebWindowsConfig
             sebSettingsNew.Add(MessageEnableSebBrowser        , true);
 
             // Default settings for group "DownUploads"
-            sebSettingsNew.Add(MessageAllowDownUploads        , false);
+            sebSettingsNew.Add(MessageAllowDownUploads        , true);
             sebSettingsNew.Add(MessageDownloadDirectoryOSX    , "~/Downloads");
             sebSettingsNew.Add(MessageDownloadDirectoryWin    , "Desktop");
             sebSettingsNew.Add(MessageOpenDownloads           , false);
@@ -575,21 +576,21 @@ namespace SebWindowsConfig
             // Standard data types of the different groups
             for (value = 1; value <= ValueNum; value++)
             {
-                dataType[GroupGeneral     , value] = TypeString;
-                dataType[GroupConfigFile  , value] = TypeBoolean;
-                dataType[GroupAppearance  , value] = TypeBoolean;
-                dataType[GroupBrowser     , value] = TypeBoolean;
-                dataType[GroupDownUploads , value] = TypeBoolean;
-                dataType[GroupExam        , value] = TypeBoolean;
-                dataType[GroupApplications, value] = TypeBoolean;
-                dataType[GroupNetwork     , value] = TypeBoolean;
-                dataType[GroupSecurity    , value] = TypeBoolean;
-                dataType[GroupRegistry    , value] = TypeBoolean;
-                dataType[GroupInsideSeb   , value] = TypeBoolean;
-                dataType[GroupOutsideSeb  , value] = TypeBoolean;
-                dataType[GroupInterceptedKeys  , value] = TypeBoolean;
-                dataType[GroupSpecialKeys , value] = TypeBoolean;
-                dataType[GroupFunctionKeys, value] = TypeBoolean;
+                dataType[GroupGeneral        , value] = TypeString;
+                dataType[GroupConfigFile     , value] = TypeBoolean;
+                dataType[GroupAppearance     , value] = TypeBoolean;
+                dataType[GroupBrowser        , value] = TypeBoolean;
+                dataType[GroupDownUploads    , value] = TypeBoolean;
+                dataType[GroupExam           , value] = TypeBoolean;
+                dataType[GroupApplications   , value] = TypeBoolean;
+                dataType[GroupNetwork        , value] = TypeBoolean;
+                dataType[GroupSecurity       , value] = TypeBoolean;
+                dataType[GroupRegistry       , value] = TypeBoolean;
+                dataType[GroupInsideSeb      , value] = TypeBoolean;
+                dataType[GroupOutsideSeb     , value] = TypeBoolean;
+                dataType[GroupInterceptedKeys, value] = TypeBoolean;
+                dataType[GroupSpecialKeys    , value] = TypeBoolean;
+                dataType[GroupFunctionKeys   , value] = TypeBoolean;
             }
 
             // Exceptional data types of some special values
@@ -652,21 +653,21 @@ namespace SebWindowsConfig
             configString[FileSebStarterSeb] = TargetSebStarterSeb;
 
             // Group names
-            groupString[GroupGeneral     ] = MessageGeneral;
-            groupString[GroupConfigFile  ] = MessageConfigFile;
-            groupString[GroupAppearance  ] = MessageAppearance;
-            groupString[GroupBrowser     ] = MessageBrowser;
-            groupString[GroupDownUploads ] = MessageDownUploads;
-            groupString[GroupExam        ] = MessageExam;
-            groupString[GroupApplications] = MessageApplications;
-            groupString[GroupNetwork     ] = MessageNetwork;
-            groupString[GroupSecurity    ] = MessageSecurity;
-            groupString[GroupRegistry    ] = MessageRegistry;
-            groupString[GroupInsideSeb   ] = MessageInsideSeb;
-            groupString[GroupOutsideSeb  ] = MessageOutsideSeb;
-            groupString[GroupInterceptedKeys  ] = MessageInterceptedKeys;
-            groupString[GroupSpecialKeys ] = MessageSpecialKeys;
-            groupString[GroupFunctionKeys] = MessageFunctionKeys;
+            groupString[GroupGeneral        ] = MessageGeneral;
+            groupString[GroupConfigFile     ] = MessageConfigFile;
+            groupString[GroupAppearance     ] = MessageAppearance;
+            groupString[GroupBrowser        ] = MessageBrowser;
+            groupString[GroupDownUploads    ] = MessageDownUploads;
+            groupString[GroupExam           ] = MessageExam;
+            groupString[GroupApplications   ] = MessageApplications;
+            groupString[GroupNetwork        ] = MessageNetwork;
+            groupString[GroupSecurity       ] = MessageSecurity;
+            groupString[GroupRegistry       ] = MessageRegistry;
+            groupString[GroupInsideSeb      ] = MessageInsideSeb;
+            groupString[GroupOutsideSeb     ] = MessageOutsideSeb;
+            groupString[GroupInterceptedKeys] = MessageInterceptedKeys;
+            groupString[GroupSpecialKeys    ] = MessageSpecialKeys;
+            groupString[GroupFunctionKeys   ] = MessageFunctionKeys;
 
             // Value names
             valueString[GroupGeneral, ValueStartURL            ] = MessageStartURL;
@@ -780,13 +781,19 @@ namespace SebWindowsConfig
             valueString[GroupFunctionKeys, ValueEnableF12] = MessageEnableF12;
 
 
+            // Define the strings for the Function Keys F1, F2, ..., F12
+            for (int i = 1; i <= 12; i++)
+            {
+                StringFunctionKey[i - 1] = "F" + i.ToString();
+            }
+
             // Define the strings for the Encryption Identity
             StringCryptoIdentity.Add("none");
             StringCryptoIdentity.Add("alpha");
             StringCryptoIdentity.Add("beta");
             StringCryptoIdentity.Add("gamma");
             StringCryptoIdentity.Add("delta");
-            String[] chooseIdentityStringArray = StringCryptoIdentity.ToArray();
+            StringCryptoIdentityArray = StringCryptoIdentity.ToArray();
 
             // Define the strings for the SEB purpose
             StringSebPurpose[0] = "starting an exam";
@@ -828,11 +835,26 @@ namespace SebWindowsConfig
             StringPolicySebService[1] = "display warning when service is not running";
             StringPolicySebService[2] = "allow to use SEB only with service";
 
-            // Define the strings for the Function Keys F1, F2, ..., F12
-            for (int i = 1; i <= 12; i++)
-            {
-                StringFunctionKey[i-1] = "F" + i.ToString();
-            }
+            // Assign the fixed entries to the listBoxes and comboBoxes
+            listBoxExitKey1.Items.AddRange(StringFunctionKey);
+            listBoxExitKey2.Items.AddRange(StringFunctionKey);
+            listBoxExitKey3.Items.AddRange(StringFunctionKey);
+
+            comboBoxCryptoIdentity              .Items.AddRange(StringCryptoIdentityArray);
+
+            comboBoxMainBrowserWindowWidth      .Items.AddRange(StringWindowWidth);
+            comboBoxMainBrowserWindowHeight     .Items.AddRange(StringWindowHeight);
+             listBoxMainBrowserWindowPositioning.Items.AddRange(StringWindowPositioning);
+
+            comboBoxNewBrowserWindowWidth       .Items.AddRange(StringWindowWidth);
+            comboBoxNewBrowserWindowHeight      .Items.AddRange(StringWindowHeight);
+             listBoxNewBrowserWindowPositioning .Items.AddRange(StringWindowPositioning);
+
+             listBoxOpenLinksHTML.Items.AddRange(StringPolicyLinkOpening);
+             listBoxOpenLinksJava.Items.AddRange(StringPolicyLinkOpening);
+
+             listBoxChooseFileToUploadPolicy.Items.AddRange(StringPolicyFileUpload);
+             listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
 
 
             // Try to open the configuration file (SebStarter.ini/xml/seb)
@@ -842,7 +864,7 @@ namespace SebWindowsConfig
             currentPathSebConfigFile = "";
 
              targetDireSebConfigFile = Directory.GetCurrentDirectory();
-             targetPathSebConfigFile = Path.GetFullPath(TargetSebStarterXml);
+             targetPathSebConfigFile =      Path.GetFullPath(TargetSebStarterXml);
 
             String fileName = targetPathSebConfigFile;
 
@@ -862,10 +884,6 @@ namespace SebWindowsConfig
             openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
 //          folderBrowserDialogDownloadFolder.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-
-            // Soll das hier stehen oder in SetWidgetsToNewSettingsOfSebStarterIni() ???
-            comboBoxCryptoIdentity.Items.AddRange(chooseIdentityStringArray);
-            comboBoxCryptoIdentity.SelectedIndex = 0;
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -2461,10 +2479,10 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam     .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 0);
             radioButtonConfiguringAClient .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)sebSettingsNew[MessageAllowPreferencesWindow];
-          //comboBoxCryptoIdentity.SelectedIndex   =     (int)sebSettingsNew[MessageCryptoIdentity];
-            textBoxSettingsPassword       .Text    =  (String)sebSettingsNew[MessageSettingsPassword];
-          //textBoxConfirmSettingsPassword.Text    =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
-          //textBoxHashedSettingsPassword .Text    =  (String)sebSettingsNew[MessageHashedSettingsPassword];
+            comboBoxCryptoIdentity.SelectedIndex   =     (int)sebSettingsNew[MessageCryptoIdentity];
+             textBoxSettingsPassword       .Text   =  (String)sebSettingsNew[MessageSettingsPassword];
+           //textBoxConfirmSettingsPassword.Text   =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
+           //textBoxHashedSettingsPassword .Text   =  (String)sebSettingsNew[MessageHashedSettingsPassword];
 
             // Group "Appearance"
             radioButtonUseBrowserWindow       .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 0);
