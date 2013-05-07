@@ -2461,7 +2461,7 @@ namespace SebWindowsConfig
         // ***************************************************
         // Set the new settings of a file to the desired state
         // ***************************************************
-        private void SetNewSettingsOfFileToState(int stateTarget, int stateSource)
+        private void SetNewSettingsOfFileToState(int StateTarget, int StateSource)
         {
             // Restore the desired values by copying them to the new values
             int group, value;
@@ -2469,12 +2469,13 @@ namespace SebWindowsConfig
             for (group = 1; group <= GroupNum; group++)
             for (value = 1; value <= ValueNum; value++)
             {
-                settingBoolean[stateTarget, group, value] = settingBoolean[stateSource, group, value];
-                settingString [stateTarget, group, value] = settingString [stateSource, group, value];
-                settingInteger[stateTarget, group, value] = settingInteger[stateSource, group, value];
+                settingBoolean[StateTarget, group, value] = settingBoolean[StateSource, group, value];
+                settingString [StateTarget, group, value] = settingString [StateSource, group, value];
+                settingInteger[StateTarget, group, value] = settingInteger[StateSource, group, value];
             }
 
-            CopySettingsDictionary(stateTarget, stateSource);
+            CopySettingsDictionary(StateTarget, StateSource);
+            return;
         }
 
 
@@ -2482,35 +2483,55 @@ namespace SebWindowsConfig
         // ************************
         // Copy settings dictionary
         // ************************
-        private void CopySettingsDictionary(int stateTarget, int stateSource)
+        private void CopySettingsDictionary(int StateTarget, int StateSource)
         {
 /*
-            if (stateSource == StateOld) sebSettingsSource = sebSettingsOld;
-            if (stateSource == StateNew) sebSettingsSource = sebSettingsNew;
-            if (stateSource == StateTmp) sebSettingsSource = sebSettingsTmp;
-            if (stateSource == StateDef) sebSettingsSource = sebSettingsDef;
+            if (StateSource == StateOld) sebSettingsSource = sebSettingsOld;
+            if (StateSource == StateNew) sebSettingsSource = sebSettingsNew;
+            if (StateSource == StateTmp) sebSettingsSource = sebSettingsTmp;
+            if (StateSource == StateDef) sebSettingsSource = sebSettingsDef;
 
-            if (stateTarget == StateOld) sebSettingsTarget = sebSettingsOld;
-            if (stateTarget == StateNew) sebSettingsTarget = sebSettingsNew;
-            if (stateTarget == StateTmp) sebSettingsTarget = sebSettingsTmp;
-            if (stateTarget == StateDef) sebSettingsTarget = sebSettingsDef;
+            if (StateTarget == StateOld) sebSettingsTarget = sebSettingsOld;
+            if (StateTarget == StateNew) sebSettingsTarget = sebSettingsNew;
+            if (StateTarget == StateTmp) sebSettingsTarget = sebSettingsTmp;
+            if (StateTarget == StateDef) sebSettingsTarget = sebSettingsDef;
 */
 
+
+
             // Restore the desired values by copying them to the new values
-            Dictionary<string, object>.Enumerator enumerator = sebSettingsTmp.GetEnumerator();
+            Dictionary<string, object>.Enumerator enumerator;
+
+
+            enumerator = sebSettingsTmp.GetEnumerator();
 
             foreach (KeyValuePair<string, object> pair in sebSettingsTmp)
             {
                 string key   = pair.Key;
                 object value = pair.Value;
 
-                if (sebSettingsNew.ContainsKey(key))
-                    sebSettingsNew[key] = value;
+//                if (key.GetType == Type.Dictionary)
+//                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
+
+                if  (sebSettingsNew.ContainsKey(key))
+                     sebSettingsNew[key] = value;
+              //else sebSettingsNew.Add(key, value);
             }
 
-            //if (stateDesired == StateOld) sebSettingsNew = sebSettingsOld;
-            //if (stateDesired == StateTmp) sebSettingsNew = sebSettingsTmp;
-            //if (stateDesired == StateDef) sebSettingsNew = sebSettingsDef;
+
+/*
+            var dict = new Dictionary<string, string>();
+
+            dict.Add("SO", "StackOverflow");
+
+            var secondDict = new Dictionary<string, string>(dict);
+
+            dict = null;
+
+            Console.WriteLine(secondDict["SO"]);
+*/
+
+            return;
         }
 
 
