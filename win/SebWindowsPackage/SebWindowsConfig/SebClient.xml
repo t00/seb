@@ -64,10 +64,10 @@
 	<string>8577da2ea54085708b3b851bc50315a36bb740ba5135e747cfb12457b5d3060f</string>
 	<key>hideBrowserWindowToolbar</key>
 	<false/>
+	<key>hookKeys</key>
+	<true/>
 	<key>ignoreQuitPassword</key>
 	<false/>
-	<key>interceptKeys</key>
-	<true/>
 	<key>logDirectoryOSX</key>
 	<string>/Users/drs/Documents</string>
 	<key>logDirectoryWin</key>
