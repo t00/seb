@@ -978,7 +978,7 @@ namespace SebWindowsConfig
 
             //sebSettingsOld = sebSettingsTmp;
             //sebSettingsNew = sebSettingsTmp;
-            CopySettingsDictionary(StateOld, StateTmp);
+            //CopySettingsDictionary(StateOld, StateTmp);
             CopySettingsDictionary(StateNew, StateTmp);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -2497,14 +2497,25 @@ namespace SebWindowsConfig
             if (StateTarget == StateDef) sebSettingsTarget = sebSettingsDef;
 */
 
+            // Create a dictionary "new settings".
+            // Copy default settings to new settings
+            foreach (KeyValuePair<string, object> pair in sebSettingsDef)
+            {
+                string key   = pair.Key;
+                object value = pair.Value;
+
+//                if (key.GetType == Type.Dictionary)
+//                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
+
+                sebSettingsNew.Add(key, value);
+            }
 
 
             // Restore the desired values by copying them to the new values
             Dictionary<string, object>.Enumerator enumerator;
-
-
             enumerator = sebSettingsTmp.GetEnumerator();
 
+            // Merge tmp settings into new settings
             foreach (KeyValuePair<string, object> pair in sebSettingsTmp)
             {
                 string key   = pair.Key;
@@ -2513,9 +2524,8 @@ namespace SebWindowsConfig
 //                if (key.GetType == Type.Dictionary)
 //                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
 
-                if  (sebSettingsNew.ContainsKey(key))
+                if  (sebSettingsDef.ContainsKey(key))
                      sebSettingsNew[key] = value;
-              //else sebSettingsNew.Add(key, value);
             }
 
 
