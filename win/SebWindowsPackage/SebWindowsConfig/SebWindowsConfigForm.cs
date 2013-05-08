@@ -2507,7 +2507,9 @@ namespace SebWindowsConfig
 //                if (key.GetType == Type.Dictionary)
 //                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
 
-                sebSettingsNew.Add(key, value);
+                if  (sebSettingsNew.ContainsKey(key))
+                     sebSettingsNew[key] = value;
+                else sebSettingsNew.Add(key, value);
             }
 
 
@@ -2524,8 +2526,9 @@ namespace SebWindowsConfig
 //                if (key.GetType == Type.Dictionary)
 //                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
 
-                if  (sebSettingsDef.ContainsKey(key))
+                if  (sebSettingsNew.ContainsKey(key))
                      sebSettingsNew[key] = value;
+                else sebSettingsNew.Add(key, value);
             }
 
 
