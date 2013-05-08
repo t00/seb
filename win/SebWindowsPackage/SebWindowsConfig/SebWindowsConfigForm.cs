@@ -884,7 +884,7 @@ namespace SebWindowsConfig
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
             SetNewSettingsOfFileToState(StateNew, StateDef);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+          //SetWidgetsToNewSettingsOfSebStarterIni();
 
 
             // Try to open the configuration file (SebStarter.ini/xml/seb)
