@@ -875,6 +875,18 @@ namespace SebWindowsConfig
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
 
 
+            // IMPORTANT:
+            // Create a second dictionary "new settings"
+            // and copy all default values to it.
+            // This must be done BEFORE any config file is loaded
+            // and assures that every (key, value) pair is contained
+            // in the "old", "new" and "def" dictionaries,
+            // even if the loaded "tmp" dictionary does NOT contain every pair.
+
+            SetNewSettingsOfFileToState(StateNew, StateDef);
+            SetWidgetsToNewSettingsOfSebStarterIni();
+
+
             // Try to open the configuration file (SebStarter.ini/xml/seb)
             // given in the local directory (where SebWindowsConfig.exe was called)
             currentDireSebConfigFile = Directory.GetCurrentDirectory();
@@ -978,7 +990,7 @@ namespace SebWindowsConfig
 
             //sebSettingsOld = sebSettingsTmp;
             //sebSettingsNew = sebSettingsTmp;
-            //CopySettingsDictionary(StateOld, StateTmp);
+            CopySettingsDictionary(StateOld, StateTmp);
             CopySettingsDictionary(StateNew, StateTmp);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -2485,7 +2497,9 @@ namespace SebWindowsConfig
         // ************************
         private void CopySettingsDictionary(int StateTarget, int StateSource)
         {
-/*
+            Dictionary<string, object> sebSettingsSource = null;
+            Dictionary<string, object> sebSettingsTarget = null;
+
             if (StateSource == StateOld) sebSettingsSource = sebSettingsOld;
             if (StateSource == StateNew) sebSettingsSource = sebSettingsNew;
             if (StateSource == StateTmp) sebSettingsSource = sebSettingsTmp;
@@ -2495,11 +2509,10 @@ namespace SebWindowsConfig
             if (StateTarget == StateNew) sebSettingsTarget = sebSettingsNew;
             if (StateTarget == StateTmp) sebSettingsTarget = sebSettingsTmp;
             if (StateTarget == StateDef) sebSettingsTarget = sebSettingsDef;
-*/
 
-            // Create a dictionary "new settings".
-            // Copy default settings to new settings
-            foreach (KeyValuePair<string, object> pair in sebSettingsDef)
+            // Create a dictionary "target settings".
+            // Copy source settings to target settings
+            foreach (KeyValuePair<string, object> pair in sebSettingsSource)
             {
                 string key   = pair.Key;
                 object value = pair.Value;
@@ -2507,43 +2520,21 @@ namespace SebWindowsConfig
 //                if (key.GetType == Type.Dictionary)
 //                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
 
-                if  (sebSettingsNew.ContainsKey(key))
-                     sebSettingsNew[key] = value;
-                else sebSettingsNew.Add(key, value);
+                if  (sebSettingsTarget.ContainsKey(key))
+                     sebSettingsTarget[key] = value;
+                else sebSettingsTarget.Add(key, value);
             }
 
 
-            // Restore the desired values by copying them to the new values
-            Dictionary<string, object>.Enumerator enumerator;
-            enumerator = sebSettingsTmp.GetEnumerator();
-
-            // Merge tmp settings into new settings
-            foreach (KeyValuePair<string, object> pair in sebSettingsTmp)
-            {
-                string key   = pair.Key;
-                object value = pair.Value;
-
-//                if (key.GetType == Type.Dictionary)
-//                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
-
-                if  (sebSettingsNew.ContainsKey(key))
-                     sebSettingsNew[key] = value;
-                else sebSettingsNew.Add(key, value);
-            }
-
-
+            //Dictionary<string, object>.Enumerator enumerator;
+            //enumerator = sebSettingsSource.GetEnumerator();
 /*
             var dict = new Dictionary<string, string>();
-
             dict.Add("SO", "StackOverflow");
-
             var secondDict = new Dictionary<string, string>(dict);
-
             dict = null;
-
             Console.WriteLine(secondDict["SO"]);
 */
-
             return;
         }
 
