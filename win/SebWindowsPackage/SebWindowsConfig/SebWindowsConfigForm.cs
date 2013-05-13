@@ -883,7 +883,8 @@ namespace SebWindowsConfig
             // in the "old", "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
-            CopySettings(StateDef, StateNew);
+            CopySettingsArrays    (StateDef, StateNew);
+            CopySettingsDictionary(StateDef, StateNew);
           //SetWidgetsToNewSettings();
 
             PrintSettingsDictionary(StateDef, "SettingsDef.txt");
@@ -975,26 +976,9 @@ namespace SebWindowsConfig
 
             // Copy tmp settings to old settings
             // Copy tmp settings to new settings
-            for (int group = 1; group <= GroupNum; group++)
-            {
-                int minvalue = minValue[group];
-                int maxvalue = maxValue[group];
-
-                for (int value = minvalue; value <= maxvalue; value++)
-                {
-                    settingBoolean[StateOld, group, value] = settingBoolean[StateTmp, group, value];
-                    settingString [StateOld, group, value] = settingString [StateTmp, group, value];
-                    settingInteger[StateOld, group, value] = settingInteger[StateTmp, group, value];
-
-                    settingBoolean[StateNew, group, value] = settingBoolean[StateTmp, group, value];
-                    settingString [StateNew, group, value] = settingString [StateTmp, group, value];
-                    settingInteger[StateNew, group, value] = settingInteger[StateTmp, group, value];
-                }
-            }
-
-            // Copy tmp settings to old settings
-            // Copy tmp settings to new settings
+            CopySettingsArrays    (StateTmp, StateOld);
             CopySettingsDictionary(StateTmp, StateOld);
+            CopySettingsArrays    (StateTmp, StateNew);
             CopySettingsDictionary(StateTmp, StateNew);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -1038,20 +1022,7 @@ namespace SebWindowsConfig
         private void ConvertSomeSettingsAfterWritingThemToFile(String fileName)
         {
             // Copy new settings to old settings
-            for (int group = 1; group <= GroupNum; group++)
-            {
-                int minvalue = minValue[group];
-                int maxvalue = maxValue[group];
-
-                for (int value = minvalue; value <= maxvalue; value++)
-                {
-                    settingBoolean[StateOld, group, value] = settingBoolean[StateNew, group, value];
-                    settingString [StateOld, group, value] = settingString [StateNew, group, value];
-                    settingInteger[StateOld, group, value] = settingInteger[StateNew, group, value];
-                }
-            }
-
-            // Copy new settings to old settings
+            CopySettingsArrays    (StateNew, StateOld);
             CopySettingsDictionary(StateNew, StateOld);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -1858,13 +1829,15 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
-            CopySettings(StateDef, StateNew);
+            CopySettingsArrays    (StateDef, StateNew);
+            CopySettingsDictionary(StateDef, StateNew);
             SetWidgetsToNewSettings();
         }
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
-            CopySettings(StateOld, StateNew);
+            CopySettingsArrays    (StateOld, StateNew);
+            CopySettingsDictionary(StateOld, StateNew);
             SetWidgetsToNewSettings();
         }
 
@@ -2475,12 +2448,12 @@ namespace SebWindowsConfig
 
 
 
-        // ***************************************************
-        // Set the new settings of a file to the desired state
-        // ***************************************************
-        private void CopySettings(int StateSource, int StateTarget)
+        // ********************
+        // Copy settings arrays
+        // ********************
+        private void CopySettingsArrays(int StateSource, int StateTarget)
         {
-            // Restore the desired values by copying them to the new values
+            // Copy all settings from one array to another
             int group, value;
 
             for (group = 1; group <= GroupNum; group++)
@@ -2491,7 +2464,6 @@ namespace SebWindowsConfig
                 settingInteger[StateTarget, group, value] = settingInteger[StateSource, group, value];
             }
 
-            CopySettingsDictionary(StateSource, StateTarget);
             return;
         }
 
@@ -2502,6 +2474,7 @@ namespace SebWindowsConfig
         // ************************
         private void CopySettingsDictionary(int StateSource, int StateTarget)
         {
+            // Copy all settings from one dictionary to another
             Dictionary<string, object> sebSettingsSource = null;
             Dictionary<string, object> sebSettingsTarget = null;
 
@@ -2523,7 +2496,7 @@ namespace SebWindowsConfig
                 object value = pair.Value;
 
 //                if (key.GetType == Type.Dictionary)
-//                    CopySettingsDictionary(int StateTarget, int StateSource, keyNode);
+//                    CopySettingsDictionary(StateSource, StateTarget, keyNode);
 
                 if  (sebSettingsTarget.ContainsKey(key))
                      sebSettingsTarget[key] = value;
