@@ -886,6 +886,9 @@ namespace SebWindowsConfig
             SetNewSettingsOfFileToState(StateNew, StateDef);
           //SetWidgetsToNewSettingsOfSebStarterIni();
 
+            PrintSettingsDictionary(StateDef, "SettingsDef.txt");
+            PrintSettingsDictionary(StateNew, "SettingsNew.txt");
+
 
             // Try to open the configuration file (SebStarter.ini/xml/seb)
             // given in the local directory (where SebWindowsConfig.exe was called)
@@ -1192,6 +1195,8 @@ namespace SebWindowsConfig
             ConvertCSharpObjectToArrays();
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
+            PrintSettingsDictionary(StateTmp, "SettingsTmp.txt");
+            PrintSettingsDictionary(StateNew, "SettingsNew.txt");
             return true;
         }
 
@@ -2535,6 +2540,57 @@ namespace SebWindowsConfig
             dict = null;
             Console.WriteLine(secondDict["SO"]);
 */
+            return;
+        }
+
+
+
+        // *************************
+        // Print settings dictionary
+        // *************************
+        private void PrintSettingsDictionary(int state, String fileName)
+        {
+            FileStream   fileStream;
+            StreamWriter fileWriter;
+
+            Dictionary<string, object> sebSettingsToPrint = null;
+
+            if (state == StateOld) sebSettingsToPrint = sebSettingsOld;
+            if (state == StateNew) sebSettingsToPrint = sebSettingsNew;
+            if (state == StateTmp) sebSettingsToPrint = sebSettingsTmp;
+            if (state == StateDef) sebSettingsToPrint = sebSettingsDef;
+
+            // If the .ini file already exists, delete it
+            // and write it again from scratch with new data
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            // Open the file for writing
+            fileStream = new FileStream  (fileName, FileMode.OpenOrCreate, FileAccess.Write);
+            fileWriter = new StreamWriter(fileStream);
+
+            // Write the header lines
+            fileWriter.WriteLine("");
+            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettingsToPrint.Count);
+            fileWriter.WriteLine("");
+
+            // Print (key, value) pairs of dictionary to file
+            foreach (KeyValuePair<string, object> pair in sebSettingsToPrint)
+            {
+                string key   = pair.Key;
+                object value = pair.Value;
+                string type  = value.GetType().ToString();
+
+                fileWriter.WriteLine("key   = " + key);
+                fileWriter.WriteLine("value = " + value);
+                fileWriter.WriteLine("type  = " + type);
+                fileWriter.WriteLine("");
+            }
+
+            // Close the file
+            fileWriter.Close();
+            fileStream.Close();
+
             return;
         }
 
