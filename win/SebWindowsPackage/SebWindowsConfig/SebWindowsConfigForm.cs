@@ -877,14 +877,14 @@ namespace SebWindowsConfig
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
-            // and copy all default values to it.
+            // and copy all default settings to the new settings.
             // This must be done BEFORE any config file is loaded
             // and assures that every (key, value) pair is contained
             // in the "old", "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
-            SetNewSettingsOfFileToState(StateNew, StateDef);
-          //SetWidgetsToNewSettingsOfSebStarterIni();
+            CopySettings(StateDef, StateNew);
+          //SetWidgetsToNewSettings();
 
             PrintSettingsDictionary(StateDef, "SettingsDef.txt");
             PrintSettingsDictionary(StateNew, "SettingsNew.txt");
@@ -973,7 +973,8 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageNewBrowserWindowByLinkHeight] = tmpIndexNewWindowByLinkHeight;
 */
 
-            // Accept the tmp values as the old and new values
+            // Copy tmp settings to old settings
+            // Copy tmp settings to new settings
             for (int group = 1; group <= GroupNum; group++)
             {
                 int minvalue = minValue[group];
@@ -991,10 +992,10 @@ namespace SebWindowsConfig
                 }
             }
 
-            //sebSettingsOld = sebSettingsTmp;
-            //sebSettingsNew = sebSettingsTmp;
-            CopySettingsDictionary(StateOld, StateTmp);
-            CopySettingsDictionary(StateNew, StateTmp);
+            // Copy tmp settings to old settings
+            // Copy tmp settings to new settings
+            CopySettingsDictionary(StateTmp, StateOld);
+            CopySettingsDictionary(StateTmp, StateNew);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -1036,7 +1037,7 @@ namespace SebWindowsConfig
         // ************************************************
         private void ConvertSomeSettingsAfterWritingThemToFile(String fileName)
         {
-            // Accept the old values as the new values
+            // Copy new settings to old settings
             for (int group = 1; group <= GroupNum; group++)
             {
                 int minvalue = minValue[group];
@@ -1050,8 +1051,8 @@ namespace SebWindowsConfig
                 }
             }
 
-            //sebSettingsOld = sebSettingsNew;
-            CopySettingsDictionary(StateOld, StateNew);
+            // Copy new settings to old settings
+            CopySettingsDictionary(StateNew, StateOld);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -1155,7 +1156,7 @@ namespace SebWindowsConfig
             // After reading the settings from file,
             // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            SetWidgetsToNewSettings();
             return true;
         }
 
@@ -1194,7 +1195,7 @@ namespace SebWindowsConfig
             // After reading the settings from file,
             // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            SetWidgetsToNewSettings();
             PrintSettingsDictionary(StateTmp, "SettingsTmp.txt");
             PrintSettingsDictionary(StateNew, "SettingsNew.txt");
             return true;
@@ -1236,7 +1237,7 @@ namespace SebWindowsConfig
             // After reading the settings from file,
             // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            SetWidgetsToNewSettings();
             return true;
         }
 
@@ -1323,7 +1324,7 @@ namespace SebWindowsConfig
 
             // After writing the settings to file, update the widgets
             ConvertSomeSettingsAfterWritingThemToFile(fileName);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            SetWidgetsToNewSettings();
             return true;
         }
 
@@ -1371,7 +1372,7 @@ namespace SebWindowsConfig
 
             // After writing the settings to file, update the widgets
             ConvertSomeSettingsAfterWritingThemToFile(fileName);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            SetWidgetsToNewSettings();
             return true;
         }
 
@@ -1425,7 +1426,7 @@ namespace SebWindowsConfig
 
             // After writing the settings to file, update the widgets
             ConvertSomeSettingsAfterWritingThemToFile(fileName);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            SetWidgetsToNewSettings();
             return true;
         }
 
@@ -1857,14 +1858,14 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
-            SetNewSettingsOfFileToState(StateNew, StateDef);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            CopySettings(StateDef, StateNew);
+            SetWidgetsToNewSettings();
         }
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
-            SetNewSettingsOfFileToState(StateNew, StateOld);
-            SetWidgetsToNewSettingsOfSebStarterIni();
+            CopySettings(StateOld, StateNew);
+            SetWidgetsToNewSettings();
         }
 
 
@@ -2477,7 +2478,7 @@ namespace SebWindowsConfig
         // ***************************************************
         // Set the new settings of a file to the desired state
         // ***************************************************
-        private void SetNewSettingsOfFileToState(int StateTarget, int StateSource)
+        private void CopySettings(int StateSource, int StateTarget)
         {
             // Restore the desired values by copying them to the new values
             int group, value;
@@ -2490,7 +2491,7 @@ namespace SebWindowsConfig
                 settingInteger[StateTarget, group, value] = settingInteger[StateSource, group, value];
             }
 
-            CopySettingsDictionary(StateTarget, StateSource);
+            CopySettingsDictionary(StateSource, StateTarget);
             return;
         }
 
@@ -2499,7 +2500,7 @@ namespace SebWindowsConfig
         // ************************
         // Copy settings dictionary
         // ************************
-        private void CopySettingsDictionary(int StateTarget, int StateSource)
+        private void CopySettingsDictionary(int StateSource, int StateTarget)
         {
             Dictionary<string, object> sebSettingsSource = null;
             Dictionary<string, object> sebSettingsTarget = null;
@@ -2598,7 +2599,7 @@ namespace SebWindowsConfig
         // *****************************************************
         // Set the widgets to the new settings of SebStarter.ini
         // *****************************************************
-        private void SetWidgetsToNewSettingsOfSebStarterIni()
+        private void SetWidgetsToNewSettings()
         {
             // Update the filename in the title bar
             this.Text  = this.ProductName;
