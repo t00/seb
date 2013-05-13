@@ -13,7 +13,7 @@
 	<key>allowQuit</key>
 	<true/>
 	<key>allowSwitchToApplications</key>
-	<true/>
+	<false/>
 	<key>allowUserSwitching</key>
 	<true/>
 	<key>allowVirtualMachine</key>
@@ -31,17 +31,17 @@
 	<key>downloadDirectoryOSX</key>
 	<string>~/Downloads</string>
 	<key>downloadDirectoryWin</key>
-	<string>MyDownloads</string>
+	<string>Desktop</string>
 	<key>downloadPDFFiles</key>
 	<false/>
 	<key>enableBrowserWindowToolbar</key>
-	<true/>
+	<false/>
 	<key>enableJava</key>
 	<false/>
 	<key>enableJavaScript</key>
 	<true/>
 	<key>enableLogging</key>
-	<true/>
+	<false/>
 	<key>enablePlugIns</key>
 	<true/>
 	<key>enableSebBrowser</key>
@@ -69,9 +69,9 @@
 	<key>ignoreQuitPassword</key>
 	<false/>
 	<key>logDirectoryOSX</key>
-	<string>/Users/drs/Documents</string>
+	<string>~/Documents</string>
 	<key>logDirectoryWin</key>
-	<string>MyDocuments</string>
+	<string>My Documents</string>
 	<key>mainBrowserWindowHeight</key>
 	<string>100%</string>
 	<key>mainBrowserWindowPositioning</key>
@@ -79,7 +79,7 @@
 	<key>mainBrowserWindowWidth</key>
 	<string>100%</string>
 	<key>monitorProcesses</key>
-	<true/>
+	<false/>
 	<key>newBrowserWindowByLinkBlockForeign</key>
 	<false/>
 	<key>newBrowserWindowByLinkHeight</key>
