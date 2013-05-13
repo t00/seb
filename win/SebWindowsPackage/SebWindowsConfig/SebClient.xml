@@ -190,7 +190,7 @@
 	<key>sebConfigPurpose</key>
 	<integer>0</integer>
 	<key>sebServerURL</key>
-	<string>http://www.switch.ch/</string>
+	<string>http://www.switch.ch</string>
 	<key>sebServicePolicy</key>
 	<integer>2</integer>
 	<key>sendBrowserExamKey</key>
