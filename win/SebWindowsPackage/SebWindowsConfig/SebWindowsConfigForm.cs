@@ -1152,7 +1152,8 @@ namespace SebWindowsConfig
                 return false;
             }
 
-            // After reading the settings from file, update the widgets
+            // After reading the settings from file,
+            // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
@@ -1191,8 +1192,7 @@ namespace SebWindowsConfig
             }
 
             // After reading the settings from file,
-            // convert the C# object to arrays and update the widgets
-            ConvertCSharpObjectToArrays();
+            // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
             PrintSettingsDictionary(StateTmp, "SettingsTmp.txt");
@@ -1234,8 +1234,7 @@ namespace SebWindowsConfig
             }
 
             // After reading the settings from file,
-            // convert the C# object to arrays and update the widgets
-            ConvertCSharpObjectToArrays();
+            // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettingsOfSebStarterIni();
             return true;
@@ -1257,6 +1256,8 @@ namespace SebWindowsConfig
             int minvalue;
             int maxvalue;
 
+            // Before writing the settings to file,
+            // convert some settings
             ConvertSomeSettingsBeforeWritingThemToFile();
 
             try 
@@ -1334,9 +1335,8 @@ namespace SebWindowsConfig
         private Boolean SaveXmlFile(String fileName)
         {
             // Before writing the settings to file,
-            // convert the arrays to the C# object
+            // convert some settings
             ConvertSomeSettingsBeforeWritingThemToFile();
-            //ConvertArraysToCSharpObject();
 
             try 
             {
@@ -1383,9 +1383,8 @@ namespace SebWindowsConfig
         private Boolean SaveSebFile(String fileName)
         {
             // Before writing the settings to file,
-            // convert the arrays to the C# object
+            // convert some settings
             ConvertSomeSettingsBeforeWritingThemToFile();
-            ConvertArraysToCSharpObject();
 
             try 
             {
@@ -1431,14 +1430,14 @@ namespace SebWindowsConfig
         }
 
 
-
+/*
         // *********************************************************************
         // Convert C# object (having been read from .xml or .seb file) to arrays
         // *********************************************************************
         private Boolean ConvertCSharpObjectToArrays()
         {
             // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
-/*
+
             settingString [StateTmp, GroupGeneral, ValueStartURL           ] = sebSettObso.getUrlAddress    ("startURL"    ).Url;
           //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress    ("sebServerURL").Url;
             settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettObso.getPassword      ("hashedAdminPassword").Value;
@@ -1542,7 +1541,7 @@ namespace SebWindowsConfig
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF10] = sebSettObso.getHookedMessageKey("enableF10").getBool();
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF11] = sebSettObso.getHookedMessageKey("enableF11").getBool();
             settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF12] = sebSettObso.getHookedMessageKey("enableF12").getBool();
-*/
+
             return true;
         }
 
@@ -1554,7 +1553,7 @@ namespace SebWindowsConfig
         private Boolean ConvertArraysToCSharpObject()
         {
             // Copy the arrays "settingString"/"settingBoolean" to the C# object "sebSettings"
-/*
+
             sebSettObso.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
           //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
             sebSettObso.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueHashedAdminPassword];
@@ -1658,10 +1657,10 @@ namespace SebWindowsConfig
             sebSettObso.getHookedMessageKey("enableF10").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10]);
             sebSettObso.getHookedMessageKey("enableF11").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11]);
             sebSettObso.getHookedMessageKey("enableF12").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12]);
-*/
+
             return true;
         }
-
+*/
 
 
         // **************
