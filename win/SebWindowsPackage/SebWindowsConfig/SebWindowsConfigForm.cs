@@ -1181,6 +1181,30 @@ namespace SebWindowsConfig
             SetWidgetsToNewSettings();
             PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
+
+
+            List<object> list = null;
+            List<Dictionary<string, object>> listDict = null;
+            Dictionary<string, object> dict = null;
+
+            if (sebSettingsNew.ContainsKey("PermittedProcesses"))
+            {
+                list     = (List<object>) sebSettingsNew["PermittedProcesses"];
+                listDict = (List<Dictionary<string, object>>) sebSettingsNew["PermittedProcesses"];
+
+                if (list.Count > 0)
+                {
+                    dict = (Dictionary<string, object>) list[0];
+                    textBoxStartURL.Text = (String)dict["name"];
+                }
+
+                if (listDict.Count > 0)
+                {
+                    dict = listDict[0];
+                    textBoxQuitURL.Text = (String)dict["name"];
+                }
+            }
+
             return true;
         }
 
@@ -2140,7 +2164,7 @@ namespace SebWindowsConfig
 
         private void textBoxBrowserExamKey_TextChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageBrowserExamKey] = textBoxBrowserExamKey.Text;
+          //sebSettingsNew[MessageBrowserExamKey] = textBoxBrowserExamKey.Text;
         }
 
         private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
