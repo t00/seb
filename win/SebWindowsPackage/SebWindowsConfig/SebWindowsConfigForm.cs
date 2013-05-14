@@ -221,23 +221,27 @@ namespace SebWindowsConfig
 
         // Group "Applications"
         const int ValueMonitorProcesses          = 1;
-        const int ValueAllowSwitchToApplications = 2;
-        const int ValueAllowFlashFullscreen      = 3;
-        const int NumValueApplications = 3;
+        const int ValuePermittedProcesses        = 2;
+        const int ValueAllowSwitchToApplications = 3;
+        const int ValueAllowFlashFullscreen      = 4;
+        const int ValueProhibitedProcesses       = 5;
+        const int NumValueApplications = 5;
 
         const String MessageMonitorProcesses          = "monitorProcesses";
+        const String MessagePermittedProcesses        = "permittedProcesses";
         const String MessageAllowSwitchToApplications = "allowSwitchToApplications";
         const String MessageAllowFlashFullscreen      = "allowFlashFullscreen";
+        const String MessageProhibitedProcesses       = "prohibitedProcesses";
 
         // Group "Network"
-        const int ValueProxySettingsPolicy    = 1;
-        const int ValueEnableURLFilter        = 2;
-        const int ValueEnableURLContentFilter = 3;
+        const int ValueEnableURLFilter        = 1;
+        const int ValueEnableURLContentFilter = 2;
+        const int ValueProxySettingsPolicy    = 3;
         const int NumValueNetwork = 3;
 
-        const String MessageProxySettingsPolicy    = "proxySettingsPolicy";
         const String MessageEnableURLFilter        = "enableURLFilter";
         const String MessageEnableURLContentFilter = "enableURLContentFilter";
+        const String MessageProxySettingsPolicy    = "proxySettingsPolicy";
 
         // Group "Security"
         const int ValueSebServicePolicy    = 1;
@@ -528,13 +532,15 @@ namespace SebWindowsConfig
 
             // Default settings for group "Applications"
             sebSettingsDef.Add(MessageMonitorProcesses         , false);
+            sebSettingsDef.Add(MessagePermittedProcesses       , "");
             sebSettingsDef.Add(MessageAllowSwitchToApplications, false);
             sebSettingsDef.Add(MessageAllowFlashFullscreen     , false);
+            sebSettingsDef.Add(MessageProhibitedProcesses      , "");
 
             // Default settings for group "Network"
-            sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
             sebSettingsDef.Add(MessageEnableURLFilter       , false);
             sebSettingsDef.Add(MessageEnableURLContentFilter, false);
+            sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
 
             // Default settings for group "Security"
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
