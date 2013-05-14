@@ -1184,24 +1184,16 @@ namespace SebWindowsConfig
 
 
             List<object> list = null;
-            List<Dictionary<string, object>> listDict = null;
             Dictionary<string, object> dict = null;
 
-            if (sebSettingsNew.ContainsKey("PermittedProcesses"))
+            if (sebSettingsNew.ContainsKey("permittedProcesses"))
             {
-                list     = (List<object>) sebSettingsNew["PermittedProcesses"];
-                listDict = (List<Dictionary<string, object>>) sebSettingsNew["PermittedProcesses"];
+                list = (List<object>) sebSettingsNew["permittedProcesses"];
 
                 if (list.Count > 0)
                 {
                     dict = (Dictionary<string, object>) list[0];
                     textBoxStartURL.Text = (String)dict["name"];
-                }
-
-                if (listDict.Count > 0)
-                {
-                    dict = listDict[0];
-                    textBoxQuitURL.Text = (String)dict["name"];
                 }
             }
 
