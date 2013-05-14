@@ -46,10 +46,10 @@
 	<true/>
 	<key>enableSebBrowser</key>
 	<true/>
-	<key>enableUrlContentFilter</key>
-	<true/>
-	<key>enableUrlFilter</key>
-	<true/>
+	<key>enableURLContentFilter</key>
+	<false/>
+	<key>enableURLFilter</key>
+	<false/>
 	<key>examKeySalt</key>
 	<data>Z8gD5C8Dt2mzRweoUA/26N/E6LE7UHUTpcxSvDnv9rE=</data>
 	<key>exitKey1</key>
@@ -184,7 +184,7 @@
 		<string>john.ch</string>
 	</dict>
 	<key>proxySettingsPolicy</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>quitURL</key>
 	<string>http://www.safeexambrowser.org/exit</string>
 	<key>sebConfigPurpose</key>
