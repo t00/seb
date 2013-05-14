@@ -883,13 +883,13 @@ namespace SebWindowsConfig
             // in the "old", "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
-            CopySettingsArrays    (StateDef, StateNew);
-            CopySettingsDictionary(StateDef, StateNew);
+            CopySettingsArrays    (      StateDef,       StateNew);
+            CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
+
+            PrintSettingsDictionary(sebSettingsDef, "SettingsDef.txt");
+            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
+
           //SetWidgetsToNewSettings();
-
-            PrintSettingsDictionary(StateDef, "SettingsDef.txt");
-            PrintSettingsDictionary(StateNew, "SettingsNew.txt");
-
 
             // Try to open the configuration file (SebStarter.ini/xml/seb)
             // given in the local directory (where SebWindowsConfig.exe was called)
@@ -976,10 +976,10 @@ namespace SebWindowsConfig
 
             // Copy tmp settings to old settings
             // Copy tmp settings to new settings
-            CopySettingsArrays    (StateTmp, StateOld);
-            CopySettingsDictionary(StateTmp, StateOld);
-            CopySettingsArrays    (StateTmp, StateNew);
-            CopySettingsDictionary(StateTmp, StateNew);
+            CopySettingsArrays    (      StateTmp,       StateOld);
+            CopySettingsDictionary(sebSettingsTmp, sebSettingsOld);
+            CopySettingsArrays    (      StateTmp,       StateNew);
+            CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -1022,8 +1022,8 @@ namespace SebWindowsConfig
         private void ConvertSomeSettingsAfterWritingThemToFile(String fileName)
         {
             // Copy new settings to old settings
-            CopySettingsArrays    (StateNew, StateOld);
-            CopySettingsDictionary(StateNew, StateOld);
+            CopySettingsArrays    (      StateNew,       StateOld);
+            CopySettingsDictionary(sebSettingsNew, sebSettingsOld);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -1167,8 +1167,8 @@ namespace SebWindowsConfig
             // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettings();
-            PrintSettingsDictionary(StateTmp, "SettingsTmp.txt");
-            PrintSettingsDictionary(StateNew, "SettingsNew.txt");
+            PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
+            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
             return true;
         }
 
@@ -1829,15 +1829,15 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
-            CopySettingsArrays    (StateDef, StateNew);
-            CopySettingsDictionary(StateDef, StateNew);
+            CopySettingsArrays    (      StateDef,       StateNew);
+            CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
             SetWidgetsToNewSettings();
         }
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
-            CopySettingsArrays    (StateOld, StateNew);
-            CopySettingsDictionary(StateOld, StateNew);
+            CopySettingsArrays    (      StateOld,       StateNew);
+            CopySettingsDictionary(sebSettingsOld, sebSettingsNew);
             SetWidgetsToNewSettings();
         }
 
@@ -2472,22 +2472,10 @@ namespace SebWindowsConfig
         // ************************
         // Copy settings dictionary
         // ************************
-        private void CopySettingsDictionary(int StateSource, int StateTarget)
+        private void CopySettingsDictionary(Dictionary<string, object> sebSettingsSource,
+                                            Dictionary<string, object> sebSettingsTarget)
         {
             // Copy all settings from one dictionary to another
-            Dictionary<string, object> sebSettingsSource = null;
-            Dictionary<string, object> sebSettingsTarget = null;
-
-            if (StateSource == StateOld) sebSettingsSource = sebSettingsOld;
-            if (StateSource == StateNew) sebSettingsSource = sebSettingsNew;
-            if (StateSource == StateTmp) sebSettingsSource = sebSettingsTmp;
-            if (StateSource == StateDef) sebSettingsSource = sebSettingsDef;
-
-            if (StateTarget == StateOld) sebSettingsTarget = sebSettingsOld;
-            if (StateTarget == StateNew) sebSettingsTarget = sebSettingsNew;
-            if (StateTarget == StateTmp) sebSettingsTarget = sebSettingsTmp;
-            if (StateTarget == StateDef) sebSettingsTarget = sebSettingsDef;
-
             // Create a dictionary "target settings".
             // Copy source settings to target settings
             foreach (KeyValuePair<string, object> pair in sebSettingsSource)
@@ -2496,7 +2484,7 @@ namespace SebWindowsConfig
                 object value = pair.Value;
 
 //                if (key.GetType == Type.Dictionary)
-//                    CopySettingsDictionary(StateSource, StateTarget, keyNode);
+//                    CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
 
                 if  (sebSettingsTarget.ContainsKey(key))
                      sebSettingsTarget[key] = value;
@@ -2521,17 +2509,11 @@ namespace SebWindowsConfig
         // *************************
         // Print settings dictionary
         // *************************
-        private void PrintSettingsDictionary(int state, String fileName)
+        private void PrintSettingsDictionary(Dictionary<string, object> sebSettings,
+                                             String fileName)
         {
             FileStream   fileStream;
             StreamWriter fileWriter;
-
-            Dictionary<string, object> sebSettingsToPrint = null;
-
-            if (state == StateOld) sebSettingsToPrint = sebSettingsOld;
-            if (state == StateNew) sebSettingsToPrint = sebSettingsNew;
-            if (state == StateTmp) sebSettingsToPrint = sebSettingsTmp;
-            if (state == StateDef) sebSettingsToPrint = sebSettingsDef;
 
             // If the .ini file already exists, delete it
             // and write it again from scratch with new data
@@ -2544,11 +2526,11 @@ namespace SebWindowsConfig
 
             // Write the header lines
             fileWriter.WriteLine("");
-            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettingsToPrint.Count);
+            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettings.Count);
             fileWriter.WriteLine("");
 
             // Print (key, value) pairs of dictionary to file
-            foreach (KeyValuePair<string, object> pair in sebSettingsToPrint)
+            foreach (KeyValuePair<string, object> pair in sebSettings)
             {
                 string key   = pair.Key;
                 object value = pair.Value;
