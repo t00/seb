@@ -206,12 +206,14 @@ namespace SebWindowsConfig
         const String MessageDownloadPDFFiles         = "downloadPDFFiles";
 
         // Group "Exam"
-        const int ValueBrowserExamKey     = 1;
-        const int ValueCopyBrowserExamKey = 2;
-        const int ValueSendBrowserExamKey = 3;
-        const int ValueQuitURL            = 4;
-        const int NumValueExam = 4;
+        const int ValueExamKeySalt        = 1;
+        const int ValueBrowserExamKey     = 2;
+        const int ValueCopyBrowserExamKey = 3;
+        const int ValueSendBrowserExamKey = 4;
+        const int ValueQuitURL            = 5;
+        const int NumValueExam = 5;
 
+        const String MessageExamKeySalt        = "examKeySalt";
         const String MessageBrowserExamKey     = "browserExamKey";
         const String MessageCopyBrowserExamKey = "copyBrowserExamKeyToClipboardWhenQuitting";
         const String MessageSendBrowserExamKey = "sendBrowserExamKey";
@@ -228,8 +230,14 @@ namespace SebWindowsConfig
         const String MessageAllowFlashFullscreen      = "allowFlashFullscreen";
 
         // Group "Network"
-        //const int Value = 1;
-        const int NumValueNetwork = 0;
+        const int ValueProxySettingsPolicy    = 1;
+        const int ValueEnableURLFilter        = 2;
+        const int ValueEnableURLContentFilter = 3;
+        const int NumValueNetwork = 3;
+
+        const String MessageProxySettingsPolicy    = "proxySettingsPolicy";
+        const String MessageEnableURLFilter        = "enableURLFilter";
+        const String MessageEnableURLContentFilter = "enableURLContentFilter";
 
         // Group "Security"
         const int ValueSebServicePolicy    = 1;
@@ -512,6 +520,7 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
+            sebSettingsDef.Add(MessageExamKeySalt       , "");
             sebSettingsDef.Add(MessageBrowserExamKey    , "");
             sebSettingsDef.Add(MessageCopyBrowserExamKey, false);
             sebSettingsDef.Add(MessageSendBrowserExamKey, false);
@@ -523,6 +532,9 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageAllowFlashFullscreen     , false);
 
             // Default settings for group "Network"
+            sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
+            sebSettingsDef.Add(MessageEnableURLFilter       , false);
+            sebSettingsDef.Add(MessageEnableURLContentFilter, false);
 
             // Default settings for group "Security"
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
@@ -2510,7 +2522,7 @@ namespace SebWindowsConfig
         // Print settings dictionary
         // *************************
         private void PrintSettingsDictionary(Dictionary<string, object> sebSettings,
-                                             String fileName)
+                                             String                     fileName)
         {
             FileStream   fileStream;
             StreamWriter fileWriter;
