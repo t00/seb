@@ -107,7 +107,8 @@ namespace SebWindowsConfig
         const int ValueExitKey1             = 11;
         const int ValueExitKey2             = 12;
         const int ValueExitKey3             = 13;
-        const int NumValueGeneral = 13;
+        const int ValueSebMode              = 14;
+        const int NumValueGeneral = 14;
 
         const String MessageStartURL             = "startURL";
         const String MessageSebServerURL         = "sebServerURL";
@@ -122,6 +123,7 @@ namespace SebWindowsConfig
         const String MessageExitKey1             = "exitKey1";
         const String MessageExitKey2             = "exitKey2";
         const String MessageExitKey3             = "exitKey3";
+        const String MessageSebMode              = "sebMode";
 
         // Group "Config File"
         const int ValueSebConfigPurpose        = 1;
@@ -389,15 +391,17 @@ namespace SebWindowsConfig
         // Entries of ListBoxes
       //static   Byte[] ByteArrayExamKeySalt    = new Byte[] {};
         static String[] StringCryptoIdentityArray;
-        static String[] StringSebPurpose        = new String[2];
-        static String[] StringBrowserViewMode   = new String[2];
-        static String[] StringWindowWidth       = new String[4];
-        static String[] StringWindowHeight      = new String[4];
-        static String[] StringWindowPositioning = new String[3];
-        static String[] StringPolicyLinkOpening = new String[3];
-        static String[] StringPolicyFileUpload  = new String[3];
-        static String[] StringPolicySebService  = new String[3];
-        static String[] StringFunctionKey       = new String[12];
+        static String[] StringSebPurpose          = new String[2];
+        static String[] StringSebMode             = new String[2];
+        static String[] StringBrowserViewMode     = new String[2];
+        static String[] StringWindowWidth         = new String[4];
+        static String[] StringWindowHeight        = new String[4];
+        static String[] StringWindowPositioning   = new String[3];
+        static String[] StringPolicyLinkOpening   = new String[3];
+        static String[] StringPolicyFileUpload    = new String[3];
+        static String[] StringPolicyProxySettings = new String[2];
+        static String[] StringPolicySebService    = new String[3];
+        static String[] StringFunctionKey         = new String[12];
 
         // Number of values per group
         // Names  of groups and values
@@ -457,7 +461,7 @@ namespace SebWindowsConfig
 
             // Default settings for group "General"
             sebSettingsDef.Add(MessageStartURL            , "http://www.safeexambrowser.org");
-            sebSettingsDef.Add(MessageSebServerURL        , "http://www.switch.ch");
+            sebSettingsDef.Add(MessageSebServerURL        , "");
             sebSettingsDef.Add(MessageAdminPassword       , "");
             sebSettingsDef.Add(MessageConfirmAdminPassword, "");
             sebSettingsDef.Add(MessageHashedAdminPassword , "");
@@ -469,6 +473,7 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageExitKey1,  2);
             sebSettingsDef.Add(MessageExitKey2, 10);
             sebSettingsDef.Add(MessageExitKey3,  5);
+            sebSettingsDef.Add(MessageSebMode, 0);
 
             // Default settings for group "Config File"
             sebSettingsDef.Add(MessageSebConfigPurpose       , 0);
@@ -665,6 +670,9 @@ namespace SebWindowsConfig
             dataType[GroupExam, ValueBrowserExamKey] = TypeString;
             dataType[GroupExam, ValueQuitURL       ] = TypeString;
 
+            dataType[GroupNetwork, ValuePermittedProcesses ] = TypeString;
+            dataType[GroupNetwork, ValueProhibitedProcesses] = TypeString;
+
             dataType[GroupSecurity, ValueSebServicePolicy] = TypeString;
             dataType[GroupSecurity, ValueLogDirectoryOSX ] = TypeString;
             dataType[GroupSecurity, ValueLogDirectoryWin ] = TypeString;
@@ -729,6 +737,7 @@ namespace SebWindowsConfig
             valueString[GroupGeneral, ValueExitKey1            ] = MessageExitKey1;
             valueString[GroupGeneral, ValueExitKey2            ] = MessageExitKey2;
             valueString[GroupGeneral, ValueExitKey3            ] = MessageExitKey3;
+            valueString[GroupGeneral, ValueSebMode             ] = MessageSebMode;
 
             valueString[GroupConfigFile, ValueSebConfigPurpose       ] = MessageSebConfigPurpose;
             valueString[GroupConfigFile, ValueAllowPreferencesWindow ] = MessageAllowPreferencesWindow;
@@ -768,14 +777,23 @@ namespace SebWindowsConfig
             valueString[GroupDownUploads, ValueChooseFileToUploadPolicy] = MessageChooseFileToUploadPolicy;
             valueString[GroupDownUploads, ValueDownloadPDFFiles        ] = MessageDownloadPDFFiles;
 
+            valueString[GroupExam, ValueExamKeySalt       ] = MessageExamKeySalt;
             valueString[GroupExam, ValueBrowserExamKey    ] = MessageBrowserExamKey;
             valueString[GroupExam, ValueCopyBrowserExamKey] = MessageCopyBrowserExamKey;
             valueString[GroupExam, ValueSendBrowserExamKey] = MessageSendBrowserExamKey;
             valueString[GroupExam, ValueQuitURL           ] = MessageQuitURL;
 
             valueString[GroupApplications, ValueMonitorProcesses         ] = MessageMonitorProcesses;
+            valueString[GroupApplications, ValuePermittedProcesses       ] = MessagePermittedProcesses;
             valueString[GroupApplications, ValueAllowSwitchToApplications] = MessageAllowSwitchToApplications;
             valueString[GroupApplications, ValueAllowFlashFullscreen     ] = MessageAllowFlashFullscreen;
+            valueString[GroupApplications, ValueProhibitedProcesses      ] = MessageProhibitedProcesses;
+
+            valueString[GroupNetwork, ValueEnableURLFilter       ] = MessageEnableURLFilter;
+            valueString[GroupNetwork, ValueEnableURLContentFilter] = MessageEnableURLContentFilter;
+            valueString[GroupNetwork, ValueURLFilterRules        ] = MessageURLFilterRules;
+            valueString[GroupNetwork, ValueProxySettingsPolicy   ] = MessageProxySettingsPolicy;
+            valueString[GroupNetwork, ValueProxies               ] = MessageProxies;
 
             valueString[GroupSecurity, ValueSebServicePolicy   ] = MessageSebServicePolicy;
             valueString[GroupSecurity, ValueAllowVirtualMachine] = MessageAllowVirtualMachine;
@@ -845,6 +863,10 @@ namespace SebWindowsConfig
             StringSebPurpose[0] = "starting an exam";
             StringSebPurpose[1] = "configuring a client";
 
+            // Define the strings for the SEB mode
+            StringSebMode[0] = "use local settings and load the start URL";
+            StringSebMode[1] = "connect to the SEB server";
+
             // Define the strings for the Browser View Mode
             StringBrowserViewMode[0] = "use browser window";
             StringBrowserViewMode[1] = "use full screen mode";
@@ -875,6 +897,10 @@ namespace SebWindowsConfig
             StringPolicyFileUpload[0] = "manually with file requester";
             StringPolicyFileUpload[1] = "by attempting to upload the same file downloaded before";
             StringPolicyFileUpload[2] = "by only allowing to upload the same file downloaded before";
+
+            // Define the strings for the Proxy Settings Policy
+            StringPolicyProxySettings[0] = "Use system proxy settings";
+            StringPolicyProxySettings[1] = "Use SEB proxy settings";
 
             // Define the strings for the SEB Service Policy
             StringPolicySebService[0] = "allow to run SEB without service";
@@ -1098,7 +1124,7 @@ namespace SebWindowsConfig
                         equalPosition =    fileLine.IndexOf  ("=");
                          leftString   =    fileLine.Remove   (equalPosition);
                         rightString   =    fileLine.Substring(equalPosition + 1);
-                        rightBoolean  = rightString.Equals("1");
+                        rightBoolean  = rightString.Equals("true");
                         foundSetting  = false;
 
                         // Find the appropriate group and setting
@@ -1197,22 +1223,6 @@ namespace SebWindowsConfig
             SetWidgetsToNewSettings();
             PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
-
-
-            List<object> list = null;
-            Dictionary<string, object> dict = null;
-
-            if (sebSettingsNew.ContainsKey("permittedProcesses"))
-            {
-                list = (List<object>) sebSettingsNew["permittedProcesses"];
-
-                if (list.Count > 0)
-                {
-                    dict = (Dictionary<string, object>) list[0];
-                    textBoxStartURL.Text = (String)dict["name"];
-                }
-            }
-
             return true;
         }
 
@@ -1310,8 +1320,8 @@ namespace SebWindowsConfig
                         Boolean rightBoolean   = settingBoolean[StateNew, group, value];
                         int     rightType      =    dataType   [          group, value];
 
-                        if ((rightType == TypeBoolean) && (rightBoolean == false)) rightString = "0";
-                        if ((rightType == TypeBoolean) && (rightBoolean ==  true)) rightString = "1";
+                        if ((rightType == TypeBoolean) && (rightBoolean == false)) rightString = "false";
+                        if ((rightType == TypeBoolean) && (rightBoolean ==  true)) rightString = "true";
 
                         // Concatenate the "...=..." line and write it
                         fileLine = leftString + "=" + rightString;
@@ -2216,6 +2226,8 @@ namespace SebWindowsConfig
         // Group "Network"
         // ***************
 
+
+
         // ****************
         // Group "Security"
         // ****************
@@ -2589,7 +2601,6 @@ namespace SebWindowsConfig
             // Close the file
             fileWriter.Close();
             fileStream.Close();
-
             return;
         }
 
@@ -2607,8 +2618,24 @@ namespace SebWindowsConfig
 
             // Update the widgets
 
+
+            List<object> list = null;
+            Dictionary<string, object> dict = null;
+
+            if (sebSettingsNew.ContainsKey("permittedProcesses"))
+            {
+                list = (List<object>) sebSettingsNew["permittedProcesses"];
+
+                if (list.Count > 0)
+                {
+                    dict = (Dictionary<string, object>) list[0];
+                    textBoxStartURL.Text = (String)dict["name"];
+                }
+            }
+
+
             // Group "General"
-            textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
+          //textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
             textBoxSebServerURL        .Text   =  (String)sebSettingsNew[MessageSebServerURL];
           //textBoxAdminPassword       .Text   =  (String)sebSettingsNew[MessageAdminPassword];
           //textBoxConfirmAdminPassword.Text   =  (String)sebSettingsNew[MessageConfirmAdminPassword];
@@ -2679,6 +2706,11 @@ namespace SebWindowsConfig
             checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
 
             // Group "Network"
+            //checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
+            //checkBoxEnableURLContentFilter.Checked = (Boolean)sebSettingsNew[MessageEnableURLContentFilter];
+
+            //radioButtonUseSystemProxySettings.Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
+            //radioButtonUseSebProxySettings   .Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
 
             // Group "Security"
              listBoxSebServicePolicy.SelectedIndex =     (int)sebSettingsNew[MessageSebServicePolicy];
