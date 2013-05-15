@@ -535,7 +535,7 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageBrowserExamKey    , "");
             sebSettingsDef.Add(MessageCopyBrowserExamKey, false);
             sebSettingsDef.Add(MessageSendBrowserExamKey, false);
-            sebSettingsDef.Add(MessageQuitURL           , "http://www.safeexambrowser.org/exit");
+            sebSettingsDef.Add(MessageQuitURL           , "");
 
             // Default settings for group "Applications"
             sebSettingsDef.Add(MessageMonitorProcesses         , false);
