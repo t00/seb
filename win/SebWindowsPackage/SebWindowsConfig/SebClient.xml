@@ -187,8 +187,10 @@
 	<string>http://www.safeexambrowser.org/exit</string>
 	<key>sebConfigPurpose</key>
 	<integer>0</integer>
+	<key>sebMode</key>
+	<integer>0</integer>
 	<key>sebServerURL</key>
-	<string>http://www.switch.ch</string>
+	<string></string>
 	<key>sebServicePolicy</key>
 	<integer>2</integer>
 	<key>sendBrowserExamKey</key>
@@ -217,8 +219,6 @@
 					<true/>
 					<key>expression</key>
 					<string>safeexambrowser.org</string>
-					<key>ruleActions</key>
-					<array/>
 				</dict>
 				<dict>
 					<key>action</key>
@@ -229,6 +229,8 @@
 					<string>https://exams.ethz.ch</string>
 				</dict>
 				<dict>
+					<key>action</key>
+					<integer>3</integer>
 					<key>active</key>
 					<true/>
 					<key>expression</key>
