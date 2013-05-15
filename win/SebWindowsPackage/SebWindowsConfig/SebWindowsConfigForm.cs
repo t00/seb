@@ -2616,7 +2616,7 @@ namespace SebWindowsConfig
             this.Text += " - ";
             this.Text += currentPathSebConfigFile;
 
-            // Update the widgets
+            // Update tshe widgets
 
 /*
             List<object> list = null;
