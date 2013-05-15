@@ -159,8 +159,6 @@
 			<string>TextEdit</string>
 		</dict>
 	</array>
-	<key>prefsInBundle</key>
-	<false/>
 	<key>prohibitedProcesses</key>
 	<array>
 		<dict>
