@@ -168,7 +168,7 @@
 			<true/>
 			<key>description</key>
 			<string>OS X screencapture tool invoked by cmd-shift-3 or 4</string>
-			<key>name</key>
+			<key>nameOSX</key>
 			<string>screencapture</string>
 			<key>strongKill</key>
 			<true/>
@@ -203,7 +203,7 @@
 	<true/>
 	<key>startURL</key>
 	<string>https://moodle-app1-skal.let.ethz.ch/mod/quiz/view.php?id=10524</string>
-	<key>urlFilterRules</key>
+	<key>URLFilterRules</key>
 	<array>
 		<dict>
 			<key>active</key>
