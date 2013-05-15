@@ -2618,7 +2618,7 @@ namespace SebWindowsConfig
 
             // Update the widgets
 
-
+/*
             List<object> list = null;
             Dictionary<string, object> dict = null;
 
@@ -2632,10 +2632,10 @@ namespace SebWindowsConfig
                     textBoxStartURL.Text = (String)dict["name"];
                 }
             }
-
+*/
 
             // Group "General"
-          //textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
+            textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
             textBoxSebServerURL        .Text   =  (String)sebSettingsNew[MessageSebServerURL];
           //textBoxAdminPassword       .Text   =  (String)sebSettingsNew[MessageAdminPassword];
           //textBoxConfirmAdminPassword.Text   =  (String)sebSettingsNew[MessageConfirmAdminPassword];
