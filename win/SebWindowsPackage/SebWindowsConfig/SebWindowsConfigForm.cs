@@ -234,14 +234,20 @@ namespace SebWindowsConfig
         const String MessageProhibitedProcesses       = "prohibitedProcesses";
 
         // Group "Network"
+
+        // Group "Filter"
         const int ValueEnableURLFilter        = 1;
         const int ValueEnableURLContentFilter = 2;
-        const int ValueProxySettingsPolicy    = 3;
-        const int NumValueNetwork = 3;
+        const int ValueURLFilterRules         = 3;
+        const int ValueProxySettingsPolicy    = 4;
+        const int ValueProxies                = 5;
+        const int NumValueNetwork = 5;
 
         const String MessageEnableURLFilter        = "enableURLFilter";
         const String MessageEnableURLContentFilter = "enableURLContentFilter";
+        const String MessageURLFilterRules         = "URLFilterRules";
         const String MessageProxySettingsPolicy    = "proxySettingsPolicy";
+        const String MessageProxies                = "proxies";
 
         // Group "Security"
         const int ValueSebServicePolicy    = 1;
@@ -381,6 +387,7 @@ namespace SebWindowsConfig
         static List<String> StringCryptoIdentity = new List<String>();
 
         // Entries of ListBoxes
+      //static   Byte[] ByteArrayExamKeySalt    = new Byte[] {};
         static String[] StringCryptoIdentityArray;
         static String[] StringSebPurpose        = new String[2];
         static String[] StringBrowserViewMode   = new String[2];
@@ -524,7 +531,7 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
-            sebSettingsDef.Add(MessageExamKeySalt       , "");
+            sebSettingsDef.Add(MessageExamKeySalt       , new Byte[] {});
             sebSettingsDef.Add(MessageBrowserExamKey    , "");
             sebSettingsDef.Add(MessageCopyBrowserExamKey, false);
             sebSettingsDef.Add(MessageSendBrowserExamKey, false);
@@ -532,15 +539,17 @@ namespace SebWindowsConfig
 
             // Default settings for group "Applications"
             sebSettingsDef.Add(MessageMonitorProcesses         , false);
-            sebSettingsDef.Add(MessagePermittedProcesses       , "");
+            sebSettingsDef.Add(MessagePermittedProcesses       , new List<object>());
             sebSettingsDef.Add(MessageAllowSwitchToApplications, false);
             sebSettingsDef.Add(MessageAllowFlashFullscreen     , false);
-            sebSettingsDef.Add(MessageProhibitedProcesses      , "");
+            sebSettingsDef.Add(MessageProhibitedProcesses      , new List<object>());
 
             // Default settings for group "Network"
             sebSettingsDef.Add(MessageEnableURLFilter       , false);
             sebSettingsDef.Add(MessageEnableURLContentFilter, false);
+            sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
             sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
+            sebSettingsDef.Add(MessageProxies               , new Dictionary<string, object>());
 
             // Default settings for group "Security"
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
@@ -652,6 +661,7 @@ namespace SebWindowsConfig
             dataType[GroupDownUploads, ValueDownloadDirectoryWin    ] = TypeString;
             dataType[GroupDownUploads, ValueChooseFileToUploadPolicy] = TypeString;
 
+            dataType[GroupExam, ValueExamKeySalt   ] = TypeString;
             dataType[GroupExam, ValueBrowserExamKey] = TypeString;
             dataType[GroupExam, ValueQuitURL       ] = TypeString;
 
