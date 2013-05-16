@@ -97,6 +97,7 @@
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
+            this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
             this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
             this.tabPageProhibitedProcesses = new System.Windows.Forms.TabPage();
@@ -202,7 +203,9 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -998,6 +1001,9 @@
             // 
             // tabPagePermittedProcesses
             // 
+            this.tabPagePermittedProcesses.Controls.Add(this.comboBox1);
+            this.tabPagePermittedProcesses.Controls.Add(this.checkedListBox1);
+            this.tabPagePermittedProcesses.Controls.Add(this.tableLayoutPanel1);
             this.tabPagePermittedProcesses.Controls.Add(this.groupBoxSelectedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowSwitchToApplications);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowFlashFullscreen);
@@ -1008,7 +1014,15 @@
             this.tabPagePermittedProcesses.TabIndex = 0;
             this.tabPagePermittedProcesses.Text = "Permitted Processes";
             this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
-            this.tabPagePermittedProcesses.Click += new System.EventHandler(this.tabPagePermittedProcesses_Click);
+            // 
+            // groupBoxSelectedProcess
+            // 
+            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 206);
+            this.groupBoxSelectedProcess.Name = "groupBoxSelectedProcess";
+            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(692, 100);
+            this.groupBoxSelectedProcess.TabIndex = 80;
+            this.groupBoxSelectedProcess.TabStop = false;
+            this.groupBoxSelectedProcess.Text = "Selected Process";
             // 
             // checkBoxAllowSwitchToApplications
             // 
@@ -2227,14 +2241,36 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // groupBoxSelectedProcess
+            // tableLayoutPanel1
             // 
-            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 206);
-            this.groupBoxSelectedProcess.Name = "groupBoxSelectedProcess";
-            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(692, 100);
-            this.groupBoxSelectedProcess.TabIndex = 80;
-            this.groupBoxSelectedProcess.TabStop = false;
-            this.groupBoxSelectedProcess.Text = "Selected Process";
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(453, 59);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 100);
+            this.tableLayoutPanel1.TabIndex = 81;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(81, 92);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(172, 89);
+            this.checkedListBox1.TabIndex = 82;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(287, 92);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 24);
+            this.comboBox1.TabIndex = 83;
             // 
             // SebWindowsConfigForm
             // 
@@ -2466,6 +2502,9 @@
         private System.Windows.Forms.TabPage tabPageCertificates;
         private System.Windows.Forms.TabPage tabPageProxies;
         private System.Windows.Forms.GroupBox groupBoxSelectedProcess;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 
     }
 }

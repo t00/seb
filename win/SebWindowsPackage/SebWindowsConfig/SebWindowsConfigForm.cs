@@ -1246,13 +1246,23 @@ namespace SebWindowsConfig
                 // Deserialise the decrypted string
                 TextReader     textReader = new StreamReader(fileName);
                 String  encryptedSettings = textReader.ReadToEnd();
-                String  decryptedSettings = sebController.DecryptSebClientSettings (encryptedSettings).Trim();
+                String  decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
+                        decryptedSettings = decryptedSettings.Trim();
                 MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
                 MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
 
                 // Parse the XML structure into a C# object
-                sebSettObso    = (SEBClientConfig)            sebSerializerObso .Deserialize(memStreamObso);
+              //sebSettObso    = (SEBClientConfig)            sebSerializerObso .Deserialize(memStreamObso);
               //sebSettingsTmp = (Dictionary<string, object>) sebSerializerPlist.Deserialize(memStreamPlist);
+
+                //sebSettingsTmp = (Dictionary<string, object>)Plist.parseBinaryDate(0);
+
+                sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+
+                //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Auto);
+                //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Xml);
+                //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Binary);
+
 
                 // Close the memory stream and text reader
                 memStreamObso .Close();

@@ -90,10 +90,12 @@ namespace SebWindowsClient.CryptographyUtils
             {
                 certificateHash = x509Certificate.GetPublicKey().GetHashCode();
                 certificateName = x509Certificate.Subject;
+    /*
                 if (certificateHash == int.Parse(Encoding.ASCII.GetString(publicKeyHash)))
                 {
                     sebCertificate = x509Certificate;
                 }
+    */
                 if (certificateName.CompareTo("C=CH, CN=SEB-Configuration") == 0)
                 {
                     sebCertificate = x509Certificate;
@@ -361,9 +363,11 @@ namespace SebWindowsClient.CryptographyUtils
 
             try
             {
-                string encryptedDataString = Encoding.ASCII.GetString(encryptedBytesWithKey);
+                //string encryptedDataString = Encoding.ASCII.GetString(encryptedBytesWithKey);
                 // base 64 decode
-                byte[] encryptedBytesWithSalt = Convert.FromBase64String(encryptedDataString);
+                //byte[] encryptedBytesWithSalt = Convert.FromBase64String(encryptedDataString);
+
+                byte[] encryptedBytesWithSalt = encryptedBytesWithKey;
 
                 // extract salt (first 8 bytes of encrypted)
                 byte[] salt = new byte[8];
