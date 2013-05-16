@@ -670,8 +670,12 @@ namespace SebWindowsConfig
             dataType[GroupExam, ValueBrowserExamKey] = TypeString;
             dataType[GroupExam, ValueQuitURL       ] = TypeString;
 
-            dataType[GroupNetwork, ValuePermittedProcesses ] = TypeString;
-            dataType[GroupNetwork, ValueProhibitedProcesses] = TypeString;
+            dataType[GroupApplications, ValuePermittedProcesses ] = TypeString;
+            dataType[GroupApplications, ValueProhibitedProcesses] = TypeString;
+
+            dataType[GroupNetwork, ValueURLFilterRules     ] = TypeString;
+            dataType[GroupNetwork, ValueProxySettingsPolicy] = TypeString;
+            dataType[GroupNetwork, ValueProxies            ] = TypeString;
 
             dataType[GroupSecurity, ValueSebServicePolicy] = TypeString;
             dataType[GroupSecurity, ValueLogDirectoryOSX ] = TypeString;
@@ -2210,6 +2214,9 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageMonitorProcesses] = checkBoxMonitorProcesses.Checked;
         }
 
+        // ***************************
+        // Group "Permitted Processes"
+        // ***************************
         private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
@@ -2220,6 +2227,9 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
         }
 
+        // ****************************
+        // Group "Prohibited Processes"
+        // ****************************
 
 
         // ***************
