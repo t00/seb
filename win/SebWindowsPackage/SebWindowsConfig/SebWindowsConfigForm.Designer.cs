@@ -90,9 +90,16 @@
             this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
+            this.tabControlNetwork = new System.Windows.Forms.TabControl();
+            this.tabPageFilter = new System.Windows.Forms.TabPage();
+            this.tabPageCertificates = new System.Windows.Forms.TabPage();
+            this.tabPageProxies = new System.Windows.Forms.TabPage();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
-            this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
+            this.tabControlApplications = new System.Windows.Forms.TabControl();
+            this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
             this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
+            this.tabPageProhibitedProcesses = new System.Windows.Forms.TabPage();
             this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.tabPageExam = new System.Windows.Forms.TabPage();
             this.labelPlaceThisQuitLink = new System.Windows.Forms.Label();
@@ -195,13 +202,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabControlApplications = new System.Windows.Forms.TabControl();
-            this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
-            this.tabPageProhibitedProcesses = new System.Windows.Forms.TabPage();
-            this.tabControlNetwork = new System.Windows.Forms.TabControl();
-            this.tabPageFilter = new System.Windows.Forms.TabPage();
-            this.tabPageCertificates = new System.Windows.Forms.TabPage();
-            this.tabPageProxies = new System.Windows.Forms.TabPage();
+            this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -211,7 +212,10 @@
             this.groupBoxInsideSeb.SuspendLayout();
             this.tabPageSecurity.SuspendLayout();
             this.tabPageNetwork.SuspendLayout();
+            this.tabControlNetwork.SuspendLayout();
             this.tabPageApplications.SuspendLayout();
+            this.tabControlApplications.SuspendLayout();
+            this.tabPagePermittedProcesses.SuspendLayout();
             this.tabPageExam.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
@@ -222,9 +226,6 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
-            this.tabControlApplications.SuspendLayout();
-            this.tabPagePermittedProcesses.SuspendLayout();
-            this.tabControlNetwork.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialogSebStarterIni
@@ -932,6 +933,47 @@
             this.tabPageNetwork.Text = "Network";
             this.tabPageNetwork.UseVisualStyleBackColor = true;
             // 
+            // tabControlNetwork
+            // 
+            this.tabControlNetwork.Controls.Add(this.tabPageFilter);
+            this.tabControlNetwork.Controls.Add(this.tabPageCertificates);
+            this.tabControlNetwork.Controls.Add(this.tabPageProxies);
+            this.tabControlNetwork.Location = new System.Drawing.Point(30, 29);
+            this.tabControlNetwork.Name = "tabControlNetwork";
+            this.tabControlNetwork.SelectedIndex = 0;
+            this.tabControlNetwork.Size = new System.Drawing.Size(719, 391);
+            this.tabControlNetwork.TabIndex = 0;
+            // 
+            // tabPageFilter
+            // 
+            this.tabPageFilter.Location = new System.Drawing.Point(4, 25);
+            this.tabPageFilter.Name = "tabPageFilter";
+            this.tabPageFilter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFilter.Size = new System.Drawing.Size(711, 362);
+            this.tabPageFilter.TabIndex = 0;
+            this.tabPageFilter.Text = "Filter";
+            this.tabPageFilter.UseVisualStyleBackColor = true;
+            // 
+            // tabPageCertificates
+            // 
+            this.tabPageCertificates.Location = new System.Drawing.Point(4, 25);
+            this.tabPageCertificates.Name = "tabPageCertificates";
+            this.tabPageCertificates.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCertificates.Size = new System.Drawing.Size(711, 362);
+            this.tabPageCertificates.TabIndex = 1;
+            this.tabPageCertificates.Text = "Certificates";
+            this.tabPageCertificates.UseVisualStyleBackColor = true;
+            // 
+            // tabPageProxies
+            // 
+            this.tabPageProxies.Location = new System.Drawing.Point(4, 25);
+            this.tabPageProxies.Name = "tabPageProxies";
+            this.tabPageProxies.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProxies.Size = new System.Drawing.Size(711, 362);
+            this.tabPageProxies.TabIndex = 2;
+            this.tabPageProxies.Text = "Proxies";
+            this.tabPageProxies.UseVisualStyleBackColor = true;
+            // 
             // tabPageApplications
             // 
             this.tabPageApplications.Controls.Add(this.tabControlApplications);
@@ -944,17 +986,29 @@
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAllowFlashFullscreen
+            // tabControlApplications
             // 
-            this.checkBoxAllowFlashFullscreen.AutoSize = true;
-            this.checkBoxAllowFlashFullscreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(47, 46);
-            this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
-            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(278, 21);
-            this.checkBoxAllowFlashFullscreen.TabIndex = 78;
-            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash to switch to fullscreen mode";
-            this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
-            this.checkBoxAllowFlashFullscreen.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreen_CheckedChanged);
+            this.tabControlApplications.Controls.Add(this.tabPagePermittedProcesses);
+            this.tabControlApplications.Controls.Add(this.tabPageProhibitedProcesses);
+            this.tabControlApplications.Location = new System.Drawing.Point(32, 72);
+            this.tabControlApplications.Name = "tabControlApplications";
+            this.tabControlApplications.SelectedIndex = 0;
+            this.tabControlApplications.Size = new System.Drawing.Size(819, 354);
+            this.tabControlApplications.TabIndex = 79;
+            // 
+            // tabPagePermittedProcesses
+            // 
+            this.tabPagePermittedProcesses.Controls.Add(this.groupBoxSelectedProcess);
+            this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowSwitchToApplications);
+            this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowFlashFullscreen);
+            this.tabPagePermittedProcesses.Location = new System.Drawing.Point(4, 25);
+            this.tabPagePermittedProcesses.Name = "tabPagePermittedProcesses";
+            this.tabPagePermittedProcesses.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(811, 325);
+            this.tabPagePermittedProcesses.TabIndex = 0;
+            this.tabPagePermittedProcesses.Text = "Permitted Processes";
+            this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
+            this.tabPagePermittedProcesses.Click += new System.EventHandler(this.tabPagePermittedProcesses_Click);
             // 
             // checkBoxAllowSwitchToApplications
             // 
@@ -969,6 +1023,28 @@
             this.checkBoxAllowSwitchToApplications.Text = "Allow switching to third party applications";
             this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
             this.checkBoxAllowSwitchToApplications.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToApplications_CheckedChanged);
+            // 
+            // checkBoxAllowFlashFullscreen
+            // 
+            this.checkBoxAllowFlashFullscreen.AutoSize = true;
+            this.checkBoxAllowFlashFullscreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(47, 46);
+            this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
+            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(278, 21);
+            this.checkBoxAllowFlashFullscreen.TabIndex = 78;
+            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash to switch to fullscreen mode";
+            this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
+            this.checkBoxAllowFlashFullscreen.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreen_CheckedChanged);
+            // 
+            // tabPageProhibitedProcesses
+            // 
+            this.tabPageProhibitedProcesses.Location = new System.Drawing.Point(4, 25);
+            this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
+            this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 325);
+            this.tabPageProhibitedProcesses.TabIndex = 1;
+            this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
+            this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
             // 
             // checkBoxMonitorProcesses
             // 
@@ -2151,78 +2227,14 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // tabControlApplications
+            // groupBoxSelectedProcess
             // 
-            this.tabControlApplications.Controls.Add(this.tabPagePermittedProcesses);
-            this.tabControlApplications.Controls.Add(this.tabPageProhibitedProcesses);
-            this.tabControlApplications.Location = new System.Drawing.Point(32, 72);
-            this.tabControlApplications.Name = "tabControlApplications";
-            this.tabControlApplications.SelectedIndex = 0;
-            this.tabControlApplications.Size = new System.Drawing.Size(819, 354);
-            this.tabControlApplications.TabIndex = 79;
-            // 
-            // tabPagePermittedProcesses
-            // 
-            this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowSwitchToApplications);
-            this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowFlashFullscreen);
-            this.tabPagePermittedProcesses.Location = new System.Drawing.Point(4, 25);
-            this.tabPagePermittedProcesses.Name = "tabPagePermittedProcesses";
-            this.tabPagePermittedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(811, 325);
-            this.tabPagePermittedProcesses.TabIndex = 0;
-            this.tabPagePermittedProcesses.Text = "Permitted Processes";
-            this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
-            // 
-            // tabPageProhibitedProcesses
-            // 
-            this.tabPageProhibitedProcesses.Location = new System.Drawing.Point(4, 25);
-            this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
-            this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 325);
-            this.tabPageProhibitedProcesses.TabIndex = 1;
-            this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
-            this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
-            // 
-            // tabControlNetwork
-            // 
-            this.tabControlNetwork.Controls.Add(this.tabPageFilter);
-            this.tabControlNetwork.Controls.Add(this.tabPageCertificates);
-            this.tabControlNetwork.Controls.Add(this.tabPageProxies);
-            this.tabControlNetwork.Location = new System.Drawing.Point(30, 29);
-            this.tabControlNetwork.Name = "tabControlNetwork";
-            this.tabControlNetwork.SelectedIndex = 0;
-            this.tabControlNetwork.Size = new System.Drawing.Size(719, 391);
-            this.tabControlNetwork.TabIndex = 0;
-            // 
-            // tabPageFilter
-            // 
-            this.tabPageFilter.Location = new System.Drawing.Point(4, 25);
-            this.tabPageFilter.Name = "tabPageFilter";
-            this.tabPageFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFilter.Size = new System.Drawing.Size(711, 362);
-            this.tabPageFilter.TabIndex = 0;
-            this.tabPageFilter.Text = "Filter";
-            this.tabPageFilter.UseVisualStyleBackColor = true;
-            // 
-            // tabPageCertificates
-            // 
-            this.tabPageCertificates.Location = new System.Drawing.Point(4, 25);
-            this.tabPageCertificates.Name = "tabPageCertificates";
-            this.tabPageCertificates.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCertificates.Size = new System.Drawing.Size(711, 362);
-            this.tabPageCertificates.TabIndex = 1;
-            this.tabPageCertificates.Text = "Certificates";
-            this.tabPageCertificates.UseVisualStyleBackColor = true;
-            // 
-            // tabPageProxies
-            // 
-            this.tabPageProxies.Location = new System.Drawing.Point(4, 25);
-            this.tabPageProxies.Name = "tabPageProxies";
-            this.tabPageProxies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProxies.Size = new System.Drawing.Size(711, 362);
-            this.tabPageProxies.TabIndex = 2;
-            this.tabPageProxies.Text = "Proxies";
-            this.tabPageProxies.UseVisualStyleBackColor = true;
+            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 206);
+            this.groupBoxSelectedProcess.Name = "groupBoxSelectedProcess";
+            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(692, 100);
+            this.groupBoxSelectedProcess.TabIndex = 80;
+            this.groupBoxSelectedProcess.TabStop = false;
+            this.groupBoxSelectedProcess.Text = "Selected Process";
             // 
             // SebWindowsConfigForm
             // 
@@ -2250,8 +2262,12 @@
             this.tabPageSecurity.ResumeLayout(false);
             this.tabPageSecurity.PerformLayout();
             this.tabPageNetwork.ResumeLayout(false);
+            this.tabControlNetwork.ResumeLayout(false);
             this.tabPageApplications.ResumeLayout(false);
             this.tabPageApplications.PerformLayout();
+            this.tabControlApplications.ResumeLayout(false);
+            this.tabPagePermittedProcesses.ResumeLayout(false);
+            this.tabPagePermittedProcesses.PerformLayout();
             this.tabPageExam.ResumeLayout(false);
             this.tabPageExam.PerformLayout();
             this.tabPageDownUploads.ResumeLayout(false);
@@ -2270,10 +2286,6 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
-            this.tabControlApplications.ResumeLayout(false);
-            this.tabPagePermittedProcesses.ResumeLayout(false);
-            this.tabPagePermittedProcesses.PerformLayout();
-            this.tabControlNetwork.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2453,6 +2465,7 @@
         private System.Windows.Forms.TabPage tabPageFilter;
         private System.Windows.Forms.TabPage tabPageCertificates;
         private System.Windows.Forms.TabPage tabPageProxies;
+        private System.Windows.Forms.GroupBox groupBoxSelectedProcess;
 
     }
 }

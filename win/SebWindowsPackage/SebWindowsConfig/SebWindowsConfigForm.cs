@@ -430,7 +430,8 @@ namespace SebWindowsConfig
         static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
         static SEBClientConfig            sebSettObso    = new SEBClientConfig();
         static SEBProtectionController    sebController  = new SEBProtectionController();
-        static XmlSerializer              sebSerializer  = new XmlSerializer(typeof(SEBClientConfig));
+      //static XmlSerializer              sebSerializerPlist = new XmlSerializer(typeof(Dictionary<string, object>));
+        static XmlSerializer              sebSerializerObso  = new XmlSerializer(typeof(SEBClientConfig));
 
 
 
@@ -1246,14 +1247,17 @@ namespace SebWindowsConfig
                 TextReader     textReader = new StreamReader(fileName);
                 String  encryptedSettings = textReader.ReadToEnd();
                 String  decryptedSettings = sebController.DecryptSebClientSettings (encryptedSettings).Trim();
-                MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+                MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+                MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
 
                 // Parse the XML structure into a C# object
-                sebSettObso = (SEBClientConfig)sebSerializer.Deserialize(memoryStream);
+                sebSettObso    = (SEBClientConfig)            sebSerializerObso .Deserialize(memStreamObso);
+              //sebSettingsTmp = (Dictionary<string, object>) sebSerializerPlist.Deserialize(memStreamPlist);
 
                 // Close the memory stream and text reader
-                memoryStream.Close();
-                  textReader.Close();
+                memStreamObso .Close();
+                memStreamPlist.Close();
+                textReader.Close();
             }
             catch (Exception streamReadException)
             {
@@ -2773,6 +2777,8 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
+
+
 
 
 
