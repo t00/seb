@@ -428,8 +428,9 @@ namespace SebWindowsConfig
         static Dictionary<string, object> sebSettingsNew = new Dictionary<string, object>();
         static Dictionary<string, object> sebSettingsTmp = new Dictionary<string, object>();
         static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
-        static SEBClientConfig            sebSettObso    = new SEBClientConfig();
-        static SEBProtectionController    sebController  = new SEBProtectionController();
+
+        static SEBClientConfig            sebSettObso        = new SEBClientConfig();
+        static SEBProtectionController    sebController      = new SEBProtectionController();
       //static XmlSerializer              sebSerializerPlist = new XmlSerializer(typeof(Dictionary<string, object>));
         static XmlSerializer              sebSerializerObso  = new XmlSerializer(typeof(SEBClientConfig));
 
@@ -1199,18 +1200,13 @@ namespace SebWindowsConfig
         {
             try 
             {
-                // Read the .xml file
-                // Parse the XML structure into a C# object
+                // Read the configuration settings from .xml file
+                // Convert the XML structure into a C# object
                 sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
 /*
-                // Open the .xml file for reading
                 XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextReader      textReader = new StreamReader (fileName);
-
-                // Parse the XML structure into a C# object
-                sebSettObso = (SEBClientConfig)deserializer.Deserialize(textReader);
-
-                // Close the .xml file
+                sebSettObso = (SEBClientConfig) deserializer.Deserialize(textReader);
                 textReader.Close();
 */
             }
@@ -1240,10 +1236,10 @@ namespace SebWindowsConfig
         {
             try 
             {
-                // Open the .seb file for reading
-                // Load the encrypted configuration settings
+                // Read the configuration settings from .seb file
                 // Decrypt the configuration settings
-                // Deserialise the decrypted string
+                // Convert the XML structure into a C# object
+
                 TextReader     textReader = new StreamReader(fileName);
                 String  encryptedSettings = textReader.ReadToEnd();
                 String  decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
@@ -1251,11 +1247,9 @@ namespace SebWindowsConfig
                 MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
                 MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
 
-                // Parse the XML structure into a C# object
               //sebSettObso    = (SEBClientConfig)            sebSerializerObso .Deserialize(memStreamObso);
               //sebSettingsTmp = (Dictionary<string, object>) sebSerializerPlist.Deserialize(memStreamPlist);
-
-                //sebSettingsTmp = (Dictionary<string, object>)Plist.parseBinaryDate(0);
+              //sebSettingsTmp = (Dictionary<string, object>) Plist.parseBinaryDate(0);
 
                 sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
 
@@ -1263,11 +1257,9 @@ namespace SebWindowsConfig
                 //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Xml);
                 //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Binary);
 
-
-                // Close the memory stream and text reader
                 memStreamObso .Close();
                 memStreamPlist.Close();
-                textReader.Close();
+                    textReader.Close();
             }
             catch (Exception streamReadException)
             {
@@ -1389,19 +1381,13 @@ namespace SebWindowsConfig
                 if (File.Exists(fileName))
                     File.Delete(fileName);
 
-                // Convert the C# object to an XML structure
-                // Write the .xml file
+                // Convert the C# object into an XML structure
+                // Write the configuration settings into .xml file
                 Plist.writeXml(sebSettingsNew, fileName);
-
 /*
-                // Open the .xml file for writing
                 XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
                 TextWriter    textWriter = new StreamWriter(fileName);
-
-                // Copy the C# object into an XML structure
                 serializer.Serialize(textWriter, sebSettObso);
-
-                // Close the .xml file
                 textWriter.Close();
 */
             } // end try
@@ -1432,31 +1418,47 @@ namespace SebWindowsConfig
 
             try 
             {
-                // If the .seb file already exists, delete it
+                // If the .xml file already exists, delete it
                 // and write it again from scratch with new data
                 if (File.Exists(fileName))
                     File.Delete(fileName);
 
-/*
-                MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-
-                // Copy the C# object into an XML structure
-                // Serialise the decrypted string
-                sebSerializer.Serialize(memoryStream, sebSettings);
-
+                // Convert the C# object into an XML structure
                 // Encrypt the configuration settings
-                String encryptedSettings = sebController.EncryptWithPassword(decryptedSettings, passPhrase);
+                // Write the configuration settings into .seb file
 
-                // Open the .seb file for writing
-                // Save the encrypted configuration settings
+                TextWriter textWriter = new StreamWriter(fileName);
 
-                TextWriter     textWriter = new StreamWriter(fileName);
+                String encryptedSettings = "";
+                String decryptedSettings = "";
+                String password = "Seb";
+                X509Certificate2 certificate = null;
+
+                //decryptedSettings = Plist.writePlist(sebSettingsNew);
+                //decryptedSettings = sebSettingsNew.ToString();
+
+                Stream decryptedStream = null;
+
+                Plist.writeBinary(sebSettingsNew, decryptedStream);
+                Plist.writeXml   (sebSettingsNew, decryptedStream);
+
+                MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+                MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+
+                encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
+                encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
+
                 textWriter.Write(encryptedSettings);
 
-                // Close the memory stream and text writer
-                memoryStream.Close();
-                  textWriter.Close();
-*/
+
+
+                sebSerializerObso.Serialize(memStreamObso, sebSettObso);
+                textWriter.Write(encryptedSettings);
+
+
+                memStreamObso .Close();
+                memStreamPlist.Close();
+                    textWriter.Close();
 
             } // end try
             catch (Exception streamWriteException) 
