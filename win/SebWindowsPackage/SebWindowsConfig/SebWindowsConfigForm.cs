@@ -1436,7 +1436,7 @@ namespace SebWindowsConfig
                 TextWriter textWriter;
                 String encryptedSettings = "";
                 String decryptedSettings = "";
-                String password = "Seb";
+                String password          = "Seb";
                 X509Certificate2 certificate = null;
 
                 decryptedSettings = Plist.writeXml(sebSettingsNew);
