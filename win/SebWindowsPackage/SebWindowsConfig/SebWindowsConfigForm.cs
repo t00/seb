@@ -1160,8 +1160,7 @@ namespace SebWindowsConfig
                 // Close the .ini file
                 fileReader.Close();
                 fileStream.Close();
-
-            } // end try
+            }
             catch (Exception streamReadException) 
             {
                 // Let the user know what went wrong
@@ -1240,26 +1239,34 @@ namespace SebWindowsConfig
                 // Decrypt the configuration settings
                 // Convert the XML structure into a C# object
 
-                TextReader     textReader = new StreamReader(fileName);
-                String  encryptedSettings = textReader.ReadToEnd();
-                String  decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
-                        decryptedSettings = decryptedSettings.Trim();
-                MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-                MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+                TextReader textReader;
+                String encryptedSettings = "";
+                String decryptedSettings = "";
+              //String password          = "Seb";
+              //X509Certificate2 certificate = null;
+
+                textReader        = new StreamReader(fileName);
+                encryptedSettings = textReader.ReadToEnd();
+                textReader.Close();
+
+                decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
+                decryptedSettings = decryptedSettings.Trim();
+
+                sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+
+              //MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+              //MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
 
               //sebSettObso    = (SEBClientConfig)            sebSerializerObso .Deserialize(memStreamObso);
               //sebSettingsTmp = (Dictionary<string, object>) sebSerializerPlist.Deserialize(memStreamPlist);
               //sebSettingsTmp = (Dictionary<string, object>) Plist.parseBinaryDate(0);
 
-                sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+              //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Auto);
+              //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Xml);
+              //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Binary);
 
-                //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Auto);
-                //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Xml);
-                //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Binary);
-
-                memStreamObso .Close();
-                memStreamPlist.Close();
-                    textReader.Close();
+              //memStreamObso .Close();
+              //memStreamPlist.Close();
             }
             catch (Exception streamReadException)
             {
@@ -1347,8 +1354,7 @@ namespace SebWindowsConfig
                 // Close the .ini file
                 fileWriter.Close();
                 fileStream.Close();
-
-            } // end try
+            }
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
@@ -1390,7 +1396,7 @@ namespace SebWindowsConfig
                 serializer.Serialize(textWriter, sebSettObso);
                 textWriter.Close();
 */
-            } // end try
+            }
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
@@ -1427,40 +1433,36 @@ namespace SebWindowsConfig
                 // Encrypt the configuration settings
                 // Write the configuration settings into .seb file
 
-                TextWriter textWriter = new StreamWriter(fileName);
-
+                TextWriter textWriter;
                 String encryptedSettings = "";
                 String decryptedSettings = "";
                 String password = "Seb";
                 X509Certificate2 certificate = null;
 
-                //decryptedSettings = Plist.writePlist(sebSettingsNew);
-                //decryptedSettings = sebSettingsNew.ToString();
-
-                Stream decryptedStream = null;
-
-                Plist.writeBinary(sebSettingsNew, decryptedStream);
-                Plist.writeXml   (sebSettingsNew, decryptedStream);
-
-                MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-                MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+                decryptedSettings = Plist.writeXml(sebSettingsNew);
 
                 encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
                 encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
 
+                textWriter = new StreamWriter(fileName);
                 textWriter.Write(encryptedSettings);
+                textWriter.Close();
 
+                //decryptedSettings = Plist.writePlist(sebSettingsNew);
+                //decryptedSettings = sebSettingsNew.ToString();
 
+                //Stream decryptedStream = null;
+                //Plist.writeBinary(sebSettingsNew, decryptedStream);
+                //Plist.writeXml   (sebSettingsNew, decryptedStream);
 
-                sebSerializerObso.Serialize(memStreamObso, sebSettObso);
-                textWriter.Write(encryptedSettings);
+                //MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
+                //MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
 
+                //sebSerializerObso.Serialize(memStreamObso, sebSettObso);
 
-                memStreamObso .Close();
-                memStreamPlist.Close();
-                    textWriter.Close();
-
-            } // end try
+                //memStreamObso .Close();
+                //memStreamPlist.Close();
+            }
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
