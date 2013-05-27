@@ -1249,8 +1249,8 @@ namespace SebWindowsConfig
                 encryptedSettings = textReader.ReadToEnd();
                 textReader.Close();
 
-                //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
-                //decryptedSettings = decryptedSettings.Trim();
+              //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
+              //decryptedSettings = decryptedSettings.Trim();
                 decryptedSettings = encryptedSettings;
 
                 sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
@@ -1444,8 +1444,8 @@ namespace SebWindowsConfig
 
                 decryptedSettings = Plist.writeXml(sebSettingsNew);
 
-                //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
-                //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
+              //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
+              //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
                 encryptedSettings = decryptedSettings;
 
                 textWriter = new StreamWriter(fileName);
