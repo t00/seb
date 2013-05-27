@@ -37,11 +37,10 @@ namespace SebWindowsConfig
         const int FileSebStarterSeb = 3;
         const int FileNum = 3;
 
-        // The target files the user must configure,
-        // because these are used by the application SebStarter.exe
-        const String TargetSebStarterIni = "SebClient.ini";
-        const String TargetSebStarterXml = "SebClient.xml";
-        const String TargetSebStarterSeb = "SebClient.seb";
+        // The default SEB configuration file
+        const String DefaultSebConfigIni = "SebClient.ini";
+        const String DefaultSebConfigXml = "SebClient.xml";
+        const String DefaultSebConfigSeb = "SebClient.seb";
 
         // The values can be in 4 different states:
         // old, new, temporary and default values
@@ -373,15 +372,15 @@ namespace SebWindowsConfig
 
         // Global variables
 
-        // The ini file currently being modified
+        // The current SEB configuration file
         String currentDireSebConfigFile;
         String currentFileSebConfigFile;
         String currentPathSebConfigFile;
 
-        // The target file the user must configure,
-        // because this is used by the application SebStarter.exe
-        String targetDireSebConfigFile;
-        String targetPathSebConfigFile;
+        // The default SEB configuration file
+        String defaultDireSebConfigFile;
+        String defaultFileSebConfigFile;
+        String defaultPathSebConfigFile;
 
         // Strings for encryption identities (KeyChain, Certificate Store)
         //static ArrayList chooseIdentityStringArrayList = new ArrayList();
@@ -406,12 +405,12 @@ namespace SebWindowsConfig
         // Number of values per group
         // Names  of groups and values
         // Types  of values (Boolean, Integer, String)
-        static    int[ ]    minValue  = new    int[GroupNum + 1];
-        static    int[ ]    maxValue  = new    int[GroupNum + 1];
-        static String[ ] configString = new String[ FileNum + 1];
-        static String[ ]  groupString = new String[GroupNum + 1];
-        static String[,]  valueString = new String[GroupNum + 1, ValueNum + 1];
-        static    int[,]   dataType   = new    int[GroupNum + 1, ValueNum + 1];
+        static    int[ ]   minValue  = new    int[GroupNum + 1];
+        static    int[ ]   maxValue  = new    int[GroupNum + 1];
+        static String[ ]  fileString = new String[ FileNum + 1];
+        static String[ ] groupString = new String[GroupNum + 1];
+        static String[,] valueString = new String[GroupNum + 1, ValueNum + 1];
+        static    int[,]  dataType   = new    int[GroupNum + 1, ValueNum + 1];
 
         // Settings as Booleans ("true" or "false") or Strings
         static Boolean[,,] settingBoolean = new Boolean[StateNum + 1, GroupNum + 1, ValueNum + 1];
@@ -708,9 +707,9 @@ namespace SebWindowsConfig
 
 
             // File names
-            configString[FileSebStarterIni] = TargetSebStarterIni;
-            configString[FileSebStarterXml] = TargetSebStarterXml;
-            configString[FileSebStarterSeb] = TargetSebStarterSeb;
+            fileString[FileSebStarterIni] = DefaultSebConfigIni;
+            fileString[FileSebStarterXml] = DefaultSebConfigXml;
+            fileString[FileSebStarterSeb] = DefaultSebConfigSeb;
 
             // Group names
             groupString[GroupGeneral     ] = MessageGeneral;
@@ -951,19 +950,19 @@ namespace SebWindowsConfig
 
           //SetWidgetsToNewSettings();
 
-            // Try to open the configuration file (SebStarter.ini/xml/seb)
+            // Try to open the configuration file ("SebClient.ini/xml/seb")
             // given in the local directory (where SebWindowsConfig.exe was called)
             currentDireSebConfigFile = Directory.GetCurrentDirectory();
             currentFileSebConfigFile = "";
             currentPathSebConfigFile = "";
 
-             targetDireSebConfigFile = Directory.GetCurrentDirectory();
-             targetPathSebConfigFile =      Path.GetFullPath(TargetSebStarterXml);
-
-            String fileName = targetPathSebConfigFile;
-
+             defaultDireSebConfigFile = Directory.GetCurrentDirectory();
+             defaultFileSebConfigFile =                  DefaultSebConfigXml;
+             defaultPathSebConfigFile = Path.GetFullPath(DefaultSebConfigXml);
+/*
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
+            String fileName    = defaultPathSebConfigFile;
             String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
             String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
             String fileNameIni = fileNameRaw + ".ini";
@@ -971,13 +970,14 @@ namespace SebWindowsConfig
             String fileNameSeb = fileNameRaw + ".seb";
 
             // Read the settings from the standard configuration file
-            //if (fileNameExt.Equals(".ini")) OpenIniFile(fileNameIni);
-            //if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
-            //if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
-
-            openFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
-            saveFileDialogSebStarterIni.InitialDirectory = Environment.CurrentDirectory;
-//          folderBrowserDialogDownloadFolder.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+            if (fileNameExt.Equals(".ini")) OpenIniFile(fileNameIni);
+            if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
+            if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
+*/
+            openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
+            saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
+            //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+            //folderBrowserDialogLogDirectoryWin     .RootFolder = Environment.SpecialFolder.MyDocuments;
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -1173,12 +1173,12 @@ namespace SebWindowsConfig
             {
                 // Let the user know what went wrong
                 MessageBox.Show("The file \"" + fileName + "\" does not match the syntax of a "
-                                + configString[FileSebStarterIni] + " config file."
+                                + fileString[FileSebStarterIni] + " config file."
                                 + " Debug data: "
-                                + " fileLine   = " +  fileLine
-                                + " leftString = " +  leftString
-                                +" rightString = " + rightString,
-                                "Error when reading " + configString[FileSebStarterIni],
+                                + " fileLine   = "     +  fileLine
+                                + " leftString = "     +  leftString
+                                +" rightString = "     + rightString,
+                                 "Error when reading " +  fileString[FileSebStarterIni],
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -1249,8 +1249,9 @@ namespace SebWindowsConfig
                 encryptedSettings = textReader.ReadToEnd();
                 textReader.Close();
 
-                decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
-                decryptedSettings = decryptedSettings.Trim();
+                //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
+                //decryptedSettings = decryptedSettings.Trim();
+                decryptedSettings = encryptedSettings;
 
                 sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
 
@@ -1441,8 +1442,9 @@ namespace SebWindowsConfig
 
                 decryptedSettings = Plist.writeXml(sebSettingsNew);
 
-                encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
-                encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
+                //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
+                //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
+                encryptedSettings = decryptedSettings;
 
                 textWriter = new StreamWriter(fileName);
                 textWriter.Write(encryptedSettings);
@@ -1825,14 +1827,14 @@ namespace SebWindowsConfig
         {
 /*
             // If no file has been opened, save the current settings
-            // to the target configuration file ("SebStarter.ini/xml/seb")
+            // to the default configuration file ("SebStarter.ini/xml/seb")
             if (currentFileSebStarterIni.Equals(""))
             {
-                currentFileSebStarterIni = targetFileSebStarterIni;
-                currentPathSebStarterIni = targetPathSebStarterIni;
+                currentFileSebStarter = defaultFileSebStarter;
+                currentPathSebStarter = defaultPathSebStarter;
             }
 
-            String fileName = currentPathSebStarterIni;
+            String fileName = currentPathSebStarter;
 
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
@@ -1921,12 +1923,12 @@ namespace SebWindowsConfig
         private void labelOpenSettings_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
-            openFileDialogSebStarterIni.InitialDirectory = currentDireSebConfigFile;
-            openFileDialogSebStarterIni.FileName         = currentFileSebConfigFile;
+            openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
+            openFileDialogSebConfigFile.FileName         = currentFileSebConfigFile;
 
             // Get the user inputs in the File Dialog
-            DialogResult fileDialogResult = openFileDialogSebStarterIni.ShowDialog();
-            String       fileName         = openFileDialogSebStarterIni.FileName;
+            DialogResult fileDialogResult = openFileDialogSebConfigFile.ShowDialog();
+            String       fileName         = openFileDialogSebConfigFile.FileName;
 
             // If the user clicked "Cancel", do nothing
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
@@ -1949,12 +1951,12 @@ namespace SebWindowsConfig
         private void labelSaveSettingsAs_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
-            saveFileDialogSebStarterIni.InitialDirectory = currentDireSebConfigFile;
-            saveFileDialogSebStarterIni.FileName         = currentFileSebConfigFile;
+            saveFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
+            saveFileDialogSebConfigFile.FileName         = currentFileSebConfigFile;
 
             // Get the user inputs in the File Dialog
-            DialogResult fileDialogResult = saveFileDialogSebStarterIni.ShowDialog();
-            String       fileName         = saveFileDialogSebStarterIni.FileName;
+            DialogResult fileDialogResult = saveFileDialogSebConfigFile.ShowDialog();
+            String       fileName         = saveFileDialogSebConfigFile.FileName;
 
             // If the user clicked "Cancel", do nothing
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
@@ -1968,15 +1970,9 @@ namespace SebWindowsConfig
             String fileNameSeb = fileNameRaw + ".seb";
 
             // If the user clicked "OK", write the settings to the configuration file
-
             if (fileNameExt.Equals(".ini")) SaveIniFile(fileNameIni);
             if (fileNameExt.Equals(".xml")) SaveXmlFile(fileNameXml);
             if (fileNameExt.Equals(".seb")) SaveSebFile(fileNameSeb);
-/*
-            SaveIniFile(fileNameIni);
-            SaveXmlFile(fileNameXml);
-            SaveSebFile(fileNameSeb);
-*/
         }
 
 
