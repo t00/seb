@@ -401,6 +401,8 @@ namespace SebWindowsConfig
         static String[] StringPolicyProxySettings = new String[2];
         static String[] StringPolicySebService    = new String[3];
         static String[] StringFunctionKey         = new String[12];
+        static String[] StringPermittedProcessesColumn = new String[4];
+
 
         // Number of values per group
         // Names  of groups and values
@@ -932,6 +934,27 @@ namespace SebWindowsConfig
 
              listBoxChooseFileToUploadPolicy.Items.AddRange(StringPolicyFileUpload);
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
+
+
+            // Define the strings for the Permitted Processes columns
+            StringPermittedProcessesColumn[0] = "x";
+            StringPermittedProcessesColumn[1] = "OS";
+            StringPermittedProcessesColumn[2] = "Executable";
+            StringPermittedProcessesColumn[3] = "Title";
+
+
+            // Assign the fixed entries to the listViews
+
+          //listViewPermittedProcesses.Columns.AddRange(StringPermittedProcessesColumn);
+
+          //listViewPermittedProcesses.Groups.Add("PermProc", "permproc");
+
+            listViewPermittedProcesses.View = View.Details;
+            listViewPermittedProcesses.Columns.Add("");
+            listViewPermittedProcesses.Columns.Add("OS");
+            listViewPermittedProcesses.Columns.Add("Executable");
+            listViewPermittedProcesses.Columns.Add("Title");
+            //listViewPermittedProcesses.Items.Add("TitleRow");
 
 
             // IMPORTANT:

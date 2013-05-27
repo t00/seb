@@ -97,6 +97,7 @@
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
+            this.listViewPermittedProcesses = new System.Windows.Forms.ListView();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
@@ -205,7 +206,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -999,7 +999,7 @@
             // 
             // tabPagePermittedProcesses
             // 
-            this.tabPagePermittedProcesses.Controls.Add(this.listView1);
+            this.tabPagePermittedProcesses.Controls.Add(this.listViewPermittedProcesses);
             this.tabPagePermittedProcesses.Controls.Add(this.comboBox1);
             this.tabPagePermittedProcesses.Controls.Add(this.checkedListBox1);
             this.tabPagePermittedProcesses.Controls.Add(this.groupBoxSelectedProcess);
@@ -1012,6 +1012,14 @@
             this.tabPagePermittedProcesses.TabIndex = 0;
             this.tabPagePermittedProcesses.Text = "Permitted Processes";
             this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
+            // 
+            // listViewPermittedProcesses
+            // 
+            this.listViewPermittedProcesses.Location = new System.Drawing.Point(24, 85);
+            this.listViewPermittedProcesses.Name = "listViewPermittedProcesses";
+            this.listViewPermittedProcesses.Size = new System.Drawing.Size(507, 97);
+            this.listViewPermittedProcesses.TabIndex = 84;
+            this.listViewPermittedProcesses.UseCompatibleStateImageBehavior = false;
             // 
             // comboBox1
             // 
@@ -2255,14 +2263,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(163, 92);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 97);
-            this.listView1.TabIndex = 84;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2496,7 +2496,7 @@
         private System.Windows.Forms.GroupBox groupBoxSelectedProcess;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewPermittedProcesses;
 
     }
 }
