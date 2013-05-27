@@ -1281,6 +1281,8 @@ namespace SebWindowsConfig
             // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettings();
+            PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
+            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
             return true;
         }
 
