@@ -2667,21 +2667,22 @@ namespace SebWindowsConfig
 
             // Update the widgets
 
-/*
-            List<object> list = null;
+            List<object> permittedProcessList = null;
             Dictionary<string, object> dict = null;
+            ListViewItem processRow = null;
 
-            if (sebSettingsNew.ContainsKey("permittedProcesses"))
+            permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+
+            for (int index = 0; index < permittedProcessList.Count; index++)
             {
-                list = (List<object>) sebSettingsNew["permittedProcesses"];
+                dict = (Dictionary<string, object>) permittedProcessList[index];
 
-                if (list.Count > 0)
-                {
-                    dict = (Dictionary<string, object>) list[0];
-                    textBoxStartURL.Text = (String)dict["name"];
-                }
+                processRow.SubItems.Add((Boolean) dict["Active"]);
+
+                listViewPermittedProcesses.Items.Add(processRow);
             }
-*/
+
+
 
             // Group "General"
             textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
