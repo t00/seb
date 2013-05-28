@@ -124,8 +124,10 @@
 			<string>com.microsoft.Excel</string>
 			<key>name</key>
 			<string>Microsoft Excel</string>
-			<key>nameOSX</key>
+			<key>executable</key>
 			<string>Excel.app</string>
+			<key>os</key>
+			<integer>0</integer>
 			<key>path</key>
 			<string>Microsoft Office 2011/Microsoft Excel.app/Contents/MacOS</string>
 			<key>title</key>
@@ -151,8 +153,10 @@
 			<string>com.apple.TextEdit</string>
 			<key>name</key>
 			<string>TextEdit</string>
-			<key>nameOSX</key>
+			<key>executable</key>
 			<string>TextEdit.app</string>
+			<key>os</key>
+			<integer>1</integer>
 			<key>path</key>
 			<string>TextEdit.app/Contents/MacOS</string>
 			<key>title</key>
@@ -166,8 +170,10 @@
 			<true/>
 			<key>description</key>
 			<string>OS X screencapture tool invoked by cmd-shift-3 or 4</string>
-			<key>nameOSX</key>
+			<key>name</key>
 			<string>screencapture</string>
+			<key>os</key>
+			<integer>0</integer>
 			<key>strongKill</key>
 			<true/>
 		</dict>
