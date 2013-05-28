@@ -2678,8 +2678,8 @@ namespace SebWindowsConfig
 
                 ListViewItem processRow = new ListViewItem((String)dict["identifier"]);
 
-                processRow.SubItems.Add((String) dict["nameOSX"]);
                 processRow.SubItems.Add((String) dict["name"]);
+                processRow.SubItems.Add((String) dict["executable"]);
                 processRow.SubItems.Add((String) dict["title"]);
 
                 listViewPermittedProcesses.Items.Add(processRow);
