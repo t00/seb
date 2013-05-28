@@ -937,24 +937,18 @@ namespace SebWindowsConfig
 
 
             // Define the strings for the Permitted Processes columns
-            StringPermittedProcessesColumn[0] = "x";
+            StringPermittedProcessesColumn[0] = "Active";
             StringPermittedProcessesColumn[1] = "OS";
             StringPermittedProcessesColumn[2] = "Executable";
             StringPermittedProcessesColumn[3] = "Title";
 
 
             // Assign the fixed entries to the listViews
-
-          //listViewPermittedProcesses.Columns.AddRange(StringPermittedProcessesColumn);
-
-          //listViewPermittedProcesses.Groups.Add("PermProc", "permproc");
-
             listViewPermittedProcesses.View = View.Details;
-            listViewPermittedProcesses.Columns.Add("");
+            listViewPermittedProcesses.Columns.Add("Active");
             listViewPermittedProcesses.Columns.Add("OS");
             listViewPermittedProcesses.Columns.Add("Executable");
             listViewPermittedProcesses.Columns.Add("Title");
-            //listViewPermittedProcesses.Items.Add("TitleRow");
 
 
             // IMPORTANT:
@@ -2669,17 +2663,28 @@ namespace SebWindowsConfig
 
             List<object> permittedProcessList = null;
             Dictionary<string, object> dict = null;
-            ListViewItem processRow = null;
+
 
             permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
             for (int index = 0; index < permittedProcessList.Count; index++)
             {
                 dict = (Dictionary<string, object>) permittedProcessList[index];
+/*
+                if ((Boolean)dict["active"] == true)
+                     processRow.SubItems.Add("True");
+                else processRow.SubItems.Add("False");
+*/
 
-                processRow.SubItems.Add((Boolean) dict["Active"]);
+                ListViewItem processRow = new ListViewItem((String)dict["identifier"]);
+
+                processRow.SubItems.Add((String) dict["nameOSX"]);
+                processRow.SubItems.Add((String) dict["name"]);
+                processRow.SubItems.Add((String) dict["title"]);
 
                 listViewPermittedProcesses.Items.Add(processRow);
+
+                //if (index == 0) break;
             }
 
 

@@ -1017,7 +1017,7 @@
             // 
             this.listViewPermittedProcesses.Location = new System.Drawing.Point(24, 85);
             this.listViewPermittedProcesses.Name = "listViewPermittedProcesses";
-            this.listViewPermittedProcesses.Size = new System.Drawing.Size(507, 97);
+            this.listViewPermittedProcesses.Size = new System.Drawing.Size(576, 97);
             this.listViewPermittedProcesses.TabIndex = 84;
             this.listViewPermittedProcesses.UseCompatibleStateImageBehavior = false;
             // 
