@@ -99,7 +99,7 @@
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
             this.listViewPermittedProcesses = new System.Windows.Forms.ListView();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxPermitted = new System.Windows.Forms.CheckedListBox();
             this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
             this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
@@ -982,7 +982,7 @@
             this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
             this.tabPageApplications.Name = "tabPageApplications";
             this.tabPageApplications.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageApplications.Size = new System.Drawing.Size(1054, 469);
+            this.tabPageApplications.Size = new System.Drawing.Size(1054, 557);
             this.tabPageApplications.TabIndex = 21;
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
@@ -994,54 +994,55 @@
             this.tabControlApplications.Location = new System.Drawing.Point(32, 72);
             this.tabControlApplications.Name = "tabControlApplications";
             this.tabControlApplications.SelectedIndex = 0;
-            this.tabControlApplications.Size = new System.Drawing.Size(819, 354);
+            this.tabControlApplications.Size = new System.Drawing.Size(819, 479);
             this.tabControlApplications.TabIndex = 79;
             // 
             // tabPagePermittedProcesses
             // 
             this.tabPagePermittedProcesses.Controls.Add(this.listViewPermittedProcesses);
             this.tabPagePermittedProcesses.Controls.Add(this.comboBox1);
-            this.tabPagePermittedProcesses.Controls.Add(this.checkedListBox1);
+            this.tabPagePermittedProcesses.Controls.Add(this.checkedListBoxPermitted);
             this.tabPagePermittedProcesses.Controls.Add(this.groupBoxSelectedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowSwitchToApplications);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowFlashFullscreen);
             this.tabPagePermittedProcesses.Location = new System.Drawing.Point(4, 25);
             this.tabPagePermittedProcesses.Name = "tabPagePermittedProcesses";
             this.tabPagePermittedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(811, 325);
+            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(811, 450);
             this.tabPagePermittedProcesses.TabIndex = 0;
             this.tabPagePermittedProcesses.Text = "Permitted Processes";
             this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
             // 
             // listViewPermittedProcesses
             // 
-            this.listViewPermittedProcesses.Location = new System.Drawing.Point(24, 85);
+            this.listViewPermittedProcesses.Location = new System.Drawing.Point(276, 85);
             this.listViewPermittedProcesses.Name = "listViewPermittedProcesses";
-            this.listViewPermittedProcesses.Size = new System.Drawing.Size(576, 97);
+            this.listViewPermittedProcesses.Size = new System.Drawing.Size(410, 97);
             this.listViewPermittedProcesses.TabIndex = 84;
             this.listViewPermittedProcesses.UseCompatibleStateImageBehavior = false;
+            this.listViewPermittedProcesses.SelectedIndexChanged += new System.EventHandler(this.listViewPermittedProcesses_SelectedIndexChanged);
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(670, 141);
+            this.comboBox1.Location = new System.Drawing.Point(112, 85);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 24);
             this.comboBox1.TabIndex = 83;
             // 
-            // checkedListBox1
+            // checkedListBoxPermitted
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(606, 27);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(172, 89);
-            this.checkedListBox1.TabIndex = 82;
+            this.checkedListBoxPermitted.FormattingEnabled = true;
+            this.checkedListBoxPermitted.Location = new System.Drawing.Point(24, 85);
+            this.checkedListBoxPermitted.Name = "checkedListBoxPermitted";
+            this.checkedListBoxPermitted.Size = new System.Drawing.Size(73, 106);
+            this.checkedListBoxPermitted.TabIndex = 82;
             // 
             // groupBoxSelectedProcess
             // 
-            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 206);
+            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 258);
             this.groupBoxSelectedProcess.Name = "groupBoxSelectedProcess";
-            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(692, 100);
+            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(692, 176);
             this.groupBoxSelectedProcess.TabIndex = 80;
             this.groupBoxSelectedProcess.TabStop = false;
             this.groupBoxSelectedProcess.Text = "Selected Process";
@@ -2260,7 +2261,7 @@
             this.tabControlSebWindowsConfig.Location = new System.Drawing.Point(45, 31);
             this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
-            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 512);
+            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1062, 600);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
             // SebWindowsConfigForm
@@ -2495,7 +2496,7 @@
         private System.Windows.Forms.TabPage tabPageProxies;
         private System.Windows.Forms.GroupBox groupBoxSelectedProcess;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBoxPermitted;
         private System.Windows.Forms.ListView listViewPermittedProcesses;
 
     }

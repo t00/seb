@@ -401,7 +401,10 @@ namespace SebWindowsConfig
         static String[] StringPolicyProxySettings = new String[2];
         static String[] StringPolicySebService    = new String[3];
         static String[] StringFunctionKey         = new String[12];
-        static String[] StringPermittedProcessesColumn = new String[4];
+        static String[] StringColumnsProcessesPermitted  = new String[4];
+        static String[] StringColumnsProcessesProhibited = new String[4];
+        static String[] StringActive              = {"true", "false"};
+        static String[] StringOperatingSystem     = new String[2];
 
 
         // Number of values per group
@@ -937,11 +940,10 @@ namespace SebWindowsConfig
 
 
             // Define the strings for the Permitted Processes columns
-            StringPermittedProcessesColumn[0] = "Active";
-            StringPermittedProcessesColumn[1] = "OS";
-            StringPermittedProcessesColumn[2] = "Executable";
-            StringPermittedProcessesColumn[3] = "Title";
-
+            StringColumnsProcessesPermitted[0] = "Active";
+            StringColumnsProcessesPermitted[1] = "OS";
+            StringColumnsProcessesPermitted[2] = "Executable";
+            StringColumnsProcessesPermitted[3] = "Title";
 
             // Assign the fixed entries to the listViews
             listViewPermittedProcesses.View = View.Details;
@@ -949,6 +951,12 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.Columns.Add("OS");
             listViewPermittedProcesses.Columns.Add("Executable");
             listViewPermittedProcesses.Columns.Add("Title");
+
+            //StringActive[0] = "alpha";
+            //StringActive[1] = "beta";
+
+            StringOperatingSystem[0] = "OS X";
+            StringOperatingSystem[1] = "Win";
 
 
             // IMPORTANT:
@@ -2053,7 +2061,7 @@ namespace SebWindowsConfig
         private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageEnableBrowserWindowToolbar] = checkBoxEnableBrowserWindowToolbar.Checked;
-            checkBoxHideBrowserWindowToolbar.Enabled = checkBoxEnableBrowserWindowToolbar.Checked;
+            checkBoxHideBrowserWindowToolbar.Enabled          = checkBoxEnableBrowserWindowToolbar.Checked;
         }
 
         private void checkBoxHideBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
@@ -2253,11 +2261,19 @@ namespace SebWindowsConfig
         private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
+            checkBoxAllowFlashFullscreen.Enabled             = checkBoxAllowSwitchToApplications.Checked;
         }
 
         private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
+        }
+
+        private void listViewPermittedProcesses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedIndexCollection indices = listViewPermittedProcesses.SelectedIndices;
+            //int indexSelectedProcess = indices.
+            //listViewPermittedProcesses.Items[index];
         }
 
         // ****************************
@@ -2669,16 +2685,22 @@ namespace SebWindowsConfig
 
             for (int index = 0; index < permittedProcessList.Count; index++)
             {
+                ListViewItem processRow;
+
                 dict = (Dictionary<string, object>) permittedProcessList[index];
-/*
-                if ((Boolean)dict["active"] == true)
-                     processRow.SubItems.Add("True");
-                else processRow.SubItems.Add("False");
-*/
 
-                ListViewItem processRow = new ListViewItem((String)dict["identifier"]);
+                Boolean activeBoolean = (Boolean) dict["active"];
+                Int32       osInteger = (Int32)   dict["os"];
 
-                processRow.SubItems.Add((String) dict["name"]);
+                String  activeString  = activeBoolean.ToString();
+                String      osString  = StringOperatingSystem[osInteger];
+
+                //processRow = new ListViewItem(dict["active"].ToString());
+                //processRow.SubItems.Add(StringOperatingSystem[(Int32) dict["os"]]);
+
+                processRow = new ListViewItem(activeString);
+                processRow.SubItems.Add(osString);
+
                 processRow.SubItems.Add((String) dict["executable"]);
                 processRow.SubItems.Add((String) dict["title"]);
 
@@ -2818,9 +2840,6 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
-
-
-
 
 
 
