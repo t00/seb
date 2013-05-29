@@ -2269,12 +2269,48 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageAllowFlashFullscreen] = checkBoxAllowFlashFullscreen.Checked;
         }
 
+
         private void listViewPermittedProcesses_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListView.SelectedIndexCollection indices = listViewPermittedProcesses.SelectedIndices;
-            //int indexSelectedProcess = indices.
+            ListViewItem selectedItem = listViewPermittedProcesses.SelectedItems[0];
+            int selectedIndex1 = selectedItem.Index;
+            int selectedIndex  = listViewPermittedProcesses.SelectedItems[0].Index;
             //listViewPermittedProcesses.Items[index];
+            //checkBoxPermittedProcessActive.Checked = true;
+            //textBoxPermittedProcessTitle.Text = listViewPermittedProcesses.
+
+            List<object> permittedProcessList = null;
+            Dictionary<string, object>   dict = null;
+
+            permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+
+            if (selectedIndex >= 0)
+            {
+                ListViewItem processRow;
+
+                dict = (Dictionary<string, object>) permittedProcessList[selectedIndex];
+
+                Boolean activeBoolean = (Boolean) dict["active"];
+                Int32       osInteger = (Int32)   dict["os"];
+
+                String  activeString  = activeBoolean.ToString();
+                String      osString  = StringOperatingSystem[osInteger];
+
+                //processRow = new ListViewItem(dict["active"].ToString());
+                //processRow.SubItems.Add(StringOperatingSystem[(Int32) dict["os"]]);
+
+                processRow = new ListViewItem(activeString);
+                processRow.SubItems.Add(osString);
+
+                processRow.SubItems.Add((String) dict["executable"]);
+                processRow.SubItems.Add((String) dict["title"]);
+
+                listViewPermittedProcesses.Items.Add(processRow);
+            }
+
         }
+
 
         // ****************************
         // Group "Prohibited Processes"
@@ -2680,7 +2716,6 @@ namespace SebWindowsConfig
             List<object> permittedProcessList = null;
             Dictionary<string, object> dict = null;
 
-
             permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
             for (int index = 0; index < permittedProcessList.Count; index++)
@@ -2705,8 +2740,6 @@ namespace SebWindowsConfig
                 processRow.SubItems.Add((String) dict["title"]);
 
                 listViewPermittedProcesses.Items.Add(processRow);
-
-                //if (index == 0) break;
             }
 
 
