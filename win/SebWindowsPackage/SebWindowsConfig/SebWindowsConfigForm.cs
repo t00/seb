@@ -234,6 +234,22 @@ namespace SebWindowsConfig
         const String MessageAllowFlashFullscreen      = "allowFlashFullscreen";
         const String MessageProhibitedProcesses       = "prohibitedProcesses";
 
+        const String MessageActive      = "active";
+        const String MessageAutostart   = "autostart";
+        const String MessageAutohide    = "autohide";
+        const String MessageAllowUser   = "allowUserToChooseApp";
+        const String MessageCurrentUser = "currentUser";
+        const String MessageStrongKill  = "strongKill";
+        const String MessageOS          = "os";
+        const String MessageAppTitle    = "appTitle";
+        const String MessageDescription = "description";
+        const String MessageExecutable  = "executable";
+        const String MessagePath        = "path";
+        const String MessageIdentifier  = "identifier";
+        const String MessageUser        = "user";
+        const String MessageArguments   = "arguments";
+
+
         // Group "Network"
 
         // Group "Filter"
@@ -943,14 +959,14 @@ namespace SebWindowsConfig
             StringColumnsProcessesPermitted[0] = "Active";
             StringColumnsProcessesPermitted[1] = "OS";
             StringColumnsProcessesPermitted[2] = "Executable";
-            StringColumnsProcessesPermitted[3] = "Title";
+            StringColumnsProcessesPermitted[3] = "AppTitle";
 
             // Assign the fixed entries to the listViews
             listViewPermittedProcesses.View = View.Details;
             listViewPermittedProcesses.Columns.Add("Active");
             listViewPermittedProcesses.Columns.Add("OS");
             listViewPermittedProcesses.Columns.Add("Executable");
-            listViewPermittedProcesses.Columns.Add("Title");
+            listViewPermittedProcesses.Columns.Add("AppTitle");
 
             //StringActive[0] = "alpha";
             //StringActive[1] = "beta";
@@ -2276,37 +2292,35 @@ namespace SebWindowsConfig
             ListViewItem selectedItem = listViewPermittedProcesses.SelectedItems[0];
             int selectedIndex1 = selectedItem.Index;
             int selectedIndex  = listViewPermittedProcesses.SelectedItems[0].Index;
-            //listViewPermittedProcesses.Items[index];
-            //checkBoxPermittedProcessActive.Checked = true;
-            //textBoxPermittedProcessTitle.Text = listViewPermittedProcesses.
+
 
             List<object> permittedProcessList = null;
             Dictionary<string, object>   dict = null;
 
             permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
-            if (selectedIndex >= 0)
+            if ((selectedIndex >= 0) && (selectedIndex < permittedProcessList.Count))
             {
-                ListViewItem processRow;
-
                 dict = (Dictionary<string, object>) permittedProcessList[selectedIndex];
 
-                Boolean activeBoolean = (Boolean) dict["active"];
-                Int32       osInteger = (Int32)   dict["os"];
+                Boolean activeBoolean = (Boolean) dict[MessageActive];
+                Int32       osInteger = (Int32)   dict[MessageOS];
 
                 String  activeString  = activeBoolean.ToString();
                 String      osString  = StringOperatingSystem[osInteger];
 
-                //processRow = new ListViewItem(dict["active"].ToString());
-                //processRow.SubItems.Add(StringOperatingSystem[(Int32) dict["os"]]);
+                checkBoxPermittedProcessActive   .Checked = (Boolean) dict[MessageActive];
+                checkBoxPermittedProcessAutostart.Checked = (Boolean) dict[MessageAutostart];
+                checkBoxPermittedProcessAutohide .Checked = (Boolean) dict[MessageAutohide];
+                checkBoxPermittedProcessAllowUser.Checked = (Boolean) dict[MessageAllowUser];
 
-                processRow = new ListViewItem(activeString);
-                processRow.SubItems.Add(osString);
+                 listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
 
-                processRow.SubItems.Add((String) dict["executable"]);
-                processRow.SubItems.Add((String) dict["title"]);
-
-                listViewPermittedProcesses.Items.Add(processRow);
+                 textBoxPermittedProcessAppTitle   .Text = (String) dict[MessageAppTitle];
+                 textBoxPermittedProcessDescription.Text = (String) dict[MessageDescription];
+                 textBoxPermittedProcessExecutable .Text = (String) dict[MessageExecutable];
+                 textBoxPermittedProcessPath       .Text = (String) dict[MessagePath];
+                 textBoxPermittedProcessIdentifier .Text = (String) dict[MessageIdentifier];
             }
 
         }
@@ -2714,7 +2728,7 @@ namespace SebWindowsConfig
             // Update the widgets
 
             List<object> permittedProcessList = null;
-            Dictionary<string, object> dict = null;
+            Dictionary<string, object>   dict = null;
 
             permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
@@ -2724,20 +2738,20 @@ namespace SebWindowsConfig
 
                 dict = (Dictionary<string, object>) permittedProcessList[index];
 
-                Boolean activeBoolean = (Boolean) dict["active"];
-                Int32       osInteger = (Int32)   dict["os"];
+                Boolean activeBoolean = (Boolean) dict[MessageActive];
+                Int32       osInteger = (Int32)   dict[MessageOS];
 
                 String  activeString  = activeBoolean.ToString();
                 String      osString  = StringOperatingSystem[osInteger];
 
-                //processRow = new ListViewItem(dict["active"].ToString());
-                //processRow.SubItems.Add(StringOperatingSystem[(Int32) dict["os"]]);
+                //processRow = new ListViewItem(dict[MessageActive].ToString());
+                //processRow.SubItems.Add(StringOperatingSystem[(Int32) dict[MessageOS]]);
 
                 processRow = new ListViewItem(activeString);
                 processRow.SubItems.Add(osString);
 
-                processRow.SubItems.Add((String) dict["executable"]);
-                processRow.SubItems.Add((String) dict["title"]);
+                processRow.SubItems.Add((String) dict[MessageExecutable]);
+                processRow.SubItems.Add((String) dict[MessageAppTitle]);
 
                 listViewPermittedProcesses.Items.Add(processRow);
             }

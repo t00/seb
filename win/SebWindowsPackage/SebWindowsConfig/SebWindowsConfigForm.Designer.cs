@@ -97,9 +97,34 @@
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
+            this.buttonChoosePermittedProcess = new System.Windows.Forms.Button();
+            this.buttonChoosePermittedApplication = new System.Windows.Forms.Button();
+            this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
+            this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.listViewPermittedProcesses = new System.Windows.Forms.ListView();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkedListBoxPermitted = new System.Windows.Forms.CheckedListBox();
+            this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
+            this.labelPermittedProcessIdentifier = new System.Windows.Forms.Label();
+            this.textBoxPermittedProcessIdentifier = new System.Windows.Forms.TextBox();
+            this.checkedListBoxPermittedProcessArguments = new System.Windows.Forms.CheckedListBox();
+            this.buttonPermittedProcessRemoveArgument = new System.Windows.Forms.Button();
+            this.buttonPermittedProcessAddArgument = new System.Windows.Forms.Button();
+            this.labelPermittedProcessArguments = new System.Windows.Forms.Label();
+            this.labelPermittedProcessOS = new System.Windows.Forms.Label();
+            this.listBoxPermittedProcessOS = new System.Windows.Forms.ListBox();
+            this.labelPermittedProcessExecutable = new System.Windows.Forms.Label();
+            this.labelPermittedProcessPath = new System.Windows.Forms.Label();
+            this.textBoxPermittedProcessPath = new System.Windows.Forms.TextBox();
+            this.textBoxPermittedProcessExecutable = new System.Windows.Forms.TextBox();
+            this.textBoxPermittedProcessDescription = new System.Windows.Forms.TextBox();
+            this.labelPermittedProcessDescription = new System.Windows.Forms.Label();
+            this.labelPermittedProcessAppTitle = new System.Windows.Forms.Label();
+            this.textBoxPermittedProcessAppTitle = new System.Windows.Forms.TextBox();
+            this.checkBoxPermittedProcessAllowUser = new System.Windows.Forms.CheckBox();
+            this.checkBoxPermittedProcessAutohide = new System.Windows.Forms.CheckBox();
+            this.checkBoxPermittedProcessAutostart = new System.Windows.Forms.CheckBox();
+            this.checkBoxPermittedProcessActive = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
             this.tabPageProhibitedProcesses = new System.Windows.Forms.TabPage();
@@ -205,31 +230,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
-            this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
-            this.buttonChoosePermittedApplication = new System.Windows.Forms.Button();
-            this.buttonChoosePermittedProcess = new System.Windows.Forms.Button();
-            this.checkBoxPermittedProcessActive = new System.Windows.Forms.CheckBox();
-            this.checkBoxPermittedProcessAutostart = new System.Windows.Forms.CheckBox();
-            this.checkBoxPermittedProcessAutohide = new System.Windows.Forms.CheckBox();
-            this.checkBoxPermittedProcessAllowUser = new System.Windows.Forms.CheckBox();
-            this.textBoxPermittedProcessTitle = new System.Windows.Forms.TextBox();
-            this.labelPermittedProcessTitle = new System.Windows.Forms.Label();
-            this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
-            this.labelPermittedProcessDescription = new System.Windows.Forms.Label();
-            this.textBoxPermittedProcessDescription = new System.Windows.Forms.TextBox();
-            this.textBoxPermittedProcessExecutable = new System.Windows.Forms.TextBox();
-            this.textBoxPermittedProcessPath = new System.Windows.Forms.TextBox();
-            this.labelPermittedProcessPath = new System.Windows.Forms.Label();
-            this.labelPermittedProcessExecutable = new System.Windows.Forms.Label();
-            this.listBoxPermittedProcessOS = new System.Windows.Forms.ListBox();
-            this.labelPermittedProcessOS = new System.Windows.Forms.Label();
-            this.labelPermittedProcessArguments = new System.Windows.Forms.Label();
-            this.buttonPermittedProcessAddArgument = new System.Windows.Forms.Button();
-            this.buttonPermittedProcessRemoveArgument = new System.Windows.Forms.Button();
-            this.checkedListBoxPermittedProcessArguments = new System.Windows.Forms.CheckedListBox();
-            this.textBoxPermittedProcessIdentifier = new System.Windows.Forms.TextBox();
-            this.labelPermittedProcessIdentifier = new System.Windows.Forms.Label();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -243,6 +243,7 @@
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
             this.tabPagePermittedProcesses.SuspendLayout();
+            this.groupBoxSelectedProcess.SuspendLayout();
             this.tabPageExam.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
@@ -253,7 +254,6 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
-            this.groupBoxSelectedProcess.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -284,7 +284,7 @@
             this.tabPageHookedKeys.Location = new System.Drawing.Point(4, 39);
             this.tabPageHookedKeys.Name = "tabPageHookedKeys";
             this.tabPageHookedKeys.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHookedKeys.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageHookedKeys.Size = new System.Drawing.Size(1092, 857);
             this.tabPageHookedKeys.TabIndex = 27;
             this.tabPageHookedKeys.Text = "Hooked Keys";
             this.tabPageHookedKeys.UseVisualStyleBackColor = true;
@@ -578,7 +578,7 @@
             this.tabPageRegistry.Location = new System.Drawing.Point(4, 39);
             this.tabPageRegistry.Name = "tabPageRegistry";
             this.tabPageRegistry.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRegistry.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageRegistry.Size = new System.Drawing.Size(1092, 857);
             this.tabPageRegistry.TabIndex = 25;
             this.tabPageRegistry.Text = "Registry";
             this.tabPageRegistry.UseVisualStyleBackColor = true;
@@ -853,7 +853,7 @@
             this.tabPageSecurity.Location = new System.Drawing.Point(4, 39);
             this.tabPageSecurity.Name = "tabPageSecurity";
             this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSecurity.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageSecurity.Size = new System.Drawing.Size(1092, 857);
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
@@ -954,7 +954,7 @@
             this.tabPageNetwork.Location = new System.Drawing.Point(4, 39);
             this.tabPageNetwork.Name = "tabPageNetwork";
             this.tabPageNetwork.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNetwork.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageNetwork.Size = new System.Drawing.Size(1092, 857);
             this.tabPageNetwork.TabIndex = 23;
             this.tabPageNetwork.Text = "Network";
             this.tabPageNetwork.UseVisualStyleBackColor = true;
@@ -1042,6 +1042,42 @@
             this.tabPagePermittedProcesses.Text = "Permitted Processes";
             this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
             // 
+            // buttonChoosePermittedProcess
+            // 
+            this.buttonChoosePermittedProcess.Location = new System.Drawing.Point(295, 229);
+            this.buttonChoosePermittedProcess.Name = "buttonChoosePermittedProcess";
+            this.buttonChoosePermittedProcess.Size = new System.Drawing.Size(141, 23);
+            this.buttonChoosePermittedProcess.TabIndex = 88;
+            this.buttonChoosePermittedProcess.Text = "Choose Process...";
+            this.buttonChoosePermittedProcess.UseVisualStyleBackColor = true;
+            // 
+            // buttonChoosePermittedApplication
+            // 
+            this.buttonChoosePermittedApplication.Location = new System.Drawing.Point(123, 229);
+            this.buttonChoosePermittedApplication.Name = "buttonChoosePermittedApplication";
+            this.buttonChoosePermittedApplication.Size = new System.Drawing.Size(154, 23);
+            this.buttonChoosePermittedApplication.TabIndex = 87;
+            this.buttonChoosePermittedApplication.Text = "Choose Application...";
+            this.buttonChoosePermittedApplication.UseVisualStyleBackColor = true;
+            // 
+            // buttonRemovePermittedProcess
+            // 
+            this.buttonRemovePermittedProcess.Location = new System.Drawing.Point(61, 229);
+            this.buttonRemovePermittedProcess.Name = "buttonRemovePermittedProcess";
+            this.buttonRemovePermittedProcess.Size = new System.Drawing.Size(25, 23);
+            this.buttonRemovePermittedProcess.TabIndex = 86;
+            this.buttonRemovePermittedProcess.Text = "-";
+            this.buttonRemovePermittedProcess.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddPermittedProcess
+            // 
+            this.buttonAddPermittedProcess.Location = new System.Drawing.Point(26, 229);
+            this.buttonAddPermittedProcess.Name = "buttonAddPermittedProcess";
+            this.buttonAddPermittedProcess.Size = new System.Drawing.Size(29, 23);
+            this.buttonAddPermittedProcess.TabIndex = 85;
+            this.buttonAddPermittedProcess.Text = "+";
+            this.buttonAddPermittedProcess.UseVisualStyleBackColor = true;
+            // 
             // listViewPermittedProcesses
             // 
             this.listViewPermittedProcesses.Location = new System.Drawing.Point(261, 85);
@@ -1066,6 +1102,208 @@
             this.checkedListBoxPermitted.Name = "checkedListBoxPermitted";
             this.checkedListBoxPermitted.Size = new System.Drawing.Size(73, 123);
             this.checkedListBoxPermitted.TabIndex = 82;
+            // 
+            // groupBoxSelectedProcess
+            // 
+            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessIdentifier);
+            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessIdentifier);
+            this.groupBoxSelectedProcess.Controls.Add(this.checkedListBoxPermittedProcessArguments);
+            this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessRemoveArgument);
+            this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessAddArgument);
+            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessArguments);
+            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessOS);
+            this.groupBoxSelectedProcess.Controls.Add(this.listBoxPermittedProcessOS);
+            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessExecutable);
+            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessPath);
+            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessPath);
+            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessExecutable);
+            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessDescription);
+            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessDescription);
+            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessAppTitle);
+            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessAppTitle);
+            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAllowUser);
+            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAutohide);
+            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAutostart);
+            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessActive);
+            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 273);
+            this.groupBoxSelectedProcess.Name = "groupBoxSelectedProcess";
+            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(733, 347);
+            this.groupBoxSelectedProcess.TabIndex = 80;
+            this.groupBoxSelectedProcess.TabStop = false;
+            this.groupBoxSelectedProcess.Text = "Selected Process";
+            // 
+            // labelPermittedProcessIdentifier
+            // 
+            this.labelPermittedProcessIdentifier.AutoSize = true;
+            this.labelPermittedProcessIdentifier.Location = new System.Drawing.Point(169, 255);
+            this.labelPermittedProcessIdentifier.Name = "labelPermittedProcessIdentifier";
+            this.labelPermittedProcessIdentifier.Size = new System.Drawing.Size(62, 17);
+            this.labelPermittedProcessIdentifier.TabIndex = 89;
+            this.labelPermittedProcessIdentifier.Text = "Identifier";
+            // 
+            // textBoxPermittedProcessIdentifier
+            // 
+            this.textBoxPermittedProcessIdentifier.Location = new System.Drawing.Point(237, 252);
+            this.textBoxPermittedProcessIdentifier.Name = "textBoxPermittedProcessIdentifier";
+            this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(449, 22);
+            this.textBoxPermittedProcessIdentifier.TabIndex = 89;
+            // 
+            // checkedListBoxPermittedProcessArguments
+            // 
+            this.checkedListBoxPermittedProcessArguments.FormattingEnabled = true;
+            this.checkedListBoxPermittedProcessArguments.Location = new System.Drawing.Point(114, 186);
+            this.checkedListBoxPermittedProcessArguments.Name = "checkedListBoxPermittedProcessArguments";
+            this.checkedListBoxPermittedProcessArguments.Size = new System.Drawing.Size(572, 55);
+            this.checkedListBoxPermittedProcessArguments.TabIndex = 88;
+            // 
+            // buttonPermittedProcessRemoveArgument
+            // 
+            this.buttonPermittedProcessRemoveArgument.Location = new System.Drawing.Point(58, 210);
+            this.buttonPermittedProcessRemoveArgument.Name = "buttonPermittedProcessRemoveArgument";
+            this.buttonPermittedProcessRemoveArgument.Size = new System.Drawing.Size(25, 23);
+            this.buttonPermittedProcessRemoveArgument.TabIndex = 87;
+            this.buttonPermittedProcessRemoveArgument.Text = "-";
+            this.buttonPermittedProcessRemoveArgument.UseVisualStyleBackColor = true;
+            // 
+            // buttonPermittedProcessAddArgument
+            // 
+            this.buttonPermittedProcessAddArgument.Location = new System.Drawing.Point(23, 210);
+            this.buttonPermittedProcessAddArgument.Name = "buttonPermittedProcessAddArgument";
+            this.buttonPermittedProcessAddArgument.Size = new System.Drawing.Size(29, 23);
+            this.buttonPermittedProcessAddArgument.TabIndex = 86;
+            this.buttonPermittedProcessAddArgument.Text = "+";
+            this.buttonPermittedProcessAddArgument.UseVisualStyleBackColor = true;
+            // 
+            // labelPermittedProcessArguments
+            // 
+            this.labelPermittedProcessArguments.AutoSize = true;
+            this.labelPermittedProcessArguments.Location = new System.Drawing.Point(20, 186);
+            this.labelPermittedProcessArguments.Name = "labelPermittedProcessArguments";
+            this.labelPermittedProcessArguments.Size = new System.Drawing.Size(76, 17);
+            this.labelPermittedProcessArguments.TabIndex = 14;
+            this.labelPermittedProcessArguments.Text = "Arguments";
+            // 
+            // labelPermittedProcessOS
+            // 
+            this.labelPermittedProcessOS.AutoSize = true;
+            this.labelPermittedProcessOS.Location = new System.Drawing.Point(24, 109);
+            this.labelPermittedProcessOS.Name = "labelPermittedProcessOS";
+            this.labelPermittedProcessOS.Size = new System.Drawing.Size(28, 17);
+            this.labelPermittedProcessOS.TabIndex = 13;
+            this.labelPermittedProcessOS.Text = "OS";
+            // 
+            // listBoxPermittedProcessOS
+            // 
+            this.listBoxPermittedProcessOS.FormattingEnabled = true;
+            this.listBoxPermittedProcessOS.ItemHeight = 16;
+            this.listBoxPermittedProcessOS.Location = new System.Drawing.Point(56, 109);
+            this.listBoxPermittedProcessOS.Name = "listBoxPermittedProcessOS";
+            this.listBoxPermittedProcessOS.Size = new System.Drawing.Size(50, 20);
+            this.listBoxPermittedProcessOS.TabIndex = 12;
+            // 
+            // labelPermittedProcessExecutable
+            // 
+            this.labelPermittedProcessExecutable.AutoSize = true;
+            this.labelPermittedProcessExecutable.Location = new System.Drawing.Point(154, 109);
+            this.labelPermittedProcessExecutable.Name = "labelPermittedProcessExecutable";
+            this.labelPermittedProcessExecutable.Size = new System.Drawing.Size(77, 17);
+            this.labelPermittedProcessExecutable.TabIndex = 11;
+            this.labelPermittedProcessExecutable.Text = "Executable";
+            // 
+            // labelPermittedProcessPath
+            // 
+            this.labelPermittedProcessPath.AutoSize = true;
+            this.labelPermittedProcessPath.Location = new System.Drawing.Point(64, 137);
+            this.labelPermittedProcessPath.Name = "labelPermittedProcessPath";
+            this.labelPermittedProcessPath.Size = new System.Drawing.Size(37, 17);
+            this.labelPermittedProcessPath.TabIndex = 10;
+            this.labelPermittedProcessPath.Text = "Path";
+            // 
+            // textBoxPermittedProcessPath
+            // 
+            this.textBoxPermittedProcessPath.Location = new System.Drawing.Point(114, 150);
+            this.textBoxPermittedProcessPath.Name = "textBoxPermittedProcessPath";
+            this.textBoxPermittedProcessPath.Size = new System.Drawing.Size(572, 22);
+            this.textBoxPermittedProcessPath.TabIndex = 9;
+            // 
+            // textBoxPermittedProcessExecutable
+            // 
+            this.textBoxPermittedProcessExecutable.Location = new System.Drawing.Point(237, 109);
+            this.textBoxPermittedProcessExecutable.Name = "textBoxPermittedProcessExecutable";
+            this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(449, 22);
+            this.textBoxPermittedProcessExecutable.TabIndex = 8;
+            // 
+            // textBoxPermittedProcessDescription
+            // 
+            this.textBoxPermittedProcessDescription.Location = new System.Drawing.Point(114, 68);
+            this.textBoxPermittedProcessDescription.Name = "textBoxPermittedProcessDescription";
+            this.textBoxPermittedProcessDescription.Size = new System.Drawing.Size(572, 22);
+            this.textBoxPermittedProcessDescription.TabIndex = 7;
+            // 
+            // labelPermittedProcessDescription
+            // 
+            this.labelPermittedProcessDescription.AutoSize = true;
+            this.labelPermittedProcessDescription.Location = new System.Drawing.Point(22, 68);
+            this.labelPermittedProcessDescription.Name = "labelPermittedProcessDescription";
+            this.labelPermittedProcessDescription.Size = new System.Drawing.Size(79, 17);
+            this.labelPermittedProcessDescription.TabIndex = 6;
+            this.labelPermittedProcessDescription.Text = "Description";
+            // 
+            // labelPermittedProcessAppTitle
+            // 
+            this.labelPermittedProcessAppTitle.AutoSize = true;
+            this.labelPermittedProcessAppTitle.Location = new System.Drawing.Point(174, 32);
+            this.labelPermittedProcessAppTitle.Name = "labelPermittedProcessAppTitle";
+            this.labelPermittedProcessAppTitle.Size = new System.Drawing.Size(60, 17);
+            this.labelPermittedProcessAppTitle.TabIndex = 5;
+            this.labelPermittedProcessAppTitle.Text = "AppTitle";
+            // 
+            // textBoxPermittedProcessAppTitle
+            // 
+            this.textBoxPermittedProcessAppTitle.Location = new System.Drawing.Point(237, 32);
+            this.textBoxPermittedProcessAppTitle.Name = "textBoxPermittedProcessAppTitle";
+            this.textBoxPermittedProcessAppTitle.Size = new System.Drawing.Size(449, 22);
+            this.textBoxPermittedProcessAppTitle.TabIndex = 4;
+            // 
+            // checkBoxPermittedProcessAllowUser
+            // 
+            this.checkBoxPermittedProcessAllowUser.AutoSize = true;
+            this.checkBoxPermittedProcessAllowUser.Location = new System.Drawing.Point(19, 306);
+            this.checkBoxPermittedProcessAllowUser.Name = "checkBoxPermittedProcessAllowUser";
+            this.checkBoxPermittedProcessAllowUser.Size = new System.Drawing.Size(292, 21);
+            this.checkBoxPermittedProcessAllowUser.TabIndex = 3;
+            this.checkBoxPermittedProcessAllowUser.Text = "Allow user to select location of application";
+            this.checkBoxPermittedProcessAllowUser.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPermittedProcessAutohide
+            // 
+            this.checkBoxPermittedProcessAutohide.AutoSize = true;
+            this.checkBoxPermittedProcessAutohide.Location = new System.Drawing.Point(19, 279);
+            this.checkBoxPermittedProcessAutohide.Name = "checkBoxPermittedProcessAutohide";
+            this.checkBoxPermittedProcessAutohide.Size = new System.Drawing.Size(86, 21);
+            this.checkBoxPermittedProcessAutohide.TabIndex = 2;
+            this.checkBoxPermittedProcessAutohide.Text = "Autohide";
+            this.checkBoxPermittedProcessAutohide.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPermittedProcessAutostart
+            // 
+            this.checkBoxPermittedProcessAutostart.AutoSize = true;
+            this.checkBoxPermittedProcessAutostart.Location = new System.Drawing.Point(18, 252);
+            this.checkBoxPermittedProcessAutostart.Name = "checkBoxPermittedProcessAutostart";
+            this.checkBoxPermittedProcessAutostart.Size = new System.Drawing.Size(87, 21);
+            this.checkBoxPermittedProcessAutostart.TabIndex = 1;
+            this.checkBoxPermittedProcessAutostart.Text = "Autostart";
+            this.checkBoxPermittedProcessAutostart.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPermittedProcessActive
+            // 
+            this.checkBoxPermittedProcessActive.AutoSize = true;
+            this.checkBoxPermittedProcessActive.Location = new System.Drawing.Point(23, 28);
+            this.checkBoxPermittedProcessActive.Name = "checkBoxPermittedProcessActive";
+            this.checkBoxPermittedProcessActive.Size = new System.Drawing.Size(68, 21);
+            this.checkBoxPermittedProcessActive.TabIndex = 0;
+            this.checkBoxPermittedProcessActive.Text = "Active";
+            this.checkBoxPermittedProcessActive.UseVisualStyleBackColor = true;
             // 
             // checkBoxAllowSwitchToApplications
             // 
@@ -1098,7 +1336,7 @@
             this.tabPageProhibitedProcesses.Location = new System.Drawing.Point(4, 25);
             this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
             this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 325);
+            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 746);
             this.tabPageProhibitedProcesses.TabIndex = 1;
             this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
             this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
@@ -1129,7 +1367,7 @@
             this.tabPageExam.Location = new System.Drawing.Point(4, 39);
             this.tabPageExam.Name = "tabPageExam";
             this.tabPageExam.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExam.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageExam.Size = new System.Drawing.Size(1092, 857);
             this.tabPageExam.TabIndex = 18;
             this.tabPageExam.Text = "Exam";
             this.tabPageExam.UseVisualStyleBackColor = true;
@@ -1246,7 +1484,7 @@
             this.tabPageDownUploads.Location = new System.Drawing.Point(4, 39);
             this.tabPageDownUploads.Name = "tabPageDownUploads";
             this.tabPageDownUploads.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDownUploads.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageDownUploads.Size = new System.Drawing.Size(1092, 857);
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
@@ -1349,7 +1587,7 @@
             this.tabPageBrowser.Location = new System.Drawing.Point(4, 39);
             this.tabPageBrowser.Name = "tabPageBrowser";
             this.tabPageBrowser.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBrowser.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageBrowser.Size = new System.Drawing.Size(1092, 857);
             this.tabPageBrowser.TabIndex = 14;
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
@@ -1588,7 +1826,7 @@
             this.tabPageAppearance.Location = new System.Drawing.Point(4, 39);
             this.tabPageAppearance.Name = "tabPageAppearance";
             this.tabPageAppearance.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAppearance.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageAppearance.Size = new System.Drawing.Size(1092, 857);
             this.tabPageAppearance.TabIndex = 8;
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
@@ -1763,7 +2001,7 @@
             this.tabPageConfigFile.Location = new System.Drawing.Point(4, 39);
             this.tabPageConfigFile.Name = "tabPageConfigFile";
             this.tabPageConfigFile.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfigFile.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageConfigFile.Size = new System.Drawing.Size(1092, 857);
             this.tabPageConfigFile.TabIndex = 6;
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
@@ -1979,7 +2217,7 @@
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 39);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(1054, 557);
+            this.tabPageGeneral.Size = new System.Drawing.Size(1092, 857);
             this.tabPageGeneral.TabIndex = 4;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -2284,244 +2522,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 900);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // buttonAddPermittedProcess
-            // 
-            this.buttonAddPermittedProcess.Location = new System.Drawing.Point(26, 229);
-            this.buttonAddPermittedProcess.Name = "buttonAddPermittedProcess";
-            this.buttonAddPermittedProcess.Size = new System.Drawing.Size(29, 23);
-            this.buttonAddPermittedProcess.TabIndex = 85;
-            this.buttonAddPermittedProcess.Text = "+";
-            this.buttonAddPermittedProcess.UseVisualStyleBackColor = true;
-            // 
-            // buttonRemovePermittedProcess
-            // 
-            this.buttonRemovePermittedProcess.Location = new System.Drawing.Point(61, 229);
-            this.buttonRemovePermittedProcess.Name = "buttonRemovePermittedProcess";
-            this.buttonRemovePermittedProcess.Size = new System.Drawing.Size(25, 23);
-            this.buttonRemovePermittedProcess.TabIndex = 86;
-            this.buttonRemovePermittedProcess.Text = "-";
-            this.buttonRemovePermittedProcess.UseVisualStyleBackColor = true;
-            // 
-            // buttonChoosePermittedApplication
-            // 
-            this.buttonChoosePermittedApplication.Location = new System.Drawing.Point(123, 229);
-            this.buttonChoosePermittedApplication.Name = "buttonChoosePermittedApplication";
-            this.buttonChoosePermittedApplication.Size = new System.Drawing.Size(154, 23);
-            this.buttonChoosePermittedApplication.TabIndex = 87;
-            this.buttonChoosePermittedApplication.Text = "Choose Application...";
-            this.buttonChoosePermittedApplication.UseVisualStyleBackColor = true;
-            // 
-            // buttonChoosePermittedProcess
-            // 
-            this.buttonChoosePermittedProcess.Location = new System.Drawing.Point(295, 229);
-            this.buttonChoosePermittedProcess.Name = "buttonChoosePermittedProcess";
-            this.buttonChoosePermittedProcess.Size = new System.Drawing.Size(141, 23);
-            this.buttonChoosePermittedProcess.TabIndex = 88;
-            this.buttonChoosePermittedProcess.Text = "Choose Process...";
-            this.buttonChoosePermittedProcess.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxPermittedProcessActive
-            // 
-            this.checkBoxPermittedProcessActive.AutoSize = true;
-            this.checkBoxPermittedProcessActive.Location = new System.Drawing.Point(23, 28);
-            this.checkBoxPermittedProcessActive.Name = "checkBoxPermittedProcessActive";
-            this.checkBoxPermittedProcessActive.Size = new System.Drawing.Size(68, 21);
-            this.checkBoxPermittedProcessActive.TabIndex = 0;
-            this.checkBoxPermittedProcessActive.Text = "Active";
-            this.checkBoxPermittedProcessActive.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxPermittedProcessAutostart
-            // 
-            this.checkBoxPermittedProcessAutostart.AutoSize = true;
-            this.checkBoxPermittedProcessAutostart.Location = new System.Drawing.Point(18, 252);
-            this.checkBoxPermittedProcessAutostart.Name = "checkBoxPermittedProcessAutostart";
-            this.checkBoxPermittedProcessAutostart.Size = new System.Drawing.Size(87, 21);
-            this.checkBoxPermittedProcessAutostart.TabIndex = 1;
-            this.checkBoxPermittedProcessAutostart.Text = "Autostart";
-            this.checkBoxPermittedProcessAutostart.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxPermittedProcessAutohide
-            // 
-            this.checkBoxPermittedProcessAutohide.AutoSize = true;
-            this.checkBoxPermittedProcessAutohide.Location = new System.Drawing.Point(19, 279);
-            this.checkBoxPermittedProcessAutohide.Name = "checkBoxPermittedProcessAutohide";
-            this.checkBoxPermittedProcessAutohide.Size = new System.Drawing.Size(86, 21);
-            this.checkBoxPermittedProcessAutohide.TabIndex = 2;
-            this.checkBoxPermittedProcessAutohide.Text = "Autohide";
-            this.checkBoxPermittedProcessAutohide.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxPermittedProcessAllowUser
-            // 
-            this.checkBoxPermittedProcessAllowUser.AutoSize = true;
-            this.checkBoxPermittedProcessAllowUser.Location = new System.Drawing.Point(19, 306);
-            this.checkBoxPermittedProcessAllowUser.Name = "checkBoxPermittedProcessAllowUser";
-            this.checkBoxPermittedProcessAllowUser.Size = new System.Drawing.Size(292, 21);
-            this.checkBoxPermittedProcessAllowUser.TabIndex = 3;
-            this.checkBoxPermittedProcessAllowUser.Text = "Allow user to select location of application";
-            this.checkBoxPermittedProcessAllowUser.UseVisualStyleBackColor = true;
-            // 
-            // textBoxPermittedProcessTitle
-            // 
-            this.textBoxPermittedProcessTitle.Location = new System.Drawing.Point(237, 32);
-            this.textBoxPermittedProcessTitle.Name = "textBoxPermittedProcessTitle";
-            this.textBoxPermittedProcessTitle.Size = new System.Drawing.Size(449, 22);
-            this.textBoxPermittedProcessTitle.TabIndex = 4;
-            // 
-            // labelPermittedProcessTitle
-            // 
-            this.labelPermittedProcessTitle.AutoSize = true;
-            this.labelPermittedProcessTitle.Location = new System.Drawing.Point(196, 32);
-            this.labelPermittedProcessTitle.Name = "labelPermittedProcessTitle";
-            this.labelPermittedProcessTitle.Size = new System.Drawing.Size(35, 17);
-            this.labelPermittedProcessTitle.TabIndex = 5;
-            this.labelPermittedProcessTitle.Text = "Title";
-            // 
-            // groupBoxSelectedProcess
-            // 
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessIdentifier);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessIdentifier);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkedListBoxPermittedProcessArguments);
-            this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessRemoveArgument);
-            this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessAddArgument);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessArguments);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessOS);
-            this.groupBoxSelectedProcess.Controls.Add(this.listBoxPermittedProcessOS);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessExecutable);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessPath);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessPath);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessExecutable);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessDescription);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessDescription);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessTitle);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessTitle);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAllowUser);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAutohide);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAutostart);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessActive);
-            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 273);
-            this.groupBoxSelectedProcess.Name = "groupBoxSelectedProcess";
-            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(733, 347);
-            this.groupBoxSelectedProcess.TabIndex = 80;
-            this.groupBoxSelectedProcess.TabStop = false;
-            this.groupBoxSelectedProcess.Text = "Selected Process";
-            // 
-            // labelPermittedProcessDescription
-            // 
-            this.labelPermittedProcessDescription.AutoSize = true;
-            this.labelPermittedProcessDescription.Location = new System.Drawing.Point(22, 68);
-            this.labelPermittedProcessDescription.Name = "labelPermittedProcessDescription";
-            this.labelPermittedProcessDescription.Size = new System.Drawing.Size(79, 17);
-            this.labelPermittedProcessDescription.TabIndex = 6;
-            this.labelPermittedProcessDescription.Text = "Description";
-            // 
-            // textBoxPermittedProcessDescription
-            // 
-            this.textBoxPermittedProcessDescription.Location = new System.Drawing.Point(114, 68);
-            this.textBoxPermittedProcessDescription.Name = "textBoxPermittedProcessDescription";
-            this.textBoxPermittedProcessDescription.Size = new System.Drawing.Size(572, 22);
-            this.textBoxPermittedProcessDescription.TabIndex = 7;
-            // 
-            // textBoxPermittedProcessExecutable
-            // 
-            this.textBoxPermittedProcessExecutable.Location = new System.Drawing.Point(237, 109);
-            this.textBoxPermittedProcessExecutable.Name = "textBoxPermittedProcessExecutable";
-            this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(449, 22);
-            this.textBoxPermittedProcessExecutable.TabIndex = 8;
-            // 
-            // textBoxPermittedProcessPath
-            // 
-            this.textBoxPermittedProcessPath.Location = new System.Drawing.Point(114, 150);
-            this.textBoxPermittedProcessPath.Name = "textBoxPermittedProcessPath";
-            this.textBoxPermittedProcessPath.Size = new System.Drawing.Size(572, 22);
-            this.textBoxPermittedProcessPath.TabIndex = 9;
-            // 
-            // labelPermittedProcessPath
-            // 
-            this.labelPermittedProcessPath.AutoSize = true;
-            this.labelPermittedProcessPath.Location = new System.Drawing.Point(64, 137);
-            this.labelPermittedProcessPath.Name = "labelPermittedProcessPath";
-            this.labelPermittedProcessPath.Size = new System.Drawing.Size(37, 17);
-            this.labelPermittedProcessPath.TabIndex = 10;
-            this.labelPermittedProcessPath.Text = "Path";
-            // 
-            // labelPermittedProcessExecutable
-            // 
-            this.labelPermittedProcessExecutable.AutoSize = true;
-            this.labelPermittedProcessExecutable.Location = new System.Drawing.Point(154, 109);
-            this.labelPermittedProcessExecutable.Name = "labelPermittedProcessExecutable";
-            this.labelPermittedProcessExecutable.Size = new System.Drawing.Size(77, 17);
-            this.labelPermittedProcessExecutable.TabIndex = 11;
-            this.labelPermittedProcessExecutable.Text = "Executable";
-            // 
-            // listBoxPermittedProcessOS
-            // 
-            this.listBoxPermittedProcessOS.FormattingEnabled = true;
-            this.listBoxPermittedProcessOS.ItemHeight = 16;
-            this.listBoxPermittedProcessOS.Location = new System.Drawing.Point(56, 109);
-            this.listBoxPermittedProcessOS.Name = "listBoxPermittedProcessOS";
-            this.listBoxPermittedProcessOS.Size = new System.Drawing.Size(50, 20);
-            this.listBoxPermittedProcessOS.TabIndex = 12;
-            // 
-            // labelPermittedProcessOS
-            // 
-            this.labelPermittedProcessOS.AutoSize = true;
-            this.labelPermittedProcessOS.Location = new System.Drawing.Point(24, 109);
-            this.labelPermittedProcessOS.Name = "labelPermittedProcessOS";
-            this.labelPermittedProcessOS.Size = new System.Drawing.Size(28, 17);
-            this.labelPermittedProcessOS.TabIndex = 13;
-            this.labelPermittedProcessOS.Text = "OS";
-            // 
-            // labelPermittedProcessArguments
-            // 
-            this.labelPermittedProcessArguments.AutoSize = true;
-            this.labelPermittedProcessArguments.Location = new System.Drawing.Point(20, 186);
-            this.labelPermittedProcessArguments.Name = "labelPermittedProcessArguments";
-            this.labelPermittedProcessArguments.Size = new System.Drawing.Size(76, 17);
-            this.labelPermittedProcessArguments.TabIndex = 14;
-            this.labelPermittedProcessArguments.Text = "Arguments";
-            // 
-            // buttonPermittedProcessAddArgument
-            // 
-            this.buttonPermittedProcessAddArgument.Location = new System.Drawing.Point(23, 210);
-            this.buttonPermittedProcessAddArgument.Name = "buttonPermittedProcessAddArgument";
-            this.buttonPermittedProcessAddArgument.Size = new System.Drawing.Size(29, 23);
-            this.buttonPermittedProcessAddArgument.TabIndex = 86;
-            this.buttonPermittedProcessAddArgument.Text = "+";
-            this.buttonPermittedProcessAddArgument.UseVisualStyleBackColor = true;
-            // 
-            // buttonPermittedProcessRemoveArgument
-            // 
-            this.buttonPermittedProcessRemoveArgument.Location = new System.Drawing.Point(58, 210);
-            this.buttonPermittedProcessRemoveArgument.Name = "buttonPermittedProcessRemoveArgument";
-            this.buttonPermittedProcessRemoveArgument.Size = new System.Drawing.Size(25, 23);
-            this.buttonPermittedProcessRemoveArgument.TabIndex = 87;
-            this.buttonPermittedProcessRemoveArgument.Text = "-";
-            this.buttonPermittedProcessRemoveArgument.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBoxPermittedProcessArguments
-            // 
-            this.checkedListBoxPermittedProcessArguments.FormattingEnabled = true;
-            this.checkedListBoxPermittedProcessArguments.Location = new System.Drawing.Point(114, 186);
-            this.checkedListBoxPermittedProcessArguments.Name = "checkedListBoxPermittedProcessArguments";
-            this.checkedListBoxPermittedProcessArguments.Size = new System.Drawing.Size(572, 55);
-            this.checkedListBoxPermittedProcessArguments.TabIndex = 88;
-            // 
-            // textBoxPermittedProcessIdentifier
-            // 
-            this.textBoxPermittedProcessIdentifier.Location = new System.Drawing.Point(237, 252);
-            this.textBoxPermittedProcessIdentifier.Name = "textBoxPermittedProcessIdentifier";
-            this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(449, 22);
-            this.textBoxPermittedProcessIdentifier.TabIndex = 89;
-            // 
-            // labelPermittedProcessIdentifier
-            // 
-            this.labelPermittedProcessIdentifier.AutoSize = true;
-            this.labelPermittedProcessIdentifier.Location = new System.Drawing.Point(169, 255);
-            this.labelPermittedProcessIdentifier.Name = "labelPermittedProcessIdentifier";
-            this.labelPermittedProcessIdentifier.Size = new System.Drawing.Size(62, 17);
-            this.labelPermittedProcessIdentifier.TabIndex = 89;
-            this.labelPermittedProcessIdentifier.Text = "Identifier";
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2555,6 +2555,8 @@
             this.tabControlApplications.ResumeLayout(false);
             this.tabPagePermittedProcesses.ResumeLayout(false);
             this.tabPagePermittedProcesses.PerformLayout();
+            this.groupBoxSelectedProcess.ResumeLayout(false);
+            this.groupBoxSelectedProcess.PerformLayout();
             this.tabPageExam.ResumeLayout(false);
             this.tabPageExam.PerformLayout();
             this.tabPageDownUploads.ResumeLayout(false);
@@ -2573,8 +2575,6 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
-            this.groupBoxSelectedProcess.ResumeLayout(false);
-            this.groupBoxSelectedProcess.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2764,8 +2764,8 @@
         private System.Windows.Forms.GroupBox groupBoxSelectedProcess;
         private System.Windows.Forms.TextBox textBoxPermittedProcessDescription;
         private System.Windows.Forms.Label labelPermittedProcessDescription;
-        private System.Windows.Forms.Label labelPermittedProcessTitle;
-        private System.Windows.Forms.TextBox textBoxPermittedProcessTitle;
+        private System.Windows.Forms.Label labelPermittedProcessAppTitle;
+        private System.Windows.Forms.TextBox textBoxPermittedProcessAppTitle;
         private System.Windows.Forms.CheckBox checkBoxPermittedProcessAllowUser;
         private System.Windows.Forms.CheckBox checkBoxPermittedProcessAutohide;
         private System.Windows.Forms.CheckBox checkBoxPermittedProcessAutostart;
