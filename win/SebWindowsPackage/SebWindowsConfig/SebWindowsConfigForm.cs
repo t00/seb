@@ -420,7 +420,7 @@ namespace SebWindowsConfig
         static String[] StringColumnsProcessesPermitted  = new String[4];
         static String[] StringColumnsProcessesProhibited = new String[4];
         static String[] StringActive              = new String[2];
-        static String[] StringOS     = new String[2];
+        static String[] StringOS                  = new String[2];
 
 
         // Number of values per group
@@ -990,7 +990,9 @@ namespace SebWindowsConfig
             listViewProhibitedProcesses.Columns.Add("Description");
             listBoxProhibitedProcessOS.Items.AddRange(StringOS);
 */
-
+            // Auto-resize the column widths of the headers
+            listViewPermittedProcesses .AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+          //listViewProhibitedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
 
             // IMPORTANT:
@@ -2736,6 +2738,7 @@ namespace SebWindowsConfig
 
             // Update the widgets
 
+            // Update the Permitted Process list
             List<object> permittedProcessList = null;
             Dictionary<string, object>   dict = null;
 
@@ -2765,6 +2768,9 @@ namespace SebWindowsConfig
                 listViewPermittedProcesses.Items.Add(processRow);
             }
 
+            // Auto-resize the column widths of the contents and headers
+            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
 
             // Group "General"
