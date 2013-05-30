@@ -1080,7 +1080,9 @@
             // 
             // listViewPermittedProcesses
             // 
+            this.listViewPermittedProcesses.HideSelection = false;
             this.listViewPermittedProcesses.Location = new System.Drawing.Point(261, 85);
+            this.listViewPermittedProcesses.MultiSelect = false;
             this.listViewPermittedProcesses.Name = "listViewPermittedProcesses";
             this.listViewPermittedProcesses.Size = new System.Drawing.Size(449, 125);
             this.listViewPermittedProcesses.TabIndex = 84;
@@ -1200,6 +1202,7 @@
             this.listBoxPermittedProcessOS.Name = "listBoxPermittedProcessOS";
             this.listBoxPermittedProcessOS.Size = new System.Drawing.Size(50, 20);
             this.listBoxPermittedProcessOS.TabIndex = 12;
+            this.listBoxPermittedProcessOS.SelectedIndexChanged += new System.EventHandler(this.listBoxPermittedProcessOS_SelectedIndexChanged);
             // 
             // labelPermittedProcessExecutable
             // 
@@ -1213,7 +1216,7 @@
             // labelPermittedProcessPath
             // 
             this.labelPermittedProcessPath.AutoSize = true;
-            this.labelPermittedProcessPath.Location = new System.Drawing.Point(64, 137);
+            this.labelPermittedProcessPath.Location = new System.Drawing.Point(64, 150);
             this.labelPermittedProcessPath.Name = "labelPermittedProcessPath";
             this.labelPermittedProcessPath.Size = new System.Drawing.Size(37, 17);
             this.labelPermittedProcessPath.TabIndex = 10;

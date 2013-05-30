@@ -419,8 +419,8 @@ namespace SebWindowsConfig
         static String[] StringFunctionKey         = new String[12];
         static String[] StringColumnsProcessesPermitted  = new String[4];
         static String[] StringColumnsProcessesProhibited = new String[4];
-        static String[] StringActive              = {"true", "false"};
-        static String[] StringOperatingSystem     = new String[2];
+        static String[] StringActive              = new String[2];
+        static String[] StringOS     = new String[2];
 
 
         // Number of values per group
@@ -933,6 +933,26 @@ namespace SebWindowsConfig
             StringPolicySebService[1] = "display warning when service is not running";
             StringPolicySebService[2] = "allow to use SEB only with service";
 
+            // Define the strings for the Permitted and Prohibited Processes
+            StringActive[0] = "false";
+            StringActive[1] = "true";
+
+            StringOS[0] = "OS X";
+            StringOS[1] = "Win";
+
+            // Define the strings for the Permitted Processes columns
+            StringColumnsProcessesPermitted[0] = "Active";
+            StringColumnsProcessesPermitted[1] = "OS";
+            StringColumnsProcessesPermitted[2] = "Executable";
+            StringColumnsProcessesPermitted[3] = "AppTitle";
+
+            // Define the strings for the Prohibited Processes columns
+            StringColumnsProcessesProhibited[0] = "Active";
+            StringColumnsProcessesProhibited[1] = "OS";
+            StringColumnsProcessesProhibited[2] = "Executable";
+            StringColumnsProcessesProhibited[3] = "Description";
+
+
             // Assign the fixed entries to the listBoxes and comboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
             listBoxExitKey2.Items.AddRange(StringFunctionKey);
@@ -955,24 +975,22 @@ namespace SebWindowsConfig
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
 
 
-            // Define the strings for the Permitted Processes columns
-            StringColumnsProcessesPermitted[0] = "Active";
-            StringColumnsProcessesPermitted[1] = "OS";
-            StringColumnsProcessesPermitted[2] = "Executable";
-            StringColumnsProcessesPermitted[3] = "AppTitle";
-
-            // Assign the fixed entries to the listViews
+            // Assign the column names to the listViews
             listViewPermittedProcesses.View = View.Details;
             listViewPermittedProcesses.Columns.Add("Active");
             listViewPermittedProcesses.Columns.Add("OS");
             listViewPermittedProcesses.Columns.Add("Executable");
             listViewPermittedProcesses.Columns.Add("AppTitle");
+            listBoxPermittedProcessOS.Items.AddRange(StringOS);
+/*
+            listViewProhibitedProcesses.View = View.Details;
+            listViewProhibitedProcesses.Columns.Add("Active");
+            listViewProhibitedProcesses.Columns.Add("OS");
+            listViewProhibitedProcesses.Columns.Add("Executable");
+            listViewProhibitedProcesses.Columns.Add("Description");
+            listBoxProhibitedProcessOS.Items.AddRange(StringOS);
+*/
 
-            //StringActive[0] = "alpha";
-            //StringActive[1] = "beta";
-
-            StringOperatingSystem[0] = "OS X";
-            StringOperatingSystem[1] = "Win";
 
 
             // IMPORTANT:
@@ -2293,7 +2311,6 @@ namespace SebWindowsConfig
             int selectedIndex1 = selectedItem.Index;
             int selectedIndex  = listViewPermittedProcesses.SelectedItems[0].Index;
 
-
             List<object> permittedProcessList = null;
             Dictionary<string, object>   dict = null;
 
@@ -2307,14 +2324,14 @@ namespace SebWindowsConfig
                 Int32       osInteger = (Int32)   dict[MessageOS];
 
                 String  activeString  = activeBoolean.ToString();
-                String      osString  = StringOperatingSystem[osInteger];
+                String      osString  = StringOS[osInteger];
 
                 checkBoxPermittedProcessActive   .Checked = (Boolean) dict[MessageActive];
                 checkBoxPermittedProcessAutostart.Checked = (Boolean) dict[MessageAutostart];
                 checkBoxPermittedProcessAutohide .Checked = (Boolean) dict[MessageAutohide];
                 checkBoxPermittedProcessAllowUser.Checked = (Boolean) dict[MessageAllowUser];
 
-                 listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
+                //listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
 
                  textBoxPermittedProcessAppTitle   .Text = (String) dict[MessageAppTitle];
                  textBoxPermittedProcessDescription.Text = (String) dict[MessageDescription];
@@ -2742,7 +2759,7 @@ namespace SebWindowsConfig
                 Int32       osInteger = (Int32)   dict[MessageOS];
 
                 String  activeString  = activeBoolean.ToString();
-                String      osString  = StringOperatingSystem[osInteger];
+                String      osString  = StringOS[osInteger];
 
                 //processRow = new ListViewItem(dict[MessageActive].ToString());
                 //processRow.SubItems.Add(StringOperatingSystem[(Int32) dict[MessageOS]]);
@@ -2887,6 +2904,13 @@ namespace SebWindowsConfig
             checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
+
+        private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
 
