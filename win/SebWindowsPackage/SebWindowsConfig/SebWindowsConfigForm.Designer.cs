@@ -1007,7 +1007,7 @@
             this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
             this.tabPageApplications.Name = "tabPageApplications";
             this.tabPageApplications.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageApplications.Size = new System.Drawing.Size(1092, 857);
+            this.tabPageApplications.Size = new System.Drawing.Size(1092, 757);
             this.tabPageApplications.TabIndex = 21;
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
@@ -1019,7 +1019,7 @@
             this.tabControlApplications.Location = new System.Drawing.Point(32, 66);
             this.tabControlApplications.Name = "tabControlApplications";
             this.tabControlApplications.SelectedIndex = 0;
-            this.tabControlApplications.Size = new System.Drawing.Size(819, 775);
+            this.tabControlApplications.Size = new System.Drawing.Size(819, 671);
             this.tabControlApplications.TabIndex = 79;
             // 
             // tabPagePermittedProcesses
@@ -1037,7 +1037,7 @@
             this.tabPagePermittedProcesses.Location = new System.Drawing.Point(4, 25);
             this.tabPagePermittedProcesses.Name = "tabPagePermittedProcesses";
             this.tabPagePermittedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(811, 746);
+            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(811, 642);
             this.tabPagePermittedProcesses.TabIndex = 0;
             this.tabPagePermittedProcesses.Text = "Permitted Processes";
             this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
@@ -1084,7 +1084,7 @@
             this.listViewPermittedProcesses.Location = new System.Drawing.Point(261, 85);
             this.listViewPermittedProcesses.MultiSelect = false;
             this.listViewPermittedProcesses.Name = "listViewPermittedProcesses";
-            this.listViewPermittedProcesses.Size = new System.Drawing.Size(449, 125);
+            this.listViewPermittedProcesses.Size = new System.Drawing.Size(449, 55);
             this.listViewPermittedProcesses.TabIndex = 84;
             this.listViewPermittedProcesses.UseCompatibleStateImageBehavior = false;
             this.listViewPermittedProcesses.SelectedIndexChanged += new System.EventHandler(this.listViewPermittedProcesses_SelectedIndexChanged);
@@ -1102,7 +1102,7 @@
             this.checkedListBoxPermitted.FormattingEnabled = true;
             this.checkedListBoxPermitted.Location = new System.Drawing.Point(24, 85);
             this.checkedListBoxPermitted.Name = "checkedListBoxPermitted";
-            this.checkedListBoxPermitted.Size = new System.Drawing.Size(73, 123);
+            this.checkedListBoxPermitted.Size = new System.Drawing.Size(73, 55);
             this.checkedListBoxPermitted.TabIndex = 82;
             // 
             // groupBoxSelectedProcess
@@ -1339,7 +1339,7 @@
             this.tabPageProhibitedProcesses.Location = new System.Drawing.Point(4, 25);
             this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
             this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 746);
+            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 642);
             this.tabPageProhibitedProcesses.TabIndex = 1;
             this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
             this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
@@ -2522,7 +2522,7 @@
             this.tabControlSebWindowsConfig.Location = new System.Drawing.Point(45, 31);
             this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
-            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 900);
+            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
             // SebWindowsConfigForm
@@ -2531,7 +2531,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1382, 955);
+            this.ClientSize = new System.Drawing.Size(1382, 855);
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Name = "SebWindowsConfigForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
