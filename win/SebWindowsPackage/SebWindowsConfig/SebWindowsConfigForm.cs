@@ -2331,7 +2331,7 @@ namespace SebWindowsConfig
                 checkBoxPermittedProcessAutohide .Checked = (Boolean) dict[MessageAutohide];
                 checkBoxPermittedProcessAllowUser.Checked = (Boolean) dict[MessageAllowUser];
 
-                //listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
+                 listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
 
                  textBoxPermittedProcessAppTitle   .Text = (String) dict[MessageAppTitle];
                  textBoxPermittedProcessDescription.Text = (String) dict[MessageDescription];

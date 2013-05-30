@@ -1200,7 +1200,7 @@
             this.listBoxPermittedProcessOS.ItemHeight = 16;
             this.listBoxPermittedProcessOS.Location = new System.Drawing.Point(56, 109);
             this.listBoxPermittedProcessOS.Name = "listBoxPermittedProcessOS";
-            this.listBoxPermittedProcessOS.Size = new System.Drawing.Size(50, 20);
+            this.listBoxPermittedProcessOS.Size = new System.Drawing.Size(62, 36);
             this.listBoxPermittedProcessOS.TabIndex = 12;
             this.listBoxPermittedProcessOS.SelectedIndexChanged += new System.EventHandler(this.listBoxPermittedProcessOS_SelectedIndexChanged);
             // 
