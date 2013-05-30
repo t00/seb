@@ -120,18 +120,18 @@
 			</array>
 			<key>autostart</key>
 			<true/>
+			<key>description</key>
+			<string>Microsoft Office Excel</string>
+			<key>executable</key>
+			<string>Excel.exe</string>
 			<key>identifier</key>
 			<string>com.microsoft.Excel</string>
-			<key>name</key>
-			<string>Microsoft Excel</string>
-			<key>executable</key>
-			<string>Excel.app</string>
 			<key>os</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>path</key>
-			<string>Microsoft Office 2011/Microsoft Excel.app/Contents/MacOS</string>
-			<key>title</key>
-			<string>Excel</string>
+			<string>C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE</string>
+			<key>appTitle</key>
+			<string>Microsoft Excel</string>
 		</dict>
 		<dict>
 			<key>active</key>
@@ -149,17 +149,17 @@
 			</array>
 			<key>autostart</key>
 			<true/>
+			<key>description</key>
+			<string>Apple TextEdit</string>
+			<key>executable</key>
+			<string>TextEdit</string>
 			<key>identifier</key>
 			<string>com.apple.TextEdit</string>
-			<key>name</key>
-			<string>TextEdit</string>
-			<key>executable</key>
-			<string>TextEdit.app</string>
 			<key>os</key>
-			<integer>1</integer>
+			<integer>0</integer>
 			<key>path</key>
 			<string>TextEdit.app/Contents/MacOS</string>
-			<key>title</key>
+			<key>appTitle</key>
 			<string>TextEdit</string>
 		</dict>
 	</array>
