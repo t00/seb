@@ -2306,40 +2306,32 @@ namespace SebWindowsConfig
 
         private void listViewPermittedProcesses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListView.SelectedIndexCollection indices = listViewPermittedProcesses.SelectedIndices;
-            ListViewItem selectedItem = listViewPermittedProcesses.SelectedItems[0];
-            int selectedIndex1 = selectedItem.Index;
-            int selectedIndex  = listViewPermittedProcesses.SelectedItems[0].Index;
+            // CAUTION:
+            // If an item was previously selected and the user clicks onto another one,
+            // the SelectedIndexChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old item,
+            // so the SelectedItems.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedItems.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
 
-            List<object> permittedProcessList = null;
-            Dictionary<string, object>   dict = null;
+            if (listViewPermittedProcesses.SelectedItems.Count == 0) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
-            permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            List<object> list = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            Dictionary<string, object> dict = (Dictionary<string, object>)list[selectedIndex];
 
-            if ((selectedIndex >= 0) && (selectedIndex < permittedProcessList.Count))
-            {
-                dict = (Dictionary<string, object>) permittedProcessList[selectedIndex];
+            checkBoxPermittedProcessActive   .Checked = (Boolean) dict[MessageActive];
+            checkBoxPermittedProcessAutostart.Checked = (Boolean) dict[MessageAutostart];
+            checkBoxPermittedProcessAutohide .Checked = (Boolean) dict[MessageAutohide];
+            checkBoxPermittedProcessAllowUser.Checked = (Boolean) dict[MessageAllowUser];
 
-                Boolean activeBoolean = (Boolean) dict[MessageActive];
-                Int32       osInteger = (Int32)   dict[MessageOS];
+             listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
 
-                String  activeString  = activeBoolean.ToString();
-                String      osString  = StringOS[osInteger];
-
-                checkBoxPermittedProcessActive   .Checked = (Boolean) dict[MessageActive];
-                checkBoxPermittedProcessAutostart.Checked = (Boolean) dict[MessageAutostart];
-                checkBoxPermittedProcessAutohide .Checked = (Boolean) dict[MessageAutohide];
-                checkBoxPermittedProcessAllowUser.Checked = (Boolean) dict[MessageAllowUser];
-
-                 listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
-
-                 textBoxPermittedProcessAppTitle   .Text = (String) dict[MessageAppTitle];
-                 textBoxPermittedProcessDescription.Text = (String) dict[MessageDescription];
-                 textBoxPermittedProcessExecutable .Text = (String) dict[MessageExecutable];
-                 textBoxPermittedProcessPath       .Text = (String) dict[MessagePath];
-                 textBoxPermittedProcessIdentifier .Text = (String) dict[MessageIdentifier];
-            }
-
+             textBoxPermittedProcessAppTitle   .Text = (String) dict[MessageAppTitle];
+             textBoxPermittedProcessDescription.Text = (String) dict[MessageDescription];
+             textBoxPermittedProcessExecutable .Text = (String) dict[MessageExecutable];
+             textBoxPermittedProcessPath       .Text = (String) dict[MessagePath];
+             textBoxPermittedProcessIdentifier .Text = (String) dict[MessageIdentifier];
         }
 
 
