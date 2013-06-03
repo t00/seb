@@ -248,6 +248,7 @@ namespace SebWindowsConfig
         const String MessageIdentifier  = "identifier";
         const String MessageUser        = "user";
         const String MessageArguments   = "arguments";
+        const String MessageArgument    = "argument";
 
 
         // Group "Network"
@@ -2317,39 +2318,23 @@ namespace SebWindowsConfig
             // Now you can set the widgets in the "Selected Process" groupBox.
 
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+
+            int index;
             int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
-            List<object>                processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-            Dictionary<string, object>  processData = (Dictionary<string, object>) processList[selectedIndex];
-            List<object>               argumentList =               (List<object>) processData[MessageArguments];
+            List<object>                processList = null;
+            Dictionary<string, object>  processData = null;
+            List<object>               argumentList = null;
             Dictionary<string, object> argumentData = null;
+
+             processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
+             processData = (Dictionary<string, object>) processList[selectedIndex];
+            argumentList =               (List<object>) processData[MessageArguments];
 
             checkBoxPermittedProcessActive   .Checked = (Boolean) processData[MessageActive];
             checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
             checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
             checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
-
-            //Dictionary<string, object> processData = (Dictionary<string, object>)processList[selectedIndex];
-
-            for (int index = 0; index < argumentList.Count; index++)
-            {
-                argumentData = (Dictionary<string, object>) argumentList[index];
-
-                Boolean active   = (Boolean) argumentData["active"];
-                String  argument = (String ) argumentData["argument"];
-
-              //Boolean active2   = (Boolean) processArgs[index]["active"];
-              //String  argument2 = (String ) processArgs[index]["argument"];
-              //checkedListBoxPermittedProcessArguments.Items.Add("seb", true);
-                checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
-
-                //checkedListBoxPermittedProcessArguments.SetItemChecked(index, true);
-                //checkedListBoxPermittedProcessArguments.Items[index] = "seb";
-
-                //checkedListBoxPermittedProcessArguments.Items[index].Checked = true;
-                //checkedListBoxPermittedProcessArguments.Items[index].Text = "seb";
-
-            }
 
             listBoxPermittedProcessOS.SelectedIndex =  (Int32) processData[MessageOS];
 
@@ -2359,7 +2344,26 @@ namespace SebWindowsConfig
             textBoxPermittedProcessPath       .Text = (String) processData[MessagePath];
             textBoxPermittedProcessIdentifier .Text = (String) processData[MessageIdentifier];
 
+            // Remove arguments of previously selected process from CheckedListBox
+            int numArgs = checkedListBoxPermittedProcessArguments.Items.Count;
+            for (index = numArgs-1; index >= 0; index--)
+            {
+                checkedListBoxPermittedProcessArguments.Items.RemoveAt(index);
+            }
 
+            // Add arguments of currently selected process to CheckedListBox
+            for (index = 0; index < argumentList.Count; index++)
+            {
+                argumentData = (Dictionary<string, object>) argumentList[index];
+
+                Boolean active   = (Boolean) argumentData[MessageActive];
+                String  argument = (String ) argumentData[MessageArgument];
+
+                checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
+
+              //checkedListBoxPermittedProcessArguments.SetItemChecked(index, true);
+              //checkedListBoxPermittedProcessArguments.Items[index] = "seb";
+            }
         }
 
 
