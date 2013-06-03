@@ -2344,9 +2344,9 @@ namespace SebWindowsConfig
             textBoxPermittedProcessPath       .Text = (String) processData[MessagePath];
             textBoxPermittedProcessIdentifier .Text = (String) processData[MessageIdentifier];
 
-            // Remove arguments of previously selected process from CheckedListBox
-            int numArgs = checkedListBoxPermittedProcessArguments.Items.Count;
-            for (index = numArgs-1; index >= 0; index--)
+            // Remove all previously displayed arguments from CheckedListBox
+            int listSize = checkedListBoxPermittedProcessArguments.Items.Count;
+            for (index = listSize-1; index >= 0; index--)
             {
                 checkedListBoxPermittedProcessArguments.Items.RemoveAt(index);
             }
@@ -2773,7 +2773,18 @@ namespace SebWindowsConfig
 
             permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
-            for (int index = 0; index < permittedProcessList.Count; index++)
+            int index;
+
+            // Remove all previously displayed processes from ListView
+            int listSize = listViewPermittedProcesses.Items.Count;
+            for (index = listSize-1; index >= 0; index--)
+            {
+                listViewPermittedProcesses.Items.RemoveAt(index);
+            }
+
+
+            // Add processes of currently opened file to CheckedListBox
+            for (index = 0; index < permittedProcessList.Count; index++)
             {
                 ListViewItem processRow;
 
