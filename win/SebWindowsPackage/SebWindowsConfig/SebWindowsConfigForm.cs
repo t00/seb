@@ -2316,24 +2316,49 @@ namespace SebWindowsConfig
             // The second time, SelectedItems.Count is ONE.
             // Now you can set the widgets in the "Selected Process" groupBox.
 
-            if (listViewPermittedProcesses.SelectedItems.Count == 0) return;
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
             int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
-            List<object> list = (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            Dictionary<string, object> dict = (Dictionary<string, object>)list[selectedIndex];
+            List<object>               processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            Dictionary<string, object> processData = (Dictionary<string, object>) processList[selectedIndex];
+            List<object>               processArgs =               (List<object>) processData[MessageArguments];
 
-            checkBoxPermittedProcessActive   .Checked = (Boolean) dict[MessageActive];
-            checkBoxPermittedProcessAutostart.Checked = (Boolean) dict[MessageAutostart];
-            checkBoxPermittedProcessAutohide .Checked = (Boolean) dict[MessageAutohide];
-            checkBoxPermittedProcessAllowUser.Checked = (Boolean) dict[MessageAllowUser];
+            checkBoxPermittedProcessActive   .Checked = (Boolean) processData[MessageActive];
+            checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
+            checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
+            checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
 
-             listBoxPermittedProcessOS.SelectedIndex = (Int32) dict[MessageOS];
+            //Dictionary<string, object> processData = (Dictionary<string, object>)processList[selectedIndex];
 
-             textBoxPermittedProcessAppTitle   .Text = (String) dict[MessageAppTitle];
-             textBoxPermittedProcessDescription.Text = (String) dict[MessageDescription];
-             textBoxPermittedProcessExecutable .Text = (String) dict[MessageExecutable];
-             textBoxPermittedProcessPath       .Text = (String) dict[MessagePath];
-             textBoxPermittedProcessIdentifier .Text = (String) dict[MessageIdentifier];
+            for (int index = 0; index < processArgs.Count; index++)
+            {
+                Dictionary<string, object> subdict = (Dictionary<string, object>) processArgs[index];
+
+                Boolean active   = (Boolean) subdict["active"];
+                String  argument = (String ) subdict["argument"];
+
+              //Boolean active2   = (Boolean) processArgs[index]["active"];
+              //String  argument2 = (String ) processArgs[index]["argument"];
+              //checkedListBoxPermittedProcessArguments.Items.Add("seb", true);
+                checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
+
+                //checkedListBoxPermittedProcessArguments.SetItemChecked(index, true);
+                //checkedListBoxPermittedProcessArguments.Items[index] = "seb";
+
+                //checkedListBoxPermittedProcessArguments.Items[index].Checked = true;
+                //checkedListBoxPermittedProcessArguments.Items[index].Text = "seb";
+
+            }
+
+            listBoxPermittedProcessOS.SelectedIndex =  (Int32) processData[MessageOS];
+
+            textBoxPermittedProcessAppTitle   .Text = (String) processData[MessageAppTitle];
+            textBoxPermittedProcessDescription.Text = (String) processData[MessageDescription];
+            textBoxPermittedProcessExecutable .Text = (String) processData[MessageExecutable];
+            textBoxPermittedProcessPath       .Text = (String) processData[MessagePath];
+            textBoxPermittedProcessIdentifier .Text = (String) processData[MessageIdentifier];
+
+
         }
 
 
@@ -2739,8 +2764,8 @@ namespace SebWindowsConfig
             // Update the widgets
 
             // Update the Permitted Process list
-            List<object> permittedProcessList = null;
-            Dictionary<string, object>   dict = null;
+            List<object>      permittedProcessList = null;
+            Dictionary<string, object> processData = null;
 
             permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
@@ -2748,10 +2773,10 @@ namespace SebWindowsConfig
             {
                 ListViewItem processRow;
 
-                dict = (Dictionary<string, object>) permittedProcessList[index];
+                processData = (Dictionary<string, object>) permittedProcessList[index];
 
-                Boolean activeBoolean = (Boolean) dict[MessageActive];
-                Int32       osInteger = (Int32)   dict[MessageOS];
+                Boolean activeBoolean = (Boolean) processData[MessageActive];
+                Int32       osInteger = (Int32)   processData[MessageOS];
 
                 String  activeString  = activeBoolean.ToString();
                 String      osString  = StringOS[osInteger];
@@ -2762,8 +2787,8 @@ namespace SebWindowsConfig
                 processRow = new ListViewItem(activeString);
                 processRow.SubItems.Add(osString);
 
-                processRow.SubItems.Add((String) dict[MessageExecutable]);
-                processRow.SubItems.Add((String) dict[MessageAppTitle]);
+                processRow.SubItems.Add((String) processData[MessageExecutable]);
+                processRow.SubItems.Add((String) processData[MessageAppTitle]);
 
                 listViewPermittedProcesses.Items.Add(processRow);
             }
@@ -2904,6 +2929,11 @@ namespace SebWindowsConfig
         }
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBoxPermittedProcessArguments_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
