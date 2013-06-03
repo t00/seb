@@ -177,7 +177,7 @@
 			<key>executable</key>
 			<string>screencapture</string>
 			<key>identifier</key>
-			<string>com.apple.ScreenCapture</string
+			<string>com.apple.ScreenCapture</string>
 			<key>os</key>
 			<integer>0</integer>
 			<key>user</key>
