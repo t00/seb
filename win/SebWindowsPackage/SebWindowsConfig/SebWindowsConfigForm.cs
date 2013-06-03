@@ -2319,9 +2319,10 @@ namespace SebWindowsConfig
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
             int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
-            List<object>               processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-            Dictionary<string, object> processData = (Dictionary<string, object>) processList[selectedIndex];
-            List<object>               processArgs =               (List<object>) processData[MessageArguments];
+            List<object>                processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            Dictionary<string, object>  processData = (Dictionary<string, object>) processList[selectedIndex];
+            List<object>               argumentList =               (List<object>) processData[MessageArguments];
+            Dictionary<string, object> argumentData = null;
 
             checkBoxPermittedProcessActive   .Checked = (Boolean) processData[MessageActive];
             checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
@@ -2330,12 +2331,12 @@ namespace SebWindowsConfig
 
             //Dictionary<string, object> processData = (Dictionary<string, object>)processList[selectedIndex];
 
-            for (int index = 0; index < processArgs.Count; index++)
+            for (int index = 0; index < argumentList.Count; index++)
             {
-                Dictionary<string, object> subdict = (Dictionary<string, object>) processArgs[index];
+                argumentData = (Dictionary<string, object>) argumentList[index];
 
-                Boolean active   = (Boolean) subdict["active"];
-                String  argument = (String ) subdict["argument"];
+                Boolean active   = (Boolean) argumentData["active"];
+                String  argument = (String ) argumentData["argument"];
 
               //Boolean active2   = (Boolean) processArgs[index]["active"];
               //String  argument2 = (String ) processArgs[index]["argument"];
