@@ -2360,7 +2360,6 @@ namespace SebWindowsConfig
                 String  argument = (String ) argumentData[MessageArgument];
 
                 checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
-
               //checkedListBoxPermittedProcessArguments.SetItemChecked(index, true);
               //checkedListBoxPermittedProcessArguments.Items[index] = "seb";
             }
