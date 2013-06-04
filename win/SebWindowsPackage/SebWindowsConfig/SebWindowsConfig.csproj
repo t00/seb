@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plist.cs" />
-    <Compile Include="SEBClientConfig.cs" />
     <Compile Include="SEBProtectionController.cs" />
     <Compile Include="SebWindowsConfigForm.cs">
       <SubType>Form</SubType>

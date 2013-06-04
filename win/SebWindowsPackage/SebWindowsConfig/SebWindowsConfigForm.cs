@@ -405,7 +405,7 @@ namespace SebWindowsConfig
         static List<String> StringCryptoIdentity = new List<String>();
 
         // Entries of ListBoxes
-      //static   Byte[] ByteArrayExamKeySalt    = new Byte[] {};
+      //static   Byte[] ByteArrayExamKeySalt      = new Byte[] {};
         static String[] StringCryptoIdentityArray;
         static String[] StringSebPurpose          = new String[2];
         static String[] StringSebMode             = new String[2];
@@ -450,10 +450,7 @@ namespace SebWindowsConfig
         static Dictionary<string, object> sebSettingsTmp = new Dictionary<string, object>();
         static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
 
-        static SEBClientConfig            sebSettObso        = new SEBClientConfig();
-        static SEBProtectionController    sebController      = new SEBProtectionController();
-      //static XmlSerializer              sebSerializerPlist = new XmlSerializer(typeof(Dictionary<string, object>));
-        static XmlSerializer              sebSerializerObso  = new XmlSerializer(typeof(SEBClientConfig));
+        static SEBProtectionController    sebController  = new SEBProtectionController();
 
 
 
@@ -1010,7 +1007,8 @@ namespace SebWindowsConfig
             PrintSettingsDictionary(sebSettingsDef, "SettingsDef.txt");
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
 
-          //SetWidgetsToNewSettings();
+            // When starting up, set the widgets to the default values
+            //SetWidgetsToNewSettings();
 
             // Try to open the configuration file ("SebClient.ini/xml/seb")
             // given in the local directory (where SebWindowsConfig.exe was called)
@@ -1066,10 +1064,10 @@ namespace SebWindowsConfig
             // New  Window Width/Height
 
 /*
-            String tmpStringMainWindowWidth       = (String)sebSettingsNew[MessageMainBrowserWindowWidth];
-            String tmpStringMainWindowHeight      = (String)sebSettingsNew[MessageMainBrowserWindowHeight];
-            String tmpStringNewWindowByLinkWidth  = (String)sebSettingsNew[MessageNewBrowserWindowByLinkWidth];
-            String tmpStringNewWindowByLinkHeight = (String)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
+            String tmpStringMainWindowWidth       = (String) sebSettingsNew[MessageMainBrowserWindowWidth];
+            String tmpStringMainWindowHeight      = (String) sebSettingsNew[MessageMainBrowserWindowHeight];
+            String tmpStringNewWindowByLinkWidth  = (String) sebSettingsNew[MessageNewBrowserWindowByLinkWidth];
+            String tmpStringNewWindowByLinkHeight = (String) sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
 
             int index;
             int tmpIndexMainWindowWidth       = 0;
@@ -1122,10 +1120,10 @@ namespace SebWindowsConfig
             // Main Window Width/Height
             // New  Window Width/Height
 /*
-            int newIndexMainWindowWidth  = (int)sebSettingsNew[MessageMainBrowserWindowWidth];
-            int newIndexMainWindowHeight = (int)sebSettingsNew[MessageMainBrowserWindowHeight];
-            int newIndexNewWindowWidth   = (int)sebSettingsNew[MessageNewBrowserWindowByLinkWidth];
-            int newIndexNewWindowHeight  = (int)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
+            int newIndexMainWindowWidth  = (int) sebSettingsNew[MessageMainBrowserWindowWidth];
+            int newIndexMainWindowHeight = (int) sebSettingsNew[MessageMainBrowserWindowHeight];
+            int newIndexNewWindowWidth   = (int) sebSettingsNew[MessageNewBrowserWindowByLinkWidth];
+            int newIndexNewWindowHeight  = (int) sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
 
             // Store the determined strings
             sebSettingsNew[MessageMainBrowserWindowWidth      ] = StringWindowWidth [newIndexMainWindowWidth];
@@ -1264,12 +1262,6 @@ namespace SebWindowsConfig
                 // Read the configuration settings from .xml file
                 // Convert the XML structure into a C# object
                 sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
-/*
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-                TextReader      textReader = new StreamReader (fileName);
-                sebSettObso = (SEBClientConfig) deserializer.Deserialize(textReader);
-                textReader.Close();
-*/
             }
             catch (Exception streamReadException)
             {
@@ -1316,20 +1308,6 @@ namespace SebWindowsConfig
                 decryptedSettings = encryptedSettings;
 
                 sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
-
-              //MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-              //MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-
-              //sebSettObso    = (SEBClientConfig)            sebSerializerObso .Deserialize(memStreamObso);
-              //sebSettingsTmp = (Dictionary<string, object>) sebSerializerPlist.Deserialize(memStreamPlist);
-              //sebSettingsTmp = (Dictionary<string, object>) Plist.parseBinaryDate(0);
-
-              //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Auto);
-              //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Xml);
-              //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(memStreamPlist, plistType.Binary);
-
-              //memStreamObso .Close();
-              //memStreamPlist.Close();
             }
             catch (Exception streamReadException)
             {
@@ -1455,12 +1433,6 @@ namespace SebWindowsConfig
                 // Convert the C# object into an XML structure
                 // Write the configuration settings into .xml file
                 Plist.writeXml(sebSettingsNew, fileName);
-/*
-                XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
-                TextWriter    textWriter = new StreamWriter(fileName);
-                serializer.Serialize(textWriter, sebSettObso);
-                textWriter.Close();
-*/
             }
             catch (Exception streamWriteException) 
             {
@@ -1513,21 +1485,6 @@ namespace SebWindowsConfig
                 textWriter = new StreamWriter(fileName);
                 textWriter.Write(encryptedSettings);
                 textWriter.Close();
-
-                //decryptedSettings = Plist.writePlist(sebSettingsNew);
-                //decryptedSettings = sebSettingsNew.ToString();
-
-                //Stream decryptedStream = null;
-                //Plist.writeBinary(sebSettingsNew, decryptedStream);
-                //Plist.writeXml   (sebSettingsNew, decryptedStream);
-
-                //MemoryStream memStreamObso  = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-                //MemoryStream memStreamPlist = new MemoryStream(Encoding.UTF8.GetBytes(decryptedSettings));
-
-                //sebSerializerObso.Serialize(memStreamObso, sebSettObso);
-
-                //memStreamObso .Close();
-                //memStreamPlist.Close();
             }
             catch (Exception streamWriteException) 
             {
@@ -1543,238 +1500,6 @@ namespace SebWindowsConfig
             return true;
         }
 
-
-/*
-        // *********************************************************************
-        // Convert C# object (having been read from .xml or .seb file) to arrays
-        // *********************************************************************
-        private Boolean ConvertCSharpObjectToArrays()
-        {
-            // Copy the C# object "sebSettings" to the arrays "settingString"/"settingBoolean"
-
-            settingString [StateTmp, GroupGeneral, ValueStartURL           ] = sebSettObso.getUrlAddress    ("startURL"    ).Url;
-          //settingString [StateTmp, GroupGeneral, ValueSEBServerURL       ] = sebSettings.getUrlAddress    ("sebServerURL").Url;
-            settingString [StateTmp, GroupGeneral, ValueHashedAdminPassword] = sebSettObso.getPassword      ("hashedAdminPassword").Value;
-            settingString [StateTmp, GroupGeneral, ValueHashedQuitPassword ] = sebSettObso.getPassword      ("hashedQuitPassword" ).Value;
-            settingBoolean[StateTmp, GroupGeneral, ValueAllowQuit          ] = sebSettObso.getSecurityOption("allowQuit"         ).getBool();
-            settingBoolean[StateTmp, GroupGeneral, ValueIgnoreQuitPassword ] = sebSettObso.getSecurityOption("ignoreQuitPassword").getBool();
-            settingString [StateTmp, GroupGeneral, ValueExitKey1           ] = sebSettObso.getExitKey       ("exitKey1").Value;
-            settingString [StateTmp, GroupGeneral, ValueExitKey2           ] = sebSettObso.getExitKey       ("exitKey2").Value;
-            settingString [StateTmp, GroupGeneral, ValueExitKey3           ] = sebSettObso.getExitKey       ("exitKey3").Value;
-
-          //settingString [StateTmp, GroupConfigFile, ValueSebPurpose            ] = sebSettings.getPolicySetting ("sebPurpose"            ).Value;
-          //settingBoolean[StateTmp, GroupConfigFile, ValueStartingAnExam        ] = sebSettings.getSecurityOption("startingAnExam"        ).getBool();
-          //settingBoolean[StateTmp, GroupConfigFile, ValueConfiguringAClient    ] = sebSettings.getSecurityOption("configuringAClient"    ).getBool();
-            settingBoolean[StateTmp, GroupConfigFile, ValueAllowPreferencesWindow] = sebSettObso.getSecurityOption("allowPreferencesWindow").getBool();
-          //settingString [StateTmp, GroupConfigFile, ValueChooseIdentity        ] = sebSettings.getPassword      ("chooseIdentity"        ).Value;
-          //settingString [StateTmp, GroupConfigFile, ValueHashedSettingsPassword] = sebSettings.getPassword      ("hashedSettingsPassword").Value;
-
-          //settingString [StateTmp, GroupAppearance, ValueBrowserViewMode      ] = sebSettings.getPolicySetting ("browserViewMode").Value;
-          //settingBoolean[StateTmp, GroupAppearance, ValueUseBrowserWindow     ] = sebSettings.getSecurityOption("useBrowserWindow" ).getBool();
-          //settingBoolean[StateTmp, GroupAppearance, ValueUseFullScreenMode    ] = sebSettings.getSecurityOption("useFullScreenMode").getBool();
-            settingString [StateTmp, GroupAppearance, ValueMainBrowserWindowWidth ] = sebSettObso.getPolicySetting ("mainBrowserWindowWidth"   ).Value;
-            settingString [StateTmp, GroupAppearance, ValueMainBrowserWindowHeight] = sebSettObso.getPolicySetting ("mainBrowserWindowHeight"  ).Value;
-          //settingString [StateTmp, GroupAppearance, ValueMainWindowPositioning  ] = sebSettings.getPolicySetting ("mainBrowserWindowPosition").Value;
-            settingBoolean[StateTmp, GroupAppearance, ValueEnableBrowserWindowToolbar] = sebSettObso.getSecurityOption("enableBrowserWindowToolbar").getBool();
-            settingBoolean[StateTmp, GroupAppearance, ValueHideBrowserWindowToolbar  ] = sebSettObso.getSecurityOption(  "hideBrowserWindowToolbar").getBool();
-            settingBoolean[StateTmp, GroupAppearance, ValueShowMenuBar] = sebSettObso.getSecurityOption("showMenuBar").getBool();
-            settingBoolean[StateTmp, GroupAppearance, ValueShowTaskBar] = sebSettObso.getSecurityOption("showTaskBar").getBool();
-
-          //settingString [StateTmp, GroupBrowser, ValueNewWindowPolicyHTML ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy").Value;
-          //settingString [StateTmp, GroupBrowser, ValueNewWindowPolicyJava ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy").Value;
-            settingBoolean[StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign  ] = sebSettObso.getSecurityOption("newBrowserWindowByLinkBlockForeign"  ).getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign] = sebSettObso.getSecurityOption("newBrowserWindowByScriptBlockForeign").getBool();
-            settingString [StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkWidth ] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value;
-            settingString [StateTmp, GroupBrowser, ValueNewBrowserWindowByLinkHeight] = sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value;
-          //settingString [StateTmp, GroupBrowser, ValueNewWindowPosition   ] = sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value;
-            settingBoolean[StateTmp, GroupBrowser, ValueEnablePlugIns       ] = sebSettObso.getSecurityOption("enablePlugins"   ).getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueEnableJava          ] = sebSettObso.getSecurityOption("enableJava"      ).getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueEnableJavaScript    ] = sebSettObso.getSecurityOption("enableJavaScript").getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueBlockPopUpWindows   ] = sebSettObso.getSecurityOption("blockPopUpWindows").getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueAllowBrowsingBackForward] = sebSettObso.getSecurityOption("allowBrowsingBackForward").getBool();
-            settingBoolean[StateTmp, GroupBrowser, ValueEnableSebBrowser    ] = sebSettObso.getSecurityOption("enableSebBrowser").getBool();
-
-            settingBoolean[StateTmp, GroupDownUploads, ValueAllowDownUploads] = sebSettObso.getSecurityOption   ("allowDownUploads").getBool();
-            settingBoolean[StateTmp, GroupDownUploads, ValueOpenDownloads   ] = sebSettObso.getSecurityOption   ("openDownloads"   ).getBool();
-            settingBoolean[StateTmp, GroupDownUploads, ValueDownloadPDFFiles] = sebSettObso.getSecurityOption   ("downloadPDFFiles").getBool();
-            settingString [StateTmp, GroupDownUploads, ValueDownloadDirectoryWin    ] = sebSettObso.getDownloadDirectory("downloadDirectoryWin"    ).Path;
-            settingString [StateTmp, GroupDownUploads, ValueChooseFileToUploadPolicy] = sebSettObso.getPolicySetting    ("chooseFileToUploadPolicy").Value;
-
-          //settingString [StateTmp, GroupExam, ValueBrowserExamKey    ] = sebSettings.getUrlAddress("browserExamKey" ).Url;
-            settingBoolean[StateTmp, GroupExam, ValueCopyBrowserExamKey] = sebSettObso.getSecurityOption("copyExamKeyToClipboardWhenQuitting").getBool();
-            settingBoolean[StateTmp, GroupExam, ValueSendBrowserExamKey] = sebSettObso.getSecurityOption("sendBrowserExamKey").getBool();
-            settingString [StateTmp, GroupExam, ValueQuitURL           ] = sebSettObso.getUrlAddress("quitURL").Url;
-
-            settingBoolean[StateTmp, GroupApplications, ValueMonitorProcesses         ] = sebSettObso.getSecurityOption("monitorProcesses").getBool();
-            settingBoolean[StateTmp, GroupApplications, ValueAllowSwitchToApplications] = sebSettObso.getSecurityOption("allowSwitchToApplications").getBool();
-            settingBoolean[StateTmp, GroupApplications, ValueAllowFlashFullscreen     ] = sebSettObso.getSecurityOption("allowFlashFullscreen").getBool();
-
-            settingString [StateTmp, GroupSecurity, ValueSebServicePolicy   ] = sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value;
-            settingBoolean[StateTmp, GroupSecurity, ValueAllowVirtualMachine] = sebSettObso.getSecurityOption("allowVirtualMachine").getBool();
-            settingBoolean[StateTmp, GroupSecurity, ValueCreateNewDesktop   ] = sebSettObso.getSecurityOption("createNewDesktop"   ).getBool();
-            settingBoolean[StateTmp, GroupSecurity, ValueAllowUserSwitching ] = sebSettObso.getSecurityOption("allowUserSwitching" ).getBool();
-            settingBoolean[StateTmp, GroupSecurity, ValueEnableLogging      ] = sebSettObso.getSecurityOption("enableLog"          ).getBool();
-
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableSwitchUser       ] = sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableLockThisComputer ] = sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableChangeAPassword  ] = sebSettObso.getRegistryValue("insideSebEnableChangePassword"   ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableStartTaskManager ] = sebSettObso.getRegistryValue("insideSebEnableStartTaskManager" ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableLogOff           ] = sebSettObso.getRegistryValue("insideSebEnableLogOff"           ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableShutDown         ] = sebSettObso.getRegistryValue("insideSebEnableShutDown"         ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableEaseOfAccess     ] = sebSettObso.getRegistryValue("insideSebEnableEaseOfAccess"     ).getBool();
-            settingBoolean[StateTmp, GroupInsideSeb, ValueInsideSebEnableVmWareClientShade] = sebSettObso.getRegistryValue("insideSebEnableVmWareClientShade").getBool();
-
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableSwitchUser       ] = sebSettObso.getRegistryValue("outsideSebEnableSwitchUser"       ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableLockThisComputer ] = sebSettObso.getRegistryValue("outsideSebEnableLockThisComputer" ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableChangeAPassword  ] = sebSettObso.getRegistryValue("outsideSebEnableChangePassword"   ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableStartTaskManager ] = sebSettObso.getRegistryValue("outsideSebEnableStartTaskManager" ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableLogOff           ] = sebSettObso.getRegistryValue("outsideSebEnableLogOff"           ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableShutDown         ] = sebSettObso.getRegistryValue("outsideSebEnableShutDown"         ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableEaseOfAccess     ] = sebSettObso.getRegistryValue("outsideSebEnableEaseOfAccess"     ).getBool();
-            settingBoolean[StateTmp, GroupOutsideSeb, ValueOutsideSebEnableVmWareClientShade] = sebSettObso.getRegistryValue("outsideSebEnableVmWareClientShade").getBool();
-
-            settingBoolean[StateTmp, GroupHookedKeys, ValueHookMessages] = sebSettObso.getSecurityOption("hookMessages").getBool();
-
-            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableEsc       ] = sebSettObso.getHookedMessageKey("enableEsc"       ).getBool();
-            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableCtrlEsc   ] = sebSettObso.getHookedMessageKey("enableCtrlEsc"   ).getBool();
-            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableAltEsc    ] = sebSettObso.getHookedMessageKey("enableAltEsc"    ).getBool();
-            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableAltTab    ] = sebSettObso.getHookedMessageKey("enableAltTab"    ).getBool();
-            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableAltF4     ] = sebSettObso.getHookedMessageKey("enableAltF4"     ).getBool();
-          //settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableStartMenu ] = sebSettings.getHookedMessageKey("enableStartMenu" ).getBool();
-            settingBoolean[StateTmp, GroupSpecialKeys, ValueEnableRightMouse] = sebSettObso.getHookedMessageKey("enableRightMouse").getBool();
-
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF1 ] = sebSettObso.getHookedMessageKey("enableF1" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF2 ] = sebSettObso.getHookedMessageKey("enableF2" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF3 ] = sebSettObso.getHookedMessageKey("enableF3" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF4 ] = sebSettObso.getHookedMessageKey("enableF4" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF5 ] = sebSettObso.getHookedMessageKey("enableF5" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF6 ] = sebSettObso.getHookedMessageKey("enableF6" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF7 ] = sebSettObso.getHookedMessageKey("enableF7" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF8 ] = sebSettObso.getHookedMessageKey("enableF8" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF9 ] = sebSettObso.getHookedMessageKey("enableF9" ).getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF10] = sebSettObso.getHookedMessageKey("enableF10").getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF11] = sebSettObso.getHookedMessageKey("enableF11").getBool();
-            settingBoolean[StateTmp, GroupFunctionKeys, ValueEnableF12] = sebSettObso.getHookedMessageKey("enableF12").getBool();
-
-            return true;
-        }
-
-
-
-        // ****************************************************************
-        // Convert arrays to C# object (to be written to .xml or .seb file)
-        // ****************************************************************
-        private Boolean ConvertArraysToCSharpObject()
-        {
-            // Copy the arrays "settingString"/"settingBoolean" to the C# object "sebSettings"
-
-            sebSettObso.getUrlAddress("startURL")         .Url   = settingString [StateNew, GroupGeneral, ValueStartURL];
-          //sebSettings.getUrlAddress("sebServerURL")     .Url   = settingString [StateNew, GroupGeneral, ValueSEBServerURL];
-            sebSettObso.getPassword("hashedAdminPassword").Value = settingString [StateNew, GroupGeneral, ValueHashedAdminPassword];
-            sebSettObso.getPassword("hashedQuitPassword") .Value = settingString [StateNew, GroupGeneral, ValueHashedQuitPassword];
-            sebSettObso.getSecurityOption("allowQuit")          .setBool(settingBoolean[StateNew, GroupGeneral, ValueAllowQuit]);
-            sebSettObso.getSecurityOption("irgnoreQuitPassword").setBool(settingBoolean[StateNew, GroupGeneral, ValueIgnoreQuitPassword]);
-            sebSettObso.getExitKey("exitKey1")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey1];
-            sebSettObso.getExitKey("exitKey2")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey2];
-            sebSettObso.getExitKey("exitKey3")            .Value = settingString [StateNew, GroupGeneral, ValueExitKey3];
-
-          //sebSettings.getPolicySetting ("sebPurpose"            ).Value = settingString [StateNew, GroupConfigFile, ValueSebPurpose];
-          //sebSettings.getSecurityOption("startingAnExam"        ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueStartingAnExam]);
-          //sebSettings.getSecurityOption("configuringAClient"    ).setBool(settingBoolean[StateNew, GroupConfigFile, ValueConfiguringAClient]);
-            sebSettObso.getSecurityOption("allowPreferencesWindow").setBool(settingBoolean[StateNew, GroupConfigFile, ValueAllowPreferencesWindow]);
-          //sebSettings.getPassword("chooseIdentity"              ).Value = settingString [StateNew, GroupConfigFile, ValueChooseIdentity];
-          //sebSettings.getPassword("hashedSettingsPassword"      ).Value = settingString [StateNew, GroupConfigFile, ValueHashedSettingsPassword];
-
-          //sebSettings.getPolicySetting ("browserViewMode"           ).Value = settingString [StateNew, GroupAppearance, ValueBrowserViewMode];
-          //sebSettings.getSecurityOption("useBrowserWindow"          ).setBool(settingBoolean[StateNew, GroupAppearance, ValueUseBrowserWindow]);
-          //sebSettings.getSecurityOption("useFullScreenMode"         ).setBool(settingBoolean[StateNew, GroupAppearance, ValueUseFullScreenMode]);
-            sebSettObso.getPolicySetting ("mainBrowserWindowWidth"    ).Value = settingString [StateNew, GroupAppearance, ValueMainBrowserWindowWidth];
-            sebSettObso.getPolicySetting ("mainBrowserWindowHeight"   ).Value = settingString [StateNew, GroupAppearance, ValueMainBrowserWindowHeight];
-          //sebSettings.getPolicySetting ("mainBrowserWindowPosition" ).Value = settingString [StateNew, GroupAppearance, ValueMainWindowPosition];
-            sebSettObso.getSecurityOption("enableBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueEnableBrowserWindowToolbar]);
-            sebSettObso.getSecurityOption(  "hideBrowserWindowToolbar").setBool(settingBoolean[StateNew, GroupAppearance, ValueHideBrowserWindowToolbar]);
-            sebSettObso.getSecurityOption("showMenuBar"               ).setBool(settingBoolean[StateNew, GroupAppearance, ValueShowMenuBar]);
-            sebSettObso.getSecurityOption("showTaskBar"               ).setBool(settingBoolean[StateNew, GroupAppearance, ValueShowTaskBar]);
-
-          //sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowPolicyHTML];
-          //sebSettings.getPolicySetting ("newBrowserWindowByLinkPolicy"  ).Value = settingString[StateNew, GroupBrowser, ValueNewWindowPolicyJava];
-            sebSettObso.getSecurityOption("newBrowserWindowByLinkBlockForeign  ").setBool(settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkBlockForeign]);
-            sebSettObso.getSecurityOption("newBrowserWindowByScriptBlockForeign").setBool(settingBoolean[StateNew, GroupBrowser, ValueNewBrowserWindowByScriptBlockForeign]);
-            sebSettObso.getPolicySetting ("newBrowserWindowByLinkWidth"   ).Value = settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkWidth];
-            sebSettObso.getPolicySetting ("newBrowserWindowByLinkHeight"  ).Value = settingString[StateNew, GroupBrowser, ValueNewBrowserWindowByLinkHeight];
-          //sebSettings.getPolicySetting ("newBrowserWindowByLinkPosition").Value = settingString[StateNew, GroupBrowser, ValueNewWindowPosition];
-            sebSettObso.getSecurityOption("enablePlugins"    ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnablePlugIns]);
-            sebSettObso.getSecurityOption("enableJava"       ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJava]);
-            sebSettObso.getSecurityOption("enableJavaScript" ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableJavaScript]);
-            sebSettObso.getSecurityOption("blockPopUpWindows").setBool(settingBoolean[StateNew, GroupBrowser, ValueBlockPopUpWindows]);
-            sebSettObso.getSecurityOption("allowBrowsingBackForward").setBool(settingBoolean[StateNew, GroupBrowser, ValueAllowBrowsingBackForward]);
-            sebSettObso.getSecurityOption("enableSebBrowser"        ).setBool(settingBoolean[StateNew, GroupBrowser, ValueEnableSebBrowser]);
-
-            sebSettObso.getSecurityOption   ("allowDownUploads").setBool(settingBoolean[StateNew, GroupDownUploads, ValueAllowDownUploads]);
-            sebSettObso.getSecurityOption   ("openDownloads"   ).setBool(settingBoolean[StateNew, GroupDownUploads, ValueOpenDownloads]);
-            sebSettObso.getSecurityOption   ("downloadPDFFiles").setBool(settingBoolean[StateNew, GroupDownUploads, ValueDownloadPDFFiles]);
-            sebSettObso.getDownloadDirectory("downloadDirectoryWin"    ).Path  = settingString[StateNew, GroupDownUploads, ValueDownloadDirectoryWin];
-            sebSettObso.getPolicySetting    ("chooseFileToUploadPolicy").Value = settingString[StateNew, GroupDownUploads, ValueChooseFileToUploadPolicy];
-
-          //sebSettings.getUrlAddress("browserExamKey").Url = settingString[StateNew, GroupExam, ValueBrowserExamKey];
-            sebSettObso.getSecurityOption("copyExamKeyToClipboardWhenQuitting").setBool(settingBoolean[StateNew, GroupExam, ValueCopyBrowserExamKey]);
-            sebSettObso.getSecurityOption("sendBrowserExamKey"                ).setBool(settingBoolean[StateNew, GroupExam, ValueSendBrowserExamKey]);
-            sebSettObso.getUrlAddress("quitURL").Url = settingString[StateNew, GroupExam, ValueQuitURL];
-
-            sebSettObso.getSecurityOption("monitorProcesses         ").setBool(settingBoolean[StateNew, GroupApplications, ValueMonitorProcesses]);
-            sebSettObso.getSecurityOption("allowSwitchToApplications").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowSwitchToApplications]);
-            sebSettObso.getSecurityOption("allowFlashFullscreen     ").setBool(settingBoolean[StateNew, GroupApplications, ValueAllowFlashFullscreen]);
-
-            sebSettObso.getPolicySetting ("sebServicePolicy"   ).Value = settingString [StateNew, GroupSecurity, ValueSebServicePolicy];
-            sebSettObso.getSecurityOption("allowVirtualMachine").setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowVirtualMachine]);
-            sebSettObso.getSecurityOption("createNewDesktop"   ).setBool(settingBoolean[StateNew, GroupSecurity, ValueCreateNewDesktop]);
-            sebSettObso.getSecurityOption("allowUserSwitching" ).setBool(settingBoolean[StateNew, GroupSecurity, ValueAllowUserSwitching]);
-            sebSettObso.getSecurityOption("enableLog"          ).setBool(settingBoolean[StateNew, GroupSecurity, ValueEnableLogging]);
-
-            sebSettObso.getRegistryValue("insideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableSwitchUser]);
-            sebSettObso.getRegistryValue("insideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableLockThisComputer]);
-            sebSettObso.getRegistryValue("insideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableChangeAPassword]);
-            sebSettObso.getRegistryValue("insideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableStartTaskManager]);
-            sebSettObso.getRegistryValue("insideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableLogOff]);
-            sebSettObso.getRegistryValue("insideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableShutDown]);
-            sebSettObso.getRegistryValue("insideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableEaseOfAccess]);
-            sebSettObso.getRegistryValue("insideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupInsideSeb, ValueInsideSebEnableVmWareClientShade]);
-
-            sebSettObso.getRegistryValue("outsideSebEnableSwitchUser"       ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableSwitchUser]);
-            sebSettObso.getRegistryValue("outsideSebEnableLockThisComputer" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableLockThisComputer]);
-            sebSettObso.getRegistryValue("outsideSebEnableChangePassword"   ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableChangeAPassword]);
-            sebSettObso.getRegistryValue("outsideSebEnableStartTaskManager" ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableStartTaskManager]);
-            sebSettObso.getRegistryValue("outsideSebEnableLogOff"           ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableLogOff]);
-            sebSettObso.getRegistryValue("outsideSebEnableShutDown"         ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableShutDown]);
-            sebSettObso.getRegistryValue("outsideSebEnableEaseOfAccess"     ).setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableEaseOfAccess]);
-            sebSettObso.getRegistryValue("outsideSebEnableVmWareClientShade").setBool(settingBoolean[StateNew, GroupOutsideSeb, ValueOutsideSebEnableVmWareClientShade]);
-
-            sebSettObso.getSecurityOption("hookMessages").setBool(settingBoolean[StateNew, GroupHookedKeys, ValueHookMessages]);
-
-            sebSettObso.getHookedMessageKey("enableEsc"       ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableEsc]);
-            sebSettObso.getHookedMessageKey("enableCtrlEsc"   ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableCtrlEsc]);
-            sebSettObso.getHookedMessageKey("enableAltEsc"    ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltEsc]);
-            sebSettObso.getHookedMessageKey("enableAltTab"    ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltTab]);
-            sebSettObso.getHookedMessageKey("enableAltF4"     ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableAltF4]);
-          //sebSettings.getHookedMessageKey("enableStartMenu" ).setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableStartMenu]);
-            sebSettObso.getHookedMessageKey("enableRightMouse").setBool(settingBoolean[StateNew, GroupSpecialKeys, ValueEnableRightMouse]);
-
-            sebSettObso.getHookedMessageKey("enableF1" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF1 ]);
-            sebSettObso.getHookedMessageKey("enableF2" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF2 ]);
-            sebSettObso.getHookedMessageKey("enableF3" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF3 ]);
-            sebSettObso.getHookedMessageKey("enableF4" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF4 ]);
-            sebSettObso.getHookedMessageKey("enableF5" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF5 ]);
-            sebSettObso.getHookedMessageKey("enableF6" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF6 ]);
-            sebSettObso.getHookedMessageKey("enableF7" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF7 ]);
-            sebSettObso.getHookedMessageKey("enableF8" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF8 ]);
-            sebSettObso.getHookedMessageKey("enableF9" ).setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF9 ]);
-            sebSettObso.getHookedMessageKey("enableF10").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF10]);
-            sebSettObso.getHookedMessageKey("enableF11").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF11]);
-            sebSettObso.getHookedMessageKey("enableF12").setBool(settingBoolean[StateNew, GroupFunctionKeys, ValueEnableF12]);
-
-            return true;
-        }
-*/
 
 
         // **************
@@ -2345,11 +2070,15 @@ namespace SebWindowsConfig
             textBoxPermittedProcessIdentifier .Text = (String) processData[MessageIdentifier];
 
             // Remove all previously displayed arguments from CheckedListBox
+            checkedListBoxPermittedProcessArguments.Items.Clear();
+
+/*
             int listSize = checkedListBoxPermittedProcessArguments.Items.Count;
             for (index = listSize-1; index >= 0; index--)
             {
                 checkedListBoxPermittedProcessArguments.Items.RemoveAt(index);
             }
+*/
 
             // Add arguments of currently selected process to CheckedListBox
             for (index = 0; index < argumentList.Count; index++)
@@ -2770,24 +2499,26 @@ namespace SebWindowsConfig
             // Update the Permitted Process list
             List<object>      permittedProcessList = null;
             Dictionary<string, object> processData = null;
+            ListViewItem               processRow  = null;
 
             permittedProcessList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
             int index;
 
             // Remove all previously displayed processes from ListView
+            listViewPermittedProcesses.Items.Clear();
+
+/*
             int listSize = listViewPermittedProcesses.Items.Count;
             for (index = listSize-1; index >= 0; index--)
             {
                 listViewPermittedProcesses.Items.RemoveAt(index);
             }
-
+*/
 
             // Add processes of currently opened file to CheckedListBox
             for (index = 0; index < permittedProcessList.Count; index++)
             {
-                ListViewItem processRow;
-
                 processData = (Dictionary<string, object>) permittedProcessList[index];
 
                 Boolean activeBoolean = (Boolean) processData[MessageActive];
@@ -2795,9 +2526,6 @@ namespace SebWindowsConfig
 
                 String  activeString  = activeBoolean.ToString();
                 String      osString  = StringOS[osInteger];
-
-                //processRow = new ListViewItem(dict[MessageActive].ToString());
-                //processRow.SubItems.Add(StringOperatingSystem[(Int32) dict[MessageOS]]);
 
                 processRow = new ListViewItem(activeString);
                 processRow.SubItems.Add(osString);
@@ -2885,11 +2613,11 @@ namespace SebWindowsConfig
             checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
 
             // Group "Network"
-            //checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
-            //checkBoxEnableURLContentFilter.Checked = (Boolean)sebSettingsNew[MessageEnableURLContentFilter];
+            checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
+            checkBoxEnableURLContentFilter.Checked = (Boolean)sebSettingsNew[MessageEnableURLContentFilter];
 
-            //radioButtonUseSystemProxySettings.Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
-            //radioButtonUseSebProxySettings   .Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
+            radioButtonUseSystemProxySettings.Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
+            radioButtonUseSebProxySettings   .Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
 
             // Group "Security"
              listBoxSebServicePolicy.SelectedIndex =     (int)sebSettingsNew[MessageSebServicePolicy];

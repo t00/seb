@@ -209,7 +209,7 @@
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
             this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
             this.buttonPasteFromSavedClipboard = new System.Windows.Forms.Button();
-            this.labelSEBServerURL = new System.Windows.Forms.Label();
+            this.labelSebServerURL = new System.Windows.Forms.Label();
             this.textBoxSebServerURL = new System.Windows.Forms.TextBox();
             this.textBoxConfirmAdminPassword = new System.Windows.Forms.TextBox();
             this.textBoxAdminPassword = new System.Windows.Forms.TextBox();
@@ -230,6 +230,10 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
+            this.radioButtonUseSystemProxySettings = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseSebProxySettings = new System.Windows.Forms.RadioButton();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -240,6 +244,8 @@
             this.tabPageSecurity.SuspendLayout();
             this.tabPageNetwork.SuspendLayout();
             this.tabControlNetwork.SuspendLayout();
+            this.tabPageFilter.SuspendLayout();
+            this.tabPageProxies.SuspendLayout();
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
             this.tabPagePermittedProcesses.SuspendLayout();
@@ -292,8 +298,6 @@
             // checkBoxHookKeys
             // 
             this.checkBoxHookKeys.AutoSize = true;
-            this.checkBoxHookKeys.Checked = true;
-            this.checkBoxHookKeys.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxHookKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxHookKeys.Location = new System.Drawing.Point(46, 319);
             this.checkBoxHookKeys.Name = "checkBoxHookKeys";
@@ -715,12 +719,10 @@
             // radioButtonPreviousValuesFromFile
             // 
             this.radioButtonPreviousValuesFromFile.AutoSize = true;
-            this.radioButtonPreviousValuesFromFile.Checked = true;
             this.radioButtonPreviousValuesFromFile.Location = new System.Drawing.Point(9, 35);
             this.radioButtonPreviousValuesFromFile.Name = "radioButtonPreviousValuesFromFile";
             this.radioButtonPreviousValuesFromFile.Size = new System.Drawing.Size(198, 21);
             this.radioButtonPreviousValuesFromFile.TabIndex = 27;
-            this.radioButtonPreviousValuesFromFile.TabStop = true;
             this.radioButtonPreviousValuesFromFile.Text = "to previous values from file";
             this.radioButtonPreviousValuesFromFile.UseVisualStyleBackColor = true;
             // 
@@ -880,8 +882,6 @@
             // checkBoxCreateNewDesktop
             // 
             this.checkBoxCreateNewDesktop.AutoSize = true;
-            this.checkBoxCreateNewDesktop.Checked = true;
-            this.checkBoxCreateNewDesktop.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxCreateNewDesktop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(31, 160);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
@@ -925,8 +925,6 @@
             // checkBoxEnableLogging
             // 
             this.checkBoxEnableLogging.AutoSize = true;
-            this.checkBoxEnableLogging.Checked = true;
-            this.checkBoxEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableLogging.Location = new System.Drawing.Point(30, 266);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
@@ -967,15 +965,17 @@
             this.tabControlNetwork.Location = new System.Drawing.Point(30, 29);
             this.tabControlNetwork.Name = "tabControlNetwork";
             this.tabControlNetwork.SelectedIndex = 0;
-            this.tabControlNetwork.Size = new System.Drawing.Size(719, 391);
+            this.tabControlNetwork.Size = new System.Drawing.Size(941, 479);
             this.tabControlNetwork.TabIndex = 0;
             // 
             // tabPageFilter
             // 
+            this.tabPageFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
+            this.tabPageFilter.Controls.Add(this.checkBoxEnableURLFilter);
             this.tabPageFilter.Location = new System.Drawing.Point(4, 25);
             this.tabPageFilter.Name = "tabPageFilter";
             this.tabPageFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFilter.Size = new System.Drawing.Size(711, 362);
+            this.tabPageFilter.Size = new System.Drawing.Size(933, 450);
             this.tabPageFilter.TabIndex = 0;
             this.tabPageFilter.Text = "Filter";
             this.tabPageFilter.UseVisualStyleBackColor = true;
@@ -985,17 +985,19 @@
             this.tabPageCertificates.Location = new System.Drawing.Point(4, 25);
             this.tabPageCertificates.Name = "tabPageCertificates";
             this.tabPageCertificates.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCertificates.Size = new System.Drawing.Size(711, 362);
+            this.tabPageCertificates.Size = new System.Drawing.Size(933, 450);
             this.tabPageCertificates.TabIndex = 1;
             this.tabPageCertificates.Text = "Certificates";
             this.tabPageCertificates.UseVisualStyleBackColor = true;
             // 
             // tabPageProxies
             // 
+            this.tabPageProxies.Controls.Add(this.radioButtonUseSebProxySettings);
+            this.tabPageProxies.Controls.Add(this.radioButtonUseSystemProxySettings);
             this.tabPageProxies.Location = new System.Drawing.Point(4, 25);
             this.tabPageProxies.Name = "tabPageProxies";
             this.tabPageProxies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProxies.Size = new System.Drawing.Size(711, 362);
+            this.tabPageProxies.Size = new System.Drawing.Size(933, 450);
             this.tabPageProxies.TabIndex = 2;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
@@ -1312,8 +1314,6 @@
             // checkBoxAllowSwitchToApplications
             // 
             this.checkBoxAllowSwitchToApplications.AutoSize = true;
-            this.checkBoxAllowSwitchToApplications.Checked = true;
-            this.checkBoxAllowSwitchToApplications.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(24, 19);
             this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
@@ -1451,8 +1451,6 @@
             // checkBoxSendBrowserExamKey
             // 
             this.checkBoxSendBrowserExamKey.AutoSize = true;
-            this.checkBoxSendBrowserExamKey.Checked = true;
-            this.checkBoxSendBrowserExamKey.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxSendBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxSendBrowserExamKey.Location = new System.Drawing.Point(32, 176);
             this.checkBoxSendBrowserExamKey.Name = "checkBoxSendBrowserExamKey";
@@ -1546,8 +1544,6 @@
             // checkBoxOpenDownloads
             // 
             this.checkBoxOpenDownloads.AutoSize = true;
-            this.checkBoxOpenDownloads.Checked = true;
-            this.checkBoxOpenDownloads.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxOpenDownloads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxOpenDownloads.Location = new System.Drawing.Point(152, 132);
             this.checkBoxOpenDownloads.Name = "checkBoxOpenDownloads";
@@ -1560,8 +1556,6 @@
             // checkBoxAllowDownUploads
             // 
             this.checkBoxAllowDownUploads.AutoSize = true;
-            this.checkBoxAllowDownUploads.Checked = true;
-            this.checkBoxAllowDownUploads.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAllowDownUploads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAllowDownUploads.Location = new System.Drawing.Point(33, 32);
             this.checkBoxAllowDownUploads.Name = "checkBoxAllowDownUploads";
@@ -1653,8 +1647,6 @@
             // checkBoxEnableJavaScript
             // 
             this.checkBoxEnableJavaScript.AutoSize = true;
-            this.checkBoxEnableJavaScript.Checked = true;
-            this.checkBoxEnableJavaScript.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableJavaScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(226, 343);
             this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
@@ -1679,8 +1671,6 @@
             // checkBoxEnablePlugIns
             // 
             this.checkBoxEnablePlugIns.AutoSize = true;
-            this.checkBoxEnablePlugIns.Checked = true;
-            this.checkBoxEnablePlugIns.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnablePlugIns.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnablePlugIns.Location = new System.Drawing.Point(31, 343);
             this.checkBoxEnablePlugIns.Name = "checkBoxEnablePlugIns";
@@ -1693,8 +1683,6 @@
             // checkBoxUseSebWithoutBrowser
             // 
             this.checkBoxUseSebWithoutBrowser.AutoSize = true;
-            this.checkBoxUseSebWithoutBrowser.Checked = true;
-            this.checkBoxUseSebWithoutBrowser.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(31, 404);
             this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
             this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(237, 21);
@@ -1972,12 +1960,10 @@
             // radioButtonUseBrowserWindow
             // 
             this.radioButtonUseBrowserWindow.AutoSize = true;
-            this.radioButtonUseBrowserWindow.Checked = true;
             this.radioButtonUseBrowserWindow.Location = new System.Drawing.Point(31, 35);
             this.radioButtonUseBrowserWindow.Name = "radioButtonUseBrowserWindow";
             this.radioButtonUseBrowserWindow.Size = new System.Drawing.Size(157, 21);
             this.radioButtonUseBrowserWindow.TabIndex = 51;
-            this.radioButtonUseBrowserWindow.TabStop = true;
             this.radioButtonUseBrowserWindow.Text = "Use browser window";
             this.radioButtonUseBrowserWindow.UseVisualStyleBackColor = true;
             this.radioButtonUseBrowserWindow.CheckedChanged += new System.EventHandler(this.radioButtonUseBrowserWindow_CheckedChanged);
@@ -2121,12 +2107,10 @@
             // radioButtonStartingAnExam
             // 
             this.radioButtonStartingAnExam.AutoSize = true;
-            this.radioButtonStartingAnExam.Checked = true;
             this.radioButtonStartingAnExam.Location = new System.Drawing.Point(60, 63);
             this.radioButtonStartingAnExam.Name = "radioButtonStartingAnExam";
             this.radioButtonStartingAnExam.Size = new System.Drawing.Size(133, 21);
             this.radioButtonStartingAnExam.TabIndex = 50;
-            this.radioButtonStartingAnExam.TabStop = true;
             this.radioButtonStartingAnExam.Text = "starting an exam";
             this.radioButtonStartingAnExam.UseVisualStyleBackColor = true;
             this.radioButtonStartingAnExam.CheckedChanged += new System.EventHandler(this.radioButtonStartingAnExam_CheckedChanged);
@@ -2134,8 +2118,6 @@
             // checkBoxAllowPreferencesWindow
             // 
             this.checkBoxAllowPreferencesWindow.AutoSize = true;
-            this.checkBoxAllowPreferencesWindow.Checked = true;
-            this.checkBoxAllowPreferencesWindow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAllowPreferencesWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxAllowPreferencesWindow.Location = new System.Drawing.Point(60, 117);
             this.checkBoxAllowPreferencesWindow.Name = "checkBoxAllowPreferencesWindow";
@@ -2198,7 +2180,7 @@
             this.tabPageGeneral.Controls.Add(this.groupBoxExitSequence);
             this.tabPageGeneral.Controls.Add(this.checkBoxIgnoreQuitPassword);
             this.tabPageGeneral.Controls.Add(this.buttonPasteFromSavedClipboard);
-            this.tabPageGeneral.Controls.Add(this.labelSEBServerURL);
+            this.tabPageGeneral.Controls.Add(this.labelSebServerURL);
             this.tabPageGeneral.Controls.Add(this.textBoxSebServerURL);
             this.tabPageGeneral.Controls.Add(this.textBoxConfirmAdminPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxAdminPassword);
@@ -2314,16 +2296,16 @@
             this.buttonPasteFromSavedClipboard.UseVisualStyleBackColor = true;
             this.buttonPasteFromSavedClipboard.Click += new System.EventHandler(this.buttonPasteFromSavedClipboard_Click);
             // 
-            // labelSEBServerURL
+            // labelSebServerURL
             // 
-            this.labelSEBServerURL.AutoSize = true;
-            this.labelSEBServerURL.Enabled = false;
-            this.labelSEBServerURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSEBServerURL.Location = new System.Drawing.Point(21, 71);
-            this.labelSEBServerURL.Name = "labelSEBServerURL";
-            this.labelSEBServerURL.Size = new System.Drawing.Size(113, 17);
-            this.labelSEBServerURL.TabIndex = 47;
-            this.labelSEBServerURL.Text = "SEB Server URL";
+            this.labelSebServerURL.AutoSize = true;
+            this.labelSebServerURL.Enabled = false;
+            this.labelSebServerURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSebServerURL.Location = new System.Drawing.Point(21, 71);
+            this.labelSebServerURL.Name = "labelSebServerURL";
+            this.labelSebServerURL.Size = new System.Drawing.Size(113, 17);
+            this.labelSebServerURL.TabIndex = 47;
+            this.labelSebServerURL.Text = "SEB Server URL";
             // 
             // textBoxSebServerURL
             // 
@@ -2466,8 +2448,6 @@
             // checkBoxAllowQuit
             // 
             this.checkBoxAllowQuit.AutoSize = true;
-            this.checkBoxAllowQuit.Checked = true;
-            this.checkBoxAllowQuit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAllowQuit.Location = new System.Drawing.Point(62, 198);
             this.checkBoxAllowQuit.Name = "checkBoxAllowQuit";
             this.checkBoxAllowQuit.Size = new System.Drawing.Size(168, 21);
@@ -2526,6 +2506,48 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // checkBoxEnableURLFilter
+            // 
+            this.checkBoxEnableURLFilter.AutoSize = true;
+            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(24, 23);
+            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
+            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(162, 21);
+            this.checkBoxEnableURLFilter.TabIndex = 78;
+            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
+            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableURLContentFilter
+            // 
+            this.checkBoxEnableURLContentFilter.AutoSize = true;
+            this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(42, 50);
+            this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
+            this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(213, 21);
+            this.checkBoxEnableURLContentFilter.TabIndex = 79;
+            this.checkBoxEnableURLContentFilter.Text = "Filter also embedded content";
+            this.checkBoxEnableURLContentFilter.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonUseSystemProxySettings
+            // 
+            this.radioButtonUseSystemProxySettings.AutoSize = true;
+            this.radioButtonUseSystemProxySettings.Location = new System.Drawing.Point(34, 26);
+            this.radioButtonUseSystemProxySettings.Name = "radioButtonUseSystemProxySettings";
+            this.radioButtonUseSystemProxySettings.Size = new System.Drawing.Size(193, 21);
+            this.radioButtonUseSystemProxySettings.TabIndex = 51;
+            this.radioButtonUseSystemProxySettings.Text = "Use system proxy settings";
+            this.radioButtonUseSystemProxySettings.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonUseSebProxySettings
+            // 
+            this.radioButtonUseSebProxySettings.AutoSize = true;
+            this.radioButtonUseSebProxySettings.Location = new System.Drawing.Point(34, 53);
+            this.radioButtonUseSebProxySettings.Name = "radioButtonUseSebProxySettings";
+            this.radioButtonUseSebProxySettings.Size = new System.Drawing.Size(176, 21);
+            this.radioButtonUseSebProxySettings.TabIndex = 52;
+            this.radioButtonUseSebProxySettings.Text = "Use SEB proxy settings";
+            this.radioButtonUseSebProxySettings.UseVisualStyleBackColor = true;
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2554,6 +2576,10 @@
             this.tabPageSecurity.PerformLayout();
             this.tabPageNetwork.ResumeLayout(false);
             this.tabControlNetwork.ResumeLayout(false);
+            this.tabPageFilter.ResumeLayout(false);
+            this.tabPageFilter.PerformLayout();
+            this.tabPageProxies.ResumeLayout(false);
+            this.tabPageProxies.PerformLayout();
             this.tabPageApplications.ResumeLayout(false);
             this.tabPageApplications.PerformLayout();
             this.tabControlApplications.ResumeLayout(false);
@@ -2723,7 +2749,7 @@
         private System.Windows.Forms.ListBox listBoxExitKey2;
         private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
         private System.Windows.Forms.Button buttonPasteFromSavedClipboard;
-        private System.Windows.Forms.Label labelSEBServerURL;
+        private System.Windows.Forms.Label labelSebServerURL;
         private System.Windows.Forms.TextBox textBoxSebServerURL;
         private System.Windows.Forms.TextBox textBoxConfirmAdminPassword;
         private System.Windows.Forms.TextBox textBoxAdminPassword;
@@ -2786,6 +2812,10 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxPermittedProcessArguments;
         private System.Windows.Forms.TextBox textBoxPermittedProcessIdentifier;
         private System.Windows.Forms.Label labelPermittedProcessIdentifier;
+        private System.Windows.Forms.CheckBox checkBoxEnableURLContentFilter;
+        private System.Windows.Forms.CheckBox checkBoxEnableURLFilter;
+        private System.Windows.Forms.RadioButton radioButtonUseSebProxySettings;
+        private System.Windows.Forms.RadioButton radioButtonUseSystemProxySettings;
 
     }
 }
