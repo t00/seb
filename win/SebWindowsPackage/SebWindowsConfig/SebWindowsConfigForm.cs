@@ -452,6 +452,23 @@ namespace SebWindowsConfig
 
         static SEBProtectionController    sebController  = new SEBProtectionController();
 
+        static int  permittedProcessIndex = -1;
+        static int prohibitedProcessIndex = -1;
+
+        static List<object>                permittedProcessList = null;
+        static List<object>               prohibitedProcessList = null;
+
+        static Dictionary<string, object>  permittedProcessData = null;
+        static Dictionary<string, object> prohibitedProcessData = null;
+
+        static List<object>               permittedArgumentList = null;
+        static List<object>              prohibitedArgumentList = null;
+
+        static Dictionary<string, object>  permittedArgumentData = null;
+        static Dictionary<string, object> prohibitedArgumentData = null;
+
+
+
 
 
         // ***********
@@ -2690,33 +2707,13 @@ namespace SebWindowsConfig
 
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
-            ListViewItem               processRow  = null;
 
             processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
             processData = (Dictionary<string, object>) processList[selectedIndex];
 
             processData[MessageActive] = checkBoxPermittedProcessActive.Checked;
 
-            Boolean activeBoolean = (Boolean) processData[MessageActive];
-            Int32       osInteger = (Int32)   processData[MessageOS];
-
-            String  activeString  = activeBoolean.ToString();
-            String      osString  = StringOS[osInteger];
-
-/*
-            processRow = new ListViewItem(activeString);
-            processRow.SubItems.Add(osString);
-
-            processRow.SubItems.Add((String) processData[MessageExecutable]);
-            processRow.SubItems.Add((String) processData[MessageAppTitle]);
-
-            listViewPermittedProcesses.Items.Add(processRow);
-*/
-            processRow = listViewPermittedProcesses.Items[selectedIndex];
-            //processRow.SubItems[MessageActive].
-
-            //listViewPermittedProcesses.Items[selectedIndex].SubItems[MessageActive] = checkBoxPermittedProcessActive.Checked.ToString();
-            //SetWidgetsToNewSettings();
+            SetWidgetsToNewSettings();
         }
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
