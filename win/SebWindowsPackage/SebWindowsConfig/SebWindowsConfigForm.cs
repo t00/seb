@@ -2655,17 +2655,131 @@ namespace SebWindowsConfig
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
 
+
+
+
+
+        private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void buttonChoosePermittedApplication_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChoosePermittedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
+        {
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            List<object>               processList = null;
+            Dictionary<string, object> processData = null;
+            ListViewItem               processRow  = null;
+
+            processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            processData = (Dictionary<string, object>) processList[selectedIndex];
+
+            processData[MessageActive] = checkBoxPermittedProcessActive.Checked;
+
+            Boolean activeBoolean = (Boolean) processData[MessageActive];
+            Int32       osInteger = (Int32)   processData[MessageOS];
+
+            String  activeString  = activeBoolean.ToString();
+            String      osString  = StringOS[osInteger];
+
+/*
+            processRow = new ListViewItem(activeString);
+            processRow.SubItems.Add(osString);
+
+            processRow.SubItems.Add((String) processData[MessageExecutable]);
+            processRow.SubItems.Add((String) processData[MessageAppTitle]);
+
+            listViewPermittedProcesses.Items.Add(processRow);
+*/
+            processRow = listViewPermittedProcesses.Items[selectedIndex];
+            //processRow.SubItems[MessageActive].
+
+            //listViewPermittedProcesses.Items[selectedIndex].SubItems[MessageActive] = checkBoxPermittedProcessActive.Checked.ToString();
+            //SetWidgetsToNewSettings();
+        }
+
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+
+        private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPermittedProcessAppTitle_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPermittedProcessIdentifier_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         private void checkedListBoxPermittedProcessArguments_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
+        private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void buttonPermittedProcessRemoveArgument_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
 

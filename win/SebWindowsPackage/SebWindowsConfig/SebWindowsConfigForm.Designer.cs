@@ -1052,6 +1052,7 @@
             this.buttonChoosePermittedProcess.TabIndex = 88;
             this.buttonChoosePermittedProcess.Text = "Choose Process...";
             this.buttonChoosePermittedProcess.UseVisualStyleBackColor = true;
+            this.buttonChoosePermittedProcess.Click += new System.EventHandler(this.buttonChoosePermittedProcess_Click);
             // 
             // buttonChoosePermittedApplication
             // 
@@ -1061,6 +1062,7 @@
             this.buttonChoosePermittedApplication.TabIndex = 87;
             this.buttonChoosePermittedApplication.Text = "Choose Application...";
             this.buttonChoosePermittedApplication.UseVisualStyleBackColor = true;
+            this.buttonChoosePermittedApplication.Click += new System.EventHandler(this.buttonChoosePermittedApplication_Click);
             // 
             // buttonRemovePermittedProcess
             // 
@@ -1070,6 +1072,7 @@
             this.buttonRemovePermittedProcess.TabIndex = 86;
             this.buttonRemovePermittedProcess.Text = "-";
             this.buttonRemovePermittedProcess.UseVisualStyleBackColor = true;
+            this.buttonRemovePermittedProcess.Click += new System.EventHandler(this.buttonRemovePermittedProcess_Click);
             // 
             // buttonAddPermittedProcess
             // 
@@ -1079,6 +1082,7 @@
             this.buttonAddPermittedProcess.TabIndex = 85;
             this.buttonAddPermittedProcess.Text = "+";
             this.buttonAddPermittedProcess.UseVisualStyleBackColor = true;
+            this.buttonAddPermittedProcess.Click += new System.EventHandler(this.buttonAddPermittedProcess_Click);
             // 
             // listViewPermittedProcesses
             // 
@@ -1151,6 +1155,7 @@
             this.textBoxPermittedProcessIdentifier.Name = "textBoxPermittedProcessIdentifier";
             this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(449, 22);
             this.textBoxPermittedProcessIdentifier.TabIndex = 89;
+            this.textBoxPermittedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxPermittedProcessIdentifier_TextChanged);
             // 
             // checkedListBoxPermittedProcessArguments
             // 
@@ -1169,6 +1174,7 @@
             this.buttonPermittedProcessRemoveArgument.TabIndex = 87;
             this.buttonPermittedProcessRemoveArgument.Text = "-";
             this.buttonPermittedProcessRemoveArgument.UseVisualStyleBackColor = true;
+            this.buttonPermittedProcessRemoveArgument.Click += new System.EventHandler(this.buttonPermittedProcessRemoveArgument_Click);
             // 
             // buttonPermittedProcessAddArgument
             // 
@@ -1178,6 +1184,7 @@
             this.buttonPermittedProcessAddArgument.TabIndex = 86;
             this.buttonPermittedProcessAddArgument.Text = "+";
             this.buttonPermittedProcessAddArgument.UseVisualStyleBackColor = true;
+            this.buttonPermittedProcessAddArgument.Click += new System.EventHandler(this.buttonPermittedProcessAddArgument_Click);
             // 
             // labelPermittedProcessArguments
             // 
@@ -1231,6 +1238,7 @@
             this.textBoxPermittedProcessPath.Name = "textBoxPermittedProcessPath";
             this.textBoxPermittedProcessPath.Size = new System.Drawing.Size(572, 22);
             this.textBoxPermittedProcessPath.TabIndex = 9;
+            this.textBoxPermittedProcessPath.TextChanged += new System.EventHandler(this.textBoxPermittedProcessPath_TextChanged);
             // 
             // textBoxPermittedProcessExecutable
             // 
@@ -1238,6 +1246,7 @@
             this.textBoxPermittedProcessExecutable.Name = "textBoxPermittedProcessExecutable";
             this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(449, 22);
             this.textBoxPermittedProcessExecutable.TabIndex = 8;
+            this.textBoxPermittedProcessExecutable.TextChanged += new System.EventHandler(this.textBoxPermittedProcessExecutable_TextChanged);
             // 
             // textBoxPermittedProcessDescription
             // 
@@ -1245,6 +1254,7 @@
             this.textBoxPermittedProcessDescription.Name = "textBoxPermittedProcessDescription";
             this.textBoxPermittedProcessDescription.Size = new System.Drawing.Size(572, 22);
             this.textBoxPermittedProcessDescription.TabIndex = 7;
+            this.textBoxPermittedProcessDescription.TextChanged += new System.EventHandler(this.textBoxPermittedProcessDescription_TextChanged);
             // 
             // labelPermittedProcessDescription
             // 
@@ -1270,6 +1280,7 @@
             this.textBoxPermittedProcessAppTitle.Name = "textBoxPermittedProcessAppTitle";
             this.textBoxPermittedProcessAppTitle.Size = new System.Drawing.Size(449, 22);
             this.textBoxPermittedProcessAppTitle.TabIndex = 4;
+            this.textBoxPermittedProcessAppTitle.TextChanged += new System.EventHandler(this.textBoxPermittedProcessAppTitle_TextChanged);
             // 
             // checkBoxPermittedProcessAllowUser
             // 
@@ -1280,6 +1291,7 @@
             this.checkBoxPermittedProcessAllowUser.TabIndex = 3;
             this.checkBoxPermittedProcessAllowUser.Text = "Allow user to select location of application";
             this.checkBoxPermittedProcessAllowUser.UseVisualStyleBackColor = true;
+            this.checkBoxPermittedProcessAllowUser.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAllowUser_CheckedChanged);
             // 
             // checkBoxPermittedProcessAutohide
             // 
@@ -1290,6 +1302,7 @@
             this.checkBoxPermittedProcessAutohide.TabIndex = 2;
             this.checkBoxPermittedProcessAutohide.Text = "Autohide";
             this.checkBoxPermittedProcessAutohide.UseVisualStyleBackColor = true;
+            this.checkBoxPermittedProcessAutohide.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAutohide_CheckedChanged);
             // 
             // checkBoxPermittedProcessAutostart
             // 
@@ -1300,6 +1313,7 @@
             this.checkBoxPermittedProcessAutostart.TabIndex = 1;
             this.checkBoxPermittedProcessAutostart.Text = "Autostart";
             this.checkBoxPermittedProcessAutostart.UseVisualStyleBackColor = true;
+            this.checkBoxPermittedProcessAutostart.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAutostart_CheckedChanged);
             // 
             // checkBoxPermittedProcessActive
             // 
@@ -1310,6 +1324,7 @@
             this.checkBoxPermittedProcessActive.TabIndex = 0;
             this.checkBoxPermittedProcessActive.Text = "Active";
             this.checkBoxPermittedProcessActive.UseVisualStyleBackColor = true;
+            this.checkBoxPermittedProcessActive.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessActive_CheckedChanged);
             // 
             // checkBoxAllowSwitchToApplications
             // 
