@@ -2072,14 +2072,6 @@ namespace SebWindowsConfig
             // Remove all previously displayed arguments from CheckedListBox
             checkedListBoxPermittedProcessArguments.Items.Clear();
 
-/*
-            int listSize = checkedListBoxPermittedProcessArguments.Items.Count;
-            for (index = listSize-1; index >= 0; index--)
-            {
-                checkedListBoxPermittedProcessArguments.Items.RemoveAt(index);
-            }
-*/
-
             // Add arguments of currently selected process to CheckedListBox
             for (index = 0; index < argumentList.Count; index++)
             {
@@ -2507,14 +2499,6 @@ namespace SebWindowsConfig
 
             // Remove all previously displayed processes from ListView
             listViewPermittedProcesses.Items.Clear();
-
-/*
-            int listSize = listViewPermittedProcesses.Items.Count;
-            for (index = listSize-1; index >= 0; index--)
-            {
-                listViewPermittedProcesses.Items.RemoveAt(index);
-            }
-*/
 
             // Add processes of currently opened file to CheckedListBox
             for (index = 0; index < permittedProcessList.Count; index++)
