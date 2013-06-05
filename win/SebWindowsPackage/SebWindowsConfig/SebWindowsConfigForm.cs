@@ -2509,7 +2509,7 @@ namespace SebWindowsConfig
 
             // Update the widgets
 
-            // Update the Permitted Process list
+            // Update the Permitted Processes ListView
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
             ListViewItem               processRow  = null;
@@ -2683,12 +2683,9 @@ namespace SebWindowsConfig
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
             // Update the Permitted Process list
-            //List<object>               processList = null;
-            //Dictionary<string, object> processData = null;
+            List<object>               processList = null;
+            Dictionary<string, object> processData = null;
             ListViewItem               processRow  = null;
-
-            //processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
-            //processData = (Dictionary<string, object>) processList[index];
 
             Boolean activeBoolean = true;
             Int32       osInteger = 0;
@@ -2702,6 +2699,8 @@ namespace SebWindowsConfig
             processRow.SubItems.Add("");
 
             listViewPermittedProcesses.Items.Add(processRow);
+
+            //permittedProcessList.Add();
         }
 
 
