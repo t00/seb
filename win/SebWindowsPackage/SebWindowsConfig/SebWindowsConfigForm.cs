@@ -2682,12 +2682,34 @@ namespace SebWindowsConfig
 
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
+            // Update the Permitted Process list
+            //List<object>               processList = null;
+            //Dictionary<string, object> processData = null;
+            ListViewItem               processRow  = null;
 
+            //processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            //processData = (Dictionary<string, object>) processList[index];
+
+            Boolean activeBoolean = true;
+            Int32       osInteger = 0;
+
+            String activeString  = activeBoolean.ToString();
+            String     osString  = StringOS[osInteger];
+
+            processRow = new ListViewItem(activeString);
+            processRow.SubItems.Add(osString);
+            processRow.SubItems.Add("");
+            processRow.SubItems.Add("");
+
+            listViewPermittedProcesses.Items.Add(processRow);
         }
+
 
         private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
         {
-
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+            listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
         }
 
 
