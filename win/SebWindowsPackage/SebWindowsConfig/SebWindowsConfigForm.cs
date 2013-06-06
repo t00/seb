@@ -386,6 +386,14 @@ namespace SebWindowsConfig
         const int TypeString  = 2;
         const int TypeInteger = 3;
 
+        // Boolean values
+        const int intFalse = 0;
+        const int intTrue  = 1;
+
+        // Operating systems
+        const int intOSX = 0;
+        const int intWin = 1;
+
 
         // Global variables
 
@@ -949,11 +957,11 @@ namespace SebWindowsConfig
             StringPolicySebService[2] = "allow to use SEB only with service";
 
             // Define the strings for the Permitted and Prohibited Processes
-            StringActive[0] = "false";
-            StringActive[1] = "true";
+            StringActive[intFalse] = "false";
+            StringActive[intTrue ] = "true";
 
-            StringOS[0] = "OS X";
-            StringOS[1] = "Win";
+            StringOS[intOSX] = "OS X";
+            StringOS[intWin] = "Win";
 
             // Define the strings for the Permitted Processes columns
             StringColumnsProcessesPermitted[0] = "Active";
@@ -2060,9 +2068,9 @@ namespace SebWindowsConfig
             // Now you can set the widgets in the "Selected Process" groupBox.
 
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
             int index;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
             List<object>                processList = null;
             Dictionary<string, object>  processData = null;
@@ -2082,14 +2090,12 @@ namespace SebWindowsConfig
             checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
             checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
             checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
-
-            listBoxPermittedProcessOS.SelectedIndex =  (Int32) processData[MessageOS];
-
-            textBoxPermittedProcessAppTitle   .Text = (String) processData[MessageAppTitle];
-            textBoxPermittedProcessDescription.Text = (String) processData[MessageDescription];
-            textBoxPermittedProcessExecutable .Text = (String) processData[MessageExecutable];
-            textBoxPermittedProcessPath       .Text = (String) processData[MessagePath];
-            textBoxPermittedProcessIdentifier .Text = (String) processData[MessageIdentifier];
+             listBoxPermittedProcessOS.SelectedIndex  =   (Int32) processData[MessageOS];
+             textBoxPermittedProcessAppTitle   .Text  =  (String) processData[MessageAppTitle];
+             textBoxPermittedProcessDescription.Text  =  (String) processData[MessageDescription];
+             textBoxPermittedProcessExecutable .Text  =  (String) processData[MessageExecutable];
+             textBoxPermittedProcessPath       .Text  =  (String) processData[MessagePath];
+             textBoxPermittedProcessIdentifier .Text  =  (String) processData[MessageIdentifier];
 
             // Remove all previously displayed arguments from CheckedListBox
             checkedListBoxPermittedProcessArguments.Items.Clear();
@@ -2682,25 +2688,31 @@ namespace SebWindowsConfig
 
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
-            // Update the Permitted Process list
-            List<object>               processList = null;
-            Dictionary<string, object> processData = null;
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            Dictionary<string, object> processData = new Dictionary<string, object>();
             ListViewItem               processRow  = null;
 
-            Boolean activeBoolean = true;
-            Int32       osInteger = 0;
-
-            String activeString  = activeBoolean.ToString();
-            String     osString  = StringOS[osInteger];
-
-            processRow = new ListViewItem(activeString);
-            processRow.SubItems.Add(osString);
+            processRow = new ListViewItem(true.ToString());
+            processRow.SubItems.Add("Win");
             processRow.SubItems.Add("");
             processRow.SubItems.Add("");
+
+            processData[MessageActive     ] = true;
+            processData[MessageAutostart  ] = true;
+            processData[MessageAutohide   ] = true;
+            processData[MessageAllowUser  ] = true;
+            processData[MessageOS         ] = intWin;
+            processData[MessageAppTitle   ] = "";
+            processData[MessageDescription] = "";
+            processData[MessageExecutable ] = "";
+            processData[MessagePath       ] = "";
+            processData[MessageIdentifier ] = "";
+            processData[MessageArguments  ] = new List<object>();
 
             listViewPermittedProcesses.Items.Add(processRow);
-
-            //permittedProcessList.Add();
+                    permittedProcessList    .Add(processData);
         }
 
 
@@ -2708,7 +2720,9 @@ namespace SebWindowsConfig
         {
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
             int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
             listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
+                    permittedProcessList    .RemoveAt(selectedIndex);
         }
 
 
@@ -2758,14 +2772,11 @@ namespace SebWindowsConfig
             permittedProcessData[MessageAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
         }
 
-
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
             permittedProcessData[MessageOS] = listBoxPermittedProcessOS.SelectedIndex;
             SetWidgetsToNewSettings();
         }
-
-
 
         private void textBoxPermittedProcessAppTitle_TextChanged(object sender, EventArgs e)
         {
@@ -2795,24 +2806,38 @@ namespace SebWindowsConfig
         }
 
 
-
         private void checkedListBoxPermittedProcessArguments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = checkedListBoxPermittedProcessArguments.SelectedIndex;
-            permittedArgumentData[MessageActive  ] = checkedListBoxPermittedProcessArguments.GetItemChecked(index);
-            permittedArgumentData[MessageArgument] = checkedListBoxPermittedProcessArguments.Items[index];
+            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
+            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
 
+            permittedArgumentData[MessageActive  ] = checkedListBoxPermittedProcessArguments.GetItemChecked(selectedIndex);
+            permittedArgumentData[MessageArgument] = checkedListBoxPermittedProcessArguments.Items[selectedIndex];
         }
+
 
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            Dictionary<string, object> argumentData = new Dictionary<string, object>();
+
+            argumentData[MessageActive  ] = true;
+            argumentData[MessageArgument] = "";
+
             checkedListBoxPermittedProcessArguments.Items.Add("", true);
+                          permittedArgumentList          .Add(argumentData);
         }
+
 
         private void buttonPermittedProcessRemoveArgument_Click(object sender, EventArgs e)
         {
-            int index = checkedListBoxPermittedProcessArguments.SelectedIndex;
-            checkedListBoxPermittedProcessArguments.Items.RemoveAt(index);
+            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
+            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
+
+            checkedListBoxPermittedProcessArguments.Items.RemoveAt(selectedIndex);
+                          permittedArgumentList          .RemoveAt(selectedIndex);
         }
 
 
