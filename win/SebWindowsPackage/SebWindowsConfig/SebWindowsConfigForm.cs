@@ -2042,6 +2042,7 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageMonitorProcesses] = checkBoxMonitorProcesses.Checked;
         }
 
+
         // ***************************
         // Group "Permitted Processes"
         // ***************************
