@@ -2111,6 +2111,9 @@ namespace SebWindowsConfig
 
                 checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
             }
+
+            //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
+            //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
         }
 
 
@@ -2711,8 +2714,12 @@ namespace SebWindowsConfig
             processData[MessageIdentifier ] = "";
             processData[MessageArguments  ] = new List<object>();
 
-            listViewPermittedProcesses.Items.Add(processRow);
+            listViewPermittedProcesses.Items.Insert(selectedIndex, processRow);
+          //listViewPermittedProcesses.Items.Add(processRow);
                     permittedProcessList    .Add(processData);
+
+            listViewPermittedProcesses.Items[selectedIndex].Selected = true;
+            listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
         }
 
 
