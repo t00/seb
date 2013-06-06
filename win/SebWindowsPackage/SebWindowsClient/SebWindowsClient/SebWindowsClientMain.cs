@@ -87,22 +87,22 @@ namespace SebWindowsClient
         /// </summary>
         /// <param name="publicKeyHash">public key hash</param>
         /// ----------------------------------------------------------------------------------------
-        public static void SerialiseAndEncryptSettings(byte[] publicKeyHash)
-        {
-            string sebEncryptedWithPswClientConfigPath = "";
-            MemoryStream settingsMemStream = new MemoryStream();
-            XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
-            serializer.Serialize(settingsMemStream, SEBClientInfo.sebClientConfig);
-            byte[] settingsDataBytes = settingsMemStream.ToArray();
-            // Get certificate from disk
-            SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-            //sEBProtectionControler.KeyCertFilename = "C:\\SebWindowsClient\\SEBConfigKeys\\SEB-Configuration.pfx";
-            //sEBProtectionControler.KeyCertPassword = "seb-configuration";
-            //X509Certificate2 myCertificate = new X509Certificate2(sEBProtectionControler.KeyCertFilename, sEBProtectionControler.KeyCertPassword, X509KeyStorageFlags.Exportable);
-            // Encrypt seb client settings
-            string settingsData = Encoding.ASCII.GetString(settingsDataBytes);
-            sEBProtectionControler.EncryptWithPasswordAndSave(settingsData, sebEncryptedWithPswClientConfigPath);
-        }
+        //public static void SerialiseAndEncryptSettings(byte[] publicKeyHash)
+        //{
+        //    string sebEncryptedWithPswClientConfigPath = "";
+        //    MemoryStream settingsMemStream = new MemoryStream();
+        //    XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
+        //    serializer.Serialize(settingsMemStream, SEBClientInfo.sebClientConfig);
+        //    byte[] settingsDataBytes = settingsMemStream.ToArray();
+        //    // Get certificate from disk
+        //    SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+        //    //sEBProtectionControler.KeyCertFilename = "C:\\SebWindowsClient\\SEBConfigKeys\\SEB-Configuration.pfx";
+        //    //sEBProtectionControler.KeyCertPassword = "seb-configuration";
+        //    //X509Certificate2 myCertificate = new X509Certificate2(sEBProtectionControler.KeyCertFilename, sEBProtectionControler.KeyCertPassword, X509KeyStorageFlags.Exportable);
+        //    // Encrypt seb client settings
+        //    string settingsData = Encoding.ASCII.GetString(settingsDataBytes);
+        //    sEBProtectionControler.EncryptWithPasswordAndSave(settingsData, sebEncryptedWithPswClientConfigPath);
+        //}
 
 
         /// ----------------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ namespace SebWindowsClient
                 Logger.AddInformation("SEB Windows service is not available.", null, null);
             }
 
-            int forceService = int.Parse(SEBClientInfo.sebClientConfig.getPolicySetting("sebServicePolicy").Value);
+            int forceService = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageSebServicePolicy]; 
             switch(forceService)
             {
                 case (int)sebServicePolicies.ignoreService:
@@ -178,7 +178,8 @@ namespace SebWindowsClient
             }
 
              // Test if run inside virtual machine
-            if ((IsInsideVMWare() || IsInsideVPC()) && (!SEBClientInfo.sebClientConfig.getSecurityOption("allowVirtualMachine").getBool()))
+            bool allowVirtualMachine = (Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageAllowVirtualMachine];
+            if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                 Logger.AddError("Forbidden to run SEB on a VIRTUAL machine!", null, null);
@@ -197,14 +198,21 @@ namespace SebWindowsClient
                 ////just kill explorer.exe on Win9x / Me
                 //sEBSettings
                 bool killExplorer = false;
-                for (int i = 0; i < SEBClientInfo.sebClientConfig.ProhibitedProcesses.Count(); i++)
+
+                List<object> prohibitedProcessList = (List<object>)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageProhibitedProcesses];
+                for (int i = 0; i < prohibitedProcessList.Count(); i++)
                 {
-                    if(SEBClientInfo.sebClientConfig.ProhibitedProcesses[i].nameWin.CompareTo("explorer.exe") == 0)
+                    Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
+                    string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageNameWin];
+                    if ((Boolean)prohibitedProcess[SEBGlobalConstants.MessageActive])
                     {
-                        killExplorer = true;
+
+                        if (prohibitedProcessName.CompareTo("explorer.exe") == 0)
+                        {
+                            killExplorer = true;
+                        }
                     }
                 }
-
                 if (killExplorer)
                 {
                     Logger.AddInformation("Kill process by name(explorer.exe)", null, null);
@@ -212,7 +220,7 @@ namespace SebWindowsClient
                     Logger.AddInformation("Process by name(explorer.exe) killed", null, null);
                  }
                 //tell Win9x / Me that the screensaver is running to lock system tasks
-                if (!SEBClientInfo.sebClientConfig.getSecurityOption("createNewDesktop").getBool())
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageCreateNewDesktop])
                 {
                     SEBDesktopController.DisableTaskSwitching();
                 }
@@ -220,7 +228,7 @@ namespace SebWindowsClient
             else
             {
                 //on NT4/NT5 a new desktop is created
-                if (SEBClientInfo.sebClientConfig.getSecurityOption("createNewDesktop").getBool())
+                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageCreateNewDesktop])
                 {
                     SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
                     SEBDesktopController OriginalInput = SEBDesktopController.OpenInputDesktop();

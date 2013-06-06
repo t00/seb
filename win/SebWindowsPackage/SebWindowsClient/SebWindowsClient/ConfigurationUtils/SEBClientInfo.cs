@@ -9,9 +9,53 @@ using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.DesktopUtils;
 using System.Xml.Serialization;
 using SebWindowsClient.CryptographyUtils;
+using PlistCS;
 
 namespace SebWindowsClient.ConfigurationUtils
 {
+    public enum chooseFileToUploadPolicies
+    {
+        manuallyWithFileRequester = 0,
+        attemptUploadSameFileDownloadedBefore = 1,
+        onlyAllowUploadSameFileDownloadedBefore = 2
+    };
+
+    public enum newBrowserWindowPolicies
+    {
+        getGenerallyBlocked = 0,
+        openInSameWindow = 1,
+        openInNewWindow = 2
+    };
+
+    public enum sebServicePolicies
+    {
+        ignoreService = 0,
+        indicateMissingService = 1,
+        forceSebService = 2
+    };
+
+    public enum browserViewModes
+    {
+        browserViewModeWindow = 0,
+        browserViewModeFullscreen = 1
+    };
+
+    // MAC
+    public enum sebPurposePolicies
+    {
+        sebPurposePolicyStartingExam = 0,
+        sebPurposePolicyConfiguringClient = 1
+    };
+
+    public enum urlFilterRuleActions
+    {
+        urlFilterActionBlock = 0,
+        urlFilterActionAllow = 1,
+        urlFilterActionSkip = 2,
+        urlFilterActionAn = 3,
+        urlFilterActionOr = 4
+    };
+
     public class SEBClientInfo
     {
 		#region Imports
@@ -96,6 +140,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string QuitPassword { get; set; }
         public static string QuitHashcode { get; set; }
 
+        public static Dictionary<string, object> sebSettings = new Dictionary<string, object>();
+
         #endregion
 
 		#region Structures
@@ -115,7 +161,7 @@ namespace SebWindowsClient.ConfigurationUtils
         }
         #endregion
 
-         public static SEBClientConfig sebClientConfig;
+         //public static SEBClientConfig sebClientConfig;
 
         /// <summary>
          /// Sets user, host info, send-recv interval, recv timeout, Logger and read SebClient configuration.
@@ -203,12 +249,18 @@ namespace SebWindowsClient.ConfigurationUtils
                 //sebClientConfig = DeserializeFromDeryptedXML(decriptedSebClientConfig);
 
                 // Deserialise SebClient configuration in SEBClientConfig class
-                TextReader sebClientConfigFileReader = new StreamReader(SebClientConfigFile);
-                XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-                sebClientConfig = (SEBClientConfig)deserializer.Deserialize(sebClientConfigFileReader);
+                //TextReader sebClientConfigFileReader = new StreamReader(SebClientConfigFile);
+                //XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
+                //sebClientConfig = (SEBClientConfig)deserializer.Deserialize(sebClientConfigFileReader);
+
+
+                if (!OpenSebFile(SebClientConfigFile))
+                    return false;
+
+                //sebSettings.
 
                 // Initialise Loger, if enabled
-                if (sebClientConfig.getSecurityOption("enableLog").getBool())
+                if ((Boolean)sebSettings[SEBGlobalConstants.MessageEnableLogging])
                 {
                     Logger.initLogger(SebClientLogFile);
                 }
@@ -232,6 +284,45 @@ namespace SebWindowsClient.ConfigurationUtils
             return setSebClientConfiguration;
         }
 
+         // ****************************************
+         // Open the .seb file and read the settings
+         // ****************************************
+         private static bool OpenSebFile(String fileName)
+         {
+             try
+             {
+                 // Read the configuration settings from .seb file
+                 // Decrypt the configuration settings
+                 // Convert the XML structure into a C# object
+
+                 TextReader textReader;
+                 String encryptedSettings = "";
+                 String decryptedSettings = "";
+                 //String password          = "Seb";
+                 //X509Certificate2 certificate = null;
+
+                 textReader = new StreamReader(fileName);
+                 encryptedSettings = textReader.ReadToEnd();
+                 textReader.Close();
+
+                 //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
+                 //decryptedSettings = decryptedSettings.Trim();
+                 decryptedSettings = encryptedSettings;
+
+                 sebSettings = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+
+             }
+             catch (Exception streamReadException)
+             {
+                 // Let the user know what went wrong
+                 Console.WriteLine("The .seb file could not be read:");
+                 Console.WriteLine(streamReadException.Message);
+                 return false;
+             }
+
+             return true;
+         }
+
          /// <summary>
          /// Sets properties in config.json XULRunner configuration file.
          /// </summary>
@@ -254,9 +345,9 @@ namespace SebWindowsClient.ConfigurationUtils
                  XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
                  XULRunnerConfig xULRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-                 xULRunnerConfig.seb_openwin_width = int.Parse(SEBClientInfo.sebClientConfig.getPolicySetting("newBrowserWindowByLinkWidth").Value);
-                 xULRunnerConfig.seb_openwin_height = int.Parse(SEBClientInfo.sebClientConfig.getPolicySetting("newBrowserWindowByLinkHeight").Value);
-                 if (int.Parse(SEBClientInfo.sebClientConfig.getPolicySetting("browserViewMode").Value) == (int)browserViewModes.browserViewModeWindow)
+                 xULRunnerConfig.seb_openwin_width = Int32.Parse(SEBClientInfo.sebSettings[SEBGlobalConstants.MessageNewBrowserWindowByLinkWidth].ToString());
+                 xULRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.sebSettings[SEBGlobalConstants.MessageNewBrowserWindowByLinkHeight].ToString());
+                 if ((Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
                  {
                      xULRunnerConfig.seb_mainWindow_titlebar_enabled = true;
                  }
@@ -280,17 +371,17 @@ namespace SebWindowsClient.ConfigurationUtils
          /// Deserialize SEBClientConfig from decripted string.
          /// </summary>
          /// <returns></returns>
-         private static SEBClientConfig DeserializeFromDeryptedXML(string decriptedSebClientSettings)
-        {
-            decriptedSebClientSettings = decriptedSebClientSettings.Trim();
-            MemoryStream memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
-            XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-            SEBClientConfig sEBSettings;
-            sEBSettings = (SEBClientConfig)deserializer.Deserialize(memStream);
-            memStream.Close();
+        // private static SEBClientConfig DeserializeFromDeryptedXML(string decriptedSebClientSettings)
+        //{
+        //    decriptedSebClientSettings = decriptedSebClientSettings.Trim();
+        //    MemoryStream memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
+        //    XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
+        //    SEBClientConfig sEBSettings;
+        //    sEBSettings = (SEBClientConfig)deserializer.Deserialize(memStream);
+        //    memStream.Close();
 
-            return sEBSettings;
-        }
+        //    return sEBSettings;
+        //}
 
         /// <summary>
         /// Sets system version info.

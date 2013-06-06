@@ -131,7 +131,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
             //SebApplicationChooser.Visible = true;
             //SebApplicationChooser.Activate();
 
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableRightMouse").getBool())
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableRightMouse])
             {
                 if (nCode >= 0 && MouseMessages.WM_RBUTTONDOWN == (MouseMessages)wp)
                     return true;
@@ -153,27 +153,27 @@ namespace SebWindowsClient.BlockShortcutsUtils
             //SebApplicationChooser.Visible = true;
             //SebApplicationChooser.Activate();
 
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableEsc").getBool() && (KeyInfo.key == Keys.Escape))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableEsc] && (KeyInfo.key == Keys.Escape))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableCtrlEsc").getBool())
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableCtrlEsc])
             {
                 if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Escape))
                    return true;
 
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltEsc").getBool())
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltEsc])
             {
                 if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Escape))
                     return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
             {
                 if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                     return true;
             }
-            if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
+            if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
             {
                 if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                 {
@@ -198,7 +198,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
             //        return true;
             //    }
             //}
-            if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
+            if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
             {
                 if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
                 {
@@ -218,56 +218,56 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
             //    }
             //}
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltF4").getBool())
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltF4])
             {
                 if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.F4))
                     return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF1").getBool() && (KeyInfo.key == Keys.F1))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF1] && (KeyInfo.key == Keys.F1))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF2").getBool() && (KeyInfo.key == Keys.F2))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF2] && (KeyInfo.key == Keys.F2))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF3").getBool() && (KeyInfo.key == Keys.F3))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF3] && (KeyInfo.key == Keys.F3))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF4").getBool() && (KeyInfo.key == Keys.F4))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF4] && (KeyInfo.key == Keys.F4))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF5").getBool() && (KeyInfo.key == Keys.F5))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF5] && (KeyInfo.key == Keys.F5))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF6").getBool() && (KeyInfo.key == Keys.F6))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF6] && (KeyInfo.key == Keys.F6))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF7").getBool() && (KeyInfo.key == Keys.F7))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF7] && (KeyInfo.key == Keys.F7))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF8").getBool() && (KeyInfo.key == Keys.F8))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF8] && (KeyInfo.key == Keys.F8))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF9").getBool() && (KeyInfo.key == Keys.F9))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF9] && (KeyInfo.key == Keys.F9))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF10").getBool() && (KeyInfo.key == Keys.F10))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF10] && (KeyInfo.key == Keys.F10))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF11").getBool() && (KeyInfo.key == Keys.F11))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF11] && (KeyInfo.key == Keys.F11))
             {
                 return true;
             }
-            if (!SEBClientInfo.sebClientConfig.getHookedMessageKey("enableF12").getBool() && (KeyInfo.key == Keys.F12))
+            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF12] && (KeyInfo.key == Keys.F12))
             {
                 return true;
             }
