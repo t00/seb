@@ -92,8 +92,12 @@
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
+            this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.tabPageCertificates = new System.Windows.Forms.TabPage();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
+            this.radioButtonUseSebProxySettings = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseSystemProxySettings = new System.Windows.Forms.RadioButton();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
@@ -230,10 +234,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
-            this.radioButtonUseSystemProxySettings = new System.Windows.Forms.RadioButton();
-            this.radioButtonUseSebProxySettings = new System.Windows.Forms.RadioButton();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -980,6 +980,28 @@
             this.tabPageFilter.Text = "Filter";
             this.tabPageFilter.UseVisualStyleBackColor = true;
             // 
+            // checkBoxEnableURLContentFilter
+            // 
+            this.checkBoxEnableURLContentFilter.AutoSize = true;
+            this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(42, 50);
+            this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
+            this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(213, 21);
+            this.checkBoxEnableURLContentFilter.TabIndex = 79;
+            this.checkBoxEnableURLContentFilter.Text = "Filter also embedded content";
+            this.checkBoxEnableURLContentFilter.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableURLFilter
+            // 
+            this.checkBoxEnableURLFilter.AutoSize = true;
+            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(24, 23);
+            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
+            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(162, 21);
+            this.checkBoxEnableURLFilter.TabIndex = 78;
+            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
+            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
+            // 
             // tabPageCertificates
             // 
             this.tabPageCertificates.Location = new System.Drawing.Point(4, 25);
@@ -1001,6 +1023,26 @@
             this.tabPageProxies.TabIndex = 2;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonUseSebProxySettings
+            // 
+            this.radioButtonUseSebProxySettings.AutoSize = true;
+            this.radioButtonUseSebProxySettings.Location = new System.Drawing.Point(34, 53);
+            this.radioButtonUseSebProxySettings.Name = "radioButtonUseSebProxySettings";
+            this.radioButtonUseSebProxySettings.Size = new System.Drawing.Size(176, 21);
+            this.radioButtonUseSebProxySettings.TabIndex = 52;
+            this.radioButtonUseSebProxySettings.Text = "Use SEB proxy settings";
+            this.radioButtonUseSebProxySettings.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonUseSystemProxySettings
+            // 
+            this.radioButtonUseSystemProxySettings.AutoSize = true;
+            this.radioButtonUseSystemProxySettings.Location = new System.Drawing.Point(34, 26);
+            this.radioButtonUseSystemProxySettings.Name = "radioButtonUseSystemProxySettings";
+            this.radioButtonUseSystemProxySettings.Size = new System.Drawing.Size(193, 21);
+            this.radioButtonUseSystemProxySettings.TabIndex = 51;
+            this.radioButtonUseSystemProxySettings.Text = "Use system proxy settings";
+            this.radioButtonUseSystemProxySettings.UseVisualStyleBackColor = true;
             // 
             // tabPageApplications
             // 
@@ -1093,7 +1135,12 @@
             this.listViewPermittedProcesses.Size = new System.Drawing.Size(449, 99);
             this.listViewPermittedProcesses.TabIndex = 84;
             this.listViewPermittedProcesses.UseCompatibleStateImageBehavior = false;
+            this.listViewPermittedProcesses.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.listViewPermittedProcesses_AfterLabelEdit);
+            this.listViewPermittedProcesses.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewPermittedProcesses_ColumnClick);
+            this.listViewPermittedProcesses.ItemActivate += new System.EventHandler(this.listViewPermittedProcesses_ItemActivate);
+            this.listViewPermittedProcesses.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewPermittedProcesses_ItemChecked);
             this.listViewPermittedProcesses.SelectedIndexChanged += new System.EventHandler(this.listViewPermittedProcesses_SelectedIndexChanged);
+            this.listViewPermittedProcesses.Click += new System.EventHandler(this.listViewPermittedProcesses_Click);
             // 
             // comboBox1
             // 
@@ -1164,7 +1211,9 @@
             this.checkedListBoxPermittedProcessArguments.Name = "checkedListBoxPermittedProcessArguments";
             this.checkedListBoxPermittedProcessArguments.Size = new System.Drawing.Size(572, 55);
             this.checkedListBoxPermittedProcessArguments.TabIndex = 88;
+            this.checkedListBoxPermittedProcessArguments.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxPermittedProcessArguments_ItemCheck);
             this.checkedListBoxPermittedProcessArguments.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxPermittedProcessArguments_SelectedIndexChanged);
+            this.checkedListBoxPermittedProcessArguments.SelectedValueChanged += new System.EventHandler(this.checkedListBoxPermittedProcessArguments_SelectedValueChanged);
             // 
             // buttonPermittedProcessRemoveArgument
             // 
@@ -2520,48 +2569,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // checkBoxEnableURLFilter
-            // 
-            this.checkBoxEnableURLFilter.AutoSize = true;
-            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(24, 23);
-            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
-            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(162, 21);
-            this.checkBoxEnableURLFilter.TabIndex = 78;
-            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
-            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableURLContentFilter
-            // 
-            this.checkBoxEnableURLContentFilter.AutoSize = true;
-            this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(42, 50);
-            this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
-            this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(213, 21);
-            this.checkBoxEnableURLContentFilter.TabIndex = 79;
-            this.checkBoxEnableURLContentFilter.Text = "Filter also embedded content";
-            this.checkBoxEnableURLContentFilter.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonUseSystemProxySettings
-            // 
-            this.radioButtonUseSystemProxySettings.AutoSize = true;
-            this.radioButtonUseSystemProxySettings.Location = new System.Drawing.Point(34, 26);
-            this.radioButtonUseSystemProxySettings.Name = "radioButtonUseSystemProxySettings";
-            this.radioButtonUseSystemProxySettings.Size = new System.Drawing.Size(193, 21);
-            this.radioButtonUseSystemProxySettings.TabIndex = 51;
-            this.radioButtonUseSystemProxySettings.Text = "Use system proxy settings";
-            this.radioButtonUseSystemProxySettings.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonUseSebProxySettings
-            // 
-            this.radioButtonUseSebProxySettings.AutoSize = true;
-            this.radioButtonUseSebProxySettings.Location = new System.Drawing.Point(34, 53);
-            this.radioButtonUseSebProxySettings.Name = "radioButtonUseSebProxySettings";
-            this.radioButtonUseSebProxySettings.Size = new System.Drawing.Size(176, 21);
-            this.radioButtonUseSebProxySettings.TabIndex = 52;
-            this.radioButtonUseSebProxySettings.Text = "Use SEB proxy settings";
-            this.radioButtonUseSebProxySettings.UseVisualStyleBackColor = true;
             // 
             // SebWindowsConfigForm
             // 

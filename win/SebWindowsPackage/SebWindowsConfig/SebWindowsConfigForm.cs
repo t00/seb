@@ -998,8 +998,15 @@ namespace SebWindowsConfig
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
 
 
-            // Assign the column names to the listViews
+            // IMPORTANT:
+            // Set the "FullRowSelect" property of the ListViews to "true" so that
+            // clicking on an arbitrary table entry (subitem) selects the whole row!
+            // The default value is false, which only selects the row when a table entry
+            // of the FIRST column (= item, not subitem) is clicked on!
             listViewPermittedProcesses.View = View.Details;
+            listViewPermittedProcesses.FullRowSelect = true;
+
+            // Assign the column names to the listViews
             listViewPermittedProcesses.Columns.Add("Active");
             listViewPermittedProcesses.Columns.Add("OS");
             listViewPermittedProcesses.Columns.Add("Executable");
@@ -2819,6 +2826,8 @@ namespace SebWindowsConfig
             if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
             int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
 
+            string text = (sender as CheckedListBox).SelectedItem.ToString();
+
             permittedArgumentData[MessageActive  ] = checkedListBoxPermittedProcessArguments.GetItemChecked(selectedIndex);
             permittedArgumentData[MessageArgument] = checkedListBoxPermittedProcessArguments.Items[selectedIndex];
         }
@@ -2846,6 +2855,42 @@ namespace SebWindowsConfig
 
             checkedListBoxPermittedProcessArguments.Items.RemoveAt(selectedIndex);
                           permittedArgumentList          .RemoveAt(selectedIndex);
+        }
+
+        private void listViewPermittedProcesses_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_ItemActivate(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+
+        }
+
+        private void checkedListBoxPermittedProcessArguments_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            var checkedListBox = (CheckedListBox)sender;
+            var checkedItemText = checkedListBox.Items[e.Index].ToString();
+        }
+
+        private void checkedListBoxPermittedProcessArguments_SelectedValueChanged(object sender, EventArgs e)
+        {
+
         }
 
 
