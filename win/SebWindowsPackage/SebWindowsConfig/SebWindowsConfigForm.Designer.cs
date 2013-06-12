@@ -234,6 +234,17 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkedListBoxSelectAProtocol = new System.Windows.Forms.CheckedListBox();
+            this.labelSelectAProtocol = new System.Windows.Forms.Label();
+            this.checkBoxExcludeSimpleHostnames = new System.Windows.Forms.CheckBox();
+            this.checkBoxUsePassiveFTPMode = new System.Windows.Forms.CheckBox();
+            this.textBoxBypassProxySettings = new System.Windows.Forms.TextBox();
+            this.labelBypassProxySettings = new System.Windows.Forms.Label();
+            this.labelProxyConfigurationFile = new System.Windows.Forms.Label();
+            this.textBoxProxyConfigurationFileURL = new System.Windows.Forms.TextBox();
+            this.labelProxyConfigurationFileURL = new System.Windows.Forms.Label();
+            this.labelIfYourNetworkAdministrator = new System.Windows.Forms.Label();
+            this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -965,7 +976,7 @@
             this.tabControlNetwork.Location = new System.Drawing.Point(30, 29);
             this.tabControlNetwork.Name = "tabControlNetwork";
             this.tabControlNetwork.SelectedIndex = 0;
-            this.tabControlNetwork.Size = new System.Drawing.Size(941, 479);
+            this.tabControlNetwork.Size = new System.Drawing.Size(941, 600);
             this.tabControlNetwork.TabIndex = 0;
             // 
             // tabPageFilter
@@ -1014,12 +1025,23 @@
             // 
             // tabPageProxies
             // 
+            this.tabPageProxies.Controls.Add(this.buttonChooseProxyConfigurationFile);
+            this.tabPageProxies.Controls.Add(this.labelIfYourNetworkAdministrator);
+            this.tabPageProxies.Controls.Add(this.labelProxyConfigurationFileURL);
+            this.tabPageProxies.Controls.Add(this.textBoxProxyConfigurationFileURL);
+            this.tabPageProxies.Controls.Add(this.labelProxyConfigurationFile);
+            this.tabPageProxies.Controls.Add(this.labelBypassProxySettings);
+            this.tabPageProxies.Controls.Add(this.textBoxBypassProxySettings);
+            this.tabPageProxies.Controls.Add(this.checkBoxUsePassiveFTPMode);
+            this.tabPageProxies.Controls.Add(this.checkBoxExcludeSimpleHostnames);
+            this.tabPageProxies.Controls.Add(this.labelSelectAProtocol);
+            this.tabPageProxies.Controls.Add(this.checkedListBoxSelectAProtocol);
             this.tabPageProxies.Controls.Add(this.radioButtonUseSebProxySettings);
             this.tabPageProxies.Controls.Add(this.radioButtonUseSystemProxySettings);
             this.tabPageProxies.Location = new System.Drawing.Point(4, 25);
             this.tabPageProxies.Name = "tabPageProxies";
             this.tabPageProxies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProxies.Size = new System.Drawing.Size(933, 450);
+            this.tabPageProxies.Size = new System.Drawing.Size(933, 571);
             this.tabPageProxies.TabIndex = 2;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
@@ -1033,6 +1055,7 @@
             this.radioButtonUseSebProxySettings.TabIndex = 52;
             this.radioButtonUseSebProxySettings.Text = "Use SEB proxy settings";
             this.radioButtonUseSebProxySettings.UseVisualStyleBackColor = true;
+            this.radioButtonUseSebProxySettings.CheckedChanged += new System.EventHandler(this.radioButtonUseSebProxySettings_CheckedChanged);
             // 
             // radioButtonUseSystemProxySettings
             // 
@@ -1043,6 +1066,7 @@
             this.radioButtonUseSystemProxySettings.TabIndex = 51;
             this.radioButtonUseSystemProxySettings.Text = "Use system proxy settings";
             this.radioButtonUseSystemProxySettings.UseVisualStyleBackColor = true;
+            this.radioButtonUseSystemProxySettings.CheckedChanged += new System.EventHandler(this.radioButtonUseSystemProxySettings_CheckedChanged);
             // 
             // tabPageApplications
             // 
@@ -2570,6 +2594,116 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // checkedListBoxSelectAProtocol
+            // 
+            this.checkedListBoxSelectAProtocol.FormattingEnabled = true;
+            this.checkedListBoxSelectAProtocol.Location = new System.Drawing.Point(34, 137);
+            this.checkedListBoxSelectAProtocol.Name = "checkedListBoxSelectAProtocol";
+            this.checkedListBoxSelectAProtocol.Size = new System.Drawing.Size(334, 191);
+            this.checkedListBoxSelectAProtocol.TabIndex = 89;
+            this.checkedListBoxSelectAProtocol.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxSelectAProtocol_SelectedIndexChanged);
+            // 
+            // labelSelectAProtocol
+            // 
+            this.labelSelectAProtocol.AutoSize = true;
+            this.labelSelectAProtocol.Location = new System.Drawing.Point(31, 104);
+            this.labelSelectAProtocol.Name = "labelSelectAProtocol";
+            this.labelSelectAProtocol.Size = new System.Drawing.Size(197, 17);
+            this.labelSelectAProtocol.TabIndex = 90;
+            this.labelSelectAProtocol.Text = "Select a protocol to configure:";
+            // 
+            // checkBoxExcludeSimpleHostnames
+            // 
+            this.checkBoxExcludeSimpleHostnames.AutoSize = true;
+            this.checkBoxExcludeSimpleHostnames.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxExcludeSimpleHostnames.Location = new System.Drawing.Point(34, 334);
+            this.checkBoxExcludeSimpleHostnames.Name = "checkBoxExcludeSimpleHostnames";
+            this.checkBoxExcludeSimpleHostnames.Size = new System.Drawing.Size(196, 21);
+            this.checkBoxExcludeSimpleHostnames.TabIndex = 91;
+            this.checkBoxExcludeSimpleHostnames.Text = "Exclude simple hostnames";
+            this.checkBoxExcludeSimpleHostnames.UseVisualStyleBackColor = true;
+            this.checkBoxExcludeSimpleHostnames.CheckedChanged += new System.EventHandler(this.checkBoxExcludeSimpleHostnames_CheckedChanged);
+            // 
+            // checkBoxUsePassiveFTPMode
+            // 
+            this.checkBoxUsePassiveFTPMode.AutoSize = true;
+            this.checkBoxUsePassiveFTPMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxUsePassiveFTPMode.Location = new System.Drawing.Point(34, 526);
+            this.checkBoxUsePassiveFTPMode.Name = "checkBoxUsePassiveFTPMode";
+            this.checkBoxUsePassiveFTPMode.Size = new System.Drawing.Size(227, 21);
+            this.checkBoxUsePassiveFTPMode.TabIndex = 92;
+            this.checkBoxUsePassiveFTPMode.Text = "Use Passive FTP Mode (PASV)";
+            this.checkBoxUsePassiveFTPMode.UseVisualStyleBackColor = true;
+            this.checkBoxUsePassiveFTPMode.CheckedChanged += new System.EventHandler(this.checkBoxUsePassiveFTPMode_CheckedChanged);
+            // 
+            // textBoxBypassProxySettings
+            // 
+            this.textBoxBypassProxySettings.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxBypassProxySettings.Location = new System.Drawing.Point(34, 415);
+            this.textBoxBypassProxySettings.Multiline = true;
+            this.textBoxBypassProxySettings.Name = "textBoxBypassProxySettings";
+            this.textBoxBypassProxySettings.Size = new System.Drawing.Size(433, 90);
+            this.textBoxBypassProxySettings.TabIndex = 93;
+            this.textBoxBypassProxySettings.TextChanged += new System.EventHandler(this.textBoxBypassProxySettings_TextChanged);
+            // 
+            // labelBypassProxySettings
+            // 
+            this.labelBypassProxySettings.AutoSize = true;
+            this.labelBypassProxySettings.Location = new System.Drawing.Point(31, 386);
+            this.labelBypassProxySettings.Name = "labelBypassProxySettings";
+            this.labelBypassProxySettings.Size = new System.Drawing.Size(332, 17);
+            this.labelBypassProxySettings.TabIndex = 94;
+            this.labelBypassProxySettings.Text = "Bypass proxy settings for these hosts and domains:";
+            // 
+            // labelProxyConfigurationFile
+            // 
+            this.labelProxyConfigurationFile.AutoSize = true;
+            this.labelProxyConfigurationFile.Location = new System.Drawing.Point(400, 104);
+            this.labelProxyConfigurationFile.Name = "labelProxyConfigurationFile";
+            this.labelProxyConfigurationFile.Size = new System.Drawing.Size(151, 17);
+            this.labelProxyConfigurationFile.TabIndex = 95;
+            this.labelProxyConfigurationFile.Text = "Proxy configuration file";
+            this.labelProxyConfigurationFile.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // textBoxProxyConfigurationFileURL
+            // 
+            this.textBoxProxyConfigurationFileURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxProxyConfigurationFileURL.Location = new System.Drawing.Point(446, 140);
+            this.textBoxProxyConfigurationFileURL.Name = "textBoxProxyConfigurationFileURL";
+            this.textBoxProxyConfigurationFileURL.Size = new System.Drawing.Size(453, 22);
+            this.textBoxProxyConfigurationFileURL.TabIndex = 96;
+            this.textBoxProxyConfigurationFileURL.TextChanged += new System.EventHandler(this.textBoxProxyConfigurationFileURL_TextChanged);
+            // 
+            // labelProxyConfigurationFileURL
+            // 
+            this.labelProxyConfigurationFileURL.AutoSize = true;
+            this.labelProxyConfigurationFileURL.Location = new System.Drawing.Point(400, 142);
+            this.labelProxyConfigurationFileURL.Name = "labelProxyConfigurationFileURL";
+            this.labelProxyConfigurationFileURL.Size = new System.Drawing.Size(40, 17);
+            this.labelProxyConfigurationFileURL.TabIndex = 97;
+            this.labelProxyConfigurationFileURL.Text = "URL:";
+            // 
+            // labelIfYourNetworkAdministrator
+            // 
+            this.labelIfYourNetworkAdministrator.AutoSize = true;
+            this.labelIfYourNetworkAdministrator.Location = new System.Drawing.Point(400, 238);
+            this.labelIfYourNetworkAdministrator.Name = "labelIfYourNetworkAdministrator";
+            this.labelIfYourNetworkAdministrator.Size = new System.Drawing.Size(766, 17);
+            this.labelIfYourNetworkAdministrator.TabIndex = 98;
+            this.labelIfYourNetworkAdministrator.Text = "If your network administrator provided you with the address of an automatic proxy" +
+    " configuration (.pac) file, enter it above.";
+            // 
+            // buttonChooseProxyConfigurationFile
+            // 
+            this.buttonChooseProxyConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonChooseProxyConfigurationFile.Location = new System.Drawing.Point(775, 178);
+            this.buttonChooseProxyConfigurationFile.Name = "buttonChooseProxyConfigurationFile";
+            this.buttonChooseProxyConfigurationFile.Size = new System.Drawing.Size(124, 25);
+            this.buttonChooseProxyConfigurationFile.TabIndex = 99;
+            this.buttonChooseProxyConfigurationFile.Text = "Choose file...";
+            this.buttonChooseProxyConfigurationFile.UseVisualStyleBackColor = true;
+            this.buttonChooseProxyConfigurationFile.Click += new System.EventHandler(this.buttonChooseProxyConfigurationFile_Click);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2838,6 +2972,17 @@
         private System.Windows.Forms.CheckBox checkBoxEnableURLFilter;
         private System.Windows.Forms.RadioButton radioButtonUseSebProxySettings;
         private System.Windows.Forms.RadioButton radioButtonUseSystemProxySettings;
+        private System.Windows.Forms.CheckedListBox checkedListBoxSelectAProtocol;
+        private System.Windows.Forms.Label labelSelectAProtocol;
+        private System.Windows.Forms.CheckBox checkBoxUsePassiveFTPMode;
+        private System.Windows.Forms.CheckBox checkBoxExcludeSimpleHostnames;
+        private System.Windows.Forms.TextBox textBoxBypassProxySettings;
+        private System.Windows.Forms.Label labelBypassProxySettings;
+        private System.Windows.Forms.Label labelProxyConfigurationFile;
+        private System.Windows.Forms.TextBox textBoxProxyConfigurationFileURL;
+        private System.Windows.Forms.Label labelProxyConfigurationFileURL;
+        private System.Windows.Forms.Label labelIfYourNetworkAdministrator;
+        private System.Windows.Forms.Button buttonChooseProxyConfigurationFile;
 
     }
 }

@@ -221,6 +221,8 @@ namespace SebWindowsConfig
         const String MessageQuitURL            = "quitURL";
 
         // Group "Applications"
+        // Group "Applications - Permitted  Processes"
+        // Group "Applications - Prohibited Processes"
         const int ValueMonitorProcesses          = 1;
         const int ValuePermittedProcesses        = 2;
         const int ValueAllowSwitchToApplications = 3;
@@ -251,9 +253,9 @@ namespace SebWindowsConfig
         const String MessageArgument    = "argument";
 
 
-        // Group "Network"
-
-        // Group "Filter"
+        // Group "Network - Filter"
+        // Group "Network - Certificates"
+        // Group "Network - Proxies"
         const int ValueEnableURLFilter        = 1;
         const int ValueEnableURLContentFilter = 2;
         const int ValueURLFilterRules         = 3;
@@ -266,6 +268,7 @@ namespace SebWindowsConfig
         const String MessageURLFilterRules         = "URLFilterRules";
         const String MessageProxySettingsPolicy    = "proxySettingsPolicy";
         const String MessageProxies                = "proxies";
+
 
         // Group "Security"
         const int ValueSebServicePolicy    = 1;
@@ -430,6 +433,7 @@ namespace SebWindowsConfig
         static String[] StringColumnsProcessesProhibited = new String[4];
         static String[] StringActive              = new String[2];
         static String[] StringOS                  = new String[2];
+        static String[] StringProxyProtocol       = new String[7];
 
 
         // Number of values per group
@@ -975,8 +979,17 @@ namespace SebWindowsConfig
             StringColumnsProcessesProhibited[2] = "Executable";
             StringColumnsProcessesProhibited[3] = "Description";
 
+            // Define the strings for the Proxy Protocols
+            StringProxyProtocol[0] = "Auto Proxy Discovery";
+            StringProxyProtocol[1] = "Automatic Proxy Configuration";
+            StringProxyProtocol[2] = "Web Proxy (HTTP)";
+            StringProxyProtocol[3] = "Secure Web Proxy (HTTPS)";
+            StringProxyProtocol[4] = "FTP Proxy";
+            StringProxyProtocol[5] = "SOCKS Proxy";
+            StringProxyProtocol[6] = "Streaming Proxy (RTSP)";
 
-            // Assign the fixed entries to the listBoxes and comboBoxes
+
+            // Assign the fixed entries to the ListBoxes and ComboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
             listBoxExitKey2.Items.AddRange(StringFunctionKey);
             listBoxExitKey3.Items.AddRange(StringFunctionKey);
@@ -996,6 +1009,9 @@ namespace SebWindowsConfig
 
              listBoxChooseFileToUploadPolicy.Items.AddRange(StringPolicyFileUpload);
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
+
+            // Assign the fixed entries to the CheckedListBoxes
+            checkedListBoxSelectAProtocol.Items.AddRange(StringProxyProtocol);
 
 
             // IMPORTANT:
@@ -2634,10 +2650,13 @@ namespace SebWindowsConfig
             checkBoxAllowSwitchToApplications.Checked = (Boolean)sebSettingsNew[MessageAllowSwitchToApplications];
             checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
 
-            // Group "Network"
+            // Group "Network - Filter"
             checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
             checkBoxEnableURLContentFilter.Checked = (Boolean)sebSettingsNew[MessageEnableURLContentFilter];
 
+            // Group "Network - Certificates"
+
+            // Group "Network - Proxies"
             radioButtonUseSystemProxySettings.Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
             radioButtonUseSebProxySettings   .Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
 
@@ -2889,6 +2908,57 @@ namespace SebWindowsConfig
         }
 
         private void checkedListBoxPermittedProcessArguments_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void radioButtonUseSystemProxySettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUseSystemProxySettings.Checked == true)
+                 sebSettingsNew[MessageProxySettingsPolicy] = 0;
+            else sebSettingsNew[MessageProxySettingsPolicy] = 1;
+        }
+
+        private void radioButtonUseSebProxySettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUseSystemProxySettings.Checked == true)
+                 sebSettingsNew[MessageProxySettingsPolicy] = 1;
+            else sebSettingsNew[MessageProxySettingsPolicy] = 0;
+        }
+
+        private void checkBoxExcludeSimpleHostnames_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxUsePassiveFTPMode_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBoxSelectAProtocol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxBypassProxySettings_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProxyConfigurationFileURL_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
         {
 
         }
