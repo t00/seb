@@ -392,6 +392,15 @@ namespace SebWindowsClient
                     registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableShutDown] ? 1 : 0);
                     registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableEaseOfAccess] ? 1 : 0);
                     registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableVmWareClientShade] ? 1 : 0);
+
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableSwitchUser] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableLockThisComputer] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableChangeAPassword] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableStartTaskManager] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableLogOff] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableShutDown] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableEaseOfAccess] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageOutsideSebEnableVmWareClientShade] ? 1 : 0);
                     string registryFlags = registryFlagsBuilder.ToString();
 
                     Logger.AddInformation("UserName: " + userName + " UserSid: " + userSid.ToString() + " RegistryFlags: " + registryFlags, this, null);
