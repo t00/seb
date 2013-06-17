@@ -498,7 +498,15 @@ namespace SebWindowsConfig
         static Dictionary<string, object>  permittedArgumentData = null;
         static Dictionary<string, object> prohibitedArgumentData = null;
 
+        static List<CheckBox> checkBoxArrayPermittedProcessesActive     = new List<CheckBox>();
+        static List< ListBox>  listBoxArrayPermittedProcessesOS         = new List< ListBox>();
+        static List< TextBox>  textBoxArrayPermittedProcessesExecutable = new List< TextBox>();
+        static List< TextBox>  textBoxArrayPermittedProcessesTitle      = new List< TextBox>();
 
+        static List<CheckBox> checkBoxArrayProhibitedProcessesActive      = new List<CheckBox>();
+        static List< ListBox>  listBoxArrayProhibitedProcessesOS          = new List< ListBox>();
+        static List< TextBox>  textBoxArrayProhibitedProcessesExecutable  = new List< TextBox>();
+        static List< TextBox>  textBoxArrayProhibitedProcessesDescription = new List< TextBox>();
 
 
 
@@ -1709,7 +1717,11 @@ namespace SebWindowsConfig
             int index;
 
             // Remove all previously displayed processes from ListView
-            listViewPermittedProcesses.Items.Clear();
+                 listViewPermittedProcesses.Items    .Clear();
+            checkBoxArrayPermittedProcessesActive    .Clear();
+             listBoxArrayPermittedProcessesOS        .Clear();
+             textBoxArrayPermittedProcessesExecutable.Clear();
+             textBoxArrayPermittedProcessesTitle     .Clear();
 
             // Add processes of currently opened file to CheckedListBox
             for (index = 0; index < processList.Count; index++)
@@ -1722,6 +1734,9 @@ namespace SebWindowsConfig
                 String  activeString  = activeBoolean.ToString();
                 String      osString  = StringOS[osInteger];
 
+                String executable = (String) processData[MessageExecutable];
+                String title      = (String) processData[MessageTitle];
+
                 processRow = new ListViewItem(activeString);
                 processRow.SubItems.Add(osString);
 
@@ -1729,6 +1744,29 @@ namespace SebWindowsConfig
                 processRow.SubItems.Add((String) processData[MessageTitle]);
 
                 listViewPermittedProcesses.Items.Add(processRow);
+
+                CheckBox checkBoxActive     = new CheckBox();
+                 ListBox  listBoxOS         = new  ListBox();
+                 TextBox  textBoxExecutable = new  TextBox();
+                 TextBox  textBoxTitle      = new  TextBox();
+
+                //checkBoxActive.Bounds = 
+                checkBoxActive    .Checked = activeBoolean;
+                 //listBoxOS.SelectedIndex   = osInteger;
+                 textBoxExecutable.Text    = executable;
+                 textBoxTitle     .Text    = title;
+
+                checkBoxArrayPermittedProcessesActive.Add(checkBoxActive);
+                 listBoxArrayPermittedProcessesOS    .Add(listBoxOS);
+                 textBoxArrayPermittedProcessesExecutable.Add(textBoxExecutable);
+                 textBoxArrayPermittedProcessesTitle     .Add(textBoxTitle);
+
+                if (index == 0)
+                checkBoxArrayPermittedProcessesActive    [index].Show();
+                 //listBoxArrayPermittedProcessesOS        [index].Show();
+                 textBoxArrayPermittedProcessesExecutable[index].Show();
+                 textBoxArrayPermittedProcessesTitle     [index].Show();
+
             }
 
             // Auto-resize the column widths of the contents and headers
