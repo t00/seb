@@ -260,20 +260,24 @@ namespace SebWindowsConfig
         const int ValueEnableURLFilter           = 1;
         const int ValueEnableURLContentFilter    = 2;
         const int ValueURLFilterRules            = 3;
-        const int ValueProxySettingsPolicy       = 4;
-        const int ValueProxyProtocol             = 5;
-        const int ValueProxyConfigurationFileURL = 6;
-        const int ValueExcludeSimpleHostnames    = 7;
-        const int ValueUsePassiveFTPMode         = 8;
-        const int ValueBypassHostsAndDomains     = 9;
-        const int ValueBypassDomain = 10;
-        const int ValueBypassHost   = 11;
-        const int ValueBypassPort   = 12;
-        const int NumValueNetwork = 12;
+        const int ValueEmbedSSLServerCertificate = 4;
+        const int ValueEmbedIdentity             = 5;
+        const int ValueProxySettingsPolicy       = 6;
+        const int ValueProxyProtocol             = 7;
+        const int ValueProxyConfigurationFileURL = 8;
+        const int ValueExcludeSimpleHostnames    = 9;
+        const int ValueUsePassiveFTPMode         = 10;
+        const int ValueBypassHostsAndDomains     = 11;
+        const int ValueBypassDomain = 12;
+        const int ValueBypassHost   = 13;
+        const int ValueBypassPort   = 14;
+        const int NumValueNetwork = 14;
 
         const String MessageEnableURLFilter           = "enableURLFilter";
         const String MessageEnableURLContentFilter    = "enableURLContentFilter";
         const String MessageURLFilterRules            = "URLFilterRules";
+        const String MessageEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
+        const String MessageEmbedIdentity             = "EmbedIdentity";
         const String MessageProxySettingsPolicy       = "proxySettingsPolicy";
         const String MessageProxyProtocol             = "proxyProtocol";
         const String MessageProxyConfigurationFileURL = "proxyConfigurationFileURL";
@@ -1814,9 +1818,9 @@ namespace SebWindowsConfig
             radioButtonUseSebProxySettings   .Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
             checkedListBoxProxyProtocol.SelectedIndex =     (int)sebSettingsNew[MessageProxyProtocol];
 
-            index = (int)sebSettingsNew[MessageProxyProtocol];
-            checkedListBoxProxyProtocol.SetItemChecked(index, true);
-            checkedListBoxProxyProtocol.SelectedIndex = index;
+            int selectedIndex = (int)sebSettingsNew[MessageProxyProtocol];
+            checkedListBoxProxyProtocol.SetItemChecked(selectedIndex, true);
+            checkedListBoxProxyProtocol.SelectedIndex = selectedIndex;
 
             textBoxProxyConfigurationFileURL .Text    =  (String)sebSettingsNew[MessageProxyConfigurationFileURL];
             checkBoxExcludeSimpleHostnames   .Checked = (Boolean)sebSettingsNew[MessageExcludeSimpleHostnames];
@@ -2708,6 +2712,13 @@ namespace SebWindowsConfig
 
         private void checkedListBoxProxyProtocol_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // If only the selected item shall be checked,
+            // we must first uncheck all items.
+            // Otherwise, the previously selected
+            // but afterwards unselected items keep being checked!)
+            for (int index = 0; index < 7; index++)
+                checkedListBoxProxyProtocol.SetItemChecked(index, false);
+
             int selectedIndex = checkedListBoxProxyProtocol.SelectedIndex;
             checkedListBoxProxyProtocol.SetItemChecked(selectedIndex, true);
             sebSettingsNew[MessageProxyProtocol] = checkedListBoxProxyProtocol.SelectedIndex;
@@ -2716,6 +2727,11 @@ namespace SebWindowsConfig
         private void textBoxProxyConfigurationFileURL_TextChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageProxyConfigurationFileURL] = textBoxProxyConfigurationFileURL.Text;
+        }
+
+        private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void checkBoxExcludeSimpleHostnames_CheckedChanged(object sender, EventArgs e)
@@ -2731,11 +2747,6 @@ namespace SebWindowsConfig
         private void textBoxBypassHostsAndDomains_TextChanged(object sender, EventArgs e)
         {
           //sebSettingsNew[MessageBypassHostsAndDomains] = textBoxBypassHostsAndDomains.Text;
-        }
-
-        private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
-        {
-
         }
 
 
