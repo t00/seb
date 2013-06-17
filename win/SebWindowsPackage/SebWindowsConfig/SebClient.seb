@@ -132,7 +132,7 @@
 			<integer>1</integer>
 			<key>path</key>
 			<string>C:\Program Files (x86)\Microsoft Office\Office12\EXCEL.EXE</string>
-			<key>appTitle</key>
+			<key>title</key>
 			<string>Microsoft Excel</string>
 		</dict>
 		<dict>
@@ -163,7 +163,7 @@
 			<integer>0</integer>
 			<key>path</key>
 			<string>TextEdit.app/Contents/MacOS</string>
-			<key>appTitle</key>
+			<key>title</key>
 			<string>TextEdit</string>
 		</dict>
 	</array>
@@ -188,17 +188,27 @@
 			<true/>
 		</dict>
 	</array>
-	<key>proxies</key>
-	<dict>
-		<key>FTPPassive</key>
-		<true/>
-		<key>RTSPPort</key>
-		<string>80</string>
-		<key>RTSPProxy</key>
-		<string>john.ch</string>
-	</dict>
 	<key>proxySettingsPolicy</key>
 	<integer>0</integer>
+	<key>proxyProtocol</key>
+	<integer>0</integer>
+	<key>proxyConfigurationFileURL</key>
+	<string>www.proxy-config-file.org</string>
+	<key>excludeSimpleHostnames</key>
+	<true/>
+	<key>usePassiveFTPMode</key>
+	<true/>
+	<key>bypassHostsAndDomains</key>
+	<array>
+		<dict>
+			<key>domain</key>
+			<string>*.local</string>
+			<key>host</key>
+			<string>169.254</string>
+			<key>port</key>
+			<integer>16</integer>
+		</dict>
+	</array>
 	<key>quitURL</key>
 	<string>http://www.safeexambrowser.org/exit</string>
 	<key>sebConfigPurpose</key>

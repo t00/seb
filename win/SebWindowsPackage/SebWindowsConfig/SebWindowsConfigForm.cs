@@ -220,6 +220,7 @@ namespace SebWindowsConfig
         const String MessageSendBrowserExamKey = "sendBrowserExamKey";
         const String MessageQuitURL            = "quitURL";
 
+
         // Group "Applications"
         // Group "Applications - Permitted  Processes"
         // Group "Applications - Prohibited Processes"
@@ -243,7 +244,7 @@ namespace SebWindowsConfig
         const String MessageCurrentUser = "currentUser";
         const String MessageStrongKill  = "strongKill";
         const String MessageOS          = "os";
-        const String MessageAppTitle    = "appTitle";
+        const String MessageTitle       = "title";
         const String MessageDescription = "description";
         const String MessageExecutable  = "executable";
         const String MessagePath        = "path";
@@ -256,18 +257,32 @@ namespace SebWindowsConfig
         // Group "Network - Filter"
         // Group "Network - Certificates"
         // Group "Network - Proxies"
-        const int ValueEnableURLFilter        = 1;
-        const int ValueEnableURLContentFilter = 2;
-        const int ValueURLFilterRules         = 3;
-        const int ValueProxySettingsPolicy    = 4;
-        const int ValueProxies                = 5;
-        const int NumValueNetwork = 5;
+        const int ValueEnableURLFilter           = 1;
+        const int ValueEnableURLContentFilter    = 2;
+        const int ValueURLFilterRules            = 3;
+        const int ValueProxySettingsPolicy       = 4;
+        const int ValueProxyProtocol             = 5;
+        const int ValueProxyConfigurationFileURL = 6;
+        const int ValueExcludeSimpleHostnames    = 7;
+        const int ValueUsePassiveFTPMode         = 8;
+        const int ValueBypassHostsAndDomains     = 9;
+        const int ValueBypassDomain = 10;
+        const int ValueBypassHost   = 11;
+        const int ValueBypassPort   = 12;
+        const int NumValueNetwork = 12;
 
-        const String MessageEnableURLFilter        = "enableURLFilter";
-        const String MessageEnableURLContentFilter = "enableURLContentFilter";
-        const String MessageURLFilterRules         = "URLFilterRules";
-        const String MessageProxySettingsPolicy    = "proxySettingsPolicy";
-        const String MessageProxies                = "proxies";
+        const String MessageEnableURLFilter           = "enableURLFilter";
+        const String MessageEnableURLContentFilter    = "enableURLContentFilter";
+        const String MessageURLFilterRules            = "URLFilterRules";
+        const String MessageProxySettingsPolicy       = "proxySettingsPolicy";
+        const String MessageProxyProtocol             = "proxyProtocol";
+        const String MessageProxyConfigurationFileURL = "proxyConfigurationFileURL";
+        const String MessageExcludeSimpleHostnames    = "excludeSimpleHostnames";
+        const String MessageUsePassiveFTPMode         = "usePassiveFTPMode";
+        const String MessageBypassHostsAndDomains     = "bypassHostsAndDomains";
+        const String MessageBypassDomain              = "domain";
+        const String MessageBypassHost                = "host";
+        const String MessageBypassPort                = "port";
 
 
         // Group "Security"
@@ -598,12 +613,20 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageAllowFlashFullscreen     , false);
             sebSettingsDef.Add(MessageProhibitedProcesses      , new List<object>());
 
-            // Default settings for group "Network"
+            // Default settings for group "Network - Filter"
             sebSettingsDef.Add(MessageEnableURLFilter       , false);
             sebSettingsDef.Add(MessageEnableURLContentFilter, false);
             sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
+
+            // Default settings for group "Network - Certificates"
+
+            // Default settings for group "Network - Proxies"
             sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
-            sebSettingsDef.Add(MessageProxies               , new Dictionary<string, object>());
+            sebSettingsDef.Add(MessageProxyProtocol         , 0);
+            sebSettingsDef.Add(MessageProxyConfigurationFileURL, "");
+            sebSettingsDef.Add(MessageExcludeSimpleHostnames, true);
+            sebSettingsDef.Add(MessageUsePassiveFTPMode     , true);
+            sebSettingsDef.Add(MessageBypassHostsAndDomains , new List<object>());
 
             // Default settings for group "Security"
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
@@ -724,7 +747,9 @@ namespace SebWindowsConfig
 
             dataType[GroupNetwork, ValueURLFilterRules     ] = TypeString;
             dataType[GroupNetwork, ValueProxySettingsPolicy] = TypeString;
-            dataType[GroupNetwork, ValueProxies            ] = TypeString;
+            dataType[GroupNetwork, ValueProxyProtocol      ] = TypeString;
+            dataType[GroupNetwork, ValueProxyConfigurationFileURL] = TypeString;
+            dataType[GroupNetwork, ValueBypassHostsAndDomains] = TypeString;
 
             dataType[GroupSecurity, ValueSebServicePolicy] = TypeString;
             dataType[GroupSecurity, ValueLogDirectoryOSX ] = TypeString;
@@ -846,7 +871,11 @@ namespace SebWindowsConfig
             valueString[GroupNetwork, ValueEnableURLContentFilter] = MessageEnableURLContentFilter;
             valueString[GroupNetwork, ValueURLFilterRules        ] = MessageURLFilterRules;
             valueString[GroupNetwork, ValueProxySettingsPolicy   ] = MessageProxySettingsPolicy;
-            valueString[GroupNetwork, ValueProxies               ] = MessageProxies;
+            valueString[GroupNetwork, ValueProxyProtocol         ] = MessageProxyProtocol;
+            valueString[GroupNetwork, ValueProxyConfigurationFileURL] = MessageProxyConfigurationFileURL;
+            valueString[GroupNetwork, ValueExcludeSimpleHostnames] = MessageExcludeSimpleHostnames;
+            valueString[GroupNetwork, ValueUsePassiveFTPMode     ] = MessageUsePassiveFTPMode;
+            valueString[GroupNetwork, ValueBypassHostsAndDomains ] = MessageBypassHostsAndDomains;
 
             valueString[GroupSecurity, ValueSebServicePolicy   ] = MessageSebServicePolicy;
             valueString[GroupSecurity, ValueAllowVirtualMachine] = MessageAllowVirtualMachine;
@@ -971,7 +1000,7 @@ namespace SebWindowsConfig
             StringColumnsProcessesPermitted[0] = "Active";
             StringColumnsProcessesPermitted[1] = "OS";
             StringColumnsProcessesPermitted[2] = "Executable";
-            StringColumnsProcessesPermitted[3] = "AppTitle";
+            StringColumnsProcessesPermitted[3] = "Title";
 
             // Define the strings for the Prohibited Processes columns
             StringColumnsProcessesProhibited[0] = "Active";
@@ -1011,7 +1040,7 @@ namespace SebWindowsConfig
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
 
             // Assign the fixed entries to the CheckedListBoxes
-            checkedListBoxSelectAProtocol.Items.AddRange(StringProxyProtocol);
+            checkedListBoxProxyProtocol.Items.AddRange(StringProxyProtocol);
 
 
             // IMPORTANT:
@@ -1023,17 +1052,19 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.FullRowSelect = true;
 
             // Assign the column names to the listViews
-            listViewPermittedProcesses.Columns.Add("Active");
-            listViewPermittedProcesses.Columns.Add("OS");
-            listViewPermittedProcesses.Columns.Add("Executable");
-            listViewPermittedProcesses.Columns.Add("AppTitle");
+            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[0]);
+            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[1]);
+            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[2]);
+            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[3]);
             listBoxPermittedProcessOS.Items.AddRange(StringOS);
 /*
             listViewProhibitedProcesses.View = View.Details;
-            listViewProhibitedProcesses.Columns.Add("Active");
-            listViewProhibitedProcesses.Columns.Add("OS");
-            listViewProhibitedProcesses.Columns.Add("Executable");
-            listViewProhibitedProcesses.Columns.Add("Description");
+            listViewProhibitedProcesses.FullRowSelect = true;
+
+            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[0]);
+            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[1]);
+            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[2]);
+            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[3]);
             listBoxProhibitedProcessOS.Items.AddRange(StringOS);
 */
             // Auto-resize the column widths of the headers
@@ -1546,6 +1577,302 @@ namespace SebWindowsConfig
             ConvertSomeSettingsAfterWritingThemToFile(fileName);
             SetWidgetsToNewSettings();
             return true;
+        }
+
+
+
+        // ********************
+        // Copy settings arrays
+        // ********************
+        private void CopySettingsArrays(int StateSource, int StateTarget)
+        {
+            // Copy all settings from one array to another
+            int group, value;
+
+            for (group = 1; group <= GroupNum; group++)
+            for (value = 1; value <= ValueNum; value++)
+            {
+                settingBoolean[StateTarget, group, value] = settingBoolean[StateSource, group, value];
+                settingString [StateTarget, group, value] = settingString [StateSource, group, value];
+                settingInteger[StateTarget, group, value] = settingInteger[StateSource, group, value];
+            }
+
+            return;
+        }
+
+
+
+        // ************************
+        // Copy settings dictionary
+        // ************************
+        private void CopySettingsDictionary(Dictionary<string, object> sebSettingsSource,
+                                            Dictionary<string, object> sebSettingsTarget)
+        {
+            // Copy all settings from one dictionary to another
+            // Create a dictionary "target settings".
+            // Copy source settings to target settings
+            foreach (KeyValuePair<string, object> pair in sebSettingsSource)
+            {
+                string key   = pair.Key;
+                object value = pair.Value;
+
+//                if (key.GetType == Type.Dictionary)
+//                    CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
+
+                if  (sebSettingsTarget.ContainsKey(key))
+                     sebSettingsTarget[key] = value;
+                else sebSettingsTarget.Add(key, value);
+            }
+
+
+            //Dictionary<string, object>.Enumerator enumerator;
+            //enumerator = sebSettingsSource.GetEnumerator();
+/*
+            var dict = new Dictionary<string, string>();
+            dict.Add("SO", "StackOverflow");
+            var secondDict = new Dictionary<string, string>(dict);
+            dict = null;
+            Console.WriteLine(secondDict["SO"]);
+*/
+            return;
+        }
+
+
+
+        // *************************
+        // Print settings dictionary
+        // *************************
+        private void PrintSettingsDictionary(Dictionary<string, object> sebSettings,
+                                             String                     fileName)
+        {
+            FileStream   fileStream;
+            StreamWriter fileWriter;
+
+            // If the .ini file already exists, delete it
+            // and write it again from scratch with new data
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            // Open the file for writing
+            fileStream = new FileStream  (fileName, FileMode.OpenOrCreate, FileAccess.Write);
+            fileWriter = new StreamWriter(fileStream);
+
+            // Write the header lines
+            fileWriter.WriteLine("");
+            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettings.Count);
+            fileWriter.WriteLine("");
+
+            // Print (key, value) pairs of dictionary to file
+            foreach (KeyValuePair<string, object> pair in sebSettings)
+            {
+                string key   = pair.Key;
+                object value = pair.Value;
+                string type  = value.GetType().ToString();
+
+                fileWriter.WriteLine("key   = " + key);
+                fileWriter.WriteLine("value = " + value);
+                fileWriter.WriteLine("type  = " + type);
+                fileWriter.WriteLine("");
+            }
+
+            // Close the file
+            fileWriter.Close();
+            fileStream.Close();
+            return;
+        }
+
+
+
+        // *****************************************************
+        // Set the widgets to the new settings of SebStarter.ini
+        // *****************************************************
+        private void SetWidgetsToNewSettings()
+        {
+            // Update the filename in the title bar
+            this.Text  = this.ProductName;
+            this.Text += " - ";
+            this.Text += currentPathSebConfigFile;
+
+            // Update the widgets
+
+            // Update the Permitted Processes ListView
+            List<object>               processList = null;
+            Dictionary<string, object> processData = null;
+            ListViewItem               processRow  = null;
+
+            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+
+            int index;
+
+            // Remove all previously displayed processes from ListView
+            listViewPermittedProcesses.Items.Clear();
+
+            // Add processes of currently opened file to CheckedListBox
+            for (index = 0; index < processList.Count; index++)
+            {
+                processData = (Dictionary<string, object>) processList[index];
+
+                Boolean activeBoolean = (Boolean) processData[MessageActive];
+                Int32       osInteger = (Int32)   processData[MessageOS];
+
+                String  activeString  = activeBoolean.ToString();
+                String      osString  = StringOS[osInteger];
+
+                processRow = new ListViewItem(activeString);
+                processRow.SubItems.Add(osString);
+
+                processRow.SubItems.Add((String) processData[MessageExecutable]);
+                processRow.SubItems.Add((String) processData[MessageTitle]);
+
+                listViewPermittedProcesses.Items.Add(processRow);
+            }
+
+            // Auto-resize the column widths of the contents and headers
+            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+
+            // Group "General"
+            textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
+            textBoxSebServerURL        .Text   =  (String)sebSettingsNew[MessageSebServerURL];
+          //textBoxAdminPassword       .Text   =  (String)sebSettingsNew[MessageAdminPassword];
+          //textBoxConfirmAdminPassword.Text   =  (String)sebSettingsNew[MessageConfirmAdminPassword];
+            textBoxHashedAdminPassword .Text   =  (String)sebSettingsNew[MessageHashedAdminPassword];
+            checkBoxAllowQuit         .Checked = (Boolean)sebSettingsNew[MessageAllowQuit];
+            checkBoxIgnoreQuitPassword.Checked = (Boolean)sebSettingsNew[MessageIgnoreQuitPassword];
+          //textBoxQuitPassword        .Text   =  (String)sebSettingsNew[MessageQuitPassword];
+          //textBoxConfirmQuitPassword .Text   =  (String)sebSettingsNew[MessageConfirmQuitPassword];
+            textBoxHashedQuitPassword  .Text   =  (String)sebSettingsNew[MessageHashedQuitPassword];
+            listBoxExitKey1.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey1];
+            listBoxExitKey2.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey2];
+            listBoxExitKey3.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey3];
+
+            // Group "Config File"
+            radioButtonStartingAnExam     .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 0);
+            radioButtonConfiguringAClient .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 1);
+            checkBoxAllowPreferencesWindow.Checked = (Boolean)sebSettingsNew[MessageAllowPreferencesWindow];
+            comboBoxCryptoIdentity.SelectedIndex   =   settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity];
+             textBoxSettingsPassword       .Text   =  (String)sebSettingsNew[MessageSettingsPassword];
+           //textBoxConfirmSettingsPassword.Text   =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
+           //textBoxHashedSettingsPassword .Text   =  (String)sebSettingsNew[MessageHashedSettingsPassword];
+
+            // Group "Appearance"
+            radioButtonUseBrowserWindow       .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 0);
+            radioButtonUseFullScreenMode      .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 1);
+            comboBoxMainBrowserWindowWidth    .Text    =  (String)sebSettingsNew[MessageMainBrowserWindowWidth];
+            comboBoxMainBrowserWindowHeight   .Text    =  (String)sebSettingsNew[MessageMainBrowserWindowHeight];
+             listBoxMainBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowPositioning];
+            checkBoxEnableBrowserWindowToolbar.Checked = (Boolean)sebSettingsNew[MessageEnableBrowserWindowToolbar];
+            checkBoxHideBrowserWindowToolbar  .Checked = (Boolean)sebSettingsNew[MessageHideBrowserWindowToolbar];
+            checkBoxShowMenuBar               .Checked = (Boolean)sebSettingsNew[MessageShowMenuBar];
+            checkBoxShowTaskBar               .Checked = (Boolean)sebSettingsNew[MessageShowTaskBar];
+
+            // Group "Browser"
+             listBoxOpenLinksHTML .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
+             listBoxOpenLinksJava .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByScriptPolicy];
+            checkBoxBlockLinksHTML.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByLinkBlockForeign];
+            checkBoxBlockLinksJava.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByScriptBlockForeign];
+
+            comboBoxNewBrowserWindowWidth      .Text          = (String)sebSettingsNew[MessageNewBrowserWindowByLinkWidth ];
+            comboBoxNewBrowserWindowHeight     .Text          = (String)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
+             listBoxNewBrowserWindowPositioning.SelectedIndex =    (int)sebSettingsNew[MessageNewBrowserWindowByLinkPositioning];
+
+            checkBoxEnablePlugIns           .Checked =   (Boolean)sebSettingsNew[MessageEnablePlugIns];
+            checkBoxEnableJava              .Checked =   (Boolean)sebSettingsNew[MessageEnableJava];
+            checkBoxEnableJavaScript        .Checked =   (Boolean)sebSettingsNew[MessageEnableJavaScript];
+            checkBoxBlockPopUpWindows       .Checked =   (Boolean)sebSettingsNew[MessageBlockPopUpWindows];
+            checkBoxAllowBrowsingBackForward.Checked =   (Boolean)sebSettingsNew[MessageAllowBrowsingBackForward];
+            checkBoxUseSebWithoutBrowser    .Checked = !((Boolean)sebSettingsNew[MessageEnableSebBrowser]);
+            // BEWARE: you must invert this value since "Use Without" is "Not Enable"!
+
+            // Group "Down/Uploads"
+            checkBoxAllowDownUploads.Checked = (Boolean)sebSettingsNew[MessageAllowDownUploads];
+            checkBoxOpenDownloads   .Checked = (Boolean)sebSettingsNew[MessageOpenDownloads];
+            checkBoxDownloadPDFFiles.Checked = (Boolean)sebSettingsNew[MessageDownloadPDFFiles];
+            labelDownloadDirectoryWin.Text   =  (String)sebSettingsNew[MessageDownloadDirectoryWin];
+             listBoxChooseFileToUploadPolicy.SelectedIndex = (int)sebSettingsNew[MessageChooseFileToUploadPolicy];
+
+            // Group "Exam"
+           //textBoxBrowserExamKey    .Text    =  (String)sebSettingsNew[MessageBrowserExamKey];
+             textBoxQuitURL           .Text    =  (String)sebSettingsNew[MessageQuitURL];
+            checkBoxCopyBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageCopyBrowserExamKey];
+            checkBoxSendBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageSendBrowserExamKey];
+
+            // Group "Applications"
+            checkBoxMonitorProcesses         .Checked = (Boolean)sebSettingsNew[MessageMonitorProcesses];
+            checkBoxAllowSwitchToApplications.Checked = (Boolean)sebSettingsNew[MessageAllowSwitchToApplications];
+            checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
+
+            // Group "Network - Filter"
+            checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
+            checkBoxEnableURLContentFilter.Checked = (Boolean)sebSettingsNew[MessageEnableURLContentFilter];
+
+            // Group "Network - Certificates"
+
+            // Group "Network - Proxies"
+            radioButtonUseSystemProxySettings.Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
+            radioButtonUseSebProxySettings   .Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
+            checkedListBoxProxyProtocol.SelectedIndex =     (int)sebSettingsNew[MessageProxyProtocol];
+
+            index = (int)sebSettingsNew[MessageProxyProtocol];
+            checkedListBoxProxyProtocol.SetItemChecked(index, true);
+            checkedListBoxProxyProtocol.SelectedIndex = index;
+
+            textBoxProxyConfigurationFileURL .Text    =  (String)sebSettingsNew[MessageProxyConfigurationFileURL];
+            checkBoxExcludeSimpleHostnames   .Checked = (Boolean)sebSettingsNew[MessageExcludeSimpleHostnames];
+            checkBoxUsePassiveFTPMode        .Checked = (Boolean)sebSettingsNew[MessageUsePassiveFTPMode];
+          //textBoxBypassHostsAndDomains     .Text    =  (String)sebSettingsNew[MessageBypassHostsAndDomains];
+
+            // Group "Security"
+             listBoxSebServicePolicy.SelectedIndex =     (int)sebSettingsNew[MessageSebServicePolicy];
+            checkBoxAllowVirtualMachine.Checked    = (Boolean)sebSettingsNew[MessageAllowVirtualMachine];
+            checkBoxCreateNewDesktop   .Checked    = (Boolean)sebSettingsNew[MessageCreateNewDesktop];
+            checkBoxAllowUserSwitching .Checked    = (Boolean)sebSettingsNew[MessageAllowUserSwitching];
+            checkBoxEnableLogging      .Checked    = (Boolean)sebSettingsNew[MessageEnableLogging];
+            labelLogDirectoryWin       .Text       =  (String)sebSettingsNew[MessageLogDirectoryWin];
+
+            // Group "Registry"
+            checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableSwitchUser];
+            checkBoxInsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLockThisComputer];
+            checkBoxInsideSebEnableChangeAPassword  .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableChangeAPassword];
+            checkBoxInsideSebEnableStartTaskManager .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableStartTaskManager];
+            checkBoxInsideSebEnableLogOff           .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLogOff];
+            checkBoxInsideSebEnableShutDown         .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableShutDown];
+            checkBoxInsideSebEnableEaseOfAccess     .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableEaseOfAccess];
+            checkBoxInsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableVmWareClientShade];
+
+            checkBoxOutsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableSwitchUser];
+            checkBoxOutsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableLockThisComputer];
+            checkBoxOutsideSebEnableChangeAPassword  .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableChangeAPassword];
+            checkBoxOutsideSebEnableStartTaskManager .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableStartTaskManager];
+            checkBoxOutsideSebEnableLogOff           .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableLogOff];
+            checkBoxOutsideSebEnableShutDown         .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableShutDown];
+            checkBoxOutsideSebEnableEaseOfAccess     .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableEaseOfAccess];
+            checkBoxOutsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableVmWareClientShade];
+
+            // Group "Hooked Keys"
+            checkBoxHookKeys.Checked = (Boolean)sebSettingsNew[MessageHookKeys];
+
+            checkBoxEnableEsc       .Checked = (Boolean)sebSettingsNew[MessageEnableEsc];
+            checkBoxEnableCtrlEsc   .Checked = (Boolean)sebSettingsNew[MessageEnableCtrlEsc];
+            checkBoxEnableAltEsc    .Checked = (Boolean)sebSettingsNew[MessageEnableAltEsc];
+            checkBoxEnableAltTab    .Checked = (Boolean)sebSettingsNew[MessageEnableAltTab];
+            checkBoxEnableAltF4     .Checked = (Boolean)sebSettingsNew[MessageEnableAltF4];
+            checkBoxEnableStartMenu .Checked = (Boolean)sebSettingsNew[MessageEnableStartMenu];
+            checkBoxEnableRightMouse.Checked = (Boolean)sebSettingsNew[MessageEnableRightMouse];
+
+            checkBoxEnableF1 .Checked = (Boolean)sebSettingsNew[MessageEnableF1];
+            checkBoxEnableF2 .Checked = (Boolean)sebSettingsNew[MessageEnableF2];
+            checkBoxEnableF3 .Checked = (Boolean)sebSettingsNew[MessageEnableF3];
+            checkBoxEnableF4 .Checked = (Boolean)sebSettingsNew[MessageEnableF4];
+            checkBoxEnableF5 .Checked = (Boolean)sebSettingsNew[MessageEnableF5];
+            checkBoxEnableF6 .Checked = (Boolean)sebSettingsNew[MessageEnableF6];
+            checkBoxEnableF7 .Checked = (Boolean)sebSettingsNew[MessageEnableF7];
+            checkBoxEnableF8 .Checked = (Boolean)sebSettingsNew[MessageEnableF8];
+            checkBoxEnableF9 .Checked = (Boolean)sebSettingsNew[MessageEnableF9];
+            checkBoxEnableF10.Checked = (Boolean)sebSettingsNew[MessageEnableF10];
+            checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
+            checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
         }
 
 
@@ -2066,9 +2393,9 @@ namespace SebWindowsConfig
         }
 
 
-        // ***************************
-        // Group "Permitted Processes"
-        // ***************************
+        // ******************************************
+        // Group "Applications - Permitted Processes"
+        // ******************************************
         private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
@@ -2115,7 +2442,7 @@ namespace SebWindowsConfig
             checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
             checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
              listBoxPermittedProcessOS.SelectedIndex  =   (Int32) processData[MessageOS];
-             textBoxPermittedProcessAppTitle   .Text  =  (String) processData[MessageAppTitle];
+             textBoxPermittedProcessTitle   .Text  =  (String) processData[MessageTitle];
              textBoxPermittedProcessDescription.Text  =  (String) processData[MessageDescription];
              textBoxPermittedProcessExecutable .Text  =  (String) processData[MessageExecutable];
              textBoxPermittedProcessPath       .Text  =  (String) processData[MessagePath];
@@ -2141,14 +2468,275 @@ namespace SebWindowsConfig
         }
 
 
-        // ****************************
-        // Group "Prohibited Processes"
-        // ****************************
+        private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
+        {
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            Dictionary<string, object> processData = new Dictionary<string, object>();
+            ListViewItem               processRow  = null;
+
+            processRow = new ListViewItem(true.ToString());
+            processRow.SubItems.Add("Win");
+            processRow.SubItems.Add("");
+            processRow.SubItems.Add("");
+
+            processData[MessageActive     ] = true;
+            processData[MessageAutostart  ] = true;
+            processData[MessageAutohide   ] = true;
+            processData[MessageAllowUser  ] = true;
+            processData[MessageOS         ] = intWin;
+            processData[MessageTitle      ] = "";
+            processData[MessageDescription] = "";
+            processData[MessageExecutable ] = "";
+            processData[MessagePath       ] = "";
+            processData[MessageIdentifier ] = "";
+            processData[MessageArguments  ] = new List<object>();
+
+            listViewPermittedProcesses.Items.Insert(selectedIndex, processRow);
+          //listViewPermittedProcesses.Items.Add(processRow);
+                    permittedProcessList    .Add(processData);
+
+            listViewPermittedProcesses.Items[selectedIndex].Selected = true;
+            listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
+        }
 
 
-        // ***************
-        // Group "Network"
-        // ***************
+        private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
+        {
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
+                    permittedProcessList    .RemoveAt(selectedIndex);
+        }
+
+
+        private void buttonChoosePermittedApplication_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChoosePermittedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
+        {
+/*
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            List<object>               processList = null;
+            Dictionary<string, object> processData = null;
+
+            processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            processData = (Dictionary<string, object>) processList[selectedIndex];
+
+            processData[MessageActive] = checkBoxPermittedProcessActive.Checked;
+*/
+            permittedProcessData[MessageActive] = checkBoxPermittedProcessActive.Checked;
+            SetWidgetsToNewSettings();
+        }
+
+        private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageAutostart] = checkBoxPermittedProcessAutostart.Checked;
+        }
+
+        private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageAutohide] = checkBoxPermittedProcessAutohide.Checked;
+        }
+
+        private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
+        }
+
+        private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageOS] = listBoxPermittedProcessOS.SelectedIndex;
+            SetWidgetsToNewSettings();
+        }
+
+        private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageTitle] = textBoxPermittedProcessTitle.Text;
+            SetWidgetsToNewSettings();
+        }
+
+        private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageDescription] = textBoxPermittedProcessDescription.Text;
+        }
+
+        private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageExecutable] = textBoxPermittedProcessExecutable.Text;
+            SetWidgetsToNewSettings();
+        }
+
+        private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessagePath] = textBoxPermittedProcessPath.Text;
+        }
+
+        private void textBoxPermittedProcessIdentifier_TextChanged(object sender, EventArgs e)
+        {
+            permittedProcessData[MessageIdentifier] = textBoxPermittedProcessIdentifier.Text;
+        }
+
+
+        private void checkedListBoxPermittedProcessArguments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
+            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
+
+            string text = (sender as CheckedListBox).SelectedItem.ToString();
+
+            permittedArgumentData[MessageActive  ] = checkedListBoxPermittedProcessArguments.GetItemChecked(selectedIndex);
+            permittedArgumentData[MessageArgument] = checkedListBoxPermittedProcessArguments.Items[selectedIndex];
+        }
+
+
+        private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
+        {
+            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            Dictionary<string, object> argumentData = new Dictionary<string, object>();
+
+            argumentData[MessageActive  ] = true;
+            argumentData[MessageArgument] = "";
+
+            checkedListBoxPermittedProcessArguments.Items.Add("", true);
+                          permittedArgumentList          .Add(argumentData);
+        }
+
+
+        private void buttonPermittedProcessRemoveArgument_Click(object sender, EventArgs e)
+        {
+            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
+            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
+
+            checkedListBoxPermittedProcessArguments.Items.RemoveAt(selectedIndex);
+                          permittedArgumentList          .RemoveAt(selectedIndex);
+        }
+
+
+        private void listViewPermittedProcesses_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_ItemActivate(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewPermittedProcesses_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+
+        }
+
+        private void checkedListBoxPermittedProcessArguments_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            var checkedListBox = (CheckedListBox)sender;
+            var checkedItemText = checkedListBox.Items[e.Index].ToString();
+        }
+
+        private void checkedListBoxPermittedProcessArguments_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        // *******************************************
+        // Group "Applications - Prohibited Processes"
+        // *******************************************
+
+
+
+        // ************************
+        // Group "Network - Filter"
+        // ************************
+        private void checkBoxEnableURLFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            sebSettingsNew[MessageEnableURLFilter] = checkBoxEnableURLFilter.Checked;
+        }
+
+        private void checkBoxEnableURLContentFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            sebSettingsNew[MessageEnableURLContentFilter] = checkBoxEnableURLContentFilter.Checked;
+        }
+
+
+        // ******************************
+        // Group "Network - Certificates"
+        // ******************************
+
+        // *************************
+        // Group "Network - Proxies"
+        // *************************
+        private void radioButtonUseSystemProxySettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUseSystemProxySettings.Checked == true)
+                 sebSettingsNew[MessageProxySettingsPolicy] = 0;
+            else sebSettingsNew[MessageProxySettingsPolicy] = 1;
+        }
+
+        private void radioButtonUseSebProxySettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUseSebProxySettings.Checked == true)
+                 sebSettingsNew[MessageProxySettingsPolicy] = 1;
+            else sebSettingsNew[MessageProxySettingsPolicy] = 0;
+        }
+
+        private void checkedListBoxProxyProtocol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = checkedListBoxProxyProtocol.SelectedIndex;
+            checkedListBoxProxyProtocol.SetItemChecked(selectedIndex, true);
+            sebSettingsNew[MessageProxyProtocol] = checkedListBoxProxyProtocol.SelectedIndex;
+        }
+
+        private void textBoxProxyConfigurationFileURL_TextChanged(object sender, EventArgs e)
+        {
+            sebSettingsNew[MessageProxyConfigurationFileURL] = textBoxProxyConfigurationFileURL.Text;
+        }
+
+        private void checkBoxExcludeSimpleHostnames_CheckedChanged(object sender, EventArgs e)
+        {
+            sebSettingsNew[MessageExcludeSimpleHostnames] = checkBoxExcludeSimpleHostnames.Checked;
+        }
+
+        private void checkBoxUsePassiveFTPMode_CheckedChanged(object sender, EventArgs e)
+        {
+            sebSettingsNew[MessageUsePassiveFTPMode] = checkBoxUsePassiveFTPMode.Checked;
+        }
+
+        private void textBoxBypassHostsAndDomains_TextChanged(object sender, EventArgs e)
+        {
+          //sebSettingsNew[MessageBypassHostsAndDomains] = textBoxBypassHostsAndDomains.Text;
+        }
+
+        private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
 
@@ -2426,542 +3014,6 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
 
-
-
-        // ********************
-        // Copy settings arrays
-        // ********************
-        private void CopySettingsArrays(int StateSource, int StateTarget)
-        {
-            // Copy all settings from one array to another
-            int group, value;
-
-            for (group = 1; group <= GroupNum; group++)
-            for (value = 1; value <= ValueNum; value++)
-            {
-                settingBoolean[StateTarget, group, value] = settingBoolean[StateSource, group, value];
-                settingString [StateTarget, group, value] = settingString [StateSource, group, value];
-                settingInteger[StateTarget, group, value] = settingInteger[StateSource, group, value];
-            }
-
-            return;
-        }
-
-
-
-        // ************************
-        // Copy settings dictionary
-        // ************************
-        private void CopySettingsDictionary(Dictionary<string, object> sebSettingsSource,
-                                            Dictionary<string, object> sebSettingsTarget)
-        {
-            // Copy all settings from one dictionary to another
-            // Create a dictionary "target settings".
-            // Copy source settings to target settings
-            foreach (KeyValuePair<string, object> pair in sebSettingsSource)
-            {
-                string key   = pair.Key;
-                object value = pair.Value;
-
-//                if (key.GetType == Type.Dictionary)
-//                    CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
-
-                if  (sebSettingsTarget.ContainsKey(key))
-                     sebSettingsTarget[key] = value;
-                else sebSettingsTarget.Add(key, value);
-            }
-
-
-            //Dictionary<string, object>.Enumerator enumerator;
-            //enumerator = sebSettingsSource.GetEnumerator();
-/*
-            var dict = new Dictionary<string, string>();
-            dict.Add("SO", "StackOverflow");
-            var secondDict = new Dictionary<string, string>(dict);
-            dict = null;
-            Console.WriteLine(secondDict["SO"]);
-*/
-            return;
-        }
-
-
-
-        // *************************
-        // Print settings dictionary
-        // *************************
-        private void PrintSettingsDictionary(Dictionary<string, object> sebSettings,
-                                             String                     fileName)
-        {
-            FileStream   fileStream;
-            StreamWriter fileWriter;
-
-            // If the .ini file already exists, delete it
-            // and write it again from scratch with new data
-            if (File.Exists(fileName))
-                File.Delete(fileName);
-
-            // Open the file for writing
-            fileStream = new FileStream  (fileName, FileMode.OpenOrCreate, FileAccess.Write);
-            fileWriter = new StreamWriter(fileStream);
-
-            // Write the header lines
-            fileWriter.WriteLine("");
-            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettings.Count);
-            fileWriter.WriteLine("");
-
-            // Print (key, value) pairs of dictionary to file
-            foreach (KeyValuePair<string, object> pair in sebSettings)
-            {
-                string key   = pair.Key;
-                object value = pair.Value;
-                string type  = value.GetType().ToString();
-
-                fileWriter.WriteLine("key   = " + key);
-                fileWriter.WriteLine("value = " + value);
-                fileWriter.WriteLine("type  = " + type);
-                fileWriter.WriteLine("");
-            }
-
-            // Close the file
-            fileWriter.Close();
-            fileStream.Close();
-            return;
-        }
-
-
-
-        // *****************************************************
-        // Set the widgets to the new settings of SebStarter.ini
-        // *****************************************************
-        private void SetWidgetsToNewSettings()
-        {
-            // Update the filename in the title bar
-            this.Text  = this.ProductName;
-            this.Text += " - ";
-            this.Text += currentPathSebConfigFile;
-
-            // Update the widgets
-
-            // Update the Permitted Processes ListView
-            List<object>               processList = null;
-            Dictionary<string, object> processData = null;
-            ListViewItem               processRow  = null;
-
-            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
-
-            int index;
-
-            // Remove all previously displayed processes from ListView
-            listViewPermittedProcesses.Items.Clear();
-
-            // Add processes of currently opened file to CheckedListBox
-            for (index = 0; index < processList.Count; index++)
-            {
-                processData = (Dictionary<string, object>) processList[index];
-
-                Boolean activeBoolean = (Boolean) processData[MessageActive];
-                Int32       osInteger = (Int32)   processData[MessageOS];
-
-                String  activeString  = activeBoolean.ToString();
-                String      osString  = StringOS[osInteger];
-
-                processRow = new ListViewItem(activeString);
-                processRow.SubItems.Add(osString);
-
-                processRow.SubItems.Add((String) processData[MessageExecutable]);
-                processRow.SubItems.Add((String) processData[MessageAppTitle]);
-
-                listViewPermittedProcesses.Items.Add(processRow);
-            }
-
-            // Auto-resize the column widths of the contents and headers
-            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-
-            // Group "General"
-            textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
-            textBoxSebServerURL        .Text   =  (String)sebSettingsNew[MessageSebServerURL];
-          //textBoxAdminPassword       .Text   =  (String)sebSettingsNew[MessageAdminPassword];
-          //textBoxConfirmAdminPassword.Text   =  (String)sebSettingsNew[MessageConfirmAdminPassword];
-            textBoxHashedAdminPassword .Text   =  (String)sebSettingsNew[MessageHashedAdminPassword];
-            checkBoxAllowQuit         .Checked = (Boolean)sebSettingsNew[MessageAllowQuit];
-            checkBoxIgnoreQuitPassword.Checked = (Boolean)sebSettingsNew[MessageIgnoreQuitPassword];
-          //textBoxQuitPassword        .Text   =  (String)sebSettingsNew[MessageQuitPassword];
-          //textBoxConfirmQuitPassword .Text   =  (String)sebSettingsNew[MessageConfirmQuitPassword];
-            textBoxHashedQuitPassword  .Text   =  (String)sebSettingsNew[MessageHashedQuitPassword];
-            listBoxExitKey1.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey1];
-            listBoxExitKey2.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey2];
-            listBoxExitKey3.SelectedIndex      =     (int)sebSettingsNew[MessageExitKey3];
-
-            // Group "Config File"
-            radioButtonStartingAnExam     .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 0);
-            radioButtonConfiguringAClient .Checked =    ((int)sebSettingsNew[MessageSebConfigPurpose] == 1);
-            checkBoxAllowPreferencesWindow.Checked = (Boolean)sebSettingsNew[MessageAllowPreferencesWindow];
-            comboBoxCryptoIdentity.SelectedIndex   =   settingInteger[StateNew, GroupConfigFile, ValueCryptoIdentity];
-             textBoxSettingsPassword       .Text   =  (String)sebSettingsNew[MessageSettingsPassword];
-           //textBoxConfirmSettingsPassword.Text   =  (String)sebSettingsNew[MessageConfirmSettingsPassword];
-           //textBoxHashedSettingsPassword .Text   =  (String)sebSettingsNew[MessageHashedSettingsPassword];
-
-            // Group "Appearance"
-            radioButtonUseBrowserWindow       .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 0);
-            radioButtonUseFullScreenMode      .Checked =    ((int)sebSettingsNew[MessageBrowserViewMode] == 1);
-            comboBoxMainBrowserWindowWidth    .Text    =  (String)sebSettingsNew[MessageMainBrowserWindowWidth];
-            comboBoxMainBrowserWindowHeight   .Text    =  (String)sebSettingsNew[MessageMainBrowserWindowHeight];
-             listBoxMainBrowserWindowPositioning.SelectedIndex = (int)sebSettingsNew[MessageMainBrowserWindowPositioning];
-            checkBoxEnableBrowserWindowToolbar.Checked = (Boolean)sebSettingsNew[MessageEnableBrowserWindowToolbar];
-            checkBoxHideBrowserWindowToolbar  .Checked = (Boolean)sebSettingsNew[MessageHideBrowserWindowToolbar];
-            checkBoxShowMenuBar               .Checked = (Boolean)sebSettingsNew[MessageShowMenuBar];
-            checkBoxShowTaskBar               .Checked = (Boolean)sebSettingsNew[MessageShowTaskBar];
-
-            // Group "Browser"
-             listBoxOpenLinksHTML .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
-             listBoxOpenLinksJava .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByScriptPolicy];
-            checkBoxBlockLinksHTML.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByLinkBlockForeign];
-            checkBoxBlockLinksJava.Checked       = (Boolean)sebSettingsNew[MessageNewBrowserWindowByScriptBlockForeign];
-
-            comboBoxNewBrowserWindowWidth      .Text          = (String)sebSettingsNew[MessageNewBrowserWindowByLinkWidth ];
-            comboBoxNewBrowserWindowHeight     .Text          = (String)sebSettingsNew[MessageNewBrowserWindowByLinkHeight];
-             listBoxNewBrowserWindowPositioning.SelectedIndex =    (int)sebSettingsNew[MessageNewBrowserWindowByLinkPositioning];
-
-            checkBoxEnablePlugIns           .Checked =   (Boolean)sebSettingsNew[MessageEnablePlugIns];
-            checkBoxEnableJava              .Checked =   (Boolean)sebSettingsNew[MessageEnableJava];
-            checkBoxEnableJavaScript        .Checked =   (Boolean)sebSettingsNew[MessageEnableJavaScript];
-            checkBoxBlockPopUpWindows       .Checked =   (Boolean)sebSettingsNew[MessageBlockPopUpWindows];
-            checkBoxAllowBrowsingBackForward.Checked =   (Boolean)sebSettingsNew[MessageAllowBrowsingBackForward];
-            checkBoxUseSebWithoutBrowser    .Checked = !((Boolean)sebSettingsNew[MessageEnableSebBrowser]);
-            // BEWARE: you must invert this value since "Use Without" is "Not Enable"!
-
-            // Group "Down/Uploads"
-            checkBoxAllowDownUploads.Checked = (Boolean)sebSettingsNew[MessageAllowDownUploads];
-            checkBoxOpenDownloads   .Checked = (Boolean)sebSettingsNew[MessageOpenDownloads];
-            checkBoxDownloadPDFFiles.Checked = (Boolean)sebSettingsNew[MessageDownloadPDFFiles];
-            labelDownloadDirectoryWin.Text   =  (String)sebSettingsNew[MessageDownloadDirectoryWin];
-             listBoxChooseFileToUploadPolicy.SelectedIndex = (int)sebSettingsNew[MessageChooseFileToUploadPolicy];
-
-            // Group "Exam"
-           //textBoxBrowserExamKey    .Text    =  (String)sebSettingsNew[MessageBrowserExamKey];
-             textBoxQuitURL           .Text    =  (String)sebSettingsNew[MessageQuitURL];
-            checkBoxCopyBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageCopyBrowserExamKey];
-            checkBoxSendBrowserExamKey.Checked = (Boolean)sebSettingsNew[MessageSendBrowserExamKey];
-
-            // Group "Applications"
-            checkBoxMonitorProcesses         .Checked = (Boolean)sebSettingsNew[MessageMonitorProcesses];
-            checkBoxAllowSwitchToApplications.Checked = (Boolean)sebSettingsNew[MessageAllowSwitchToApplications];
-            checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
-
-            // Group "Network - Filter"
-            checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
-            checkBoxEnableURLContentFilter.Checked = (Boolean)sebSettingsNew[MessageEnableURLContentFilter];
-
-            // Group "Network - Certificates"
-
-            // Group "Network - Proxies"
-            radioButtonUseSystemProxySettings.Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
-            radioButtonUseSebProxySettings   .Checked = ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
-
-            // Group "Security"
-             listBoxSebServicePolicy.SelectedIndex =     (int)sebSettingsNew[MessageSebServicePolicy];
-            checkBoxAllowVirtualMachine.Checked    = (Boolean)sebSettingsNew[MessageAllowVirtualMachine];
-            checkBoxCreateNewDesktop   .Checked    = (Boolean)sebSettingsNew[MessageCreateNewDesktop];
-            checkBoxAllowUserSwitching .Checked    = (Boolean)sebSettingsNew[MessageAllowUserSwitching];
-            checkBoxEnableLogging      .Checked    = (Boolean)sebSettingsNew[MessageEnableLogging];
-            labelLogDirectoryWin       .Text       =  (String)sebSettingsNew[MessageLogDirectoryWin];
-
-            // Group "Registry"
-            checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableSwitchUser];
-            checkBoxInsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLockThisComputer];
-            checkBoxInsideSebEnableChangeAPassword  .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableChangeAPassword];
-            checkBoxInsideSebEnableStartTaskManager .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableStartTaskManager];
-            checkBoxInsideSebEnableLogOff           .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableLogOff];
-            checkBoxInsideSebEnableShutDown         .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableShutDown];
-            checkBoxInsideSebEnableEaseOfAccess     .Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableEaseOfAccess];
-            checkBoxInsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageInsideSebEnableVmWareClientShade];
-
-            checkBoxOutsideSebEnableSwitchUser       .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableSwitchUser];
-            checkBoxOutsideSebEnableLockThisComputer .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableLockThisComputer];
-            checkBoxOutsideSebEnableChangeAPassword  .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableChangeAPassword];
-            checkBoxOutsideSebEnableStartTaskManager .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableStartTaskManager];
-            checkBoxOutsideSebEnableLogOff           .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableLogOff];
-            checkBoxOutsideSebEnableShutDown         .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableShutDown];
-            checkBoxOutsideSebEnableEaseOfAccess     .Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableEaseOfAccess];
-            checkBoxOutsideSebEnableVmWareClientShade.Checked = (Boolean)sebSettingsNew[MessageOutsideSebEnableVmWareClientShade];
-
-            // Group "Hooked Keys"
-            checkBoxHookKeys.Checked = (Boolean)sebSettingsNew[MessageHookKeys];
-
-            checkBoxEnableEsc       .Checked = (Boolean)sebSettingsNew[MessageEnableEsc];
-            checkBoxEnableCtrlEsc   .Checked = (Boolean)sebSettingsNew[MessageEnableCtrlEsc];
-            checkBoxEnableAltEsc    .Checked = (Boolean)sebSettingsNew[MessageEnableAltEsc];
-            checkBoxEnableAltTab    .Checked = (Boolean)sebSettingsNew[MessageEnableAltTab];
-            checkBoxEnableAltF4     .Checked = (Boolean)sebSettingsNew[MessageEnableAltF4];
-            checkBoxEnableStartMenu .Checked = (Boolean)sebSettingsNew[MessageEnableStartMenu];
-            checkBoxEnableRightMouse.Checked = (Boolean)sebSettingsNew[MessageEnableRightMouse];
-
-            checkBoxEnableF1 .Checked = (Boolean)sebSettingsNew[MessageEnableF1];
-            checkBoxEnableF2 .Checked = (Boolean)sebSettingsNew[MessageEnableF2];
-            checkBoxEnableF3 .Checked = (Boolean)sebSettingsNew[MessageEnableF3];
-            checkBoxEnableF4 .Checked = (Boolean)sebSettingsNew[MessageEnableF4];
-            checkBoxEnableF5 .Checked = (Boolean)sebSettingsNew[MessageEnableF5];
-            checkBoxEnableF6 .Checked = (Boolean)sebSettingsNew[MessageEnableF6];
-            checkBoxEnableF7 .Checked = (Boolean)sebSettingsNew[MessageEnableF7];
-            checkBoxEnableF8 .Checked = (Boolean)sebSettingsNew[MessageEnableF8];
-            checkBoxEnableF9 .Checked = (Boolean)sebSettingsNew[MessageEnableF9];
-            checkBoxEnableF10.Checked = (Boolean)sebSettingsNew[MessageEnableF10];
-            checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
-            checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
-        }
-
-
-
-
-
-        private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
-        {
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
-            Dictionary<string, object> processData = new Dictionary<string, object>();
-            ListViewItem               processRow  = null;
-
-            processRow = new ListViewItem(true.ToString());
-            processRow.SubItems.Add("Win");
-            processRow.SubItems.Add("");
-            processRow.SubItems.Add("");
-
-            processData[MessageActive     ] = true;
-            processData[MessageAutostart  ] = true;
-            processData[MessageAutohide   ] = true;
-            processData[MessageAllowUser  ] = true;
-            processData[MessageOS         ] = intWin;
-            processData[MessageAppTitle   ] = "";
-            processData[MessageDescription] = "";
-            processData[MessageExecutable ] = "";
-            processData[MessagePath       ] = "";
-            processData[MessageIdentifier ] = "";
-            processData[MessageArguments  ] = new List<object>();
-
-            listViewPermittedProcesses.Items.Insert(selectedIndex, processRow);
-          //listViewPermittedProcesses.Items.Add(processRow);
-                    permittedProcessList    .Add(processData);
-
-            listViewPermittedProcesses.Items[selectedIndex].Selected = true;
-            listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
-        }
-
-
-        private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
-        {
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
-            listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
-                    permittedProcessList    .RemoveAt(selectedIndex);
-        }
-
-
-
-        private void buttonChoosePermittedApplication_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonChoosePermittedProcess_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
-        {
-/*
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
-            List<object>               processList = null;
-            Dictionary<string, object> processData = null;
-
-            processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-            processData = (Dictionary<string, object>) processList[selectedIndex];
-
-            processData[MessageActive] = checkBoxPermittedProcessActive.Checked;
-*/
-            permittedProcessData[MessageActive] = checkBoxPermittedProcessActive.Checked;
-            SetWidgetsToNewSettings();
-        }
-
-        private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageAutostart] = checkBoxPermittedProcessAutostart.Checked;
-        }
-
-        private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageAutohide] = checkBoxPermittedProcessAutohide.Checked;
-        }
-
-        private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
-        }
-
-        private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageOS] = listBoxPermittedProcessOS.SelectedIndex;
-            SetWidgetsToNewSettings();
-        }
-
-        private void textBoxPermittedProcessAppTitle_TextChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageAppTitle] = textBoxPermittedProcessAppTitle.Text;
-            SetWidgetsToNewSettings();
-        }
-
-        private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageDescription] = textBoxPermittedProcessDescription.Text;
-        }
-
-        private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageExecutable] = textBoxPermittedProcessExecutable.Text;
-            SetWidgetsToNewSettings();
-        }
-
-        private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessagePath] = textBoxPermittedProcessPath.Text;
-        }
-
-        private void textBoxPermittedProcessIdentifier_TextChanged(object sender, EventArgs e)
-        {
-            permittedProcessData[MessageIdentifier] = textBoxPermittedProcessIdentifier.Text;
-        }
-
-
-        private void checkedListBoxPermittedProcessArguments_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
-            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
-
-            string text = (sender as CheckedListBox).SelectedItem.ToString();
-
-            permittedArgumentData[MessageActive  ] = checkedListBoxPermittedProcessArguments.GetItemChecked(selectedIndex);
-            permittedArgumentData[MessageArgument] = checkedListBoxPermittedProcessArguments.Items[selectedIndex];
-        }
-
-
-        private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
-        {
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
-            Dictionary<string, object> argumentData = new Dictionary<string, object>();
-
-            argumentData[MessageActive  ] = true;
-            argumentData[MessageArgument] = "";
-
-            checkedListBoxPermittedProcessArguments.Items.Add("", true);
-                          permittedArgumentList          .Add(argumentData);
-        }
-
-
-        private void buttonPermittedProcessRemoveArgument_Click(object sender, EventArgs e)
-        {
-            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
-            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
-
-            checkedListBoxPermittedProcessArguments.Items.RemoveAt(selectedIndex);
-                          permittedArgumentList          .RemoveAt(selectedIndex);
-        }
-
-        private void listViewPermittedProcesses_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
-
-        }
-
-        private void listViewPermittedProcesses_AfterLabelEdit(object sender, LabelEditEventArgs e)
-        {
-
-        }
-
-        private void listViewPermittedProcesses_ItemActivate(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listViewPermittedProcesses_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listViewPermittedProcesses_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-
-        }
-
-        private void checkedListBoxPermittedProcessArguments_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            var checkedListBox = (CheckedListBox)sender;
-            var checkedItemText = checkedListBox.Items[e.Index].ToString();
-        }
-
-        private void checkedListBoxPermittedProcessArguments_SelectedValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void radioButtonUseSystemProxySettings_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonUseSystemProxySettings.Checked == true)
-                 sebSettingsNew[MessageProxySettingsPolicy] = 0;
-            else sebSettingsNew[MessageProxySettingsPolicy] = 1;
-        }
-
-        private void radioButtonUseSebProxySettings_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonUseSystemProxySettings.Checked == true)
-                 sebSettingsNew[MessageProxySettingsPolicy] = 1;
-            else sebSettingsNew[MessageProxySettingsPolicy] = 0;
-        }
-
-        private void checkBoxExcludeSimpleHostnames_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxUsePassiveFTPMode_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkedListBoxSelectAProtocol_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxBypassProxySettings_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxProxyConfigurationFileURL_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
-        {
-
-        }
 
 
 
