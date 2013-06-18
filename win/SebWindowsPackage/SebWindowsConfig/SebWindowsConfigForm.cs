@@ -1756,7 +1756,15 @@ namespace SebWindowsConfig
                  textBoxExecutable.Text    = executable;
                  textBoxTitle     .Text    = title;
 
-                checkBoxActive.Location = new Point(120, 120 + 20*index);
+                Rectangle rect = listViewPermittedProcesses.Items[index].Bounds;
+
+                 Point rowBounds   = listViewPermittedProcesses.Items[index].Bounds.Location;
+                 Point rowPosition = listViewPermittedProcesses.Items[index].Position;
+                 Point subItemsBounds = listViewPermittedProcesses.Items[index].SubItems[0].Bounds.Location;
+
+               //checkBoxActive.Location = rowBounds;
+               //checkBoxActive.Location = new Point(120, 120 + 20*index);
+                 checkBoxActive.Location = new Point(200, 120);
 
                 tabPagePermittedProcesses.Controls.Add(checkBoxActive);
 
@@ -1764,14 +1772,6 @@ namespace SebWindowsConfig
                  listBoxArrayPermittedProcessesOS        .Add( listBoxOS);
                  textBoxArrayPermittedProcessesExecutable.Add( textBoxExecutable);
                  textBoxArrayPermittedProcessesTitle     .Add( textBoxTitle);
-
-                 if (false)
-                 {
-                     checkBoxArrayPermittedProcessesActive   [index].Show();
-                   //listBoxArrayPermittedProcessesOS        [index].Show();
-                     textBoxArrayPermittedProcessesExecutable[index].Show();
-                     textBoxArrayPermittedProcessesTitle     [index].Show();
-                 }
 
             }
 
