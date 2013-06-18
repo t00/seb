@@ -1756,16 +1756,22 @@ namespace SebWindowsConfig
                  textBoxExecutable.Text    = executable;
                  textBoxTitle     .Text    = title;
 
-                checkBoxArrayPermittedProcessesActive.Add(checkBoxActive);
-                 listBoxArrayPermittedProcessesOS    .Add(listBoxOS);
-                 textBoxArrayPermittedProcessesExecutable.Add(textBoxExecutable);
-                 textBoxArrayPermittedProcessesTitle     .Add(textBoxTitle);
+                checkBoxActive.Location = new Point(120, 120 + 20*index);
 
-                if (index == 0)
-                checkBoxArrayPermittedProcessesActive    [index].Show();
-                 //listBoxArrayPermittedProcessesOS        [index].Show();
-                 textBoxArrayPermittedProcessesExecutable[index].Show();
-                 textBoxArrayPermittedProcessesTitle     [index].Show();
+                tabPagePermittedProcesses.Controls.Add(checkBoxActive);
+
+                checkBoxArrayPermittedProcessesActive    .Add(checkBoxActive);
+                 listBoxArrayPermittedProcessesOS        .Add( listBoxOS);
+                 textBoxArrayPermittedProcessesExecutable.Add( textBoxExecutable);
+                 textBoxArrayPermittedProcessesTitle     .Add( textBoxTitle);
+
+                 if (false)
+                 {
+                     checkBoxArrayPermittedProcessesActive   [index].Show();
+                   //listBoxArrayPermittedProcessesOS        [index].Show();
+                     textBoxArrayPermittedProcessesExecutable[index].Show();
+                     textBoxArrayPermittedProcessesTitle     [index].Show();
+                 }
 
             }
 
