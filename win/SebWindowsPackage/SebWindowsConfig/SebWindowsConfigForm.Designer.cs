@@ -117,8 +117,6 @@
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.listViewPermittedProcesses = new System.Windows.Forms.ListView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkedListBoxPermitted = new System.Windows.Forms.CheckedListBox();
             this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
             this.labelPermittedProcessIdentifier = new System.Windows.Forms.Label();
             this.textBoxPermittedProcessIdentifier = new System.Windows.Forms.TextBox();
@@ -1208,8 +1206,6 @@
             this.tabPagePermittedProcesses.Controls.Add(this.buttonRemovePermittedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.buttonAddPermittedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.listViewPermittedProcesses);
-            this.tabPagePermittedProcesses.Controls.Add(this.comboBox1);
-            this.tabPagePermittedProcesses.Controls.Add(this.checkedListBoxPermitted);
             this.tabPagePermittedProcesses.Controls.Add(this.groupBoxSelectedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowSwitchToApplications);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowFlashFullscreen);
@@ -1264,7 +1260,7 @@
             // listViewPermittedProcesses
             // 
             this.listViewPermittedProcesses.HideSelection = false;
-            this.listViewPermittedProcesses.Location = new System.Drawing.Point(261, 85);
+            this.listViewPermittedProcesses.Location = new System.Drawing.Point(24, 82);
             this.listViewPermittedProcesses.MultiSelect = false;
             this.listViewPermittedProcesses.Name = "listViewPermittedProcesses";
             this.listViewPermittedProcesses.Size = new System.Drawing.Size(449, 99);
@@ -1276,22 +1272,6 @@
             this.listViewPermittedProcesses.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewPermittedProcesses_ItemChecked);
             this.listViewPermittedProcesses.SelectedIndexChanged += new System.EventHandler(this.listViewPermittedProcesses_SelectedIndexChanged);
             this.listViewPermittedProcesses.Click += new System.EventHandler(this.listViewPermittedProcesses_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(112, 85);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 24);
-            this.comboBox1.TabIndex = 83;
-            // 
-            // checkedListBoxPermitted
-            // 
-            this.checkedListBoxPermitted.FormattingEnabled = true;
-            this.checkedListBoxPermitted.Location = new System.Drawing.Point(24, 85);
-            this.checkedListBoxPermitted.Name = "checkedListBoxPermitted";
-            this.checkedListBoxPermitted.Size = new System.Drawing.Size(73, 55);
-            this.checkedListBoxPermitted.TabIndex = 82;
             // 
             // groupBoxSelectedProcess
             // 
@@ -2937,8 +2917,6 @@
         private System.Windows.Forms.TabPage tabPageFilter;
         private System.Windows.Forms.TabPage tabPageCertificates;
         private System.Windows.Forms.TabPage tabPageProxies;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBoxPermitted;
         private System.Windows.Forms.ListView listViewPermittedProcesses;
         private System.Windows.Forms.Button buttonChoosePermittedProcess;
         private System.Windows.Forms.Button buttonChoosePermittedApplication;
