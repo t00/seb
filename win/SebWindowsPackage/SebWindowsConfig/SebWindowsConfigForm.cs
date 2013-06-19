@@ -1062,7 +1062,7 @@ namespace SebWindowsConfig
             // clicking on an arbitrary table entry (subitem) selects the whole row!
             // The default value is false, which only selects the row when a table entry
             // of the FIRST column (= item, not subitem) is clicked on!
-            listViewPermittedProcesses.View = View.Details;
+            listViewPermittedProcesses.View          = View.Details;
             listViewPermittedProcesses.FullRowSelect = true;
 
             // Assign the column names to the listViews
@@ -1070,20 +1070,32 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[1]);
             listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[2]);
             listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[3]);
+/*
+            dataGridViewPermittedProcesses.Columns.Add("Active"    , "Active"    );
+            dataGridViewPermittedProcesses.Columns.Add("OS"        , "OS"        );
+            dataGridViewPermittedProcesses.Columns.Add("Executable", "Executable");
+            dataGridViewPermittedProcesses.Columns.Add("Title"     , "Title"     );
+*/
             listBoxPermittedProcessOS.Items.AddRange(StringOS);
 /*
-            listViewProhibitedProcesses.View = View.Details;
+            listViewProhibitedProcesses.View          = View.Details;
             listViewProhibitedProcesses.FullRowSelect = true;
 
             listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[0]);
             listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[1]);
             listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[2]);
             listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[3]);
+
             listBoxProhibitedProcessOS.Items.AddRange(StringOS);
 */
             // Auto-resize the column widths of the headers
             listViewPermittedProcesses .AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
           //listViewProhibitedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            dataGridViewPermittedProcesses .AutoResizeColumns();
+          //dataGridViewProhibitedProcesses.AutoResizeColumns();
+          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
             // IMPORTANT:
@@ -1713,6 +1725,7 @@ namespace SebWindowsConfig
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
             ListViewItem               processRow  = null;
+            DataGridViewRow            processRow2 = null;
 
             processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
@@ -1720,6 +1733,9 @@ namespace SebWindowsConfig
 
             // Remove all previously displayed processes from ListView
                  listViewPermittedProcesses.Items    .Clear();
+           //dataGridViewPermittedProcesses          .Clear();
+             dataGridViewPermittedProcesses.Rows     .Clear();
+
             checkBoxArrayPermittedProcessesActive    .Clear();
              listBoxArrayPermittedProcessesOS        .Clear();
              textBoxArrayPermittedProcessesExecutable.Clear();
@@ -1746,6 +1762,14 @@ namespace SebWindowsConfig
                 processRow.SubItems.Add((String) processData[MessageTitle]);
 
                 listViewPermittedProcesses.Items.Add(processRow);
+
+                processRow2 = new DataGridViewRow();
+                processRow2.SetValues(activeBoolean, osString, executable, title);
+
+                dataGridViewPermittedProcesses.Rows.Add(processRow2);
+
+                //dataGridViewPermittedProcesses.Columns.AddRange();
+                //dataGridViewPermittedProcesses.Columns[0][0] = "";
 
 /*
                 CheckBox checkBoxActive     = new CheckBox();
@@ -1788,6 +1812,11 @@ namespace SebWindowsConfig
             // Auto-resize the column widths of the contents and headers
             listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            dataGridViewPermittedProcesses .AutoResizeColumns();
+          //dataGridViewProhibitedProcesses.AutoResizeColumns();
+          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
             // Group "General"
