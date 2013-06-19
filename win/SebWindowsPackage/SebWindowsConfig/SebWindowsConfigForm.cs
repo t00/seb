@@ -454,6 +454,8 @@ namespace SebWindowsConfig
         static String[] StringOS                  = new String[2];
         static String[] StringProxyProtocol       = new String[7];
 
+        const int NumProxyProtocols = 7;
+
 
         // Number of values per group
         // Names  of groups and values
@@ -2498,8 +2500,8 @@ namespace SebWindowsConfig
             Dictionary<string, object> argumentData = null;
 
              processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-             processData = (Dictionary<string, object>) processList[selectedIndex];
-            argumentList =               (List<object>) processData[MessageArguments];
+             processData = (Dictionary<string, object>)    processList[selectedIndex];
+            argumentList =               (List<object>)    processData[MessageArguments];
 
             // Copy the selected process data to the global variables
             permittedProcessList  =  processList;
@@ -2781,7 +2783,7 @@ namespace SebWindowsConfig
             // we must first uncheck all items.
             // Otherwise, the previously selected
             // but afterwards unselected items keep being checked!)
-            for (int index = 0; index < 7; index++)
+            for (int index = 0; index < NumProxyProtocols; index++)
                 checkedListBoxProxyProtocol.SetItemChecked(index, false);
 
             int selectedIndex = checkedListBoxProxyProtocol.SelectedIndex;
@@ -3088,6 +3090,11 @@ namespace SebWindowsConfig
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
+        }
+
+        private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
 
