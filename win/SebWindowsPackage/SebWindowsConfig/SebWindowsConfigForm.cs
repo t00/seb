@@ -2469,6 +2469,21 @@ namespace SebWindowsConfig
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
             int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
+            listViewPermittedProcesses.ForeColor = Color.Blue;
+            listViewPermittedProcesses.BackColor = Color.LightGray;
+
+            //ListViewItem selectedItem = listViewPermittedProcesses.Items[selectedIndex];
+            //selectedItem.ForeColor = Color.Red;
+            //selectedItem.BackColor = Color.Yellow;
+
+            //listViewPermittedProcesses.Items[selectedIndex].ForeColor = Color.Red;
+            //listViewPermittedProcesses.Items[selectedIndex].BackColor = Color.Yellow;
+
+            listViewPermittedProcesses.Items[1].ForeColor = Color.Red;
+            listViewPermittedProcesses.Items[1].BackColor = Color.Yellow;
+
+
+
             int index;
 
             List<object>                processList = null;
@@ -2490,7 +2505,7 @@ namespace SebWindowsConfig
             checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
             checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
              listBoxPermittedProcessOS.SelectedIndex  =   (Int32) processData[MessageOS];
-             textBoxPermittedProcessTitle   .Text  =  (String) processData[MessageTitle];
+             textBoxPermittedProcessTitle      .Text  =  (String) processData[MessageTitle];
              textBoxPermittedProcessDescription.Text  =  (String) processData[MessageDescription];
              textBoxPermittedProcessExecutable .Text  =  (String) processData[MessageExecutable];
              textBoxPermittedProcessPath       .Text  =  (String) processData[MessagePath];
