@@ -2482,8 +2482,6 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.Items[1].ForeColor = Color.Red;
             listViewPermittedProcesses.Items[1].BackColor = Color.Yellow;
 
-
-
             int index;
 
             List<object>                processList = null;
