@@ -2713,6 +2713,9 @@
             // OS
             // 
             this.OS.HeaderText = "OS";
+            this.OS.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
             this.OS.Name = "OS";
             // 
             // Executable

@@ -1768,6 +1768,10 @@ namespace SebWindowsConfig
 
                 dataGridViewPermittedProcesses.Rows.Add(processRow2);
 
+                //processRow2 = dataGridViewPermittedProcesses.Rows[index];
+                //processRow2.Cells[MessageActive    ].Checked = true;
+                //processRow2.Cells[MessageExecutable].Text    = "abba";
+
                 //dataGridViewPermittedProcesses.Columns.AddRange();
                 //dataGridViewPermittedProcesses.Columns[0][0] = "";
 
@@ -1777,9 +1781,8 @@ namespace SebWindowsConfig
                  TextBox  textBoxExecutable = new  TextBox();
                  TextBox  textBoxTitle      = new  TextBox();
 
-                //checkBoxActive.Bounds = 
                 checkBoxActive    .Checked = activeBoolean;
-                 //listBoxOS.SelectedIndex   = osInteger;
+               //listBoxOS.SelectedIndex   = osInteger;
                  textBoxExecutable.Text    = executable;
                  textBoxTitle     .Text    = title;
 
@@ -1813,9 +1816,9 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
-            dataGridViewPermittedProcesses .AutoResizeColumns();
+          //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
-          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
