@@ -1745,6 +1745,7 @@ namespace SebWindowsConfig
 
                 listViewPermittedProcesses.Items.Add(processRow);
 
+/*
                 CheckBox checkBoxActive     = new CheckBox();
                  ListBox  listBoxOS         = new  ListBox();
                  TextBox  textBoxExecutable = new  TextBox();
@@ -1757,21 +1758,28 @@ namespace SebWindowsConfig
                  textBoxTitle     .Text    = title;
 
                 Rectangle rect = listViewPermittedProcesses.Items[index].Bounds;
-
                  Point rowBounds   = listViewPermittedProcesses.Items[index].Bounds.Location;
                  Point rowPosition = listViewPermittedProcesses.Items[index].Position;
                  Point subItemsBounds = listViewPermittedProcesses.Items[index].SubItems[0].Bounds.Location;
 
-               //checkBoxActive.Location = rowBounds;
-               //checkBoxActive.Location = new Point(120, 120 + 20*index);
-                 checkBoxActive.Location = new Point(200, 120);
+                 if (index == 0)
+                 {
+                     //checkBoxActive.Location = rowBounds;
+                     //checkBoxActive.Location = new Point(120, 110 + 20*index);
+                     //checkBoxActive.Location = new Point(255, 110 + 20 * index);
+                     //checkBoxActive.Location = rowBounds;
+                     checkBoxActive.Location = subItemsBounds;
+                     listViewPermittedProcesses.SendToBack();
+                     checkBoxActive.BringToFront();
 
-                tabPagePermittedProcesses.Controls.Add(checkBoxActive);
+                     tabPagePermittedProcesses.Controls.Add(checkBoxActive);
+                 }
 
                 checkBoxArrayPermittedProcessesActive    .Add(checkBoxActive);
                  listBoxArrayPermittedProcessesOS        .Add( listBoxOS);
                  textBoxArrayPermittedProcessesExecutable.Add( textBoxExecutable);
                  textBoxArrayPermittedProcessesTitle     .Add( textBoxTitle);
+*/
 
             }
 
@@ -2468,19 +2476,19 @@ namespace SebWindowsConfig
 
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
             int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
+/*
             listViewPermittedProcesses.ForeColor = Color.Blue;
             listViewPermittedProcesses.BackColor = Color.LightGray;
 
+            listViewPermittedProcesses.Items[1].ForeColor = Color.Red;
+            listViewPermittedProcesses.Items[1].BackColor = Color.Yellow;
+*/
             //ListViewItem selectedItem = listViewPermittedProcesses.Items[selectedIndex];
             //selectedItem.ForeColor = Color.Red;
             //selectedItem.BackColor = Color.Yellow;
 
             //listViewPermittedProcesses.Items[selectedIndex].ForeColor = Color.Red;
             //listViewPermittedProcesses.Items[selectedIndex].BackColor = Color.Yellow;
-
-            listViewPermittedProcesses.Items[1].ForeColor = Color.Red;
-            listViewPermittedProcesses.Items[1].BackColor = Color.Yellow;
 
             int index;
 
