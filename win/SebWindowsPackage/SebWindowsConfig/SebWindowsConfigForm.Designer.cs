@@ -198,6 +198,8 @@
             this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
             this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
+            this.buttonSaveSettingsAs = new System.Windows.Forms.Button();
+            this.buttonOpenSettings = new System.Windows.Forms.Button();
             this.textBoxHashedSettingsPassword = new System.Windows.Forms.TextBox();
             this.labelHashedSettingsPassword = new System.Windows.Forms.Label();
             this.labelUseEither = new System.Windows.Forms.Label();
@@ -213,8 +215,6 @@
             this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
             this.buttonDefaultSettings = new System.Windows.Forms.Button();
             this.buttonRevertToLastOpened = new System.Windows.Forms.Button();
-            this.labelOpenSettings = new System.Windows.Forms.Label();
-            this.labelSaveSettingsAs = new System.Windows.Forms.Label();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.labelHashedAdminPassword = new System.Windows.Forms.Label();
             this.textBoxHashedAdminPassword = new System.Windows.Forms.TextBox();
@@ -2169,6 +2169,8 @@
             // 
             // tabPageConfigFile
             // 
+            this.tabPageConfigFile.Controls.Add(this.buttonSaveSettingsAs);
+            this.tabPageConfigFile.Controls.Add(this.buttonOpenSettings);
             this.tabPageConfigFile.Controls.Add(this.textBoxHashedSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.labelHashedSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.labelUseEither);
@@ -2184,8 +2186,6 @@
             this.tabPageConfigFile.Controls.Add(this.checkBoxAllowPreferencesWindow);
             this.tabPageConfigFile.Controls.Add(this.buttonDefaultSettings);
             this.tabPageConfigFile.Controls.Add(this.buttonRevertToLastOpened);
-            this.tabPageConfigFile.Controls.Add(this.labelOpenSettings);
-            this.tabPageConfigFile.Controls.Add(this.labelSaveSettingsAs);
             this.tabPageConfigFile.ImageIndex = 3;
             this.tabPageConfigFile.Location = new System.Drawing.Point(4, 39);
             this.tabPageConfigFile.Name = "tabPageConfigFile";
@@ -2194,6 +2194,28 @@
             this.tabPageConfigFile.TabIndex = 6;
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
+            // 
+            // buttonSaveSettingsAs
+            // 
+            this.buttonSaveSettingsAs.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSaveSettingsAs.Location = new System.Drawing.Point(465, 368);
+            this.buttonSaveSettingsAs.Name = "buttonSaveSettingsAs";
+            this.buttonSaveSettingsAs.Size = new System.Drawing.Size(191, 40);
+            this.buttonSaveSettingsAs.TabIndex = 63;
+            this.buttonSaveSettingsAs.Text = "Save Settings As...";
+            this.buttonSaveSettingsAs.UseVisualStyleBackColor = true;
+            this.buttonSaveSettingsAs.Click += new System.EventHandler(this.buttonSaveSettingsAs_Click);
+            // 
+            // buttonOpenSettings
+            // 
+            this.buttonOpenSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonOpenSettings.Location = new System.Drawing.Point(260, 368);
+            this.buttonOpenSettings.Name = "buttonOpenSettings";
+            this.buttonOpenSettings.Size = new System.Drawing.Size(190, 40);
+            this.buttonOpenSettings.TabIndex = 62;
+            this.buttonOpenSettings.Text = "Open Settings...";
+            this.buttonOpenSettings.UseVisualStyleBackColor = true;
+            this.buttonOpenSettings.Click += new System.EventHandler(this.buttonOpenSettings_Click);
             // 
             // textBoxHashedSettingsPassword
             // 
@@ -2329,9 +2351,9 @@
             // buttonDefaultSettings
             // 
             this.buttonDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDefaultSettings.Location = new System.Drawing.Point(39, 349);
+            this.buttonDefaultSettings.Location = new System.Drawing.Point(39, 316);
             this.buttonDefaultSettings.Name = "buttonDefaultSettings";
-            this.buttonDefaultSettings.Size = new System.Drawing.Size(191, 25);
+            this.buttonDefaultSettings.Size = new System.Drawing.Size(191, 40);
             this.buttonDefaultSettings.TabIndex = 44;
             this.buttonDefaultSettings.Text = "Default Settings";
             this.buttonDefaultSettings.UseVisualStyleBackColor = true;
@@ -2340,37 +2362,13 @@
             // buttonRevertToLastOpened
             // 
             this.buttonRevertToLastOpened.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRevertToLastOpened.Location = new System.Drawing.Point(39, 383);
+            this.buttonRevertToLastOpened.Location = new System.Drawing.Point(39, 368);
             this.buttonRevertToLastOpened.Name = "buttonRevertToLastOpened";
-            this.buttonRevertToLastOpened.Size = new System.Drawing.Size(191, 25);
+            this.buttonRevertToLastOpened.Size = new System.Drawing.Size(191, 40);
             this.buttonRevertToLastOpened.TabIndex = 19;
             this.buttonRevertToLastOpened.Text = "Revert To Last Opened";
             this.buttonRevertToLastOpened.UseVisualStyleBackColor = true;
             this.buttonRevertToLastOpened.Click += new System.EventHandler(this.buttonRevertToLastOpened_Click);
-            // 
-            // labelOpenSettings
-            // 
-            this.labelOpenSettings.AutoSize = true;
-            this.labelOpenSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelOpenSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOpenSettings.Location = new System.Drawing.Point(330, 367);
-            this.labelOpenSettings.Name = "labelOpenSettings";
-            this.labelOpenSettings.Size = new System.Drawing.Size(112, 19);
-            this.labelOpenSettings.TabIndex = 9;
-            this.labelOpenSettings.Text = "Open Settings...";
-            this.labelOpenSettings.Click += new System.EventHandler(this.labelOpenSettings_Click);
-            // 
-            // labelSaveSettingsAs
-            // 
-            this.labelSaveSettingsAs.AutoSize = true;
-            this.labelSaveSettingsAs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelSaveSettingsAs.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSaveSettingsAs.Location = new System.Drawing.Point(465, 367);
-            this.labelSaveSettingsAs.Name = "labelSaveSettingsAs";
-            this.labelSaveSettingsAs.Size = new System.Drawing.Size(129, 19);
-            this.labelSaveSettingsAs.TabIndex = 10;
-            this.labelSaveSettingsAs.Text = "Save Settings As...";
-            this.labelSaveSettingsAs.Click += new System.EventHandler(this.labelSaveSettingsAs_Click);
             // 
             // tabPageGeneral
             // 
@@ -2898,8 +2896,6 @@
         private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
         private System.Windows.Forms.Button buttonDefaultSettings;
         private System.Windows.Forms.Button buttonRevertToLastOpened;
-        private System.Windows.Forms.Label labelOpenSettings;
-        private System.Windows.Forms.Label labelSaveSettingsAs;
         private System.Windows.Forms.TabPage tabPageGeneral;
         private System.Windows.Forms.GroupBox groupBoxExitSequence;
         private System.Windows.Forms.ListBox listBoxExitKey1;
@@ -2984,6 +2980,8 @@
         private System.Windows.Forms.Label labelProxyConfigurationFileURL;
         private System.Windows.Forms.Label labelIfYourNetworkAdministrator;
         private System.Windows.Forms.Button buttonChooseProxyConfigurationFile;
+        private System.Windows.Forms.Button buttonSaveSettingsAs;
+        private System.Windows.Forms.Button buttonOpenSettings;
 
     }
 }

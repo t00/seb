@@ -2132,7 +2132,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void labelOpenSettings_Click(object sender, EventArgs e)
+        private void buttonOpenSettings_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
@@ -2160,7 +2160,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void labelSaveSettingsAs_Click(object sender, EventArgs e)
+        private void buttonSaveSettingsAs_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             saveFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
@@ -3081,7 +3081,6 @@ namespace SebWindowsConfig
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
-
 
 
 
