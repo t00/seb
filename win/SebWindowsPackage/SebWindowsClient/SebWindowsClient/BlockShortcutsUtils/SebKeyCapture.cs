@@ -27,6 +27,10 @@ namespace SebWindowsClient.BlockShortcutsUtils
         #region Imports
         private const int WH_MOUSE_LL = 14;
 
+        private static bool F3_Pressed = false;
+        private static bool F11_Pressed = false;
+        private static bool F6_Pressed = false;
+
         private enum MouseMessages
         {
             WM_LBUTTONDOWN = 0x0201,
@@ -275,6 +279,56 @@ namespace SebWindowsClient.BlockShortcutsUtils
             return false;
         }
 
+        /// <summary>
+        /// Set and Test Exit Key Sequence
+        ///</summary>
+        private static bool SetAndTestExitKeySequence(IntPtr wp, IntPtr lp)
+        {
+            KBDLLHOOKSTRUCT KeyInfo =
+              (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+            if (KeyInfo.key == Keys.F3)
+            {
+                F3_Pressed = true;
+            }
+            if (KeyInfo.key == Keys.F11)
+            {
+                F11_Pressed = true;
+            }
+            if (KeyInfo.key == Keys.F6)
+            {
+                F6_Pressed = true;
+            }
+
+            if (F3_Pressed && F11_Pressed && F6_Pressed)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Reset Exit Key Sequence
+        ///</summary>
+        private static void ResetExitKeySequence(IntPtr wp, IntPtr lp)
+        {
+            KBDLLHOOKSTRUCT KeyInfo =
+              (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+            if (KeyInfo.key == Keys.F3)
+            {
+                F3_Pressed = false;
+            }
+            if (KeyInfo.key == Keys.F11)
+            {
+                F11_Pressed = false;
+            }
+            if (KeyInfo.key == Keys.F6)
+            {
+                F6_Pressed = false;
+            }
+         }
+
         #endregion
 
         /// <summary>
@@ -292,7 +346,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 if (DisableMouseButton(nCode, wp, lp))
                     return (IntPtr)1;
             }
-
+ 
             // Pass the event to the next hook in the chain.
             return CallNextHookEx(ptrMouseHook, nCode, wp, lp);
         }
@@ -307,10 +361,20 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 //KBDLLHOOKSTRUCT KeyInfo =
                 //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
+                if (SetAndTestExitKeySequence(wp, lp))
+                {
+                    Application.Exit();
+                }
+
                 // Reject any key that's not on our list.
                 if (DisableKey(wp, lp))
                     return (IntPtr)1;
             }
+            else
+            {
+                ResetExitKeySequence(wp, lp);
+            }
+
 
             // Pass the event to the next hook in the chain.
             return CallNextHookEx(ptrKeyboardHook, nCode, wp, lp);
