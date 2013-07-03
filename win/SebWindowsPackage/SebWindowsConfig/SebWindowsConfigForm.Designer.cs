@@ -112,6 +112,11 @@
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
+            this.dataGridViewPermittedProcesses = new System.Windows.Forms.DataGridView();
+            this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChoosePermittedProcess = new System.Windows.Forms.Button();
             this.buttonChoosePermittedApplication = new System.Windows.Forms.Button();
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
@@ -243,11 +248,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.dataGridViewPermittedProcesses = new System.Windows.Forms.DataGridView();
-            this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -263,6 +263,7 @@
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
             this.tabPagePermittedProcesses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).BeginInit();
             this.groupBoxSelectedProcess.SuspendLayout();
             this.tabPageExam.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
@@ -274,7 +275,6 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -1223,6 +1223,45 @@
             this.tabPagePermittedProcesses.TabIndex = 0;
             this.tabPagePermittedProcesses.Text = "Permitted Processes";
             this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewPermittedProcesses
+            // 
+            this.dataGridViewPermittedProcesses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPermittedProcesses.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Active,
+            this.OS,
+            this.Executable,
+            this.Title});
+            this.dataGridViewPermittedProcesses.Location = new System.Drawing.Point(331, 31);
+            this.dataGridViewPermittedProcesses.Name = "dataGridViewPermittedProcesses";
+            this.dataGridViewPermittedProcesses.RowHeadersVisible = false;
+            this.dataGridViewPermittedProcesses.RowTemplate.Height = 24;
+            this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(445, 150);
+            this.dataGridViewPermittedProcesses.TabIndex = 89;
+            this.dataGridViewPermittedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellContentClick);
+            // 
+            // Active
+            // 
+            this.Active.HeaderText = "Active";
+            this.Active.Name = "Active";
+            // 
+            // OS
+            // 
+            this.OS.HeaderText = "OS";
+            this.OS.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
+            this.OS.Name = "OS";
+            // 
+            // Executable
+            // 
+            this.Executable.HeaderText = "Executable";
+            this.Executable.Name = "Executable";
+            // 
+            // Title
+            // 
+            this.Title.HeaderText = "Title";
+            this.Title.Name = "Title";
             // 
             // buttonChoosePermittedProcess
             // 
@@ -2690,44 +2729,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // dataGridViewPermittedProcesses
-            // 
-            this.dataGridViewPermittedProcesses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPermittedProcesses.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Active,
-            this.OS,
-            this.Executable,
-            this.Title});
-            this.dataGridViewPermittedProcesses.Location = new System.Drawing.Point(331, 31);
-            this.dataGridViewPermittedProcesses.Name = "dataGridViewPermittedProcesses";
-            this.dataGridViewPermittedProcesses.RowTemplate.Height = 24;
-            this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(445, 150);
-            this.dataGridViewPermittedProcesses.TabIndex = 89;
-            this.dataGridViewPermittedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellContentClick);
-            // 
-            // Active
-            // 
-            this.Active.HeaderText = "Active";
-            this.Active.Name = "Active";
-            // 
-            // OS
-            // 
-            this.OS.HeaderText = "OS";
-            this.OS.Items.AddRange(new object[] {
-            "OS X",
-            "Win"});
-            this.OS.Name = "OS";
-            // 
-            // Executable
-            // 
-            this.Executable.HeaderText = "Executable";
-            this.Executable.Name = "Executable";
-            // 
-            // Title
-            // 
-            this.Title.HeaderText = "Title";
-            this.Title.Name = "Title";
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2765,6 +2766,7 @@
             this.tabControlApplications.ResumeLayout(false);
             this.tabPagePermittedProcesses.ResumeLayout(false);
             this.tabPagePermittedProcesses.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).EndInit();
             this.groupBoxSelectedProcess.ResumeLayout(false);
             this.groupBoxSelectedProcess.PerformLayout();
             this.tabPageExam.ResumeLayout(false);
@@ -2785,7 +2787,6 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).EndInit();
             this.ResumeLayout(false);
 
         }

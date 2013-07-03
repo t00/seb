@@ -1065,6 +1065,14 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.View          = View.Details;
             listViewPermittedProcesses.FullRowSelect = true;
 
+            dataGridViewPermittedProcesses.RowHeadersVisible = false;
+            dataGridViewPermittedProcesses.MultiSelect       = false;
+
+            dataGridViewPermittedProcesses.Columns[MessageActive    ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcesses.Columns[MessageOS        ].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[MessageExecutable].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[MessageTitle     ].ValueType = typeof(String);
+
             // Assign the column names to the listViews
             listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[0]);
             listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[1]);
@@ -1092,7 +1100,7 @@ namespace SebWindowsConfig
             listViewPermittedProcesses .AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
           //listViewProhibitedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
-            dataGridViewPermittedProcesses .AutoResizeColumns();
+          //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
           //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -1725,55 +1733,50 @@ namespace SebWindowsConfig
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
             ListViewItem               processRow  = null;
-            DataGridViewRow            processRow2 = null;
 
             processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
-
-            int index;
 
             // Remove all previously displayed processes from ListView
                  listViewPermittedProcesses.Items    .Clear();
            //dataGridViewPermittedProcesses          .Clear();
              dataGridViewPermittedProcesses.Rows     .Clear();
-
+/*
             checkBoxArrayPermittedProcessesActive    .Clear();
              listBoxArrayPermittedProcessesOS        .Clear();
              textBoxArrayPermittedProcessesExecutable.Clear();
              textBoxArrayPermittedProcessesTitle     .Clear();
-
+*/
             // Add processes of currently opened file to CheckedListBox
-            for (index = 0; index < processList.Count; index++)
+            for (int index = 0; index < processList.Count; index++)
             {
                 processData = (Dictionary<string, object>) processList[index];
 
-                Boolean activeBoolean = (Boolean) processData[MessageActive];
-                Int32       osInteger = (Int32)   processData[MessageOS];
+                Boolean active     = (Boolean) processData[MessageActive];
+                Int32   os         = (Int32  ) processData[MessageOS];
+                String  executable = (String ) processData[MessageExecutable];
+                String  title      = (String ) processData[MessageTitle];
 
-                String  activeString  = activeBoolean.ToString();
-                String      osString  = StringOS[osInteger];
-
-                String executable = (String) processData[MessageExecutable];
-                String title      = (String) processData[MessageTitle];
-
-                processRow = new ListViewItem(activeString);
-                processRow.SubItems.Add(osString);
-
-                processRow.SubItems.Add((String) processData[MessageExecutable]);
-                processRow.SubItems.Add((String) processData[MessageTitle]);
+                processRow = new ListViewItem(active.ToString());
+                processRow.SubItems.Add(StringOS[os]);
+                processRow.SubItems.Add(executable);
+                processRow.SubItems.Add(title);
 
                 listViewPermittedProcesses.Items.Add(processRow);
+/*
+                dataGridViewPermittedProcesses.Rows.Add();
 
-                processRow2 = new DataGridViewRow();
-                processRow2.SetValues(activeBoolean, osString, executable, title);
+                dataGridViewPermittedProcesses.Rows[index].Cells[0].ValueType = typeof(Boolean);
+                dataGridViewPermittedProcesses.Rows[index].Cells[1].ValueType = typeof(String);
+                dataGridViewPermittedProcesses.Rows[index].Cells[2].ValueType = typeof(String);
+                dataGridViewPermittedProcesses.Rows[index].Cells[3].ValueType = typeof(String);
 
-                dataGridViewPermittedProcesses.Rows.Add(processRow2);
+                dataGridViewPermittedProcesses.Rows[index].Cells[0].Value = active;
+                dataGridViewPermittedProcesses.Rows[index].Cells[1].Value = StringOS[os];
+                dataGridViewPermittedProcesses.Rows[index].Cells[2].Value = executable;
+                dataGridViewPermittedProcesses.Rows[index].Cells[3].Value = title;
+*/
+                dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
 
-                //processRow2 = dataGridViewPermittedProcesses.Rows[index];
-                //processRow2.Cells[MessageActive    ].Checked = true;
-                //processRow2.Cells[MessageExecutable].Text    = "abba";
-
-                //dataGridViewPermittedProcesses.Columns.AddRange();
-                //dataGridViewPermittedProcesses.Columns[0][0] = "";
 
 /*
                 CheckBox checkBoxActive     = new CheckBox();
@@ -1818,7 +1821,7 @@ namespace SebWindowsConfig
 
           //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
-            dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
