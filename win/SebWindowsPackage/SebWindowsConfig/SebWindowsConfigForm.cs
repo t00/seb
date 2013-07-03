@@ -1100,7 +1100,7 @@ namespace SebWindowsConfig
             listViewPermittedProcesses .AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
           //listViewProhibitedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
-          //dataGridViewPermittedProcesses .AutoResizeColumns();
+            dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
           //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -1819,7 +1819,7 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
-          //dataGridViewPermittedProcesses .AutoResizeColumns();
+            dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
           //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -2547,8 +2547,10 @@ namespace SebWindowsConfig
 
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+            //if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            //int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+
+            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
 
             Dictionary<string, object> processData = new Dictionary<string, object>();
             ListViewItem               processRow  = null;
@@ -2571,8 +2573,10 @@ namespace SebWindowsConfig
             processData[MessageArguments  ] = new List<object>();
 
             listViewPermittedProcesses.Items.Insert(selectedIndex, processRow);
-          //listViewPermittedProcesses.Items.Add(processRow);
-                    permittedProcessList    .Add(processData);
+
+            dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[intWin], "", "");
+
+            permittedProcessList.Add(processData);
 
             listViewPermittedProcesses.Items[selectedIndex].Selected = true;
             listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
@@ -2581,11 +2585,14 @@ namespace SebWindowsConfig
 
         private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
         {
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+            //if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
+            //int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
-            listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
-                    permittedProcessList    .RemoveAt(selectedIndex);
+            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+
+                listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
+            dataGridViewPermittedProcesses.Rows .RemoveAt(selectedIndex);
+                        permittedProcessList    .RemoveAt(selectedIndex);
         }
 
 
