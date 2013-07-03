@@ -2527,47 +2527,18 @@ namespace SebWindowsConfig
             //listViewPermittedProcesses.Items[selectedIndex].ForeColor = Color.Red;
             //listViewPermittedProcesses.Items[selectedIndex].BackColor = Color.Yellow;
 
-            int index;
+            UpdateWidgetsOfSelectedProcess(selectedIndex);
 
-            List<object>                processList = null;
-            Dictionary<string, object>  processData = null;
-            List<object>               argumentList = null;
-            Dictionary<string, object> argumentData = null;
+            //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
+            //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
+        }
 
-             processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-             processData = (Dictionary<string, object>)    processList[selectedIndex];
-            argumentList =               (List<object>)    processData[MessageArguments];
 
-            // Copy the selected process data to the global variables
-            permittedProcessList  =  processList;
-            permittedProcessData  =  processData;
-            permittedArgumentList = argumentList;
+        private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
 
-            checkBoxPermittedProcessActive   .Checked = (Boolean) processData[MessageActive];
-            checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
-            checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
-            checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
-             listBoxPermittedProcessOS.SelectedIndex  =   (Int32) processData[MessageOS];
-             textBoxPermittedProcessTitle      .Text  =  (String) processData[MessageTitle];
-             textBoxPermittedProcessDescription.Text  =  (String) processData[MessageDescription];
-             textBoxPermittedProcessExecutable .Text  =  (String) processData[MessageExecutable];
-             textBoxPermittedProcessPath       .Text  =  (String) processData[MessagePath];
-             textBoxPermittedProcessIdentifier .Text  =  (String) processData[MessageIdentifier];
-
-            // Remove all previously displayed arguments from CheckedListBox
-            checkedListBoxPermittedProcessArguments.Items.Clear();
-
-            // Add arguments of currently selected process to CheckedListBox
-            for (index = 0; index < argumentList.Count; index++)
-            {
-                         argumentData = (Dictionary<string, object>) argumentList[index];
-                permittedArgumentData = argumentData;
-
-                Boolean active   = (Boolean) argumentData[MessageActive];
-                String  argument = (String ) argumentData[MessageArgument];
-
-                checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
-            }
+            UpdateWidgetsOfSelectedProcess(selectedIndex);
 
             //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
             //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
@@ -3127,9 +3098,58 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
 
-        private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
+
+
+
+
+
+        // ***************************************************************
+        // If process list was clicked, update widgets of selected process
+        // ***************************************************************
+        private void UpdateWidgetsOfSelectedProcess(int selectedIndex)
+        {
+            List<object>                processList = null;
+            Dictionary<string, object>  processData = null;
+            List<object>               argumentList = null;
+            Dictionary<string, object> argumentData = null;
+
+             processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
+             processData = (Dictionary<string, object>)    processList[selectedIndex];
+            argumentList =               (List<object>)    processData[MessageArguments];
+
+            // Copy the selected process data to the global variables
+            permittedProcessList  =  processList;
+            permittedProcessData  =  processData;
+            permittedArgumentList = argumentList;
+
+            checkBoxPermittedProcessActive   .Checked = (Boolean) processData[MessageActive];
+            checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
+            checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
+            checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
+             listBoxPermittedProcessOS.SelectedIndex  =   (Int32) processData[MessageOS];
+             textBoxPermittedProcessTitle      .Text  =  (String) processData[MessageTitle];
+             textBoxPermittedProcessDescription.Text  =  (String) processData[MessageDescription];
+             textBoxPermittedProcessExecutable .Text  =  (String) processData[MessageExecutable];
+             textBoxPermittedProcessPath       .Text  =  (String) processData[MessagePath];
+             textBoxPermittedProcessIdentifier .Text  =  (String) processData[MessageIdentifier];
+
+            // Remove all previously displayed arguments from CheckedListBox
+            checkedListBoxPermittedProcessArguments.Items.Clear();
+
+            // Add arguments of currently selected process to CheckedListBox
+            for (int index = 0; index < argumentList.Count; index++)
+            {
+                         argumentData = (Dictionary<string, object>) argumentList[index];
+                permittedArgumentData = argumentData;
+
+                Boolean active   = (Boolean) argumentData[MessageActive];
+                String  argument = (String ) argumentData[MessageArgument];
+
+                checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
+            }
+
+            return;
         }
 
 
