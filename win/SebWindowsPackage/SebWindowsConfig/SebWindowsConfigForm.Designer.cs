@@ -1239,6 +1239,7 @@
             this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(445, 150);
             this.dataGridViewPermittedProcesses.TabIndex = 89;
             this.dataGridViewPermittedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellContentClick);
+            this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
             // 
             // Active
             // 

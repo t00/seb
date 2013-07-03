@@ -2545,6 +2545,17 @@ namespace SebWindowsConfig
         }
 
 
+        private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int selectedRow = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+            int selectedCol = dataGridViewPermittedProcesses.CurrentCellAddress.X;
+
+            if (selectedRow < 0) return;
+
+            UpdateWidgetsOfSelectedProcess(selectedRow);
+        }
+
+
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
             //if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
