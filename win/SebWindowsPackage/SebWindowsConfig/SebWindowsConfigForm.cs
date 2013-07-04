@@ -2539,9 +2539,28 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+            int    row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+            int    column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
+            object value  = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
 
-            UpdateWidgetsOfSelectedProcess(selectedIndex);
+            if (column == 1)
+            {
+                if ((String)value == StringOS[intOSX]) value = intOSX;
+                if ((String)value == StringOS[intWin]) value = intWin;
+            }
+
+            List<object>                processList = null;
+            Dictionary<string, object>  processData = null;
+
+            processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            processData = (Dictionary<string, object>)processList[row];
+
+            if (column == 0) processData[MessageActive    ] = (Boolean)value;
+            if (column == 1) processData[MessageOS        ] = (Int32  )value;
+            if (column == 2) processData[MessageExecutable] = (String )value;
+            if (column == 3) processData[MessageTitle     ] = (String )value;
+
+            UpdateWidgetsOfSelectedProcess(row);
 
             //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
             //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
@@ -2623,18 +2642,6 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
-/*
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
-            List<object>               processList = null;
-            Dictionary<string, object> processData = null;
-
-            processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-            processData = (Dictionary<string, object>) processList[selectedIndex];
-
-            processData[MessageActive] = checkBoxPermittedProcessActive.Checked;
-*/
             permittedProcessData[MessageActive] = checkBoxPermittedProcessActive.Checked;
             SetWidgetsToNewSettings();
         }
