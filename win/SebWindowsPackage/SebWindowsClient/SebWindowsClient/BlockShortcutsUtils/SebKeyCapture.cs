@@ -292,40 +292,40 @@ namespace SebWindowsClient.BlockShortcutsUtils
             int iExitKey3 = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageExitKey3];
             switch (iExitKey1)
             {
-                case 1:
+                case 0:
                     exitKey1 = Keys.F1;
                     break;
-                case 2:
+                case 1:
                     exitKey1 = Keys.F2;
                     break;
-                case 3:
+                case 2:
                     exitKey1 = Keys.F3;
                     break;
-                case 4:
+                case 3:
                     exitKey1 = Keys.F4;
                     break;
-                case 5:
+                case 4:
                     exitKey1 = Keys.F5;
                     break;
-                case 6:
+                case 5:
                     exitKey1 = Keys.F6;
                     break;
-                case 7:
+                case 6:
                     exitKey1 = Keys.F7;
                     break;
-                case 8:
+                case 7:
                     exitKey1 = Keys.F8;
                     break;
-                case 9:
+                case 8:
                     exitKey1 = Keys.F9;
                     break;
-                case 10:
+                case 9:
                     exitKey1 = Keys.F10;
                     break;
-                case 11:
+                case 10:
                     exitKey1 = Keys.F11;
                     break;
-                case 12:
+                case 11:
                     exitKey1 = Keys.F12;
                     break;
                 default:
@@ -334,40 +334,40 @@ namespace SebWindowsClient.BlockShortcutsUtils
             }
             switch (iExitKey2)
             {
-                case 1:
+                case 0:
                     exitKey2 = Keys.F1;
                     break;
-                case 2:
+                case 1:
                     exitKey2 = Keys.F2;
                     break;
-                case 3:
+                case 2:
                     exitKey2 = Keys.F3;
                     break;
-                case 4:
+                case 3:
                     exitKey2 = Keys.F4;
                     break;
-                case 5:
+                case 4:
                     exitKey2 = Keys.F5;
                     break;
-                case 6:
+                case 5:
                     exitKey2 = Keys.F6;
                     break;
-                case 7:
+                case 6:
                     exitKey2 = Keys.F7;
                     break;
-                case 8:
+                case 7:
                     exitKey2 = Keys.F8;
                     break;
-                case 9:
+                case 8:
                     exitKey2 = Keys.F9;
                     break;
-                case 10:
+                case 9:
                     exitKey2 = Keys.F10;
                     break;
-                case 11:
+                case 10:
                     exitKey2 = Keys.F11;
                     break;
-                case 12:
+                case 11:
                     exitKey2 = Keys.F12;
                     break;
                 default:
@@ -376,40 +376,40 @@ namespace SebWindowsClient.BlockShortcutsUtils
             }
             switch (iExitKey3)
             {
-                case 1:
+                case 0:
                     exitKey3 = Keys.F1;
                     break;
-                case 2:
+                case 1:
                     exitKey3 = Keys.F2;
                     break;
-                case 3:
+                case 2:
                     exitKey3 = Keys.F3;
                     break;
-                case 4:
+                case 3:
                     exitKey3 = Keys.F4;
                     break;
-                case 5:
+                case 4:
                     exitKey3 = Keys.F5;
                     break;
-                case 6:
+                case 5:
                     exitKey3 = Keys.F6;
                     break;
-                case 7:
+                case 6:
                     exitKey3 = Keys.F7;
                     break;
-                case 8:
+                case 7:
                     exitKey3 = Keys.F8;
                     break;
-                case 9:
+                case 8:
                     exitKey3 = Keys.F9;
                     break;
-                case 10:
+                case 9:
                     exitKey3 = Keys.F10;
                     break;
-                case 11:
+                case 10:
                     exitKey3 = Keys.F11;
                     break;
-                case 12:
+                case 11:
                     exitKey3 = Keys.F12;
                     break;
                 default:
