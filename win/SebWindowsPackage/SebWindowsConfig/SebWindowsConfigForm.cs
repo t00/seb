@@ -1065,8 +1065,11 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.View          = View.Details;
             listViewPermittedProcesses.FullRowSelect = true;
 
-            dataGridViewPermittedProcesses.RowHeadersVisible = false;
-            dataGridViewPermittedProcesses.MultiSelect       = false;
+            // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
+            // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
+            dataGridViewPermittedProcesses.RowHeadersVisible  = false;
+            dataGridViewPermittedProcesses.MultiSelect        = false;
+            dataGridViewPermittedProcesses.AllowUserToAddRows = false;
 
             dataGridViewPermittedProcesses.Columns[MessageActive    ].ValueType = typeof(Boolean);
             dataGridViewPermittedProcesses.Columns[MessageOS        ].ValueType = typeof(String);
