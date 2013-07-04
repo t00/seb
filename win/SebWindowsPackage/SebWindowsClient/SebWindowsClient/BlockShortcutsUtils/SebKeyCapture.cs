@@ -27,10 +27,6 @@ namespace SebWindowsClient.BlockShortcutsUtils
         #region Imports
         private const int WH_MOUSE_LL = 14;
 
-        private static bool F3_Pressed = false;
-        private static bool F11_Pressed = false;
-        private static bool F6_Pressed = false;
-
         private enum MouseMessages
         {
             WM_LBUTTONDOWN = 0x0201,
@@ -102,6 +98,13 @@ namespace SebWindowsClient.BlockShortcutsUtils
         private static LowLevelProc objKeyboardProcess;
         private static LowLevelProc objMouseProcess;
         private static bool _FilterKeys = true;
+        private static Keys exitKey1;
+        private static Keys exitKey2;
+        private static Keys exitKey3;
+        private static bool exitKey1_Pressed = false;
+        private static bool exitKey2_Pressed = false;
+        private static bool exitKey3_Pressed = false;
+
         public static SebApplicationChooserForm SebApplicationChooser = null;
         #endregion
 
@@ -279,6 +282,141 @@ namespace SebWindowsClient.BlockShortcutsUtils
             return false;
         }
 
+                /// <summary>
+        /// Set and Test Exit Key Sequence
+        ///</summary>
+        private static void SetExitKeys()
+        {
+            int iExitKey1 = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageExitKey1];
+            int iExitKey2 = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageExitKey2];
+            int iExitKey3 = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageExitKey3];
+            switch (iExitKey1)
+            {
+                case 1:
+                    exitKey1 = Keys.F1;
+                    break;
+                case 2:
+                    exitKey1 = Keys.F2;
+                    break;
+                case 3:
+                    exitKey1 = Keys.F3;
+                    break;
+                case 4:
+                    exitKey1 = Keys.F4;
+                    break;
+                case 5:
+                    exitKey1 = Keys.F5;
+                    break;
+                case 6:
+                    exitKey1 = Keys.F6;
+                    break;
+                case 7:
+                    exitKey1 = Keys.F7;
+                    break;
+                case 8:
+                    exitKey1 = Keys.F8;
+                    break;
+                case 9:
+                    exitKey1 = Keys.F9;
+                    break;
+                case 10:
+                    exitKey1 = Keys.F10;
+                    break;
+                case 11:
+                    exitKey1 = Keys.F11;
+                    break;
+                case 12:
+                    exitKey1 = Keys.F12;
+                    break;
+                default:
+                    exitKey1 = Keys.F3;
+                    break;
+            }
+            switch (iExitKey2)
+            {
+                case 1:
+                    exitKey2 = Keys.F1;
+                    break;
+                case 2:
+                    exitKey2 = Keys.F2;
+                    break;
+                case 3:
+                    exitKey2 = Keys.F3;
+                    break;
+                case 4:
+                    exitKey2 = Keys.F4;
+                    break;
+                case 5:
+                    exitKey2 = Keys.F5;
+                    break;
+                case 6:
+                    exitKey2 = Keys.F6;
+                    break;
+                case 7:
+                    exitKey2 = Keys.F7;
+                    break;
+                case 8:
+                    exitKey2 = Keys.F8;
+                    break;
+                case 9:
+                    exitKey2 = Keys.F9;
+                    break;
+                case 10:
+                    exitKey2 = Keys.F10;
+                    break;
+                case 11:
+                    exitKey2 = Keys.F11;
+                    break;
+                case 12:
+                    exitKey2 = Keys.F12;
+                    break;
+                default:
+                    exitKey2 = Keys.F11;
+                    break;
+            }
+            switch (iExitKey3)
+            {
+                case 1:
+                    exitKey3 = Keys.F1;
+                    break;
+                case 2:
+                    exitKey3 = Keys.F2;
+                    break;
+                case 3:
+                    exitKey3 = Keys.F3;
+                    break;
+                case 4:
+                    exitKey3 = Keys.F4;
+                    break;
+                case 5:
+                    exitKey3 = Keys.F5;
+                    break;
+                case 6:
+                    exitKey3 = Keys.F6;
+                    break;
+                case 7:
+                    exitKey3 = Keys.F7;
+                    break;
+                case 8:
+                    exitKey3 = Keys.F8;
+                    break;
+                case 9:
+                    exitKey3 = Keys.F9;
+                    break;
+                case 10:
+                    exitKey3 = Keys.F10;
+                    break;
+                case 11:
+                    exitKey3 = Keys.F11;
+                    break;
+                case 12:
+                    exitKey3 = Keys.F12;
+                    break;
+                default:
+                    exitKey3 = Keys.F6;
+                    break;
+            }
+        }
         /// <summary>
         /// Set and Test Exit Key Sequence
         ///</summary>
@@ -287,20 +425,22 @@ namespace SebWindowsClient.BlockShortcutsUtils
             KBDLLHOOKSTRUCT KeyInfo =
               (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
-            if (KeyInfo.key == Keys.F3)
+            SetExitKeys();
+
+            if (KeyInfo.key == exitKey1)
             {
-                F3_Pressed = true;
+                exitKey1_Pressed = true;
             }
-            if (KeyInfo.key == Keys.F11)
+            if (KeyInfo.key == exitKey2)
             {
-                F11_Pressed = true;
+                exitKey2_Pressed = true;
             }
-            if (KeyInfo.key == Keys.F6)
+            if (KeyInfo.key == exitKey3)
             {
-                F6_Pressed = true;
+                exitKey3_Pressed = true;
             }
 
-            if (F3_Pressed && F11_Pressed && F6_Pressed)
+            if (exitKey1_Pressed && exitKey2_Pressed && exitKey3_Pressed)
             {
                 return true;
             }
@@ -315,17 +455,17 @@ namespace SebWindowsClient.BlockShortcutsUtils
         {
             KBDLLHOOKSTRUCT KeyInfo =
               (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
-            if (KeyInfo.key == Keys.F3)
+            if (KeyInfo.key == exitKey1)
             {
-                F3_Pressed = false;
+                exitKey1_Pressed = false;
             }
-            if (KeyInfo.key == Keys.F11)
+            if (KeyInfo.key == exitKey2)
             {
-                F11_Pressed = false;
+                exitKey2_Pressed = false;
             }
-            if (KeyInfo.key == Keys.F6)
+            if (KeyInfo.key == exitKey3)
             {
-                F6_Pressed = false;
+                exitKey3_Pressed = false;
             }
          }
 
