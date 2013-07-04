@@ -133,7 +133,7 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN] = "SEB may not be executed on a virtual machine!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN] = "Défense d'exécuter SEB sur une machine virtuelle!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED] = "Schliessen des Prozesses %s fehlgeschlagen. Soll der Process abgeschossen werden? ";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED] = "Schliessen des Prozesses %s fehlgeschlagen. Soll der Prozess abgeschossen werden? ";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED] = "Closing process %s failed! Kill this process?";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED] = "Abattre le procès %s manqué / échoué!";
 

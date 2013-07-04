@@ -450,16 +450,16 @@ namespace SebWindowsClient
                     {
                         Logger.AddInformation("Kill process by name: " + prohibitedProcessName, this, null);
                         // Close process
-                        SEBNotAllowedProcessController.CloseProcessByName(prohibitedProcessName);
+                        //SEBNotAllowedProcessController.CloseProcessByName(prohibitedProcessName);
 
-                        if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(prohibitedProcessName))
-                        {
-                            if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, prohibitedProcessName))
-                            {
+                        //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(prohibitedProcessName))
+                        //{
+                            //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, prohibitedProcessName))
+                            //{
                                 SEBNotAllowedProcessController.KillProcessByName(prohibitedProcessName);
-                            }
+                            //}
 
-                        }
+                        //}
                     }
                 }
 
@@ -538,16 +538,16 @@ namespace SebWindowsClient
                                 if (permittedProcessName.Contains(runningApplications[j].ProcessName))
                                 {
                                     // Close process
-                                    SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
+                                    //SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
 
-                                    if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
-                                    {
-                                        if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
-                                        {
+                                    //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
+                                    //{
+                                        //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
+                                        //{
                                             SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
-                                        }
+                                        //}
 
-                                    }
+                                    //}
                                 }
                             }
                         }

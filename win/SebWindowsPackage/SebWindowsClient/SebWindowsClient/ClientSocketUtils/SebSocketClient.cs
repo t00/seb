@@ -78,8 +78,8 @@ namespace SebWindowsClient.ClientSocketUtils
         {
             if (_clientSocket == null)
             {
-                MessageBox.Show("CloseSocket: Socket to SebWindowsSercice is not opened.", "MessageBox",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("CloseSocket: Socket to SebWindowsSercice is not opened.", "MessageBox",
+                //                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Logger.AddInformation("CloseSocket: Socket to SebWindowsSercice is not opened.", null, null);
                 return;
             }
@@ -94,8 +94,8 @@ namespace SebWindowsClient.ClientSocketUtils
 
                 _clientSocket.Close();
 
-                MessageBox.Show("CloseSocket: Successful disconnected.", "MessageBox",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("CloseSocket: Successful disconnected.", "MessageBox",
+                //                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Logger.AddInformation("CloseSocket: Successful disconnected.", null, null);
             }
             catch (SocketException se)
@@ -117,8 +117,8 @@ namespace SebWindowsClient.ClientSocketUtils
         {
             if (_clientSocket == null || !_clientSocket.Connected)
             {
-                MessageBox.Show("SetRecvTimeout: Socket to SebWindowsSercice is not opened.", "MessageBox",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("SetRecvTimeout: Socket to SebWindowsSercice is not opened.", "MessageBox",
+                //                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Logger.AddInformation("SetRecvTimeout: Socket to SebWindowsSercice is not opened.", null, null);
                 return false;
             }
@@ -149,8 +149,8 @@ namespace SebWindowsClient.ClientSocketUtils
         {
             if (_clientSocket == null || !_clientSocket.Connected)
             {
-                MessageBox.Show("SendEquationToSocketServer: Socket to SebWindowsSercice is not opened.", "MessageBox",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("SendEquationToSocketServer: Socket to SebWindowsSercice is not opened.", "MessageBox",
+                //                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Logger.AddInformation("SendEquationToSocketServer: Socket to SebWindowsSercice is not opened.", null, null);
                 return false;
             }
@@ -187,8 +187,8 @@ namespace SebWindowsClient.ClientSocketUtils
  
             if (_clientSocket == null || !_clientSocket.Connected)
             {
-                MessageBox.Show("RecvEquationOfSocketServer: Socket to SebWindowsSercice is not opened.", "MessageBox",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("RecvEquationOfSocketServer: Socket to SebWindowsSercice is not opened.", "MessageBox",
+                //                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Logger.AddInformation("RecvEquationOfSocketServer: Socket to SebWindowsSercice is not opened.", null, null);
                 return leftRightSide;
             }

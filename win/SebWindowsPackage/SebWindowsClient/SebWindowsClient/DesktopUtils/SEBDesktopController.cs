@@ -413,7 +413,7 @@ namespace SebWindowsClient.DesktopUtils
 		/// <summary>
 		/// Opens the current input desktop.
 		/// </summary>
-		/// <returns>True if the desktop was succesfully opened.</returns>
+		/// <returns>True if the desktop was successfully opened.</returns>
 		public bool OpenInput()
 		{
 			// make sure object isnt disposed.
