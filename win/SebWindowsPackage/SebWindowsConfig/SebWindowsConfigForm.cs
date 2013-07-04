@@ -1734,7 +1734,7 @@ namespace SebWindowsConfig
             Dictionary<string, object> processData = null;
             ListViewItem               processRow  = null;
 
-            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
 
             // Remove all previously displayed processes from ListView
                  listViewPermittedProcesses.Items    .Clear();
@@ -1751,10 +1751,10 @@ namespace SebWindowsConfig
             {
                 processData = (Dictionary<string, object>) processList[index];
 
-                Boolean active     = (Boolean) processData[MessageActive];
-                Int32   os         = (Int32  ) processData[MessageOS];
-                String  executable = (String ) processData[MessageExecutable];
-                String  title      = (String ) processData[MessageTitle];
+                Boolean active     = (Boolean)processData[MessageActive];
+                Int32   os         = (Int32  )processData[MessageOS];
+                String  executable = (String )processData[MessageExecutable];
+                String  title      = (String )processData[MessageTitle];
 
                 processRow = new ListViewItem(active.ToString());
                 processRow.SubItems.Add(StringOS[os]);
