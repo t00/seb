@@ -20,7 +20,7 @@ namespace SebWindowsClient
             }
 
             // Re-enable normal key events.
-            SebKeyCapture.FilterKeys = false;
+            //SebKeyCapture.FilterKeys = false;
 
             base.Dispose(disposing);
         }
@@ -91,6 +91,7 @@ namespace SebWindowsClient
             this.Controls.Add(this.lbl_User);
             this.Controls.Add(this.btn_Exit);
             this.Name = "SebWindowsClientForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Safe Exam Browser";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsClientForm_FormClosing);

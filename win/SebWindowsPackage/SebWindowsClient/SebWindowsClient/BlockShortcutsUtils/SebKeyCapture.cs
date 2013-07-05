@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DiagnosticsUtils;
 
 // -------------------------------------------------------------
 //     Viktor tomas
@@ -154,34 +155,136 @@ namespace SebWindowsClient.BlockShortcutsUtils
             KBDLLHOOKSTRUCT KeyInfo =
               (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
-            //if (SebApplicationChooser == null)
-            //    SebApplicationChooser = new SebApplicationChooserForm();
-            //SebApplicationChooser.fillText(KeyInfo.flags + "-" + KeyInfo.key);
-            //SebApplicationChooser.Visible = true;
-            //SebApplicationChooser.Activate();
+            try
+            {
+                //if (SebApplicationChooser == null)
+                //    SebApplicationChooser = new SebApplicationChooserForm();
+                //SebApplicationChooser.fillText(KeyInfo.flags + "-" + KeyInfo.key);
+                //SebApplicationChooser.Visible = true;
+                //SebApplicationChooser.Activate();
 
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableEsc] && (KeyInfo.key == Keys.Escape))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableCtrlEsc])
-            {
-                if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Escape))
-                   return true;
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableEsc] && (KeyInfo.key == Keys.Escape))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableCtrlEsc])
+                {
+                    if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Escape))
+                        return true;
 
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltEsc])
-            {
-                if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Escape))
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltEsc])
+                {
+                    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Escape))
+                        return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
+                {
+                    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
+                        return true;
+                }
+                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
+                {
+                    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
+                    {
+                        if (SebApplicationChooser == null)
+                            SebApplicationChooser = new SebApplicationChooserForm();
+                        SebApplicationChooser.fillListApplications();
+                        SebApplicationChooser.Visible = true;
+                        SebApplicationChooser.Activate();
+                        return true;
+
+                    }
+                }
+                //if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
+                //{
+                //    if (((KeyInfo.flags == 32) && (KeyInfo.key == Keys.LMenu)) || ((KeyInfo.flags == 33) && (KeyInfo.key == Keys.RMenu)))
+                //    {
+                //        if (SebApplicationChooser == null)
+                //            SebApplicationChooser = new SebApplicationChooserForm();
+                //        SebApplicationChooser.fillListApplications();
+                //        SebApplicationChooser.Visible = true;
+                //        SebApplicationChooser.Activate();
+                //        return true;
+                //    }
+                //}
+                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
+                {
+                    if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
+                    {
+                        SebApplicationChooser.Visible = false;
+                        //SebApplicationChooser.Activate();
+                        return true;
+
+                    }
+                }
+                //if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
+                //{
+                //    if ((KeyInfo.flags == 129) && (KeyInfo.key == Keys.RMenu))
+                //    {
+                //        SebApplicationChooser.Visible = false;
+                //        //SebApplicationChooser.Activate();
+                //        return true;
+
+                //    }
+                //}
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltF4])
+                {
+                    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.F4))
+                        return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF1] && (KeyInfo.key == Keys.F1))
+                {
                     return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
-            {
-                if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF2] && (KeyInfo.key == Keys.F2))
+                {
                     return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF3] && (KeyInfo.key == Keys.F3))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF4] && (KeyInfo.key == Keys.F4))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF5] && (KeyInfo.key == Keys.F5))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF6] && (KeyInfo.key == Keys.F6))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF7] && (KeyInfo.key == Keys.F7))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF8] && (KeyInfo.key == Keys.F8))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF9] && (KeyInfo.key == Keys.F9))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF10] && (KeyInfo.key == Keys.F10))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF11] && (KeyInfo.key == Keys.F11))
+                {
+                    return true;
+                }
+                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF12] && (KeyInfo.key == Keys.F12))
+                {
+                    return true;
+                }
             }
-            if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
+            catch (Exception ex)
             {
+                Logger.AddError("DisableKey: Failed with error. " + ex.Message, null, ex);
                 if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                 {
                     if (SebApplicationChooser == null)
@@ -190,95 +293,20 @@ namespace SebWindowsClient.BlockShortcutsUtils
                     SebApplicationChooser.Visible = true;
                     SebApplicationChooser.Activate();
                     return true;
-
                 }
-            }
-            //if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
-            //{
-            //    if (((KeyInfo.flags == 32) && (KeyInfo.key == Keys.LMenu)) || ((KeyInfo.flags == 33) && (KeyInfo.key == Keys.RMenu)))
-            //    {
-            //        if (SebApplicationChooser == null)
-            //            SebApplicationChooser = new SebApplicationChooserForm();
-            //        SebApplicationChooser.fillListApplications();
-            //        SebApplicationChooser.Visible = true;
-            //        SebApplicationChooser.Activate();
-            //        return true;
-            //    }
-            //}
-            if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
-            {
-                if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
+                else if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
+                    {
+                        SebApplicationChooser.Visible = false;
+                        //SebApplicationChooser.Activate();
+                        return true;
+
+                    }
+                else
                 {
-                    SebApplicationChooser.Visible = false;
-                    //SebApplicationChooser.Activate();
-                    return true;
-
+                    return false;
                 }
-            }
-            //if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
-            //{
-            //    if ((KeyInfo.flags == 129) && (KeyInfo.key == Keys.RMenu))
-            //    {
-            //        SebApplicationChooser.Visible = false;
-            //        //SebApplicationChooser.Activate();
-            //        return true;
 
-            //    }
-            //}
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltF4])
-            {
-                if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.F4))
-                    return true;
             }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF1] && (KeyInfo.key == Keys.F1))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF2] && (KeyInfo.key == Keys.F2))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF3] && (KeyInfo.key == Keys.F3))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF4] && (KeyInfo.key == Keys.F4))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF5] && (KeyInfo.key == Keys.F5))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF6] && (KeyInfo.key == Keys.F6))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF7] && (KeyInfo.key == Keys.F7))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF8] && (KeyInfo.key == Keys.F8))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF9] && (KeyInfo.key == Keys.F9))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF10] && (KeyInfo.key == Keys.F10))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF11] && (KeyInfo.key == Keys.F11))
-            {
-                return true;
-            }
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF12] && (KeyInfo.key == Keys.F12))
-            {
-                return true;
-            }
-
             return false;
         }
 

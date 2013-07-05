@@ -245,10 +245,15 @@ namespace SebWindowsClient
         {
 
             this.FormBorderStyle = FormBorderStyle.None;
-
             // sezt das formular auf die Taskbar
             SetParent(this.Handle, GetDesktopWindow());
             //this.BackColor = Color.Red;
+
+            int height = Screen.PrimaryScreen.Bounds.Height;
+            int width = Screen.PrimaryScreen.Bounds.Width;
+
+            this.Height = height;
+            this.Width = width;
 
             return true;
         }
@@ -483,7 +488,7 @@ namespace SebWindowsClient
             SebKeyCapture.FilterKeys = true;
 
             addPermittedProcessesToTS();
-            //SetFormOnDesktop();
+            SetFormOnDesktop();
             StartXulRunner();
         }
 
