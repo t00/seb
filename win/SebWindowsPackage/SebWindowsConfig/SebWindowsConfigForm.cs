@@ -2609,7 +2609,7 @@ namespace SebWindowsConfig
 
             dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[intWin], "", "");
 
-            permittedProcessList.Add(processData);
+            permittedProcessList.Insert(selectedIndex, processData);
 
             listViewPermittedProcesses.Items[selectedIndex].Selected = true;
             listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
@@ -2709,8 +2709,8 @@ namespace SebWindowsConfig
 
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
+            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
 
             Dictionary<string, object> argumentData = new Dictionary<string, object>();
 
@@ -2718,7 +2718,11 @@ namespace SebWindowsConfig
             argumentData[MessageArgument] = "";
 
             checkedListBoxPermittedProcessArguments.Items.Add("", true);
-                          permittedArgumentList          .Add(argumentData);
+                                    permittedArgumentList.Add(argumentData);
+/*
+            checkedListBoxPermittedProcessArguments.Items.Insert(selectedIndex, argumentData);
+                                    permittedArgumentList.Insert(selectedIndex, argumentData);
+*/
         }
 
 
