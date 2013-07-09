@@ -2549,8 +2549,8 @@ namespace SebWindowsConfig
                 if ((String)value == StringOS[intWin]) value = intWin;
             }
 
-            List<object>                processList = null;
-            Dictionary<string, object>  processData = null;
+            List<object>               processList = null;
+            Dictionary<string, object> processData = null;
 
             processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
             processData = (Dictionary<string, object>)processList[row];
