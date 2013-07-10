@@ -1750,7 +1750,7 @@ namespace SebWindowsConfig
              textBoxArrayPermittedProcessesExecutable.Clear();
              textBoxArrayPermittedProcessesTitle     .Clear();
 */
-            // Add processes of currently opened file to CheckedListBox
+            // Add processes of currently opened file to ListView/DataGridView
             for (int index = 0; index < processList.Count; index++)
             {
                 processData = (Dictionary<string, object>) processList[index];
@@ -1766,6 +1766,8 @@ namespace SebWindowsConfig
                 processRow.SubItems.Add(title);
 
                 listViewPermittedProcesses.Items.Add(processRow);
+                dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
+
 /*
                 dataGridViewPermittedProcesses.Rows.Add();
 
@@ -1779,8 +1781,6 @@ namespace SebWindowsConfig
                 dataGridViewPermittedProcesses.Rows[index].Cells[2].Value = executable;
                 dataGridViewPermittedProcesses.Rows[index].Cells[3].Value = title;
 */
-                dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
-
 
 /*
                 CheckBox checkBoxActive     = new CheckBox();
@@ -2514,27 +2514,12 @@ namespace SebWindowsConfig
             // so the SelectedItems.Count is ZERO, so ignore this event handler!
             // The second time, SelectedItems.Count is ONE.
             // Now you can set the widgets in the "Selected Process" groupBox.
-
+/*
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
             int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-/*
-            listViewPermittedProcesses.ForeColor = Color.Blue;
-            listViewPermittedProcesses.BackColor = Color.LightGray;
-
-            listViewPermittedProcesses.Items[1].ForeColor = Color.Red;
-            listViewPermittedProcesses.Items[1].BackColor = Color.Yellow;
-*/
-            //ListViewItem selectedItem = listViewPermittedProcesses.Items[selectedIndex];
-            //selectedItem.ForeColor = Color.Red;
-            //selectedItem.BackColor = Color.Yellow;
-
-            //listViewPermittedProcesses.Items[selectedIndex].ForeColor = Color.Red;
-            //listViewPermittedProcesses.Items[selectedIndex].BackColor = Color.Yellow;
 
             UpdateWidgetsOfSelectedProcess(selectedIndex);
-
-            //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
-            //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
+*/
         }
 
 
@@ -2548,33 +2533,22 @@ namespace SebWindowsConfig
             // The second time, SelectedItems.Count is ONE.
             // Now you can set the widgets in the "Selected Process" groupBox.
 
+            if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
+            int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+/*
             int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
           //int selectedIndex = dataGridViewPermittedProcesses.CurrentRow.Index;
             if (selectedIndex <  0) return;
             if (selectedIndex >= dataGridViewPermittedProcesses.RowCount) return;
-/*
-            listViewPermittedProcesses.ForeColor = Color.Blue;
-            listViewPermittedProcesses.BackColor = Color.LightGray;
-
-            listViewPermittedProcesses.Items[1].ForeColor = Color.Red;
-            listViewPermittedProcesses.Items[1].BackColor = Color.Yellow;
 */
-            //ListViewItem selectedItem = listViewPermittedProcesses.Items[selectedIndex];
-            //selectedItem.ForeColor = Color.Red;
-            //selectedItem.BackColor = Color.Yellow;
+            UpdateWidgetsOfSelectedProcess(selectedIndex);
 
-            //listViewPermittedProcesses.Items[selectedIndex].ForeColor = Color.Red;
-            //listViewPermittedProcesses.Items[selectedIndex].BackColor = Color.Yellow;
-
-            //UpdateWidgetsOfSelectedProcess(selectedIndex);
-
-            //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
-            //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
         }
 
 
         private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+/*
             int    row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
             int    column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
             object value  = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
@@ -2595,22 +2569,20 @@ namespace SebWindowsConfig
             if (column == 1) processData[MessageOS        ] = (Int32  )value;
             if (column == 2) processData[MessageExecutable] = (String )value;
             if (column == 3) processData[MessageTitle     ] = (String )value;
-
-            UpdateWidgetsOfSelectedProcess(row);
-
-            //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
-            //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
+*/
+            //UpdateWidgetsOfSelectedProcess(row);
         }
 
 
         private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+/*
             int selectedRow = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
             int selectedCol = dataGridViewPermittedProcesses.CurrentCellAddress.X;
 
             if (selectedRow < 0) return;
-
-            UpdateWidgetsOfSelectedProcess(selectedRow);
+*/
+            //UpdateWidgetsOfSelectedProcess(selectedRow);
         }
 
 
@@ -2679,7 +2651,7 @@ namespace SebWindowsConfig
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
             permittedProcessData[MessageActive] = checkBoxPermittedProcessActive.Checked;
-            SetWidgetsToNewSettings();
+            //SetWidgetsToNewSettings();
         }
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
@@ -2700,13 +2672,13 @@ namespace SebWindowsConfig
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
             permittedProcessData[MessageOS] = listBoxPermittedProcessOS.SelectedIndex;
-            SetWidgetsToNewSettings();
+            //SetWidgetsToNewSettings();
         }
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
             permittedProcessData[MessageTitle] = textBoxPermittedProcessTitle.Text;
-            SetWidgetsToNewSettings();
+            //SetWidgetsToNewSettings();
         }
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
@@ -2717,7 +2689,7 @@ namespace SebWindowsConfig
         private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
             permittedProcessData[MessageExecutable] = textBoxPermittedProcessExecutable.Text;
-            SetWidgetsToNewSettings();
+            //SetSetWidgetsToNewSettings();
         }
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
