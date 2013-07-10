@@ -1240,6 +1240,7 @@
             this.dataGridViewPermittedProcesses.TabIndex = 89;
             this.dataGridViewPermittedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellContentClick);
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
+            this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);
             // 
             // Active
             // 

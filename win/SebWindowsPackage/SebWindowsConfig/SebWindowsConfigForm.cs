@@ -2538,6 +2538,41 @@ namespace SebWindowsConfig
         }
 
 
+        private void dataGridViewPermittedProcesses_SelectionChanged(object sender, EventArgs e)
+        {
+            // CAUTION:
+            // If an item was previously selected and the user clicks onto another one,
+            // the SelectionChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old item,
+            // so the SelectedItems.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedItems.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
+
+            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+          //int selectedIndex = dataGridViewPermittedProcesses.CurrentRow.Index;
+            if (selectedIndex <  0) return;
+            if (selectedIndex >= dataGridViewPermittedProcesses.RowCount) return;
+/*
+            listViewPermittedProcesses.ForeColor = Color.Blue;
+            listViewPermittedProcesses.BackColor = Color.LightGray;
+
+            listViewPermittedProcesses.Items[1].ForeColor = Color.Red;
+            listViewPermittedProcesses.Items[1].BackColor = Color.Yellow;
+*/
+            //ListViewItem selectedItem = listViewPermittedProcesses.Items[selectedIndex];
+            //selectedItem.ForeColor = Color.Red;
+            //selectedItem.BackColor = Color.Yellow;
+
+            //listViewPermittedProcesses.Items[selectedIndex].ForeColor = Color.Red;
+            //listViewPermittedProcesses.Items[selectedIndex].BackColor = Color.Yellow;
+
+            //UpdateWidgetsOfSelectedProcess(selectedIndex);
+
+            //listViewPermittedProcesses.Items[selectedIndex].Selected = true;
+            //listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
+        }
+
+
         private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int    row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
