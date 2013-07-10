@@ -1090,24 +1090,14 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Columns.Add("Title"     , "Title"     );
 */
             listBoxPermittedProcessOS.Items.AddRange(StringOS);
-/*
-            listViewProhibitedProcesses.View          = View.Details;
-            listViewProhibitedProcesses.FullRowSelect = true;
 
-            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[0]);
-            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[1]);
-            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[2]);
-            listViewProhibitedProcesses.Columns.Add(StringColumnsProcessesProhibited[3]);
-
-            listBoxProhibitedProcessOS.Items.AddRange(StringOS);
-*/
             // Auto-resize the column widths of the headers
             listViewPermittedProcesses .AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
           //listViewProhibitedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
             dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
-          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
@@ -1826,7 +1816,7 @@ namespace SebWindowsConfig
 
             dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
-          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
