@@ -1067,6 +1067,7 @@ namespace SebWindowsConfig
 
             // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
+            dataGridViewPermittedProcesses.ReadOnly           = false;
             dataGridViewPermittedProcesses.AllowUserToAddRows = false;
             dataGridViewPermittedProcesses.RowHeadersVisible  = false;
             dataGridViewPermittedProcesses.MultiSelect        = false;
@@ -2650,8 +2651,10 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
-            permittedProcessData[MessageActive] = checkBoxPermittedProcessActive.Checked;
-            //SetWidgetsToNewSettings();
+            Boolean active = checkBoxPermittedProcessActive.Checked;
+            permittedProcessData[MessageActive]    = active;
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[0].Text  = active.ToString();
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[0].Value = active.ToString();
         }
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
@@ -2671,14 +2674,18 @@ namespace SebWindowsConfig
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
-            permittedProcessData[MessageOS] = listBoxPermittedProcessOS.SelectedIndex;
-            //SetWidgetsToNewSettings();
+            Int32 os = listBoxPermittedProcessOS.SelectedIndex;
+            permittedProcessData[MessageOS] = os;
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[1].Text  = StringOS[os];
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[1].Value = StringOS[os];
         }
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
-            permittedProcessData[MessageTitle] = textBoxPermittedProcessTitle.Text;
-            //SetWidgetsToNewSettings();
+            String title = textBoxPermittedProcessTitle.Text;
+            permittedProcessData[MessageTitle]  = title;
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[2].Text  = title;
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[2].Value = title;
         }
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
@@ -2688,8 +2695,10 @@ namespace SebWindowsConfig
 
         private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
-            permittedProcessData[MessageExecutable] = textBoxPermittedProcessExecutable.Text;
-            //SetSetWidgetsToNewSettings();
+            String executable = textBoxPermittedProcessExecutable.Text;
+            permittedProcessData[MessageExecutable]  = executable;
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[3].Text  = executable;
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[3].Value = executable;
         }
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
@@ -3159,6 +3168,7 @@ namespace SebWindowsConfig
             argumentList =               (List<object>)    processData[MessageArguments];
 
             // Copy the selected process data to the global variables
+            permittedProcessIndex = selectedIndex;
             permittedProcessList  =  processList;
             permittedProcessData  =  processData;
             permittedArgumentList = argumentList;
