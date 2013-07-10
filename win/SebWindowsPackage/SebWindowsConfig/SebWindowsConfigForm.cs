@@ -2526,14 +2526,8 @@ namespace SebWindowsConfig
 
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
-/*
-            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
-          //int selectedIndex = dataGridViewPermittedProcesses.CurrentRow.Index;
-            if (selectedIndex <  0) return;
-            if (selectedIndex >= dataGridViewPermittedProcesses.RowCount) return;
-*/
-            UpdateWidgetsOfSelectedProcess(selectedIndex);
 
+            UpdateWidgetsOfSelectedProcess(selectedIndex);
         }
 
 
@@ -2743,30 +2737,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void listViewPermittedProcesses_ItemChecked(object sender, ItemCheckedEventArgs e)
-        {
 
-        }
-
-        private void listViewPermittedProcesses_AfterLabelEdit(object sender, LabelEditEventArgs e)
-        {
-
-        }
-
-        private void listViewPermittedProcesses_ItemActivate(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listViewPermittedProcesses_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listViewPermittedProcesses_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-
-        }
 
         private void checkedListBoxPermittedProcessArguments_ItemCheck(object sender, ItemCheckEventArgs e)
         {

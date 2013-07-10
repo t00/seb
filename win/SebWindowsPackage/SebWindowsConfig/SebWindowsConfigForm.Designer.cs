@@ -1314,12 +1314,7 @@
             this.listViewPermittedProcesses.Size = new System.Drawing.Size(301, 99);
             this.listViewPermittedProcesses.TabIndex = 84;
             this.listViewPermittedProcesses.UseCompatibleStateImageBehavior = false;
-            this.listViewPermittedProcesses.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.listViewPermittedProcesses_AfterLabelEdit);
-            this.listViewPermittedProcesses.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewPermittedProcesses_ColumnClick);
-            this.listViewPermittedProcesses.ItemActivate += new System.EventHandler(this.listViewPermittedProcesses_ItemActivate);
-            this.listViewPermittedProcesses.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewPermittedProcesses_ItemChecked);
             this.listViewPermittedProcesses.SelectedIndexChanged += new System.EventHandler(this.listViewPermittedProcesses_SelectedIndexChanged);
-            this.listViewPermittedProcesses.Click += new System.EventHandler(this.listViewPermittedProcesses_Click);
             // 
             // groupBoxSelectedProcess
             // 
