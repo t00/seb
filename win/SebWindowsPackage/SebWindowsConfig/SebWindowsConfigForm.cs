@@ -1058,8 +1058,8 @@ namespace SebWindowsConfig
 
 
             // IMPORTANT:
-            // Set the "FullRowSelect" property of the ListViews to "true" so that
-            // clicking on an arbitrary table entry (subitem) selects the whole row!
+            // Set the "FullRowSelect" property of the ListView/DataGridView to "true"
+            // so clicking on an arbitrary table entry (subitem) selects the whole row!
             // The default value is false, which only selects the row when a table entry
             // of the FIRST column (= item, not subitem) is clicked on!
             listViewPermittedProcesses.View          = View.Details;
@@ -1067,9 +1067,10 @@ namespace SebWindowsConfig
 
             // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
+            dataGridViewPermittedProcesses.AllowUserToAddRows = false;
             dataGridViewPermittedProcesses.RowHeadersVisible  = false;
             dataGridViewPermittedProcesses.MultiSelect        = false;
-            dataGridViewPermittedProcesses.AllowUserToAddRows = false;
+            dataGridViewPermittedProcesses.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
             dataGridViewPermittedProcesses.Columns[MessageActive    ].ValueType = typeof(Boolean);
             dataGridViewPermittedProcesses.Columns[MessageOS        ].ValueType = typeof(String);
