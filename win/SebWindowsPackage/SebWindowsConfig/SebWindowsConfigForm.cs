@@ -416,7 +416,13 @@ namespace SebWindowsConfig
         const int IntOSX = 0;
         const int IntWin = 1;
 
-        // Permitted and Prohibited Processes table column names
+        // Permitted and Prohibited Processes table columns
+        const int IntColumnActive      = 0;
+        const int IntColumnOS          = 1;
+        const int IntColumnExecutable  = 2;
+        const int IntColumnTitle       = 3;
+        const int IntColumnDescription = 3;
+
         const String StringColumnActive      = "Active";
         const String StringColumnOS          = "OS";
         const String StringColumnExecutable  = "Executable";
@@ -2533,17 +2539,22 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
         }
 
 
         private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-/*
-            int    row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
-            int    column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
-            object value  = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
+            int row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+            int column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
 
-            if (column == 1)
+            // At the beginning, row = -1 and column = -1, so skip that
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            object value = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
+
+            if (column == IntColumnOS)
             {
                 if ((String)value == StringOS[IntOSX]) value = IntOSX;
                 if ((String)value == StringOS[IntWin]) value = IntWin;
@@ -2555,16 +2566,15 @@ namespace SebWindowsConfig
             processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
             processData = (Dictionary<string, object>)processList[row];
 
-            if (column == 0) permittedProcessData[MessageActive    ] = (Boolean)value;
-            if (column == 1) permittedProcessData[MessageOS        ] = (Int32  )value;
-            if (column == 2) permittedProcessData[MessageExecutable] = (String )value;
-            if (column == 3) permittedProcessData[MessageTitle     ] = (String )value;
+            if (column == IntColumnActive    ) permittedProcessData[MessageActive    ] = (Boolean)value;
+            if (column == IntColumnOS        ) permittedProcessData[MessageOS        ] = (Int32  )value;
+            if (column == IntColumnExecutable) permittedProcessData[MessageExecutable] = (String )value;
+            if (column == IntColumnTitle     ) permittedProcessData[MessageTitle     ] = (String )value;
 
-            if (column == 0) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
-            if (column == 1)  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
-            if (column == 2)  textBoxPermittedProcessExecutable.Text  = (String )value;
-            if (column == 3)  textBoxPermittedProcessTitle     .Text  = (String )value;
-*/
+            if (column == IntColumnActive    ) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
+            if (column == IntColumnOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
+            if (column == IntColumnExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
+            if (column == IntColumnTitle     )  textBoxPermittedProcessTitle     .Text  = (String )value;
         }
 
 
@@ -2637,8 +2647,8 @@ namespace SebWindowsConfig
         {
             Boolean active = checkBoxPermittedProcessActive.Checked;
             permittedProcessData[MessageActive]    = active;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[0].Text  = active.ToString();
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[0].Value = active.ToString();
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnActive].Text  = active.ToString();
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnActive].Value = active.ToString();
         }
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
@@ -2660,16 +2670,16 @@ namespace SebWindowsConfig
         {
             Int32 os = listBoxPermittedProcessOS.SelectedIndex;
             permittedProcessData[MessageOS] = os;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[1].Text  = StringOS[os];
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[1].Value = StringOS[os];
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnOS].Text  = StringOS[os];
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnOS].Value = StringOS[os];
         }
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
             String title = textBoxPermittedProcessTitle.Text;
             permittedProcessData[MessageTitle]  = title;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[2].Text  = title;
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[2].Value = title;
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnTitle].Text  = title;
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnTitle].Value = title;
         }
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
@@ -2681,8 +2691,8 @@ namespace SebWindowsConfig
         {
             String executable = textBoxPermittedProcessExecutable.Text;
             permittedProcessData[MessageExecutable]  = executable;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[3].Text  = executable;
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[3].Value = executable;
+                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnExecutable].Text  = executable;
+            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnExecutable].Value = executable;
         }
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
