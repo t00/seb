@@ -1076,8 +1076,9 @@ namespace SebWindowsConfig
             listViewPermittedProcesses.Columns.Add(StringColumnOS);
             listViewPermittedProcesses.Columns.Add(StringColumnExecutable);
             listViewPermittedProcesses.Columns.Add(StringColumnTitle);
-/*
+
             // Assign the column names to the DataGridViews
+/*
             dataGridViewPermittedProcesses.Columns.Add(StringColumnActive    , StringColumnActive);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnOS        , StringColumnOS);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnExecutable, StringColumnExecutable);
@@ -2506,9 +2507,9 @@ namespace SebWindowsConfig
             // Now you can set the widgets in the "Selected Process" groupBox.
 /*
             if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+            permittedProcessIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
-            UpdateWidgetsOfSelectedProcess(selectedIndex);
+            UpdateWidgetsOfSelectedProcess(permittedProcessIndex);
 */
         }
 
@@ -2524,9 +2525,9 @@ namespace SebWindowsConfig
             // Now you can set the widgets in the "Selected Process" groupBox.
 
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
-            int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-            UpdateWidgetsOfSelectedProcess(selectedIndex);
+            UpdateWidgetsOfSelectedProcess(permittedProcessIndex);
         }
 
 
@@ -2554,28 +2555,22 @@ namespace SebWindowsConfig
             if (column == 2) processData[MessageExecutable] = (String )value;
             if (column == 3) processData[MessageTitle     ] = (String )value;
 */
-            //UpdateWidgetsOfSelectedProcess(row);
+
         }
 
 
         private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-/*
-            int selectedRow = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
-            int selectedCol = dataGridViewPermittedProcesses.CurrentCellAddress.X;
 
-            if (selectedRow < 0) return;
-*/
-            //UpdateWidgetsOfSelectedProcess(selectedRow);
         }
 
 
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
-            //if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            //int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
+            if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
+            int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+//            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
 
             Dictionary<string, object> processData = new Dictionary<string, object>();
             ListViewItem               processRow  = null;
@@ -2603,8 +2598,8 @@ namespace SebWindowsConfig
 
             permittedProcessList.Insert(selectedIndex, processData);
 
-            listViewPermittedProcesses.Items[selectedIndex].Selected = true;
-            listViewPermittedProcesses.Items[selectedIndex].Focused  = true;
+                listViewPermittedProcesses.Items[selectedIndex].Selected = true;
+            dataGridViewPermittedProcesses.Rows [selectedIndex].Selected = true;
         }
 
 
@@ -2613,7 +2608,10 @@ namespace SebWindowsConfig
             //if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
             //int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
 
-            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+            if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
+            int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+
+//            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
 
                 listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
             dataGridViewPermittedProcesses.Rows .RemoveAt(selectedIndex);
