@@ -409,12 +409,19 @@ namespace SebWindowsConfig
         const int TypeInteger = 3;
 
         // Boolean values
-        const int intFalse = 0;
-        const int intTrue  = 1;
+        const int IntFalse = 0;
+        const int IntTrue  = 1;
 
         // Operating systems
-        const int intOSX = 0;
-        const int intWin = 1;
+        const int IntOSX = 0;
+        const int IntWin = 1;
+
+        // Permitted and Prohibited Processes table column names
+        const String StringColumnActive      = "Active";
+        const String StringColumnOS          = "OS";
+        const String StringColumnExecutable  = "Executable";
+        const String StringColumnTitle       = "Title";
+        const String StringColumnDescription = "Description";
 
 
         // Global variables
@@ -448,8 +455,6 @@ namespace SebWindowsConfig
         static String[] StringPolicyProxySettings = new String[2];
         static String[] StringPolicySebService    = new String[3];
         static String[] StringFunctionKey         = new String[12];
-        static String[] StringColumnsProcessesPermitted  = new String[4];
-        static String[] StringColumnsProcessesProhibited = new String[4];
         static String[] StringActive              = new String[2];
         static String[] StringOS                  = new String[2];
         static String[] StringProxyProtocol       = new String[7];
@@ -1004,23 +1009,11 @@ namespace SebWindowsConfig
             StringPolicySebService[2] = "allow to use SEB only with service";
 
             // Define the strings for the Permitted and Prohibited Processes
-            StringActive[intFalse] = "false";
-            StringActive[intTrue ] = "true";
+            StringActive[IntFalse] = "false";
+            StringActive[IntTrue ] = "true";
 
-            StringOS[intOSX] = "OS X";
-            StringOS[intWin] = "Win";
-
-            // Define the strings for the Permitted Processes columns
-            StringColumnsProcessesPermitted[0] = "Active";
-            StringColumnsProcessesPermitted[1] = "OS";
-            StringColumnsProcessesPermitted[2] = "Executable";
-            StringColumnsProcessesPermitted[3] = "Title";
-
-            // Define the strings for the Prohibited Processes columns
-            StringColumnsProcessesProhibited[0] = "Active";
-            StringColumnsProcessesProhibited[1] = "OS";
-            StringColumnsProcessesProhibited[2] = "Executable";
-            StringColumnsProcessesProhibited[3] = "Description";
+            StringOS[IntOSX] = "OS X";
+            StringOS[IntWin] = "Win";
 
             // Define the strings for the Proxy Protocols
             StringProxyProtocol[0] = "Auto Proxy Discovery";
@@ -1058,15 +1051,15 @@ namespace SebWindowsConfig
 
 
             // IMPORTANT:
-            // Set the "FullRowSelect" property of the ListView/DataGridView to "true"
-            // so clicking on an arbitrary table entry (subitem) selects the whole row!
+            // Set the "FullRowSelect" property of the DataGridView to "true"
+            // so clicking on an arbitrary table cell selects the whole row!
             // The default value is false, which only selects the row when a table entry
             // of the FIRST column (= item, not subitem) is clicked on!
             listViewPermittedProcesses.View          = View.Details;
             listViewPermittedProcesses.FullRowSelect = true;
 
-            // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
+            // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             dataGridViewPermittedProcesses.ReadOnly           = false;
             dataGridViewPermittedProcesses.AllowUserToAddRows = false;
             dataGridViewPermittedProcesses.RowHeadersVisible  = false;
@@ -1078,16 +1071,22 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Columns[MessageExecutable].ValueType = typeof(String);
             dataGridViewPermittedProcesses.Columns[MessageTitle     ].ValueType = typeof(String);
 
-            // Assign the column names to the listViews
-            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[0]);
-            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[1]);
-            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[2]);
-            listViewPermittedProcesses.Columns.Add(StringColumnsProcessesPermitted[3]);
+            // Assign the column names to the ListViews
+            listViewPermittedProcesses.Columns.Add(StringColumnActive);
+            listViewPermittedProcesses.Columns.Add(StringColumnOS);
+            listViewPermittedProcesses.Columns.Add(StringColumnExecutable);
+            listViewPermittedProcesses.Columns.Add(StringColumnTitle);
 /*
-            dataGridViewPermittedProcesses.Columns.Add("Active"    , "Active"    );
-            dataGridViewPermittedProcesses.Columns.Add("OS"        , "OS"        );
-            dataGridViewPermittedProcesses.Columns.Add("Executable", "Executable");
-            dataGridViewPermittedProcesses.Columns.Add("Title"     , "Title"     );
+            // Assign the column names to the DataGridViews
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnActive    , StringColumnActive);
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnOS        , StringColumnOS);
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnExecutable, StringColumnExecutable);
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnTitle     , StringColumnTitle);
+
+            dataGridViewProhitedProcesses.Columns.Add(StringColumnActive     , StringColumnActive);
+            dataGridViewProhitedProcesses.Columns.Add(StringColumnOS         , StringColumnOS);
+            dataGridViewProhitedProcesses.Columns.Add(StringColumnExecutable , StringColumnExecutable);
+            dataGridViewProhitedProcesses.Columns.Add(StringColumnDescription, StringColumnDescription);
 */
             listBoxPermittedProcessOS.Items.AddRange(StringOS);
 
@@ -2590,7 +2589,7 @@ namespace SebWindowsConfig
             processData[MessageAutostart  ] = true;
             processData[MessageAutohide   ] = true;
             processData[MessageAllowUser  ] = true;
-            processData[MessageOS         ] = intWin;
+            processData[MessageOS         ] = IntWin;
             processData[MessageTitle      ] = "";
             processData[MessageDescription] = "";
             processData[MessageExecutable ] = "";
@@ -2600,7 +2599,7 @@ namespace SebWindowsConfig
 
             listViewPermittedProcesses.Items.Insert(selectedIndex, processRow);
 
-            dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[intWin], "", "");
+            dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[IntWin], "", "");
 
             permittedProcessList.Insert(selectedIndex, processData);
 
