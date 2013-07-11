@@ -2539,7 +2539,36 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+            int column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
 
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            object value = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
+
+            if (column == IntColumnOS)
+            {
+                     if ((String)value == StringOS[IntOSX]) value = IntOSX;
+                else if ((String)value == StringOS[IntWin]) value = IntWin;
+            }
+
+            List<object>               processList = null;
+            Dictionary<string, object> processData = null;
+
+            processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            processData = (Dictionary<string, object>)processList[row];
+
+            if (column == IntColumnActive    ) permittedProcessData[MessageActive    ] = (Boolean)value;
+            if (column == IntColumnOS        ) permittedProcessData[MessageOS        ] = (Int32  )value;
+            if (column == IntColumnExecutable) permittedProcessData[MessageExecutable] = (String )value;
+            if (column == IntColumnTitle     ) permittedProcessData[MessageTitle     ] = (String )value;
+
+            if (column == IntColumnActive    ) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
+            if (column == IntColumnOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
+            if (column == IntColumnExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
+            if (column == IntColumnTitle     )  textBoxPermittedProcessTitle     .Text  = (String )value;
         }
 
 
@@ -2548,7 +2577,7 @@ namespace SebWindowsConfig
             int row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
             int column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
 
-            // At the beginning, row = -1 and column = -1, so skip that
+            // At the beginning, row = -1 and column = -1, so skip this event
             if (row    < 0) return;
             if (column < 0) return;
 
@@ -2556,8 +2585,8 @@ namespace SebWindowsConfig
 
             if (column == IntColumnOS)
             {
-                if ((String)value == StringOS[IntOSX]) value = IntOSX;
-                if ((String)value == StringOS[IntWin]) value = IntWin;
+                     if ((String)value == StringOS[IntOSX]) value = IntOSX;
+                else if ((String)value == StringOS[IntWin]) value = IntWin;
             }
 
             List<object>               processList = null;
