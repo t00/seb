@@ -2533,6 +2533,11 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+
+        private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
 /*
             int    row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
             int    column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
@@ -2540,8 +2545,8 @@ namespace SebWindowsConfig
 
             if (column == 1)
             {
-                if ((String)value == StringOS[intOSX]) value = intOSX;
-                if ((String)value == StringOS[intWin]) value = intWin;
+                if ((String)value == StringOS[IntOSX]) value = IntOSX;
+                if ((String)value == StringOS[IntWin]) value = IntWin;
             }
 
             List<object>               processList = null;
@@ -2550,18 +2555,16 @@ namespace SebWindowsConfig
             processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
             processData = (Dictionary<string, object>)processList[row];
 
-            if (column == 0) processData[MessageActive    ] = (Boolean)value;
-            if (column == 1) processData[MessageOS        ] = (Int32  )value;
-            if (column == 2) processData[MessageExecutable] = (String )value;
-            if (column == 3) processData[MessageTitle     ] = (String )value;
+            if (column == 0) permittedProcessData[MessageActive    ] = (Boolean)value;
+            if (column == 1) permittedProcessData[MessageOS        ] = (Int32  )value;
+            if (column == 2) permittedProcessData[MessageExecutable] = (String )value;
+            if (column == 3) permittedProcessData[MessageTitle     ] = (String )value;
+
+            if (column == 0) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
+            if (column == 1)  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
+            if (column == 2)  textBoxPermittedProcessExecutable.Text  = (String )value;
+            if (column == 3)  textBoxPermittedProcessTitle     .Text  = (String )value;
 */
-
-        }
-
-
-        private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
 
