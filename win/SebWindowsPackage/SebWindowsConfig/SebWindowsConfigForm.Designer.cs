@@ -113,15 +113,10 @@
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
             this.dataGridViewPermittedProcesses = new System.Windows.Forms.DataGridView();
-            this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChoosePermittedProcess = new System.Windows.Forms.Button();
             this.buttonChoosePermittedApplication = new System.Windows.Forms.Button();
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
-            this.listViewPermittedProcesses = new System.Windows.Forms.ListView();
             this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
             this.labelPermittedProcessIdentifier = new System.Windows.Forms.Label();
             this.textBoxPermittedProcessIdentifier = new System.Windows.Forms.TextBox();
@@ -248,6 +243,10 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1212,7 +1211,6 @@
             this.tabPagePermittedProcesses.Controls.Add(this.buttonChoosePermittedApplication);
             this.tabPagePermittedProcesses.Controls.Add(this.buttonRemovePermittedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.buttonAddPermittedProcess);
-            this.tabPagePermittedProcesses.Controls.Add(this.listViewPermittedProcesses);
             this.tabPagePermittedProcesses.Controls.Add(this.groupBoxSelectedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowSwitchToApplications);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowFlashFullscreen);
@@ -1232,38 +1230,15 @@
             this.OS,
             this.Executable,
             this.Title});
-            this.dataGridViewPermittedProcesses.Location = new System.Drawing.Point(331, 31);
+            this.dataGridViewPermittedProcesses.Location = new System.Drawing.Point(24, 73);
             this.dataGridViewPermittedProcesses.Name = "dataGridViewPermittedProcesses";
             this.dataGridViewPermittedProcesses.RowHeadersVisible = false;
             this.dataGridViewPermittedProcesses.RowTemplate.Height = 24;
-            this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(445, 150);
+            this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(733, 142);
             this.dataGridViewPermittedProcesses.TabIndex = 89;
             this.dataGridViewPermittedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellContentClick);
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
             this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);
-            // 
-            // Active
-            // 
-            this.Active.HeaderText = "Active";
-            this.Active.Name = "Active";
-            // 
-            // OS
-            // 
-            this.OS.HeaderText = "OS";
-            this.OS.Items.AddRange(new object[] {
-            "OS X",
-            "Win"});
-            this.OS.Name = "OS";
-            // 
-            // Executable
-            // 
-            this.Executable.HeaderText = "Executable";
-            this.Executable.Name = "Executable";
-            // 
-            // Title
-            // 
-            this.Title.HeaderText = "Title";
-            this.Title.Name = "Title";
             // 
             // buttonChoosePermittedProcess
             // 
@@ -1304,17 +1279,6 @@
             this.buttonAddPermittedProcess.Text = "+";
             this.buttonAddPermittedProcess.UseVisualStyleBackColor = true;
             this.buttonAddPermittedProcess.Click += new System.EventHandler(this.buttonAddPermittedProcess_Click);
-            // 
-            // listViewPermittedProcesses
-            // 
-            this.listViewPermittedProcesses.HideSelection = false;
-            this.listViewPermittedProcesses.Location = new System.Drawing.Point(24, 82);
-            this.listViewPermittedProcesses.MultiSelect = false;
-            this.listViewPermittedProcesses.Name = "listViewPermittedProcesses";
-            this.listViewPermittedProcesses.Size = new System.Drawing.Size(301, 99);
-            this.listViewPermittedProcesses.TabIndex = 84;
-            this.listViewPermittedProcesses.UseCompatibleStateImageBehavior = false;
-            this.listViewPermittedProcesses.SelectedIndexChanged += new System.EventHandler(this.listViewPermittedProcesses_SelectedIndexChanged);
             // 
             // groupBoxSelectedProcess
             // 
@@ -1562,7 +1526,7 @@
             this.tabPageProhibitedProcesses.Location = new System.Drawing.Point(4, 25);
             this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
             this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 642);
+            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(842, 642);
             this.tabPageProhibitedProcesses.TabIndex = 1;
             this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
             this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
@@ -2726,6 +2690,33 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // Active
+            // 
+            this.Active.HeaderText = "Active";
+            this.Active.Name = "Active";
+            this.Active.Width = 50;
+            // 
+            // OS
+            // 
+            this.OS.HeaderText = "OS";
+            this.OS.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
+            this.OS.Name = "OS";
+            this.OS.Width = 80;
+            // 
+            // Executable
+            // 
+            this.Executable.HeaderText = "Executable";
+            this.Executable.Name = "Executable";
+            this.Executable.Width = 300;
+            // 
+            // Title
+            // 
+            this.Title.HeaderText = "Title";
+            this.Title.Name = "Title";
+            this.Title.Width = 300;
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2961,7 +2952,6 @@
         private System.Windows.Forms.TabPage tabPageFilter;
         private System.Windows.Forms.TabPage tabPageCertificates;
         private System.Windows.Forms.TabPage tabPageProxies;
-        private System.Windows.Forms.ListView listViewPermittedProcesses;
         private System.Windows.Forms.Button buttonChoosePermittedProcess;
         private System.Windows.Forms.Button buttonChoosePermittedApplication;
         private System.Windows.Forms.Button buttonRemovePermittedProcess;

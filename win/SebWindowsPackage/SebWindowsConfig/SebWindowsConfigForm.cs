@@ -416,7 +416,9 @@ namespace SebWindowsConfig
         const int IntOSX = 0;
         const int IntWin = 1;
 
-        // Permitted and Prohibited Processes table columns
+        // Permitted and Prohibited Processes table columns (0,1,2,3).
+        // Permitted  Processes: Active, OS, Executable, Title
+        // Prohibited Processes: Active, OS, Executable, Description
         const int IntColumnActive      = 0;
         const int IntColumnOS          = 1;
         const int IntColumnExecutable  = 2;
@@ -510,16 +512,6 @@ namespace SebWindowsConfig
 
         static Dictionary<string, object>  permittedArgumentData = null;
         static Dictionary<string, object> prohibitedArgumentData = null;
-
-        static List<CheckBox> checkBoxArrayPermittedProcessesActive     = new List<CheckBox>();
-        static List< ListBox>  listBoxArrayPermittedProcessesOS         = new List< ListBox>();
-        static List< TextBox>  textBoxArrayPermittedProcessesExecutable = new List< TextBox>();
-        static List< TextBox>  textBoxArrayPermittedProcessesTitle      = new List< TextBox>();
-
-        static List<CheckBox> checkBoxArrayProhibitedProcessesActive      = new List<CheckBox>();
-        static List< ListBox>  listBoxArrayProhibitedProcessesOS          = new List< ListBox>();
-        static List< TextBox>  textBoxArrayProhibitedProcessesExecutable  = new List< TextBox>();
-        static List< TextBox>  textBoxArrayProhibitedProcessesDescription = new List< TextBox>();
 
 
 
@@ -1056,16 +1048,9 @@ namespace SebWindowsConfig
             checkedListBoxProxyProtocol.Items.AddRange(StringProxyProtocol);
 
 
-            // IMPORTANT:
-            // Set the "FullRowSelect" property of the DataGridView to "true"
-            // so clicking on an arbitrary table cell selects the whole row!
-            // The default value is false, which only selects the row when a table entry
-            // of the FIRST column (= item, not subitem) is clicked on!
-            listViewPermittedProcesses.View          = View.Details;
-            listViewPermittedProcesses.FullRowSelect = true;
-
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
             // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
+            // Set "FullRowSelect"      to true , to select whole row when clicking on a cell
             dataGridViewPermittedProcesses.ReadOnly           = false;
             dataGridViewPermittedProcesses.AllowUserToAddRows = false;
             dataGridViewPermittedProcesses.RowHeadersVisible  = false;
@@ -1076,12 +1061,6 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Columns[MessageOS        ].ValueType = typeof(String);
             dataGridViewPermittedProcesses.Columns[MessageExecutable].ValueType = typeof(String);
             dataGridViewPermittedProcesses.Columns[MessageTitle     ].ValueType = typeof(String);
-
-            // Assign the column names to the ListViews
-            listViewPermittedProcesses.Columns.Add(StringColumnActive);
-            listViewPermittedProcesses.Columns.Add(StringColumnOS);
-            listViewPermittedProcesses.Columns.Add(StringColumnExecutable);
-            listViewPermittedProcesses.Columns.Add(StringColumnTitle);
 
             // Assign the column names to the DataGridViews
 /*
@@ -1097,13 +1076,10 @@ namespace SebWindowsConfig
 */
             listBoxPermittedProcessOS.Items.AddRange(StringOS);
 
-            // Auto-resize the column widths of the headers
-            listViewPermittedProcesses .AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-          //listViewProhibitedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-            dataGridViewPermittedProcesses .AutoResizeColumns();
+            // Auto-resize the columns and cells
+          //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
-            dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
@@ -1659,16 +1635,6 @@ namespace SebWindowsConfig
                 else sebSettingsTarget.Add(key, value);
             }
 
-
-            //Dictionary<string, object>.Enumerator enumerator;
-            //enumerator = sebSettingsSource.GetEnumerator();
-/*
-            var dict = new Dictionary<string, string>();
-            dict.Add("SO", "StackOverflow");
-            var secondDict = new Dictionary<string, string>(dict);
-            dict = null;
-            Console.WriteLine(secondDict["SO"]);
-*/
             return;
         }
 
@@ -1733,21 +1699,14 @@ namespace SebWindowsConfig
             // Update the Permitted Processes ListView
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
-            ListViewItem               processRow  = null;
 
             processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
 
-            // Remove all previously displayed processes from ListView
-                 listViewPermittedProcesses.Items    .Clear();
+            // Remove all previously displayed processes from DataGridView
            //dataGridViewPermittedProcesses          .Clear();
              dataGridViewPermittedProcesses.Rows     .Clear();
-/*
-            checkBoxArrayPermittedProcessesActive    .Clear();
-             listBoxArrayPermittedProcessesOS        .Clear();
-             textBoxArrayPermittedProcessesExecutable.Clear();
-             textBoxArrayPermittedProcessesTitle     .Clear();
-*/
-            // Add processes of currently opened file to ListView/DataGridView
+
+            // Add processes of currently opened file to DataGridView
             for (int index = 0; index < processList.Count; index++)
             {
                 processData = (Dictionary<string, object>) processList[index];
@@ -1757,72 +1716,13 @@ namespace SebWindowsConfig
                 String  executable = (String )processData[MessageExecutable];
                 String  title      = (String )processData[MessageTitle];
 
-                processRow = new ListViewItem(active.ToString());
-                processRow.SubItems.Add(StringOS[os]);
-                processRow.SubItems.Add(executable);
-                processRow.SubItems.Add(title);
-
-                listViewPermittedProcesses.Items.Add(processRow);
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
-
-/*
-                dataGridViewPermittedProcesses.Rows.Add();
-
-                dataGridViewPermittedProcesses.Rows[index].Cells[0].ValueType = typeof(Boolean);
-                dataGridViewPermittedProcesses.Rows[index].Cells[1].ValueType = typeof(String);
-                dataGridViewPermittedProcesses.Rows[index].Cells[2].ValueType = typeof(String);
-                dataGridViewPermittedProcesses.Rows[index].Cells[3].ValueType = typeof(String);
-
-                dataGridViewPermittedProcesses.Rows[index].Cells[0].Value = active;
-                dataGridViewPermittedProcesses.Rows[index].Cells[1].Value = StringOS[os];
-                dataGridViewPermittedProcesses.Rows[index].Cells[2].Value = executable;
-                dataGridViewPermittedProcesses.Rows[index].Cells[3].Value = title;
-*/
-
-/*
-                CheckBox checkBoxActive     = new CheckBox();
-                 ListBox  listBoxOS         = new  ListBox();
-                 TextBox  textBoxExecutable = new  TextBox();
-                 TextBox  textBoxTitle      = new  TextBox();
-
-                checkBoxActive    .Checked = activeBoolean;
-               //listBoxOS.SelectedIndex   = osInteger;
-                 textBoxExecutable.Text    = executable;
-                 textBoxTitle     .Text    = title;
-
-                Rectangle rect = listViewPermittedProcesses.Items[index].Bounds;
-                 Point rowBounds   = listViewPermittedProcesses.Items[index].Bounds.Location;
-                 Point rowPosition = listViewPermittedProcesses.Items[index].Position;
-                 Point subItemsBounds = listViewPermittedProcesses.Items[index].SubItems[0].Bounds.Location;
-
-                 if (index == 0)
-                 {
-                     //checkBoxActive.Location = rowBounds;
-                     //checkBoxActive.Location = new Point(120, 110 + 20*index);
-                     //checkBoxActive.Location = new Point(255, 110 + 20 * index);
-                     //checkBoxActive.Location = rowBounds;
-                     checkBoxActive.Location = subItemsBounds;
-                     listViewPermittedProcesses.SendToBack();
-                     checkBoxActive.BringToFront();
-
-                     tabPagePermittedProcesses.Controls.Add(checkBoxActive);
-                 }
-
-                checkBoxArrayPermittedProcessesActive    .Add(checkBoxActive);
-                 listBoxArrayPermittedProcessesOS        .Add( listBoxOS);
-                 textBoxArrayPermittedProcessesExecutable.Add( textBoxExecutable);
-                 textBoxArrayPermittedProcessesTitle     .Add( textBoxTitle);
-*/
-
             }
 
-            // Auto-resize the column widths of the contents and headers
-            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            listViewPermittedProcesses.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-            dataGridViewPermittedProcesses .AutoResizeColumns();
+            // Auto-resize the columns and cells
+          //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
-            dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
@@ -1967,6 +1867,8 @@ namespace SebWindowsConfig
             checkBoxEnableF10.Checked = (Boolean)sebSettingsNew[MessageEnableF10];
             checkBoxEnableF11.Checked = (Boolean)sebSettingsNew[MessageEnableF11];
             checkBoxEnableF12.Checked = (Boolean)sebSettingsNew[MessageEnableF12];
+
+            return;
         }
 
 
@@ -2502,32 +2404,14 @@ namespace SebWindowsConfig
         }
 
 
-        private void listViewPermittedProcesses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // CAUTION:
-            // If an item was previously selected and the user clicks onto another one,
-            // the SelectedIndexChanged() event is fired TWICE!!!
-            // The first time, it is only for UNselecting the old item,
-            // so the SelectedItems.Count is ZERO, so ignore this event handler!
-            // The second time, SelectedItems.Count is ONE.
-            // Now you can set the widgets in the "Selected Process" groupBox.
-/*
-            if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            permittedProcessIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
-            UpdateWidgetsOfSelectedProcess(permittedProcessIndex);
-*/
-        }
-
-
         private void dataGridViewPermittedProcesses_SelectionChanged(object sender, EventArgs e)
         {
             // CAUTION:
-            // If an item was previously selected and the user clicks onto another one,
+            // If a row was previously selected and the user clicks onto another row,
             // the SelectionChanged() event is fired TWICE!!!
-            // The first time, it is only for UNselecting the old item,
-            // so the SelectedItems.Count is ZERO, so ignore this event handler!
-            // The second time, SelectedItems.Count is ONE.
+            // The first time, it is only for UNselecting the old row,
+            // so the SelectedRows.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedRows.Count is ONE.
             // Now you can set the widgets in the "Selected Process" groupBox.
 
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
@@ -2612,15 +2496,7 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-//            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
-
             Dictionary<string, object> processData = new Dictionary<string, object>();
-            ListViewItem               processRow  = null;
-
-            processRow = new ListViewItem(true.ToString());
-            processRow.SubItems.Add("Win");
-            processRow.SubItems.Add("");
-            processRow.SubItems.Add("");
 
             processData[MessageActive     ] = true;
             processData[MessageAutostart  ] = true;
@@ -2634,28 +2510,19 @@ namespace SebWindowsConfig
             processData[MessageIdentifier ] = "";
             processData[MessageArguments  ] = new List<object>();
 
-            listViewPermittedProcesses.Items.Insert(selectedIndex, processRow);
-
             dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[IntWin], "", "");
 
             permittedProcessList.Insert(selectedIndex, processData);
 
-                listViewPermittedProcesses.Items[selectedIndex].Selected = true;
             dataGridViewPermittedProcesses.Rows [selectedIndex].Selected = true;
         }
 
 
         private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
         {
-            //if (listViewPermittedProcesses.SelectedItems.Count != 1) return;
-            //int selectedIndex = listViewPermittedProcesses.SelectedItems[0].Index;
-
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-//            int selectedIndex = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
-
-                listViewPermittedProcesses.Items.RemoveAt(selectedIndex);
             dataGridViewPermittedProcesses.Rows .RemoveAt(selectedIndex);
                         permittedProcessList    .RemoveAt(selectedIndex);
         }
@@ -2676,8 +2543,7 @@ namespace SebWindowsConfig
         {
             Boolean active = checkBoxPermittedProcessActive.Checked;
             permittedProcessData[MessageActive]    = active;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnActive].Text  = active.ToString();
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnActive].Value = active.ToString();
+            dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnActive].Value = active.ToString();
         }
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
@@ -2699,16 +2565,14 @@ namespace SebWindowsConfig
         {
             Int32 os = listBoxPermittedProcessOS.SelectedIndex;
             permittedProcessData[MessageOS] = os;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnOS].Text  = StringOS[os];
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnOS].Value = StringOS[os];
+            dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnOS].Value = StringOS[os];
         }
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
             String title = textBoxPermittedProcessTitle.Text;
             permittedProcessData[MessageTitle]  = title;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnTitle].Text  = title;
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnTitle].Value = title;
+            dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnTitle].Value = title;
         }
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
@@ -2720,8 +2584,7 @@ namespace SebWindowsConfig
         {
             String executable = textBoxPermittedProcessExecutable.Text;
             permittedProcessData[MessageExecutable]  = executable;
-                listViewPermittedProcesses.Items[permittedProcessIndex].SubItems[IntColumnExecutable].Text  = executable;
-            dataGridViewPermittedProcesses. Rows[permittedProcessIndex].   Cells[IntColumnExecutable].Value = executable;
+            dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnExecutable].Value = executable;
         }
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
