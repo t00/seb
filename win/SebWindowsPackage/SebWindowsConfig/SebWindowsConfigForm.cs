@@ -2438,11 +2438,18 @@ namespace SebWindowsConfig
                 else if ((String)value == StringOS[IntWin]) value = IntWin;
             }
 
+/*
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
 
-            processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            processData = (Dictionary<string, object>)processList[row];
+            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            processData = (Dictionary<string, object>) processList[row];
+
+            // Copy the selected process data to the global variables
+            permittedProcessIndex = row;
+            permittedProcessList  = processList;
+            permittedProcessData  = processData;
+*/
 
             if (column == IntColumnActive    ) permittedProcessData[MessageActive    ] = (Boolean)value;
             if (column == IntColumnOS        ) permittedProcessData[MessageOS        ] = (Int32  )value;
@@ -2473,11 +2480,18 @@ namespace SebWindowsConfig
                 else if ((String)value == StringOS[IntWin]) value = IntWin;
             }
 
+/*
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
 
-            processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            processData = (Dictionary<string, object>)processList[row];
+            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+            processData = (Dictionary<string, object>) processList[row];
+
+            // Copy the selected process data to the global variables
+            permittedProcessIndex = row;
+            permittedProcessList  = processList;
+            permittedProcessData  = processData;
+*/
 
             if (column == IntColumnActive    ) permittedProcessData[MessageActive    ] = (Boolean)value;
             if (column == IntColumnOS        ) permittedProcessData[MessageOS        ] = (Int32  )value;
@@ -2511,10 +2525,10 @@ namespace SebWindowsConfig
             processData[MessageArguments  ] = new List<object>();
 
             dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[IntWin], "", "");
+            dataGridViewPermittedProcesses.Rows[selectedIndex].Selected = true;
 
             permittedProcessList.Insert(selectedIndex, processData);
-
-            dataGridViewPermittedProcesses.Rows [selectedIndex].Selected = true;
+            //permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
         }
 
 
@@ -2523,8 +2537,11 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-            dataGridViewPermittedProcesses.Rows .RemoveAt(selectedIndex);
-                        permittedProcessList    .RemoveAt(selectedIndex);
+            dataGridViewPermittedProcesses.Rows.RemoveAt(selectedIndex);
+            dataGridViewPermittedProcesses.Rows[selectedIndex].Selected = true;
+
+            permittedProcessList.RemoveAt(selectedIndex);
+            //permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
         }
 
 
