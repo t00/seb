@@ -1238,14 +1238,20 @@
             this.dataGridViewPermittedProcesses.TabIndex = 89;
             this.dataGridViewPermittedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellContentClick);
             this.dataGridViewPermittedProcesses.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellEndEdit);
+            this.dataGridViewPermittedProcesses.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewPermittedProcesses_CellMouseClick);
             this.dataGridViewPermittedProcesses.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellMouseLeave);
             this.dataGridViewPermittedProcesses.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewPermittedProcesses_CellMouseUp);
             this.dataGridViewPermittedProcesses.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.dataGridViewPermittedProcesses_CellParsing);
             this.dataGridViewPermittedProcesses.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridViewPermittedProcesses_CellStateChanged);
+            this.dataGridViewPermittedProcesses.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewPermittedProcesses_CellValidating);
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
             this.dataGridViewPermittedProcesses.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dataGridViewPermittedProcesses_CellValuePushed);
             this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);
+            this.dataGridViewPermittedProcesses.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewPermittedProcesses_KeyPress);
+            this.dataGridViewPermittedProcesses.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridViewPermittedProcesses_KeyUp);
             this.dataGridViewPermittedProcesses.MouseCaptureChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_MouseCaptureChanged);
+            this.dataGridViewPermittedProcesses.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridViewPermittedProcesses_MouseUp);
+            this.dataGridViewPermittedProcesses.Validated += new System.EventHandler(this.dataGridViewPermittedProcesses_Validated);
             // 
             // Active
             // 
