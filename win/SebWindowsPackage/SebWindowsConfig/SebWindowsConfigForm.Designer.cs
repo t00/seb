@@ -1246,6 +1246,7 @@
             this.dataGridViewPermittedProcesses.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewPermittedProcesses_CellValidating);
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
             this.dataGridViewPermittedProcesses.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dataGridViewPermittedProcesses_CellValuePushed);
+            this.dataGridViewPermittedProcesses.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged);
             this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);
             this.dataGridViewPermittedProcesses.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewPermittedProcesses_KeyPress);
             this.dataGridViewPermittedProcesses.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridViewPermittedProcesses_KeyUp);

@@ -3181,5 +3181,14 @@ namespace SebWindowsConfig
         }
 
 
+        private void dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewPermittedProcesses.IsCurrentCellDirty)
+            {
+                dataGridViewPermittedProcesses.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig
