@@ -2423,6 +2423,7 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Get the current cell where the user has changed a value
             int row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
             int column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
 
@@ -2430,32 +2431,28 @@ namespace SebWindowsConfig
             if (row    < 0) return;
             if (column < 0) return;
 
+            // Get the changed value of the current cell
             object value = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
 
+            // Convert the selected OS ListBox entry from String to Integer
             if (column == IntColumnOS)
             {
                      if ((String)value == StringOS[IntOSX]) value = IntOSX;
                 else if ((String)value == StringOS[IntWin]) value = IntWin;
             }
 
-/*
-            List<object>               processList = null;
-            Dictionary<string, object> processData = null;
+            // Actually unnecessary because the SelectionChanged() event occured before,
+            // so the permittedProcessIndex is already equal to the row,
+            // and the selected process data and widgets have already been updated.
+            if (row != permittedProcessIndex) UpdateWidgetsOfSelectedProcess(row);
 
-            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
-            processData = (Dictionary<string, object>) processList[row];
-
-            // Copy the selected process data to the global variables
-            permittedProcessIndex = row;
-            permittedProcessList  = processList;
-            permittedProcessData  = processData;
-*/
-
+            // Update the process data belonging to the current cell
             if (column == IntColumnActive    ) permittedProcessData[MessageActive    ] = (Boolean)value;
             if (column == IntColumnOS        ) permittedProcessData[MessageOS        ] = (Int32  )value;
             if (column == IntColumnExecutable) permittedProcessData[MessageExecutable] = (String )value;
             if (column == IntColumnTitle     ) permittedProcessData[MessageTitle     ] = (String )value;
 
+            // Update the widget (in "SelectedProcess" group) belonging to the current cell
             if (column == IntColumnActive    ) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
             if (column == IntColumnOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
@@ -2465,6 +2462,7 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            // Get the current cell where the user has changed a value
             int row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
             int column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
 
@@ -2472,32 +2470,28 @@ namespace SebWindowsConfig
             if (row    < 0) return;
             if (column < 0) return;
 
+            // Get the changed value of the current cell
             object value = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
 
+            // Convert the selected OS ListBox entry from String to Integer
             if (column == IntColumnOS)
             {
                      if ((String)value == StringOS[IntOSX]) value = IntOSX;
                 else if ((String)value == StringOS[IntWin]) value = IntWin;
             }
 
-/*
-            List<object>               processList = null;
-            Dictionary<string, object> processData = null;
+            // Actually unnecessary because the SelectionChanged() event occured before,
+            // so the permittedProcessIndex is already equal to the row,
+            // and the selected process data and widgets have already been updated.
+            if (row != permittedProcessIndex) UpdateWidgetsOfSelectedProcess(row);
 
-            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
-            processData = (Dictionary<string, object>) processList[row];
-
-            // Copy the selected process data to the global variables
-            permittedProcessIndex = row;
-            permittedProcessList  = processList;
-            permittedProcessData  = processData;
-*/
-
+            // Update the process data belonging to the current cell
             if (column == IntColumnActive    ) permittedProcessData[MessageActive    ] = (Boolean)value;
             if (column == IntColumnOS        ) permittedProcessData[MessageOS        ] = (Int32  )value;
             if (column == IntColumnExecutable) permittedProcessData[MessageExecutable] = (String )value;
             if (column == IntColumnTitle     ) permittedProcessData[MessageTitle     ] = (String )value;
 
+            // Update the widget (in "SelectedProcess" group) belonging to the current cell
             if (column == IntColumnActive    ) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
             if (column == IntColumnOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
