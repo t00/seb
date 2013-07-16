@@ -3076,6 +3076,41 @@ namespace SebWindowsConfig
             return;
         }
 
+        private void dataGridViewPermittedProcesses_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcesses_MouseCaptureChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcesses_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcesses_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcesses_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcesses_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcesses_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
+        {
+
+        }
+
 
 
     } // end of   class     SebWindowsConfigForm

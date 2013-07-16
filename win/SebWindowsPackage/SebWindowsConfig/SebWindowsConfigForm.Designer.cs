@@ -113,6 +113,10 @@
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
             this.dataGridViewPermittedProcesses = new System.Windows.Forms.DataGridView();
+            this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChoosePermittedProcess = new System.Windows.Forms.Button();
             this.buttonChoosePermittedApplication = new System.Windows.Forms.Button();
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
@@ -243,10 +247,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.OS = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Executable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1237,8 +1237,42 @@
             this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(733, 142);
             this.dataGridViewPermittedProcesses.TabIndex = 89;
             this.dataGridViewPermittedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellContentClick);
+            this.dataGridViewPermittedProcesses.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellEndEdit);
+            this.dataGridViewPermittedProcesses.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellMouseLeave);
+            this.dataGridViewPermittedProcesses.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewPermittedProcesses_CellMouseUp);
+            this.dataGridViewPermittedProcesses.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.dataGridViewPermittedProcesses_CellParsing);
+            this.dataGridViewPermittedProcesses.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridViewPermittedProcesses_CellStateChanged);
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
+            this.dataGridViewPermittedProcesses.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dataGridViewPermittedProcesses_CellValuePushed);
             this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);
+            this.dataGridViewPermittedProcesses.MouseCaptureChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_MouseCaptureChanged);
+            // 
+            // Active
+            // 
+            this.Active.HeaderText = "Active";
+            this.Active.Name = "Active";
+            this.Active.Width = 50;
+            // 
+            // OS
+            // 
+            this.OS.HeaderText = "OS";
+            this.OS.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
+            this.OS.Name = "OS";
+            this.OS.Width = 80;
+            // 
+            // Executable
+            // 
+            this.Executable.HeaderText = "Executable";
+            this.Executable.Name = "Executable";
+            this.Executable.Width = 300;
+            // 
+            // Title
+            // 
+            this.Title.HeaderText = "Title";
+            this.Title.Name = "Title";
+            this.Title.Width = 300;
             // 
             // buttonChoosePermittedProcess
             // 
@@ -1526,7 +1560,7 @@
             this.tabPageProhibitedProcesses.Location = new System.Drawing.Point(4, 25);
             this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
             this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(842, 642);
+            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(811, 642);
             this.tabPageProhibitedProcesses.TabIndex = 1;
             this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
             this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
@@ -2689,33 +2723,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // Active
-            // 
-            this.Active.HeaderText = "Active";
-            this.Active.Name = "Active";
-            this.Active.Width = 50;
-            // 
-            // OS
-            // 
-            this.OS.HeaderText = "OS";
-            this.OS.Items.AddRange(new object[] {
-            "OS X",
-            "Win"});
-            this.OS.Name = "OS";
-            this.OS.Width = 80;
-            // 
-            // Executable
-            // 
-            this.Executable.HeaderText = "Executable";
-            this.Executable.Name = "Executable";
-            this.Executable.Width = 300;
-            // 
-            // Title
-            // 
-            this.Title.HeaderText = "Title";
-            this.Title.Name = "Title";
-            this.Title.Width = 300;
             // 
             // SebWindowsConfigForm
             // 
