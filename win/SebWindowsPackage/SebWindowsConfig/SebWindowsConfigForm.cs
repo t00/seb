@@ -2522,11 +2522,10 @@ namespace SebWindowsConfig
             processData[MessageIdentifier ] = "";
             processData[MessageArguments  ] = new List<object>();
 
+            permittedProcessList.Insert(selectedIndex, processData);
+
             dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[IntWin], "", "");
             dataGridViewPermittedProcesses.Rows[selectedIndex].Selected = true;
-
-            permittedProcessList.Insert(selectedIndex, processData);
-            //permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
         }
 
 
@@ -2535,11 +2534,10 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
+            permittedProcessList.RemoveAt(selectedIndex);
+
             dataGridViewPermittedProcesses.Rows.RemoveAt(selectedIndex);
             dataGridViewPermittedProcesses.Rows[selectedIndex].Selected = true;
-
-            permittedProcessList.RemoveAt(selectedIndex);
-            //permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
         }
 
 
