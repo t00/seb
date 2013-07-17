@@ -142,6 +142,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public static Dictionary<string, object> sebSettings = new Dictionary<string, object>();
 
+
         #endregion
 
 		#region Structures

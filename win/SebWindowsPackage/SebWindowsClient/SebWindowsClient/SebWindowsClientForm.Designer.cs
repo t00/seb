@@ -49,7 +49,7 @@ namespace SebWindowsClient
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(102, 23);
             this.btn_Exit.TabIndex = 0;
-            this.btn_Exit.Text = "Quit";
+            this.btn_Exit.Text = "AppChooser";
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 

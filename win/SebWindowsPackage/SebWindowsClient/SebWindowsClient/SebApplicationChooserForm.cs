@@ -200,6 +200,11 @@ namespace SebWindowsClient
             }
         }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            fillListApplications();
+        }
+
     //    public void fillText(string text)
     //    {
     //        textBox1.Text = "";

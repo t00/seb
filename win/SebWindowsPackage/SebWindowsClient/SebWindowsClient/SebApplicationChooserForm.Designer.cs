@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.listApplications = new System.Windows.Forms.ListView();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listApplications
             // 
             this.listApplications.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listApplications.BackColor = System.Drawing.SystemColors.Control;
+            this.listApplications.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listApplications.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listApplications.GridLines = true;
             this.listApplications.HoverSelection = true;
@@ -45,12 +47,23 @@
             this.listApplications.UseCompatibleStateImageBehavior = false;
             this.listApplications.ItemActivate += new System.EventHandler(this.listApplications_ItemActivate);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = global::SebWindowsClient.Properties.Resources.icon_refresh_captcha_png_pagespeed_ce_FX4M2rRVGM;
+            this.btnRefresh.Location = new System.Drawing.Point(490, 0);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(33, 28);
+            this.btnRefresh.TabIndex = 1;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // SebApplicationChooserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(523, 204);
             this.ControlBox = false;
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.listApplications);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
@@ -66,5 +79,6 @@
         #endregion
 
         private System.Windows.Forms.ListView listApplications;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

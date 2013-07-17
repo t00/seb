@@ -106,7 +106,6 @@ namespace SebWindowsClient.BlockShortcutsUtils
         private static bool exitKey2_Pressed = false;
         private static bool exitKey3_Pressed = false;
 
-        public static SebApplicationChooserForm SebApplicationChooser = null;
         #endregion
 
         #region Public Properties
@@ -183,19 +182,19 @@ namespace SebWindowsClient.BlockShortcutsUtils
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                         return true;
                 }
-                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
-                {
-                    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
-                    {
-                        if (SebApplicationChooser == null)
-                            SebApplicationChooser = new SebApplicationChooserForm();
-                        SebApplicationChooser.fillListApplications();
-                        SebApplicationChooser.Visible = true;
-                        SebApplicationChooser.Activate();
-                        return true;
+                //if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
+                //{
+                //    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
+                //    {
+                //        if (SEBClientInfo.SebApplicationChooser == null)
+                //            SEBClientInfo.SebApplicationChooser = new SebApplicationChooserForm();
+                //        //SEBClientInfo.SebApplicationChooser.fillListApplications();
+                //        SEBClientInfo.SebApplicationChooser.Visible = true;
+                //        //SebApplicationChooser.Activate();
+                //        return true;
 
-                    }
-                }
+                //    }
+                //}
                 //if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
                 //{
                 //    if (((KeyInfo.flags == 32) && (KeyInfo.key == Keys.LMenu)) || ((KeyInfo.flags == 33) && (KeyInfo.key == Keys.RMenu)))
@@ -208,16 +207,16 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 //        return true;
                 //    }
                 //}
-                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
-                {
-                    if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
-                    {
-                        SebApplicationChooser.Visible = false;
-                        //SebApplicationChooser.Activate();
-                        return true;
+                //if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
+                //{
+                //    if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
+                //    {
+                //        SEBClientInfo.SebApplicationChooser.Visible = false;
+                //        //SebApplicationChooser.Activate();
+                //        return true;
 
-                    }
-                }
+                //    }
+                //}
                 //if (SEBClientInfo.sebClientConfig.getHookedMessageKey("enableAltTab").getBool())
                 //{
                 //    if ((KeyInfo.flags == 129) && (KeyInfo.key == Keys.RMenu))
@@ -285,26 +284,26 @@ namespace SebWindowsClient.BlockShortcutsUtils
             catch (Exception ex)
             {
                 Logger.AddError("DisableKey: Failed with error. " + ex.Message, null, ex);
-                if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
-                {
-                    if (SebApplicationChooser == null)
-                        SebApplicationChooser = new SebApplicationChooserForm();
-                    SebApplicationChooser.fillListApplications();
-                    SebApplicationChooser.Visible = true;
-                    SebApplicationChooser.Activate();
-                    return true;
-                }
-                else if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
-                    {
-                        SebApplicationChooser.Visible = false;
-                        //SebApplicationChooser.Activate();
-                        return true;
+                //if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
+                //{
+                //    if (SEBClientInfo.SebApplicationChooser == null)
+                //        SEBClientInfo.SebApplicationChooser = new SebApplicationChooserForm();
+                //    //SEBClientInfo.SebApplicationChooser.fillListApplications();
+                //    SEBClientInfo.SebApplicationChooser.Visible = true;
+                //    //SEBClientInfo.SebApplicationChooser.Activate();
+                //    return true;
+                //}
+                //else if ((KeyInfo.flags == 128) && (KeyInfo.key == Keys.LMenu))
+                //    {
+                //        SEBClientInfo.SebApplicationChooser.Visible = false;
+                //        //SebApplicationChooser.Activate();
+                //        return true;
 
-                    }
-                else
-                {
-                    return false;
-                }
+                //    }
+                //else
+                //{
+                //    return false;
+                //}
 
             }
             return false;
@@ -502,22 +501,22 @@ namespace SebWindowsClient.BlockShortcutsUtils
         /// <summary>
         /// Capture keystrokes and filter which key events are permitted to continue.
         /// </summary>
-        private static IntPtr CaptureMouseButton(int nCode, IntPtr wp, IntPtr lp)
-        {
-            // If the nCode is non-negative, filter the key stroke.
-            if (nCode >= 0)
-            {
-                //KBDLLHOOKSTRUCT KeyInfo =
-                //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+        //private static IntPtr CaptureMouseButton(int nCode, IntPtr wp, IntPtr lp)
+        //{
+        //    // If the nCode is non-negative, filter the key stroke.
+        //    if (nCode >= 0)
+        //    {
+        //        //KBDLLHOOKSTRUCT KeyInfo =
+        //        //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
-                // Reject any key that's not on our list.
-                if (DisableMouseButton(nCode, wp, lp))
-                    return (IntPtr)1;
-            }
+        //        // Reject any key that's not on our list.
+        //        if (DisableMouseButton(nCode, wp, lp))
+        //            return (IntPtr)1;
+        //    }
  
-            // Pass the event to the next hook in the chain.
-            return CallNextHookEx(ptrMouseHook, nCode, wp, lp);
-        }
+        //    // Pass the event to the next hook in the chain.
+        //    return CallNextHookEx(ptrMouseHook, nCode, wp, lp);
+        //}
         /// <summary>
         /// Capture keystrokes and filter which key events are permitted to continue.
         /// </summary>
@@ -561,14 +560,14 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 objKeyboardProcess = new LowLevelProc(CaptureKey);
 
                 // Assign callback function each time mouse process
-                objMouseProcess = new LowLevelProc(CaptureMouseButton);
+                //objMouseProcess = new LowLevelProc(CaptureMouseButton);
 
                 // Setting Hook of Keyboard Process for current module
                 ptrKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, objKeyboardProcess,
                               GetModuleHandle(objCurrentModule.ModuleName), 0);
 
-                ptrMouseHook = SetWindowsHookEx(WH_MOUSE_LL, objMouseProcess,
-                    GetModuleHandle(objCurrentModule.ModuleName), 0);
+        //        ptrMouseHook = SetWindowsHookEx(WH_MOUSE_LL, objMouseProcess,
+        //            GetModuleHandle(objCurrentModule.ModuleName), 0);
         }
 
         /// <summary>
@@ -582,11 +581,11 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 UnhookWindowsHookEx(ptrKeyboardHook);
                 ptrKeyboardHook = IntPtr.Zero;
             }
-            if (ptrMouseHook != IntPtr.Zero)
-            {
-                UnhookWindowsHookEx(ptrMouseHook);
-                ptrMouseHook = IntPtr.Zero;
-            }
+            //if (ptrMouseHook != IntPtr.Zero)
+            //{
+            //    UnhookWindowsHookEx(ptrMouseHook);
+            //    ptrMouseHook = IntPtr.Zero;
+            //}
         }
     }
 }

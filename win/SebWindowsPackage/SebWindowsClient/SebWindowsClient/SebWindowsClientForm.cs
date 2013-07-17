@@ -68,6 +68,7 @@ namespace SebWindowsClient
         private delegate bool EnumThreadProc(IntPtr hwnd, IntPtr lParam);
 
         private SebSocketClient sebSocketClient = new SebSocketClient();
+        private SebApplicationChooserForm SebApplicationChooser = null;
 
         //private Process xulRunner = new Process();
         //private int xulRunnerExitCode;
@@ -230,9 +231,6 @@ namespace SebWindowsClient
                     }
                 }
             }
-            if (SebKeyCapture.SebApplicationChooser == null)
-                SebKeyCapture.SebApplicationChooser = new SebApplicationChooserForm();
-            SebKeyCapture.SebApplicationChooser.fillListApplications();
         }
 
 
@@ -345,7 +343,13 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-             this.Close();
+            if (SebApplicationChooser == null)
+                SebApplicationChooser = new SebApplicationChooserForm();
+            SebApplicationChooser.fillListApplications();
+            SebApplicationChooser.Visible = true;
+            SebApplicationChooser.Activate();
+
+             //this.Close();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -487,6 +491,11 @@ namespace SebWindowsClient
             // Disable unwanted keys.
             SebKeyCapture.FilterKeys = true;
 
+            //if (SEBClientInfo.SebApplicationChooser == null)
+            //    SEBClientInfo.SebApplicationChooser = new SebApplicationChooserForm();
+            //SEBClientInfo.SebApplicationChooser.fillListApplications();
+            //SEBClientInfo.SebApplicationChooser.Visible = true;
+ 
             addPermittedProcessesToTS();
             SetFormOnDesktop();
             StartXulRunner();
@@ -516,6 +525,7 @@ namespace SebWindowsClient
 
                 //if (quit == 0)
                 //{
+ 
                     bool bSocketResult;
                     SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
                     string userName = sEBLocalHostInfo.GetUserName();

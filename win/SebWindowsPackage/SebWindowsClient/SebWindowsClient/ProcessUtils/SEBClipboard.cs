@@ -10,21 +10,34 @@ using System.Text;
 using System.Windows.Forms;
 using SebWindowsClient.DiagnosticsUtils;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace SebWindowsClient.ProcessUtils
 {
     public class SEBClipboard
     {
+        [DllImport("user32.dll")]
+        static extern bool EmptyClipboard();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool OpenClipboard(IntPtr hWndNewOwner);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool CloseClipboard();
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Clean clipboard.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private static void _CleanClipboard()
+        public static void CleanClipboard()
         {
             try
             {
-                Clipboard.Clear();
+                //Clipboard.Clear();
+                //IntPtr handleWnd = GetOpenClipboardWindow();
+                OpenClipboard(IntPtr.Zero);
+                EmptyClipboard();
+                CloseClipboard();
             }
             catch (Exception ex)
             {
@@ -39,13 +52,13 @@ namespace SebWindowsClient.ProcessUtils
         /// Clean clipboard.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static void CleanClipboard()
-        {
-            Thread staThread = new Thread(SEBClipboard._CleanClipboard);
-            staThread.SetApartmentState(ApartmentState.STA);
-            staThread.Start();
-            staThread.Join();
-        }
+        //public static void CleanClipboard()
+        //{
+        //    Thread staThread = new Thread(SEBClipboard._CleanClipboard);
+        //    staThread.SetApartmentState(ApartmentState.STA);
+        //    staThread.Start();
+        //    staThread.Join();
+        //}
 
     }
 }
