@@ -512,7 +512,7 @@ namespace SebWindowsConfig
         static int  permittedProcessIndex = -1;
         static int prohibitedProcessIndex = -1;
 
-        static int  permittedArgumentsIndex = -1;
+        static int  permittedArgumentIndex = -1;
         static int prohibitedArgumentsIndex = -1;
 
         static List<object>                permittedProcessList = null;
@@ -1834,7 +1834,7 @@ namespace SebWindowsConfig
             checkedListBoxProxyProtocol.SelectedIndex =     (int)sebSettingsNew[MessageProxyProtocol];
 
             int selectedIndex = (int)sebSettingsNew[MessageProxyProtocol];
-            checkedListBoxProxyProtocol.SetItemChecked(selectedIndex, true);
+            checkedListBoxProxyProtocol.SetItemChecked( selectedIndex, true);
             checkedListBoxProxyProtocol.SelectedIndex = selectedIndex;
 
             textBoxProxyConfigurationFileURL .Text    =  (String)sebSettingsNew[MessageProxyConfigurationFileURL];
@@ -2486,7 +2486,7 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            // When a CheckBox or ListBox entry of a DataGridView table cell is edited,
+            // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
             // immediately call the CellValueChanged() event,
             // which will update the SelectedProcess data and widgets.
             if (dataGridViewPermittedProcesses.IsCurrentCellDirty)
@@ -2531,7 +2531,7 @@ namespace SebWindowsConfig
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
-            int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
             Dictionary<string, object> processData = new Dictionary<string, object>();
 
@@ -2547,22 +2547,22 @@ namespace SebWindowsConfig
             processData[MessageIdentifier ] = "";
             processData[MessageArguments  ] = new List<object>();
 
-            permittedProcessList.Insert(selectedIndex, processData);
+            permittedProcessList.Insert(permittedProcessIndex, processData);
 
-            dataGridViewPermittedProcesses.Rows.Insert(selectedIndex, true, StringOS[IntWin], "", "");
-            dataGridViewPermittedProcesses.Rows[selectedIndex].Selected = true;
+            dataGridViewPermittedProcesses.Rows.Insert(permittedProcessIndex, true, StringOS[IntWin], "", "");
+            dataGridViewPermittedProcesses.Rows       [permittedProcessIndex].Selected = true;
         }
 
 
         private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
         {
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
-            int selectedIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-            permittedProcessList.RemoveAt(selectedIndex);
+            permittedProcessList.RemoveAt(permittedProcessIndex);
 
-            dataGridViewPermittedProcesses.Rows.RemoveAt(selectedIndex);
-            dataGridViewPermittedProcesses.Rows[selectedIndex].Selected = true;
+            dataGridViewPermittedProcesses.Rows.RemoveAt(permittedProcessIndex);
+            dataGridViewPermittedProcesses.Rows         [permittedProcessIndex].Selected = true;
         }
 
 
@@ -2636,55 +2636,92 @@ namespace SebWindowsConfig
         }
 
 
-
         private void dataGridViewPermittedProcessArguments_SelectionChanged(object sender, EventArgs e)
         {
+            // CAUTION:
+            // If a row was previously selected and the user clicks onto another row,
+            // the SelectionChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old row,
+            // so the SelectedRows.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedRows.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
 
+            if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
+            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+
+            List<object>                processList = null;
+            Dictionary<string, object>  processData = null;
+            List<object>               argumentList = null;
+            Dictionary<string, object> argumentData = null;
+
+             processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
+             processData = (Dictionary<string, object>)    processList[permittedProcessIndex];
+            argumentList =               (List<object>)    processData[MessageArguments];
+            argumentData = (Dictionary<string, object>)   argumentList[permittedArgumentIndex];
+
+            // Copy the selected argument data to the global variables
+            permittedProcessList  =  processList;
+            permittedProcessData  =  processData;
+            permittedArgumentList = argumentList;
+            permittedArgumentData = argumentData;
         }
 
-        private void dataGridViewPermittedProcessArguments_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void dataGridViewPermittedProcessArguments_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-
+            // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
+            // immediately call the CellValueChanged() event,
+            // which will update the SelectedProcess data and widgets.
+            if (dataGridViewPermittedProcessArguments.IsCurrentCellDirty)
+                dataGridViewPermittedProcessArguments.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
-        private void checkedListBoxPermittedProcessArguments_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
-            permittedArgumentsIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            permittedArgumentData[MessageActive  ] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnArgumentActive   ].Value;
-            permittedArgumentData[MessageArgument] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnArgumentParameter].Value;
+        private void dataGridViewPermittedProcessArguments_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Get the current cell where the user has changed a value
+            int row    = dataGridViewPermittedProcessArguments.CurrentCellAddress.Y;
+            int column = dataGridViewPermittedProcessArguments.CurrentCellAddress.X;
+
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            // Get the changed value of the current cell
+            object value = dataGridViewPermittedProcessArguments.CurrentCell.EditedFormattedValue;
+
+            // Update the argument data belonging to the current cell
+            if (column == IntColumnArgumentActive   ) permittedArgumentData[MessageActive  ] = (Boolean)value;
+            if (column == IntColumnArgumentParameter) permittedArgumentData[MessageArgument] = (String )value;
         }
 
 
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
-            permittedArgumentsIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
             Dictionary<string, object> argumentData = new Dictionary<string, object>();
 
             argumentData[MessageActive  ] = true;
             argumentData[MessageArgument] = "";
 
-            dataGridViewPermittedProcessArguments.Rows.Insert(permittedArgumentsIndex, argumentData);
-                                 permittedArgumentList.Insert(permittedArgumentsIndex, argumentData);
+            permittedArgumentList.Insert(permittedArgumentIndex, argumentData);
 
+            dataGridViewPermittedProcessArguments.Rows.Insert(permittedArgumentIndex, true, "");
+            dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
         }
 
 
         private void buttonPermittedProcessRemoveArgument_Click(object sender, EventArgs e)
         {
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
-            permittedArgumentsIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentsIndex);
-                                 permittedArgumentList.RemoveAt(permittedArgumentsIndex);
+            permittedArgumentList.RemoveAt(permittedArgumentIndex);
+
+            dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentIndex);
+            dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
         }
 
 
