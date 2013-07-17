@@ -513,7 +513,7 @@ namespace SebWindowsConfig
         static int prohibitedProcessIndex = -1;
 
         static int  permittedArgumentIndex = -1;
-        static int prohibitedArgumentsIndex = -1;
+        static int prohibitedArgumentIndex = -1;
 
         static List<object>                permittedProcessList = null;
         static List<object>               prohibitedProcessList = null;
@@ -2644,7 +2644,6 @@ namespace SebWindowsConfig
             // The first time, it is only for UNselecting the old row,
             // so the SelectedRows.Count is ZERO, so ignore this event handler!
             // The second time, SelectedRows.Count is ONE.
-            // Now you can set the widgets in the "Selected Process" groupBox.
 
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
