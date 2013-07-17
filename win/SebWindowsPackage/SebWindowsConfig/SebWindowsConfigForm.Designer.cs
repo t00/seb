@@ -122,9 +122,11 @@
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
+            this.dataGridViewPermittedProcessArguments = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelPermittedProcessIdentifier = new System.Windows.Forms.Label();
             this.textBoxPermittedProcessIdentifier = new System.Windows.Forms.TextBox();
-            this.checkedListBoxPermittedProcessArguments = new System.Windows.Forms.CheckedListBox();
             this.buttonPermittedProcessRemoveArgument = new System.Windows.Forms.Button();
             this.buttonPermittedProcessAddArgument = new System.Windows.Forms.Button();
             this.labelPermittedProcessArguments = new System.Windows.Forms.Label();
@@ -264,6 +266,7 @@
             this.tabPagePermittedProcesses.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).BeginInit();
             this.groupBoxSelectedProcess.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcessArguments)).BeginInit();
             this.tabPageExam.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
@@ -1309,9 +1312,9 @@
             // 
             // groupBoxSelectedProcess
             // 
+            this.groupBoxSelectedProcess.Controls.Add(this.dataGridViewPermittedProcessArguments);
             this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessIdentifier);
             this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessIdentifier);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkedListBoxPermittedProcessArguments);
             this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessRemoveArgument);
             this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessAddArgument);
             this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessArguments);
@@ -1336,6 +1339,35 @@
             this.groupBoxSelectedProcess.TabStop = false;
             this.groupBoxSelectedProcess.Text = "Selected Process";
             // 
+            // dataGridViewPermittedProcessArguments
+            // 
+            this.dataGridViewPermittedProcessArguments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPermittedProcessArguments.ColumnHeadersVisible = false;
+            this.dataGridViewPermittedProcessArguments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dataGridViewPermittedProcessArguments.Location = new System.Drawing.Point(114, 188);
+            this.dataGridViewPermittedProcessArguments.Name = "dataGridViewPermittedProcessArguments";
+            this.dataGridViewPermittedProcessArguments.RowHeadersVisible = false;
+            this.dataGridViewPermittedProcessArguments.RowTemplate.Height = 24;
+            this.dataGridViewPermittedProcessArguments.Size = new System.Drawing.Size(572, 58);
+            this.dataGridViewPermittedProcessArguments.TabIndex = 90;
+            this.dataGridViewPermittedProcessArguments.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcessArguments_CellValueChanged);
+            this.dataGridViewPermittedProcessArguments.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_CurrentCellDirtyStateChanged);
+            this.dataGridViewPermittedProcessArguments.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_SelectionChanged);
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.HeaderText = "Active";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Argument";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 519;
+            // 
             // labelPermittedProcessIdentifier
             // 
             this.labelPermittedProcessIdentifier.AutoSize = true;
@@ -1352,17 +1384,6 @@
             this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(449, 22);
             this.textBoxPermittedProcessIdentifier.TabIndex = 89;
             this.textBoxPermittedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxPermittedProcessIdentifier_TextChanged);
-            // 
-            // checkedListBoxPermittedProcessArguments
-            // 
-            this.checkedListBoxPermittedProcessArguments.FormattingEnabled = true;
-            this.checkedListBoxPermittedProcessArguments.Location = new System.Drawing.Point(114, 186);
-            this.checkedListBoxPermittedProcessArguments.Name = "checkedListBoxPermittedProcessArguments";
-            this.checkedListBoxPermittedProcessArguments.Size = new System.Drawing.Size(572, 55);
-            this.checkedListBoxPermittedProcessArguments.TabIndex = 88;
-            this.checkedListBoxPermittedProcessArguments.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxPermittedProcessArguments_ItemCheck);
-            this.checkedListBoxPermittedProcessArguments.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxPermittedProcessArguments_SelectedIndexChanged);
-            this.checkedListBoxPermittedProcessArguments.SelectedValueChanged += new System.EventHandler(this.checkedListBoxPermittedProcessArguments_SelectedValueChanged);
             // 
             // buttonPermittedProcessRemoveArgument
             // 
@@ -2757,6 +2778,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).EndInit();
             this.groupBoxSelectedProcess.ResumeLayout(false);
             this.groupBoxSelectedProcess.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcessArguments)).EndInit();
             this.tabPageExam.ResumeLayout(false);
             this.tabPageExam.PerformLayout();
             this.tabPageDownUploads.ResumeLayout(false);
@@ -2974,7 +2996,6 @@
         private System.Windows.Forms.Label labelPermittedProcessArguments;
         private System.Windows.Forms.Button buttonPermittedProcessRemoveArgument;
         private System.Windows.Forms.Button buttonPermittedProcessAddArgument;
-        private System.Windows.Forms.CheckedListBox checkedListBoxPermittedProcessArguments;
         private System.Windows.Forms.TextBox textBoxPermittedProcessIdentifier;
         private System.Windows.Forms.Label labelPermittedProcessIdentifier;
         private System.Windows.Forms.CheckBox checkBoxEnableURLContentFilter;
@@ -2999,6 +3020,9 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn OS;
         private System.Windows.Forms.DataGridViewTextBoxColumn Executable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+        private System.Windows.Forms.DataGridView dataGridViewPermittedProcessArguments;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 
     }
 }

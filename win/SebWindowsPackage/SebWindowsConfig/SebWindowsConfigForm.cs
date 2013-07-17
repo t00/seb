@@ -416,21 +416,28 @@ namespace SebWindowsConfig
         const int IntOSX = 0;
         const int IntWin = 1;
 
+        const String StringOSX = "OS X";
+        const String StringWin = "Win";
+
         // Permitted and Prohibited Processes table columns (0,1,2,3).
         // Permitted  Processes: Active, OS, Executable, Title
         // Prohibited Processes: Active, OS, Executable, Description
+        // Process Arguments: Active, String
         const int IntColumnActive      = 0;
+        const int IntColumnArgument    = 1;
         const int IntColumnOS          = 1;
         const int IntColumnExecutable  = 2;
         const int IntColumnTitle       = 3;
         const int IntColumnDescription = 3;
 
+/*
         const String StringColumnActive      = "Active";
+        const String StringColumnArgument    = "Argument";
         const String StringColumnOS          = "OS";
         const String StringColumnExecutable  = "Executable";
         const String StringColumnTitle       = "Title";
         const String StringColumnDescription = "Description";
-
+*/
 
         // Global variables
 
@@ -500,6 +507,9 @@ namespace SebWindowsConfig
 
         static int  permittedProcessIndex = -1;
         static int prohibitedProcessIndex = -1;
+
+        static int  permittedArgumentsIndex = -1;
+        static int prohibitedArgumentsIndex = -1;
 
         static List<object>                permittedProcessList = null;
         static List<object>               prohibitedProcessList = null;
@@ -1010,8 +1020,8 @@ namespace SebWindowsConfig
             StringActive[IntFalse] = "false";
             StringActive[IntTrue ] = "true";
 
-            StringOS[IntOSX] = "OS X";
-            StringOS[IntWin] = "Win";
+            StringOS[IntOSX] = StringOSX;
+            StringOS[IntWin] = StringWin;
 
             // Define the strings for the Proxy Protocols
             StringProxyProtocol[0] = "Auto Proxy Discovery";
@@ -1062,12 +1072,24 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Columns[MessageExecutable].ValueType = typeof(String);
             dataGridViewPermittedProcesses.Columns[MessageTitle     ].ValueType = typeof(String);
 
+            dataGridViewPermittedProcessArguments.ReadOnly           = false;
+            dataGridViewPermittedProcessArguments.AllowUserToAddRows = false;
+            dataGridViewPermittedProcessArguments.RowHeadersVisible  = false;
+            dataGridViewPermittedProcessArguments.MultiSelect        = false;
+            dataGridViewPermittedProcessArguments.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewPermittedProcesses.Columns[MessageActive  ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcesses.Columns[MessageArgument].ValueType = typeof(String);
+
             // Assign the column names to the DataGridViews
 /*
             dataGridViewPermittedProcesses.Columns.Add(StringColumnActive    , StringColumnActive);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnOS        , StringColumnOS);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnExecutable, StringColumnExecutable);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnTitle     , StringColumnTitle);
+
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnActive  , StringColumnActive);
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgument, StringColumnArgument);
 
             dataGridViewProhitedProcesses.Columns.Add(StringColumnActive     , StringColumnActive);
             dataGridViewProhitedProcesses.Columns.Add(StringColumnOS         , StringColumnOS);
@@ -1106,9 +1128,9 @@ namespace SebWindowsConfig
             currentFileSebConfigFile = "";
             currentPathSebConfigFile = "";
 
-             defaultDireSebConfigFile = Directory.GetCurrentDirectory();
-             defaultFileSebConfigFile =                  DefaultSebConfigXml;
-             defaultPathSebConfigFile = Path.GetFullPath(DefaultSebConfigXml);
+            defaultDireSebConfigFile = Directory.GetCurrentDirectory();
+            defaultFileSebConfigFile =                  DefaultSebConfigXml;
+            defaultPathSebConfigFile = Path.GetFullPath(DefaultSebConfigXml);
 /*
             // Cut off the file extension ".ini", ".xml" or ".seb",
             // that is the last 4 characters of the file name
@@ -1126,8 +1148,8 @@ namespace SebWindowsConfig
 */
             openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
-            //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-            //folderBrowserDialogLogDirectoryWin     .RootFolder = Environment.SpecialFolder.MyDocuments;
+          //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+          //folderBrowserDialogLogDirectoryWin     .RootFolder = Environment.SpecialFolder.MyDocuments;
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -1703,18 +1725,17 @@ namespace SebWindowsConfig
             processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
 
             // Remove all previously displayed processes from DataGridView
-           //dataGridViewPermittedProcesses          .Clear();
-             dataGridViewPermittedProcesses.Rows     .Clear();
+            dataGridViewPermittedProcesses.Rows.Clear();
 
             // Add processes of currently opened file to DataGridView
             for (int index = 0; index < processList.Count; index++)
             {
                 processData = (Dictionary<string, object>) processList[index];
 
-                Boolean active     = (Boolean)processData[MessageActive];
-                Int32   os         = (Int32  )processData[MessageOS];
-                String  executable = (String )processData[MessageExecutable];
-                String  title      = (String )processData[MessageTitle];
+                Boolean active     = (Boolean) processData[MessageActive];
+                Int32   os         = (Int32  ) processData[MessageOS];
+                String  executable = (String ) processData[MessageExecutable];
+                String  title      = (String ) processData[MessageTitle];
 
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
             }
@@ -2442,10 +2463,10 @@ namespace SebWindowsConfig
              textBoxPermittedProcessPath       .Text  =  (String) processData[MessagePath];
              textBoxPermittedProcessIdentifier .Text  =  (String) processData[MessageIdentifier];
 
-            // Remove all previously displayed arguments from CheckedListBox
-            checkedListBoxPermittedProcessArguments.Items.Clear();
+            // Remove all previously displayed arguments from DataGridView
+            dataGridViewPermittedProcessArguments.Rows.Clear();
 
-            // Add arguments of currently selected process to CheckedListBox
+            // Add arguments of currently selected process to DataGridView
             for (int index = 0; index < argumentList.Count; index++)
             {
                          argumentData = (Dictionary<string, object>) argumentList[index];
@@ -2454,7 +2475,7 @@ namespace SebWindowsConfig
                 Boolean active   = (Boolean) argumentData[MessageActive];
                 String  argument = (String ) argumentData[MessageArgument];
 
-                checkedListBoxPermittedProcessArguments.Items.Add(argument, active);
+                dataGridViewPermittedProcessArguments.Rows.Add(active, argument);
             }
         }
 
@@ -2485,8 +2506,8 @@ namespace SebWindowsConfig
             // Convert the selected OS ListBox entry from String to Integer
             if (column == IntColumnOS)
             {
-                     if ((String)value == StringOS[IntOSX]) value = IntOSX;
-                else if ((String)value == StringOS[IntWin]) value = IntWin;
+                     if ((String)value == StringOSX) value = IntOSX;
+                else if ((String)value == StringWin) value = IntWin;
             }
 
             // Update the process data belonging to the current cell
@@ -2611,58 +2632,55 @@ namespace SebWindowsConfig
         }
 
 
+
+        private void dataGridViewPermittedProcessArguments_SelectionChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcessArguments_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewPermittedProcessArguments_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void checkedListBoxPermittedProcessArguments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
-            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
+            if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
+            permittedArgumentsIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            string text = (sender as CheckedListBox).SelectedItem.ToString();
-
-            permittedArgumentData[MessageActive  ] = checkedListBoxPermittedProcessArguments.GetItemChecked(selectedIndex);
-            permittedArgumentData[MessageArgument] = checkedListBoxPermittedProcessArguments.Items[selectedIndex];
+            permittedArgumentData[MessageActive  ] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnActive  ].Value;
+            permittedArgumentData[MessageArgument] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnArgument].Value;
         }
 
 
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
-            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
-            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
+            if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
+            permittedArgumentsIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
             Dictionary<string, object> argumentData = new Dictionary<string, object>();
 
             argumentData[MessageActive  ] = true;
             argumentData[MessageArgument] = "";
 
-            checkedListBoxPermittedProcessArguments.Items.Add("", true);
-                                    permittedArgumentList.Add(argumentData);
-/*
-            checkedListBoxPermittedProcessArguments.Items.Insert(selectedIndex, argumentData);
-                                    permittedArgumentList.Insert(selectedIndex, argumentData);
-*/
+            dataGridViewPermittedProcessArguments.Rows.Insert(permittedArgumentsIndex, argumentData);
+                                 permittedArgumentList.Insert(permittedArgumentsIndex, argumentData);
+
         }
 
 
         private void buttonPermittedProcessRemoveArgument_Click(object sender, EventArgs e)
         {
-            if (checkedListBoxPermittedProcessArguments.SelectedItems.Count != 1) return;
-            int selectedIndex = checkedListBoxPermittedProcessArguments.SelectedIndex;
+            if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
+            permittedArgumentsIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            checkedListBoxPermittedProcessArguments.Items.RemoveAt(selectedIndex);
-                          permittedArgumentList          .RemoveAt(selectedIndex);
-        }
-
-
-
-
-        private void checkedListBoxPermittedProcessArguments_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            var checkedListBox = (CheckedListBox)sender;
-            var checkedItemText = checkedListBox.Items[e.Index].ToString();
-        }
-
-        private void checkedListBoxPermittedProcessArguments_SelectedValueChanged(object sender, EventArgs e)
-        {
-
+            dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentsIndex);
+                                 permittedArgumentList.RemoveAt(permittedArgumentsIndex);
         }
 
 
