@@ -422,21 +422,25 @@ namespace SebWindowsConfig
         // Permitted and Prohibited Processes table columns (0,1,2,3).
         // Permitted  Processes: Active, OS, Executable, Title
         // Prohibited Processes: Active, OS, Executable, Description
-        // Process Arguments: Active, String
+        // Process    Arguments: ArgumentActive, ArgumentParameter
         const int IntColumnActive      = 0;
-        const int IntColumnArgument    = 1;
         const int IntColumnOS          = 1;
         const int IntColumnExecutable  = 2;
         const int IntColumnTitle       = 3;
         const int IntColumnDescription = 3;
 
+        const int IntColumnArgumentActive    = 0;
+        const int IntColumnArgumentParameter = 1;
+
 /*
         const String StringColumnActive      = "Active";
-        const String StringColumnArgument    = "Argument";
         const String StringColumnOS          = "OS";
         const String StringColumnExecutable  = "Executable";
         const String StringColumnTitle       = "Title";
         const String StringColumnDescription = "Description";
+
+        const String StringColumnArgumentActive    = "Active";
+        const String StringColumnArgumentParameter = "Parameter";
 */
 
         // Global variables
@@ -1067,10 +1071,10 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.MultiSelect        = false;
             dataGridViewPermittedProcesses.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
-            dataGridViewPermittedProcesses.Columns[MessageActive    ].ValueType = typeof(Boolean);
-            dataGridViewPermittedProcesses.Columns[MessageOS        ].ValueType = typeof(String);
-            dataGridViewPermittedProcesses.Columns[MessageExecutable].ValueType = typeof(String);
-            dataGridViewPermittedProcesses.Columns[MessageTitle     ].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnActive    ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcesses.Columns[IntColumnOS        ].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnExecutable].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnTitle     ].ValueType = typeof(String);
 
             dataGridViewPermittedProcessArguments.ReadOnly           = false;
             dataGridViewPermittedProcessArguments.AllowUserToAddRows = false;
@@ -1078,8 +1082,8 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcessArguments.MultiSelect        = false;
             dataGridViewPermittedProcessArguments.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
-            dataGridViewPermittedProcesses.Columns[MessageActive  ].ValueType = typeof(Boolean);
-            dataGridViewPermittedProcesses.Columns[MessageArgument].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnArgumentActive   ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcesses.Columns[IntColumnArgumentParameter].ValueType = typeof(String);
 
             // Assign the column names to the DataGridViews
 /*
@@ -1088,8 +1092,8 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Columns.Add(StringColumnExecutable, StringColumnExecutable);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnTitle     , StringColumnTitle);
 
-            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnActive  , StringColumnActive);
-            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgument, StringColumnArgument);
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgumentActive   , StringColumnArgumentActive);
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgumentParameter, StringColumnArgumentParameter);
 
             dataGridViewProhitedProcesses.Columns.Add(StringColumnActive     , StringColumnActive);
             dataGridViewProhitedProcesses.Columns.Add(StringColumnOS         , StringColumnOS);
@@ -1722,7 +1726,7 @@ namespace SebWindowsConfig
             List<object>               processList = null;
             Dictionary<string, object> processData = null;
 
-            processList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
             // Remove all previously displayed processes from DataGridView
             dataGridViewPermittedProcesses.Rows.Clear();
@@ -2653,8 +2657,8 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentsIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            permittedArgumentData[MessageActive  ] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnActive  ].Value;
-            permittedArgumentData[MessageArgument] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnArgument].Value;
+            permittedArgumentData[MessageActive  ] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnArgumentActive   ].Value;
+            permittedArgumentData[MessageArgument] = dataGridViewPermittedProcessArguments.Rows[permittedArgumentsIndex].Cells[IntColumnArgumentParameter].Value;
         }
 
 
