@@ -170,10 +170,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\refresh.png" />
+    <None Include="Resources\refresh.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon_refresh_captcha_png_pagespeed_ce_FX4M2rRVGM.png" />
+    <None Include="refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

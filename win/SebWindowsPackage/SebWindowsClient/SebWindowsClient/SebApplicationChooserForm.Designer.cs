@@ -49,10 +49,10 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Image = global::SebWindowsClient.Properties.Resources.icon_refresh_captcha_png_pagespeed_ce_FX4M2rRVGM;
-            this.btnRefresh.Location = new System.Drawing.Point(490, 0);
+            this.btnRefresh.Image = global::SebWindowsClient.Properties.Resources.refresh;
+            this.btnRefresh.Location = new System.Drawing.Point(481, 0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(33, 28);
+            this.btnRefresh.Size = new System.Drawing.Size(42, 36);
             this.btnRefresh.TabIndex = 1;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);

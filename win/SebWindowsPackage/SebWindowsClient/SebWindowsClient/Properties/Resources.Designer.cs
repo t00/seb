@@ -63,16 +63,6 @@ namespace SebWindowsClient.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icon_refresh_captcha_png_pagespeed_ce_FX4M2rRVGM {
-            get {
-                object obj = ResourceManager.GetObject("icon_refresh_captcha_png_pagespeed_ce_FX4M2rRVGM", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap refresh {
             get {
                 object obj = ResourceManager.GetObject("refresh", resourceCulture);
