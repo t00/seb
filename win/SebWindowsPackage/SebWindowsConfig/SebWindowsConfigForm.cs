@@ -429,8 +429,7 @@ namespace SebWindowsConfig
         const int IntColumnTitle       = 3;
         const int IntColumnDescription = 3;
 
-        const int IntColumnArgumentActive    = 0;
-        const int IntColumnArgumentParameter = 1;
+        const int IntColumnArgument = 1;
 
 /*
         const String StringColumnActive      = "Active";
@@ -439,8 +438,7 @@ namespace SebWindowsConfig
         const String StringColumnTitle       = "Title";
         const String StringColumnDescription = "Description";
 
-        const String StringColumnArgumentActive    = "Active";
-        const String StringColumnArgumentParameter = "Parameter";
+        const String StringColumnArgument = "Argument";
 */
 
         // Global variables
@@ -1082,8 +1080,8 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcessArguments.MultiSelect        = false;
             dataGridViewPermittedProcessArguments.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
-            dataGridViewPermittedProcesses.Columns[IntColumnArgumentActive   ].ValueType = typeof(Boolean);
-            dataGridViewPermittedProcesses.Columns[IntColumnArgumentParameter].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnActive  ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcesses.Columns[IntColumnArgument].ValueType = typeof(String);
 
             // Assign the column names to the DataGridViews
 /*
@@ -1092,8 +1090,8 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Columns.Add(StringColumnExecutable, StringColumnExecutable);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnTitle     , StringColumnTitle);
 
-            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgumentActive   , StringColumnArgumentActive);
-            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgumentParameter, StringColumnArgumentParameter);
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnActive  , StringColumnActive);
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgument, StringColumnArgument);
 
             dataGridViewProhitedProcesses.Columns.Add(StringColumnActive     , StringColumnActive);
             dataGridViewProhitedProcesses.Columns.Add(StringColumnOS         , StringColumnOS);
@@ -1728,10 +1726,10 @@ namespace SebWindowsConfig
 
             processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
-            // Remove all previously displayed processes from DataGridView
+            // Remove all previously displayed permitted processes from DataGridView
             dataGridViewPermittedProcesses.Rows.Clear();
 
-            // Add processes of currently opened file to DataGridView
+            // Add permitted processes of currently opened file to DataGridView
             for (int index = 0; index < processList.Count; index++)
             {
                 processData = (Dictionary<string, object>) processList[index];
@@ -2442,6 +2440,7 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
+            // Load the process data of the selected process
             List<object>                processList = null;
             Dictionary<string, object>  processData = null;
             List<object>               argumentList = null;
@@ -2450,12 +2449,15 @@ namespace SebWindowsConfig
              processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
              processData = (Dictionary<string, object>)    processList[permittedProcessIndex];
             argumentList =               (List<object>)    processData[MessageArguments];
+          //argumentData = (Dictionary<string, object>)   argumentList[permittedArgumentIndex];
 
             // Copy the selected process data to the global variables
             permittedProcessList  =  processList;
             permittedProcessData  =  processData;
             permittedArgumentList = argumentList;
+          //permittedArgumentData = argumentData;
 
+            // Update the widgets in the "Selected Process" group
             checkBoxPermittedProcessActive   .Checked = (Boolean) processData[MessageActive];
             checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
             checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
@@ -2473,8 +2475,7 @@ namespace SebWindowsConfig
             // Add arguments of currently selected process to DataGridView
             for (int index = 0; index < argumentList.Count; index++)
             {
-                         argumentData = (Dictionary<string, object>) argumentList[index];
-                permittedArgumentData = argumentData;
+                argumentData = (Dictionary<string, object>) argumentList[index];
 
                 Boolean active   = (Boolean) argumentData[MessageActive];
                 String  argument = (String ) argumentData[MessageArgument];
@@ -2520,7 +2521,7 @@ namespace SebWindowsConfig
             if (column == IntColumnExecutable) permittedProcessData[MessageExecutable] = (String )value;
             if (column == IntColumnTitle     ) permittedProcessData[MessageTitle     ] = (String )value;
 
-            // Update the widget (in "SelectedProcess" group) belonging to the current cell
+            // Update the widget belonging to the current cell (in "Selected Process" group)
             if (column == IntColumnActive    ) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
             if (column == IntColumnOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
@@ -2648,6 +2649,7 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
+            // Load the argument data of the selected argument
             List<object>                processList = null;
             Dictionary<string, object>  processData = null;
             List<object>               argumentList = null;
@@ -2690,8 +2692,8 @@ namespace SebWindowsConfig
             object value = dataGridViewPermittedProcessArguments.CurrentCell.EditedFormattedValue;
 
             // Update the argument data belonging to the current cell
-            if (column == IntColumnArgumentActive   ) permittedArgumentData[MessageActive  ] = (Boolean)value;
-            if (column == IntColumnArgumentParameter) permittedArgumentData[MessageArgument] = (String )value;
+            if (column == IntColumnActive  ) permittedArgumentData[MessageActive  ] = (Boolean)value;
+            if (column == IntColumnArgument) permittedArgumentData[MessageArgument] = (String )value;
         }
 
 
@@ -2708,7 +2710,7 @@ namespace SebWindowsConfig
             permittedArgumentList.Insert(permittedArgumentIndex, argumentData);
 
             dataGridViewPermittedProcessArguments.Rows.Insert(permittedArgumentIndex, true, "");
-            dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
+            dataGridViewPermittedProcessArguments.Rows       [permittedArgumentIndex].Selected = true;
         }
 
 
@@ -2720,7 +2722,7 @@ namespace SebWindowsConfig
             permittedArgumentList.RemoveAt(permittedArgumentIndex);
 
             dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentIndex);
-            dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
+            dataGridViewPermittedProcessArguments.Rows         [permittedArgumentIndex].Selected = true;
         }
 
 
