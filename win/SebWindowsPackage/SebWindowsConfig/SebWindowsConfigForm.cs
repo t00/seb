@@ -2531,8 +2531,11 @@ namespace SebWindowsConfig
 
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
-            if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
-            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+            if (dataGridViewPermittedProcesses.Rows.Count > 0)
+            {
+                if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
+                permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+            }
 
             Dictionary<string, object> processData = new Dictionary<string, object>();
 
@@ -2548,8 +2551,7 @@ namespace SebWindowsConfig
             processData[MessageIdentifier ] = "";
             processData[MessageArguments  ] = new List<object>();
 
-            permittedProcessList.Insert(permittedProcessIndex, processData);
-
+            permittedProcessList               .Insert(permittedProcessIndex, processData);
             dataGridViewPermittedProcesses.Rows.Insert(permittedProcessIndex, true, StringOS[IntWin], "", "");
             dataGridViewPermittedProcesses.Rows       [permittedProcessIndex].Selected = true;
         }
@@ -2560,10 +2562,11 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-            permittedProcessList.RemoveAt(permittedProcessIndex);
-
+            permittedProcessList               .RemoveAt(permittedProcessIndex);
             dataGridViewPermittedProcesses.Rows.RemoveAt(permittedProcessIndex);
-            dataGridViewPermittedProcesses.Rows         [permittedProcessIndex].Selected = true;
+
+            if (dataGridViewPermittedProcesses.Rows.Count > 0)
+                dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Selected = true;
         }
 
 
@@ -2699,16 +2702,18 @@ namespace SebWindowsConfig
 
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
-            if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
-            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+            if (dataGridViewPermittedProcessArguments.Rows.Count > 0)
+            {
+                if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
+                permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+            }
 
             Dictionary<string, object> argumentData = new Dictionary<string, object>();
 
             argumentData[MessageActive  ] = true;
             argumentData[MessageArgument] = "";
 
-            permittedArgumentList.Insert(permittedArgumentIndex, argumentData);
-
+            permittedArgumentList                     .Insert(permittedArgumentIndex, argumentData);
             dataGridViewPermittedProcessArguments.Rows.Insert(permittedArgumentIndex, true, "");
             dataGridViewPermittedProcessArguments.Rows       [permittedArgumentIndex].Selected = true;
         }
@@ -2719,10 +2724,11 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            permittedArgumentList.RemoveAt(permittedArgumentIndex);
-
+            permittedArgumentList                     .RemoveAt(permittedArgumentIndex);
             dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentIndex);
-            dataGridViewPermittedProcessArguments.Rows         [permittedArgumentIndex].Selected = true;
+
+            if (dataGridViewPermittedProcessArguments.Rows.Count > 0)
+                dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
         }
 
 
