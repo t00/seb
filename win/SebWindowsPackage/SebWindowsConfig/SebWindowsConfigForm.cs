@@ -1100,6 +1100,8 @@ namespace SebWindowsConfig
 */
             listBoxPermittedProcessOS.Items.AddRange(StringOS);
 
+            EnableAllWidgetsOfSelectedProcessGroup(false);
+
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
@@ -1725,6 +1727,8 @@ namespace SebWindowsConfig
             Dictionary<string, object> processData = null;
 
             processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
+
+            if (processList.Count > 0) EnableAllWidgetsOfSelectedProcessGroup(true);
 
             // Remove all previously displayed permitted processes from DataGridView
             dataGridViewPermittedProcesses.Rows.Clear();
@@ -2485,6 +2489,45 @@ namespace SebWindowsConfig
         }
 
 
+        private void EnableAllWidgetsOfSelectedProcessGroup(Boolean enable)
+        {
+            // Show/hide the widgets in the "Selected Process" group
+                groupBoxSelectedProcess               .Enabled = enable;
+                checkBoxPermittedProcessActive        .Enabled = enable;
+                checkBoxPermittedProcessAutostart     .Enabled = enable;
+                checkBoxPermittedProcessAutohide      .Enabled = enable;
+                checkBoxPermittedProcessAllowUser     .Enabled = enable;
+                 listBoxPermittedProcessOS            .Enabled = enable;
+                 textBoxPermittedProcessTitle         .Enabled = enable;
+                 textBoxPermittedProcessDescription   .Enabled = enable;
+                 textBoxPermittedProcessExecutable    .Enabled = enable;
+                 textBoxPermittedProcessPath          .Enabled = enable;
+                 textBoxPermittedProcessIdentifier    .Enabled = enable;
+                  buttonPermittedProcessAddArgument   .Enabled = enable;
+                  buttonPermittedProcessRemoveArgument.Enabled = enable;
+            dataGridViewPermittedProcessArguments     .Enabled = enable;
+        }
+
+
+        private void ClearAllWidgetsOfSelectedProcessGroup()
+        {
+            // Update the widgets in the "Selected Process" group
+            checkBoxPermittedProcessActive   .Checked = false;
+            checkBoxPermittedProcessAutostart.Checked = false;
+            checkBoxPermittedProcessAutohide .Checked = false;
+            checkBoxPermittedProcessAllowUser.Checked = false;
+             listBoxPermittedProcessOS.SelectedIndex  = 0;
+             textBoxPermittedProcessTitle      .Text  = "a";
+             textBoxPermittedProcessDescription.Text  = "b";
+             textBoxPermittedProcessExecutable .Text  = "c";
+             textBoxPermittedProcessPath       .Text  = "d";
+             textBoxPermittedProcessIdentifier .Text  = "e";
+
+            // Remove all previously displayed arguments from DataGridView
+            dataGridViewPermittedProcessArguments.Rows.Clear();
+        }
+
+
         private void dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
@@ -2536,6 +2579,8 @@ namespace SebWindowsConfig
                 if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
                 permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
             }
+            else
+                permittedProcessIndex = 0;
 
             Dictionary<string, object> processData = new Dictionary<string, object>();
 
@@ -2567,6 +2612,8 @@ namespace SebWindowsConfig
 
             if (dataGridViewPermittedProcesses.Rows.Count > 0)
                 dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Selected = true;
+            else
+                ClearAllWidgetsOfSelectedProcessGroup();
         }
 
 
