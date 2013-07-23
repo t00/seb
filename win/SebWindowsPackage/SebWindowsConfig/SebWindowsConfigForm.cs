@@ -2795,13 +2795,12 @@ namespace SebWindowsConfig
                 if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
                 permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
             }
-/*
             else
             {
                 permittedArgumentIndex = 0;
-                EnableAllWidgetsOfSelectedProcessGroup(true);
+                dataGridViewPermittedProcessArguments.Enabled = true;
             }
-*/
+
             Dictionary<string, object> argumentData = new Dictionary<string, object>();
 
             argumentData[MessageActive  ] = true;
@@ -2823,16 +2822,11 @@ namespace SebWindowsConfig
 
             if (dataGridViewPermittedProcessArguments.Rows.Count > 0)
                 dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
-/*
             else
             {
                 permittedArgumentIndex = -1;
-                permittedArgumentList.Clear();
-                permittedArgumentData.Clear();
-
                 dataGridViewPermittedProcessArguments.Enabled = false;
             }
-*/
         }
 
 
