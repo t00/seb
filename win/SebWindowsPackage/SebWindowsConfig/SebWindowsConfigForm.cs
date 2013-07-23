@@ -507,23 +507,30 @@ namespace SebWindowsConfig
 
         static SEBProtectionController    sebController  = new SEBProtectionController();
 
-        static int  permittedProcessIndex = -1;
-        static int prohibitedProcessIndex = -1;
-
-        static int  permittedArgumentIndex = -1;
-        static int prohibitedArgumentIndex = -1;
-
+        static int   permittedProcessIndex;
+        static int  prohibitedProcessIndex;
+        static int  permittedArgumentIndex;
+        static int prohibitedArgumentIndex;
+/*
         static List<object>                permittedProcessList = null;
         static List<object>               prohibitedProcessList = null;
-
         static Dictionary<string, object>  permittedProcessData = null;
         static Dictionary<string, object> prohibitedProcessData = null;
 
-        static List<object>               permittedArgumentList = null;
-        static List<object>              prohibitedArgumentList = null;
-
+        static List<object>                permittedArgumentList = null;
+        static List<object>               prohibitedArgumentList = null;
         static Dictionary<string, object>  permittedArgumentData = null;
         static Dictionary<string, object> prohibitedArgumentData = null;
+*/
+        static List<object>                permittedProcessList = new List<object>();
+        static List<object>               prohibitedProcessList = new List<object>();
+        static Dictionary<string, object>  permittedProcessData = new Dictionary<string, object>();
+        static Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
+
+        static List<object>                permittedArgumentList = new List<object>();
+        static List<object>               prohibitedArgumentList = new List<object>();
+        static Dictionary<string, object>  permittedArgumentData = new Dictionary<string, object>();
+        static Dictionary<string, object> prohibitedArgumentData = new Dictionary<string, object>();
 
 
 
@@ -1099,6 +1106,21 @@ namespace SebWindowsConfig
             dataGridViewProhitedProcesses.Columns.Add(StringColumnDescription, StringColumnDescription);
 */
             listBoxPermittedProcessOS.Items.AddRange(StringOS);
+
+              permittedProcessIndex = -1;
+             prohibitedProcessIndex = -1;
+             permittedArgumentIndex = -1;
+            prohibitedArgumentIndex = -1;
+
+             permittedProcessList.Clear();
+            prohibitedProcessList.Clear();
+             permittedProcessData.Clear();
+            prohibitedProcessData.Clear();
+
+             permittedArgumentList.Clear();
+            prohibitedArgumentList.Clear();
+             permittedArgumentData.Clear();
+            prohibitedArgumentData.Clear();
 
             EnableAllWidgetsOfSelectedProcessGroup(false);
 
