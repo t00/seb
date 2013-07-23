@@ -2538,11 +2538,11 @@ namespace SebWindowsConfig
         private void ClearAllWidgetsOfSelectedProcessGroup()
         {
             // Update the widgets in the "Selected Process" group
-            checkBoxPermittedProcessActive   .Checked = false;
-            checkBoxPermittedProcessAutostart.Checked = false;
-            checkBoxPermittedProcessAutohide .Checked = false;
-            checkBoxPermittedProcessAllowUser.Checked = false;
-             listBoxPermittedProcessOS.SelectedIndex  = 0;
+            checkBoxPermittedProcessActive   .Checked = true;
+            checkBoxPermittedProcessAutostart.Checked = true;
+            checkBoxPermittedProcessAutohide .Checked = true;
+            checkBoxPermittedProcessAllowUser.Checked = true;
+             listBoxPermittedProcessOS.SelectedIndex  = IntWin;
              textBoxPermittedProcessTitle      .Text  = "";
              textBoxPermittedProcessDescription.Text  = "";
              textBoxPermittedProcessExecutable .Text  = "";
