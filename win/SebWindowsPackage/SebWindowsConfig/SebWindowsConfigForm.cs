@@ -1745,12 +1745,9 @@ namespace SebWindowsConfig
             // Update the widgets
 
             // Update the Permitted Processes ListView
-            List<object>               processList = null;
-            Dictionary<string, object> processData = null;
+            permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
 
-            processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
-
-            if (processList.Count > 0)
+            if (permittedProcessList.Count > 0)
             {
                 permittedProcessIndex = 0;
                 EnableAllWidgetsOfSelectedProcessGroup(true);
@@ -1760,18 +1757,21 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Rows.Clear();
 
             // Add permitted processes of currently opened file to DataGridView
-            for (int index = 0; index < processList.Count; index++)
+            for (int index = 0; index < permittedProcessList.Count; index++)
             {
-                processData = (Dictionary<string, object>) processList[index];
+                permittedProcessData = (Dictionary<string, object>)permittedProcessList[index];
 
-                Boolean active     = (Boolean) processData[MessageActive];
-                Int32   os         = (Int32  ) processData[MessageOS];
-                String  executable = (String ) processData[MessageExecutable];
-                String  title      = (String ) processData[MessageTitle];
+                Boolean active     = (Boolean) permittedProcessData[MessageActive];
+                Int32   os         = (Int32  ) permittedProcessData[MessageOS];
+                String  executable = (String ) permittedProcessData[MessageExecutable];
+                String  title      = (String ) permittedProcessData[MessageTitle];
 
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
             }
-
+/*
+            if (permittedProcessIndex >= 0)
+                permittedProcessData = (Dictionary<string, object>)permittedProcessList[permittedProcessIndex];
+*/
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
