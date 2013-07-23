@@ -1750,7 +1750,11 @@ namespace SebWindowsConfig
 
             processList = (List<object>) sebSettingsNew[MessagePermittedProcesses];
 
-            if (processList.Count > 0) EnableAllWidgetsOfSelectedProcessGroup(true);
+            if (processList.Count > 0)
+            {
+                permittedProcessIndex = 0;
+                EnableAllWidgetsOfSelectedProcessGroup(true);
+            }
 
             // Remove all previously displayed permitted processes from DataGridView
             dataGridViewPermittedProcesses.Rows.Clear();
@@ -2539,11 +2543,11 @@ namespace SebWindowsConfig
             checkBoxPermittedProcessAutohide .Checked = false;
             checkBoxPermittedProcessAllowUser.Checked = false;
              listBoxPermittedProcessOS.SelectedIndex  = 0;
-             textBoxPermittedProcessTitle      .Text  = "a";
-             textBoxPermittedProcessDescription.Text  = "b";
-             textBoxPermittedProcessExecutable .Text  = "c";
-             textBoxPermittedProcessPath       .Text  = "d";
-             textBoxPermittedProcessIdentifier .Text  = "e";
+             textBoxPermittedProcessTitle      .Text  = "";
+             textBoxPermittedProcessDescription.Text  = "";
+             textBoxPermittedProcessExecutable .Text  = "";
+             textBoxPermittedProcessPath       .Text  = "";
+             textBoxPermittedProcessIdentifier .Text  = "";
 
             // Remove all previously displayed arguments from DataGridView
             dataGridViewPermittedProcessArguments.Rows.Clear();
@@ -2602,7 +2606,10 @@ namespace SebWindowsConfig
                 permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
             }
             else
+            {
                 permittedProcessIndex = 0;
+                EnableAllWidgetsOfSelectedProcessGroup(true);
+            }
 
             Dictionary<string, object> processData = new Dictionary<string, object>();
 
@@ -2629,13 +2636,25 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
+            ClearAllWidgetsOfSelectedProcessGroup();
+
             permittedProcessList               .RemoveAt(permittedProcessIndex);
             dataGridViewPermittedProcesses.Rows.RemoveAt(permittedProcessIndex);
 
             if (dataGridViewPermittedProcesses.Rows.Count > 0)
                 dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Selected = true;
             else
-                ClearAllWidgetsOfSelectedProcessGroup();
+            {
+                permittedProcessIndex = -1;
+                permittedArgumentIndex = -1;
+
+                permittedProcessList .Clear();
+                permittedProcessData .Clear();
+                permittedArgumentList.Clear();
+                permittedArgumentData.Clear();
+
+                EnableAllWidgetsOfSelectedProcessGroup(false);
+            }
         }
 
 
