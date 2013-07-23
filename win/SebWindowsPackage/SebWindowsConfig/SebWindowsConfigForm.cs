@@ -1146,7 +1146,7 @@ namespace SebWindowsConfig
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
 
             // When starting up, set the widgets to the default values
-            //SetWidgetsToNewSettings();
+            SetWidgetsToNewSettings();
 
             // Try to open the configuration file ("SebClient.ini/xml/seb")
             // given in the local directory (where SebWindowsConfig.exe was called)
