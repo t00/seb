@@ -123,6 +123,8 @@
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
             this.dataGridViewPermittedProcessArguments = new System.Windows.Forms.DataGridView();
+            this.ArgumentActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ArgumentParameter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelPermittedProcessIdentifier = new System.Windows.Forms.Label();
             this.textBoxPermittedProcessIdentifier = new System.Windows.Forms.TextBox();
             this.buttonPermittedProcessRemoveArgument = new System.Windows.Forms.Button();
@@ -247,8 +249,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.ArgumentActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ArgumentParameter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1355,6 +1355,18 @@
             this.dataGridViewPermittedProcessArguments.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcessArguments_CellValueChanged);
             this.dataGridViewPermittedProcessArguments.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_CurrentCellDirtyStateChanged);
             this.dataGridViewPermittedProcessArguments.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_SelectionChanged);
+            // 
+            // ArgumentActive
+            // 
+            this.ArgumentActive.HeaderText = "Active";
+            this.ArgumentActive.Name = "ArgumentActive";
+            this.ArgumentActive.Width = 50;
+            // 
+            // ArgumentParameter
+            // 
+            this.ArgumentParameter.HeaderText = "Parameter";
+            this.ArgumentParameter.Name = "ArgumentParameter";
+            this.ArgumentParameter.Width = 519;
             // 
             // labelPermittedProcessIdentifier
             // 
@@ -2573,7 +2585,7 @@
             this.textBoxHashedQuitPassword.Location = new System.Drawing.Point(175, 289);
             this.textBoxHashedQuitPassword.Name = "textBoxHashedQuitPassword";
             this.textBoxHashedQuitPassword.ReadOnly = true;
-            this.textBoxHashedQuitPassword.Size = new System.Drawing.Size(502, 22);
+            this.textBoxHashedQuitPassword.Size = new System.Drawing.Size(542, 22);
             this.textBoxHashedQuitPassword.TabIndex = 34;
             // 
             // textBoxQuitPassword
@@ -2725,18 +2737,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // ArgumentActive
-            // 
-            this.ArgumentActive.HeaderText = "Active";
-            this.ArgumentActive.Name = "ArgumentActive";
-            this.ArgumentActive.Width = 50;
-            // 
-            // ArgumentParameter
-            // 
-            this.ArgumentParameter.HeaderText = "Parameter";
-            this.ArgumentParameter.Name = "ArgumentParameter";
-            this.ArgumentParameter.Width = 519;
             // 
             // SebWindowsConfigForm
             // 

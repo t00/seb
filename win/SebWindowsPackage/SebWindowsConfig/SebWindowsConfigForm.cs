@@ -494,8 +494,6 @@ namespace SebWindowsConfig
         static String [,,] settingString  = new String [StateNum + 1, GroupNum + 1, ValueNum + 1];
         static     int[,,] settingInteger = new     int[StateNum + 1, GroupNum + 1, ValueNum + 1];
 
-        // Password encryption using the SHA-256 hash algorithm
-        SHA256 sha256 = new SHA256Managed();
 
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
@@ -1973,24 +1971,30 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageIgnoreQuitPassword] = checkBoxIgnoreQuitPassword.Checked;
         }
 
+
         private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
         {
             // Get the new quit password
             String newStringQuitPassword = textBoxQuitPassword.Text;
+            String newStringQuitHashcode = "";
+
+            // Password encryption using the SHA-256 hash algorithm
+            SHA256        sha256Algorithm = new SHA256Managed();
+          //HashAlgorithm sha256Algorithm = new SHA256CryptoServiceProvider();
 
             // Encrypt the new quit password
-            byte[] passwordBytes = Encoding.Default.GetBytes(newStringQuitPassword);
-            byte[] hashcodeBytes = sha256.ComputeHash(passwordBytes);
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(newStringQuitPassword);
+            byte[] hashcodeBytes = sha256Algorithm.ComputeHash(passwordBytes);
 
-            String newStringQuitHashcode = string.Empty;
-            for (int i = 0; i < hashcodeBytes.Length; i++)
-                newStringQuitHashcode += hashcodeBytes[i].ToString("X");
+            newStringQuitHashcode = BitConverter.ToString(hashcodeBytes);
+            newStringQuitHashcode = newStringQuitHashcode.Replace("-", "");
 
             textBoxHashedQuitPassword.Text = newStringQuitHashcode;
 
             sebSettingsNew[MessageQuitPassword      ] = newStringQuitPassword;
             sebSettingsNew[MessageHashedQuitPassword] = newStringQuitHashcode;
         }
+
 
         private void textBoxConfirmQuitPassword_TextChanged(object sender, EventArgs e)
         {
