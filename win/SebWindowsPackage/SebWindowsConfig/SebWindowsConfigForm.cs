@@ -1752,6 +1752,11 @@ namespace SebWindowsConfig
                 permittedProcessIndex = 0;
                 EnableAllWidgetsOfSelectedProcessGroup(true);
             }
+            else
+            {
+                permittedProcessIndex = -1;
+                EnableAllWidgetsOfSelectedProcessGroup(false);
+            }
 
             // Remove all previously displayed permitted processes from DataGridView
             dataGridViewPermittedProcesses.Rows.Clear();
@@ -1768,10 +1773,10 @@ namespace SebWindowsConfig
 
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
             }
-/*
+
             if (permittedProcessIndex >= 0)
                 permittedProcessData = (Dictionary<string, object>)permittedProcessList[permittedProcessIndex];
-*/
+
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
@@ -2471,47 +2476,51 @@ namespace SebWindowsConfig
             permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
             // Load the process data of the selected process
-            List<object>                processList = null;
-            Dictionary<string, object>  processData = null;
-            List<object>               argumentList = null;
-            Dictionary<string, object> argumentData = null;
-
-             processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-             processData = (Dictionary<string, object>)    processList[permittedProcessIndex];
-            argumentList =               (List<object>)    processData[MessageArguments];
-          //argumentData = (Dictionary<string, object>)   argumentList[permittedArgumentIndex];
-
-            // Copy the selected process data to the global variables
-            permittedProcessList  =  processList;
-            permittedProcessData  =  processData;
-            permittedArgumentList = argumentList;
-          //permittedArgumentData = argumentData;
+             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
+          //permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
 
             // Update the widgets in the "Selected Process" group
-            checkBoxPermittedProcessActive   .Checked = (Boolean) processData[MessageActive];
-            checkBoxPermittedProcessAutostart.Checked = (Boolean) processData[MessageAutostart];
-            checkBoxPermittedProcessAutohide .Checked = (Boolean) processData[MessageAutohide];
-            checkBoxPermittedProcessAllowUser.Checked = (Boolean) processData[MessageAllowUser];
-             listBoxPermittedProcessOS.SelectedIndex  =   (Int32) processData[MessageOS];
-             textBoxPermittedProcessTitle      .Text  =  (String) processData[MessageTitle];
-             textBoxPermittedProcessDescription.Text  =  (String) processData[MessageDescription];
-             textBoxPermittedProcessExecutable .Text  =  (String) processData[MessageExecutable];
-             textBoxPermittedProcessPath       .Text  =  (String) processData[MessagePath];
-             textBoxPermittedProcessIdentifier .Text  =  (String) processData[MessageIdentifier];
+            checkBoxPermittedProcessActive   .Checked = (Boolean)permittedProcessData[MessageActive];
+            checkBoxPermittedProcessAutostart.Checked = (Boolean)permittedProcessData[MessageAutostart];
+            checkBoxPermittedProcessAutohide .Checked = (Boolean)permittedProcessData[MessageAutohide];
+            checkBoxPermittedProcessAllowUser.Checked = (Boolean)permittedProcessData[MessageAllowUser];
+             listBoxPermittedProcessOS.SelectedIndex  =   (Int32)permittedProcessData[MessageOS];
+             textBoxPermittedProcessTitle      .Text  =  (String)permittedProcessData[MessageTitle];
+             textBoxPermittedProcessDescription.Text  =  (String)permittedProcessData[MessageDescription];
+             textBoxPermittedProcessExecutable .Text  =  (String)permittedProcessData[MessageExecutable];
+             textBoxPermittedProcessPath       .Text  =  (String)permittedProcessData[MessagePath];
+             textBoxPermittedProcessIdentifier .Text  =  (String)permittedProcessData[MessageIdentifier];
+
+             if (permittedArgumentList.Count > 0)
+             {
+                 permittedArgumentIndex = 0;
+                 dataGridViewPermittedProcessArguments.Enabled = true;
+             }
+             else
+             {
+                 permittedArgumentIndex = -1;
+                 dataGridViewPermittedProcessArguments.Enabled = false;
+             }
 
             // Remove all previously displayed arguments from DataGridView
             dataGridViewPermittedProcessArguments.Rows.Clear();
 
             // Add arguments of currently selected process to DataGridView
-            for (int index = 0; index < argumentList.Count; index++)
+            for (int index = 0; index < permittedArgumentList.Count; index++)
             {
-                argumentData = (Dictionary<string, object>) argumentList[index];
+                permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[index];
 
-                Boolean active   = (Boolean) argumentData[MessageActive];
-                String  argument = (String ) argumentData[MessageArgument];
+                Boolean active   = (Boolean)permittedArgumentData[MessageActive];
+                String  argument = (String )permittedArgumentData[MessageArgument];
 
                 dataGridViewPermittedProcessArguments.Rows.Add(active, argument);
             }
+
+            if (permittedArgumentIndex >= 0)
+                permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
+
         }
 
 
