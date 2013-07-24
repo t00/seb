@@ -2825,8 +2825,13 @@ namespace SebWindowsConfig
             permittedArgumentList                     .RemoveAt(permittedArgumentIndex);
             dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentIndex);
 
-            if (dataGridViewPermittedProcessArguments.Rows.Count > 0)
+            if (permittedArgumentIndex == permittedArgumentList.Count)
+                permittedArgumentIndex--;
+
+            if (permittedArgumentList.Count > 0)
+            {
                 dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
+            }
             else
             {
                 // If argument list is now empty, disable it
