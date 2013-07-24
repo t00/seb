@@ -68,7 +68,9 @@ namespace SebWindowsClient.CryptographyUtils
 
             Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
 
-            return BitConverter.ToString(hashedBytes);
+            string pswdHash = BitConverter.ToString(hashedBytes);
+
+            return pswdHash.Replace("-","");
         }
 
         /// ----------------------------------------------------------------------------------------

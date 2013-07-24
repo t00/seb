@@ -39,7 +39,8 @@ namespace SebWindowsClient
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new SebWindowsClientForm());
+                SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
+                Application.Run(SEBClientInfo.SebWindowsClientForm);
             }
         }
 

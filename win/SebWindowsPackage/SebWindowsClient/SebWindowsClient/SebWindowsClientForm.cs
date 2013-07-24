@@ -68,8 +68,9 @@ namespace SebWindowsClient
         private delegate bool EnumThreadProc(IntPtr hwnd, IntPtr lParam);
 
         private SebSocketClient sebSocketClient = new SebSocketClient();
-        private SebApplicationChooserForm SebApplicationChooser = null;
+        //private SebApplicationChooserForm SebApplicationChooser = null;
 
+        public bool closeSebWithPassword = true;
         //private Process xulRunner = new Process();
         //private int xulRunnerExitCode;
         //private DateTime xulRunnerExitTime;
@@ -247,12 +248,14 @@ namespace SebWindowsClient
             SetParent(this.Handle, GetDesktopWindow());
             //this.BackColor = Color.Red;
 
-            int height = Screen.PrimaryScreen.Bounds.Height;
+            //int height = Screen.PrimaryScreen.Bounds.Height;
             int width = Screen.PrimaryScreen.Bounds.Width;
+            int x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
+            int y = Screen.PrimaryScreen.Bounds.Height - this.Height;
 
-            this.Height = height;
+            //this.Height = height;
             this.Width = width;
-
+            this.Location = new Point(x, y);
             return true;
         }
 
@@ -334,7 +337,7 @@ namespace SebWindowsClient
             return true;
         }
 
-        /// ----------------------------------------------------------------------------------------
+         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Switch to current desktop and close app.
         /// </summary>
@@ -343,13 +346,8 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            if (SebApplicationChooser == null)
-                SebApplicationChooser = new SebApplicationChooserForm();
-            SebApplicationChooser.fillListApplications();
-            SebApplicationChooser.Visible = true;
-            SebApplicationChooser.Activate();
-
-             //this.Close();
+            closeSebWithPassword = true;
+            this.Close();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -491,11 +489,6 @@ namespace SebWindowsClient
             // Disable unwanted keys.
             SebKeyCapture.FilterKeys = true;
 
-            //if (SEBClientInfo.SebApplicationChooser == null)
-            //    SEBClientInfo.SebApplicationChooser = new SebApplicationChooserForm();
-            //SEBClientInfo.SebApplicationChooser.fillListApplications();
-            //SEBClientInfo.SebApplicationChooser.Visible = true;
- 
             addPermittedProcessesToTS();
             SetFormOnDesktop();
             StartXulRunner();
@@ -510,93 +503,102 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //SebCloseDialogForm sebCloseDialogForm = new SebCloseDialogForm();
+            int quit = -1;
 
-            //// Show testDialog as a modal dialog and determine if DialogResult = OK.
-            //if (sebCloseDialogForm.ShowDialog(this) == DialogResult.OK)
-            //{
-            //    // Read the contents of testDialog's TextBox.
-                //string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
+            if(closeSebWithPassword)
+            {
+                SebCloseDialogForm sebCloseDialogForm = new SebCloseDialogForm();
 
-                //SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-                //string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
+                // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                if (sebCloseDialogForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
 
-                //int quit = SEBClientInfo.sebClientConfig.Passwords[1].Value.CompareTo(hPassword);
-
-                //if (quit == 0)
-                //{
- 
-                    bool bSocketResult;
-                    SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
-                    string userName = sEBLocalHostInfo.GetUserName();
-
-                    // ShutDown message to SebWindowsService
-                    bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
-                    if (serviceAvailable)
+                    SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+                    string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
+                    quit = ((string)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageHashedQuitPassword]).CompareTo(hPassword);
+                    if (quit != 0)
                     {
-                        // Send ShutDown to server
-                        bSocketResult = sebSocketClient.SendEquationToSocketServer("ShutDown", userName, SEBClientInfo.SendInterval);
-                        string[] resultShutDown = sebSocketClient.RecvEquationOfSocketServer();
-                        this.sebSocketClient.CloseSocket();
+                        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                     }
-                    // ShutDown Processes
-                    Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
-                    List<object> permittedProcessList = (List<object>)SEBClientInfo.sebSettings[SEBGlobalConstants.MessagePermittedProcesses];
-                    for (int i = 0; i < permittedProcessList.Count(); i++)
+
+                }
+            }
+            else
+            {
+                quit = 0;
+            }
+
+
+            if (quit == 0)
+            {
+                bool bSocketResult;
+                SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
+                string userName = sEBLocalHostInfo.GetUserName();
+
+                // ShutDown message to SebWindowsService
+                bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
+                if (serviceAvailable)
+                {
+                    // Send ShutDown to server
+                    bSocketResult = sebSocketClient.SendEquationToSocketServer("ShutDown", userName, SEBClientInfo.SendInterval);
+                    string[] resultShutDown = sebSocketClient.RecvEquationOfSocketServer();
+                    this.sebSocketClient.CloseSocket();
+                }
+                // ShutDown Processes
+                Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
+                List<object> permittedProcessList = (List<object>)SEBClientInfo.sebSettings[SEBGlobalConstants.MessagePermittedProcesses];
+                for (int i = 0; i < permittedProcessList.Count(); i++)
+                {
+                    for (int j = 0; j < runningApplications.Count(); j++)
                     {
-                        for (int j = 0; j < runningApplications.Count(); j++)
+                        Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+                        string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageNameWin];
+                        if ((Boolean)permittedProcess[SEBGlobalConstants.MessageActive])
                         {
-                            Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                            string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageNameWin];
-                            if ((Boolean)permittedProcess[SEBGlobalConstants.MessageActive])
+                            if (permittedProcessName.Contains(runningApplications[j].ProcessName))
                             {
-                                if (permittedProcessName.Contains(runningApplications[j].ProcessName))
-                                {
-                                    // Close process
-                                    //SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
+                                // Close process
+                                //SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
 
-                                    //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
+                                //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
+                                //{
+                                    //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
                                     //{
-                                        //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
-                                        //{
-                                            SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
-                                        //}
-
+                                        SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
                                     //}
-                                }
+
+                                //}
                             }
                         }
                     }
-
-                    // Switch to Default Desktop
-                    if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageCreateNewDesktop])
-                    {
-                        SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
-                        SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
-                        SEBClientInfo.SEBNewlDesktop.Close();
-                    }
-                    else
-                    {
-                        SetVisibility(true);
-                    }
-
-                    // Clean clipboard
-                    SEBClipboard.CleanClipboard();
-                    Logger.AddInformation("Clipboard deleted.", null, null);
-                    SebKeyCapture.FilterKeys = false;
-                    Logger.closeLoger();
                 }
-                //else
-                //{
-                //    e.Cancel = true;
-                //}
 
-            //}
-            //else
-            //{
-            //    e.Cancel = true;
-            //}
+                // Switch to Default Desktop
+                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageCreateNewDesktop])
+                {
+                    SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+                    SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
+                    SEBClientInfo.SEBNewlDesktop.Close();
+                }
+                else
+                {
+                    SetVisibility(true);
+                }
+
+                // Clean clipboard
+                SEBClipboard.CleanClipboard();
+                Logger.AddInformation("Clipboard deleted.", null, null);
+                SebKeyCapture.FilterKeys = false;
+                Logger.closeLoger();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+
             //sebCloseDialogForm.Dispose();
-        //}
+        }
      }
 }

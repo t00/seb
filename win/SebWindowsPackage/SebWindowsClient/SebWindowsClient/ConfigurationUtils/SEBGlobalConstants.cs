@@ -88,9 +88,10 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int IND_VIRTUAL_MACHINE_FORBIDDEN = 25;
         public const int IND_CLOSE_PROCESS_FAILED = 26;
         public const int IND_WINDOWS_SERVICE_NOT_AVAILABLE = 27;
+        public const int IND_CLOSE_SEB_FAILED = 28;
 
-        public const int IND_MESSAGE_TEXT_MAX = 27;
-        public const int IND_MESSAGE_TEXT_NUM = 28;
+        public const int IND_MESSAGE_TEXT_MAX = 28;
+        public const int IND_MESSAGE_TEXT_NUM = 29;
 
 
         // MessageBox supports errors and warnings

@@ -140,6 +140,10 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE] = "SEB Windows Dienst läuft nicht";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE] = "SEB Windows service is not available";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE] = "";
+
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Schliessen des SebClient fehlgeschlagen. Falsches Kennwort.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Closing SebClient failed! Password incorrect.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Abattre le SebClient manqué / échoué!";
         }
 
         // ************************
