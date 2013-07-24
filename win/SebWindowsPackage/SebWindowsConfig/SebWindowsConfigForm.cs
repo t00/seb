@@ -1747,18 +1747,12 @@ namespace SebWindowsConfig
             // Update the Permitted Processes ListView
             permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
 
-            if (permittedProcessList.Count > 0)
-            {
-                permittedProcessIndex = 0;
-                EnableAllWidgetsOfSelectedProcessGroup(true);
-            }
-            else
-            {
-                permittedProcessIndex = -1;
-                EnableAllWidgetsOfSelectedProcessGroup(false);
-            }
+             // Check if currently loaded settings have any permitted processes
+            if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
+                                           else permittedProcessIndex = -1;
 
             // Remove all previously displayed permitted processes from DataGridView
+            EnableAllWidgetsOfSelectedProcessGroup((permittedProcessList.Count > 0));
             dataGridViewPermittedProcesses.Rows.Clear();
 
             // Add permitted processes of currently opened file to DataGridView
@@ -2493,18 +2487,12 @@ namespace SebWindowsConfig
              textBoxPermittedProcessPath       .Text  =  (String)permittedProcessData[MessagePath];
              textBoxPermittedProcessIdentifier .Text  =  (String)permittedProcessData[MessageIdentifier];
 
-             if (permittedArgumentList.Count > 0)
-             {
-                 permittedArgumentIndex = 0;
-                 dataGridViewPermittedProcessArguments.Enabled = true;
-             }
-             else
-             {
-                 permittedArgumentIndex = -1;
-                 dataGridViewPermittedProcessArguments.Enabled = false;
-             }
+             // Check if currently selected process has any arguments
+            if (permittedArgumentList.Count > 0) permittedArgumentIndex =  0;
+                                            else permittedArgumentIndex = -1;
 
             // Remove all previously displayed arguments from DataGridView
+            dataGridViewPermittedProcessArguments.Enabled = (permittedArgumentList.Count > 0);
             dataGridViewPermittedProcessArguments.Rows.Clear();
 
             // Add arguments of currently selected process to DataGridView
@@ -2518,7 +2506,8 @@ namespace SebWindowsConfig
                 dataGridViewPermittedProcessArguments.Rows.Add(active, argument);
             }
 
-            if (permittedArgumentIndex >= 0)
+            // Determine the currently selected argument data
+            if (permittedArgumentList.Count > 0)
                 permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
 
         }
