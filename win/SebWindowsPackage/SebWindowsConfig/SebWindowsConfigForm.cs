@@ -2472,8 +2472,8 @@ namespace SebWindowsConfig
             permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
             // Load and store the process data of the selected process
-             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
-             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
           //permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
 
@@ -2489,7 +2489,7 @@ namespace SebWindowsConfig
              textBoxPermittedProcessPath       .Text  =  (String)permittedProcessData[MessagePath];
              textBoxPermittedProcessIdentifier .Text  =  (String)permittedProcessData[MessageIdentifier];
 
-             // Check if currently selected permitted process has any arguments
+             // Check if selected permitted process has any arguments
             if (permittedArgumentList.Count > 0) permittedArgumentIndex =  0;
                                             else permittedArgumentIndex = -1;
 
@@ -2497,7 +2497,7 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcessArguments.Enabled = (permittedArgumentList.Count > 0);
             dataGridViewPermittedProcessArguments.Rows.Clear();
 
-            // Add arguments of currently selected permitted process to DataGridView
+            // Add arguments of selected permitted process to DataGridView
             for (int index = 0; index < permittedArgumentList.Count; index++)
             {
                 permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[index];
@@ -2508,7 +2508,7 @@ namespace SebWindowsConfig
                 dataGridViewPermittedProcessArguments.Rows.Add(active, argument);
             }
 
-            // Load and store the currently selected permitted argument data
+            // Load and store the selected permitted argument data
             if (permittedArgumentList.Count > 0)
                 permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
 
@@ -2740,22 +2740,11 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            // Load the argument data of the selected argument
-            List<object>                processList = null;
-            Dictionary<string, object>  processData = null;
-            List<object>               argumentList = null;
-            Dictionary<string, object> argumentData = null;
-
-             processList =               (List<object>) sebSettingsNew[MessagePermittedProcesses];
-             processData = (Dictionary<string, object>)    processList[permittedProcessIndex];
-            argumentList =               (List<object>)    processData[MessageArguments];
-            argumentData = (Dictionary<string, object>)   argumentList[permittedArgumentIndex];
-
-            // Copy the selected argument data to the global variables
-            permittedProcessList  =  processList;
-            permittedProcessData  =  processData;
-            permittedArgumentList = argumentList;
-            permittedArgumentData = argumentData;
+            // Load and store the argument data of the selected argument
+            permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
+            permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
         }
 
 
@@ -2825,6 +2814,8 @@ namespace SebWindowsConfig
             else
             {
                 permittedArgumentIndex = -1;
+                permittedArgumentList.Clear();
+                permittedArgumentData.Clear();
                 dataGridViewPermittedProcessArguments.Enabled = false;
             }
         }
