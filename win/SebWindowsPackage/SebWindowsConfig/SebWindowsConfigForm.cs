@@ -2603,14 +2603,17 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.Rows.Count > 0)
             {
                 if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
-                permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+              //permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+                permittedProcessIndex = permittedProcessList.Count;
             }
             else
             {
+                // If argument list was empty before, enable it
                 permittedProcessIndex = 0;
                 EnableAllWidgetsOfSelectedProcessGroup(true);
             }
 
+            // Create new process dataset containing default values
             Dictionary<string, object> processData = new Dictionary<string, object>();
 
             processData[MessageActive     ] = true;
@@ -2625,6 +2628,7 @@ namespace SebWindowsConfig
             processData[MessageIdentifier ] = "";
             processData[MessageArguments  ] = new List<object>();
 
+            // Insert new process into process list at position permittedProcessIndex
             permittedProcessList               .Insert(permittedProcessIndex, processData);
             dataGridViewPermittedProcesses.Rows.Insert(permittedProcessIndex, true, StringOS[IntWin], "", "");
             dataGridViewPermittedProcesses.Rows       [permittedProcessIndex].Selected = true;
@@ -2638,13 +2642,20 @@ namespace SebWindowsConfig
 
             ClearAllWidgetsOfSelectedProcessGroup();
 
+            // Delete process from process list at position permittedProcessIndex
             permittedProcessList               .RemoveAt(permittedProcessIndex);
             dataGridViewPermittedProcesses.Rows.RemoveAt(permittedProcessIndex);
 
-            if (dataGridViewPermittedProcesses.Rows.Count > 0)
+            if (permittedProcessIndex == permittedProcessList.Count)
+                permittedProcessIndex--;
+
+            if (permittedProcessList.Count > 0)
+            {
                 dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Selected = true;
+            }
             else
             {
+                // If process list is now empty, disable it
                 permittedProcessIndex  = -1;
                 permittedArgumentIndex = -1;
 
@@ -2782,19 +2793,23 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.Rows.Count > 0)
             {
                 if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
-                permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+              //permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+                permittedArgumentIndex = permittedArgumentList.Count;
             }
             else
             {
+                // If argument list was empty before, enable it
                 permittedArgumentIndex = 0;
                 dataGridViewPermittedProcessArguments.Enabled = true;
             }
 
+            // Create new argument dataset containing default values
             Dictionary<string, object> argumentData = new Dictionary<string, object>();
 
             argumentData[MessageActive  ] = true;
             argumentData[MessageArgument] = "";
 
+            // Insert new argument into argument list at position permittedArgumentIndex
             permittedArgumentList                     .Insert(permittedArgumentIndex, argumentData);
             dataGridViewPermittedProcessArguments.Rows.Insert(permittedArgumentIndex, true, "");
             dataGridViewPermittedProcessArguments.Rows       [permittedArgumentIndex].Selected = true;
@@ -2806,6 +2821,7 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
+            // Delete argument from argument list at position permittedArgumentIndex
             permittedArgumentList                     .RemoveAt(permittedArgumentIndex);
             dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentIndex);
 
@@ -2813,6 +2829,7 @@ namespace SebWindowsConfig
                 dataGridViewPermittedProcessArguments.Rows[permittedArgumentIndex].Selected = true;
             else
             {
+                // If argument list is now empty, disable it
                 permittedArgumentIndex = -1;
                 permittedArgumentList.Clear();
                 permittedArgumentData.Clear();
