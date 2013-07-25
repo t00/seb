@@ -1068,6 +1068,7 @@ namespace SebWindowsConfig
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
             // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             // Set "FullRowSelect"      to true , to select whole row when clicking on a cell
+            dataGridViewPermittedProcesses.Enabled            = false;
             dataGridViewPermittedProcesses.ReadOnly           = false;
             dataGridViewPermittedProcesses.AllowUserToAddRows = false;
             dataGridViewPermittedProcesses.RowHeadersVisible  = false;
@@ -1742,7 +1743,7 @@ namespace SebWindowsConfig
 
             // Update the widgets
 
-            // Update the Permitted Processes ListView
+            // Update the "Permitted Processes" DataGridView
             permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
 
              // Check if currently loaded settings have any permitted processes
@@ -2612,9 +2613,10 @@ namespace SebWindowsConfig
             }
             else
             {
-                // If argument list was empty before, enable it
+                // If process list was empty before, enable it
                 permittedProcessIndex = 0;
-                EnableAllWidgetsOfSelectedProcessGroup(true);
+                EnableAllWidgetsOfSelectedProcessGroup  (true);
+                dataGridViewPermittedProcesses.Enabled = true;
             }
 
             // Create new process dataset containing default values
@@ -2668,7 +2670,8 @@ namespace SebWindowsConfig
                 permittedArgumentList.Clear();
                 permittedArgumentData.Clear();
 
-                EnableAllWidgetsOfSelectedProcessGroup(false);
+                EnableAllWidgetsOfSelectedProcessGroup  (false);
+                dataGridViewPermittedProcesses.Enabled = false;
             }
         }
 
