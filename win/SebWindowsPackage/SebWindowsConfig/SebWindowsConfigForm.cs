@@ -2563,7 +2563,7 @@ namespace SebWindowsConfig
 
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
-            if (dataGridViewPermittedProcesses.Rows.Count > 0)
+            if (permittedProcessList.Count > 0)
             {
                 if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
               //permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
@@ -2768,7 +2768,7 @@ namespace SebWindowsConfig
 
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
-            if (dataGridViewPermittedProcessArguments.Rows.Count > 0)
+            if (permittedArgumentList.Count > 0)
             {
                 if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
               //permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
