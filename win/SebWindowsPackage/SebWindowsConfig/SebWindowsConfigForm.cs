@@ -1068,7 +1068,6 @@ namespace SebWindowsConfig
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
             // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             // Set "FullRowSelect"      to true , to select whole row when clicking on a cell
-            groupBoxPermittedProcess.Enabled = false;
             dataGridViewPermittedProcesses.Enabled            = false;
             dataGridViewPermittedProcesses.ReadOnly           = false;
             dataGridViewPermittedProcesses.AllowUserToAddRows = false;
@@ -1105,7 +1104,8 @@ namespace SebWindowsConfig
             dataGridViewProhitedProcesses.Columns.Add(StringColumnExecutable , StringColumnExecutable);
             dataGridViewProhitedProcesses.Columns.Add(StringColumnDescription, StringColumnDescription);
 */
-            listBoxPermittedProcessOS.Items.AddRange(StringOS);
+            groupBoxPermittedProcess  .Enabled = false;
+             listBoxPermittedProcessOS.Items.AddRange(StringOS);
 
               permittedProcessIndex = -1;
              prohibitedProcessIndex = -1;
@@ -2479,7 +2479,6 @@ namespace SebWindowsConfig
             permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
-          //permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
 
             // Update the widgets in the "Selected Process" group
             checkBoxPermittedProcessActive   .Checked = (Boolean)permittedProcessData[MessageActive];
@@ -2515,26 +2514,6 @@ namespace SebWindowsConfig
             // Load and store the selected permitted argument data
             if (permittedArgumentList.Count > 0)
                 permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
-
-        }
-
-
-        private void ClearAllWidgetsOfSelectedProcessGroup()
-        {
-            // Update the widgets in the "Selected Process" group
-            checkBoxPermittedProcessActive   .Checked = true;
-            checkBoxPermittedProcessAutostart.Checked = true;
-            checkBoxPermittedProcessAutohide .Checked = true;
-            checkBoxPermittedProcessAllowUser.Checked = true;
-             listBoxPermittedProcessOS.SelectedIndex  = IntWin;
-             textBoxPermittedProcessTitle      .Text  = "";
-             textBoxPermittedProcessDescription.Text  = "";
-             textBoxPermittedProcessExecutable .Text  = "";
-             textBoxPermittedProcessPath       .Text  = "";
-             textBoxPermittedProcessIdentifier .Text  = "";
-
-            // Remove all previously displayed arguments from DataGridView
-            dataGridViewPermittedProcessArguments.Rows.Clear();
         }
 
 
@@ -2625,7 +2604,20 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
             permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
-            ClearAllWidgetsOfSelectedProcessGroup();
+            // Clear the widgets in the "Selected Process" group
+            checkBoxPermittedProcessActive   .Checked = true;
+            checkBoxPermittedProcessAutostart.Checked = true;
+            checkBoxPermittedProcessAutohide .Checked = true;
+            checkBoxPermittedProcessAllowUser.Checked = true;
+             listBoxPermittedProcessOS.SelectedIndex  = IntWin;
+             textBoxPermittedProcessTitle      .Text  = "";
+             textBoxPermittedProcessDescription.Text  = "";
+             textBoxPermittedProcessExecutable .Text  = "";
+             textBoxPermittedProcessPath       .Text  = "";
+             textBoxPermittedProcessIdentifier .Text  = "";
+
+            // Remove all previously displayed arguments from DataGridView
+            dataGridViewPermittedProcessArguments.Rows.Clear();
 
             // Delete process from process list at position permittedProcessIndex
             permittedProcessList               .RemoveAt(permittedProcessIndex);
