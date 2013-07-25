@@ -121,7 +121,7 @@
             this.buttonChoosePermittedApplication = new System.Windows.Forms.Button();
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
-            this.groupBoxSelectedProcess = new System.Windows.Forms.GroupBox();
+            this.groupBoxPermittedProcess = new System.Windows.Forms.GroupBox();
             this.dataGridViewPermittedProcessArguments = new System.Windows.Forms.DataGridView();
             this.ArgumentActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ArgumentParameter = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -265,7 +265,7 @@
             this.tabControlApplications.SuspendLayout();
             this.tabPagePermittedProcesses.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).BeginInit();
-            this.groupBoxSelectedProcess.SuspendLayout();
+            this.groupBoxPermittedProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcessArguments)).BeginInit();
             this.tabPageExam.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
@@ -1214,7 +1214,7 @@
             this.tabPagePermittedProcesses.Controls.Add(this.buttonChoosePermittedApplication);
             this.tabPagePermittedProcesses.Controls.Add(this.buttonRemovePermittedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.buttonAddPermittedProcess);
-            this.tabPagePermittedProcesses.Controls.Add(this.groupBoxSelectedProcess);
+            this.tabPagePermittedProcesses.Controls.Add(this.groupBoxPermittedProcess);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowSwitchToApplications);
             this.tabPagePermittedProcesses.Controls.Add(this.checkBoxAllowFlashFullscreen);
             this.tabPagePermittedProcesses.Location = new System.Drawing.Point(4, 25);
@@ -1310,34 +1310,34 @@
             this.buttonAddPermittedProcess.UseVisualStyleBackColor = true;
             this.buttonAddPermittedProcess.Click += new System.EventHandler(this.buttonAddPermittedProcess_Click);
             // 
-            // groupBoxSelectedProcess
+            // groupBoxPermittedProcess
             // 
-            this.groupBoxSelectedProcess.Controls.Add(this.dataGridViewPermittedProcessArguments);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessIdentifier);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessIdentifier);
-            this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessRemoveArgument);
-            this.groupBoxSelectedProcess.Controls.Add(this.buttonPermittedProcessAddArgument);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessArguments);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessOS);
-            this.groupBoxSelectedProcess.Controls.Add(this.listBoxPermittedProcessOS);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessExecutable);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessPath);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessPath);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessExecutable);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessDescription);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessDescription);
-            this.groupBoxSelectedProcess.Controls.Add(this.labelPermittedProcessTitle);
-            this.groupBoxSelectedProcess.Controls.Add(this.textBoxPermittedProcessTitle);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAllowUser);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAutohide);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessAutostart);
-            this.groupBoxSelectedProcess.Controls.Add(this.checkBoxPermittedProcessActive);
-            this.groupBoxSelectedProcess.Location = new System.Drawing.Point(24, 273);
-            this.groupBoxSelectedProcess.Name = "groupBoxSelectedProcess";
-            this.groupBoxSelectedProcess.Size = new System.Drawing.Size(733, 347);
-            this.groupBoxSelectedProcess.TabIndex = 80;
-            this.groupBoxSelectedProcess.TabStop = false;
-            this.groupBoxSelectedProcess.Text = "Selected Process";
+            this.groupBoxPermittedProcess.Controls.Add(this.dataGridViewPermittedProcessArguments);
+            this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessIdentifier);
+            this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessIdentifier);
+            this.groupBoxPermittedProcess.Controls.Add(this.buttonPermittedProcessRemoveArgument);
+            this.groupBoxPermittedProcess.Controls.Add(this.buttonPermittedProcessAddArgument);
+            this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessArguments);
+            this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessOS);
+            this.groupBoxPermittedProcess.Controls.Add(this.listBoxPermittedProcessOS);
+            this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessExecutable);
+            this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessPath);
+            this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessPath);
+            this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessExecutable);
+            this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessDescription);
+            this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessDescription);
+            this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessTitle);
+            this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessTitle);
+            this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessAllowUser);
+            this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessAutohide);
+            this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessAutostart);
+            this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessActive);
+            this.groupBoxPermittedProcess.Location = new System.Drawing.Point(24, 273);
+            this.groupBoxPermittedProcess.Name = "groupBoxPermittedProcess";
+            this.groupBoxPermittedProcess.Size = new System.Drawing.Size(733, 347);
+            this.groupBoxPermittedProcess.TabIndex = 80;
+            this.groupBoxPermittedProcess.TabStop = false;
+            this.groupBoxPermittedProcess.Text = "Selected Process";
             // 
             // dataGridViewPermittedProcessArguments
             // 
@@ -2776,8 +2776,8 @@
             this.tabPagePermittedProcesses.ResumeLayout(false);
             this.tabPagePermittedProcesses.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).EndInit();
-            this.groupBoxSelectedProcess.ResumeLayout(false);
-            this.groupBoxSelectedProcess.PerformLayout();
+            this.groupBoxPermittedProcess.ResumeLayout(false);
+            this.groupBoxPermittedProcess.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcessArguments)).EndInit();
             this.tabPageExam.ResumeLayout(false);
             this.tabPageExam.PerformLayout();
@@ -2978,7 +2978,7 @@
         private System.Windows.Forms.Button buttonChoosePermittedApplication;
         private System.Windows.Forms.Button buttonRemovePermittedProcess;
         private System.Windows.Forms.Button buttonAddPermittedProcess;
-        private System.Windows.Forms.GroupBox groupBoxSelectedProcess;
+        private System.Windows.Forms.GroupBox groupBoxPermittedProcess;
         private System.Windows.Forms.TextBox textBoxPermittedProcessDescription;
         private System.Windows.Forms.Label labelPermittedProcessDescription;
         private System.Windows.Forms.Label labelPermittedProcessTitle;

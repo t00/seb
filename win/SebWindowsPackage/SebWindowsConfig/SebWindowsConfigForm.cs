@@ -1068,6 +1068,7 @@ namespace SebWindowsConfig
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
             // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             // Set "FullRowSelect"      to true , to select whole row when clicking on a cell
+            groupBoxPermittedProcess.Enabled = false;
             dataGridViewPermittedProcesses.Enabled            = false;
             dataGridViewPermittedProcesses.ReadOnly           = false;
             dataGridViewPermittedProcesses.AllowUserToAddRows = false;
@@ -1120,8 +1121,6 @@ namespace SebWindowsConfig
             prohibitedArgumentList.Clear();
              permittedArgumentData.Clear();
             prohibitedArgumentData.Clear();
-
-            EnableAllWidgetsOfSelectedProcessGroup(false);
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
@@ -1751,7 +1750,7 @@ namespace SebWindowsConfig
                                            else permittedProcessIndex = -1;
 
             // Remove all previously displayed permitted processes from DataGridView
-            EnableAllWidgetsOfSelectedProcessGroup  ((permittedProcessList.Count > 0));
+                groupBoxPermittedProcess  .Enabled = (permittedProcessList.Count > 0);
             dataGridViewPermittedProcesses.Enabled = (permittedProcessList.Count > 0);
             dataGridViewPermittedProcesses.Rows.Clear();
 
@@ -2520,26 +2519,6 @@ namespace SebWindowsConfig
         }
 
 
-        private void EnableAllWidgetsOfSelectedProcessGroup(Boolean enable)
-        {
-            // Show/hide the widgets in the "Selected Process" group
-                groupBoxSelectedProcess               .Enabled = enable;
-                checkBoxPermittedProcessActive        .Enabled = enable;
-                checkBoxPermittedProcessAutostart     .Enabled = enable;
-                checkBoxPermittedProcessAutohide      .Enabled = enable;
-                checkBoxPermittedProcessAllowUser     .Enabled = enable;
-                 listBoxPermittedProcessOS            .Enabled = enable;
-                 textBoxPermittedProcessTitle         .Enabled = enable;
-                 textBoxPermittedProcessDescription   .Enabled = enable;
-                 textBoxPermittedProcessExecutable    .Enabled = enable;
-                 textBoxPermittedProcessPath          .Enabled = enable;
-                 textBoxPermittedProcessIdentifier    .Enabled = enable;
-                  buttonPermittedProcessAddArgument   .Enabled = enable;
-                  buttonPermittedProcessRemoveArgument.Enabled = enable;
-            dataGridViewPermittedProcessArguments     .Enabled = enable;
-        }
-
-
         private void ClearAllWidgetsOfSelectedProcessGroup()
         {
             // Update the widgets in the "Selected Process" group
@@ -2615,7 +2594,7 @@ namespace SebWindowsConfig
             {
                 // If process list was empty before, enable it
                 permittedProcessIndex = 0;
-                EnableAllWidgetsOfSelectedProcessGroup  (true);
+                    groupBoxPermittedProcess  .Enabled = true;
                 dataGridViewPermittedProcesses.Enabled = true;
             }
 
@@ -2670,7 +2649,7 @@ namespace SebWindowsConfig
                 permittedArgumentList.Clear();
                 permittedArgumentData.Clear();
 
-                EnableAllWidgetsOfSelectedProcessGroup  (false);
+                    groupBoxPermittedProcess  .Enabled = false;
                 dataGridViewPermittedProcesses.Enabled = false;
             }
         }
