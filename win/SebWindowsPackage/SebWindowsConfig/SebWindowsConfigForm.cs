@@ -784,6 +784,8 @@ namespace SebWindowsConfig
             // copy them to "new" and "old" settings and update the widgets
             ConvertSomeSettingsAfterReadingThemFromFile(fileName);
             SetWidgetsToNewSettings();
+            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenXmlFile.xml");
+            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenXmlFile.xml");
             PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
             return true;
@@ -852,6 +854,8 @@ namespace SebWindowsConfig
                 // Convert the C# object into an XML structure
                 // Write the configuration settings into .xml file
                 Plist.writeXml(sebSettingsNew, fileName);
+                Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_SaveXmlFile.xml");
+                Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_SaveXmlFile.xml");
             }
             catch (Exception streamWriteException) 
             {
@@ -1405,16 +1409,24 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
+            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
+            Plist.writeXml(sebSettingsDef, "DebugSettingsDef_before_RevertToDefault.xml");
             CopySettingsArrays    (      StateDef,       StateNew);
             CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
             SetWidgetsToNewSettings();
+            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
+            Plist.writeXml(sebSettingsDef, "DebugSettingsDef_after_RevertToDefault.xml");
         }
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
+            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
+            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_before_RevertToLastOpened.xml");
             CopySettingsArrays    (      StateOld,       StateNew);
             CopySettingsDictionary(sebSettingsOld, sebSettingsNew);
             SetWidgetsToNewSettings();
+            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
+            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_after_RevertToLastOpened.xml");
         }
 
 
