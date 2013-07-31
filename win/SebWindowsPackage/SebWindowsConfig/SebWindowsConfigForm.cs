@@ -664,7 +664,6 @@ namespace SebWindowsConfig
           //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
-
             // IMPORTANT:
             // Create a second dictionary "new settings"
             // and copy all default settings to the new settings.
@@ -713,53 +712,6 @@ namespace SebWindowsConfig
 
 
 
-        // **************************************************
-        // Convert some settings after reading them from file
-        // **************************************************
-        private void ConvertSomeSettingsAfterReadingThemFromFile(String fileName)
-        {
-            // Choose Identity needs a conversion from string to integer.
-            // The SEB Windows configuration editor never reads the identity
-            // from the config file but instead searches it in the
-            // Certificate Store of the computer where it is running,
-            // so initially the 0th list entry is displayed ("none").
-            //
-            //tmpCryptoIdentityInteger = 0;
-            //tmpCryptoIdentityString  = 0;
-
-            // Copy tmp settings to old settings
-            // Copy tmp settings to new settings
-            CopySettingsArrays(StateTmp, StateOld);
-            CopySettingsArrays(StateTmp, StateNew);
-            CopySettingsDictionary(sebSettingsTmp, sebSettingsOld);
-            CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
-
-            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
-            currentFileSebConfigFile = Path.GetFileName     (fileName);
-            currentPathSebConfigFile = Path.GetFullPath     (fileName);
-
-            return;
-        }
-
-
-
-        // ************************************************
-        // Convert some settings after writing them to file
-        // ************************************************
-        private void ConvertSomeSettingsAfterWritingThemToFile(String fileName)
-        {
-            // Copy new settings to old settings
-            CopySettingsArrays    (      StateNew,       StateOld);
-            CopySettingsDictionary(sebSettingsNew, sebSettingsOld);
-
-            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
-            currentFileSebConfigFile = Path.GetFileName     (fileName);
-            currentPathSebConfigFile = Path.GetFullPath     (fileName);
-
-            return;
-        }
-
-
 
         // ****************************************
         // Open the .xml file and read the settings
@@ -782,7 +734,27 @@ namespace SebWindowsConfig
 
             // After reading the settings from file,
             // copy them to "new" and "old" settings and update the widgets
-            ConvertSomeSettingsAfterReadingThemFromFile(fileName);
+
+            // Choose Identity needs a conversion from string to integer.
+            // The SEB Windows configuration editor never reads the identity
+            // from the config file but instead searches it in the
+            // Certificate Store of the computer where it is running,
+            // so initially the 0th list entry is displayed ("none").
+            //
+            //tmpCryptoIdentityInteger = 0;
+            //tmpCryptoIdentityString  = 0;
+
+            // Copy tmp settings to old settings
+            // Copy tmp settings to new settings
+            CopySettingsArrays(StateTmp, StateOld);
+            CopySettingsArrays(StateTmp, StateNew);
+            CopySettingsDictionary(sebSettingsTmp, sebSettingsOld);
+            CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
+
+            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
+            currentFileSebConfigFile = Path.GetFileName     (fileName);
+            currentPathSebConfigFile = Path.GetFullPath     (fileName);
+
             SetWidgetsToNewSettings();
             Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenXmlFile.xml");
             Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenXmlFile.xml");
@@ -830,7 +802,27 @@ namespace SebWindowsConfig
 
             // After reading the settings from file,
             // copy them to "new" and "old" settings and update the widgets
-            ConvertSomeSettingsAfterReadingThemFromFile(fileName);
+
+            // Choose Identity needs a conversion from string to integer.
+            // The SEB Windows configuration editor never reads the identity
+            // from the config file but instead searches it in the
+            // Certificate Store of the computer where it is running,
+            // so initially the 0th list entry is displayed ("none").
+            //
+            //tmpCryptoIdentityInteger = 0;
+            //tmpCryptoIdentityString  = 0;
+
+            // Copy tmp settings to old settings
+            // Copy tmp settings to new settings
+            CopySettingsArrays(StateTmp, StateOld);
+            CopySettingsArrays(StateTmp, StateNew);
+            CopySettingsDictionary(sebSettingsTmp, sebSettingsOld);
+            CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
+
+            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
+            currentFileSebConfigFile = Path.GetFileName     (fileName);
+            currentPathSebConfigFile = Path.GetFullPath     (fileName);
+
             SetWidgetsToNewSettings();
             PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
@@ -866,7 +858,14 @@ namespace SebWindowsConfig
             }
 
             // After writing the settings to file, update the widgets
-            ConvertSomeSettingsAfterWritingThemToFile(fileName);
+            // Copy new settings to old settings
+            CopySettingsArrays    (      StateNew,       StateOld);
+            CopySettingsDictionary(sebSettingsNew, sebSettingsOld);
+
+            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
+            currentFileSebConfigFile = Path.GetFileName     (fileName);
+            currentPathSebConfigFile = Path.GetFullPath     (fileName);
+
             SetWidgetsToNewSettings();
             return true;
         }
@@ -914,7 +913,14 @@ namespace SebWindowsConfig
             }
 
             // After writing the settings to file, update the widgets
-            ConvertSomeSettingsAfterWritingThemToFile(fileName);
+            // Copy new settings to old settings
+            CopySettingsArrays    (      StateNew,       StateOld);
+            CopySettingsDictionary(sebSettingsNew, sebSettingsOld);
+
+            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
+            currentFileSebConfigFile = Path.GetFileName     (fileName);
+            currentPathSebConfigFile = Path.GetFullPath     (fileName);
+
             SetWidgetsToNewSettings();
             return true;
         }
