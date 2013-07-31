@@ -713,21 +713,44 @@ namespace SebWindowsConfig
 
 
 
-        // ****************************************
-        // Open the .xml file and read the settings
-        // ****************************************
-        private Boolean OpenXmlFile(String fileName)
+        // *************************************************
+        // Open the configuration file and read the settings
+        // *************************************************
+        private Boolean OpenConfigurationFile(String fileName, Boolean isEncrypted)
         {
             try 
             {
-                // Read the configuration settings from .xml file
+                // Read the configuration settings from .xml or .seb file
+                // If encrypted, decrypt the configuration settings
                 // Convert the XML structure into a C# object
-                sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
+
+                if (isEncrypted == true)
+                {
+                    TextReader textReader;
+                    String encryptedSettings = "";
+                    String decryptedSettings = "";
+                  //String password          = "Seb";
+                  //X509Certificate2 certificate = null;
+
+                    textReader        = new StreamReader(fileName);
+                    encryptedSettings = textReader.ReadToEnd();
+                    textReader.Close();
+
+                  //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
+                  //decryptedSettings = decryptedSettings.Trim();
+                    decryptedSettings = encryptedSettings;
+
+                    sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+                }
+                else // unencrypted .xml file
+                {
+                    sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
+                }
             }
             catch (Exception streamReadException)
             {
                 // Let the user know what went wrong
-                Console.WriteLine("The .xml file could not be read:");
+                Console.WriteLine("The configuration file could not be read:");
                 Console.WriteLine(streamReadException.Message);
                 return false;
             }
@@ -756,8 +779,8 @@ namespace SebWindowsConfig
             currentPathSebConfigFile = Path.GetFullPath     (fileName);
 
             SetWidgetsToNewSettings();
-            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenXmlFile.xml");
-            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenXmlFile.xml");
+            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
+            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
             PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
             return true;
@@ -765,149 +788,51 @@ namespace SebWindowsConfig
 
 
 
-        // ****************************************
-        // Open the .seb file and read the settings
-        // ****************************************
-        private Boolean OpenSebFile(String fileName)
+        // ********************************************************
+        // Write the settings to the configuration file and save it
+        // ********************************************************
+        private Boolean SaveConfigurationFile(String fileName, Boolean isEncrypted)
         {
             try 
             {
-                // Read the configuration settings from .seb file
-                // Decrypt the configuration settings
-                // Convert the XML structure into a C# object
-
-                TextReader textReader;
-                String encryptedSettings = "";
-                String decryptedSettings = "";
-              //String password          = "Seb";
-              //X509Certificate2 certificate = null;
-
-                textReader        = new StreamReader(fileName);
-                encryptedSettings = textReader.ReadToEnd();
-                textReader.Close();
-
-              //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
-              //decryptedSettings = decryptedSettings.Trim();
-                decryptedSettings = encryptedSettings;
-
-                sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
-            }
-            catch (Exception streamReadException)
-            {
-                // Let the user know what went wrong
-                Console.WriteLine("The .seb file could not be read:");
-                Console.WriteLine(streamReadException.Message);
-                return false;
-            }
-
-            // After reading the settings from file,
-            // copy them to "new" and "old" settings and update the widgets
-
-            // Choose Identity needs a conversion from string to integer.
-            // The SEB Windows configuration editor never reads the identity
-            // from the config file but instead searches it in the
-            // Certificate Store of the computer where it is running,
-            // so initially the 0th list entry is displayed ("none").
-            //
-            //tmpCryptoIdentityInteger = 0;
-            //tmpCryptoIdentityString  = 0;
-
-            // Copy tmp settings to old settings
-            // Copy tmp settings to new settings
-            CopySettingsArrays(StateTmp, StateOld);
-            CopySettingsArrays(StateTmp, StateNew);
-            CopySettingsDictionary(sebSettingsTmp, sebSettingsOld);
-            CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
-
-            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
-            currentFileSebConfigFile = Path.GetFileName     (fileName);
-            currentPathSebConfigFile = Path.GetFullPath     (fileName);
-
-            SetWidgetsToNewSettings();
-            PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
-            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
-            return true;
-        }
-
-
-
-        // ***********************************************
-        // Write the settings to the .xml file and save it
-        // ***********************************************
-        private Boolean SaveXmlFile(String fileName)
-        {
-            try 
-            {
-                // If the .xml file already exists, delete it
+                // If the configuration file already exists, delete it
                 // and write it again from scratch with new data
                 if (File.Exists(fileName))
                     File.Delete(fileName);
 
                 // Convert the C# object into an XML structure
-                // Write the configuration settings into .xml file
-                Plist.writeXml(sebSettingsNew, fileName);
-                Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_SaveXmlFile.xml");
-                Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_SaveXmlFile.xml");
+                // If unencrypted, encrypt the configuration settings
+                // Write the configuration settings into .xml or .seb file
+
+                if (isEncrypted == true)
+                {
+                    TextWriter textWriter;
+                    String encryptedSettings = "";
+                    String decryptedSettings = "";
+                    String password          = "Seb";
+                    X509Certificate2 certificate = null;
+
+                    decryptedSettings = Plist.writeXml(sebSettingsNew);
+
+                  //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
+                  //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
+                    encryptedSettings = decryptedSettings;
+
+                    textWriter = new StreamWriter(fileName);
+                    textWriter.Write(encryptedSettings);
+                    textWriter.Close();
+                }
+                else // unencrypted .xml file
+                {
+                    Plist.writeXml(sebSettingsNew, fileName);
+                    Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_SaveXmlFile.xml");
+                    Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_SaveXmlFile.xml");
+                }
             }
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
-                Console.WriteLine("The .xml file could not be written:");
-                Console.WriteLine(streamWriteException.Message);
-                return false;
-            }
-
-            // After writing the settings to file, update the widgets
-            // Copy new settings to old settings
-            CopySettingsArrays    (      StateNew,       StateOld);
-            CopySettingsDictionary(sebSettingsNew, sebSettingsOld);
-
-            currentDireSebConfigFile = Path.GetDirectoryName(fileName);
-            currentFileSebConfigFile = Path.GetFileName     (fileName);
-            currentPathSebConfigFile = Path.GetFullPath     (fileName);
-
-            SetWidgetsToNewSettings();
-            return true;
-        }
-
-
-
-        // ***********************************************
-        // Write the settings to the .seb file and save it
-        // ***********************************************
-        private Boolean SaveSebFile(String fileName)
-        {
-            try 
-            {
-                // If the .xml file already exists, delete it
-                // and write it again from scratch with new data
-                if (File.Exists(fileName))
-                    File.Delete(fileName);
-
-                // Convert the C# object into an XML structure
-                // Encrypt the configuration settings
-                // Write the configuration settings into .seb file
-
-                TextWriter textWriter;
-                String encryptedSettings = "";
-                String decryptedSettings = "";
-                String password          = "Seb";
-                X509Certificate2 certificate = null;
-
-                decryptedSettings = Plist.writeXml(sebSettingsNew);
-
-              //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
-              //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
-                encryptedSettings = decryptedSettings;
-
-                textWriter = new StreamWriter(fileName);
-                textWriter.Write(encryptedSettings);
-                textWriter.Close();
-            }
-            catch (Exception streamWriteException) 
-            {
-                // Let the user know what went wrong
-                Console.WriteLine("The .seb file could not be written:");
+                Console.WriteLine("The configuration file could not be written:");
                 Console.WriteLine(streamWriteException.Message);
                 return false;
             }
@@ -1061,7 +986,9 @@ namespace SebWindowsConfig
             if (permittedProcessList.Count > 0)
             {
                 permittedProcessData = (Dictionary<string, object>)permittedProcessList[permittedProcessIndex];
+                LoadAndUpdatePermittedSelectedProcessGroup(permittedProcessIndex);
             }
+            //else ClearPermittedSelectedProcessGroup();
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
@@ -1457,8 +1384,8 @@ namespace SebWindowsConfig
             String fileNameSeb = fileNameRaw + ".seb";
 
             // If the user clicked "OK", read the settings from the configuration file
-            if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
-            if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
+            if (fileNameExt.Equals(".xml")) OpenConfigurationFile(fileNameXml, false);
+            if (fileNameExt.Equals(".seb")) OpenConfigurationFile(fileNameSeb, true);
         }
 
 
@@ -1483,8 +1410,8 @@ namespace SebWindowsConfig
             String fileNameSeb = fileNameRaw + ".seb";
 
             // If the user clicked "OK", write the settings to the configuration file
-            if (fileNameExt.Equals(".xml")) SaveXmlFile(fileNameXml);
-            if (fileNameExt.Equals(".seb")) SaveSebFile(fileNameSeb);
+            if (fileNameExt.Equals(".xml")) SaveConfigurationFile(fileNameXml, false);
+            if (fileNameExt.Equals(".seb")) SaveConfigurationFile(fileNameSeb, true);
         }
 
 
@@ -1756,22 +1683,12 @@ namespace SebWindowsConfig
         }
 
 
-        private void dataGridViewPermittedProcesses_SelectionChanged(object sender, EventArgs e)
+
+        private void LoadAndUpdatePermittedSelectedProcessGroup(int selectedProcessIndex)
         {
-            // CAUTION:
-            // If a row was previously selected and the user clicks onto another row,
-            // the SelectionChanged() event is fired TWICE!!!
-            // The first time, it is only for UNselecting the old row,
-            // so the SelectedRows.Count is ZERO, so ignore this event handler!
-            // The second time, SelectedRows.Count is ONE.
-            // Now you can set the widgets in the "Selected Process" groupBox.
-
-            if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
-            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
-
             // Load and store the process data of the selected process
             permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [selectedProcessIndex];
             permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
 
             // Update the widgets in the "Selected Process" group
@@ -1806,8 +1723,50 @@ namespace SebWindowsConfig
             }
 
             // Load and store the selected permitted argument data
-            if (permittedArgumentList.Count > 0)
-                permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
+            if  (permittedArgumentList.Count > 0)
+                 permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
+        }
+
+
+
+        private void ClearPermittedSelectedProcessGroup()
+        {
+            // Clear the widgets in the "Selected Process" group
+            checkBoxPermittedProcessActive   .Checked = true;
+            checkBoxPermittedProcessAutostart.Checked = true;
+            checkBoxPermittedProcessAutohide .Checked = true;
+            checkBoxPermittedProcessAllowUser.Checked = true;
+             listBoxPermittedProcessOS.SelectedIndex  = IntWin;
+             textBoxPermittedProcessTitle      .Text  = "";
+             textBoxPermittedProcessDescription.Text  = "";
+             textBoxPermittedProcessExecutable .Text  = "";
+             textBoxPermittedProcessPath       .Text  = "";
+             textBoxPermittedProcessIdentifier .Text  = "";
+
+            // Remove all previously displayed permitted arguments from DataGridView
+            dataGridViewPermittedProcessArguments.Enabled = false;
+            dataGridViewPermittedProcessArguments.Rows.Clear();
+        }
+
+
+
+        private void dataGridViewPermittedProcesses_SelectionChanged(object sender, EventArgs e)
+        {
+            // CAUTION:
+            // If a row was previously selected and the user clicks onto another row,
+            // the SelectionChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old row,
+            // so the SelectedRows.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedRows.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
+
+            if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
+            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+
+            // The permitted process list should contain at least one element here:
+            // permittedProcessList.Count >  0
+            // permittedProcessIndex      >= 0
+            LoadAndUpdatePermittedSelectedProcessGroup(permittedProcessIndex);
         }
 
 
@@ -1910,7 +1869,7 @@ namespace SebWindowsConfig
              textBoxPermittedProcessPath       .Text  = "";
              textBoxPermittedProcessIdentifier .Text  = "";
 
-            // Remove all previously displayed arguments from DataGridView
+            // Remove all previously displayed permitted arguments from DataGridView
             dataGridViewPermittedProcessArguments.Rows.Clear();
 
             // Delete process from process list at position permittedProcessIndex
