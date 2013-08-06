@@ -982,7 +982,7 @@ namespace SebWindowsConfig
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
             }
 
-            // Load and store the currently selected permitted process data
+            // Load the currently selected permitted process data
             if (permittedProcessList.Count > 0)
             {
                 permittedProcessData = (Dictionary<string, object>)permittedProcessList[permittedProcessIndex];
@@ -1686,10 +1686,10 @@ namespace SebWindowsConfig
 
         private void LoadAndUpdatePermittedSelectedProcessGroup(int selectedProcessIndex)
         {
-            // Load and store the process data of the selected process
+            // Get the process data of the selected process
             permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [selectedProcessIndex];
-            permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
+            permittedProcessData  = (Dictionary<string, object>)permittedProcessList[selectedProcessIndex];
+            permittedArgumentList =               (List<object>)permittedProcessData[MessageArguments];
 
             // Update the widgets in the "Selected Process" group
             checkBoxPermittedProcessActive   .Checked = (Boolean)permittedProcessData[MessageActive];
@@ -1800,6 +1800,11 @@ namespace SebWindowsConfig
                 else if ((String)value == StringWin) value = IntWin;
             }
 
+            // Get the process data of the process belonging to the cell (row)
+            permittedProcessIndex = row;
+            permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+
             // Update the process data belonging to the current cell
             if (column == IntColumnActive    ) permittedProcessData[MessageActive    ] = (Boolean)value;
             if (column == IntColumnOS        ) permittedProcessData[MessageOS        ] = (Int32  )value;
@@ -1816,6 +1821,9 @@ namespace SebWindowsConfig
 
         private void buttonAddPermittedProcess_Click(object sender, EventArgs e)
         {
+            // Get the permitted process list
+            permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+
             if (permittedProcessList.Count > 0)
             {
                 if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
@@ -1858,19 +1866,10 @@ namespace SebWindowsConfig
             permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
             // Clear the widgets in the "Selected Process" group
-            checkBoxPermittedProcessActive   .Checked = true;
-            checkBoxPermittedProcessAutostart.Checked = true;
-            checkBoxPermittedProcessAutohide .Checked = true;
-            checkBoxPermittedProcessAllowUser.Checked = true;
-             listBoxPermittedProcessOS.SelectedIndex  = IntWin;
-             textBoxPermittedProcessTitle      .Text  = "";
-             textBoxPermittedProcessDescription.Text  = "";
-             textBoxPermittedProcessExecutable .Text  = "";
-             textBoxPermittedProcessPath       .Text  = "";
-             textBoxPermittedProcessIdentifier .Text  = "";
+            ClearPermittedSelectedProcessGroup();
 
-            // Remove all previously displayed permitted arguments from DataGridView
-            dataGridViewPermittedProcessArguments.Rows.Clear();
+            // Get the permitted process list
+            permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
 
             // Delete process from process list at position permittedProcessIndex
             permittedProcessList               .RemoveAt(permittedProcessIndex);
@@ -1887,13 +1886,13 @@ namespace SebWindowsConfig
             {
                 // If process list is now empty, disable it
                 permittedProcessIndex  = -1;
-                permittedArgumentIndex = -1;
-
+              //permittedArgumentIndex = -1;
+/*
                 permittedProcessList .Clear();
                 permittedProcessData .Clear();
                 permittedArgumentList.Clear();
                 permittedArgumentData.Clear();
-
+*/
                     groupBoxPermittedProcess  .Enabled = false;
                 dataGridViewPermittedProcesses.Enabled = false;
             }
@@ -1913,29 +1912,39 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
-            Boolean active = checkBoxPermittedProcessActive.Checked;
-            permittedProcessData[MessageActive]    = active;
+            Boolean active       = checkBoxPermittedProcessActive.Checked;
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedProcessData[MessageActive] = active;
             dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnActive].Value = active.ToString();
         }
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
         {
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageAutostart] = checkBoxPermittedProcessAutostart.Checked;
         }
 
         private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
         {
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageAutohide] = checkBoxPermittedProcessAutohide.Checked;
         }
 
         private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)
         {
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
         }
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
             Int32 os = listBoxPermittedProcessOS.SelectedIndex;
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageOS] = os;
             dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnOS].Value = StringOS[os];
         }
@@ -1943,29 +1952,39 @@ namespace SebWindowsConfig
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
             String title = textBoxPermittedProcessTitle.Text;
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageTitle]  = title;
             dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnTitle].Value = title;
         }
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
         {
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageDescription] = textBoxPermittedProcessDescription.Text;
         }
 
         private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
             String executable = textBoxPermittedProcessExecutable.Text;
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageExecutable]  = executable;
             dataGridViewPermittedProcesses.Rows[permittedProcessIndex].Cells[IntColumnExecutable].Value = executable;
         }
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
         {
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessagePath] = textBoxPermittedProcessPath.Text;
         }
 
         private void textBoxPermittedProcessIdentifier_TextChanged(object sender, EventArgs e)
         {
+            permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageIdentifier] = textBoxPermittedProcessIdentifier.Text;
         }
 
@@ -1982,7 +2001,7 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
-            // Load and store the argument data of the selected argument
+            // Get the argument data of the selected argument
             permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
@@ -2013,6 +2032,13 @@ namespace SebWindowsConfig
             // Get the changed value of the current cell
             object value = dataGridViewPermittedProcessArguments.CurrentCell.EditedFormattedValue;
 
+            // Get the argument data of the argument belonging to the cell (row)
+            permittedArgumentIndex = row;
+            permittedProcessList   =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData   = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedArgumentList  =               (List<object>)permittedProcessData [MessageArguments];
+            permittedArgumentData  = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
+
             // Update the argument data belonging to the current cell
             if (column == IntColumnActive  ) permittedArgumentData[MessageActive  ] = (Boolean)value;
             if (column == IntColumnArgument) permittedArgumentData[MessageArgument] = (String )value;
@@ -2021,6 +2047,11 @@ namespace SebWindowsConfig
 
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
+            // Get the permitted argument list
+            permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
+
             if (permittedArgumentList.Count > 0)
             {
                 if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
@@ -2052,6 +2083,11 @@ namespace SebWindowsConfig
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
             permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
+            // Get the permitted argument list
+            permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
+
             // Delete argument from argument list at position permittedArgumentIndex
             permittedArgumentList                     .RemoveAt(permittedArgumentIndex);
             dataGridViewPermittedProcessArguments.Rows.RemoveAt(permittedArgumentIndex);
@@ -2067,8 +2103,8 @@ namespace SebWindowsConfig
             {
                 // If argument list is now empty, disable it
                 permittedArgumentIndex = -1;
-                permittedArgumentList.Clear();
-                permittedArgumentData.Clear();
+              //permittedArgumentList.Clear();
+              //permittedArgumentData.Clear();
                 dataGridViewPermittedProcessArguments.Enabled = false;
             }
         }
