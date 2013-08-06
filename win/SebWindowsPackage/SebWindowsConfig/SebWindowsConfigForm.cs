@@ -1683,7 +1683,6 @@ namespace SebWindowsConfig
         }
 
 
-
         private void LoadAndUpdatePermittedSelectedProcessGroup(int selectedProcessIndex)
         {
             // Get the process data of the selected process
@@ -1728,7 +1727,6 @@ namespace SebWindowsConfig
         }
 
 
-
         private void ClearPermittedSelectedProcessGroup()
         {
             // Clear the widgets in the "Selected Process" group
@@ -1747,7 +1745,6 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcessArguments.Enabled = false;
             dataGridViewPermittedProcessArguments.Rows.Clear();
         }
-
 
 
         private void dataGridViewPermittedProcesses_SelectionChanged(object sender, EventArgs e)
@@ -2124,6 +2121,65 @@ namespace SebWindowsConfig
         // *******************************************
         // Group "Applications - Prohibited Processes"
         // *******************************************
+        private void buttonAddProhibitedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonRemoveProhibitedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChooseProhibitedExecutable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChooseProhibitedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxProhibitedProcessActive_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxProhibitedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxCurrentUser_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxStrongKill_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessExecutable_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessIdentifier_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessUser_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 
 
 
@@ -2475,73 +2531,6 @@ namespace SebWindowsConfig
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
-        }
-
-
-
-        private void dataGridViewProhibitedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void buttonAddProhibitedProcess_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonRemoveProhibitedProcess_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonChooseProhibitedExecutable_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonChooseProhibitedProcess_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxProhibitedProcessActive_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBoxProhibitedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxCurrentUser_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxStrongKill_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxProhibitedProcessExecutable_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxProhibitedProcessDescription_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxProhibitedProcessIdentifier_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxProhibitedProcessUser_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
 

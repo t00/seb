@@ -1665,7 +1665,6 @@
             this.dataGridViewProhibitedProcesses.RowTemplate.Height = 24;
             this.dataGridViewProhibitedProcesses.Size = new System.Drawing.Size(733, 130);
             this.dataGridViewProhibitedProcesses.TabIndex = 90;
-            this.dataGridViewProhibitedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProhibitedProcesses_CellContentClick);
             // 
             // dataGridViewCheckBoxColumn1
             // 
