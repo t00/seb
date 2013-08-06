@@ -2479,5 +2479,72 @@ namespace SebWindowsConfig
 
 
 
+        private void dataGridViewProhibitedProcesses_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void buttonAddProhibitedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonRemoveProhibitedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChooseProhibitedExecutable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChooseProhibitedProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxProhibitedProcessActive_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxProhibitedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxCurrentUser_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxStrongKill_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessExecutable_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessIdentifier_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxProhibitedProcessUser_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

@@ -147,6 +147,15 @@
             this.checkBoxAllowSwitchToApplications = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
             this.tabPageProhibitedProcesses = new System.Windows.Forms.TabPage();
+            this.buttonChooseProhibitedProcess = new System.Windows.Forms.Button();
+            this.buttonChooseProhibitedExecutable = new System.Windows.Forms.Button();
+            this.buttonRemoveProhibitedProcess = new System.Windows.Forms.Button();
+            this.buttonAddProhibitedProcess = new System.Windows.Forms.Button();
+            this.dataGridViewProhibitedProcesses = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.tabPageExam = new System.Windows.Forms.TabPage();
             this.labelPlaceThisQuitLink = new System.Windows.Forms.Label();
@@ -249,6 +258,20 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.groupBoxProhibitedProcess = new System.Windows.Forms.GroupBox();
+            this.labelProhibitedProcessOS = new System.Windows.Forms.Label();
+            this.listBoxProhibitedProcessOS = new System.Windows.Forms.ListBox();
+            this.labelProhibitedProcessIdentifier = new System.Windows.Forms.Label();
+            this.labelProhibitedProcessUser = new System.Windows.Forms.Label();
+            this.textBoxProhibitedProcessUser = new System.Windows.Forms.TextBox();
+            this.textBoxProhibitedProcessIdentifier = new System.Windows.Forms.TextBox();
+            this.textBoxProhibitedProcessDescription = new System.Windows.Forms.TextBox();
+            this.labelProhibitedProcessDescription = new System.Windows.Forms.Label();
+            this.labelProhibitedProcessExecutable = new System.Windows.Forms.Label();
+            this.textBoxProhibitedProcessExecutable = new System.Windows.Forms.TextBox();
+            this.checkBoxStrongKill = new System.Windows.Forms.CheckBox();
+            this.checkBoxCurrentUser = new System.Windows.Forms.CheckBox();
+            this.checkBoxProhibitedProcessActive = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -267,6 +290,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcesses)).BeginInit();
             this.groupBoxPermittedProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcessArguments)).BeginInit();
+            this.tabPageProhibitedProcesses.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProhibitedProcesses)).BeginInit();
             this.tabPageExam.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
@@ -277,6 +302,7 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
+            this.groupBoxProhibitedProcess.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -1233,11 +1259,11 @@
             this.OS,
             this.Executable,
             this.Title});
-            this.dataGridViewPermittedProcesses.Location = new System.Drawing.Point(26, 84);
+            this.dataGridViewPermittedProcesses.Location = new System.Drawing.Point(25, 85);
             this.dataGridViewPermittedProcesses.Name = "dataGridViewPermittedProcesses";
             this.dataGridViewPermittedProcesses.RowHeadersVisible = false;
             this.dataGridViewPermittedProcesses.RowTemplate.Height = 24;
-            this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(733, 128);
+            this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(733, 130);
             this.dataGridViewPermittedProcesses.TabIndex = 89;
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
             this.dataGridViewPermittedProcesses.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged);
@@ -1272,9 +1298,9 @@
             // 
             // buttonChoosePermittedProcess
             // 
-            this.buttonChoosePermittedProcess.Location = new System.Drawing.Point(295, 229);
+            this.buttonChoosePermittedProcess.Location = new System.Drawing.Point(300, 230);
             this.buttonChoosePermittedProcess.Name = "buttonChoosePermittedProcess";
-            this.buttonChoosePermittedProcess.Size = new System.Drawing.Size(141, 23);
+            this.buttonChoosePermittedProcess.Size = new System.Drawing.Size(150, 30);
             this.buttonChoosePermittedProcess.TabIndex = 88;
             this.buttonChoosePermittedProcess.Text = "Choose Process...";
             this.buttonChoosePermittedProcess.UseVisualStyleBackColor = true;
@@ -1282,9 +1308,9 @@
             // 
             // buttonChoosePermittedApplication
             // 
-            this.buttonChoosePermittedApplication.Location = new System.Drawing.Point(123, 229);
+            this.buttonChoosePermittedApplication.Location = new System.Drawing.Point(120, 230);
             this.buttonChoosePermittedApplication.Name = "buttonChoosePermittedApplication";
-            this.buttonChoosePermittedApplication.Size = new System.Drawing.Size(154, 23);
+            this.buttonChoosePermittedApplication.Size = new System.Drawing.Size(150, 30);
             this.buttonChoosePermittedApplication.TabIndex = 87;
             this.buttonChoosePermittedApplication.Text = "Choose Application...";
             this.buttonChoosePermittedApplication.UseVisualStyleBackColor = true;
@@ -1292,9 +1318,9 @@
             // 
             // buttonRemovePermittedProcess
             // 
-            this.buttonRemovePermittedProcess.Location = new System.Drawing.Point(61, 229);
+            this.buttonRemovePermittedProcess.Location = new System.Drawing.Point(60, 230);
             this.buttonRemovePermittedProcess.Name = "buttonRemovePermittedProcess";
-            this.buttonRemovePermittedProcess.Size = new System.Drawing.Size(25, 23);
+            this.buttonRemovePermittedProcess.Size = new System.Drawing.Size(30, 30);
             this.buttonRemovePermittedProcess.TabIndex = 86;
             this.buttonRemovePermittedProcess.Text = "-";
             this.buttonRemovePermittedProcess.UseVisualStyleBackColor = true;
@@ -1302,9 +1328,9 @@
             // 
             // buttonAddPermittedProcess
             // 
-            this.buttonAddPermittedProcess.Location = new System.Drawing.Point(26, 229);
+            this.buttonAddPermittedProcess.Location = new System.Drawing.Point(25, 230);
             this.buttonAddPermittedProcess.Name = "buttonAddPermittedProcess";
-            this.buttonAddPermittedProcess.Size = new System.Drawing.Size(29, 23);
+            this.buttonAddPermittedProcess.Size = new System.Drawing.Size(30, 30);
             this.buttonAddPermittedProcess.TabIndex = 85;
             this.buttonAddPermittedProcess.Text = "+";
             this.buttonAddPermittedProcess.UseVisualStyleBackColor = true;
@@ -1332,9 +1358,9 @@
             this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessAutohide);
             this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessAutostart);
             this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessActive);
-            this.groupBoxPermittedProcess.Location = new System.Drawing.Point(24, 273);
+            this.groupBoxPermittedProcess.Location = new System.Drawing.Point(25, 275);
             this.groupBoxPermittedProcess.Name = "groupBoxPermittedProcess";
-            this.groupBoxPermittedProcess.Size = new System.Drawing.Size(733, 347);
+            this.groupBoxPermittedProcess.Size = new System.Drawing.Size(733, 350);
             this.groupBoxPermittedProcess.TabIndex = 80;
             this.groupBoxPermittedProcess.TabStop = false;
             this.groupBoxPermittedProcess.Text = "Selected Process";
@@ -1549,7 +1575,7 @@
             // 
             this.checkBoxAllowSwitchToApplications.AutoSize = true;
             this.checkBoxAllowSwitchToApplications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(24, 19);
+            this.checkBoxAllowSwitchToApplications.Location = new System.Drawing.Point(25, 20);
             this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
             this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(286, 21);
             this.checkBoxAllowSwitchToApplications.TabIndex = 77;
@@ -1561,7 +1587,7 @@
             // 
             this.checkBoxAllowFlashFullscreen.AutoSize = true;
             this.checkBoxAllowFlashFullscreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(47, 46);
+            this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(45, 45);
             this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
             this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(278, 21);
             this.checkBoxAllowFlashFullscreen.TabIndex = 78;
@@ -1571,6 +1597,12 @@
             // 
             // tabPageProhibitedProcesses
             // 
+            this.tabPageProhibitedProcesses.Controls.Add(this.groupBoxProhibitedProcess);
+            this.tabPageProhibitedProcesses.Controls.Add(this.buttonChooseProhibitedProcess);
+            this.tabPageProhibitedProcesses.Controls.Add(this.buttonChooseProhibitedExecutable);
+            this.tabPageProhibitedProcesses.Controls.Add(this.buttonRemoveProhibitedProcess);
+            this.tabPageProhibitedProcesses.Controls.Add(this.buttonAddProhibitedProcess);
+            this.tabPageProhibitedProcesses.Controls.Add(this.dataGridViewProhibitedProcesses);
             this.tabPageProhibitedProcesses.Location = new System.Drawing.Point(4, 25);
             this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
             this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(3);
@@ -1578,6 +1610,89 @@
             this.tabPageProhibitedProcesses.TabIndex = 1;
             this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
             this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
+            // 
+            // buttonChooseProhibitedProcess
+            // 
+            this.buttonChooseProhibitedProcess.Location = new System.Drawing.Point(300, 230);
+            this.buttonChooseProhibitedProcess.Name = "buttonChooseProhibitedProcess";
+            this.buttonChooseProhibitedProcess.Size = new System.Drawing.Size(150, 30);
+            this.buttonChooseProhibitedProcess.TabIndex = 94;
+            this.buttonChooseProhibitedProcess.Text = "Choose Process...";
+            this.buttonChooseProhibitedProcess.UseVisualStyleBackColor = true;
+            this.buttonChooseProhibitedProcess.Click += new System.EventHandler(this.buttonChooseProhibitedProcess_Click);
+            // 
+            // buttonChooseProhibitedExecutable
+            // 
+            this.buttonChooseProhibitedExecutable.Location = new System.Drawing.Point(120, 230);
+            this.buttonChooseProhibitedExecutable.Name = "buttonChooseProhibitedExecutable";
+            this.buttonChooseProhibitedExecutable.Size = new System.Drawing.Size(150, 30);
+            this.buttonChooseProhibitedExecutable.TabIndex = 93;
+            this.buttonChooseProhibitedExecutable.Text = "Choose Executable...";
+            this.buttonChooseProhibitedExecutable.UseVisualStyleBackColor = true;
+            this.buttonChooseProhibitedExecutable.Click += new System.EventHandler(this.buttonChooseProhibitedExecutable_Click);
+            // 
+            // buttonRemoveProhibitedProcess
+            // 
+            this.buttonRemoveProhibitedProcess.Location = new System.Drawing.Point(60, 230);
+            this.buttonRemoveProhibitedProcess.Name = "buttonRemoveProhibitedProcess";
+            this.buttonRemoveProhibitedProcess.Size = new System.Drawing.Size(30, 30);
+            this.buttonRemoveProhibitedProcess.TabIndex = 92;
+            this.buttonRemoveProhibitedProcess.Text = "-";
+            this.buttonRemoveProhibitedProcess.UseVisualStyleBackColor = true;
+            this.buttonRemoveProhibitedProcess.Click += new System.EventHandler(this.buttonRemoveProhibitedProcess_Click);
+            // 
+            // buttonAddProhibitedProcess
+            // 
+            this.buttonAddProhibitedProcess.Location = new System.Drawing.Point(25, 230);
+            this.buttonAddProhibitedProcess.Name = "buttonAddProhibitedProcess";
+            this.buttonAddProhibitedProcess.Size = new System.Drawing.Size(30, 30);
+            this.buttonAddProhibitedProcess.TabIndex = 91;
+            this.buttonAddProhibitedProcess.Text = "+";
+            this.buttonAddProhibitedProcess.UseVisualStyleBackColor = true;
+            this.buttonAddProhibitedProcess.Click += new System.EventHandler(this.buttonAddProhibitedProcess_Click);
+            // 
+            // dataGridViewProhibitedProcesses
+            // 
+            this.dataGridViewProhibitedProcesses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProhibitedProcesses.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewComboBoxColumn1,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dataGridViewProhibitedProcesses.Location = new System.Drawing.Point(25, 35);
+            this.dataGridViewProhibitedProcesses.Name = "dataGridViewProhibitedProcesses";
+            this.dataGridViewProhibitedProcesses.RowHeadersVisible = false;
+            this.dataGridViewProhibitedProcesses.RowTemplate.Height = 24;
+            this.dataGridViewProhibitedProcesses.Size = new System.Drawing.Size(733, 130);
+            this.dataGridViewProhibitedProcesses.TabIndex = 90;
+            this.dataGridViewProhibitedProcesses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProhibitedProcesses_CellContentClick);
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.HeaderText = "Active";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.Width = 50;
+            // 
+            // dataGridViewComboBoxColumn1
+            // 
+            this.dataGridViewComboBoxColumn1.HeaderText = "OS";
+            this.dataGridViewComboBoxColumn1.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
+            this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
+            this.dataGridViewComboBoxColumn1.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Executable";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 300;
             // 
             // checkBoxMonitorProcesses
             // 
@@ -2738,6 +2853,148 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // groupBoxProhibitedProcess
+            // 
+            this.groupBoxProhibitedProcess.Controls.Add(this.labelProhibitedProcessOS);
+            this.groupBoxProhibitedProcess.Controls.Add(this.listBoxProhibitedProcessOS);
+            this.groupBoxProhibitedProcess.Controls.Add(this.labelProhibitedProcessIdentifier);
+            this.groupBoxProhibitedProcess.Controls.Add(this.labelProhibitedProcessUser);
+            this.groupBoxProhibitedProcess.Controls.Add(this.textBoxProhibitedProcessUser);
+            this.groupBoxProhibitedProcess.Controls.Add(this.textBoxProhibitedProcessIdentifier);
+            this.groupBoxProhibitedProcess.Controls.Add(this.textBoxProhibitedProcessDescription);
+            this.groupBoxProhibitedProcess.Controls.Add(this.labelProhibitedProcessDescription);
+            this.groupBoxProhibitedProcess.Controls.Add(this.labelProhibitedProcessExecutable);
+            this.groupBoxProhibitedProcess.Controls.Add(this.textBoxProhibitedProcessExecutable);
+            this.groupBoxProhibitedProcess.Controls.Add(this.checkBoxStrongKill);
+            this.groupBoxProhibitedProcess.Controls.Add(this.checkBoxCurrentUser);
+            this.groupBoxProhibitedProcess.Controls.Add(this.checkBoxProhibitedProcessActive);
+            this.groupBoxProhibitedProcess.Location = new System.Drawing.Point(25, 275);
+            this.groupBoxProhibitedProcess.Name = "groupBoxProhibitedProcess";
+            this.groupBoxProhibitedProcess.Size = new System.Drawing.Size(733, 350);
+            this.groupBoxProhibitedProcess.TabIndex = 95;
+            this.groupBoxProhibitedProcess.TabStop = false;
+            this.groupBoxProhibitedProcess.Text = "Selected Process";
+            // 
+            // labelProhibitedProcessOS
+            // 
+            this.labelProhibitedProcessOS.AutoSize = true;
+            this.labelProhibitedProcessOS.Location = new System.Drawing.Point(24, 109);
+            this.labelProhibitedProcessOS.Name = "labelProhibitedProcessOS";
+            this.labelProhibitedProcessOS.Size = new System.Drawing.Size(28, 17);
+            this.labelProhibitedProcessOS.TabIndex = 13;
+            this.labelProhibitedProcessOS.Text = "OS";
+            // 
+            // listBoxProhibitedProcessOS
+            // 
+            this.listBoxProhibitedProcessOS.FormattingEnabled = true;
+            this.listBoxProhibitedProcessOS.ItemHeight = 16;
+            this.listBoxProhibitedProcessOS.Location = new System.Drawing.Point(56, 109);
+            this.listBoxProhibitedProcessOS.Name = "listBoxProhibitedProcessOS";
+            this.listBoxProhibitedProcessOS.Size = new System.Drawing.Size(62, 36);
+            this.listBoxProhibitedProcessOS.TabIndex = 12;
+            this.listBoxProhibitedProcessOS.SelectedIndexChanged += new System.EventHandler(this.listBoxProhibitedProcessOS_SelectedIndexChanged);
+            // 
+            // labelProhibitedProcessIdentifier
+            // 
+            this.labelProhibitedProcessIdentifier.AutoSize = true;
+            this.labelProhibitedProcessIdentifier.Location = new System.Drawing.Point(169, 109);
+            this.labelProhibitedProcessIdentifier.Name = "labelProhibitedProcessIdentifier";
+            this.labelProhibitedProcessIdentifier.Size = new System.Drawing.Size(62, 17);
+            this.labelProhibitedProcessIdentifier.TabIndex = 11;
+            this.labelProhibitedProcessIdentifier.Text = "Identifier";
+            // 
+            // labelProhibitedProcessUser
+            // 
+            this.labelProhibitedProcessUser.AutoSize = true;
+            this.labelProhibitedProcessUser.Location = new System.Drawing.Point(193, 150);
+            this.labelProhibitedProcessUser.Name = "labelProhibitedProcessUser";
+            this.labelProhibitedProcessUser.Size = new System.Drawing.Size(38, 17);
+            this.labelProhibitedProcessUser.TabIndex = 10;
+            this.labelProhibitedProcessUser.Text = "User";
+            // 
+            // textBoxProhibitedProcessUser
+            // 
+            this.textBoxProhibitedProcessUser.Location = new System.Drawing.Point(237, 150);
+            this.textBoxProhibitedProcessUser.Name = "textBoxProhibitedProcessUser";
+            this.textBoxProhibitedProcessUser.Size = new System.Drawing.Size(449, 22);
+            this.textBoxProhibitedProcessUser.TabIndex = 9;
+            this.textBoxProhibitedProcessUser.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessUser_TextChanged);
+            // 
+            // textBoxProhibitedProcessIdentifier
+            // 
+            this.textBoxProhibitedProcessIdentifier.Location = new System.Drawing.Point(237, 109);
+            this.textBoxProhibitedProcessIdentifier.Name = "textBoxProhibitedProcessIdentifier";
+            this.textBoxProhibitedProcessIdentifier.Size = new System.Drawing.Size(449, 22);
+            this.textBoxProhibitedProcessIdentifier.TabIndex = 8;
+            this.textBoxProhibitedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessIdentifier_TextChanged);
+            // 
+            // textBoxProhibitedProcessDescription
+            // 
+            this.textBoxProhibitedProcessDescription.Location = new System.Drawing.Point(114, 68);
+            this.textBoxProhibitedProcessDescription.Name = "textBoxProhibitedProcessDescription";
+            this.textBoxProhibitedProcessDescription.Size = new System.Drawing.Size(572, 22);
+            this.textBoxProhibitedProcessDescription.TabIndex = 7;
+            this.textBoxProhibitedProcessDescription.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessDescription_TextChanged);
+            // 
+            // labelProhibitedProcessDescription
+            // 
+            this.labelProhibitedProcessDescription.AutoSize = true;
+            this.labelProhibitedProcessDescription.Location = new System.Drawing.Point(22, 68);
+            this.labelProhibitedProcessDescription.Name = "labelProhibitedProcessDescription";
+            this.labelProhibitedProcessDescription.Size = new System.Drawing.Size(79, 17);
+            this.labelProhibitedProcessDescription.TabIndex = 6;
+            this.labelProhibitedProcessDescription.Text = "Description";
+            // 
+            // labelProhibitedProcessExecutable
+            // 
+            this.labelProhibitedProcessExecutable.AutoSize = true;
+            this.labelProhibitedProcessExecutable.Location = new System.Drawing.Point(154, 32);
+            this.labelProhibitedProcessExecutable.Name = "labelProhibitedProcessExecutable";
+            this.labelProhibitedProcessExecutable.Size = new System.Drawing.Size(77, 17);
+            this.labelProhibitedProcessExecutable.TabIndex = 5;
+            this.labelProhibitedProcessExecutable.Text = "Executable";
+            // 
+            // textBoxProhibitedProcessExecutable
+            // 
+            this.textBoxProhibitedProcessExecutable.Location = new System.Drawing.Point(237, 32);
+            this.textBoxProhibitedProcessExecutable.Name = "textBoxProhibitedProcessExecutable";
+            this.textBoxProhibitedProcessExecutable.Size = new System.Drawing.Size(449, 22);
+            this.textBoxProhibitedProcessExecutable.TabIndex = 4;
+            this.textBoxProhibitedProcessExecutable.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessExecutable_TextChanged);
+            // 
+            // checkBoxStrongKill
+            // 
+            this.checkBoxStrongKill.AutoSize = true;
+            this.checkBoxStrongKill.Location = new System.Drawing.Point(20, 230);
+            this.checkBoxStrongKill.Name = "checkBoxStrongKill";
+            this.checkBoxStrongKill.Size = new System.Drawing.Size(205, 21);
+            this.checkBoxStrongKill.TabIndex = 2;
+            this.checkBoxStrongKill.Text = "Strong kill (risk of data loss)";
+            this.checkBoxStrongKill.UseVisualStyleBackColor = true;
+            this.checkBoxStrongKill.CheckedChanged += new System.EventHandler(this.checkBoxStrongKill_CheckedChanged);
+            // 
+            // checkBoxCurrentUser
+            // 
+            this.checkBoxCurrentUser.AutoSize = true;
+            this.checkBoxCurrentUser.Location = new System.Drawing.Point(20, 200);
+            this.checkBoxCurrentUser.Name = "checkBoxCurrentUser";
+            this.checkBoxCurrentUser.Size = new System.Drawing.Size(109, 21);
+            this.checkBoxCurrentUser.TabIndex = 1;
+            this.checkBoxCurrentUser.Text = "Current user";
+            this.checkBoxCurrentUser.UseVisualStyleBackColor = true;
+            this.checkBoxCurrentUser.CheckedChanged += new System.EventHandler(this.checkBoxCurrentUser_CheckedChanged);
+            // 
+            // checkBoxProhibitedProcessActive
+            // 
+            this.checkBoxProhibitedProcessActive.AutoSize = true;
+            this.checkBoxProhibitedProcessActive.Location = new System.Drawing.Point(23, 28);
+            this.checkBoxProhibitedProcessActive.Name = "checkBoxProhibitedProcessActive";
+            this.checkBoxProhibitedProcessActive.Size = new System.Drawing.Size(68, 21);
+            this.checkBoxProhibitedProcessActive.TabIndex = 0;
+            this.checkBoxProhibitedProcessActive.Text = "Active";
+            this.checkBoxProhibitedProcessActive.UseVisualStyleBackColor = true;
+            this.checkBoxProhibitedProcessActive.CheckedChanged += new System.EventHandler(this.checkBoxProhibitedProcessActive_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2779,6 +3036,8 @@
             this.groupBoxPermittedProcess.ResumeLayout(false);
             this.groupBoxPermittedProcess.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPermittedProcessArguments)).EndInit();
+            this.tabPageProhibitedProcesses.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProhibitedProcesses)).EndInit();
             this.tabPageExam.ResumeLayout(false);
             this.tabPageExam.PerformLayout();
             this.tabPageDownUploads.ResumeLayout(false);
@@ -2797,6 +3056,8 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
+            this.groupBoxProhibitedProcess.ResumeLayout(false);
+            this.groupBoxProhibitedProcess.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3023,6 +3284,29 @@
         private System.Windows.Forms.DataGridView dataGridViewPermittedProcessArguments;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ArgumentActive;
         private System.Windows.Forms.DataGridViewTextBoxColumn ArgumentParameter;
+        private System.Windows.Forms.DataGridView dataGridViewProhibitedProcesses;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Button buttonAddProhibitedProcess;
+        private System.Windows.Forms.Button buttonRemoveProhibitedProcess;
+        private System.Windows.Forms.Button buttonChooseProhibitedExecutable;
+        private System.Windows.Forms.Button buttonChooseProhibitedProcess;
+        private System.Windows.Forms.GroupBox groupBoxProhibitedProcess;
+        private System.Windows.Forms.Label labelProhibitedProcessOS;
+        private System.Windows.Forms.ListBox listBoxProhibitedProcessOS;
+        private System.Windows.Forms.Label labelProhibitedProcessIdentifier;
+        private System.Windows.Forms.Label labelProhibitedProcessUser;
+        private System.Windows.Forms.TextBox textBoxProhibitedProcessUser;
+        private System.Windows.Forms.TextBox textBoxProhibitedProcessIdentifier;
+        private System.Windows.Forms.TextBox textBoxProhibitedProcessDescription;
+        private System.Windows.Forms.Label labelProhibitedProcessDescription;
+        private System.Windows.Forms.Label labelProhibitedProcessExecutable;
+        private System.Windows.Forms.TextBox textBoxProhibitedProcessExecutable;
+        private System.Windows.Forms.CheckBox checkBoxStrongKill;
+        private System.Windows.Forms.CheckBox checkBoxCurrentUser;
+        private System.Windows.Forms.CheckBox checkBoxProhibitedProcessActive;
 
     }
 }
