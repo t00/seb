@@ -988,7 +988,7 @@ namespace SebWindowsConfig
                 permittedProcessData = (Dictionary<string, object>)permittedProcessList[permittedProcessIndex];
                 LoadAndUpdatePermittedSelectedProcessGroup(permittedProcessIndex);
             }
-            //else ClearPermittedSelectedProcessGroup();
+            else ClearPermittedSelectedProcessGroup();
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
@@ -1912,6 +1912,7 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             Boolean active       = checkBoxPermittedProcessActive.Checked;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
@@ -1921,6 +1922,7 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageAutostart] = checkBoxPermittedProcessAutostart.Checked;
@@ -1928,6 +1930,7 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageAutohide] = checkBoxPermittedProcessAutohide.Checked;
@@ -1935,6 +1938,7 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
@@ -1942,6 +1946,7 @@ namespace SebWindowsConfig
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             Int32 os = listBoxPermittedProcessOS.SelectedIndex;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
@@ -1951,6 +1956,7 @@ namespace SebWindowsConfig
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             String title = textBoxPermittedProcessTitle.Text;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
@@ -1960,6 +1966,7 @@ namespace SebWindowsConfig
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageDescription] = textBoxPermittedProcessDescription.Text;
@@ -1967,6 +1974,7 @@ namespace SebWindowsConfig
 
         private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             String executable = textBoxPermittedProcessExecutable.Text;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
@@ -1976,6 +1984,7 @@ namespace SebWindowsConfig
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessagePath] = textBoxPermittedProcessPath.Text;
@@ -1983,6 +1992,7 @@ namespace SebWindowsConfig
 
         private void textBoxPermittedProcessIdentifier_TextChanged(object sender, EventArgs e)
         {
+            if (permittedProcessIndex < 0) return;
             permittedProcessList =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
             permittedProcessData[MessageIdentifier] = textBoxPermittedProcessIdentifier.Text;
