@@ -789,8 +789,8 @@ namespace SebWindowsConfig
             currentPathSebConfigFile = Path.GetFullPath     (fileName);
 
             SetWidgetsToNewSettings();
-            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
-            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
+            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
+            //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
             PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
             return true;
@@ -845,8 +845,8 @@ namespace SebWindowsConfig
                 else // unencrypted .xml file
                 {
                     Plist.writeXml(sebSettingsNew, fileName);
-                    Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_SaveXmlFile.xml");
-                    Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_SaveXmlFile.xml");
+                    Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_SaveConfigurationFile.xml");
+                    Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_SaveConfigurationFile.xml");
                 }
             }
             catch (Exception streamWriteException) 
@@ -1312,18 +1312,8 @@ namespace SebWindowsConfig
                 currentPathSebStarter = defaultPathSebStarter;
             }
 
-            String fileName = currentPathSebStarter;
-
-            // Cut off the file extension ".xml" or ".seb",
-            // that is the last 4 characters of the file name
-            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
-            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
-            String fileNameXml = fileNameRaw + ".xml";
-            String fileNameSeb = fileNameRaw + ".seb";
-
             // Save the configuration file so that nothing gets lost
-            SaveXmlFile(fileNameXml);
-            SaveSebFile(fileNameSeb);
+            SaveConfigurationFile(currentPathSebStarter);
 */
             // Close the configuration window and exit
             this.Close();
@@ -1383,24 +1373,22 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
-            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
-            Plist.writeXml(sebSettingsDef, "DebugSettingsDef_before_RevertToDefault.xml");
+            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
+            //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_before_RevertToDefault.xml");
             CopySettingsArrays    (      StateDef,       StateNew);
             CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
             SetWidgetsToNewSettings();
-            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
-            Plist.writeXml(sebSettingsDef, "DebugSettingsDef_after_RevertToDefault.xml");
+            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
+            //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_after_RevertToDefault.xml");
         }
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
-            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
-            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_before_RevertToLastOpened.xml");
-            CopySettingsArrays    (      StateOld,       StateNew);
-            CopySettingsDictionary(sebSettingsOld, sebSettingsNew);
-            SetWidgetsToNewSettings();
-            Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
-            Plist.writeXml(sebSettingsOld, "DebugSettingsOld_after_RevertToLastOpened.xml");
+            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
+            //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_before_RevertToLastOpened.xml");
+            OpenConfigurationFile(currentPathSebConfigFile);
+            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
+            //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_after_RevertToLastOpened.xml");
         }
 
 
