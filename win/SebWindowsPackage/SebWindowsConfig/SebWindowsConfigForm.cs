@@ -700,19 +700,10 @@ namespace SebWindowsConfig
             defaultDireSebConfigFile = Directory.GetCurrentDirectory();
             defaultFileSebConfigFile =                  DefaultSebConfigXml;
             defaultPathSebConfigFile = Path.GetFullPath(DefaultSebConfigXml);
-/*
-            // Cut off the file extension ".xml" or ".seb",
-            // that is the last 4 characters of the file name
-            String fileName    = defaultPathSebConfigFile;
-            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
-            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
-            String fileNameXml = fileNameRaw + ".xml";
-            String fileNameSeb = fileNameRaw + ".seb";
 
-            // Read the settings from the standard configuration file
-            if (fileNameExt.Equals(".xml")) OpenXmlFile(fileNameXml);
-            if (fileNameExt.Equals(".seb")) OpenSebFile(fileNameSeb);
-*/
+            // Read the settings from the standard configuration file??? Currently not
+            //OpenConfigurationFile(defaultPathSebConfigFile);
+
             openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
           //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
@@ -726,14 +717,23 @@ namespace SebWindowsConfig
         // *************************************************
         // Open the configuration file and read the settings
         // *************************************************
-        private Boolean OpenConfigurationFile(String fileName, Boolean isEncrypted)
+        private Boolean OpenConfigurationFile(String fileName)
         {
+            // Cut off the file extension ".xml" or ".seb",
+            // that is the last 4 characters of the file name
+            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
+
+            // Decide whether the configuration file is encrypted or not
+            Boolean                         isEncrypted = false;
+            if (fileNameExt.Equals(".xml")) isEncrypted = false;
+            if (fileNameExt.Equals(".seb")) isEncrypted = true;
+
             try 
             {
                 // Read the configuration settings from .xml or .seb file
                 // If encrypted, decrypt the configuration settings
                 // Convert the XML structure into a C# object
-
                 if (isEncrypted == true)
                 {
                     TextReader textReader;
@@ -801,8 +801,18 @@ namespace SebWindowsConfig
         // ********************************************************
         // Write the settings to the configuration file and save it
         // ********************************************************
-        private Boolean SaveConfigurationFile(String fileName, Boolean isEncrypted)
+        private Boolean SaveConfigurationFile(String fileName)
         {
+            // Cut off the file extension ".xml" or ".seb",
+            // that is the last 4 characters of the file name
+            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
+            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
+
+            // Decide whether the configuration file is encrypted or not
+            Boolean                         isEncrypted = false;
+            if (fileNameExt.Equals(".xml")) isEncrypted = false;
+            if (fileNameExt.Equals(".seb")) isEncrypted = true;
+
             try 
             {
                 // If the configuration file already exists, delete it
@@ -1405,18 +1415,9 @@ namespace SebWindowsConfig
             String       fileName         = openFileDialogSebConfigFile.FileName;
 
             // If the user clicked "Cancel", do nothing
+            // If the user clicked "OK"    , read the settings from the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-
-            // Cut off the file extension ".xml" or ".seb",
-            // that is the last 4 characters of the file name
-            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
-            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
-            String fileNameXml = fileNameRaw + ".xml";
-            String fileNameSeb = fileNameRaw + ".seb";
-
-            // If the user clicked "OK", read the settings from the configuration file
-            if (fileNameExt.Equals(".xml")) OpenConfigurationFile(fileNameXml, false);
-            if (fileNameExt.Equals(".seb")) OpenConfigurationFile(fileNameSeb, true);
+            if (fileDialogResult.Equals(DialogResult.OK    )) OpenConfigurationFile(fileName);
         }
 
 
@@ -1431,18 +1432,9 @@ namespace SebWindowsConfig
             String       fileName         = saveFileDialogSebConfigFile.FileName;
 
             // If the user clicked "Cancel", do nothing
+            // If the user clicked "OK"    , write the settings to the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-
-            // Cut off the file extension ".xml" or ".seb",
-            // that is the last 4 characters of the file name
-            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
-            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
-            String fileNameXml = fileNameRaw + ".xml";
-            String fileNameSeb = fileNameRaw + ".seb";
-
-            // If the user clicked "OK", write the settings to the configuration file
-            if (fileNameExt.Equals(".xml")) SaveConfigurationFile(fileNameXml, false);
-            if (fileNameExt.Equals(".seb")) SaveConfigurationFile(fileNameSeb, true);
+            if (fileDialogResult.Equals(DialogResult.OK    )) SaveConfigurationFile(fileName);
         }
 
 
