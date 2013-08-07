@@ -975,69 +975,6 @@ namespace SebWindowsConfig
             this.Text += " - ";
             this.Text += currentPathSebConfigFile;
 
-            // Update the widgets
-
-            // Update the process list DataGridViews
-             permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
-
-             // Check if currently loaded settings have any processes
-            if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
-                                           else permittedProcessIndex = -1;
-
-            if (prohibitedProcessList.Count > 0) prohibitedProcessIndex =  0;
-                                            else prohibitedProcessIndex = -1;
-
-            // Remove all previously displayed processes from DataGridViews
-                groupBoxPermittedProcess  .Enabled = (permittedProcessList.Count > 0);
-            dataGridViewPermittedProcesses.Enabled = (permittedProcessList.Count > 0);
-            dataGridViewPermittedProcesses.Rows.Clear();
-
-                groupBoxProhibitedProcess  .Enabled = (prohibitedProcessList.Count > 0);
-            dataGridViewProhibitedProcesses.Enabled = (prohibitedProcessList.Count > 0);
-            dataGridViewProhibitedProcesses.Rows.Clear();
-
-            // Add processeses of currently opened file to DataGridView
-            for (int index = 0; index < permittedProcessList.Count; index++)
-            {
-                permittedProcessData = (Dictionary<string, object>)permittedProcessList[index];
-
-                Boolean active     = (Boolean) permittedProcessData[MessageActive];
-                Int32   os         = (Int32  ) permittedProcessData[MessageOS];
-                String  executable = (String ) permittedProcessData[MessageExecutable];
-                String  title      = (String ) permittedProcessData[MessageTitle];
-
-                dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
-            }
-
-            for (int index = 0; index < prohibitedProcessList.Count; index++)
-            {
-                prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[index];
-
-                Boolean active      = (Boolean) prohibitedProcessData[MessageActive];
-                Int32   os          = (Int32  ) prohibitedProcessData[MessageOS];
-                String  executable  = (String ) prohibitedProcessData[MessageExecutable];
-                String  description = (String ) prohibitedProcessData[MessageDescription];
-
-                dataGridViewProhibitedProcesses.Rows.Add(active, StringOS[os], executable, description);
-            }
-
-            // Load the currently selected process data
-            if (permittedProcessList.Count > 0)
-                 LoadAndUpdatePermittedSelectedProcessGroup(permittedProcessIndex);
-            else ClearPermittedSelectedProcessGroup();
-
-            if (prohibitedProcessList.Count > 0)
-                 LoadAndUpdateProhibitedSelectedProcessGroup(prohibitedProcessIndex);
-            else ClearProhibitedSelectedProcessGroup();
-
-            // Auto-resize the columns and cells
-          //dataGridViewPermittedProcesses .AutoResizeColumns();
-          //dataGridViewProhibitedProcesses.AutoResizeColumns();
-          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-
             // Group "General"
             textBoxStartURL            .Text   =  (String)sebSettingsNew[MessageStartURL];
             textBoxSebServerURL        .Text   =  (String)sebSettingsNew[MessageSebServerURL];
@@ -1108,6 +1045,69 @@ namespace SebWindowsConfig
             checkBoxMonitorProcesses         .Checked = (Boolean)sebSettingsNew[MessageMonitorProcesses];
             checkBoxAllowSwitchToApplications.Checked = (Boolean)sebSettingsNew[MessageAllowSwitchToApplications];
             checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
+
+            // Group "Applications - Permitted/Prohibited Processes"
+
+            // Update the process list DataGridViews
+             permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
+
+             // Check if currently loaded settings have any processes
+            if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
+                                           else permittedProcessIndex = -1;
+
+            if (prohibitedProcessList.Count > 0) prohibitedProcessIndex =  0;
+                                            else prohibitedProcessIndex = -1;
+
+            // Remove all previously displayed processes from DataGridViews
+                groupBoxPermittedProcess  .Enabled = (permittedProcessList.Count > 0);
+            dataGridViewPermittedProcesses.Enabled = (permittedProcessList.Count > 0);
+            dataGridViewPermittedProcesses.Rows.Clear();
+
+                groupBoxProhibitedProcess  .Enabled = (prohibitedProcessList.Count > 0);
+            dataGridViewProhibitedProcesses.Enabled = (prohibitedProcessList.Count > 0);
+            dataGridViewProhibitedProcesses.Rows.Clear();
+
+            // Add processeses of currently opened file to DataGridView
+            for (int index = 0; index < permittedProcessList.Count; index++)
+            {
+                permittedProcessData = (Dictionary<string, object>)permittedProcessList[index];
+
+                Boolean active     = (Boolean) permittedProcessData[MessageActive];
+                Int32   os         = (Int32  ) permittedProcessData[MessageOS];
+                String  executable = (String ) permittedProcessData[MessageExecutable];
+                String  title      = (String ) permittedProcessData[MessageTitle];
+
+                dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
+            }
+
+            for (int index = 0; index < prohibitedProcessList.Count; index++)
+            {
+                prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[index];
+
+                Boolean active      = (Boolean) prohibitedProcessData[MessageActive];
+                Int32   os          = (Int32  ) prohibitedProcessData[MessageOS];
+                String  executable  = (String ) prohibitedProcessData[MessageExecutable];
+                String  description = (String ) prohibitedProcessData[MessageDescription];
+
+                dataGridViewProhibitedProcesses.Rows.Add(active, StringOS[os], executable, description);
+            }
+
+            // Load the currently selected process data
+            if (permittedProcessList.Count > 0)
+                 LoadAndUpdatePermittedSelectedProcessGroup(permittedProcessIndex);
+            else ClearPermittedSelectedProcessGroup();
+
+            if (prohibitedProcessList.Count > 0)
+                 LoadAndUpdateProhibitedSelectedProcessGroup(prohibitedProcessIndex);
+            else ClearProhibitedSelectedProcessGroup();
+
+            // Auto-resize the columns and cells
+          //dataGridViewPermittedProcesses .AutoResizeColumns();
+          //dataGridViewProhibitedProcesses.AutoResizeColumns();
+          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
 
             // Group "Network - Filter"
             checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
