@@ -1997,6 +1997,11 @@ namespace SebWindowsConfig
             permittedProcessData[MessageIdentifier] =   textBoxPermittedProcessIdentifier.Text;
         }
 
+        private void buttonPermittedProcessCodeSignature_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         private void dataGridViewPermittedProcessArguments_SelectionChanged(object sender, EventArgs e)
         {
@@ -2373,6 +2378,11 @@ namespace SebWindowsConfig
             prohibitedProcessList =               (List<object>)sebSettingsNew[MessageProhibitedProcesses];
             prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[prohibitedProcessIndex];
             prohibitedProcessData[MessageUser] =         textBoxProhibitedProcessUser.Text;
+        }
+
+        private void buttonProhibitedProcessCodeSignature_Click(object sender, EventArgs e)
+        {
+
         }
 
 

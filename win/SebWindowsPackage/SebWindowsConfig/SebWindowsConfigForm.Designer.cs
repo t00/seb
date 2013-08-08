@@ -272,6 +272,8 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.buttonProhibitedProcessCodeSignature = new System.Windows.Forms.Button();
+            this.buttonPermittedProcessCodeSignature = new System.Windows.Forms.Button();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1338,6 +1340,7 @@
             // 
             // groupBoxPermittedProcess
             // 
+            this.groupBoxPermittedProcess.Controls.Add(this.buttonPermittedProcessCodeSignature);
             this.groupBoxPermittedProcess.Controls.Add(this.dataGridViewPermittedProcessArguments);
             this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessIdentifier);
             this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessIdentifier);
@@ -1613,6 +1616,7 @@
             // 
             // groupBoxProhibitedProcess
             // 
+            this.groupBoxProhibitedProcess.Controls.Add(this.buttonProhibitedProcessCodeSignature);
             this.groupBoxProhibitedProcess.Controls.Add(this.labelProhibitedProcessOS);
             this.groupBoxProhibitedProcess.Controls.Add(this.listBoxProhibitedProcessOS);
             this.groupBoxProhibitedProcess.Controls.Add(this.labelProhibitedProcessIdentifier);
@@ -2997,6 +3001,26 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // buttonProhibitedProcessCodeSignature
+            // 
+            this.buttonProhibitedProcessCodeSignature.Location = new System.Drawing.Point(536, 221);
+            this.buttonProhibitedProcessCodeSignature.Name = "buttonProhibitedProcessCodeSignature";
+            this.buttonProhibitedProcessCodeSignature.Size = new System.Drawing.Size(150, 30);
+            this.buttonProhibitedProcessCodeSignature.TabIndex = 94;
+            this.buttonProhibitedProcessCodeSignature.Text = "Code Signature...";
+            this.buttonProhibitedProcessCodeSignature.UseVisualStyleBackColor = true;
+            this.buttonProhibitedProcessCodeSignature.Click += new System.EventHandler(this.buttonProhibitedProcessCodeSignature_Click);
+            // 
+            // buttonPermittedProcessCodeSignature
+            // 
+            this.buttonPermittedProcessCodeSignature.Location = new System.Drawing.Point(536, 300);
+            this.buttonPermittedProcessCodeSignature.Name = "buttonPermittedProcessCodeSignature";
+            this.buttonPermittedProcessCodeSignature.Size = new System.Drawing.Size(150, 30);
+            this.buttonPermittedProcessCodeSignature.TabIndex = 95;
+            this.buttonPermittedProcessCodeSignature.Text = "Code Signature...";
+            this.buttonPermittedProcessCodeSignature.UseVisualStyleBackColor = true;
+            this.buttonPermittedProcessCodeSignature.Click += new System.EventHandler(this.buttonPermittedProcessCodeSignature_Click);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3309,6 +3333,8 @@
         private System.Windows.Forms.CheckBox checkBoxProhibitedProcessStrongKill;
         private System.Windows.Forms.CheckBox checkBoxProhibitedProcessCurrentUser;
         private System.Windows.Forms.CheckBox checkBoxProhibitedProcessActive;
+        private System.Windows.Forms.Button buttonProhibitedProcessCodeSignature;
+        private System.Windows.Forms.Button buttonPermittedProcessCodeSignature;
 
     }
 }
