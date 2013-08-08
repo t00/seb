@@ -122,6 +122,7 @@
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.groupBoxPermittedProcess = new System.Windows.Forms.GroupBox();
+            this.buttonPermittedProcessCodeSignature = new System.Windows.Forms.Button();
             this.dataGridViewPermittedProcessArguments = new System.Windows.Forms.DataGridView();
             this.ArgumentActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ArgumentParameter = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -148,6 +149,7 @@
             this.checkBoxAllowFlashFullscreen = new System.Windows.Forms.CheckBox();
             this.tabPageProhibitedProcesses = new System.Windows.Forms.TabPage();
             this.groupBoxProhibitedProcess = new System.Windows.Forms.GroupBox();
+            this.buttonProhibitedProcessCodeSignature = new System.Windows.Forms.Button();
             this.labelProhibitedProcessOS = new System.Windows.Forms.Label();
             this.listBoxProhibitedProcessOS = new System.Windows.Forms.ListBox();
             this.labelProhibitedProcessIdentifier = new System.Windows.Forms.Label();
@@ -272,8 +274,16 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.buttonProhibitedProcessCodeSignature = new System.Windows.Forms.Button();
-            this.buttonPermittedProcessCodeSignature = new System.Windows.Forms.Button();
+            this.buttonAddFilterRule = new System.Windows.Forms.Button();
+            this.buttonRemoveFilterRule = new System.Windows.Forms.Button();
+            this.dataGridViewCertificates = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonRemoveCertificate = new System.Windows.Forms.Button();
+            this.comboBoxChooseSSLClientCertificate = new System.Windows.Forms.ComboBox();
+            this.comboBoxChooseIdentity = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -285,6 +295,7 @@
             this.tabPageNetwork.SuspendLayout();
             this.tabControlNetwork.SuspendLayout();
             this.tabPageFilter.SuspendLayout();
+            this.tabPageCertificates.SuspendLayout();
             this.tabPageProxies.SuspendLayout();
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
@@ -305,6 +316,7 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -1015,6 +1027,8 @@
             // 
             // tabPageFilter
             // 
+            this.tabPageFilter.Controls.Add(this.buttonRemoveFilterRule);
+            this.tabPageFilter.Controls.Add(this.buttonAddFilterRule);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLFilter);
             this.tabPageFilter.Location = new System.Drawing.Point(4, 25);
@@ -1051,6 +1065,12 @@
             // 
             // tabPageCertificates
             // 
+            this.tabPageCertificates.Controls.Add(this.label2);
+            this.tabPageCertificates.Controls.Add(this.label1);
+            this.tabPageCertificates.Controls.Add(this.comboBoxChooseIdentity);
+            this.tabPageCertificates.Controls.Add(this.comboBoxChooseSSLClientCertificate);
+            this.tabPageCertificates.Controls.Add(this.buttonRemoveCertificate);
+            this.tabPageCertificates.Controls.Add(this.dataGridViewCertificates);
             this.tabPageCertificates.Location = new System.Drawing.Point(4, 25);
             this.tabPageCertificates.Name = "tabPageCertificates";
             this.tabPageCertificates.Padding = new System.Windows.Forms.Padding(3);
@@ -1368,6 +1388,16 @@
             this.groupBoxPermittedProcess.TabStop = false;
             this.groupBoxPermittedProcess.Text = "Selected Process";
             // 
+            // buttonPermittedProcessCodeSignature
+            // 
+            this.buttonPermittedProcessCodeSignature.Location = new System.Drawing.Point(536, 300);
+            this.buttonPermittedProcessCodeSignature.Name = "buttonPermittedProcessCodeSignature";
+            this.buttonPermittedProcessCodeSignature.Size = new System.Drawing.Size(150, 30);
+            this.buttonPermittedProcessCodeSignature.TabIndex = 95;
+            this.buttonPermittedProcessCodeSignature.Text = "Code Signature...";
+            this.buttonPermittedProcessCodeSignature.UseVisualStyleBackColor = true;
+            this.buttonPermittedProcessCodeSignature.Click += new System.EventHandler(this.buttonPermittedProcessCodeSignature_Click);
+            // 
             // dataGridViewPermittedProcessArguments
             // 
             this.dataGridViewPermittedProcessArguments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1636,6 +1666,16 @@
             this.groupBoxProhibitedProcess.TabIndex = 95;
             this.groupBoxProhibitedProcess.TabStop = false;
             this.groupBoxProhibitedProcess.Text = "Selected Process";
+            // 
+            // buttonProhibitedProcessCodeSignature
+            // 
+            this.buttonProhibitedProcessCodeSignature.Location = new System.Drawing.Point(536, 221);
+            this.buttonProhibitedProcessCodeSignature.Name = "buttonProhibitedProcessCodeSignature";
+            this.buttonProhibitedProcessCodeSignature.Size = new System.Drawing.Size(150, 30);
+            this.buttonProhibitedProcessCodeSignature.TabIndex = 94;
+            this.buttonProhibitedProcessCodeSignature.Text = "Code Signature...";
+            this.buttonProhibitedProcessCodeSignature.UseVisualStyleBackColor = true;
+            this.buttonProhibitedProcessCodeSignature.Click += new System.EventHandler(this.buttonProhibitedProcessCodeSignature_Click);
             // 
             // labelProhibitedProcessOS
             // 
@@ -3001,25 +3041,94 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // buttonProhibitedProcessCodeSignature
+            // buttonAddFilterRule
             // 
-            this.buttonProhibitedProcessCodeSignature.Location = new System.Drawing.Point(536, 221);
-            this.buttonProhibitedProcessCodeSignature.Name = "buttonProhibitedProcessCodeSignature";
-            this.buttonProhibitedProcessCodeSignature.Size = new System.Drawing.Size(150, 30);
-            this.buttonProhibitedProcessCodeSignature.TabIndex = 94;
-            this.buttonProhibitedProcessCodeSignature.Text = "Code Signature...";
-            this.buttonProhibitedProcessCodeSignature.UseVisualStyleBackColor = true;
-            this.buttonProhibitedProcessCodeSignature.Click += new System.EventHandler(this.buttonProhibitedProcessCodeSignature_Click);
+            this.buttonAddFilterRule.Location = new System.Drawing.Point(332, 17);
+            this.buttonAddFilterRule.Name = "buttonAddFilterRule";
+            this.buttonAddFilterRule.Size = new System.Drawing.Size(30, 30);
+            this.buttonAddFilterRule.TabIndex = 86;
+            this.buttonAddFilterRule.Text = "+";
+            this.buttonAddFilterRule.UseVisualStyleBackColor = true;
             // 
-            // buttonPermittedProcessCodeSignature
+            // buttonRemoveFilterRule
             // 
-            this.buttonPermittedProcessCodeSignature.Location = new System.Drawing.Point(536, 300);
-            this.buttonPermittedProcessCodeSignature.Name = "buttonPermittedProcessCodeSignature";
-            this.buttonPermittedProcessCodeSignature.Size = new System.Drawing.Size(150, 30);
-            this.buttonPermittedProcessCodeSignature.TabIndex = 95;
-            this.buttonPermittedProcessCodeSignature.Text = "Code Signature...";
-            this.buttonPermittedProcessCodeSignature.UseVisualStyleBackColor = true;
-            this.buttonPermittedProcessCodeSignature.Click += new System.EventHandler(this.buttonPermittedProcessCodeSignature_Click);
+            this.buttonRemoveFilterRule.Location = new System.Drawing.Point(383, 17);
+            this.buttonRemoveFilterRule.Name = "buttonRemoveFilterRule";
+            this.buttonRemoveFilterRule.Size = new System.Drawing.Size(30, 30);
+            this.buttonRemoveFilterRule.TabIndex = 87;
+            this.buttonRemoveFilterRule.Text = "-";
+            this.buttonRemoveFilterRule.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewCertificates
+            // 
+            this.dataGridViewCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCertificates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dataGridViewCertificates.Location = new System.Drawing.Point(25, 161);
+            this.dataGridViewCertificates.Name = "dataGridViewCertificates";
+            this.dataGridViewCertificates.RowHeadersVisible = false;
+            this.dataGridViewCertificates.RowTemplate.Height = 24;
+            this.dataGridViewCertificates.Size = new System.Drawing.Size(657, 183);
+            this.dataGridViewCertificates.TabIndex = 90;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 300;
+            // 
+            // buttonRemoveCertificate
+            // 
+            this.buttonRemoveCertificate.Location = new System.Drawing.Point(25, 360);
+            this.buttonRemoveCertificate.Name = "buttonRemoveCertificate";
+            this.buttonRemoveCertificate.Size = new System.Drawing.Size(30, 30);
+            this.buttonRemoveCertificate.TabIndex = 93;
+            this.buttonRemoveCertificate.Text = "-";
+            this.buttonRemoveCertificate.UseVisualStyleBackColor = true;
+            this.buttonRemoveCertificate.Click += new System.EventHandler(this.buttonRemoveCertificate_Click);
+            // 
+            // comboBoxChooseSSLClientCertificate
+            // 
+            this.comboBoxChooseSSLClientCertificate.FormattingEnabled = true;
+            this.comboBoxChooseSSLClientCertificate.Location = new System.Drawing.Point(25, 50);
+            this.comboBoxChooseSSLClientCertificate.Name = "comboBoxChooseSSLClientCertificate";
+            this.comboBoxChooseSSLClientCertificate.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxChooseSSLClientCertificate.TabIndex = 94;
+            this.comboBoxChooseSSLClientCertificate.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseSSLClientCertificate_SelectedIndexChanged);
+            // 
+            // comboBoxChooseIdentity
+            // 
+            this.comboBoxChooseIdentity.FormattingEnabled = true;
+            this.comboBoxChooseIdentity.Location = new System.Drawing.Point(25, 112);
+            this.comboBoxChooseIdentity.Name = "comboBoxChooseIdentity";
+            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxChooseIdentity.TabIndex = 95;
+            this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(376, 17);
+            this.label1.TabIndex = 96;
+            this.label1.Text = "Choose SSL client certificate to embed into configuration...";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 92);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(293, 17);
+            this.label2.TabIndex = 97;
+            this.label2.Text = "Choose identity to embed into configuration...";
             // 
             // SebWindowsConfigForm
             // 
@@ -3051,6 +3160,8 @@
             this.tabControlNetwork.ResumeLayout(false);
             this.tabPageFilter.ResumeLayout(false);
             this.tabPageFilter.PerformLayout();
+            this.tabPageCertificates.ResumeLayout(false);
+            this.tabPageCertificates.PerformLayout();
             this.tabPageProxies.ResumeLayout(false);
             this.tabPageProxies.PerformLayout();
             this.tabPageApplications.ResumeLayout(false);
@@ -3084,6 +3195,7 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3335,6 +3447,16 @@
         private System.Windows.Forms.CheckBox checkBoxProhibitedProcessActive;
         private System.Windows.Forms.Button buttonProhibitedProcessCodeSignature;
         private System.Windows.Forms.Button buttonPermittedProcessCodeSignature;
+        private System.Windows.Forms.Button buttonRemoveFilterRule;
+        private System.Windows.Forms.Button buttonAddFilterRule;
+        private System.Windows.Forms.DataGridView dataGridViewCertificates;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Button buttonRemoveCertificate;
+        private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
+        private System.Windows.Forms.ComboBox comboBoxChooseSSLClientCertificate;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
 
     }
 }

@@ -2404,6 +2404,21 @@ namespace SebWindowsConfig
         // ******************************
         // Group "Network - Certificates"
         // ******************************
+        private void comboBoxChooseSSLClientCertificate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxChooseIdentity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonRemoveCertificate_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         // *************************
         // Group "Network - Proxies"
