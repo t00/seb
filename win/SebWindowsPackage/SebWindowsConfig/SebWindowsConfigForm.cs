@@ -114,12 +114,14 @@ namespace SebWindowsConfig
         const String MessageQuitURL            = "quitURL";
 
         // Group "Applications"
+        const String MessageMonitorProcesses = "monitorProcesses";
+
         // Group "Applications - Permitted  Processes"
-        // Group "Applications - Prohibited Processes"
-        const String MessageMonitorProcesses          = "monitorProcesses";
         const String MessagePermittedProcesses        = "permittedProcesses";
         const String MessageAllowSwitchToApplications = "allowSwitchToApplications";
         const String MessageAllowFlashFullscreen      = "allowFlashFullscreen";
+
+        // Group "Applications - Prohibited Processes"
         const String MessageProhibitedProcesses       = "prohibitedProcesses";
 
         const String MessageActive      = "active";
@@ -138,14 +140,22 @@ namespace SebWindowsConfig
         const String MessageArguments   = "arguments";
         const String MessageArgument    = "argument";
 
+        // Group "Network"
+        const String MessageEnableURLFilter        = "enableURLFilter";
+        const String MessageEnableURLContentFilter = "enableURLContentFilter";
+
         // Group "Network - Filter"
+        const String MessageURLFilterRules = "URLFilterRules";
+        const String MessageExpression     = "expression";
+        const String MessageRuleActions    = "ruleActions";
+        const String MessageRegex          = "regex";
+        const String MessageAction         = "action";
+
         // Group "Network - Certificates"
-        // Group "Network - Proxies"
-        const String MessageEnableURLFilter           = "enableURLFilter";
-        const String MessageEnableURLContentFilter    = "enableURLContentFilter";
-        const String MessageURLFilterRules            = "URLFilterRules";
         const String MessageEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
         const String MessageEmbedIdentity             = "EmbedIdentity";
+
+        // Group "Network - Proxies"
         const String MessageProxySettingsPolicy       = "proxySettingsPolicy";
         const String MessageProxyProtocol             = "proxyProtocol";
         const String MessageProxyConfigurationFileURL = "proxyConfigurationFileURL";
@@ -278,6 +288,7 @@ namespace SebWindowsConfig
         static String[] StringFunctionKey         = new String[12];
         static String[] StringActive              = new String[2];
         static String[] StringOS                  = new String[2];
+        static String[] StringURLFilterRuleAction = new String[5];
         static String[] StringProxyProtocol       = new String[7];
 
         const int NumProxyProtocols = 7;
@@ -297,16 +308,24 @@ namespace SebWindowsConfig
         static SEBProtectionController    sebController  = new SEBProtectionController();
 
         static int                        permittedProcessIndex;
-        static List<object>               permittedProcessList  = new List<object>();
-        static Dictionary<string, object> permittedProcessData  = new Dictionary<string, object>();
+        static List<object>               permittedProcessList = new List<object>();
+        static Dictionary<string, object> permittedProcessData = new Dictionary<string, object>();
 
         static int                        permittedArgumentIndex;
         static List<object>               permittedArgumentList = new List<object>();
         static Dictionary<string, object> permittedArgumentData = new Dictionary<string, object>();
 
         static int                        prohibitedProcessIndex;
-        static List<object>               prohibitedProcessList  = new List<object>();
-        static Dictionary<string, object> prohibitedProcessData  = new Dictionary<string, object>();
+        static List<object>               prohibitedProcessList = new List<object>();
+        static Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
+
+        static int                        filterRuleIndex;
+        static List<object>               filterRuleList = new List<object>();
+        static Dictionary<string, object> filterRuleData = new Dictionary<string, object>();
+
+        static int                        filterActionIndex;
+        static List<object>               filterActionList = new List<object>();
+        static Dictionary<string, object> filterActionData = new Dictionary<string, object>();
 
 
 
@@ -495,12 +514,6 @@ namespace SebWindowsConfig
             settingString[StateDef, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
 */
-            // Define the strings for the Function Keys F1, F2, ..., F12
-            for (int i = 1; i <= 12; i++)
-            {
-                StringFunctionKey[i - 1] = "F" + i.ToString();
-            }
-
             // Define the strings for the Encryption Identity
             StringCryptoIdentity.Add("none");
             StringCryptoIdentity.Add("alpha");
@@ -557,6 +570,10 @@ namespace SebWindowsConfig
             StringPolicySebService[1] = "display warning when service is not running";
             StringPolicySebService[2] = "allow to use SEB only with service";
 
+            // Define the strings for the Function Keys F1, F2, ..., F12
+            for (int i = 1; i <= 12; i++)
+                StringFunctionKey[i - 1] = "F" + i.ToString();
+
             // Define the strings for the Permitted and Prohibited Processes
             StringActive[IntFalse] = "false";
             StringActive[IntTrue ] = "true";
@@ -572,6 +589,13 @@ namespace SebWindowsConfig
             StringProxyProtocol[4] = "FTP Proxy";
             StringProxyProtocol[5] = "SOCKS Proxy";
             StringProxyProtocol[6] = "Streaming Proxy (RTSP)";
+
+            // Define the strings for the URL Filter Rule Actions
+            StringURLFilterRuleAction[0] = "block";
+            StringURLFilterRuleAction[1] = "allow";
+            StringURLFilterRuleAction[2] = "skip";
+            StringURLFilterRuleAction[3] = "and";
+            StringURLFilterRuleAction[4] = "or";
 
             // Assign the fixed entries to the ListBoxes and ComboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
@@ -657,16 +681,24 @@ namespace SebWindowsConfig
 
             // Initialise the global variables for the processes and arguments
             permittedProcessIndex = -1;
-            permittedProcessList .Clear();
-            permittedProcessData .Clear();
+            permittedProcessList.Clear();
+            permittedProcessData.Clear();
 
             permittedArgumentIndex = -1;
             permittedArgumentList.Clear();
             permittedArgumentData.Clear();
 
             prohibitedProcessIndex = -1;
-            prohibitedProcessList .Clear();
-            prohibitedProcessData .Clear();
+            prohibitedProcessList.Clear();
+            prohibitedProcessData.Clear();
+
+            filterRuleIndex = -1;
+            filterRuleList.Clear();
+            filterRuleData.Clear();
+
+            filterActionIndex = -1;
+            filterActionList.Clear();
+            filterActionData.Clear();
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
