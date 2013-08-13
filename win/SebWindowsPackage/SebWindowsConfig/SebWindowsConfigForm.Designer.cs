@@ -3180,8 +3180,11 @@
             // 
             this.dataGridViewComboBoxColumn2.HeaderText = "Action";
             this.dataGridViewComboBoxColumn2.Items.AddRange(new object[] {
-            "OS X",
-            "Win"});
+            "block",
+            "allow",
+            "skip",
+            "and",
+            "or"});
             this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
             this.dataGridViewComboBoxColumn2.Width = 80;
             // 

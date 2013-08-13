@@ -1150,19 +1150,27 @@ namespace SebWindowsConfig
             checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
 
             // Group "Applications - Permitted/Prohibited Processes"
+            // Group "Network      -    Filter/Certificates"
 
-            // Update the process list DataGridViews
+            // Update the lists for the DataGridViews
              permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
             prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
+                urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
 
-             // Check if currently loaded settings have any processes
+             // Check if currently loaded lists have any entries
             if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
                                            else permittedProcessIndex = -1;
 
             if (prohibitedProcessList.Count > 0) prohibitedProcessIndex =  0;
                                             else prohibitedProcessIndex = -1;
 
-            // Remove all previously displayed processes from DataGridViews
+            if (urlFilterRuleList.Count > 0) urlFilterRuleIndex =  0;
+                                        else urlFilterRuleIndex = -1;
+
+            if (certificateList.Count > 0) certificateIndex =  0;
+                                      else certificateIndex = -1;
+
+            // Remove all previously displayed list entries from DataGridViews
                 groupBoxPermittedProcess  .Enabled = (permittedProcessList.Count > 0);
             dataGridViewPermittedProcesses.Enabled = (permittedProcessList.Count > 0);
             dataGridViewPermittedProcesses.Rows.Clear();
@@ -1171,7 +1179,13 @@ namespace SebWindowsConfig
             dataGridViewProhibitedProcesses.Enabled = (prohibitedProcessList.Count > 0);
             dataGridViewProhibitedProcesses.Rows.Clear();
 
-            // Add processeses of currently opened file to DataGridView
+            dataGridViewURLFilterRules.Enabled = (urlFilterRuleList.Count > 0);
+            dataGridViewURLFilterRules.Rows.Clear();
+
+            dataGridViewCertificates.Enabled = (certificateList.Count > 0);
+            dataGridViewCertificates.Rows.Clear();
+
+            // Add Permitted Processes of currently opened file to DataGridView
             for (int index = 0; index < permittedProcessList.Count; index++)
             {
                 permittedProcessData = (Dictionary<string, object>)permittedProcessList[index];
@@ -1184,6 +1198,7 @@ namespace SebWindowsConfig
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
             }
 
+            // Add Prohibited Processes of currently opened file to DataGridView
             for (int index = 0; index < prohibitedProcessList.Count; index++)
             {
                 prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[index];
@@ -1194,6 +1209,20 @@ namespace SebWindowsConfig
                 String  description = (String ) prohibitedProcessData[MessageDescription];
 
                 dataGridViewProhibitedProcesses.Rows.Add(active, StringOS[os], executable, description);
+            }
+
+            // Add URL Filter Rules of currently opened file to DataGridView
+            for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
+            {
+                urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[ruleIndex];
+
+                Boolean show       = (Boolean) true;
+                Boolean active     = (Boolean) urlFilterRuleData[MessageActive];
+                Boolean regex      = (Boolean) false;
+                String  expression = (String ) urlFilterRuleData[MessageExpression];
+                Int32   action     = (Int32  ) 0;
+
+                dataGridViewURLFilterRules.Rows.Add(show, active, regex, expression, StringAction[action]);
             }
 
             // Load the currently selected process data
