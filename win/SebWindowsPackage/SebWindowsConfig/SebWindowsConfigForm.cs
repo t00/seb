@@ -257,17 +257,26 @@ namespace SebWindowsConfig
 
         // URL Filter Rules table columns (0,1,2,3,4).
         // Show, Active, Regex, Expression, Action
-        const int IntURLFilterRulesColumnShow       = 0;
-        const int IntURLFilterRulesColumnActive     = 1;
-        const int IntURLFilterRulesColumnRegex      = 2;
-        const int IntURLFilterRulesColumnExpression = 3;
-        const int IntURLFilterRulesColumnAction     = 4;
+        const int IntColumnURLFilterRuleShow       = 0;
+        const int IntColumnURLFilterRuleActive     = 1;
+        const int IntColumnURLFilterRuleRegex      = 2;
+        const int IntColumnURLFilterRuleExpression = 3;
+        const int IntColumnURLFilterRuleAction     = 4;
 /*
-        const String StringURLFilterRulesColumnShow       = "Show";
-        const String StringURLFilterRulesColumnActive     = "Active";
-        const String StringURLFilterRulesColumnRegex      = "Regex";
-        const String StringURLFilterRulesColumnExpression = "Expression";
-        const String StringURLFilterRulesColumnAction     = "Action";
+        const String StringURLFilterRuleColumnShow       = "Show";
+        const String StringURLFilterRuleColumnActive     = "Active";
+        const String StringURLFilterRuleColumnRegex      = "Regex";
+        const String StringURLFilterRuleColumnExpression = "Expression";
+        const String StringURLFilterRuleColumnAction     = "Action";
+*/
+
+        // Certificates table columns (0,1).
+        // Type, Name
+        const int IntColumnCertificateType = 0;
+        const int IntColumnCertificateName = 1;
+/*
+        const String StringColumnCertificateType = "Type";
+        const String StringColumnCertificateName = "Name";
 */
 
         // Global variables
@@ -341,6 +350,10 @@ namespace SebWindowsConfig
         static int                        urlFilterActionIndex;
         static List<object>               urlFilterActionList = new List<object>();
         static Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
+
+        static int                        certificateIndex;
+        static List<object>               certificateList = new List<object>();
+        static Dictionary<string, object> certificateData = new Dictionary<string, object>();
 
 
 
@@ -587,7 +600,9 @@ namespace SebWindowsConfig
 
             // Define the strings for the Function Keys F1, F2, ..., F12
             for (int i = 1; i <= 12; i++)
+            {
                 StringFunctionKey[i - 1] = "F" + i.ToString();
+            }
 
             // Define the strings for the Permitted and Prohibited Processes
             StringActive[IntFalse] = "false";
@@ -668,6 +683,13 @@ namespace SebWindowsConfig
             dataGridViewURLFilterRules.MultiSelect        = false;
             dataGridViewURLFilterRules.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
+            dataGridViewCertificates.Enabled            = false;
+            dataGridViewCertificates.ReadOnly           = false;
+            dataGridViewCertificates.AllowUserToAddRows = false;
+            dataGridViewCertificates.RowHeadersVisible  = false;
+            dataGridViewCertificates.MultiSelect        = false;
+            dataGridViewCertificates.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
             dataGridViewPermittedProcesses.Columns[IntColumnActive    ].ValueType = typeof(Boolean);
             dataGridViewPermittedProcesses.Columns[IntColumnOS        ].ValueType = typeof(String);
             dataGridViewPermittedProcesses.Columns[IntColumnExecutable].ValueType = typeof(String);
@@ -681,11 +703,14 @@ namespace SebWindowsConfig
             dataGridViewProhibitedProcesses.Columns[IntColumnExecutable ].ValueType = typeof(String);
             dataGridViewProhibitedProcesses.Columns[IntColumnDescription].ValueType = typeof(String);
 
-            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnShow      ].ValueType = typeof(Boolean);
-            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnActive    ].ValueType = typeof(Boolean);
-            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnRegex     ].ValueType = typeof(Boolean);
-            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnExpression].ValueType = typeof(String);
-            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnAction    ].ValueType = typeof(String);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleShow      ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleActive    ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleRegex     ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleExpression].ValueType = typeof(String);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleAction    ].ValueType = typeof(String);
+
+            dataGridViewCertificates.Columns[IntColumnCertificateType].ValueType = typeof(String);
+            dataGridViewCertificates.Columns[IntColumnCertificateName].ValueType = typeof(String);
 
             // Assign the column names to the DataGridViews
 /*
@@ -702,11 +727,14 @@ namespace SebWindowsConfig
             dataGridViewProhibitedProcesses.Columns.Add(StringColumnExecutable , StringColumnExecutable);
             dataGridViewProhibitedProcesses.Columns.Add(StringColumnDescription, StringColumnDescription);
 
-            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnShow      , StringURLFilterRulesColumnShow);
-            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnActive    , StringURLFilterRulesColumnActive);
-            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnRegex     , StringURLFilterRulesColumnRegex);
-            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnExpression, StringURLFilterRulesColumnExpression);
-            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnAction    , StringURLFilterRulesColumnAction);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleShow      , StringColumnURLFilterRuleShow);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleActive    , StringColumnURLFilterRuleActive);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleRegex     , StringColumnURLFilterRuleRegex);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleExpression, StringColumnURLFilterRuleExpression);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleAction    , StringColumnURLFilterRuleAction);
+
+            dataGridViewCertificates.Columns.Add(StringColumnCertificateType, StringColumnCertificateType);
+            dataGridViewCertificates.Columns.Add(StringColumnCertificateName, StringColumnCertificateName);
 */
             groupBoxPermittedProcess .Enabled = false;
             groupBoxProhibitedProcess.Enabled = false;
@@ -714,7 +742,7 @@ namespace SebWindowsConfig
             listBoxPermittedProcessOS .Items.AddRange(StringOS);
             listBoxProhibitedProcessOS.Items.AddRange(StringOS);
 
-            // Initialise the global variables for the processes and arguments
+            // Initialise the global variables for the lists and dictionaries
             permittedProcessIndex = -1;
             permittedProcessList.Clear();
             permittedProcessData.Clear();
@@ -735,13 +763,19 @@ namespace SebWindowsConfig
             urlFilterActionList.Clear();
             urlFilterActionData.Clear();
 
+            certificateIndex = -1;
+            certificateList.Clear();
+            certificateData.Clear();
+
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
           //dataGridViewURLFilterRules     .AutoResizeColumns();
+          //dataGridViewCertificates       .AutoResizeColumns();
           //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewURLFilterRules     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewCertificates       .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
