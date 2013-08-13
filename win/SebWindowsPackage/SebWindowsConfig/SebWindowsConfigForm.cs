@@ -1211,6 +1211,7 @@ namespace SebWindowsConfig
                 dataGridViewProhibitedProcesses.Rows.Add(active, StringOS[os], executable, description);
             }
 
+
             // Add URL Filter Rules of currently opened file to DataGridView
             for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
             {
@@ -1223,7 +1224,27 @@ namespace SebWindowsConfig
                 Int32   action     = (Int32  ) 0;
 
                 dataGridViewURLFilterRules.Rows.Add(show, active, regex, expression, StringAction[action]);
+
+                urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
+
+                if (urlFilterActionList.Count > 0) urlFilterActionIndex =  0;
+                                              else urlFilterActionIndex = -1;
+
+                // Add URL Filter Actions of current URL Filter Rule to DataGridView
+                for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
+                {
+                    urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[actionIndex];
+
+                    Boolean Show       = (Boolean) true;
+                    Boolean Active     = (Boolean) urlFilterActionData[MessageActive];
+                    Boolean Regex      = (Boolean) urlFilterActionData[MessageRegex];
+                    String  Expression = (String ) urlFilterActionData[MessageExpression];
+                    Int32   Action     = (Int32  ) urlFilterActionData[MessageAction];
+
+                    dataGridViewURLFilterRules.Rows.Add(Show, Active, Regex, Expression, StringAction[Action]);
+                }
             }
+
 
             // Load the currently selected process data
             if (permittedProcessList.Count > 0)
