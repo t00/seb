@@ -92,9 +92,20 @@
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
+            this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
+            this.buttonRemoveFilterRule = new System.Windows.Forms.Button();
+            this.buttonAddFilterRule = new System.Windows.Forms.Button();
             this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.tabPageCertificates = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxChooseIdentity = new System.Windows.Forms.ComboBox();
+            this.comboBoxChooseSSLClientCertificate = new System.Windows.Forms.ComboBox();
+            this.buttonRemoveCertificate = new System.Windows.Forms.Button();
+            this.dataGridViewCertificates = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
             this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
             this.labelIfYourNetworkAdministrator = new System.Windows.Forms.Label();
@@ -274,16 +285,11 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.buttonAddFilterRule = new System.Windows.Forms.Button();
-            this.buttonRemoveFilterRule = new System.Windows.Forms.Button();
-            this.dataGridViewCertificates = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonRemoveCertificate = new System.Windows.Forms.Button();
-            this.comboBoxChooseSSLClientCertificate = new System.Windows.Forms.ComboBox();
-            this.comboBoxChooseIdentity = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Regex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -295,7 +301,9 @@
             this.tabPageNetwork.SuspendLayout();
             this.tabControlNetwork.SuspendLayout();
             this.tabPageFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewURLFilterRules)).BeginInit();
             this.tabPageCertificates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).BeginInit();
             this.tabPageProxies.SuspendLayout();
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
@@ -316,7 +324,6 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -1027,6 +1034,7 @@
             // 
             // tabPageFilter
             // 
+            this.tabPageFilter.Controls.Add(this.dataGridViewURLFilterRules);
             this.tabPageFilter.Controls.Add(this.buttonRemoveFilterRule);
             this.tabPageFilter.Controls.Add(this.buttonAddFilterRule);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
@@ -1039,11 +1047,45 @@
             this.tabPageFilter.Text = "Filter";
             this.tabPageFilter.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewURLFilterRules
+            // 
+            this.dataGridViewURLFilterRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewURLFilterRules.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Show,
+            this.dataGridViewCheckBoxColumn2,
+            this.Regex,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewComboBoxColumn2});
+            this.dataGridViewURLFilterRules.Location = new System.Drawing.Point(25, 85);
+            this.dataGridViewURLFilterRules.Name = "dataGridViewURLFilterRules";
+            this.dataGridViewURLFilterRules.RowHeadersVisible = false;
+            this.dataGridViewURLFilterRules.RowTemplate.Height = 24;
+            this.dataGridViewURLFilterRules.Size = new System.Drawing.Size(733, 300);
+            this.dataGridViewURLFilterRules.TabIndex = 90;
+            // 
+            // buttonRemoveFilterRule
+            // 
+            this.buttonRemoveFilterRule.Location = new System.Drawing.Point(60, 400);
+            this.buttonRemoveFilterRule.Name = "buttonRemoveFilterRule";
+            this.buttonRemoveFilterRule.Size = new System.Drawing.Size(30, 30);
+            this.buttonRemoveFilterRule.TabIndex = 87;
+            this.buttonRemoveFilterRule.Text = "-";
+            this.buttonRemoveFilterRule.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddFilterRule
+            // 
+            this.buttonAddFilterRule.Location = new System.Drawing.Point(25, 400);
+            this.buttonAddFilterRule.Name = "buttonAddFilterRule";
+            this.buttonAddFilterRule.Size = new System.Drawing.Size(30, 30);
+            this.buttonAddFilterRule.TabIndex = 86;
+            this.buttonAddFilterRule.Text = "+";
+            this.buttonAddFilterRule.UseVisualStyleBackColor = true;
+            // 
             // checkBoxEnableURLContentFilter
             // 
             this.checkBoxEnableURLContentFilter.AutoSize = true;
             this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(42, 50);
+            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(45, 45);
             this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
             this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(213, 21);
             this.checkBoxEnableURLContentFilter.TabIndex = 79;
@@ -1055,7 +1097,7 @@
             // 
             this.checkBoxEnableURLFilter.AutoSize = true;
             this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(24, 23);
+            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(25, 20);
             this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
             this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(162, 21);
             this.checkBoxEnableURLFilter.TabIndex = 78;
@@ -1078,6 +1120,77 @@
             this.tabPageCertificates.TabIndex = 1;
             this.tabPageCertificates.Text = "Certificates";
             this.tabPageCertificates.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 92);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(293, 17);
+            this.label2.TabIndex = 97;
+            this.label2.Text = "Choose identity to embed into configuration...";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(376, 17);
+            this.label1.TabIndex = 96;
+            this.label1.Text = "Choose SSL client certificate to embed into configuration...";
+            // 
+            // comboBoxChooseIdentity
+            // 
+            this.comboBoxChooseIdentity.FormattingEnabled = true;
+            this.comboBoxChooseIdentity.Location = new System.Drawing.Point(25, 112);
+            this.comboBoxChooseIdentity.Name = "comboBoxChooseIdentity";
+            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxChooseIdentity.TabIndex = 95;
+            this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
+            // 
+            // comboBoxChooseSSLClientCertificate
+            // 
+            this.comboBoxChooseSSLClientCertificate.FormattingEnabled = true;
+            this.comboBoxChooseSSLClientCertificate.Location = new System.Drawing.Point(25, 50);
+            this.comboBoxChooseSSLClientCertificate.Name = "comboBoxChooseSSLClientCertificate";
+            this.comboBoxChooseSSLClientCertificate.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxChooseSSLClientCertificate.TabIndex = 94;
+            this.comboBoxChooseSSLClientCertificate.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseSSLClientCertificate_SelectedIndexChanged);
+            // 
+            // buttonRemoveCertificate
+            // 
+            this.buttonRemoveCertificate.Location = new System.Drawing.Point(25, 360);
+            this.buttonRemoveCertificate.Name = "buttonRemoveCertificate";
+            this.buttonRemoveCertificate.Size = new System.Drawing.Size(30, 30);
+            this.buttonRemoveCertificate.TabIndex = 93;
+            this.buttonRemoveCertificate.Text = "-";
+            this.buttonRemoveCertificate.UseVisualStyleBackColor = true;
+            this.buttonRemoveCertificate.Click += new System.EventHandler(this.buttonRemoveCertificate_Click);
+            // 
+            // dataGridViewCertificates
+            // 
+            this.dataGridViewCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCertificates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dataGridViewCertificates.Location = new System.Drawing.Point(25, 161);
+            this.dataGridViewCertificates.Name = "dataGridViewCertificates";
+            this.dataGridViewCertificates.RowHeadersVisible = false;
+            this.dataGridViewCertificates.RowTemplate.Height = 24;
+            this.dataGridViewCertificates.Size = new System.Drawing.Size(657, 183);
+            this.dataGridViewCertificates.TabIndex = 90;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 300;
             // 
             // tabPageProxies
             // 
@@ -3041,94 +3154,36 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // buttonAddFilterRule
+            // Show
             // 
-            this.buttonAddFilterRule.Location = new System.Drawing.Point(332, 17);
-            this.buttonAddFilterRule.Name = "buttonAddFilterRule";
-            this.buttonAddFilterRule.Size = new System.Drawing.Size(30, 30);
-            this.buttonAddFilterRule.TabIndex = 86;
-            this.buttonAddFilterRule.Text = "+";
-            this.buttonAddFilterRule.UseVisualStyleBackColor = true;
+            this.Show.HeaderText = "Show";
+            this.Show.Name = "Show";
             // 
-            // buttonRemoveFilterRule
+            // dataGridViewCheckBoxColumn2
             // 
-            this.buttonRemoveFilterRule.Location = new System.Drawing.Point(383, 17);
-            this.buttonRemoveFilterRule.Name = "buttonRemoveFilterRule";
-            this.buttonRemoveFilterRule.Size = new System.Drawing.Size(30, 30);
-            this.buttonRemoveFilterRule.TabIndex = 87;
-            this.buttonRemoveFilterRule.Text = "-";
-            this.buttonRemoveFilterRule.UseVisualStyleBackColor = true;
+            this.dataGridViewCheckBoxColumn2.HeaderText = "Active";
+            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
+            this.dataGridViewCheckBoxColumn2.Width = 50;
             // 
-            // dataGridViewCertificates
+            // Regex
             // 
-            this.dataGridViewCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCertificates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.dataGridViewCertificates.Location = new System.Drawing.Point(25, 161);
-            this.dataGridViewCertificates.Name = "dataGridViewCertificates";
-            this.dataGridViewCertificates.RowHeadersVisible = false;
-            this.dataGridViewCertificates.RowTemplate.Height = 24;
-            this.dataGridViewCertificates.Size = new System.Drawing.Size(657, 183);
-            this.dataGridViewCertificates.TabIndex = 90;
+            this.Regex.HeaderText = "Regex";
+            this.Regex.Name = "Regex";
             // 
-            // dataGridViewTextBoxColumn3
+            // dataGridViewTextBoxColumn5
             // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 300;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Expression";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 300;
             // 
-            // dataGridViewTextBoxColumn4
+            // dataGridViewComboBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 300;
-            // 
-            // buttonRemoveCertificate
-            // 
-            this.buttonRemoveCertificate.Location = new System.Drawing.Point(25, 360);
-            this.buttonRemoveCertificate.Name = "buttonRemoveCertificate";
-            this.buttonRemoveCertificate.Size = new System.Drawing.Size(30, 30);
-            this.buttonRemoveCertificate.TabIndex = 93;
-            this.buttonRemoveCertificate.Text = "-";
-            this.buttonRemoveCertificate.UseVisualStyleBackColor = true;
-            this.buttonRemoveCertificate.Click += new System.EventHandler(this.buttonRemoveCertificate_Click);
-            // 
-            // comboBoxChooseSSLClientCertificate
-            // 
-            this.comboBoxChooseSSLClientCertificate.FormattingEnabled = true;
-            this.comboBoxChooseSSLClientCertificate.Location = new System.Drawing.Point(25, 50);
-            this.comboBoxChooseSSLClientCertificate.Name = "comboBoxChooseSSLClientCertificate";
-            this.comboBoxChooseSSLClientCertificate.Size = new System.Drawing.Size(657, 24);
-            this.comboBoxChooseSSLClientCertificate.TabIndex = 94;
-            this.comboBoxChooseSSLClientCertificate.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseSSLClientCertificate_SelectedIndexChanged);
-            // 
-            // comboBoxChooseIdentity
-            // 
-            this.comboBoxChooseIdentity.FormattingEnabled = true;
-            this.comboBoxChooseIdentity.Location = new System.Drawing.Point(25, 112);
-            this.comboBoxChooseIdentity.Name = "comboBoxChooseIdentity";
-            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(657, 24);
-            this.comboBoxChooseIdentity.TabIndex = 95;
-            this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(376, 17);
-            this.label1.TabIndex = 96;
-            this.label1.Text = "Choose SSL client certificate to embed into configuration...";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 92);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(293, 17);
-            this.label2.TabIndex = 97;
-            this.label2.Text = "Choose identity to embed into configuration...";
+            this.dataGridViewComboBoxColumn2.HeaderText = "Action";
+            this.dataGridViewComboBoxColumn2.Items.AddRange(new object[] {
+            "OS X",
+            "Win"});
+            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
+            this.dataGridViewComboBoxColumn2.Width = 80;
             // 
             // SebWindowsConfigForm
             // 
@@ -3160,8 +3215,10 @@
             this.tabControlNetwork.ResumeLayout(false);
             this.tabPageFilter.ResumeLayout(false);
             this.tabPageFilter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewURLFilterRules)).EndInit();
             this.tabPageCertificates.ResumeLayout(false);
             this.tabPageCertificates.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).EndInit();
             this.tabPageProxies.ResumeLayout(false);
             this.tabPageProxies.PerformLayout();
             this.tabPageApplications.ResumeLayout(false);
@@ -3195,7 +3252,6 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3457,6 +3513,12 @@
         private System.Windows.Forms.ComboBox comboBoxChooseSSLClientCertificate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridViewURLFilterRules;
+        private System.Windows.Forms.DataGridViewButtonColumn Show;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Regex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
 
     }
 }

@@ -255,6 +255,21 @@ namespace SebWindowsConfig
         const String StringColumnArgument = "Argument";
 */
 
+        // URL Filter Rules table columns (0,1,2,3,4).
+        // Show, Active, Regex, Expression, Action
+        const int IntURLFilterRulesColumnShow       = 0;
+        const int IntURLFilterRulesColumnActive     = 1;
+        const int IntURLFilterRulesColumnRegex      = 2;
+        const int IntURLFilterRulesColumnExpression = 3;
+        const int IntURLFilterRulesColumnAction     = 4;
+/*
+        const String StringURLFilterRulesColumnShow       = "Show";
+        const String StringURLFilterRulesColumnActive     = "Active";
+        const String StringURLFilterRulesColumnRegex      = "Regex";
+        const String StringURLFilterRulesColumnExpression = "Expression";
+        const String StringURLFilterRulesColumnAction     = "Action";
+*/
+
         // Global variables
 
         // The current SEB configuration file
@@ -288,7 +303,7 @@ namespace SebWindowsConfig
         static String[] StringFunctionKey         = new String[12];
         static String[] StringActive              = new String[2];
         static String[] StringOS                  = new String[2];
-        static String[] StringURLFilterRuleAction = new String[5];
+        static String[] StringAction              = new String[5];
         static String[] StringProxyProtocol       = new String[7];
 
         const int NumProxyProtocols = 7;
@@ -319,13 +334,13 @@ namespace SebWindowsConfig
         static List<object>               prohibitedProcessList = new List<object>();
         static Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
 
-        static int                        filterRuleIndex;
-        static List<object>               filterRuleList = new List<object>();
-        static Dictionary<string, object> filterRuleData = new Dictionary<string, object>();
+        static int                        urlFilterRuleIndex;
+        static List<object>               urlFilterRuleList = new List<object>();
+        static Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
 
-        static int                        filterActionIndex;
-        static List<object>               filterActionList = new List<object>();
-        static Dictionary<string, object> filterActionData = new Dictionary<string, object>();
+        static int                        urlFilterActionIndex;
+        static List<object>               urlFilterActionList = new List<object>();
+        static Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
 
 
 
@@ -591,11 +606,11 @@ namespace SebWindowsConfig
             StringProxyProtocol[6] = "Streaming Proxy (RTSP)";
 
             // Define the strings for the URL Filter Rule Actions
-            StringURLFilterRuleAction[0] = "block";
-            StringURLFilterRuleAction[1] = "allow";
-            StringURLFilterRuleAction[2] = "skip";
-            StringURLFilterRuleAction[3] = "and";
-            StringURLFilterRuleAction[4] = "or";
+            StringAction[0] = "block";
+            StringAction[1] = "allow";
+            StringAction[2] = "skip";
+            StringAction[3] = "and";
+            StringAction[4] = "or";
 
             // Assign the fixed entries to the ListBoxes and ComboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
@@ -621,6 +636,7 @@ namespace SebWindowsConfig
             // Assign the fixed entries to the CheckedListBoxes
             checkedListBoxProxyProtocol.Items.AddRange(StringProxyProtocol);
 
+            // Initialise the DataGridViews:
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
             // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
             // Set "FullRowSelect"      to true , to select whole row when clicking on a cell
@@ -631,23 +647,6 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.MultiSelect        = false;
             dataGridViewPermittedProcesses.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
-            dataGridViewProhibitedProcesses.Enabled            = false;
-            dataGridViewProhibitedProcesses.ReadOnly           = false;
-            dataGridViewProhibitedProcesses.AllowUserToAddRows = false;
-            dataGridViewProhibitedProcesses.RowHeadersVisible  = false;
-            dataGridViewProhibitedProcesses.MultiSelect        = false;
-            dataGridViewProhibitedProcesses.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
-
-            dataGridViewPermittedProcesses.Columns[IntColumnActive    ].ValueType = typeof(Boolean);
-            dataGridViewPermittedProcesses.Columns[IntColumnOS        ].ValueType = typeof(String);
-            dataGridViewPermittedProcesses.Columns[IntColumnExecutable].ValueType = typeof(String);
-            dataGridViewPermittedProcesses.Columns[IntColumnTitle     ].ValueType = typeof(String);
-
-            dataGridViewProhibitedProcesses.Columns[IntColumnActive     ].ValueType = typeof(Boolean);
-            dataGridViewProhibitedProcesses.Columns[IntColumnOS         ].ValueType = typeof(String);
-            dataGridViewProhibitedProcesses.Columns[IntColumnExecutable ].ValueType = typeof(String);
-            dataGridViewProhibitedProcesses.Columns[IntColumnDescription].ValueType = typeof(String);
-
             dataGridViewPermittedProcessArguments.Enabled            = false;
             dataGridViewPermittedProcessArguments.ReadOnly           = false;
             dataGridViewPermittedProcessArguments.AllowUserToAddRows = false;
@@ -655,8 +654,38 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcessArguments.MultiSelect        = false;
             dataGridViewPermittedProcessArguments.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
+            dataGridViewProhibitedProcesses.Enabled            = false;
+            dataGridViewProhibitedProcesses.ReadOnly           = false;
+            dataGridViewProhibitedProcesses.AllowUserToAddRows = false;
+            dataGridViewProhibitedProcesses.RowHeadersVisible  = false;
+            dataGridViewProhibitedProcesses.MultiSelect        = false;
+            dataGridViewProhibitedProcesses.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewURLFilterRules.Enabled            = false;
+            dataGridViewURLFilterRules.ReadOnly           = false;
+            dataGridViewURLFilterRules.AllowUserToAddRows = false;
+            dataGridViewURLFilterRules.RowHeadersVisible  = false;
+            dataGridViewURLFilterRules.MultiSelect        = false;
+            dataGridViewURLFilterRules.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewPermittedProcesses.Columns[IntColumnActive    ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcesses.Columns[IntColumnOS        ].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnExecutable].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnTitle     ].ValueType = typeof(String);
+
             dataGridViewPermittedProcessArguments.Columns[IntColumnActive  ].ValueType = typeof(Boolean);
             dataGridViewPermittedProcessArguments.Columns[IntColumnArgument].ValueType = typeof(String);
+
+            dataGridViewProhibitedProcesses.Columns[IntColumnActive     ].ValueType = typeof(Boolean);
+            dataGridViewProhibitedProcesses.Columns[IntColumnOS         ].ValueType = typeof(String);
+            dataGridViewProhibitedProcesses.Columns[IntColumnExecutable ].ValueType = typeof(String);
+            dataGridViewProhibitedProcesses.Columns[IntColumnDescription].ValueType = typeof(String);
+
+            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnShow      ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnActive    ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnRegex     ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnExpression].ValueType = typeof(String);
+            dataGridViewURLFilterRules.Columns[IntURLFilterRulesColumnAction    ].ValueType = typeof(String);
 
             // Assign the column names to the DataGridViews
 /*
@@ -665,13 +694,19 @@ namespace SebWindowsConfig
             dataGridViewPermittedProcesses.Columns.Add(StringColumnExecutable, StringColumnExecutable);
             dataGridViewPermittedProcesses.Columns.Add(StringColumnTitle     , StringColumnTitle);
 
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnActive  , StringColumnActive);
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgument, StringColumnArgument);
+
             dataGridViewProhibitedProcesses.Columns.Add(StringColumnActive     , StringColumnActive);
             dataGridViewProhibitedProcesses.Columns.Add(StringColumnOS         , StringColumnOS);
             dataGridViewProhibitedProcesses.Columns.Add(StringColumnExecutable , StringColumnExecutable);
             dataGridViewProhibitedProcesses.Columns.Add(StringColumnDescription, StringColumnDescription);
 
-            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnActive  , StringColumnActive);
-            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgument, StringColumnArgument);
+            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnShow      , StringURLFilterRulesColumnShow);
+            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnActive    , StringURLFilterRulesColumnActive);
+            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnRegex     , StringURLFilterRulesColumnRegex);
+            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnExpression, StringURLFilterRulesColumnExpression);
+            dataGridViewURLFilterRules.Columns.Add(StringURLFilterRulesColumnAction    , StringURLFilterRulesColumnAction);
 */
             groupBoxPermittedProcess .Enabled = false;
             groupBoxProhibitedProcess.Enabled = false;
@@ -692,19 +727,21 @@ namespace SebWindowsConfig
             prohibitedProcessList.Clear();
             prohibitedProcessData.Clear();
 
-            filterRuleIndex = -1;
-            filterRuleList.Clear();
-            filterRuleData.Clear();
+            urlFilterRuleIndex = -1;
+            urlFilterRuleList.Clear();
+            urlFilterRuleData.Clear();
 
-            filterActionIndex = -1;
-            filterActionList.Clear();
-            filterActionData.Clear();
+            urlFilterActionIndex = -1;
+            urlFilterActionList.Clear();
+            urlFilterActionData.Clear();
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
+          //dataGridViewURLFilterRules     .AutoResizeColumns();
           //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewURLFilterRules     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
@@ -2783,6 +2820,8 @@ namespace SebWindowsConfig
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
+
+
 
 
 
