@@ -499,7 +499,18 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageEnableURLContentFilter, false);
             sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
 
+            urlFilterRuleDataDef.Add(MessageActive     , true);
+            urlFilterRuleDataDef.Add(MessageExpression , "");
+            urlFilterRuleDataDef.Add(MessageRuleActions, new List<object>());
+
+            urlFilterActionDataDef.Add(MessageActive    , true);
+            urlFilterActionDataDef.Add(MessageRegex     , false);
+            urlFilterActionDataDef.Add(MessageExpression, "Rule");
+            urlFilterActionDataDef.Add(MessageAction    , 0);
+
             // Default settings for group "Network - Certificates"
+            certificateDataDef.Add(MessageType, "");
+            certificateDataDef.Add(MessageName, "");
 
             // Default settings for group "Network - Proxies"
             sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
