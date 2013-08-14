@@ -3158,6 +3158,7 @@
             // 
             this.Show.HeaderText = "Show";
             this.Show.Name = "Show";
+            this.Show.Width = 80;
             // 
             // dataGridViewCheckBoxColumn2
             // 
@@ -3168,13 +3169,15 @@
             // Regex
             // 
             this.Regex.HeaderText = "Regex";
+            this.Regex.IndeterminateValue = "";
             this.Regex.Name = "Regex";
+            this.Regex.Width = 50;
             // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.HeaderText = "Expression";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 300;
+            this.dataGridViewTextBoxColumn5.Width = 470;
             // 
             // dataGridViewComboBoxColumn2
             // 

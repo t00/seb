@@ -1228,9 +1228,11 @@ namespace SebWindowsConfig
 
                 // Add  title row for current Filter Rule.
                 // Show title row in LightGrey and Expression in Bold.
-                dataGridViewURLFilterRules.Rows.Add(show, active, regex, expression, StringAction[action]);
+                dataGridViewURLFilterRules.Rows.Add(show, active, null, expression, null);
                 dataGridViewURLFilterRules.Rows[row].Cells[column].Style.Font   = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
+
+                //dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex].Visible;
 
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
