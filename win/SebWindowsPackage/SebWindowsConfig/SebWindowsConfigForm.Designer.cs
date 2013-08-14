@@ -3171,6 +3171,7 @@
             this.Regex.HeaderText = "Regex";
             this.Regex.IndeterminateValue = "";
             this.Regex.Name = "Regex";
+            this.Regex.ThreeState = true;
             this.Regex.Width = 50;
             // 
             // dataGridViewTextBoxColumn5

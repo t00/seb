@@ -154,6 +154,8 @@ namespace SebWindowsConfig
         // Group "Network - Certificates"
         const String MessageEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
         const String MessageEmbedIdentity             = "EmbedIdentity";
+        const String MessageType                      = "type";
+        const String MessageName                      = "name";
 
         // Group "Network - Proxies"
         const String MessageProxySettingsPolicy       = "proxySettingsPolicy";
@@ -1149,6 +1151,7 @@ namespace SebWindowsConfig
             checkBoxAllowSwitchToApplications.Checked = (Boolean)sebSettingsNew[MessageAllowSwitchToApplications];
             checkBoxAllowFlashFullscreen     .Checked = (Boolean)sebSettingsNew[MessageAllowFlashFullscreen];
 
+
             // Group "Applications - Permitted/Prohibited Processes"
             // Group "Network      -    Filter/Certificates"
 
@@ -1190,10 +1193,10 @@ namespace SebWindowsConfig
             {
                 permittedProcessData = (Dictionary<string, object>)permittedProcessList[index];
 
-                Boolean active     = (Boolean) permittedProcessData[MessageActive];
-                Int32   os         = (Int32  ) permittedProcessData[MessageOS];
-                String  executable = (String ) permittedProcessData[MessageExecutable];
-                String  title      = (String ) permittedProcessData[MessageTitle];
+                Boolean active     = (Boolean)permittedProcessData[MessageActive];
+                Int32   os         = (Int32  )permittedProcessData[MessageOS];
+                String  executable = (String )permittedProcessData[MessageExecutable];
+                String  title      = (String )permittedProcessData[MessageTitle];
 
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
             }
@@ -1203,59 +1206,68 @@ namespace SebWindowsConfig
             {
                 prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[index];
 
-                Boolean active      = (Boolean) prohibitedProcessData[MessageActive];
-                Int32   os          = (Int32  ) prohibitedProcessData[MessageOS];
-                String  executable  = (String ) prohibitedProcessData[MessageExecutable];
-                String  description = (String ) prohibitedProcessData[MessageDescription];
+                Boolean active      = (Boolean)prohibitedProcessData[MessageActive];
+                Int32   os          = (Int32  )prohibitedProcessData[MessageOS];
+                String  executable  = (String )prohibitedProcessData[MessageExecutable];
+                String  description = (String )prohibitedProcessData[MessageDescription];
 
                 dataGridViewProhibitedProcesses.Rows.Add(active, StringOS[os], executable, description);
             }
 
 
             // Add URL Filter Rules of currently opened file to DataGridView
-            int row    = 0;
-            int column = IntColumnURLFilterRuleExpression;
+            int row = 0;
 
             for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
             {
                 urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[ruleIndex];
 
-                Boolean show       = (Boolean) true;
-                Boolean active     = (Boolean) urlFilterRuleData[MessageActive];
-                Boolean regex      = (Boolean) false;
-                String  expression = (String ) urlFilterRuleData[MessageExpression];
-                Int32   action     = (Int32  ) 0;
+                Boolean active     = (Boolean)urlFilterRuleData[MessageActive];
+                String  expression = (String )urlFilterRuleData[MessageExpression];
 
                 // Add  title row for current Filter Rule.
                 // Show title row in LightGrey and Expression in Bold.
-                dataGridViewURLFilterRules.Rows.Add(show, active, null, expression, null);
-                dataGridViewURLFilterRules.Rows[row].Cells[column].Style.Font   = new Font(DefaultFont, FontStyle.Bold);
+                // For  title row, disable the Regex and Action widgets.
+                dataGridViewURLFilterRules.Rows.Add("Collapse", active, null, expression, null);
                 dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
-
-                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex ].ReadOnly = true;
-                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction].ReadOnly = true;
+                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
+                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly = true;
+                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly = true;
+                row++;
 
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
                 if (urlFilterActionList.Count > 0) urlFilterActionIndex =  0;
                                               else urlFilterActionIndex = -1;
 
-                row++;
-
                 // Add URL Filter Actions of current URL Filter Rule to DataGridView
                 for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
                 {
                     urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[actionIndex];
 
-                    Boolean Show       = (Boolean) true;
-                    Boolean Active     = (Boolean) urlFilterActionData[MessageActive];
-                    Boolean Regex      = (Boolean) urlFilterActionData[MessageRegex];
-                    String  Expression = (String ) urlFilterActionData[MessageExpression];
-                    Int32   Action     = (Int32  ) urlFilterActionData[MessageAction];
+                    Boolean Active     = (Boolean)urlFilterActionData[MessageActive];
+                    Boolean Regex      = (Boolean)urlFilterActionData[MessageRegex];
+                    String  Expression = (String )urlFilterActionData[MessageExpression];
+                    Int32   Action     = (Int32  )urlFilterActionData[MessageAction];
 
-                    dataGridViewURLFilterRules.Rows.Add(Show, Active, Regex, Expression, StringAction[Action]);
+                    // Add Action row for current Filter Rule.
+                    // For Action row, disable the Show widget.
+                    dataGridViewURLFilterRules.Rows.Add(null, Active, Regex, Expression, StringAction[Action]);
+                    dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleShow].ReadOnly = true;
                     row++;
                 }
+            }
+
+
+            // Add Certificates of Certificate Store to DataGridView
+            for (int index = 0; index < certificateList.Count; index++)
+            {
+                certificateData = (Dictionary<string, object>)certificateList[index];
+
+                String type = (String)certificateData[MessageType];
+                String name = (String)certificateData[MessageName];
+
+                dataGridViewCertificates.Rows.Add(type, name);
             }
 
 
@@ -1271,8 +1283,12 @@ namespace SebWindowsConfig
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
           //dataGridViewProhibitedProcesses.AutoResizeColumns();
+          //dataGridViewURLFilterRules     .AutoResizeColumns();
+          //dataGridViewCertificates       .AutoResizeColumns();
           //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewURLFilterRules     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewCertificates       .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
             // Group "Network - Filter"
