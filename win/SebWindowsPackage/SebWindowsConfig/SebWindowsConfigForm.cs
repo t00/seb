@@ -336,26 +336,32 @@ namespace SebWindowsConfig
         static int                        permittedProcessIndex;
         static List<object>               permittedProcessList = new List<object>();
         static Dictionary<string, object> permittedProcessData = new Dictionary<string, object>();
+        static Dictionary<string, object> permittedProcessDataDef = new Dictionary<string, object>();
 
         static int                        permittedArgumentIndex;
         static List<object>               permittedArgumentList = new List<object>();
         static Dictionary<string, object> permittedArgumentData = new Dictionary<string, object>();
+        static Dictionary<string, object> permittedArgumentDataDef = new Dictionary<string, object>();
 
         static int                        prohibitedProcessIndex;
         static List<object>               prohibitedProcessList = new List<object>();
         static Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
+        static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
 
         static int                        urlFilterRuleIndex;
         static List<object>               urlFilterRuleList = new List<object>();
         static Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterRuleDataDef = new Dictionary<string, object>();
 
         static int                        urlFilterActionIndex;
         static List<object>               urlFilterActionList = new List<object>();
         static Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterActionDataDef = new Dictionary<string, object>();
 
         static int                        certificateIndex;
         static List<object>               certificateList = new List<object>();
         static Dictionary<string, object> certificateData = new Dictionary<string, object>();
+        static Dictionary<string, object> certificateDataDef = new Dictionary<string, object>();
 
 
 
@@ -463,6 +469,30 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageAllowSwitchToApplications, false);
             sebSettingsDef.Add(MessageAllowFlashFullscreen     , false);
             sebSettingsDef.Add(MessageProhibitedProcesses      , new List<object>());
+
+            permittedProcessDataDef.Add(MessageActive     , true);
+            permittedProcessDataDef.Add(MessageAutostart  , true);
+            permittedProcessDataDef.Add(MessageAutohide   , true);
+            permittedProcessDataDef.Add(MessageAllowUser  , true);
+            permittedProcessDataDef.Add(MessageOS         , IntWin);
+            permittedProcessDataDef.Add(MessageTitle      , "");
+            permittedProcessDataDef.Add(MessageDescription, "");
+            permittedProcessDataDef.Add(MessageExecutable , "");
+            permittedProcessDataDef.Add(MessagePath       , "");
+            permittedProcessDataDef.Add(MessageIdentifier , "");
+            permittedProcessDataDef.Add(MessageArguments  , new List<object>());
+
+            permittedArgumentDataDef.Add(MessageActive  , true);
+            permittedArgumentDataDef.Add(MessageArgument, "");
+
+            prohibitedProcessDataDef.Add(MessageActive     , true);
+            prohibitedProcessDataDef.Add(MessageCurrentUser, true);
+            prohibitedProcessDataDef.Add(MessageStrongKill , false);
+            prohibitedProcessDataDef.Add(MessageOS         , IntWin);
+            prohibitedProcessDataDef.Add(MessageExecutable , "");
+            prohibitedProcessDataDef.Add(MessageDescription, "");
+            prohibitedProcessDataDef.Add(MessageIdentifier , "");
+            prohibitedProcessDataDef.Add(MessageUser       , "");
 
             // Default settings for group "Network - Filter"
             sebSettingsDef.Add(MessageEnableURLFilter       , false);
