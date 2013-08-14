@@ -1232,7 +1232,8 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.Rows[row].Cells[column].Style.Font   = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
 
-                //dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex].Visible;
+                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex ].ReadOnly = true;
+                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction].ReadOnly = true;
 
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
