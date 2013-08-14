@@ -1213,6 +1213,7 @@ namespace SebWindowsConfig
 
 
             // Add URL Filter Rules of currently opened file to DataGridView
+            int row = 0;
             for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
             {
                 urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[ruleIndex];
@@ -1225,10 +1226,21 @@ namespace SebWindowsConfig
 
                 dataGridViewURLFilterRules.Rows.Add(show, active, regex, expression, StringAction[action]);
 
+                int column = IntColumnURLFilterRuleExpression;
+
+                DataGridViewCell cell = dataGridViewURLFilterRules.Rows[row].Cells[column];
+                //cell.Style.Font = DefaultFont;
+                cell.Style.Font = Font.Bold;
+
+                dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
+
+
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
                 if (urlFilterActionList.Count > 0) urlFilterActionIndex =  0;
                                               else urlFilterActionIndex = -1;
+
+                row++;
 
                 // Add URL Filter Actions of current URL Filter Rule to DataGridView
                 for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
@@ -1242,6 +1254,7 @@ namespace SebWindowsConfig
                     Int32   Action     = (Int32  ) urlFilterActionData[MessageAction];
 
                     dataGridViewURLFilterRules.Rows.Add(Show, Active, Regex, Expression, StringAction[Action]);
+                    row++;
                 }
             }
 
