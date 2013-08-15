@@ -1287,6 +1287,10 @@ namespace SebWindowsConfig
                 Boolean active     = (Boolean)urlFilterRuleData[MessageActive];
                 String  expression = (String )urlFilterRuleData[MessageExpression];
 
+                  ruleNumber.Add(ruleIndex);
+                actionNumber.Add(-1);
+                  isTitleRow.Add(true);
+
                 // Add  title row for current Filter Rule.
                 // Show title row in LightGrey and Expression in Bold.
                 // For  title row, disable the Regex and Action widgets.
@@ -1295,11 +1299,6 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly = true;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly = true;
-              //dataGridViewURLFilterRules.Invalidate();
-
-                  ruleNumber.Add(ruleIndex);
-                actionNumber.Add(-1);
-                  isTitleRow.Add(true);
 
                 row++;
 
@@ -1318,15 +1317,14 @@ namespace SebWindowsConfig
                     String  Expression = (String )urlFilterActionData[MessageExpression];
                     Int32   Action     = (Int32  )urlFilterActionData[MessageAction];
 
+                      ruleNumber.Add(  ruleIndex);
+                    actionNumber.Add(actionIndex);
+                      isTitleRow.Add(false);
+
                     // Add Action row for current Filter Rule.
                     // For Action row, disable the Show widget.
                     dataGridViewURLFilterRules.Rows.Add(null, Active, Regex, Expression, StringAction[Action]);
                     dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleShow].ReadOnly = true;
-                  //dataGridViewURLFilterRules.Invalidate();
-
-                      ruleNumber.Add(  ruleIndex);
-                    actionNumber.Add(actionIndex);
-                      isTitleRow.Add(false);
 
                     row++;
 
@@ -2656,6 +2654,43 @@ namespace SebWindowsConfig
         }
 
 
+        private void dataGridViewURLFilterRules_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            // Skip the cell painting event if
+            // - the URL filter rules have not yet been loaded
+            // - the cell is no inner cell of the table
+            if (isTitleRow.Count == 0) return;
+            if (e.   RowIndex     < 0) return;
+            if (e.ColumnIndex     < 0) return;
+
+            // Determine if the cell is disabled
+            Boolean cellIsDisabled = false;
+
+            if (isTitleRow[e.RowIndex])
+            {
+                if (e.ColumnIndex == IntColumnURLFilterRuleRegex ) cellIsDisabled = true;
+                if (e.ColumnIndex == IntColumnURLFilterRuleAction) cellIsDisabled = true;
+            }
+            else
+            {
+                if (e.ColumnIndex == IntColumnURLFilterRuleShow) cellIsDisabled = true;
+            }
+
+            // If the cell is disabled, paint over it
+            if (cellIsDisabled)
+          //if (cellIsDisabled[e.RowIndex, e.ColumnIndex] == true)
+            {
+                // Fill the cell using its background colour
+                using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                {
+                    e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                    e.Handled = true;
+                }
+            }
+        }
+
+
+
         // ******************************
         // Group "Network - Certificates"
         // ******************************
@@ -3006,36 +3041,6 @@ namespace SebWindowsConfig
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
-
-
-
-        private void dataGridViewURLFilterRules_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            // If the cell is read-only, do not draw it
-            Boolean paintOverCell = false;
-
-            //if (isTitleRow[e.RowIndex])
-            {
-                if (e.ColumnIndex == IntColumnURLFilterRuleRegex ) paintOverCell = true;
-                if (e.ColumnIndex == IntColumnURLFilterRuleAction) paintOverCell = true;
-            }
-            //else
-                if (e.ColumnIndex == IntColumnURLFilterRuleShow) paintOverCell = true;
-
-
-            if (paintOverCell)
-            {
-                // Fill the cell using its background colour
-                  //using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
-                    using (Brush backColorBrush = new SolidBrush(Color.Green))
-                {
-                    e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
-                    e.Handled = true;
-                }
-            }
-        }
-
-
 
 
 
