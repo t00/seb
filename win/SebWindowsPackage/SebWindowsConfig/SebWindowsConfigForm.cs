@@ -1299,11 +1299,7 @@ namespace SebWindowsConfig
                   ruleNumber.Add(ruleIndex);
                 actionNumber.Add(-1);
                   isTitleRow.Add(true);
-/*
-                  ruleNumber[row] = ruleIndex;
-                actionNumber[row] = -1;
-                  isTitleRow[row] = true;
-*/
+
                 row++;
 
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
@@ -1329,11 +1325,7 @@ namespace SebWindowsConfig
                       ruleNumber.Add(  ruleIndex);
                     actionNumber.Add(actionIndex);
                       isTitleRow.Add(false);
-/*
-                      ruleNumber[row] =   ruleIndex;
-                    actionNumber[row] = actionIndex;
-                      isTitleRow[row] = false;
-*/
+
                     row++;
 
                 } // next actionIndex
