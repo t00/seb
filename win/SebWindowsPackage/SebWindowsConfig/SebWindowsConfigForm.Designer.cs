@@ -93,6 +93,11 @@
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
             this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
+            this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Regex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.buttonRemoveFilterRule = new System.Windows.Forms.Button();
             this.buttonAddFilterRule = new System.Windows.Forms.Button();
             this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
@@ -285,11 +290,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Regex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1062,6 +1062,45 @@
             this.dataGridViewURLFilterRules.RowTemplate.Height = 24;
             this.dataGridViewURLFilterRules.Size = new System.Drawing.Size(733, 300);
             this.dataGridViewURLFilterRules.TabIndex = 90;
+            this.dataGridViewURLFilterRules.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridViewURLFilterRules_CellPainting);
+            // 
+            // Show
+            // 
+            this.Show.HeaderText = "Show";
+            this.Show.Name = "Show";
+            this.Show.Width = 80;
+            // 
+            // dataGridViewCheckBoxColumn2
+            // 
+            this.dataGridViewCheckBoxColumn2.HeaderText = "Active";
+            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
+            this.dataGridViewCheckBoxColumn2.Width = 50;
+            // 
+            // Regex
+            // 
+            this.Regex.HeaderText = "Regex";
+            this.Regex.IndeterminateValue = "";
+            this.Regex.Name = "Regex";
+            this.Regex.ThreeState = true;
+            this.Regex.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Expression";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 470;
+            // 
+            // dataGridViewComboBoxColumn2
+            // 
+            this.dataGridViewComboBoxColumn2.HeaderText = "Action";
+            this.dataGridViewComboBoxColumn2.Items.AddRange(new object[] {
+            "block",
+            "allow",
+            "skip",
+            "and",
+            "or"});
+            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
+            this.dataGridViewComboBoxColumn2.Width = 80;
             // 
             // buttonRemoveFilterRule
             // 
@@ -3153,44 +3192,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // Show
-            // 
-            this.Show.HeaderText = "Show";
-            this.Show.Name = "Show";
-            this.Show.Width = 80;
-            // 
-            // dataGridViewCheckBoxColumn2
-            // 
-            this.dataGridViewCheckBoxColumn2.HeaderText = "Active";
-            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            this.dataGridViewCheckBoxColumn2.Width = 50;
-            // 
-            // Regex
-            // 
-            this.Regex.HeaderText = "Regex";
-            this.Regex.IndeterminateValue = "";
-            this.Regex.Name = "Regex";
-            this.Regex.ThreeState = true;
-            this.Regex.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Expression";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 470;
-            // 
-            // dataGridViewComboBoxColumn2
-            // 
-            this.dataGridViewComboBoxColumn2.HeaderText = "Action";
-            this.dataGridViewComboBoxColumn2.Items.AddRange(new object[] {
-            "block",
-            "allow",
-            "skip",
-            "and",
-            "or"});
-            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
-            this.dataGridViewComboBoxColumn2.Width = 80;
             // 
             // SebWindowsConfigForm
             // 

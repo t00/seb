@@ -1295,6 +1295,7 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly = true;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly = true;
+              //dataGridViewURLFilterRules.Invalidate();
 
                   ruleNumber.Add(ruleIndex);
                 actionNumber.Add(-1);
@@ -1321,6 +1322,7 @@ namespace SebWindowsConfig
                     // For Action row, disable the Show widget.
                     dataGridViewURLFilterRules.Rows.Add(null, Active, Regex, Expression, StringAction[Action]);
                     dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleShow].ReadOnly = true;
+                  //dataGridViewURLFilterRules.Invalidate();
 
                       ruleNumber.Add(  ruleIndex);
                     actionNumber.Add(actionIndex);
@@ -3003,6 +3005,34 @@ namespace SebWindowsConfig
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
+        }
+
+
+
+        private void dataGridViewURLFilterRules_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            // If the cell is read-only, do not draw it
+            Boolean paintOverCell = false;
+
+            //if (isTitleRow[e.RowIndex])
+            {
+                if (e.ColumnIndex == IntColumnURLFilterRuleRegex ) paintOverCell = true;
+                if (e.ColumnIndex == IntColumnURLFilterRuleAction) paintOverCell = true;
+            }
+            //else
+                if (e.ColumnIndex == IntColumnURLFilterRuleShow) paintOverCell = true;
+
+
+            if (paintOverCell)
+            {
+                // Fill the cell using its background colour
+                  //using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                    using (Brush backColorBrush = new SolidBrush(Color.Green))
+                {
+                    e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                    e.Handled = true;
+                }
+            }
         }
 
 
