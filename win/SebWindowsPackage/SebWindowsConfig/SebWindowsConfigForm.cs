@@ -383,6 +383,12 @@ namespace SebWindowsConfig
         static List<int>     actionNumber = new List<int    >();
         static List<Boolean> isTitleRow   = new List<Boolean>();
 
+        // Two-dimensional array
+        static List<List<Boolean>> urlFilterTableCellIsDisabled = new List<List<Boolean>>();
+
+        static Boolean[] urlFilterTableDisabledColumnsOfRule   = { false, false,  true, false,  true };
+        static Boolean[] urlFilterTableDisabledColumnsOfAction = {  true, false, false, false, false };
+
 
 
         // ***********
@@ -1291,6 +1297,11 @@ namespace SebWindowsConfig
                 actionNumber.Add(-1);
                   isTitleRow.Add(true);
 
+                urlFilterTableCellIsDisabled.Add(new List<Boolean>());
+                urlFilterTableCellIsDisabled[row] = urlFilterTableDisabledColumnsOfRule.ToList();
+              //urlFilterTableCellIsDisabled[row, IntColumnURLFilterRuleRegex ] = true;
+              //urlFilterTableCellIsDisabled[row, IntColumnURLFilterRuleAction] = true;
+
                 // Add  title row for current Filter Rule.
                 // Show title row in LightGrey and Expression in Bold.
                 // For  title row, disable the Regex and Action widgets.
@@ -1320,6 +1331,10 @@ namespace SebWindowsConfig
                       ruleNumber.Add(  ruleIndex);
                     actionNumber.Add(actionIndex);
                       isTitleRow.Add(false);
+
+                    urlFilterTableCellIsDisabled.Add(new List<Boolean>());
+                    urlFilterTableCellIsDisabled[row] = urlFilterTableDisabledColumnsOfAction.ToList();
+                  //urlFilterTableCellIsDisabled[row, IntColumnURLFilterRuleShow] = true;
 
                     // Add Action row for current Filter Rule.
                     // For Action row, disable the Show widget.
@@ -2664,8 +2679,8 @@ namespace SebWindowsConfig
             if (e.ColumnIndex     < 0) return;
 
             // Determine if the cell is disabled
-            Boolean cellIsDisabled = false;
-
+            //Boolean cellIsDisabled = false;
+/*
             if (isTitleRow[e.RowIndex])
             {
                 if (e.ColumnIndex == IntColumnURLFilterRuleRegex ) cellIsDisabled = true;
@@ -2675,10 +2690,11 @@ namespace SebWindowsConfig
             {
                 if (e.ColumnIndex == IntColumnURLFilterRuleShow) cellIsDisabled = true;
             }
-
+*/
             // If the cell is disabled, paint over it
-            if (cellIsDisabled)
-          //if (cellIsDisabled[e.RowIndex, e.ColumnIndex] == true)
+          //if (cellIsDisabled)
+          //if (urlFilterTableCellIsDisabled[e.RowIndex, e.ColumnIndex] == true)
+            if (urlFilterTableCellIsDisabled[e.RowIndex][e.ColumnIndex] == true)
             {
                 // Fill the cell using its background colour
                 using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
