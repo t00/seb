@@ -236,6 +236,19 @@ namespace SebWindowsConfig
         const String StringOSX = "OS X";
         const String StringWin = "Win";
 
+        // URL filter actions
+        const int IntBlock = 0;
+        const int IntAllow = 1;
+        const int IntSkip  = 2;
+        const int IntAnd   = 3;
+        const int IntOr    = 4;
+
+        const String StringBlock = "block";
+        const String StringAllow = "allow";
+        const String StringSkip  = "skip";
+        const String StringAnd   = "and";
+        const String StringOr    = "or";
+
         // Permitted and Prohibited Processes table columns (0,1,2,3).
         // Permitted  Processes: Active, OS, Executable, Title
         // Prohibited Processes: Active, OS, Executable, Description
@@ -362,6 +375,13 @@ namespace SebWindowsConfig
         static List<object>               certificateList = new List<object>();
         static Dictionary<string, object> certificateData = new Dictionary<string, object>();
         static Dictionary<string, object> certificateDataDef = new Dictionary<string, object>();
+
+        // Lookup table: row ->   ruleIndex
+        // Lookup table: row -> actionIndex
+        // Lookup table: row -> is this row a title row (or action row)?
+        static List<int>       ruleNumber = new List<int    >();
+        static List<int>     actionNumber = new List<int    >();
+        static List<Boolean> isTitleRow   = new List<Boolean>();
 
 
 
@@ -664,11 +684,11 @@ namespace SebWindowsConfig
             StringProxyProtocol[6] = "Streaming Proxy (RTSP)";
 
             // Define the strings for the URL Filter Rule Actions
-            StringAction[0] = "block";
-            StringAction[1] = "allow";
-            StringAction[2] = "skip";
-            StringAction[3] = "and";
-            StringAction[4] = "or";
+            StringAction[IntBlock] = StringBlock;
+            StringAction[IntAllow] = StringAllow;
+            StringAction[IntSkip ] = StringSkip;
+            StringAction[IntAnd  ] = StringAnd;
+            StringAction[IntOr   ] = StringOr;
 
             // Assign the fixed entries to the ListBoxes and ComboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
@@ -809,6 +829,10 @@ namespace SebWindowsConfig
             certificateIndex = -1;
             certificateList.Clear();
             certificateData.Clear();
+
+              ruleNumber.Clear();
+            actionNumber.Clear();
+              isTitleRow.Clear();
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses .AutoResizeColumns();
@@ -1200,6 +1224,7 @@ namespace SebWindowsConfig
              permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
             prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
                 urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+                //certificateList = ...
 
              // Check if currently loaded lists have any entries
             if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
@@ -1233,12 +1258,10 @@ namespace SebWindowsConfig
             for (int index = 0; index < permittedProcessList.Count; index++)
             {
                 permittedProcessData = (Dictionary<string, object>)permittedProcessList[index];
-
                 Boolean active     = (Boolean)permittedProcessData[MessageActive];
                 Int32   os         = (Int32  )permittedProcessData[MessageOS];
                 String  executable = (String )permittedProcessData[MessageExecutable];
                 String  title      = (String )permittedProcessData[MessageTitle];
-
                 dataGridViewPermittedProcesses.Rows.Add(active, StringOS[os], executable, title);
             }
 
@@ -1246,12 +1269,10 @@ namespace SebWindowsConfig
             for (int index = 0; index < prohibitedProcessList.Count; index++)
             {
                 prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[index];
-
                 Boolean active      = (Boolean)prohibitedProcessData[MessageActive];
                 Int32   os          = (Int32  )prohibitedProcessData[MessageOS];
                 String  executable  = (String )prohibitedProcessData[MessageExecutable];
                 String  description = (String )prohibitedProcessData[MessageDescription];
-
                 dataGridViewProhibitedProcesses.Rows.Add(active, StringOS[os], executable, description);
             }
 
@@ -1274,6 +1295,15 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly = true;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly = true;
+
+                  ruleNumber.Add(ruleIndex);
+                actionNumber.Add(-1);
+                  isTitleRow.Add(true);
+/*
+                  ruleNumber[row] = ruleIndex;
+                actionNumber[row] = -1;
+                  isTitleRow[row] = true;
+*/
                 row++;
 
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
@@ -1295,19 +1325,27 @@ namespace SebWindowsConfig
                     // For Action row, disable the Show widget.
                     dataGridViewURLFilterRules.Rows.Add(null, Active, Regex, Expression, StringAction[Action]);
                     dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleShow].ReadOnly = true;
+
+                      ruleNumber.Add(  ruleIndex);
+                    actionNumber.Add(actionIndex);
+                      isTitleRow.Add(false);
+/*
+                      ruleNumber[row] =   ruleIndex;
+                    actionNumber[row] = actionIndex;
+                      isTitleRow[row] = false;
+*/
                     row++;
-                }
-            }
+
+                } // next actionIndex
+            } // next ruleIndex
 
 
             // Add Certificates of Certificate Store to DataGridView
             for (int index = 0; index < certificateList.Count; index++)
             {
                 certificateData = (Dictionary<string, object>)certificateList[index];
-
                 String type = (String)certificateData[MessageType];
                 String name = (String)certificateData[MessageName];
-
                 dataGridViewCertificates.Rows.Add(type, name);
             }
 
