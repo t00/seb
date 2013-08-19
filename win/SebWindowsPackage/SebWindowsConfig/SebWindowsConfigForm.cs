@@ -154,6 +154,8 @@ namespace SebWindowsConfig
         // Group "Network - Certificates"
         const String MessageEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
         const String MessageEmbedIdentity             = "EmbedIdentity";
+        const String MessageEmbeddedCertificates      = "embeddedCertificates";
+        const String MessageCertificateData           = "certificateData";
         const String MessageType                      = "type";
         const String MessageName                      = "name";
 
@@ -249,6 +251,14 @@ namespace SebWindowsConfig
         const String StringAnd   = "and";
         const String StringOr    = "or";
 
+        // Embedded certificate types
+        const int IntSSLClientCertificate = 0;
+        const int IntIdentity             = 1;
+
+        const String StringSSLClientCertificate = "SSL Certificate";
+        const String StringIdentity             = "Identity";
+
+
         // Permitted and Prohibited Processes table columns (0,1,2,3).
         // Permitted  Processes: Active, OS, Executable, Title
         // Prohibited Processes: Active, OS, Executable, Description
@@ -328,6 +338,7 @@ namespace SebWindowsConfig
         static String[] StringActive              = new String[2];
         static String[] StringOS                  = new String[2];
         static String[] StringAction              = new String[5];
+        static String[] StringCertificateType     = new String[2];
         static String[] StringProxyProtocol       = new String[7];
 
         const int NumProxyProtocols = 7;
@@ -371,10 +382,10 @@ namespace SebWindowsConfig
         static Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
         static Dictionary<string, object> urlFilterActionDataDef = new Dictionary<string, object>();
 
-        static int                        certificateIndex;
-        static List<object>               certificateList = new List<object>();
-        static Dictionary<string, object> certificateData = new Dictionary<string, object>();
-        static Dictionary<string, object> certificateDataDef = new Dictionary<string, object>();
+        static int                        embeddedCertificateIndex;
+        static List<object>               embeddedCertificateList = new List<object>();
+        static Dictionary<string, object> embeddedCertificateData = new Dictionary<string, object>();
+        static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
 
         // Lookup table: row ->   ruleIndex
         // Lookup table: row -> actionIndex
@@ -535,8 +546,11 @@ namespace SebWindowsConfig
             urlFilterActionDataDef.Add(MessageAction    , 0);
 
             // Default settings for group "Network - Certificates"
-            certificateDataDef.Add(MessageType, "");
-            certificateDataDef.Add(MessageName, "");
+            sebSettingsDef.Add(MessageEmbeddedCertificates, new List<object>());
+
+            embeddedCertificateDataDef.Add(MessageCertificateData, "");
+            embeddedCertificateDataDef.Add(MessageType           , 0);
+            embeddedCertificateDataDef.Add(MessageName           , "");
 
             // Default settings for group "Network - Proxies"
             sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
@@ -680,6 +694,10 @@ namespace SebWindowsConfig
             StringOS[IntOSX] = StringOSX;
             StringOS[IntWin] = StringWin;
 
+            // Define the strings for the Embedded Certificates
+            StringCertificateType[IntSSLClientCertificate] = StringSSLClientCertificate;
+            StringCertificateType[IntIdentity            ] = StringIdentity;
+
             // Define the strings for the Proxy Protocols
             StringProxyProtocol[0] = "Auto Proxy Discovery";
             StringProxyProtocol[1] = "Automatic Proxy Configuration";
@@ -752,12 +770,12 @@ namespace SebWindowsConfig
             dataGridViewURLFilterRules.MultiSelect        = false;
             dataGridViewURLFilterRules.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
-            dataGridViewCertificates.Enabled            = false;
-            dataGridViewCertificates.ReadOnly           = false;
-            dataGridViewCertificates.AllowUserToAddRows = false;
-            dataGridViewCertificates.RowHeadersVisible  = false;
-            dataGridViewCertificates.MultiSelect        = false;
-            dataGridViewCertificates.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewEmbeddedCertificates.Enabled            = false;
+            dataGridViewEmbeddedCertificates.ReadOnly           = false;
+            dataGridViewEmbeddedCertificates.AllowUserToAddRows = false;
+            dataGridViewEmbeddedCertificates.RowHeadersVisible  = false;
+            dataGridViewEmbeddedCertificates.MultiSelect        = false;
+            dataGridViewEmbeddedCertificates.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
             dataGridViewPermittedProcesses.Columns[IntColumnProcessActive    ].ValueType = typeof(Boolean);
             dataGridViewPermittedProcesses.Columns[IntColumnProcessOS        ].ValueType = typeof(String);
@@ -778,8 +796,8 @@ namespace SebWindowsConfig
             dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleExpression].ValueType = typeof(String);
             dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleAction    ].ValueType = typeof(String);
 
-            dataGridViewCertificates.Columns[IntColumnCertificateType].ValueType = typeof(String);
-            dataGridViewCertificates.Columns[IntColumnCertificateName].ValueType = typeof(String);
+            dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateType].ValueType = typeof(String);
+            dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateName].ValueType = typeof(String);
 
             // Assign the column names to the DataGridViews
 /*
@@ -832,23 +850,24 @@ namespace SebWindowsConfig
             urlFilterActionList.Clear();
             urlFilterActionData.Clear();
 
-            certificateIndex = -1;
-            certificateList.Clear();
-            certificateData.Clear();
+            embeddedCertificateIndex = -1;
+            embeddedCertificateList.Clear();
+            embeddedCertificateData.Clear();
 
               ruleNumber.Clear();
             actionNumber.Clear();
               isTitleRow.Clear();
 
             // Auto-resize the columns and cells
-          //dataGridViewPermittedProcesses .AutoResizeColumns();
-          //dataGridViewProhibitedProcesses.AutoResizeColumns();
-          //dataGridViewURLFilterRules     .AutoResizeColumns();
-          //dataGridViewCertificates       .AutoResizeColumns();
-          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //dataGridViewURLFilterRules     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //dataGridViewCertificates       .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewPermittedProcesses  .AutoResizeColumns();
+          //dataGridViewProhibitedProcesses .AutoResizeColumns();
+          //dataGridViewURLFilterRules      .AutoResizeColumns();
+          //dataGridViewEmbeddedCertificates.AutoResizeColumns();
+
+          //dataGridViewPermittedProcesses  .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProhibitedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewURLFilterRules      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
@@ -1227,10 +1246,10 @@ namespace SebWindowsConfig
             // Group "Network      -    Filter/Certificates"
 
             // Update the lists for the DataGridViews
-             permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
-                urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
-                //certificateList = ...
+               permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+              prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
+                  urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+            embeddedCertificateList = (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
 
              // Check if currently loaded lists have any entries
             if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
@@ -1242,8 +1261,8 @@ namespace SebWindowsConfig
             if (urlFilterRuleList.Count > 0) urlFilterRuleIndex =  0;
                                         else urlFilterRuleIndex = -1;
 
-            if (certificateList.Count > 0) certificateIndex =  0;
-                                      else certificateIndex = -1;
+            if (embeddedCertificateList.Count > 0) embeddedCertificateIndex =  0;
+                                              else embeddedCertificateIndex = -1;
 
             // Remove all previously displayed list entries from DataGridViews
                 groupBoxPermittedProcess  .Enabled = (permittedProcessList.Count > 0);
@@ -1257,8 +1276,8 @@ namespace SebWindowsConfig
             dataGridViewURLFilterRules.Enabled = (urlFilterRuleList.Count > 0);
             dataGridViewURLFilterRules.Rows.Clear();
 
-            dataGridViewCertificates.Enabled = (certificateList.Count > 0);
-            dataGridViewCertificates.Rows.Clear();
+            dataGridViewEmbeddedCertificates.Enabled = (embeddedCertificateList.Count > 0);
+            dataGridViewEmbeddedCertificates.Rows.Clear();
 
             // Add Permitted Processes of currently opened file to DataGridView
             for (int index = 0; index < permittedProcessList.Count; index++)
@@ -1347,13 +1366,14 @@ namespace SebWindowsConfig
             } // next ruleIndex
 
 
-            // Add Certificates of Certificate Store to DataGridView
-            for (int index = 0; index < certificateList.Count; index++)
+            // Add Embedded Certificates of Certificate Store to DataGridView
+            for (int index = 0; index < embeddedCertificateList.Count; index++)
             {
-                certificateData = (Dictionary<string, object>)certificateList[index];
-                String type = (String)certificateData[MessageType];
-                String name = (String)certificateData[MessageName];
-                dataGridViewCertificates.Rows.Add(type, name);
+                embeddedCertificateData = (Dictionary<string, object>)embeddedCertificateList[index];
+                String data = (String)embeddedCertificateData[MessageCertificateData];
+                Int32  type = (Int32 )embeddedCertificateData[MessageType];
+                String name = (String)embeddedCertificateData[MessageName];
+                dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
             }
 
 
@@ -1367,14 +1387,15 @@ namespace SebWindowsConfig
             else ClearProhibitedSelectedProcessGroup();
 
             // Auto-resize the columns and cells
-          //dataGridViewPermittedProcesses .AutoResizeColumns();
-          //dataGridViewProhibitedProcesses.AutoResizeColumns();
-          //dataGridViewURLFilterRules     .AutoResizeColumns();
-          //dataGridViewCertificates       .AutoResizeColumns();
-          //dataGridViewPermittedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //dataGridViewProhibitedProcesses.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //dataGridViewURLFilterRules     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-          //dataGridViewCertificates       .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewPermittedProcesses  .AutoResizeColumns();
+          //dataGridViewProhibitedProcesses .AutoResizeColumns();
+          //dataGridViewURLFilterRules      .AutoResizeColumns();
+          //dataGridViewEmbeddedCertificates.AutoResizeColumns();
+
+          //dataGridViewPermittedProcesses  .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProhibitedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewURLFilterRules      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
             // Group "Network - Filter"

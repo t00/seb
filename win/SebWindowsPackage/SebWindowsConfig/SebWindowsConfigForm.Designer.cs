@@ -108,7 +108,7 @@
             this.comboBoxChooseIdentity = new System.Windows.Forms.ComboBox();
             this.comboBoxChooseSSLClientCertificate = new System.Windows.Forms.ComboBox();
             this.buttonRemoveCertificate = new System.Windows.Forms.Button();
-            this.dataGridViewCertificates = new System.Windows.Forms.DataGridView();
+            this.dataGridViewEmbeddedCertificates = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
@@ -303,7 +303,7 @@
             this.tabPageFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewURLFilterRules)).BeginInit();
             this.tabPageCertificates.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).BeginInit();
             this.tabPageProxies.SuspendLayout();
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
@@ -1151,7 +1151,7 @@
             this.tabPageCertificates.Controls.Add(this.comboBoxChooseIdentity);
             this.tabPageCertificates.Controls.Add(this.comboBoxChooseSSLClientCertificate);
             this.tabPageCertificates.Controls.Add(this.buttonRemoveCertificate);
-            this.tabPageCertificates.Controls.Add(this.dataGridViewCertificates);
+            this.tabPageCertificates.Controls.Add(this.dataGridViewEmbeddedCertificates);
             this.tabPageCertificates.Location = new System.Drawing.Point(4, 25);
             this.tabPageCertificates.Name = "tabPageCertificates";
             this.tabPageCertificates.Padding = new System.Windows.Forms.Padding(3);
@@ -1206,18 +1206,18 @@
             this.buttonRemoveCertificate.UseVisualStyleBackColor = true;
             this.buttonRemoveCertificate.Click += new System.EventHandler(this.buttonRemoveCertificate_Click);
             // 
-            // dataGridViewCertificates
+            // dataGridViewEmbeddedCertificates
             // 
-            this.dataGridViewCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCertificates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewEmbeddedCertificates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewEmbeddedCertificates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            this.dataGridViewCertificates.Location = new System.Drawing.Point(25, 161);
-            this.dataGridViewCertificates.Name = "dataGridViewCertificates";
-            this.dataGridViewCertificates.RowHeadersVisible = false;
-            this.dataGridViewCertificates.RowTemplate.Height = 24;
-            this.dataGridViewCertificates.Size = new System.Drawing.Size(657, 183);
-            this.dataGridViewCertificates.TabIndex = 90;
+            this.dataGridViewEmbeddedCertificates.Location = new System.Drawing.Point(25, 161);
+            this.dataGridViewEmbeddedCertificates.Name = "dataGridViewEmbeddedCertificates";
+            this.dataGridViewEmbeddedCertificates.RowHeadersVisible = false;
+            this.dataGridViewEmbeddedCertificates.RowTemplate.Height = 24;
+            this.dataGridViewEmbeddedCertificates.Size = new System.Drawing.Size(657, 183);
+            this.dataGridViewEmbeddedCertificates.TabIndex = 90;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -3226,7 +3226,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewURLFilterRules)).EndInit();
             this.tabPageCertificates.ResumeLayout(false);
             this.tabPageCertificates.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCertificates)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).EndInit();
             this.tabPageProxies.ResumeLayout(false);
             this.tabPageProxies.PerformLayout();
             this.tabPageApplications.ResumeLayout(false);
@@ -3513,7 +3513,7 @@
         private System.Windows.Forms.Button buttonPermittedProcessCodeSignature;
         private System.Windows.Forms.Button buttonRemoveFilterRule;
         private System.Windows.Forms.Button buttonAddFilterRule;
-        private System.Windows.Forms.DataGridView dataGridViewCertificates;
+        private System.Windows.Forms.DataGridView dataGridViewEmbeddedCertificates;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Button buttonRemoveCertificate;
