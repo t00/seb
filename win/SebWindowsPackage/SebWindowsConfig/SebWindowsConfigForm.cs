@@ -2801,10 +2801,6 @@ namespace SebWindowsConfig
             urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
             urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
 
-            // Get the data of the filter action belonging to the cell (row)
-            urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
-            urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
-
             // Update the rule data belonging to the current cell
             if (urlFilterTitleRow)
             {
@@ -2813,6 +2809,10 @@ namespace SebWindowsConfig
             }
             else
             {
+                // Get the data of the filter action belonging to the cell (row)
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+                urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+
                 if (column == IntColumnURLFilterRuleActive    ) urlFilterActionData[MessageActive    ] = (Boolean)value;
                 if (column == IntColumnURLFilterRuleRegex     ) urlFilterActionData[MessageRegex     ] = (Boolean)value;
                 if (column == IntColumnURLFilterRuleExpression) urlFilterActionData[MessageExpression] = (String )value;
