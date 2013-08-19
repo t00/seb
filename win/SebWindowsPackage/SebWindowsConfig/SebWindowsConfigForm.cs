@@ -2727,6 +2727,43 @@ namespace SebWindowsConfig
         }
 
 
+        private void dataGridViewURLFilterRules_SelectionChanged(object sender, EventArgs e)
+        {
+            // CAUTION:
+            // If a row was previously selected and the user clicks onto another row,
+            // the SelectionChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old row,
+            // so the SelectedRows.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedRows.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
+
+            if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
+            //urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
+        }
+
+        private void dataGridViewURLFilterRules_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
+            // immediately call the CellValueChanged() event.
+            if (dataGridViewURLFilterRules.IsCurrentCellDirty)
+                dataGridViewURLFilterRules.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        private void dataGridViewURLFilterRules_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void buttonAddURLFilterRule_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonRemoveURLFilterRule_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         // ******************************
         // Group "Network - Certificates"
@@ -2741,7 +2778,34 @@ namespace SebWindowsConfig
 
         }
 
-        private void buttonRemoveCertificate_Click(object sender, EventArgs e)
+        private void dataGridViewEmbeddedCertificates_SelectionChanged(object sender, EventArgs e)
+        {
+            // CAUTION:
+            // If a row was previously selected and the user clicks onto another row,
+            // the SelectionChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old row,
+            // so the SelectedRows.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedRows.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
+
+            if (dataGridViewEmbeddedCertificates.SelectedRows.Count != 1) return;
+            embeddedCertificateIndex = dataGridViewEmbeddedCertificates.SelectedRows[0].Index;
+        }
+
+        private void dataGridViewEmbeddedCertificates_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
+            // immediately call the CellValueChanged() event.
+            if (dataGridViewEmbeddedCertificates.IsCurrentCellDirty)
+                dataGridViewEmbeddedCertificates.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        private void dataGridViewEmbeddedCertificates_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void buttonRemoveEmbeddedCertificate_Click(object sender, EventArgs e)
         {
 
         }

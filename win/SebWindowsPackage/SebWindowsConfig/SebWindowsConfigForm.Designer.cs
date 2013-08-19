@@ -98,8 +98,8 @@
             this.Regex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.buttonRemoveFilterRule = new System.Windows.Forms.Button();
-            this.buttonAddFilterRule = new System.Windows.Forms.Button();
+            this.buttonRemoveURLFilterRule = new System.Windows.Forms.Button();
+            this.buttonAddURLFilterRule = new System.Windows.Forms.Button();
             this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.tabPageCertificates = new System.Windows.Forms.TabPage();
@@ -1035,8 +1035,8 @@
             // tabPageFilter
             // 
             this.tabPageFilter.Controls.Add(this.dataGridViewURLFilterRules);
-            this.tabPageFilter.Controls.Add(this.buttonRemoveFilterRule);
-            this.tabPageFilter.Controls.Add(this.buttonAddFilterRule);
+            this.tabPageFilter.Controls.Add(this.buttonRemoveURLFilterRule);
+            this.tabPageFilter.Controls.Add(this.buttonAddURLFilterRule);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLFilter);
             this.tabPageFilter.Location = new System.Drawing.Point(4, 25);
@@ -1063,6 +1063,9 @@
             this.dataGridViewURLFilterRules.Size = new System.Drawing.Size(733, 300);
             this.dataGridViewURLFilterRules.TabIndex = 90;
             this.dataGridViewURLFilterRules.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridViewURLFilterRules_CellPainting);
+            this.dataGridViewURLFilterRules.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewURLFilterRules_CellValueChanged);
+            this.dataGridViewURLFilterRules.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewURLFilterRules_CurrentCellDirtyStateChanged);
+            this.dataGridViewURLFilterRules.SelectionChanged += new System.EventHandler(this.dataGridViewURLFilterRules_SelectionChanged);
             // 
             // Show
             // 
@@ -1102,23 +1105,25 @@
             this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
             this.dataGridViewComboBoxColumn2.Width = 80;
             // 
-            // buttonRemoveFilterRule
+            // buttonRemoveURLFilterRule
             // 
-            this.buttonRemoveFilterRule.Location = new System.Drawing.Point(60, 400);
-            this.buttonRemoveFilterRule.Name = "buttonRemoveFilterRule";
-            this.buttonRemoveFilterRule.Size = new System.Drawing.Size(30, 30);
-            this.buttonRemoveFilterRule.TabIndex = 87;
-            this.buttonRemoveFilterRule.Text = "-";
-            this.buttonRemoveFilterRule.UseVisualStyleBackColor = true;
+            this.buttonRemoveURLFilterRule.Location = new System.Drawing.Point(60, 400);
+            this.buttonRemoveURLFilterRule.Name = "buttonRemoveURLFilterRule";
+            this.buttonRemoveURLFilterRule.Size = new System.Drawing.Size(30, 30);
+            this.buttonRemoveURLFilterRule.TabIndex = 87;
+            this.buttonRemoveURLFilterRule.Text = "-";
+            this.buttonRemoveURLFilterRule.UseVisualStyleBackColor = true;
+            this.buttonRemoveURLFilterRule.Click += new System.EventHandler(this.buttonRemoveURLFilterRule_Click);
             // 
-            // buttonAddFilterRule
+            // buttonAddURLFilterRule
             // 
-            this.buttonAddFilterRule.Location = new System.Drawing.Point(25, 400);
-            this.buttonAddFilterRule.Name = "buttonAddFilterRule";
-            this.buttonAddFilterRule.Size = new System.Drawing.Size(30, 30);
-            this.buttonAddFilterRule.TabIndex = 86;
-            this.buttonAddFilterRule.Text = "+";
-            this.buttonAddFilterRule.UseVisualStyleBackColor = true;
+            this.buttonAddURLFilterRule.Location = new System.Drawing.Point(25, 400);
+            this.buttonAddURLFilterRule.Name = "buttonAddURLFilterRule";
+            this.buttonAddURLFilterRule.Size = new System.Drawing.Size(30, 30);
+            this.buttonAddURLFilterRule.TabIndex = 86;
+            this.buttonAddURLFilterRule.Text = "+";
+            this.buttonAddURLFilterRule.UseVisualStyleBackColor = true;
+            this.buttonAddURLFilterRule.Click += new System.EventHandler(this.buttonAddURLFilterRule_Click);
             // 
             // checkBoxEnableURLContentFilter
             // 
@@ -1204,7 +1209,7 @@
             this.buttonRemoveCertificate.TabIndex = 93;
             this.buttonRemoveCertificate.Text = "-";
             this.buttonRemoveCertificate.UseVisualStyleBackColor = true;
-            this.buttonRemoveCertificate.Click += new System.EventHandler(this.buttonRemoveCertificate_Click);
+            this.buttonRemoveCertificate.Click += new System.EventHandler(this.buttonRemoveEmbeddedCertificate_Click);
             // 
             // dataGridViewEmbeddedCertificates
             // 
@@ -1218,6 +1223,9 @@
             this.dataGridViewEmbeddedCertificates.RowTemplate.Height = 24;
             this.dataGridViewEmbeddedCertificates.Size = new System.Drawing.Size(657, 183);
             this.dataGridViewEmbeddedCertificates.TabIndex = 90;
+            this.dataGridViewEmbeddedCertificates.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEmbeddedCertificates_CellValueChanged);
+            this.dataGridViewEmbeddedCertificates.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewEmbeddedCertificates_CurrentCellDirtyStateChanged);
+            this.dataGridViewEmbeddedCertificates.SelectionChanged += new System.EventHandler(this.dataGridViewEmbeddedCertificates_SelectionChanged);
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -3511,8 +3519,8 @@
         private System.Windows.Forms.CheckBox checkBoxProhibitedProcessActive;
         private System.Windows.Forms.Button buttonProhibitedProcessCodeSignature;
         private System.Windows.Forms.Button buttonPermittedProcessCodeSignature;
-        private System.Windows.Forms.Button buttonRemoveFilterRule;
-        private System.Windows.Forms.Button buttonAddFilterRule;
+        private System.Windows.Forms.Button buttonRemoveURLFilterRule;
+        private System.Windows.Forms.Button buttonAddURLFilterRule;
         private System.Windows.Forms.DataGridView dataGridViewEmbeddedCertificates;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
