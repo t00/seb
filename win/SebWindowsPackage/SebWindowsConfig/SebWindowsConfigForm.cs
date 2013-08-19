@@ -372,6 +372,9 @@ namespace SebWindowsConfig
         static Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
         static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
 
+        static int                        urlFilterTableRow;
+        static Boolean                    urlFilterTitleRow;
+
         static int                        urlFilterRuleIndex;
         static List<object>               urlFilterRuleList = new List<object>();
         static Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
@@ -841,6 +844,9 @@ namespace SebWindowsConfig
             prohibitedProcessIndex = -1;
             prohibitedProcessList.Clear();
             prohibitedProcessData.Clear();
+
+            urlFilterTableRow = -1;
+            urlFilterTitleRow = false;
 
             urlFilterRuleIndex = -1;
             urlFilterRuleList.Clear();
@@ -2738,8 +2744,16 @@ namespace SebWindowsConfig
             // Now you can set the widgets in the "Selected Process" groupBox.
 
             if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
-            //urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
+            urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
+
+            //if (  ruleNumber.Count <= urlFilterTableRow) return;
+            //if (actionNumber.Count <= urlFilterTableRow) return;
+
+            urlFilterTitleRow    =   isTitleRow[urlFilterTableRow];
+            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
+            urlFilterActionIndex = actionNumber[urlFilterTableRow];
         }
+
 
         private void dataGridViewURLFilterRules_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
@@ -2749,10 +2763,63 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
+
         private void dataGridViewURLFilterRules_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            // Get the current cell where the user has changed a value
+            int row    = dataGridViewURLFilterRules.CurrentCellAddress.Y;
+            int column = dataGridViewURLFilterRules.CurrentCellAddress.X;
 
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            // Get the changed value of the current cell
+            object value = dataGridViewURLFilterRules.CurrentCell.EditedFormattedValue;
+
+            // Convert the selected Action ListBox entry from String to Integer
+            if (column == IntColumnURLFilterRuleAction)
+            {
+                     if ((String)value == StringBlock) value = IntBlock;
+                else if ((String)value == StringAllow) value = IntAllow;
+                else if ((String)value == StringSkip ) value = IntSkip;
+                else if ((String)value == StringAnd  ) value = IntAnd;
+                else if ((String)value == StringOr   ) value = IntOr;
+            }
+
+            // Determine whether clicked cell belongs to a title row or action row
+            urlFilterTableRow    = row;
+
+            //if (  ruleNumber.Count <= urlFilterTableRow) return;
+            //if (actionNumber.Count <= urlFilterTableRow) return;
+
+            urlFilterTitleRow    =   isTitleRow[urlFilterTableRow];
+            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
+            urlFilterActionIndex = actionNumber[urlFilterTableRow];
+
+            // Get the data of the filter rule belonging to the cell (row)
+            urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
+            urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+
+            // Get the data of the filter action belonging to the cell (row)
+            urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+            urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+
+            // Update the rule data belonging to the current cell
+            if (urlFilterTitleRow)
+            {
+                if (column == IntColumnURLFilterRuleActive    ) urlFilterRuleData[MessageActive    ] = (Boolean)value;
+                if (column == IntColumnURLFilterRuleExpression) urlFilterRuleData[MessageExpression] = (String )value;
+            }
+            else
+            {
+                if (column == IntColumnURLFilterRuleActive    ) urlFilterActionData[MessageActive    ] = (Boolean)value;
+                if (column == IntColumnURLFilterRuleRegex     ) urlFilterActionData[MessageRegex     ] = (Boolean)value;
+                if (column == IntColumnURLFilterRuleExpression) urlFilterActionData[MessageExpression] = (String )value;
+                if (column == IntColumnURLFilterRuleAction    ) urlFilterActionData[MessageAction    ] = (Int32  )value;
+            }
         }
+
 
         private void buttonAddURLFilterRule_Click(object sender, EventArgs e)
         {
@@ -2792,6 +2859,7 @@ namespace SebWindowsConfig
             embeddedCertificateIndex = dataGridViewEmbeddedCertificates.SelectedRows[0].Index;
         }
 
+
         private void dataGridViewEmbeddedCertificates_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
@@ -2800,10 +2868,37 @@ namespace SebWindowsConfig
                 dataGridViewEmbeddedCertificates.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
+
         private void dataGridViewEmbeddedCertificates_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            // Get the current cell where the user has changed a value
+            int row    = dataGridViewEmbeddedCertificates.CurrentCellAddress.Y;
+            int column = dataGridViewEmbeddedCertificates.CurrentCellAddress.X;
 
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            // Get the changed value of the current cell
+            object value = dataGridViewEmbeddedCertificates.CurrentCell.EditedFormattedValue;
+
+            // Convert the selected Type ListBox entry from String to Integer
+            if (column == IntColumnCertificateType)
+            {
+                     if ((String)value == StringSSLClientCertificate) value = IntSSLClientCertificate;
+                else if ((String)value == StringIdentity            ) value = IntIdentity;
+            }
+
+            // Get the data of the certificate belonging to the cell (row)
+            embeddedCertificateIndex = row;
+            embeddedCertificateList  =               (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
+            embeddedCertificateData  = (Dictionary<string, object>)prohibitedProcessList[embeddedCertificateIndex];
+
+            // Update the certificate data belonging to the current cell
+            if (column == IntColumnCertificateType) embeddedCertificateData[MessageType] = (Int32  )value;
+            if (column == IntColumnCertificateName) embeddedCertificateData[MessageName] = (String )value;
         }
+
 
         private void buttonRemoveEmbeddedCertificate_Click(object sender, EventArgs e)
         {
