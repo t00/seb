@@ -390,12 +390,16 @@ namespace SebWindowsConfig
         static Dictionary<string, object> embeddedCertificateData = new Dictionary<string, object>();
         static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
 
-        // Lookup table: row ->   ruleIndex
-        // Lookup table: row -> actionIndex
-        // Lookup table: row -> is this row a title row (or action row)?
+        // Lookup table: row  ->   ruleIndex
+        // Lookup table: row  -> actionIndex
+        // Lookup table: row  -> is this row a title row (or action row)?
+        // Lookup table: rule -> startRow
+        // Lookup table: rule ->   endRow
         static List<int>       ruleNumber = new List<int    >();
         static List<int>     actionNumber = new List<int    >();
         static List<Boolean> isTitleRow   = new List<Boolean>();
+        static List<int>       startRow   = new List<int    >();
+        static List<int>         endRow   = new List<int    >();
 
         // Two-dimensional array
         static List<List<Boolean>> urlFilterTableCellIsDisabled = new List<List<Boolean>>();
@@ -863,6 +867,8 @@ namespace SebWindowsConfig
               ruleNumber.Clear();
             actionNumber.Clear();
               isTitleRow.Clear();
+                startRow.Clear();
+                  endRow.Clear();
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses  .AutoResizeColumns();
@@ -1313,14 +1319,19 @@ namespace SebWindowsConfig
 
             for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
             {
-                urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[ruleIndex];
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[ruleIndex];
+                Boolean active      = (Boolean     )urlFilterRuleData[MessageActive];
+                String  expression  = (String      )urlFilterRuleData[MessageExpression];
+                urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
-                Boolean active     = (Boolean)urlFilterRuleData[MessageActive];
-                String  expression = (String )urlFilterRuleData[MessageExpression];
+                if (urlFilterActionList.Count > 0) urlFilterActionIndex =  0;
+                                              else urlFilterActionIndex = -1;
 
                   ruleNumber.Add(ruleIndex);
                 actionNumber.Add(-1);
                   isTitleRow.Add(true);
+                    startRow.Add(row);
+                      endRow.Add(row + urlFilterActionList.Count);
 
                 urlFilterTableCellIsDisabled.Add(new List<Boolean>());
                 urlFilterTableCellIsDisabled[row] = urlFilterTableDisabledColumnsOfRule.ToList();
@@ -1337,11 +1348,6 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly = true;
 
                 row++;
-
-                urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
-
-                if (urlFilterActionList.Count > 0) urlFilterActionIndex =  0;
-                                              else urlFilterActionIndex = -1;
 
                 // Add URL Filter Actions of current URL Filter Rule to DataGridView
                 for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
@@ -2020,10 +2026,8 @@ namespace SebWindowsConfig
             for (int index = 0; index < permittedArgumentList.Count; index++)
             {
                 permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[index];
-
                 Boolean active   = (Boolean)permittedArgumentData[MessageActive];
                 String  argument = (String )permittedArgumentData[MessageArgument];
-
                 dataGridViewPermittedProcessArguments.Rows.Add(active, argument);
             }
 
@@ -2137,8 +2141,8 @@ namespace SebWindowsConfig
             {
                 // If process list was empty before, enable it
                 permittedProcessIndex = 0;
-                    groupBoxPermittedProcess  .Enabled = true;
                 dataGridViewPermittedProcesses.Enabled = true;
+                    groupBoxPermittedProcess  .Enabled = true;
             }
 
             // Create new process dataset containing default values
@@ -2187,8 +2191,8 @@ namespace SebWindowsConfig
             {
                 // If process list is now empty, disable it
                 permittedProcessIndex  = -1;
-                    groupBoxPermittedProcess  .Enabled = false;
                 dataGridViewPermittedProcesses.Enabled = false;
+                    groupBoxPermittedProcess  .Enabled = false;
             }
         }
 
@@ -2539,8 +2543,8 @@ namespace SebWindowsConfig
             {
                 // If process list was empty before, enable it
                 prohibitedProcessIndex = 0;
-                    groupBoxProhibitedProcess  .Enabled = true;
                 dataGridViewProhibitedProcesses.Enabled = true;
+                    groupBoxProhibitedProcess  .Enabled = true;
             }
 
             // Create new process dataset containing default values
@@ -2585,9 +2589,9 @@ namespace SebWindowsConfig
             else
             {
                 // If process list is now empty, disable it
-                prohibitedProcessIndex  = -1;
-                    groupBoxProhibitedProcess  .Enabled = false;
+                prohibitedProcessIndex = -1;
                 dataGridViewProhibitedProcesses.Enabled = false;
+                    groupBoxProhibitedProcess  .Enabled = false;
             }
         }
 
@@ -2823,12 +2827,73 @@ namespace SebWindowsConfig
 
         private void buttonAddURLFilterRule_Click(object sender, EventArgs e)
         {
+            // Get the rule list
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
 
+            if (urlFilterRuleList.Count > 0)
+            {
+                if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
+              //urlFilterRuleIndex = dataGridViewURLFilterRules.SelectedRows[0].Index;
+                urlFilterRuleIndex = urlFilterRuleList.Count;
+            }
+            else
+            {
+                // If rule list was empty before, enable it
+                urlFilterRuleIndex = 0;
+                dataGridViewURLFilterRules.Enabled = true;
+            }
+
+            // Create new rule dataset containing default values
+            Dictionary<string, object> ruleData = new Dictionary<string, object>();
+
+            ruleData[MessageActive     ] = true;
+            ruleData[MessageExpression ] = "Rule " + urlFilterRuleIndex.ToString();
+            ruleData[MessageRuleActions] = new List<object>();
+
+            // Insert new rule into rule list at position index
+            urlFilterRuleList                   .Insert(urlFilterRuleIndex, ruleData);
+            dataGridViewProhibitedProcesses.Rows.Insert(urlFilterRuleIndex, "Collapse",true, null, "Rule", null);
+            dataGridViewProhibitedProcesses.Rows       [urlFilterRuleIndex].Selected = true;
         }
+
 
         private void buttonRemoveURLFilterRule_Click(object sender, EventArgs e)
         {
+            if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
+            urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
 
+            //if (  ruleNumber.Count <= urlFilterTableRow) return;
+            //if (actionNumber.Count <= urlFilterTableRow) return;
+
+            urlFilterTitleRow    =   isTitleRow[urlFilterTableRow];
+            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
+            urlFilterActionIndex = actionNumber[urlFilterTableRow];
+
+            // Delete rule from rule list at position index
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+            urlFilterRuleList              .RemoveAt(urlFilterRuleIndex);
+            dataGridViewURLFilterRules.Rows.RemoveAt(urlFilterRuleIndex);
+
+            int start = startRow[urlFilterRuleIndex];
+            int end   =   endRow[urlFilterRuleIndex];
+
+            for (int row = start; row <= end; row++)
+                dataGridViewURLFilterRules.Rows.RemoveAt(row);
+
+            if (urlFilterRuleIndex == urlFilterRuleList.Count)
+                urlFilterRuleIndex--;
+
+            if (urlFilterRuleList.Count > 0)
+            {
+                start = startRow[urlFilterRuleIndex];
+                dataGridViewURLFilterRules.Rows[start].Selected = true;
+            }
+            else
+            {
+                // If rule list is now empty, disable it
+                urlFilterRuleIndex  = -1;
+                dataGridViewURLFilterRules.Enabled = false;
+            }
         }
 
 
@@ -2902,7 +2967,27 @@ namespace SebWindowsConfig
 
         private void buttonRemoveEmbeddedCertificate_Click(object sender, EventArgs e)
         {
+            if (dataGridViewEmbeddedCertificates.SelectedRows.Count != 1) return;
+            embeddedCertificateIndex = dataGridViewEmbeddedCertificates.SelectedRows[0].Index;
 
+            // Delete certificate from certificate list at position index
+            embeddedCertificateList = (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
+            embeddedCertificateList              .RemoveAt(embeddedCertificateIndex);
+            dataGridViewEmbeddedCertificates.Rows.RemoveAt(embeddedCertificateIndex);
+
+            if (embeddedCertificateIndex == embeddedCertificateList.Count)
+                embeddedCertificateIndex--;
+
+            if (embeddedCertificateList.Count > 0)
+            {
+                dataGridViewEmbeddedCertificates.Rows[embeddedCertificateIndex].Selected = true;
+            }
+            else
+            {
+                // If certificate list is now empty, disable it
+                embeddedCertificateIndex = -1;
+                dataGridViewEmbeddedCertificates.Enabled = false;
+            }
         }
 
 
