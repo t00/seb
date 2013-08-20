@@ -2908,17 +2908,9 @@ namespace SebWindowsConfig
             {
                 // Delete rule from rule list at position index
                 urlFilterRuleList.RemoveAt(urlFilterRuleIndex);
-/*
-                int start = startRow[urlFilterRuleIndex];
-                int end   =   endRow[urlFilterRuleIndex];
 
-                for (int row = start; row <= end; row++)
-                    dataGridViewURLFilterRules.Rows.RemoveAt(row);
-*/
                 if (urlFilterRuleIndex == urlFilterRuleList.Count)
                     urlFilterRuleIndex--;
-
-                urlFilterActionIndex = -1;
             }
             else
             {
@@ -2928,8 +2920,6 @@ namespace SebWindowsConfig
 
                 // Delete action from action list at position index
                 urlFilterActionList.RemoveAt(urlFilterActionIndex);
-
-                //dataGridViewURLFilterRules.Rows.RemoveAt(urlFilterTableRow);
 
                 if (urlFilterActionIndex == urlFilterActionList.Count)
                     urlFilterActionIndex--;
