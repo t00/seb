@@ -1188,7 +1188,7 @@
             this.comboBoxChooseIdentity.FormattingEnabled = true;
             this.comboBoxChooseIdentity.Location = new System.Drawing.Point(25, 112);
             this.comboBoxChooseIdentity.Name = "comboBoxChooseIdentity";
-            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(653, 24);
             this.comboBoxChooseIdentity.TabIndex = 95;
             this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
             // 
@@ -1197,7 +1197,7 @@
             this.comboBoxChooseSSLClientCertificate.FormattingEnabled = true;
             this.comboBoxChooseSSLClientCertificate.Location = new System.Drawing.Point(25, 50);
             this.comboBoxChooseSSLClientCertificate.Name = "comboBoxChooseSSLClientCertificate";
-            this.comboBoxChooseSSLClientCertificate.Size = new System.Drawing.Size(657, 24);
+            this.comboBoxChooseSSLClientCertificate.Size = new System.Drawing.Size(653, 24);
             this.comboBoxChooseSSLClientCertificate.TabIndex = 94;
             this.comboBoxChooseSSLClientCertificate.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseSSLClientCertificate_SelectedIndexChanged);
             // 
@@ -1221,7 +1221,7 @@
             this.dataGridViewEmbeddedCertificates.Name = "dataGridViewEmbeddedCertificates";
             this.dataGridViewEmbeddedCertificates.RowHeadersVisible = false;
             this.dataGridViewEmbeddedCertificates.RowTemplate.Height = 24;
-            this.dataGridViewEmbeddedCertificates.Size = new System.Drawing.Size(657, 183);
+            this.dataGridViewEmbeddedCertificates.Size = new System.Drawing.Size(653, 180);
             this.dataGridViewEmbeddedCertificates.TabIndex = 90;
             this.dataGridViewEmbeddedCertificates.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEmbeddedCertificates_CellValueChanged);
             this.dataGridViewEmbeddedCertificates.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewEmbeddedCertificates_CurrentCellDirtyStateChanged);
@@ -3198,13 +3198,13 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn3.Width = 300;
+            this.dataGridViewTextBoxColumn3.Width = 130;
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.HeaderText = "Name";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 300;
+            this.dataGridViewTextBoxColumn4.Width = 520;
             // 
             // SebWindowsConfigForm
             // 

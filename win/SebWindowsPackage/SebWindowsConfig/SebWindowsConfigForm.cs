@@ -544,12 +544,12 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
 
             urlFilterRuleDataDef.Add(MessageActive     , true);
-            urlFilterRuleDataDef.Add(MessageExpression , "");
+            urlFilterRuleDataDef.Add(MessageExpression , "Rule");
             urlFilterRuleDataDef.Add(MessageRuleActions, new List<object>());
 
             urlFilterActionDataDef.Add(MessageActive    , true);
             urlFilterActionDataDef.Add(MessageRegex     , false);
-            urlFilterActionDataDef.Add(MessageExpression, "Rule");
+            urlFilterActionDataDef.Add(MessageExpression, "*");
             urlFilterActionDataDef.Add(MessageAction    , 0);
 
             // Default settings for group "Network - Certificates"
@@ -1324,6 +1324,7 @@ namespace SebWindowsConfig
                 String  expression  = (String      )urlFilterRuleData[MessageExpression];
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
+                if (urlFilterRuleIndex == ruleIndex)
                 if (urlFilterActionList.Count > 0) urlFilterActionIndex =  0;
                                               else urlFilterActionIndex = -1;
 
@@ -2960,7 +2961,7 @@ namespace SebWindowsConfig
             // Get the data of the certificate belonging to the cell (row)
             embeddedCertificateIndex = row;
             embeddedCertificateList  =               (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
-            embeddedCertificateData  = (Dictionary<string, object>)prohibitedProcessList[embeddedCertificateIndex];
+            embeddedCertificateData  = (Dictionary<string, object>)embeddedCertificateList[embeddedCertificateIndex];
 
             // Update the certificate data belonging to the current cell
             if (column == IntColumnCertificateType) embeddedCertificateData[MessageType] = (Int32  )value;
