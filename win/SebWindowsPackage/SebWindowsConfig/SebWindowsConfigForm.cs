@@ -1199,10 +1199,6 @@ namespace SebWindowsConfig
                 String  expression  = (String      )urlFilterRuleData[MessageExpression];
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
-                if (urlFilterRuleIndex == ruleIndex)
-                if (urlFilterActionList.Count > 0) urlFilterActionIndex =  0;
-                                              else urlFilterActionIndex = -1;
-
                   ruleNumber.Add(ruleIndex);
                 actionNumber.Add(-1);
                   isTitleRow.Add(true);
@@ -2853,12 +2849,8 @@ namespace SebWindowsConfig
 
         private void buttonAddURLFilterRule_Click(object sender, EventArgs e)
         {
-            // Get the rule list
-            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
-
             if (urlFilterRuleList.Count > 0)
             {
-                if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
               //urlFilterRuleIndex = dataGridViewURLFilterRules.SelectedRows[0].Index;
                 urlFilterRuleIndex = urlFilterRuleList.Count;
             }
@@ -2869,17 +2861,57 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.Enabled = true;
             }
 
-            // Create new rule dataset containing default values
-            Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
-            ruleData[MessageActive     ] = true;
-            ruleData[MessageExpression ] = "Rule " + urlFilterRuleIndex.ToString();
-            ruleData[MessageRuleActions] = new List<object>();
 
-            // Insert new rule into rule list at position index
-            urlFilterRuleList                   .Insert(urlFilterRuleIndex, ruleData);
-            dataGridViewProhibitedProcesses.Rows.Insert(urlFilterRuleIndex, "Collapse",true, null, "Rule", null);
-            dataGridViewProhibitedProcesses.Rows       [urlFilterRuleIndex].Selected = true;
+
+            // Determine if the selected row is a title row or action row.
+            // Determine which rule and action belong to the selected row.
+
+            //if (  isTitleRow.Count <= urlFilterTableRow) return;
+            //if (  ruleNumber.Count <= urlFilterTableRow) return;
+            //if (actionNumber.Count <= urlFilterTableRow) return;
+
+            urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
+            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
+            urlFilterActionIndex = actionNumber[urlFilterTableRow];
+
+            // Get the data of the rule belonging to the cell (row)
+            urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
+            urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+
+            // Update the rule data belonging to the current cell
+            if (urlFilterIsTitleRow)
+            {
+                // Create new rule dataset containing default values
+                Dictionary<string, object> ruleData = new Dictionary<string, object>();
+
+                ruleData[MessageActive     ] = true;
+                ruleData[MessageExpression ] = "Rule " + urlFilterRuleIndex.ToString();
+                ruleData[MessageRuleActions] = new List<object>();
+
+                // Insert new rule into rule list at position index
+                urlFilterRuleList.Insert(urlFilterRuleIndex, ruleData);
+            }
+            else
+            {
+                // Get the data of the action belonging to the cell (row)
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+                urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+
+                // Create new action dataset containing default values
+                Dictionary<string, object> actionData = new Dictionary<string, object>();
+
+                actionData[MessageActive     ] = true;
+                actionData[MessageRegex      ] = false;
+                actionData[MessageExpression ] = "*";
+                actionData[MessageAction     ] = 0;
+
+                // Insert new action into action list at position index
+                urlFilterActionList.Insert(urlFilterActionIndex, actionData);
+            }
+
+            // Update the table of URL Filter Rules
+            UpdateTableOfURLFilterRules();
         }
 
 
@@ -2938,6 +2970,9 @@ namespace SebWindowsConfig
                 urlFilterRuleIndex  = -1;
                 dataGridViewURLFilterRules.Enabled = false;
             }
+
+            dataGridViewURLFilterRules.Rows[urlFilterRuleIndex].Selected = true;
+
         }
 
 
