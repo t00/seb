@@ -1349,10 +1349,10 @@ namespace SebWindowsConfig
 
             if (prohibitedProcessList.Count > 0) prohibitedProcessIndex =  0;
                                             else prohibitedProcessIndex = -1;
-
+/*
             if (urlFilterRuleList.Count > 0) urlFilterRuleIndex =  0;
                                         else urlFilterRuleIndex = -1;
-
+*/
             if (embeddedCertificateList.Count > 0) embeddedCertificateIndex =  0;
                                               else embeddedCertificateIndex = -1;
 
