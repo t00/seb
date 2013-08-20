@@ -2861,9 +2861,6 @@ namespace SebWindowsConfig
                 dataGridViewURLFilterRules.Enabled = true;
             }
 
-
-
-
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
 
