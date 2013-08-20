@@ -2751,6 +2751,9 @@ namespace SebWindowsConfig
             if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
             urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
 
+            // Determine if the selected row is a title row or action row.
+            // Determine which rule and action belong to the selected row.
+
             //if (  isTitleRow.Count <= urlFilterTableRow) return;
             //if (  ruleNumber.Count <= urlFilterTableRow) return;
             //if (actionNumber.Count <= urlFilterTableRow) return;
@@ -2793,9 +2796,10 @@ namespace SebWindowsConfig
                 else if ((String)value == StringOr   ) value = IntOr;
             }
 
-            // Determine whether clicked cell belongs to a title row or action row
-            // Determine which rule and action belong to the clicked cell
-            urlFilterTableRow    = row;
+            urlFilterTableRow = row;
+
+            // Determine if the selected row is a title row or action row.
+            // Determine which rule and action belong to the selected row.
 
             //if (  isTitleRow.Count <= urlFilterTableRow) return;
             //if (  ruleNumber.Count <= urlFilterTableRow) return;
@@ -2866,6 +2870,9 @@ namespace SebWindowsConfig
             if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
             urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
 
+            // Determine if the selected row is a title row or action row.
+            // Determine which rule and action belong to the selected row.
+
             //if (  isTitleRow.Count <= urlFilterTableRow) return;
             //if (  ruleNumber.Count <= urlFilterTableRow) return;
             //if (actionNumber.Count <= urlFilterTableRow) return;
@@ -2874,23 +2881,45 @@ namespace SebWindowsConfig
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
 
-            // Delete rule from rule list at position index
-            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
-            urlFilterRuleList.RemoveAt(urlFilterRuleIndex);
+            // Get the data of the rule belonging to the cell (row)
+            urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
+            urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
 
-            int start = startRow[urlFilterRuleIndex];
-            int end   =   endRow[urlFilterRuleIndex];
+            // Update the rule data belonging to the current cell
+            if (urlFilterIsTitleRow)
+            {
+                // Delete rule from rule list at position index
+                urlFilterRuleList.RemoveAt(urlFilterRuleIndex);
 
-            for (int row = start; row <= end; row++)
-                dataGridViewURLFilterRules.Rows.RemoveAt(row);
+                int start = startRow[urlFilterRuleIndex];
+                int end   =   endRow[urlFilterRuleIndex];
 
-            if (urlFilterRuleIndex == urlFilterRuleList.Count)
-                urlFilterRuleIndex--;
+                for (int row = start; row <= end; row++)
+                    dataGridViewURLFilterRules.Rows.RemoveAt(row);
+
+                if (urlFilterRuleIndex == urlFilterRuleList.Count)
+                    urlFilterRuleIndex--;
+
+                urlFilterActionIndex = -1;
+            }
+            else
+            {
+                // Get the data of the action belonging to the cell (row)
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+                urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+
+                // Delete action from action list at position index
+                urlFilterActionList.RemoveAt(urlFilterActionIndex);
+
+                dataGridViewURLFilterRules.Rows.RemoveAt(urlFilterTableRow);
+
+                if (urlFilterActionIndex == urlFilterActionList.Count)
+                    urlFilterActionIndex--;
+            }
 
             if (urlFilterRuleList.Count > 0)
             {
-                start = startRow[urlFilterRuleIndex];
-                dataGridViewURLFilterRules.Rows[start].Selected = true;
+                dataGridViewURLFilterRules.Rows[startRow[urlFilterRuleIndex]].Selected = true;
             }
             else
             {
