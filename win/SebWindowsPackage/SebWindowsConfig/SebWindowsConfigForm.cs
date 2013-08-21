@@ -2848,14 +2848,16 @@ namespace SebWindowsConfig
         {
             if (urlFilterRuleList.Count > 0)
             {
-              //urlFilterRuleIndex = dataGridViewURLFilterRules.SelectedRows[0].Index;
-                urlFilterRuleIndex = urlFilterRuleList.Count;
+                if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
+                urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
             }
             else
             {
                 // If rule list was empty before, enable it
-                urlFilterRuleIndex = 0;
-                dataGridViewURLFilterRules.Enabled = true;
+                urlFilterTableRow    =  0;
+                urlFilterIsTitleRow  =  true;
+                urlFilterRuleIndex   =  0;
+                urlFilterActionIndex = -1;
             }
 
             // Determine if the selected row is a title row or action row.
