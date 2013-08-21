@@ -1177,9 +1177,6 @@ namespace SebWindowsConfig
         // ****************************************
         private void UpdateTableOfURLFilterRules()
         {
-            // Add URL Filter Rules of currently opened file to DataGridView
-            int row = 0;
-
             // Clear all help structures for table access
               ruleNumber.Clear();
             actionNumber.Clear();
@@ -1188,10 +1185,22 @@ namespace SebWindowsConfig
                   endRow.Clear();
             urlFilterTableCellIsDisabled.Clear();
 
-            // Clear also the table itself
+            // Get the URL Filter Rules
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+
+            // When program starts,  URL Filter Rule list is     empty, so  urlFilterIndex is -1.
+            // If after file loading URL Filter Rule list is non-empty, set urlFilterIndex to  0,
+            // so the first URL Filter Rule is selected by default.
+            if ((urlFilterRuleIndex == -1) && (urlFilterRuleList.Count > 0))
+                 urlFilterRuleIndex = 0;
+
+            // Clear the table itself
             dataGridViewURLFilterRules.Enabled = (urlFilterRuleList.Count > 0);
             dataGridViewURLFilterRules.Rows.Clear();
 
+            int row = 0;
+
+            // Add URL Filter Rules of currently opened file to DataGridView
             for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
             {
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[ruleIndex];
@@ -1347,7 +1356,6 @@ namespace SebWindowsConfig
             // Update the lists for the DataGridViews
                permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
               prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
-                  urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
             embeddedCertificateList = (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
 
              // Check if currently loaded lists have any entries
