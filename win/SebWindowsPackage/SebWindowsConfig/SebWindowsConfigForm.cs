@@ -1222,7 +1222,7 @@ namespace SebWindowsConfig
                 // Add  title row for current Filter Rule.
                 // Show title row in LightGrey and Expression in Bold.
                 // For  title row, disable the Regex and Action widgets.
-                dataGridViewURLFilterRules.Rows.Add("Collapse", active, null, expression, null);
+                dataGridViewURLFilterRules.Rows.Add("Collapse", active, false, expression, "");
                 dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly = true;
@@ -1250,7 +1250,7 @@ namespace SebWindowsConfig
 
                     // Add Action row for current Filter Rule.
                     // For Action row, disable the Show widget.
-                    dataGridViewURLFilterRules.Rows.Add(null, Active, Regex, Expression, StringAction[Action]);
+                    dataGridViewURLFilterRules.Rows.Add("", Active, Regex, Expression, StringAction[Action]);
                     dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleShow].ReadOnly = true;
 
                     row++;
