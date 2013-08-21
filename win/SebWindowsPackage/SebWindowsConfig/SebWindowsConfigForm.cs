@@ -1258,12 +1258,23 @@ namespace SebWindowsConfig
                 } // next actionIndex
             } // next ruleIndex
 
+
             // Set the "selected index" focus to the row of current rule and action
-            if (urlFilterRuleList.Count > 0)
-            {
-                urlFilterTableRow =    startRow[urlFilterRuleIndex] + urlFilterActionIndex + 1;
-                dataGridViewURLFilterRules.Rows[urlFilterTableRow ].Selected = true;
-            }
+            if (urlFilterRuleList.Count == 0) return;
+
+            urlFilterTableRow =    startRow[urlFilterRuleIndex] + urlFilterActionIndex + 1;
+            dataGridViewURLFilterRules.Rows[urlFilterTableRow ].Selected = true;
+
+            // Determine if the selected row is a title row or action row.
+            // Determine which rule and action belong to the selected row.
+
+            //if (  isTitleRow.Count <= urlFilterTableRow) return;
+            //if (  ruleNumber.Count <= urlFilterTableRow) return;
+            //if (actionNumber.Count <= urlFilterTableRow) return;
+
+            urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
+            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
+            urlFilterActionIndex = actionNumber[urlFilterTableRow];
         }
 
 
@@ -2850,6 +2861,17 @@ namespace SebWindowsConfig
             {
                 if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
                 urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
+
+                // Determine if the selected row is a title row or action row.
+                // Determine which rule and action belong to the selected row.
+
+                //if (  isTitleRow.Count <= urlFilterTableRow) return;
+                //if (  ruleNumber.Count <= urlFilterTableRow) return;
+                //if (actionNumber.Count <= urlFilterTableRow) return;
+
+                urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
+                urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
+                urlFilterActionIndex = actionNumber[urlFilterTableRow];
             }
             else
             {
@@ -2860,20 +2882,8 @@ namespace SebWindowsConfig
                 urlFilterActionIndex = -1;
             }
 
-            // Determine if the selected row is a title row or action row.
-            // Determine which rule and action belong to the selected row.
-
-            //if (  isTitleRow.Count <= urlFilterTableRow) return;
-            //if (  ruleNumber.Count <= urlFilterTableRow) return;
-            //if (actionNumber.Count <= urlFilterTableRow) return;
-
-            urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
-            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
-            urlFilterActionIndex = actionNumber[urlFilterTableRow];
-
             // Get the rule data belonging to the current row
-            urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
-            urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
 
             // Update the rule data belonging to the current row
             if (urlFilterIsTitleRow)
@@ -2891,7 +2901,8 @@ namespace SebWindowsConfig
             else
             {
                 // Get the action data belonging to the current row
-                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList  [urlFilterRuleIndex];
+                urlFilterActionList =               (List<object>)urlFilterRuleData  [MessageRuleActions];
                 urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
 
                 // Create new action dataset containing default values
