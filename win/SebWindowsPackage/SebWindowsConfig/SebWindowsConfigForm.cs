@@ -1248,6 +1248,13 @@ namespace SebWindowsConfig
 
                 } // next actionIndex
             } // next ruleIndex
+
+            // Set the "selected index" focus to the row of current rule and action
+            if (urlFilterRuleList.Count > 0)
+            {
+                urlFilterTableRow =    startRow[urlFilterRuleIndex] + urlFilterActionIndex + 1;
+                dataGridViewURLFilterRules.Rows[urlFilterTableRow ].Selected = true;
+            }
         }
 
 
@@ -1349,10 +1356,7 @@ namespace SebWindowsConfig
 
             if (prohibitedProcessList.Count > 0) prohibitedProcessIndex =  0;
                                             else prohibitedProcessIndex = -1;
-/*
-            if (urlFilterRuleList.Count > 0) urlFilterRuleIndex =  0;
-                                        else urlFilterRuleIndex = -1;
-*/
+
             if (embeddedCertificateList.Count > 0) embeddedCertificateIndex =  0;
                                               else embeddedCertificateIndex = -1;
 
@@ -2724,23 +2728,8 @@ namespace SebWindowsConfig
             if (e.   RowIndex     < 0) return;
             if (e.ColumnIndex     < 0) return;
 
-            // Determine if the cell is disabled
-            //Boolean cellIsDisabled = false;
-/*
-            if (isTitleRow[e.RowIndex])
-            {
-                if (e.ColumnIndex == IntColumnURLFilterRuleRegex ) cellIsDisabled = true;
-                if (e.ColumnIndex == IntColumnURLFilterRuleAction) cellIsDisabled = true;
-            }
-            else
-            {
-                if (e.ColumnIndex == IntColumnURLFilterRuleShow) cellIsDisabled = true;
-            }
-*/
             // If the cell is disabled, paint over it
-          //if (cellIsDisabled)
-          //if (urlFilterTableCellIsDisabled[e.RowIndex, e.ColumnIndex] == true)
-            if (urlFilterTableCellIsDisabled[e.RowIndex][e.ColumnIndex] == true)
+            if (urlFilterTableCellIsDisabled[e.RowIndex][e.ColumnIndex])
             {
                 // Fill the cell using its background colour, and finish the paint event
                 using (Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor))
@@ -2823,7 +2812,7 @@ namespace SebWindowsConfig
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
 
-            // Get the data of the rule belonging to the cell (row)
+            // Get the rule data belonging to the current row
             urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
             urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
 
@@ -2835,7 +2824,7 @@ namespace SebWindowsConfig
             }
             else
             {
-                // Get the data of the action belonging to the cell (row)
+                // Get the action data belonging to the current cell
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                 urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
 
@@ -2872,11 +2861,11 @@ namespace SebWindowsConfig
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
 
-            // Get the data of the rule belonging to the cell (row)
+            // Get the rule data belonging to the current row
             urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
             urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
 
-            // Update the rule data belonging to the current cell
+            // Update the rule data belonging to the current row
             if (urlFilterIsTitleRow)
             {
                 // Create new rule dataset containing default values
@@ -2891,7 +2880,7 @@ namespace SebWindowsConfig
             }
             else
             {
-                // Get the data of the action belonging to the cell (row)
+                // Get the action data belonging to the current row
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                 urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
 
@@ -2928,11 +2917,11 @@ namespace SebWindowsConfig
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
 
-            // Get the data of the rule belonging to the cell (row)
+            // Get the rule data belonging to the current row
             urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
             urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
 
-            // Update the rule data belonging to the current cell
+            // Update the rule data belonging to the current row
             if (urlFilterIsTitleRow)
             {
                 // Delete rule from rule list at position index
@@ -2943,7 +2932,7 @@ namespace SebWindowsConfig
             }
             else
             {
-                // Get the data of the action belonging to the cell (row)
+                // Get the action data belonging to the current row
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                 urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
 
@@ -2956,20 +2945,6 @@ namespace SebWindowsConfig
 
             // Update the table of URL Filter Rules
             UpdateTableOfURLFilterRules();
-
-            if (urlFilterRuleList.Count > 0)
-            {
-                dataGridViewURLFilterRules.Rows[startRow[urlFilterRuleIndex]].Selected = true;
-            }
-            else
-            {
-                // If rule list is now empty, disable it
-                urlFilterRuleIndex  = -1;
-                dataGridViewURLFilterRules.Enabled = false;
-            }
-
-            dataGridViewURLFilterRules.Rows[urlFilterRuleIndex].Selected = true;
-
         }
 
 
