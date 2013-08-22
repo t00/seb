@@ -995,6 +995,14 @@ namespace SebWindowsConfig
             currentFileSebConfigFile = Path.GetFileName     (fileName);
             currentPathSebConfigFile = Path.GetFullPath     (fileName);
 
+            // After loading a new config file, reset the URL Filter Table indices
+            // to avoid errors, in case there was a non-empty URL Filter Table displayed
+            // in the DataGridViewURLFilterRules prior to loading the new config file.
+            urlFilterTableRow    = -1;
+            urlFilterIsTitleRow  = false;
+            urlFilterRuleIndex   = -1;
+            urlFilterActionIndex = -1;
+
             UpdateAllWidgetsOfProgram();
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
             //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
@@ -2857,12 +2865,16 @@ namespace SebWindowsConfig
                 // If rule list was empty before, enable it
                 urlFilterTableRow    =  0;
                 urlFilterIsTitleRow  =  true;
-                urlFilterRuleIndex   =  0;
+                urlFilterRuleIndex   = -1;
                 urlFilterActionIndex = -1;
             }
 
+            // If the user clicked onto a TITLE row (RULE),
+            // add a new rule after the current rule.
             if (urlFilterIsTitleRow)
             {
+                urlFilterRuleIndex++;
+
                 // Create new rule dataset containing default values
                 Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
@@ -2870,11 +2882,19 @@ namespace SebWindowsConfig
                 ruleData[MessageExpression ] = "Rule " + urlFilterRuleIndex.ToString();
                 ruleData[MessageRuleActions] = new List<object>();
 
-                // Insert new rule into rule list at position index
+                // Insert new rule into rule list after position index
                 urlFilterRuleList.Insert(urlFilterRuleIndex, ruleData);
             }
-            else
+
+            // If the user clicked onto an ACTION row,
+            // add a new action after the current action.
+            // If the user clicked onto a TITLE row (rule),
+            // add a new action, so the new rule is non-empty.
+
+            if (true)
             {
+                urlFilterActionIndex++;
+
                 // Create new action dataset containing default values
                 Dictionary<string, object> actionData = new Dictionary<string, object>();
 
