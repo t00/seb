@@ -2779,10 +2779,11 @@ namespace SebWindowsConfig
             //if (  isTitleRow.Count <= urlFilterTableRow) return;
             //if (  ruleNumber.Count <= urlFilterTableRow) return;
             //if (actionNumber.Count <= urlFilterTableRow) return;
-
+/*
             urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
+*/
         }
 
 
