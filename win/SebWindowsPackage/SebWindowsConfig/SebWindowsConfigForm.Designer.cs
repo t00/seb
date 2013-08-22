@@ -92,14 +92,18 @@
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
+            this.labelRemoveURLFilterAtSelection = new System.Windows.Forms.Label();
+            this.labelURLFilterAfterSelection = new System.Windows.Forms.Label();
+            this.labelAddURLFilterBeforeSelection = new System.Windows.Forms.Label();
+            this.buttonAddURLFilterBeforeSelection = new System.Windows.Forms.Button();
             this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
             this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Regex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.buttonRemoveURLFilterRule = new System.Windows.Forms.Button();
-            this.buttonAddURLFilterRule = new System.Windows.Forms.Button();
+            this.buttonRemoveURLFilterAtSelection = new System.Windows.Forms.Button();
+            this.buttonAddURLFilterAfterSelection = new System.Windows.Forms.Button();
             this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.tabPageCertificates = new System.Windows.Forms.TabPage();
@@ -109,6 +113,8 @@
             this.comboBoxChooseSSLClientCertificate = new System.Windows.Forms.ComboBox();
             this.buttonRemoveCertificate = new System.Windows.Forms.Button();
             this.dataGridViewEmbeddedCertificates = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
             this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
             this.labelIfYourNetworkAdministrator = new System.Windows.Forms.Label();
@@ -288,8 +294,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1034,9 +1038,13 @@
             // 
             // tabPageFilter
             // 
+            this.tabPageFilter.Controls.Add(this.labelRemoveURLFilterAtSelection);
+            this.tabPageFilter.Controls.Add(this.labelURLFilterAfterSelection);
+            this.tabPageFilter.Controls.Add(this.labelAddURLFilterBeforeSelection);
+            this.tabPageFilter.Controls.Add(this.buttonAddURLFilterBeforeSelection);
             this.tabPageFilter.Controls.Add(this.dataGridViewURLFilterRules);
-            this.tabPageFilter.Controls.Add(this.buttonRemoveURLFilterRule);
-            this.tabPageFilter.Controls.Add(this.buttonAddURLFilterRule);
+            this.tabPageFilter.Controls.Add(this.buttonRemoveURLFilterAtSelection);
+            this.tabPageFilter.Controls.Add(this.buttonAddURLFilterAfterSelection);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLFilter);
             this.tabPageFilter.Location = new System.Drawing.Point(4, 25);
@@ -1046,6 +1054,43 @@
             this.tabPageFilter.TabIndex = 0;
             this.tabPageFilter.Text = "Filter";
             this.tabPageFilter.UseVisualStyleBackColor = true;
+            // 
+            // labelRemoveURLFilterAtSelection
+            // 
+            this.labelRemoveURLFilterAtSelection.AutoSize = true;
+            this.labelRemoveURLFilterAtSelection.Location = new System.Drawing.Point(60, 487);
+            this.labelRemoveURLFilterAtSelection.Name = "labelRemoveURLFilterAtSelection";
+            this.labelRemoveURLFilterAtSelection.Size = new System.Drawing.Size(214, 17);
+            this.labelRemoveURLFilterAtSelection.TabIndex = 98;
+            this.labelRemoveURLFilterAtSelection.Text = "Remove rule / action at selection";
+            // 
+            // labelURLFilterAfterSelection
+            // 
+            this.labelURLFilterAfterSelection.AutoSize = true;
+            this.labelURLFilterAfterSelection.Location = new System.Drawing.Point(60, 447);
+            this.labelURLFilterAfterSelection.Name = "labelURLFilterAfterSelection";
+            this.labelURLFilterAfterSelection.Size = new System.Drawing.Size(214, 17);
+            this.labelURLFilterAfterSelection.TabIndex = 97;
+            this.labelURLFilterAfterSelection.Text = "Insert rule / action after selection";
+            // 
+            // labelAddURLFilterBeforeSelection
+            // 
+            this.labelAddURLFilterBeforeSelection.AutoSize = true;
+            this.labelAddURLFilterBeforeSelection.Location = new System.Drawing.Point(60, 407);
+            this.labelAddURLFilterBeforeSelection.Name = "labelAddURLFilterBeforeSelection";
+            this.labelAddURLFilterBeforeSelection.Size = new System.Drawing.Size(226, 17);
+            this.labelAddURLFilterBeforeSelection.TabIndex = 96;
+            this.labelAddURLFilterBeforeSelection.Text = "Insert rule / action before selection";
+            // 
+            // buttonAddURLFilterBeforeSelection
+            // 
+            this.buttonAddURLFilterBeforeSelection.Location = new System.Drawing.Point(25, 400);
+            this.buttonAddURLFilterBeforeSelection.Name = "buttonAddURLFilterBeforeSelection";
+            this.buttonAddURLFilterBeforeSelection.Size = new System.Drawing.Size(30, 30);
+            this.buttonAddURLFilterBeforeSelection.TabIndex = 91;
+            this.buttonAddURLFilterBeforeSelection.Text = "+";
+            this.buttonAddURLFilterBeforeSelection.UseVisualStyleBackColor = true;
+            this.buttonAddURLFilterBeforeSelection.Click += new System.EventHandler(this.buttonAddURLFilterBeforeSelection_Click);
             // 
             // dataGridViewURLFilterRules
             // 
@@ -1105,25 +1150,25 @@
             this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
             this.dataGridViewComboBoxColumn2.Width = 80;
             // 
-            // buttonRemoveURLFilterRule
+            // buttonRemoveURLFilterAtSelection
             // 
-            this.buttonRemoveURLFilterRule.Location = new System.Drawing.Point(60, 400);
-            this.buttonRemoveURLFilterRule.Name = "buttonRemoveURLFilterRule";
-            this.buttonRemoveURLFilterRule.Size = new System.Drawing.Size(30, 30);
-            this.buttonRemoveURLFilterRule.TabIndex = 87;
-            this.buttonRemoveURLFilterRule.Text = "-";
-            this.buttonRemoveURLFilterRule.UseVisualStyleBackColor = true;
-            this.buttonRemoveURLFilterRule.Click += new System.EventHandler(this.buttonRemoveURLFilterRule_Click);
+            this.buttonRemoveURLFilterAtSelection.Location = new System.Drawing.Point(25, 480);
+            this.buttonRemoveURLFilterAtSelection.Name = "buttonRemoveURLFilterAtSelection";
+            this.buttonRemoveURLFilterAtSelection.Size = new System.Drawing.Size(30, 30);
+            this.buttonRemoveURLFilterAtSelection.TabIndex = 87;
+            this.buttonRemoveURLFilterAtSelection.Text = "-";
+            this.buttonRemoveURLFilterAtSelection.UseVisualStyleBackColor = true;
+            this.buttonRemoveURLFilterAtSelection.Click += new System.EventHandler(this.buttonRemoveURLFilterAtSelection_Click);
             // 
-            // buttonAddURLFilterRule
+            // buttonAddURLFilterAfterSelection
             // 
-            this.buttonAddURLFilterRule.Location = new System.Drawing.Point(25, 400);
-            this.buttonAddURLFilterRule.Name = "buttonAddURLFilterRule";
-            this.buttonAddURLFilterRule.Size = new System.Drawing.Size(30, 30);
-            this.buttonAddURLFilterRule.TabIndex = 86;
-            this.buttonAddURLFilterRule.Text = "+";
-            this.buttonAddURLFilterRule.UseVisualStyleBackColor = true;
-            this.buttonAddURLFilterRule.Click += new System.EventHandler(this.buttonAddURLFilterRule_Click);
+            this.buttonAddURLFilterAfterSelection.Location = new System.Drawing.Point(25, 440);
+            this.buttonAddURLFilterAfterSelection.Name = "buttonAddURLFilterAfterSelection";
+            this.buttonAddURLFilterAfterSelection.Size = new System.Drawing.Size(30, 30);
+            this.buttonAddURLFilterAfterSelection.TabIndex = 86;
+            this.buttonAddURLFilterAfterSelection.Text = "+";
+            this.buttonAddURLFilterAfterSelection.UseVisualStyleBackColor = true;
+            this.buttonAddURLFilterAfterSelection.Click += new System.EventHandler(this.buttonAddURLFilterAfterSelection_Click);
             // 
             // checkBoxEnableURLContentFilter
             // 
@@ -1226,6 +1271,23 @@
             this.dataGridViewEmbeddedCertificates.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEmbeddedCertificates_CellValueChanged);
             this.dataGridViewEmbeddedCertificates.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewEmbeddedCertificates_CurrentCellDirtyStateChanged);
             this.dataGridViewEmbeddedCertificates.SelectionChanged += new System.EventHandler(this.dataGridViewEmbeddedCertificates_SelectionChanged);
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn3.Items.AddRange(new object[] {
+            "SSL Certificate",
+            "Identity"});
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewTextBoxColumn3.Width = 130;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 520;
             // 
             // tabPageProxies
             // 
@@ -3189,23 +3251,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Type";
-            this.dataGridViewTextBoxColumn3.Items.AddRange(new object[] {
-            "SSL Certificate",
-            "Identity"});
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewTextBoxColumn3.Width = 130;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 520;
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3524,8 +3569,8 @@
         private System.Windows.Forms.CheckBox checkBoxProhibitedProcessActive;
         private System.Windows.Forms.Button buttonProhibitedProcessCodeSignature;
         private System.Windows.Forms.Button buttonPermittedProcessCodeSignature;
-        private System.Windows.Forms.Button buttonRemoveURLFilterRule;
-        private System.Windows.Forms.Button buttonAddURLFilterRule;
+        private System.Windows.Forms.Button buttonRemoveURLFilterAtSelection;
+        private System.Windows.Forms.Button buttonAddURLFilterAfterSelection;
         private System.Windows.Forms.DataGridView dataGridViewEmbeddedCertificates;
         private System.Windows.Forms.Button buttonRemoveCertificate;
         private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
@@ -3540,6 +3585,10 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Button buttonAddURLFilterBeforeSelection;
+        private System.Windows.Forms.Label labelRemoveURLFilterAtSelection;
+        private System.Windows.Forms.Label labelURLFilterAfterSelection;
+        private System.Windows.Forms.Label labelAddURLFilterBeforeSelection;
 
     }
 }

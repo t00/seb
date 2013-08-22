@@ -2846,7 +2846,75 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonAddURLFilterRule_Click(object sender, EventArgs e)
+        private void buttonAddURLFilterBeforeSelection_Click(object sender, EventArgs e)
+        {
+            // Get the rule list
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+
+            if (urlFilterRuleList.Count > 0)
+            {
+                // Determine if the selected row is a title row or action row.
+                // Determine which rule and action belong to the selected row.
+                urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
+                urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
+                urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
+                urlFilterActionIndex = actionNumber[urlFilterTableRow];
+            }
+            else
+            {
+                // If rule list was empty before, enable it
+                urlFilterTableRow    =  0;
+                urlFilterIsTitleRow  =  true;
+                urlFilterRuleIndex   =  0;
+                urlFilterActionIndex = -1;
+            }
+
+            // If the user clicked onto a TITLE row (RULE),
+            // add a new rule after the current rule.
+            if (urlFilterIsTitleRow)
+            {
+                //urlFilterRuleIndex++;
+
+                // Create new rule dataset containing default values
+                Dictionary<string, object> ruleData = new Dictionary<string, object>();
+
+                ruleData[MessageActive     ] = true;
+                ruleData[MessageExpression ] = "Rule " + urlFilterRuleIndex.ToString();
+                ruleData[MessageRuleActions] = new List<object>();
+
+                // Insert new rule into rule list after position index
+                urlFilterRuleList.Insert(urlFilterRuleIndex, ruleData);
+            }
+
+            // If the user clicked onto an ACTION row,
+            // add a new action after the current action.
+            // If the user clicked onto a TITLE row (rule),
+            // add a new action, so the new rule is non-empty.
+
+            if (true)
+            {
+                if (urlFilterIsTitleRow) urlFilterActionIndex++;
+
+                // Create new action dataset containing default values
+                Dictionary<string, object> actionData = new Dictionary<string, object>();
+
+                actionData[MessageActive    ] = true;
+                actionData[MessageRegex     ] = false;
+                actionData[MessageExpression] = "*";
+                actionData[MessageAction    ] = 0;
+
+                // Insert new action into action list at position index
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+                urlFilterActionList.Insert(urlFilterActionIndex, actionData);
+            }
+
+            // Update the table of URL Filter Rules
+            UpdateTableOfURLFilterRules();
+        }
+
+
+        private void buttonAddURLFilterAfterSelection_Click(object sender, EventArgs e)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -2898,10 +2966,10 @@ namespace SebWindowsConfig
                 // Create new action dataset containing default values
                 Dictionary<string, object> actionData = new Dictionary<string, object>();
 
-                actionData[MessageActive     ] = true;
-                actionData[MessageRegex      ] = false;
-                actionData[MessageExpression ] = "*";
-                actionData[MessageAction     ] = 0;
+                actionData[MessageActive    ] = true;
+                actionData[MessageRegex     ] = false;
+                actionData[MessageExpression] = "*";
+                actionData[MessageAction    ] = 0;
 
                 // Insert new action into action list at position index
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
@@ -2914,7 +2982,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonRemoveURLFilterRule_Click(object sender, EventArgs e)
+        private void buttonRemoveURLFilterAtSelection_Click(object sender, EventArgs e)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
