@@ -1267,11 +1267,6 @@ namespace SebWindowsConfig
 
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
-
-            //if (  isTitleRow.Count <= urlFilterTableRow) return;
-            //if (  ruleNumber.Count <= urlFilterTableRow) return;
-            //if (actionNumber.Count <= urlFilterTableRow) return;
-
             urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
@@ -1425,7 +1420,6 @@ namespace SebWindowsConfig
                 String name = (String)embeddedCertificateData[MessageName];
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
             }
-
 
             // Load the currently selected process data
             if (permittedProcessList.Count > 0)
@@ -2208,13 +2202,13 @@ namespace SebWindowsConfig
         private void buttonRemovePermittedProcess_Click(object sender, EventArgs e)
         {
             if (dataGridViewPermittedProcesses.SelectedRows.Count != 1) return;
-            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
 
             // Clear the widgets in the "Selected Process" group
             ClearPermittedSelectedProcessGroup();
 
             // Delete process from process list at position index
-            permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
+            permittedProcessList  = (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessList               .RemoveAt(permittedProcessIndex);
             dataGridViewPermittedProcesses.Rows.RemoveAt(permittedProcessIndex);
 
@@ -2350,13 +2344,13 @@ namespace SebWindowsConfig
             // The second time, SelectedRows.Count is ONE.
 
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
-            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
             // Get the argument data of the selected argument
-            permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
-            permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
-            permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
+            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+            permittedProcessList   =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData   = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedArgumentList  =               (List<object>)permittedProcessData [MessageArguments];
+            permittedArgumentData  = (Dictionary<string, object>)permittedArgumentList[permittedArgumentIndex];
         }
 
 
@@ -2432,12 +2426,12 @@ namespace SebWindowsConfig
         private void buttonPermittedProcessRemoveArgument_Click(object sender, EventArgs e)
         {
             if (dataGridViewPermittedProcessArguments.SelectedRows.Count != 1) return;
-            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
 
             // Get the permitted argument list
-            permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
-            permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
-            permittedArgumentList =               (List<object>)permittedProcessData [MessageArguments];
+            permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
+            permittedProcessList   =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
+            permittedProcessData   = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
+            permittedArgumentList  =               (List<object>)permittedProcessData [MessageArguments];
 
             // Delete argument from argument list at position permittedArgumentIndex
             permittedArgumentList                     .RemoveAt(permittedArgumentIndex);
@@ -2607,13 +2601,13 @@ namespace SebWindowsConfig
         private void buttonRemoveProhibitedProcess_Click(object sender, EventArgs e)
         {
             if (dataGridViewProhibitedProcesses.SelectedRows.Count != 1) return;
-            prohibitedProcessIndex = dataGridViewProhibitedProcesses.SelectedRows[0].Index;
 
             // Clear the widgets in the "Selected Process" group
             ClearProhibitedSelectedProcessGroup();
 
             // Delete process from process list at position index
-            prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
+            prohibitedProcessIndex = dataGridViewProhibitedProcesses.SelectedRows[0].Index;
+            prohibitedProcessList  = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
             prohibitedProcessList               .RemoveAt(prohibitedProcessIndex);
             dataGridViewProhibitedProcesses.Rows.RemoveAt(prohibitedProcessIndex);
 
@@ -2773,17 +2767,12 @@ namespace SebWindowsConfig
             if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
             urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
 
-            // Determine if the selected row is a title row or action row.
-            // Determine which rule and action belong to the selected row.
-
-            //if (  isTitleRow.Count <= urlFilterTableRow) return;
-            //if (  ruleNumber.Count <= urlFilterTableRow) return;
-            //if (actionNumber.Count <= urlFilterTableRow) return;
-/*
-            urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
-            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
-            urlFilterActionIndex = actionNumber[urlFilterTableRow];
-*/
+            // CAUTION:
+            // Do ONLY set urlFilterTableRow here!
+            // Do NOT  set urlFilterIsTitleRow, urlFilterRuleIndex, urlFilterActionIndex here,
+            // because this event is called several times (e.g. whenever the user adds/removes
+            // a rule/action to/from dataGridViewURLFilterRules). This caused some errors in the past.
+            // Do only set these variables shortly before you need them in the other event handlers.
         }
 
 
@@ -2819,22 +2808,16 @@ namespace SebWindowsConfig
                 else if ((String)value == StringOr   ) value = IntOr;
             }
 
-            urlFilterTableRow = row;
-
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
-
-            //if (  isTitleRow.Count <= urlFilterTableRow) return;
-            //if (  ruleNumber.Count <= urlFilterTableRow) return;
-            //if (actionNumber.Count <= urlFilterTableRow) return;
-
+            urlFilterTableRow    = row;
             urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
 
             // Get the rule data belonging to the current row
-            urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
-            urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+            urlFilterRuleList =               (List<object>)sebSettingsNew[MessageURLFilterRules];
+            urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
 
             // Update the rule data belonging to the current cell
             if (urlFilterIsTitleRow)
@@ -2858,18 +2841,16 @@ namespace SebWindowsConfig
 
         private void buttonAddURLFilterRule_Click(object sender, EventArgs e)
         {
+            // Get the rule list
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+
             if (urlFilterRuleList.Count > 0)
             {
                 if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
-                urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
 
                 // Determine if the selected row is a title row or action row.
                 // Determine which rule and action belong to the selected row.
-
-                //if (  isTitleRow.Count <= urlFilterTableRow) return;
-                //if (  ruleNumber.Count <= urlFilterTableRow) return;
-                //if (actionNumber.Count <= urlFilterTableRow) return;
-
+                urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
                 urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
                 urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
                 urlFilterActionIndex = actionNumber[urlFilterTableRow];
@@ -2883,10 +2864,6 @@ namespace SebWindowsConfig
                 urlFilterActionIndex = -1;
             }
 
-            // Get the rule data belonging to the current row
-            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
-
-            // Update the rule data belonging to the current row
             if (urlFilterIsTitleRow)
             {
                 // Create new rule dataset containing default values
@@ -2901,10 +2878,9 @@ namespace SebWindowsConfig
             }
             else
             {
-                // Get the action data belonging to the current row
-                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList  [urlFilterRuleIndex];
-                urlFilterActionList =               (List<object>)urlFilterRuleData  [MessageRuleActions];
-                urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+                // Get the action list belonging to the current row
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
 
                 // Create new action dataset containing default values
                 Dictionary<string, object> actionData = new Dictionary<string, object>();
@@ -2926,24 +2902,17 @@ namespace SebWindowsConfig
         private void buttonRemoveURLFilterRule_Click(object sender, EventArgs e)
         {
             if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
-            urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
 
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
-
-            //if (  isTitleRow.Count <= urlFilterTableRow) return;
-            //if (  ruleNumber.Count <= urlFilterTableRow) return;
-            //if (actionNumber.Count <= urlFilterTableRow) return;
-
+            urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
             urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
 
-            // Get the rule data belonging to the current row
-            urlFilterRuleList   =               (List<object>)sebSettingsNew[MessageURLFilterRules];
-            urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+            // Get the rule list
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
 
-            // Update the rule data belonging to the current row
             if (urlFilterIsTitleRow)
             {
                 // Delete rule from rule list at position index
@@ -2954,9 +2923,9 @@ namespace SebWindowsConfig
             }
             else
             {
-                // Get the action data belonging to the current row
+                // Get the action list belonging to the current row
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
-                urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
 
                 // Delete action from action list at position index
                 urlFilterActionList.RemoveAt(urlFilterActionIndex);
@@ -2968,6 +2937,7 @@ namespace SebWindowsConfig
             // Update the table of URL Filter Rules
             UpdateTableOfURLFilterRules();
         }
+
 
 
         // ******************************
