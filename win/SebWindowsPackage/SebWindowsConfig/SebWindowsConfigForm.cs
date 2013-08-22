@@ -2140,14 +2140,14 @@ namespace SebWindowsConfig
             // Get the changed value of the current cell
             object value = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
 
-            // Convert the selected OS ListBox entry from String to Integer
+            // Convert the selected "OS" ListBox entry from String to Integer
             if (column == IntColumnProcessOS)
             {
                      if ((String)value == StringOSX) value = IntOSX;
                 else if ((String)value == StringWin) value = IntWin;
             }
 
-            // Get the process data of the process belonging to the cell (row)
+            // Get the process data of the process belonging to the current row
             permittedProcessIndex = row;
             permittedProcessList  =               (List<object>)sebSettingsNew[MessagePermittedProcesses];
             permittedProcessData  = (Dictionary<string, object>)permittedProcessList [permittedProcessIndex];
@@ -2542,14 +2542,14 @@ namespace SebWindowsConfig
             // Get the changed value of the current cell
             object value = dataGridViewProhibitedProcesses.CurrentCell.EditedFormattedValue;
 
-            // Convert the selected OS ListBox entry from String to Integer
+            // Convert the selected "OS" ListBox entry from String to Integer
             if (column == IntColumnProcessOS)
             {
                      if ((String)value == StringOSX) value = IntOSX;
                 else if ((String)value == StringWin) value = IntWin;
             }
 
-            // Get the process data of the process belonging to the cell (row)
+            // Get the process data of the process belonging to the current row
             prohibitedProcessIndex = row;
             prohibitedProcessList  =               (List<object>)sebSettingsNew[MessageProhibitedProcesses];
             prohibitedProcessData  = (Dictionary<string, object>)prohibitedProcessList[prohibitedProcessIndex];
