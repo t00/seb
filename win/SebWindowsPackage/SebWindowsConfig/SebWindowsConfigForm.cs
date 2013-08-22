@@ -896,7 +896,7 @@ namespace SebWindowsConfig
             PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
 
             // When starting up, set the widgets to the default values
-            SetWidgetsToNewSettings();
+            UpdateAllWidgetsOfProgram();
 
             // Try to open the configuration file ("SebClient.ini/xml/seb")
             // given in the local directory (where SebWindowsConfig.exe was called)
@@ -995,7 +995,7 @@ namespace SebWindowsConfig
             currentFileSebConfigFile = Path.GetFileName     (fileName);
             currentPathSebConfigFile = Path.GetFullPath     (fileName);
 
-            SetWidgetsToNewSettings();
+            UpdateAllWidgetsOfProgram();
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
             //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
             PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
@@ -1073,7 +1073,7 @@ namespace SebWindowsConfig
             currentFileSebConfigFile = Path.GetFileName     (fileName);
             currentPathSebConfigFile = Path.GetFullPath     (fileName);
 
-            SetWidgetsToNewSettings();
+            UpdateAllWidgetsOfProgram();
             return true;
         }
 
@@ -1277,7 +1277,7 @@ namespace SebWindowsConfig
         // *****************************************************
         // Set the widgets to the new settings of SebStarter.ini
         // *****************************************************
-        private void SetWidgetsToNewSettings()
+        private void UpdateAllWidgetsOfProgram()
         {
             // Update the filename in the title bar
             this.Text  = this.ProductName;
@@ -1710,7 +1710,7 @@ namespace SebWindowsConfig
             //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_before_RevertToDefault.xml");
             CopySettingsArrays    (      StateDef,       StateNew);
             CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
-            SetWidgetsToNewSettings();
+            UpdateAllWidgetsOfProgram();
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
             //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_after_RevertToDefault.xml");
         }
@@ -2763,9 +2763,7 @@ namespace SebWindowsConfig
             // so the SelectedRows.Count is ZERO, so ignore this event handler!
             // The second time, SelectedRows.Count is ONE.
             // Now you can set the widgets in the "Selected Process" groupBox.
-
             if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
-            urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
 
             // CAUTION:
             // Do ONLY set urlFilterTableRow here!
@@ -2773,6 +2771,7 @@ namespace SebWindowsConfig
             // because this event is called several times (e.g. whenever the user adds/removes
             // a rule/action to/from dataGridViewURLFilterRules). This caused some errors in the past.
             // Do only set these variables shortly before you need them in the other event handlers.
+            urlFilterTableRow = dataGridViewURLFilterRules.SelectedRows[0].Index;
         }
 
 
@@ -2846,8 +2845,6 @@ namespace SebWindowsConfig
 
             if (urlFilterRuleList.Count > 0)
             {
-                if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
-
                 // Determine if the selected row is a title row or action row.
                 // Determine which rule and action belong to the selected row.
                 urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
@@ -2878,10 +2875,6 @@ namespace SebWindowsConfig
             }
             else
             {
-                // Get the action list belonging to the current row
-                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
-                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
-
                 // Create new action dataset containing default values
                 Dictionary<string, object> actionData = new Dictionary<string, object>();
 
@@ -2891,6 +2884,8 @@ namespace SebWindowsConfig
                 actionData[MessageAction     ] = 0;
 
                 // Insert new action into action list at position index
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                 urlFilterActionList.Insert(urlFilterActionIndex, actionData);
             }
 
@@ -2901,7 +2896,11 @@ namespace SebWindowsConfig
 
         private void buttonRemoveURLFilterRule_Click(object sender, EventArgs e)
         {
-            if (dataGridViewURLFilterRules.SelectedRows.Count != 1) return;
+            // Get the rule list
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+
+            // If rule list is empty, abort since no rule can be removed anymore
+            if (urlFilterRuleList.Count == 0) return;
 
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
@@ -2909,9 +2908,6 @@ namespace SebWindowsConfig
             urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
             urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
             urlFilterActionIndex = actionNumber[urlFilterTableRow];
-
-            // Get the rule list
-            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
 
             if (urlFilterIsTitleRow)
             {
@@ -2923,11 +2919,9 @@ namespace SebWindowsConfig
             }
             else
             {
-                // Get the action list belonging to the current row
+                // Delete action from action list at position index
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
-
-                // Delete action from action list at position index
                 urlFilterActionList.RemoveAt(urlFilterActionIndex);
 
                 if (urlFilterActionIndex == urlFilterActionList.Count)
