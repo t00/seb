@@ -2886,76 +2886,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonInsertBeforeSelected_Click(object sender, EventArgs e)
-        {
-            // Get the rule list
-            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
-
-            if (urlFilterRuleList.Count > 0)
-            {
-                // Determine if the selected row is a title row or action row.
-                // Determine which rule and action belong to the selected row.
-                urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
-                urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
-                urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
-                urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
-            }
-            else
-            {
-                // If rule list was empty before, enable it
-                urlFilterTableRow    =  0;
-                urlFilterIsTitleRow  =  true;
-                urlFilterRuleIndex   =  0;
-                urlFilterActionIndex = -1;
-            }
-
-            // If the user clicked onto a TITLE row (RULE),
-            // add a new rule after the current rule.
-            if (urlFilterIsTitleRow)
-            {
-                //urlFilterRuleIndex++;
-
-                // Create new rule dataset containing default values
-                Dictionary<string, object> ruleData = new Dictionary<string, object>();
-
-                ruleData[MessageActive     ] = true;
-                ruleData[MessageExpression ] = "Rule";
-                ruleData[MessageRuleActions] = new List<object>();
-
-                // Insert new rule into rule list after position index
-                urlFilterRuleList     .Insert(urlFilterRuleIndex, ruleData);
-                urlFilterTableShowRule.Insert(urlFilterRuleIndex, true);
-            }
-
-            // If the user clicked onto an ACTION row,
-            // add a new action after the current action.
-            // If the user clicked onto a TITLE row (rule),
-            // add a new action, so the new rule is non-empty.
-
-            if (true)
-            {
-                if (urlFilterIsTitleRow) urlFilterActionIndex++;
-
-                // Create new action dataset containing default values
-                Dictionary<string, object> actionData = new Dictionary<string, object>();
-
-                actionData[MessageActive    ] = true;
-                actionData[MessageRegex     ] = false;
-                actionData[MessageExpression] = "*";
-                actionData[MessageAction    ] = 0;
-
-                // Insert new action into action list at position index
-                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
-                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
-                urlFilterActionList.Insert(urlFilterActionIndex, actionData);
-            }
-
-            // Update the table of URL Filter Rules
-            UpdateTableOfURLFilterRules();
-        }
-
-
-        private void buttonInsertAfterSelected_Click(object sender, EventArgs e)
+        private void InsertOrPasteRuleOrAction(int operation, int location)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -2979,10 +2910,12 @@ namespace SebWindowsConfig
             }
 
             // If the user clicked onto a TITLE row (RULE),
-            // add a new rule after the current rule.
+            // add a new rule BEFORE or AFTER the current rule.
             if (urlFilterIsTitleRow)
             {
-                urlFilterRuleIndex++;
+                if (((location == IntLocationBefore) && (urlFilterRuleList.Count == 0))
+                ||   (location == IntLocationAfter))
+                    urlFilterRuleIndex++;
 
                 // Create new rule dataset containing default values
                 Dictionary<string, object> ruleData = new Dictionary<string, object>();
@@ -2991,19 +2924,24 @@ namespace SebWindowsConfig
                 ruleData[MessageExpression ] = "Rule";
                 ruleData[MessageRuleActions] = new List<object>();
 
-                // Insert new rule into rule list after position index
+                // INSERT or PASTE new rule into rule list at correct position index
+                if (operation == IntOperationInsert) ruleData = urlFilterRuleDataDefault;
+                if (operation == IntOperationPaste ) ruleData = urlFilterRuleDataStored;
+
                 urlFilterRuleList     .Insert(urlFilterRuleIndex, ruleData);
                 urlFilterTableShowRule.Insert(urlFilterRuleIndex, true);
             }
 
             // If the user clicked onto an ACTION row,
-            // add a new action after the current action.
+            // add a new action BEFORE or AFTER the current action.
             // If the user clicked onto a TITLE row (rule),
-            // add a new action, so the new rule is non-empty.
+            // add a new action AFTER the new rule.
 
             if (true)
             {
-                urlFilterActionIndex++;
+                if (((location == IntLocationBefore) && (urlFilterIsTitleRow))
+                ||   (location == IntLocationAfter))
+                    urlFilterActionIndex++;
 
                 // Create new action dataset containing default values
                 Dictionary<string, object> actionData = new Dictionary<string, object>();
@@ -3013,7 +2951,10 @@ namespace SebWindowsConfig
                 actionData[MessageExpression] = "*";
                 actionData[MessageAction    ] = 0;
 
-                // Insert new action into action list at position index
+                // INSERT or PASTE new action into action list at correct position index
+                if (operation == IntOperationInsert) actionData = urlFilterActionDataDefault;
+                if (operation == IntOperationPaste ) actionData = urlFilterActionDataStored;
+
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                 urlFilterActionList.Insert(urlFilterActionIndex, actionData);
@@ -3024,12 +2965,12 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonDeleteSelected_Click(object sender, EventArgs e)
+        private void DeleteOrCutOrCopyRuleOrAction(int operation, int location)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
 
-            // If rule list is empty, abort since no rule can be removed anymore
+            // If rule list is empty, abort since nothing can be deleted anymore
             if (urlFilterRuleList.Count == 0) return;
 
             // Determine if the selected row is a title row or action row.
@@ -3039,8 +2980,16 @@ namespace SebWindowsConfig
             urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
             urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
 
+            // If the user clicked onto a TITLE row (RULE), delete this rule.
             if (urlFilterIsTitleRow)
             {
+                if ((operation == IntOperationCopy)
+                ||  (operation == IntOperationCut))
+                {
+                  //urlFilterRuleList.CopyTo(urlFilterRuleIndex, urlFilterRuleDataStored);
+                    urlFilterRuleDataStored = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+                }
+
                 // Delete rule from rule list at position index
                 urlFilterRuleList     .RemoveAt(urlFilterRuleIndex);
                 urlFilterTableShowRule.RemoveAt(urlFilterRuleIndex);
@@ -3048,8 +2997,16 @@ namespace SebWindowsConfig
                 if (urlFilterRuleIndex == urlFilterRuleList.Count)
                     urlFilterRuleIndex--;
             }
+            // If the user clicked onto an ACTION row, delete this action.
             else
             {
+                if ((operation == IntOperationCopy)
+                ||  (operation == IntOperationCut))
+                {
+                  //urlFilterActionList.CopyTo(urlFilterActionIndex, urlFilterActionDataStored);
+                    urlFilterActionDataStored = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+                }
+
                 // Delete action from action list at position index
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
@@ -3061,6 +3018,24 @@ namespace SebWindowsConfig
 
             // Update the table of URL Filter Rules
             UpdateTableOfURLFilterRules();
+        }
+
+
+        private void buttonInsertBeforeSelected_Click(object sender, EventArgs e)
+        {
+            InsertOrPasteRuleOrAction(IntOperationInsert, IntLocationBefore);
+        }
+
+
+        private void buttonInsertAfterSelected_Click(object sender, EventArgs e)
+        {
+            InsertOrPasteRuleOrAction(IntOperationInsert, IntLocationAfter);
+        }
+
+
+        private void buttonDeleteSelected_Click(object sender, EventArgs e)
+        {
+            DeleteOrCutOrCopyRuleOrAction(IntOperationDelete, IntLocationAt);
         }
 
 
