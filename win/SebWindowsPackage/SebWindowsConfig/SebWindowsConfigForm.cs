@@ -251,6 +251,17 @@ namespace SebWindowsConfig
         const String StringAnd   = "and";
         const String StringOr    = "or";
 
+        // URL filter table operations
+        const int IntOperationInsert = 0;
+        const int IntOperationPaste  = 1;
+        const int IntOperationDelete = 2;
+        const int IntOperationCut    = 3;
+        const int IntOperationCopy   = 4;
+
+        const int IntLocationBefore = 0;
+        const int IntLocationAfter  = 1;
+        const int IntLocationAt     = 2;
+
         // Embedded certificate types
         const int IntSSLClientCertificate = 0;
         const int IntIdentity             = 1;
@@ -378,12 +389,14 @@ namespace SebWindowsConfig
         static int                        urlFilterRuleIndex;
         static List<object>               urlFilterRuleList = new List<object>();
         static Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterRuleDataDef = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterRuleDataDefault = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterRuleDataStored  = new Dictionary<string, object>();
 
         static int                        urlFilterActionIndex;
         static List<object>               urlFilterActionList = new List<object>();
         static Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterActionDataDef = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterActionDataStored  = new Dictionary<string, object>();
 
         static int                        embeddedCertificateIndex;
         static List<object>               embeddedCertificateList = new List<object>();
@@ -395,15 +408,18 @@ namespace SebWindowsConfig
         // Lookup table: row  -> is this row a title row (or action row)?
         // Lookup table: rule -> startRow
         // Lookup table: rule ->   endRow
-        static List<int>       ruleNumber = new List<int    >();
-        static List<int>     actionNumber = new List<int    >();
-        static List<Boolean> isTitleRow   = new List<Boolean>();
-        static List<int>       startRow   = new List<int    >();
-        static List<int>         endRow   = new List<int    >();
+        // Lookup table: rule -> show this rule or not (expand/collapse)?
+        static List<int>     urlFilterTableRuleIndex   = new List<int    >();
+        static List<int>     urlFilterTableActionIndex = new List<int    >();
+        static List<Boolean> urlFilterTableIsTitleRow  = new List<Boolean>();
+        static List<int>     urlFilterTableStartRow    = new List<int    >();
+        static List<int>     urlFilterTableEndRow      = new List<int    >();
+        static List<Boolean> urlFilterTableShowRule    = new List<Boolean>();
 
-        // Two-dimensional array
+        // Two-dimensional array: shall this cell be disabled (painted over)?
         static List<List<Boolean>> urlFilterTableCellIsDisabled = new List<List<Boolean>>();
 
+        // Default disabled values for title row (rule) and action row (action)
         static Boolean[] urlFilterTableDisabledColumnsOfRule   = { false, false,  true, false,  true };
         static Boolean[] urlFilterTableDisabledColumnsOfAction = {  true, false, false, false, false };
 
@@ -543,14 +559,14 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageEnableURLContentFilter, false);
             sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
 
-            urlFilterRuleDataDef.Add(MessageActive     , true);
-            urlFilterRuleDataDef.Add(MessageExpression , "Rule");
-            urlFilterRuleDataDef.Add(MessageRuleActions, new List<object>());
+            urlFilterRuleDataDefault.Add(MessageActive     , true);
+            urlFilterRuleDataDefault.Add(MessageExpression , "Rule");
+            urlFilterRuleDataDefault.Add(MessageRuleActions, new List<object>());
 
-            urlFilterActionDataDef.Add(MessageActive    , true);
-            urlFilterActionDataDef.Add(MessageRegex     , false);
-            urlFilterActionDataDef.Add(MessageExpression, "*");
-            urlFilterActionDataDef.Add(MessageAction    , 0);
+            urlFilterActionDataDefault.Add(MessageActive    , true);
+            urlFilterActionDataDefault.Add(MessageRegex     , false);
+            urlFilterActionDataDefault.Add(MessageExpression, "*");
+            urlFilterActionDataDefault.Add(MessageAction    , 0);
 
             // Default settings for group "Network - Certificates"
             sebSettingsDef.Add(MessageEmbeddedCertificates, new List<object>());
@@ -864,11 +880,13 @@ namespace SebWindowsConfig
             urlFilterActionList.Clear();
             urlFilterActionData.Clear();
 
-              ruleNumber.Clear();
-            actionNumber.Clear();
-              isTitleRow.Clear();
-                startRow.Clear();
-                  endRow.Clear();
+            urlFilterTableRuleIndex     .Clear();
+            urlFilterTableActionIndex   .Clear();
+            urlFilterTableIsTitleRow    .Clear();
+            urlFilterTableStartRow      .Clear();
+            urlFilterTableEndRow        .Clear();
+            urlFilterTableShowRule      .Clear();
+            urlFilterTableCellIsDisabled.Clear();
 
             // Auto-resize the columns and cells
           //dataGridViewPermittedProcesses  .AutoResizeColumns();
@@ -1002,6 +1020,20 @@ namespace SebWindowsConfig
             urlFilterIsTitleRow  = false;
             urlFilterRuleIndex   = -1;
             urlFilterActionIndex = -1;
+
+            // Get the URL Filter Rules
+            urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
+
+            // If there are any filter rules, select first filter rule.
+            // If there are no  filter rules, select no    filter rule.
+            if (urlFilterRuleList.Count > 0) urlFilterRuleIndex =  0;
+                                        else urlFilterRuleIndex = -1;
+
+            // At first, show all filter rules with their actions (expanded view).
+            for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
+            {
+                urlFilterTableShowRule.Add(true);
+            }
 
             UpdateAllWidgetsOfProgram();
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
@@ -1186,21 +1218,16 @@ namespace SebWindowsConfig
         private void UpdateTableOfURLFilterRules()
         {
             // Clear all help structures for table access
-              ruleNumber.Clear();
-            actionNumber.Clear();
-              isTitleRow.Clear();
-                startRow.Clear();
-                  endRow.Clear();
+            urlFilterTableRuleIndex     .Clear();
+            urlFilterTableActionIndex   .Clear();
+            urlFilterTableIsTitleRow    .Clear();
+            urlFilterTableStartRow      .Clear();
+            urlFilterTableEndRow        .Clear();
+          //urlFilterTableShowRule      .Clear();
             urlFilterTableCellIsDisabled.Clear();
 
             // Get the URL Filter Rules
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
-
-            // When program starts,  URL Filter Rule list is     empty, so  urlFilterIndex is -1.
-            // If after file loading URL Filter Rule list is non-empty, set urlFilterIndex to  0,
-            // so the first URL Filter Rule is selected by default.
-            if ((urlFilterRuleIndex == -1) && (urlFilterRuleList.Count > 0))
-                 urlFilterRuleIndex = 0;
 
             // Clear the table itself
             dataGridViewURLFilterRules.Enabled = (urlFilterRuleList.Count > 0);
@@ -1216,11 +1243,15 @@ namespace SebWindowsConfig
                 String  expression  = (String      )urlFilterRuleData[MessageExpression];
                 urlFilterActionList = (List<object>)urlFilterRuleData[MessageRuleActions];
 
-                  ruleNumber.Add(ruleIndex);
-                actionNumber.Add(-1);
-                  isTitleRow.Add(true);
-                    startRow.Add(row);
-                      endRow.Add(row + urlFilterActionList.Count);
+                urlFilterTableRuleIndex  .Add(ruleIndex);
+                urlFilterTableActionIndex.Add(-1);
+                urlFilterTableIsTitleRow .Add(true);
+                urlFilterTableStartRow   .Add(row);
+                urlFilterTableEndRow     .Add(row);
+
+                // If user chose EXPANDED view for this rule, add the action rows
+                if (urlFilterTableShowRule[ruleIndex])
+                    urlFilterTableEndRow  [ruleIndex] += urlFilterActionList.Count;
 
                 urlFilterTableCellIsDisabled.Add(new List<Boolean>());
                 urlFilterTableCellIsDisabled[row] = urlFilterTableDisabledColumnsOfRule.ToList();
@@ -1230,7 +1261,11 @@ namespace SebWindowsConfig
                 // Add  title row for current Filter Rule.
                 // Show title row in LightGrey and Expression in Bold.
                 // For  title row, disable the Regex and Action widgets.
-                dataGridViewURLFilterRules.Rows.Add("Collapse", active, false, expression, "");
+
+                if (urlFilterTableShowRule[ruleIndex])
+                     dataGridViewURLFilterRules.Rows.Add("Collapse", active, false, expression, "");
+                else dataGridViewURLFilterRules.Rows.Add("Expand"  , active, false, expression, "");
+
                 dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly = true;
@@ -1238,6 +1273,11 @@ namespace SebWindowsConfig
 
                 row++;
 
+                // If user chose COLLAPSED view for this rule:
+                // Do not show the actions, but continue with next rule.
+                if (!urlFilterTableShowRule[ruleIndex]) continue;
+
+                // If user chose EXPANDED view for this rule:
                 // Add URL Filter Actions of current URL Filter Rule to DataGridView
                 for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
                 {
@@ -1248,9 +1288,9 @@ namespace SebWindowsConfig
                     String  Expression = (String )urlFilterActionData[MessageExpression];
                     Int32   Action     = (Int32  )urlFilterActionData[MessageAction];
 
-                      ruleNumber.Add(  ruleIndex);
-                    actionNumber.Add(actionIndex);
-                      isTitleRow.Add(false);
+                    urlFilterTableRuleIndex  .Add(  ruleIndex);
+                    urlFilterTableActionIndex.Add(actionIndex);
+                    urlFilterTableIsTitleRow .Add(false);
 
                     urlFilterTableCellIsDisabled.Add(new List<Boolean>());
                     urlFilterTableCellIsDisabled[row] = urlFilterTableDisabledColumnsOfAction.ToList();
@@ -1270,14 +1310,14 @@ namespace SebWindowsConfig
             // Set the "selected index" focus to the row of current rule and action
             if (urlFilterRuleList.Count == 0) return;
 
-            urlFilterTableRow =    startRow[urlFilterRuleIndex] + urlFilterActionIndex + 1;
-            dataGridViewURLFilterRules.Rows[urlFilterTableRow ].Selected = true;
+            urlFilterTableRow = urlFilterTableStartRow[urlFilterRuleIndex] + urlFilterActionIndex + 1;
+            dataGridViewURLFilterRules.Rows[urlFilterTableRow].Selected = true;
 
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
-            urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
-            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
-            urlFilterActionIndex = actionNumber[urlFilterTableRow];
+            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
+            urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
+            urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
         }
 
 
@@ -2745,9 +2785,9 @@ namespace SebWindowsConfig
             // Skip the cell painting event if
             // - the URL filter rules have not yet been loaded
             // - the cell is no inner cell of the table
-            if (isTitleRow.Count == 0) return;
-            if (e.   RowIndex     < 0) return;
-            if (e.ColumnIndex     < 0) return;
+            if (urlFilterTableIsTitleRow.Count == 0) return;
+            if (e.   RowIndex                   < 0) return;
+            if (e.ColumnIndex                   < 0) return;
 
             // If the cell is disabled, paint over it
             if (urlFilterTableCellIsDisabled[e.RowIndex][e.ColumnIndex])
@@ -2818,9 +2858,9 @@ namespace SebWindowsConfig
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
             urlFilterTableRow    = row;
-            urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
-            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
-            urlFilterActionIndex = actionNumber[urlFilterTableRow];
+            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
+            urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
+            urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
 
             // Get the rule data belonging to the current row
             urlFilterRuleList =               (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -2856,9 +2896,9 @@ namespace SebWindowsConfig
                 // Determine if the selected row is a title row or action row.
                 // Determine which rule and action belong to the selected row.
                 urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
-                urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
-                urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
-                urlFilterActionIndex = actionNumber[urlFilterTableRow];
+                urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
+                urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
+                urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
             }
             else
             {
@@ -2879,11 +2919,12 @@ namespace SebWindowsConfig
                 Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
                 ruleData[MessageActive     ] = true;
-                ruleData[MessageExpression ] = "Rule " + urlFilterRuleIndex.ToString();
+                ruleData[MessageExpression ] = "Rule";
                 ruleData[MessageRuleActions] = new List<object>();
 
                 // Insert new rule into rule list after position index
-                urlFilterRuleList.Insert(urlFilterRuleIndex, ruleData);
+                urlFilterRuleList     .Insert(urlFilterRuleIndex, ruleData);
+                urlFilterTableShowRule.Insert(urlFilterRuleIndex, true);
             }
 
             // If the user clicked onto an ACTION row,
@@ -2924,9 +2965,9 @@ namespace SebWindowsConfig
                 // Determine if the selected row is a title row or action row.
                 // Determine which rule and action belong to the selected row.
                 urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
-                urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
-                urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
-                urlFilterActionIndex = actionNumber[urlFilterTableRow];
+                urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
+                urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
+                urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
             }
             else
             {
@@ -2947,11 +2988,12 @@ namespace SebWindowsConfig
                 Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
                 ruleData[MessageActive     ] = true;
-                ruleData[MessageExpression ] = "Rule " + urlFilterRuleIndex.ToString();
+                ruleData[MessageExpression ] = "Rule";
                 ruleData[MessageRuleActions] = new List<object>();
 
                 // Insert new rule into rule list after position index
-                urlFilterRuleList.Insert(urlFilterRuleIndex, ruleData);
+                urlFilterRuleList     .Insert(urlFilterRuleIndex, ruleData);
+                urlFilterTableShowRule.Insert(urlFilterRuleIndex, true);
             }
 
             // If the user clicked onto an ACTION row,
@@ -2993,14 +3035,15 @@ namespace SebWindowsConfig
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
             urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
-            urlFilterIsTitleRow  =   isTitleRow[urlFilterTableRow];
-            urlFilterRuleIndex   =   ruleNumber[urlFilterTableRow];
-            urlFilterActionIndex = actionNumber[urlFilterTableRow];
+            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
+            urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
+            urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
 
             if (urlFilterIsTitleRow)
             {
                 // Delete rule from rule list at position index
-                urlFilterRuleList.RemoveAt(urlFilterRuleIndex);
+                urlFilterRuleList     .RemoveAt(urlFilterRuleIndex);
+                urlFilterTableShowRule.RemoveAt(urlFilterRuleIndex);
 
                 if (urlFilterRuleIndex == urlFilterRuleList.Count)
                     urlFilterRuleIndex--;
