@@ -2886,7 +2886,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonAddURLFilterBeforeSelection_Click(object sender, EventArgs e)
+        private void buttonInsertBeforeSelected_Click(object sender, EventArgs e)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -2955,7 +2955,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonAddURLFilterAfterSelection_Click(object sender, EventArgs e)
+        private void buttonInsertAfterSelected_Click(object sender, EventArgs e)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -3024,7 +3024,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonRemoveURLFilterAtSelection_Click(object sender, EventArgs e)
+        private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];

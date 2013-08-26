@@ -92,18 +92,18 @@
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
-            this.labelRemoveURLFilterAtSelection = new System.Windows.Forms.Label();
-            this.labelURLFilterAfterSelection = new System.Windows.Forms.Label();
-            this.labelAddURLFilterBeforeSelection = new System.Windows.Forms.Label();
-            this.buttonAddURLFilterBeforeSelection = new System.Windows.Forms.Button();
+            this.labelDeleteURLFilterAtSelection = new System.Windows.Forms.Label();
+            this.labelInsertURLFilterAfterSelection = new System.Windows.Forms.Label();
+            this.labelInsertURLFilterBeforeSelection = new System.Windows.Forms.Label();
+            this.buttonInsertBeforeSelected = new System.Windows.Forms.Button();
             this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
             this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Regex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.buttonRemoveURLFilterAtSelection = new System.Windows.Forms.Button();
-            this.buttonAddURLFilterAfterSelection = new System.Windows.Forms.Button();
+            this.buttonDeleteSelected = new System.Windows.Forms.Button();
+            this.buttonInsertAfterSelected = new System.Windows.Forms.Button();
             this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.tabPageCertificates = new System.Windows.Forms.TabPage();
@@ -1038,13 +1038,13 @@
             // 
             // tabPageFilter
             // 
-            this.tabPageFilter.Controls.Add(this.labelRemoveURLFilterAtSelection);
-            this.tabPageFilter.Controls.Add(this.labelURLFilterAfterSelection);
-            this.tabPageFilter.Controls.Add(this.labelAddURLFilterBeforeSelection);
-            this.tabPageFilter.Controls.Add(this.buttonAddURLFilterBeforeSelection);
+            this.tabPageFilter.Controls.Add(this.labelDeleteURLFilterAtSelection);
+            this.tabPageFilter.Controls.Add(this.labelInsertURLFilterAfterSelection);
+            this.tabPageFilter.Controls.Add(this.labelInsertURLFilterBeforeSelection);
+            this.tabPageFilter.Controls.Add(this.buttonInsertBeforeSelected);
             this.tabPageFilter.Controls.Add(this.dataGridViewURLFilterRules);
-            this.tabPageFilter.Controls.Add(this.buttonRemoveURLFilterAtSelection);
-            this.tabPageFilter.Controls.Add(this.buttonAddURLFilterAfterSelection);
+            this.tabPageFilter.Controls.Add(this.buttonDeleteSelected);
+            this.tabPageFilter.Controls.Add(this.buttonInsertAfterSelected);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
             this.tabPageFilter.Controls.Add(this.checkBoxEnableURLFilter);
             this.tabPageFilter.Location = new System.Drawing.Point(4, 25);
@@ -1055,42 +1055,42 @@
             this.tabPageFilter.Text = "Filter";
             this.tabPageFilter.UseVisualStyleBackColor = true;
             // 
-            // labelRemoveURLFilterAtSelection
+            // labelDeleteURLFilterAtSelection
             // 
-            this.labelRemoveURLFilterAtSelection.AutoSize = true;
-            this.labelRemoveURLFilterAtSelection.Location = new System.Drawing.Point(60, 487);
-            this.labelRemoveURLFilterAtSelection.Name = "labelRemoveURLFilterAtSelection";
-            this.labelRemoveURLFilterAtSelection.Size = new System.Drawing.Size(214, 17);
-            this.labelRemoveURLFilterAtSelection.TabIndex = 98;
-            this.labelRemoveURLFilterAtSelection.Text = "Remove rule / action at selection";
+            this.labelDeleteURLFilterAtSelection.AutoSize = true;
+            this.labelDeleteURLFilterAtSelection.Location = new System.Drawing.Point(222, 487);
+            this.labelDeleteURLFilterAtSelection.Name = "labelDeleteURLFilterAtSelection";
+            this.labelDeleteURLFilterAtSelection.Size = new System.Drawing.Size(203, 17);
+            this.labelDeleteURLFilterAtSelection.TabIndex = 98;
+            this.labelDeleteURLFilterAtSelection.Text = "Delete rule / action at selection";
             // 
-            // labelURLFilterAfterSelection
+            // labelInsertURLFilterAfterSelection
             // 
-            this.labelURLFilterAfterSelection.AutoSize = true;
-            this.labelURLFilterAfterSelection.Location = new System.Drawing.Point(60, 447);
-            this.labelURLFilterAfterSelection.Name = "labelURLFilterAfterSelection";
-            this.labelURLFilterAfterSelection.Size = new System.Drawing.Size(214, 17);
-            this.labelURLFilterAfterSelection.TabIndex = 97;
-            this.labelURLFilterAfterSelection.Text = "Insert rule / action after selection";
+            this.labelInsertURLFilterAfterSelection.AutoSize = true;
+            this.labelInsertURLFilterAfterSelection.Location = new System.Drawing.Point(222, 447);
+            this.labelInsertURLFilterAfterSelection.Name = "labelInsertURLFilterAfterSelection";
+            this.labelInsertURLFilterAfterSelection.Size = new System.Drawing.Size(214, 17);
+            this.labelInsertURLFilterAfterSelection.TabIndex = 97;
+            this.labelInsertURLFilterAfterSelection.Text = "Insert rule / action after selection";
             // 
-            // labelAddURLFilterBeforeSelection
+            // labelInsertURLFilterBeforeSelection
             // 
-            this.labelAddURLFilterBeforeSelection.AutoSize = true;
-            this.labelAddURLFilterBeforeSelection.Location = new System.Drawing.Point(60, 407);
-            this.labelAddURLFilterBeforeSelection.Name = "labelAddURLFilterBeforeSelection";
-            this.labelAddURLFilterBeforeSelection.Size = new System.Drawing.Size(226, 17);
-            this.labelAddURLFilterBeforeSelection.TabIndex = 96;
-            this.labelAddURLFilterBeforeSelection.Text = "Insert rule / action before selection";
+            this.labelInsertURLFilterBeforeSelection.AutoSize = true;
+            this.labelInsertURLFilterBeforeSelection.Location = new System.Drawing.Point(222, 407);
+            this.labelInsertURLFilterBeforeSelection.Name = "labelInsertURLFilterBeforeSelection";
+            this.labelInsertURLFilterBeforeSelection.Size = new System.Drawing.Size(226, 17);
+            this.labelInsertURLFilterBeforeSelection.TabIndex = 96;
+            this.labelInsertURLFilterBeforeSelection.Text = "Insert rule / action before selection";
             // 
-            // buttonAddURLFilterBeforeSelection
+            // buttonInsertBeforeSelected
             // 
-            this.buttonAddURLFilterBeforeSelection.Location = new System.Drawing.Point(25, 400);
-            this.buttonAddURLFilterBeforeSelection.Name = "buttonAddURLFilterBeforeSelection";
-            this.buttonAddURLFilterBeforeSelection.Size = new System.Drawing.Size(30, 30);
-            this.buttonAddURLFilterBeforeSelection.TabIndex = 91;
-            this.buttonAddURLFilterBeforeSelection.Text = "+";
-            this.buttonAddURLFilterBeforeSelection.UseVisualStyleBackColor = true;
-            this.buttonAddURLFilterBeforeSelection.Click += new System.EventHandler(this.buttonAddURLFilterBeforeSelection_Click);
+            this.buttonInsertBeforeSelected.Location = new System.Drawing.Point(25, 400);
+            this.buttonInsertBeforeSelected.Name = "buttonInsertBeforeSelected";
+            this.buttonInsertBeforeSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonInsertBeforeSelected.TabIndex = 91;
+            this.buttonInsertBeforeSelected.Text = "Insert before selected";
+            this.buttonInsertBeforeSelected.UseVisualStyleBackColor = true;
+            this.buttonInsertBeforeSelected.Click += new System.EventHandler(this.buttonInsertBeforeSelected_Click);
             // 
             // dataGridViewURLFilterRules
             // 
@@ -1150,25 +1150,25 @@
             this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
             this.dataGridViewComboBoxColumn2.Width = 80;
             // 
-            // buttonRemoveURLFilterAtSelection
+            // buttonDeleteSelected
             // 
-            this.buttonRemoveURLFilterAtSelection.Location = new System.Drawing.Point(25, 480);
-            this.buttonRemoveURLFilterAtSelection.Name = "buttonRemoveURLFilterAtSelection";
-            this.buttonRemoveURLFilterAtSelection.Size = new System.Drawing.Size(30, 30);
-            this.buttonRemoveURLFilterAtSelection.TabIndex = 87;
-            this.buttonRemoveURLFilterAtSelection.Text = "-";
-            this.buttonRemoveURLFilterAtSelection.UseVisualStyleBackColor = true;
-            this.buttonRemoveURLFilterAtSelection.Click += new System.EventHandler(this.buttonRemoveURLFilterAtSelection_Click);
+            this.buttonDeleteSelected.Location = new System.Drawing.Point(25, 480);
+            this.buttonDeleteSelected.Name = "buttonDeleteSelected";
+            this.buttonDeleteSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonDeleteSelected.TabIndex = 87;
+            this.buttonDeleteSelected.Text = "Delete selected";
+            this.buttonDeleteSelected.UseVisualStyleBackColor = true;
+            this.buttonDeleteSelected.Click += new System.EventHandler(this.buttonDeleteSelected_Click);
             // 
-            // buttonAddURLFilterAfterSelection
+            // buttonInsertAfterSelected
             // 
-            this.buttonAddURLFilterAfterSelection.Location = new System.Drawing.Point(25, 440);
-            this.buttonAddURLFilterAfterSelection.Name = "buttonAddURLFilterAfterSelection";
-            this.buttonAddURLFilterAfterSelection.Size = new System.Drawing.Size(30, 30);
-            this.buttonAddURLFilterAfterSelection.TabIndex = 86;
-            this.buttonAddURLFilterAfterSelection.Text = "+";
-            this.buttonAddURLFilterAfterSelection.UseVisualStyleBackColor = true;
-            this.buttonAddURLFilterAfterSelection.Click += new System.EventHandler(this.buttonAddURLFilterAfterSelection_Click);
+            this.buttonInsertAfterSelected.Location = new System.Drawing.Point(25, 440);
+            this.buttonInsertAfterSelected.Name = "buttonInsertAfterSelected";
+            this.buttonInsertAfterSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonInsertAfterSelected.TabIndex = 86;
+            this.buttonInsertAfterSelected.Text = "Insert after selected";
+            this.buttonInsertAfterSelected.UseVisualStyleBackColor = true;
+            this.buttonInsertAfterSelected.Click += new System.EventHandler(this.buttonInsertAfterSelected_Click);
             // 
             // checkBoxEnableURLContentFilter
             // 
@@ -3569,8 +3569,8 @@
         private System.Windows.Forms.CheckBox checkBoxProhibitedProcessActive;
         private System.Windows.Forms.Button buttonProhibitedProcessCodeSignature;
         private System.Windows.Forms.Button buttonPermittedProcessCodeSignature;
-        private System.Windows.Forms.Button buttonRemoveURLFilterAtSelection;
-        private System.Windows.Forms.Button buttonAddURLFilterAfterSelection;
+        private System.Windows.Forms.Button buttonDeleteSelected;
+        private System.Windows.Forms.Button buttonInsertAfterSelected;
         private System.Windows.Forms.DataGridView dataGridViewEmbeddedCertificates;
         private System.Windows.Forms.Button buttonRemoveCertificate;
         private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
@@ -3585,10 +3585,10 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.Button buttonAddURLFilterBeforeSelection;
-        private System.Windows.Forms.Label labelRemoveURLFilterAtSelection;
-        private System.Windows.Forms.Label labelURLFilterAfterSelection;
-        private System.Windows.Forms.Label labelAddURLFilterBeforeSelection;
+        private System.Windows.Forms.Button buttonInsertBeforeSelected;
+        private System.Windows.Forms.Label labelDeleteURLFilterAtSelection;
+        private System.Windows.Forms.Label labelInsertURLFilterAfterSelection;
+        private System.Windows.Forms.Label labelInsertURLFilterBeforeSelection;
 
     }
 }
