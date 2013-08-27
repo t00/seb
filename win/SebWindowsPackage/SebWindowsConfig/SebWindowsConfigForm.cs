@@ -3024,8 +3024,17 @@ namespace SebWindowsConfig
                 if ((operation == IntOperationCopy) || (operation == IntOperationCut))
                 {
                     // Store currently selected rule for later Paste operation
-                  //urlFilterRuleList.CopyTo(urlFilterRuleIndex, urlFilterRuleDataStored);
                     urlFilterRuleDataStored = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+/*
+                    // Create new rule dataset containing stored values
+                    urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+
+                    urlFilterRuleDataStored.Clear();
+                    urlFilterRuleDataStored.Add(MessageActive    , urlFilterRuleData[MessageActive    ]);
+                    urlFilterRuleDataStored.Add(MessageRegex     , urlFilterRuleData[MessageRegex     ]);
+                    urlFilterRuleDataStored.Add(MessageExpression, urlFilterRuleData[MessageExpression]);
+                    urlFilterRuleDataStored.Add(MessageAction    , urlFilterRuleData[MessageActive    ]);
+*/
                 }
 
                 if ((operation == IntOperationDelete) || (operation == IntOperationCut))
@@ -3048,16 +3057,14 @@ namespace SebWindowsConfig
                     // Store currently selected action for later Paste operation
                     urlFilterActionDataStored = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
 /*
-                    urlFilterActionDataStored.Clear();
-
                     // Create new action dataset containing stored values
-                    Dictionary<string, object> actionData =
-                   (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+                    urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
 
-                    urlFilterActionDataStored.Add(MessageActive    , actionData[MessageActive    ]);
-                    urlFilterActionDataStored.Add(MessageRegex     , actionData[MessageRegex     ]);
-                    urlFilterActionDataStored.Add(MessageExpression, actionData[MessageExpression]);
-                    urlFilterActionDataStored.Add(MessageAction    , actionData[MessageActive    ]);
+                    urlFilterActionDataStored.Clear();
+                    urlFilterActionDataStored.Add(MessageActive    , urlFilterActionData[MessageActive    ]);
+                    urlFilterActionDataStored.Add(MessageRegex     , urlFilterActionData[MessageRegex     ]);
+                    urlFilterActionDataStored.Add(MessageExpression, urlFilterActionData[MessageExpression]);
+                    urlFilterActionDataStored.Add(MessageAction    , urlFilterActionData[MessageActive    ]);
 */
                 }
 
