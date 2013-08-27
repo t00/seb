@@ -2926,7 +2926,7 @@ namespace SebWindowsConfig
                 ||   (location == IntLocationAfter))
                     urlFilterRuleIndex++;
 
-                // Create new rule dataset containing default values
+                // Create new rule dataset containing default or stored values
                 Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
                 if (operation == IntOperationInsert)
@@ -2935,7 +2935,6 @@ namespace SebWindowsConfig
                     ruleData[MessageExpression ] = "Rule";
                     ruleData[MessageRuleActions] = new List<object>();
                 }
-
                 if (operation == IntOperationPaste)
                 {
                     ruleData[MessageActive     ] = urlFilterRuleDataStored[MessageActive     ];
@@ -2944,9 +2943,6 @@ namespace SebWindowsConfig
                 }
 
                 // INSERT or PASTE new rule into rule list at correct position index
-                //if (operation == IntOperationInsert) ruleData = urlFilterRuleDataDefault;
-                //if (operation == IntOperationPaste ) ruleData = urlFilterRuleDataStored;
-
                 urlFilterRuleList     .Insert(urlFilterRuleIndex, ruleData);
                 urlFilterTableShowRule.Insert(urlFilterRuleIndex, true);
             }
@@ -2962,7 +2958,7 @@ namespace SebWindowsConfig
                 ||   (location == IntLocationAfter))
                     urlFilterActionIndex++;
 
-                // Create new action dataset containing default values
+                // Create new action dataset containing default or stored values
                 Dictionary<string, object> actionData = new Dictionary<string, object>();
 
                 actionData[MessageActive    ] = true;
@@ -2971,8 +2967,8 @@ namespace SebWindowsConfig
                 actionData[MessageAction    ] = 0;
 
                 // INSERT or PASTE new action into action list at correct position index
-                if (operation == IntOperationInsert) actionData = urlFilterActionDataDefault;
-                if (operation == IntOperationPaste ) actionData = urlFilterActionDataStored;
+                //if (operation == IntOperationInsert) actionData = urlFilterActionDataDefault;
+                //if (operation == IntOperationPaste ) actionData = urlFilterActionDataStored;
 
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
