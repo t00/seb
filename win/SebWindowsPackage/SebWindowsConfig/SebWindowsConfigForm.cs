@@ -3030,10 +3030,25 @@ namespace SebWindowsConfig
                     urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
 
                     urlFilterRuleDataStored.Clear();
-                    urlFilterRuleDataStored.Add(MessageActive    , urlFilterRuleData[MessageActive    ]);
-                    urlFilterRuleDataStored.Add(MessageRegex     , urlFilterRuleData[MessageRegex     ]);
-                    urlFilterRuleDataStored.Add(MessageExpression, urlFilterRuleData[MessageExpression]);
-                    urlFilterRuleDataStored.Add(MessageAction    , urlFilterRuleData[MessageActive    ]);
+                    urlFilterRuleDataStored.Add(MessageActive     , urlFilterRuleData[MessageActive     ]);
+                    urlFilterRuleDataStored.Add(MessageExpression , urlFilterRuleData[MessageExpression ]);
+                    urlFilterRuleDataStored.Add(MessageRuleActions, urlFilterRuleData[MessageRuleActions]);
+
+                    urlFilterActionList       = (List<object>)urlFilterRuleData      [MessageRuleActions];
+                    urlFilterActionListStored = (List<object>)urlFilterRuleDataStored[MessageRuleActions];
+
+                    for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
+                    {
+                        urlFilterActionData       = (Dictionary<string, object>)urlFilterActionList      [actionIndex];
+                        urlFilterActionDataStored = (Dictionary<string, object>)urlFilterActionListStored[actionIndex];
+
+                        Boolean Active     = (Boolean)urlFilterActionData[MessageActive];
+                        Boolean Regex      = (Boolean)urlFilterActionData[MessageRegex];
+                        String  Expression = (String )urlFilterActionData[MessageExpression];
+                        Int32   Action     = (Int32  )urlFilterActionData[MessageAction];
+
+                        urlFilterActionListStored.Add(url...);
+                        urlFilterActionListStored[actionIndex][MessageActive] = Active;
 */
                 }
 
