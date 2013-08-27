@@ -2929,10 +2929,17 @@ namespace SebWindowsConfig
                 // Create new rule dataset containing default or stored values
                 Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
+                //if (operation == IntOperationInsert) ruleData = urlFilterRuleDataDefault;
+                //if (operation == IntOperationPaste ) ruleData = urlFilterRuleDataStored;
+
                 if (operation == IntOperationInsert)
                 {
-                    ruleData[MessageActive     ] = true;
-                    ruleData[MessageExpression ] = "Rule";
+                  //ruleData[MessageActive     ] = url;
+                  //ruleData[MessageExpression ] = "Rule";
+                  //ruleData[MessageRuleActions] = new List<object>();
+
+                    ruleData[MessageActive     ] = urlFilterRuleDataDefault[MessageActive    ];
+                    ruleData[MessageExpression ] = urlFilterRuleDataDefault[MessageExpression];
                     ruleData[MessageRuleActions] = new List<object>();
                 }
                 if (operation == IntOperationPaste)
@@ -2961,15 +2968,30 @@ namespace SebWindowsConfig
                 // Create new action dataset containing default or stored values
                 Dictionary<string, object> actionData = new Dictionary<string, object>();
 
-                actionData[MessageActive    ] = true;
-                actionData[MessageRegex     ] = false;
-                actionData[MessageExpression] = "*";
-                actionData[MessageAction    ] = 0;
-
-                // INSERT or PASTE new action into action list at correct position index
                 //if (operation == IntOperationInsert) actionData = urlFilterActionDataDefault;
                 //if (operation == IntOperationPaste ) actionData = urlFilterActionDataStored;
 
+                if (operation == IntOperationInsert)
+                {
+                  //actionData[MessageActive    ] = true;
+                  //actionData[MessageRegex     ] = false;
+                  //actionData[MessageExpression] = "*";
+                  //actionData[MessageAction    ] = 0;
+
+                    actionData[MessageActive    ] = urlFilterActionDataDefault[MessageActive    ];
+                    actionData[MessageRegex     ] = urlFilterActionDataDefault[MessageRegex     ];
+                    actionData[MessageExpression] = urlFilterActionDataDefault[MessageExpression];
+                    actionData[MessageAction    ] = urlFilterActionDataDefault[MessageAction    ];
+                }
+                if (operation == IntOperationPaste)
+                {
+                    actionData[MessageActive    ] = urlFilterActionDataStored[MessageActive    ];
+                    actionData[MessageRegex     ] = urlFilterActionDataStored[MessageRegex     ];
+                    actionData[MessageExpression] = urlFilterActionDataStored[MessageExpression];
+                    actionData[MessageAction    ] = urlFilterActionDataStored[MessageAction    ];
+                }
+
+                // INSERT or PASTE new action into action list at correct position index
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                 urlFilterActionList.Insert(urlFilterActionIndex, actionData);
