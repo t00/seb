@@ -2956,10 +2956,11 @@ namespace SebWindowsConfig
 
             // If the user clicked onto an ACTION row,
             // add a new action BEFORE or AFTER the current action.
-            // If the user clicked onto a TITLE row (rule),
-            // add a new action AFTER the new rule.
 
-            if (true)
+            // If the user clicked onto a TITLE row (rule):
+            // If a RULE was INSERTED, add an action AFTER the rule.
+            // If a RULE was PASTED  , do nothing.
+            if ((urlFilterIsTitleRow == false) || (operation == IntOperationInsert))
             {
                 if (((location == IntLocationBefore) && (urlFilterIsTitleRow))
                 ||   (location == IntLocationAfter))
