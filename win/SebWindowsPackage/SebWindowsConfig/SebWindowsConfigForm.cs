@@ -2983,6 +2983,7 @@ namespace SebWindowsConfig
                     actionData[MessageExpression] = urlFilterActionDataDefault[MessageExpression];
                     actionData[MessageAction    ] = urlFilterActionDataDefault[MessageAction    ];
                 }
+
                 if (operation == IntOperationPaste)
                 {
                     actionData[MessageActive    ] = urlFilterActionDataStored[MessageActive    ];
@@ -3038,18 +3039,31 @@ namespace SebWindowsConfig
             // If the user clicked onto an ACTION row, delete this action.
             else
             {
+                // Get the action list
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+
                 if ((operation == IntOperationCopy) || (operation == IntOperationCut))
                 {
                     // Store currently selected action for later Paste operation
-                  //urlFilterActionList.CopyTo(urlFilterActionIndex, urlFilterActionDataStored);
                     urlFilterActionDataStored = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+/*
+                    urlFilterActionDataStored.Clear();
+
+                    // Create new action dataset containing stored values
+                    Dictionary<string, object> actionData =
+                   (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
+
+                    urlFilterActionDataStored.Add(MessageActive    , actionData[MessageActive    ]);
+                    urlFilterActionDataStored.Add(MessageRegex     , actionData[MessageRegex     ]);
+                    urlFilterActionDataStored.Add(MessageExpression, actionData[MessageExpression]);
+                    urlFilterActionDataStored.Add(MessageAction    , actionData[MessageActive    ]);
+*/
                 }
 
                 if ((operation == IntOperationDelete) || (operation == IntOperationCut))
                 {
                     // Delete action from action list at position index
-                    urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
-                    urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                     urlFilterActionList.RemoveAt(urlFilterActionIndex);
                     if (urlFilterActionIndex == urlFilterActionList.Count) urlFilterActionIndex--;
                 }
