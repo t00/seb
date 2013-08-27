@@ -563,10 +563,19 @@ namespace SebWindowsConfig
             urlFilterRuleDataDefault.Add(MessageExpression , "Rule");
             urlFilterRuleDataDefault.Add(MessageRuleActions, new List<object>());
 
+            urlFilterRuleDataStored.Add(MessageActive     , true);
+            urlFilterRuleDataStored.Add(MessageExpression , "Rule");
+            urlFilterRuleDataStored.Add(MessageRuleActions, new List<object>());
+
             urlFilterActionDataDefault.Add(MessageActive    , true);
             urlFilterActionDataDefault.Add(MessageRegex     , false);
             urlFilterActionDataDefault.Add(MessageExpression, "*");
             urlFilterActionDataDefault.Add(MessageAction    , 0);
+
+            urlFilterActionDataStored.Add(MessageActive    , true);
+            urlFilterActionDataStored.Add(MessageRegex     , false);
+            urlFilterActionDataStored.Add(MessageExpression, "*");
+            urlFilterActionDataStored.Add(MessageAction    , 0);
 
             // Default settings for group "Network - Certificates"
             sebSettingsDef.Add(MessageEmbeddedCertificates, new List<object>());
@@ -2920,13 +2929,23 @@ namespace SebWindowsConfig
                 // Create new rule dataset containing default values
                 Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
-                ruleData[MessageActive     ] = true;
-                ruleData[MessageExpression ] = "Rule";
-                ruleData[MessageRuleActions] = new List<object>();
+                if (operation == IntOperationInsert)
+                {
+                    ruleData[MessageActive     ] = true;
+                    ruleData[MessageExpression ] = "Rule";
+                    ruleData[MessageRuleActions] = new List<object>();
+                }
+
+                if (operation == IntOperationPaste)
+                {
+                    ruleData[MessageActive     ] = urlFilterRuleDataStored[MessageActive     ];
+                    ruleData[MessageExpression ] = urlFilterRuleDataStored[MessageExpression ];
+                    ruleData[MessageRuleActions] = urlFilterRuleDataStored[MessageRuleActions];
+                }
 
                 // INSERT or PASTE new rule into rule list at correct position index
-                if (operation == IntOperationInsert) ruleData = urlFilterRuleDataDefault;
-                if (operation == IntOperationPaste ) ruleData = urlFilterRuleDataStored;
+                //if (operation == IntOperationInsert) ruleData = urlFilterRuleDataDefault;
+                //if (operation == IntOperationPaste ) ruleData = urlFilterRuleDataStored;
 
                 urlFilterRuleList     .Insert(urlFilterRuleIndex, ruleData);
                 urlFilterTableShowRule.Insert(urlFilterRuleIndex, true);
