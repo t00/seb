@@ -1047,8 +1047,8 @@ namespace SebWindowsConfig
             UpdateAllWidgetsOfProgram();
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
             //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
-            PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
-            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
+            //PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
+            //PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
             return true;
         }
 
@@ -3065,12 +3065,30 @@ namespace SebWindowsConfig
             InsertPasteRuleAction(IntOperationInsert, IntLocationBefore);
         }
 
-
         private void buttonInsertAfterSelected_Click(object sender, EventArgs e)
         {
             InsertPasteRuleAction(IntOperationInsert, IntLocationAfter);
         }
 
+        private void buttonPasteBeforeSelected_Click(object sender, EventArgs e)
+        {
+            InsertPasteRuleAction(IntOperationPaste, IntLocationBefore);
+        }
+
+        private void buttonPasteAfterSelected_Click(object sender, EventArgs e)
+        {
+            InsertPasteRuleAction(IntOperationPaste, IntLocationAfter);
+        }
+
+        private void buttonCopySelected_Click(object sender, EventArgs e)
+        {
+            CopyCutDeleteRuleAction(IntOperationCopy);
+        }
+
+        private void buttonCutSelected_Click(object sender, EventArgs e)
+        {
+            CopyCutDeleteRuleAction(IntOperationCut);
+        }
 
         private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {

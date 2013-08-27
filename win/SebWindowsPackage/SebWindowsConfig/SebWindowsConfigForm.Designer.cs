@@ -92,9 +92,6 @@
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
-            this.labelDeleteURLFilterAtSelection = new System.Windows.Forms.Label();
-            this.labelInsertURLFilterAfterSelection = new System.Windows.Forms.Label();
-            this.labelInsertURLFilterBeforeSelection = new System.Windows.Forms.Label();
             this.buttonInsertBeforeSelected = new System.Windows.Forms.Button();
             this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
             this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -294,6 +291,10 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.buttonPasteBeforeSelected = new System.Windows.Forms.Button();
+            this.buttonPasteAfterSelected = new System.Windows.Forms.Button();
+            this.buttonCopySelected = new System.Windows.Forms.Button();
+            this.buttonCutSelected = new System.Windows.Forms.Button();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1038,9 +1039,10 @@
             // 
             // tabPageFilter
             // 
-            this.tabPageFilter.Controls.Add(this.labelDeleteURLFilterAtSelection);
-            this.tabPageFilter.Controls.Add(this.labelInsertURLFilterAfterSelection);
-            this.tabPageFilter.Controls.Add(this.labelInsertURLFilterBeforeSelection);
+            this.tabPageFilter.Controls.Add(this.buttonCutSelected);
+            this.tabPageFilter.Controls.Add(this.buttonCopySelected);
+            this.tabPageFilter.Controls.Add(this.buttonPasteAfterSelected);
+            this.tabPageFilter.Controls.Add(this.buttonPasteBeforeSelected);
             this.tabPageFilter.Controls.Add(this.buttonInsertBeforeSelected);
             this.tabPageFilter.Controls.Add(this.dataGridViewURLFilterRules);
             this.tabPageFilter.Controls.Add(this.buttonDeleteSelected);
@@ -1054,33 +1056,6 @@
             this.tabPageFilter.TabIndex = 0;
             this.tabPageFilter.Text = "Filter";
             this.tabPageFilter.UseVisualStyleBackColor = true;
-            // 
-            // labelDeleteURLFilterAtSelection
-            // 
-            this.labelDeleteURLFilterAtSelection.AutoSize = true;
-            this.labelDeleteURLFilterAtSelection.Location = new System.Drawing.Point(222, 487);
-            this.labelDeleteURLFilterAtSelection.Name = "labelDeleteURLFilterAtSelection";
-            this.labelDeleteURLFilterAtSelection.Size = new System.Drawing.Size(203, 17);
-            this.labelDeleteURLFilterAtSelection.TabIndex = 98;
-            this.labelDeleteURLFilterAtSelection.Text = "Delete rule / action at selection";
-            // 
-            // labelInsertURLFilterAfterSelection
-            // 
-            this.labelInsertURLFilterAfterSelection.AutoSize = true;
-            this.labelInsertURLFilterAfterSelection.Location = new System.Drawing.Point(222, 447);
-            this.labelInsertURLFilterAfterSelection.Name = "labelInsertURLFilterAfterSelection";
-            this.labelInsertURLFilterAfterSelection.Size = new System.Drawing.Size(214, 17);
-            this.labelInsertURLFilterAfterSelection.TabIndex = 97;
-            this.labelInsertURLFilterAfterSelection.Text = "Insert rule / action after selection";
-            // 
-            // labelInsertURLFilterBeforeSelection
-            // 
-            this.labelInsertURLFilterBeforeSelection.AutoSize = true;
-            this.labelInsertURLFilterBeforeSelection.Location = new System.Drawing.Point(222, 407);
-            this.labelInsertURLFilterBeforeSelection.Name = "labelInsertURLFilterBeforeSelection";
-            this.labelInsertURLFilterBeforeSelection.Size = new System.Drawing.Size(226, 17);
-            this.labelInsertURLFilterBeforeSelection.TabIndex = 96;
-            this.labelInsertURLFilterBeforeSelection.Text = "Insert rule / action before selection";
             // 
             // buttonInsertBeforeSelected
             // 
@@ -3251,6 +3226,46 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // buttonPasteBeforeSelected
+            // 
+            this.buttonPasteBeforeSelected.Location = new System.Drawing.Point(225, 400);
+            this.buttonPasteBeforeSelected.Name = "buttonPasteBeforeSelected";
+            this.buttonPasteBeforeSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonPasteBeforeSelected.TabIndex = 99;
+            this.buttonPasteBeforeSelected.Text = "Paste before selected";
+            this.buttonPasteBeforeSelected.UseVisualStyleBackColor = true;
+            this.buttonPasteBeforeSelected.Click += new System.EventHandler(this.buttonPasteBeforeSelected_Click);
+            // 
+            // buttonPasteAfterSelected
+            // 
+            this.buttonPasteAfterSelected.Location = new System.Drawing.Point(225, 440);
+            this.buttonPasteAfterSelected.Name = "buttonPasteAfterSelected";
+            this.buttonPasteAfterSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonPasteAfterSelected.TabIndex = 100;
+            this.buttonPasteAfterSelected.Text = "Paste after selected";
+            this.buttonPasteAfterSelected.UseVisualStyleBackColor = true;
+            this.buttonPasteAfterSelected.Click += new System.EventHandler(this.buttonPasteAfterSelected_Click);
+            // 
+            // buttonCopySelected
+            // 
+            this.buttonCopySelected.Location = new System.Drawing.Point(225, 480);
+            this.buttonCopySelected.Name = "buttonCopySelected";
+            this.buttonCopySelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonCopySelected.TabIndex = 101;
+            this.buttonCopySelected.Text = "Copy selected";
+            this.buttonCopySelected.UseVisualStyleBackColor = true;
+            this.buttonCopySelected.Click += new System.EventHandler(this.buttonCopySelected_Click);
+            // 
+            // buttonCutSelected
+            // 
+            this.buttonCutSelected.Location = new System.Drawing.Point(225, 520);
+            this.buttonCutSelected.Name = "buttonCutSelected";
+            this.buttonCutSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonCutSelected.TabIndex = 102;
+            this.buttonCutSelected.Text = "Cut selected";
+            this.buttonCutSelected.UseVisualStyleBackColor = true;
+            this.buttonCutSelected.Click += new System.EventHandler(this.buttonCutSelected_Click);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3586,9 +3601,10 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Button buttonInsertBeforeSelected;
-        private System.Windows.Forms.Label labelDeleteURLFilterAtSelection;
-        private System.Windows.Forms.Label labelInsertURLFilterAfterSelection;
-        private System.Windows.Forms.Label labelInsertURLFilterBeforeSelection;
+        private System.Windows.Forms.Button buttonCutSelected;
+        private System.Windows.Forms.Button buttonCopySelected;
+        private System.Windows.Forms.Button buttonPasteAfterSelected;
+        private System.Windows.Forms.Button buttonPasteBeforeSelected;
 
     }
 }
