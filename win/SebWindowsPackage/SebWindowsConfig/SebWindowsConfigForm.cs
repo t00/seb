@@ -2895,7 +2895,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void InsertOrPasteRuleOrAction(int operation, int location)
+        private void InsertPasteRuleAction(int operation, int location)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -3002,7 +3002,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void DeleteOrCutOrCopyRuleOrAction(int operation, int location)
+        private void CopyCutDeleteRuleAction(int operation)
         {
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -3020,37 +3020,39 @@ namespace SebWindowsConfig
             // If the user clicked onto a TITLE row (RULE), delete this rule.
             if (urlFilterIsTitleRow)
             {
-                if ((operation == IntOperationCopy)
-                ||  (operation == IntOperationCut))
+                if ((operation == IntOperationCopy) || (operation == IntOperationCut))
                 {
+                    // Store currently selected rule for later Paste operation
                   //urlFilterRuleList.CopyTo(urlFilterRuleIndex, urlFilterRuleDataStored);
                     urlFilterRuleDataStored = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 }
 
-                // Delete rule from rule list at position index
-                urlFilterRuleList     .RemoveAt(urlFilterRuleIndex);
-                urlFilterTableShowRule.RemoveAt(urlFilterRuleIndex);
-
-                if (urlFilterRuleIndex == urlFilterRuleList.Count)
-                    urlFilterRuleIndex--;
+                if ((operation == IntOperationDelete) || (operation == IntOperationCut))
+                {
+                    // Delete rule from rule list at position index
+                    urlFilterRuleList     .RemoveAt(urlFilterRuleIndex);
+                    urlFilterTableShowRule.RemoveAt(urlFilterRuleIndex);
+                    if (urlFilterRuleIndex == urlFilterRuleList.Count) urlFilterRuleIndex--;
+                }
             }
             // If the user clicked onto an ACTION row, delete this action.
             else
             {
-                if ((operation == IntOperationCopy)
-                ||  (operation == IntOperationCut))
+                if ((operation == IntOperationCopy) || (operation == IntOperationCut))
                 {
+                    // Store currently selected action for later Paste operation
                   //urlFilterActionList.CopyTo(urlFilterActionIndex, urlFilterActionDataStored);
                     urlFilterActionDataStored = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
                 }
 
-                // Delete action from action list at position index
-                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
-                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
-                urlFilterActionList.RemoveAt(urlFilterActionIndex);
-
-                if (urlFilterActionIndex == urlFilterActionList.Count)
-                    urlFilterActionIndex--;
+                if ((operation == IntOperationDelete) || (operation == IntOperationCut))
+                {
+                    // Delete action from action list at position index
+                    urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+                    urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+                    urlFilterActionList.RemoveAt(urlFilterActionIndex);
+                    if (urlFilterActionIndex == urlFilterActionList.Count) urlFilterActionIndex--;
+                }
             }
 
             // Update the table of URL Filter Rules
@@ -3060,19 +3062,19 @@ namespace SebWindowsConfig
 
         private void buttonInsertBeforeSelected_Click(object sender, EventArgs e)
         {
-            InsertOrPasteRuleOrAction(IntOperationInsert, IntLocationBefore);
+            InsertPasteRuleAction(IntOperationInsert, IntLocationBefore);
         }
 
 
         private void buttonInsertAfterSelected_Click(object sender, EventArgs e)
         {
-            InsertOrPasteRuleOrAction(IntOperationInsert, IntLocationAfter);
+            InsertPasteRuleAction(IntOperationInsert, IntLocationAfter);
         }
 
 
         private void buttonDeleteSelected_Click(object sender, EventArgs e)
         {
-            DeleteOrCutOrCopyRuleOrAction(IntOperationDelete, IntLocationAt);
+            CopyCutDeleteRuleAction(IntOperationDelete);
         }
 
 
