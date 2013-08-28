@@ -403,8 +403,6 @@ namespace SebWindowsConfig
         static Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
         static Dictionary<string, object> urlFilterActionDataStored  = new Dictionary<string, object>();
 
-
-
         static int                        embeddedCertificateIndex;
         static List<object>               embeddedCertificateList = new List<object>();
         static Dictionary<string, object> embeddedCertificateData = new Dictionary<string, object>();
