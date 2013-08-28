@@ -2934,10 +2934,6 @@ namespace SebWindowsConfig
 
                 if (operation == IntOperationInsert)
                 {
-                  //ruleData[MessageActive     ] = url;
-                  //ruleData[MessageExpression ] = "Rule";
-                  //ruleData[MessageRuleActions] = new List<object>();
-
                     ruleData[MessageActive     ] = urlFilterRuleDataDefault[MessageActive    ];
                     ruleData[MessageExpression ] = urlFilterRuleDataDefault[MessageExpression];
                     ruleData[MessageRuleActions] = new List<object>();
