@@ -98,19 +98,19 @@
             this.buttonPasteBeforeSelected = new System.Windows.Forms.Button();
             this.buttonInsertBeforeSelected = new System.Windows.Forms.Button();
             this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
-            this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Regex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.DataGridViewButtonColumnShow = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewCheckBoxColumnActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DataGridViewCheckBoxColumnRegex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumnExpression = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumnAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.buttonDeleteSelected = new System.Windows.Forms.Button();
             this.buttonInsertAfterSelected = new System.Windows.Forms.Button();
             this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.tabPageCertificates = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxChooseIdentity = new System.Windows.Forms.ComboBox();
+            this.labelChooseIdentityToEmbed = new System.Windows.Forms.Label();
+            this.labelChooseSSLClientCertificate = new System.Windows.Forms.Label();
+            this.comboBoxChooseIdentityToEmbed = new System.Windows.Forms.ComboBox();
             this.comboBoxChooseSSLClientCertificate = new System.Windows.Forms.ComboBox();
             this.buttonRemoveCertificate = new System.Windows.Forms.Button();
             this.dataGridViewEmbeddedCertificates = new System.Windows.Forms.DataGridView();
@@ -253,7 +253,7 @@
             this.textBoxHashedSettingsPassword = new System.Windows.Forms.TextBox();
             this.labelHashedSettingsPassword = new System.Windows.Forms.Label();
             this.labelUseEither = new System.Windows.Forms.Label();
-            this.labelChooseIdentity = new System.Windows.Forms.Label();
+            this.labelCryptoIdentity = new System.Windows.Forms.Label();
             this.comboBoxCryptoIdentity = new System.Windows.Forms.ComboBox();
             this.labelConfirmSettingsPassword = new System.Windows.Forms.Label();
             this.labelSettingsPassword = new System.Windows.Forms.Label();
@@ -1111,11 +1111,11 @@
             // 
             this.dataGridViewURLFilterRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewURLFilterRules.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Show,
-            this.dataGridViewCheckBoxColumn2,
-            this.Regex,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewComboBoxColumn2});
+            this.DataGridViewButtonColumnShow,
+            this.dataGridViewCheckBoxColumnActive,
+            this.DataGridViewCheckBoxColumnRegex,
+            this.dataGridViewTextBoxColumnExpression,
+            this.dataGridViewComboBoxColumnAction});
             this.dataGridViewURLFilterRules.Location = new System.Drawing.Point(25, 85);
             this.dataGridViewURLFilterRules.Name = "dataGridViewURLFilterRules";
             this.dataGridViewURLFilterRules.RowHeadersVisible = false;
@@ -1128,43 +1128,40 @@
             this.dataGridViewURLFilterRules.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewURLFilterRules_CurrentCellDirtyStateChanged);
             this.dataGridViewURLFilterRules.SelectionChanged += new System.EventHandler(this.dataGridViewURLFilterRules_SelectionChanged);
             // 
-            // Show
+            // DataGridViewButtonColumnShow
             // 
-            this.Show.HeaderText = "Show";
-            this.Show.Name = "Show";
-            this.Show.Width = 80;
+            this.DataGridViewButtonColumnShow.HeaderText = "Show";
+            this.DataGridViewButtonColumnShow.Name = "DataGridViewButtonColumnShow";
+            this.DataGridViewButtonColumnShow.Width = 80;
             // 
-            // dataGridViewCheckBoxColumn2
+            // dataGridViewCheckBoxColumnActive
             // 
-            this.dataGridViewCheckBoxColumn2.HeaderText = "Active";
-            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            this.dataGridViewCheckBoxColumn2.Width = 50;
+            this.dataGridViewCheckBoxColumnActive.HeaderText = "Active";
+            this.dataGridViewCheckBoxColumnActive.Name = "dataGridViewCheckBoxColumnActive";
+            this.dataGridViewCheckBoxColumnActive.Width = 50;
             // 
-            // Regex
+            // DataGridViewCheckBoxColumnRegex
             // 
-            this.Regex.HeaderText = "Regex";
-            this.Regex.IndeterminateValue = "";
-            this.Regex.Name = "Regex";
-            this.Regex.ThreeState = true;
-            this.Regex.Width = 50;
+            this.DataGridViewCheckBoxColumnRegex.HeaderText = "Regex";
+            this.DataGridViewCheckBoxColumnRegex.Name = "DataGridViewCheckBoxColumnRegex";
             // 
-            // dataGridViewTextBoxColumn5
+            // dataGridViewTextBoxColumnExpression
             // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Expression";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 470;
+            this.dataGridViewTextBoxColumnExpression.HeaderText = "Expression";
+            this.dataGridViewTextBoxColumnExpression.Name = "dataGridViewTextBoxColumnExpression";
+            this.dataGridViewTextBoxColumnExpression.Width = 470;
             // 
-            // dataGridViewComboBoxColumn2
+            // dataGridViewComboBoxColumnAction
             // 
-            this.dataGridViewComboBoxColumn2.HeaderText = "Action";
-            this.dataGridViewComboBoxColumn2.Items.AddRange(new object[] {
+            this.dataGridViewComboBoxColumnAction.HeaderText = "Action";
+            this.dataGridViewComboBoxColumnAction.Items.AddRange(new object[] {
             "block",
             "allow",
             "skip",
             "and",
             "or"});
-            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
-            this.dataGridViewComboBoxColumn2.Width = 80;
+            this.dataGridViewComboBoxColumnAction.Name = "dataGridViewComboBoxColumnAction";
+            this.dataGridViewComboBoxColumnAction.Width = 80;
             // 
             // buttonDeleteSelected
             // 
@@ -1212,9 +1209,9 @@
             // 
             // tabPageCertificates
             // 
-            this.tabPageCertificates.Controls.Add(this.label2);
-            this.tabPageCertificates.Controls.Add(this.label1);
-            this.tabPageCertificates.Controls.Add(this.comboBoxChooseIdentity);
+            this.tabPageCertificates.Controls.Add(this.labelChooseIdentityToEmbed);
+            this.tabPageCertificates.Controls.Add(this.labelChooseSSLClientCertificate);
+            this.tabPageCertificates.Controls.Add(this.comboBoxChooseIdentityToEmbed);
             this.tabPageCertificates.Controls.Add(this.comboBoxChooseSSLClientCertificate);
             this.tabPageCertificates.Controls.Add(this.buttonRemoveCertificate);
             this.tabPageCertificates.Controls.Add(this.dataGridViewEmbeddedCertificates);
@@ -1226,32 +1223,32 @@
             this.tabPageCertificates.Text = "Certificates";
             this.tabPageCertificates.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // labelChooseIdentityToEmbed
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 92);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(293, 17);
-            this.label2.TabIndex = 97;
-            this.label2.Text = "Choose identity to embed into configuration...";
+            this.labelChooseIdentityToEmbed.AutoSize = true;
+            this.labelChooseIdentityToEmbed.Location = new System.Drawing.Point(22, 92);
+            this.labelChooseIdentityToEmbed.Name = "labelChooseIdentityToEmbed";
+            this.labelChooseIdentityToEmbed.Size = new System.Drawing.Size(293, 17);
+            this.labelChooseIdentityToEmbed.TabIndex = 97;
+            this.labelChooseIdentityToEmbed.Text = "Choose identity to embed into configuration...";
             // 
-            // label1
+            // labelChooseSSLClientCertificate
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(376, 17);
-            this.label1.TabIndex = 96;
-            this.label1.Text = "Choose SSL client certificate to embed into configuration...";
+            this.labelChooseSSLClientCertificate.AutoSize = true;
+            this.labelChooseSSLClientCertificate.Location = new System.Drawing.Point(22, 30);
+            this.labelChooseSSLClientCertificate.Name = "labelChooseSSLClientCertificate";
+            this.labelChooseSSLClientCertificate.Size = new System.Drawing.Size(376, 17);
+            this.labelChooseSSLClientCertificate.TabIndex = 96;
+            this.labelChooseSSLClientCertificate.Text = "Choose SSL client certificate to embed into configuration...";
             // 
-            // comboBoxChooseIdentity
+            // comboBoxChooseIdentityToEmbed
             // 
-            this.comboBoxChooseIdentity.FormattingEnabled = true;
-            this.comboBoxChooseIdentity.Location = new System.Drawing.Point(25, 112);
-            this.comboBoxChooseIdentity.Name = "comboBoxChooseIdentity";
-            this.comboBoxChooseIdentity.Size = new System.Drawing.Size(653, 24);
-            this.comboBoxChooseIdentity.TabIndex = 95;
-            this.comboBoxChooseIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
+            this.comboBoxChooseIdentityToEmbed.FormattingEnabled = true;
+            this.comboBoxChooseIdentityToEmbed.Location = new System.Drawing.Point(25, 112);
+            this.comboBoxChooseIdentityToEmbed.Name = "comboBoxChooseIdentityToEmbed";
+            this.comboBoxChooseIdentityToEmbed.Size = new System.Drawing.Size(653, 24);
+            this.comboBoxChooseIdentityToEmbed.TabIndex = 95;
+            this.comboBoxChooseIdentityToEmbed.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
             // 
             // comboBoxChooseSSLClientCertificate
             // 
@@ -2738,7 +2735,7 @@
             this.tabPageConfigFile.Controls.Add(this.textBoxHashedSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.labelHashedSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.labelUseEither);
-            this.tabPageConfigFile.Controls.Add(this.labelChooseIdentity);
+            this.tabPageConfigFile.Controls.Add(this.labelCryptoIdentity);
             this.tabPageConfigFile.Controls.Add(this.comboBoxCryptoIdentity);
             this.tabPageConfigFile.Controls.Add(this.labelConfirmSettingsPassword);
             this.tabPageConfigFile.Controls.Add(this.labelSettingsPassword);
@@ -2809,14 +2806,14 @@
             this.labelUseEither.TabIndex = 59;
             this.labelUseEither.Text = "Use either a cryptographic identity or a password or both";
             // 
-            // labelChooseIdentity
+            // labelCryptoIdentity
             // 
-            this.labelChooseIdentity.AutoSize = true;
-            this.labelChooseIdentity.Location = new System.Drawing.Point(36, 167);
-            this.labelChooseIdentity.Name = "labelChooseIdentity";
-            this.labelChooseIdentity.Size = new System.Drawing.Size(385, 17);
-            this.labelChooseIdentity.TabIndex = 58;
-            this.labelChooseIdentity.Text = "Choose identity to be used for encrypting SEB settings file...";
+            this.labelCryptoIdentity.AutoSize = true;
+            this.labelCryptoIdentity.Location = new System.Drawing.Point(36, 167);
+            this.labelCryptoIdentity.Name = "labelCryptoIdentity";
+            this.labelCryptoIdentity.Size = new System.Drawing.Size(385, 17);
+            this.labelCryptoIdentity.TabIndex = 58;
+            this.labelCryptoIdentity.Text = "Choose identity to be used for encrypting SEB settings file...";
             // 
             // comboBoxCryptoIdentity
             // 
@@ -3458,7 +3455,7 @@
         private System.Windows.Forms.RadioButton radioButtonUseBrowserWindow;
         private System.Windows.Forms.TabPage tabPageConfigFile;
         private System.Windows.Forms.Label labelUseEither;
-        private System.Windows.Forms.Label labelChooseIdentity;
+        private System.Windows.Forms.Label labelCryptoIdentity;
         private System.Windows.Forms.ComboBox comboBoxCryptoIdentity;
         private System.Windows.Forms.Label labelConfirmSettingsPassword;
         private System.Windows.Forms.Label labelSettingsPassword;
@@ -3589,16 +3586,11 @@
         private System.Windows.Forms.Button buttonInsertAfterSelected;
         private System.Windows.Forms.DataGridView dataGridViewEmbeddedCertificates;
         private System.Windows.Forms.Button buttonRemoveCertificate;
-        private System.Windows.Forms.ComboBox comboBoxChooseIdentity;
+        private System.Windows.Forms.ComboBox comboBoxChooseIdentityToEmbed;
         private System.Windows.Forms.ComboBox comboBoxChooseSSLClientCertificate;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelChooseIdentityToEmbed;
+        private System.Windows.Forms.Label labelChooseSSLClientCertificate;
         private System.Windows.Forms.DataGridView dataGridViewURLFilterRules;
-        private System.Windows.Forms.DataGridViewButtonColumn Show;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Regex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Button buttonInsertBeforeSelected;
@@ -3606,6 +3598,11 @@
         private System.Windows.Forms.Button buttonCopySelected;
         private System.Windows.Forms.Button buttonPasteAfterSelected;
         private System.Windows.Forms.Button buttonPasteBeforeSelected;
+        private System.Windows.Forms.DataGridViewButtonColumn DataGridViewButtonColumnShow;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumnActive;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn DataGridViewCheckBoxColumnRegex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnExpression;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnAction;
 
     }
 }
