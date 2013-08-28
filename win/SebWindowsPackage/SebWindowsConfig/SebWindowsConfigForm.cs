@@ -252,6 +252,9 @@ namespace SebWindowsConfig
         const String StringOr    = "or";
 
         // URL filter table operations
+        const String StringCollapse = "Collapse";
+        const String StringExpand   = "Expand";
+
         const int IntOperationInsert = 0;
         const int IntOperationPaste  = 1;
         const int IntOperationDelete = 2;
@@ -1240,19 +1243,16 @@ namespace SebWindowsConfig
         // ****************************************
         private void UpdateTableOfURLFilterRules()
         {
-            // Clear all help structures for table access
+            // Clear all help structures for table access.
+            // CAUTION:
+            // Do NOT clear the urlFilterTableShowRule list here!
+            // Its information is needed for building up the URL filter table!
             urlFilterTableRuleIndex     .Clear();
             urlFilterTableActionIndex   .Clear();
             urlFilterTableIsTitleRow    .Clear();
             urlFilterTableStartRow      .Clear();
             urlFilterTableEndRow        .Clear();
             urlFilterTableCellIsDisabled.Clear();
-          //urlFilterTableShowRule      .Clear();
-
-          // CAUTION:
-          // Do NOT clear the urlFilterTableShowRule list here!
-          // Its information is needed for building up the URL filter table!
-          // Therefore it is in a comment line only.
 
             // Get the URL Filter Rules
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -1291,8 +1291,8 @@ namespace SebWindowsConfig
                 // For  title row, disable the Regex and Action widgets.
 
                 if (urlFilterTableShowRule[ruleIndex])
-                     dataGridViewURLFilterRules.Rows.Add("Collapse", active, false, expression, "");
-                else dataGridViewURLFilterRules.Rows.Add("Expand"  , active, false, expression, "");
+                     dataGridViewURLFilterRules.Rows.Add(StringCollapse, active, false, expression, "");
+                else dataGridViewURLFilterRules.Rows.Add(StringExpand  , active, false, expression, "");
 
                 dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
@@ -2942,8 +2942,8 @@ namespace SebWindowsConfig
                 // Convert the selected "Show" Button value from String to Boolean
                 if (column == IntColumnURLFilterRuleShow)
                 {
-                         if ((String)value == "Collapse") value = false;
-                    else if ((String)value == "Expand"  ) value = true;
+                         if ((String)value == StringCollapse) value = false;
+                    else if ((String)value == StringExpand  ) value = true;
 
                     // If "Collapse" was pressed, set Show flag of this rule to false.
                     // If "Expand"   was pressed, set Show flag of this rule to true.
