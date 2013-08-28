@@ -1051,7 +1051,8 @@ namespace SebWindowsConfig
             if (urlFilterRuleList.Count > 0) urlFilterRuleIndex =  0;
                                         else urlFilterRuleIndex = -1;
 
-            // Initially show all filter rules with their actions (expanded view).
+            // Initially show all filter rules with their actions (expanded view)
+            urlFilterTableShowRule.Clear();
             for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
             {
                 urlFilterTableShowRule.Add(true);
