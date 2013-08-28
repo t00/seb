@@ -92,6 +92,10 @@
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
             this.tabPageFilter = new System.Windows.Forms.TabPage();
+            this.buttonCutSelected = new System.Windows.Forms.Button();
+            this.buttonCopySelected = new System.Windows.Forms.Button();
+            this.buttonPasteAfterSelected = new System.Windows.Forms.Button();
+            this.buttonPasteBeforeSelected = new System.Windows.Forms.Button();
             this.buttonInsertBeforeSelected = new System.Windows.Forms.Button();
             this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
             this.Show = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -291,10 +295,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.buttonPasteBeforeSelected = new System.Windows.Forms.Button();
-            this.buttonPasteAfterSelected = new System.Windows.Forms.Button();
-            this.buttonCopySelected = new System.Windows.Forms.Button();
-            this.buttonCutSelected = new System.Windows.Forms.Button();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1057,6 +1057,46 @@
             this.tabPageFilter.Text = "Filter";
             this.tabPageFilter.UseVisualStyleBackColor = true;
             // 
+            // buttonCutSelected
+            // 
+            this.buttonCutSelected.Location = new System.Drawing.Point(225, 520);
+            this.buttonCutSelected.Name = "buttonCutSelected";
+            this.buttonCutSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonCutSelected.TabIndex = 102;
+            this.buttonCutSelected.Text = "Cut selected";
+            this.buttonCutSelected.UseVisualStyleBackColor = true;
+            this.buttonCutSelected.Click += new System.EventHandler(this.buttonCutSelected_Click);
+            // 
+            // buttonCopySelected
+            // 
+            this.buttonCopySelected.Location = new System.Drawing.Point(225, 480);
+            this.buttonCopySelected.Name = "buttonCopySelected";
+            this.buttonCopySelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonCopySelected.TabIndex = 101;
+            this.buttonCopySelected.Text = "Copy selected";
+            this.buttonCopySelected.UseVisualStyleBackColor = true;
+            this.buttonCopySelected.Click += new System.EventHandler(this.buttonCopySelected_Click);
+            // 
+            // buttonPasteAfterSelected
+            // 
+            this.buttonPasteAfterSelected.Location = new System.Drawing.Point(225, 440);
+            this.buttonPasteAfterSelected.Name = "buttonPasteAfterSelected";
+            this.buttonPasteAfterSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonPasteAfterSelected.TabIndex = 100;
+            this.buttonPasteAfterSelected.Text = "Paste after selected";
+            this.buttonPasteAfterSelected.UseVisualStyleBackColor = true;
+            this.buttonPasteAfterSelected.Click += new System.EventHandler(this.buttonPasteAfterSelected_Click);
+            // 
+            // buttonPasteBeforeSelected
+            // 
+            this.buttonPasteBeforeSelected.Location = new System.Drawing.Point(225, 400);
+            this.buttonPasteBeforeSelected.Name = "buttonPasteBeforeSelected";
+            this.buttonPasteBeforeSelected.Size = new System.Drawing.Size(170, 30);
+            this.buttonPasteBeforeSelected.TabIndex = 99;
+            this.buttonPasteBeforeSelected.Text = "Paste before selected";
+            this.buttonPasteBeforeSelected.UseVisualStyleBackColor = true;
+            this.buttonPasteBeforeSelected.Click += new System.EventHandler(this.buttonPasteBeforeSelected_Click);
+            // 
             // buttonInsertBeforeSelected
             // 
             this.buttonInsertBeforeSelected.Location = new System.Drawing.Point(25, 400);
@@ -1082,6 +1122,7 @@
             this.dataGridViewURLFilterRules.RowTemplate.Height = 24;
             this.dataGridViewURLFilterRules.Size = new System.Drawing.Size(733, 300);
             this.dataGridViewURLFilterRules.TabIndex = 90;
+            this.dataGridViewURLFilterRules.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewURLFilterRules_CellContentClick);
             this.dataGridViewURLFilterRules.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridViewURLFilterRules_CellPainting);
             this.dataGridViewURLFilterRules.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewURLFilterRules_CellValueChanged);
             this.dataGridViewURLFilterRules.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewURLFilterRules_CurrentCellDirtyStateChanged);
@@ -3225,46 +3266,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // buttonPasteBeforeSelected
-            // 
-            this.buttonPasteBeforeSelected.Location = new System.Drawing.Point(225, 400);
-            this.buttonPasteBeforeSelected.Name = "buttonPasteBeforeSelected";
-            this.buttonPasteBeforeSelected.Size = new System.Drawing.Size(170, 30);
-            this.buttonPasteBeforeSelected.TabIndex = 99;
-            this.buttonPasteBeforeSelected.Text = "Paste before selected";
-            this.buttonPasteBeforeSelected.UseVisualStyleBackColor = true;
-            this.buttonPasteBeforeSelected.Click += new System.EventHandler(this.buttonPasteBeforeSelected_Click);
-            // 
-            // buttonPasteAfterSelected
-            // 
-            this.buttonPasteAfterSelected.Location = new System.Drawing.Point(225, 440);
-            this.buttonPasteAfterSelected.Name = "buttonPasteAfterSelected";
-            this.buttonPasteAfterSelected.Size = new System.Drawing.Size(170, 30);
-            this.buttonPasteAfterSelected.TabIndex = 100;
-            this.buttonPasteAfterSelected.Text = "Paste after selected";
-            this.buttonPasteAfterSelected.UseVisualStyleBackColor = true;
-            this.buttonPasteAfterSelected.Click += new System.EventHandler(this.buttonPasteAfterSelected_Click);
-            // 
-            // buttonCopySelected
-            // 
-            this.buttonCopySelected.Location = new System.Drawing.Point(225, 480);
-            this.buttonCopySelected.Name = "buttonCopySelected";
-            this.buttonCopySelected.Size = new System.Drawing.Size(170, 30);
-            this.buttonCopySelected.TabIndex = 101;
-            this.buttonCopySelected.Text = "Copy selected";
-            this.buttonCopySelected.UseVisualStyleBackColor = true;
-            this.buttonCopySelected.Click += new System.EventHandler(this.buttonCopySelected_Click);
-            // 
-            // buttonCutSelected
-            // 
-            this.buttonCutSelected.Location = new System.Drawing.Point(225, 520);
-            this.buttonCutSelected.Name = "buttonCutSelected";
-            this.buttonCutSelected.Size = new System.Drawing.Size(170, 30);
-            this.buttonCutSelected.TabIndex = 102;
-            this.buttonCutSelected.Text = "Cut selected";
-            this.buttonCutSelected.UseVisualStyleBackColor = true;
-            this.buttonCutSelected.Click += new System.EventHandler(this.buttonCutSelected_Click);
             // 
             // SebWindowsConfigForm
             // 

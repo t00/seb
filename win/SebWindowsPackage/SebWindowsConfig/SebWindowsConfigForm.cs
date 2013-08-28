@@ -2898,6 +2898,8 @@ namespace SebWindowsConfig
             {
                 if (column == IntColumnURLFilterRuleActive    ) urlFilterRuleData[MessageActive    ] = (Boolean)value;
                 if (column == IntColumnURLFilterRuleExpression) urlFilterRuleData[MessageExpression] = (String )value;
+              //if (column == IntColumnURLFilterRuleShow      ) urlFilterTableShowRule[urlFilterRuleIndex] = (Boolean)value;
+              //if (column == IntColumnURLFilterRuleShow      ) UpdateTableOfURLFilterRules();
             }
             else
             {
@@ -2909,6 +2911,45 @@ namespace SebWindowsConfig
                 if (column == IntColumnURLFilterRuleRegex     ) urlFilterActionData[MessageRegex     ] = (Boolean)value;
                 if (column == IntColumnURLFilterRuleExpression) urlFilterActionData[MessageExpression] = (String )value;
                 if (column == IntColumnURLFilterRuleAction    ) urlFilterActionData[MessageAction    ] = (Int32  )value;
+            }
+        }
+
+
+        private void dataGridViewURLFilterRules_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Get the current cell where the user has changed a value
+            int row    = dataGridViewURLFilterRules.CurrentCellAddress.Y;
+            int column = dataGridViewURLFilterRules.CurrentCellAddress.X;
+
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            // Get the changed value of the current cell
+            object value = dataGridViewURLFilterRules.CurrentCell.EditedFormattedValue;
+
+            // Determine if the selected row is a title row or action row.
+            // Determine which rule and action belong to the selected row.
+            urlFilterTableRow    = row;
+            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
+            urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
+            urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
+
+            // Check if the button "Collapse" or "Expand" was pressed
+            if (urlFilterIsTitleRow)
+            {
+                // Convert the selected "Show" Button value from String to Boolean
+                if (column == IntColumnURLFilterRuleShow)
+                {
+                         if ((String)value == "Collapse") value = false;
+                    else if ((String)value == "Expand"  ) value = true;
+
+                    // If "Collapse" was pressed, set Show flag of this rule to false.
+                    // If "Expand"   was pressed, set Show flag of this rule to true.
+                    // Update the URL filter table according to the new rule flags.
+                    urlFilterTableShowRule[urlFilterRuleIndex] = (Boolean)value;
+                    UpdateTableOfURLFilterRules();
+                }
             }
         }
 
