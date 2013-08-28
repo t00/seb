@@ -1302,10 +1302,10 @@ namespace SebWindowsConfig
 
                 // If user chose COLLAPSED view for this rule:
                 // Do not show the actions, but continue with next rule.
-                if (!urlFilterTableShowRule[ruleIndex]) continue;
+                if (urlFilterTableShowRule[ruleIndex] == false) continue;
 
                 // If user chose EXPANDED view for this rule:
-                // Add URL Filter Actions of current URL Filter Rule to DataGridView
+                // Add actions of current rule to DataGridView
                 for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
                 {
                     urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[actionIndex];
