@@ -1039,7 +1039,7 @@ namespace SebWindowsConfig
             // to avoid errors, in case there was a non-empty URL Filter Table displayed
             // in the DataGridViewURLFilterRules prior to loading the new config file.
             urlFilterTableRow    = -1;
-            urlFilterIsTitleRow  = false;
+            urlFilterIsTitleRow  =  false;
             urlFilterRuleIndex   = -1;
             urlFilterActionIndex = -1;
 
@@ -2932,7 +2932,7 @@ namespace SebWindowsConfig
                 // If rule list was empty before, enable it
                 urlFilterTableRow    =  0;
                 urlFilterIsTitleRow  =  true;
-                urlFilterRuleIndex   = -1;
+                urlFilterRuleIndex   =  0;
                 urlFilterActionIndex = -1;
             }
 
@@ -2940,8 +2940,9 @@ namespace SebWindowsConfig
             // add a new rule BEFORE or AFTER the current rule.
             if (urlFilterIsTitleRow)
             {
-                if (((location == IntLocationBefore) && (urlFilterRuleList.Count == 0))
-                ||   (location == IntLocationAfter))
+                // If the rule is added AFTER current selection, increment the rule index
+                // (exception: when rule list was empty, rule index becomes 0 in any case)
+                if ((location == IntLocationAfter) && (urlFilterRuleList.Count > 0))
                     urlFilterRuleIndex++;
 
                 // Load default rule for Insert operation.
@@ -2957,8 +2958,12 @@ namespace SebWindowsConfig
             // add a new action BEFORE or AFTER the current action.
             else
             {
-                if (((location == IntLocationBefore) && (urlFilterIsTitleRow))
-                ||   (location == IntLocationAfter))
+                // Get the action list
+                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
+                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
+
+                // If the action is added AFTER current selection, increment the action index
+                if (location == IntLocationAfter)
                     urlFilterActionIndex++;
 
                 // Load default action for Insert operation.
@@ -2967,8 +2972,6 @@ namespace SebWindowsConfig
                 if (operation == IntOperationPaste ) urlFilterActionData = urlFilterActionDataStored;
 
                 // INSERT or PASTE new action into action list at correct position index
-                urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
-                urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
                 urlFilterActionList.Insert(urlFilterActionIndex, urlFilterActionData);
             }
 
@@ -2982,17 +2985,22 @@ namespace SebWindowsConfig
             // Get the rule list
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
 
-            // If rule list is empty, abort since nothing can be deleted anymore
-            if (urlFilterRuleList.Count == 0) return;
+            if (urlFilterRuleList.Count > 0)
+            {
+                // Determine if the selected row is a title row or action row.
+                // Determine which rule and action belong to the selected row.
+                urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
+                urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
+                urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
+                urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
+            }
+            else
+            {
+                // If rule list is empty, abort since nothing can be deleted anymore
+                return;
+            }
 
-            // Determine if the selected row is a title row or action row.
-            // Determine which rule and action belong to the selected row.
-            urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
-            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
-            urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
-            urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
-
-            // If the user clicked onto a TITLE row (RULE), delete this rule.
+            // If the user clicked onto a TITLE row (RULE), delete this rule
             if (urlFilterIsTitleRow)
             {
                 if ((operation == IntOperationCopy) || (operation == IntOperationCut))
@@ -3009,7 +3017,7 @@ namespace SebWindowsConfig
                     if (urlFilterRuleIndex == urlFilterRuleList.Count) urlFilterRuleIndex--;
                 }
             }
-            // If the user clicked onto an ACTION row, delete this action.
+            // If the user clicked onto an ACTION row, delete this action
             else
             {
                 // Get the action list
