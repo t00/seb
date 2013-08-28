@@ -369,18 +369,18 @@ namespace SebWindowsConfig
         static SEBProtectionController    sebController  = new SEBProtectionController();
 
         static int                        permittedProcessIndex;
-        static List<object>               permittedProcessList = new List<object>();
-        static Dictionary<string, object> permittedProcessData = new Dictionary<string, object>();
+        static List<object>               permittedProcessList    = new List<object>();
+        static Dictionary<string, object> permittedProcessData    = new Dictionary<string, object>();
         static Dictionary<string, object> permittedProcessDataDef = new Dictionary<string, object>();
 
         static int                        permittedArgumentIndex;
-        static List<object>               permittedArgumentList = new List<object>();
-        static Dictionary<string, object> permittedArgumentData = new Dictionary<string, object>();
+        static List<object>               permittedArgumentList    = new List<object>();
+        static Dictionary<string, object> permittedArgumentData    = new Dictionary<string, object>();
         static Dictionary<string, object> permittedArgumentDataDef = new Dictionary<string, object>();
 
         static int                        prohibitedProcessIndex;
-        static List<object>               prohibitedProcessList = new List<object>();
-        static Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
+        static List<object>               prohibitedProcessList    = new List<object>();
+        static Dictionary<string, object> prohibitedProcessData    = new Dictionary<string, object>();
         static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
 
         static int                        urlFilterTableRow;
@@ -393,10 +393,14 @@ namespace SebWindowsConfig
         static Dictionary<string, object> urlFilterRuleDataStored  = new Dictionary<string, object>();
 
         static int                        urlFilterActionIndex;
-        static List<object>               urlFilterActionList = new List<object>();
-        static Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
+        static List<object>               urlFilterActionList        = new List<object>();
+        static List<object>               urlFilterActionListDefault = new List<object>();
+        static List<object>               urlFilterActionListStored  = new List<object>();
+        static Dictionary<string, object> urlFilterActionData        = new Dictionary<string, object>();
         static Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
         static Dictionary<string, object> urlFilterActionDataStored  = new Dictionary<string, object>();
+
+
 
         static int                        embeddedCertificateIndex;
         static List<object>               embeddedCertificateList = new List<object>();
@@ -559,23 +563,32 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageEnableURLContentFilter, false);
             sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
 
-            urlFilterRuleDataDefault.Add(MessageActive     , true);
-            urlFilterRuleDataDefault.Add(MessageExpression , "Rule");
-            urlFilterRuleDataDefault.Add(MessageRuleActions, new List<object>());
-
-            urlFilterRuleDataStored.Add(MessageActive     , true);
-            urlFilterRuleDataStored.Add(MessageExpression , "Rule");
-            urlFilterRuleDataStored.Add(MessageRuleActions, new List<object>());
-
+            // Create a default action
             urlFilterActionDataDefault.Add(MessageActive    , true);
             urlFilterActionDataDefault.Add(MessageRegex     , false);
             urlFilterActionDataDefault.Add(MessageExpression, "*");
             urlFilterActionDataDefault.Add(MessageAction    , 0);
 
+            // Create a default action list with one entry (the default action)
+            urlFilterActionListDefault.Add(urlFilterActionDataDefault);
+
+            // Create a default rule with this default action list.
+            // This default rule is used for the "Insert Rule" operation:
+            // when a new rule is created, it initially contains one action.
+            urlFilterRuleDataDefault.Add(MessageActive     , true);
+            urlFilterRuleDataDefault.Add(MessageExpression , "Rule");
+            urlFilterRuleDataDefault.Add(MessageRuleActions, urlFilterActionListDefault);
+
+            // Initialise the stored action
             urlFilterActionDataStored.Add(MessageActive    , true);
             urlFilterActionDataStored.Add(MessageRegex     , false);
             urlFilterActionDataStored.Add(MessageExpression, "*");
             urlFilterActionDataStored.Add(MessageAction    , 0);
+
+            // Initialise the stored rule
+            urlFilterRuleDataStored.Add(MessageActive     , true);
+            urlFilterRuleDataStored.Add(MessageExpression , "Rule");
+            urlFilterRuleDataStored.Add(MessageRuleActions, urlFilterActionListStored);
 
             // Default settings for group "Network - Certificates"
             sebSettingsDef.Add(MessageEmbeddedCertificates, new List<object>());
@@ -585,12 +598,12 @@ namespace SebWindowsConfig
             embeddedCertificateDataDef.Add(MessageName           , "");
 
             // Default settings for group "Network - Proxies"
-            sebSettingsDef.Add(MessageProxySettingsPolicy   , 0);
-            sebSettingsDef.Add(MessageProxyProtocol         , 0);
+            sebSettingsDef.Add(MessageProxySettingsPolicy      , 0);
+            sebSettingsDef.Add(MessageProxyProtocol            , 0);
             sebSettingsDef.Add(MessageProxyConfigurationFileURL, "");
-            sebSettingsDef.Add(MessageExcludeSimpleHostnames, true);
-            sebSettingsDef.Add(MessageUsePassiveFTPMode     , true);
-            sebSettingsDef.Add(MessageBypassHostsAndDomains , new List<object>());
+            sebSettingsDef.Add(MessageExcludeSimpleHostnames   , true);
+            sebSettingsDef.Add(MessageUsePassiveFTPMode        , true);
+            sebSettingsDef.Add(MessageBypassHostsAndDomains    , new List<object>());
 
             // Default settings for group "Security"
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
@@ -1038,7 +1051,7 @@ namespace SebWindowsConfig
             if (urlFilterRuleList.Count > 0) urlFilterRuleIndex =  0;
                                         else urlFilterRuleIndex = -1;
 
-            // At first, show all filter rules with their actions (expanded view).
+            // Initially show all filter rules with their actions (expanded view).
             for (int ruleIndex = 0; ruleIndex < urlFilterRuleList.Count; ruleIndex++)
             {
                 urlFilterTableShowRule.Add(true);
@@ -1161,8 +1174,8 @@ namespace SebWindowsConfig
                 string key   = pair.Key;
                 object value = pair.Value;
 
-//                if (key.GetType == Type.Dictionary)
-//                    CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
+//              if (key.GetType == Type.Dictionary)
+//                  CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
 
                 if  (sebSettingsTarget.ContainsKey(key))
                      sebSettingsTarget[key] = value;
@@ -1232,8 +1245,13 @@ namespace SebWindowsConfig
             urlFilterTableIsTitleRow    .Clear();
             urlFilterTableStartRow      .Clear();
             urlFilterTableEndRow        .Clear();
-          //urlFilterTableShowRule      .Clear();
             urlFilterTableCellIsDisabled.Clear();
+          //urlFilterTableShowRule      .Clear();
+
+          // CAUTION:
+          // Do NOT clear the urlFilterTableShowRule list here!
+          // Its information is needed for building up the URL filter table!
+          // Therefore it is in a comment line only.
 
             // Get the URL Filter Rules
             urlFilterRuleList = (List<object>)sebSettingsNew[MessageURLFilterRules];
@@ -2927,36 +2945,28 @@ namespace SebWindowsConfig
                     urlFilterRuleIndex++;
 
                 // Create new rule dataset containing default or stored values
-                Dictionary<string, object> ruleData = new Dictionary<string, object>();
 
                 //if (operation == IntOperationInsert) ruleData = urlFilterRuleDataDefault;
                 //if (operation == IntOperationPaste ) ruleData = urlFilterRuleDataStored;
 
                 if (operation == IntOperationInsert)
                 {
-                    ruleData[MessageActive     ] = urlFilterRuleDataDefault[MessageActive    ];
-                    ruleData[MessageExpression ] = urlFilterRuleDataDefault[MessageExpression];
-                    ruleData[MessageRuleActions] = new List<object>();
+                    // Load default rule for Insert operation
+                    urlFilterRuleData = urlFilterRuleDataDefault;
                 }
                 if (operation == IntOperationPaste)
                 {
-                    ruleData[MessageActive     ] = urlFilterRuleDataStored[MessageActive     ];
-                    ruleData[MessageExpression ] = urlFilterRuleDataStored[MessageExpression ];
-                    ruleData[MessageRuleActions] = urlFilterRuleDataStored[MessageRuleActions];
+                    // Load stored rule for Paste operation
+                    urlFilterRuleData = urlFilterRuleDataStored;
                 }
 
                 // INSERT or PASTE new rule into rule list at correct position index
-                urlFilterRuleList     .Insert(urlFilterRuleIndex, ruleData);
+                urlFilterRuleList     .Insert(urlFilterRuleIndex, urlFilterRuleData);
                 urlFilterTableShowRule.Insert(urlFilterRuleIndex, true);
             }
-
             // If the user clicked onto an ACTION row,
             // add a new action BEFORE or AFTER the current action.
-
-            // If the user clicked onto a TITLE row (rule):
-            // If a RULE was INSERTED, add an action AFTER the rule.
-            // If a RULE was PASTED  , do nothing.
-            if ((urlFilterIsTitleRow == false) || (operation == IntOperationInsert))
+            else
             {
                 if (((location == IntLocationBefore) && (urlFilterIsTitleRow))
                 ||   (location == IntLocationAfter))
@@ -2970,11 +2980,6 @@ namespace SebWindowsConfig
 
                 if (operation == IntOperationInsert)
                 {
-                  //actionData[MessageActive    ] = true;
-                  //actionData[MessageRegex     ] = false;
-                  //actionData[MessageExpression] = "*";
-                  //actionData[MessageAction    ] = 0;
-
                     actionData[MessageActive    ] = urlFilterActionDataDefault[MessageActive    ];
                     actionData[MessageRegex     ] = urlFilterActionDataDefault[MessageRegex     ];
                     actionData[MessageExpression] = urlFilterActionDataDefault[MessageExpression];
@@ -3022,31 +3027,6 @@ namespace SebWindowsConfig
                 {
                     // Store currently selected rule for later Paste operation
                     urlFilterRuleDataStored = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
-/*
-                    // Create new rule dataset containing stored values
-                    urlFilterRuleData = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
-
-                    urlFilterRuleDataStored.Clear();
-                    urlFilterRuleDataStored.Add(MessageActive     , urlFilterRuleData[MessageActive     ]);
-                    urlFilterRuleDataStored.Add(MessageExpression , urlFilterRuleData[MessageExpression ]);
-                    urlFilterRuleDataStored.Add(MessageRuleActions, urlFilterRuleData[MessageRuleActions]);
-
-                    urlFilterActionList       = (List<object>)urlFilterRuleData      [MessageRuleActions];
-                    urlFilterActionListStored = (List<object>)urlFilterRuleDataStored[MessageRuleActions];
-
-                    for (int actionIndex = 0; actionIndex < urlFilterActionList.Count; actionIndex++)
-                    {
-                        urlFilterActionData       = (Dictionary<string, object>)urlFilterActionList      [actionIndex];
-                        urlFilterActionDataStored = (Dictionary<string, object>)urlFilterActionListStored[actionIndex];
-
-                        Boolean Active     = (Boolean)urlFilterActionData[MessageActive];
-                        Boolean Regex      = (Boolean)urlFilterActionData[MessageRegex];
-                        String  Expression = (String )urlFilterActionData[MessageExpression];
-                        Int32   Action     = (Int32  )urlFilterActionData[MessageAction];
-
-                        urlFilterActionListStored.Add(url...);
-                        urlFilterActionListStored[actionIndex][MessageActive] = Active;
-*/
                 }
 
                 if ((operation == IntOperationDelete) || (operation == IntOperationCut))
@@ -3068,16 +3048,6 @@ namespace SebWindowsConfig
                 {
                     // Store currently selected action for later Paste operation
                     urlFilterActionDataStored = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
-/*
-                    // Create new action dataset containing stored values
-                    urlFilterActionData = (Dictionary<string, object>)urlFilterActionList[urlFilterActionIndex];
-
-                    urlFilterActionDataStored.Clear();
-                    urlFilterActionDataStored.Add(MessageActive    , urlFilterActionData[MessageActive    ]);
-                    urlFilterActionDataStored.Add(MessageRegex     , urlFilterActionData[MessageRegex     ]);
-                    urlFilterActionDataStored.Add(MessageExpression, urlFilterActionData[MessageExpression]);
-                    urlFilterActionDataStored.Add(MessageAction    , urlFilterActionData[MessageActive    ]);
-*/
                 }
 
                 if ((operation == IntOperationDelete) || (operation == IntOperationCut))
