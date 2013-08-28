@@ -2944,21 +2944,10 @@ namespace SebWindowsConfig
                 ||   (location == IntLocationAfter))
                     urlFilterRuleIndex++;
 
-                // Create new rule dataset containing default or stored values
-
-                //if (operation == IntOperationInsert) ruleData = urlFilterRuleDataDefault;
-                //if (operation == IntOperationPaste ) ruleData = urlFilterRuleDataStored;
-
-                if (operation == IntOperationInsert)
-                {
-                    // Load default rule for Insert operation
-                    urlFilterRuleData = urlFilterRuleDataDefault;
-                }
-                if (operation == IntOperationPaste)
-                {
-                    // Load stored rule for Paste operation
-                    urlFilterRuleData = urlFilterRuleDataStored;
-                }
+                // Load default rule for Insert operation.
+                // Load stored  rule for Paste  operation.
+                if (operation == IntOperationInsert) urlFilterRuleData = urlFilterRuleDataDefault;
+                if (operation == IntOperationPaste ) urlFilterRuleData = urlFilterRuleDataStored;
 
                 // INSERT or PASTE new rule into rule list at correct position index
                 urlFilterRuleList     .Insert(urlFilterRuleIndex, urlFilterRuleData);
@@ -2972,32 +2961,15 @@ namespace SebWindowsConfig
                 ||   (location == IntLocationAfter))
                     urlFilterActionIndex++;
 
-                // Create new action dataset containing default or stored values
-                Dictionary<string, object> actionData = new Dictionary<string, object>();
-
-                //if (operation == IntOperationInsert) actionData = urlFilterActionDataDefault;
-                //if (operation == IntOperationPaste ) actionData = urlFilterActionDataStored;
-
-                if (operation == IntOperationInsert)
-                {
-                    actionData[MessageActive    ] = urlFilterActionDataDefault[MessageActive    ];
-                    actionData[MessageRegex     ] = urlFilterActionDataDefault[MessageRegex     ];
-                    actionData[MessageExpression] = urlFilterActionDataDefault[MessageExpression];
-                    actionData[MessageAction    ] = urlFilterActionDataDefault[MessageAction    ];
-                }
-
-                if (operation == IntOperationPaste)
-                {
-                    actionData[MessageActive    ] = urlFilterActionDataStored[MessageActive    ];
-                    actionData[MessageRegex     ] = urlFilterActionDataStored[MessageRegex     ];
-                    actionData[MessageExpression] = urlFilterActionDataStored[MessageExpression];
-                    actionData[MessageAction    ] = urlFilterActionDataStored[MessageAction    ];
-                }
+                // Load default action for Insert operation.
+                // Load stored  action for Paste  operation.
+                if (operation == IntOperationInsert) urlFilterActionData = urlFilterActionDataDefault;
+                if (operation == IntOperationPaste ) urlFilterActionData = urlFilterActionDataStored;
 
                 // INSERT or PASTE new action into action list at correct position index
                 urlFilterRuleData   = (Dictionary<string, object>)urlFilterRuleList[urlFilterRuleIndex];
                 urlFilterActionList =               (List<object>)urlFilterRuleData[MessageRuleActions];
-                urlFilterActionList.Insert(urlFilterActionIndex, actionData);
+                urlFilterActionList.Insert(urlFilterActionIndex, urlFilterActionData);
             }
 
             // Update the table of URL Filter Rules
