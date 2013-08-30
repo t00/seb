@@ -496,19 +496,17 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Close form, if Quit Password is correct.
+        /// Check Quit Password.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         /// ----------------------------------------------------------------------------------------
-        private void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        public bool CheckQuitPassword()
         {
             int quit = -1;
+            bool bQuit = false;
 
-            if(closeSebWithPassword)
+            if (closeSebWithPassword)
             {
                 SebCloseDialogForm sebCloseDialogForm = new SebCloseDialogForm();
-
                 // Show testDialog as a modal dialog and determine if DialogResult = OK.
                 if (sebCloseDialogForm.ShowDialog(this) == DialogResult.OK)
                 {
@@ -522,7 +520,6 @@ namespace SebWindowsClient
                     {
                         SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                     }
-
                 }
             }
             else
@@ -530,9 +527,26 @@ namespace SebWindowsClient
                 quit = 0;
             }
 
-
             if (quit == 0)
-            {
+                bQuit = true;
+
+            return bQuit;
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Close form, if Quit Password is correct.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------------------
+        private void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //bool bQuit = false;
+            //bQuit = CheckQuitPassword();
+
+            //if (bQuit)
+            //{
                 bool bSocketResult;
                 SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
                 string userName = sEBLocalHostInfo.GetUserName();
@@ -592,11 +606,11 @@ namespace SebWindowsClient
                 Logger.AddInformation("Clipboard deleted.", null, null);
                 SebKeyCapture.FilterKeys = false;
                 Logger.closeLoger();
-            }
-            else
-            {
-                e.Cancel = true;
-            }
+            //}
+            //else
+            //{
+            //    e.Cancel = true;
+            //}
 
             //sebCloseDialogForm.Dispose();
         }

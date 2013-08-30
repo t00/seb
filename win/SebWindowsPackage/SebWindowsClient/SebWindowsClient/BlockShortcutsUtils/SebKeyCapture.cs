@@ -69,6 +69,10 @@ namespace SebWindowsClient.BlockShortcutsUtils
             public IntPtr extra;
         }
 
+        // Keyboard Constants
+        private const int WM_KEYDOWN = 0x0100;
+        private const int WM_KEYUP = 0x0101;
+
         private const int WH_KEYBOARD_LL = 13;
 
         // System level function used to hook and unhook keyboard input
@@ -105,6 +109,10 @@ namespace SebWindowsClient.BlockShortcutsUtils
         private static bool exitKey1_Pressed = false;
         private static bool exitKey2_Pressed = false;
         private static bool exitKey3_Pressed = false;
+
+        // Ctrl-Q exit sequence
+        private static bool ctrl_Pressed = false;
+        private static bool Q_Pressed = false;
 
         #endregion
 
@@ -367,6 +375,63 @@ namespace SebWindowsClient.BlockShortcutsUtils
         }
 
         /// <summary>
+        /// Set and Test ctrl-Q Exit Key Sequence
+        ///</summary>
+        private static bool SetAndTestCtrlQExitSequence(IntPtr wp, IntPtr lp)
+        {
+            KBDLLHOOKSTRUCT KeyInfo =
+              (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+            if (KeyInfo.key == Keys.LControlKey)
+            {
+                ctrl_Pressed = true;
+            }
+            if (KeyInfo.key == Keys.RControlKey)
+            {
+                ctrl_Pressed = true;
+            }
+            if (KeyInfo.key == Keys.Q)
+            {
+                Q_Pressed = true;
+            }
+
+            if (ctrl_Pressed && Q_Pressed)
+            {
+                return true;
+            }
+
+            //if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Q))
+            //    return true;
+
+            //if ((KeyInfo.key == (Keys.Control | Keys.Q)))
+            //    return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Reset ctrl-Q Exit Key Sequence
+        ///</summary>
+        private static void ResetCtrlQExitSequence(IntPtr wp, IntPtr lp)
+        {
+            KBDLLHOOKSTRUCT KeyInfo =
+              (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+            if (KeyInfo.key == Keys.LControlKey)
+            {
+                ctrl_Pressed = false;
+            }
+            if (KeyInfo.key == Keys.RControlKey)
+            {
+                ctrl_Pressed = false;
+            }
+            if (KeyInfo.key == Keys.Q)
+            {
+                Q_Pressed = false;
+            }
+        }
+
+        /// <summary>
         /// Set and Test Exit Key Sequence
         ///</summary>
         private static bool SetAndTestExitKeySequence(IntPtr wp, IntPtr lp)
@@ -444,17 +509,38 @@ namespace SebWindowsClient.BlockShortcutsUtils
         /// </summary>
         private static IntPtr CaptureKey(int nCode, IntPtr wp, IntPtr lp)
         {
-            // If the nCode is non-negative, filter the key stroke.
+            // If the nCode is non-negative, filter the keqy stroke.
             if (nCode >= 0)
             {
                 //KBDLLHOOKSTRUCT KeyInfo =
                 //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
-                if (SetAndTestExitKeySequence(wp, lp))
+                if (wp == (IntPtr)WM_KEYDOWN)
                 {
-                    SEBClientInfo.SebWindowsClientForm.closeSebWithPassword = false;
-                    Application.Exit();
+                    if (SetAndTestCtrlQExitSequence(wp, lp))
+                    {
+                        if (SEBClientInfo.SebWindowsClientForm.CheckQuitPassword())
+                        {
+                            Application.Exit();
+                        }
+                    }
+                    if (SetAndTestExitKeySequence(wp, lp))
+                    {
+                        SEBClientInfo.SebWindowsClientForm.closeSebWithPassword = false;
+                        Application.Exit();
+                    }
                 }
+                else if (wp == (IntPtr)WM_KEYUP)
+                {
+                    ResetCtrlQExitSequence(wp, lp);
+                    ResetExitKeySequence(wp, lp);
+                }
+
+                //if (SetAndTestExitKeySequence(wp, lp))
+                //{
+                //    SEBClientInfo.SebWindowsClientForm.closeSebWithPassword = false;
+                //    Application.Exit();
+                //}
 
                 // Reject any key that's not on our list.
                 if (DisableKey(wp, lp))
@@ -462,7 +548,8 @@ namespace SebWindowsClient.BlockShortcutsUtils
             }
             else
             {
-                ResetExitKeySequence(wp, lp);
+                //ResetCtrlQExitSequence(wp, lp);
+                //ResetExitKeySequence(wp, lp);
             }
 
 
