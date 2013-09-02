@@ -142,7 +142,7 @@ namespace SebWindowsClient
                 for (int i = 0; i < permittedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageNameWin];
+                    string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageTitle];
                     if ((Boolean)permittedProcess[SEBGlobalConstants.MessageActive])
                     {
                         for (int j = 0; j < runningApplications.Count(); j++)

@@ -249,7 +249,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String MessageDescription = "description";
         public const String MessageExecutable = "executable";
         public const String MessagePath = "path";
-        public const String MessageNameWin = "nameWin";
+        public const String MessageTitle = "title";
         public const String MessageIdentifier = "identifier";
         public const String MessageUser = "user";
         public const String MessageArguments = "arguments";

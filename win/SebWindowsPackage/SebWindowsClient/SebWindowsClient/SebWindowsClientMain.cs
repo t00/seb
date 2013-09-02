@@ -204,7 +204,7 @@ namespace SebWindowsClient
                 for (int i = 0; i < prohibitedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                    string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageNameWin];
+                    string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageTitle];
                     if ((Boolean)prohibitedProcess[SEBGlobalConstants.MessageActive])
                     {
 

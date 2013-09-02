@@ -158,7 +158,7 @@ namespace SebWindowsClient
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
                     if ((Boolean)permittedProcess[SEBGlobalConstants.MessageActive])
                     {
-                        string tsbName = (string)permittedProcess[SEBGlobalConstants.MessageNameWin];
+                        string tsbName = (string)permittedProcess[SEBGlobalConstants.MessageTitle];
                         toolStripButton.Name = tsbName;
                         toolStripButton.ToolTipText = tsbName;
                         if (tsbName.CompareTo("notepad.exe") == 0)
@@ -195,7 +195,7 @@ namespace SebWindowsClient
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageNameWin];
+                    string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageTitle];
                     if((Boolean)permittedProcess[SEBGlobalConstants.MessageActive])
                     {
                         if (toolStripButton.Name.CompareTo(permittedProcessName) == 0)
@@ -452,7 +452,7 @@ namespace SebWindowsClient
                 for (int i = 0; i < prohibitedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                    string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageNameWin];
+                    string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageExecutable];
                     if ((Boolean)prohibitedProcess[SEBGlobalConstants.MessageActive])
                     {
                         Logger.AddInformation("Kill process by name: " + prohibitedProcessName, this, null);
@@ -568,7 +568,7 @@ namespace SebWindowsClient
                     for (int j = 0; j < runningApplications.Count(); j++)
                     {
                         Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                        string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageNameWin];
+                        string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageTitle];
                         if ((Boolean)permittedProcess[SEBGlobalConstants.MessageActive])
                         {
                             if (permittedProcessName.Contains(runningApplications[j].ProcessName))
