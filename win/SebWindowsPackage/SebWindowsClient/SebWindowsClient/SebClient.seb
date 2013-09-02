@@ -3,27 +3,27 @@
 <plist version="1.0">
   <dict>
     <key>insideSebEnableSwitchUser</key>
-    <true/>
+    <false/>
     <key>insideSebEnableLockThisComputer</key>
-    <true/>
+    <false/>
     <key>insideSebEnableChangeAPassword</key>
     <false/>
     <key>insideSebEnableStartTaskManager</key>
-    <true/>
+    <false/>
     <key>insideSebEnableLogOff</key>
-    <true/>
+    <false/>
     <key>insideSebEnableShutDown</key>
-    <true/>
+    <false/>
     <key>insideSebEnableEaseOfAccess</key>
-    <true/>
+    <false/>
     <key>insideSebEnableVmWareClientShade</key>
-    <true/>
+    <false/>
     <key>outsideSebEnableSwitchUser</key>
     <true/>
     <key>outsideSebEnableLockThisComputer</key>
     <true/>
     <key>outsideSebEnableChangeAPassword</key>
-    <false/>
+    <true/>
     <key>outsideSebEnableStartTaskManager</key>
     <true/>
     <key>outsideSebEnableLogOff</key>
@@ -33,6 +33,42 @@
     <key>outsideSebEnableEaseOfAccess</key>
     <true/>
     <key>outsideSebEnableVmWareClientShade</key>
+    <true/>
+    <key>enableEsc</key>
+    <true/>
+    <key>enableCtrlEsc</key>
+    <true/>
+    <key>enableAltEsc</key>
+    <true/>
+    <key>enableAltTab</key>
+    <true/>
+    <key>enableAltF4</key>
+    <true/>
+    <key>enableRightMouse</key>
+    <true/>
+    <key>enableF1</key>
+    <true/>
+    <key>enableF2</key>
+    <true/>
+    <key>enableF3</key>
+    <true/>
+    <key>enableF4</key>
+    <true/>
+    <key>enableF5</key>
+    <true/>
+    <key>enableF6</key>
+    <true/>
+    <key>enableF7</key>
+    <true/>
+    <key>enableF8</key>
+    <true/>
+    <key>enableF9</key>
+    <true/>
+    <key>enableF10</key>
+    <true/>
+    <key>enableF11</key>
+    <true/>
+    <key>enableF12</key>
     <true/>
     <key>allowBrowsingBackForward</key>
     <false/>
@@ -45,7 +81,7 @@
     <key>allowQuit</key>
     <true/>
     <key>allowSwitchToApplications</key>
-    <false/>
+    <true/>
     <key>allowUserSwitching</key>
     <true/>
     <key>allowVirtualMachine</key>
@@ -59,7 +95,7 @@
     <key>copyBrowserExamKeyToClipboardWhenQuitting</key>
     <false/>
     <key>createNewDesktop</key>
-    <false/>
+    <true/>
     <key>downloadDirectoryOSX</key>
     <string>~/Downloads</string>
     <key>downloadDirectoryWin</key>
@@ -93,7 +129,7 @@
     <key>hashedAdminPassword</key>
     <string>155290511d5c4bfb1369217d6846c8eef1ed6a564579516eaf36cf5598ac92de</string>
     <key>hashedQuitPassword</key>
-    <string>8577da2ea54085708b3b851bc50315a36bb740ba5135e747cfb12457b5d3060f</string>
+    <string>0E0BCC1AC592CBD163ACEB18AFE358F3F4F2661C9D6F4EEEA5220BBA13449754</string>
     <key>hideBrowserWindowToolbar</key>
     <false/>
     <key>hookKeys</key>
@@ -152,12 +188,16 @@
         </array>
         <key>autostart</key>
         <true/>
+        <key>autohide</key>
+        <true/>
+        <key>description</key>
+        <string>XulRunner</string>
+        <key>executable</key>
+        <string>xulrunner.exe</string>
         <key>identifier</key>
         <string>XulRunner</string>
-        <key>name</key>
-        <string>XulRunner</string>
-        <key>nameWin</key>
-        <string>xulrunner.exe</string>
+        <key>os</key>
+        <integer>1</integer>
         <key>path</key>
         <string>../xulrunner/</string>
         <key>title</key>
@@ -179,12 +219,16 @@
         </array>
         <key>autostart</key>
         <true/>
+        <key>autohide</key>
+        <true/>
+        <key>description</key>
+        <string>Notepad</string>
+        <key>executable</key>
+        <string>notepad.exe</string>
         <key>identifier</key>
         <string>Notepad</string>
-        <key>name</key>
-        <string>Notepad</string>
-        <key>nameWin</key>
-        <string>notepad.exe</string>
+        <key>os</key>
+        <integer>1</integer>
         <key>path</key>
         <string></string>
         <key>title</key>
@@ -198,9 +242,17 @@
         <true/>
         <key>description</key>
         <string></string>
-        <key>nameWin</key>
+        <key>executable</key>
         <string>screencapture</string>
-        <key></key>
+        <key>identifier</key>
+        <string>screencapture</string>
+        <key>os</key>
+        <integer>1</integer>
+        <key>user</key>
+        <string>mustermann</string>
+        <key>currentUser</key>
+        <string></string>
+        <key>strongKill</key>
         <true/>
       </dict>
     </array>
@@ -239,7 +291,7 @@
     <array>
       <dict>
         <key>active</key>
-        <true/>
+        <true />
         <key>expression</key>
         <string>Allow .seb files only from safeexambrowser.org and https://exams.ethz.ch</string>
         <key>ruleActions</key>
@@ -248,31 +300,37 @@
             <key>action</key>
             <integer>4</integer>
             <key>active</key>
-            <true/>
+            <true />
             <key>expression</key>
             <string>safeexambrowser.org</string>
+            <key>regex</key>
+            <false />
           </dict>
           <dict>
             <key>action</key>
             <integer>2</integer>
             <key>active</key>
-            <true/>
+            <true />
             <key>expression</key>
             <string>https://exams.ethz.ch</string>
+            <key>regex</key>
+            <false />
           </dict>
           <dict>
             <key>action</key>
             <integer>3</integer>
             <key>active</key>
-            <true/>
+            <true />
             <key>expression</key>
             <string>*/*.seb</string>
+            <key>regex</key>
+            <false />
           </dict>
         </array>
       </dict>
       <dict>
         <key>active</key>
-        <true/>
+        <true />
         <key>expression</key>
         <string>Allow maps.google.*, block google.* and all other subdomains</string>
         <key>ruleActions</key>
@@ -281,21 +339,27 @@
             <key>action</key>
             <integer>1</integer>
             <key>active</key>
-            <true/>
+            <true />
             <key>expression</key>
             <string>maps.google.*</string>
+            <key>regex</key>
+            <false />
           </dict>
           <dict>
+            <key>action</key>
+            <integer>2</integer>
             <key>active</key>
-            <true/>
+            <true />
             <key>expression</key>
             <string>google.*</string>
+            <key>regex</key>
+            <false />
           </dict>
         </array>
       </dict>
       <dict>
         <key>active</key>
-        <true/>
+        <true />
         <key>expression</key>
         <string>Allow all other domains</string>
         <key>ruleActions</key>
@@ -304,9 +368,11 @@
             <key>action</key>
             <integer>1</integer>
             <key>active</key>
-            <true/>
+            <true />
             <key>expression</key>
             <string>*</string>
+            <key>regex</key>
+            <false />
           </dict>
         </array>
       </dict>
