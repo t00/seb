@@ -251,7 +251,7 @@
         <key>user</key>
         <string>mustermann</string>
         <key>currentUser</key>
-        <string></string>
+        <true/>
         <key>strongKill</key>
         <true/>
       </dict>
