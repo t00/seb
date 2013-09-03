@@ -386,12 +386,9 @@ namespace SebWindowsConfig
         static Dictionary<string, object> prohibitedProcessData    = new Dictionary<string, object>();
         static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
 
-        static int                        urlFilterTableRow;
-        static Boolean                    urlFilterIsTitleRow;
-
         static int                        urlFilterRuleIndex;
-        static List<object>               urlFilterRuleList = new List<object>();
-        static Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
+        static List<object>               urlFilterRuleList        = new List<object>();
+        static Dictionary<string, object> urlFilterRuleData        = new Dictionary<string, object>();
         static Dictionary<string, object> urlFilterRuleDataDefault = new Dictionary<string, object>();
         static Dictionary<string, object> urlFilterRuleDataStored  = new Dictionary<string, object>();
 
@@ -404,16 +401,25 @@ namespace SebWindowsConfig
         static Dictionary<string, object> urlFilterActionDataStored  = new Dictionary<string, object>();
 
         static int                        embeddedCertificateIndex;
-        static List<object>               embeddedCertificateList = new List<object>();
-        static Dictionary<string, object> embeddedCertificateData = new Dictionary<string, object>();
+        static List<object>               embeddedCertificateList    = new List<object>();
+        static Dictionary<string, object> embeddedCertificateData    = new Dictionary<string, object>();
         static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
 
-        // Lookup table: row  ->   ruleIndex
-        // Lookup table: row  -> actionIndex
+        static int                        proxyExceptionIndex;
+        static List<object>               proxyExceptionList    = new List<object>();
+        static Dictionary<string, object> proxyExceptionData    = new Dictionary<string, object>();
+        static Dictionary<string, object> proxyExceptionDataDef = new Dictionary<string, object>();
+
+        // Global variable: index of current table row (selected row)
+        // Global variable:   is the current table row a title row?
+        // Lookup table: row  ->   ruleIndex (of current table row)
+        // Lookup table: row  -> actionIndex (of current table row)
         // Lookup table: row  -> is this row a title row (or action row)?
-        // Lookup table: rule -> startRow
-        // Lookup table: rule ->   endRow
+        // Lookup table: rule -> startRow of rule (in the table)
+        // Lookup table: rule ->   endRow of rule (in the table)
         // Lookup table: rule -> show this rule or not (expand/collapse)?
+        static int           urlFilterTableRow;
+        static Boolean       urlFilterIsTitleRow;
         static List<int>     urlFilterTableRuleIndex   = new List<int    >();
         static List<int>     urlFilterTableActionIndex = new List<int    >();
         static List<Boolean> urlFilterTableIsTitleRow  = new List<Boolean>();
