@@ -160,15 +160,13 @@ namespace SebWindowsConfig
         const String MessageName                      = "name";
 
         // Group "Network - Proxies"
+        const String MessageProxies                   = "proxies";
         const String MessageProxySettingsPolicy       = "proxySettingsPolicy";
         const String MessageProxyProtocol             = "proxyProtocol";
         const String MessageProxyConfigurationFileURL = "proxyConfigurationFileURL";
         const String MessageExcludeSimpleHostnames    = "excludeSimpleHostnames";
         const String MessageUsePassiveFTPMode         = "usePassiveFTPMode";
-        const String MessageBypassHostsAndDomains     = "bypassHostsAndDomains";
-        const String MessageBypassDomain              = "domain";
-        const String MessageBypassHost                = "host";
-        const String MessageBypassPort                = "port";
+        const String MessageExceptionsList            = "ExceptionsList";
 
         // Group "Security"
         const String MessageSebServicePolicy    = "sebServicePolicy";
@@ -387,28 +385,33 @@ namespace SebWindowsConfig
         static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
 
         static int                        urlFilterRuleIndex;
-        static List<object>               urlFilterRuleList        = new List<object>();
-        static Dictionary<string, object> urlFilterRuleData        = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterRuleDataDefault = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterRuleDataStored  = new Dictionary<string, object>();
+        static List<object>               urlFilterRuleList       = new List<object>();
+        static Dictionary<string, object> urlFilterRuleData       = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterRuleDataDef    = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterRuleDataStored = new Dictionary<string, object>();
 
         static int                        urlFilterActionIndex;
-        static List<object>               urlFilterActionList        = new List<object>();
-        static List<object>               urlFilterActionListDefault = new List<object>();
-        static List<object>               urlFilterActionListStored  = new List<object>();
-        static Dictionary<string, object> urlFilterActionData        = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterActionDataStored  = new Dictionary<string, object>();
+        static List<object>               urlFilterActionList       = new List<object>();
+        static List<object>               urlFilterActionListDef    = new List<object>();
+        static List<object>               urlFilterActionListStored = new List<object>();
+        static Dictionary<string, object> urlFilterActionData       = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterActionDataDef    = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterActionDataStored = new Dictionary<string, object>();
 
         static int                        embeddedCertificateIndex;
         static List<object>               embeddedCertificateList    = new List<object>();
         static Dictionary<string, object> embeddedCertificateData    = new Dictionary<string, object>();
         static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
 
-        static int                        proxyExceptionIndex;
-        static List<object>               proxyExceptionList    = new List<object>();
-        static Dictionary<string, object> proxyExceptionData    = new Dictionary<string, object>();
-        static Dictionary<string, object> proxyExceptionDataDef = new Dictionary<string, object>();
+        static int                        proxyIndex;
+        static List<object>               proxyList    = new List<object>();
+        static Dictionary<string, object> proxyData    = new Dictionary<string, object>();
+        static Dictionary<string, object> proxyDataDef = new Dictionary<string, object>();
+
+        static int                        bypassedProxyIndex;
+        static List<object>               bypassedProxyList    = new List<object>();
+        static Dictionary<string, object> bypassedProxyData    = new Dictionary<string, object>();
+        static Dictionary<string, object> bypassedProxyDataDef = new Dictionary<string, object>();
 
         // Global variable: index of current table row (selected row)
         // Global variable:   is the current table row a title row?
@@ -571,20 +574,20 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
 
             // Create a default action
-            urlFilterActionDataDefault.Add(MessageActive    , true);
-            urlFilterActionDataDefault.Add(MessageRegex     , false);
-            urlFilterActionDataDefault.Add(MessageExpression, "*");
-            urlFilterActionDataDefault.Add(MessageAction    , 0);
+            urlFilterActionDataDef.Add(MessageActive    , true);
+            urlFilterActionDataDef.Add(MessageRegex     , false);
+            urlFilterActionDataDef.Add(MessageExpression, "");
+            urlFilterActionDataDef.Add(MessageAction    , 0);
 
             // Create a default action list with one entry (the default action)
-            urlFilterActionListDefault.Add(urlFilterActionDataDefault);
+            urlFilterActionListDef.Add(urlFilterActionDataDef);
 
             // Create a default rule with this default action list.
             // This default rule is used for the "Insert Rule" operation:
             // when a new rule is created, it initially contains one action.
-            urlFilterRuleDataDefault.Add(MessageActive     , true);
-            urlFilterRuleDataDefault.Add(MessageExpression , "Rule");
-            urlFilterRuleDataDefault.Add(MessageRuleActions, urlFilterActionListDefault);
+            urlFilterRuleDataDef.Add(MessageActive     , true);
+            urlFilterRuleDataDef.Add(MessageExpression , "Rule");
+            urlFilterRuleDataDef.Add(MessageRuleActions, urlFilterActionListDef);
 
             // Initialise the stored action
             urlFilterActionDataStored.Add(MessageActive    , true);
@@ -605,12 +608,25 @@ namespace SebWindowsConfig
             embeddedCertificateDataDef.Add(MessageName           , "");
 
             // Default settings for group "Network - Proxies"
-            sebSettingsDef.Add(MessageProxySettingsPolicy      , 0);
+            sebSettingsDef.Add(MessageProxySettingsPolicy, 0);
+            sebSettingsDef.Add(MessageProxies, new Dictionary<string, object>());
+
+            bypassedProxyDataDef.Add(MessageProxyProtocol            , 0);
+            bypassedProxyDataDef.Add(MessageProxyConfigurationFileURL, "");
+            bypassedProxyDataDef.Add(MessageExcludeSimpleHostnames   , true);
+            bypassedProxyDataDef.Add(MessageUsePassiveFTPMode        , true);
+            bypassedProxyDataDef.Add(MessageExceptionsList           , new List<object>());
+
             sebSettingsDef.Add(MessageProxyProtocol            , 0);
             sebSettingsDef.Add(MessageProxyConfigurationFileURL, "");
             sebSettingsDef.Add(MessageExcludeSimpleHostnames   , true);
             sebSettingsDef.Add(MessageUsePassiveFTPMode        , true);
-            sebSettingsDef.Add(MessageBypassHostsAndDomains    , new List<object>());
+            sebSettingsDef.Add(MessageExceptionsList           , new List<object>());
+
+            //bypassedProxyDataDef.Add(MessageProxyDomainHostPort, "");
+
+
+
 
             // Default settings for group "Security"
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
@@ -2993,7 +3009,7 @@ namespace SebWindowsConfig
 
                 // Load default rule for Insert operation.
                 // Load stored  rule for Paste  operation.
-                if (operation == IntOperationInsert) urlFilterRuleData = urlFilterRuleDataDefault;
+                if (operation == IntOperationInsert) urlFilterRuleData = urlFilterRuleDataDef;
                 if (operation == IntOperationPaste ) urlFilterRuleData = urlFilterRuleDataStored;
 
                 // INSERT or PASTE new rule into rule list at correct position index
@@ -3014,7 +3030,7 @@ namespace SebWindowsConfig
 
                 // Load default action for Insert operation.
                 // Load stored  action for Paste  operation.
-                if (operation == IntOperationInsert) urlFilterActionData = urlFilterActionDataDefault;
+                if (operation == IntOperationInsert) urlFilterActionData = urlFilterActionDataDef;
                 if (operation == IntOperationPaste ) urlFilterActionData = urlFilterActionDataStored;
 
                 // INSERT or PASTE new action into action list at correct position index
