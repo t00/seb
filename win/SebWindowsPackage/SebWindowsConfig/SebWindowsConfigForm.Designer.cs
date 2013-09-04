@@ -117,8 +117,11 @@
             this.dataGridViewComboBoxColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
-            this.dataGridViewProxyProtocol = new System.Windows.Forms.DataGridView();
+            this.dataGridViewProxyProtocols = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumnProtocolEnable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumnProtocolType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewBypassedProxies = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumnDomainHostPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
             this.labelIfYourNetworkAdministrator = new System.Windows.Forms.Label();
             this.labelProxyConfigurationFileURL = new System.Windows.Forms.Label();
@@ -295,9 +298,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.dataGridViewTextBoxColumnHostDomainPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumnProtocolEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumnProtocolType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -313,7 +313,7 @@
             this.tabPageCertificates.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).BeginInit();
             this.tabPageProxies.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBypassedProxies)).BeginInit();
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
@@ -1309,7 +1309,7 @@
             // 
             // tabPageProxies
             // 
-            this.tabPageProxies.Controls.Add(this.dataGridViewProxyProtocol);
+            this.tabPageProxies.Controls.Add(this.dataGridViewProxyProtocols);
             this.tabPageProxies.Controls.Add(this.dataGridViewBypassedProxies);
             this.tabPageProxies.Controls.Add(this.buttonChooseProxyConfigurationFile);
             this.tabPageProxies.Controls.Add(this.labelIfYourNetworkAdministrator);
@@ -1330,31 +1330,49 @@
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewProxyProtocol
+            // dataGridViewProxyProtocols
             // 
-            this.dataGridViewProxyProtocol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProxyProtocol.ColumnHeadersVisible = false;
-            this.dataGridViewProxyProtocol.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewCheckBoxColumnProtocolEnabled,
+            this.dataGridViewProxyProtocols.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProxyProtocols.ColumnHeadersVisible = false;
+            this.dataGridViewProxyProtocols.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumnProtocolEnable,
             this.dataGridViewTextBoxColumnProtocolType});
-            this.dataGridViewProxyProtocol.Location = new System.Drawing.Point(25, 130);
-            this.dataGridViewProxyProtocol.Name = "dataGridViewProxyProtocol";
-            this.dataGridViewProxyProtocol.RowHeadersVisible = false;
-            this.dataGridViewProxyProtocol.RowTemplate.Height = 24;
-            this.dataGridViewProxyProtocol.Size = new System.Drawing.Size(350, 180);
-            this.dataGridViewProxyProtocol.TabIndex = 101;
+            this.dataGridViewProxyProtocols.Location = new System.Drawing.Point(25, 130);
+            this.dataGridViewProxyProtocols.Name = "dataGridViewProxyProtocols";
+            this.dataGridViewProxyProtocols.RowHeadersVisible = false;
+            this.dataGridViewProxyProtocols.RowTemplate.Height = 24;
+            this.dataGridViewProxyProtocols.Size = new System.Drawing.Size(350, 180);
+            this.dataGridViewProxyProtocols.TabIndex = 101;
+            // 
+            // dataGridViewCheckBoxColumnProtocolEnable
+            // 
+            this.dataGridViewCheckBoxColumnProtocolEnable.HeaderText = "Enable";
+            this.dataGridViewCheckBoxColumnProtocolEnable.Name = "dataGridViewCheckBoxColumnProtocolEnable";
+            this.dataGridViewCheckBoxColumnProtocolEnable.Width = 50;
+            // 
+            // dataGridViewTextBoxColumnProtocolType
+            // 
+            this.dataGridViewTextBoxColumnProtocolType.HeaderText = "Type";
+            this.dataGridViewTextBoxColumnProtocolType.Name = "dataGridViewTextBoxColumnProtocolType";
+            this.dataGridViewTextBoxColumnProtocolType.Width = 297;
             // 
             // dataGridViewBypassedProxies
             // 
             this.dataGridViewBypassedProxies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewBypassedProxies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumnHostDomainPort});
+            this.dataGridViewTextBoxColumnDomainHostPort});
             this.dataGridViewBypassedProxies.Location = new System.Drawing.Point(25, 400);
             this.dataGridViewBypassedProxies.Name = "dataGridViewBypassedProxies";
             this.dataGridViewBypassedProxies.RowHeadersVisible = false;
             this.dataGridViewBypassedProxies.RowTemplate.Height = 24;
             this.dataGridViewBypassedProxies.Size = new System.Drawing.Size(653, 110);
             this.dataGridViewBypassedProxies.TabIndex = 100;
+            // 
+            // dataGridViewTextBoxColumnDomainHostPort
+            // 
+            this.dataGridViewTextBoxColumnDomainHostPort.HeaderText = "Domain, Host, Port";
+            this.dataGridViewTextBoxColumnDomainHostPort.Name = "dataGridViewTextBoxColumnDomainHostPort";
+            this.dataGridViewTextBoxColumnDomainHostPort.Width = 650;
             // 
             // buttonChooseProxyConfigurationFile
             // 
@@ -3276,24 +3294,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // dataGridViewTextBoxColumnHostDomainPort
-            // 
-            this.dataGridViewTextBoxColumnHostDomainPort.HeaderText = "Host, Domain, Port";
-            this.dataGridViewTextBoxColumnHostDomainPort.Name = "dataGridViewTextBoxColumnHostDomainPort";
-            this.dataGridViewTextBoxColumnHostDomainPort.Width = 650;
-            // 
-            // dataGridViewCheckBoxColumnProtocolEnabled
-            // 
-            this.dataGridViewCheckBoxColumnProtocolEnabled.HeaderText = "Enable";
-            this.dataGridViewCheckBoxColumnProtocolEnabled.Name = "dataGridViewCheckBoxColumnProtocolEnabled";
-            this.dataGridViewCheckBoxColumnProtocolEnabled.Width = 50;
-            // 
-            // dataGridViewTextBoxColumnProtocolType
-            // 
-            this.dataGridViewTextBoxColumnProtocolType.HeaderText = "ProtocolType";
-            this.dataGridViewTextBoxColumnProtocolType.Name = "dataGridViewTextBoxColumnProtocolType";
-            this.dataGridViewTextBoxColumnProtocolType.Width = 297;
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3330,7 +3330,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).EndInit();
             this.tabPageProxies.ResumeLayout(false);
             this.tabPageProxies.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBypassedProxies)).EndInit();
             this.tabPageApplications.ResumeLayout(false);
             this.tabPageApplications.PerformLayout();
@@ -3632,12 +3632,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnExpression;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnAction;
         private System.Windows.Forms.DataGridView dataGridViewBypassedProxies;
-        private System.Windows.Forms.DataGridView dataGridViewProxyProtocol;
+        private System.Windows.Forms.DataGridView dataGridViewProxyProtocols;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnType;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnHostDomainPort;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumnProtocolEnabled;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumnProtocolEnable;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnProtocolType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnDomainHostPort;
 
     }
 }

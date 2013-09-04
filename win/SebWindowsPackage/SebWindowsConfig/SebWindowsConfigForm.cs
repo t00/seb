@@ -347,19 +347,23 @@ namespace SebWindowsConfig
 
         // Embedded Certificates table columns (0,1).
         // Type, Name
-        const int IntColumnCertificateType = 0;
-        const int IntColumnCertificateName = 1;
-/*
-        const String StringColumnCertificateType = "Type";
-        const String StringColumnCertificateName = "Name";
-*/
+        const int       IntColumnCertificateType = 0;
+        const int       IntColumnCertificateName = 1;
+      //const String StringColumnCertificateType = "Type";
+      //const String StringColumnCertificateName = "Name";
+
+        // Proxy Protocols table columns (0,1).
+        // Enable, Type
+        const int       IntColumnProxyProtocolEnable = 0;
+        const int       IntColumnProxyProtocolType   = 1;
+      //const String StringColumnProxyProtocolEnable = "Enable";
+      //const String StringColumnProxyProtocolType   = "Type";
 
         // Bypassed Proxies table column (0).
-        // Type, Name
-        const int IntColumnDomainHostPort = 0;
-/*
-        const String StringColumnDomainHostPort = "Domain, Host, Port";
-*/
+        // DomainHostPort
+        const int       IntColumnDomainHostPort = 0;
+      //const String StringColumnDomainHostPort = "Domain, Host, Port";
+
 
         // Global variables
 
@@ -914,6 +918,13 @@ namespace SebWindowsConfig
             dataGridViewEmbeddedCertificates.MultiSelect        = false;
             dataGridViewEmbeddedCertificates.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
+            dataGridViewProxyProtocols.Enabled            = false;
+            dataGridViewProxyProtocols.ReadOnly           = false;
+            dataGridViewProxyProtocols.AllowUserToAddRows = false;
+            dataGridViewProxyProtocols.RowHeadersVisible  = false;
+            dataGridViewProxyProtocols.MultiSelect        = false;
+            dataGridViewProxyProtocols.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
             dataGridViewBypassedProxies.Enabled            = false;
             dataGridViewBypassedProxies.ReadOnly           = false;
             dataGridViewBypassedProxies.AllowUserToAddRows = false;
@@ -943,6 +954,9 @@ namespace SebWindowsConfig
             dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateType].ValueType = typeof(String);
             dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateName].ValueType = typeof(String);
 
+            dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolEnable].ValueType = typeof(Boolean);
+            dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolType  ].ValueType = typeof(String);
+
             dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ValueType = typeof(String);
 
             // Assign the column names to the DataGridViews
@@ -968,6 +982,9 @@ namespace SebWindowsConfig
 
             dataGridViewEmbeddedCertificates.Columns.Add(StringColumnCertificateType, StringColumnCertificateType);
             dataGridViewEmbeddedCertificates.Columns.Add(StringColumnCertificateName, StringColumnCertificateName);
+
+            dataGridViewProxyProtocols.Columns.Add(StringColumnProxyProtocolEnable, StringColumnProxyProtocolEnable);
+            dataGridViewProxyProtocols.Columns.Add(StringColumnProxyProtocolType  , StringColumnProxyProtocolType);
 
             dataGridViewBypassedProxies.Columns.Add(StringColumnDomainHostPort, StringColumnDomainHostPort);
 */
@@ -1022,12 +1039,14 @@ namespace SebWindowsConfig
           //dataGridViewProhibitedProcesses .AutoResizeColumns();
           //dataGridViewURLFilterRules      .AutoResizeColumns();
           //dataGridViewEmbeddedCertificates.AutoResizeColumns();
+          //dataGridViewProxyProtocols      .AutoResizeColumns();
           //dataGridViewBypassedProxies     .AutoResizeColumns();
 
           //dataGridViewPermittedProcesses  .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewURLFilterRules      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProxyProtocols      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             // IMPORTANT:
@@ -1634,12 +1653,14 @@ namespace SebWindowsConfig
           //dataGridViewProhibitedProcesses .AutoResizeColumns();
           //dataGridViewURLFilterRules      .AutoResizeColumns();
           //dataGridViewEmbeddedCertificates.AutoResizeColumns();
+          //dataGridViewProxyProtocols      .AutoResizeColumns();
           //dataGridViewBypassedProxies     .AutoResizeColumns();
 
           //dataGridViewPermittedProcesses  .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewURLFilterRules      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProxyProtocols      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
