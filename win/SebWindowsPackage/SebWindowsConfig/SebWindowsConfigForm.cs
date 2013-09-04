@@ -455,6 +455,11 @@ namespace SebWindowsConfig
         static Dictionary<string, object> proxiesData    = new Dictionary<string, object>();
         static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
 
+        static int                        proxyProtocolIndex;
+        static List<object>               proxyProtocolList    = new List<object>();
+        static Dictionary<string, object> proxyProtocolData    = new Dictionary<string, object>();
+        static Dictionary<string, object> proxyProtocolDataDef = new Dictionary<string, object>();
+
         static int                        bypassedProxyIndex;
         static List<object>               bypassedProxyList    = new List<object>();
         static String                     bypassedProxyData    = "";
@@ -1010,6 +1015,10 @@ namespace SebWindowsConfig
             embeddedCertificateIndex = -1;
             embeddedCertificateList.Clear();
             embeddedCertificateData.Clear();
+
+            proxyProtocolIndex = -1;
+            proxyProtocolList.Clear();
+            proxyProtocolData.Clear();
 
             bypassedProxyIndex = -1;
             bypassedProxyList.Clear();
@@ -1578,6 +1587,9 @@ namespace SebWindowsConfig
             if (embeddedCertificateList.Count > 0) embeddedCertificateIndex =  0;
                                               else embeddedCertificateIndex = -1;
 
+            if (proxyProtocolList.Count > 0) proxyProtocolIndex =  0;
+                                        else proxyProtocolIndex = -1;
+
             if (bypassedProxyList.Count > 0) bypassedProxyIndex =  0;
                                         else bypassedProxyIndex = -1;
 
@@ -1592,6 +1604,9 @@ namespace SebWindowsConfig
 
             dataGridViewEmbeddedCertificates.Enabled = (embeddedCertificateList.Count > 0);
             dataGridViewEmbeddedCertificates.Rows.Clear();
+
+            dataGridViewProxyProtocols.Enabled = (proxyProtocolList.Count > 0);
+            dataGridViewProxyProtocols.Rows.Clear();
 
             dataGridViewBypassedProxies.Enabled = (bypassedProxyList.Count > 0);
             dataGridViewBypassedProxies.Rows.Clear();
@@ -1629,6 +1644,16 @@ namespace SebWindowsConfig
                 Int32  type = (Int32 )embeddedCertificateData[MessageType];
                 String name = (String)embeddedCertificateData[MessageName];
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
+            }
+
+            // Add Proxy Protocols of currently opened file to DataGridView
+            for (int index = 0; index < proxyProtocolList.Count; index++)
+            {
+                //proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+                proxyProtocolData = (Dictionary<string, object>)proxyProtocolList[index];
+                Boolean enable = (Boolean)proxiesData[MessageFTPEnable];
+                String  type   = (String )StringProxyProtocol[index];
+                dataGridViewProxyProtocols.Rows.Add(enable, type);
             }
 
             // Add Bypassed Proxies of currently opened file to DataGridView
