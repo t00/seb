@@ -647,10 +647,48 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageProxySettingsPolicy, 0);
             sebSettingsDef.Add(MessageProxies            , new Dictionary<string, object>());
 
-            proxiesDataDef.Add(MessageAutoConfigurationURL  , "");
-            proxiesDataDef.Add(MessageExcludeSimpleHostnames, true);
-            proxiesDataDef.Add(MessageFTPPassive            , true);
-            proxiesDataDef.Add(MessageExceptionsList        , new List<string>());
+            proxiesDataDef.Add(MessageExceptionsList             , new List<string>());
+            proxiesDataDef.Add(MessageExcludeSimpleHostnames     , true);
+            proxiesDataDef.Add(MessageAutoDiscoveryEnabled       , false);
+            proxiesDataDef.Add(MessageAutoConfigurationEnabled   , false);
+            proxiesDataDef.Add(MessageAutoConfigurationJavaScript, "");
+            proxiesDataDef.Add(MessageAutoConfigurationURL       , "");
+            proxiesDataDef.Add(MessageFTPPassive                 , true);
+
+            proxiesDataDef.Add(MessageFTPEnable          , false);
+            proxiesDataDef.Add(MessageFTPPort            , 0);
+            proxiesDataDef.Add(MessageFTPProxy           , "");
+            proxiesDataDef.Add(MessageFTPRequiresPassword, false);
+            proxiesDataDef.Add(MessageFTPUsername        , "");
+            proxiesDataDef.Add(MessageFTPPassword        , "");
+
+            proxiesDataDef.Add(MessageHTPPEnable          , false);
+            proxiesDataDef.Add(MessageHTPPPort            , 0);
+            proxiesDataDef.Add(MessageHTPPProxy           , "");
+            proxiesDataDef.Add(MessageHTPPRequiresPassword, false);
+            proxiesDataDef.Add(MessageHTPPUsername        , "");
+            proxiesDataDef.Add(MessageHTPPPassword        , "");
+
+            proxiesDataDef.Add(MessageHTPPSEnable          , false);
+            proxiesDataDef.Add(MessageHTPPSPort            , 0);
+            proxiesDataDef.Add(MessageHTPPSProxy           , "");
+            proxiesDataDef.Add(MessageHTPPSRequiresPassword, false);
+            proxiesDataDef.Add(MessageHTPPSUsername        , "");
+            proxiesDataDef.Add(MessageHTPPSPassword        , "");
+
+            proxiesDataDef.Add(MessageRTSPEnable          , false);
+            proxiesDataDef.Add(MessageRTSPPort            , 0);
+            proxiesDataDef.Add(MessageRTSPProxy           , "");
+            proxiesDataDef.Add(MessageRTSPRequiresPassword, false);
+            proxiesDataDef.Add(MessageRTSPUsername        , "");
+            proxiesDataDef.Add(MessageRTSPPassword        , "");
+
+            proxiesDataDef.Add(MessageSOCKSEnable          , false);
+            proxiesDataDef.Add(MessageSOCKSPort            , 0);
+            proxiesDataDef.Add(MessageSOCKSProxy           , "");
+            proxiesDataDef.Add(MessageSOCKSRequiresPassword, false);
+            proxiesDataDef.Add(MessageSOCKSUsername        , "");
+            proxiesDataDef.Add(MessageSOCKSPassword        , "");
 
             proxyExceptionDataDef = "";
 
