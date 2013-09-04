@@ -205,32 +205,49 @@
       </dict>
       <dict>
         <key>active</key>
-        <true/>
+        <true />
         <key>allowUserToChooseApp</key>
-        <false/>
+        <true />
         <key>arguments</key>
-        <array>
-          <dict>
-            <key>active</key>
-            <true/>
-            <key>argument</key>
-            <string></string>
-          </dict>
-        </array>
+        <array />
         <key>autostart</key>
-        <true/>
+        <true />
         <key>autohide</key>
-        <true/>
+        <true />
         <key>description</key>
-        <string>Notepad</string>
+        <string>Microsoft Windows Calculator</string>
         <key>executable</key>
-        <string>notepad.exe</string>
+        <string>calc.exe</string>
         <key>identifier</key>
-        <string>Notepad</string>
+        <string>com.microsoft.Calculator</string>
         <key>os</key>
         <integer>1</integer>
         <key>path</key>
-        <string></string>
+        <string />
+        <key>title</key>
+        <string>Calculator</string>
+      </dict>
+      <dict>
+        <key>active</key>
+        <true />
+        <key>allowUserToChooseApp</key>
+        <true />
+        <key>arguments</key>
+        <array />
+        <key>autostart</key>
+        <true />
+        <key>autohide</key>
+        <true />
+        <key>description</key>
+        <string>Microsoft Windows Notepad</string>
+        <key>executable</key>
+        <string>notepad.exe</string>
+        <key>identifier</key>
+        <string>com.microsoft.Notepad</string>
+        <key>os</key>
+        <integer>1</integer>
+        <key>path</key>
+        <string />
         <key>title</key>
         <string>Notepad</string>
       </dict>
