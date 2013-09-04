@@ -345,13 +345,20 @@ namespace SebWindowsConfig
         const String StringColumnURLFilterRuleAction     = "Action";
 */
 
-        // Certificates table columns (0,1).
+        // Embedded Certificates table columns (0,1).
         // Type, Name
         const int IntColumnCertificateType = 0;
         const int IntColumnCertificateName = 1;
 /*
         const String StringColumnCertificateType = "Type";
         const String StringColumnCertificateName = "Name";
+*/
+
+        // Bypassed Proxies table column (0).
+        // Type, Name
+        const int IntColumnDomainHostPort = 0;
+/*
+        const String StringColumnDomainHostPort = "Domain, Host, Port";
 */
 
         // Global variables
@@ -444,10 +451,10 @@ namespace SebWindowsConfig
         static Dictionary<string, object> proxiesData    = new Dictionary<string, object>();
         static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
 
-        static int                        proxyExceptionIndex;
-        static List<string>               proxyExceptionList    = new List<string>();
-        static string                     proxyExceptionData    = "";
-        static string                     proxyExceptionDataDef = "";
+        static int                        bypassedProxyIndex;
+        static List<string>               bypassedProxyList    = new List<string>();
+        static string                     bypassedProxyData    = "";
+        static string                     bypassedProxyDataDef = "";
 
         // Global variable: index of current table row (selected row)
         // Global variable:   is the current table row a title row?
@@ -644,9 +651,6 @@ namespace SebWindowsConfig
             embeddedCertificateDataDef.Add(MessageName           , "");
 
             // Default settings for group "Network - Proxies"
-            sebSettingsDef.Add(MessageProxySettingsPolicy, 0);
-            sebSettingsDef.Add(MessageProxies            , new Dictionary<string, object>());
-
             proxiesDataDef.Add(MessageExceptionsList             , new List<string>());
             proxiesDataDef.Add(MessageExcludeSimpleHostnames     , true);
             proxiesDataDef.Add(MessageAutoDiscoveryEnabled       , false);
@@ -690,15 +694,10 @@ namespace SebWindowsConfig
             proxiesDataDef.Add(MessageSOCKSUsername        , "");
             proxiesDataDef.Add(MessageSOCKSPassword        , "");
 
-            proxyExceptionDataDef = "";
+            bypassedProxyDataDef = "";
 
-            sebSettingsDef.Add(MessageAutoConfigurationURL  , "");
-            sebSettingsDef.Add(MessageExcludeSimpleHostnames, true);
-            sebSettingsDef.Add(MessageFTPPassive            , true);
-            sebSettingsDef.Add(MessageExceptionsList        , new List<object>());
-
-
-
+            sebSettingsDef.Add(MessageProxySettingsPolicy, 0);
+            sebSettingsDef.Add(MessageProxies            , proxiesDataDef);
 
             // Default settings for group "Security"
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
@@ -917,6 +916,13 @@ namespace SebWindowsConfig
             dataGridViewEmbeddedCertificates.MultiSelect        = false;
             dataGridViewEmbeddedCertificates.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
+            dataGridViewBypassedProxies.Enabled            = false;
+            dataGridViewBypassedProxies.ReadOnly           = false;
+            dataGridViewBypassedProxies.AllowUserToAddRows = false;
+            dataGridViewBypassedProxies.RowHeadersVisible  = false;
+            dataGridViewBypassedProxies.MultiSelect        = false;
+            dataGridViewBypassedProxies.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
             dataGridViewPermittedProcesses.Columns[IntColumnProcessActive    ].ValueType = typeof(Boolean);
             dataGridViewPermittedProcesses.Columns[IntColumnProcessOS        ].ValueType = typeof(String);
             dataGridViewPermittedProcesses.Columns[IntColumnProcessExecutable].ValueType = typeof(String);
@@ -939,6 +945,8 @@ namespace SebWindowsConfig
             dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateType].ValueType = typeof(String);
             dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateName].ValueType = typeof(String);
 
+            dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ValueType = typeof(String);
+
             // Assign the column names to the DataGridViews
 /*
             dataGridViewPermittedProcesses.Columns.Add(StringColumnActive    , StringColumnActive);
@@ -960,8 +968,10 @@ namespace SebWindowsConfig
             dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleExpression, StringColumnURLFilterRuleExpression);
             dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleAction    , StringColumnURLFilterRuleAction);
 
-            dataGridViewCertificates.Columns.Add(StringColumnCertificateType, StringColumnCertificateType);
-            dataGridViewCertificates.Columns.Add(StringColumnCertificateName, StringColumnCertificateName);
+            dataGridViewEmbeddedCertificates.Columns.Add(StringColumnCertificateType, StringColumnCertificateType);
+            dataGridViewEmbeddedCertificates.Columns.Add(StringColumnCertificateName, StringColumnCertificateName);
+
+            dataGridViewBypassedProxies.Columns.Add(StringColumnDomainHostPort, StringColumnDomainHostPort);
 */
             groupBoxPermittedProcess .Enabled = false;
             groupBoxProhibitedProcess.Enabled = false;
@@ -985,6 +995,10 @@ namespace SebWindowsConfig
             embeddedCertificateIndex = -1;
             embeddedCertificateList.Clear();
             embeddedCertificateData.Clear();
+
+            bypassedProxyIndex = -1;
+            bypassedProxyList.Clear();
+            bypassedProxyData = "";
 
             urlFilterTableRow   = -1;
             urlFilterIsTitleRow = false;
@@ -1010,11 +1024,13 @@ namespace SebWindowsConfig
           //dataGridViewProhibitedProcesses .AutoResizeColumns();
           //dataGridViewURLFilterRules      .AutoResizeColumns();
           //dataGridViewEmbeddedCertificates.AutoResizeColumns();
+          //dataGridViewBypassedProxies     .AutoResizeColumns();
 
           //dataGridViewPermittedProcesses  .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewURLFilterRules      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
@@ -1525,12 +1541,15 @@ namespace SebWindowsConfig
 
 
             // Group "Applications - Permitted/Prohibited Processes"
-            // Group "Network      -    Filter/Certificates"
+            // Group "Network      -    Filter/Certificates/Proxies"
 
             // Update the lists for the DataGridViews
-               permittedProcessList = (List<object>)sebSettingsNew[MessagePermittedProcesses];
-              prohibitedProcessList = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
-            embeddedCertificateList = (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
+               permittedProcessList   = (List<object>)sebSettingsNew[MessagePermittedProcesses];
+              prohibitedProcessList   = (List<object>)sebSettingsNew[MessageProhibitedProcesses];
+            embeddedCertificateList   = (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+
+            bypassedProxyList = (List<string>)proxiesData[MessageExceptionsList];
 
              // Check if currently loaded lists have any entries
             if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
@@ -1541,6 +1560,9 @@ namespace SebWindowsConfig
 
             if (embeddedCertificateList.Count > 0) embeddedCertificateIndex =  0;
                                               else embeddedCertificateIndex = -1;
+
+            if (bypassedProxyList.Count > 0) bypassedProxyIndex =  0;
+                                        else bypassedProxyIndex = -1;
 
             // Remove all previously displayed list entries from DataGridViews
                 groupBoxPermittedProcess  .Enabled = (permittedProcessList.Count > 0);
@@ -1553,6 +1575,9 @@ namespace SebWindowsConfig
 
             dataGridViewEmbeddedCertificates.Enabled = (embeddedCertificateList.Count > 0);
             dataGridViewEmbeddedCertificates.Rows.Clear();
+
+            dataGridViewBypassedProxies.Enabled = (bypassedProxyList.Count > 0);
+            dataGridViewBypassedProxies.Rows.Clear();
 
             // Add Permitted Processes of currently opened file to DataGridView
             for (int index = 0; index < permittedProcessList.Count; index++)
@@ -1589,6 +1614,13 @@ namespace SebWindowsConfig
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
             }
 
+            // Add Bypassed Proxies of currently opened file to DataGridView
+            for (int index = 0; index < bypassedProxyList.Count; index++)
+            {
+                bypassedProxyData = (string)bypassedProxyList[index];
+                dataGridViewBypassedProxies.Rows.Add(bypassedProxyData);
+            }
+
             // Load the currently selected process data
             if (permittedProcessList.Count > 0)
                  LoadAndUpdatePermittedSelectedProcessGroup(permittedProcessIndex);
@@ -1599,15 +1631,18 @@ namespace SebWindowsConfig
             else ClearProhibitedSelectedProcessGroup();
 
             // Auto-resize the columns and cells
+
           //dataGridViewPermittedProcesses  .AutoResizeColumns();
           //dataGridViewProhibitedProcesses .AutoResizeColumns();
           //dataGridViewURLFilterRules      .AutoResizeColumns();
           //dataGridViewEmbeddedCertificates.AutoResizeColumns();
+          //dataGridViewBypassedProxies     .AutoResizeColumns();
 
           //dataGridViewPermittedProcesses  .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProhibitedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewURLFilterRules      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
             // Group "Network - Filter"
@@ -1625,10 +1660,9 @@ namespace SebWindowsConfig
             checkedListBoxProxyProtocol.SetItemChecked( selectedIndex, true);
             checkedListBoxProxyProtocol.SelectedIndex = selectedIndex;
 
-            textBoxProxyConfigurationFileURL .Text    =  (String)sebSettingsNew[MessageAutoConfigurationURL];
-            checkBoxExcludeSimpleHostnames   .Checked = (Boolean)sebSettingsNew[MessageExcludeSimpleHostnames];
-            checkBoxUsePassiveFTPMode        .Checked = (Boolean)sebSettingsNew[MessageFTPPassive];
-          //textBoxBypassHostsAndDomains     .Text    =  (String)sebSettingsNew[MessageBypassHostsAndDomains];
+            textBoxProxyConfigurationFileURL .Text    =  (String)proxiesData[MessageAutoConfigurationURL];
+            checkBoxExcludeSimpleHostnames   .Checked = (Boolean)proxiesData[MessageExcludeSimpleHostnames];
+            checkBoxUsePassiveFTPMode        .Checked = (Boolean)proxiesData[MessageFTPPassive];
 
             // Group "Security"
              listBoxSebServicePolicy.SelectedIndex =     (int)sebSettingsNew[MessageSebServicePolicy];
