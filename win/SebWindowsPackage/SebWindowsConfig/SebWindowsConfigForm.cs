@@ -202,7 +202,7 @@ namespace SebWindowsConfig
         const String MessageSOCKSEnable           = "SOCKSEnable";
         const String MessageSOCKSPort             = "SOCKSPort";
         const String MessageSOCKSProxy            = "SOCKSProxy";
-        const String MessageSOCKSRequiresPassword = "RequiresPassword";
+        const String MessageSOCKSRequiresPassword = "SOCKSRequiresPassword";
         const String MessageSOCKSUsername         = "SOCKSUsername";
         const String MessageSOCKSPassword         = "SOCKSPassword";
 
