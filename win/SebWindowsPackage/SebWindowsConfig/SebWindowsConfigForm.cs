@@ -403,15 +403,13 @@ namespace SebWindowsConfig
         static Dictionary<string, object> embeddedCertificateData    = new Dictionary<string, object>();
         static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
 
-        static int                        proxyIndex;
-        static List<object>               proxyList    = new List<object>();
-        static Dictionary<string, object> proxyData    = new Dictionary<string, object>();
-        static Dictionary<string, object> proxyDataDef = new Dictionary<string, object>();
+        static Dictionary<string, object> proxiesData    = new Dictionary<string, object>();
+        static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
 
-        static int                        bypassedProxyIndex;
-        static List<object>               bypassedProxyList    = new List<object>();
-        static Dictionary<string, object> bypassedProxyData    = new Dictionary<string, object>();
-        static Dictionary<string, object> bypassedProxyDataDef = new Dictionary<string, object>();
+        static int                        proxyExceptionIndex;
+        static List<string>               proxyExceptionList    = new List<string>();
+        static string                     proxyExceptionData    = "";
+        static string                     proxyExceptionDataDef = "";
 
         // Global variable: index of current table row (selected row)
         // Global variable:   is the current table row a title row?
@@ -609,13 +607,15 @@ namespace SebWindowsConfig
 
             // Default settings for group "Network - Proxies"
             sebSettingsDef.Add(MessageProxySettingsPolicy, 0);
-            sebSettingsDef.Add(MessageProxies, new Dictionary<string, object>());
+            sebSettingsDef.Add(MessageProxies            , new Dictionary<string, object>());
 
-            bypassedProxyDataDef.Add(MessageProxyProtocol            , 0);
-            bypassedProxyDataDef.Add(MessageProxyConfigurationFileURL, "");
-            bypassedProxyDataDef.Add(MessageExcludeSimpleHostnames   , true);
-            bypassedProxyDataDef.Add(MessageUsePassiveFTPMode        , true);
-            bypassedProxyDataDef.Add(MessageExceptionsList           , new List<object>());
+            proxiesDataDef.Add(MessageProxyProtocol            , 0);
+            proxiesDataDef.Add(MessageProxyConfigurationFileURL, "");
+            proxiesDataDef.Add(MessageExcludeSimpleHostnames   , true);
+            proxiesDataDef.Add(MessageUsePassiveFTPMode        , true);
+            proxiesDataDef.Add(MessageExceptionsList           , new List<string>());
+
+            proxyExceptionDataDef = "";
 
             sebSettingsDef.Add(MessageProxyProtocol            , 0);
             sebSettingsDef.Add(MessageProxyConfigurationFileURL, "");
