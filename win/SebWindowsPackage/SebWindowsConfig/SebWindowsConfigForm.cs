@@ -453,8 +453,8 @@ namespace SebWindowsConfig
 
         static int                        bypassedProxyIndex;
         static List<object>               bypassedProxyList    = new List<object>();
-        static string                     bypassedProxyData    = "";
-        static string                     bypassedProxyDataDef = "";
+        static String                     bypassedProxyData    = "";
+        static String                     bypassedProxyDataDef = "";
 
         // Global variable: index of current table row (selected row)
         // Global variable:   is the current table row a title row?
@@ -874,8 +874,6 @@ namespace SebWindowsConfig
              listBoxChooseFileToUploadPolicy.Items.AddRange(StringPolicyFileUpload);
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
 
-            // Assign the fixed entries to the CheckedListBoxes
-            checkedListBoxProxyProtocol.Items.AddRange(StringProxyProtocol);
 
             // Initialise the DataGridViews:
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
@@ -1617,7 +1615,7 @@ namespace SebWindowsConfig
             // Add Bypassed Proxies of currently opened file to DataGridView
             for (int index = 0; index < bypassedProxyList.Count; index++)
             {
-                bypassedProxyData = (string)bypassedProxyList[index];
+                bypassedProxyData = (String)bypassedProxyList[index];
                 dataGridViewBypassedProxies.Rows.Add(bypassedProxyData);
             }
 
@@ -1654,13 +1652,8 @@ namespace SebWindowsConfig
             // Group "Network - Proxies"
             radioButtonUseSystemProxySettings.Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
             radioButtonUseSebProxySettings   .Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
-            checkedListBoxProxyProtocol.SelectedIndex =    0;
 
-            int selectedIndex = 0;
-            checkedListBoxProxyProtocol.SetItemChecked( selectedIndex, true);
-            checkedListBoxProxyProtocol.SelectedIndex = selectedIndex;
-
-            textBoxProxyConfigurationFileURL .Text    =  (String)proxiesData[MessageAutoConfigurationURL];
+            textBoxAutoConfigurationURL .Text    =  (String)proxiesData[MessageAutoConfigurationURL];
             checkBoxExcludeSimpleHostnames   .Checked = (Boolean)proxiesData[MessageExcludeSimpleHostnames];
             checkBoxUsePassiveFTPMode        .Checked = (Boolean)proxiesData[MessageFTPPassive];
 
@@ -3360,25 +3353,9 @@ namespace SebWindowsConfig
             else sebSettingsNew[MessageProxySettingsPolicy] = 0;
         }
 
-        private void checkedListBoxProxyProtocol_SelectedIndexChanged(object sender, EventArgs e)
+        private void textBoxAutoConfigurationURL_TextChanged(object sender, EventArgs e)
         {
-            // If only the selected item shall be checked,
-            // we must first uncheck all items.
-            // Otherwise, the previously selected
-            // but afterwards unselected items keep being checked!)
-            for (int index = 0; index < NumProxyProtocols; index++)
-                checkedListBoxProxyProtocol.SetItemChecked(index, false);
-
-            int selectedIndex = checkedListBoxProxyProtocol.SelectedIndex;
-            checkedListBoxProxyProtocol.SetItemChecked(selectedIndex, true);
-
-          // TODO: replace MessageProxyProtocol
-          //sebSettingsNew[MessageProxyProtocol] = checkedListBoxProxyProtocol.SelectedIndex;
-        }
-
-        private void textBoxProxyConfigurationFileURL_TextChanged(object sender, EventArgs e)
-        {
-            sebSettingsNew[MessageAutoConfigurationURL] = textBoxProxyConfigurationFileURL.Text;
+            sebSettingsNew[MessageAutoConfigurationURL] = textBoxAutoConfigurationURL.Text;
         }
 
         private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
