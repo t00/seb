@@ -452,7 +452,7 @@ namespace SebWindowsConfig
         static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
 
         static int                        bypassedProxyIndex;
-        static List<string>               bypassedProxyList    = new List<string>();
+        static List<object>               bypassedProxyList    = new List<object>();
         static string                     bypassedProxyData    = "";
         static string                     bypassedProxyDataDef = "";
 
@@ -651,7 +651,7 @@ namespace SebWindowsConfig
             embeddedCertificateDataDef.Add(MessageName           , "");
 
             // Default settings for group "Network - Proxies"
-            proxiesDataDef.Add(MessageExceptionsList             , new List<string>());
+            proxiesDataDef.Add(MessageExceptionsList             , new List<object>());
             proxiesDataDef.Add(MessageExcludeSimpleHostnames     , true);
             proxiesDataDef.Add(MessageAutoDiscoveryEnabled       , false);
             proxiesDataDef.Add(MessageAutoConfigurationEnabled   , false);
@@ -1549,7 +1549,7 @@ namespace SebWindowsConfig
             embeddedCertificateList   = (List<object>)sebSettingsNew[MessageEmbeddedCertificates];
             proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
 
-            bypassedProxyList = (List<string>)proxiesData[MessageExceptionsList];
+            bypassedProxyList = (List<object>)proxiesData[MessageExceptionsList];
 
              // Check if currently loaded lists have any entries
             if (permittedProcessList.Count > 0) permittedProcessIndex =  0;
