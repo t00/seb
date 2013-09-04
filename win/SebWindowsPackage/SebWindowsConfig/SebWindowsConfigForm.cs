@@ -160,13 +160,51 @@ namespace SebWindowsConfig
         const String MessageName                      = "name";
 
         // Group "Network - Proxies"
-        const String MessageProxies                   = "proxies";
         const String MessageProxySettingsPolicy       = "proxySettingsPolicy";
-        const String MessageProxyProtocol             = "proxyProtocol";
-        const String MessageProxyConfigurationFileURL = "proxyConfigurationFileURL";
-        const String MessageExcludeSimpleHostnames    = "excludeSimpleHostnames";
-        const String MessageUsePassiveFTPMode         = "usePassiveFTPMode";
-        const String MessageExceptionsList            = "ExceptionsList";
+
+        const String MessageProxies                     = "proxies";
+        const String MessageExceptionsList              = "ExceptionsList";
+        const String MessageExcludeSimpleHostnames      = "ExcludeSimpleHostnames";
+        const String MessageAutoDiscoveryEnabled        = "AutoDiscoveryEnabled";
+        const String MessageAutoConfigurationEnabled    = "AutoConfigurationEnabled";
+        const String MessageAutoConfigurationJavaScript = "AutoConfigurationJavaScript";
+        const String MessageAutoConfigurationURL        = "AutoConfigurationURL";
+        const String MessageFTPPassive                  = "FTPPassive";
+
+        const String MessageFTPEnable           = "FTPEnable";
+        const String MessageFTPPort             = "FTPPort";
+        const String MessageFTPProxy            = "FTPProxy";
+        const String MessageFTPRequiresPassword = "FTPRequiresPassword";
+        const String MessageFTPUsername         = "FTPUsername";
+        const String MessageFTPPassword         = "FTPPassword";
+
+        const String MessageHTPPEnable           = "HTPPEnable";
+        const String MessageHTPPPort             = "HTPPPort";
+        const String MessageHTPPProxy            = "HTPPProxy";
+        const String MessageHTPPRequiresPassword = "HTPPRequiresPassword";
+        const String MessageHTPPUsername         = "HTPPUsername";
+        const String MessageHTPPPassword         = "HTPPPassword";
+
+        const String MessageHTPPSEnable           = "HTPPSEnable";
+        const String MessageHTPPSPort             = "HTPPSPort";
+        const String MessageHTPPSProxy            = "HTPPSProxy";
+        const String MessageHTPPSRequiresPassword = "HTPPSRequiresPassword";
+        const String MessageHTPPSUsername         = "HTPPSUsername";
+        const String MessageHTPPSPassword         = "HTPPSPassword";
+
+        const String MessageRTSPEnable           = "RTSPEnable";
+        const String MessageRTSPPort             = "RTSPPort";
+        const String MessageRTSPProxy            = "RTSPProxy";
+        const String MessageRTSPRequiresPassword = "RTSPRequiresPassword";
+        const String MessageRTSPUsername         = "RTSPUsername";
+        const String MessageRTSPPassword         = "RTSPPassword";
+
+        const String MessageSOCKSEnable           = "SOCKSEnable";
+        const String MessageSOCKSPort             = "SOCKSPort";
+        const String MessageSOCKSProxy            = "SOCKSProxy";
+        const String MessageSOCKSRequiresPassword = "RequiresPassword";
+        const String MessageSOCKSUsername         = "SOCKSUsername";
+        const String MessageSOCKSPassword         = "SOCKSPassword";
 
         // Group "Security"
         const String MessageSebServicePolicy    = "sebServicePolicy";
@@ -609,21 +647,17 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageProxySettingsPolicy, 0);
             sebSettingsDef.Add(MessageProxies            , new Dictionary<string, object>());
 
-            proxiesDataDef.Add(MessageProxyProtocol            , 0);
-            proxiesDataDef.Add(MessageProxyConfigurationFileURL, "");
-            proxiesDataDef.Add(MessageExcludeSimpleHostnames   , true);
-            proxiesDataDef.Add(MessageUsePassiveFTPMode        , true);
-            proxiesDataDef.Add(MessageExceptionsList           , new List<string>());
+            proxiesDataDef.Add(MessageAutoConfigurationURL  , "");
+            proxiesDataDef.Add(MessageExcludeSimpleHostnames, true);
+            proxiesDataDef.Add(MessageFTPPassive            , true);
+            proxiesDataDef.Add(MessageExceptionsList        , new List<string>());
 
             proxyExceptionDataDef = "";
 
-            sebSettingsDef.Add(MessageProxyProtocol            , 0);
-            sebSettingsDef.Add(MessageProxyConfigurationFileURL, "");
-            sebSettingsDef.Add(MessageExcludeSimpleHostnames   , true);
-            sebSettingsDef.Add(MessageUsePassiveFTPMode        , true);
-            sebSettingsDef.Add(MessageExceptionsList           , new List<object>());
-
-            //bypassedProxyDataDef.Add(MessageProxyDomainHostPort, "");
+            sebSettingsDef.Add(MessageAutoConfigurationURL  , "");
+            sebSettingsDef.Add(MessageExcludeSimpleHostnames, true);
+            sebSettingsDef.Add(MessageFTPPassive            , true);
+            sebSettingsDef.Add(MessageExceptionsList        , new List<object>());
 
 
 
@@ -1547,15 +1581,15 @@ namespace SebWindowsConfig
             // Group "Network - Proxies"
             radioButtonUseSystemProxySettings.Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
             radioButtonUseSebProxySettings   .Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
-            checkedListBoxProxyProtocol.SelectedIndex =     (int)sebSettingsNew[MessageProxyProtocol];
+            checkedListBoxProxyProtocol.SelectedIndex =    0;
 
-            int selectedIndex = (int)sebSettingsNew[MessageProxyProtocol];
+            int selectedIndex = 0;
             checkedListBoxProxyProtocol.SetItemChecked( selectedIndex, true);
             checkedListBoxProxyProtocol.SelectedIndex = selectedIndex;
 
-            textBoxProxyConfigurationFileURL .Text    =  (String)sebSettingsNew[MessageProxyConfigurationFileURL];
+            textBoxProxyConfigurationFileURL .Text    =  (String)sebSettingsNew[MessageAutoConfigurationURL];
             checkBoxExcludeSimpleHostnames   .Checked = (Boolean)sebSettingsNew[MessageExcludeSimpleHostnames];
-            checkBoxUsePassiveFTPMode        .Checked = (Boolean)sebSettingsNew[MessageUsePassiveFTPMode];
+            checkBoxUsePassiveFTPMode        .Checked = (Boolean)sebSettingsNew[MessageFTPPassive];
           //textBoxBypassHostsAndDomains     .Text    =  (String)sebSettingsNew[MessageBypassHostsAndDomains];
 
             // Group "Security"
@@ -3265,12 +3299,14 @@ namespace SebWindowsConfig
 
             int selectedIndex = checkedListBoxProxyProtocol.SelectedIndex;
             checkedListBoxProxyProtocol.SetItemChecked(selectedIndex, true);
-            sebSettingsNew[MessageProxyProtocol] = checkedListBoxProxyProtocol.SelectedIndex;
+
+          // TODO: replace MessageProxyProtocol
+          //sebSettingsNew[MessageProxyProtocol] = checkedListBoxProxyProtocol.SelectedIndex;
         }
 
         private void textBoxProxyConfigurationFileURL_TextChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageProxyConfigurationFileURL] = textBoxProxyConfigurationFileURL.Text;
+            sebSettingsNew[MessageAutoConfigurationURL] = textBoxProxyConfigurationFileURL.Text;
         }
 
         private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
@@ -3285,7 +3321,7 @@ namespace SebWindowsConfig
 
         private void checkBoxUsePassiveFTPMode_CheckedChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageUsePassiveFTPMode] = checkBoxUsePassiveFTPMode.Checked;
+            sebSettingsNew[MessageFTPPassive] = checkBoxUsePassiveFTPMode.Checked;
         }
 
         private void textBoxBypassHostsAndDomains_TextChanged(object sender, EventArgs e)
