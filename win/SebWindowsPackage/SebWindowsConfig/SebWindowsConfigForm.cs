@@ -50,21 +50,21 @@ namespace SebWindowsConfig
         const int ValueNum = 5;
 
         // Proxy Protocol types
-        const int IntProxyProtocolAutoDiscovery     = 0;
-        const int IntProxyProtocolAutoConfiguration = 1;
-        const int IntProxyProtocolHTTP           = 2;
-        const int IntProxyProtocolHTTPS    = 3;
-        const int IntProxyProtocolFTP               = 4;
-        const int IntProxyProtocolSOCKS             = 5;
-        const int IntProxyProtocolRTSPStreaming     = 6;
+        const int IntProxyAutoDiscovery     = 0;
+        const int IntProxyAutoConfiguration = 1;
+        const int IntProxyHTTP              = 2;
+        const int IntProxyHTTPS             = 3;
+        const int IntProxyFTP               = 4;
+        const int IntProxySOCKS             = 5;
+        const int IntProxyRTSPStreaming     = 6;
 
-        const String StringProxyProtocolAutoDiscovery     = "Auto Proxy Discovery";
-        const String StringProxyProtocolAutoConfiguration = "Automatic Proxy Configuration";
-        const String StringProxyProtocolWebHTTP           = "Web Proxy (HTTP)";
-        const String StringProxyProtocolSecureWebHTTPS    = "Secure Web Proxy (HTTPS)";
-        const String StringProxyProtocolFTP               = "FTP Proxy";
-        const String StringProxyProtocolSOCKS             = "SOCKS Proxy";
-        const String StringProxyProtocolStreamingRTSP     = "Streaming Proxy (RTSP)";
+        const String StringProxyAutoDiscovery     = "Auto Proxy Discovery";
+        const String StringProxyAutoConfiguration = "Automatic Proxy Configuration";
+        const String StringProxyWebHTTP           = "Web Proxy (HTTP)";
+        const String StringProxySecureWebHTTPS    = "Secure Web Proxy (HTTPS)";
+        const String StringProxyFTP               = "FTP Proxy";
+        const String StringProxySOCKS             = "SOCKS Proxy";
+        const String StringProxyStreamingRTSP     = "Streaming Proxy (RTSP)";
 
         // Group "General"
         const String MessageStartURL             = "startURL";
@@ -280,6 +280,74 @@ namespace SebWindowsConfig
         const String MessageEnableF11 = "enableF11";
         const String MessageEnableF12 = "enableF12";
 
+
+        // Some settings are not stored in Plists but in Arrays
+        static String [,] settingString  = new String [StateNum + 1, ValueNum + 1];
+        static     int[,] settingInteger = new     int[StateNum + 1, ValueNum + 1];
+
+        // Class SEBSettings contains all settings
+        // and is used for importing/exporting the settings
+        // from/to a human-readable .xml and an encrypted.seb file format.
+        static Dictionary<string, object> sebSettingsOld = new Dictionary<string, object>();
+        static Dictionary<string, object> sebSettingsNew = new Dictionary<string, object>();
+        static Dictionary<string, object> sebSettingsTmp = new Dictionary<string, object>();
+        static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
+
+        static SEBProtectionController    sebController  = new SEBProtectionController();
+
+        static int                        permittedProcessIndex;
+        static List<object>               permittedProcessList    = new List<object>();
+        static Dictionary<string, object> permittedProcessData    = new Dictionary<string, object>();
+        static Dictionary<string, object> permittedProcessDataDef = new Dictionary<string, object>();
+
+        static int                        permittedArgumentIndex;
+        static List<object>               permittedArgumentList    = new List<object>();
+        static Dictionary<string, object> permittedArgumentData    = new Dictionary<string, object>();
+        static Dictionary<string, object> permittedArgumentDataDef = new Dictionary<string, object>();
+
+        static int                        prohibitedProcessIndex;
+        static List<object>               prohibitedProcessList    = new List<object>();
+        static Dictionary<string, object> prohibitedProcessData    = new Dictionary<string, object>();
+        static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
+
+        static int                        urlFilterRuleIndex;
+        static List<object>               urlFilterRuleList       = new List<object>();
+        static Dictionary<string, object> urlFilterRuleData       = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterRuleDataDef    = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterRuleDataStored = new Dictionary<string, object>();
+
+        static int                        urlFilterActionIndex;
+        static List<object>               urlFilterActionList       = new List<object>();
+        static List<object>               urlFilterActionListDef    = new List<object>();
+        static List<object>               urlFilterActionListStored = new List<object>();
+        static Dictionary<string, object> urlFilterActionData       = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterActionDataDef    = new Dictionary<string, object>();
+        static Dictionary<string, object> urlFilterActionDataStored = new Dictionary<string, object>();
+
+        static int                        embeddedCertificateIndex;
+        static List<object>               embeddedCertificateList    = new List<object>();
+        static Dictionary<string, object> embeddedCertificateData    = new Dictionary<string, object>();
+        static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
+
+        static Dictionary<string, object> proxiesData    = new Dictionary<string, object>();
+        static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
+
+        static int                        proxyProtocolIndex;
+      //static List<object>               proxyProtocolList    = new List<object>();
+      //static Dictionary<string, object> proxyProtocolData    = new Dictionary<string, object>();
+      //static Dictionary<string, object> proxyProtocolDataDef = new Dictionary<string, object>();
+
+        static int                        bypassedProxyIndex;
+        static List<object>               bypassedProxyList    = new List<object>();
+        static String                     bypassedProxyData    = "";
+        static String                     bypassedProxyDataDef = "";
+
+
+
+        // ************************************************************************
+        // The following constants and variables are basically GUI (widget) related
+        // ************************************************************************
+
         // Boolean values
         const int IntFalse = 0;
         const int IntTrue  = 1;
@@ -421,67 +489,6 @@ namespace SebWindowsConfig
         static Boolean[] BooleanProxyProtocolEnabled = new Boolean[7];
 
         const int NumProxyProtocols = 7;
-
-        // Some settings are not stored in Plists but in Arrays
-        static String [,] settingString  = new String [StateNum + 1, ValueNum + 1];
-        static     int[,] settingInteger = new     int[StateNum + 1, ValueNum + 1];
-
-        // Class SEBSettings contains all settings
-        // and is used for importing/exporting the settings
-        // from/to a human-readable .xml and an encrypted.seb file format.
-        static Dictionary<string, object> sebSettingsOld = new Dictionary<string, object>();
-        static Dictionary<string, object> sebSettingsNew = new Dictionary<string, object>();
-        static Dictionary<string, object> sebSettingsTmp = new Dictionary<string, object>();
-        static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
-
-        static SEBProtectionController    sebController  = new SEBProtectionController();
-
-        static int                        permittedProcessIndex;
-        static List<object>               permittedProcessList    = new List<object>();
-        static Dictionary<string, object> permittedProcessData    = new Dictionary<string, object>();
-        static Dictionary<string, object> permittedProcessDataDef = new Dictionary<string, object>();
-
-        static int                        permittedArgumentIndex;
-        static List<object>               permittedArgumentList    = new List<object>();
-        static Dictionary<string, object> permittedArgumentData    = new Dictionary<string, object>();
-        static Dictionary<string, object> permittedArgumentDataDef = new Dictionary<string, object>();
-
-        static int                        prohibitedProcessIndex;
-        static List<object>               prohibitedProcessList    = new List<object>();
-        static Dictionary<string, object> prohibitedProcessData    = new Dictionary<string, object>();
-        static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
-
-        static int                        urlFilterRuleIndex;
-        static List<object>               urlFilterRuleList       = new List<object>();
-        static Dictionary<string, object> urlFilterRuleData       = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterRuleDataDef    = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterRuleDataStored = new Dictionary<string, object>();
-
-        static int                        urlFilterActionIndex;
-        static List<object>               urlFilterActionList       = new List<object>();
-        static List<object>               urlFilterActionListDef    = new List<object>();
-        static List<object>               urlFilterActionListStored = new List<object>();
-        static Dictionary<string, object> urlFilterActionData       = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterActionDataDef    = new Dictionary<string, object>();
-        static Dictionary<string, object> urlFilterActionDataStored = new Dictionary<string, object>();
-
-        static int                        embeddedCertificateIndex;
-        static List<object>               embeddedCertificateList    = new List<object>();
-        static Dictionary<string, object> embeddedCertificateData    = new Dictionary<string, object>();
-        static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
-
-        static Dictionary<string, object> proxiesData    = new Dictionary<string, object>();
-        static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
-
-        static int                        proxyProtocolIndex;
-      //static List<object>               proxyProtocolList    = new List<object>();
-      //static Dictionary<string, object> proxyProtocolData    = new Dictionary<string, object>();
-      //static Dictionary<string, object> proxyProtocolDataDef = new Dictionary<string, object>();
-
-        static int                        bypassedProxyIndex;
-        static List<object>               bypassedProxyList    = new List<object>();
-        static String                     bypassedProxyData    = "";
-        static String                     bypassedProxyDataDef = "";
 
         // Global variable: index of current table row (selected row)
         // Global variable:   is the current table row a title row?
@@ -865,13 +872,13 @@ namespace SebWindowsConfig
             StringCertificateType[IntIdentity            ] = StringIdentity;
 
             // Define the strings for the Proxy Protocols
-            StringProxyProtocolType[0] = StringProxyProtocolAutoDiscovery;
-            StringProxyProtocolType[1] = StringProxyProtocolAutoConfiguration;
-            StringProxyProtocolType[2] = StringProxyProtocolWebHTTP;
-            StringProxyProtocolType[3] = StringProxyProtocolSecureWebHTTPS;
-            StringProxyProtocolType[4] = StringProxyProtocolFTP;
-            StringProxyProtocolType[5] = StringProxyProtocolSOCKS;
-            StringProxyProtocolType[6] = StringProxyProtocolStreamingRTSP;
+            StringProxyProtocolType[0] = StringProxyAutoDiscovery;
+            StringProxyProtocolType[1] = StringProxyAutoConfiguration;
+            StringProxyProtocolType[2] = StringProxyWebHTTP;
+            StringProxyProtocolType[3] = StringProxySecureWebHTTPS;
+            StringProxyProtocolType[4] = StringProxyFTP;
+            StringProxyProtocolType[5] = StringProxySOCKS;
+            StringProxyProtocolType[6] = StringProxyStreamingRTSP;
 
             // Define the strings for the Proxy Protocols
             StringProxyProtocolKeyname[0] = MessageAutoDiscoveryEnable;
@@ -1130,6 +1137,21 @@ namespace SebWindowsConfig
 
 
 
+        // ***********************************************
+        // Initialise the SEB configuration settings
+        // ***********************************************
+        private void InitialiseSEBConfigurationSettings()
+        {
+
+        }
+
+        // *******************************************************
+        // Initialise the GUI widgets of this configuration editor
+        // *******************************************************
+        private void InitialiseGUIWidgets()
+        {
+
+        }
 
         // *************************************************
         // Open the configuration file and read the settings
@@ -1682,13 +1704,13 @@ namespace SebWindowsConfig
             }
 
             // Get the "Enabled" boolean values of current "proxies" dictionary
-            BooleanProxyProtocolEnabled[IntProxyProtocolAutoDiscovery    ] = (Boolean)proxiesData[MessageAutoDiscoveryEnable];
-            BooleanProxyProtocolEnabled[IntProxyProtocolAutoConfiguration] = (Boolean)proxiesData[MessageAutoConfigurationEnable];
-            BooleanProxyProtocolEnabled[IntProxyProtocolHTTP             ] = (Boolean)proxiesData[MessageHTTPEnable];
-            BooleanProxyProtocolEnabled[IntProxyProtocolHTTPS            ] = (Boolean)proxiesData[MessageHTTPSEnable];
-            BooleanProxyProtocolEnabled[IntProxyProtocolFTP              ] = (Boolean)proxiesData[MessageFTPEnable];
-            BooleanProxyProtocolEnabled[IntProxyProtocolSOCKS            ] = (Boolean)proxiesData[MessageSOCKSEnable];
-            BooleanProxyProtocolEnabled[IntProxyProtocolRTSPStreaming    ] = (Boolean)proxiesData[MessageRTSPEnable];
+            BooleanProxyProtocolEnabled[IntProxyAutoDiscovery    ] = (Boolean)proxiesData[MessageAutoDiscoveryEnable];
+            BooleanProxyProtocolEnabled[IntProxyAutoConfiguration] = (Boolean)proxiesData[MessageAutoConfigurationEnable];
+            BooleanProxyProtocolEnabled[IntProxyHTTP             ] = (Boolean)proxiesData[MessageHTTPEnable];
+            BooleanProxyProtocolEnabled[IntProxyHTTPS            ] = (Boolean)proxiesData[MessageHTTPSEnable];
+            BooleanProxyProtocolEnabled[IntProxyFTP              ] = (Boolean)proxiesData[MessageFTPEnable];
+            BooleanProxyProtocolEnabled[IntProxySOCKS            ] = (Boolean)proxiesData[MessageSOCKSEnable];
+            BooleanProxyProtocolEnabled[IntProxyRTSPStreaming    ] = (Boolean)proxiesData[MessageRTSPEnable];
 
             // Add Proxy Protocols of currently opened file to DataGridView
             for (int index = 0; index < NumProxyProtocols; index++)
