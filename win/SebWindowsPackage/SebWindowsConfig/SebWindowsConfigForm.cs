@@ -798,6 +798,41 @@ namespace SebWindowsConfig
             settingString[StateDef, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
 */
+
+            // Initialise the global variables for the lists and dictionaries
+            permittedProcessIndex = -1;
+            permittedProcessList.Clear();
+            permittedProcessData.Clear();
+
+            permittedArgumentIndex = -1;
+            permittedArgumentList.Clear();
+            permittedArgumentData.Clear();
+
+            prohibitedProcessIndex = -1;
+            prohibitedProcessList.Clear();
+            prohibitedProcessData.Clear();
+
+            urlFilterRuleIndex = -1;
+            urlFilterRuleList.Clear();
+            urlFilterRuleData.Clear();
+
+            urlFilterActionIndex = -1;
+            urlFilterActionList.Clear();
+            urlFilterActionData.Clear();
+
+            embeddedCertificateIndex = -1;
+            embeddedCertificateList.Clear();
+            embeddedCertificateData.Clear();
+
+            proxyProtocolIndex = -1;
+          //proxyProtocolList.Clear();
+          //proxyProtocolData.Clear();
+
+            bypassedProxyIndex = -1;
+            bypassedProxyList.Clear();
+            bypassedProxyData = "";
+
+
             // Define the strings for the Encryption Identity
             StringCryptoIdentity.Add("none");
             StringCryptoIdentity.Add("alpha");
@@ -902,6 +937,12 @@ namespace SebWindowsConfig
             StringAction[IntAnd  ] = StringAnd;
             StringAction[IntOr   ] = StringOr;
 
+
+
+            // ****************************************************************
+            // The following initialisations are basically GUI (widget) related
+            // ****************************************************************
+
             // Assign the fixed entries to the ListBoxes and ComboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
             listBoxExitKey2.Items.AddRange(StringFunctionKey);
@@ -922,7 +963,6 @@ namespace SebWindowsConfig
 
              listBoxChooseFileToUploadPolicy.Items.AddRange(StringPolicyFileUpload);
              listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
-
 
             // Initialise the DataGridViews:
             // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
@@ -1039,42 +1079,9 @@ namespace SebWindowsConfig
             listBoxPermittedProcessOS .Items.AddRange(StringOS);
             listBoxProhibitedProcessOS.Items.AddRange(StringOS);
 
-            // Initialise the global variables for the lists and dictionaries
-            permittedProcessIndex = -1;
-            permittedProcessList.Clear();
-            permittedProcessData.Clear();
-
-            permittedArgumentIndex = -1;
-            permittedArgumentList.Clear();
-            permittedArgumentData.Clear();
-
-            prohibitedProcessIndex = -1;
-            prohibitedProcessList.Clear();
-            prohibitedProcessData.Clear();
-
-            embeddedCertificateIndex = -1;
-            embeddedCertificateList.Clear();
-            embeddedCertificateData.Clear();
-
-            proxyProtocolIndex = -1;
-          //proxyProtocolList.Clear();
-          //proxyProtocolData.Clear();
-
-            bypassedProxyIndex = -1;
-            bypassedProxyList.Clear();
-            bypassedProxyData = "";
-
+            // Help data structures for table access to URL Filter Rules
             urlFilterTableRow   = -1;
             urlFilterIsTitleRow = false;
-
-            urlFilterRuleIndex = -1;
-            urlFilterRuleList.Clear();
-            urlFilterRuleData.Clear();
-
-            urlFilterActionIndex = -1;
-            urlFilterActionList.Clear();
-            urlFilterActionData.Clear();
-
             urlFilterTableRuleIndex     .Clear();
             urlFilterTableActionIndex   .Clear();
             urlFilterTableIsTitleRow    .Clear();
@@ -1097,6 +1104,7 @@ namespace SebWindowsConfig
           //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProxyProtocols      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
