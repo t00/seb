@@ -1367,6 +1367,9 @@
             this.dataGridViewBypassedProxies.RowTemplate.Height = 24;
             this.dataGridViewBypassedProxies.Size = new System.Drawing.Size(653, 110);
             this.dataGridViewBypassedProxies.TabIndex = 100;
+            this.dataGridViewBypassedProxies.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBypassedProxies_CellValueChanged);
+            this.dataGridViewBypassedProxies.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewBypassedProxies_CurrentCellDirtyStateChanged);
+            this.dataGridViewBypassedProxies.SelectionChanged += new System.EventHandler(this.dataGridViewBypassedProxies_SelectionChanged);
             // 
             // dataGridViewTextBoxColumnDomainHostPort
             // 

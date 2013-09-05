@@ -3491,9 +3491,52 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageFTPPassive] = checkBoxUsePassiveFTPMode.Checked;
         }
 
-        private void textBoxBypassHostsAndDomains_TextChanged(object sender, EventArgs e)
+
+        private void dataGridViewBypassedProxies_SelectionChanged(object sender, EventArgs e)
         {
-          //sebSettingsNew[MessageBypassHostsAndDomains] = textBoxBypassHostsAndDomains.Text;
+            // CAUTION:
+            // If a row was previously selected and the user clicks onto another row,
+            // the SelectionChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old row,
+            // so the SelectedRows.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedRows.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
+
+            if (dataGridViewBypassedProxies.SelectedRows.Count != 1) return;
+            bypassedProxyIndex = dataGridViewBypassedProxies.SelectedRows[0].Index;
+        }
+
+
+        private void dataGridViewBypassedProxies_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
+            // immediately call the CellValueChanged() event.
+            if (dataGridViewBypassedProxies.IsCurrentCellDirty)
+                dataGridViewBypassedProxies.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+
+        private void dataGridViewBypassedProxies_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Get the current cell where the user has changed a value
+            int row    = dataGridViewBypassedProxies.CurrentCellAddress.Y;
+            int column = dataGridViewBypassedProxies.CurrentCellAddress.X;
+
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            // Get the changed value of the current cell
+            object value = dataGridViewBypassedProxies.CurrentCell.EditedFormattedValue;
+
+            // Get the data of the bypassed proxy belonging to the cell (row)
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+
+            bypassedProxyIndex = row;
+            bypassedProxyList  = (List<object>)proxiesData[MessageExceptionsList];
+
+            // Update the certificate data belonging to the current cell
+            if (column == IntColumnDomainHostPort) bypassedProxyList[bypassedProxyIndex] = (String)value;
         }
 
 
