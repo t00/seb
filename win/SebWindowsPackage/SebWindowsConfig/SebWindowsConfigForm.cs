@@ -49,6 +49,23 @@ namespace SebWindowsConfig
         const int ValueNewBrowserWindowByLinkHeight = 5;
         const int ValueNum = 5;
 
+        // Proxy Protocol types
+        const int IntProxyProtocolAutoDiscovery     = 0;
+        const int IntProxyProtocolAutoConfiguration = 1;
+        const int IntProxyProtocolHTTP           = 2;
+        const int IntProxyProtocolHTTPS    = 3;
+        const int IntProxyProtocolFTP               = 4;
+        const int IntProxyProtocolSOCKS             = 5;
+        const int IntProxyProtocolRTSPStreaming     = 6;
+
+        const String StringProxyProtocolAutoDiscovery     = "Auto Proxy Discovery";
+        const String StringProxyProtocolAutoConfiguration = "Automatic Proxy Configuration";
+        const String StringProxyProtocolWebHTTP           = "Web Proxy (HTTP)";
+        const String StringProxyProtocolSecureWebHTTPS    = "Secure Web Proxy (HTTPS)";
+        const String StringProxyProtocolFTP               = "FTP Proxy";
+        const String StringProxyProtocolSOCKS             = "SOCKS Proxy";
+        const String StringProxyProtocolStreamingRTSP     = "Streaming Proxy (RTSP)";
+
         // Group "General"
         const String MessageStartURL             = "startURL";
         const String MessageSebServerURL         = "sebServerURL";
@@ -165,11 +182,25 @@ namespace SebWindowsConfig
         const String MessageProxies                     = "proxies";
         const String MessageExceptionsList              = "ExceptionsList";
         const String MessageExcludeSimpleHostnames      = "ExcludeSimpleHostnames";
-        const String MessageAutoDiscoveryEnabled        = "AutoDiscoveryEnabled";
-        const String MessageAutoConfigurationEnabled    = "AutoConfigurationEnabled";
+        const String MessageAutoDiscoveryEnable        = "AutoDiscoveryEnabled";
+        const String MessageAutoConfigurationEnable    = "AutoConfigurationEnabled";
         const String MessageAutoConfigurationJavaScript = "AutoConfigurationJavaScript";
         const String MessageAutoConfigurationURL        = "AutoConfigurationURL";
         const String MessageFTPPassive                  = "FTPPassive";
+
+        const String MessageHTTPEnable           = "HTTPEnable";
+        const String MessageHTTPPort             = "HTTPPort";
+        const String MessageHTTPProxy            = "HTTPProxy";
+        const String MessageHTTPRequiresPassword = "HTTPRequiresPassword";
+        const String MessageHTTPUsername         = "HTTPUsername";
+        const String MessageHTTPPassword         = "HTTPPassword";
+
+        const String MessageHTTPSEnable           = "HTTPSEnable";
+        const String MessageHTTPSPort             = "HTTPSPort";
+        const String MessageHTTPSProxy            = "HTTPSProxy";
+        const String MessageHTTPSRequiresPassword = "HTTPSRequiresPassword";
+        const String MessageHTTPSUsername         = "HTTPSUsername";
+        const String MessageHTTPSPassword         = "HTTPSPassword";
 
         const String MessageFTPEnable           = "FTPEnable";
         const String MessageFTPPort             = "FTPPort";
@@ -178,19 +209,12 @@ namespace SebWindowsConfig
         const String MessageFTPUsername         = "FTPUsername";
         const String MessageFTPPassword         = "FTPPassword";
 
-        const String MessageHTPPEnable           = "HTPPEnable";
-        const String MessageHTPPPort             = "HTPPPort";
-        const String MessageHTPPProxy            = "HTPPProxy";
-        const String MessageHTPPRequiresPassword = "HTPPRequiresPassword";
-        const String MessageHTPPUsername         = "HTPPUsername";
-        const String MessageHTPPPassword         = "HTPPPassword";
-
-        const String MessageHTPPSEnable           = "HTPPSEnable";
-        const String MessageHTPPSPort             = "HTPPSPort";
-        const String MessageHTPPSProxy            = "HTPPSProxy";
-        const String MessageHTPPSRequiresPassword = "HTPPSRequiresPassword";
-        const String MessageHTPPSUsername         = "HTPPSUsername";
-        const String MessageHTPPSPassword         = "HTPPSPassword";
+        const String MessageSOCKSEnable           = "SOCKSEnable";
+        const String MessageSOCKSPort             = "SOCKSPort";
+        const String MessageSOCKSProxy            = "SOCKSProxy";
+        const String MessageSOCKSRequiresPassword = "SOCKSRequiresPassword";
+        const String MessageSOCKSUsername         = "SOCKSUsername";
+        const String MessageSOCKSPassword         = "SOCKSPassword";
 
         const String MessageRTSPEnable           = "RTSPEnable";
         const String MessageRTSPPort             = "RTSPPort";
@@ -198,13 +222,6 @@ namespace SebWindowsConfig
         const String MessageRTSPRequiresPassword = "RTSPRequiresPassword";
         const String MessageRTSPUsername         = "RTSPUsername";
         const String MessageRTSPPassword         = "RTSPPassword";
-
-        const String MessageSOCKSEnable           = "SOCKSEnable";
-        const String MessageSOCKSPort             = "SOCKSPort";
-        const String MessageSOCKSProxy            = "SOCKSProxy";
-        const String MessageSOCKSRequiresPassword = "SOCKSRequiresPassword";
-        const String MessageSOCKSUsername         = "SOCKSUsername";
-        const String MessageSOCKSPassword         = "SOCKSPassword";
 
         // Group "Security"
         const String MessageSebServicePolicy    = "sebServicePolicy";
@@ -301,13 +318,12 @@ namespace SebWindowsConfig
         const int IntLocationAfter  = 1;
         const int IntLocationAt     = 2;
 
-        // Embedded certificate types
+        // Embedded Certificate types
         const int IntSSLClientCertificate = 0;
         const int IntIdentity             = 1;
 
         const String StringSSLClientCertificate = "SSL Certificate";
         const String StringIdentity             = "Identity";
-
 
         // Permitted and Prohibited Processes table columns (0,1,2,3).
         // Permitted  Processes: Active, OS, Executable, Title
@@ -383,24 +399,26 @@ namespace SebWindowsConfig
         static List<String> StringCryptoIdentity = new List<String>();
 
         // Entries of ListBoxes
-      //static   Byte[] ByteArrayExamKeySalt      = new Byte[] {};
-        static String[] StringCryptoIdentityArray;
-        static String[] StringSebPurpose          = new String[2];
-        static String[] StringSebMode             = new String[2];
-        static String[] StringBrowserViewMode     = new String[2];
-        static String[] StringWindowWidth         = new String[4];
-        static String[] StringWindowHeight        = new String[4];
-        static String[] StringWindowPositioning   = new String[3];
-        static String[] StringPolicyLinkOpening   = new String[3];
-        static String[] StringPolicyFileUpload    = new String[3];
-        static String[] StringPolicyProxySettings = new String[2];
-        static String[] StringPolicySebService    = new String[3];
-        static String[] StringFunctionKey         = new String[12];
-        static String[] StringActive              = new String[2];
-        static String[] StringOS                  = new String[2];
-        static String[] StringAction              = new String[5];
-        static String[] StringCertificateType     = new String[2];
-        static String[] StringProxyProtocol       = new String[7];
+      //static    Byte[]    ByteArrayExamKeySalt    = new Byte[] {};
+        static  String[]  StringCryptoIdentityArray;
+        static  String[]  StringSebPurpose           = new  String[2];
+        static  String[]  StringSebMode              = new  String[2];
+        static  String[]  StringBrowserViewMode      = new  String[2];
+        static  String[]  StringWindowWidth          = new  String[4];
+        static  String[]  StringWindowHeight         = new  String[4];
+        static  String[]  StringWindowPositioning    = new  String[3];
+        static  String[]  StringPolicyLinkOpening    = new  String[3];
+        static  String[]  StringPolicyFileUpload     = new  String[3];
+        static  String[]  StringPolicyProxySettings  = new  String[2];
+        static  String[]  StringPolicySebService     = new  String[3];
+        static  String[]  StringFunctionKey          = new  String[12];
+        static  String[]  StringActive               = new  String[2];
+        static  String[]  StringOS                   = new  String[2];
+        static  String[]  StringAction               = new  String[5];
+        static  String[]  StringCertificateType      = new  String[2];
+        static  String[]  StringProxyProtocolType    = new  String[7];
+        static  String[]  StringProxyProtocolKeyname = new  String[7];
+        static Boolean[] BooleanProxyProtocolEnabled = new Boolean[7];
 
         const int NumProxyProtocols = 7;
 
@@ -456,9 +474,9 @@ namespace SebWindowsConfig
         static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
 
         static int                        proxyProtocolIndex;
-        static List<object>               proxyProtocolList    = new List<object>();
-        static Dictionary<string, object> proxyProtocolData    = new Dictionary<string, object>();
-        static Dictionary<string, object> proxyProtocolDataDef = new Dictionary<string, object>();
+      //static List<object>               proxyProtocolList    = new List<object>();
+      //static Dictionary<string, object> proxyProtocolData    = new Dictionary<string, object>();
+      //static Dictionary<string, object> proxyProtocolDataDef = new Dictionary<string, object>();
 
         static int                        bypassedProxyIndex;
         static List<object>               bypassedProxyList    = new List<object>();
@@ -662,8 +680,8 @@ namespace SebWindowsConfig
             // Default settings for group "Network - Proxies"
             proxiesDataDef.Add(MessageExceptionsList             , new List<object>());
             proxiesDataDef.Add(MessageExcludeSimpleHostnames     , true);
-            proxiesDataDef.Add(MessageAutoDiscoveryEnabled       , false);
-            proxiesDataDef.Add(MessageAutoConfigurationEnabled   , false);
+            proxiesDataDef.Add(MessageAutoDiscoveryEnable       , false);
+            proxiesDataDef.Add(MessageAutoConfigurationEnable   , false);
             proxiesDataDef.Add(MessageAutoConfigurationJavaScript, "");
             proxiesDataDef.Add(MessageAutoConfigurationURL       , "");
             proxiesDataDef.Add(MessageFTPPassive                 , true);
@@ -675,19 +693,19 @@ namespace SebWindowsConfig
             proxiesDataDef.Add(MessageFTPUsername        , "");
             proxiesDataDef.Add(MessageFTPPassword        , "");
 
-            proxiesDataDef.Add(MessageHTPPEnable          , false);
-            proxiesDataDef.Add(MessageHTPPPort            , 0);
-            proxiesDataDef.Add(MessageHTPPProxy           , "");
-            proxiesDataDef.Add(MessageHTPPRequiresPassword, false);
-            proxiesDataDef.Add(MessageHTPPUsername        , "");
-            proxiesDataDef.Add(MessageHTPPPassword        , "");
+            proxiesDataDef.Add(MessageHTTPEnable          , false);
+            proxiesDataDef.Add(MessageHTTPPort            , 0);
+            proxiesDataDef.Add(MessageHTTPProxy           , "");
+            proxiesDataDef.Add(MessageHTTPRequiresPassword, false);
+            proxiesDataDef.Add(MessageHTTPUsername        , "");
+            proxiesDataDef.Add(MessageHTTPPassword        , "");
 
-            proxiesDataDef.Add(MessageHTPPSEnable          , false);
-            proxiesDataDef.Add(MessageHTPPSPort            , 0);
-            proxiesDataDef.Add(MessageHTPPSProxy           , "");
-            proxiesDataDef.Add(MessageHTPPSRequiresPassword, false);
-            proxiesDataDef.Add(MessageHTPPSUsername        , "");
-            proxiesDataDef.Add(MessageHTPPSPassword        , "");
+            proxiesDataDef.Add(MessageHTTPSEnable          , false);
+            proxiesDataDef.Add(MessageHTTPSPort            , 0);
+            proxiesDataDef.Add(MessageHTTPSProxy           , "");
+            proxiesDataDef.Add(MessageHTTPSRequiresPassword, false);
+            proxiesDataDef.Add(MessageHTTPSUsername        , "");
+            proxiesDataDef.Add(MessageHTTPSPassword        , "");
 
             proxiesDataDef.Add(MessageRTSPEnable          , false);
             proxiesDataDef.Add(MessageRTSPPort            , 0);
@@ -847,13 +865,28 @@ namespace SebWindowsConfig
             StringCertificateType[IntIdentity            ] = StringIdentity;
 
             // Define the strings for the Proxy Protocols
-            StringProxyProtocol[0] = "Auto Proxy Discovery";
-            StringProxyProtocol[1] = "Automatic Proxy Configuration";
-            StringProxyProtocol[2] = "Web Proxy (HTTP)";
-            StringProxyProtocol[3] = "Secure Web Proxy (HTTPS)";
-            StringProxyProtocol[4] = "FTP Proxy";
-            StringProxyProtocol[5] = "SOCKS Proxy";
-            StringProxyProtocol[6] = "Streaming Proxy (RTSP)";
+            StringProxyProtocolType[0] = StringProxyProtocolAutoDiscovery;
+            StringProxyProtocolType[1] = StringProxyProtocolAutoConfiguration;
+            StringProxyProtocolType[2] = StringProxyProtocolWebHTTP;
+            StringProxyProtocolType[3] = StringProxyProtocolSecureWebHTTPS;
+            StringProxyProtocolType[4] = StringProxyProtocolFTP;
+            StringProxyProtocolType[5] = StringProxyProtocolSOCKS;
+            StringProxyProtocolType[6] = StringProxyProtocolStreamingRTSP;
+
+            // Define the strings for the Proxy Protocols
+            StringProxyProtocolKeyname[0] = MessageAutoDiscoveryEnable;
+            StringProxyProtocolKeyname[1] = MessageAutoConfigurationEnable;
+            StringProxyProtocolKeyname[2] = MessageHTTPEnable;
+            StringProxyProtocolKeyname[3] = MessageHTTPSEnable;
+            StringProxyProtocolKeyname[4] = MessageFTPEnable;
+            StringProxyProtocolKeyname[5] = MessageSOCKSEnable;
+            StringProxyProtocolKeyname[6] = MessageRTSPEnable;
+
+            // Initialise the booleans for the Proxy Protocols
+            for (int i = 0; i < 7; i++)
+            {
+                BooleanProxyProtocolEnabled[i] = false;
+            }
 
             // Define the strings for the URL Filter Rule Actions
             StringAction[IntBlock] = StringBlock;
@@ -1017,8 +1050,8 @@ namespace SebWindowsConfig
             embeddedCertificateData.Clear();
 
             proxyProtocolIndex = -1;
-            proxyProtocolList.Clear();
-            proxyProtocolData.Clear();
+          //proxyProtocolList.Clear();
+          //proxyProtocolData.Clear();
 
             bypassedProxyIndex = -1;
             bypassedProxyList.Clear();
@@ -1586,9 +1619,11 @@ namespace SebWindowsConfig
 
             if (embeddedCertificateList.Count > 0) embeddedCertificateIndex =  0;
                                               else embeddedCertificateIndex = -1;
-
+/*
             if (proxyProtocolList.Count > 0) proxyProtocolIndex =  0;
                                         else proxyProtocolIndex = -1;
+*/
+            proxyProtocolIndex = 0;
 
             if (bypassedProxyList.Count > 0) bypassedProxyIndex =  0;
                                         else bypassedProxyIndex = -1;
@@ -1605,7 +1640,7 @@ namespace SebWindowsConfig
             dataGridViewEmbeddedCertificates.Enabled = (embeddedCertificateList.Count > 0);
             dataGridViewEmbeddedCertificates.Rows.Clear();
 
-            dataGridViewProxyProtocols.Enabled = (proxyProtocolList.Count > 0);
+            dataGridViewProxyProtocols.Enabled = true;
             dataGridViewProxyProtocols.Rows.Clear();
 
             dataGridViewBypassedProxies.Enabled = (bypassedProxyList.Count > 0);
@@ -1646,13 +1681,20 @@ namespace SebWindowsConfig
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
             }
 
+            // Get the "Enabled" boolean values of current "proxies" dictionary
+            BooleanProxyProtocolEnabled[IntProxyProtocolAutoDiscovery    ] = (Boolean)proxiesData[MessageAutoDiscoveryEnable];
+            BooleanProxyProtocolEnabled[IntProxyProtocolAutoConfiguration] = (Boolean)proxiesData[MessageAutoConfigurationEnable];
+            BooleanProxyProtocolEnabled[IntProxyProtocolHTTP             ] = (Boolean)proxiesData[MessageHTTPEnable];
+            BooleanProxyProtocolEnabled[IntProxyProtocolHTTPS            ] = (Boolean)proxiesData[MessageHTTPSEnable];
+            BooleanProxyProtocolEnabled[IntProxyProtocolFTP              ] = (Boolean)proxiesData[MessageFTPEnable];
+            BooleanProxyProtocolEnabled[IntProxyProtocolSOCKS            ] = (Boolean)proxiesData[MessageSOCKSEnable];
+            BooleanProxyProtocolEnabled[IntProxyProtocolRTSPStreaming    ] = (Boolean)proxiesData[MessageRTSPEnable];
+
             // Add Proxy Protocols of currently opened file to DataGridView
-            for (int index = 0; index < proxyProtocolList.Count; index++)
+            for (int index = 0; index < NumProxyProtocols; index++)
             {
-                //proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
-                proxyProtocolData = (Dictionary<string, object>)proxyProtocolList[index];
-                Boolean enable = (Boolean)proxiesData[MessageFTPEnable];
-                String  type   = (String )StringProxyProtocol[index];
+                Boolean enable = (Boolean)BooleanProxyProtocolEnabled[index];
+                String  type   = (String ) StringProxyProtocolType   [index];
                 dataGridViewProxyProtocols.Rows.Add(enable, type);
             }
 
