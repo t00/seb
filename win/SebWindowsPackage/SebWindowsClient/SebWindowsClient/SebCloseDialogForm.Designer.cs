@@ -61,6 +61,7 @@
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblQuitPassword
             // 
@@ -83,6 +84,8 @@
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.txtQuitPassword);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SebCloseDialogForm";
             this.Text = "Close SEB Client";
             this.ResumeLayout(false);

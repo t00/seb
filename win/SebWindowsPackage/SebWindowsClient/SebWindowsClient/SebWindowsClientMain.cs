@@ -34,7 +34,7 @@ namespace SebWindowsClient
 //        [STAThread]
         static void Main()
         {
-
+            //SerialiseAndEncryptSettings();
             if (InitSebDesktop())
             {
                 Application.EnableVisualStyles();
@@ -88,22 +88,36 @@ namespace SebWindowsClient
         /// </summary>
         /// <param name="publicKeyHash">public key hash</param>
         /// ----------------------------------------------------------------------------------------
-        //public static void SerialiseAndEncryptSettings(byte[] publicKeyHash)
-        //{
-        //    string sebEncryptedWithPswClientConfigPath = "";
-        //    MemoryStream settingsMemStream = new MemoryStream();
-        //    XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
-        //    serializer.Serialize(settingsMemStream, SEBClientInfo.sebClientConfig);
-        //    byte[] settingsDataBytes = settingsMemStream.ToArray();
-        //    // Get certificate from disk
-        //    SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-        //    //sEBProtectionControler.KeyCertFilename = "C:\\SebWindowsClient\\SEBConfigKeys\\SEB-Configuration.pfx";
-        //    //sEBProtectionControler.KeyCertPassword = "seb-configuration";
-        //    //X509Certificate2 myCertificate = new X509Certificate2(sEBProtectionControler.KeyCertFilename, sEBProtectionControler.KeyCertPassword, X509KeyStorageFlags.Exportable);
-        //    // Encrypt seb client settings
-        //    string settingsData = Encoding.ASCII.GetString(settingsDataBytes);
-        //    sEBProtectionControler.EncryptWithPasswordAndSave(settingsData, sebEncryptedWithPswClientConfigPath);
-        //}
+        public static void SerialiseAndEncryptSettings()
+        {
+            //string sebEncryptedWithPswClientConfigPath = "";
+            //MemoryStream settingsMemStream = new MemoryStream();
+            //XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
+            //serializer.Serialize(settingsMemStream, SEBClientInfo.sebClientConfig);
+            //byte[] settingsDataBytes = settingsMemStream.ToArray();
+
+            TextReader sebClientConfigFileReader = new StreamReader(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClient.seb");
+            string settingsData =sebClientConfigFileReader.ReadToEnd();
+
+            //// Get certificate from disk
+            SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+            sEBProtectionControler.KeyCertFilename = "C:\\SebWindowsClient\\SEBConfigKeys\\SEB-Configuration.pfx";
+            sEBProtectionControler.KeyCertPassword = "seb-configuration";
+            X509Certificate2 myCertificate = new X509Certificate2(sEBProtectionControler.KeyCertFilename, sEBProtectionControler.KeyCertPassword, X509KeyStorageFlags.Exportable);
+            // Encrypt seb client settings
+            //string encrypted = sEBProtectionControler.EncryptWithCertifikat(settingsData, myCertificate);
+            //sEBProtectionControler.EncryptWithPasswordAndSave(settingsData, sebEncryptedWithPswClientConfigPath);
+
+            //byte[] encrypted = sEBProtectionControler.EncryptWithCertifikat(settingsData, myCertificate);
+            //byte[] encrypted = sEBProtectionControler.EncryptWithPassword(settingsData, "sebpassword");
+            //File.WriteAllBytes(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClientEncP.seb", encrypted);
+
+            byte[] encryptedBytes = File.ReadAllBytes(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClientEncP.seb");
+            string decrypted = sEBProtectionControler.DecryptWithPassword(encryptedBytes, "sebpassword");
+            //TextWriter tx = new StreamWriter(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClientEnc.seb");
+            //tx.Write(encrypted);
+            //tx.Close();
+        }
 
 
         /// ----------------------------------------------------------------------------------------

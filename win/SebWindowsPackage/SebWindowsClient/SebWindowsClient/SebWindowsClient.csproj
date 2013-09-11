@@ -71,6 +71,7 @@
     <Compile Include="ClientSocketUtils\SEBLocalHostInfo.cs" />
     <Compile Include="ClientSocketUtils\SebSocketClient.cs" />
     <Compile Include="ConfigurationUtils\PList.cs" />
+    <Compile Include="ConfigurationUtils\SEBDefaultSettings.cs" />
     <Compile Include="ConfigurationUtils\SEBErrorMessages.cs" />
     <Compile Include="ConfigurationUtils\SEBGlobalConstants.cs" />
     <Compile Include="ConfigurationUtils\SEBClientInfo.cs" />

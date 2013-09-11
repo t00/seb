@@ -245,7 +245,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String MessageCurrentUser = "currentUser";
         public const String MessageStrongKill = "strongKill";
         public const String MessageOS = "os";
-        public const String MessageAppTitle = "appTitle";
+        public const String MessageTitle = "title";
         public const String MessageDescription = "description";
         public const String MessageExecutable = "executable";
         public const String MessagePath = "path";
@@ -255,8 +255,16 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String MessageArguments = "arguments";
         public const String MessageArgument = "argument";
 
-
         // Group "Network"
+        public const String MessageEnableURLFilter = "enableURLFilter";
+        public const String MessageEnableURLContentFilter = "enableURLContentFilter";
+
+        // Group "Network - Filter"
+        public const String MessageURLFilterRules = "URLFilterRules";
+        public const String MessageExpression = "expression";
+        public const String MessageRuleActions = "ruleActions";
+        public const String MessageRegex = "regex";
+        public const String MessageAction = "action";
 
         // Group "Filter"
         public const int ValueEnableURLFilter = 1;
@@ -266,9 +274,27 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int ValueProxies = 5;
         public const int NumValueNetwork = 5;
 
-        public const String MessageEnableURLFilter = "enableURLFilter";
-        public const String MessageEnableURLContentFilter = "enableURLContentFilter";
-        public const String MessageURLFilterRules = "URLFilterRules";
+        // Group "Network - Certificates"
+        public const String MessageEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
+        public const String MessageEmbedIdentity = "EmbedIdentity";
+        public const String MessageEmbeddedCertificates = "embeddedCertificates";
+        public const String MessageCertificateData = "certificateData";
+        public const String MessageType = "type";
+        public const String MessageName = "name";
+
+        // Group "Network - Proxies"
+        public const String MessageProxyProtocol = "proxyProtocol";
+        public const String MessageProxyConfigurationFileURL = "proxyConfigurationFileURL";
+        public const String MessageExcludeSimpleHostnames = "excludeSimpleHostnames";
+        public const String MessageUsePassiveFTPMode = "usePassiveFTPMode";
+        public const String MessageBypassHostsAndDomains = "bypassHostsAndDomains";
+        public const String MessageBypassDomain = "domain";
+        public const String MessageBypassHost = "host";
+        public const String MessageBypassPort = "port";
+
+        //public const String MessageEnableURLFilter = "enableURLFilter";
+        //public const String MessageEnableURLContentFilter = "enableURLContentFilter";
+        //public const String MessageURLFilterRules = "URLFilterRules";
         public const String MessageProxySettingsPolicy = "proxySettingsPolicy";
         public const String MessageProxies = "proxies";
 

@@ -113,28 +113,28 @@ namespace SebWindowsClient.CryptographyUtils
         ///  Encrypt with Certifikat and save settings.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public void EncryptWithCertifikatAndSave(string settings, byte[] publicKeyHash, string sebEncryptedWithCertClientConfigPath)
-        {
-            string encrypted = EncryptWithCertifikat(settings, GetCertificateFromStore(publicKeyHash));
+        //public void EncryptWithCertifikatAndSave(string settings, byte[] publicKeyHash, string sebEncryptedWithCertClientConfigPath)
+        //{
+        //    string encrypted = EncryptWithCertifikat(settings, GetCertificateFromStore(publicKeyHash));
 
-            TextWriter tx = new StreamWriter(sebEncryptedWithCertClientConfigPath);
-            tx.Write(encrypted);
-            tx.Close();
-        }
+        //    TextWriter tx = new StreamWriter(sebEncryptedWithCertClientConfigPath);
+        //    tx.Write(encrypted);
+        //    tx.Close();
+        //}
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         ///  Encrypt with Password and save settings.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public void EncryptWithPasswordAndSave(string settings, string sebEncryptedWithPswClientConfigPath)
-        {
-            string encrypted = EncryptWithPassword(settings, "seb");
+        //public void EncryptWithPasswordAndSave(string settings, string sebEncryptedWithPswClientConfigPath)
+        //{
+        //    string encrypted = EncryptWithPassword(settings, "seb");
  
-            TextWriter tx = new StreamWriter(sebEncryptedWithPswClientConfigPath);
-            tx.Write(encrypted);
-            tx.Close();
-        }
+        //    TextWriter tx = new StreamWriter(sebEncryptedWithPswClientConfigPath);
+        //    tx.Write(encrypted);
+        //    tx.Close();
+        //}
 
 
         /// ----------------------------------------------------------------------------------------
@@ -239,7 +239,7 @@ namespace SebWindowsClient.CryptographyUtils
                     arrayList.AddRange(rsaCryptoServiceProvider.Decrypt(
                                         encryptedBytes, true));
                 }
-                return Encoding.UTF32.GetString(arrayList.ToArray(
+                return Encoding.UTF8.GetString(arrayList.ToArray(
                                           Type.GetType("System.Byte")) as byte[]);
             }
             catch (CryptographicException cex)
@@ -323,10 +323,11 @@ namespace SebWindowsClient.CryptographyUtils
         /// Encrypt with Public key and RSA Algoritmus.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public string EncryptWithCertifikat(string inputString, X509Certificate2 sebCertificate)
+        public byte[] EncryptWithCertifikat(string inputString, X509Certificate2 sebCertificate)
         {
             int dwKeySize;
             StringBuilder stringBuilder = new StringBuilder();
+            byte[] dstBytes = Encoding.UTF8.GetBytes(inputString); 
 
             try
             {
@@ -337,7 +338,13 @@ namespace SebWindowsClient.CryptographyUtils
                 //                              new RSACryptoServiceProvider(dwKeySize);
                 //rsaCryptoServiceProvider.FromXmlString(xmlString);
                 int keySize = dwKeySize / 8;
-                byte[] bytes = Encoding.UTF32.GetBytes(inputString);
+                byte[] bytes = Encoding.UTF8.GetBytes(inputString);
+                
+
+                Buffer.BlockCopy(Encoding.UTF8.GetBytes("pkhs"), 0, dstBytes, 0, 4);
+                byte[] publicKeyHash = sebCertificate.GetCertHash();
+                Buffer.BlockCopy(publicKeyHash, 0, dstBytes, 4, publicKeyHash.Count());
+
                 // The hash function in use by the .NET RSACryptoServiceProvider here 
                 // is SHA1
                 // int maxLength = ( keySize ) - 2 - 
@@ -345,6 +352,7 @@ namespace SebWindowsClient.CryptographyUtils
                 int maxLength = keySize - 42;
                 int dataLength = bytes.Length;
                 int iterations = dataLength / maxLength;
+                int dstOffset = 24;
                 for (int i = 0; i <= iterations; i++)
                 {
                     byte[] tempBytes = new byte[
@@ -359,29 +367,35 @@ namespace SebWindowsClient.CryptographyUtils
                     // decryption. If you do not require compatibility with Microsoft 
                     // Cryptographic API (CAPI) and/or other vendors. Comment out the 
                     // next line and the corresponding one in the DecryptString function.
-                    Array.Reverse(encryptedBytes);
+                        //Array.Reverse(encryptedBytes);
                     // Why convert to base 64?
                     // Because it is the largest power-of-two base printable using only 
                     // ASCII characters
-                    stringBuilder.Append(Convert.ToBase64String(encryptedBytes));
+                    Buffer.BlockCopy(encryptedBytes, 0, dstBytes, dstOffset, encryptedBytes.Count());
+                    dstOffset = dstOffset + encryptedBytes.Count();
+                    //stringBuilder.Append(Convert.ToBase64String(encryptedBytes));
                 }
 
                 // Insert encoding mode and public key hash
-                byte[] publicKeyHash = new byte[20];
-                byte[] publicKeyHashASCII = Encoding.ASCII.GetBytes(sebCertificate.PublicKey.GetHashCode().ToString());
-                Buffer.BlockCopy(publicKeyHashASCII, 0, publicKeyHash, 0, publicKeyHashASCII.Count());
-                string publicKeyHashStr = Encoding.ASCII.GetString(publicKeyHash);
-                stringBuilder.Insert(0, publicKeyHashStr).Insert(0, PUBLIC_KEY_HASH_MODE);
-                return stringBuilder.ToString();
+                //byte[] publicKeyHash = new byte[20];
+                //byte[] publicKeyHashASCII = Encoding.ASCII.GetBytes(sebCertificate.PublicKey.GetHashCode().ToString());
+                //byte[] publicKeyHash = sebCertificate.GetCertHash();
+                //byte[] publicKeyHashASCII = Encoding.ASCII.GetBytes(sebCertificate.GetCertHashString());
+                //Buffer.BlockCopy(publicKeyHash1, 0, publicKeyHash, 0, publicKeyHash1.Count());
+                //string publicKeyHashStr = Encoding.UTF8.GetString(publicKeyHash);
+                //stringBuilder.Insert(0, publicKeyHashStr).Insert(0, PUBLIC_KEY_HASH_MODE);
+                //return stringBuilder.ToString();
+                return dstBytes;
             }
             catch (CryptographicException cex)
             {
-                return cex.Message;
+                //return cex.Message;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                //return ex.Message;
             }
+            return dstBytes;
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -389,7 +403,7 @@ namespace SebWindowsClient.CryptographyUtils
         /// Encrypt with password, key, salt using AES (Open SSL Encrypt).
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public string EncryptWithPassword(string plainText, string passphrase)
+        public byte[] EncryptWithPassword(string plainText, string passphrase)
         {
             try
             {
@@ -403,56 +417,29 @@ namespace SebWindowsClient.CryptographyUtils
                 byte[] encryptedBytes = EncryptStringToBytesAes(plainText, key, iv);
                 // add salt as first 8 bytes
                 byte[] encryptedBytesWithSalt = new byte[salt.Length + encryptedBytes.Length + PASSWORD_MODE.Length];
+
+
                 Buffer.BlockCopy(Encoding.ASCII.GetBytes(PASSWORD_MODE), 0, encryptedBytesWithSalt, 0, PASSWORD_MODE.Length);
                 Buffer.BlockCopy(salt, 0, encryptedBytesWithSalt, PASSWORD_MODE.Length, salt.Length);
                 Buffer.BlockCopy(encryptedBytes, 0, encryptedBytesWithSalt, salt.Length + PASSWORD_MODE.Length, encryptedBytes.Length);
+
+                return encryptedBytesWithSalt;
+
                 // base64 encode
-                return Convert.ToBase64String(encryptedBytesWithSalt);
+                //return Convert.ToBase64String(encryptedBytesWithSalt);
             }
             catch (CryptographicException cex)
             {
-                return cex.Message;
+                //return cex.Message;
+                return null;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                //return ex.Message;
+                return null;
             }
+
         }
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
-        /// Decrypt with password, key, salt using AES (Open SSL Decrypt)..
-        /// </summary>
-        /// ----------------------------------------------------------------------------------------
-        public string DecryptWithPassword(byte[] encryptedBytesWithKey, string passphrase)
-        {
-
-            try
-            {
-                string encryptedDataString = Encoding.ASCII.GetString(encryptedBytesWithKey);
-                // base 64 decode
-                byte[] encryptedBytesWithSalt = Convert.FromBase64String(encryptedDataString);
-
-                // extract salt (first 8 bytes of encrypted)
-                byte[] salt = new byte[8];
-                byte[] encryptedBytes = new byte[encryptedBytesWithSalt.Length - salt.Length - PASSWORD_MODE.Length];
-                Buffer.BlockCopy(encryptedBytesWithSalt, PASSWORD_MODE.Length, salt, 0, salt.Length);
-                Buffer.BlockCopy(encryptedBytesWithSalt, salt.Length + PASSWORD_MODE.Length, encryptedBytes, 0, encryptedBytes.Length);
-                // get key and iv
-                byte[] key, iv;
-                DeriveKeyAndIV(passphrase, salt, out key, out iv);
-                return DecryptStringFromBytesAes(encryptedBytes, key, iv);
-            }
-            catch (CryptographicException cex)
-            {
-                return cex.Message;
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
@@ -493,6 +480,41 @@ namespace SebWindowsClient.CryptographyUtils
             md5.Clear();
             md5 = null;
         }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Decrypt with password, key, salt using AES (Open SSL Decrypt)..
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public string DecryptWithPassword(byte[] encryptedBytesWithSalt, string passphrase)
+        {
+
+            try
+            {
+                //string encryptedDataString = Encoding.ASCII.GetString(encryptedBytesWithKey);
+                // base 64 decode
+                //byte[] encryptedBytesWithSalt = Convert.FromBase64String(encryptedDataString);
+
+                // extract salt (first 8 bytes of encrypted)
+                byte[] salt = new byte[8];
+                byte[] encryptedBytes = new byte[encryptedBytesWithSalt.Length - salt.Length - PASSWORD_MODE.Length];
+                Buffer.BlockCopy(encryptedBytesWithSalt, PASSWORD_MODE.Length, salt, 0, salt.Length);
+                Buffer.BlockCopy(encryptedBytesWithSalt, salt.Length + PASSWORD_MODE.Length, encryptedBytes, 0, encryptedBytes.Length);
+                // get key and iv
+                byte[] key, iv;
+                DeriveKeyAndIV(passphrase, salt, out key, out iv);
+                return DecryptStringFromBytesAes(encryptedBytes, key, iv);
+            }
+            catch (CryptographicException cex)
+            {
+                return cex.Message;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>

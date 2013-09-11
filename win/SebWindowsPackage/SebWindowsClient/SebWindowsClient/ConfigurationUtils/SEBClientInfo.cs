@@ -165,6 +165,23 @@ namespace SebWindowsClient.ConfigurationUtils
 
          //public static SEBClientConfig sebClientConfig;
 
+         public static object getSebSetting(string key)
+         {
+             object sebSetting = null;
+             try
+             {
+                 sebSetting = sebSettings[key];
+                 if (sebSetting == null)
+                     sebSetting = null;
+             } 
+             catch 
+             {
+                 sebSetting = null;
+             }
+
+             return sebSetting;
+         }
+
         /// <summary>
          /// Sets user, host info, send-recv interval, recv timeout, Logger and read SebClient configuration.
         /// </summary>
