@@ -164,7 +164,7 @@ namespace SebWindowsClient
                 Logger.AddInformation("SEB Windows service is not available.", null, null);
             }
 
-            int forceService = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageSebServicePolicy]; 
+            int forceService = (Int32)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageSebServicePolicy)[SEBGlobalConstants.MessageSebServicePolicy]; 
             switch(forceService)
             {
                 case (int)sebServicePolicies.ignoreService:
@@ -193,7 +193,7 @@ namespace SebWindowsClient
             }
 
              // Test if run inside virtual machine
-            bool allowVirtualMachine = (Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageAllowVirtualMachine];
+            bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageAllowVirtualMachine)[SEBGlobalConstants.MessageAllowVirtualMachine];
             if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
@@ -214,15 +214,15 @@ namespace SebWindowsClient
                 //sEBSettings
                 bool killExplorer = false;
 
-                List<object> prohibitedProcessList = (List<object>)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageProhibitedProcesses];
+                List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageProhibitedProcesses)[SEBGlobalConstants.MessageProhibitedProcesses];
                 for (int i = 0; i < prohibitedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                    string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageTitle];
+                    string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageExecutable];
                     if ((Boolean)prohibitedProcess[SEBGlobalConstants.MessageActive])
                     {
 
-                        if (prohibitedProcessName.CompareTo("explorer.exe") == 0)
+                        if (prohibitedProcessName.Contains("explorer.exe"))
                         {
                             killExplorer = true;
                         }
@@ -235,7 +235,7 @@ namespace SebWindowsClient
                     Logger.AddInformation("Process by name(explorer.exe) killed", null, null);
                  }
                 //tell Win9x / Me that the screensaver is running to lock system tasks
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageCreateNewDesktop])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageCreateNewDesktop)[SEBGlobalConstants.MessageCreateNewDesktop])
                 {
                     SEBDesktopController.DisableTaskSwitching();
                 }
@@ -243,7 +243,7 @@ namespace SebWindowsClient
             else
             {
                 //on NT4/NT5 a new desktop is created
-                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageCreateNewDesktop])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageCreateNewDesktop)[SEBGlobalConstants.MessageCreateNewDesktop])
                 {
                     SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
                     SEBDesktopController OriginalInput = SEBDesktopController.OpenInputDesktop();

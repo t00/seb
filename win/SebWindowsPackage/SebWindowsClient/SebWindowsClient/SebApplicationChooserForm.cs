@@ -135,24 +135,27 @@ namespace SebWindowsClient
             ImageList ilApplicationIcons = new ImageList();
             this.lWindowHandles.Clear();
             int index = 0;
-            List<object> permittedProcessList = (List<object>)SEBClientInfo.sebSettings[SEBGlobalConstants.MessagePermittedProcesses];
+            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessagePermittedProcesses)[SEBGlobalConstants.MessagePermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
                 Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
                 for (int i = 0; i < permittedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageTitle];
+                    string permittedProcessName = (string)permittedProcess[SEBGlobalConstants.MessageExecutable];
                     if ((Boolean)permittedProcess[SEBGlobalConstants.MessageActive])
                     {
                         for (int j = 0; j < runningApplications.Count(); j++)
                         {
                             if (permittedProcessName.Contains(runningApplications[j].ProcessName))
                             {
-                                this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
-                                lRunningApplications.Add(runningApplications[j].ProcessName);
-                                ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
-                                index++;
+                                if (!permittedProcessName.Contains("SebWindowsClient"))
+                                {
+                                    this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
+                                    lRunningApplications.Add(runningApplications[j].ProcessName);
+                                    ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
+                                    index++;
+                                }
                             }
                         }
                     }
@@ -200,10 +203,6 @@ namespace SebWindowsClient
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            fillListApplications();
-        }
 
     //    public void fillText(string text)
     //    {

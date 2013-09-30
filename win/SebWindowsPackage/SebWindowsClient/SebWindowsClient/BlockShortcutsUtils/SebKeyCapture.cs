@@ -72,6 +72,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
         // Keyboard Constants
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_KEYUP = 0x0101;
+        private const int WM_SYSKEYUP = 0x0105;
 
         private const int WH_KEYBOARD_LL = 13;
 
@@ -109,10 +110,15 @@ namespace SebWindowsClient.BlockShortcutsUtils
         private static bool exitKey1_Pressed = false;
         private static bool exitKey2_Pressed = false;
         private static bool exitKey3_Pressed = false;
-
+        public static SebApplicationChooserForm SebApplicationChooser = null;
+ 
         // Ctrl-Q exit sequence
         private static bool ctrl_Pressed = false;
         private static bool Q_Pressed = false;
+
+        // Alt-Tab sequence
+        //private static bool Alt_Pressed = false;
+        //private static bool Tab_Pressed = false;
 
         #endregion
 
@@ -138,8 +144,8 @@ namespace SebWindowsClient.BlockShortcutsUtils
         private static bool DisableMouseButton(int nCode, IntPtr wp, IntPtr lp)
         {
             MSLLHOOKSTRUCT MouseButtonInfo = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(MSLLHOOKSTRUCT));
- 
-            if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableRightMouse])
+
+            if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableRightMouse)[SEBGlobalConstants.MessageEnableRightMouse])
             {
                 if (nCode >= 0 && MouseMessages.WM_RBUTTONDOWN == (MouseMessages)wp)
                     return true;
@@ -157,76 +163,108 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
             try
             {
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableEsc] && (KeyInfo.key == Keys.Escape))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableEsc)[SEBGlobalConstants.MessageEnableEsc] && (KeyInfo.key == Keys.Escape))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableCtrlEsc])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableCtrlEsc)[SEBGlobalConstants.MessageEnableCtrlEsc])
                 {
                     if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Escape))
                         return true;
 
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltEsc])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltEsc)[SEBGlobalConstants.MessageEnableAltEsc])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Escape))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltTab])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltTab)[SEBGlobalConstants.MessageEnableAltTab])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableAltF4])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltTab)[SEBGlobalConstants.MessageEnableAltTab])
+                {
+                    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
+                    {
+                        if (SebApplicationChooser == null)
+                            SebApplicationChooser = new SebApplicationChooserForm();
+                        SebApplicationChooser.fillListApplications();
+                        SebApplicationChooser.Visible = true;
+                        //SebApplicationChooser.Activate();
+                        return true;
+                    }
+                    //if (((KeyInfo.flags == 32) && (KeyInfo.key == Keys.LMenu)) || ((KeyInfo.flags == 33) && (KeyInfo.key == Keys.RMenu)))
+                    //{
+                    //    if (SebApplicationChooser == null)
+                    //        SebApplicationChooser = new SebApplicationChooserForm();
+                    //    SebApplicationChooser.fillListApplications();
+                    //    SebApplicationChooser.Visible = true;
+                    //    SebApplicationChooser.Activate();
+                    //    return true;
+                    //}
+                }
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltTab)[SEBGlobalConstants.MessageEnableAltTab])
+                {
+                    //if (wp == (IntPtr)WM_SYSKEYUP)
+                    //{
+                    //    if (KeyInfo.key == Keys.Tab)
+                    //    {
+                    //        SebApplicationChooser.Visible = false;
+                    //        return true;
+                    //    }
+                    //}
+                }
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltF4)[SEBGlobalConstants.MessageEnableAltF4])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.F4))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF1] && (KeyInfo.key == Keys.F1))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF1)[SEBGlobalConstants.MessageEnableF1] && (KeyInfo.key == Keys.F1))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF2] && (KeyInfo.key == Keys.F2))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF2)[SEBGlobalConstants.MessageEnableF2] && (KeyInfo.key == Keys.F2))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF3] && (KeyInfo.key == Keys.F3))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF3)[SEBGlobalConstants.MessageEnableF3] && (KeyInfo.key == Keys.F3))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF4] && (KeyInfo.key == Keys.F4))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF4)[SEBGlobalConstants.MessageEnableF4] && (KeyInfo.key == Keys.F4))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF5] && (KeyInfo.key == Keys.F5))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF5)[SEBGlobalConstants.MessageEnableF5] && (KeyInfo.key == Keys.F5))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF6] && (KeyInfo.key == Keys.F6))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF6)[SEBGlobalConstants.MessageEnableF6] && (KeyInfo.key == Keys.F6))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF7] && (KeyInfo.key == Keys.F7))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF7)[SEBGlobalConstants.MessageEnableF7] && (KeyInfo.key == Keys.F7))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF8] && (KeyInfo.key == Keys.F8))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF8)[SEBGlobalConstants.MessageEnableF8] && (KeyInfo.key == Keys.F8))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF9] && (KeyInfo.key == Keys.F9))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF9)[SEBGlobalConstants.MessageEnableF9] && (KeyInfo.key == Keys.F9))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF10] && (KeyInfo.key == Keys.F10))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF10)[SEBGlobalConstants.MessageEnableF10] && (KeyInfo.key == Keys.F10))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF11] && (KeyInfo.key == Keys.F11))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF11)[SEBGlobalConstants.MessageEnableF11] && (KeyInfo.key == Keys.F11))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageEnableF12] && (KeyInfo.key == Keys.F12))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableF12)[SEBGlobalConstants.MessageEnableF12] && (KeyInfo.key == Keys.F12))
                 {
                     return true;
                 }
@@ -243,9 +281,9 @@ namespace SebWindowsClient.BlockShortcutsUtils
         ///</summary>
         private static void SetExitKeys()
         {
-            int iExitKey1 = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageExitKey1];
-            int iExitKey2 = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageExitKey2];
-            int iExitKey3 = (Int32)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageExitKey3];
+            int iExitKey1 = (Int32)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageExitKey1)[SEBGlobalConstants.MessageExitKey1];
+            int iExitKey2 = (Int32)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageExitKey2)[SEBGlobalConstants.MessageExitKey2];
+            int iExitKey3 = (Int32)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageExitKey3)[SEBGlobalConstants.MessageExitKey3];
             switch (iExitKey1)
             {
                 case 0:
@@ -430,6 +468,63 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 Q_Pressed = false;
             }
         }
+
+        /// <summary>
+        /// Set and Test ctrl-Q Exit Key Sequence
+        ///</summary>
+        //private static bool SetAndTestAltTabSequence(IntPtr wp, IntPtr lp)
+        //{
+        //    KBDLLHOOKSTRUCT KeyInfo =
+        //      (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+        //    if (KeyInfo.key == Keys.LMenu)
+        //    {
+        //        Alt_Pressed = true;
+        //    }
+        //    if (KeyInfo.key == Keys.RMenu)
+        //    {
+        //        Alt_Pressed = true;
+        //    }
+        //    if (KeyInfo.key == Keys.Tab)
+        //    {
+        //        Tab_Pressed = true;
+        //    }
+
+        //    if (Alt_Pressed && Tab_Pressed)
+        //    {
+        //        return true;
+        //    }
+
+        //    //if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Q))
+        //    //    return true;
+
+        //    //if ((KeyInfo.key == (Keys.Control | Keys.Q)))
+        //    //    return true;
+
+        //    return false;
+        //}
+
+        ///// <summary>
+        ///// Reset ctrl-Q Exit Key Sequence
+        /////</summary>
+        //private static void ResetAltTabSequence(IntPtr wp, IntPtr lp)
+        //{
+        //    KBDLLHOOKSTRUCT KeyInfo =
+        //      (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+        //    if (KeyInfo.key == Keys.LMenu)
+        //    {
+        //        Alt_Pressed = false;
+        //    }
+        //    if (KeyInfo.key == Keys.RMenu)
+        //    {
+        //        Alt_Pressed = false;
+        //    }
+        //    if (KeyInfo.key == Keys.Tab)
+        //    {
+        //        Tab_Pressed = false;
+        //    }
+        //}
 
         /// <summary>
         /// Set and Test Exit Key Sequence

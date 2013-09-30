@@ -122,7 +122,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\HideFastUserSwitching
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableSwitchUser])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableSwitchUser)[SEBGlobalConstants.MessageInsideSebEnableSwitchUser])
 		        {
                     if (SetRegistryKeyValue(this.openedHKLMPolicySystem, SEBGlobalConstants.VAL_HIDE_FAST_USER_SWITCHING, REGISTRY_VALUE_DISABLED))
 			        {
@@ -137,7 +137,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableLockWorkstation
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableLockThisComputer]) 
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableLockThisComputer)[SEBGlobalConstants.MessageInsideSebEnableLockThisComputer]) 
 		        {
                     if (SetRegistryKeyValue(this.openedHKCUPolicySystem, SEBGlobalConstants.VAL_DISABLE_LOCK_WORKSTATION, REGISTRY_VALUE_DISABLED))
 			        {
@@ -152,7 +152,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableChangePassword
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableChangeAPassword]) 
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableChangeAPassword)[SEBGlobalConstants.MessageInsideSebEnableChangeAPassword]) 
 		        {
                     if (SetRegistryKeyValue(this.openedHKCUPolicySystem, SEBGlobalConstants.VAL_DISABLE_CHANGE_PASSWORD, REGISTRY_VALUE_DISABLED))
 			        {
@@ -167,7 +167,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System\DisableTaskMgr
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableStartTaskManager]) 
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableStartTaskManager)[SEBGlobalConstants.MessageInsideSebEnableStartTaskManager]) 
 		        {
                     if (SetRegistryKeyValue(this.openedHKCUPolicySystem, SEBGlobalConstants.VAL_DISABLE_TASK_MANAGER, REGISTRY_VALUE_DISABLED))
 			        {
@@ -183,7 +183,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoLogoff
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableLogOff]) 
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableLogOff)[SEBGlobalConstants.MessageInsideSebEnableLogOff]) 
 		        {
                     if (SetRegistryKeyValue(this.openedHKCUPolicyExplorer, SEBGlobalConstants.VAL_NO_LOG_OFF, REGISTRY_VALUE_DISABLED))
 			        {
@@ -198,7 +198,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose
-                if (!(Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableShutDown]) 
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableShutDown)[SEBGlobalConstants.MessageInsideSebEnableShutDown]) 
 		        {
                     if (SetRegistryKeyValue(this.openedHKCUPolicyExplorer, SEBGlobalConstants.VAL_NO_CLOSE, REGISTRY_VALUE_DISABLED))
 			        {
@@ -213,7 +213,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\Utilman.exe\Debugger
-                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableEaseOfAccess]) 
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableEaseOfAccess)[SEBGlobalConstants.MessageInsideSebEnableEaseOfAccess]) 
 		        {
                     if (SetRegistryKeyValue(this.openedHKLMUtilmanExe, SEBGlobalConstants.VAL_ENABLE_EASE_OF_ACCESS, REGISTRY_VALUE_ENABLED))
 			        {
@@ -228,7 +228,7 @@ namespace SebWindowsClient.RegistryUtils
 
 		        // Set the Windows Registry Key
 		        // HKEY_CURRENT_USER\Software\VMware, Inc.\VMware VDM\Client\EnableShade
-                if ((Boolean)SEBClientInfo.sebSettings[SEBGlobalConstants.MessageInsideSebEnableVmWareClientShade]) 
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageInsideSebEnableVmWareClientShade)[SEBGlobalConstants.MessageInsideSebEnableVmWareClientShade]) 
 		        {
                     if (SetRegistryKeyValue(this.openedHKCUVmWareClient, SEBGlobalConstants.VAL_ENABLE_SHADE, REGISTRY_VALUE_ENABLED))
 			        {

@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Collections;
 using System.Management;
 using System.Threading;
+using SebWindowsClient.DiagnosticsUtils;
 
 namespace SebWindowsClient.ProcessUtils
 {
@@ -113,10 +114,17 @@ namespace SebWindowsClient.ProcessUtils
         /// <param name="nameToKill">The process name.</param>
         public static void KillProcessByName(string nameToKill)
         {
-            Process[] processes = System.Diagnostics.Process.GetProcesses();
-            foreach (System.Diagnostics.Process process in processes)
-                if (process.ProcessName == nameToKill)
-                    process.Kill();
+            try
+            {
+                Process[] processes = System.Diagnostics.Process.GetProcesses();
+                foreach (System.Diagnostics.Process process in processes)
+                    if (process.ProcessName == nameToKill)
+                        process.Kill();
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("Error when killing process", null, ex);
+            }
         }
 
         /// <summary>
