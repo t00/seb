@@ -206,14 +206,14 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltTab)[SEBGlobalConstants.MessageEnableAltTab])
                 {
-                    //if (wp == (IntPtr)WM_SYSKEYUP)
-                    //{
-                    //    if (KeyInfo.key == Keys.Tab)
-                    //    {
-                    //        SebApplicationChooser.Visible = false;
-                    //        return true;
-                    //    }
-                    //}
+                    if (wp == (IntPtr)WM_SYSKEYUP)
+                    {
+                        if (KeyInfo.key == Keys.Tab)
+                        {
+                            SebApplicationChooser.Visible = false;
+                            return true;
+                        }
+                    }
                 }
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltF4)[SEBGlobalConstants.MessageEnableAltF4])
                 {
@@ -615,14 +615,14 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 {
                     if (SetAndTestCtrlQExitSequence(wp, lp))
                     {
-                        if (SEBClientInfo.SebWindowsClientForm.CheckQuitPassword())
-                        {
-                            Application.Exit();
-                        }
+                        SEBClientInfo.SebWindowsClientForm.CheckQuitPassword();
+                        //if (SEBClientInfo.SebWindowsClientForm.closeSebClient)
+                        //{
+                        //    Application.Exit();
+                        //}
                     }
                     if (SetAndTestExitKeySequence(wp, lp))
                     {
-                        SEBClientInfo.SebWindowsClientForm.closeSebWithPassword = false;
                         Application.Exit();
                     }
                 }

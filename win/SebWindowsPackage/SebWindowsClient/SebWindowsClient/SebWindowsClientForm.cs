@@ -60,6 +60,10 @@ namespace SebWindowsClient
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out int lpdwProcessId);
 
+        [System.Runtime.InteropServices.DllImport("User32")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;
 
@@ -70,7 +74,7 @@ namespace SebWindowsClient
         private SebSocketClient sebSocketClient = new SebSocketClient();
         //private SebApplicationChooserForm SebApplicationChooser = null;
 
-        public bool closeSebWithPassword = true;
+        public bool closeSebClient = false;
 
         private SebCloseDialogForm sebCloseDialogForm ;
 
@@ -373,12 +377,11 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            closeSebWithPassword = true;
-            if (CheckQuitPassword())
-            {
-
-                this.Close();
-            }
+            CheckQuitPassword();
+            //if (this.closeSebClient)
+            //{
+            //    this.Close();
+            //}
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -531,6 +534,14 @@ namespace SebWindowsClient
             addPermittedProcessesToTS();
             SetFormOnDesktop();
             StartXulRunner();
+            if (sebCloseDialogForm == null)
+            {
+                sebCloseDialogForm = new SebCloseDialogForm();
+//                SetForegroundWindow(sebCloseDialogForm.Handle);
+                sebCloseDialogForm.TopMost = true;
+                sebCloseDialogForm.Show();
+                sebCloseDialogForm.Visible = false;
+            }
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -538,42 +549,31 @@ namespace SebWindowsClient
         /// Check Quit Password.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public bool CheckQuitPassword()
+        public void CheckQuitPassword()
         {
-            int quit = -1;
-            bool bQuit = false;
+ 
+                     // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                    sebCloseDialogForm.Visible = true;
+                    sebCloseDialogForm.txtQuitPassword.Focus();
+                    //sebCloseDialogForm.Activate();
 
-                if (closeSebWithPassword)
-                {
-                    // Show testDialog as a modal dialog and determine if DialogResult = OK.
-                    if (sebCloseDialogForm == null)
-                    {
-                        sebCloseDialogForm = new SebCloseDialogForm();
-                    }
-                    if (sebCloseDialogForm.ShowDialog(this) == DialogResult.OK)
-                        {
-                            // Read the contents of testDialog's TextBox.
-                            string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
 
-                            SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-                            string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
-                            quit = ((string)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageHashedQuitPassword)[SEBGlobalConstants.MessageHashedQuitPassword]).CompareTo(hPassword);
-                            if (quit != 0)
-                            {
-                                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                            }
-                        }
-                        sebCloseDialogForm = null;
-                }
-                else
-                {
-                    quit = 0;
-                }
+                    
+                    //if (sebCloseDialogForm.Show() == DialogResult.OK)
+                    //    {
+                    //        // Read the contents of testDialog's TextBox.
+                    //        string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
 
-            if (quit == 0)
-                bQuit = true;
+                    //        SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+                    //        string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
+                    //        quit = ((string)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageHashedQuitPassword)[SEBGlobalConstants.MessageHashedQuitPassword]).CompareTo(hPassword);
+                    //        if (quit != 0)
+                    //        {
+                    //            SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                    //        }
+                    //    }
+                    //    sebCloseDialogForm = null;
 
-            return bQuit;
         }
 
         /// ----------------------------------------------------------------------------------------
