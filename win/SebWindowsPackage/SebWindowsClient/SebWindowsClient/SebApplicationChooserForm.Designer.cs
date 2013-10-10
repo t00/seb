@@ -40,6 +40,7 @@
             this.listApplications.GridLines = true;
             this.listApplications.HoverSelection = true;
             this.listApplications.Location = new System.Drawing.Point(0, 0);
+            this.listApplications.MultiSelect = false;
             this.listApplications.Name = "listApplications";
             this.listApplications.Size = new System.Drawing.Size(523, 204);
             this.listApplications.TabIndex = 0;

@@ -72,7 +72,9 @@ namespace SebWindowsClient.BlockShortcutsUtils
         // Keyboard Constants
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_KEYUP = 0x0101;
+        private const int WM_SYSKEYDOWN = 0x0104;
         private const int WM_SYSKEYUP = 0x0105;
+        private const int WM_SYSCHAR = 0x0106;
 
         private const int WH_KEYBOARD_LL = 13;
 
@@ -110,15 +112,15 @@ namespace SebWindowsClient.BlockShortcutsUtils
         private static bool exitKey1_Pressed = false;
         private static bool exitKey2_Pressed = false;
         private static bool exitKey3_Pressed = false;
-        public static SebApplicationChooserForm SebApplicationChooser = null;
  
         // Ctrl-Q exit sequence
         private static bool ctrl_Pressed = false;
         private static bool Q_Pressed = false;
 
         // Alt-Tab sequence
-        //private static bool Alt_Pressed = false;
-        //private static bool Tab_Pressed = false;
+        private static bool Alt_Pressed = false;
+        private static bool Tab_Pressed = false;
+        private static bool Tab_Pressed_First_Time = true;
 
         #endregion
 
@@ -185,15 +187,15 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltTab)[SEBGlobalConstants.MessageEnableAltTab])
                 {
-                    if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
-                    {
-                        if (SebApplicationChooser == null)
-                            SebApplicationChooser = new SebApplicationChooserForm();
-                        SebApplicationChooser.fillListApplications();
-                        SebApplicationChooser.Visible = true;
-                        //SebApplicationChooser.Activate();
-                        return true;
-                    }
+                    //if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
+                    //{
+                    //    if (SebApplicationChooser == null)
+                    //        SebApplicationChooser = new SebApplicationChooserForm();
+                    //    SebApplicationChooser.fillListApplications();
+                    //    SebApplicationChooser.Visible = true;
+                    //    //SebApplicationChooser.Activate();
+                    //    return true;
+                    //}
                     //if (((KeyInfo.flags == 32) && (KeyInfo.key == Keys.LMenu)) || ((KeyInfo.flags == 33) && (KeyInfo.key == Keys.RMenu)))
                     //{
                     //    if (SebApplicationChooser == null)
@@ -204,17 +206,17 @@ namespace SebWindowsClient.BlockShortcutsUtils
                     //    return true;
                     //}
                 }
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltTab)[SEBGlobalConstants.MessageEnableAltTab])
-                {
-                    if (wp == (IntPtr)WM_SYSKEYUP)
-                    {
-                        if (KeyInfo.key == Keys.Tab)
-                        {
-                            SebApplicationChooser.Visible = false;
-                            return true;
-                        }
-                    }
-                }
+                //if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltTab)[SEBGlobalConstants.MessageEnableAltTab])
+                //{
+                //    if (wp == (IntPtr)WM_SYSKEYUP)
+                //    {
+                //        if (KeyInfo.key == Keys.Tab)
+                //        {
+                //            SebApplicationChooser.Visible = false;
+                //            return true;
+                //        }
+                //    }
+                //}
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageEnableAltF4)[SEBGlobalConstants.MessageEnableAltF4])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.F4))
@@ -438,12 +440,6 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 return true;
             }
 
-            //if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Q))
-            //    return true;
-
-            //if ((KeyInfo.key == (Keys.Control | Keys.Q)))
-            //    return true;
-
             return false;
         }
 
@@ -468,63 +464,6 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 Q_Pressed = false;
             }
         }
-
-        /// <summary>
-        /// Set and Test ctrl-Q Exit Key Sequence
-        ///</summary>
-        //private static bool SetAndTestAltTabSequence(IntPtr wp, IntPtr lp)
-        //{
-        //    KBDLLHOOKSTRUCT KeyInfo =
-        //      (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
-
-        //    if (KeyInfo.key == Keys.LMenu)
-        //    {
-        //        Alt_Pressed = true;
-        //    }
-        //    if (KeyInfo.key == Keys.RMenu)
-        //    {
-        //        Alt_Pressed = true;
-        //    }
-        //    if (KeyInfo.key == Keys.Tab)
-        //    {
-        //        Tab_Pressed = true;
-        //    }
-
-        //    if (Alt_Pressed && Tab_Pressed)
-        //    {
-        //        return true;
-        //    }
-
-        //    //if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Q))
-        //    //    return true;
-
-        //    //if ((KeyInfo.key == (Keys.Control | Keys.Q)))
-        //    //    return true;
-
-        //    return false;
-        //}
-
-        ///// <summary>
-        ///// Reset ctrl-Q Exit Key Sequence
-        /////</summary>
-        //private static void ResetAltTabSequence(IntPtr wp, IntPtr lp)
-        //{
-        //    KBDLLHOOKSTRUCT KeyInfo =
-        //      (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
-
-        //    if (KeyInfo.key == Keys.LMenu)
-        //    {
-        //        Alt_Pressed = false;
-        //    }
-        //    if (KeyInfo.key == Keys.RMenu)
-        //    {
-        //        Alt_Pressed = false;
-        //    }
-        //    if (KeyInfo.key == Keys.Tab)
-        //    {
-        //        Tab_Pressed = false;
-        //    }
-        //}
 
         /// <summary>
         /// Set and Test Exit Key Sequence
@@ -601,6 +540,158 @@ namespace SebWindowsClient.BlockShortcutsUtils
         }
 
         /// <summary>
+        /// Test app exit keys sequence
+        /// </summary>
+        private static void TestAppExitSequences(IntPtr wp, IntPtr lp)
+        {
+            if (wp == (IntPtr)WM_KEYDOWN)
+            {
+                if (SetAndTestCtrlQExitSequence(wp, lp))
+                {
+                    SEBClientInfo.SebWindowsClientForm.ShowCloseDialogForm();
+                }
+                if (SetAndTestExitKeySequence(wp, lp))
+                {
+                    Application.Exit();
+                }
+                else if (wp == (IntPtr)WM_KEYUP)
+                {
+                    ResetCtrlQExitSequence(wp, lp);
+                    ResetExitKeySequence(wp, lp);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set and Test ctrl-Q Exit Key Sequence
+        ///</summary>
+        private static bool SetAndTestAltTabSequence(IntPtr wp, IntPtr lp)
+        {
+            KBDLLHOOKSTRUCT KeyInfo =
+              (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+            //if (KeyInfo.key == Keys.LMenu)
+            //{
+            //    Alt_Pressed = true;
+            //}
+            //if (KeyInfo.key == Keys.RMenu)
+            //{
+            //    Alt_Pressed = true;
+            //}
+            if (KeyInfo.flags == 32)
+            {
+                Alt_Pressed = true;
+            }
+            if (KeyInfo.key == Keys.Tab)
+            {
+                Tab_Pressed = true;
+            }
+
+            if (Alt_Pressed && Tab_Pressed && Tab_Pressed_First_Time)
+            {
+                SEBClientInfo.SebWindowsClientForm.ShowApplicationChooserForm();
+                if (Tab_Pressed_First_Time)
+                {
+                    Tab_Pressed_First_Time = false;
+                }
+                return true;
+            }
+            else if (Alt_Pressed && Tab_Pressed && !Tab_Pressed_First_Time)
+            {
+                SEBClientInfo.SebWindowsClientForm.SelectNextListItem();
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Reset ctrl-Q Exit Key Sequence
+        ///</summary>
+        //private static bool AltTabClicked(IntPtr wp, IntPtr lp)
+        //{
+        //    KBDLLHOOKSTRUCT KeyInfo =
+        //      (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+        //    if (Alt_Pressed && !Tab_Pressed && KeyInfo.key == Keys.Tab)
+        //    {
+        //        Tab_Pressed = true;
+        //    }
+        //    return false;
+        //}
+
+         /// <summary>
+        /// Reset ctrl-Q Exit Key Sequence
+        ///</summary>
+        private static void ResetTab(IntPtr wp, IntPtr lp)
+        {
+            KBDLLHOOKSTRUCT KeyInfo =
+              (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+            if (KeyInfo.key == Keys.Tab)
+            {
+                Tab_Pressed = false;
+            }
+        }
+
+        /// <summary>
+        /// Reset ctrl-Q Exit Key Sequence
+        ///</summary>
+        private static bool ResetAlt(IntPtr wp, IntPtr lp)
+        {
+            KBDLLHOOKSTRUCT KeyInfo =
+              (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
+
+            if (Alt_Pressed && KeyInfo.key == Keys.LMenu)
+            {
+                Alt_Pressed = false;
+                Tab_Pressed_First_Time = true;
+                SEBClientInfo.SebWindowsClientForm.HideApplicationChooserForm();
+                return true;
+            }
+            if (Alt_Pressed && KeyInfo.key == Keys.RMenu)
+            {
+                Alt_Pressed = false;
+                Tab_Pressed_First_Time = true;
+                SEBClientInfo.SebWindowsClientForm.HideApplicationChooserForm();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Test app chooser sequence.
+        /// </summary>
+        private static bool TestAppChooserSequence(IntPtr wp, IntPtr lp)
+        {
+            if (wp == (IntPtr)WM_SYSKEYDOWN)
+            {
+                if (SetAndTestAltTabSequence(wp, lp))
+                {
+                    return true;
+                }
+            }
+            else if (wp == (IntPtr)WM_SYSCHAR)
+            {
+                //if (AltTabClicked(wp, lp))
+                //{
+                //    SEBClientInfo.SebWindowsClientForm.SelectNextListItem();
+                //    return true;
+                //}
+            }
+            else if (wp == (IntPtr)WM_SYSKEYUP)
+            {
+                ResetTab(wp, lp);
+                return true;
+            }
+            else if (wp == (IntPtr)WM_KEYUP)
+            {
+                ResetAlt(wp, lp);
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Capture keystrokes and filter which key events are permitted to continue.
         /// </summary>
         private static IntPtr CaptureKey(int nCode, IntPtr wp, IntPtr lp)
@@ -611,25 +702,10 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 //KBDLLHOOKSTRUCT KeyInfo =
                 //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
-                if (wp == (IntPtr)WM_KEYDOWN)
+                TestAppExitSequences(wp, lp);
+                if (TestAppChooserSequence(wp, lp))
                 {
-                    if (SetAndTestCtrlQExitSequence(wp, lp))
-                    {
-                        SEBClientInfo.SebWindowsClientForm.CheckQuitPassword();
-                        //if (SEBClientInfo.SebWindowsClientForm.closeSebClient)
-                        //{
-                        //    Application.Exit();
-                        //}
-                    }
-                    if (SetAndTestExitKeySequence(wp, lp))
-                    {
-                        Application.Exit();
-                    }
-                }
-                else if (wp == (IntPtr)WM_KEYUP)
-                {
-                    ResetCtrlQExitSequence(wp, lp);
-                    ResetExitKeySequence(wp, lp);
+                    return (IntPtr)1;
                 }
 
                 // Reject any key that's not on our list.

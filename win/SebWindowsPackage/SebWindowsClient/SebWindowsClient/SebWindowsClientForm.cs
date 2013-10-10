@@ -76,7 +76,8 @@ namespace SebWindowsClient
 
         public bool closeSebClient = false;
 
-        private SebCloseDialogForm sebCloseDialogForm ;
+        private SebCloseDialogForm sebCloseDialogForm;
+        private SebApplicationChooserForm sebApplicationChooserForm;
 
         //private Process xulRunner = new Process();
         //private int xulRunnerExitCode;
@@ -377,7 +378,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            CheckQuitPassword();
+            ShowCloseDialogForm();
             //if (this.closeSebClient)
             //{
             //    this.Close();
@@ -542,38 +543,64 @@ namespace SebWindowsClient
                 sebCloseDialogForm.Show();
                 sebCloseDialogForm.Visible = false;
             }
+            if (sebApplicationChooserForm == null)
+            {
+                sebApplicationChooserForm = new SebApplicationChooserForm();
+                sebApplicationChooserForm.TopMost = true;
+                sebApplicationChooserForm.Show();
+                sebApplicationChooserForm.Visible = false;
+            }
         }
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Check Quit Password.
+        /// Show SEB Application Chooser Form.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public void CheckQuitPassword()
+        public void ShowApplicationChooserForm()
         {
- 
-                     // Show testDialog as a modal dialog and determine if DialogResult = OK.
-                    sebCloseDialogForm.Visible = true;
-                    sebCloseDialogForm.txtQuitPassword.Focus();
-                    //sebCloseDialogForm.Activate();
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            sebApplicationChooserForm.fillListApplications(); 
+            sebApplicationChooserForm.Visible = true;
+            //sebCloseDialogForm.Activate();
+        }
 
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Show SEB Application Chooser Form.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public void SelectNextListItem()
+        {
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            sebApplicationChooserForm.SelectNextListItem();
+            //sebApplicationChooserForm.Visible = true;
+            //sebCloseDialogForm.Activate();
+        }
 
-                    
-                    //if (sebCloseDialogForm.Show() == DialogResult.OK)
-                    //    {
-                    //        // Read the contents of testDialog's TextBox.
-                    //        string userQuitPassword = sebCloseDialogForm.txtQuitPassword.Text;
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Hide SEB Application Chooser Form.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public void HideApplicationChooserForm()
+        {
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            sebApplicationChooserForm.Visible = false;
+            //sebCloseDialogForm.Activate();
+        }
 
-                    //        SEBProtectionController sEBProtectionControler = new SEBProtectionController();
-                    //        string hPassword = sEBProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
-                    //        quit = ((string)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageHashedQuitPassword)[SEBGlobalConstants.MessageHashedQuitPassword]).CompareTo(hPassword);
-                    //        if (quit != 0)
-                    //        {
-                    //            SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                    //        }
-                    //    }
-                    //    sebCloseDialogForm = null;
-
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Show SEB Close Form.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public void ShowCloseDialogForm()
+        {
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            sebCloseDialogForm.Visible = true;
+            sebCloseDialogForm.txtQuitPassword.Focus();
+            sebCloseDialogForm.Activate();
         }
 
         /// ----------------------------------------------------------------------------------------

@@ -27,6 +27,8 @@ namespace SebWindowsClient
         private static IntPtr IDI_APPLICATION = new IntPtr(0x7F00);
         private static int GCL_HICON = -14;
 
+        private int selectedItemIndex = 0;
+
         /// <summary>
         /// Enumeration of the different ways of showing a window using 
         /// ShowWindow</summary>
@@ -181,7 +183,32 @@ namespace SebWindowsClient
             //listApplications.k
             // Re-enable the display.
             this.listApplications.EndUpdate();
+            if (this.listApplications.Items.Count > 0)
+            {
+                this.listApplications.Items[0].Selected = true;
+            }
 
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Fill listApplications with running Applications, lWindowHandles with Window Handles
+        ///  of running Applications and ilApplicationIcons with running Applications Icons.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public void SelectNextListItem()
+        {
+            if (this.listApplications.Items.Count > 0)
+            {
+                if (selectedItemIndex >= listApplications.Items.Count)
+                {
+                    selectedItemIndex = 0;
+                }
+                this.listApplications.Items[selectedItemIndex].Selected = true;
+                ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.Restore);
+                SetForegroundWindow(lWindowHandles[selectedItemIndex]);
+                selectedItemIndex++;
+            }
         }
 
          /// ----------------------------------------------------------------------------------------
