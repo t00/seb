@@ -80,6 +80,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(371, 139);
+            this.ControlBox = false;
             this.Controls.Add(this.lblQuitPassword);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
