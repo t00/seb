@@ -554,11 +554,11 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 {
                     Application.Exit();
                 }
-                else if (wp == (IntPtr)WM_KEYUP)
-                {
-                    ResetCtrlQExitSequence(wp, lp);
-                    ResetExitKeySequence(wp, lp);
-                }
+            }
+            else if (wp == (IntPtr)WM_KEYUP)
+            {
+                ResetCtrlQExitSequence(wp, lp);
+                ResetExitKeySequence(wp, lp);
             }
         }
 

@@ -560,9 +560,10 @@ namespace SebWindowsClient
         public void ShowApplicationChooserForm()
         {
             // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            this.Activate();
             sebApplicationChooserForm.fillListApplications(); 
             sebApplicationChooserForm.Visible = true;
-            //sebCloseDialogForm.Activate();
+            sebCloseDialogForm.Activate();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -575,7 +576,7 @@ namespace SebWindowsClient
             // Show testDialog as a modal dialog and determine if DialogResult = OK.
             sebApplicationChooserForm.SelectNextListItem();
             //sebApplicationChooserForm.Visible = true;
-            //sebCloseDialogForm.Activate();
+            sebCloseDialogForm.Activate();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -598,6 +599,7 @@ namespace SebWindowsClient
         public void ShowCloseDialogForm()
         {
             // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            this.Activate();
             sebCloseDialogForm.Visible = true;
             sebCloseDialogForm.txtQuitPassword.Focus();
             sebCloseDialogForm.Activate();

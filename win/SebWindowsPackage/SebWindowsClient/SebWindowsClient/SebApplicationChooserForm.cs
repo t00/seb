@@ -59,6 +59,10 @@ namespace SebWindowsClient
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
+        [DllImportAttribute("User32.dll")]
+        private static extern IntPtr SetActiveWindow(IntPtr hWnd);
+
+
         [DllImport("user32.dll")]
         static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
@@ -198,6 +202,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SelectNextListItem()
         {
+            this.listApplications.Focus();
             if (this.listApplications.Items.Count > 0)
             {
                 if (selectedItemIndex >= listApplications.Items.Count)
@@ -205,8 +210,9 @@ namespace SebWindowsClient
                     selectedItemIndex = 0;
                 }
                 this.listApplications.Items[selectedItemIndex].Selected = true;
-                ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.Restore);
                 SetForegroundWindow(lWindowHandles[selectedItemIndex]);
+                //SetActiveWindow(lWindowHandles[selectedItemIndex]);
+                ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.Restore);
                 selectedItemIndex++;
             }
         }
@@ -225,8 +231,9 @@ namespace SebWindowsClient
             if (listApplications.SelectedItems.Count > 0)
             {
                 ListViewItem listViewItem = listApplications.SelectedItems[0]; //the second time you will get the selected item here
-                ShowWindow(lWindowHandles[listViewItem.Index], WindowShowStyle.Restore);
                 SetForegroundWindow(lWindowHandles[listViewItem.Index]);
+                //SetActiveWindow(lWindowHandles[listViewItem.Index]);
+                ShowWindow(lWindowHandles[listViewItem.Index], WindowShowStyle.Restore);
             }
         }
 
