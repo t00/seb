@@ -238,8 +238,8 @@ namespace SebWindowsClient
                 }
                 this.listApplications.Items[selectedItemIndex].Selected = true;
                 this.listApplications.Items[selectedItemIndex].Focused = true;
-                this.listApplications.Items[selectedItemIndex].ForeColor = Color.White;
-                this.listApplications.Items[lastSelectedItemIndex].ForeColor = Color.Black; ;
+                //this.listApplications.Items[selectedItemIndex].ForeColor = Color.White;
+                //this.listApplications.Items[lastSelectedItemIndex].ForeColor = Color.Black; ;
                 SetForegroundWindow(lWindowHandles[selectedItemIndex]);
                 BringWindowToTop(lWindowHandles[selectedItemIndex]);
                 ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.Restore);
