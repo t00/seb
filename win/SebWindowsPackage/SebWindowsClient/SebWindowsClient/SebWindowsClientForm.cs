@@ -57,11 +57,14 @@ namespace SebWindowsClient
         [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
 
+        [DllImportAttribute("User32.dll")]
+        private static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out int lpdwProcessId);
 
-        [System.Runtime.InteropServices.DllImport("User32")]
-        private static extern bool SetForegroundWindow(IntPtr hWnd);
+        //[System.Runtime.InteropServices.DllImport("User32")]
+        //private static extern bool SetForegroundWindow(IntPtr hWnd);
 
 
         private const int SW_HIDE = 0;
@@ -560,7 +563,8 @@ namespace SebWindowsClient
         public void ShowApplicationChooserForm()
         {
             // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            this.Activate();
+            SetForegroundWindow(this.Handle);
+            //this.Activate();
             sebApplicationChooserForm.fillListApplications(); 
             sebApplicationChooserForm.Visible = true;
             sebCloseDialogForm.Activate();
@@ -599,10 +603,9 @@ namespace SebWindowsClient
         public void ShowCloseDialogForm()
         {
             // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            this.Activate();
             sebCloseDialogForm.Visible = true;
-            sebCloseDialogForm.txtQuitPassword.Focus();
             sebCloseDialogForm.Activate();
+            sebCloseDialogForm.txtQuitPassword.Focus();
         }
 
         /// ----------------------------------------------------------------------------------------

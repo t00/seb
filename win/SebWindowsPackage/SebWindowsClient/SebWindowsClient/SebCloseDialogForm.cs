@@ -37,6 +37,7 @@ namespace SebWindowsClient
             if (quit != 0)
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                this.txtQuitPassword.Text = "";
                 this.Visible = false;
             }
             else

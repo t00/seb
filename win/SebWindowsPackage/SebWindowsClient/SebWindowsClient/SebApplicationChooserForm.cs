@@ -62,7 +62,6 @@ namespace SebWindowsClient
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
-
         [DllImport("user32.dll")]
         static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
@@ -74,6 +73,22 @@ namespace SebWindowsClient
 
         [DllImport("user32.dll", EntryPoint = "GetClassLongPtr")]
         static extern IntPtr GetClassLong64(IntPtr hWnd, int nIndex);
+
+        [DllImport("User32.DLL")]
+        private static extern int AttachThreadInput(uint CurrentForegroundThread, uint MakeThisThreadForegrouond, bool boolAttach);
+
+        [DllImport("user32.dll")]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
+
+        [DllImportAttribute("user32.dll", EntryPoint = "GetForegroundWindow")]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("kernel32.dll")]
+        public static extern uint GetCurrentThreadId();
+
+        [DllImportAttribute("user32.dll", EntryPoint = "BringWindowToTop")]
+        public static extern bool BringWindowToTop([InAttribute()] IntPtr hWnd);
+
 
 
         /// ----------------------------------------------------------------------------------------
@@ -191,6 +206,7 @@ namespace SebWindowsClient
             {
                 this.listApplications.Items[0].Selected = true;
             }
+            selectedItemIndex = 0;
 
         }
 
@@ -202,21 +218,50 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SelectNextListItem()
         {
-            this.listApplications.Focus();
+            //uint selectedWindowThreadId = GetWindowThreadProcessId(this.Handle, IntPtr.Zero);
+            IntPtr hWndForegroundWindow = GetForegroundWindow();
+            uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
+
+            uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+            AttachThreadInput(activeThreadID, currentThreadID, true);
+            //this.Focus();
             if (this.listApplications.Items.Count > 0)
             {
+                int lastSelectedItemIndex = selectedItemIndex-1;
                 if (selectedItemIndex >= listApplications.Items.Count)
                 {
                     selectedItemIndex = 0;
                 }
+                if (lastSelectedItemIndex < 0)
+                {
+                    lastSelectedItemIndex = listApplications.Items.Count - 1;
+                }
                 this.listApplications.Items[selectedItemIndex].Selected = true;
+                this.listApplications.Items[selectedItemIndex].Focused = true;
+                this.listApplications.Items[selectedItemIndex].ForeColor = Color.White;
+                this.listApplications.Items[lastSelectedItemIndex].ForeColor = Color.Black; ;
                 SetForegroundWindow(lWindowHandles[selectedItemIndex]);
-                //SetActiveWindow(lWindowHandles[selectedItemIndex]);
+                BringWindowToTop(lWindowHandles[selectedItemIndex]);
                 ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.Restore);
                 selectedItemIndex++;
             }
+            AttachThreadInput(activeThreadID, currentThreadID, false);
+            this.listApplications.Focus();
         }
 
+        public static void forceSetForegroundWindow(IntPtr hWnd)
+        {
+            uint selectedWindowThreadId = GetWindowThreadProcessId(hWnd, IntPtr.Zero);
+            uint foregroundThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+            if (foregroundThreadID != selectedWindowThreadId)
+            {
+                AttachThreadInput(selectedWindowThreadId, foregroundThreadID, true);
+                SetForegroundWindow(hWnd);
+                AttachThreadInput(selectedWindowThreadId, foregroundThreadID, false);
+            }
+            else
+                SetForegroundWindow(hWnd);
+        }
          /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Set selected Process window in foreground.
