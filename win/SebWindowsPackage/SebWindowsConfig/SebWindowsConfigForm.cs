@@ -3511,6 +3511,22 @@ namespace SebWindowsConfig
             else sebSettingsNew[MessageProxySettingsPolicy] = 0;
         }
 
+        private void dataGridViewProxyProtocols_SelectionChanged(object sender, EventArgs e)
+        {
+            // CAUTION:
+            // If a row was previously selected and the user clicks onto another row,
+            // the SelectionChanged() event is fired TWICE!!!
+            // The first time, it is only for UNselecting the old row,
+            // so the SelectedRows.Count is ZERO, so ignore this event handler!
+            // The second time, SelectedRows.Count is ONE.
+            // Now you can set the widgets in the "Selected Process" groupBox.
+
+            if (dataGridViewProxyProtocols.SelectedRows.Count != 1) return;
+            proxyProtocolIndex = dataGridViewProxyProtocols.SelectedRows[0].Index;
+
+
+        }
+
         private void textBoxAutoProxyConfigurationURL_TextChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageAutoConfigurationURL] = textBoxAutoProxyConfigurationURL.Text;
