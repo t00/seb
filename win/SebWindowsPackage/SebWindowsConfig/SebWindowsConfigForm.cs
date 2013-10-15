@@ -1046,6 +1046,7 @@ namespace SebWindowsConfig
             dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolType  ].ReadOnly = true;
 
             dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ValueType = typeof(String);
+            dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ReadOnly  = false;
 
             // Assign the column names to the DataGridViews
 /*

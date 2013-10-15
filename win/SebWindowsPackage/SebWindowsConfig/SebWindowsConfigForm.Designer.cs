@@ -130,7 +130,6 @@
             this.dataGridViewCheckBoxColumnProtocolEnable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumnProtocolType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewBypassedProxies = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumnDomainHostPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
             this.labelIfYourNetworkAdministrator = new System.Windows.Forms.Label();
             this.labelProxyConfigurationFileURL = new System.Windows.Forms.Label();
@@ -307,6 +306,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.dataGridViewTextBoxColumnDomainHostPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1468,12 +1468,6 @@
             this.dataGridViewBypassedProxies.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBypassedProxies_CellValueChanged);
             this.dataGridViewBypassedProxies.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewBypassedProxies_CurrentCellDirtyStateChanged);
             this.dataGridViewBypassedProxies.SelectionChanged += new System.EventHandler(this.dataGridViewBypassedProxies_SelectionChanged);
-            // 
-            // dataGridViewTextBoxColumnDomainHostPort
-            // 
-            this.dataGridViewTextBoxColumnDomainHostPort.HeaderText = "Domain, Host, Port";
-            this.dataGridViewTextBoxColumnDomainHostPort.Name = "dataGridViewTextBoxColumnDomainHostPort";
-            this.dataGridViewTextBoxColumnDomainHostPort.Width = 650;
             // 
             // buttonChooseProxyConfigurationFile
             // 
@@ -3395,6 +3389,12 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // dataGridViewTextBoxColumnDomainHostPort
+            // 
+            this.dataGridViewTextBoxColumnDomainHostPort.HeaderText = "Domain, Host/Port";
+            this.dataGridViewTextBoxColumnDomainHostPort.Name = "dataGridViewTextBoxColumnDomainHostPort";
+            this.dataGridViewTextBoxColumnDomainHostPort.Width = 650;
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3736,7 +3736,6 @@
         private System.Windows.Forms.DataGridView dataGridViewProxyProtocols;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnType;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnDomainHostPort;
         private System.Windows.Forms.Label labelProxyServerPassword;
         private System.Windows.Forms.Label labelProxyServerUsername;
         private System.Windows.Forms.TextBox textBoxProxyServerPassword;
@@ -3748,6 +3747,7 @@
         private System.Windows.Forms.Label labelProxyServerPort;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumnProtocolEnable;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnProtocolType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnDomainHostPort;
 
     }
 }
