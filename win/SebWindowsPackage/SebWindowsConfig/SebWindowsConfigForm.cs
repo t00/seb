@@ -1761,6 +1761,7 @@ namespace SebWindowsConfig
           //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
 
+
             // Group "Network - Filter"
             checkBoxEnableURLFilter       .Checked = (Boolean)sebSettingsNew[MessageEnableURLFilter];
             checkBoxEnableURLContentFilter.Checked = (Boolean)sebSettingsNew[MessageEnableURLContentFilter];
@@ -1771,7 +1772,7 @@ namespace SebWindowsConfig
             radioButtonUseSystemProxySettings.Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 0);
             radioButtonUseSebProxySettings   .Checked =    ((int)sebSettingsNew[MessageProxySettingsPolicy] == 1);
 
-            textBoxAutoConfigurationURL .Text    =  (String)proxiesData[MessageAutoConfigurationURL];
+            textBoxAutoProxyConfigurationURL .Text    =  (String)proxiesData[MessageAutoConfigurationURL];
             checkBoxExcludeSimpleHostnames   .Checked = (Boolean)proxiesData[MessageExcludeSimpleHostnames];
             checkBoxUsePassiveFTPMode        .Checked = (Boolean)proxiesData[MessageFTPPassive];
 
@@ -3471,9 +3472,9 @@ namespace SebWindowsConfig
             else sebSettingsNew[MessageProxySettingsPolicy] = 0;
         }
 
-        private void textBoxAutoConfigurationURL_TextChanged(object sender, EventArgs e)
+        private void textBoxAutoProxyConfigurationURL_TextChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageAutoConfigurationURL] = textBoxAutoConfigurationURL.Text;
+            sebSettingsNew[MessageAutoConfigurationURL] = textBoxAutoProxyConfigurationURL.Text;
         }
 
         private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
@@ -3814,6 +3815,7 @@ namespace SebWindowsConfig
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
+
 
 
 

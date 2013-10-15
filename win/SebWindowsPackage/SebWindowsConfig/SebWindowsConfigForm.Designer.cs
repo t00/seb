@@ -118,15 +118,13 @@
             this.dataGridViewTextBoxColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
             this.dataGridViewProxyProtocols = new System.Windows.Forms.DataGridView();
-            this.dataGridViewCheckBoxColumnProtocolEnable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumnProtocolType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewBypassedProxies = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumnDomainHostPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
             this.labelIfYourNetworkAdministrator = new System.Windows.Forms.Label();
             this.labelProxyConfigurationFileURL = new System.Windows.Forms.Label();
-            this.textBoxAutoConfigurationURL = new System.Windows.Forms.TextBox();
-            this.labelAutoConfigurationURL = new System.Windows.Forms.Label();
+            this.textBoxAutoProxyConfigurationURL = new System.Windows.Forms.TextBox();
+            this.labelAutoProxyConfigurationURL = new System.Windows.Forms.Label();
             this.labelBypassedProxies = new System.Windows.Forms.Label();
             this.checkBoxUsePassiveFTPMode = new System.Windows.Forms.CheckBox();
             this.checkBoxExcludeSimpleHostnames = new System.Windows.Forms.CheckBox();
@@ -298,6 +296,17 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.textBoxProxyServerHost = new System.Windows.Forms.TextBox();
+            this.labelProxyServerHost = new System.Windows.Forms.Label();
+            this.textBoxProxyServerPort = new System.Windows.Forms.TextBox();
+            this.checkBoxProxyServerRequiresPassword = new System.Windows.Forms.CheckBox();
+            this.textBoxProxyServerUsername = new System.Windows.Forms.TextBox();
+            this.textBoxProxyServerPassword = new System.Windows.Forms.TextBox();
+            this.labelProxyServerUsername = new System.Windows.Forms.Label();
+            this.labelProxyServerPassword = new System.Windows.Forms.Label();
+            this.labelProxyServerPort = new System.Windows.Forms.Label();
+            this.dataGridViewCheckBoxColumnProtocolEnable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumnProtocolType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1309,13 +1318,22 @@
             // 
             // tabPageProxies
             // 
+            this.tabPageProxies.Controls.Add(this.labelProxyServerPort);
+            this.tabPageProxies.Controls.Add(this.labelProxyServerPassword);
+            this.tabPageProxies.Controls.Add(this.labelProxyServerUsername);
+            this.tabPageProxies.Controls.Add(this.textBoxProxyServerPassword);
+            this.tabPageProxies.Controls.Add(this.textBoxProxyServerUsername);
+            this.tabPageProxies.Controls.Add(this.checkBoxProxyServerRequiresPassword);
+            this.tabPageProxies.Controls.Add(this.textBoxProxyServerPort);
+            this.tabPageProxies.Controls.Add(this.labelProxyServerHost);
+            this.tabPageProxies.Controls.Add(this.textBoxProxyServerHost);
             this.tabPageProxies.Controls.Add(this.dataGridViewProxyProtocols);
             this.tabPageProxies.Controls.Add(this.dataGridViewBypassedProxies);
             this.tabPageProxies.Controls.Add(this.buttonChooseProxyConfigurationFile);
             this.tabPageProxies.Controls.Add(this.labelIfYourNetworkAdministrator);
             this.tabPageProxies.Controls.Add(this.labelProxyConfigurationFileURL);
-            this.tabPageProxies.Controls.Add(this.textBoxAutoConfigurationURL);
-            this.tabPageProxies.Controls.Add(this.labelAutoConfigurationURL);
+            this.tabPageProxies.Controls.Add(this.textBoxAutoProxyConfigurationURL);
+            this.tabPageProxies.Controls.Add(this.labelAutoProxyConfigurationURL);
             this.tabPageProxies.Controls.Add(this.labelBypassedProxies);
             this.tabPageProxies.Controls.Add(this.checkBoxUsePassiveFTPMode);
             this.tabPageProxies.Controls.Add(this.checkBoxExcludeSimpleHostnames);
@@ -1341,20 +1359,8 @@
             this.dataGridViewProxyProtocols.Name = "dataGridViewProxyProtocols";
             this.dataGridViewProxyProtocols.RowHeadersVisible = false;
             this.dataGridViewProxyProtocols.RowTemplate.Height = 24;
-            this.dataGridViewProxyProtocols.Size = new System.Drawing.Size(350, 180);
+            this.dataGridViewProxyProtocols.Size = new System.Drawing.Size(350, 175);
             this.dataGridViewProxyProtocols.TabIndex = 101;
-            // 
-            // dataGridViewCheckBoxColumnProtocolEnable
-            // 
-            this.dataGridViewCheckBoxColumnProtocolEnable.HeaderText = "Enable";
-            this.dataGridViewCheckBoxColumnProtocolEnable.Name = "dataGridViewCheckBoxColumnProtocolEnable";
-            this.dataGridViewCheckBoxColumnProtocolEnable.Width = 50;
-            // 
-            // dataGridViewTextBoxColumnProtocolType
-            // 
-            this.dataGridViewTextBoxColumnProtocolType.HeaderText = "Type";
-            this.dataGridViewTextBoxColumnProtocolType.Name = "dataGridViewTextBoxColumnProtocolType";
-            this.dataGridViewTextBoxColumnProtocolType.Width = 297;
             // 
             // dataGridViewBypassedProxies
             // 
@@ -1380,7 +1386,7 @@
             // buttonChooseProxyConfigurationFile
             // 
             this.buttonChooseProxyConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChooseProxyConfigurationFile.Location = new System.Drawing.Point(775, 178);
+            this.buttonChooseProxyConfigurationFile.Location = new System.Drawing.Point(775, 61);
             this.buttonChooseProxyConfigurationFile.Name = "buttonChooseProxyConfigurationFile";
             this.buttonChooseProxyConfigurationFile.Size = new System.Drawing.Size(124, 25);
             this.buttonChooseProxyConfigurationFile.TabIndex = 99;
@@ -1391,7 +1397,7 @@
             // labelIfYourNetworkAdministrator
             // 
             this.labelIfYourNetworkAdministrator.AutoSize = true;
-            this.labelIfYourNetworkAdministrator.Location = new System.Drawing.Point(400, 238);
+            this.labelIfYourNetworkAdministrator.Location = new System.Drawing.Point(400, 89);
             this.labelIfYourNetworkAdministrator.Name = "labelIfYourNetworkAdministrator";
             this.labelIfYourNetworkAdministrator.Size = new System.Drawing.Size(766, 17);
             this.labelIfYourNetworkAdministrator.TabIndex = 98;
@@ -1401,29 +1407,29 @@
             // labelProxyConfigurationFileURL
             // 
             this.labelProxyConfigurationFileURL.AutoSize = true;
-            this.labelProxyConfigurationFileURL.Location = new System.Drawing.Point(400, 142);
+            this.labelProxyConfigurationFileURL.Location = new System.Drawing.Point(400, 38);
             this.labelProxyConfigurationFileURL.Name = "labelProxyConfigurationFileURL";
             this.labelProxyConfigurationFileURL.Size = new System.Drawing.Size(40, 17);
             this.labelProxyConfigurationFileURL.TabIndex = 97;
             this.labelProxyConfigurationFileURL.Text = "URL:";
             // 
-            // textBoxAutoConfigurationURL
+            // textBoxAutoProxyConfigurationURL
             // 
-            this.textBoxAutoConfigurationURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAutoConfigurationURL.Location = new System.Drawing.Point(446, 140);
-            this.textBoxAutoConfigurationURL.Name = "textBoxAutoConfigurationURL";
-            this.textBoxAutoConfigurationURL.Size = new System.Drawing.Size(453, 22);
-            this.textBoxAutoConfigurationURL.TabIndex = 96;
-            this.textBoxAutoConfigurationURL.TextChanged += new System.EventHandler(this.textBoxAutoConfigurationURL_TextChanged);
+            this.textBoxAutoProxyConfigurationURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAutoProxyConfigurationURL.Location = new System.Drawing.Point(446, 33);
+            this.textBoxAutoProxyConfigurationURL.Name = "textBoxAutoProxyConfigurationURL";
+            this.textBoxAutoProxyConfigurationURL.Size = new System.Drawing.Size(453, 22);
+            this.textBoxAutoProxyConfigurationURL.TabIndex = 96;
+            this.textBoxAutoProxyConfigurationURL.TextChanged += new System.EventHandler(this.textBoxAutoProxyConfigurationURL_TextChanged);
             // 
-            // labelAutoConfigurationURL
+            // labelAutoProxyConfigurationURL
             // 
-            this.labelAutoConfigurationURL.AutoSize = true;
-            this.labelAutoConfigurationURL.Location = new System.Drawing.Point(400, 104);
-            this.labelAutoConfigurationURL.Name = "labelAutoConfigurationURL";
-            this.labelAutoConfigurationURL.Size = new System.Drawing.Size(151, 17);
-            this.labelAutoConfigurationURL.TabIndex = 95;
-            this.labelAutoConfigurationURL.Text = "Proxy configuration file";
+            this.labelAutoProxyConfigurationURL.AutoSize = true;
+            this.labelAutoProxyConfigurationURL.Location = new System.Drawing.Point(400, 13);
+            this.labelAutoProxyConfigurationURL.Name = "labelAutoProxyConfigurationURL";
+            this.labelAutoProxyConfigurationURL.Size = new System.Drawing.Size(151, 17);
+            this.labelAutoProxyConfigurationURL.TabIndex = 95;
+            this.labelAutoProxyConfigurationURL.Text = "Proxy configuration file";
             // 
             // labelBypassedProxies
             // 
@@ -3297,6 +3303,98 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
+            // textBoxProxyServerHost
+            // 
+            this.textBoxProxyServerHost.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxProxyServerHost.Location = new System.Drawing.Point(403, 150);
+            this.textBoxProxyServerHost.Name = "textBoxProxyServerHost";
+            this.textBoxProxyServerHost.Size = new System.Drawing.Size(398, 22);
+            this.textBoxProxyServerHost.TabIndex = 102;
+            // 
+            // labelProxyServerHost
+            // 
+            this.labelProxyServerHost.AutoSize = true;
+            this.labelProxyServerHost.Location = new System.Drawing.Point(400, 130);
+            this.labelProxyServerHost.Name = "labelProxyServerHost";
+            this.labelProxyServerHost.Size = new System.Drawing.Size(89, 17);
+            this.labelProxyServerHost.TabIndex = 103;
+            this.labelProxyServerHost.Text = "Proxy Server";
+            // 
+            // textBoxProxyServerPort
+            // 
+            this.textBoxProxyServerPort.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxProxyServerPort.Location = new System.Drawing.Point(825, 150);
+            this.textBoxProxyServerPort.Name = "textBoxProxyServerPort";
+            this.textBoxProxyServerPort.Size = new System.Drawing.Size(69, 22);
+            this.textBoxProxyServerPort.TabIndex = 104;
+            // 
+            // checkBoxProxyServerRequiresPassword
+            // 
+            this.checkBoxProxyServerRequiresPassword.AutoSize = true;
+            this.checkBoxProxyServerRequiresPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxProxyServerRequiresPassword.Location = new System.Drawing.Point(403, 191);
+            this.checkBoxProxyServerRequiresPassword.Name = "checkBoxProxyServerRequiresPassword";
+            this.checkBoxProxyServerRequiresPassword.Size = new System.Drawing.Size(229, 21);
+            this.checkBoxProxyServerRequiresPassword.TabIndex = 105;
+            this.checkBoxProxyServerRequiresPassword.Text = "Proxy server requires password";
+            this.checkBoxProxyServerRequiresPassword.UseVisualStyleBackColor = true;
+            // 
+            // textBoxProxyServerUsername
+            // 
+            this.textBoxProxyServerUsername.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxProxyServerUsername.Location = new System.Drawing.Point(510, 223);
+            this.textBoxProxyServerUsername.Name = "textBoxProxyServerUsername";
+            this.textBoxProxyServerUsername.Size = new System.Drawing.Size(389, 22);
+            this.textBoxProxyServerUsername.TabIndex = 106;
+            // 
+            // textBoxProxyServerPassword
+            // 
+            this.textBoxProxyServerPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxProxyServerPassword.Location = new System.Drawing.Point(510, 260);
+            this.textBoxProxyServerPassword.Name = "textBoxProxyServerPassword";
+            this.textBoxProxyServerPassword.Size = new System.Drawing.Size(389, 22);
+            this.textBoxProxyServerPassword.TabIndex = 107;
+            // 
+            // labelProxyServerUsername
+            // 
+            this.labelProxyServerUsername.AutoSize = true;
+            this.labelProxyServerUsername.Location = new System.Drawing.Point(431, 228);
+            this.labelProxyServerUsername.Name = "labelProxyServerUsername";
+            this.labelProxyServerUsername.Size = new System.Drawing.Size(73, 17);
+            this.labelProxyServerUsername.TabIndex = 108;
+            this.labelProxyServerUsername.Text = "Username";
+            // 
+            // labelProxyServerPassword
+            // 
+            this.labelProxyServerPassword.AutoSize = true;
+            this.labelProxyServerPassword.Location = new System.Drawing.Point(431, 260);
+            this.labelProxyServerPassword.Name = "labelProxyServerPassword";
+            this.labelProxyServerPassword.Size = new System.Drawing.Size(69, 17);
+            this.labelProxyServerPassword.TabIndex = 109;
+            this.labelProxyServerPassword.Text = "Password";
+            // 
+            // labelProxyServerPort
+            // 
+            this.labelProxyServerPort.AutoSize = true;
+            this.labelProxyServerPort.Location = new System.Drawing.Point(807, 150);
+            this.labelProxyServerPort.Name = "labelProxyServerPort";
+            this.labelProxyServerPort.Size = new System.Drawing.Size(12, 17);
+            this.labelProxyServerPort.TabIndex = 110;
+            this.labelProxyServerPort.Text = ":";
+            // 
+            // dataGridViewCheckBoxColumnProtocolEnable
+            // 
+            this.dataGridViewCheckBoxColumnProtocolEnable.HeaderText = "Enable";
+            this.dataGridViewCheckBoxColumnProtocolEnable.Name = "dataGridViewCheckBoxColumnProtocolEnable";
+            this.dataGridViewCheckBoxColumnProtocolEnable.Width = 50;
+            // 
+            // dataGridViewTextBoxColumnProtocolType
+            // 
+            this.dataGridViewTextBoxColumnProtocolType.HeaderText = "Type";
+            this.dataGridViewTextBoxColumnProtocolType.Name = "dataGridViewTextBoxColumnProtocolType";
+            this.dataGridViewTextBoxColumnProtocolType.ReadOnly = true;
+            this.dataGridViewTextBoxColumnProtocolType.Width = 297;
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3575,8 +3673,8 @@
         private System.Windows.Forms.CheckBox checkBoxUsePassiveFTPMode;
         private System.Windows.Forms.CheckBox checkBoxExcludeSimpleHostnames;
         private System.Windows.Forms.Label labelBypassedProxies;
-        private System.Windows.Forms.Label labelAutoConfigurationURL;
-        private System.Windows.Forms.TextBox textBoxAutoConfigurationURL;
+        private System.Windows.Forms.Label labelAutoProxyConfigurationURL;
+        private System.Windows.Forms.TextBox textBoxAutoProxyConfigurationURL;
         private System.Windows.Forms.Label labelProxyConfigurationFileURL;
         private System.Windows.Forms.Label labelIfYourNetworkAdministrator;
         private System.Windows.Forms.Button buttonChooseProxyConfigurationFile;
@@ -3638,9 +3736,18 @@
         private System.Windows.Forms.DataGridView dataGridViewProxyProtocols;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnType;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnDomainHostPort;
+        private System.Windows.Forms.Label labelProxyServerPassword;
+        private System.Windows.Forms.Label labelProxyServerUsername;
+        private System.Windows.Forms.TextBox textBoxProxyServerPassword;
+        private System.Windows.Forms.TextBox textBoxProxyServerUsername;
+        private System.Windows.Forms.CheckBox checkBoxProxyServerRequiresPassword;
+        private System.Windows.Forms.TextBox textBoxProxyServerPort;
+        private System.Windows.Forms.Label labelProxyServerHost;
+        private System.Windows.Forms.TextBox textBoxProxyServerHost;
+        private System.Windows.Forms.Label labelProxyServerPort;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumnProtocolEnable;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnProtocolType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnDomainHostPort;
 
     }
 }
