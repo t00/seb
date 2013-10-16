@@ -3551,8 +3551,8 @@ namespace SebWindowsConfig
             Boolean useAutoConfiguration = (proxyProtocolIndex == IntProxyAutoConfiguration);
             Boolean useProxyServer       = (proxyProtocolIndex  > IntProxyAutoConfiguration);
 
-            labelAutoProxyConfigurationURL.Visible = useAutoConfiguration;
-            labelProxyConfigurationFileURL.Visible = useAutoConfiguration;
+            labelAutoProxyConfigurationURL .Visible = useAutoConfiguration;
+            labelProxyConfigurationFileURL .Visible = useAutoConfiguration;
             labelIfYourNetworkAdministrator.Visible = useAutoConfiguration;
 
              textBoxAutoProxyConfigurationURL .Visible = useAutoConfiguration;
