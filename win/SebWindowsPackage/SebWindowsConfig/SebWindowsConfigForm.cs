@@ -3531,6 +3531,21 @@ namespace SebWindowsConfig
             else sebSettingsNew[MessageProxySettingsPolicy] = 0;
         }
 
+        private void checkBoxExcludeSimpleHostnames_CheckedChanged(object sender, EventArgs e)
+        {
+            // Get the proxies dataset
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+            proxiesData[MessageExcludeSimpleHostnames] = checkBoxExcludeSimpleHostnames.Checked;
+        }
+
+        private void checkBoxUsePassiveFTPMode_CheckedChanged(object sender, EventArgs e)
+        {
+            // Get the proxies dataset
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+            proxiesData[MessageFTPPassive] = checkBoxUsePassiveFTPMode.Checked;
+        }
+
+
         private void dataGridViewProxyProtocols_SelectionChanged(object sender, EventArgs e)
         {
             // CAUTION:
@@ -3577,9 +3592,49 @@ namespace SebWindowsConfig
             }
         }
 
+
+        private void dataGridViewProxyProtocols_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
+            // immediately call the CellValueChanged() event.
+            if (dataGridViewProxyProtocols.IsCurrentCellDirty)
+                dataGridViewProxyProtocols.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+
+        private void dataGridViewProxyProtocols_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Get the current cell where the user has changed a value
+            int row    = dataGridViewProxyProtocols.CurrentCellAddress.Y;
+            int column = dataGridViewProxyProtocols.CurrentCellAddress.X;
+
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            // Get the changed value of the current cell
+            object value = dataGridViewProxyProtocols.CurrentCell.EditedFormattedValue;
+
+            // Get the proxies data of the proxy protocol belonging to the cell (row)
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+
+            proxyProtocolIndex = row;
+            String keyname = MessageProxyProtocolKey[proxyProtocolIndex];
+
+            // Update the proxy enable data belonging to the current cell
+            if (column == IntColumnProxyProtocolEnable)
+            {
+                proxiesData[keyname]             = (Boolean)value;
+                BooleanProxyProtocolEnabled[row] = (Boolean)value;
+            }
+        }
+
+
         private void textBoxAutoProxyConfigurationURL_TextChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageAutoConfigurationURL] = textBoxAutoProxyConfigurationURL.Text;
+            // Get the proxies dataset
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+            proxiesData[MessageAutoConfigurationURL] = textBoxAutoProxyConfigurationURL.Text;
         }
 
         private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
@@ -3587,15 +3642,7 @@ namespace SebWindowsConfig
 
         }
 
-        private void checkBoxExcludeSimpleHostnames_CheckedChanged(object sender, EventArgs e)
-        {
-            sebSettingsNew[MessageExcludeSimpleHostnames] = checkBoxExcludeSimpleHostnames.Checked;
-        }
 
-        private void checkBoxUsePassiveFTPMode_CheckedChanged(object sender, EventArgs e)
-        {
-            sebSettingsNew[MessageFTPPassive] = checkBoxUsePassiveFTPMode.Checked;
-        }
 
 
         private void dataGridViewBypassedProxies_SelectionChanged(object sender, EventArgs e)
@@ -3920,7 +3967,6 @@ namespace SebWindowsConfig
         {
             sebSettingsNew[MessageEnableF12] = checkBoxEnableF12.Checked;
         }
-
 
 
 

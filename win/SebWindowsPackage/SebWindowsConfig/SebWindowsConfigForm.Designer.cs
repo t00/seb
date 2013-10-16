@@ -1440,6 +1440,8 @@
             this.dataGridViewProxyProtocols.RowTemplate.Height = 24;
             this.dataGridViewProxyProtocols.Size = new System.Drawing.Size(350, 171);
             this.dataGridViewProxyProtocols.TabIndex = 101;
+            this.dataGridViewProxyProtocols.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProxyProtocols_CellValueChanged);
+            this.dataGridViewProxyProtocols.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewProxyProtocols_CurrentCellDirtyStateChanged);
             this.dataGridViewProxyProtocols.SelectionChanged += new System.EventHandler(this.dataGridViewProxyProtocols_SelectionChanged);
             // 
             // dataGridViewCheckBoxColumnProtocolEnable
