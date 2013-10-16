@@ -192,11 +192,13 @@ namespace SebWindowsConfig
         const String MessageProxies                     = "proxies";
         const String MessageExceptionsList              = "ExceptionsList";
         const String MessageExcludeSimpleHostnames      = "ExcludeSimpleHostnames";
-        const String MessageAutoDiscoveryEnable         = "AutoDiscoveryEnabled";
-        const String MessageAutoConfigurationEnable     = "AutoConfigurationEnabled";
+        const String MessageFTPPassive                  = "FTPPassive";
+
+        const String MessageAutoDiscoveryEnabled        = "AutoDiscoveryEnabled";
+        const String MessageAutoConfigurationEnabled    = "AutoConfigurationEnabled";
         const String MessageAutoConfigurationJavaScript = "AutoConfigurationJavaScript";
         const String MessageAutoConfigurationURL        = "AutoConfigurationURL";
-        const String MessageFTPPassive                  = "FTPPassive";
+
 
         const String MessageAutoDiscovery     = "";
         const String MessageAutoConfiguration = "";
@@ -515,7 +517,7 @@ namespace SebWindowsConfig
 
         static  String[]  MessageProxyProtocolType      = new  String[7];
         static  String[]  MessageProxyProtocolAttribute = new  String[7];
-        static  String[]  MessageProxyProtocolKey       = new  String[7];
+        static  String[]  MessageProxyProtocolEnableKey = new  String[7];
 
         const int NumProxyProtocols = 7;
 
@@ -716,8 +718,8 @@ namespace SebWindowsConfig
             // Default settings for group "Network - Proxies"
             proxiesDataDef.Add(MessageExceptionsList             , new List<object>());
             proxiesDataDef.Add(MessageExcludeSimpleHostnames     , true);
-            proxiesDataDef.Add(MessageAutoDiscoveryEnable       , false);
-            proxiesDataDef.Add(MessageAutoConfigurationEnable   , false);
+            proxiesDataDef.Add(MessageAutoDiscoveryEnabled       , false);
+            proxiesDataDef.Add(MessageAutoConfigurationEnabled   , false);
             proxiesDataDef.Add(MessageAutoConfigurationJavaScript, "");
             proxiesDataDef.Add(MessageAutoConfigurationURL       , "");
             proxiesDataDef.Add(MessageFTPPassive                 , true);
@@ -971,13 +973,13 @@ namespace SebWindowsConfig
             MessageProxyProtocolAttribute[5] = MessagePassword;
 
             // Define the strings for the Proxy Protocol Keys
-            MessageProxyProtocolKey[0] = MessageAutoDiscoveryEnable;
-            MessageProxyProtocolKey[1] = MessageAutoConfigurationEnable;
-            MessageProxyProtocolKey[2] = MessageHTTPEnable;
-            MessageProxyProtocolKey[3] = MessageHTTPSEnable;
-            MessageProxyProtocolKey[4] = MessageFTPEnable;
-            MessageProxyProtocolKey[5] = MessageSOCKSEnable;
-            MessageProxyProtocolKey[6] = MessageRTSPEnable;
+            MessageProxyProtocolEnableKey[0] = MessageAutoDiscoveryEnabled;
+            MessageProxyProtocolEnableKey[1] = MessageAutoConfigurationEnabled;
+            MessageProxyProtocolEnableKey[2] = MessageHTTPEnable;
+            MessageProxyProtocolEnableKey[3] = MessageHTTPSEnable;
+            MessageProxyProtocolEnableKey[4] = MessageFTPEnable;
+            MessageProxyProtocolEnableKey[5] = MessageSOCKSEnable;
+            MessageProxyProtocolEnableKey[6] = MessageRTSPEnable;
 
             // Initialise the booleans for the Proxy Protocols
             for (int i = 0; i < NumProxyProtocols; i++)
@@ -1771,8 +1773,8 @@ namespace SebWindowsConfig
             }
 
             // Get the "Enabled" boolean values of current "proxies" dictionary
-            BooleanProxyProtocolEnabled[IntProxyAutoDiscovery    ] = (Boolean)proxiesData[MessageAutoDiscoveryEnable];
-            BooleanProxyProtocolEnabled[IntProxyAutoConfiguration] = (Boolean)proxiesData[MessageAutoConfigurationEnable];
+            BooleanProxyProtocolEnabled[IntProxyAutoDiscovery    ] = (Boolean)proxiesData[MessageAutoDiscoveryEnabled];
+            BooleanProxyProtocolEnabled[IntProxyAutoConfiguration] = (Boolean)proxiesData[MessageAutoConfigurationEnabled];
             BooleanProxyProtocolEnabled[IntProxyHTTP             ] = (Boolean)proxiesData[MessageHTTPEnable];
             BooleanProxyProtocolEnabled[IntProxyHTTPS            ] = (Boolean)proxiesData[MessageHTTPSEnable];
             BooleanProxyProtocolEnabled[IntProxyFTP              ] = (Boolean)proxiesData[MessageFTPEnable];
@@ -3619,11 +3621,11 @@ namespace SebWindowsConfig
             proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
 
             proxyProtocolIndex = row;
-            String keyname = MessageProxyProtocolKey[proxyProtocolIndex];
 
             // Update the proxy enable data belonging to the current cell
             if (column == IntColumnProxyProtocolEnable)
             {
+                String keyname = MessageProxyProtocolEnableKey[row];
                 proxiesData[keyname]             = (Boolean)value;
                 BooleanProxyProtocolEnabled[row] = (Boolean)value;
             }
