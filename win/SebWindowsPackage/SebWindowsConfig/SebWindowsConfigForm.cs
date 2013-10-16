@@ -58,13 +58,23 @@ namespace SebWindowsConfig
         const int IntProxySOCKS             = 5;
         const int IntProxyRTSP              = 6;
 
-        const String StringTableProxyAutoDiscovery     = "Auto Proxy Discovery";
-        const String StringTableProxyAutoConfiguration = "Automatic Proxy Configuration";
-        const String StringTableProxyHTTP              = "Web Proxy (HTTP)";
-        const String StringTableProxyHTTPS             = "Secure Web Proxy (HTTPS)";
-        const String StringTableProxyFTP               = "FTP Proxy";
-        const String StringTableProxySOCKS             = "SOCKS Proxy";
-        const String StringTableProxyRTSP              = "Streaming Proxy (RTSP)";
+        // Captions for table dataGridViewProxyProtocols
+        const String StringTableCaptionProxyAutoDiscovery     = "Auto Proxy Discovery";
+        const String StringTableCaptionProxyAutoConfiguration = "Automatic Proxy Configuration";
+        const String StringTableCaptionProxyHTTP              = "Web Proxy (HTTP)";
+        const String StringTableCaptionProxyHTTPS             = "Secure Web Proxy (HTTPS)";
+        const String StringTableCaptionProxyFTP               = "FTP Proxy";
+        const String StringTableCaptionProxySOCKS             = "SOCKS Proxy";
+        const String StringTableCaptionProxyRTSP              = "Streaming Proxy (RTSP)";
+
+        // Texts for labelProxyServerHost
+        const String StringServerLabelProxyAutoDiscovery     = "";
+        const String StringServerLabelProxyAutoConfiguration = "";
+        const String StringServerLabelProxyHTTP              = "Web";
+        const String StringServerLabelProxyHTTPS             = "Secure Web";
+        const String StringServerLabelProxyFTP               = "FTP";
+        const String StringServerLabelProxySOCKS             = "SOCKS";
+        const String StringServerLabelProxyRTSP              = "Streaming";
 
         // Group "General"
         const String MessageStartURL             = "startURL";
@@ -482,25 +492,26 @@ namespace SebWindowsConfig
         static List<String> StringCryptoIdentity = new List<String>();
 
         // Entries of ListBoxes
-      //static    Byte[]    ByteArrayExamKeySalt    = new Byte[] {};
+      //static    Byte[]    ByteArrayExamKeySalt          = new Byte[] {};
         static  String[]  StringCryptoIdentityArray;
-        static  String[]  StringSebPurpose             = new  String[2];
-        static  String[]  StringSebMode                = new  String[2];
-        static  String[]  StringBrowserViewMode        = new  String[2];
-        static  String[]  StringWindowWidth            = new  String[4];
-        static  String[]  StringWindowHeight           = new  String[4];
-        static  String[]  StringWindowPositioning      = new  String[3];
-        static  String[]  StringPolicyLinkOpening      = new  String[3];
-        static  String[]  StringPolicyFileUpload       = new  String[3];
-        static  String[]  StringPolicyProxySettings    = new  String[2];
-        static  String[]  StringPolicySebService       = new  String[3];
-        static  String[]  StringFunctionKey            = new  String[12];
-        static  String[]  StringActive                 = new  String[2];
-        static  String[]  StringOS                     = new  String[2];
-        static  String[]  StringAction                 = new  String[5];
-        static  String[]  StringCertificateType        = new  String[2];
-        static  String[]  StringProxyProtocolCaption   = new  String[7];
-        static Boolean[] BooleanProxyProtocolEnabled   = new Boolean[7];
+        static  String[]  StringSebPurpose                = new  String[2];
+        static  String[]  StringSebMode                   = new  String[2];
+        static  String[]  StringBrowserViewMode           = new  String[2];
+        static  String[]  StringWindowWidth               = new  String[4];
+        static  String[]  StringWindowHeight              = new  String[4];
+        static  String[]  StringWindowPositioning         = new  String[3];
+        static  String[]  StringPolicyLinkOpening         = new  String[3];
+        static  String[]  StringPolicyFileUpload          = new  String[3];
+        static  String[]  StringPolicyProxySettings       = new  String[2];
+        static  String[]  StringPolicySebService          = new  String[3];
+        static  String[]  StringFunctionKey               = new  String[12];
+        static  String[]  StringActive                    = new  String[2];
+        static  String[]  StringOS                        = new  String[2];
+        static  String[]  StringAction                    = new  String[5];
+        static  String[]  StringCertificateType           = new  String[2];
+        static  String[]  StringProxyProtocolTableCaption = new  String[7];
+        static  String[]  StringProxyProtocolServerLabel  = new  String[7];
+        static Boolean[] BooleanProxyProtocolEnabled      = new Boolean[7];
 
         static  String[]  MessageProxyProtocolType      = new  String[7];
         static  String[]  MessageProxyProtocolAttribute = new  String[7];
@@ -924,14 +935,23 @@ namespace SebWindowsConfig
             StringCertificateType[IntSSLClientCertificate] = StringSSLClientCertificate;
             StringCertificateType[IntIdentity            ] = StringIdentity;
 
-            // Define the strings for the Proxy Protocol Table
-            StringProxyProtocolCaption[0] = StringTableProxyAutoDiscovery;
-            StringProxyProtocolCaption[1] = StringTableProxyAutoConfiguration;
-            StringProxyProtocolCaption[2] = StringTableProxyHTTP;
-            StringProxyProtocolCaption[3] = StringTableProxyHTTPS;
-            StringProxyProtocolCaption[4] = StringTableProxyFTP;
-            StringProxyProtocolCaption[5] = StringTableProxySOCKS;
-            StringProxyProtocolCaption[6] = StringTableProxyRTSP;
+            // Define the strings for the Proxy Protocol Table Captions
+            StringProxyProtocolTableCaption[0] = StringTableCaptionProxyAutoDiscovery;
+            StringProxyProtocolTableCaption[1] = StringTableCaptionProxyAutoConfiguration;
+            StringProxyProtocolTableCaption[2] = StringTableCaptionProxyHTTP;
+            StringProxyProtocolTableCaption[3] = StringTableCaptionProxyHTTPS;
+            StringProxyProtocolTableCaption[4] = StringTableCaptionProxyFTP;
+            StringProxyProtocolTableCaption[5] = StringTableCaptionProxySOCKS;
+            StringProxyProtocolTableCaption[6] = StringTableCaptionProxyRTSP;
+
+            // Define the strings for the Proxy Protocol Server Labels
+            StringProxyProtocolServerLabel[0] = StringServerLabelProxyAutoDiscovery;
+            StringProxyProtocolServerLabel[1] = StringServerLabelProxyAutoConfiguration;
+            StringProxyProtocolServerLabel[2] = StringServerLabelProxyHTTP;
+            StringProxyProtocolServerLabel[3] = StringServerLabelProxyHTTPS;
+            StringProxyProtocolServerLabel[4] = StringServerLabelProxyFTP;
+            StringProxyProtocolServerLabel[5] = StringServerLabelProxySOCKS;
+            StringProxyProtocolServerLabel[6] = StringServerLabelProxyRTSP;
 
             // Define the strings for the Proxy Protocol Types
             MessageProxyProtocolType[0] = MessageAutoDiscovery;
@@ -950,7 +970,7 @@ namespace SebWindowsConfig
             MessageProxyProtocolAttribute[4] = MessageUsername;
             MessageProxyProtocolAttribute[5] = MessagePassword;
 
-            // Define the strings for the Proxy Protocol Keynames
+            // Define the strings for the Proxy Protocol Keys
             MessageProxyProtocolKey[0] = MessageAutoDiscoveryEnable;
             MessageProxyProtocolKey[1] = MessageAutoConfigurationEnable;
             MessageProxyProtocolKey[2] = MessageHTTPEnable;
@@ -1763,7 +1783,7 @@ namespace SebWindowsConfig
             for (int index = 0; index < NumProxyProtocols; index++)
             {
                 Boolean enable = (Boolean)BooleanProxyProtocolEnabled[index];
-                String  type   = (String ) StringProxyProtocolCaption   [index];
+                String  type   = (String ) StringProxyProtocolTableCaption   [index];
                 dataGridViewProxyProtocols.Rows.Add(enable, type);
             }
 
@@ -3524,7 +3544,37 @@ namespace SebWindowsConfig
             if (dataGridViewProxyProtocols.SelectedRows.Count != 1) return;
             proxyProtocolIndex = dataGridViewProxyProtocols.SelectedRows[0].Index;
 
+            // if proxyProtocolIndex is    0 (AutoDiscovery    ), do nothing
+            // if proxyProtocolIndex is    1 (AutoConfiguration), enable Proxy URL    widgets
+            // if proxyProtocolIndex is >= 2 (... Proxy Server ), enable Proxy Server widgets
 
+            Boolean useAutoConfiguration = (proxyProtocolIndex == IntProxyAutoConfiguration);
+            Boolean useProxyServer       = (proxyProtocolIndex  > IntProxyAutoConfiguration);
+
+            labelAutoProxyConfigurationURL.Visible = useAutoConfiguration;
+            labelProxyConfigurationFileURL.Visible = useAutoConfiguration;
+            labelIfYourNetworkAdministrator.Visible = useAutoConfiguration;
+
+             textBoxAutoProxyConfigurationURL .Visible = useAutoConfiguration;
+            buttonChooseProxyConfigurationFile.Visible = useAutoConfiguration;
+
+              labelProxyServerHost.Visible = useProxyServer;
+              labelProxyServerPort.Visible = useProxyServer;
+            textBoxProxyServerHost.Visible = useProxyServer;
+            textBoxProxyServerPort.Visible = useProxyServer;
+
+              labelProxyServerUsername.Visible = useProxyServer;
+              labelProxyServerPassword.Visible = useProxyServer;
+            textBoxProxyServerUsername.Visible = useProxyServer;
+            textBoxProxyServerPassword.Visible = useProxyServer;
+
+            checkBoxProxyServerRequiresPassword.Visible = useProxyServer;
+
+            if (useProxyServer)
+            {
+                labelProxyServerHost.Text  = StringProxyProtocolServerLabel[proxyProtocolIndex];
+                labelProxyServerHost.Text += " Proxy Server";
+            }
         }
 
         private void textBoxAutoProxyConfigurationURL_TextChanged(object sender, EventArgs e)
