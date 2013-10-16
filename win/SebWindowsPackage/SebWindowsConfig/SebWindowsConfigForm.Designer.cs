@@ -1382,6 +1382,7 @@
             this.textBoxProxyServerPassword.Name = "textBoxProxyServerPassword";
             this.textBoxProxyServerPassword.Size = new System.Drawing.Size(389, 22);
             this.textBoxProxyServerPassword.TabIndex = 107;
+            this.textBoxProxyServerPassword.TextChanged += new System.EventHandler(this.textBoxProxyServerPassword_TextChanged);
             // 
             // textBoxProxyServerUsername
             // 
@@ -1390,6 +1391,7 @@
             this.textBoxProxyServerUsername.Name = "textBoxProxyServerUsername";
             this.textBoxProxyServerUsername.Size = new System.Drawing.Size(389, 22);
             this.textBoxProxyServerUsername.TabIndex = 106;
+            this.textBoxProxyServerUsername.TextChanged += new System.EventHandler(this.textBoxProxyServerUsername_TextChanged);
             // 
             // checkBoxProxyServerRequiresPassword
             // 
@@ -1401,6 +1403,7 @@
             this.checkBoxProxyServerRequiresPassword.TabIndex = 105;
             this.checkBoxProxyServerRequiresPassword.Text = "Proxy server requires password";
             this.checkBoxProxyServerRequiresPassword.UseVisualStyleBackColor = true;
+            this.checkBoxProxyServerRequiresPassword.CheckedChanged += new System.EventHandler(this.checkBoxProxyServerRequiresPassword_CheckedChanged);
             // 
             // textBoxProxyServerPort
             // 
@@ -1409,6 +1412,7 @@
             this.textBoxProxyServerPort.Name = "textBoxProxyServerPort";
             this.textBoxProxyServerPort.Size = new System.Drawing.Size(69, 22);
             this.textBoxProxyServerPort.TabIndex = 104;
+            this.textBoxProxyServerPort.TextChanged += new System.EventHandler(this.textBoxProxyServerPort_TextChanged);
             // 
             // labelProxyServerHost
             // 
@@ -1426,6 +1430,7 @@
             this.textBoxProxyServerHost.Name = "textBoxProxyServerHost";
             this.textBoxProxyServerHost.Size = new System.Drawing.Size(398, 22);
             this.textBoxProxyServerHost.TabIndex = 102;
+            this.textBoxProxyServerHost.TextChanged += new System.EventHandler(this.textBoxProxyServerHost_TextChanged);
             // 
             // dataGridViewProxyProtocols
             // 
