@@ -1772,7 +1772,7 @@ namespace SebWindowsConfig
                 String name = (String)embeddedCertificateData[MessageName];
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
             }
-
+/*
             // Get the "Enabled" boolean values of current "proxies" dictionary
             BooleanProxyProtocolEnabled[IntProxyAutoDiscovery    ] = (Boolean)proxiesData[MessageAutoDiscoveryEnabled];
             BooleanProxyProtocolEnabled[IntProxyAutoConfiguration] = (Boolean)proxiesData[MessageAutoConfigurationEnabled];
@@ -1781,13 +1781,15 @@ namespace SebWindowsConfig
             BooleanProxyProtocolEnabled[IntProxyFTP              ] = (Boolean)proxiesData[MessageFTPEnable];
             BooleanProxyProtocolEnabled[IntProxySOCKS            ] = (Boolean)proxiesData[MessageSOCKSEnable];
             BooleanProxyProtocolEnabled[IntProxyRTSP             ] = (Boolean)proxiesData[MessageRTSPEnable];
-
-            // Add Proxy Protocols of currently opened file to DataGridView
+*/
+            // Get the "Enabled" boolean values of current "proxies" dictionary.
+            // Add Proxy Protocols of currently opened file to DataGridView.
             for (int index = 0; index < NumProxyProtocols; index++)
             {
-                Boolean enable = (Boolean)BooleanProxyProtocolEnabled     [index];
-                String  type   = (String ) StringProxyProtocolTableCaption[index];
+                Boolean enable = (Boolean)proxiesData[MessageProxyProtocolEnableKey   [index]];
+                String  type   = (String )             StringProxyProtocolTableCaption[index];
                 dataGridViewProxyProtocols.Rows.Add(enable, type);
+                BooleanProxyProtocolEnabled[index] = enable;
             }
 
             // Add Bypassed Proxies of currently opened file to DataGridView
