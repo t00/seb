@@ -1007,6 +1007,9 @@ namespace SebWindowsConfig
 
             comboBoxCryptoIdentity.Items.AddRange(StringCryptoIdentity.ToArray());
 
+            // At program start, no file has yet been opened, so revert is not possible
+            buttonRevertToLastOpened.Enabled = false;
+
             comboBoxMainBrowserWindowWidth      .Items.AddRange(StringWindowWidth);
             comboBoxMainBrowserWindowHeight     .Items.AddRange(StringWindowHeight);
              listBoxMainBrowserWindowPositioning.Items.AddRange(StringWindowPositioning);
@@ -1320,6 +1323,7 @@ namespace SebWindowsConfig
             }
 
             UpdateAllWidgetsOfProgram();
+            buttonRevertToLastOpened.Enabled = true;
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
             //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
             //PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
