@@ -1554,8 +1554,8 @@ namespace SebWindowsConfig
 
                 dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
-                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly = true;
-                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly = true;
+                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly   = true;
+                dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly   = true;
 
                 row++;
 
@@ -1710,10 +1710,7 @@ namespace SebWindowsConfig
 
             if (embeddedCertificateList.Count > 0) embeddedCertificateIndex =  0;
                                               else embeddedCertificateIndex = -1;
-/*
-            if (proxyProtocolList.Count > 0) proxyProtocolIndex =  0;
-                                        else proxyProtocolIndex = -1;
-*/
+
             proxyProtocolIndex = 0;
 
             if (bypassedProxyList.Count > 0) bypassedProxyIndex =  0;
@@ -1784,8 +1781,8 @@ namespace SebWindowsConfig
             // Add Proxy Protocols of currently opened file to DataGridView
             for (int index = 0; index < NumProxyProtocols; index++)
             {
-                Boolean enable = (Boolean)BooleanProxyProtocolEnabled[index];
-                String  type   = (String ) StringProxyProtocolTableCaption   [index];
+                Boolean enable = (Boolean)BooleanProxyProtocolEnabled     [index];
+                String  type   = (String ) StringProxyProtocolTableCaption[index];
                 dataGridViewProxyProtocols.Rows.Add(enable, type);
             }
 
@@ -3658,7 +3655,16 @@ namespace SebWindowsConfig
             // Get the proxies dataset
             String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessagePort;
             proxiesData      = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
-            proxiesData[key] = Int32.Parse(textBoxProxyServerPort.Text);
+
+            // Convert the "Port" string to an integer
+            try
+            {
+                proxiesData[key] = Int32.Parse(textBoxProxyServerPort.Text);
+            }
+            catch (FormatException)
+            {
+                textBoxProxyServerPort.Text = "";
+            }
         }
 
         private void checkBoxProxyServerRequiresPassword_CheckedChanged(object sender, EventArgs e)
