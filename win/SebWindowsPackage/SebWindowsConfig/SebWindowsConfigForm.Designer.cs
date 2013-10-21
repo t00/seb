@@ -122,7 +122,7 @@
             this.labelProxyServerUsername = new System.Windows.Forms.Label();
             this.textBoxProxyServerPassword = new System.Windows.Forms.TextBox();
             this.textBoxProxyServerUsername = new System.Windows.Forms.TextBox();
-            this.checkBoxProxyServerRequiresPassword = new System.Windows.Forms.CheckBox();
+            this.checkBoxProxyServerRequires = new System.Windows.Forms.CheckBox();
             this.textBoxProxyServerPort = new System.Windows.Forms.TextBox();
             this.labelProxyServerHost = new System.Windows.Forms.Label();
             this.textBoxProxyServerHost = new System.Windows.Forms.TextBox();
@@ -1323,7 +1323,7 @@
             this.tabPageProxies.Controls.Add(this.labelProxyServerUsername);
             this.tabPageProxies.Controls.Add(this.textBoxProxyServerPassword);
             this.tabPageProxies.Controls.Add(this.textBoxProxyServerUsername);
-            this.tabPageProxies.Controls.Add(this.checkBoxProxyServerRequiresPassword);
+            this.tabPageProxies.Controls.Add(this.checkBoxProxyServerRequires);
             this.tabPageProxies.Controls.Add(this.textBoxProxyServerPort);
             this.tabPageProxies.Controls.Add(this.labelProxyServerHost);
             this.tabPageProxies.Controls.Add(this.textBoxProxyServerHost);
@@ -1395,15 +1395,15 @@
             // 
             // checkBoxProxyServerRequiresPassword
             // 
-            this.checkBoxProxyServerRequiresPassword.AutoSize = true;
-            this.checkBoxProxyServerRequiresPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxProxyServerRequiresPassword.Location = new System.Drawing.Point(403, 191);
-            this.checkBoxProxyServerRequiresPassword.Name = "checkBoxProxyServerRequiresPassword";
-            this.checkBoxProxyServerRequiresPassword.Size = new System.Drawing.Size(229, 21);
-            this.checkBoxProxyServerRequiresPassword.TabIndex = 105;
-            this.checkBoxProxyServerRequiresPassword.Text = "Proxy server requires password";
-            this.checkBoxProxyServerRequiresPassword.UseVisualStyleBackColor = true;
-            this.checkBoxProxyServerRequiresPassword.CheckedChanged += new System.EventHandler(this.checkBoxProxyServerRequiresPassword_CheckedChanged);
+            this.checkBoxProxyServerRequires.AutoSize = true;
+            this.checkBoxProxyServerRequires.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxProxyServerRequires.Location = new System.Drawing.Point(403, 191);
+            this.checkBoxProxyServerRequires.Name = "checkBoxProxyServerRequiresPassword";
+            this.checkBoxProxyServerRequires.Size = new System.Drawing.Size(229, 21);
+            this.checkBoxProxyServerRequires.TabIndex = 105;
+            this.checkBoxProxyServerRequires.Text = "Proxy server requires password";
+            this.checkBoxProxyServerRequires.UseVisualStyleBackColor = true;
+            this.checkBoxProxyServerRequires.CheckedChanged += new System.EventHandler(this.checkBoxProxyServerRequiresPassword_CheckedChanged);
             // 
             // textBoxProxyServerPort
             // 
@@ -3748,7 +3748,7 @@
         private System.Windows.Forms.Label labelProxyServerUsername;
         private System.Windows.Forms.TextBox textBoxProxyServerPassword;
         private System.Windows.Forms.TextBox textBoxProxyServerUsername;
-        private System.Windows.Forms.CheckBox checkBoxProxyServerRequiresPassword;
+        private System.Windows.Forms.CheckBox checkBoxProxyServerRequires;
         private System.Windows.Forms.TextBox textBoxProxyServerPort;
         private System.Windows.Forms.Label labelProxyServerHost;
         private System.Windows.Forms.TextBox textBoxProxyServerHost;

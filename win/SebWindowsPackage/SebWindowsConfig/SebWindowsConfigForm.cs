@@ -210,7 +210,7 @@ namespace SebWindowsConfig
         const String MessageEnable           = "Enable";
         const String MessagePort             = "Port";
         const String MessageHost             = "Proxy";
-        const String MessageRequiresPassword = "RequiresPassword";
+        const String MessageRequires = "RequiresPassword";
         const String MessageUsername         = "Username";
         const String MessagePassword         = "Password";
 
@@ -968,7 +968,7 @@ namespace SebWindowsConfig
             MessageProxyProtocolAttribute[0] = MessageEnable;
             MessageProxyProtocolAttribute[1] = MessagePort;
             MessageProxyProtocolAttribute[2] = MessageHost;
-            MessageProxyProtocolAttribute[3] = MessageRequiresPassword;
+            MessageProxyProtocolAttribute[3] = MessageRequires;
             MessageProxyProtocolAttribute[4] = MessageUsername;
             MessageProxyProtocolAttribute[5] = MessagePassword;
 
@@ -3588,12 +3588,36 @@ namespace SebWindowsConfig
             textBoxProxyServerUsername.Visible = useProxyServer;
             textBoxProxyServerPassword.Visible = useProxyServer;
 
-            checkBoxProxyServerRequiresPassword.Visible = useProxyServer;
+            checkBoxProxyServerRequires.Visible = useProxyServer;
 
             if (useProxyServer)
             {
                 labelProxyServerHost.Text  = StringProxyProtocolServerLabel[proxyProtocolIndex];
                 labelProxyServerHost.Text += " Proxy Server";
+            }
+
+            // Get the proxy server keys
+            String MessageProtocolType = MessageProxyProtocolType[proxyProtocolIndex];
+
+            // Get the proxies dataset
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+
+            // Update the proxy widgets
+            if (useAutoConfiguration)
+            {
+                textBoxAutoProxyConfigurationURL.Text = proxiesData[MessageAutoConfigurationURL].ToString();
+            }
+            else if (useProxyServer)
+            {
+                checkBoxProxyServerRequires.Checked = (Boolean)proxiesData[MessageProtocolType + MessageRequires];
+                 textBoxProxyServerHost    .Text    =  (String)proxiesData[MessageProtocolType + MessageHost    ];
+                 textBoxProxyServerPort    .Text    =  (String)proxiesData[MessageProtocolType + MessagePort    ].ToString();
+                 textBoxProxyServerUsername.Text    =  (String)proxiesData[MessageProtocolType + MessageUsername];
+                 textBoxProxyServerPassword.Text    =  (String)proxiesData[MessageProtocolType + MessagePassword];
+
+                 // Disable the username/password textboxes when they are not required
+                 textBoxProxyServerUsername.Enabled =  checkBoxProxyServerRequires.Checked;
+                 textBoxProxyServerPassword.Enabled =  checkBoxProxyServerRequires.Checked;
             }
         }
 
@@ -3659,8 +3683,8 @@ namespace SebWindowsConfig
         private void textBoxProxyServerPort_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies dataset
-            String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessagePort;
-            proxiesData      = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
+            String key  = MessageProxyProtocolType[proxyProtocolIndex] + MessagePort;
+            proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
 
             // Convert the "Port" string to an integer
             try
@@ -3676,9 +3700,13 @@ namespace SebWindowsConfig
         private void checkBoxProxyServerRequiresPassword_CheckedChanged(object sender, EventArgs e)
         {
             // Get the proxies dataset
-            String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageRequiresPassword;
+            String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageRequires;
             proxiesData      = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
-            proxiesData[key] = checkBoxProxyServerRequiresPassword.Checked;
+            proxiesData[key] = (Boolean)checkBoxProxyServerRequires.Checked;
+
+            // Disable the username/password textboxes when they are not required
+            textBoxProxyServerUsername.Enabled = checkBoxProxyServerRequires.Checked;
+            textBoxProxyServerPassword.Enabled = checkBoxProxyServerRequires.Checked;
         }
 
         private void textBoxProxyServerUsername_TextChanged(object sender, EventArgs e)
