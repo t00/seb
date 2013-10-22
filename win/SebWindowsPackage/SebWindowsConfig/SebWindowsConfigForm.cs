@@ -32,13 +32,12 @@ namespace SebWindowsConfig
         const String DefaultSebConfigXml = "SebClient.xml";
         const String DefaultSebConfigSeb = "SebClient.seb";
 
-        // The values can be in 4 different states:
-        // old, new, temporary and default values
-        const int StateOld = 1;
-        const int StateNew = 2;
-        const int StateTmp = 3;
-        const int StateDef = 4;
-        const int StateNum = 4;
+        // The values can be in 3 different states:
+        // new, temporary and default values
+        const int StateNew = 1;
+        const int StateTmp = 2;
+        const int StateDef = 3;
+        const int StateNum = 3;
 
         // 5 values are not stored in the sebSettings Plist structures,
         // so they must be separately stored in arrays
@@ -1174,7 +1173,7 @@ namespace SebWindowsConfig
             // and copy all default settings to the new settings.
             // This must be done BEFORE any config file is loaded
             // and assures that every (key, value) pair is contained
-            // in the "old", "new" and "def" dictionaries,
+            // in the "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
             CopySettingsArrays    (      StateDef,       StateNew);
@@ -1276,7 +1275,7 @@ namespace SebWindowsConfig
             }
 
             // After reading the settings from file,
-            // copy them to "new" and "old" settings and update the widgets
+            // copy them to "new" settings and update the widgets
 
             // Choose Identity needs a conversion from string to integer.
             // The SEB Windows configuration editor never reads the identity
@@ -1546,7 +1545,7 @@ namespace SebWindowsConfig
                      dataGridViewURLFilterRules.Rows.Add(StringCollapse, active, false, expression, "");
                 else dataGridViewURLFilterRules.Rows.Add(StringExpand  , active, false, expression, "");
 
-                dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor = Color.LightGray;
+                dataGridViewURLFilterRules.Rows[row].DefaultCellStyle.BackColor                         = Color.LightGray;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleExpression].Style.Font = new Font(DefaultFont, FontStyle.Bold);
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleRegex     ].ReadOnly   = true;
                 dataGridViewURLFilterRules.Rows[row].Cells[IntColumnURLFilterRuleAction    ].ReadOnly   = true;
