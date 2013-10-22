@@ -3538,14 +3538,14 @@ namespace SebWindowsConfig
 
         private void checkBoxExcludeSimpleHostnames_CheckedChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
             proxiesData[MessageExcludeSimpleHostnames] = checkBoxExcludeSimpleHostnames.Checked;
         }
 
         private void checkBoxUsePassiveFTPMode_CheckedChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
             proxiesData[MessageFTPPassive] = checkBoxUsePassiveFTPMode.Checked;
         }
@@ -3571,6 +3571,7 @@ namespace SebWindowsConfig
             Boolean useAutoConfiguration = (proxyProtocolIndex == IntProxyAutoConfiguration);
             Boolean useProxyServer       = (proxyProtocolIndex  > IntProxyAutoConfiguration);
 
+            // Enable the proxy widgets belonging to Auto Configuration
             labelAutoProxyConfigurationURL .Visible = useAutoConfiguration;
             labelProxyConfigurationFileURL .Visible = useAutoConfiguration;
             labelIfYourNetworkAdministrator.Visible = useAutoConfiguration;
@@ -3578,6 +3579,8 @@ namespace SebWindowsConfig
              textBoxAutoProxyConfigurationURL .Visible = useAutoConfiguration;
             buttonChooseProxyConfigurationFile.Visible = useAutoConfiguration;
 
+            // Enable the proxy widgets belonging to Proxy Server
+            // (HTTP, HTTPS, FTP, SOCKS, RTSP)
               labelProxyServerHost.Visible = useProxyServer;
               labelProxyServerPort.Visible = useProxyServer;
             textBoxProxyServerHost.Visible = useProxyServer;
@@ -3596,18 +3599,19 @@ namespace SebWindowsConfig
                 labelProxyServerHost.Text += " Proxy Server";
             }
 
-            // Get the proxy server keys
+            // Get the proxy protocol type
             String MessageProtocolType = MessageProxyProtocolType[proxyProtocolIndex];
 
-            // Get the proxies dataset
+            // Get the proxies data
             proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
 
             // Update the proxy widgets
             if (useAutoConfiguration)
             {
-                textBoxAutoProxyConfigurationURL.Text = proxiesData[MessageAutoConfigurationURL].ToString();
+                textBoxAutoProxyConfigurationURL.Text = (String)proxiesData[MessageAutoConfigurationURL];
             }
-            else if (useProxyServer)
+
+            if (useProxyServer)
             {
                 checkBoxProxyServerRequires.Checked = (Boolean)proxiesData[MessageProtocolType + MessageRequires];
                  textBoxProxyServerHost    .Text    =  (String)proxiesData[MessageProtocolType + MessageHost    ];
@@ -3661,7 +3665,7 @@ namespace SebWindowsConfig
 
         private void textBoxAutoProxyConfigurationURL_TextChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
             proxiesData[MessageAutoConfigurationURL] = textBoxAutoProxyConfigurationURL.Text;
         }
@@ -3674,7 +3678,7 @@ namespace SebWindowsConfig
 
         private void textBoxProxyServerHost_TextChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageHost;
             proxiesData      = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
             proxiesData[key] = textBoxProxyServerHost.Text;
@@ -3682,7 +3686,7 @@ namespace SebWindowsConfig
 
         private void textBoxProxyServerPort_TextChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             String key  = MessageProxyProtocolType[proxyProtocolIndex] + MessagePort;
             proxiesData = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
 
@@ -3699,7 +3703,7 @@ namespace SebWindowsConfig
 
         private void checkBoxProxyServerRequiresPassword_CheckedChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageRequires;
             proxiesData      = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
             proxiesData[key] = (Boolean)checkBoxProxyServerRequires.Checked;
@@ -3711,7 +3715,7 @@ namespace SebWindowsConfig
 
         private void textBoxProxyServerUsername_TextChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageUsername;
             proxiesData      = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
             proxiesData[key] = textBoxProxyServerUsername.Text;
@@ -3719,7 +3723,7 @@ namespace SebWindowsConfig
 
         private void textBoxProxyServerPassword_TextChanged(object sender, EventArgs e)
         {
-            // Get the proxies dataset
+            // Get the proxies data
             String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessagePassword;
             proxiesData      = (Dictionary<string, object>)sebSettingsNew[MessageProxies];
             proxiesData[key] = textBoxProxyServerPassword.Text;
