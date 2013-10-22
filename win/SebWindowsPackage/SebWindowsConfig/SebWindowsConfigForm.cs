@@ -314,7 +314,6 @@ namespace SebWindowsConfig
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
-        static Dictionary<string, object> sebSettingsOld = new Dictionary<string, object>();
         static Dictionary<string, object> sebSettingsNew = new Dictionary<string, object>();
         static Dictionary<string, object> sebSettingsTmp = new Dictionary<string, object>();
         static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
@@ -1288,11 +1287,8 @@ namespace SebWindowsConfig
             //tmpCryptoIdentityInteger = 0;
             //tmpCryptoIdentityString  = 0;
 
-            // Copy tmp settings to old settings
             // Copy tmp settings to new settings
-            CopySettingsArrays(StateTmp, StateOld);
-            CopySettingsArrays(StateTmp, StateNew);
-            CopySettingsDictionary(sebSettingsTmp, sebSettingsOld);
+            CopySettingsArrays    (      StateTmp,       StateNew);
             CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -1325,7 +1321,6 @@ namespace SebWindowsConfig
             UpdateAllWidgetsOfProgram();
             buttonRevertToLastOpened.Enabled = true;
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
-            //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_OpenConfigurationFile.xml");
             //PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
             //PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
             return true;
@@ -1381,7 +1376,6 @@ namespace SebWindowsConfig
                 {
                     Plist.writeXml(sebSettingsNew, fileName);
                     Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_SaveConfigurationFile.xml");
-                    Plist.writeXml(sebSettingsOld, "DebugSettingsOld_in_SaveConfigurationFile.xml");
                 }
             }
             catch (Exception streamWriteException) 
@@ -1393,10 +1387,6 @@ namespace SebWindowsConfig
             }
 
             // After writing the settings to file, update the widgets
-            // Copy new settings to old settings
-            CopySettingsArrays    (      StateNew,       StateOld);
-            CopySettingsDictionary(sebSettingsNew, sebSettingsOld);
-
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
             currentPathSebConfigFile = Path.GetFullPath     (fileName);
@@ -2096,10 +2086,8 @@ namespace SebWindowsConfig
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
-            //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_before_RevertToLastOpened.xml");
             OpenConfigurationFile(currentPathSebConfigFile);
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
-            //Plist.writeXml(sebSettingsOld, "DebugSettingsOld_after_RevertToLastOpened.xml");
         }
 
 
