@@ -377,6 +377,7 @@ namespace SebWindowsClient.ConfigurationUtils
                      xULRunnerConfig.seb_mainWindow_titlebar_enabled = false;
 
                  }
+                 xULRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageStartURL)[SEBGlobalConstants.MessageStartURL].ToString();
                  setXulRunnerConfiguration = true;
                  SEBXulRunnerSettings.XULRunnerConfigSerialize(xULRunnerConfig, XulRunnerConfigFile);
              }
