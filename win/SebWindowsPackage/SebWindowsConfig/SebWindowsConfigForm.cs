@@ -970,7 +970,7 @@ namespace SebWindowsConfig
             MessageProxyProtocolAttribute[4] = MessageUsername;
             MessageProxyProtocolAttribute[5] = MessagePassword;
 
-            // Define the strings for the Proxy Protocol Keys
+            // Define the strings for the Proxy Protocol Enable Keys
             MessageProxyProtocolEnableKey[0] = MessageAutoDiscoveryEnabled;
             MessageProxyProtocolEnableKey[1] = MessageAutoConfigurationEnabled;
             MessageProxyProtocolEnableKey[2] = MessageHTTPEnable;
@@ -1176,6 +1176,7 @@ namespace SebWindowsConfig
             // in the "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
+            sebSettingsNew.Clear();
             CopySettingsArrays    (      StateDef,       StateNew);
             CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
 
@@ -1287,6 +1288,7 @@ namespace SebWindowsConfig
             //tmpCryptoIdentityString  = 0;
 
             // Copy tmp settings to new settings
+            sebSettingsNew.Clear();
             CopySettingsArrays    (      StateTmp,       StateNew);
             CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
 
@@ -2075,6 +2077,7 @@ namespace SebWindowsConfig
         {
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
             //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_before_RevertToDefault.xml");
+            sebSettingsNew.Clear();
             CopySettingsArrays    (      StateDef,       StateNew);
             CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
             UpdateAllWidgetsOfProgram();
