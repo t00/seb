@@ -703,6 +703,8 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageAllowFlashFullscreen     , false);
             sebSettingsDef.Add(MessageProhibitedProcesses      , new List<object>());
 
+            // Default settings for permitted process data
+            permittedProcessDataDef.Clear();
             permittedProcessDataDef.Add(MessageActive     , true);
             permittedProcessDataDef.Add(MessageAutostart  , true);
             permittedProcessDataDef.Add(MessageAutohide   , true);
@@ -715,9 +717,13 @@ namespace SebWindowsConfig
             permittedProcessDataDef.Add(MessageIdentifier , "");
             permittedProcessDataDef.Add(MessageArguments  , new List<object>());
 
+            // Default settings for permitted argument data
+            permittedArgumentDataDef.Clear();
             permittedArgumentDataDef.Add(MessageActive  , true);
             permittedArgumentDataDef.Add(MessageArgument, "");
 
+            // Default settings for prohibited process data
+            prohibitedProcessDataDef.Clear();
             prohibitedProcessDataDef.Add(MessageActive     , true);
             prohibitedProcessDataDef.Add(MessageCurrentUser, true);
             prohibitedProcessDataDef.Add(MessageStrongKill , false);
@@ -733,28 +739,33 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageURLFilterRules        , new List<object>());
 
             // Create a default action
+            urlFilterActionDataDef.Clear();
             urlFilterActionDataDef.Add(MessageActive    , true);
             urlFilterActionDataDef.Add(MessageRegex     , false);
             urlFilterActionDataDef.Add(MessageExpression, "");
             urlFilterActionDataDef.Add(MessageAction    , 0);
 
             // Create a default action list with one entry (the default action)
+            urlFilterActionListDef.Clear();
             urlFilterActionListDef.Add(urlFilterActionDataDef);
 
             // Create a default rule with this default action list.
             // This default rule is used for the "Insert Rule" operation:
             // when a new rule is created, it initially contains one action.
+            urlFilterRuleDataDef.Clear();
             urlFilterRuleDataDef.Add(MessageActive     , true);
             urlFilterRuleDataDef.Add(MessageExpression , "Rule");
             urlFilterRuleDataDef.Add(MessageRuleActions, urlFilterActionListDef);
 
             // Initialise the stored action
+            urlFilterActionDataStored.Clear();
             urlFilterActionDataStored.Add(MessageActive    , true);
             urlFilterActionDataStored.Add(MessageRegex     , false);
             urlFilterActionDataStored.Add(MessageExpression, "*");
             urlFilterActionDataStored.Add(MessageAction    , 0);
 
             // Initialise the stored rule
+            urlFilterRuleDataStored.Clear();
             urlFilterRuleDataStored.Add(MessageActive     , true);
             urlFilterRuleDataStored.Add(MessageExpression , "Rule");
             urlFilterRuleDataStored.Add(MessageRuleActions, urlFilterActionListStored);
@@ -762,11 +773,14 @@ namespace SebWindowsConfig
             // Default settings for group "Network - Certificates"
             sebSettingsDef.Add(MessageEmbeddedCertificates, new List<object>());
 
+            embeddedCertificateDataDef.Clear();
             embeddedCertificateDataDef.Add(MessageCertificateData, "");
             embeddedCertificateDataDef.Add(MessageType           , 0);
             embeddedCertificateDataDef.Add(MessageName           , "");
 
             // Default settings for group "Network - Proxies"
+            proxiesDataDef.Clear();
+
             proxiesDataDef.Add(MessageExceptionsList             , new List<object>());
             proxiesDataDef.Add(MessageExcludeSimpleHostnames     , true);
             proxiesDataDef.Add(MessageAutoDiscoveryEnabled       , false);
@@ -2084,6 +2098,7 @@ namespace SebWindowsConfig
         {
             //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
             //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_before_RevertToDefault.xml");
+            InitialiseSEBConfigurationSettings();
             sebSettingsNew.Clear();
             CopySettingsArrays    (      StateDef,       StateNew);
             CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
