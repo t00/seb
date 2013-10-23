@@ -39,7 +39,7 @@ namespace SebWindowsConfig
         const int StateDef = 3;
         const int StateNum = 3;
 
-        // 5 values are not stored in the sebSettings Plist structures,
+        // 5 key/value pairs are not stored in the sebSettings Plist structures,
         // so they must be separately stored in arrays
         const int ValueCryptoIdentity               = 1;
         const int ValueMainBrowserWindowWidth       = 2;
@@ -47,33 +47,6 @@ namespace SebWindowsConfig
         const int ValueNewBrowserWindowByLinkWidth  = 4;
         const int ValueNewBrowserWindowByLinkHeight = 5;
         const int ValueNum = 5;
-
-        // Proxy Protocol types
-        const int IntProxyAutoDiscovery     = 0;
-        const int IntProxyAutoConfiguration = 1;
-        const int IntProxyHTTP              = 2;
-        const int IntProxyHTTPS             = 3;
-        const int IntProxyFTP               = 4;
-        const int IntProxySOCKS             = 5;
-        const int IntProxyRTSP              = 6;
-
-        // Captions for table dataGridViewProxyProtocols
-        const String StringTableCaptionProxyAutoDiscovery     = "Auto Proxy Discovery";
-        const String StringTableCaptionProxyAutoConfiguration = "Automatic Proxy Configuration";
-        const String StringTableCaptionProxyHTTP              = "Web Proxy (HTTP)";
-        const String StringTableCaptionProxyHTTPS             = "Secure Web Proxy (HTTPS)";
-        const String StringTableCaptionProxyFTP               = "FTP Proxy";
-        const String StringTableCaptionProxySOCKS             = "SOCKS Proxy";
-        const String StringTableCaptionProxyRTSP              = "Streaming Proxy (RTSP)";
-
-        // Texts for labelProxyServerHost
-        const String StringServerLabelProxyAutoDiscovery     = "";
-        const String StringServerLabelProxyAutoConfiguration = "";
-        const String StringServerLabelProxyHTTP              = "Web";
-        const String StringServerLabelProxyHTTPS             = "Secure Web";
-        const String StringServerLabelProxyFTP               = "FTP";
-        const String StringServerLabelProxySOCKS             = "SOCKS";
-        const String StringServerLabelProxyRTSP              = "Streaming";
 
         // Group "General"
         const String MessageStartURL             = "startURL";
@@ -366,8 +339,6 @@ namespace SebWindowsConfig
         static String                     bypassedProxyData    = "";
         static String                     bypassedProxyDataDef = "";
 
-
-
         // ************************************************************************
         // The following constants and variables are basically GUI (widget) related
         // ************************************************************************
@@ -417,6 +388,34 @@ namespace SebWindowsConfig
         const String StringSSLClientCertificate = "SSL Certificate";
         const String StringIdentity             = "Identity";
 
+        // Proxy Protocol types
+        const int IntProxyAutoDiscovery     = 0;
+        const int IntProxyAutoConfiguration = 1;
+        const int IntProxyHTTP              = 2;
+        const int IntProxyHTTPS             = 3;
+        const int IntProxyFTP               = 4;
+        const int IntProxySOCKS             = 5;
+        const int IntProxyRTSP              = 6;
+        const int NumProxyProtocols = 7;
+
+        // Captions for table dataGridViewProxyProtocols
+        const String StringTableCaptionProxyAutoDiscovery     = "Auto Proxy Discovery";
+        const String StringTableCaptionProxyAutoConfiguration = "Automatic Proxy Configuration";
+        const String StringTableCaptionProxyHTTP              = "Web Proxy (HTTP)";
+        const String StringTableCaptionProxyHTTPS             = "Secure Web Proxy (HTTPS)";
+        const String StringTableCaptionProxyFTP               = "FTP Proxy";
+        const String StringTableCaptionProxySOCKS             = "SOCKS Proxy";
+        const String StringTableCaptionProxyRTSP              = "Streaming Proxy (RTSP)";
+
+        // Texts for labelProxyServerHost
+        const String StringServerLabelProxyAutoDiscovery     = "";
+        const String StringServerLabelProxyAutoConfiguration = "";
+        const String StringServerLabelProxyHTTP              = "Web";
+        const String StringServerLabelProxyHTTPS             = "Secure Web";
+        const String StringServerLabelProxyFTP               = "FTP";
+        const String StringServerLabelProxySOCKS             = "SOCKS";
+        const String StringServerLabelProxyRTSP              = "Streaming";
+
         // Permitted and Prohibited Processes table columns (0,1,2,3).
         // Permitted  Processes: Active, OS, Executable, Title
         // Prohibited Processes: Active, OS, Executable, Description
@@ -437,7 +436,6 @@ namespace SebWindowsConfig
 
         const String StringColumnProcessArgument = "Argument";
 */
-
         // URL Filter Rules table columns (0,1,2,3,4).
         // Show, Active, Regex, Expression, Action
         const int IntColumnURLFilterRuleShow       = 0;
@@ -452,7 +450,6 @@ namespace SebWindowsConfig
         const String StringColumnURLFilterRuleExpression = "Expression";
         const String StringColumnURLFilterRuleAction     = "Action";
 */
-
         // Embedded Certificates table columns (0,1).
         // Type, Name
         const int       IntColumnCertificateType = 0;
@@ -516,7 +513,6 @@ namespace SebWindowsConfig
         static  String[]  MessageProxyProtocolAttribute = new  String[7];
         static  String[]  MessageProxyProtocolEnableKey = new  String[7];
 
-        const int NumProxyProtocols = 7;
 
         // Global variable: index of current table row (selected row)
         // Global variable:   is the current table row a title row?
@@ -554,6 +550,61 @@ namespace SebWindowsConfig
         {
             InitializeComponent();
 
+            // Set all the default values for the Plist structure "sebSettingsDef"
+            InitialiseSEBConfigurationSettings();
+
+            // Initialise the global variables for the lists and subdictionaries
+            InitialiseGlobalVariables();
+
+            // Initialise the GUI widgets of this configuration editor
+            InitialiseGUIWidgets();
+
+
+            // IMPORTANT:
+            // Create a second dictionary "new settings"
+            // and copy all default settings to the new settings.
+            // This must be done BEFORE any config file is loaded
+            // and assures that every (key, value) pair is contained
+            // in the "new" and "def" dictionaries,
+            // even if the loaded "tmp" dictionary does NOT contain every pair.
+
+            sebSettingsNew.Clear();
+            CopySettingsArrays    (      StateDef,       StateNew);
+            CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
+
+            PrintSettingsDictionary(sebSettingsDef, "SettingsDef.txt");
+            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
+
+            // When starting up, set the widgets to the default values
+            UpdateAllWidgetsOfProgram();
+
+            // Try to open the configuration file ("SebClient.ini/xml/seb")
+            // given in the local directory (where SebWindowsConfig.exe was called)
+            currentDireSebConfigFile = Directory.GetCurrentDirectory();
+            currentFileSebConfigFile = "";
+            currentPathSebConfigFile = "";
+
+            defaultDireSebConfigFile = Directory.GetCurrentDirectory();
+            defaultFileSebConfigFile =                  DefaultSebConfigXml;
+            defaultPathSebConfigFile = Path.GetFullPath(DefaultSebConfigXml);
+
+            // Read the settings from the standard configuration file??? Currently not
+            //OpenConfigurationFile(defaultPathSebConfigFile);
+
+            openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
+            saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
+          //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+          //folderBrowserDialogLogDirectoryWin     .RootFolder = Environment.SpecialFolder.MyDocuments;
+
+        } // end of contructor   SebWindowsConfigForm()
+
+
+
+        // *******************************************************************
+        // Set all the default values for the Plist structure "sebSettingsDef"
+        // *******************************************************************
+        private void InitialiseSEBConfigurationSettings()
+        {
             // Initialise the global arrays
             for (int state = 1; state <= StateNum; state++)
             for (int value = 1; value <= ValueNum; value++)
@@ -561,6 +612,9 @@ namespace SebWindowsConfig
                 settingInteger[state, value] = 0;
                 settingString [state, value] = "";
             }
+
+            // Initialise the default settings Plist
+            sebSettingsDef.Clear();
 
             // Default settings for group "General"
             sebSettingsDef.Add(MessageStartURL            , "http://www.safeexambrowser.org");
@@ -721,13 +775,6 @@ namespace SebWindowsConfig
             proxiesDataDef.Add(MessageAutoConfigurationURL       , "");
             proxiesDataDef.Add(MessageFTPPassive                 , true);
 
-            proxiesDataDef.Add(MessageFTPEnable          , false);
-            proxiesDataDef.Add(MessageFTPPort            , 0);
-            proxiesDataDef.Add(MessageFTPHost           , "");
-            proxiesDataDef.Add(MessageFTPRequiresPassword, false);
-            proxiesDataDef.Add(MessageFTPUsername        , "");
-            proxiesDataDef.Add(MessageFTPPassword        , "");
-
             proxiesDataDef.Add(MessageHTTPEnable          , false);
             proxiesDataDef.Add(MessageHTTPPort            , 0);
             proxiesDataDef.Add(MessageHTTPHost           , "");
@@ -742,12 +789,12 @@ namespace SebWindowsConfig
             proxiesDataDef.Add(MessageHTTPSUsername        , "");
             proxiesDataDef.Add(MessageHTTPSPassword        , "");
 
-            proxiesDataDef.Add(MessageRTSPEnable          , false);
-            proxiesDataDef.Add(MessageRTSPPort            , 0);
-            proxiesDataDef.Add(MessageRTSPHost           , "");
-            proxiesDataDef.Add(MessageRTSPRequiresPassword, false);
-            proxiesDataDef.Add(MessageRTSPUsername        , "");
-            proxiesDataDef.Add(MessageRTSPPassword        , "");
+            proxiesDataDef.Add(MessageFTPEnable          , false);
+            proxiesDataDef.Add(MessageFTPPort            , 0);
+            proxiesDataDef.Add(MessageFTPHost           , "");
+            proxiesDataDef.Add(MessageFTPRequiresPassword, false);
+            proxiesDataDef.Add(MessageFTPUsername        , "");
+            proxiesDataDef.Add(MessageFTPPassword        , "");
 
             proxiesDataDef.Add(MessageSOCKSEnable          , false);
             proxiesDataDef.Add(MessageSOCKSPort            , 0);
@@ -755,6 +802,13 @@ namespace SebWindowsConfig
             proxiesDataDef.Add(MessageSOCKSRequiresPassword, false);
             proxiesDataDef.Add(MessageSOCKSUsername        , "");
             proxiesDataDef.Add(MessageSOCKSPassword        , "");
+
+            proxiesDataDef.Add(MessageRTSPEnable          , false);
+            proxiesDataDef.Add(MessageRTSPPort            , 0);
+            proxiesDataDef.Add(MessageRTSPHost           , "");
+            proxiesDataDef.Add(MessageRTSPRequiresPassword, false);
+            proxiesDataDef.Add(MessageRTSPUsername        , "");
+            proxiesDataDef.Add(MessageRTSPPassword        , "");
 
             bypassedProxyDataDef = "";
 
@@ -826,8 +880,15 @@ namespace SebWindowsConfig
             settingString[StateDef, ValueAutostartProcess     ] = "Seb";
             settingString[StateDef, ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
 */
+        }
 
-            // Initialise the global variables for the lists and dictionaries
+
+
+        // *****************************************************************
+        // Initialise the global variables for the lists and subdictionaries
+        // *****************************************************************
+        private void InitialiseGlobalVariables()
+        {
             permittedProcessIndex = -1;
             permittedProcessList.Clear();
             permittedProcessData.Clear();
@@ -934,7 +995,6 @@ namespace SebWindowsConfig
             StringCertificateType[IntSSLClientCertificate] = StringSSLClientCertificate;
             StringCertificateType[IntIdentity            ] = StringIdentity;
 
-
             // Define the strings for the Proxy Protocol Table Captions
             StringProxyProtocolTableCaption[0] = StringTableCaptionProxyAutoDiscovery;
             StringProxyProtocolTableCaption[1] = StringTableCaptionProxyAutoConfiguration;
@@ -991,13 +1051,15 @@ namespace SebWindowsConfig
             StringAction[IntSkip ] = StringSkip;
             StringAction[IntAnd  ] = StringAnd;
             StringAction[IntOr   ] = StringOr;
+        }
 
 
 
-            // ****************************************************************
-            // The following initialisations are basically GUI (widget) related
-            // ****************************************************************
-
+        // *******************************************************
+        // Initialise the GUI widgets of this configuration editor
+        // *******************************************************
+        private void InitialiseGUIWidgets()
+        {
             // Assign the fixed entries to the ListBoxes and ComboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
             listBoxExitKey2.Items.AddRange(StringFunctionKey);
@@ -1166,63 +1228,9 @@ namespace SebWindowsConfig
           //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProxyProtocols      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-
-            // IMPORTANT:
-            // Create a second dictionary "new settings"
-            // and copy all default settings to the new settings.
-            // This must be done BEFORE any config file is loaded
-            // and assures that every (key, value) pair is contained
-            // in the "new" and "def" dictionaries,
-            // even if the loaded "tmp" dictionary does NOT contain every pair.
-
-            sebSettingsNew.Clear();
-            CopySettingsArrays    (      StateDef,       StateNew);
-            CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
-
-            PrintSettingsDictionary(sebSettingsDef, "SettingsDef.txt");
-            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
-
-            // When starting up, set the widgets to the default values
-            UpdateAllWidgetsOfProgram();
-
-            // Try to open the configuration file ("SebClient.ini/xml/seb")
-            // given in the local directory (where SebWindowsConfig.exe was called)
-            currentDireSebConfigFile = Directory.GetCurrentDirectory();
-            currentFileSebConfigFile = "";
-            currentPathSebConfigFile = "";
-
-            defaultDireSebConfigFile = Directory.GetCurrentDirectory();
-            defaultFileSebConfigFile =                  DefaultSebConfigXml;
-            defaultPathSebConfigFile = Path.GetFullPath(DefaultSebConfigXml);
-
-            // Read the settings from the standard configuration file??? Currently not
-            //OpenConfigurationFile(defaultPathSebConfigFile);
-
-            openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
-            saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
-          //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-          //folderBrowserDialogLogDirectoryWin     .RootFolder = Environment.SpecialFolder.MyDocuments;
-
-        } // end of contructor   SebWindowsConfigForm()
-
-
-
-        // ***********************************************
-        // Initialise the SEB configuration settings
-        // ***********************************************
-        private void InitialiseSEBConfigurationSettings()
-        {
-
         }
 
-        // *******************************************************
-        // Initialise the GUI widgets of this configuration editor
-        // *******************************************************
-        private void InitialiseGUIWidgets()
-        {
 
-        }
 
         // *************************************************
         // Open the configuration file and read the settings
@@ -1814,7 +1822,6 @@ namespace SebWindowsConfig
           //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewProxyProtocols      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
           //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
 
 
             // Group "Network - Filter"
