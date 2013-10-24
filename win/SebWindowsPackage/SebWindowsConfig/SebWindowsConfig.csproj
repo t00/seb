@@ -48,11 +48,17 @@
   <ItemGroup>
     <Compile Include="Plist.cs" />
     <Compile Include="SEBProtectionController.cs" />
+    <Compile Include="SebWindowsConfigConstantsForGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SebWindowsConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SebWindowsConfigForm.Designer.cs">
       <DependentUpon>SebWindowsConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SebWindowsConfigConstantsForSettings.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="SebWindowsConfigProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
