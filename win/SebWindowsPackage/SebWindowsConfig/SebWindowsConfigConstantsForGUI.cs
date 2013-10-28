@@ -155,7 +155,7 @@ namespace SebWindowsConfig
 
 
         // ********************************
-        // Global variables for GUI widgets
+        // Global Variables for GUI widgets
         // ********************************
 
         // The current SEB configuration file
@@ -223,6 +223,325 @@ namespace SebWindowsConfig
         // Default disabled values for title row (rule) and action row (action)
         static Boolean[] urlFilterTableDisabledColumnsOfRule   = { false, false,  true, false,  true };
         static Boolean[] urlFilterTableDisabledColumnsOfAction = {  true, false, false, false, false };
+
+
+
+        // ***********************
+        // Methods for GUI widgets
+        // ***********************
+
+        // *****************************************************************
+        // Initialise the global variables for the lists and subdictionaries
+        // *****************************************************************
+        private void InitialiseGlobalVariablesForGUIWidgets()
+        {
+            // Define the strings for the Encryption Identity
+            StringCryptoIdentity.Add("none");
+            StringCryptoIdentity.Add("alpha");
+            StringCryptoIdentity.Add("beta");
+            StringCryptoIdentity.Add("gamma");
+            StringCryptoIdentity.Add("delta");
+            StringCryptoIdentityArray = StringCryptoIdentity.ToArray();
+
+            // Define the strings for the SEB purpose
+            StringSebPurpose[0] = "starting an exam";
+            StringSebPurpose[1] = "configuring a client";
+
+            // Define the strings for the SEB mode
+            StringSebMode[0] = "use local settings and load the start URL";
+            StringSebMode[1] = "connect to the SEB server";
+
+            // Define the strings for the Browser View Mode
+            StringBrowserViewMode[0] = "use browser window";
+            StringBrowserViewMode[1] = "use full screen mode";
+
+            // Define the strings for the Window Width
+            StringWindowWidth[0] = "50%";
+            StringWindowWidth[1] = "100%";
+            StringWindowWidth[2] = "800";
+            StringWindowWidth[3] = "1000";
+
+            // Define the strings for the Window Height
+            StringWindowHeight[0] = "80%";
+            StringWindowHeight[1] = "100%";
+            StringWindowHeight[2] = "600";
+            StringWindowHeight[3] = "800";
+
+            // Define the strings for the Window Positioning
+            StringWindowPositioning[0] = "Left";
+            StringWindowPositioning[1] = "Center";
+            StringWindowPositioning[2] = "Right";
+
+            // Define the strings for the Link Opening Policy
+            StringPolicyLinkOpening[0] = "get generally blocked";
+            StringPolicyLinkOpening[1] = "open in same window";
+            StringPolicyLinkOpening[2] = "open in new window";
+
+            // Define the strings for the File Upload Policy
+            StringPolicyFileUpload[0] = "manually with file requester";
+            StringPolicyFileUpload[1] = "by attempting to upload the same file downloaded before";
+            StringPolicyFileUpload[2] = "by only allowing to upload the same file downloaded before";
+
+            // Define the strings for the Proxy Settings Policy
+            StringPolicyProxySettings[0] = "Use system proxy settings";
+            StringPolicyProxySettings[1] = "Use SEB proxy settings";
+
+            // Define the strings for the SEB Service Policy
+            StringPolicySebService[0] = "allow to run SEB without service";
+            StringPolicySebService[1] = "display warning when service is not running";
+            StringPolicySebService[2] = "allow to use SEB only with service";
+
+            // Define the strings for the Function Keys F1, F2, ..., F12
+            for (int i = 1; i <= 12; i++)
+            {
+                StringFunctionKey[i - 1] = "F" + i.ToString();
+            }
+
+            // Define the strings for the Permitted and Prohibited Processes
+            StringActive[IntFalse] = "false";
+            StringActive[IntTrue ] = "true";
+
+            StringOS[IntOSX] = StringOSX;
+            StringOS[IntWin] = StringWin;
+
+            // Define the strings for the URL Filter Rule Actions
+            StringAction[IntBlock] = StringBlock;
+            StringAction[IntAllow] = StringAllow;
+            StringAction[IntSkip ] = StringSkip;
+            StringAction[IntAnd  ] = StringAnd;
+            StringAction[IntOr   ] = StringOr;
+
+            // Define the strings for the Embedded Certificates
+            StringCertificateType[IntSSLClientCertificate] = StringSSLClientCertificate;
+            StringCertificateType[IntIdentity            ] = StringIdentity;
+
+            // Define the strings for the Proxy Protocol Table Captions
+            StringProxyProtocolTableCaption[0] = StringTableCaptionProxyAutoDiscovery;
+            StringProxyProtocolTableCaption[1] = StringTableCaptionProxyAutoConfiguration;
+            StringProxyProtocolTableCaption[2] = StringTableCaptionProxyHTTP;
+            StringProxyProtocolTableCaption[3] = StringTableCaptionProxyHTTPS;
+            StringProxyProtocolTableCaption[4] = StringTableCaptionProxyFTP;
+            StringProxyProtocolTableCaption[5] = StringTableCaptionProxySOCKS;
+            StringProxyProtocolTableCaption[6] = StringTableCaptionProxyRTSP;
+
+            // Define the strings for the Proxy Protocol Server Labels
+            StringProxyProtocolServerLabel[0] = StringServerLabelProxyAutoDiscovery;
+            StringProxyProtocolServerLabel[1] = StringServerLabelProxyAutoConfiguration;
+            StringProxyProtocolServerLabel[2] = StringServerLabelProxyHTTP;
+            StringProxyProtocolServerLabel[3] = StringServerLabelProxyHTTPS;
+            StringProxyProtocolServerLabel[4] = StringServerLabelProxyFTP;
+            StringProxyProtocolServerLabel[5] = StringServerLabelProxySOCKS;
+            StringProxyProtocolServerLabel[6] = StringServerLabelProxyRTSP;
+
+            // Initialise the booleans for the Proxy Protocols
+            for (int i = 0; i < NumProxyProtocols; i++)
+            {
+                BooleanProxyProtocolEnabled[i] = false;
+            }
+
+            // Define the strings for the Proxy Protocol Types
+            MessageProxyProtocolType[0] = MessageAutoDiscovery;
+            MessageProxyProtocolType[1] = MessageAutoConfiguration;
+            MessageProxyProtocolType[2] = MessageHTTP;
+            MessageProxyProtocolType[3] = MessageHTTPS;
+            MessageProxyProtocolType[4] = MessageFTP;
+            MessageProxyProtocolType[5] = MessageSOCKS;
+            MessageProxyProtocolType[6] = MessageRTSP;
+
+            // Define the strings for the Proxy Protocol Attributes
+            MessageProxyProtocolAttribute[0] = MessageEnable;
+            MessageProxyProtocolAttribute[1] = MessagePort;
+            MessageProxyProtocolAttribute[2] = MessageHost;
+            MessageProxyProtocolAttribute[3] = MessageRequires;
+            MessageProxyProtocolAttribute[4] = MessageUsername;
+            MessageProxyProtocolAttribute[5] = MessagePassword;
+
+            // Define the strings for the Proxy Protocol Enable Keys
+            MessageProxyProtocolEnableKey[0] = MessageAutoDiscoveryEnabled;
+            MessageProxyProtocolEnableKey[1] = MessageAutoConfigurationEnabled;
+            MessageProxyProtocolEnableKey[2] = MessageHTTPEnable;
+            MessageProxyProtocolEnableKey[3] = MessageHTTPSEnable;
+            MessageProxyProtocolEnableKey[4] = MessageFTPEnable;
+            MessageProxyProtocolEnableKey[5] = MessageSOCKSEnable;
+            MessageProxyProtocolEnableKey[6] = MessageRTSPEnable;
+        }
+
+
+
+        // *******************************************************
+        // Initialise the GUI widgets of this configuration editor
+        // *******************************************************
+        private void InitialiseGUIWidgets()
+        {
+            // Assign the fixed entries to the ListBoxes and ComboBoxes
+            listBoxExitKey1.Items.AddRange(StringFunctionKey);
+            listBoxExitKey2.Items.AddRange(StringFunctionKey);
+            listBoxExitKey3.Items.AddRange(StringFunctionKey);
+
+            comboBoxCryptoIdentity.Items.AddRange(StringCryptoIdentity.ToArray());
+
+            // At program start, no file has yet been opened, so revert is not possible
+            buttonRevertToLastOpened.Enabled = false;
+
+            comboBoxMainBrowserWindowWidth      .Items.AddRange(StringWindowWidth);
+            comboBoxMainBrowserWindowHeight     .Items.AddRange(StringWindowHeight);
+             listBoxMainBrowserWindowPositioning.Items.AddRange(StringWindowPositioning);
+
+            comboBoxNewBrowserWindowWidth       .Items.AddRange(StringWindowWidth);
+            comboBoxNewBrowserWindowHeight      .Items.AddRange(StringWindowHeight);
+             listBoxNewBrowserWindowPositioning .Items.AddRange(StringWindowPositioning);
+
+             listBoxOpenLinksHTML.Items.AddRange(StringPolicyLinkOpening);
+             listBoxOpenLinksJava.Items.AddRange(StringPolicyLinkOpening);
+
+             listBoxChooseFileToUploadPolicy.Items.AddRange(StringPolicyFileUpload);
+             listBoxSebServicePolicy        .Items.AddRange(StringPolicySebService);
+
+            // Initialise the DataGridViews:
+            // Set "AllowUserToAddRows" to false, to avoid an initial empty first row
+            // Set "RowHeadersVisible"  to false, to avoid an initial empty first column
+            // Set "FullRowSelect"      to true , to select whole row when clicking on a cell
+            dataGridViewPermittedProcesses.Enabled            = false;
+            dataGridViewPermittedProcesses.ReadOnly           = false;
+            dataGridViewPermittedProcesses.AllowUserToAddRows = false;
+            dataGridViewPermittedProcesses.RowHeadersVisible  = false;
+            dataGridViewPermittedProcesses.MultiSelect        = false;
+            dataGridViewPermittedProcesses.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewPermittedProcessArguments.Enabled            = false;
+            dataGridViewPermittedProcessArguments.ReadOnly           = false;
+            dataGridViewPermittedProcessArguments.AllowUserToAddRows = false;
+            dataGridViewPermittedProcessArguments.RowHeadersVisible  = false;
+            dataGridViewPermittedProcessArguments.MultiSelect        = false;
+            dataGridViewPermittedProcessArguments.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewProhibitedProcesses.Enabled            = false;
+            dataGridViewProhibitedProcesses.ReadOnly           = false;
+            dataGridViewProhibitedProcesses.AllowUserToAddRows = false;
+            dataGridViewProhibitedProcesses.RowHeadersVisible  = false;
+            dataGridViewProhibitedProcesses.MultiSelect        = false;
+            dataGridViewProhibitedProcesses.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewURLFilterRules.Enabled            = false;
+            dataGridViewURLFilterRules.ReadOnly           = false;
+            dataGridViewURLFilterRules.AllowUserToAddRows = false;
+            dataGridViewURLFilterRules.RowHeadersVisible  = false;
+            dataGridViewURLFilterRules.MultiSelect        = false;
+            dataGridViewURLFilterRules.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewEmbeddedCertificates.Enabled            = false;
+            dataGridViewEmbeddedCertificates.ReadOnly           = false;
+            dataGridViewEmbeddedCertificates.AllowUserToAddRows = false;
+            dataGridViewEmbeddedCertificates.RowHeadersVisible  = false;
+            dataGridViewEmbeddedCertificates.MultiSelect        = false;
+            dataGridViewEmbeddedCertificates.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewProxyProtocols.Enabled            = false;
+            dataGridViewProxyProtocols.ReadOnly           = false;
+            dataGridViewProxyProtocols.AllowUserToAddRows = false;
+            dataGridViewProxyProtocols.RowHeadersVisible  = false;
+            dataGridViewProxyProtocols.MultiSelect        = false;
+            dataGridViewProxyProtocols.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewBypassedProxies.Enabled            = false;
+            dataGridViewBypassedProxies.ReadOnly           = false;
+            dataGridViewBypassedProxies.AllowUserToAddRows = false;
+            dataGridViewBypassedProxies.RowHeadersVisible  = false;
+            dataGridViewBypassedProxies.MultiSelect        = false;
+            dataGridViewBypassedProxies.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
+
+            dataGridViewPermittedProcesses.Columns[IntColumnProcessActive    ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcesses.Columns[IntColumnProcessOS        ].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnProcessExecutable].ValueType = typeof(String);
+            dataGridViewPermittedProcesses.Columns[IntColumnProcessTitle     ].ValueType = typeof(String);
+
+            dataGridViewPermittedProcessArguments.Columns[IntColumnProcessActive  ].ValueType = typeof(Boolean);
+            dataGridViewPermittedProcessArguments.Columns[IntColumnProcessArgument].ValueType = typeof(String);
+
+            dataGridViewProhibitedProcesses.Columns[IntColumnProcessActive     ].ValueType = typeof(Boolean);
+            dataGridViewProhibitedProcesses.Columns[IntColumnProcessOS         ].ValueType = typeof(String);
+            dataGridViewProhibitedProcesses.Columns[IntColumnProcessExecutable ].ValueType = typeof(String);
+            dataGridViewProhibitedProcesses.Columns[IntColumnProcessDescription].ValueType = typeof(String);
+
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleShow      ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleActive    ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleRegex     ].ValueType = typeof(Boolean);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleExpression].ValueType = typeof(String);
+            dataGridViewURLFilterRules.Columns[IntColumnURLFilterRuleAction    ].ValueType = typeof(String);
+
+            dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateType].ValueType = typeof(String);
+            dataGridViewEmbeddedCertificates.Columns[IntColumnCertificateName].ValueType = typeof(String);
+
+            dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolEnable].ValueType = typeof(Boolean);
+            dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolType  ].ValueType = typeof(String);
+
+            dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolEnable].ReadOnly = false;
+            dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolType  ].ReadOnly = true;
+
+            dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ValueType = typeof(String);
+            dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ReadOnly  = false;
+
+            // Assign the column names to the DataGridViews
+/*
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnActive    , StringColumnActive);
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnOS        , StringColumnOS);
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnExecutable, StringColumnExecutable);
+            dataGridViewPermittedProcesses.Columns.Add(StringColumnTitle     , StringColumnTitle);
+
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnActive  , StringColumnActive);
+            dataGridViewPermittedProcessArguments.Columns.Add(StringColumnArgument, StringColumnArgument);
+
+            dataGridViewProhibitedProcesses.Columns.Add(StringColumnActive     , StringColumnActive);
+            dataGridViewProhibitedProcesses.Columns.Add(StringColumnOS         , StringColumnOS);
+            dataGridViewProhibitedProcesses.Columns.Add(StringColumnExecutable , StringColumnExecutable);
+            dataGridViewProhibitedProcesses.Columns.Add(StringColumnDescription, StringColumnDescription);
+
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleShow      , StringColumnURLFilterRuleShow);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleActive    , StringColumnURLFilterRuleActive);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleRegex     , StringColumnURLFilterRuleRegex);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleExpression, StringColumnURLFilterRuleExpression);
+            dataGridViewURLFilterRules.Columns.Add(StringColumnURLFilterRuleAction    , StringColumnURLFilterRuleAction);
+
+            dataGridViewEmbeddedCertificates.Columns.Add(StringColumnCertificateType, StringColumnCertificateType);
+            dataGridViewEmbeddedCertificates.Columns.Add(StringColumnCertificateName, StringColumnCertificateName);
+
+            dataGridViewProxyProtocols.Columns.Add(StringColumnProxyProtocolEnable, StringColumnProxyProtocolEnable);
+            dataGridViewProxyProtocols.Columns.Add(StringColumnProxyProtocolType  , StringColumnProxyProtocolType);
+
+            dataGridViewBypassedProxies.Columns.Add(StringColumnDomainHostPort, StringColumnDomainHostPort);
+*/
+            groupBoxPermittedProcess .Enabled = false;
+            groupBoxProhibitedProcess.Enabled = false;
+
+            listBoxPermittedProcessOS .Items.AddRange(StringOS);
+            listBoxProhibitedProcessOS.Items.AddRange(StringOS);
+
+            // Help data structures for table access to URL Filter Rules
+            urlFilterTableRow   = -1;
+            urlFilterIsTitleRow = false;
+            urlFilterTableRuleIndex     .Clear();
+            urlFilterTableActionIndex   .Clear();
+            urlFilterTableIsTitleRow    .Clear();
+            urlFilterTableStartRow      .Clear();
+            urlFilterTableEndRow        .Clear();
+            urlFilterTableShowRule      .Clear();
+            urlFilterTableCellIsDisabled.Clear();
+
+            // Auto-resize the columns and cells
+          //dataGridViewPermittedProcesses  .AutoResizeColumns();
+          //dataGridViewProhibitedProcesses .AutoResizeColumns();
+          //dataGridViewURLFilterRules      .AutoResizeColumns();
+          //dataGridViewEmbeddedCertificates.AutoResizeColumns();
+          //dataGridViewProxyProtocols      .AutoResizeColumns();
+          //dataGridViewBypassedProxies     .AutoResizeColumns();
+
+          //dataGridViewPermittedProcesses  .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProhibitedProcesses .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewURLFilterRules      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewEmbeddedCertificates.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewProxyProtocols      .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+          //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig
