@@ -98,12 +98,16 @@ namespace SebWindowsConfig
             if (fileNameExt.Equals(".xml")) isEncrypted = false;
             if (fileNameExt.Equals(".seb")) isEncrypted = true;
 
+            // TODO: decryption does not yet work,
+            // TODO: so currently we can only read non-encrypted files
+            isEncrypted = false;
+
             try 
             {
-                // Read the configuration settings from .xml or .seb file
+                // Read the configuration settings from the file.
                 // If encrypted, decrypt the configuration settings
                 // Convert the XML structure into a C# object
-                if (isEncrypted == true)
+                //if (isEncrypted == true)
                 {
                     TextReader textReader;
                     String encryptedSettings = "";
@@ -115,15 +119,19 @@ namespace SebWindowsConfig
                     encryptedSettings = textReader.ReadToEnd();
                     textReader.Close();
 
+                    // TODO: decryption does not yet work,
+                    // TODO: so the decryption is in comments and bypassed
                   //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
                   //decryptedSettings = decryptedSettings.Trim();
+
+                    // TODO: when decryption works, delete the following bypass assignment:
                     decryptedSettings = encryptedSettings;
 
                     sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
                 }
-                else // unencrypted .xml file
+                //else // unencrypted .xml file
                 {
-                    sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
+                    //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
                 }
             }
             catch (Exception streamReadException)
