@@ -664,6 +664,14 @@ namespace SebWindowsClient
                     }
                 }
 
+                // When shutting down SEB, restart the explorer.exe shell
+                Logger.AddInformation("Restarting the shell.", null, null);
+                string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
+                Process process = new Process();           
+                process.StartInfo.FileName = explorer;
+                process.StartInfo.UseShellExecute = true;
+                process.Start();
+
                 // Switch to Default Desktop
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageCreateNewDesktop)[SEBGlobalConstants.MessageCreateNewDesktop])
                 {

@@ -23,11 +23,23 @@ using System.Security.Cryptography;
 using System.Text;
 using COM.Tools.VMDetect;
 using SebWindowsClient.ServiceUtils;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace SebWindowsClient
 {
     static class SebWindowsClientMain
     {
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool PostMessage(IntPtr hWnd, [MarshalAs(UnmanagedType.U4)] uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        const int WM_USER = 0x0400; //http://msdn.microsoft.com/en-us/library/windows/desktop/ms644931(v=vs.85).aspx
+
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -207,12 +219,17 @@ namespace SebWindowsClient
             SEBClipboard.CleanClipboard();
             Logger.AddInformation("Clipboard deleted.", null, null);
 
+
+            // Test if explorer shell should be killed
+            bool killExplorer = true;
+          //bool killExplorer = (Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageKillExplorer)[SEBGlobalConstants.MessageKillExplorer];
+
             // locks OS
             if (!SEBClientInfo.IsNewOS)
             {
                 ////just kill explorer.exe on Win9x / Me
                 //sEBSettings
-                bool killExplorer = false;
+                killExplorer = false;
 
                 List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageProhibitedProcesses)[SEBGlobalConstants.MessageProhibitedProcesses];
                 for (int i = 0; i < prohibitedProcessList.Count(); i++)
@@ -228,12 +245,13 @@ namespace SebWindowsClient
                         }
                     }
                 }
+
                 if (killExplorer)
                 {
                     Logger.AddInformation("Kill process by name(explorer.exe)", null, null);
                     SEBNotAllowedProcessController.KillProcessByName("explorer.exe");
                     Logger.AddInformation("Process by name(explorer.exe) killed", null, null);
-                 }
+                }
                 //tell Win9x / Me that the screensaver is running to lock system tasks
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageCreateNewDesktop)[SEBGlobalConstants.MessageCreateNewDesktop])
                 {
@@ -242,6 +260,46 @@ namespace SebWindowsClient
             }
             else
             {
+
+                //on NT4/NT5 the desktop is killed
+                if (killExplorer)
+                {
+                    Logger.AddInformation("Kill process by PostMessage(WM_USER + 436)", null, null);
+
+                    //SEBNotAllowedProcessController.KillProcessByName("explorer.exe");
+                    //PostMessage(FindWindow("Shell_TrayWnd", null), WM_USER + 436, (IntPtr)0, (IntPtr)0);
+
+                    // When starting up SEB, kill the explorer.exe shell
+                    try
+                    {
+                        var ptr = FindWindow("Shell_TrayWnd", null);
+                        Logger.AddInformation("INIT PTR: {0}", ptr.ToInt32(), null, null);
+                        PostMessage(ptr, WM_USER + 436, (IntPtr)0, (IntPtr)0);
+
+                        do
+                        {
+                            ptr = FindWindow("Shell_TrayWnd", null);
+                            Logger.AddInformation("PTR: {0}", ptr.ToInt32(), null, null);
+
+                            if (ptr.ToInt32() == 0)
+                            {
+                                Logger.AddInformation("Success. Breaking out of loop.", null, null);
+                                break;
+                            }
+
+                            Thread.Sleep(1000);
+                        }
+                        while (true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddInformation("{0} {1}", ex.Message, null, null);
+                    }
+
+                    Logger.AddInformation("Process by PostMessage(WM_USER + 436) killed", null, null);
+                }
+
+
                 //on NT4/NT5 a new desktop is created
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageCreateNewDesktop)[SEBGlobalConstants.MessageCreateNewDesktop])
                 {
