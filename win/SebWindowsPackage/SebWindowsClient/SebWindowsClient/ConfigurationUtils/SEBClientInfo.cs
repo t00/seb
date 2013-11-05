@@ -140,6 +140,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string QuitPassword { get; set; }
         public static string QuitHashcode { get; set; }
 
+        public static bool killedExplorer = false;
+
         public static Dictionary<string, object> sebSettings = new Dictionary<string, object>();
 
         public static SebWindowsClientForm SebWindowsClientForm;

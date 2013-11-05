@@ -623,7 +623,7 @@ namespace SebWindowsClient
             //if (bQuit)
             //{
                 bool bSocketResult;
-                SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
+                SEBLocalHostInfo  sEBLocalHostInfo = new SEBLocalHostInfo();
                 string userName = sEBLocalHostInfo.GetUserName();
 
                 // ShutDown message to SebWindowsService
@@ -635,6 +635,7 @@ namespace SebWindowsClient
                     string[] resultShutDown = sebSocketClient.RecvEquationOfSocketServer();
                     this.sebSocketClient.CloseSocket();
                 }
+
                 // ShutDown Processes
                 Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
                 List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessagePermittedProcesses)[SEBGlobalConstants.MessagePermittedProcesses];
@@ -664,20 +665,27 @@ namespace SebWindowsClient
                     }
                 }
 
-                // When shutting down SEB, restart the explorer.exe shell
-                Logger.AddInformation("Restarting the shell.", null, null);
-                string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
-                Process process = new Process();           
-                process.StartInfo.FileName = explorer;
-                process.StartInfo.UseShellExecute = true;
-                process.Start();
+
+                // Restart the explorer.exe shell
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageKillExplorer)[SEBGlobalConstants.MessageKillExplorer])
+                {
+                    if (SEBGlobalConstants.killedExplorer)
+                    {
+                        Logger.AddInformation("Restarting the shell.", null, null);
+                        string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
+                        Process process = new Process();           
+                        process.StartInfo.FileName        = explorer;
+                        process.StartInfo.UseShellExecute = true;
+                        process.Start();
+                    }
+                }
 
                 // Switch to Default Desktop
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageCreateNewDesktop)[SEBGlobalConstants.MessageCreateNewDesktop])
                 {
-                    SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+                    SEBDesktopController.Show      (SEBClientInfo.OriginalDesktop.DesktopName);
                     SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
-                    SEBClientInfo.SEBNewlDesktop.Close();
+                    SEBClientInfo       .SEBNewlDesktop.Close();
                 }
                 else
                 {

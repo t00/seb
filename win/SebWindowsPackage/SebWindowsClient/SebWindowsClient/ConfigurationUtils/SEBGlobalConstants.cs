@@ -114,7 +114,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int WIN_8       = 2050;
 
 
-
+        // Group "General"
         public const String MessageStartURL = "startURL";
         public const String MessageSebServerURL = "sebServerURL";
         public const String MessageAdminPassword = "adminPassword";
@@ -303,15 +303,17 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int ValueSebServicePolicy = 1;
         public const int ValueAllowVirtualMachine = 2;
         public const int ValueCreateNewDesktop = 3;
-        public const int ValueAllowUserSwitching = 4;
-        public const int ValueEnableLogging = 5;
-        public const int ValueLogDirectoryOSX = 6;
-        public const int ValueLogDirectoryWin = 7;
-        public const int NumValueSecurity = 7;
+        public const int ValueKillExplorer = 4;
+        public const int ValueAllowUserSwitching = 5;
+        public const int ValueEnableLogging = 6;
+        public const int ValueLogDirectoryOSX = 7;
+        public const int ValueLogDirectoryWin = 8;
+        public const int NumValueSecurity = 8;
 
         public const String MessageSebServicePolicy = "sebServicePolicy";
         public const String MessageAllowVirtualMachine = "allowVirtualMachine";
         public const String MessageCreateNewDesktop = "createNewDesktop";
+        public const String MessageKillExplorer = "killExplorer";
         public const String MessageAllowUserSwitching = "allowUserSwitching";
         public const String MessageEnableLogging = "enableLogging";
         public const String MessageLogDirectoryOSX = "logDirectoryOSX";
@@ -418,6 +420,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int TypeString = 2;
         public const int TypeInteger = 3;
 
+        public static bool killedExplorer = false;
 
         #endregion
     }

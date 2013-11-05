@@ -171,6 +171,7 @@ namespace SebWindowsClient.ConfigurationUtils
             sebSettingsDef.Add(SEBGlobalConstants.MessageSebServicePolicy   , 2);
             sebSettingsDef.Add(SEBGlobalConstants.MessageAllowVirtualMachine, false);
             sebSettingsDef.Add(SEBGlobalConstants.MessageCreateNewDesktop   , true);
+            sebSettingsDef.Add(SEBGlobalConstants.MessageKillExplorer       , false);
             sebSettingsDef.Add(SEBGlobalConstants.MessageAllowUserSwitching , true);
             sebSettingsDef.Add(SEBGlobalConstants.MessageEnableLogging      , false);
             sebSettingsDef.Add(SEBGlobalConstants.MessageLogDirectoryOSX    , "~/Documents");

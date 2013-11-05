@@ -220,16 +220,15 @@ namespace SebWindowsClient
             Logger.AddInformation("Clipboard deleted.", null, null);
 
 
-            // Test if explorer shell should be killed
-            bool killExplorer = true;
-          //bool killExplorer = (Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageKillExplorer)[SEBGlobalConstants.MessageKillExplorer];
+            // Global variable if the explorer shell has been killed
+            SEBGlobalConstants.killedExplorer = false;
 
             // locks OS
             if (!SEBClientInfo.IsNewOS)
             {
                 ////just kill explorer.exe on Win9x / Me
                 //sEBSettings
-                killExplorer = false;
+                bool killExplorer = false;
 
                 List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageProhibitedProcesses)[SEBGlobalConstants.MessageProhibitedProcesses];
                 for (int i = 0; i < prohibitedProcessList.Count(); i++)
@@ -238,7 +237,6 @@ namespace SebWindowsClient
                     string prohibitedProcessName = (string)prohibitedProcess[SEBGlobalConstants.MessageExecutable];
                     if ((Boolean)prohibitedProcess[SEBGlobalConstants.MessageActive])
                     {
-
                         if (prohibitedProcessName.Contains("explorer.exe"))
                         {
                             killExplorer = true;
@@ -250,6 +248,7 @@ namespace SebWindowsClient
                 {
                     Logger.AddInformation("Kill process by name(explorer.exe)", null, null);
                     SEBNotAllowedProcessController.KillProcessByName("explorer.exe");
+                    SEBGlobalConstants.killedExplorer = true;
                     Logger.AddInformation("Process by name(explorer.exe) killed", null, null);
                 }
                 //tell Win9x / Me that the screensaver is running to lock system tasks
@@ -260,9 +259,8 @@ namespace SebWindowsClient
             }
             else
             {
-
                 //on NT4/NT5 the desktop is killed
-                if (killExplorer)
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageKillExplorer)[SEBGlobalConstants.MessageKillExplorer])
                 {
                     Logger.AddInformation("Kill process by PostMessage(WM_USER + 436)", null, null);
 
@@ -294,9 +292,11 @@ namespace SebWindowsClient
                     catch (Exception ex)
                     {
                         Logger.AddInformation("{0} {1}", ex.Message, null, null);
+                        SEBGlobalConstants.killedExplorer = false;
                     }
 
                     Logger.AddInformation("Process by PostMessage(WM_USER + 436) killed", null, null);
+                    SEBGlobalConstants.killedExplorer = true;
                 }
 
 
