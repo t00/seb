@@ -667,9 +667,9 @@ namespace SebWindowsClient
 
 
                 // Restart the explorer.exe shell
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageKillExplorer)[SEBGlobalConstants.MessageKillExplorer])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageKillExplorerShell)[SEBGlobalConstants.MessageKillExplorerShell])
                 {
-                    if (SEBGlobalConstants.killedExplorer)
+                    if (SEBGlobalConstants.explorerShellWasKilled)
                     {
                         Logger.AddInformation("Restarting the shell.", null, null);
                         string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
