@@ -11,16 +11,16 @@ namespace SebWindowsClient.ConfigurationUtils
         const int IntOSX = 0;
         const int IntWin = 1;
 
-       public static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
-       public static Dictionary<string, object> permittedProcessDataDef = new Dictionary<string, object>();
+       public static Dictionary<string, object>          sebSettingsDef  = new Dictionary<string, object>();
+       public static Dictionary<string, object> permittedProcessDataDef  = new Dictionary<string, object>();
        public static Dictionary<string, object> permittedArgumentDataDef = new Dictionary<string, object>();
        public static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
-       public static Dictionary<string, object> urlFilterRuleDataDefault = new Dictionary<string, object>();
-       public static Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
-       public static List<object> urlFilterActionListDefault = new List<object>();
+       public static Dictionary<string, object> urlFilterRuleDataDef     = new Dictionary<string, object>();
+       public static Dictionary<string, object> urlFilterActionDataDef   = new Dictionary<string, object>();
+       public static List<object> urlFilterActionListDef    = new List<object>();
        public static List<object> urlFilterActionListStored = new List<object>();
-       public static Dictionary<string, object> urlFilterActionDataStored = new Dictionary<string, object>();
-       public static Dictionary<string, object> urlFilterRuleDataStored = new Dictionary<string, object>();
+       public static Dictionary<string, object> urlFilterActionDataStored  = new Dictionary<string, object>();
+       public static Dictionary<string, object> urlFilterRuleDataStored    = new Dictionary<string, object>();
        public static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
 
         public static void InitialiseSEBDefaultSettings()
@@ -126,20 +126,20 @@ namespace SebWindowsClient.ConfigurationUtils
             sebSettingsDef.Add(SEBGlobalConstants.MessageURLFilterRules        , new List<object>());
 
             // Create a default action
-            urlFilterActionDataDefault.Add(SEBGlobalConstants.MessageActive    , true);
-            urlFilterActionDataDefault.Add(SEBGlobalConstants.MessageRegex     , false);
-            urlFilterActionDataDefault.Add(SEBGlobalConstants.MessageExpression, "*");
-            urlFilterActionDataDefault.Add(SEBGlobalConstants.MessageAction    , 0);
+            urlFilterActionDataDef.Add(SEBGlobalConstants.MessageActive    , true);
+            urlFilterActionDataDef.Add(SEBGlobalConstants.MessageRegex     , false);
+            urlFilterActionDataDef.Add(SEBGlobalConstants.MessageExpression, "*");
+            urlFilterActionDataDef.Add(SEBGlobalConstants.MessageAction    , 0);
 
             // Create a default action list with one entry (SEBGlobalConstants.the default action)
-            urlFilterActionListDefault.Add(urlFilterActionDataDefault);
+            urlFilterActionListDef.Add(urlFilterActionDataDef);
 
             // Create a default rule with this default action list.
             // This default rule is used for the "Insert Rule" operation:
             // when a new rule is created, it initially contains one action.
-            urlFilterRuleDataDefault.Add(SEBGlobalConstants.MessageActive     , true);
-            urlFilterRuleDataDefault.Add(SEBGlobalConstants.MessageExpression , "Rule");
-            urlFilterRuleDataDefault.Add(SEBGlobalConstants.MessageRuleActions, urlFilterActionListDefault);
+            urlFilterRuleDataDef.Add(SEBGlobalConstants.MessageActive     , true);
+            urlFilterRuleDataDef.Add(SEBGlobalConstants.MessageExpression , "Rule");
+            urlFilterRuleDataDef.Add(SEBGlobalConstants.MessageRuleActions, urlFilterActionListDef);
 
             // Initialise the stored action
             urlFilterActionDataStored.Add(SEBGlobalConstants.MessageActive    , true);
@@ -165,7 +165,7 @@ namespace SebWindowsClient.ConfigurationUtils
             sebSettingsDef.Add(SEBGlobalConstants.MessageProxyConfigurationFileURL, "");
             sebSettingsDef.Add(SEBGlobalConstants.MessageExcludeSimpleHostnames   , true);
             sebSettingsDef.Add(SEBGlobalConstants.MessageUsePassiveFTPMode        , true);
-            sebSettingsDef.Add(SEBGlobalConstants.MessageBypassHostsAndDomains, new List<object>());
+            sebSettingsDef.Add(SEBGlobalConstants.MessageBypassHostsAndDomains    , new List<object>());
 
             // Default settings for group "Security"
             sebSettingsDef.Add(SEBGlobalConstants.MessageSebServicePolicy   , 2);
