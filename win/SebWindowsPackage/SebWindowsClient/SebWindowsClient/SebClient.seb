@@ -97,7 +97,7 @@
     <key>createNewDesktop</key>
     <true/>
     <key>killExplorerShell</key>
-    <true/>
+    <false/>
     <key>downloadDirectoryOSX</key>
     <string>~/Downloads</string>
     <key>downloadDirectoryWin</key>
