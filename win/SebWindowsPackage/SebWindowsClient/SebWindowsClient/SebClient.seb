@@ -96,6 +96,8 @@
     <false/>
     <key>createNewDesktop</key>
     <true/>
+    <key>killExplorerShell</key>
+    <true/>
     <key>downloadDirectoryOSX</key>
     <string>~/Downloads</string>
     <key>downloadDirectoryWin</key>
@@ -141,11 +143,11 @@
     <key>logDirectoryWin</key>
     <string>My Documents</string>
     <key>mainBrowserWindowHeight</key>
-    <string>100</string>
+    <string>800</string>
     <key>mainBrowserWindowPositioning</key>
     <integer>1</integer>
     <key>mainBrowserWindowWidth</key>
-    <string>100</string>
+    <string>600</string>
     <key>monitorProcesses</key>
     <false/>
     <key>newBrowserWindowByLinkBlockForeign</key>
