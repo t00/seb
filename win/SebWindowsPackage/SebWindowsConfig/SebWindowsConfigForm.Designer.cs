@@ -98,6 +98,11 @@
             this.buttonPasteBeforeSelected = new System.Windows.Forms.Button();
             this.buttonInsertBeforeSelected = new System.Windows.Forms.Button();
             this.dataGridViewURLFilterRules = new System.Windows.Forms.DataGridView();
+            this.DataGridViewButtonColumnShow = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewCheckBoxColumnActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DataGridViewCheckBoxColumnRegex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumnExpression = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumnAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.buttonDeleteSelected = new System.Windows.Forms.Button();
             this.buttonInsertAfterSelected = new System.Windows.Forms.Button();
             this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
@@ -302,11 +307,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.DataGridViewButtonColumnShow = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewCheckBoxColumnActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DataGridViewCheckBoxColumnRegex = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumnExpression = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewComboBoxColumnAction = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.checkBoxKillExplorer = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -927,6 +928,7 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.checkBoxKillExplorer);
             this.tabPageSecurity.Controls.Add(this.labelLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.buttonLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.checkBoxCreateNewDesktop);
@@ -1141,6 +1143,41 @@
             this.dataGridViewURLFilterRules.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewURLFilterRules_CellValueChanged);
             this.dataGridViewURLFilterRules.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewURLFilterRules_CurrentCellDirtyStateChanged);
             this.dataGridViewURLFilterRules.SelectionChanged += new System.EventHandler(this.dataGridViewURLFilterRules_SelectionChanged);
+            // 
+            // DataGridViewButtonColumnShow
+            // 
+            this.DataGridViewButtonColumnShow.HeaderText = "Show";
+            this.DataGridViewButtonColumnShow.Name = "DataGridViewButtonColumnShow";
+            this.DataGridViewButtonColumnShow.Width = 80;
+            // 
+            // dataGridViewCheckBoxColumnActive
+            // 
+            this.dataGridViewCheckBoxColumnActive.HeaderText = "Active";
+            this.dataGridViewCheckBoxColumnActive.Name = "dataGridViewCheckBoxColumnActive";
+            this.dataGridViewCheckBoxColumnActive.Width = 50;
+            // 
+            // DataGridViewCheckBoxColumnRegex
+            // 
+            this.DataGridViewCheckBoxColumnRegex.HeaderText = "Regex";
+            this.DataGridViewCheckBoxColumnRegex.Name = "DataGridViewCheckBoxColumnRegex";
+            // 
+            // dataGridViewTextBoxColumnExpression
+            // 
+            this.dataGridViewTextBoxColumnExpression.HeaderText = "Expression";
+            this.dataGridViewTextBoxColumnExpression.Name = "dataGridViewTextBoxColumnExpression";
+            this.dataGridViewTextBoxColumnExpression.Width = 480;
+            // 
+            // dataGridViewComboBoxColumnAction
+            // 
+            this.dataGridViewComboBoxColumnAction.HeaderText = "Action";
+            this.dataGridViewComboBoxColumnAction.Items.AddRange(new object[] {
+            "block",
+            "allow",
+            "skip",
+            "and",
+            "or"});
+            this.dataGridViewComboBoxColumnAction.Name = "dataGridViewComboBoxColumnAction";
+            this.dataGridViewComboBoxColumnAction.Width = 80;
             // 
             // buttonDeleteSelected
             // 
@@ -3368,40 +3405,17 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // DataGridViewButtonColumnShow
+            // checkBoxKillExplorer
             // 
-            this.DataGridViewButtonColumnShow.HeaderText = "Show";
-            this.DataGridViewButtonColumnShow.Name = "DataGridViewButtonColumnShow";
-            this.DataGridViewButtonColumnShow.Width = 80;
-            // 
-            // dataGridViewCheckBoxColumnActive
-            // 
-            this.dataGridViewCheckBoxColumnActive.HeaderText = "Active";
-            this.dataGridViewCheckBoxColumnActive.Name = "dataGridViewCheckBoxColumnActive";
-            this.dataGridViewCheckBoxColumnActive.Width = 50;
-            // 
-            // DataGridViewCheckBoxColumnRegex
-            // 
-            this.DataGridViewCheckBoxColumnRegex.HeaderText = "Regex";
-            this.DataGridViewCheckBoxColumnRegex.Name = "DataGridViewCheckBoxColumnRegex";
-            // 
-            // dataGridViewTextBoxColumnExpression
-            // 
-            this.dataGridViewTextBoxColumnExpression.HeaderText = "Expression";
-            this.dataGridViewTextBoxColumnExpression.Name = "dataGridViewTextBoxColumnExpression";
-            this.dataGridViewTextBoxColumnExpression.Width = 480;
-            // 
-            // dataGridViewComboBoxColumnAction
-            // 
-            this.dataGridViewComboBoxColumnAction.HeaderText = "Action";
-            this.dataGridViewComboBoxColumnAction.Items.AddRange(new object[] {
-            "block",
-            "allow",
-            "skip",
-            "and",
-            "or"});
-            this.dataGridViewComboBoxColumnAction.Name = "dataGridViewComboBoxColumnAction";
-            this.dataGridViewComboBoxColumnAction.Width = 80;
+            this.checkBoxKillExplorer.AutoSize = true;
+            this.checkBoxKillExplorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxKillExplorer.Location = new System.Drawing.Point(48, 186);
+            this.checkBoxKillExplorer.Name = "checkBoxKillExplorer";
+            this.checkBoxKillExplorer.Size = new System.Drawing.Size(204, 21);
+            this.checkBoxKillExplorer.TabIndex = 80;
+            this.checkBoxKillExplorer.Text = "Kill explorer shell (Win only)";
+            this.checkBoxKillExplorer.UseVisualStyleBackColor = true;
+            this.checkBoxKillExplorer.CheckedChanged += new System.EventHandler(this.checkBoxKillExplorer_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -3756,6 +3770,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn DataGridViewCheckBoxColumnRegex;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnExpression;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnAction;
+        private System.Windows.Forms.CheckBox checkBoxKillExplorer;
 
     }
 }

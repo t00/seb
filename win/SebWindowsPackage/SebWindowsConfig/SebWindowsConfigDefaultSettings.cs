@@ -223,6 +223,7 @@ namespace SebWindowsConfig
         const String MessageSebServicePolicy    = "sebServicePolicy";
         const String MessageAllowVirtualMachine = "allowVirtualMachine";
         const String MessageCreateNewDesktop    = "createNewDesktop";
+        const String MessageKillExplorer        = "killExplorer";
         const String MessageAllowUserSwitching  = "allowUserSwitching";
         const String MessageEnableLogging       = "enableLogging";
         const String MessageLogDirectoryOSX     = "logDirectoryOSX";
@@ -581,6 +582,7 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageSebServicePolicy   , 2);
             sebSettingsDef.Add(MessageAllowVirtualMachine, false);
             sebSettingsDef.Add(MessageCreateNewDesktop   , true);
+            sebSettingsDef.Add(MessageKillExplorer       , false);
             sebSettingsDef.Add(MessageAllowUserSwitching , true);
             sebSettingsDef.Add(MessageEnableLogging      , false);
             sebSettingsDef.Add(MessageLogDirectoryOSX    , "~/Documents");
