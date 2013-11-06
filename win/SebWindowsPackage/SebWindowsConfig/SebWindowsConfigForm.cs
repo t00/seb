@@ -701,7 +701,7 @@ namespace SebWindowsConfig
              listBoxSebServicePolicy.SelectedIndex =     (int)sebSettingsNew[MessageSebServicePolicy];
             checkBoxAllowVirtualMachine.Checked    = (Boolean)sebSettingsNew[MessageAllowVirtualMachine];
             checkBoxCreateNewDesktop   .Checked    = (Boolean)sebSettingsNew[MessageCreateNewDesktop];
-            checkBoxKillExplorer       .Checked    = (Boolean)sebSettingsNew[MessageKillExplorer];
+            checkBoxKillExplorerShell  .Checked    = (Boolean)sebSettingsNew[MessageKillExplorerShell];
             checkBoxAllowUserSwitching .Checked    = (Boolean)sebSettingsNew[MessageAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)sebSettingsNew[MessageEnableLogging];
             labelLogDirectoryWin       .Text       =  (String)sebSettingsNew[MessageLogDirectoryWin];
@@ -2655,9 +2655,9 @@ namespace SebWindowsConfig
             sebSettingsNew[MessageCreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
         }
 
-        private void checkBoxKillExplorer_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxKillExplorerShell_CheckedChanged(object sender, EventArgs e)
         {
-            sebSettingsNew[MessageKillExplorer] = checkBoxKillExplorer.Checked;
+            sebSettingsNew[MessageKillExplorerShell] = checkBoxKillExplorerShell.Checked;
         }
 
         private void checkBoxAllowUserSwitching_CheckedChanged(object sender, EventArgs e)

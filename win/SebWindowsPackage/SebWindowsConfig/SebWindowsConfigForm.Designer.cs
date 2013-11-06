@@ -81,6 +81,7 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.checkBoxKillExplorerShell = new System.Windows.Forms.CheckBox();
             this.labelLogDirectoryWin = new System.Windows.Forms.Label();
             this.buttonLogDirectoryWin = new System.Windows.Forms.Button();
             this.checkBoxCreateNewDesktop = new System.Windows.Forms.CheckBox();
@@ -307,7 +308,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkBoxKillExplorer = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -928,7 +928,7 @@
             // 
             // tabPageSecurity
             // 
-            this.tabPageSecurity.Controls.Add(this.checkBoxKillExplorer);
+            this.tabPageSecurity.Controls.Add(this.checkBoxKillExplorerShell);
             this.tabPageSecurity.Controls.Add(this.labelLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.buttonLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.checkBoxCreateNewDesktop);
@@ -944,6 +944,18 @@
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxKillExplorerShell
+            // 
+            this.checkBoxKillExplorerShell.AutoSize = true;
+            this.checkBoxKillExplorerShell.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxKillExplorerShell.Location = new System.Drawing.Point(30, 197);
+            this.checkBoxKillExplorerShell.Name = "checkBoxKillExplorerShell";
+            this.checkBoxKillExplorerShell.Size = new System.Drawing.Size(204, 21);
+            this.checkBoxKillExplorerShell.TabIndex = 80;
+            this.checkBoxKillExplorerShell.Text = "Kill explorer shell (Win only)";
+            this.checkBoxKillExplorerShell.UseVisualStyleBackColor = true;
+            this.checkBoxKillExplorerShell.CheckedChanged += new System.EventHandler(this.checkBoxKillExplorerShell_CheckedChanged);
             // 
             // labelLogDirectoryWin
             // 
@@ -968,7 +980,7 @@
             // 
             this.checkBoxCreateNewDesktop.AutoSize = true;
             this.checkBoxCreateNewDesktop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(31, 160);
+            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(31, 170);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
             this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(155, 21);
             this.checkBoxCreateNewDesktop.TabIndex = 45;
@@ -980,7 +992,7 @@
             // 
             this.checkBoxAllowUserSwitching.AutoSize = true;
             this.checkBoxAllowUserSwitching.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowUserSwitching.Location = new System.Drawing.Point(31, 213);
+            this.checkBoxAllowUserSwitching.Location = new System.Drawing.Point(30, 239);
             this.checkBoxAllowUserSwitching.Name = "checkBoxAllowUserSwitching";
             this.checkBoxAllowUserSwitching.Size = new System.Drawing.Size(225, 21);
             this.checkBoxAllowUserSwitching.TabIndex = 76;
@@ -3405,18 +3417,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 800);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
-            // checkBoxKillExplorer
-            // 
-            this.checkBoxKillExplorer.AutoSize = true;
-            this.checkBoxKillExplorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxKillExplorer.Location = new System.Drawing.Point(48, 186);
-            this.checkBoxKillExplorer.Name = "checkBoxKillExplorer";
-            this.checkBoxKillExplorer.Size = new System.Drawing.Size(204, 21);
-            this.checkBoxKillExplorer.TabIndex = 80;
-            this.checkBoxKillExplorer.Text = "Kill explorer shell (Win only)";
-            this.checkBoxKillExplorer.UseVisualStyleBackColor = true;
-            this.checkBoxKillExplorer.CheckedChanged += new System.EventHandler(this.checkBoxKillExplorer_CheckedChanged);
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3770,7 +3770,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn DataGridViewCheckBoxColumnRegex;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnExpression;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnAction;
-        private System.Windows.Forms.CheckBox checkBoxKillExplorer;
+        private System.Windows.Forms.CheckBox checkBoxKillExplorerShell;
 
     }
 }
