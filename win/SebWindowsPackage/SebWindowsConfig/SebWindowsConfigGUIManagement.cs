@@ -182,7 +182,7 @@ namespace SebWindowsConfig
         static  String[]  StringWindowWidth               = new  String[4];
         static  String[]  StringWindowHeight              = new  String[4];
         static  String[]  StringWindowPositioning         = new  String[3];
-        static  String[]  StringTaskBarHeight             = new  String[4];
+        static  String[]  StringTaskBarHeight             = new  String[3];
         static  String[]  StringPolicyLinkOpening         = new  String[3];
         static  String[]  StringPolicyFileUpload          = new  String[3];
         static  String[]  StringPolicyProxySettings       = new  String[2];
@@ -274,10 +274,9 @@ namespace SebWindowsConfig
             StringWindowPositioning[2] = "Right";
 
             // Define the strings for the Task Bar Height
-            StringTaskBarHeight[0] = "10%";
-            StringTaskBarHeight[1] = "20%";
-            StringTaskBarHeight[2] = "40";
-            StringTaskBarHeight[3] = "60";
+            StringTaskBarHeight[0] = "40";
+            StringTaskBarHeight[1] = "60";
+            StringTaskBarHeight[2] = "80";
 
             // Define the strings for the Link Opening Policy
             StringPolicyLinkOpening[0] = "get generally blocked";

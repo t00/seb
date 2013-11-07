@@ -403,7 +403,7 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageHideBrowserWindowToolbar    , false);
             sebSettingsDef.Add(MessageShowMenuBar                 , false);
             sebSettingsDef.Add(MessageShowTaskBar                 , true);
-            sebSettingsDef.Add(MessageTaskBarHeight               , "40");
+            sebSettingsDef.Add(MessageTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
             settingInteger[StateDef, ValueMainBrowserWindowWidth ] = 1;

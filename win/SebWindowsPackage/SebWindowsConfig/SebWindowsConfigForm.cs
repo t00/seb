@@ -514,7 +514,7 @@ namespace SebWindowsConfig
             checkBoxHideBrowserWindowToolbar  .Checked     = (Boolean)sebSettingsNew[MessageHideBrowserWindowToolbar];
             checkBoxShowMenuBar               .Checked     = (Boolean)sebSettingsNew[MessageShowMenuBar];
             checkBoxShowTaskBar               .Checked     = (Boolean)sebSettingsNew[MessageShowTaskBar];
-            comboBoxTaskBarHeight             .Text        =  (String)sebSettingsNew[MessageTaskBarHeight];
+            comboBoxTaskBarHeight             .Text        =  (String)sebSettingsNew[MessageTaskBarHeight].ToString();
 
             // Group "Browser"
              listBoxOpenLinksHTML .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
@@ -1078,7 +1078,7 @@ namespace SebWindowsConfig
             settingInteger[StateNew, ValueTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
             settingString [StateNew, ValueTaskBarHeight] = comboBoxTaskBarHeight.Text;
           //sebSettingsNew[        MessageTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
-            sebSettingsNew[        MessageTaskBarHeight] = comboBoxTaskBarHeight.Text;
+            sebSettingsNew[        MessageTaskBarHeight] = Int32.Parse(comboBoxTaskBarHeight.Text);
         }
 
 
