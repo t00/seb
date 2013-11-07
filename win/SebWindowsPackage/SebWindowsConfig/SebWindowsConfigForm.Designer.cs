@@ -247,6 +247,8 @@
             this.labelNewWindowPosition = new System.Windows.Forms.Label();
             this.listBoxNewBrowserWindowPositioning = new System.Windows.Forms.ListBox();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
+            this.labelTaskBarHeight = new System.Windows.Forms.Label();
+            this.comboBoxTaskBarHeight = new System.Windows.Forms.ComboBox();
             this.groupBoxMainBrowserWindow = new System.Windows.Forms.GroupBox();
             this.comboBoxMainBrowserWindowHeight = new System.Windows.Forms.ComboBox();
             this.comboBoxMainBrowserWindowWidth = new System.Windows.Forms.ComboBox();
@@ -2721,6 +2723,8 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.labelTaskBarHeight);
+            this.tabPageAppearance.Controls.Add(this.comboBoxTaskBarHeight);
             this.tabPageAppearance.Controls.Add(this.groupBoxMainBrowserWindow);
             this.tabPageAppearance.Controls.Add(this.checkBoxShowTaskBar);
             this.tabPageAppearance.Controls.Add(this.checkBoxShowMenuBar);
@@ -2735,6 +2739,25 @@
             this.tabPageAppearance.TabIndex = 8;
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
+            // 
+            // labelTaskBarHeight
+            // 
+            this.labelTaskBarHeight.AutoSize = true;
+            this.labelTaskBarHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTaskBarHeight.Location = new System.Drawing.Point(63, 403);
+            this.labelTaskBarHeight.Name = "labelTaskBarHeight";
+            this.labelTaskBarHeight.Size = new System.Drawing.Size(49, 17);
+            this.labelTaskBarHeight.TabIndex = 63;
+            this.labelTaskBarHeight.Text = "Height";
+            // 
+            // comboBoxTaskBarHeight
+            // 
+            this.comboBoxTaskBarHeight.FormattingEnabled = true;
+            this.comboBoxTaskBarHeight.Location = new System.Drawing.Point(126, 400);
+            this.comboBoxTaskBarHeight.Name = "comboBoxTaskBarHeight";
+            this.comboBoxTaskBarHeight.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxTaskBarHeight.TabIndex = 62;
+            this.comboBoxTaskBarHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxTaskBarHeight_SelectedIndexChanged);
             // 
             // groupBoxMainBrowserWindow
             // 
@@ -2816,18 +2839,18 @@
             // checkBoxShowTaskBar
             // 
             this.checkBoxShowTaskBar.AutoSize = true;
-            this.checkBoxShowTaskBar.Location = new System.Drawing.Point(31, 357);
+            this.checkBoxShowTaskBar.Location = new System.Drawing.Point(31, 366);
             this.checkBoxShowTaskBar.Name = "checkBoxShowTaskBar";
-            this.checkBoxShowTaskBar.Size = new System.Drawing.Size(418, 21);
+            this.checkBoxShowTaskBar.Size = new System.Drawing.Size(184, 21);
             this.checkBoxShowTaskBar.TabIndex = 56;
-            this.checkBoxShowTaskBar.Text = "Display SEB dock/task bar when using third party applications";
+            this.checkBoxShowTaskBar.Text = "Show SEB dock/task bar";
             this.checkBoxShowTaskBar.UseVisualStyleBackColor = true;
             this.checkBoxShowTaskBar.CheckedChanged += new System.EventHandler(this.checkBoxShowTaskBar_CheckedChanged);
             // 
             // checkBoxShowMenuBar
             // 
             this.checkBoxShowMenuBar.AutoSize = true;
-            this.checkBoxShowMenuBar.Location = new System.Drawing.Point(31, 330);
+            this.checkBoxShowMenuBar.Location = new System.Drawing.Point(31, 339);
             this.checkBoxShowMenuBar.Name = "checkBoxShowMenuBar";
             this.checkBoxShowMenuBar.Size = new System.Drawing.Size(128, 21);
             this.checkBoxShowMenuBar.TabIndex = 55;
@@ -2861,6 +2884,7 @@
             // radioButtonUseFullScreenMode
             // 
             this.radioButtonUseFullScreenMode.AutoSize = true;
+            this.radioButtonUseFullScreenMode.Checked = true;
             this.radioButtonUseFullScreenMode.Location = new System.Drawing.Point(31, 62);
             this.radioButtonUseFullScreenMode.Name = "radioButtonUseFullScreenMode";
             this.radioButtonUseFullScreenMode.Size = new System.Drawing.Size(162, 21);
@@ -3771,6 +3795,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnExpression;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnAction;
         private System.Windows.Forms.CheckBox checkBoxKillExplorerShell;
+        private System.Windows.Forms.Label labelTaskBarHeight;
+        private System.Windows.Forms.ComboBox comboBoxTaskBarHeight;
 
     }
 }

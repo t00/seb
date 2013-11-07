@@ -182,6 +182,7 @@ namespace SebWindowsConfig
         static  String[]  StringWindowWidth               = new  String[4];
         static  String[]  StringWindowHeight              = new  String[4];
         static  String[]  StringWindowPositioning         = new  String[3];
+        static  String[]  StringTaskBarHeight             = new  String[4];
         static  String[]  StringPolicyLinkOpening         = new  String[3];
         static  String[]  StringPolicyFileUpload          = new  String[3];
         static  String[]  StringPolicyProxySettings       = new  String[2];
@@ -271,6 +272,12 @@ namespace SebWindowsConfig
             StringWindowPositioning[0] = "Left";
             StringWindowPositioning[1] = "Center";
             StringWindowPositioning[2] = "Right";
+
+            // Define the strings for the Task Bar Height
+            StringTaskBarHeight[0] = "10%";
+            StringTaskBarHeight[1] = "20%";
+            StringTaskBarHeight[2] = "40";
+            StringTaskBarHeight[3] = "60";
 
             // Define the strings for the Link Opening Policy
             StringPolicyLinkOpening[0] = "get generally blocked";
@@ -390,6 +397,8 @@ namespace SebWindowsConfig
             comboBoxNewBrowserWindowWidth       .Items.AddRange(StringWindowWidth);
             comboBoxNewBrowserWindowHeight      .Items.AddRange(StringWindowHeight);
              listBoxNewBrowserWindowPositioning .Items.AddRange(StringWindowPositioning);
+
+            comboBoxTaskBarHeight.Items.AddRange(StringTaskBarHeight);
 
              listBoxOpenLinksHTML.Items.AddRange(StringPolicyLinkOpening);
              listBoxOpenLinksJava.Items.AddRange(StringPolicyLinkOpening);

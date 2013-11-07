@@ -514,6 +514,7 @@ namespace SebWindowsConfig
             checkBoxHideBrowserWindowToolbar  .Checked     = (Boolean)sebSettingsNew[MessageHideBrowserWindowToolbar];
             checkBoxShowMenuBar               .Checked     = (Boolean)sebSettingsNew[MessageShowMenuBar];
             checkBoxShowTaskBar               .Checked     = (Boolean)sebSettingsNew[MessageShowTaskBar];
+            comboBoxTaskBarHeight             .Text        =  (String)sebSettingsNew[MessageTaskBarHeight];
 
             // Group "Browser"
              listBoxOpenLinksHTML .SelectedIndex =     (int)sebSettingsNew[MessageNewBrowserWindowByLinkPolicy];
@@ -1017,32 +1018,32 @@ namespace SebWindowsConfig
         {
             settingInteger[StateNew, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             settingString [StateNew, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
-          //sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //sebSettingsNew[        MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            sebSettingsNew[        MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
             settingInteger[StateNew, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             settingString [StateNew, ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
-          //sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            sebSettingsNew[MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //sebSettingsNew[        MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            sebSettingsNew[        MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
             settingInteger[StateNew, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             settingString [StateNew, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
-          //sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //sebSettingsNew[        MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            sebSettingsNew[        MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
             settingInteger[StateNew, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             settingString [StateNew, ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
-          //sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            sebSettingsNew[MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //sebSettingsNew[        MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            sebSettingsNew[        MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void listBoxMainBrowserWindowPositioning_SelectedIndexChanged(object sender, EventArgs e)
@@ -1069,6 +1070,15 @@ namespace SebWindowsConfig
         private void checkBoxShowTaskBar_CheckedChanged(object sender, EventArgs e)
         {
             sebSettingsNew[MessageShowTaskBar] = checkBoxShowTaskBar.Checked;
+            comboBoxTaskBarHeight.Enabled      = checkBoxShowTaskBar.Checked;
+        }
+
+        private void comboBoxTaskBarHeight_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingInteger[StateNew, ValueTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
+            settingString [StateNew, ValueTaskBarHeight] = comboBoxTaskBarHeight.Text;
+          //sebSettingsNew[        MessageTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
+            sebSettingsNew[        MessageTaskBarHeight] = comboBoxTaskBarHeight.Text;
         }
 
 

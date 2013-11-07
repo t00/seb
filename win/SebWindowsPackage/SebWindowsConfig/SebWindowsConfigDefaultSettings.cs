@@ -37,14 +37,15 @@ namespace SebWindowsConfig
         const int StateDef = 3;
         const int StateNum = 3;
 
-        // 5 key/value pairs are not stored in the sebSettings Plist structures,
+        // Some key/value pairs are not stored in the sebSettings Plist structures,
         // so they must be separately stored in arrays
         const int ValueCryptoIdentity               = 1;
         const int ValueMainBrowserWindowWidth       = 2;
         const int ValueMainBrowserWindowHeight      = 3;
         const int ValueNewBrowserWindowByLinkWidth  = 4;
         const int ValueNewBrowserWindowByLinkHeight = 5;
-        const int ValueNum = 5;
+        const int ValueTaskBarHeight                = 6;
+        const int ValueNum = 6;
 
         // Group "General"
         const String MessageStartURL             = "startURL";
@@ -79,6 +80,7 @@ namespace SebWindowsConfig
         const String MessageHideBrowserWindowToolbar     = "hideBrowserWindowToolbar";
         const String MessageShowMenuBar                  = "showMenuBar";
         const String MessageShowTaskBar                  = "showTaskBar";
+        const String MessageTaskBarHeight                = "taskBarHeight";
 
         // Group "Browser"
         const String MessageNewBrowserWindowByLinkPolicy         = "newBrowserWindowByLinkPolicy";
@@ -401,6 +403,7 @@ namespace SebWindowsConfig
             sebSettingsDef.Add(MessageHideBrowserWindowToolbar    , false);
             sebSettingsDef.Add(MessageShowMenuBar                 , false);
             sebSettingsDef.Add(MessageShowTaskBar                 , true);
+            sebSettingsDef.Add(MessageTaskBarHeight               , "40");
 
             // MainBrowserWindow Width and Height is stored additionally
             settingInteger[StateDef, ValueMainBrowserWindowWidth ] = 1;
