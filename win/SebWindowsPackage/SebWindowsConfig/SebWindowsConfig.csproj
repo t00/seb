@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plist.cs" />
+    <Compile Include="SEBDefaultSettings.cs" />
     <Compile Include="SEBProtectionController.cs" />
     <Compile Include="SebWindowsConfigGUIManagement.cs">
       <SubType>Form</SubType>
@@ -56,9 +57,6 @@
     </Compile>
     <Compile Include="SebWindowsConfigForm.Designer.cs">
       <DependentUpon>SebWindowsConfigForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SebWindowsConfigDefaultSettings.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="SebWindowsConfigProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

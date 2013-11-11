@@ -13,6 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
 using SebWindowsClient;
 using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.ConfigurationUtils;
 using PlistCS;
 
 
@@ -33,7 +34,7 @@ namespace SebWindowsConfig
             InitializeComponent();
 
             // Set all the default values for the Plist structure "sebSettingsDef"
-            InitialiseSEBConfigurationSettings();
+            SEBDefaultSettings.InitialiseSEBDefaultSettings();
 
             // Initialise the global variables for the lists and subdictionaries
             InitialiseGlobalVariablesForGUIWidgets();
