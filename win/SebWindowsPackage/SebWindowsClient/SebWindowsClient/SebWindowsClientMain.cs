@@ -30,6 +30,9 @@ namespace SebWindowsClient
 {
     static class SebWindowsClientMain
     {
+
+        // For killing the Explorer Shell at SEB startup
+
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool PostMessage(IntPtr hWnd, [MarshalAs(UnmanagedType.U4)] uint Msg, IntPtr wParam, IntPtr lParam);
 
@@ -37,7 +40,6 @@ namespace SebWindowsClient
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         const int WM_USER = 0x0400; //http://msdn.microsoft.com/en-us/library/windows/desktop/ms644931(v=vs.85).aspx
-
 
 
         /// <summary>
