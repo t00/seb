@@ -229,7 +229,7 @@ namespace SebWindowsClient
             if (!SEBClientInfo.IsNewOS)
             {
                 ////just kill explorer.exe on Win9x / Me
-                //sEBSettings
+                //sebSettings
                 bool killExplorerShell = false;
 
                 List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageProhibitedProcesses)[SEBDefaultSettings.MessageProhibitedProcesses];

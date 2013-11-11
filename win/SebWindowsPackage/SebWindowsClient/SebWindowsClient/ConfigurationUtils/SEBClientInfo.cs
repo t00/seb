@@ -199,13 +199,13 @@ namespace SebWindowsClient.ConfigurationUtils
             UserNameRegistryFlags  = new char[100];
             RegistryFlags          = new char[50];
             UserSid                = new char[512];
-            UserName      = DEFAULT_USERNAME;
-            HostName      = DEFAULT_HOSTNAME;
-            HostIpAddress = DEFAULT_HOST_IP_ADDRESS;
-            PortNumber    = DEFAULT_PORTNUMBER;
-            SendInterval  = DEFAULT_SEND_INTERVAL;
-            RecvTimeout   = DEFAULT_RECV_TIMEOUT;
-            NumMessages   = DEFAULT_NUM_MESSAGES;
+            UserName               = DEFAULT_USERNAME;
+            HostName               = DEFAULT_HOSTNAME;
+            HostIpAddress          = DEFAULT_HOST_IP_ADDRESS;
+            PortNumber             = DEFAULT_PORTNUMBER;
+            SendInterval           = DEFAULT_SEND_INTERVAL;
+            RecvTimeout            = DEFAULT_RECV_TIMEOUT;
+            NumMessages            = DEFAULT_NUM_MESSAGES;
 
             // Initialise error messages
             SEBErrorMessages  .SetCurrentLanguage();
