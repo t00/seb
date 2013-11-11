@@ -221,7 +221,7 @@ namespace SebWindowsClient
 
 
             // Global variable if the explorer shell has been killed
-            SEBDefaultSettings.explorerShellWasKilled = false;
+            SEBClientInfo.ExplorerShellWasKilled = false;
 
             // locks OS
             if (!SEBClientInfo.IsNewOS)
@@ -248,7 +248,7 @@ namespace SebWindowsClient
                 {
                     Logger.AddInformation("Kill process by name(explorer.exe)", null, null);
                     SEBNotAllowedProcessController.KillProcessByName("explorer.exe");
-                    SEBDefaultSettings.explorerShellWasKilled = true;
+                    SEBClientInfo.ExplorerShellWasKilled = true;
                     Logger.AddInformation("Process by name(explorer.exe) killed", null, null);
                 }
                 //tell Win9x / Me that the screensaver is running to lock system tasks
@@ -292,11 +292,11 @@ namespace SebWindowsClient
                     catch (Exception ex)
                     {
                         Logger.AddInformation("{0} {1}", ex.Message, null, null);
-                        SEBDefaultSettings.explorerShellWasKilled = false;
+                        SEBClientInfo.ExplorerShellWasKilled = false;
                     }
 
                     Logger.AddInformation("Process by PostMessage(WM_USER + 436) killed", null, null);
-                    SEBDefaultSettings.explorerShellWasKilled = true;
+                    SEBClientInfo.ExplorerShellWasKilled = true;
                 }
 
 

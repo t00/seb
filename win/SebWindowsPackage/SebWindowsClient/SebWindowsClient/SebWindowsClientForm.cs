@@ -541,7 +541,7 @@ namespace SebWindowsClient
             if (sebCloseDialogForm == null)
             {
                 sebCloseDialogForm = new SebCloseDialogForm();
-//                SetForegroundWindow(sebCloseDialogForm.Handle);
+//              SetForegroundWindow(sebCloseDialogForm.Handle);
                 sebCloseDialogForm.TopMost = true;
                 sebCloseDialogForm.Show();
                 sebCloseDialogForm.Visible = false;
@@ -669,7 +669,7 @@ namespace SebWindowsClient
                 // Restart the explorer.exe shell
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageKillExplorerShell)[SEBDefaultSettings.MessageKillExplorerShell])
                 {
-                    if (SEBDefaultSettings.explorerShellWasKilled)
+                    if (SEBClientInfo.ExplorerShellWasKilled)
                     {
                         Logger.AddInformation("Restarting the shell.", null, null);
                         string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");

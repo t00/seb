@@ -94,13 +94,14 @@ namespace SebWindowsClient.ConfigurationUtils
         private const int DEFAULT_RECV_TIMEOUT = 100;
         private const int DEFAULT_NUM_MESSAGES = 3;
 
-        public const string SEB_NEW_DESKTOP_NAME = "SEBDesktop";
+        public const string SEB_NEW_DESKTOP_NAME     = "SEBDesktop";
         public const string SEB_WINDOWS_SERVICE_NAME = "SebWindowsService";
 
         #endregion
 
         #region Public Properties
 
+        public static bool ExplorerShellWasKilled { get; set; }
         public static bool IsNewOS { get; set; }
 
         // SEB Client Socket properties
@@ -187,13 +188,14 @@ namespace SebWindowsClient.ConfigurationUtils
          /// Sets user, host info, send-recv interval, recv timeout, Logger and read SebClient configuration.
         /// </summary>
         /// <returns></returns>
-         public static bool SetSebClientConfiguration()
+        public static bool SetSebClientConfiguration()
         {
 
             bool setSebClientConfiguration = false;
 
            // Initialise socket properties
             IsNewOS = false;
+            ExplorerShellWasKilled = false;
             UserNameRegistryFlags = new char[100];
             RegistryFlags = new char[50];
             UserSid = new char[512];
@@ -478,7 +480,7 @@ namespace SebWindowsClient.ConfigurationUtils
             catch (Exception ex)
             {
                 Logger.AddError("SetSystemVersionInfo.", null, ex);
-             }
+            }
 
             Logger.AddInformation("OS Version: " + getVersion.ToString(), null, null);
 

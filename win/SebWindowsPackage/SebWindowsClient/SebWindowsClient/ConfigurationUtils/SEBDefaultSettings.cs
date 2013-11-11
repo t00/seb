@@ -10,6 +10,7 @@ namespace SebWindowsClient.ConfigurationUtils
 {
     public class SEBDefaultSettings
     {
+
         // **************************
         // Constants for SEB settings
         // **************************
@@ -24,6 +25,10 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int StateTmp = 2;
         public const int StateDef = 3;
         public const int StateNum = 3;
+
+        // Operating systems
+        const int IntOSX = 0;
+        const int IntWin = 1;
 
         // Some key/value pairs are not stored in the sebSettings Plist structures,
         // so they must be separately stored in arrays
@@ -272,9 +277,6 @@ namespace SebWindowsClient.ConfigurationUtils
         // Global Variables for SEB settings
         // *********************************
 
-        // Memorise if the Explorer Shell was killed at program startup
-        public static bool explorerShellWasKilled = false;
-
         // Some settings are not stored in Plists but in Arrays
         public static String [,] settingString  = new String [StateNum + 1, ValueNum + 1];
         public static     int[,] settingInteger = new     int[StateNum + 1, ValueNum + 1];
@@ -331,11 +333,6 @@ namespace SebWindowsClient.ConfigurationUtils
         public static List<object>               bypassedProxyList    = new List<object>();
         public static String                     bypassedProxyData    = "";
         public static String                     bypassedProxyDataDef = "";
-
-
-        // Operating systems
-        const int IntOSX = 0;
-        const int IntWin = 1;
 
 
         // ************************
