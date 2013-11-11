@@ -281,7 +281,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 //sebSettings.
 
                 // Initialise Loger, if enabled
-                if ((Boolean)getSebSetting(SEBGlobalConstants.MessageEnableLogging)[SEBGlobalConstants.MessageEnableLogging])
+                if ((Boolean)getSebSetting(SEBDefaultSettings.MessageEnableLogging)[SEBDefaultSettings.MessageEnableLogging])
                 {
                     Logger.initLogger(SebClientLogFile);
                 }
@@ -366,9 +366,9 @@ namespace SebWindowsClient.ConfigurationUtils
                  XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
                  XULRunnerConfig xULRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-                 xULRunnerConfig.seb_openwin_width = Int32.Parse(SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageNewBrowserWindowByLinkWidth)[SEBGlobalConstants.MessageNewBrowserWindowByLinkWidth].ToString());
-                 xULRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageNewBrowserWindowByLinkHeight)[SEBGlobalConstants.MessageNewBrowserWindowByLinkHeight].ToString());
-                 if ((Int32)SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageBrowserViewMode)[SEBGlobalConstants.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
+                 xULRunnerConfig.seb_openwin_width = Int32.Parse(SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth)[SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth].ToString());
+                 xULRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageNewBrowserWindowByLinkHeight)[SEBDefaultSettings.MessageNewBrowserWindowByLinkHeight].ToString());
+                 if ((Int32)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageBrowserViewMode)[SEBDefaultSettings.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
                  {
                      xULRunnerConfig.seb_mainWindow_titlebar_enabled = true;
                  }
@@ -377,7 +377,7 @@ namespace SebWindowsClient.ConfigurationUtils
                      xULRunnerConfig.seb_mainWindow_titlebar_enabled = false;
 
                  }
-                 xULRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBGlobalConstants.MessageStartURL)[SEBGlobalConstants.MessageStartURL].ToString();
+                 xULRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageStartURL)[SEBDefaultSettings.MessageStartURL].ToString();
                  setXulRunnerConfiguration = true;
                  SEBXulRunnerSettings.XULRunnerConfigSerialize(xULRunnerConfig, XulRunnerConfigFile);
              }
