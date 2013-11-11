@@ -15,35 +15,35 @@ namespace SebWindowsClient.ConfigurationUtils
 {
     public enum chooseFileToUploadPolicies
     {
-        manuallyWithFileRequester = 0,
-        attemptUploadSameFileDownloadedBefore = 1,
+        manuallyWithFileRequester               = 0,
+        attemptUploadSameFileDownloadedBefore   = 1,
         onlyAllowUploadSameFileDownloadedBefore = 2
     };
 
     public enum newBrowserWindowPolicies
     {
         getGenerallyBlocked = 0,
-        openInSameWindow = 1,
-        openInNewWindow = 2
+        openInSameWindow    = 1,
+        openInNewWindow     = 2
     };
 
     public enum sebServicePolicies
     {
-        ignoreService = 0,
+        ignoreService          = 0,
         indicateMissingService = 1,
-        forceSebService = 2
+        forceSebService        = 2
     };
 
     public enum browserViewModes
     {
-        browserViewModeWindow = 0,
+        browserViewModeWindow     = 0,
         browserViewModeFullscreen = 1
     };
 
     // MAC
     public enum sebPurposePolicies
     {
-        sebPurposePolicyStartingExam = 0,
+        sebPurposePolicyStartingExam      = 0,
         sebPurposePolicyConfiguringClient = 1
     };
 
@@ -51,9 +51,9 @@ namespace SebWindowsClient.ConfigurationUtils
     {
         urlFilterActionBlock = 0,
         urlFilterActionAllow = 1,
-        urlFilterActionSkip = 2,
-        urlFilterActionAn = 3,
-        urlFilterActionOr = 4
+        urlFilterActionSkip  = 2,
+        urlFilterActionAn    = 3,
+        urlFilterActionOr    = 4
     };
 
     public class SEBClientInfo
@@ -72,27 +72,27 @@ namespace SebWindowsClient.ConfigurationUtils
 
         // Name and location of SEB configuration files and logfiles
         private const string SEB_CLIENT_CONFIG = "SebClient.seb";
-        private const string SEB_CLIENT_LOG = "SebClient.log";
+        private const string SEB_CLIENT_LOG    = "SebClient.log";
         private const string XUL_RUNNER_CONFIG = "config.json";
-        public const string XUL_RUNNER = "xulrunner.exe";
-        private const string XUL_RUNNER_INI = "seb.ini";
+        public  const string XUL_RUNNER        = "xulrunner.exe";
+        private const string XUL_RUNNER_INI    = "seb.ini";
  
         // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
         // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
-        private const string MANUFACTURER_LOCAL = "ETH_Zuerich";
-        private const string MANUFACTURER = "ETH Zuerich";
-        private const string PRODUCT_NAME = "SEB Windows 1.9.1";
+        private const string MANUFACTURER_LOCAL   = "ETH_Zuerich";
+        private const string MANUFACTURER         = "ETH Zuerich";
+        private const string PRODUCT_NAME         = "SEB Windows 1.9.1";
         private const string XUL_RUNNER_DIRECTORY = "SebWindowsClient\\xulrunner";
-        private const string XUL_SEB_DIRECTORY = "SebWindowsClient\\xul_seb";
+        private const string XUL_SEB_DIRECTORY    = "SebWindowsClient\\xul_seb";
 
-        public const string END_OF_STRING_KEYWORD = "---SEB---";
-        private const string DEFAULT_USERNAME = "";
-        private const string DEFAULT_HOSTNAME = "localhost";
+        public  const string END_OF_STRING_KEYWORD   = "---SEB---";
+        private const string DEFAULT_USERNAME        = "";
+        private const string DEFAULT_HOSTNAME        = "localhost";
         private const string DEFAULT_HOST_IP_ADDRESS = "127.0.0.1";
-        private const int DEFAULT_PORTNUMBER = 57016;
-        private const int DEFAULT_SEND_INTERVAL = 100;
-        private const int DEFAULT_RECV_TIMEOUT = 100;
-        private const int DEFAULT_NUM_MESSAGES = 3;
+        private const int    DEFAULT_PORTNUMBER      = 57016;
+        private const int    DEFAULT_SEND_INTERVAL   = 100;
+        private const int    DEFAULT_RECV_TIMEOUT    = 100;
+        private const int    DEFAULT_NUM_MESSAGES    = 3;
 
         public const string SEB_NEW_DESKTOP_NAME     = "SEBDesktop";
         public const string SEB_WINDOWS_SERVICE_NAME = "SebWindowsService";
@@ -106,38 +106,38 @@ namespace SebWindowsClient.ConfigurationUtils
 
         // SEB Client Socket properties
         public static char[] UserNameRegistryFlags { get; set; }
-        public static char[] RegistryFlags { get; set; }
-        public static string HostName { get; set; }
-        public static string HostIpAddress { get; set; }
-        public static string UserName { get; set; }
-        public static char[] UserSid  { get; set; }
-        public static int PortNumber  { get; set; }
-        public static int SendInterval  { get; set; }
+        public static char[] RegistryFlags         { get; set; }
+        public static string HostName              { get; set; }
+        public static string HostIpAddress         { get; set; }
+        public static string UserName  { get; set; }
+        public static char[] UserSid   { get; set; }
+        public static int PortNumber   { get; set; }
+        public static int SendInterval { get; set; }
         public static int RecvTimeout  { get; set; }
         public static int NumMessages  { get; set; }
-        public static int MessageNr  { get; set; }
+        public static int MessageNr    { get; set; }
 
         public static SEBDesktopController OriginalDesktop { get; set; }
-        public static SEBDesktopController SEBNewlDesktop { get; set; }
+        public static SEBDesktopController  SEBNewlDesktop { get; set; }
         public static string DesktopName { get; set; }
 
        // SEB Client Directories properties
         public static string ApplicationExecutableDirectory { get; set; }
-        public static string ProgramFilesX86Directory { get; set; }
-        public static bool LogFileDesiredMsgHook { get; set; }
-        public static bool LogFileDesiredSebClient { get; set; }
-        public static string SebClientLogFileDirectory { get; set; }
-        public static string SebClientDirectory { get; set; }
-        public static string SebClientLogFile { get; set; }
-        public static string SebClientConfigFileDirectory { get; set; }
+        public static string ProgramFilesX86Directory       { get; set; }
+        public static bool   LogFileDesiredMsgHook          { get; set; }
+        public static bool   LogFileDesiredSebClient        { get; set; }
+        public static string SebClientLogFileDirectory      { get; set; }
+        public static string SebClientDirectory             { get; set; }
+        public static string SebClientLogFile               { get; set; }
+        public static string SebClientConfigFileDirectory   { get; set; }
         public static string XulRunnerDirectory { get; set; }
-        public static string XulSebDirectory { get; set; }
+        public static string XulSebDirectory    { get; set; }
         public static string SebClientConfigFile; 
         public static string XulRunnerConfigFileDirectory { get; set; }
         public static string XulRunnerConfigFile;
         public static string XulRunnerExePath;
         public static string XulRunnerSebIniPath;
-        public static string ExamUrl { get; set; }
+        public static string ExamUrl      { get; set; }
         public static string QuitPassword { get; set; }
         public static string QuitHashcode { get; set; }
 
@@ -194,22 +194,22 @@ namespace SebWindowsClient.ConfigurationUtils
             bool setSebClientConfiguration = false;
 
            // Initialise socket properties
-            IsNewOS = false;
+            IsNewOS                = false;
             ExplorerShellWasKilled = false;
-            UserNameRegistryFlags = new char[100];
-            RegistryFlags = new char[50];
-            UserSid = new char[512];
-            UserName = DEFAULT_USERNAME;
-            HostName = DEFAULT_HOSTNAME;
+            UserNameRegistryFlags  = new char[100];
+            RegistryFlags          = new char[50];
+            UserSid                = new char[512];
+            UserName      = DEFAULT_USERNAME;
+            HostName      = DEFAULT_HOSTNAME;
             HostIpAddress = DEFAULT_HOST_IP_ADDRESS;
-            PortNumber = DEFAULT_PORTNUMBER;
-            SendInterval = DEFAULT_SEND_INTERVAL;
-            RecvTimeout = DEFAULT_RECV_TIMEOUT;
-            NumMessages = DEFAULT_NUM_MESSAGES;
+            PortNumber    = DEFAULT_PORTNUMBER;
+            SendInterval  = DEFAULT_SEND_INTERVAL;
+            RecvTimeout   = DEFAULT_RECV_TIMEOUT;
+            NumMessages   = DEFAULT_NUM_MESSAGES;
 
             // Initialise error messages
-            SEBErrorMessages.SetCurrentLanguage();
-            SEBErrorMessages.InitErrorMessages();
+            SEBErrorMessages  .SetCurrentLanguage();
+            SEBErrorMessages  .InitErrorMessages();
             SEBDefaultSettings.InitialiseSEBDefaultSettings();
 
             // Get the path of the "Program" directory.
@@ -220,7 +220,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Get the path of the "Program Data" directory.
             string localAppDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            //string programDataDirectory = Environment.GetEnvironmentVariable("PROGRAMMDATA");
+          //string  programDataDirectory = Environment.GetEnvironmentVariable("PROGRAMMDATA");
 
             // Set the location of the SebClientConfigFileDirectory
             StringBuilder sebClientConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
@@ -298,10 +298,15 @@ namespace SebWindowsClient.ConfigurationUtils
                 Logger.AddError("Error ocurred by setting SebClient configuration.", null, ex, ex.Message);
             }
             // Write settings in log
-            StringBuilder userInfo = new StringBuilder("User Name: ").Append(UserName).Append(" Host Name: ").Append(HostName)
-                                    .Append(" Port Number: ").Append(PortNumber).Append(" Send Interval: ").Append(SendInterval).Append(" Recv Timeout: ").Append(RecvTimeout)
-                                    .Append(" Num Messages: ").Append(NumMessages).Append(" SebClientConfigFileDirectory: ").Append(SebClientConfigFileDirectory)
-                                    .Append(" SebClientConfigFile: ").Append(SebClientConfigFile);
+            StringBuilder userInfo =
+                new StringBuilder ("User Name: "                   ).Append(UserName)
+                          .Append(" Host Name: "                   ).Append(HostName)                         
+                          .Append(" Port Number: "                 ).Append(PortNumber)
+                          .Append(" Send Interval: "               ).Append(SendInterval)
+                          .Append(" Recv Timeout: "                ).Append(RecvTimeout)
+                          .Append(" Num Messages: "                ).Append(NumMessages)
+                          .Append(" SebClientConfigFileDirectory: ").Append(SebClientConfigFileDirectory)
+                          .Append(" SebClientConfigFile: "         ).Append(SebClientConfigFile);
             Logger.AddInformation(userInfo.ToString(), null, null);
 
             return setSebClientConfiguration;
@@ -368,7 +373,7 @@ namespace SebWindowsClient.ConfigurationUtils
                  XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
                  XULRunnerConfig xULRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-                 xULRunnerConfig.seb_openwin_width = Int32.Parse(SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth)[SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth].ToString());
+                 xULRunnerConfig.seb_openwin_width  = Int32.Parse(SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth)[SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth].ToString());
                  xULRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageNewBrowserWindowByLinkHeight)[SEBDefaultSettings.MessageNewBrowserWindowByLinkHeight].ToString());
                  if ((Int32)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageBrowserViewMode)[SEBDefaultSettings.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
                  {
