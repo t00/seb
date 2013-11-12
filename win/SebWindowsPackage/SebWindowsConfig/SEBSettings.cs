@@ -172,12 +172,12 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String MessageSOCKS             = "SOCKS";
         public const String MessageRTSP              = "RTSP";
 
-        public const String MessageEnable           = "Enable";
-        public const String MessagePort             = "Port";
-        public const String MessageHost             = "Proxy";
-        public const String MessageRequiresPassword = "RequiresPassword";
-        public const String MessageUsername         = "Username";
-        public const String MessagePassword         = "Password";
+        public const String MessageEnable   = "Enable";
+        public const String MessagePort     = "Port";
+        public const String MessageHost     = "Proxy";
+        public const String MessageRequires = "RequiresPassword";
+        public const String MessageUsername = "Username";
+        public const String MessagePassword = "Password";
 
         public const String MessageHTTPEnable           = "HTTPEnable";
         public const String MessageHTTPPort             = "HTTPPort";

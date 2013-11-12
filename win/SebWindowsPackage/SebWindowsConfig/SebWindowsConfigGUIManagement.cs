@@ -359,7 +359,7 @@ namespace SebWindowsConfig
             MessageProxyProtocolAttribute[0] = SEBSettings.MessageEnable;
             MessageProxyProtocolAttribute[1] = SEBSettings.MessagePort;
             MessageProxyProtocolAttribute[2] = SEBSettings.MessageHost;
-            MessageProxyProtocolAttribute[3] = SEBSettings.MessageRequiresPassword;
+            MessageProxyProtocolAttribute[3] = SEBSettings.MessageRequires;
             MessageProxyProtocolAttribute[4] = SEBSettings.MessageUsername;
             MessageProxyProtocolAttribute[5] = SEBSettings.MessagePassword;
 

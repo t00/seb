@@ -39,10 +39,10 @@ namespace SebWindowsConfig
             Dictionary<string, object> sebSettingsTmp = sebSettings.settingsTmp;
             Dictionary<string, object> sebSettingsDef = sebSettings.settingsDef;
 
-            // Set all the default values for the Plist structure "sebSettingsDef"
+            // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             sebSettings.InitialiseSEBDefaultSettings();
 */
-            // Set all the default values for the Plist structure "sebSettingsDef"
+            // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             SEBSettings.InitialiseSEBDefaultSettings();
 
             // Initialise the global variables for the lists and subdictionaries
@@ -59,12 +59,12 @@ namespace SebWindowsConfig
             // in the "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
-            sebSettingsNew.Clear();
-            CopySettingsArrays    (      StateDef,       StateNew);
-            CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
+            SEBSettings.settingsNew.Clear();
+            CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
+            CopySettingsDictionary(SEBSettings.settingsNew, SEBSettings.settingsNew);
 
-            PrintSettingsDictionary(sebSettingsDef, "SettingsDef.txt");
-            PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
+            PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsDef.txt");
+            PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
 
             // When starting up, set the widgets to the default values
             UpdateAllWidgetsOfProgram();
@@ -76,8 +76,8 @@ namespace SebWindowsConfig
             currentPathSebConfigFile = "";
 
             defaultDireSebConfigFile = Directory.GetCurrentDirectory();
-            defaultFileSebConfigFile =                  DefaultSebConfigXml;
-            defaultPathSebConfigFile = Path.GetFullPath(DefaultSebConfigXml);
+            defaultFileSebConfigFile =                  SEBSettings.DefaultSebConfigXml;
+            defaultPathSebConfigFile = Path.GetFullPath(SEBSettings.DefaultSebConfigXml);
 
             // Read the settings from the standard configuration file??? Currently not
             //OpenConfigurationFile(defaultPathSebConfigFile);
@@ -137,11 +137,11 @@ namespace SebWindowsConfig
                     // TODO: when decryption works, delete the following bypass assignment:
                     decryptedSettings = encryptedSettings;
 
-                    sebSettingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+                    SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
                 }
                 //else // unencrypted .xml file
                 {
-                    //sebSettingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
+                    //SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
                 }
             }
             catch (Exception streamReadException)
@@ -165,9 +165,9 @@ namespace SebWindowsConfig
             //tmpCryptoIdentityString  = 0;
 
             // Copy tmp settings to new settings
-            sebSettingsNew.Clear();
-            CopySettingsArrays    (      StateTmp,       StateNew);
-            CopySettingsDictionary(sebSettingsTmp, sebSettingsNew);
+            SEBSettings.settingsNew.Clear();
+            CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
+            CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
 
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -198,9 +198,9 @@ namespace SebWindowsConfig
 
             UpdateAllWidgetsOfProgram();
             buttonRevertToLastOpened.Enabled = true;
-            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
-            //PrintSettingsDictionary(sebSettingsTmp, "SettingsTmp.txt");
-            //PrintSettingsDictionary(sebSettingsNew, "SettingsNew.txt");
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
+            //PrintSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmp.txt");
+            //PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
             return true;
         }
 
@@ -240,7 +240,7 @@ namespace SebWindowsConfig
                     String password          = "Seb";
                     X509Certificate2 certificate = null;
 
-                    decryptedSettings = Plist.writeXml(sebSettingsNew);
+                    decryptedSettings = Plist.writeXml(SEBSettings.settingsNew);
 
                   //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
                   //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
@@ -252,8 +252,8 @@ namespace SebWindowsConfig
                 }
                 else // unencrypted .xml file
                 {
-                    Plist.writeXml(sebSettingsNew, fileName);
-                    Plist.writeXml(sebSettingsNew, "DebugSettingsNew_in_SaveConfigurationFile.xml");
+                    Plist.writeXml(SEBSettings.settingsNew, fileName);
+                    Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_SaveConfigurationFile.xml");
                 }
             }
             catch (Exception streamWriteException) 
@@ -283,10 +283,10 @@ namespace SebWindowsConfig
             // Copy all settings from one array to another
             int value;
 
-            for (value = 1; value <= ValueNum; value++)
+            for (value = 1; value <= SEBSettings.ValueNum; value++)
             {
-                settingString [StateTarget, value] = settingString [StateSource, value];
-                settingInteger[StateTarget, value] = settingInteger[StateSource, value];
+                SEBSettings.settingString [StateTarget, value] = SEBSettings.settingString [StateSource, value];
+                SEBSettings.settingInteger[StateTarget, value] = SEBSettings.settingInteger[StateSource, value];
             }
 
             return;
@@ -509,7 +509,7 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam     .Checked =    ((int)SEBSettings.settingsNew[SEBSettings.MessageSebConfigPurpose] == 0);
             radioButtonConfiguringAClient .Checked =    ((int)SEBSettings.settingsNew[SEBSettings.MessageSebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)SEBSettings.settingsNew[SEBSettings.MessageAllowPreferencesWindow];
-            comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.settingInteger[SEBSettings.StateNew, ValueCryptoIdentity];
+            comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.settingInteger[SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity];
              textBoxSettingsPassword       .Text   =  (String)SEBSettings.settingsNew[SEBSettings.MessageSettingsPassword];
            //textBoxConfirmSettingsPassword.Text   =  (String)SEBSettings.settingsNew[SEBSettings.MessageConfirmSettingsPassword];
            //textBoxHashedSettingsPassword .Text   =  (String)SEBSettings.settingsNew[SEBSettings.MessageHashedSettingsPassword];
@@ -655,7 +655,7 @@ namespace SebWindowsConfig
             // Add Proxy Protocols of currently opened file to DataGridView.
             for (int index = 0; index < NumProxyProtocols; index++)
             {
-                Boolean enable = (Boolean)proxiesData[SEBSettings.MessageProxyProtocolEnableKey   [index]];
+                Boolean enable = (Boolean)proxiesData[MessageProxyProtocolEnableKey   [index]];
                 String  type   = (String )             StringProxyProtocolTableCaption[index];
                 dataGridViewProxyProtocols.Rows.Add(enable, type);
                 BooleanProxyProtocolEnabled[index] = enable;
@@ -930,14 +930,14 @@ namespace SebWindowsConfig
 
         private void comboBoxCryptoIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingInteger[SEBSettings.StateNew, ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.settingString [SEBSettings.StateNew, ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.settingInteger[SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            SEBSettings.settingString [SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void comboBoxCryptoIdentity_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.settingInteger[SEBSettings.StateNew, ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.settingString [SEBSettings.StateNew, ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.settingInteger[SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            SEBSettings.settingString [SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -953,22 +953,22 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
-            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
-            //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_before_RevertToDefault.xml");
-            InitialiseSEBConfigurationSettings();
-            sebSettingsNew.Clear();
-            CopySettingsArrays    (      StateDef,       StateNew);
-            CopySettingsDictionary(sebSettingsDef, sebSettingsNew);
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_before_RevertToDefault.xml");
+            SEBSettings.InitialiseSEBDefaultSettings();
+            SEBSettings.settingsNew.Clear();
+            CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
+            CopySettingsDictionary(SEBSettings.settingsNew, SEBSettings.settingsNew);
             UpdateAllWidgetsOfProgram();
-            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
-            //Plist.writeXml(sebSettingsDef, "DebugSettingsDef_after_RevertToDefault.xml");
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_after_RevertToDefault.xml");
         }
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
-            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
             OpenConfigurationFile(currentPathSebConfigFile);
-            //Plist.writeXml(sebSettingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
         }
 
 
@@ -2491,11 +2491,11 @@ namespace SebWindowsConfig
 
             if (useProxyServer)
             {
-                checkBoxProxyServerRequires.Checked = (Boolean)proxiesData[SEBSettings.MessageProtocolType + MessageRequires];
-                 textBoxProxyServerHost    .Text    =  (String)proxiesData[SEBSettings.MessageProtocolType + MessageHost    ];
-                 textBoxProxyServerPort    .Text    =  (String)proxiesData[SEBSettings.MessageProtocolType + MessagePort    ].ToString();
-                 textBoxProxyServerUsername.Text    =  (String)proxiesData[SEBSettings.MessageProtocolType + MessageUsername];
-                 textBoxProxyServerPassword.Text    =  (String)proxiesData[SEBSettings.MessageProtocolType + MessagePassword];
+                checkBoxProxyServerRequires.Checked = (Boolean)proxiesData[MessageProtocolType + SEBSettings.MessageRequires];
+                 textBoxProxyServerHost    .Text    =  (String)proxiesData[MessageProtocolType + SEBSettings.MessageHost    ];
+                 textBoxProxyServerPort    .Text    =  (String)proxiesData[MessageProtocolType + SEBSettings.MessagePort    ].ToString();
+                 textBoxProxyServerUsername.Text    =  (String)proxiesData[MessageProtocolType + SEBSettings.MessageUsername];
+                 textBoxProxyServerPassword.Text    =  (String)proxiesData[MessageProtocolType + SEBSettings.MessagePassword];
 
                  // Disable the username/password textboxes when they are not required
                  textBoxProxyServerUsername.Enabled =  checkBoxProxyServerRequires.Checked;
@@ -2557,7 +2557,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerHost_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageHost;
+            String key       = MessageProxyProtocolType[proxyProtocolIndex] + SEBSettings.MessageHost;
             proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             proxiesData[key] = textBoxProxyServerHost.Text;
         }
@@ -2565,7 +2565,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerPort_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key  = MessageProxyProtocolType[proxyProtocolIndex] + MessagePort;
+            String key  = MessageProxyProtocolType[proxyProtocolIndex] + SEBSettings.MessagePort;
             proxiesData = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
 
             // Convert the "Port" string to an integer
@@ -2582,7 +2582,7 @@ namespace SebWindowsConfig
         private void checkBoxProxyServerRequiresPassword_CheckedChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageRequires;
+            String key       = MessageProxyProtocolType[proxyProtocolIndex] + SEBSettings.MessageRequires;
             proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             proxiesData[key] = (Boolean)checkBoxProxyServerRequires.Checked;
 
@@ -2594,7 +2594,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerUsername_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessageUsername;
+            String key       = MessageProxyProtocolType[proxyProtocolIndex] + SEBSettings.MessageUsername;
             proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             proxiesData[key] = textBoxProxyServerUsername.Text;
         }
@@ -2602,7 +2602,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerPassword_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[proxyProtocolIndex] + MessagePassword;
+            String key       = MessageProxyProtocolType[proxyProtocolIndex] + SEBSettings.MessagePassword;
             proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             proxiesData[key] = textBoxProxyServerPassword.Text;
         }
