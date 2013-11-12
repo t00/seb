@@ -32,9 +32,18 @@ namespace SebWindowsConfig
         public SebWindowsConfigForm()
         {
             InitializeComponent();
+/*
+            SEBSettings sebSettings = new SEBSettings();
+
+            Dictionary<string, object> sebSettingsNew = sebSettings.settingsNew;
+            Dictionary<string, object> sebSettingsTmp = sebSettings.settingsTmp;
+            Dictionary<string, object> sebSettingsDef = sebSettings.settingsDef;
 
             // Set all the default values for the Plist structure "sebSettingsDef"
-            SEBDefaultSettings.InitialiseSEBDefaultSettings();
+            sebSettings.InitialiseSEBDefaultSettings();
+*/
+            // Set all the default values for the Plist structure "sebSettingsDef"
+            SEBSettings.InitialiseSEBDefaultSettings();
 
             // Initialise the global variables for the lists and subdictionaries
             InitialiseGlobalVariablesForGUIWidgets();

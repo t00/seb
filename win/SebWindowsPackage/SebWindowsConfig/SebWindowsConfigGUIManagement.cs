@@ -347,30 +347,30 @@ namespace SebWindowsConfig
             }
 
             // Define the strings for the Proxy Protocol Types
-            MessageProxyProtocolType[0] = SEBDefaultSettings.MessageAutoDiscovery;
-            MessageProxyProtocolType[1] = SEBDefaultSettings.MessageAutoConfiguration;
-            MessageProxyProtocolType[2] = SEBDefaultSettings.MessageHTTP;
-            MessageProxyProtocolType[3] = SEBDefaultSettings.MessageHTTPS;
-            MessageProxyProtocolType[4] = SEBDefaultSettings.MessageFTP;
-            MessageProxyProtocolType[5] = SEBDefaultSettings.MessageSOCKS;
-            MessageProxyProtocolType[6] = SEBDefaultSettings.MessageRTSP;
+            MessageProxyProtocolType[0] = SEBSettings.MessageAutoDiscovery;
+            MessageProxyProtocolType[1] = SEBSettings.MessageAutoConfiguration;
+            MessageProxyProtocolType[2] = SEBSettings.MessageHTTP;
+            MessageProxyProtocolType[3] = SEBSettings.MessageHTTPS;
+            MessageProxyProtocolType[4] = SEBSettings.MessageFTP;
+            MessageProxyProtocolType[5] = SEBSettings.MessageSOCKS;
+            MessageProxyProtocolType[6] = SEBSettings.MessageRTSP;
 
             // Define the strings for the Proxy Protocol Attributes
-            MessageProxyProtocolAttribute[0] = SEBDefaultSettings.MessageEnable;
-            MessageProxyProtocolAttribute[1] = SEBDefaultSettings.MessagePort;
-            MessageProxyProtocolAttribute[2] = SEBDefaultSettings.MessageHost;
-            MessageProxyProtocolAttribute[3] = SEBDefaultSettings.MessageRequiresPassword;
-            MessageProxyProtocolAttribute[4] = SEBDefaultSettings.MessageUsername;
-            MessageProxyProtocolAttribute[5] = SEBDefaultSettings.MessagePassword;
+            MessageProxyProtocolAttribute[0] = SEBSettings.MessageEnable;
+            MessageProxyProtocolAttribute[1] = SEBSettings.MessagePort;
+            MessageProxyProtocolAttribute[2] = SEBSettings.MessageHost;
+            MessageProxyProtocolAttribute[3] = SEBSettings.MessageRequiresPassword;
+            MessageProxyProtocolAttribute[4] = SEBSettings.MessageUsername;
+            MessageProxyProtocolAttribute[5] = SEBSettings.MessagePassword;
 
             // Define the strings for the Proxy Protocol Enable Keys
-            MessageProxyProtocolEnableKey[0] = SEBDefaultSettings.MessageAutoDiscoveryEnabled;
-            MessageProxyProtocolEnableKey[1] = SEBDefaultSettings.MessageAutoConfigurationEnabled;
-            MessageProxyProtocolEnableKey[2] = SEBDefaultSettings.MessageHTTPEnable;
-            MessageProxyProtocolEnableKey[3] = SEBDefaultSettings.MessageHTTPSEnable;
-            MessageProxyProtocolEnableKey[4] = SEBDefaultSettings.MessageFTPEnable;
-            MessageProxyProtocolEnableKey[5] = SEBDefaultSettings.MessageSOCKSEnable;
-            MessageProxyProtocolEnableKey[6] = SEBDefaultSettings.MessageRTSPEnable;
+            MessageProxyProtocolEnableKey[0] = SEBSettings.MessageAutoDiscoveryEnabled;
+            MessageProxyProtocolEnableKey[1] = SEBSettings.MessageAutoConfigurationEnabled;
+            MessageProxyProtocolEnableKey[2] = SEBSettings.MessageHTTPEnable;
+            MessageProxyProtocolEnableKey[3] = SEBSettings.MessageHTTPSEnable;
+            MessageProxyProtocolEnableKey[4] = SEBSettings.MessageFTPEnable;
+            MessageProxyProtocolEnableKey[5] = SEBSettings.MessageSOCKSEnable;
+            MessageProxyProtocolEnableKey[6] = SEBSettings.MessageRTSPEnable;
         }
 
 
