@@ -179,40 +179,40 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String MessageUsername = "Username";
         public const String MessagePassword = "Password";
 
-        public const String MessageHTTPEnable           = "HTTPEnable";
-        public const String MessageHTTPPort             = "HTTPPort";
-        public const String MessageHTTPHost             = "HTTPProxy";
-        public const String MessageHTTPRequiresPassword = "HTTPRequiresPassword";
-        public const String MessageHTTPUsername         = "HTTPUsername";
-        public const String MessageHTTPPassword         = "HTTPPassword";
+        public const String MessageHTTPEnable   = "HTTPEnable";
+        public const String MessageHTTPPort     = "HTTPPort";
+        public const String MessageHTTPHost     = "HTTPProxy";
+        public const String MessageHTTPRequires = "HTTPRequiresPassword";
+        public const String MessageHTTPUsername = "HTTPUsername";
+        public const String MessageHTTPPassword = "HTTPPassword";
 
-        public const String MessageHTTPSEnable           = "HTTPSEnable";
-        public const String MessageHTTPSPort             = "HTTPSPort";
-        public const String MessageHTTPSHost             = "HTTPSProxy";
-        public const String MessageHTTPSRequiresPassword = "HTTPSRequiresPassword";
-        public const String MessageHTTPSUsername         = "HTTPSUsername";
-        public const String MessageHTTPSPassword         = "HTTPSPassword";
+        public const String MessageHTTPSEnable   = "HTTPSEnable";
+        public const String MessageHTTPSPort     = "HTTPSPort";
+        public const String MessageHTTPSHost     = "HTTPSProxy";
+        public const String MessageHTTPSRequires = "HTTPSRequiresPassword";
+        public const String MessageHTTPSUsername = "HTTPSUsername";
+        public const String MessageHTTPSPassword = "HTTPSPassword";
 
-        public const String MessageFTPEnable           = "FTPEnable";
-        public const String MessageFTPPort             = "FTPPort";
-        public const String MessageFTPHost             = "FTPProxy";
-        public const String MessageFTPRequiresPassword = "FTPRequiresPassword";
-        public const String MessageFTPUsername         = "FTPUsername";
-        public const String MessageFTPPassword         = "FTPPassword";
+        public const String MessageFTPEnable   = "FTPEnable";
+        public const String MessageFTPPort     = "FTPPort";
+        public const String MessageFTPHost     = "FTPProxy";
+        public const String MessageFTPRequires = "FTPRequiresPassword";
+        public const String MessageFTPUsername = "FTPUsername";
+        public const String MessageFTPPassword = "FTPPassword";
 
-        public const String MessageSOCKSEnable           = "SOCKSEnable";
-        public const String MessageSOCKSPort             = "SOCKSPort";
-        public const String MessageSOCKSHost             = "SOCKSProxy";
-        public const String MessageSOCKSRequiresPassword = "SOCKSRequiresPassword";
-        public const String MessageSOCKSUsername         = "SOCKSUsername";
-        public const String MessageSOCKSPassword         = "SOCKSPassword";
+        public const String MessageSOCKSEnable   = "SOCKSEnable";
+        public const String MessageSOCKSPort     = "SOCKSPort";
+        public const String MessageSOCKSHost     = "SOCKSProxy";
+        public const String MessageSOCKSRequires = "SOCKSRequiresPassword";
+        public const String MessageSOCKSUsername = "SOCKSUsername";
+        public const String MessageSOCKSPassword = "SOCKSPassword";
 
-        public const String MessageRTSPEnable           = "RTSPEnable";
-        public const String MessageRTSPPort             = "RTSPPort";
-        public const String MessageRTSPHost             = "RTSPProxy";
-        public const String MessageRTSPRequiresPassword = "RTSPRequiresPassword";
-        public const String MessageRTSPUsername         = "RTSPUsername";
-        public const String MessageRTSPPassword         = "RTSPPassword";
+        public const String MessageRTSPEnable   = "RTSPEnable";
+        public const String MessageRTSPPort     = "RTSPPort";
+        public const String MessageRTSPHost     = "RTSPProxy";
+        public const String MessageRTSPRequires = "RTSPRequiresPassword";
+        public const String MessageRTSPUsername = "RTSPUsername";
+        public const String MessageRTSPPassword = "RTSPPassword";
 
         // Group "Security"
         public const String MessageSebServicePolicy    = "sebServicePolicy";
@@ -278,8 +278,8 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************
 
         // Some settings are not stored in Plists but in Arrays
-        public static String [,] settingString  = new String [StateNum + 1, ValueNum + 1];
-        public static     int[,] settingInteger = new     int[StateNum + 1, ValueNum + 1];
+        public static String [,] settingsStr = new String [StateNum + 1, ValueNum + 1];
+        public static     int[,] settingsInt = new     int[StateNum + 1, ValueNum + 1];
 
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
@@ -348,8 +348,8 @@ namespace SebWindowsClient.ConfigurationUtils
             for (int state = 1; state <= StateNum; state++)
             for (int value = 1; value <= ValueNum; value++)
             {
-                settingInteger[state, value] = 0;
-                settingString [state, value] = "";
+                settingsInt[state, value] = 0;
+                settingsStr [state, value] = "";
             }
 
             // Initialise the default settings Plist
@@ -379,8 +379,8 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsDef.Add(SEBSettings.MessageHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
-            settingInteger[StateDef, SEBSettings.ValueCryptoIdentity] = 0;
-            settingString [StateDef, SEBSettings.ValueCryptoIdentity] = "";
+            settingsInt[StateDef, SEBSettings.ValueCryptoIdentity] = 0;
+            settingsStr [StateDef, SEBSettings.ValueCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
             settingsDef.Add(SEBSettings.MessageBrowserViewMode             , 0);
@@ -394,10 +394,10 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsDef.Add(SEBSettings.MessageTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
-            settingInteger[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 1;
-            settingInteger[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 1;
-            settingString [StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
-            settingString [StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
+            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 1;
+            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 1;
+            settingsStr [StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
+            settingsStr [StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
             settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
@@ -416,10 +416,10 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsDef.Add(SEBSettings.MessageEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
-            settingInteger[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 3;
-            settingInteger[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 1;
-            settingString [StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
-            settingString [StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
+            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 3;
+            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 1;
+            settingsStr [StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
+            settingsStr [StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
             settingsDef.Add(SEBSettings.MessageAllowDownUploads        , true);
@@ -532,35 +532,35 @@ namespace SebWindowsClient.ConfigurationUtils
             proxiesDataDef.Add(SEBSettings.MessageHTTPEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageHTTPHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageHTTPRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageHTTPPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageHTTPSEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPSPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageHTTPSHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageHTTPSRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPSRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPSUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageHTTPSPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageFTPEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageFTPPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageFTPHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageFTPRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageFTPRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageFTPUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageFTPPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageSOCKSEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageSOCKSPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageSOCKSHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageSOCKSRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageSOCKSRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageSOCKSUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageSOCKSPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageRTSPEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageRTSPPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageRTSPHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageRTSPRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageRTSPRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageRTSPUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageRTSPPassword        , "");
 
