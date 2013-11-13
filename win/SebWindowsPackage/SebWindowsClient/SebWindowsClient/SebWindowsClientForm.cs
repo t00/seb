@@ -160,17 +160,17 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void addPermittedProcessesToTS()
         {
-            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessagePermittedProcesses)[SEBDefaultSettings.MessagePermittedProcesses];
+            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessagePermittedProcesses)[SEBSettings.MessagePermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     ToolStripButton toolStripButton = new ToolStripButton();
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    if ((Boolean)permittedProcess[SEBDefaultSettings.MessageActive])
+                    if ((Boolean)permittedProcess[SEBSettings.MessageActive])
                     {
-                        string tsbName = (string)permittedProcess[SEBDefaultSettings.MessageTitle];
-                        string permittedProcessName = (string)permittedProcess[SEBDefaultSettings.MessageExecutable];
+                        string tsbName = (string)permittedProcess[SEBSettings.MessageTitle];
+                        string permittedProcessName = (string)permittedProcess[SEBSettings.MessageExecutable];
                         toolStripButton.Name = permittedProcessName;
                         toolStripButton.ToolTipText = tsbName;
                         if (permittedProcessName.Contains("notepad.exe"))
@@ -187,18 +187,18 @@ namespace SebWindowsClient
                         tsPermittedProcesses.Items.Add(toolStripButton);
 
                         // Autostart
-                        if ((Boolean)permittedProcess[SEBDefaultSettings.MessageAutostart])
+                        if ((Boolean)permittedProcess[SEBSettings.MessageAutostart])
                         {
                             if (!permittedProcessName.Contains(SEBClientInfo.XUL_RUNNER))
                             {
                                 StringBuilder startProcessNameBuilder = new StringBuilder(permittedProcessName);
-                                List<object> argumentList = (List<object>)permittedProcess[SEBDefaultSettings.MessageArguments];
+                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.MessageArguments];
                                 for (int j = 0; j < argumentList.Count; j++)
                                 {
                                     Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                    if ((Boolean)argument[SEBDefaultSettings.MessageActive])
+                                    if ((Boolean)argument[SEBSettings.MessageActive])
                                     {
-                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBDefaultSettings.MessageArgument]);
+                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.MessageArgument]);
                                     }
                                 }
                                 SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
@@ -220,14 +220,14 @@ namespace SebWindowsClient
         {
             // identify which button was clicked and perform necessary actions
             ToolStripButton toolStripButton = sender as ToolStripButton;
-            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessagePermittedProcesses)[SEBDefaultSettings.MessagePermittedProcesses];
+            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessagePermittedProcesses)[SEBSettings.MessagePermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBDefaultSettings.MessageExecutable];
-                    if((Boolean)permittedProcess[SEBDefaultSettings.MessageActive])
+                    string permittedProcessName = (string)permittedProcess[SEBSettings.MessageExecutable];
+                    if((Boolean)permittedProcess[SEBSettings.MessageActive])
                     {
                         if (toolStripButton.Name.CompareTo(permittedProcessName) == 0)
                         {
@@ -248,13 +248,13 @@ namespace SebWindowsClient
                             else
                             {
                                 StringBuilder startProcessNameBuilder = new StringBuilder(permittedProcessName);
-                                List<object> argumentList = (List<object>)permittedProcess[SEBDefaultSettings.MessageArguments];
+                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.MessageArguments];
                                 for (int j = 0; j < argumentList.Count; j++)
                                 {
                                     Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                    if ((Boolean)argument[SEBDefaultSettings.MessageActive])
+                                    if ((Boolean)argument[SEBSettings.MessageActive])
                                     {
-                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBDefaultSettings.MessageArgument]);
+                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.MessageArgument]);
                                     }
                                 }
                                 SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
@@ -396,10 +396,10 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private bool InitClientSocket()
         {
-            SEBLocalHostInfo sEBLocalHostInfo = new SEBLocalHostInfo();
-            IPHostEntry hostInfo = sEBLocalHostInfo.GetHostInfo();
-            SecurityIdentifier userSid = sEBLocalHostInfo.GetSID();
-            string userName = sEBLocalHostInfo.GetUserName();
+            SEBLocalHostInfo sebLocalHostInfo = new SEBLocalHostInfo();
+            IPHostEntry              hostInfo = sebLocalHostInfo.GetHostInfo();
+            SecurityIdentifier       userSid  = sebLocalHostInfo.GetSID();
+            string                   userName = sebLocalHostInfo.GetUserName();
 
             lbl_User.Text = "Logged in as: " + userName;
 
@@ -414,7 +414,7 @@ namespace SebWindowsClient
                 if (bSocketConnected)
                 {
                     // Set receive timeout
-                    if (((Int32)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageSebServicePolicy)[SEBDefaultSettings.MessageSebServicePolicy]) == (Int32)sebServicePolicies.forceSebService)
+                    if (((Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageSebServicePolicy)[SEBSettings.MessageSebServicePolicy]) == (Int32)sebServicePolicies.forceSebService)
                     {
                         SEBClientInfo.RecvTimeout = 0;   // timeout "0" means "infinite" in this case !!!
                         Logger.AddInformation("Force Windows Service demanded, therefore socket recvTimeout = infinite", this, null);
@@ -429,23 +429,23 @@ namespace SebWindowsClient
 
                     //Set registry flags
                     StringBuilder registryFlagsBuilder = new StringBuilder();
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableSwitchUser)[SEBDefaultSettings.MessageInsideSebEnableSwitchUser] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableLockThisComputer)[SEBDefaultSettings.MessageInsideSebEnableLockThisComputer] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableChangeAPassword)[SEBDefaultSettings.MessageInsideSebEnableChangeAPassword] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableStartTaskManager)[SEBDefaultSettings.MessageInsideSebEnableStartTaskManager] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableLogOff)[SEBDefaultSettings.MessageInsideSebEnableLogOff] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableShutDown)[SEBDefaultSettings.MessageInsideSebEnableShutDown] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableEaseOfAccess)[SEBDefaultSettings.MessageInsideSebEnableEaseOfAccess] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageInsideSebEnableVmWareClientShade)[SEBDefaultSettings.MessageInsideSebEnableVmWareClientShade] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableSwitchUser)[SEBSettings.MessageInsideSebEnableSwitchUser] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableLockThisComputer)[SEBSettings.MessageInsideSebEnableLockThisComputer] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableChangeAPassword)[SEBSettings.MessageInsideSebEnableChangeAPassword] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableStartTaskManager)[SEBSettings.MessageInsideSebEnableStartTaskManager] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableLogOff)[SEBSettings.MessageInsideSebEnableLogOff] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableShutDown)[SEBSettings.MessageInsideSebEnableShutDown] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableEaseOfAccess)[SEBSettings.MessageInsideSebEnableEaseOfAccess] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageInsideSebEnableVmWareClientShade)[SEBSettings.MessageInsideSebEnableVmWareClientShade] ? 1 : 0);
 
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableSwitchUser)[SEBDefaultSettings.MessageOutsideSebEnableSwitchUser] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableLockThisComputer)[SEBDefaultSettings.MessageOutsideSebEnableLockThisComputer] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableChangeAPassword)[SEBDefaultSettings.MessageOutsideSebEnableChangeAPassword] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableStartTaskManager)[SEBDefaultSettings.MessageOutsideSebEnableStartTaskManager] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableLogOff)[SEBDefaultSettings.MessageOutsideSebEnableLogOff] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableShutDown)[SEBDefaultSettings.MessageOutsideSebEnableShutDown] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableEaseOfAccess)[SEBDefaultSettings.MessageOutsideSebEnableEaseOfAccess] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageOutsideSebEnableVmWareClientShade)[SEBDefaultSettings.MessageOutsideSebEnableVmWareClientShade] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableSwitchUser)[SEBSettings.MessageOutsideSebEnableSwitchUser] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableLockThisComputer)[SEBSettings.MessageOutsideSebEnableLockThisComputer] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableChangeAPassword)[SEBSettings.MessageOutsideSebEnableChangeAPassword] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableStartTaskManager)[SEBSettings.MessageOutsideSebEnableStartTaskManager] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableLogOff)[SEBSettings.MessageOutsideSebEnableLogOff] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableShutDown)[SEBSettings.MessageOutsideSebEnableShutDown] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableEaseOfAccess)[SEBSettings.MessageOutsideSebEnableEaseOfAccess] ? 1 : 0);
+                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageOutsideSebEnableVmWareClientShade)[SEBSettings.MessageOutsideSebEnableVmWareClientShade] ? 1 : 0);
                     string registryFlags = registryFlagsBuilder.ToString();
 
                     Logger.AddInformation("UserName: " + userName + " UserSid: " + userSid.ToString() + " RegistryFlags: " + registryFlags, this, null);
@@ -477,23 +477,23 @@ namespace SebWindowsClient
         private bool InitClientRegistryAndProcesses()
         {
                 // Edit Registry
-                SEBEditRegistry sEBEditRegistry = new SEBEditRegistry();
-                if (!sEBEditRegistry.EditRegistry())
+                SEBEditRegistry sebEditRegistry = new SEBEditRegistry();
+                if (!sebEditRegistry.EditRegistry())
                 {
-                    sEBEditRegistry.addResetRegValues("EditRegistry", 0);
+                    sebEditRegistry.addResetRegValues("EditRegistry", 0);
                 }
 
                 try
                 {
                     // Kill processes
-                    List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageProhibitedProcesses)[SEBDefaultSettings.MessageProhibitedProcesses];
+                    List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessageProhibitedProcesses)[SEBSettings.MessageProhibitedProcesses];
                 if (prohibitedProcessList.Count() > 0)
                 {
                     for (int i = 0; i < prohibitedProcessList.Count(); i++)
                     {
                         Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                        string prohibitedProcessName = (string)prohibitedProcess[SEBDefaultSettings.MessageExecutable];
-                        if ((Boolean)prohibitedProcess[SEBDefaultSettings.MessageActive])
+                        string prohibitedProcessName = (string)prohibitedProcess[SEBSettings.MessageExecutable];
+                        if ((Boolean)prohibitedProcess[SEBSettings.MessageActive])
                         {
                             Logger.AddInformation("Kill process by name: " + prohibitedProcessName, this, null);
                             // Close process
@@ -623,8 +623,8 @@ namespace SebWindowsClient
             //if (bQuit)
             //{
                 bool bSocketResult;
-                SEBLocalHostInfo  sEBLocalHostInfo = new SEBLocalHostInfo();
-                string userName = sEBLocalHostInfo.GetUserName();
+                SEBLocalHostInfo  sebLocalHostInfo = new SEBLocalHostInfo();
+                string userName = sebLocalHostInfo.GetUserName();
 
                 // ShutDown message to SebWindowsService
                 bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
@@ -638,14 +638,14 @@ namespace SebWindowsClient
 
                 // ShutDown Processes
                 Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
-                List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessagePermittedProcesses)[SEBDefaultSettings.MessagePermittedProcesses];
+                List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessagePermittedProcesses)[SEBSettings.MessagePermittedProcesses];
                 for (int i = 0; i < permittedProcessList.Count(); i++)
                 {
                     for (int j = 0; j < runningApplications.Count(); j++)
                     {
                         Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                        string permittedProcessName = (string)permittedProcess[SEBDefaultSettings.MessageExecutable];
-                        if ((Boolean)permittedProcess[SEBDefaultSettings.MessageActive])
+                        string permittedProcessName = (string)permittedProcess[SEBSettings.MessageExecutable];
+                        if ((Boolean)permittedProcess[SEBSettings.MessageActive])
                         {
                             if (permittedProcessName.Contains(runningApplications[j].ProcessName))
                             {
@@ -667,7 +667,7 @@ namespace SebWindowsClient
 
 
                 // Restart the explorer.exe shell
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageKillExplorerShell)[SEBDefaultSettings.MessageKillExplorerShell])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageKillExplorerShell)[SEBSettings.MessageKillExplorerShell])
                 {
                     if (SEBClientInfo.ExplorerShellWasKilled)
                     {
@@ -681,7 +681,7 @@ namespace SebWindowsClient
                 }
 
                 // Switch to Default Desktop
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageCreateNewDesktop)[SEBDefaultSettings.MessageCreateNewDesktop])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageCreateNewDesktop)[SEBSettings.MessageCreateNewDesktop])
                 {
                     SEBDesktopController.Show      (SEBClientInfo.OriginalDesktop.DesktopName);
                     SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);

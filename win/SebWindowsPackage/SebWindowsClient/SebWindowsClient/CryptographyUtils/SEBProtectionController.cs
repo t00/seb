@@ -100,7 +100,7 @@ namespace SebWindowsClient.CryptographyUtils
         /// Decrypt with Public key and RSA Algoritmus.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public string DecryptWithCertifikat(byte[] encryptedBytesWithKey)
+        public string DecryptWithCertificate(byte[] encryptedBytesWithKey)
         {
             int dwKeySize;
             try
@@ -157,7 +157,7 @@ namespace SebWindowsClient.CryptographyUtils
         /// Encrypt with Public key and RSA Algoritmus.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public byte[] EncryptWithCertifikat(string inputString, X509Certificate2 sebCertificate)
+        public byte[] EncryptWithCertificate(string inputString, X509Certificate2 sebCertificate)
         {
             int dwKeySize;
             StringBuilder stringBuilder = new StringBuilder();
@@ -540,12 +540,12 @@ namespace SebWindowsClient.CryptographyUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        ///  Encrypt with Certifikat and save settings.
+        ///  Encrypt with Certificate and save settings.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        //public void EncryptWithCertifikatAndSave(string settings, byte[] publicKeyHash, string sebEncryptedWithCertClientConfigPath)
+        //public void EncryptWithCertificateAndSave(string settings, byte[] publicKeyHash, string sebEncryptedWithCertClientConfigPath)
         //{
-        //    string encrypted = EncryptWithCertifikat(settings, GetCertificateFromStore(publicKeyHash));
+        //    string encrypted = EncryptWithCertificate(settings, GetCertificateFromStore(publicKeyHash));
 
         //    TextWriter tx = new StreamWriter(sebEncryptedWithCertClientConfigPath);
         //    tx.Write(encrypted);
@@ -600,7 +600,7 @@ namespace SebWindowsClient.CryptographyUtils
         //    {
         //        // decrypt settings with private key
         //        _encryptionType = EncryptionT.pkhs;
-        //        decryptedDataString = DecryptWithCertifikat(encryptedBytesWithKey);
+        //        decryptedDataString = DecryptWithCertificate(encryptedBytesWithKey);
         //    }
         //    else if (prefixStr.CompareTo(PASSWORD_MODE) == 0) 
         //    {

@@ -181,7 +181,7 @@ namespace SebWindowsClient.ConfigurationUtils
              if (sebSetting != null)
                  return sebSettings;
              else
-                 return SEBDefaultSettings.sebSettingsDef;
+                 return SEBSettings.sebSettingsDef;
          }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Initialise error messages
             SEBErrorMessages  .SetCurrentLanguage();
             SEBErrorMessages  .InitErrorMessages();
-            SEBDefaultSettings.InitialiseSEBDefaultSettings();
+            SEBSettings.InitialiseSEBDefaultSettings();
 
             // Get the path of the "Program" directory.
             ApplicationExecutableDirectory = Path.GetDirectoryName(Application.ExecutablePath);
@@ -262,13 +262,13 @@ namespace SebWindowsClient.ConfigurationUtils
             try
             {
                 //// Load encrypted SebClient configuration and seserialise it in SEBClientConfig class 
-                //SEBProtectionController sEBProtectionControler = new SEBProtectionController();
+                //SEBProtectionController sebProtectionControler = new SEBProtectionController();
                 //TextReader sebClientConfigFileReader = new StreamReader(SebClientConfigFile);
                 //string encryptedSebClientConfig = sebClientConfigFileReader.ReadToEnd();
                 //sebClientConfigFileReader.Close();
 
                 //// Decrypt seb client settings
-                //string decriptedSebClientConfig = sEBProtectionControler.DecryptSebClientSettings(encryptedSebClientConfig);
+                //string decriptedSebClientConfig = sebProtectionControler.DecryptSebClientSettings(encryptedSebClientConfig);
                 //sebClientConfig = DeserializeFromDeryptedXML(decriptedSebClientConfig);
 
                 // Deserialise SebClient configuration in SEBClientConfig class
@@ -283,7 +283,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 //sebSettings.
 
                 // Initialise Loger, if enabled
-                if ((Boolean)getSebSetting(SEBDefaultSettings.MessageEnableLogging)[SEBDefaultSettings.MessageEnableLogging])
+                if ((Boolean)getSebSetting(SEBSettings.MessageEnableLogging)[SEBSettings.MessageEnableLogging])
                 {
                     Logger.initLogger(SebClientLogFile);
                 }
@@ -373,9 +373,9 @@ namespace SebWindowsClient.ConfigurationUtils
                  XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
                  XULRunnerConfig xULRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-                 xULRunnerConfig.seb_openwin_width  = Int32.Parse(SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth)[SEBDefaultSettings.MessageNewBrowserWindowByLinkWidth].ToString());
-                 xULRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageNewBrowserWindowByLinkHeight)[SEBDefaultSettings.MessageNewBrowserWindowByLinkHeight].ToString());
-                 if ((Int32)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageBrowserViewMode)[SEBDefaultSettings.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
+                 xULRunnerConfig.seb_openwin_width  = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkWidth)[SEBSettings.MessageNewBrowserWindowByLinkWidth].ToString());
+                 xULRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkHeight)[SEBSettings.MessageNewBrowserWindowByLinkHeight].ToString());
+                 if ((Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageBrowserViewMode)[SEBSettings.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
                  {
                      xULRunnerConfig.seb_mainWindow_titlebar_enabled = true;
                  }
@@ -384,7 +384,7 @@ namespace SebWindowsClient.ConfigurationUtils
                      xULRunnerConfig.seb_mainWindow_titlebar_enabled = false;
 
                  }
-                 xULRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageStartURL)[SEBDefaultSettings.MessageStartURL].ToString();
+                 xULRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBSettings.MessageStartURL)[SEBSettings.MessageStartURL].ToString();
                  setXulRunnerConfiguration = true;
                  SEBXulRunnerSettings.XULRunnerConfigSerialize(xULRunnerConfig, XulRunnerConfigFile);
              }
@@ -405,11 +405,11 @@ namespace SebWindowsClient.ConfigurationUtils
         //    decriptedSebClientSettings = decriptedSebClientSettings.Trim();
         //    MemoryStream memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
         //    XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-        //    SEBClientConfig sEBSettings;
-        //    sEBSettings = (SEBClientConfig)deserializer.Deserialize(memStream);
+        //    SEBClientConfig sebSettings;
+        //    sebSettings = (SEBClientConfig)deserializer.Deserialize(memStream);
         //    memStream.Close();
 
-        //    return sEBSettings;
+        //    return sebSettings;
         //}
 
         /// <summary>
