@@ -63,7 +63,7 @@ namespace SebWindowsConfig
             CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
 
-            PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsDef.txt");
+            PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
             PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
 
             // When starting up, set the widgets to the default values
@@ -176,8 +176,8 @@ namespace SebWindowsConfig
             // After loading a new config file, reset the URL Filter Table indices
             // to avoid errors, in case there was a non-empty URL Filter Table displayed
             // in the DataGridViewURLFilterRules prior to loading the new config file.
-            urlFilterTableRow    = -1;
-            urlFilterIsTitleRow  =  false;
+                        urlFilterTableRow        = -1;
+                        urlFilterTableRowIsTitle =  false;
             SEBSettings.urlFilterRuleIndex   = -1;
             SEBSettings.urlFilterActionIndex = -1;
 
@@ -186,8 +186,9 @@ namespace SebWindowsConfig
 
             // If there are any filter rules, select first filter rule.
             // If there are no  filter rules, select no    filter rule.
-            if (SEBSettings.urlFilterRuleList.Count > 0) SEBSettings.urlFilterRuleIndex =  0;
-                                        else SEBSettings.urlFilterRuleIndex = -1;
+            if  (SEBSettings.urlFilterRuleList.Count > 0)
+                 SEBSettings.urlFilterRuleIndex =  0;
+            else SEBSettings.urlFilterRuleIndex = -1;
 
             // Initially show all filter rules with their actions (expanded view)
             urlFilterTableShowRule.Clear();
@@ -285,7 +286,7 @@ namespace SebWindowsConfig
 
             for (value = 1; value <= SEBSettings.ValueNum; value++)
             {
-                SEBSettings.settingsStr [StateTarget, value] = SEBSettings.settingsStr [StateSource, value];
+                SEBSettings.settingsStr[StateTarget, value] = SEBSettings.settingsStr[StateSource, value];
                 SEBSettings.settingsInt[StateTarget, value] = SEBSettings.settingsInt[StateSource, value];
             }
 
@@ -397,9 +398,9 @@ namespace SebWindowsConfig
             for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
             {
                 SEBSettings.urlFilterRuleData   = (Dictionary<string, object>)SEBSettings.urlFilterRuleList[ruleIndex];
-                Boolean active      = (Boolean     )SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
-                String  expression  = (String      )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
-                SEBSettings.urlFilterActionList = (List<object>)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+                Boolean active                  = (Boolean                   )SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
+                String  expression              = (String                    )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
+                SEBSettings.urlFilterActionList = (List<object>              )SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
                 urlFilterTableRuleIndex  .Add(ruleIndex);
                 urlFilterTableActionIndex.Add(-1);
@@ -473,9 +474,9 @@ namespace SebWindowsConfig
 
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
-            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
-            SEBSettings.urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
-            SEBSettings.urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
+                        urlFilterTableRowIsTitle = urlFilterTableIsTitleRow [urlFilterTableRow];
+            SEBSettings.urlFilterRuleIndex       = urlFilterTableRuleIndex  [urlFilterTableRow];
+            SEBSettings.urlFilterActionIndex     = urlFilterTableActionIndex[urlFilterTableRow];
         }
 
 
@@ -567,27 +568,31 @@ namespace SebWindowsConfig
             // Group "Network      -    Filter/Certificates/Proxies"
 
             // Update the lists for the DataGridViews
-            SEBSettings.permittedProcessList   = (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
-            SEBSettings.prohibitedProcessList   = (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.   permittedProcessList   = (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.  prohibitedProcessList   = (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
             SEBSettings.embeddedCertificateList   = (List<object>)SEBSettings.settingsNew[SEBSettings.MessageEmbeddedCertificates];
             SEBSettings.proxiesData = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
 
             SEBSettings.bypassedProxyList = (List<object>)SEBSettings.proxiesData[SEBSettings.MessageExceptionsList];
 
              // Check if currently loaded lists have any entries
-            if (SEBSettings.permittedProcessList.Count > 0) SEBSettings.permittedProcessIndex =  0;
-                                           else SEBSettings.permittedProcessIndex = -1;
+            if  (SEBSettings.permittedProcessList.Count > 0)
+                 SEBSettings.permittedProcessIndex =  0;
+            else SEBSettings.permittedProcessIndex = -1;
 
-            if (SEBSettings.prohibitedProcessList.Count > 0) SEBSettings.prohibitedProcessIndex =  0;
-                                            else SEBSettings.prohibitedProcessIndex = -1;
+            if  (SEBSettings.prohibitedProcessList.Count > 0)
+                 SEBSettings.prohibitedProcessIndex =  0;
+            else SEBSettings.prohibitedProcessIndex = -1;
 
-            if (SEBSettings.embeddedCertificateList.Count > 0) SEBSettings.embeddedCertificateIndex =  0;
-                                              else SEBSettings.embeddedCertificateIndex = -1;
+            if  (SEBSettings.embeddedCertificateList.Count > 0)
+                 SEBSettings.embeddedCertificateIndex =  0;
+            else SEBSettings.embeddedCertificateIndex = -1;
 
             SEBSettings.proxyProtocolIndex = 0;
 
-            if (SEBSettings.bypassedProxyList.Count > 0) SEBSettings.bypassedProxyIndex =  0;
-                                        else SEBSettings.bypassedProxyIndex = -1;
+            if  (SEBSettings.bypassedProxyList.Count > 0)
+                 SEBSettings.bypassedProxyIndex =  0;
+            else SEBSettings.bypassedProxyIndex = -1;
 
             // Remove all previously displayed list entries from DataGridViews
                 groupBoxPermittedProcess  .Enabled = (SEBSettings.permittedProcessList.Count > 0);
@@ -621,7 +626,7 @@ namespace SebWindowsConfig
             // Add Prohibited Processes of currently opened file to DataGridView
             for (int index = 0; index < SEBSettings.prohibitedProcessList.Count; index++)
             {
-                SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[index];
+                SEBSettings.prohibitedProcessData =  (Dictionary<string, object>)SEBSettings.prohibitedProcessList[index];
                 Boolean active      = (Boolean)SEBSettings.prohibitedProcessData[SEBSettings.MessageActive];
                 Int32   os          = (Int32  )SEBSettings.prohibitedProcessData[SEBSettings.MessageOS];
                 String  executable  = (String )SEBSettings.prohibitedProcessData[SEBSettings.MessageExecutable];
@@ -636,9 +641,9 @@ namespace SebWindowsConfig
             for (int index = 0; index < SEBSettings.embeddedCertificateList.Count; index++)
             {
                 SEBSettings.embeddedCertificateData = (Dictionary<string, object>)SEBSettings.embeddedCertificateList[index];
-                String data = (String)SEBSettings.embeddedCertificateData[SEBSettings.MessageCertificateData];
-                Int32  type = (Int32 )SEBSettings.embeddedCertificateData[SEBSettings.MessageType];
-                String name = (String)SEBSettings.embeddedCertificateData[SEBSettings.MessageName];
+                String         data = (String)SEBSettings.embeddedCertificateData[SEBSettings.MessageCertificateData];
+                Int32          type = (Int32 )SEBSettings.embeddedCertificateData[SEBSettings.MessageType];
+                String         name = (String)SEBSettings.embeddedCertificateData[SEBSettings.MessageName];
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
             }
 /*
@@ -655,8 +660,8 @@ namespace SebWindowsConfig
             // Add Proxy Protocols of currently opened file to DataGridView.
             for (int index = 0; index < NumProxyProtocols; index++)
             {
-                Boolean enable = (Boolean)SEBSettings.proxiesData[MessageProxyProtocolEnableKey   [index]];
-                String  type   = (String )             StringProxyProtocolTableCaption[index];
+                Boolean enable = (Boolean)SEBSettings.proxiesData[MessageProxyProtocolEnableKey[index]];
+                String  type   = (String )                      StringProxyProtocolTableCaption[index];
                 dataGridViewProxyProtocols.Rows.Add(enable, type);
                 BooleanProxyProtocolEnabled[index] = enable;
             }
@@ -665,7 +670,7 @@ namespace SebWindowsConfig
             for (int index = 0; index < SEBSettings.bypassedProxyList.Count; index++)
             {
                 SEBSettings.bypassedProxyData = (String)SEBSettings.bypassedProxyList[index];
-                dataGridViewBypassedProxies.Rows.Add(SEBSettings.bypassedProxyData);
+                dataGridViewBypassedProxies.Rows.Add   (SEBSettings.bypassedProxyData);
             }
 
             // Load the currently selected process data
@@ -931,13 +936,13 @@ namespace SebWindowsConfig
         private void comboBoxCryptoIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void comboBoxCryptoIdentity_TextUpdate(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -958,7 +963,7 @@ namespace SebWindowsConfig
             SEBSettings.InitialiseSEBDefaultSettings();
             SEBSettings.settingsNew.Clear();
             CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
-            CopySettingsDictionary(SEBSettings.settingsNew, SEBSettings.settingsNew);
+            CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
             UpdateAllWidgetsOfProgram();
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_after_RevertToDefault.xml");
@@ -1027,33 +1032,33 @@ namespace SebWindowsConfig
         private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
-          //SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
-          //SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
-          //SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
-          //SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.settingsNew   [SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void listBoxMainBrowserWindowPositioning_SelectedIndexChanged(object sender, EventArgs e)
@@ -1064,7 +1069,7 @@ namespace SebWindowsConfig
         private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsNew[SEBSettings.MessageEnableBrowserWindowToolbar] = checkBoxEnableBrowserWindowToolbar.Checked;
-            checkBoxHideBrowserWindowToolbar.Enabled          = checkBoxEnableBrowserWindowToolbar.Checked;
+            checkBoxHideBrowserWindowToolbar.Enabled                               = checkBoxEnableBrowserWindowToolbar.Checked;
         }
 
         private void checkBoxHideBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
@@ -1080,15 +1085,15 @@ namespace SebWindowsConfig
         private void checkBoxShowTaskBar_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsNew[SEBSettings.MessageShowTaskBar] = checkBoxShowTaskBar.Checked;
-            comboBoxTaskBarHeight.Enabled      = checkBoxShowTaskBar.Checked;
+            comboBoxTaskBarHeight.Enabled                           = checkBoxShowTaskBar.Checked;
         }
 
         private void comboBoxTaskBarHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueTaskBarHeight] = comboBoxTaskBarHeight.Text;
-          //SEBSettings.settingsNew   [SEBSettings.MessageTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
-            SEBSettings.settingsNew   [SEBSettings.MessageTaskBarHeight] = Int32.Parse(comboBoxTaskBarHeight.Text);
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueTaskBarHeight] = comboBoxTaskBarHeight.Text;
+          //SEBSettings.settingsNew[SEBSettings.MessageTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
+            SEBSettings.settingsNew[SEBSettings.MessageTaskBarHeight] = Int32.Parse(comboBoxTaskBarHeight.Text);
         }
 
 
@@ -1119,7 +1124,7 @@ namespace SebWindowsConfig
         private void comboBoxNewBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
@@ -1127,7 +1132,7 @@ namespace SebWindowsConfig
         private void comboBoxNewBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
@@ -1135,7 +1140,7 @@ namespace SebWindowsConfig
         private void comboBoxNewBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
@@ -1143,7 +1148,7 @@ namespace SebWindowsConfig
         private void comboBoxNewBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
             SEBSettings.settingsInt[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
-            SEBSettings.settingsStr [SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
+            SEBSettings.settingsStr[SEBSettings.StateNew, SEBSettings.ValueNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
@@ -1274,7 +1279,7 @@ namespace SebWindowsConfig
         private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsNew[SEBSettings.MessageAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
-            checkBoxAllowFlashFullscreen.Enabled             = checkBoxAllowSwitchToApplications.Checked;
+            checkBoxAllowFlashFullscreen.Enabled                                  = checkBoxAllowSwitchToApplications.Checked;
         }
 
         private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
@@ -1286,7 +1291,7 @@ namespace SebWindowsConfig
         private void LoadAndUpdatePermittedSelectedProcessGroup(int selectedProcessIndex)
         {
             // Get the process data of the selected process
-            SEBSettings.permittedProcessList  =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList  =               (List<object>)SEBSettings.settingsNew         [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData  = (Dictionary<string, object>)SEBSettings.permittedProcessList[selectedProcessIndex];
             SEBSettings.permittedArgumentList =               (List<object>)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
 
@@ -1303,8 +1308,9 @@ namespace SebWindowsConfig
              textBoxPermittedProcessIdentifier .Text  =  (String)SEBSettings.permittedProcessData[SEBSettings.MessageIdentifier];
 
              // Check if selected process has any arguments
-            if (SEBSettings.permittedArgumentList.Count > 0) SEBSettings.permittedArgumentIndex =  0;
-                                            else SEBSettings.permittedArgumentIndex = -1;
+            if  (SEBSettings.permittedArgumentList.Count > 0)
+                 SEBSettings.permittedArgumentIndex =  0;
+            else SEBSettings.permittedArgumentIndex = -1;
 
             // Remove all previously displayed arguments from DataGridView
             dataGridViewPermittedProcessArguments.Enabled = (SEBSettings.permittedArgumentList.Count > 0);
@@ -1314,8 +1320,8 @@ namespace SebWindowsConfig
             for (int index = 0; index < SEBSettings.permittedArgumentList.Count; index++)
             {
                 SEBSettings.permittedArgumentData = (Dictionary<string, object>)SEBSettings.permittedArgumentList[index];
-                Boolean active   = (Boolean)SEBSettings.permittedArgumentData[SEBSettings.MessageActive];
-                String  argument = (String )SEBSettings.permittedArgumentData[SEBSettings.MessageArgument];
+                Boolean   active   = (Boolean)SEBSettings.permittedArgumentData[SEBSettings.MessageActive];
+                String    argument = (String )SEBSettings.permittedArgumentData[SEBSettings.MessageArgument];
                 dataGridViewPermittedProcessArguments.Rows.Add(active, argument);
             }
 
@@ -1397,8 +1403,8 @@ namespace SebWindowsConfig
 
             // Get the process data of the process belonging to the current row
             SEBSettings.permittedProcessIndex = row;
-            SEBSettings.permittedProcessList  =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
-            SEBSettings.permittedProcessData  = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList  =               (List<object>)SEBSettings.settingsNew         [SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessData  = (Dictionary<string, object>)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
 
             // Update the process data belonging to the current cell
             if (column == IntColumnProcessActive    ) SEBSettings.permittedProcessData[SEBSettings.MessageActive    ] = (Boolean)value;
@@ -1428,7 +1434,7 @@ namespace SebWindowsConfig
             else
             {
                 // If process list was empty before, enable it
-                SEBSettings.permittedProcessIndex = 0;
+                SEBSettings.permittedProcessIndex      = 0;
                 dataGridViewPermittedProcesses.Enabled = true;
                     groupBoxPermittedProcess  .Enabled = true;
             }
@@ -1449,7 +1455,7 @@ namespace SebWindowsConfig
             processData[SEBSettings.MessageArguments  ] = new List<object>();
 
             // Insert new process into process list at position index
-            SEBSettings.permittedProcessList               .Insert(SEBSettings.permittedProcessIndex, processData);
+            SEBSettings.permittedProcessList   .Insert(SEBSettings.permittedProcessIndex, processData);
             dataGridViewPermittedProcesses.Rows.Insert(SEBSettings.permittedProcessIndex, true, StringOS[IntWin], "", "");
             dataGridViewPermittedProcesses.Rows       [SEBSettings.permittedProcessIndex].Selected = true;
         }
@@ -1465,7 +1471,7 @@ namespace SebWindowsConfig
             // Delete process from process list at position index
             SEBSettings.permittedProcessIndex = dataGridViewPermittedProcesses.SelectedRows[0].Index;
             SEBSettings.permittedProcessList  = (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
-            SEBSettings.permittedProcessList               .RemoveAt(SEBSettings.permittedProcessIndex);
+            SEBSettings.permittedProcessList   .RemoveAt(SEBSettings.permittedProcessIndex);
             dataGridViewPermittedProcesses.Rows.RemoveAt(SEBSettings.permittedProcessIndex);
 
             if (SEBSettings.permittedProcessIndex == SEBSettings.permittedProcessList.Count)
@@ -1478,7 +1484,7 @@ namespace SebWindowsConfig
             else
             {
                 // If process list is now empty, disable it
-                SEBSettings.permittedProcessIndex  = -1;
+                SEBSettings.permittedProcessIndex      = -1;
                 dataGridViewPermittedProcesses.Enabled = false;
                     groupBoxPermittedProcess  .Enabled = false;
             }
@@ -1499,17 +1505,17 @@ namespace SebWindowsConfig
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
-            SEBSettings.permittedProcessData[SEBSettings.MessageActive] =      checkBoxPermittedProcessActive.Checked;
-            Boolean                     active  =      checkBoxPermittedProcessActive.Checked;
+            SEBSettings.permittedProcessData[SEBSettings.MessageActive] = checkBoxPermittedProcessActive.Checked;
+            Boolean                                             active  = checkBoxPermittedProcessActive.Checked;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
         }
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessageAutostart] =   checkBoxPermittedProcessAutostart.Checked;
         }
@@ -1517,7 +1523,7 @@ namespace SebWindowsConfig
         private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessageAutohide] =    checkBoxPermittedProcessAutohide.Checked;
         }
@@ -1525,35 +1531,35 @@ namespace SebWindowsConfig
         private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
-            SEBSettings.permittedProcessData[SEBSettings.MessageAllowUser] =   checkBoxPermittedProcessAllowUser.Checked;
+            SEBSettings.permittedProcessData[SEBSettings.MessageAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
         }
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessageOS] =           listBoxPermittedProcessOS.SelectedIndex;
-            Int32                       os  =           listBoxPermittedProcessOS.SelectedIndex;
+            Int32                                               os  =           listBoxPermittedProcessOS.SelectedIndex;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
         }
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessageTitle] =        textBoxPermittedProcessTitle.Text;
-            String                      title  =        textBoxPermittedProcessTitle.Text;
+            String                                              title  =        textBoxPermittedProcessTitle.Text;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessTitle].Value = title;
         }
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessageDescription] =  textBoxPermittedProcessDescription.Text;
         }
@@ -1561,17 +1567,17 @@ namespace SebWindowsConfig
         private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessageExecutable] =   textBoxPermittedProcessExecutable.Text;
-            String                      executable  =   textBoxPermittedProcessExecutable.Text;
+            String                                              executable  =   textBoxPermittedProcessExecutable.Text;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
         }
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessagePath] =         textBoxPermittedProcessPath.Text;
         }
@@ -1579,7 +1585,7 @@ namespace SebWindowsConfig
         private void textBoxPermittedProcessIdentifier_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.MessageIdentifier] =   textBoxPermittedProcessIdentifier.Text;
         }
@@ -1603,7 +1609,7 @@ namespace SebWindowsConfig
 
             // Get the argument data of the selected argument
             SEBSettings.permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
-            SEBSettings.permittedProcessList   =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList   =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData   = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedArgumentList  =               (List<object>)SEBSettings.permittedProcessData [SEBSettings.MessageArguments];
             SEBSettings.permittedArgumentData  = (Dictionary<string, object>)SEBSettings.permittedArgumentList[SEBSettings.permittedArgumentIndex];
@@ -1635,7 +1641,7 @@ namespace SebWindowsConfig
 
             // Get the argument data of the argument belonging to the cell (row)
             SEBSettings.permittedArgumentIndex = row;
-            SEBSettings.permittedProcessList   =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList   =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData   = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedArgumentList  =               (List<object>)SEBSettings.permittedProcessData [SEBSettings.MessageArguments];
             SEBSettings.permittedArgumentData  = (Dictionary<string, object>)SEBSettings.permittedArgumentList[SEBSettings.permittedArgumentIndex];
@@ -1649,7 +1655,7 @@ namespace SebWindowsConfig
         private void buttonPermittedProcessAddArgument_Click(object sender, EventArgs e)
         {
             // Get the permitted argument list
-            SEBSettings.permittedProcessList  =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList  =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData  = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedArgumentList =               (List<object>)SEBSettings.permittedProcessData [SEBSettings.MessageArguments];
 
@@ -1673,7 +1679,7 @@ namespace SebWindowsConfig
             argumentData[SEBSettings.MessageArgument] = "";
 
             // Insert new argument into argument list at position SEBSettings.permittedArgumentIndex
-            SEBSettings.permittedArgumentList                     .Insert(SEBSettings.permittedArgumentIndex, argumentData);
+            SEBSettings.permittedArgumentList         .Insert(SEBSettings.permittedArgumentIndex, argumentData);
             dataGridViewPermittedProcessArguments.Rows.Insert(SEBSettings.permittedArgumentIndex, true, "");
             dataGridViewPermittedProcessArguments.Rows       [SEBSettings.permittedArgumentIndex].Selected = true;
         }
@@ -1685,12 +1691,12 @@ namespace SebWindowsConfig
 
             // Get the permitted argument list
             SEBSettings.permittedArgumentIndex = dataGridViewPermittedProcessArguments.SelectedRows[0].Index;
-            SEBSettings.permittedProcessList   =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList   =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessagePermittedProcesses];
             SEBSettings.permittedProcessData   = (Dictionary<string, object>)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
             SEBSettings.permittedArgumentList  =               (List<object>)SEBSettings.permittedProcessData [SEBSettings.MessageArguments];
 
             // Delete argument from argument list at position SEBSettings.permittedArgumentIndex
-            SEBSettings.permittedArgumentList                     .RemoveAt(SEBSettings.permittedArgumentIndex);
+            SEBSettings.permittedArgumentList         .RemoveAt(SEBSettings.permittedArgumentIndex);
             dataGridViewPermittedProcessArguments.Rows.RemoveAt(SEBSettings.permittedArgumentIndex);
 
             if (SEBSettings.permittedArgumentIndex == SEBSettings.permittedArgumentList.Count)
@@ -1799,7 +1805,7 @@ namespace SebWindowsConfig
 
             // Get the process data of the process belonging to the current row
             SEBSettings.prohibitedProcessIndex = row;
-            SEBSettings.prohibitedProcessList  =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList  =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData  = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
 
             // Update the process data belonging to the current cell
@@ -1830,7 +1836,7 @@ namespace SebWindowsConfig
             else
             {
                 // If process list was empty before, enable it
-                SEBSettings.prohibitedProcessIndex = 0;
+                SEBSettings.prohibitedProcessIndex      = 0;
                 dataGridViewProhibitedProcesses.Enabled = true;
                     groupBoxProhibitedProcess  .Enabled = true;
             }
@@ -1848,7 +1854,7 @@ namespace SebWindowsConfig
             processData[SEBSettings.MessageUser       ] = "";
 
             // Insert new process into process list at position index
-            SEBSettings.prohibitedProcessList               .Insert(SEBSettings.prohibitedProcessIndex, processData);
+            SEBSettings.prohibitedProcessList   .Insert(SEBSettings.prohibitedProcessIndex, processData);
             dataGridViewProhibitedProcesses.Rows.Insert(SEBSettings.prohibitedProcessIndex, true, StringOS[IntWin], "", "");
             dataGridViewProhibitedProcesses.Rows       [SEBSettings.prohibitedProcessIndex].Selected = true;
         }
@@ -1864,8 +1870,8 @@ namespace SebWindowsConfig
             // Delete process from process list at position index
             SEBSettings.prohibitedProcessIndex = dataGridViewProhibitedProcesses.SelectedRows[0].Index;
             SEBSettings.prohibitedProcessList  = (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
-            SEBSettings.prohibitedProcessList               .RemoveAt(SEBSettings.prohibitedProcessIndex);
-            dataGridViewProhibitedProcesses.Rows.RemoveAt(SEBSettings.prohibitedProcessIndex);
+            SEBSettings.prohibitedProcessList        .RemoveAt(SEBSettings.prohibitedProcessIndex);
+            dataGridViewProhibitedProcesses.Rows     .RemoveAt(SEBSettings.prohibitedProcessIndex);
 
             if (SEBSettings.prohibitedProcessIndex == SEBSettings.prohibitedProcessList.Count)
                 SEBSettings.prohibitedProcessIndex--;
@@ -1877,7 +1883,7 @@ namespace SebWindowsConfig
             else
             {
                 // If process list is now empty, disable it
-                SEBSettings.prohibitedProcessIndex = -1;
+                SEBSettings.prohibitedProcessIndex      = -1;
                 dataGridViewProhibitedProcesses.Enabled = false;
                     groupBoxProhibitedProcess  .Enabled = false;
             }
@@ -1898,17 +1904,17 @@ namespace SebWindowsConfig
         private void checkBoxProhibitedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.MessageActive] =      checkBoxProhibitedProcessActive.Checked;
-            Boolean                      active  =      checkBoxProhibitedProcessActive.Checked;
+            Boolean                                              active  =      checkBoxProhibitedProcessActive.Checked;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
         }
 
         private void checkBoxProhibitedProcessCurrentUser_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.MessageCurrentUser] = checkBoxProhibitedProcessCurrentUser.Checked;
         }
@@ -1916,7 +1922,7 @@ namespace SebWindowsConfig
         private void checkBoxProhibitedProcessStrongKill_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.MessageStrongKill] =  checkBoxProhibitedProcessStrongKill.Checked;
         }
@@ -1924,37 +1930,37 @@ namespace SebWindowsConfig
         private void listBoxProhibitedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.MessageOS] =           listBoxProhibitedProcessOS.SelectedIndex;
-            Int32                        os  =           listBoxProhibitedProcessOS.SelectedIndex;
+            Int32                                                os  =           listBoxProhibitedProcessOS.SelectedIndex;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
         }
 
         private void textBoxProhibitedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.MessageExecutable] =   textBoxProhibitedProcessExecutable.Text;
-            String                       executable  =   textBoxProhibitedProcessExecutable.Text;
+            String                                               executable  =   textBoxProhibitedProcessExecutable.Text;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
         }
 
         private void textBoxProhibitedProcessDescription_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
-            SEBSettings.prohibitedProcessData[SEBSettings.MessageDescription] =   textBoxProhibitedProcessDescription.Text;
-            String                       description  =   textBoxProhibitedProcessDescription.Text;
+            SEBSettings.prohibitedProcessData[SEBSettings.MessageDescription] =  textBoxProhibitedProcessDescription.Text;
+            String                                               description  =  textBoxProhibitedProcessDescription.Text;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessDescription].Value = description;
         }
 
         private void textBoxProhibitedProcessIdentifier_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.MessageIdentifier] =   textBoxProhibitedProcessIdentifier.Text;
         }
@@ -1962,7 +1968,7 @@ namespace SebWindowsConfig
         private void textBoxProhibitedProcessUser_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.prohibitedProcessIndex < 0) return;
-            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList =               (List<object>)SEBSettings.settingsNew          [SEBSettings.MessageProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (Dictionary<string, object>)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.MessageUser] =         textBoxProhibitedProcessUser.Text;
         }
@@ -2065,17 +2071,17 @@ namespace SebWindowsConfig
 
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
-            urlFilterTableRow    = row;
-            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
-            SEBSettings.urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
-            SEBSettings.urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
+                        urlFilterTableRow        = row;
+                        urlFilterTableRowIsTitle = urlFilterTableIsTitleRow [urlFilterTableRow];
+            SEBSettings.urlFilterRuleIndex       = urlFilterTableRuleIndex  [urlFilterTableRow];
+            SEBSettings.urlFilterActionIndex     = urlFilterTableActionIndex[urlFilterTableRow];
 
             // Get the rule data belonging to the current row
-            SEBSettings.urlFilterRuleList =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageURLFilterRules];
+            SEBSettings.urlFilterRuleList =               (List<object>)SEBSettings.settingsNew      [SEBSettings.MessageURLFilterRules];
             SEBSettings.urlFilterRuleData = (Dictionary<string, object>)SEBSettings.urlFilterRuleList[SEBSettings.urlFilterRuleIndex];
 
             // Update the rule data belonging to the current cell
-            if (urlFilterIsTitleRow)
+            if (urlFilterTableRowIsTitle)
             {
                 if (column == IntColumnURLFilterRuleActive    ) SEBSettings.urlFilterRuleData[SEBSettings.MessageActive    ] = (Boolean)value;
                 if (column == IntColumnURLFilterRuleExpression) SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression] = (String )value;
@@ -2085,7 +2091,7 @@ namespace SebWindowsConfig
             else
             {
                 // Get the action data belonging to the current cell
-                SEBSettings.urlFilterActionList =               (List<object>)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+                SEBSettings.urlFilterActionList =               (List<object>)SEBSettings.urlFilterRuleData  [SEBSettings.MessageRuleActions];
                 SEBSettings.urlFilterActionData = (Dictionary<string, object>)SEBSettings.urlFilterActionList[SEBSettings.urlFilterActionIndex];
 
                 if (column == IntColumnURLFilterRuleActive    ) SEBSettings.urlFilterActionData[SEBSettings.MessageActive    ] = (Boolean)value;
@@ -2111,13 +2117,13 @@ namespace SebWindowsConfig
 
             // Determine if the selected row is a title row or action row.
             // Determine which rule and action belong to the selected row.
-            urlFilterTableRow    = row;
-            urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
-            SEBSettings.urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
-            SEBSettings.urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
+                        urlFilterTableRow        = row;
+                        urlFilterTableRowIsTitle = urlFilterTableIsTitleRow [urlFilterTableRow];
+            SEBSettings.urlFilterRuleIndex       = urlFilterTableRuleIndex  [urlFilterTableRow];
+            SEBSettings.urlFilterActionIndex     = urlFilterTableActionIndex[urlFilterTableRow];
 
             // Check if the button "Collapse" or "Expand" was pressed
-            if (urlFilterIsTitleRow)
+            if (urlFilterTableRowIsTitle)
             {
                 // Convert the selected "Show" Button value from String to Boolean
                 if (column == IntColumnURLFilterRuleShow)
@@ -2144,23 +2150,23 @@ namespace SebWindowsConfig
             {
                 // Determine if the selected row is a title row or action row.
                 // Determine which rule and action belong to the selected row.
-                urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
-                urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
-                SEBSettings.urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
-                SEBSettings.urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
+                            urlFilterTableRow        = dataGridViewURLFilterRules.SelectedRows[0].Index;
+                            urlFilterTableRowIsTitle = urlFilterTableIsTitleRow [urlFilterTableRow];
+                SEBSettings.urlFilterRuleIndex       = urlFilterTableRuleIndex  [urlFilterTableRow];
+                SEBSettings.urlFilterActionIndex     = urlFilterTableActionIndex[urlFilterTableRow];
             }
             else
             {
                 // If rule list was empty before, enable it
-                urlFilterTableRow    =  0;
-                urlFilterIsTitleRow  =  true;
-                SEBSettings.urlFilterRuleIndex   =  0;
-                SEBSettings.urlFilterActionIndex = -1;
+                            urlFilterTableRow        =  0;
+                            urlFilterTableRowIsTitle =  true;
+                SEBSettings.urlFilterRuleIndex       =  0;
+                SEBSettings.urlFilterActionIndex     = -1;
             }
 
             // If the user clicked onto a TITLE row (RULE),
             // add a new rule BEFORE or AFTER the current rule.
-            if (urlFilterIsTitleRow)
+            if (urlFilterTableRowIsTitle)
             {
                 // If the rule is added AFTER current selection, increment the rule index
                 // (exception: when rule list was empty, rule index becomes 0 in any case)
@@ -2174,7 +2180,7 @@ namespace SebWindowsConfig
 
                 // INSERT or PASTE new rule into rule list at correct position index
                 SEBSettings.urlFilterRuleList     .Insert(SEBSettings.urlFilterRuleIndex, SEBSettings.urlFilterRuleData);
-                urlFilterTableShowRule.Insert(SEBSettings.urlFilterRuleIndex, true);
+                            urlFilterTableShowRule.Insert(SEBSettings.urlFilterRuleIndex, true);
             }
             // If the user clicked onto an ACTION row,
             // add a new action BEFORE or AFTER the current action.
@@ -2211,10 +2217,10 @@ namespace SebWindowsConfig
             {
                 // Determine if the selected row is a title row or action row.
                 // Determine which rule and action belong to the selected row.
-                urlFilterTableRow    = dataGridViewURLFilterRules.SelectedRows[0].Index;
-                urlFilterIsTitleRow  = urlFilterTableIsTitleRow [urlFilterTableRow];
-                SEBSettings.urlFilterRuleIndex   = urlFilterTableRuleIndex  [urlFilterTableRow];
-                SEBSettings.urlFilterActionIndex = urlFilterTableActionIndex[urlFilterTableRow];
+                            urlFilterTableRow        = dataGridViewURLFilterRules.SelectedRows[0].Index;
+                            urlFilterTableRowIsTitle = urlFilterTableIsTitleRow [urlFilterTableRow];
+                SEBSettings.urlFilterRuleIndex       = urlFilterTableRuleIndex  [urlFilterTableRow];
+                SEBSettings.urlFilterActionIndex     = urlFilterTableActionIndex[urlFilterTableRow];
             }
             else
             {
@@ -2223,7 +2229,7 @@ namespace SebWindowsConfig
             }
 
             // If the user clicked onto a TITLE row (RULE), delete this rule
-            if (urlFilterIsTitleRow)
+            if (urlFilterTableRowIsTitle)
             {
                 if ((operation == IntOperationCopy) || (operation == IntOperationCut))
                 {
@@ -2235,8 +2241,9 @@ namespace SebWindowsConfig
                 {
                     // Delete rule from rule list at position index
                     SEBSettings.urlFilterRuleList     .RemoveAt(SEBSettings.urlFilterRuleIndex);
-                    urlFilterTableShowRule.RemoveAt(SEBSettings.urlFilterRuleIndex);
-                    if (SEBSettings.urlFilterRuleIndex == SEBSettings.urlFilterRuleList.Count) SEBSettings.urlFilterRuleIndex--;
+                                urlFilterTableShowRule.RemoveAt(SEBSettings.urlFilterRuleIndex);
+                    if (SEBSettings.urlFilterRuleIndex == SEBSettings.urlFilterRuleList.Count)
+                        SEBSettings.urlFilterRuleIndex--;
                 }
             }
             // If the user clicked onto an ACTION row, delete this action
@@ -2256,7 +2263,8 @@ namespace SebWindowsConfig
                 {
                     // Delete action from action list at position index
                     SEBSettings.urlFilterActionList.RemoveAt(SEBSettings.urlFilterActionIndex);
-                    if (SEBSettings.urlFilterActionIndex == SEBSettings.urlFilterActionList.Count) SEBSettings.urlFilterActionIndex--;
+                    if (SEBSettings.urlFilterActionIndex == SEBSettings.urlFilterActionList.Count)
+                        SEBSettings.urlFilterActionIndex--;
                 }
             }
 
@@ -2361,7 +2369,7 @@ namespace SebWindowsConfig
 
             // Get the data of the certificate belonging to the cell (row)
             SEBSettings.embeddedCertificateIndex = row;
-            SEBSettings.embeddedCertificateList  =               (List<object>)SEBSettings.settingsNew[SEBSettings.MessageEmbeddedCertificates];
+            SEBSettings.embeddedCertificateList  =               (List<object>)SEBSettings.settingsNew            [SEBSettings.MessageEmbeddedCertificates];
             SEBSettings.embeddedCertificateData  = (Dictionary<string, object>)SEBSettings.embeddedCertificateList[SEBSettings.embeddedCertificateIndex];
 
             // Update the certificate data belonging to the current cell
@@ -2377,8 +2385,8 @@ namespace SebWindowsConfig
 
             // Delete certificate from certificate list at position index
             SEBSettings.embeddedCertificateList = (List<object>)SEBSettings.settingsNew[SEBSettings.MessageEmbeddedCertificates];
-            SEBSettings.embeddedCertificateList              .RemoveAt(SEBSettings.embeddedCertificateIndex);
-            dataGridViewEmbeddedCertificates.Rows.RemoveAt(SEBSettings.embeddedCertificateIndex);
+            SEBSettings.embeddedCertificateList       .RemoveAt(SEBSettings.embeddedCertificateIndex);
+            dataGridViewEmbeddedCertificates.Rows     .RemoveAt(SEBSettings.embeddedCertificateIndex);
 
             if (SEBSettings.embeddedCertificateIndex == SEBSettings.embeddedCertificateList.Count)
                 SEBSettings.embeddedCertificateIndex--;
@@ -2535,7 +2543,7 @@ namespace SebWindowsConfig
             if (column == IntColumnProxyProtocolEnable)
             {
                 String key = MessageProxyProtocolEnableKey[row];
-                SEBSettings.proxiesData[key]                 = (Boolean)value;
+                SEBSettings.proxiesData[key]     = (Boolean)value;
                 BooleanProxyProtocolEnabled[row] = (Boolean)value;
             }
         }
@@ -2557,7 +2565,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerHost_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessageHost;
+            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessageHost;
             SEBSettings.proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             SEBSettings.proxiesData[key] = textBoxProxyServerHost.Text;
         }
@@ -2565,7 +2573,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerPort_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key  = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessagePort;
+            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessagePort;
             SEBSettings.proxiesData = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
 
             // Convert the "Port" string to an integer
@@ -2582,7 +2590,7 @@ namespace SebWindowsConfig
         private void checkBoxProxyServerRequiresPassword_CheckedChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessageRequires;
+            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessageRequires;
             SEBSettings.proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             SEBSettings.proxiesData[key] = (Boolean)checkBoxProxyServerRequires.Checked;
 
@@ -2594,7 +2602,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerUsername_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessageUsername;
+            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessageUsername;
             SEBSettings.proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             SEBSettings.proxiesData[key] = textBoxProxyServerUsername.Text;
         }
@@ -2602,7 +2610,7 @@ namespace SebWindowsConfig
         private void textBoxProxyServerPassword_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key       = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessagePassword;
+            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.MessagePassword;
             SEBSettings.proxiesData      = (Dictionary<string, object>)SEBSettings.settingsNew[SEBSettings.MessageProxies];
             SEBSettings.proxiesData[key] = textBoxProxyServerPassword.Text;
         }
@@ -2705,7 +2713,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK", ...
             SEBSettings.settingsNew[SEBSettings.MessageLogDirectoryWin]     = path;
-                             labelLogDirectoryWin.Text = path;
+                                                  labelLogDirectoryWin.Text = path;
         }
 
 

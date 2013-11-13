@@ -211,7 +211,7 @@ namespace SebWindowsConfig
         // Lookup table: rule ->   endRow of rule (in the table)
         // Lookup table: rule -> show this rule or not (expand/collapse)?
         static int           urlFilterTableRow;
-        static Boolean       urlFilterIsTitleRow;
+        static Boolean       urlFilterTableRowIsTitle;
         static List<int>     urlFilterTableRuleIndex   = new List<int    >();
         static List<int>     urlFilterTableActionIndex = new List<int    >();
         static List<Boolean> urlFilterTableIsTitleRow  = new List<Boolean>();
@@ -527,7 +527,7 @@ namespace SebWindowsConfig
 
             // Help data structures for table access to URL Filter Rules
             urlFilterTableRow   = -1;
-            urlFilterIsTitleRow = false;
+            urlFilterTableRowIsTitle = false;
             urlFilterTableRuleIndex     .Clear();
             urlFilterTableActionIndex   .Clear();
             urlFilterTableIsTitleRow    .Clear();
