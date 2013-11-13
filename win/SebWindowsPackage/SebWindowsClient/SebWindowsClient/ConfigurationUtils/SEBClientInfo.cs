@@ -261,8 +261,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
             try
             {
-                //// Load encrypted SebClient configuration and seserialise it in SEBClientConfig class 
-                //SEBProtectionController sebProtectionControler = new SEBProtectionController();
+                // Load encrypted SebClient configuration and seserialise it in SEBClientConfig class 
+                SEBProtectionController sebProtectionControler = new SEBProtectionController();
                 //TextReader sebClientConfigFileReader = new StreamReader(SebClientConfigFile);
                 //string encryptedSebClientConfig = sebClientConfigFileReader.ReadToEnd();
                 //sebClientConfigFileReader.Close();
@@ -323,19 +323,21 @@ namespace SebWindowsClient.ConfigurationUtils
                  // Decrypt the configuration settings
                  // Convert the XML structure into a C# object
 
-                 TextReader textReader;
-                 String encryptedSettings = "";
+                 SEBProtectionController sebProtectionControler = new SEBProtectionController();
+                 //TextReader textReader;
+                 //String encryptedSettings = "";
                  String decryptedSettings = "";
                  //String password          = "Seb";
                  //X509Certificate2 certificate = null;
 
-                 textReader = new StreamReader(fileName);
-                 encryptedSettings = textReader.ReadToEnd();
-                 textReader.Close();
+                 //textReader = new StreamReader(fileName);
+                 //encryptedSettings = textReader.ReadToEnd();
+                 //textReader.Close();
+                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
 
-                 //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
+                 decryptedSettings = sebProtectionControler.DecryptSebClientSettings(encryptedSettings);
                  //decryptedSettings = decryptedSettings.Trim();
-                 decryptedSettings = encryptedSettings;
+                 //decryptedSettings = encryptedSettings;
 
                  sebSettings = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
 
