@@ -181,7 +181,7 @@ namespace SebWindowsClient.ConfigurationUtils
              if (sebSetting != null)
                  return sebSettings;
              else
-                 return SEBSettings.sebSettingsDef;
+                 return SEBSettings.settingsDef;
          }
 
         /// <summary>
@@ -372,21 +372,21 @@ namespace SebWindowsClient.ConfigurationUtils
                  StringBuilder xulRunnerConfigFileBuilder = new StringBuilder(XulRunnerConfigFileDirectory).Append(XUL_RUNNER_CONFIG);
                  XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
-                 XULRunnerConfig xULRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-                 xULRunnerConfig.seb_openwin_width  = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkWidth)[SEBSettings.MessageNewBrowserWindowByLinkWidth].ToString());
-                 xULRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkHeight)[SEBSettings.MessageNewBrowserWindowByLinkHeight].ToString());
+                 XULRunnerConfig xulRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
+                 xulRunnerConfig.seb_openwin_width  = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkWidth)[SEBSettings.MessageNewBrowserWindowByLinkWidth].ToString());
+                 xulRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkHeight)[SEBSettings.MessageNewBrowserWindowByLinkHeight].ToString());
                  if ((Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageBrowserViewMode)[SEBSettings.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
                  {
-                     xULRunnerConfig.seb_mainWindow_titlebar_enabled = true;
+                     xulRunnerConfig.seb_mainWindow_titlebar_enabled = true;
                  }
                  else
                  {
-                     xULRunnerConfig.seb_mainWindow_titlebar_enabled = false;
+                     xulRunnerConfig.seb_mainWindow_titlebar_enabled = false;
 
                  }
-                 xULRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBSettings.MessageStartURL)[SEBSettings.MessageStartURL].ToString();
+                 xulRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBSettings.MessageStartURL)[SEBSettings.MessageStartURL].ToString();
                  setXulRunnerConfiguration = true;
-                 SEBXulRunnerSettings.XULRunnerConfigSerialize(xULRunnerConfig, XulRunnerConfigFile);
+                 SEBXulRunnerSettings.XULRunnerConfigSerialize(xulRunnerConfig, XulRunnerConfigFile);
              }
              catch(Exception ex)
              {

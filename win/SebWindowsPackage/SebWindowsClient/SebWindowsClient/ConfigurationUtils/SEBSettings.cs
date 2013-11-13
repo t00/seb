@@ -172,47 +172,47 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String MessageSOCKS             = "SOCKS";
         public const String MessageRTSP              = "RTSP";
 
-        public const String MessageEnable           = "Enable";
-        public const String MessagePort             = "Port";
-        public const String MessageHost             = "Proxy";
-        public const String MessageRequiresPassword = "RequiresPassword";
-        public const String MessageUsername         = "Username";
-        public const String MessagePassword         = "Password";
+        public const String MessageEnable   = "Enable";
+        public const String MessagePort     = "Port";
+        public const String MessageHost     = "Proxy";
+        public const String MessageRequires = "RequiresPassword";
+        public const String MessageUsername = "Username";
+        public const String MessagePassword = "Password";
 
-        public const String MessageHTTPEnable           = "HTTPEnable";
-        public const String MessageHTTPPort             = "HTTPPort";
-        public const String MessageHTTPHost             = "HTTPProxy";
-        public const String MessageHTTPRequiresPassword = "HTTPRequiresPassword";
-        public const String MessageHTTPUsername         = "HTTPUsername";
-        public const String MessageHTTPPassword         = "HTTPPassword";
+        public const String MessageHTTPEnable   = "HTTPEnable";
+        public const String MessageHTTPPort     = "HTTPPort";
+        public const String MessageHTTPHost     = "HTTPProxy";
+        public const String MessageHTTPRequires = "HTTPRequiresPassword";
+        public const String MessageHTTPUsername = "HTTPUsername";
+        public const String MessageHTTPPassword = "HTTPPassword";
 
-        public const String MessageHTTPSEnable           = "HTTPSEnable";
-        public const String MessageHTTPSPort             = "HTTPSPort";
-        public const String MessageHTTPSHost             = "HTTPSProxy";
-        public const String MessageHTTPSRequiresPassword = "HTTPSRequiresPassword";
-        public const String MessageHTTPSUsername         = "HTTPSUsername";
-        public const String MessageHTTPSPassword         = "HTTPSPassword";
+        public const String MessageHTTPSEnable   = "HTTPSEnable";
+        public const String MessageHTTPSPort     = "HTTPSPort";
+        public const String MessageHTTPSHost     = "HTTPSProxy";
+        public const String MessageHTTPSRequires = "HTTPSRequiresPassword";
+        public const String MessageHTTPSUsername = "HTTPSUsername";
+        public const String MessageHTTPSPassword = "HTTPSPassword";
 
-        public const String MessageFTPEnable           = "FTPEnable";
-        public const String MessageFTPPort             = "FTPPort";
-        public const String MessageFTPHost             = "FTPProxy";
-        public const String MessageFTPRequiresPassword = "FTPRequiresPassword";
-        public const String MessageFTPUsername         = "FTPUsername";
-        public const String MessageFTPPassword         = "FTPPassword";
+        public const String MessageFTPEnable   = "FTPEnable";
+        public const String MessageFTPPort     = "FTPPort";
+        public const String MessageFTPHost     = "FTPProxy";
+        public const String MessageFTPRequires = "FTPRequiresPassword";
+        public const String MessageFTPUsername = "FTPUsername";
+        public const String MessageFTPPassword = "FTPPassword";
 
-        public const String MessageSOCKSEnable           = "SOCKSEnable";
-        public const String MessageSOCKSPort             = "SOCKSPort";
-        public const String MessageSOCKSHost             = "SOCKSProxy";
-        public const String MessageSOCKSRequiresPassword = "SOCKSRequiresPassword";
-        public const String MessageSOCKSUsername         = "SOCKSUsername";
-        public const String MessageSOCKSPassword         = "SOCKSPassword";
+        public const String MessageSOCKSEnable   = "SOCKSEnable";
+        public const String MessageSOCKSPort     = "SOCKSPort";
+        public const String MessageSOCKSHost     = "SOCKSProxy";
+        public const String MessageSOCKSRequires = "SOCKSRequiresPassword";
+        public const String MessageSOCKSUsername = "SOCKSUsername";
+        public const String MessageSOCKSPassword = "SOCKSPassword";
 
-        public const String MessageRTSPEnable           = "RTSPEnable";
-        public const String MessageRTSPPort             = "RTSPPort";
-        public const String MessageRTSPHost             = "RTSPProxy";
-        public const String MessageRTSPRequiresPassword = "RTSPRequiresPassword";
-        public const String MessageRTSPUsername         = "RTSPUsername";
-        public const String MessageRTSPPassword         = "RTSPPassword";
+        public const String MessageRTSPEnable   = "RTSPEnable";
+        public const String MessageRTSPPort     = "RTSPPort";
+        public const String MessageRTSPHost     = "RTSPProxy";
+        public const String MessageRTSPRequires = "RTSPRequiresPassword";
+        public const String MessageRTSPUsername = "RTSPUsername";
+        public const String MessageRTSPPassword = "RTSPPassword";
 
         // Group "Security"
         public const String MessageSebServicePolicy    = "sebServicePolicy";
@@ -278,15 +278,15 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************
 
         // Some settings are not stored in Plists but in Arrays
-        public static String [,] settingString  = new String [StateNum + 1, ValueNum + 1];
-        public static     int[,] settingInteger = new     int[StateNum + 1, ValueNum + 1];
+        public static String [,] settingsStr = new String [StateNum + 1, ValueNum + 1];
+        public static     int[,] settingsInt = new     int[StateNum + 1, ValueNum + 1];
 
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
-        public static Dictionary<string, object> sebSettingsNew = new Dictionary<string, object>();
-        public static Dictionary<string, object> sebSettingsTmp = new Dictionary<string, object>();
-        public static Dictionary<string, object> sebSettingsDef = new Dictionary<string, object>();
+        public static Dictionary<string, object> settingsNew = new Dictionary<string, object>();
+        public static Dictionary<string, object> settingsTmp = new Dictionary<string, object>();
+        public static Dictionary<string, object> settingsDef = new Dictionary<string, object>();
 
         public static SEBProtectionController    sebController  = new SEBProtectionController();
 
@@ -348,100 +348,100 @@ namespace SebWindowsClient.ConfigurationUtils
             for (int state = 1; state <= StateNum; state++)
             for (int value = 1; value <= ValueNum; value++)
             {
-                settingInteger[state, value] = 0;
-                settingString [state, value] = "";
+                settingsInt[state, value] = 0;
+                settingsStr [state, value] = "";
             }
 
             // Initialise the default settings Plist
-            sebSettingsDef.Clear();
+            settingsDef.Clear();
 
             // Default settings for group "General"
-            sebSettingsDef.Add(SEBSettings.MessageStartURL            , "http://www.safeexambrowser.org");
-            sebSettingsDef.Add(SEBSettings.MessageSebServerURL        , "");
-            sebSettingsDef.Add(SEBSettings.MessageAdminPassword       , "");
-            sebSettingsDef.Add(SEBSettings.MessageConfirmAdminPassword, "");
-            sebSettingsDef.Add(SEBSettings.MessageHashedAdminPassword , "");
-            sebSettingsDef.Add(SEBSettings.MessageAllowQuit           , true);
-            sebSettingsDef.Add(SEBSettings.MessageIgnoreQuitPassword  , false);
-            sebSettingsDef.Add(SEBSettings.MessageQuitPassword        , "");
-            sebSettingsDef.Add(SEBSettings.MessageConfirmQuitPassword , "");
-            sebSettingsDef.Add(SEBSettings.MessageHashedQuitPassword  , "");
-            sebSettingsDef.Add(SEBSettings.MessageExitKey1,  2);
-            sebSettingsDef.Add(SEBSettings.MessageExitKey2, 10);
-            sebSettingsDef.Add(SEBSettings.MessageExitKey3,  5);
-            sebSettingsDef.Add(SEBSettings.MessageSebMode, 0);
+            settingsDef.Add(SEBSettings.MessageStartURL            , "http://www.safeexambrowser.org");
+            settingsDef.Add(SEBSettings.MessageSebServerURL        , "");
+            settingsDef.Add(SEBSettings.MessageAdminPassword       , "");
+            settingsDef.Add(SEBSettings.MessageConfirmAdminPassword, "");
+            settingsDef.Add(SEBSettings.MessageHashedAdminPassword , "");
+            settingsDef.Add(SEBSettings.MessageAllowQuit           , true);
+            settingsDef.Add(SEBSettings.MessageIgnoreQuitPassword  , false);
+            settingsDef.Add(SEBSettings.MessageQuitPassword        , "");
+            settingsDef.Add(SEBSettings.MessageConfirmQuitPassword , "");
+            settingsDef.Add(SEBSettings.MessageHashedQuitPassword  , "");
+            settingsDef.Add(SEBSettings.MessageExitKey1,  2);
+            settingsDef.Add(SEBSettings.MessageExitKey2, 10);
+            settingsDef.Add(SEBSettings.MessageExitKey3,  5);
+            settingsDef.Add(SEBSettings.MessageSebMode, 0);
 
             // Default settings for group "Config File"
-            sebSettingsDef.Add(SEBSettings.MessageSebConfigPurpose       , 0);
-            sebSettingsDef.Add(SEBSettings.MessageAllowPreferencesWindow , true);
-            sebSettingsDef.Add(SEBSettings.MessageSettingsPassword       , "");
-            sebSettingsDef.Add(SEBSettings.MessageConfirmSettingsPassword, "");
-            sebSettingsDef.Add(SEBSettings.MessageHashedSettingsPassword , "");
+            settingsDef.Add(SEBSettings.MessageSebConfigPurpose       , 0);
+            settingsDef.Add(SEBSettings.MessageAllowPreferencesWindow , true);
+            settingsDef.Add(SEBSettings.MessageSettingsPassword       , "");
+            settingsDef.Add(SEBSettings.MessageConfirmSettingsPassword, "");
+            settingsDef.Add(SEBSettings.MessageHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
-            settingInteger[StateDef, SEBSettings.ValueCryptoIdentity] = 0;
-            settingString [StateDef, SEBSettings.ValueCryptoIdentity] = "";
+            settingsInt[StateDef, SEBSettings.ValueCryptoIdentity] = 0;
+            settingsStr [StateDef, SEBSettings.ValueCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
-            sebSettingsDef.Add(SEBSettings.MessageBrowserViewMode             , 0);
-            sebSettingsDef.Add(SEBSettings.MessageMainBrowserWindowWidth      , "100%");
-            sebSettingsDef.Add(SEBSettings.MessageMainBrowserWindowHeight     , "100%");
-            sebSettingsDef.Add(SEBSettings.MessageMainBrowserWindowPositioning, 1);
-            sebSettingsDef.Add(SEBSettings.MessageEnableBrowserWindowToolbar  , false);
-            sebSettingsDef.Add(SEBSettings.MessageHideBrowserWindowToolbar    , false);
-            sebSettingsDef.Add(SEBSettings.MessageShowMenuBar                 , false);
-            sebSettingsDef.Add(SEBSettings.MessageShowTaskBar                 , true);
-            sebSettingsDef.Add(SEBSettings.MessageTaskBarHeight               , 40);
+            settingsDef.Add(SEBSettings.MessageBrowserViewMode             , 0);
+            settingsDef.Add(SEBSettings.MessageMainBrowserWindowWidth      , "100%");
+            settingsDef.Add(SEBSettings.MessageMainBrowserWindowHeight     , "100%");
+            settingsDef.Add(SEBSettings.MessageMainBrowserWindowPositioning, 1);
+            settingsDef.Add(SEBSettings.MessageEnableBrowserWindowToolbar  , false);
+            settingsDef.Add(SEBSettings.MessageHideBrowserWindowToolbar    , false);
+            settingsDef.Add(SEBSettings.MessageShowMenuBar                 , false);
+            settingsDef.Add(SEBSettings.MessageShowTaskBar                 , true);
+            settingsDef.Add(SEBSettings.MessageTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
-            settingInteger[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 1;
-            settingInteger[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 1;
-            settingString [StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
-            settingString [StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
+            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 1;
+            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 1;
+            settingsStr [StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
+            settingsStr [StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
-            sebSettingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
-            sebSettingsDef.Add(SEBSettings.MessageNewBrowserWindowByScriptPolicy      , 2);
-            sebSettingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkBlockForeign  , false);
-            sebSettingsDef.Add(SEBSettings.MessageNewBrowserWindowByScriptBlockForeign, false);
-            sebSettingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkWidth         , "1000");
-            sebSettingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkHeight        , "100%");
-            sebSettingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPositioning   , 2);
+            settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
+            settingsDef.Add(SEBSettings.MessageNewBrowserWindowByScriptPolicy      , 2);
+            settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkBlockForeign  , false);
+            settingsDef.Add(SEBSettings.MessageNewBrowserWindowByScriptBlockForeign, false);
+            settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkWidth         , "1000");
+            settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkHeight        , "100%");
+            settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPositioning   , 2);
 
-            sebSettingsDef.Add(SEBSettings.MessageEnablePlugIns           , true);
-            sebSettingsDef.Add(SEBSettings.MessageEnableJava              , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableJavaScript        , true);
-            sebSettingsDef.Add(SEBSettings.MessageBlockPopUpWindows       , false);
-            sebSettingsDef.Add(SEBSettings.MessageAllowBrowsingBackForward, false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableSebBrowser        , true);
+            settingsDef.Add(SEBSettings.MessageEnablePlugIns           , true);
+            settingsDef.Add(SEBSettings.MessageEnableJava              , false);
+            settingsDef.Add(SEBSettings.MessageEnableJavaScript        , true);
+            settingsDef.Add(SEBSettings.MessageBlockPopUpWindows       , false);
+            settingsDef.Add(SEBSettings.MessageAllowBrowsingBackForward, false);
+            settingsDef.Add(SEBSettings.MessageEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
-            settingInteger[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 3;
-            settingInteger[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 1;
-            settingString [StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
-            settingString [StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
+            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 3;
+            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 1;
+            settingsStr [StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
+            settingsStr [StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
-            sebSettingsDef.Add(SEBSettings.MessageAllowDownUploads        , true);
-            sebSettingsDef.Add(SEBSettings.MessageDownloadDirectoryOSX    , "~/Downloads");
-            sebSettingsDef.Add(SEBSettings.MessageDownloadDirectoryWin    , "Desktop");
-            sebSettingsDef.Add(SEBSettings.MessageOpenDownloads           , false);
-            sebSettingsDef.Add(SEBSettings.MessageChooseFileToUploadPolicy, 0);
-            sebSettingsDef.Add(SEBSettings.MessageDownloadPDFFiles        , false);
+            settingsDef.Add(SEBSettings.MessageAllowDownUploads        , true);
+            settingsDef.Add(SEBSettings.MessageDownloadDirectoryOSX    , "~/Downloads");
+            settingsDef.Add(SEBSettings.MessageDownloadDirectoryWin    , "Desktop");
+            settingsDef.Add(SEBSettings.MessageOpenDownloads           , false);
+            settingsDef.Add(SEBSettings.MessageChooseFileToUploadPolicy, 0);
+            settingsDef.Add(SEBSettings.MessageDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
-            sebSettingsDef.Add(SEBSettings.MessageExamKeySalt       , new Byte[] {});
-            sebSettingsDef.Add(SEBSettings.MessageBrowserExamKey    , "");
-            sebSettingsDef.Add(SEBSettings.MessageCopyBrowserExamKey, false);
-            sebSettingsDef.Add(SEBSettings.MessageSendBrowserExamKey, false);
-            sebSettingsDef.Add(SEBSettings.MessageQuitURL           , "");
+            settingsDef.Add(SEBSettings.MessageExamKeySalt       , new Byte[] {});
+            settingsDef.Add(SEBSettings.MessageBrowserExamKey    , "");
+            settingsDef.Add(SEBSettings.MessageCopyBrowserExamKey, false);
+            settingsDef.Add(SEBSettings.MessageSendBrowserExamKey, false);
+            settingsDef.Add(SEBSettings.MessageQuitURL           , "");
 
             // Default settings for group "Applications"
-            sebSettingsDef.Add(SEBSettings.MessageMonitorProcesses         , false);
-            sebSettingsDef.Add(SEBSettings.MessagePermittedProcesses       , new List<object>());
-            sebSettingsDef.Add(SEBSettings.MessageAllowSwitchToApplications, false);
-            sebSettingsDef.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
-            sebSettingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new List<object>());
+            settingsDef.Add(SEBSettings.MessageMonitorProcesses         , false);
+            settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new List<object>());
+            settingsDef.Add(SEBSettings.MessageAllowSwitchToApplications, false);
+            settingsDef.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
+            settingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new List<object>());
 
             // Default settings for permitted process data
             permittedProcessDataDef.Clear();
@@ -474,9 +474,9 @@ namespace SebWindowsClient.ConfigurationUtils
             prohibitedProcessDataDef.Add(SEBSettings.MessageUser       , "");
 
             // Default settings for group "Network - Filter"
-            sebSettingsDef.Add(SEBSettings.MessageEnableURLFilter       , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableURLContentFilter, false);
-            sebSettingsDef.Add(SEBSettings.MessageURLFilterRules        , new List<object>());
+            settingsDef.Add(SEBSettings.MessageEnableURLFilter       , false);
+            settingsDef.Add(SEBSettings.MessageEnableURLContentFilter, false);
+            settingsDef.Add(SEBSettings.MessageURLFilterRules        , new List<object>());
 
             // Create a default action
             urlFilterActionDataDef.Clear();
@@ -511,7 +511,7 @@ namespace SebWindowsClient.ConfigurationUtils
             urlFilterRuleDataStored.Add(SEBSettings.MessageRuleActions, urlFilterActionListStored);
 
             // Default settings for group "Network - Certificates"
-            sebSettingsDef.Add(SEBSettings.MessageEmbeddedCertificates, new List<object>());
+            settingsDef.Add(SEBSettings.MessageEmbeddedCertificates, new List<object>());
 
             embeddedCertificateDataDef.Clear();
             embeddedCertificateDataDef.Add(SEBSettings.MessageCertificateData, "");
@@ -532,98 +532,98 @@ namespace SebWindowsClient.ConfigurationUtils
             proxiesDataDef.Add(SEBSettings.MessageHTTPEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageHTTPHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageHTTPRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageHTTPPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageHTTPSEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPSPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageHTTPSHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageHTTPSRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPSRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageHTTPSUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageHTTPSPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageFTPEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageFTPPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageFTPHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageFTPRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageFTPRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageFTPUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageFTPPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageSOCKSEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageSOCKSPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageSOCKSHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageSOCKSRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageSOCKSRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageSOCKSUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageSOCKSPassword        , "");
 
             proxiesDataDef.Add(SEBSettings.MessageRTSPEnable          , false);
             proxiesDataDef.Add(SEBSettings.MessageRTSPPort            , 0);
             proxiesDataDef.Add(SEBSettings.MessageRTSPHost            , "");
-            proxiesDataDef.Add(SEBSettings.MessageRTSPRequiresPassword, false);
+            proxiesDataDef.Add(SEBSettings.MessageRTSPRequires, false);
             proxiesDataDef.Add(SEBSettings.MessageRTSPUsername        , "");
             proxiesDataDef.Add(SEBSettings.MessageRTSPPassword        , "");
 
             bypassedProxyDataDef = "";
 
-            sebSettingsDef.Add(SEBSettings.MessageProxySettingsPolicy, 0);
-            sebSettingsDef.Add(SEBSettings.MessageProxies            , proxiesDataDef);
+            settingsDef.Add(SEBSettings.MessageProxySettingsPolicy, 0);
+            settingsDef.Add(SEBSettings.MessageProxies            , proxiesDataDef);
 
             // Default settings for group "Security"
-            sebSettingsDef.Add(SEBSettings.MessageSebServicePolicy   , 2);
-            sebSettingsDef.Add(SEBSettings.MessageAllowVirtualMachine, false);
-            sebSettingsDef.Add(SEBSettings.MessageCreateNewDesktop   , true);
-            sebSettingsDef.Add(SEBSettings.MessageKillExplorerShell  , false);
-            sebSettingsDef.Add(SEBSettings.MessageAllowUserSwitching , true);
-            sebSettingsDef.Add(SEBSettings.MessageEnableLogging      , false);
-            sebSettingsDef.Add(SEBSettings.MessageLogDirectoryOSX    , "~/Documents");
-            sebSettingsDef.Add(SEBSettings.MessageLogDirectoryWin    , "My Documents");
+            settingsDef.Add(SEBSettings.MessageSebServicePolicy   , 2);
+            settingsDef.Add(SEBSettings.MessageAllowVirtualMachine, false);
+            settingsDef.Add(SEBSettings.MessageCreateNewDesktop   , true);
+            settingsDef.Add(SEBSettings.MessageKillExplorerShell  , false);
+            settingsDef.Add(SEBSettings.MessageAllowUserSwitching , true);
+            settingsDef.Add(SEBSettings.MessageEnableLogging      , false);
+            settingsDef.Add(SEBSettings.MessageLogDirectoryOSX    , "~/Documents");
+            settingsDef.Add(SEBSettings.MessageLogDirectoryWin    , "My Documents");
 
             // Default settings for group "Inside SEB"
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableSwitchUser       , false);
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableLockThisComputer , false);
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableChangeAPassword  , false);
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableStartTaskManager , false);
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableLogOff           , false);
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableShutDown         , false);
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableEaseOfAccess     , false);
-            sebSettingsDef.Add(SEBSettings.MessageInsideSebEnableVmWareClientShade, false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableSwitchUser       , false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableLockThisComputer , false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableChangeAPassword  , false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableStartTaskManager , false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableLogOff           , false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableShutDown         , false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableEaseOfAccess     , false);
+            settingsDef.Add(SEBSettings.MessageInsideSebEnableVmWareClientShade, false);
 
             // Default settings for group "Outside SEB"
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableSwitchUser       , true);
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableLockThisComputer , true);
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableChangeAPassword  , true);
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableStartTaskManager , true);
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableLogOff           , true);
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableShutDown         , true);
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableEaseOfAccess     , true);
-            sebSettingsDef.Add(SEBSettings.MessageOutsideSebEnableVmWareClientShade, true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableSwitchUser       , true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableLockThisComputer , true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableChangeAPassword  , true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableStartTaskManager , true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableLogOff           , true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableShutDown         , true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableEaseOfAccess     , true);
+            settingsDef.Add(SEBSettings.MessageOutsideSebEnableVmWareClientShade, true);
 
             // Default settings for group "Hooked Keys"
-            sebSettingsDef.Add(SEBSettings.MessageHookKeys, true);
+            settingsDef.Add(SEBSettings.MessageHookKeys, true);
 
             // Default settings for group "Special Keys"
-            sebSettingsDef.Add(SEBSettings.MessageEnableEsc       , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableCtrlEsc   , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableAltEsc    , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableAltTab    , true);
-            sebSettingsDef.Add(SEBSettings.MessageEnableAltF4     , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableStartMenu , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableRightMouse, false);
+            settingsDef.Add(SEBSettings.MessageEnableEsc       , false);
+            settingsDef.Add(SEBSettings.MessageEnableCtrlEsc   , false);
+            settingsDef.Add(SEBSettings.MessageEnableAltEsc    , false);
+            settingsDef.Add(SEBSettings.MessageEnableAltTab    , true);
+            settingsDef.Add(SEBSettings.MessageEnableAltF4     , false);
+            settingsDef.Add(SEBSettings.MessageEnableStartMenu , false);
+            settingsDef.Add(SEBSettings.MessageEnableRightMouse, false);
 
             // Default settings for group "Function Keys"
-            sebSettingsDef.Add(SEBSettings.MessageEnableF1 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF2 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF3 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF4 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF5 , true);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF6 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF7 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF8 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF9 , false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF10, false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF11, false);
-            sebSettingsDef.Add(SEBSettings.MessageEnableF12, false);
+            settingsDef.Add(SEBSettings.MessageEnableF1 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF2 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF3 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF4 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF5 , true);
+            settingsDef.Add(SEBSettings.MessageEnableF6 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF7 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF8 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF9 , false);
+            settingsDef.Add(SEBSettings.MessageEnableF10, false);
+            settingsDef.Add(SEBSettings.MessageEnableF11, false);
+            settingsDef.Add(SEBSettings.MessageEnableF12, false);
 
 /*
             // Default settings for group "Online exam"
