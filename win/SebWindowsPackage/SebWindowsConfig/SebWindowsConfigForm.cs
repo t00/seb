@@ -43,7 +43,7 @@ namespace SebWindowsConfig
             sebSettings.InitialiseSEBDefaultSettings();
 */
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
-            SEBSettings.InitialiseSEBDefaultSettings();
+            SEBSettings.BuildUpDefaultSettings();
 
             // Initialise the global variables for the lists and subdictionaries
             InitialiseGlobalVariablesForGUIWidgets();
@@ -153,7 +153,7 @@ namespace SebWindowsConfig
             }
 
             // After reading the settings from file,
-            // copy them to "new" settings and update the widgets
+            // copy them to "new" settings
 
             // Choose Identity needs a conversion from string to integer.
             // The SEB Windows configuration editor never reads the identity
@@ -164,11 +164,14 @@ namespace SebWindowsConfig
             //tmpCryptoIdentityInteger = 0;
             //tmpCryptoIdentityString  = 0;
 
-            // Copy tmp settings to new settings
-            SEBSettings.settingsNew.Clear();
+            RestoreDefaultAndNewSettings();
+
+            // Insert tmp settings into new settings
             CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
 
+
+            // GUI-related part: Update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
             currentPathSebConfigFile = Path.GetFullPath     (fileName);
@@ -275,6 +278,14 @@ namespace SebWindowsConfig
         }
 
 
+        // *****************************************
+        // Restore default settings and new settings
+        // *****************************************
+        private void RestoreDefaultAndNewSettings()
+        {
+
+        }
+
 
         // ********************
         // Copy settings arrays
@@ -292,7 +303,6 @@ namespace SebWindowsConfig
 
             return;
         }
-
 
 
         // ************************
@@ -319,7 +329,6 @@ namespace SebWindowsConfig
 
             return;
         }
-
 
 
         // *************************
@@ -366,6 +375,8 @@ namespace SebWindowsConfig
             fileStream.Close();
             return;
         }
+
+
 
 
 
@@ -960,7 +971,7 @@ namespace SebWindowsConfig
         {
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_before_RevertToDefault.xml");
-            SEBSettings.InitialiseSEBDefaultSettings();
+            SEBSettings.BuildUpDefaultSettings();
             SEBSettings.settingsNew.Clear();
             CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);

@@ -342,7 +342,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *******************************************************************
         // Set all the default values for the Plist structure "sebSettingsDef"
         // *******************************************************************
-        public static void InitialiseSEBDefaultSettings()
+        public static void BuildUpDefaultSettings()
         {
             // Initialise the global arrays
             for (int state = 1; state <= StateNum; state++)
