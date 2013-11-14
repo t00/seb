@@ -92,81 +92,63 @@ namespace SebWindowsConfig
 
 
 
+         // ****************************************
+         // Open the .seb file and read the settings
+         // ****************************************
+         private static bool ReadSebConfigurationFile(String fileName)
+         {
+             try
+             {
+                 // Read the configuration settings from .seb file
+                 // Decrypt the configuration settings
+                 // Convert the XML structure into a C# object
+
+                 SEBProtectionController sebProtectionController = new SEBProtectionController();
+
+                 //TextReader textReader;
+                 //String encryptedSettings = "";
+                 //String password          = "Seb";
+                 //X509Certificate2 certificate = null;
+
+                 //textReader = new StreamReader(fileName);
+                 //encryptedSettings = textReader.ReadToEnd();
+                 //textReader.Close();
+
+                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
+                 String decryptedSettings = "";
+
+                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
+               //decryptedSettings = decryptedSettings.Trim();
+               //decryptedSettings = encryptedSettings;
+
+                 SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+             }
+             catch (Exception streamReadException)
+             {
+                 // Let the user know what went wrong
+                 Console.WriteLine("The .seb file could not be read:");
+                 Console.WriteLine(streamReadException.Message);
+                 return false;
+             }
+
+             return true;
+         }
+
+
 
         // *************************************************
         // Open the configuration file and read the settings
         // *************************************************
-        private Boolean OpenConfigurationFile(String fileName)
+        private Boolean LoadSebConfigurationFileIntoEditor(String fileName)
         {
-            // Cut off the file extension ".xml" or ".seb",
-            // that is the last 4 characters of the file name
-            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
-            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
+            // Read the file into "tmp" settings
+            if (!ReadSebConfigurationFile(fileName)) return false;
 
-            // Decide whether the configuration file is encrypted or not
-            Boolean                         isEncrypted = false;
-            if (fileNameExt.Equals(".xml")) isEncrypted = false;
-            if (fileNameExt.Equals(".seb")) isEncrypted = true;
-
-            // TODO: decryption does not yet work,
-            // TODO: so currently we can only read non-encrypted files
-            isEncrypted = false;
-
-            try 
-            {
-                // Read the configuration settings from the file.
-                // If encrypted, decrypt the configuration settings
-                // Convert the XML structure into a C# object
-                //if (isEncrypted == true)
-                {
-                    TextReader textReader;
-                    String encryptedSettings = "";
-                    String decryptedSettings = "";
-                  //String password          = "Seb";
-                  //X509Certificate2 certificate = null;
-
-                    textReader        = new StreamReader(fileName);
-                    encryptedSettings = textReader.ReadToEnd();
-                    textReader.Close();
-
-                    // TODO: decryption does not yet work,
-                    // TODO: so the decryption is in comments and bypassed
-                  //decryptedSettings = sebController.DecryptSebClientSettings(encryptedSettings);
-                  //decryptedSettings = decryptedSettings.Trim();
-
-                    // TODO: when decryption works, delete the following bypass assignment:
-                    decryptedSettings = encryptedSettings;
-
-                    SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
-                }
-                //else // unencrypted .xml file
-                {
-                    //SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlist(fileName);
-                }
-            }
-            catch (Exception streamReadException)
-            {
-                // Let the user know what went wrong
-                Console.WriteLine("The configuration file could not be read:");
-                Console.WriteLine(streamReadException.Message);
-                return false;
-            }
-
-            // After reading the settings from file,
-            // copy them to "new" settings
-
-            // Choose Identity needs a conversion from string to integer.
-            // The SEB Windows configuration editor never reads the identity
-            // from the config file but instead searches it in the
-            // Certificate Store of the computer where it is running,
-            // so initially the 0th list entry is displayed ("none").
-            //
-            //tmpCryptoIdentityInteger = 0;
-            //tmpCryptoIdentityString  = 0;
-
+            // If the settings could be read from file,
+            // recreate "def" settings and "new" settings
             RestoreDefaultAndNewSettings();
 
-            // Insert tmp settings into new settings
+            // And merge "tmp" settings into "new" settings
             CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
 
@@ -983,7 +965,7 @@ namespace SebWindowsConfig
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
-            OpenConfigurationFile(currentPathSebConfigFile);
+            LoadSebConfigurationFileIntoEditor(currentPathSebConfigFile);
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
         }
 
@@ -1001,7 +983,7 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             // If the user clicked "OK"    , read the settings from the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-            if (fileDialogResult.Equals(DialogResult.OK    )) OpenConfigurationFile(fileName);
+            if (fileDialogResult.Equals(DialogResult.OK    )) LoadSebConfigurationFileIntoEditor(fileName);
         }
 
 
