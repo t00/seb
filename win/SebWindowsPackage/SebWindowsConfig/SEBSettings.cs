@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using SebWindowsClient.CryptographyUtils;
+using PlistCS;
 
 
 
@@ -335,9 +339,11 @@ namespace SebWindowsClient.ConfigurationUtils
         public static String                     bypassedProxyDataDef = "";
 
 
+
         // ************************
         // Methods for SEB settings
         // ************************
+
 
         // *******************************************************************
         // Set all the default values for the Plist structure "sebSettingsDef"
@@ -666,6 +672,219 @@ namespace SebWindowsClient.ConfigurationUtils
             bypassedProxyIndex = -1;
             bypassedProxyList.Clear();
             bypassedProxyData = "";
+        }
+
+
+
+        // *****************************************
+        // Restore default settings and new settings
+        // *****************************************
+        public static void RestoreDefaultAndNewSettings()
+        {
+            // Set all the default values for the Plist structure "settingsNew"
+            SEBSettings.BuildUpDefaultSettings();
+
+            // IMPORTANT:
+            // Create a second dictionary "new settings"
+            // and copy all default settings to the new settings.
+            // This must be done BEFORE any config file is loaded
+            // and assures that every (key, value) pair is contained
+            // in the "new" and "def" dictionaries,
+            // even if the loaded "tmp" dictionary does NOT contain every pair.
+
+            SEBSettings.settingsNew.Clear();
+            CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
+            CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
+        }
+
+
+
+        // ********************
+        // Copy settings arrays
+        // ********************
+        public static void CopySettingsArrays(int StateSource, int StateTarget)
+        {
+            // Copy all settings from one array to another
+            int value;
+
+            for (value = 1; value <= SEBSettings.ValueNum; value++)
+            {
+                SEBSettings.settingsStr[StateTarget, value] = SEBSettings.settingsStr[StateSource, value];
+                SEBSettings.settingsInt[StateTarget, value] = SEBSettings.settingsInt[StateSource, value];
+            }
+
+            return;
+        }
+
+
+        // ************************
+        // Copy settings dictionary
+        // ************************
+        public static void CopySettingsDictionary(Dictionary<string, object> sebSettingsSource,
+                                                  Dictionary<string, object> sebSettingsTarget)
+        {
+            // Copy all settings from one dictionary to another
+            // Create a dictionary "target settings".
+            // Copy source settings to target settings
+            foreach (KeyValuePair<string, object> pair in sebSettingsSource)
+            {
+                string key   = pair.Key;
+                object value = pair.Value;
+
+//              if (key.GetType == Type.Dictionary)
+//                  CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
+
+                if  (sebSettingsTarget.ContainsKey(key))
+                     sebSettingsTarget[key] = value;
+                else sebSettingsTarget.Add(key, value);
+            }
+
+            return;
+        }
+
+
+        // *************************
+        // Print settings dictionary
+        // *************************
+        public static void PrintSettingsDictionary(Dictionary<string, object> sebSettings,
+                                                   String                     fileName)
+        {
+            FileStream   fileStream;
+            StreamWriter fileWriter;
+
+            // If the .ini file already exists, delete it
+            // and write it again from scratch with new data
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            // Open the file for writing
+            fileStream = new FileStream  (fileName, FileMode.OpenOrCreate, FileAccess.Write);
+            fileWriter = new StreamWriter(fileStream);
+
+            // Write the header lines
+            fileWriter.WriteLine("");
+            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettings.Count);
+            fileWriter.WriteLine("");
+
+            // Print (key, value) pairs of dictionary to file
+            foreach (KeyValuePair<string, object> pair in sebSettings)
+            {
+                string key   = pair.Key;
+                object value = pair.Value;
+                string type  = value.GetType().ToString();
+
+//                if (key.GetType == Type.Dictionary)
+//                    CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
+
+                fileWriter.WriteLine("key   = " + key);
+                fileWriter.WriteLine("value = " + value);
+                fileWriter.WriteLine("type  = " + type);
+                fileWriter.WriteLine("");
+            }
+
+            // Close the file
+            fileWriter.Close();
+            fileStream.Close();
+            return;
+        }
+
+
+
+        // *********************************************
+        // Read the settings from the configuration file
+        // *********************************************
+        public static bool ReadSebConfigurationFile(String fileName)
+        {
+            try
+            {
+                // Read the configuration settings from .seb file
+                // Decrypt the configuration settings
+                // Convert the XML structure into a C# object
+
+                SEBProtectionController sebProtectionController = new SEBProtectionController();
+
+                //TextReader textReader;
+                //String encryptedSettings = "";
+                //String password          = "Seb";
+                //X509Certificate2 certificate = null;
+
+                //textReader = new StreamReader(fileName);
+                //encryptedSettings = textReader.ReadToEnd();
+                //textReader.Close();
+
+                byte[] encryptedSettings = File.ReadAllBytes(fileName);
+                String decryptedSettings = "";
+
+                decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
+              //decryptedSettings = decryptedSettings.Trim();
+              //decryptedSettings = encryptedSettings;
+
+                SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+            }
+            catch (Exception streamReadException)
+            {
+                // Let the user know what went wrong
+                Console.WriteLine("The .seb file could not be read:");
+                Console.WriteLine(streamReadException.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+        // ********************************************************
+        // Write the settings to the configuration file and save it
+        // ********************************************************
+        public static bool WriteSebConfigurationFile(String fileName)
+        {
+            try 
+            {
+                // If the configuration file already exists, delete it
+                // and write it again from scratch with new data
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+
+                // Convert the C# object into an XML structure
+                // If unencrypted, encrypt the configuration settings
+                // Write the configuration settings into .xml or .seb file
+
+                Boolean isEncrypted = false;
+
+                if (isEncrypted == true)
+                {
+                    TextWriter textWriter;
+                    String encryptedSettings = "";
+                    String decryptedSettings = "";
+                    String password          = "seb";
+                    X509Certificate2 certificate = null;
+
+                    decryptedSettings = Plist.writeXml(SEBSettings.settingsNew);
+
+                  //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
+                  //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
+                    encryptedSettings = decryptedSettings;
+
+                    textWriter = new StreamWriter(fileName);
+                    textWriter.Write(encryptedSettings);
+                    textWriter.Close();
+                }
+                else // unencrypted .xml file
+                {
+                    Plist.writeXml(SEBSettings.settingsNew, fileName);
+                    Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_SaveConfigurationFile.xml");
+                }
+            }
+            catch (Exception streamWriteException) 
+            {
+                // Let the user know what went wrong
+                Console.WriteLine("The configuration file could not be written:");
+                Console.WriteLine(streamWriteException.Message);
+                return false;
+            }
+
+            return true;
         }
 
 
