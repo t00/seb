@@ -526,8 +526,8 @@ namespace SebWindowsConfig
             listBoxProhibitedProcessOS.Items.AddRange(StringOS);
 
             // Help data structures for table access to URL Filter Rules
-            urlFilterTableRow   = -1;
-            urlFilterTableRowIsTitle = false;
+            urlFilterTableRow           = -1;
+            urlFilterTableRowIsTitle    = false;
             urlFilterTableRuleIndex     .Clear();
             urlFilterTableActionIndex   .Clear();
             urlFilterTableIsTitleRow    .Clear();

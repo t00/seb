@@ -355,7 +355,7 @@ namespace SebWindowsClient.ConfigurationUtils
             for (int value = 1; value <= ValueNum; value++)
             {
                 settingsInt[state, value] = 0;
-                settingsStr [state, value] = "";
+                settingsStr[state, value] = "";
             }
 
             // Initialise the default settings Plist

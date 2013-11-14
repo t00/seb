@@ -32,24 +32,14 @@ namespace SebWindowsConfig
         public SebWindowsConfigForm()
         {
             InitializeComponent();
-/*
-            SEBSettings sebSettings = new SEBSettings();
-
-            Dictionary<string, object> sebSettingsNew = sebSettings.settingsNew;
-            Dictionary<string, object> sebSettingsTmp = sebSettings.settingsTmp;
-            Dictionary<string, object> sebSettingsDef = sebSettings.settingsDef;
-
-            // Set all the default values for the Plist structure "SEBSettings.settingsNew"
-            sebSettings.InitialiseSEBDefaultSettings();
-*/
 
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             SEBSettings.BuildUpDefaultSettings();
 
-            // Initialise the global variables for the lists and subdictionaries
+            // Initialise the global variables for the GUI widgets
             InitialiseGlobalVariablesForGUIWidgets();
 
-            // Initialise the GUI widgets of this configuration editor
+            // Initialise the GUI widgets themselves
             InitialiseGUIWidgets();
 
             // IMPORTANT:
@@ -763,6 +753,7 @@ namespace SebWindowsConfig
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_after_RevertToDefault.xml");
         }
+
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
