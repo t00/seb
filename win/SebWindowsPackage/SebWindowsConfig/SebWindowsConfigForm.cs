@@ -42,6 +42,7 @@ namespace SebWindowsConfig
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             sebSettings.InitialiseSEBDefaultSettings();
 */
+
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             SEBSettings.BuildUpDefaultSettings();
 
@@ -139,7 +140,7 @@ namespace SebWindowsConfig
         // *************************************************
         // Open the configuration file and read the settings
         // *************************************************
-        private Boolean LoadSebConfigurationFileIntoEditor(String fileName)
+        private Boolean LoadConfigurationFileIntoEditor(String fileName)
         {
             // Read the file into "tmp" settings
             if (!ReadSebConfigurationFile(fileName)) return false;
@@ -195,18 +196,8 @@ namespace SebWindowsConfig
         // ********************************************************
         // Write the settings to the configuration file and save it
         // ********************************************************
-        private Boolean SaveConfigurationFile(String fileName)
+        private Boolean SaveConfigurationFileFromEditor(String fileName)
         {
-            // Cut off the file extension ".xml" or ".seb",
-            // that is the last 4 characters of the file name
-            String fileNameRaw = fileName.Substring(0, fileName.Length - 4);
-            String fileNameExt = fileName.Substring(fileName.Length - 4, 4);
-
-            // Decide whether the configuration file is encrypted or not
-            Boolean                         isEncrypted = false;
-            if (fileNameExt.Equals(".xml")) isEncrypted = false;
-            if (fileNameExt.Equals(".seb")) isEncrypted = true;
-
             try 
             {
                 // If the configuration file already exists, delete it
@@ -218,12 +209,14 @@ namespace SebWindowsConfig
                 // If unencrypted, encrypt the configuration settings
                 // Write the configuration settings into .xml or .seb file
 
+                Boolean isEncrypted = false;
+
                 if (isEncrypted == true)
                 {
                     TextWriter textWriter;
                     String encryptedSettings = "";
                     String decryptedSettings = "";
-                    String password          = "Seb";
+                    String password          = "seb";
                     X509Certificate2 certificate = null;
 
                     decryptedSettings = Plist.writeXml(SEBSettings.settingsNew);
@@ -265,6 +258,20 @@ namespace SebWindowsConfig
         // *****************************************
         private void RestoreDefaultAndNewSettings()
         {
+            // Set all the default values for the Plist structure "settingsNew"
+            SEBSettings.BuildUpDefaultSettings();
+
+            // IMPORTANT:
+            // Create a second dictionary "new settings"
+            // and copy all default settings to the new settings.
+            // This must be done BEFORE any config file is loaded
+            // and assures that every (key, value) pair is contained
+            // in the "new" and "def" dictionaries,
+            // even if the loaded "tmp" dictionary does NOT contain every pair.
+
+            SEBSettings.settingsNew.Clear();
+            CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
+            CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
 
         }
 
@@ -953,10 +960,7 @@ namespace SebWindowsConfig
         {
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_before_RevertToDefault.xml");
-            SEBSettings.BuildUpDefaultSettings();
-            SEBSettings.settingsNew.Clear();
-            CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
-            CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
+            RestoreDefaultAndNewSettings();
             UpdateAllWidgetsOfProgram();
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_after_RevertToDefault.xml");
@@ -965,7 +969,7 @@ namespace SebWindowsConfig
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToLastOpened.xml");
-            LoadSebConfigurationFileIntoEditor(currentPathSebConfigFile);
+            LoadConfigurationFileIntoEditor(currentPathSebConfigFile);
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToLastOpened.xml");
         }
 
@@ -983,7 +987,7 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             // If the user clicked "OK"    , read the settings from the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-            if (fileDialogResult.Equals(DialogResult.OK    )) LoadSebConfigurationFileIntoEditor(fileName);
+            if (fileDialogResult.Equals(DialogResult.OK    )) LoadConfigurationFileIntoEditor(fileName);
         }
 
 
@@ -1000,7 +1004,7 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             // If the user clicked "OK"    , write the settings to the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-            if (fileDialogResult.Equals(DialogResult.OK    )) SaveConfigurationFile(fileName);
+            if (fileDialogResult.Equals(DialogResult.OK    )) SaveConfigurationFileFromEditor(fileName);
         }
 
 
