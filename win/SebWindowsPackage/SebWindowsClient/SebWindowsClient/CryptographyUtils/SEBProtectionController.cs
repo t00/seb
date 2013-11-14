@@ -129,7 +129,7 @@ namespace SebWindowsClient.CryptographyUtils
         private X509Certificate2 GetCertificateFromStore(byte[] publicKeyHash)
         {
             string certificateName;
-            string certificateHash;
+            //string certificateHash;
             X509Certificate2 sebCertificate = null;
 
             //Create new X509 store called teststore from the local certificate store.
@@ -138,16 +138,19 @@ namespace SebWindowsClient.CryptographyUtils
             
             foreach (X509Certificate2 x509Certificate in store.Certificates)
             {
-                certificateHash = x509Certificate.Thumbprint;
+                byte[] publicKeyRawData = x509Certificate.PublicKey.EncodedKeyValue.RawData;
+                SHA1 sha = new SHA1CryptoServiceProvider(); 
+                byte[] certificateHash = sha.ComputeHash(publicKeyRawData);
+
                 certificateName = x509Certificate.Subject;
-                if (certificateHash == Encoding.ASCII.GetString(publicKeyHash))
+                if (certificateHash.SequenceEqual(publicKeyHash))
                 {
                     sebCertificate = x509Certificate;
                 }
-                if (certificateName.CompareTo("C=CH, CN=SEB-Configuration") == 0)
-                {
-                    sebCertificate = x509Certificate;
-                }
+                //if (certificateName.CompareTo("C=CH, CN=SEB-Configuration") == 0)
+                //{
+                //    sebCertificate = x509Certificate;
+                //}
             }
  
             //Close the store.
@@ -163,7 +166,6 @@ namespace SebWindowsClient.CryptographyUtils
         /// ----------------------------------------------------------------------------------------
         public string DecryptWithCertificate(byte[] encryptedBytesWithKey)
         {
-            int dwKeySize;
             try
             {
                 // Get certificate
@@ -173,12 +175,60 @@ namespace SebWindowsClient.CryptographyUtils
 
                 // decrypt config data
 
-                byte[] encryptedDataBytes = new byte[encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH];
-                Buffer.BlockCopy(encryptedBytesWithKey, PUBLIC_KEY_HASH_LENGTH, encryptedDataBytes, 0, encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH);
+                byte[] encryptedData = new byte[encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH];
+                Buffer.BlockCopy(encryptedBytesWithKey, PUBLIC_KEY_HASH_LENGTH, encryptedData, 0, encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH);
 
                 RSACryptoServiceProvider privateKey = sebCertificate.PrivateKey as RSACryptoServiceProvider;
-                byte[] decryptedData = privateKey.Decrypt(encryptedDataBytes, false);
-                string decryptedStr = Encoding.UTF8.GetString(decryptedData);
+                //byte[] decryptedData = privateKey.Decrypt(encryptedDataBytes, false);
+
+                // Blocksize is for example 2048/8 = 256 
+                int blockSize = privateKey.KeySize / 8;
+
+                // buffer to hold byte sequence of the encrypted source data
+                byte[] encryptedBuffer = new byte[blockSize];
+
+                // buffer for the decrypted information
+                byte[] decryptedBuffer = new byte[blockSize];
+
+                // initialize array so it holds at least the amount needed to decrypt.
+                //byte[] decryptedData = new byte[encryptedData.Length];
+                MemoryStream decryptedStream = new MemoryStream();
+
+                // Calculate number of full data blocks that will have to be decrypted
+                int blockCount = encryptedData.Length / blockSize;
+
+                for (int i = 0; i < blockCount; i ++)
+                {
+                    // copy byte sequence from encrypted source data to the buffer
+                    Buffer.BlockCopy(encryptedData, i*blockSize, encryptedBuffer, 0, blockSize);
+                    // decrypt the block in the buffer
+                    decryptedBuffer = privateKey.Decrypt(encryptedBuffer, false);
+                    // write decrypted result back to the destination array
+                    //decryptedBuffer.CopyTo(decryptedData, i*blockSize);
+                    decryptedStream.Write(decryptedBuffer, 0, decryptedBuffer.Length);
+                }
+                int remainingBytes = encryptedData.Length - (blockCount * blockSize);
+                if (remainingBytes > 0) {
+                    encryptedBuffer = new byte[remainingBytes];
+                    // copy remaining bytes from encrypted source data to the buffer
+                    Buffer.BlockCopy(encryptedData, blockCount * blockSize, encryptedBuffer, 0, remainingBytes);
+                    // decrypt the block in the buffer
+                    decryptedBuffer = privateKey.Decrypt(encryptedBuffer, false);
+                    // write decrypted result back to the destination array
+                    //decryptedBuffer.CopyTo(decryptedData, blockCount * blockSize);
+                    decryptedStream.Write(decryptedBuffer, 0, decryptedBuffer.Length);
+                }
+                byte[] decryptedData = decryptedStream.ToArray();
+
+                // This is only temporary: To Do: Proper encapsulated decrypting pkhs/pswd/plnd
+                byte[] decryptedDataStrippedInnerPrefix = new byte[decryptedData.Length - PREFIX_LENGTH];
+                Buffer.BlockCopy(decryptedData, PREFIX_LENGTH, decryptedDataStrippedInnerPrefix, 0, decryptedData.Length - PREFIX_LENGTH);
+                // Temporary end
+
+                string decryptedStr = Encoding.UTF8.GetString(decryptedDataStrippedInnerPrefix);
+                string decryptedStrTrimmed = Encoding.UTF8.GetString(decryptedDataStrippedInnerPrefix).TrimEnd(new[] { '\0' });
+                string decryptedStrASCII = Encoding.ASCII.GetString(decryptedDataStrippedInnerPrefix);
+                string decryptedStrASCIITrimmed = Encoding.ASCII.GetString(decryptedDataStrippedInnerPrefix).TrimEnd(new[] { '\0' });
 
                 //byte[] encryptedDataBytes = new byte[encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH];
                 //Buffer.BlockCopy(encryptedBytesWithKey, PUBLIC_KEY_HASH_LENGTH, encryptedDataBytes, 0, encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH);
@@ -301,6 +351,141 @@ namespace SebWindowsClient.CryptographyUtils
             }
             return dstBytes;
         }
+
+        public static string Encrypt(string dataToEncrypt, RSAParameters publicKeyInfo)
+        {
+            //// Our bytearray to hold all of our data after the encryption
+            byte[] encryptedBytes = new byte[0];
+            using (var RSA = new RSACryptoServiceProvider())
+            {
+                try
+                {
+                    //Create a new instance of RSACryptoServiceProvider.
+                    UTF8Encoding encoder = new UTF8Encoding();
+
+                    byte[] encryptThis = encoder.GetBytes(dataToEncrypt);
+
+                    //// Importing the public key
+                    RSA.ImportParameters(publicKeyInfo);
+
+                    int blockSize = (RSA.KeySize / 8) - 32;
+
+                    //// buffer to write byte sequence of the given block_size
+                    byte[] buffer = new byte[blockSize];
+
+                    byte[] encryptedBuffer = new byte[blockSize];
+
+                    //// Initializing our encryptedBytes array to a suitable size, depending on the size of data to be encrypted
+                    encryptedBytes = new byte[encryptThis.Length + blockSize - (encryptThis.Length % blockSize) + 32];
+
+                    for (int i = 0; i < encryptThis.Length; i += blockSize)
+                    {
+                        //// If there is extra info to be parsed, but not enough to fill out a complete bytearray, fit array for last bit of data
+                        if (2 * i > encryptThis.Length && ((encryptThis.Length - i) % blockSize != 0))
+                        {
+                            buffer = new byte[encryptThis.Length - i];
+                            blockSize = encryptThis.Length - i;
+                        }
+
+                        //// If the amount of bytes we need to decrypt isn't enough to fill out a block, only decrypt part of it
+                        if (encryptThis.Length < blockSize)
+                        {
+                            buffer = new byte[encryptThis.Length];
+                            blockSize = encryptThis.Length;
+                        }
+
+                        //// encrypt the specified size of data, then add to final array.
+                        Buffer.BlockCopy(encryptThis, i, buffer, 0, blockSize);
+                        encryptedBuffer = RSA.Encrypt(buffer, false);
+                        encryptedBuffer.CopyTo(encryptedBytes, i);
+                    }
+                }
+                catch (CryptographicException e)
+                {
+                    Console.Write(e);
+                }
+                finally
+                {
+                    //// Clear the RSA key container, deleting generated keys.
+                    RSA.PersistKeyInCsp = false;
+                }
+            }
+            //// Convert the byteArray using Base64 and returns as an encrypted string
+            return Convert.ToBase64String(encryptedBytes);
+        }
+
+        /// <summary>
+        /// Decrypt this message using this key
+        /// </summary>
+        /// <param name="dataToDecrypt">
+        /// The data To decrypt.
+        /// </param>
+        /// <param name="privateKeyInfo">
+        /// The private Key Info.
+        /// </param>
+        /// <returns>
+        /// The decrypted data.
+        /// </returns>
+        public static string Decrypt(string dataToDecrypt, RSAParameters privateKeyInfo)
+        {
+            //// The bytearray to hold all of our data after decryption
+            byte[] decryptedBytes;
+
+            //Create a new instance of RSACryptoServiceProvider.
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                try
+                {
+                    byte[] bytesToDecrypt = Convert.FromBase64String(dataToDecrypt);
+
+                    //// Import the private key info
+                    RSA.ImportParameters(privateKeyInfo);
+
+                    //// No need to subtract padding size when decrypting (OR do I?)
+                    int blockSize = RSA.KeySize / 8;
+
+                    //// buffer to write byte sequence of the given block_size
+                    byte[] buffer = new byte[blockSize];
+
+                    //// buffer containing decrypted information
+                    byte[] decryptedBuffer = new byte[blockSize];
+
+                    //// Initializes our array to make sure it can hold at least the amount needed to decrypt.
+                    decryptedBytes = new byte[dataToDecrypt.Length];
+
+                    for (int i = 0; i < bytesToDecrypt.Length; i += blockSize)
+                    {
+                        if (2 * i > bytesToDecrypt.Length && ((bytesToDecrypt.Length - i) % blockSize != 0))
+                        {
+                            buffer = new byte[bytesToDecrypt.Length - i];
+                            blockSize = bytesToDecrypt.Length - i;
+                        }
+
+                        //// If the amount of bytes we need to decrypt isn't enough to fill out a block, only decrypt part of it
+                        if (bytesToDecrypt.Length < blockSize)
+                        {
+                            buffer = new byte[bytesToDecrypt.Length];
+                            blockSize = bytesToDecrypt.Length;
+                        }
+
+                        Buffer.BlockCopy(bytesToDecrypt, i, buffer, 0, blockSize);
+                        decryptedBuffer = RSA.Decrypt(buffer, false);
+                        decryptedBuffer.CopyTo(decryptedBytes, i);
+                    }
+                }
+                finally
+                {
+                    //// Clear the RSA key container, deleting generated keys.
+                    RSA.PersistKeyInCsp = false;
+                }
+            }
+
+            //// We encode each byte with UTF8 and then write to a string while trimming off the extra empty data created by the overhead.
+            var encoder = new UTF8Encoding();
+            return encoder.GetString(decryptedBytes).TrimEnd(new[] { '\0' });
+
+        }
+
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>

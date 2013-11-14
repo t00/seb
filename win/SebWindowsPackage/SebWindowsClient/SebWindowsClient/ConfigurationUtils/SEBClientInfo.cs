@@ -261,26 +261,13 @@ namespace SebWindowsClient.ConfigurationUtils
 
             try
             {
-                // Load encrypted SebClient configuration and seserialise it in SEBClientConfig class 
+                // Load encrypted SebClient configuration  
                 SEBProtectionController sebProtectionControler = new SEBProtectionController();
-                //TextReader sebClientConfigFileReader = new StreamReader(SebClientConfigFile);
-                //string encryptedSebClientConfig = sebClientConfigFileReader.ReadToEnd();
-                //sebClientConfigFileReader.Close();
-
-                //// Decrypt seb client settings
-                //string decriptedSebClientConfig = sebProtectionControler.DecryptSebClientSettings(encryptedSebClientConfig);
-                //sebClientConfig = DeserializeFromDeryptedXML(decriptedSebClientConfig);
-
-                // Deserialise SebClient configuration in SEBClientConfig class
-                //TextReader sebClientConfigFileReader = new StreamReader(SebClientConfigFile);
-                //XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-                //sebClientConfig = (SEBClientConfig)deserializer.Deserialize(sebClientConfigFileReader);
 
 
                 if (!OpenSebFile(SebClientConfigFile))
                     return false;
 
-                //sebSettings.
 
                 // Initialise Loger, if enabled
                 if ((Boolean)getSebSetting(SEBSettings.MessageEnableLogging)[SEBSettings.MessageEnableLogging])
@@ -321,23 +308,14 @@ namespace SebWindowsClient.ConfigurationUtils
              {
                  // Read the configuration settings from .seb file
                  // Decrypt the configuration settings
-                 // Convert the XML structure into a C# object
 
-                 SEBProtectionController sebProtectionControler = new SEBProtectionController();
-                 //TextReader textReader;
-                 //String encryptedSettings = "";
+                 SEBProtectionController sebProtectionController = new SEBProtectionController();
                  String decryptedSettings = "";
-                 //String password          = "Seb";
-                 //X509Certificate2 certificate = null;
 
-                 //textReader = new StreamReader(fileName);
-                 //encryptedSettings = textReader.ReadToEnd();
-                 //textReader.Close();
                  byte[] encryptedSettings = File.ReadAllBytes(fileName);
 
-                 decryptedSettings = sebProtectionControler.DecryptSebClientSettings(encryptedSettings);
+                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
                  //decryptedSettings = decryptedSettings.Trim();
-                 //decryptedSettings = encryptedSettings;
 
                  sebSettings = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
 
