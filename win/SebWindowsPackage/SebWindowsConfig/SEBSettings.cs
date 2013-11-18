@@ -801,21 +801,11 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 SEBProtectionController sebProtectionController = new SEBProtectionController();
 
-                //TextReader textReader;
-                //String encryptedSettings     = "";
-                //String password              = "seb";
-                //X509Certificate2 certificate = null;
-
-                //textReader        = new StreamReader(fileName);
-                //encryptedSettings = textReader.ReadToEnd();
-                //textReader.Close();
-
                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
                 String decryptedSettings = "";
 
                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
               //decryptedSettings = decryptedSettings.Trim();
-              //decryptedSettings = encryptedSettings;
 
                 SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
             }
@@ -849,8 +839,8 @@ namespace SebWindowsClient.ConfigurationUtils
             {
                 // If the configuration file already exists, delete it
                 // and write it again from scratch with new data
-                if (File.Exists(fileName))
-                    File.Delete(fileName);
+                //if (File.Exists(fileName))
+                //    File.Delete(fileName);
 
                 // Convert the C# object into an XML structure.
                 // Encrypt the configuration settings.
@@ -858,25 +848,19 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 SEBProtectionController sebProtectionController = new SEBProtectionController();
 
-                Boolean isEncrypted = false;
+                byte[] encryptedSettings;
+                String decryptedSettings = "";
 
-                if (isEncrypted == true)
+                String password              = "seb";
+                X509Certificate2 certificate = null;
+
+                if (false)
                 {
-                    TextWriter textWriter;
-                    String encryptedSettings     = "";
-                    String decryptedSettings     = "";
-                    String password              = "seb";
-                    X509Certificate2 certificate = null;
-
                     decryptedSettings = Plist.writeXml(SEBSettings.settingsNew);
+                    encryptedSettings = sebProtectionController.EncryptWithPassword   (decryptedSettings, password);
+                    encryptedSettings = sebProtectionController.EncryptWithCertificate(decryptedSettings, certificate);
 
-                  //encryptedSettings = sebProtectionController.EncryptWithPassword   (decryptedSettings, password);
-                  //encryptedSettings = sebProtectionController.EncryptWithCertificate(decryptedSettings, certificate);
-                    encryptedSettings = decryptedSettings;
-
-                    textWriter = new StreamWriter(fileName);
-                    textWriter.Write(encryptedSettings);
-                    textWriter.Close();
+                    File.WriteAllBytes(fileName, encryptedSettings);
                 }
                 else // unencrypted .xml file
                 {
