@@ -837,11 +837,6 @@ namespace SebWindowsClient.ConfigurationUtils
         {
             try 
             {
-                // If the configuration file already exists, delete it
-                // and write it again from scratch with new data
-                //if (File.Exists(fileName))
-                //    File.Delete(fileName);
-
                 // Convert the C# object into an XML structure.
                 // Encrypt the configuration settings.
                 // Write the configuration settings into .seb file.
