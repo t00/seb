@@ -305,7 +305,7 @@
     <key>showTaskBar</key>
     <true/>
     <key>startURL</key>
-    <string>https://moodle-app1-skal.let.ethz.ch/mod/quiz/view.php?id=10524</string>
+    <string>https://www.ethz.ch/de.html</string>
     <key>URLFilterRules</key>
     <array>
       <dict>
