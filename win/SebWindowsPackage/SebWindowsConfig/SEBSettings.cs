@@ -858,11 +858,6 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 SEBProtectionController sebProtectionController = new SEBProtectionController();
 
-                //TextWriter textWriter;
-                //String encryptedSettings     = "";
-                //String password              = "seb";
-                //X509Certificate2 certificate = null;
-
                 Boolean isEncrypted = false;
 
                 if (isEncrypted == true)
@@ -875,8 +870,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
                     decryptedSettings = Plist.writeXml(SEBSettings.settingsNew);
 
-                  //encryptedSettings = sebController.EncryptWithPassword   (decryptedSettings, password);
-                  //encryptedSettings = sebController.EncryptWithCertificate(decryptedSettings, certificate);
+                  //encryptedSettings = sebProtectionController.EncryptWithPassword   (decryptedSettings, password);
+                  //encryptedSettings = sebProtectionController.EncryptWithCertificate(decryptedSettings, certificate);
                     encryptedSettings = decryptedSettings;
 
                     textWriter = new StreamWriter(fileName);
