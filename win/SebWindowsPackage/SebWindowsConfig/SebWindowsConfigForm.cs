@@ -34,7 +34,9 @@ namespace SebWindowsConfig
             InitializeComponent();
 
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
-            SEBSettings.BuildUpDefaultSettings();
+            SEBSettings.RestoreDefaultAndNewSettings();
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
 
             // Initialise the global variables for the GUI widgets
             InitialiseGlobalVariablesForGUIWidgets();
@@ -42,41 +44,11 @@ namespace SebWindowsConfig
             // Initialise the GUI widgets themselves
             InitialiseGUIWidgets();
 
-            // IMPORTANT:
-            // Create a second dictionary "new settings"
-            // and copy all default settings to the new settings.
-            // This must be done BEFORE any config file is loaded
-            // and assures that every (key, value) pair is contained
-            // in the "new" and "def" dictionaries,
-            // even if the loaded "tmp" dictionary does NOT contain every pair.
-
-            SEBSettings.settingsNew.Clear();
-            SEBSettings.CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
-            SEBSettings.CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
-
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
-
-            // When starting up, set the widgets to the default values
-            UpdateAllWidgetsOfProgram();
-
-            // Try to open the configuration file ("SebClient.ini/xml/seb")
-            // given in the local directory (where SebWindowsConfig.exe was called)
-            currentDireSebConfigFile = Directory.GetCurrentDirectory();
-            currentFileSebConfigFile = "";
-            currentPathSebConfigFile = "";
-
-            defaultDireSebConfigFile = Directory.GetCurrentDirectory();
-            defaultFileSebConfigFile =                  SEBSettings.DefaultSebConfigXml;
-            defaultPathSebConfigFile = Path.GetFullPath(SEBSettings.DefaultSebConfigXml);
-
             // Read the settings from the standard configuration file??? Currently not
             //OpenConfigurationFile(defaultPathSebConfigFile);
 
-            openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
-            saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
-          //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-          //folderBrowserDialogLogDirectoryWin     .RootFolder = Environment.SpecialFolder.MyDocuments;
+            // When starting up, set the widgets to the default values
+            UpdateAllWidgetsOfProgram();
 
         } // end of contructor   SebWindowsConfigForm()
 

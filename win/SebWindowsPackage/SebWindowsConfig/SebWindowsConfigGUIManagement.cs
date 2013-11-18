@@ -380,6 +380,22 @@ namespace SebWindowsConfig
         // *******************************************************
         private void InitialiseGUIWidgets()
         {
+            // At program start, no configuration file is loaded
+            currentDireSebConfigFile = Directory.GetCurrentDirectory();
+            currentFileSebConfigFile = "";
+            currentPathSebConfigFile = "";
+
+            // The default configuration file ("SebClient.seb")
+            // lies in the LocalAppData directory
+            defaultDireSebConfigFile = Directory.GetCurrentDirectory();
+            defaultFileSebConfigFile =                  SEBSettings.DefaultSebConfigXml;
+            defaultPathSebConfigFile = Path.GetFullPath(SEBSettings.DefaultSebConfigXml);
+
+            openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
+            saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
+          //folderBrowserDialogDownloadDirectoryWin.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+          //folderBrowserDialogLogDirectoryWin     .RootFolder = Environment.SpecialFolder.MyDocuments;
+
             // Assign the fixed entries to the ListBoxes and ComboBoxes
             listBoxExitKey1.Items.AddRange(StringFunctionKey);
             listBoxExitKey2.Items.AddRange(StringFunctionKey);
