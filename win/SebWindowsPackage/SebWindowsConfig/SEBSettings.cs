@@ -384,7 +384,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // CryptoIdentity is stored additionally
             settingsInt[StateDef, SEBSettings.ValueCryptoIdentity] = 0;
-            settingsStr [StateDef, SEBSettings.ValueCryptoIdentity] = "";
+            settingsStr[StateDef, SEBSettings.ValueCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
             settingsDef.Add(SEBSettings.MessageBrowserViewMode             , 0);
@@ -400,8 +400,8 @@ namespace SebWindowsClient.ConfigurationUtils
             // MainBrowserWindow Width and Height is stored additionally
             settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 1;
             settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 1;
-            settingsStr [StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
-            settingsStr [StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
+            settingsStr[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
+            settingsStr[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
             settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
@@ -422,8 +422,8 @@ namespace SebWindowsClient.ConfigurationUtils
             // NewBrowserWindow Width and Height is stored additionally
             settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 3;
             settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 1;
-            settingsStr [StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
-            settingsStr [StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
+            settingsStr[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
+            settingsStr[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
             settingsDef.Add(SEBSettings.MessageAllowDownUploads        , true);
@@ -533,40 +533,40 @@ namespace SebWindowsClient.ConfigurationUtils
             proxiesDataDef.Add(SEBSettings.MessageAutoConfigurationURL       , "");
             proxiesDataDef.Add(SEBSettings.MessageFTPPassive                 , true);
 
-            proxiesDataDef.Add(SEBSettings.MessageHTTPEnable          , false);
-            proxiesDataDef.Add(SEBSettings.MessageHTTPPort            , 0);
-            proxiesDataDef.Add(SEBSettings.MessageHTTPHost            , "");
+            proxiesDataDef.Add(SEBSettings.MessageHTTPEnable  , false);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPPort    , 0);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPHost    , "");
             proxiesDataDef.Add(SEBSettings.MessageHTTPRequires, false);
-            proxiesDataDef.Add(SEBSettings.MessageHTTPUsername        , "");
-            proxiesDataDef.Add(SEBSettings.MessageHTTPPassword        , "");
+            proxiesDataDef.Add(SEBSettings.MessageHTTPUsername, "");
+            proxiesDataDef.Add(SEBSettings.MessageHTTPPassword, "");
 
-            proxiesDataDef.Add(SEBSettings.MessageHTTPSEnable          , false);
-            proxiesDataDef.Add(SEBSettings.MessageHTTPSPort            , 0);
-            proxiesDataDef.Add(SEBSettings.MessageHTTPSHost            , "");
+            proxiesDataDef.Add(SEBSettings.MessageHTTPSEnable  , false);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPSPort    , 0);
+            proxiesDataDef.Add(SEBSettings.MessageHTTPSHost    , "");
             proxiesDataDef.Add(SEBSettings.MessageHTTPSRequires, false);
-            proxiesDataDef.Add(SEBSettings.MessageHTTPSUsername        , "");
-            proxiesDataDef.Add(SEBSettings.MessageHTTPSPassword        , "");
+            proxiesDataDef.Add(SEBSettings.MessageHTTPSUsername, "");
+            proxiesDataDef.Add(SEBSettings.MessageHTTPSPassword, "");
 
-            proxiesDataDef.Add(SEBSettings.MessageFTPEnable          , false);
-            proxiesDataDef.Add(SEBSettings.MessageFTPPort            , 0);
-            proxiesDataDef.Add(SEBSettings.MessageFTPHost            , "");
+            proxiesDataDef.Add(SEBSettings.MessageFTPEnable  , false);
+            proxiesDataDef.Add(SEBSettings.MessageFTPPort    , 0);
+            proxiesDataDef.Add(SEBSettings.MessageFTPHost    , "");
             proxiesDataDef.Add(SEBSettings.MessageFTPRequires, false);
-            proxiesDataDef.Add(SEBSettings.MessageFTPUsername        , "");
-            proxiesDataDef.Add(SEBSettings.MessageFTPPassword        , "");
+            proxiesDataDef.Add(SEBSettings.MessageFTPUsername, "");
+            proxiesDataDef.Add(SEBSettings.MessageFTPPassword, "");
 
-            proxiesDataDef.Add(SEBSettings.MessageSOCKSEnable          , false);
-            proxiesDataDef.Add(SEBSettings.MessageSOCKSPort            , 0);
-            proxiesDataDef.Add(SEBSettings.MessageSOCKSHost            , "");
+            proxiesDataDef.Add(SEBSettings.MessageSOCKSEnable  , false);
+            proxiesDataDef.Add(SEBSettings.MessageSOCKSPort    , 0);
+            proxiesDataDef.Add(SEBSettings.MessageSOCKSHost    , "");
             proxiesDataDef.Add(SEBSettings.MessageSOCKSRequires, false);
-            proxiesDataDef.Add(SEBSettings.MessageSOCKSUsername        , "");
-            proxiesDataDef.Add(SEBSettings.MessageSOCKSPassword        , "");
+            proxiesDataDef.Add(SEBSettings.MessageSOCKSUsername, "");
+            proxiesDataDef.Add(SEBSettings.MessageSOCKSPassword, "");
 
-            proxiesDataDef.Add(SEBSettings.MessageRTSPEnable          , false);
-            proxiesDataDef.Add(SEBSettings.MessageRTSPPort            , 0);
-            proxiesDataDef.Add(SEBSettings.MessageRTSPHost            , "");
+            proxiesDataDef.Add(SEBSettings.MessageRTSPEnable  , false);
+            proxiesDataDef.Add(SEBSettings.MessageRTSPPort    , 0);
+            proxiesDataDef.Add(SEBSettings.MessageRTSPHost    , "");
             proxiesDataDef.Add(SEBSettings.MessageRTSPRequires, false);
-            proxiesDataDef.Add(SEBSettings.MessageRTSPUsername        , "");
-            proxiesDataDef.Add(SEBSettings.MessageRTSPPassword        , "");
+            proxiesDataDef.Add(SEBSettings.MessageRTSPUsername, "");
+            proxiesDataDef.Add(SEBSettings.MessageRTSPPassword, "");
 
             bypassedProxyDataDef = "";
 
