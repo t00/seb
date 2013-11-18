@@ -292,8 +292,6 @@ namespace SebWindowsClient.ConfigurationUtils
         public static Dictionary<string, object> settingsTmp = new Dictionary<string, object>();
         public static Dictionary<string, object> settingsDef = new Dictionary<string, object>();
 
-        public static SEBProtectionController    sebController  = new SEBProtectionController();
-
         public static int                        permittedProcessIndex;
         public static List<object>               permittedProcessList    = new List<object>();
         public static Dictionary<string, object> permittedProcessData    = new Dictionary<string, object>();
@@ -797,18 +795,18 @@ namespace SebWindowsClient.ConfigurationUtils
         {
             try
             {
-                // Read the configuration settings from .seb file
-                // Decrypt the configuration settings
-                // Convert the XML structure into a C# object
+                // Read the configuration settings from .seb file.
+                // Decrypt the configuration settings.
+                // Convert the XML structure into a C# object.
 
                 SEBProtectionController sebProtectionController = new SEBProtectionController();
 
                 //TextReader textReader;
-                //String encryptedSettings = "";
-                //String password          = "Seb";
+                //String encryptedSettings     = "";
+                //String password              = "seb";
                 //X509Certificate2 certificate = null;
 
-                //textReader = new StreamReader(fileName);
+                //textReader        = new StreamReader(fileName);
                 //encryptedSettings = textReader.ReadToEnd();
                 //textReader.Close();
 
@@ -829,6 +827,14 @@ namespace SebWindowsClient.ConfigurationUtils
                 return false;
             }
 
+            // If the settings could be read from file,
+            // recreate "def" settings and "new" settings
+            SEBSettings.RestoreDefaultAndNewSettings();
+
+            // And merge "tmp" settings into "new" settings
+            SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
+            SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
+
             return true;
         }
 
@@ -846,24 +852,31 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (File.Exists(fileName))
                     File.Delete(fileName);
 
-                // Convert the C# object into an XML structure
-                // If unencrypted, encrypt the configuration settings
-                // Write the configuration settings into .xml or .seb file
+                // Convert the C# object into an XML structure.
+                // Encrypt the configuration settings.
+                // Write the configuration settings into .seb file.
+
+                SEBProtectionController sebProtectionController = new SEBProtectionController();
+
+                //TextWriter textWriter;
+                //String encryptedSettings     = "";
+                //String password              = "seb";
+                //X509Certificate2 certificate = null;
 
                 Boolean isEncrypted = false;
 
                 if (isEncrypted == true)
                 {
                     TextWriter textWriter;
-                    String encryptedSettings = "";
-                    String decryptedSettings = "";
-                    String password          = "seb";
+                    String encryptedSettings     = "";
+                    String decryptedSettings     = "";
+                    String password              = "seb";
                     X509Certificate2 certificate = null;
 
                     decryptedSettings = Plist.writeXml(SEBSettings.settingsNew);
 
-                  //encryptedSettings = sebController.EncryptWithPassword  (decryptedSettings, password);
-                  //encryptedSettings = sebController.EncryptWithCertifikat(decryptedSettings, certificate);
+                  //encryptedSettings = sebController.EncryptWithPassword   (decryptedSettings, password);
+                  //encryptedSettings = sebController.EncryptWithCertificate(decryptedSettings, certificate);
                     encryptedSettings = decryptedSettings;
 
                     textWriter = new StreamWriter(fileName);

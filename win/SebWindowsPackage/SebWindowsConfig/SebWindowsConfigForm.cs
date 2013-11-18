@@ -60,16 +60,8 @@ namespace SebWindowsConfig
         // *************************************************
         private Boolean LoadConfigurationFileIntoEditor(String fileName)
         {
-            // Read the file into "tmp" settings
+            // Read the file into "new" settings
             if (!SEBSettings.ReadSebConfigurationFile(fileName)) return false;
-
-            // If the settings could be read from file,
-            // recreate "def" settings and "new" settings
-            SEBSettings.RestoreDefaultAndNewSettings();
-
-            // And merge "tmp" settings into "new" settings
-            SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
-            SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
 
             // GUI-related part: Update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
