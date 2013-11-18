@@ -277,12 +277,84 @@
     </array>
     <key>proxies</key>
     <dict>
-      <key>FTPPassive</key>
-      <true/>
-      <key>RTSPPort</key>
-      <string></string>
-      <key>RTSPProxy</key>
-      <string></string>
+		<key>ExceptionsList</key>
+		<array>
+			<string>*.local, 169.254/16</string>
+			<string>*.regional, 168.253/15</string>
+			<string>*.global, 167.252/14</string>
+		</array>
+		<key>ExcludeSimpleHostnames</key>
+		<true />
+		<key>FTPPassive</key>
+		<true />
+		<key>AutoDiscoveryEnabled</key>
+		<false />
+		<key>AutoConfigurationEnabled</key>
+		<true />
+		<key>AutoConfigurationJavaScript</key>
+		<string></string>
+		<key>AutoConfigurationURL</key>
+		<string>www.proxy-config-file.org</string>
+		<key>HTTPEnable</key>
+		<false />
+		<key>HTTPPort</key>
+		<integer>0</integer>
+		<key>HTTPProxy</key>
+		<string></string>
+		<key>HTTPRequiresPassword</key>
+		<false />
+		<key>HTTPUsername</key>
+		<string></string>
+		<key>HTTPPassword</key>
+		<string></string>
+		<key>HTTPSEnable</key>
+		<false />
+		<key>HTTPSPort</key>
+		<integer>0</integer>
+		<key>HTTPSProxy</key>
+		<string></string>
+		<key>HTTPSRequiresPassword</key>
+		<false />
+		<key>HTTPSUsername</key>
+		<string></string>
+		<key>HTTPSPassword</key>
+		<string></string>
+		<key>FTPEnable</key>
+		<false />
+		<key>FTPPort</key>
+		<integer>0</integer>
+		<key>FTPProxy</key>
+		<string></string>
+		<key>FTPRequiresPassword</key>
+		<false />
+		<key>FTPUsername</key>
+		<string></string>
+		<key>FTPPassword</key>
+		<string></string>
+		<key>SOCKSEnable</key>
+		<false />
+		<key>SOCKSPort</key>
+		<integer>0</integer>
+		<key>SOCKSProxy</key>
+		<string></string>
+		<key>SOCKSRequiresPassword</key>
+		<false />
+		<key>SOCKSUsername</key>
+		<string></string>
+		<key>SOCKSPassword</key>
+		<string></string>
+		<key>RTSPEnable</key>
+		<false />
+		<key>RTSPPort</key>
+		<integer>0</integer>
+		<key>RTSPProxy</key>
+		<string></string>
+		<key>RTSPRequiresPassword</key>
+		<false />
+		<key>RTSPUsername</key>
+		<string></string>
+		<key>RTSPPassword</key>
+		<string></string>
     </dict>
     <key>proxySettingsPolicy</key>
     <integer>0</integer>
