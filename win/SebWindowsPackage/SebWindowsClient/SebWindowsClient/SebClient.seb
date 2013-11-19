@@ -147,19 +147,19 @@
     <key>mainBrowserWindowPositioning</key>
     <integer>1</integer>
     <key>mainBrowserWindowWidth</key>
-    <string>600</string>
+    <string>1000</string>
     <key>monitorProcesses</key>
     <false/>
     <key>newBrowserWindowByLinkBlockForeign</key>
     <false/>
     <key>newBrowserWindowByLinkHeight</key>
-    <string>100</string>
+    <string>400</string>
     <key>newBrowserWindowByLinkPolicy</key>
     <integer>2</integer>
     <key>newBrowserWindowByLinkPositioning</key>
     <integer>2</integer>
     <key>newBrowserWindowByLinkWidth</key>
-    <string>1000</string>
+    <string>600</string>
     <key>newBrowserWindowByScriptBlockForeign</key>
     <false/>
     <key>newBrowserWindowByScriptPolicy</key>
