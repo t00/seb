@@ -180,8 +180,8 @@ namespace SebWindowsConfig
         static  String[]  StringSebPurpose                = new  String[2];
         static  String[]  StringSebMode                   = new  String[2];
         static  String[]  StringBrowserViewMode           = new  String[2];
-        static  String[]  StringWindowWidth               = new  String[4];
-        static  String[]  StringWindowHeight              = new  String[4];
+        static  String[]  StringWindowWidth               = new  String[5];
+        static  String[]  StringWindowHeight              = new  String[5];
         static  String[]  StringWindowPositioning         = new  String[3];
         static  String[]  StringTaskBarHeight             = new  String[3];
         static  String[]  StringPolicyLinkOpening         = new  String[3];
@@ -258,16 +258,18 @@ namespace SebWindowsConfig
             StringBrowserViewMode[1] = "use full screen mode";
 
             // Define the strings for the Window Width
-            StringWindowWidth[0] = "50%";
-            StringWindowWidth[1] = "100%";
-            StringWindowWidth[2] = "800";
-            StringWindowWidth[3] = "1000";
+            StringWindowWidth[0] = "";
+            StringWindowWidth[1] = "50%";
+            StringWindowWidth[2] = "100%";
+            StringWindowWidth[3] = "800";
+            StringWindowWidth[4] = "1000";
 
             // Define the strings for the Window Height
-            StringWindowHeight[0] = "80%";
-            StringWindowHeight[1] = "100%";
-            StringWindowHeight[2] = "600";
-            StringWindowHeight[3] = "800";
+            StringWindowHeight[0] = "";
+            StringWindowHeight[1] = "80%";
+            StringWindowHeight[2] = "100%";
+            StringWindowHeight[3] = "600";
+            StringWindowHeight[4] = "800";
 
             // Define the strings for the Window Positioning
             StringWindowPositioning[0] = "Left";

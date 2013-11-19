@@ -398,8 +398,8 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsDef.Add(SEBSettings.MessageTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
-            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 1;
-            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 1;
+            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 2;
+            settingsInt[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 2;
             settingsStr[StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
             settingsStr[StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
@@ -420,8 +420,8 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsDef.Add(SEBSettings.MessageEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
-            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 3;
-            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 1;
+            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
+            settingsInt[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 2;
             settingsStr[StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
             settingsStr[StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
