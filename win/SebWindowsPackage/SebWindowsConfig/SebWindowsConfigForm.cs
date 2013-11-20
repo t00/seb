@@ -95,8 +95,9 @@ namespace SebWindowsConfig
             UpdateAllWidgetsOfProgram();
             buttonRevertToLastOpened.Enabled = true;
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
-            //PrintSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmp.txt");
-            //PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmp.txt");
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
             return true;
         }
 

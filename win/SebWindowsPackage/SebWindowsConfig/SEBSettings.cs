@@ -744,7 +744,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *************************
         // Print settings dictionary
         // *************************
-        public static void PrintSettingsDictionary(Dictionary<string, object> sebSettings,
+        public static void PrintSettingsDictionary(Dictionary<string, object> sebSettingsSource,
                                                    String                     fileName)
         {
             FileStream   fileStream;
@@ -761,23 +761,79 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Write the header lines
             fileWriter.WriteLine("");
-            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettings.Count);
+            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettingsSource.Count);
             fileWriter.WriteLine("");
 
             // Print (key, value) pairs of dictionary to file
-            foreach (KeyValuePair<string, object> pair in sebSettings)
+            foreach (KeyValuePair<string, object> pair in sebSettingsSource)
             {
-                string key   = pair.Key;
-                object value = pair.Value;
-                string type  = value.GetType().ToString();
+                string key     = pair.Key;
+                object value   = pair.Value;
+                string type    = value.GetType().ToString();
+                bool   complex = false;
 
-//                if (key.GetType == Type.Dictionary)
-//                    CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
+                if (type.Contains("List"      )) complex = true;
+                if (type.Contains("Dictionary")) complex = true;
+                if (type.Contains("List"      )) type  = "List/Array";
+                if (type.Contains("Dictionary")) type  = "Dictionary";
+                if (type.Contains("List"      )) value = "List/Array";
+                if (type.Contains("Dictionary")) value = "Dictionary";
 
-                fileWriter.WriteLine("key   = " + key);
-                fileWriter.WriteLine("value = " + value);
-                fileWriter.WriteLine("type  = " + type);
+                if (complex) fileWriter.WriteLine("");
+                fileWriter.Write(key);
+                fileWriter.Write("=");
+                fileWriter.Write(value);
+              //fileWriter.Write(type);
                 fileWriter.WriteLine("");
+
+                if (key.Equals(SEBSettings.MessageURLFilterRules))
+                {
+                    // Get the URL Filter Rules
+                    SEBSettings.urlFilterRuleList = (List<object>)sebSettingsSource[SEBSettings.MessageURLFilterRules];
+
+                    // Traverse URL Filter Rules of currently opened file
+                    for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
+                    {
+                        SEBSettings.urlFilterRuleData   = (Dictionary<string, object>)SEBSettings.urlFilterRuleList[ruleIndex];
+                        Boolean active                  = (Boolean                   )SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
+                        String  expression              = (String                    )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
+                        SEBSettings.urlFilterActionList = (List<object>              )SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+
+                        // Print current Filter Rule
+                        fileWriter.WriteLine("   " + MessageActive     + "=" + active.ToString());
+                        fileWriter.WriteLine("   " + MessageExpression + "=" + expression);
+
+                        // Print actions of current rule
+                        for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
+                        {
+                            SEBSettings.urlFilterActionData = (Dictionary<string, object>)SEBSettings.urlFilterActionList[actionIndex];
+
+                            Boolean Active     = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageActive];
+                            Boolean Regex      = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageRegex];
+                            String  Expression = (String )SEBSettings.urlFilterActionData[SEBSettings.MessageExpression];
+                            Int32   Action     = (Int32  )SEBSettings.urlFilterActionData[SEBSettings.MessageAction];
+
+                            // Print Action row for current Filter Rule
+                            fileWriter.WriteLine("      " + MessageActive     + "=" + Active.ToString());
+                            fileWriter.WriteLine("      " + MessageRegex      + "=" + Regex .ToString());
+                            fileWriter.WriteLine("      " + MessageExpression + "=" + Expression);
+                            fileWriter.WriteLine("      " + MessageAction     + "=" + Action.ToString());
+/*
+                            foreach (KeyValuePair<string, object> p in sebSettingsSource)
+                            {
+                                key     = p.Key;
+                                value   = p.Value;
+                                type    = value.GetType().ToString();
+                                complex = false;
+                                fileWriter.WriteLine("      " + p.Key + "=" + p.Value);
+                            }
+*/
+                        } // next actionIndex
+                    } // next ruleIndex
+                } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
+
+
+                if (complex) fileWriter.WriteLine("");
             }
 
             // Close the file
@@ -824,6 +880,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // And merge "tmp" settings into "new" settings
             SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
             SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
+
 
             return true;
         }
