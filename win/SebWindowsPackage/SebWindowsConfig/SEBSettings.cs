@@ -780,11 +780,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (type.Contains("Dictionary")) value = "Dictionary";
 
                 if (complex) fileWriter.WriteLine("");
-                fileWriter.Write(key);
-                fileWriter.Write("=");
-                fileWriter.Write(value);
-              //fileWriter.Write(type);
-                fileWriter.WriteLine("");
+                fileWriter.WriteLine("" + key + "=" + value);
 
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
@@ -800,8 +796,19 @@ namespace SebWindowsClient.ConfigurationUtils
                         SEBSettings.urlFilterActionList = (List<object>              )SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
                         // Print current Filter Rule
-                        fileWriter.WriteLine("   " + MessageActive     + "=" + active.ToString());
-                        fileWriter.WriteLine("   " + MessageExpression + "=" + expression);
+                        fileWriter.WriteLine("");
+                        fileWriter.WriteLine("   " + "Rule Nr: "        + ruleIndex.ToString());
+                        fileWriter.WriteLine("   " + MessageActive      + "=" + active.ToString());
+                        fileWriter.WriteLine("   " + MessageExpression  + "=" + expression);
+                        fileWriter.WriteLine("   " + MessageRuleActions + "=" + "List/Array");
+                        fileWriter.WriteLine("");
+
+/*
+                        foreach (KeyValuePair<string, object> p in SEBSettings.urlFilterRuleData)
+                        {
+                            fileWriter.WriteLine("   " + p.Key + "=" + p.Value);
+                        }
+*/
 
                         // Print actions of current rule
                         for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
@@ -814,26 +821,25 @@ namespace SebWindowsClient.ConfigurationUtils
                             Int32   Action     = (Int32  )SEBSettings.urlFilterActionData[SEBSettings.MessageAction];
 
                             // Print Action row for current Filter Rule
+                            fileWriter.WriteLine("      " + "Action Nr: "     + actionIndex.ToString());
                             fileWriter.WriteLine("      " + MessageActive     + "=" + Active.ToString());
                             fileWriter.WriteLine("      " + MessageRegex      + "=" + Regex .ToString());
                             fileWriter.WriteLine("      " + MessageExpression + "=" + Expression);
                             fileWriter.WriteLine("      " + MessageAction     + "=" + Action.ToString());
+
 /*
-                            foreach (KeyValuePair<string, object> p in sebSettingsSource)
+                            foreach (KeyValuePair<string, object> p in SEBSettings.urlFilterActionData)
                             {
-                                key     = p.Key;
-                                value   = p.Value;
-                                type    = value.GetType().ToString();
-                                complex = false;
                                 fileWriter.WriteLine("      " + p.Key + "=" + p.Value);
                             }
 */
+                            fileWriter.WriteLine("");
                         } // next actionIndex
+                        //fileWriter.WriteLine("");
                     } // next ruleIndex
                 } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
 
 
-                if (complex) fileWriter.WriteLine("");
             }
 
             // Close the file
