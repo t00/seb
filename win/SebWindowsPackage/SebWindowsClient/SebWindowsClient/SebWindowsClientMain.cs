@@ -142,6 +142,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private static bool InitSebDesktop()
         {
+            SebWindowsClientForm.SetVisibility(true);
 
            // Set SebClient configuration
             if (!SEBClientInfo.SetSebClientConfiguration())

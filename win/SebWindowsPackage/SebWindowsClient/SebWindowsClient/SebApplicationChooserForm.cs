@@ -218,12 +218,6 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SelectNextListItem()
         {
-            //uint selectedWindowThreadId = GetWindowThreadProcessId(this.Handle, IntPtr.Zero);
-            IntPtr hWndForegroundWindow = GetForegroundWindow();
-            uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
-
-            uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
-            AttachThreadInput(activeThreadID, currentThreadID, true);
             //this.Focus();
             if (this.listApplications.Items.Count > 0)
             {
@@ -238,15 +232,33 @@ namespace SebWindowsClient
                 }
                 this.listApplications.Items[selectedItemIndex].Selected = true;
                 this.listApplications.Items[selectedItemIndex].Focused = true;
-                //this.listApplications.Items[selectedItemIndex].ForeColor = Color.White;
-                //this.listApplications.Items[lastSelectedItemIndex].ForeColor = Color.Black; ;
-                SetForegroundWindow(lWindowHandles[selectedItemIndex]);
-                BringWindowToTop(lWindowHandles[selectedItemIndex]);
-                ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.Restore);
+                string selectedThreadName = this.listApplications.Items[selectedItemIndex].Text;
+                if (!selectedThreadName.Contains("xulrunner"))
+                {
+                    //this.listApplications.Items[selectedItemIndex].ForeColor = Color.White;
+                    //this.listApplications.Items[lastSelectedItemIndex].ForeColor = Color.Black; ;
+                    //uint selectedWindowThreadId = GetWindowThreadProcessId(this.Handle, IntPtr.Zero);
+                    IntPtr hWndForegroundWindow = GetForegroundWindow();
+                    uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
+                    uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+                    AttachThreadInput(activeThreadID, currentThreadID, true);
+                    SetForegroundWindow(lWindowHandles[selectedItemIndex]);
+                    BringWindowToTop(lWindowHandles[selectedItemIndex]);
+                    ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
+                    AttachThreadInput(activeThreadID, currentThreadID, false);
+                }
+                else
+                {
+                    IntPtr hWndForegroundWindow = GetForegroundWindow();
+                    //uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
+                    //uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+                    SetForegroundWindow(lWindowHandles[selectedItemIndex]);
+                    //BringWindowToTop(lWindowHandles[selectedItemIndex]);
+                    //ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
+                }
                 selectedItemIndex++;
+                this.listApplications.Focus();
             }
-            AttachThreadInput(activeThreadID, currentThreadID, false);
-            this.listApplications.Focus();
         }
 
         public static void forceSetForegroundWindow(IntPtr hWnd)
@@ -269,24 +281,17 @@ namespace SebWindowsClient
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------------------
-        private void listApplications_ItemActivate(object sender, EventArgs e)
-        {
-            // identify which button was clicked and perform necessary actions
-            ListView listApplications = sender as ListView;
-            if (listApplications.SelectedItems.Count > 0)
-            {
-                ListViewItem listViewItem = listApplications.SelectedItems[0]; //the second time you will get the selected item here
-                SetForegroundWindow(lWindowHandles[listViewItem.Index]);
-                //SetActiveWindow(lWindowHandles[listViewItem.Index]);
-                ShowWindow(lWindowHandles[listViewItem.Index], WindowShowStyle.Restore);
-            }
-        }
-
-
-    //    public void fillText(string text)
-    //    {
-    //        textBox1.Text = "";
-    //        textBox1.Text = text;
-    //    }
+        //private void listApplications_ItemActivate(object sender, EventArgs e)
+        //{
+        //    // identify which button was clicked and perform necessary actions
+        //    ListView listApplications = sender as ListView;
+        //    if (listApplications.SelectedItems.Count > 0)
+        //    {
+        //        ListViewItem listViewItem = listApplications.SelectedItems[0]; //the second time you will get the selected item here
+        //        SetForegroundWindow(lWindowHandles[listViewItem.Index]);
+        //        //SetActiveWindow(lWindowHandles[listViewItem.Index]);
+        //        ShowWindow(lWindowHandles[listViewItem.Index], WindowShowStyle.ShowNormal);
+        //    }
+        //}
     }
 }

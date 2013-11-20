@@ -291,6 +291,7 @@ namespace SebWindowsClient
             //this.Height = height;
             this.Width = width;
             this.Location = new Point(x, y);
+            this.TopMost = true;
             return true;
         }
 

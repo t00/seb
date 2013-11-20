@@ -45,7 +45,6 @@
             this.listApplications.Size = new System.Drawing.Size(523, 204);
             this.listApplications.TabIndex = 0;
             this.listApplications.UseCompatibleStateImageBehavior = false;
-            this.listApplications.ItemActivate += new System.EventHandler(this.listApplications_ItemActivate);
             // 
             // SebApplicationChooserForm
             // 
