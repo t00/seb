@@ -8,6 +8,10 @@ using System.Security.Cryptography.X509Certificates;
 using SebWindowsClient.CryptographyUtils;
 using PlistCS;
 
+using ListObj  = System.Collections.Generic.List<object>;
+using DictObj  = System.Collections.Generic.Dictionary<string, object>;
+using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
+
 
 
 namespace SebWindowsClient.ConfigurationUtils
@@ -291,53 +295,53 @@ namespace SebWindowsClient.ConfigurationUtils
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
-        public static Dictionary<string, object> settingsNew = new Dictionary<string, object>();
-        public static Dictionary<string, object> settingsTmp = new Dictionary<string, object>();
-        public static Dictionary<string, object> settingsDef = new Dictionary<string, object>();
+        public static DictObj settingsNew = new DictObj();
+        public static DictObj settingsTmp = new DictObj();
+        public static DictObj settingsDef = new DictObj();
 
-        public static int                        permittedProcessIndex;
-        public static List<object>               permittedProcessList    = new List<object>();
-        public static Dictionary<string, object> permittedProcessData    = new Dictionary<string, object>();
-        public static Dictionary<string, object> permittedProcessDataDef = new Dictionary<string, object>();
+        public static int     permittedProcessIndex;
+        public static ListObj permittedProcessList    = new ListObj();
+        public static DictObj permittedProcessData    = new DictObj();
+        public static DictObj permittedProcessDataDef = new DictObj();
 
-        public static int                        permittedArgumentIndex;
-        public static List<object>               permittedArgumentList    = new List<object>();
-        public static Dictionary<string, object> permittedArgumentData    = new Dictionary<string, object>();
-        public static Dictionary<string, object> permittedArgumentDataDef = new Dictionary<string, object>();
+        public static int     permittedArgumentIndex;
+        public static ListObj permittedArgumentList    = new ListObj();
+        public static DictObj permittedArgumentData    = new DictObj();
+        public static DictObj permittedArgumentDataDef = new DictObj();
 
-        public static int                        prohibitedProcessIndex;
-        public static List<object>               prohibitedProcessList    = new List<object>();
-        public static Dictionary<string, object> prohibitedProcessData    = new Dictionary<string, object>();
-        public static Dictionary<string, object> prohibitedProcessDataDef = new Dictionary<string, object>();
+        public static int     prohibitedProcessIndex;
+        public static ListObj prohibitedProcessList    = new ListObj();
+        public static DictObj prohibitedProcessData    = new DictObj();
+        public static DictObj prohibitedProcessDataDef = new DictObj();
 
-        public static int                        urlFilterRuleIndex;
-        public static List<object>               urlFilterRuleList       = new List<object>();
-        public static Dictionary<string, object> urlFilterRuleData       = new Dictionary<string, object>();
-        public static Dictionary<string, object> urlFilterRuleDataDef    = new Dictionary<string, object>();
-        public static Dictionary<string, object> urlFilterRuleDataStored = new Dictionary<string, object>();
+        public static int     urlFilterRuleIndex;
+        public static ListObj urlFilterRuleList       = new ListObj();
+        public static DictObj urlFilterRuleData       = new DictObj();
+        public static DictObj urlFilterRuleDataDef    = new DictObj();
+        public static DictObj urlFilterRuleDataStored = new DictObj();
 
-        public static int                        urlFilterActionIndex;
-        public static List<object>               urlFilterActionList       = new List<object>();
-        public static List<object>               urlFilterActionListDef    = new List<object>();
-        public static List<object>               urlFilterActionListStored = new List<object>();
-        public static Dictionary<string, object> urlFilterActionData       = new Dictionary<string, object>();
-        public static Dictionary<string, object> urlFilterActionDataDef    = new Dictionary<string, object>();
-        public static Dictionary<string, object> urlFilterActionDataStored = new Dictionary<string, object>();
+        public static int     urlFilterActionIndex;
+        public static ListObj urlFilterActionList       = new ListObj();
+        public static ListObj urlFilterActionListDef    = new ListObj();
+        public static ListObj urlFilterActionListStored = new ListObj();
+        public static DictObj urlFilterActionData       = new DictObj();
+        public static DictObj urlFilterActionDataDef    = new DictObj();
+        public static DictObj urlFilterActionDataStored = new DictObj();
 
-        public static int                        embeddedCertificateIndex;
-        public static List<object>               embeddedCertificateList    = new List<object>();
-        public static Dictionary<string, object> embeddedCertificateData    = new Dictionary<string, object>();
-        public static Dictionary<string, object> embeddedCertificateDataDef = new Dictionary<string, object>();
+        public static int     embeddedCertificateIndex;
+        public static ListObj embeddedCertificateList    = new ListObj();
+        public static DictObj embeddedCertificateData    = new DictObj();
+        public static DictObj embeddedCertificateDataDef = new DictObj();
 
-        public static Dictionary<string, object> proxiesData    = new Dictionary<string, object>();
-        public static Dictionary<string, object> proxiesDataDef = new Dictionary<string, object>();
+        public static DictObj proxiesData    = new DictObj();
+        public static DictObj proxiesDataDef = new DictObj();
 
-        public static int                        proxyProtocolIndex;
+        public static int     proxyProtocolIndex;
 
-        public static int                        bypassedProxyIndex;
-        public static List<object>               bypassedProxyList    = new List<object>();
-        public static String                     bypassedProxyData    = "";
-        public static String                     bypassedProxyDataDef = "";
+        public static int     bypassedProxyIndex;
+        public static ListObj bypassedProxyList    = new ListObj();
+        public static String  bypassedProxyData    = "";
+        public static String  bypassedProxyDataDef = "";
 
 
 
@@ -448,10 +452,10 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Default settings for group "Applications"
             settingsDef.Add(SEBSettings.MessageMonitorProcesses         , false);
-            settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new List<object>());
+            settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
             settingsDef.Add(SEBSettings.MessageAllowSwitchToApplications, false);
             settingsDef.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
-            settingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new List<object>());
+            settingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new ListObj());
 
             // Default settings for permitted process data
             permittedProcessDataDef.Clear();
@@ -465,7 +469,7 @@ namespace SebWindowsClient.ConfigurationUtils
             permittedProcessDataDef.Add(SEBSettings.MessageExecutable , "");
             permittedProcessDataDef.Add(SEBSettings.MessagePath       , "");
             permittedProcessDataDef.Add(SEBSettings.MessageIdentifier , "");
-            permittedProcessDataDef.Add(SEBSettings.MessageArguments  , new List<object>());
+            permittedProcessDataDef.Add(SEBSettings.MessageArguments  , new ListObj());
 
             // Default settings for permitted argument data
             permittedArgumentDataDef.Clear();
@@ -486,7 +490,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "Network - Filter"
             settingsDef.Add(SEBSettings.MessageEnableURLFilter       , false);
             settingsDef.Add(SEBSettings.MessageEnableURLContentFilter, false);
-            settingsDef.Add(SEBSettings.MessageURLFilterRules        , new List<object>());
+            settingsDef.Add(SEBSettings.MessageURLFilterRules        , new ListObj());
 
             // Create a default action
             urlFilterActionDataDef.Clear();
@@ -521,7 +525,7 @@ namespace SebWindowsClient.ConfigurationUtils
             urlFilterRuleDataStored.Add(SEBSettings.MessageRuleActions, urlFilterActionListStored);
 
             // Default settings for group "Network - Certificates"
-            settingsDef.Add(SEBSettings.MessageEmbeddedCertificates, new List<object>());
+            settingsDef.Add(SEBSettings.MessageEmbeddedCertificates, new ListObj());
 
             embeddedCertificateDataDef.Clear();
             embeddedCertificateDataDef.Add(SEBSettings.MessageCertificateData, "");
@@ -531,7 +535,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "Network - Proxies"
             proxiesDataDef.Clear();
 
-            proxiesDataDef.Add(SEBSettings.MessageExceptionsList             , new List<object>());
+            proxiesDataDef.Add(SEBSettings.MessageExceptionsList             , new ListObj());
             proxiesDataDef.Add(SEBSettings.MessageExcludeSimpleHostnames     , true);
             proxiesDataDef.Add(SEBSettings.MessageAutoDiscoveryEnabled       , false);
             proxiesDataDef.Add(SEBSettings.MessageAutoConfigurationEnabled   , false);
@@ -724,13 +728,13 @@ namespace SebWindowsClient.ConfigurationUtils
         // ************************
         // Copy settings dictionary
         // ************************
-        public static void CopySettingsDictionary(Dictionary<string, object> sebSettingsSource,
-                                                  Dictionary<string, object> sebSettingsTarget)
+        public static void CopySettingsDictionary(DictObj sebSettingsSource,
+                                                  DictObj sebSettingsTarget)
         {
             // Copy all settings from one dictionary to another
             // Create a dictionary "target settings".
             // Copy source settings to target settings
-            foreach (KeyValuePair<string, object> pair in sebSettingsSource)
+            foreach (KeyValue pair in sebSettingsSource)
             {
                 string key   = pair.Key;
                 object value = pair.Value;
@@ -750,8 +754,8 @@ namespace SebWindowsClient.ConfigurationUtils
         // *************************
         // Print settings dictionary
         // *************************
-        public static void PrintSettingsDictionary(Dictionary<string, object> sebSettingsSource,
-                                                   String                     fileName)
+        public static void PrintSettingsDictionary(DictObj sebSettingsSource,
+                                                   String  fileName)
         {
             FileStream   fileStream;
             StreamWriter fileWriter;
@@ -771,7 +775,7 @@ namespace SebWindowsClient.ConfigurationUtils
             fileWriter.WriteLine("");
 
             // Print (key, value) pairs of dictionary to file
-            foreach (KeyValuePair<string, object> pair in sebSettingsSource)
+            foreach (KeyValue pair in sebSettingsSource)
             {
                 string key     = pair.Key;
                 object value   = pair.Value;
@@ -791,15 +795,15 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
                     // Get the URL Filter Rules
-                    SEBSettings.urlFilterRuleList = (List<object>)sebSettingsSource[SEBSettings.MessageURLFilterRules];
+                    SEBSettings.urlFilterRuleList = (ListObj)sebSettingsSource[SEBSettings.MessageURLFilterRules];
 
                     // Traverse URL Filter Rules of currently opened file
                     for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
                     {
-                        SEBSettings.urlFilterRuleData   = (Dictionary<string, object>)SEBSettings.urlFilterRuleList[ruleIndex];
-                        Boolean active                  = (Boolean                   )SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
-                        String  expression              = (String                    )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
-                        SEBSettings.urlFilterActionList = (List<object>              )SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+                        SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
+                        Boolean     active              = (Boolean)SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
+                        String      expression          = (String )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
+                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
                         // Print current Filter Rule
                         fileWriter.WriteLine("");
@@ -810,7 +814,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         fileWriter.WriteLine("");
 
 /*
-                        foreach (KeyValuePair<string, object> p in SEBSettings.urlFilterRuleData)
+                        foreach (KeyValue p in SEBSettings.urlFilterRuleData)
                         {
                             fileWriter.WriteLine("   " + p.Key + "=" + p.Value);
                         }
@@ -819,7 +823,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         // Print actions of current rule
                         for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
                         {
-                            SEBSettings.urlFilterActionData = (Dictionary<string, object>)SEBSettings.urlFilterActionList[actionIndex];
+                            SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
 
                             Boolean Active     = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageActive];
                             Boolean Regex      = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageRegex];
@@ -834,7 +838,7 @@ namespace SebWindowsClient.ConfigurationUtils
                             fileWriter.WriteLine("      " + MessageAction     + "=" + Action.ToString());
 
 /*
-                            foreach (KeyValuePair<string, object> p in SEBSettings.urlFilterActionData)
+                            foreach (KeyValue p in SEBSettings.urlFilterActionData)
                             {
                                 fileWriter.WriteLine("      " + p.Key + "=" + p.Value);
                             }
@@ -875,7 +879,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
               //decryptedSettings = decryptedSettings.Trim();
 
-                SEBSettings.settingsTmp = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
+                SEBSettings.settingsTmp = (DictObj)Plist.readPlistSource(decryptedSettings);
             }
             catch (Exception streamReadException)
             {
