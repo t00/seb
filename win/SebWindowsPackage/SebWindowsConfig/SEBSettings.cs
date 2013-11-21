@@ -44,6 +44,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int ValueTaskBarHeight                = 6;
         public const int ValueNum = 6;
 
+        // Keys not belonging to any group
+        public const String MessageOriginatorVersion = "originatorVersion";
+
         // Group "General"
         public const String MessageStartURL             = "startURL";
         public const String MessageSebServerURL         = "sebServerURL";
@@ -358,6 +361,9 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Initialise the default settings Plist
             settingsDef.Clear();
+
+            // Default settings for keys not belonging to any group
+            settingsDef.Add(SEBSettings.MessageOriginatorVersion, "SEB_Win_2.0pre_build");
 
             // Default settings for group "General"
             settingsDef.Add(SEBSettings.MessageStartURL            , "http://www.safeexambrowser.org");
