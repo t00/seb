@@ -780,10 +780,10 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 if (type.Contains("List"      )) complex = true;
                 if (type.Contains("Dictionary")) complex = true;
-                if (type.Contains("List"      )) type  = "List/Array";
-                if (type.Contains("Dictionary")) type  = "Dictionary";
-                if (type.Contains("List"      )) value = "List/Array";
-                if (type.Contains("Dictionary")) value = "Dictionary";
+                if (type.Contains("List"      )) type    = "List/Array";
+                if (type.Contains("Dictionary")) type    = "Dictionary";
+                if (type.Contains("List"      )) value   = "List/Array";
+                if (type.Contains("Dictionary")) value   = "Dictionary";
 
                 if (complex) fileWriter.WriteLine("");
                 fileWriter.WriteLine("" + key + "=" + value);
@@ -803,7 +803,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
                         // Print current Filter Rule
                         fileWriter.WriteLine("");
-                        fileWriter.WriteLine("   " + "Rule Nr: "        + ruleIndex.ToString());
+                        fileWriter.WriteLine("   " + "Rule Nr: "        + " " + ruleIndex.ToString());
                         fileWriter.WriteLine("   " + MessageActive      + "=" + active.ToString());
                         fileWriter.WriteLine("   " + MessageExpression  + "=" + expression);
                         fileWriter.WriteLine("   " + MessageRuleActions + "=" + "List/Array");
@@ -827,7 +827,7 @@ namespace SebWindowsClient.ConfigurationUtils
                             Int32   Action     = (Int32  )SEBSettings.urlFilterActionData[SEBSettings.MessageAction];
 
                             // Print Action row for current Filter Rule
-                            fileWriter.WriteLine("      " + "Action Nr: "     + actionIndex.ToString());
+                            fileWriter.WriteLine("      " + "Action Nr:"      + " " + actionIndex.ToString());
                             fileWriter.WriteLine("      " + MessageActive     + "=" + Active.ToString());
                             fileWriter.WriteLine("      " + MessageRegex      + "=" + Regex .ToString());
                             fileWriter.WriteLine("      " + MessageExpression + "=" + Expression);
