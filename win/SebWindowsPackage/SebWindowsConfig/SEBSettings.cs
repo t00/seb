@@ -739,9 +739,6 @@ namespace SebWindowsClient.ConfigurationUtils
                 string key   = pair.Key;
                 object value = pair.Value;
 
-//              if (key.GetType == Type.Dictionary)
-//                  CopySettingsDictionary(sebSettingsSource, sebSettingsTarget, keyNode);
-
                 if  (sebSettingsTarget.ContainsKey(key))
                      sebSettingsTarget[key] = value;
                 else sebSettingsTarget.Add(key, value);
@@ -749,6 +746,80 @@ namespace SebWindowsClient.ConfigurationUtils
 
             return;
         }
+
+
+
+        // **************************
+        // Repair settings dictionary
+        // **************************
+        public static void RepairSettingsDictionary(DictObj sebSettingsSource,
+                                                    DictObj sebSettingsTarget)
+        {
+
+            // Traverse (key, value) pairs of dictionary
+            foreach (KeyValue pair in sebSettingsSource)
+            {
+                string key     = pair.Key;
+                object value   = pair.Value;
+                string type    = value.GetType().ToString();
+                bool   complex = false;
+
+                if (type.Contains("List"      )) complex = true;
+                if (type.Contains("Dictionary")) complex = true;
+                if (type.Contains("List"      )) type    = "List/Array";
+                if (type.Contains("Dictionary")) type    = "Dictionary";
+                if (type.Contains("List"      )) value   = "List/Array";
+                if (type.Contains("Dictionary")) value   = "Dictionary";
+
+
+                if (key.Equals(SEBSettings.MessageURLFilterRules))
+                {
+                    // Get the URL Filter Rules
+                    SEBSettings.urlFilterRuleList = (ListObj)sebSettingsSource[SEBSettings.MessageURLFilterRules];
+
+                    // Traverse URL Filter Rules of currently opened file
+                    for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
+                    {
+                        SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
+                        Boolean     active              = (Boolean)SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
+                        String      expression          = (String )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
+                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+
+
+
+/*
+                        foreach (KeyValue p in SEBSettings.urlFilterRuleData)
+                        {
+                            fileWriter.WriteLine("   " + p.Key + "=" + p.Value);
+                        }
+*/
+
+                        // Print actions of current rule
+                        for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
+                        {
+                            SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
+
+                            Boolean Active     = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageActive];
+                            Boolean Regex      = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageRegex];
+                            String  Expression = (String )SEBSettings.urlFilterActionData[SEBSettings.MessageExpression];
+                            Int32   Action     = (Int32  )SEBSettings.urlFilterActionData[SEBSettings.MessageAction];
+
+/*
+                            foreach (KeyValue p in SEBSettings.urlFilterActionData)
+                            {
+                                fileWriter.WriteLine("      " + p.Key + "=" + p.Value);
+                            }
+*/
+                        } // next actionIndex
+                    } // next ruleIndex
+                } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
+
+
+            }
+
+            return;
+        }
+
 
 
         // *************************
