@@ -33,7 +33,8 @@ namespace SebWindowsClient
 
             SEBProtectionController sebProtectionControler = new SEBProtectionController();
             string hPassword = sebProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
-            int quit = ((string)SEBClientInfo.getSebSetting(SEBSettings.MessageHashedQuitPassword)[SEBSettings.MessageHashedQuitPassword]).CompareTo(hPassword);
+            string settingsPasswordHash = (string)SEBClientInfo.getSebSetting(SEBSettings.MessageHashedQuitPassword)[SEBSettings.MessageHashedQuitPassword];
+            int quit = String.Compare(settingsPasswordHash, hPassword, StringComparison.OrdinalIgnoreCase);
             if (quit != 0)
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
