@@ -753,11 +753,11 @@ namespace SebWindowsClient.ConfigurationUtils
         // **************************
         // Repair settings dictionary
         // **************************
-        public static void FillSettingsDictionary(DictObj sebSettingsTarget)
+        public static void FillSettingsDictionary(DictObj sebSettings)
         {
 
             // Traverse (key, value) pairs of dictionary
-            foreach (KeyValue pair in sebSettingsTarget)
+            foreach (KeyValue pair in sebSettings)
             {
                 string key     = pair.Key;
                 object value   = pair.Value;
@@ -774,8 +774,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
-                    // Get the URL Filter Rules
-                    SEBSettings.urlFilterRuleList = (ListObj)sebSettingsTarget[SEBSettings.MessageURLFilterRules];
+                    // Get the URL Filter Rule List
+                    SEBSettings.urlFilterRuleList = (ListObj)sebSettings[SEBSettings.MessageURLFilterRules];
 
                     // Traverse URL Filter Rules of currently opened file
                     for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
@@ -783,30 +783,27 @@ namespace SebWindowsClient.ConfigurationUtils
                         SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
 
                         foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
-                        {
                             if (urlFilterRuleData.ContainsKey(p.Key) == false)
                                 urlFilterRuleData.Add        (p.Key, p.Value);
-                        }
 
+                        // Get the URL Filter Action List
                         SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
-                        // Print actions of current rule
+                        // Traverse actions of current rule
                         for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
                         {
                             SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
 
                             foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
-                            {
                                 if (urlFilterActionData.ContainsKey(p.Key) == false)
                                     urlFilterActionData.Add        (p.Key, p.Value);
-                            }
 
                         } // next actionIndex
                     } // next ruleIndex
                 } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
 
 
-            }
+            } // next key in sebSettingsTarget
 
             return;
         }
@@ -816,7 +813,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *************************
         // Print settings dictionary
         // *************************
-        public static void PrintSettingsDictionary(DictObj sebSettingsSource,
+        public static void PrintSettingsDictionary(DictObj sebSettings,
                                                    String  fileName)
         {
             FileStream   fileStream;
@@ -833,11 +830,11 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Write the header lines
             fileWriter.WriteLine("");
-            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettingsSource.Count);
+            fileWriter.WriteLine("number of (key, value) pairs = " + sebSettings.Count);
             fileWriter.WriteLine("");
 
             // Print (key, value) pairs of dictionary to file
-            foreach (KeyValue pair in sebSettingsSource)
+            foreach (KeyValue pair in sebSettings)
             {
                 string key     = pair.Key;
                 object value   = pair.Value;
@@ -854,65 +851,45 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (complex) fileWriter.WriteLine("");
                 fileWriter.WriteLine("" + key + "=" + value);
 
+
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
-                    // Get the URL Filter Rules
-                    SEBSettings.urlFilterRuleList = (ListObj)sebSettingsSource[SEBSettings.MessageURLFilterRules];
+                    // Get the URL Filter Rule List
+                    SEBSettings.urlFilterRuleList = (ListObj)sebSettings[SEBSettings.MessageURLFilterRules];
 
                     // Traverse URL Filter Rules of currently opened file
                     for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
                     {
                         SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
-                        Boolean     active              = (Boolean)SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
-                        String      expression          = (String )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
-                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
                         // Print current Filter Rule
                         fileWriter.WriteLine("");
                         fileWriter.WriteLine("   " + "Rule Nr: "        + " " + ruleIndex.ToString());
-                        fileWriter.WriteLine("   " + MessageActive      + "=" + active.ToString());
-                        fileWriter.WriteLine("   " + MessageExpression  + "=" + expression);
-                        fileWriter.WriteLine("   " + MessageRuleActions + "=" + "List/Array");
+                        foreach (KeyValue p in SEBSettings.urlFilterRuleData)
+                            fileWriter.WriteLine("   " + p.Key + "=" + p.Value);
                         fileWriter.WriteLine("");
 
-/*
-                        foreach (KeyValue p in SEBSettings.urlFilterRuleData)
-                        {
-                            fileWriter.WriteLine("   " + p.Key + "=" + p.Value);
-                        }
-*/
+                        // Get the URL Filter Action List
+                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
-                        // Print actions of current rule
+                        // Traverse actions of current rule
                         for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
                         {
                             SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
 
-                            Boolean Active     = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageActive];
-                            Boolean Regex      = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageRegex];
-                            String  Expression = (String )SEBSettings.urlFilterActionData[SEBSettings.MessageExpression];
-                            Int32   Action     = (Int32  )SEBSettings.urlFilterActionData[SEBSettings.MessageAction];
-
-                            // Print Action row for current Filter Rule
+                            // Print current action
                             fileWriter.WriteLine("      " + "Action Nr:"      + " " + actionIndex.ToString());
-                            fileWriter.WriteLine("      " + MessageActive     + "=" + Active.ToString());
-                            fileWriter.WriteLine("      " + MessageRegex      + "=" + Regex .ToString());
-                            fileWriter.WriteLine("      " + MessageExpression + "=" + Expression);
-                            fileWriter.WriteLine("      " + MessageAction     + "=" + Action.ToString());
-
-/*
                             foreach (KeyValue p in SEBSettings.urlFilterActionData)
-                            {
                                 fileWriter.WriteLine("      " + p.Key + "=" + p.Value);
-                            }
-*/
                             fileWriter.WriteLine("");
+
                         } // next actionIndex
                         //fileWriter.WriteLine("");
                     } // next ruleIndex
                 } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
 
 
-            }
+            } // next key in sebSettingsSource
 
             // Close the file
             fileWriter.Close();
