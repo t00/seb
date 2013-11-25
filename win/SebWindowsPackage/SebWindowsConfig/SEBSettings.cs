@@ -700,9 +700,10 @@ namespace SebWindowsClient.ConfigurationUtils
             // in the "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
-            SEBSettings.settingsNew.Clear();
+            settingsNew.Clear();
             CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
+            FillSettingsDictionary(SEBSettings.settingsNew);
         }
 
 
@@ -752,12 +753,11 @@ namespace SebWindowsClient.ConfigurationUtils
         // **************************
         // Repair settings dictionary
         // **************************
-        public static void RepairSettingsDictionary(DictObj sebSettingsSource,
-                                                    DictObj sebSettingsTarget)
+        public static void FillSettingsDictionary(DictObj sebSettingsTarget)
         {
 
             // Traverse (key, value) pairs of dictionary
-            foreach (KeyValue pair in sebSettingsSource)
+            foreach (KeyValue pair in sebSettingsTarget)
             {
                 string key     = pair.Key;
                 object value   = pair.Value;
@@ -775,39 +775,58 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
                     // Get the URL Filter Rules
-                    SEBSettings.urlFilterRuleList = (ListObj)sebSettingsSource[SEBSettings.MessageURLFilterRules];
+                    SEBSettings.urlFilterRuleList = (ListObj)sebSettingsTarget[SEBSettings.MessageURLFilterRules];
 
                     // Traverse URL Filter Rules of currently opened file
                     for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
                     {
                         SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
+
+                        if (urlFilterRuleData.ContainsKey(MessageActive) == false)
+                            urlFilterRuleData.Add        (MessageActive, urlFilterRuleDataDef[MessageActive]);
+
+                        if (urlFilterRuleData.ContainsKey(MessageExpression) == false)
+                            urlFilterRuleData.Add        (MessageExpression, urlFilterRuleDataDef[MessageExpression]);
+
+                        if (urlFilterRuleData.ContainsKey(MessageRuleActions) == false)
+                            urlFilterRuleData.Add        (MessageRuleActions, urlFilterRuleDataDef[MessageRuleActions]);
+
                         Boolean     active              = (Boolean)SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
                         String      expression          = (String )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
                         SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
-
-
-
 /*
-                        foreach (KeyValue p in SEBSettings.urlFilterRuleData)
+                        foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
                         {
-                            fileWriter.WriteLine("   " + p.Key + "=" + p.Value);
+                            if (urlFilterRuleData.ContainsKey(p.Key) == false)
+                                urlFilterRuleData.Add        (p.Key, p.Value);
                         }
 */
-
                         // Print actions of current rule
                         for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
                         {
                             SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
 
+                            if (urlFilterActionData.ContainsKey(MessageActive) == false)
+                                urlFilterActionData.Add        (MessageActive, urlFilterActionDataDef[MessageActive]);
+
+                            if (urlFilterActionData.ContainsKey(MessageRegex) == false)
+                                urlFilterActionData.Add        (MessageRegex, urlFilterActionDataDef[MessageRegex]);
+
+                            if (urlFilterActionData.ContainsKey(MessageExpression) == false)
+                                urlFilterActionData.Add        (MessageExpression, urlFilterActionDataDef[MessageExpression]);
+
+                            if (urlFilterActionData.ContainsKey(MessageAction) == false)
+                                urlFilterActionData.Add        (MessageAction, urlFilterActionDataDef[MessageAction]);
+
                             Boolean Active     = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageActive];
                             Boolean Regex      = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageRegex];
                             String  Expression = (String )SEBSettings.urlFilterActionData[SEBSettings.MessageExpression];
                             Int32   Action     = (Int32  )SEBSettings.urlFilterActionData[SEBSettings.MessageAction];
-
 /*
-                            foreach (KeyValue p in SEBSettings.urlFilterActionData)
+                            foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
                             {
-                                fileWriter.WriteLine("      " + p.Key + "=" + p.Value);
+                                if (urlFilterActionData.ContainsKey(p.Key) == false)
+                                    urlFilterActionData.Add        (p.Key, p.Value);
                             }
 */
                         } // next actionIndex
@@ -967,7 +986,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // And merge "tmp" settings into "new" settings
             SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
             SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
-
+            SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
 
             return true;
         }

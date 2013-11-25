@@ -66,6 +66,11 @@ namespace SebWindowsConfig
             // Read the file into "new" settings
             if (!SEBSettings.ReadSebConfigurationFile(fileName)) return false;
 
+            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmp.txt");
+            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
+
             // GUI-related part: Update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
             currentFileSebConfigFile = Path.GetFileName     (fileName);
@@ -97,10 +102,6 @@ namespace SebWindowsConfig
 
             UpdateAllWidgetsOfProgram();
             buttonRevertToLastOpened.Enabled = true;
-            //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmp.txt");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
             return true;
         }
 
