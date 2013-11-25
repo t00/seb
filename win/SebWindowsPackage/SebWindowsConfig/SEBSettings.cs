@@ -781,7 +781,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
                     {
                         SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
-
+/*
                         if (urlFilterRuleData.ContainsKey(MessageActive) == false)
                             urlFilterRuleData.Add        (MessageActive, urlFilterRuleDataDef[MessageActive]);
 
@@ -790,22 +790,26 @@ namespace SebWindowsClient.ConfigurationUtils
 
                         if (urlFilterRuleData.ContainsKey(MessageRuleActions) == false)
                             urlFilterRuleData.Add        (MessageRuleActions, urlFilterRuleDataDef[MessageRuleActions]);
-
-                        Boolean     active              = (Boolean)SEBSettings.urlFilterRuleData[SEBSettings.MessageActive];
-                        String      expression          = (String )SEBSettings.urlFilterRuleData[SEBSettings.MessageExpression];
-                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
-/*
+*/
                         foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
                         {
                             if (urlFilterRuleData.ContainsKey(p.Key) == false)
                                 urlFilterRuleData.Add        (p.Key, p.Value);
                         }
-*/
+
+                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+
                         // Print actions of current rule
                         for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
                         {
                             SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
 
+                            foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
+                            {
+                                if (urlFilterActionData.ContainsKey(p.Key) == false)
+                                    urlFilterActionData.Add        (p.Key, p.Value);
+                            }
+/*
                             if (urlFilterActionData.ContainsKey(MessageActive) == false)
                                 urlFilterActionData.Add        (MessageActive, urlFilterActionDataDef[MessageActive]);
 
@@ -817,17 +821,6 @@ namespace SebWindowsClient.ConfigurationUtils
 
                             if (urlFilterActionData.ContainsKey(MessageAction) == false)
                                 urlFilterActionData.Add        (MessageAction, urlFilterActionDataDef[MessageAction]);
-
-                            Boolean Active     = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageActive];
-                            Boolean Regex      = (Boolean)SEBSettings.urlFilterActionData[SEBSettings.MessageRegex];
-                            String  Expression = (String )SEBSettings.urlFilterActionData[SEBSettings.MessageExpression];
-                            Int32   Action     = (Int32  )SEBSettings.urlFilterActionData[SEBSettings.MessageAction];
-/*
-                            foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
-                            {
-                                if (urlFilterActionData.ContainsKey(p.Key) == false)
-                                    urlFilterActionData.Add        (p.Key, p.Value);
-                            }
 */
                         } // next actionIndex
                     } // next ruleIndex
