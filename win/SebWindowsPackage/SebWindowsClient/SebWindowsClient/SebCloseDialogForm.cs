@@ -31,8 +31,8 @@ namespace SebWindowsClient
 
             SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
 
-            SEBProtectionController sebProtectionControler = new SEBProtectionController();
-            string hPassword = sebProtectionControler.ComputeQuitPasswordHash(userQuitPassword);
+            //SEBProtectionController sebProtectionControler = new SEBProtectionController();
+            string hPassword = SEBProtectionController.ComputeQuitPasswordHash(userQuitPassword);
             string settingsPasswordHash = (string)SEBClientInfo.getSebSetting(SEBSettings.MessageHashedQuitPassword)[SEBSettings.MessageHashedQuitPassword];
             int quit = String.Compare(settingsPasswordHash, hPassword, StringComparison.OrdinalIgnoreCase);
             if (quit != 0)

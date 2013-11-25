@@ -207,6 +207,11 @@ namespace SebWindowsClient
                 this.listApplications.Items[0].Selected = true;
             }
             selectedItemIndex = 0;
+            if (this.listApplications.Items.Count > 1)
+            {
+                this.listApplications.Items[1].Selected = true;
+            }
+            selectedItemIndex = 1;
 
         }
 

@@ -717,7 +717,7 @@ namespace SebWindowsClient.CryptographyUtils
             return plaintext;
         }
 
-        public string ComputeQuitPasswordHash(string input)
+        public static string ComputeQuitPasswordHash(string input)
         {
             HashAlgorithm algorithm = new SHA256CryptoServiceProvider();
             Byte[] inputBytes = Encoding.UTF8.GetBytes(input);

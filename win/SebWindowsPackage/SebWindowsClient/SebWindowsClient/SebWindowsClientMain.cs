@@ -142,7 +142,9 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private static bool InitSebDesktop()
         {
-            SebWindowsClientForm.SetVisibility(true);
+            //SebWindowsClientForm.SetVisibility(true);
+
+            //string hash = SEBProtectionController.ComputeQuitPasswordHash("SEB");
 
            // Set SebClient configuration
             if (!SEBClientInfo.SetSebClientConfiguration())
