@@ -860,7 +860,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     // Traverse URL Filter Rules of currently opened file
                     for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
                     {
-                        SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
+                        SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
 
                         // Print current Filter Rule
                         fileWriter.WriteLine("");
