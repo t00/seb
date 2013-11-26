@@ -750,6 +750,41 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
 
+        // **************
+        // Merge settings
+        // **************
+        public static void MergeSettings(object objectSource,
+                                         object objectTarget)
+        {
+            // Determine the type of the input objects
+            string typeSource = objectSource.GetType().ToString();
+            string typeTarget = objectTarget.GetType().ToString();
+
+            if (typeSource != typeTarget) return;
+
+            if (typeSource.Contains("List"))
+            {
+
+            }
+
+            if (typeSource.Contains("Dictionary"))
+            {
+                foreach (KeyValue pair in objectSource)
+                {
+                    string key   = pair.Key;
+                    object value = pair.Value;
+
+                    if  (sebSettingsTarget.ContainsKey(key))
+                         sebSettingsTarget[key] = value;
+                    else sebSettingsTarget.Add(key, value);
+                }
+            }
+
+            return;
+        }
+
+
+
         // **************************
         // Repair settings dictionary
         // **************************
