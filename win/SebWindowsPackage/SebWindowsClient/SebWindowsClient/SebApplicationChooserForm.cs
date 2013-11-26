@@ -212,7 +212,7 @@ namespace SebWindowsClient
                 this.listApplications.Items[1].Selected = true;
             }
             selectedItemIndex = 1;
-
+            SelectNextListItem();
         }
 
         /// ----------------------------------------------------------------------------------------
