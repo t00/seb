@@ -772,6 +772,37 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (type.Contains("Dictionary")) value   = "Dictionary";
 
 
+                if (key.Equals(SEBSettings.MessagePermittedProcesses))
+                {
+                    // Get the Permitted Process List
+                    SEBSettings.permittedProcessList = (ListObj)sebSettings[SEBSettings.MessagePermittedProcesses];
+
+                    // Traverse Permitted Processes of currently opened file
+                    for (int processIndex = 0; processIndex < SEBSettings.permittedProcessList.Count; processIndex++)
+                    {
+                        SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[processIndex];
+
+                        foreach (KeyValue p in SEBSettings.permittedProcessDataDef)
+                            if (permittedProcessData.ContainsKey(p.Key) == false)
+                                permittedProcessData.Add        (p.Key, p.Value);
+
+                        // Get the Permitted Argument List
+                        SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
+
+                        // Traverse actions of current rule
+                        for (int argumentIndex = 0; argumentIndex < SEBSettings.permittedArgumentList.Count; argumentIndex++)
+                        {
+                            SEBSettings.permittedArgumentData = (DictObj)SEBSettings.permittedArgumentList[argumentIndex];
+
+                            foreach (KeyValue p in SEBSettings.permittedArgumentDataDef)
+                                if (permittedArgumentData.ContainsKey(p.Key) == false)
+                                    permittedArgumentData.Add        (p.Key, p.Value);
+
+                        } // next argumentIndex
+                    } // next processIndex
+                } // end if (key.Equals(SEBSettings.MessagePermittedProcesses))
+
+
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
                     // Get the URL Filter Rule List
