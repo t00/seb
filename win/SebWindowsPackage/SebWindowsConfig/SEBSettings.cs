@@ -703,7 +703,8 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsNew.Clear();
             CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
-            FillSettingsDictionary(SEBSettings.settingsNew);
+          //SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
+            SEBSettings.MergeSettings(SEBSettings.settingsTmp, SEBSettings.settingsNew);
         }
 
 
@@ -753,33 +754,13 @@ namespace SebWindowsClient.ConfigurationUtils
         // **************
         // Merge settings
         // **************
-        public static void MergeSettings(object objectSource,
-                                         object objectTarget)
+        public static void MergeSettings(object objectSource, object objectTarget)
         {
             // Determine the type of the input objects
             string typeSource = objectSource.GetType().ToString();
             string typeTarget = objectTarget.GetType().ToString();
 
             if (typeSource != typeTarget) return;
-
-
-            // Treat the complex datatype List<object>
-            if (typeSource.Contains("List"))
-            {
-                ListObj listSource = (ListObj)objectSource;
-                ListObj listTarget = (ListObj)objectTarget;
-
-                for (int index = 0; index < listSource.Count; index++)
-                {
-                    object elem = listSource[index];
-                    string type = elem.GetType().ToString();
-
-                    if  (listTarget.Count > index)
-                         listTarget[index] = elem;
-                    else listTarget.Add(elem);
-                }
-            }
-
 
             // Treat the complex datatype Dictionary<string, object>
             if (typeSource.Contains("Dictionary"))
@@ -819,6 +800,45 @@ namespace SebWindowsClient.ConfigurationUtils
 */
                 } // next (KeyValue pair in dictSource)
             } // end if (typeSource.Contains("Dictionary"))
+
+
+            // Treat the complex datatype List<object>
+            if (typeSource.Contains("List"))
+            {
+                ListObj listSource = (ListObj)objectSource;
+                ListObj listTarget = (ListObj)objectTarget;
+
+                for (int index = 0; index < listSource.Count; index++)
+                {
+                    object elem = listSource[index];
+                    string type = elem.GetType().ToString();
+
+                    if  (listTarget.Count > index)
+                         listTarget[index] = elem;
+                    else listTarget.Add(elem);
+
+                    if (type.Contains("Dictionary"))
+                    {
+                        DictObj subdictSource = (DictObj)listSource[index];
+                        DictObj subdictTarget = (DictObj)listTarget[index];
+                        MergeSettings(subdictSource, subdictTarget);
+                    }
+                    else if (type.Contains("List"))
+                    {
+                        ListObj sublistSource = (ListObj)listSource[index];
+                        ListObj sublistTarget = (ListObj)listTarget[index];
+                        MergeSettings(sublistSource, sublistTarget);
+                    }
+/*
+                    if (type.Contains("Dictionary") || type.Contains("List"))
+                    {
+                        object childSource = listSource[key];
+                        object childTarget = listTarget[key];
+                        MergeSettings(childSource, childTarget);
+                    }
+*/
+                } // next (element in listSource)
+            } // end if (typeSource.Contains("List"))
 
             return;
         }
@@ -1041,7 +1061,8 @@ namespace SebWindowsClient.ConfigurationUtils
             // And merge "tmp" settings into "new" settings
             SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
             SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
-            SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
+          //SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
+            SEBSettings.MergeSettings(SEBSettings.settingsTmp, SEBSettings.settingsNew);
 
             return true;
         }
