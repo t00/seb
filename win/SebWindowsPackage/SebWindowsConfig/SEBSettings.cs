@@ -762,23 +762,63 @@ namespace SebWindowsClient.ConfigurationUtils
 
             if (typeSource != typeTarget) return;
 
+
+            // Treat the complex datatype List<object>
             if (typeSource.Contains("List"))
             {
+                ListObj listSource = (ListObj)objectSource;
+                ListObj listTarget = (ListObj)objectTarget;
 
+                for (int index = 0; index < listSource.Count; index++)
+                {
+                    object elem = listSource[index];
+                    string type = elem.GetType().ToString();
+
+                    if  (listTarget.Count > index)
+                         listTarget[index] = elem;
+                    else listTarget.Add(elem);
+                }
             }
 
+
+            // Treat the complex datatype Dictionary<string, object>
             if (typeSource.Contains("Dictionary"))
             {
-                foreach (KeyValue pair in objectSource)
+                DictObj dictSource = (DictObj)objectSource;
+                DictObj dictTarget = (DictObj)objectTarget;
+
+                foreach (KeyValue pair in dictSource)
                 {
                     string key   = pair.Key;
                     object value = pair.Value;
+                    string type  = pair.Value.GetType().ToString();
 
-                    if  (sebSettingsTarget.ContainsKey(key))
-                         sebSettingsTarget[key] = value;
-                    else sebSettingsTarget.Add(key, value);
-                }
-            }
+                    if  (dictTarget.ContainsKey(key))
+                         dictTarget[key] = value;
+                    else dictTarget.Add(key, value);
+
+                    if (type.Contains("Dictionary"))
+                    {
+                        DictObj subdictSource = (DictObj)dictSource[key];
+                        DictObj subdictTarget = (DictObj)dictTarget[key];
+                        MergeSettings(subdictSource, subdictTarget);
+                    }
+                    else if (type.Contains("List"))
+                    {
+                        ListObj listSource = (ListObj)dictSource[key];
+                        ListObj listTarget = (ListObj)dictTarget[key];
+                        MergeSettings(listSource, listTarget);
+                    }
+/*
+                    if (type.Contains("Dictionary") || type.Contains("List"))
+                    {
+                        object childSource = dictSource[key];
+                        object childTarget = dictTarget[key];
+                        MergeSettings(childSource, childTarget);
+                    }
+*/
+                } // next (KeyValue pair in dictSource)
+            } // end if (typeSource.Contains("Dictionary"))
 
             return;
         }
@@ -796,7 +836,7 @@ namespace SebWindowsClient.ConfigurationUtils
             {
                 string key     = pair.Key;
                 object value   = pair.Value;
-                string type    = value.GetType().ToString();
+                string type    = pair.Value.GetType().ToString();
                 bool   complex = false;
 
                 if (type.Contains("List"      )) complex = true;
@@ -904,7 +944,7 @@ namespace SebWindowsClient.ConfigurationUtils
             {
                 string key     = pair.Key;
                 object value   = pair.Value;
-                string type    = value.GetType().ToString();
+                string type    = pair.Value.GetType().ToString();
                 bool   complex = false;
 
                 if (type.Contains("List"      )) complex = true;
