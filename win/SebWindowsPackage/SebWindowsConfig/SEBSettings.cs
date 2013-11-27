@@ -766,11 +766,13 @@ namespace SebWindowsClient.ConfigurationUtils
                 DictObj dictSource = (DictObj)objectSource;
                 DictObj dictTarget = (DictObj)objectTarget;
 
-                foreach (KeyValue pair in dictSource)
+                for (int index = 0; index < dictSource.Count; index++)
+                //foreach (KeyValue pair in dictSource)
                 {
-                    string key   = pair.Key;
-                    object value = pair.Value;
-                    string type  = pair.Value.GetType().ToString();
+                    KeyValue pair  = dictSource.ElementAt(index);
+                    string   key   = pair.Key;
+                    object   value = pair.Value;
+                    string   type  = pair.Value.GetType().ToString();
 
                     if  (dictTarget.ContainsKey(key))
                          dictTarget[key] = value;
