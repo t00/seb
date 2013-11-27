@@ -1061,9 +1061,9 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // And merge "tmp" settings into "new" settings
             SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
-          //SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
-          //SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
-            SEBSettings.MergeSettings(SEBSettings.settingsTmp, SEBSettings.settingsNew);
+            SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
+            SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
+          //SEBSettings.MergeSettings(SEBSettings.settingsTmp, SEBSettings.settingsNew);
 
             return true;
         }
