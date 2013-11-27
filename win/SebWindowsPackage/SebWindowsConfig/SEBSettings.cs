@@ -858,14 +858,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 string key     = pair.Key;
                 object value   = pair.Value;
                 string type    = pair.Value.GetType().ToString();
-                bool   complex = false;
 
-                if (type.Contains("List"      )) complex = true;
-                if (type.Contains("Dictionary")) complex = true;
-                if (type.Contains("List"      )) type    = "List/Array";
-                if (type.Contains("Dictionary")) type    = "Dictionary";
-                if (type.Contains("List"      )) value   = "List/Array";
-                if (type.Contains("Dictionary")) value   = "Dictionary";
 
                 if (key.Equals(SEBSettings.MessagePermittedProcesses))
                 {
