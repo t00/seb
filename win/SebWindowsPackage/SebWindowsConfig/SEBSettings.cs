@@ -766,8 +766,8 @@ namespace SebWindowsClient.ConfigurationUtils
                 DictObj dictSource = (DictObj)objectSource;
                 DictObj dictTarget = (DictObj)objectTarget;
 
-                for (int index = 0; index < dictSource.Count; index++)
                 //foreach (KeyValue pair in dictSource)
+                for (int index = 0; index < dictSource.Count; index++)
                 {
                     KeyValue pair  = dictSource.ElementAt(index);
                     string   key   = pair.Key;
@@ -777,7 +777,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if  (dictTarget.ContainsKey(key))
                          dictTarget[key] = value;
                     else dictTarget.Add(key, value);
-
+/*
                     if (type.Contains("Dictionary"))
                     {
                         DictObj subdictSource = (DictObj)dictSource[key];
@@ -786,18 +786,18 @@ namespace SebWindowsClient.ConfigurationUtils
                     }
                     else if (type.Contains("List"))
                     {
-                        ListObj listSource = (ListObj)dictSource[key];
-                        ListObj listTarget = (ListObj)dictTarget[key];
-                        MergeSettings(listSource, listTarget);
+                        ListObj sublistSource = (ListObj)dictSource[key];
+                        ListObj sublistTarget = (ListObj)dictTarget[key];
+                        MergeSettings(sublistSource, sublistTarget);
                     }
-/*
+*/
                     if (type.Contains("Dictionary") || type.Contains("List"))
                     {
                         object childSource = dictSource[key];
                         object childTarget = dictTarget[key];
                         MergeSettings(childSource, childTarget);
                     }
-*/
+
                 } // next (KeyValue pair in dictSource)
             } // end if (typeSource.Contains("Dictionary"))
 
@@ -808,6 +808,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 ListObj listSource = (ListObj)objectSource;
                 ListObj listTarget = (ListObj)objectTarget;
 
+                //foreach (object elem in listSource)
                 for (int index = 0; index < listSource.Count; index++)
                 {
                     object elem = listSource[index];
@@ -816,7 +817,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if  (listTarget.Count > index)
                          listTarget[index] = elem;
                     else listTarget.Add(elem);
-
+/*
                     if (type.Contains("Dictionary"))
                     {
                         DictObj subdictSource = (DictObj)listSource[index];
@@ -829,14 +830,14 @@ namespace SebWindowsClient.ConfigurationUtils
                         ListObj sublistTarget = (ListObj)listTarget[index];
                         MergeSettings(sublistSource, sublistTarget);
                     }
-/*
+*/
                     if (type.Contains("Dictionary") || type.Contains("List"))
                     {
-                        object childSource = listSource[key];
-                        object childTarget = listTarget[key];
+                        object childSource = listSource[index];
+                        object childTarget = listTarget[index];
                         MergeSettings(childSource, childTarget);
                     }
-*/
+
                 } // next (element in listSource)
             } // end if (typeSource.Contains("List"))
 
