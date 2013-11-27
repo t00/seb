@@ -867,7 +867,6 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (type.Contains("List"      )) value   = "List/Array";
                 if (type.Contains("Dictionary")) value   = "Dictionary";
 
-
                 if (key.Equals(SEBSettings.MessagePermittedProcesses))
                 {
                     // Get the Permitted Process List
@@ -937,11 +936,74 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
 
+        // **************
+        // Print settings
+        // **************
+        public static void PrintSettings(object objectSource, StreamWriter fileWriter, String indenting)
+        {
+
+            // Determine the type of the input object
+            string typeSource = objectSource.GetType().ToString();
+
+
+            // Treat the complex datatype Dictionary<string, object>
+            if (typeSource.Contains("Dictionary"))
+            {
+                DictObj dictSource = (DictObj)objectSource;
+
+                //foreach (KeyValue pair in dictSource)
+                for (int index = 0; index < dictSource.Count; index++)
+                {
+                    KeyValue pair  = dictSource.ElementAt(index);
+                    string   key   = pair.Key;
+                    object   value = pair.Value;
+                    string   type  = pair.Value.GetType().ToString();
+
+                    // Print one (key, value) pair of dictionary
+                    fileWriter.WriteLine(indenting + key + "=" + value);
+
+                    if (type.Contains("Dictionary") || type.Contains("List"))
+                    {
+                        object childSource = dictSource[key];
+                        PrintSettings(childSource, fileWriter, indenting + "   ");
+                    }
+
+                } // next (KeyValue pair in dictSource)
+            } // end if (typeSource.Contains("Dictionary"))
+
+
+            // Treat the complex datatype List<object>
+            if (typeSource.Contains("List"))
+            {
+                ListObj listSource = (ListObj)objectSource;
+
+                //foreach (object elem in listSource)
+                for (int index = 0; index < listSource.Count; index++)
+                {
+                    object elem = listSource[index];
+                    string type = elem.GetType().ToString();
+
+                    // Print one element of list
+                    fileWriter.WriteLine(indenting + elem);
+
+                    if (type.Contains("Dictionary") || type.Contains("List"))
+                    {
+                        object childSource = listSource[index];
+                        PrintSettings(childSource, fileWriter, indenting + "   ");
+                    }
+
+                } // next (element in listSource)
+            } // end if (typeSource.Contains("List"))
+
+            return;
+        }
+
+
+
         // *************************
         // Print settings dictionary
         // *************************
-        public static void PrintSettingsDictionary(DictObj sebSettings,
-                                                   String  fileName)
+        public static void PrintSettingsDictionary(DictObj sebSettings, String  fileName)
         {
             FileStream   fileStream;
             StreamWriter fileWriter;
@@ -960,63 +1022,8 @@ namespace SebWindowsClient.ConfigurationUtils
             fileWriter.WriteLine("number of (key, value) pairs = " + sebSettings.Count);
             fileWriter.WriteLine("");
 
-            // Print (key, value) pairs of dictionary to file
-            foreach (KeyValue pair in sebSettings)
-            {
-                string key     = pair.Key;
-                object value   = pair.Value;
-                string type    = pair.Value.GetType().ToString();
-                bool   complex = false;
-
-                if (type.Contains("List"      )) complex = true;
-                if (type.Contains("Dictionary")) complex = true;
-                if (type.Contains("List"      )) type    = "List/Array";
-                if (type.Contains("Dictionary")) type    = "Dictionary";
-                if (type.Contains("List"      )) value   = "List/Array";
-                if (type.Contains("Dictionary")) value   = "Dictionary";
-
-                if (complex) fileWriter.WriteLine("");
-                fileWriter.WriteLine("" + key + "=" + value);
-
-
-                if (key.Equals(SEBSettings.MessageURLFilterRules))
-                {
-                    // Get the URL Filter Rule List
-                    SEBSettings.urlFilterRuleList = (ListObj)sebSettings[SEBSettings.MessageURLFilterRules];
-
-                    // Traverse URL Filter Rules of currently opened file
-                    for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
-                    {
-                        SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
-
-                        // Print current Filter Rule
-                        fileWriter.WriteLine("");
-                        fileWriter.WriteLine("   " + "Rule Nr: "        + " " + ruleIndex.ToString());
-                        foreach (KeyValue p in SEBSettings.urlFilterRuleData)
-                            fileWriter.WriteLine("   " + p.Key + "=" + p.Value);
-                        fileWriter.WriteLine("");
-
-                        // Get the URL Filter Action List
-                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
-
-                        // Traverse actions of current rule
-                        for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
-                        {
-                            SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
-
-                            // Print current action
-                            fileWriter.WriteLine("      " + "Action Nr:"      + " " + actionIndex.ToString());
-                            foreach (KeyValue p in SEBSettings.urlFilterActionData)
-                                fileWriter.WriteLine("      " + p.Key + "=" + p.Value);
-                            fileWriter.WriteLine("");
-
-                        } // next actionIndex
-                        //fileWriter.WriteLine("");
-                    } // next ruleIndex
-                } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
-
-
-            } // next key in sebSettingsSource
+            // Call the recursive method for printing the contents
+            PrintSettings(sebSettings, fileWriter, "");
 
             // Close the file
             fileWriter.Close();
