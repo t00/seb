@@ -303,11 +303,15 @@ namespace SebWindowsClient.ConfigurationUtils
         public static ListObj permittedProcessList    = new ListObj();
         public static DictObj permittedProcessData    = new DictObj();
         public static DictObj permittedProcessDataDef = new DictObj();
+        public static DictObj permittedProcessDataXulRunner = new DictObj();
 
         public static int     permittedArgumentIndex;
         public static ListObj permittedArgumentList    = new ListObj();
         public static DictObj permittedArgumentData    = new DictObj();
         public static DictObj permittedArgumentDataDef = new DictObj();
+        public static DictObj permittedArgumentDataXulRunner1 = new DictObj();
+        public static DictObj permittedArgumentDataXulRunner2 = new DictObj();
+        public static ListObj permittedArgumentListXulRunner  = new ListObj();
 
         public static int     prohibitedProcessIndex;
         public static ListObj prohibitedProcessList    = new ListObj();
@@ -452,10 +456,29 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Default settings for group "Applications"
             settingsDef.Add(SEBSettings.MessageMonitorProcesses         , false);
-            settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
             settingsDef.Add(SEBSettings.MessageAllowSwitchToApplications, false);
             settingsDef.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
+          //settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
             settingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new ListObj());
+
+            // Default settings for permitted argument data
+            permittedArgumentDataDef.Clear();
+            permittedArgumentDataDef.Add(SEBSettings.MessageActive  , true);
+            permittedArgumentDataDef.Add(SEBSettings.MessageArgument, "");
+
+            // Define the XulRunner arguments
+            permittedArgumentDataXulRunner1.Clear();
+            permittedArgumentDataXulRunner1.Add(SEBSettings.MessageActive  , true);
+            permittedArgumentDataXulRunner1.Add(SEBSettings.MessageArgument, "-app \"..\\xul_seb\\seb.ini\"");
+
+            permittedArgumentDataXulRunner2.Clear();
+            permittedArgumentDataXulRunner2.Add(SEBSettings.MessageActive  , true);
+            permittedArgumentDataXulRunner2.Add(SEBSettings.MessageArgument, "-profile \"%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles\"");
+
+            // Create the XulRunner argument list with the XulRunner arguments
+            permittedArgumentListXulRunner.Clear();
+            permittedArgumentListXulRunner.Add(permittedArgumentDataXulRunner1);
+            permittedArgumentListXulRunner.Add(permittedArgumentDataXulRunner2);
 
             // Default settings for permitted process data
             permittedProcessDataDef.Clear();
@@ -471,10 +494,26 @@ namespace SebWindowsClient.ConfigurationUtils
             permittedProcessDataDef.Add(SEBSettings.MessageIdentifier , "");
             permittedProcessDataDef.Add(SEBSettings.MessageArguments  , new ListObj());
 
-            // Default settings for permitted argument data
-            permittedArgumentDataDef.Clear();
-            permittedArgumentDataDef.Add(SEBSettings.MessageActive  , true);
-            permittedArgumentDataDef.Add(SEBSettings.MessageArgument, "");
+            // Create a XulRunner process with the XulRunner argument list
+            permittedProcessDataXulRunner.Clear();
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageActive     , true);
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageAutostart  , true);
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageAutohide   , true);
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageAllowUser  , true);
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageOS         , IntWin);
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageTitle      , "SEB");
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageDescription, "");
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageExecutable, "xulrunner.exe");
+            permittedProcessDataXulRunner.Add(SEBSettings.MessagePath       , "../xulrunner/");
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageIdentifier, "XulRunner");
+            permittedProcessDataXulRunner.Add(SEBSettings.MessageArguments  , permittedArgumentListXulRunner);
+
+            // Create a Permitted Process list with the XulRunner process
+            permittedProcessList.Clear();
+            permittedProcessList.Add(permittedProcessDataXulRunner);
+
+            // Add this Permitted Process list to the default SEB settings dictionary
+            settingsDef.Add(SEBSettings.MessagePermittedProcesses, permittedProcessList);
 
             // Default settings for prohibited process data
             prohibitedProcessDataDef.Clear();
@@ -651,9 +690,10 @@ namespace SebWindowsClient.ConfigurationUtils
             settingString[StateDef, SEBDefaultSettings.ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
 */
 
-            permittedProcessIndex = -1;
-            permittedProcessList.Clear();
-            permittedProcessData.Clear();
+            // At the beginning, we have one permitted process (XulRunner)
+            permittedProcessIndex = 0;
+          //permittedProcessList.Clear();
+          //permittedProcessData.Clear();
 
             permittedArgumentIndex = -1;
             permittedArgumentList.Clear();
