@@ -304,6 +304,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static DictObj permittedProcessData    = new DictObj();
         public static DictObj permittedProcessDataDef = new DictObj();
         public static DictObj permittedProcessDataXulRunner = new DictObj();
+        public static ListObj permittedProcessListXulRunner = new ListObj();
 
         public static int     permittedArgumentIndex;
         public static ListObj permittedArgumentList    = new ListObj();
@@ -509,11 +510,11 @@ namespace SebWindowsClient.ConfigurationUtils
             permittedProcessDataXulRunner.Add(SEBSettings.MessageArguments  , permittedArgumentListXulRunner);
 
             // Create a Permitted Process list with the XulRunner process
-            permittedProcessList.Clear();
-            permittedProcessList.Add(permittedProcessDataXulRunner);
+            permittedProcessListXulRunner.Clear();
+            permittedProcessListXulRunner.Add(permittedProcessDataXulRunner);
 
             // Add this Permitted Process list to the default SEB settings dictionary
-            settingsDef.Add(SEBSettings.MessagePermittedProcesses, permittedProcessList);
+            settingsDef.Add(SEBSettings.MessagePermittedProcesses, permittedProcessListXulRunner);
 
             // Default settings for prohibited process data
             prohibitedProcessDataDef.Clear();
@@ -695,9 +696,9 @@ namespace SebWindowsClient.ConfigurationUtils
           //permittedProcessList.Clear();
           //permittedProcessData.Clear();
 
-            permittedArgumentIndex = -1;
-            permittedArgumentList.Clear();
-            permittedArgumentData.Clear();
+            permittedArgumentIndex = 0;
+          //permittedArgumentList.Clear();
+          //permittedArgumentData.Clear();
 
             prohibitedProcessIndex = -1;
             prohibitedProcessList.Clear();
