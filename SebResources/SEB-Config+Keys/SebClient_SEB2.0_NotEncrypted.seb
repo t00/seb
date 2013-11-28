@@ -125,13 +125,13 @@
 					<key>active</key>
 					<true/>
 					<key>argument</key>
-					<string>-app "..\xul_seb\seb.ini</string>
+					<string>-app "..\xul_seb\seb.ini"</string>
 				</dict>
 				<dict>
 					<key>active</key>
 					<true/>
 					<key>argument</key>
-					<string>-profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles</string>
+					<string>-profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles"</string>
 				</dict>
 			</array>
 			<key>allowUserToChooseApp</key>
