@@ -459,7 +459,7 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsDef.Add(SEBSettings.MessageMonitorProcesses         , false);
             settingsDef.Add(SEBSettings.MessageAllowSwitchToApplications, false);
             settingsDef.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
-          //settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
+            settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
             settingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new ListObj());
 
             // Default settings for permitted argument data
@@ -513,8 +513,8 @@ namespace SebWindowsClient.ConfigurationUtils
             permittedProcessListXulRunner.Clear();
             permittedProcessListXulRunner.Add(permittedProcessDataXulRunner);
 
-            // Add this Permitted Process list to the default SEB settings dictionary
-            settingsDef.Add(SEBSettings.MessagePermittedProcesses, permittedProcessListXulRunner);
+            // Add this Permitted Process list with XulRunner to the default SEB settings dictionary
+            //settingsDef.Add(SEBSettings.MessagePermittedProcesses, permittedProcessListXulRunner);
 
             // Default settings for prohibited process data
             prohibitedProcessDataDef.Clear();
@@ -691,14 +691,13 @@ namespace SebWindowsClient.ConfigurationUtils
             settingString[StateDef, SEBDefaultSettings.ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
 */
 
-            // At the beginning, we have one permitted process (XulRunner)
-            permittedProcessIndex = 0;
-          //permittedProcessList.Clear();
-          //permittedProcessData.Clear();
+            permittedProcessIndex = -1;
+            permittedProcessList.Clear();
+            permittedProcessData.Clear();
 
-            permittedArgumentIndex = 0;
-          //permittedArgumentList.Clear();
-          //permittedArgumentData.Clear();
+            permittedArgumentIndex = -1;
+            permittedArgumentList.Clear();
+            permittedArgumentData.Clear();
 
             prohibitedProcessIndex = -1;
             prohibitedProcessList.Clear();
