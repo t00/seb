@@ -134,11 +134,17 @@
 					<string>-profile "%LOCALAPPDATA%\ETH Zuerich\xul_seb\Profiles</string>
 				</dict>
 			</array>
+			<key>allowUserToChooseApp</key>
+			<true/>
+			<key>autohide</key>
+			<true/>
 			<key>autostart</key>
 			<true/>
+			<key>description</key>
+			<string></string>
 			<key>identifier</key>
 			<string>XulRunner</string>
-			<key>name</key>
+			<key>executable</key>
 			<string>xulrunner.exe</string>
 			<key>os</key>
 			<integer>1</integer>
