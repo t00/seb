@@ -727,7 +727,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void RestoreDefaultAndNewSettings()
         {
             // Set all the default values for the Plist structure "settingsNew"
-            SEBSettings.BuildUpDefaultSettings();
+            BuildUpDefaultSettings();
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
@@ -740,6 +740,7 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsNew.Clear();
             CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
+          //FillSettingsDictionary(SEBSettings.settingsNew);
         }
 
 
@@ -1153,13 +1154,12 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // If the settings could be read from file,
             // recreate "def" settings and "new" settings
-            SEBSettings.RestoreDefaultAndNewSettings();
+            RestoreDefaultAndNewSettings();
 
             // And merge "tmp" settings into "new" settings
-            SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
-            SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
-            SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
-          //SEBSettings.MergeSettings(SEBSettings.settingsTmp, SEBSettings.settingsNew);
+            CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
+            CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
+            FillSettingsDictionary(SEBSettings.settingsNew);
 
             return true;
         }
