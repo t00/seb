@@ -900,12 +900,12 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (key.Equals(SEBSettings.MessagePermittedProcesses))
                 {
                     // Get the Permitted Process List
-                    SEBSettings.permittedProcessList = (ListObj)sebSettings[SEBSettings.MessagePermittedProcesses];
+                    SEBSettings.permittedProcessList = (ListObj)sebSettings[key];
 
                     // Traverse Permitted Processes of currently opened file
-                    for (int processIndex = 0; processIndex < SEBSettings.permittedProcessList.Count; processIndex++)
+                    for (int listIndex = 0; listIndex < SEBSettings.permittedProcessList.Count; listIndex++)
                     {
-                        SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[processIndex];
+                        SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
 
                         foreach (KeyValue p in SEBSettings.permittedProcessDataDef)
                             if (permittedProcessData.ContainsKey(p.Key) == false)
@@ -915,28 +915,64 @@ namespace SebWindowsClient.ConfigurationUtils
                         SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
 
                         // Traverse actions of current rule
-                        for (int argumentIndex = 0; argumentIndex < SEBSettings.permittedArgumentList.Count; argumentIndex++)
+                        for (int sublistIndex = 0; sublistIndex < SEBSettings.permittedArgumentList.Count; sublistIndex++)
                         {
-                            SEBSettings.permittedArgumentData = (DictObj)SEBSettings.permittedArgumentList[argumentIndex];
+                            SEBSettings.permittedArgumentData = (DictObj)SEBSettings.permittedArgumentList[sublistIndex];
 
                             foreach (KeyValue p in SEBSettings.permittedArgumentDataDef)
                                 if (permittedArgumentData.ContainsKey(p.Key) == false)
                                     permittedArgumentData.Add        (p.Key, p.Value);
 
-                        } // next argumentIndex
-                    } // next processIndex
+                        } // next sublistIndex
+                    } // next listIndex
                 } // end if (key.Equals(SEBSettings.MessagePermittedProcesses))
+
+
+                if (key.Equals(SEBSettings.MessageProhibitedProcesses))
+                {
+                    // Get the Prohibited Process List
+                    SEBSettings.prohibitedProcessList = (ListObj)sebSettings[key];
+
+                    // Traverse Prohibited Processes of currently opened file
+                    for (int listIndex = 0; listIndex < SEBSettings.prohibitedProcessList.Count; listIndex++)
+                    {
+                        SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[listIndex];
+
+                        foreach (KeyValue p in SEBSettings.prohibitedProcessDataDef)
+                            if (prohibitedProcessData.ContainsKey(p.Key) == false)
+                                prohibitedProcessData.Add        (p.Key, p.Value);
+
+                    } // next listIndex
+                } // end if (key.Equals(SEBSettings.MessageProhibitedProcesses))
+
+
+                if (key.Equals(SEBSettings.MessageEmbeddedCertificates))
+                {
+                    // Get the Embedded Certificate List
+                    SEBSettings.embeddedCertificateList = (ListObj)sebSettings[key];
+
+                    // Traverse Embedded Certificates of currently opened file
+                    for (int listIndex = 0; listIndex < SEBSettings.embeddedCertificateList.Count; listIndex++)
+                    {
+                        SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[listIndex];
+
+                        foreach (KeyValue p in SEBSettings.embeddedCertificateDataDef)
+                            if (embeddedCertificateData.ContainsKey(p.Key) == false)
+                                embeddedCertificateData.Add        (p.Key, p.Value);
+
+                    } // next listIndex
+                } // end if (key.Equals(SEBSettings.MessageEmbeddedCertificates))
 
 
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
                     // Get the URL Filter Rule List
-                    SEBSettings.urlFilterRuleList = (ListObj)sebSettings[SEBSettings.MessageURLFilterRules];
+                    SEBSettings.urlFilterRuleList = (ListObj)sebSettings[key];
 
                     // Traverse URL Filter Rules of currently opened file
-                    for (int ruleIndex = 0; ruleIndex < SEBSettings.urlFilterRuleList.Count; ruleIndex++)
+                    for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
                     {
-                        SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[ruleIndex];
+                        SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
 
                         foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
                             if (urlFilterRuleData.ContainsKey(p.Key) == false)
@@ -946,16 +982,16 @@ namespace SebWindowsClient.ConfigurationUtils
                         SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
                         // Traverse actions of current rule
-                        for (int actionIndex = 0; actionIndex < SEBSettings.urlFilterActionList.Count; actionIndex++)
+                        for (int sublistIndex = 0; sublistIndex < SEBSettings.urlFilterActionList.Count; sublistIndex++)
                         {
-                            SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[actionIndex];
+                            SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[sublistIndex];
 
                             foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
                                 if (urlFilterActionData.ContainsKey(p.Key) == false)
                                     urlFilterActionData.Add        (p.Key, p.Value);
 
-                        } // next actionIndex
-                    } // next ruleIndex
+                        } // next sublistIndex
+                    } // next listIndex
                 } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
 
 
