@@ -911,6 +911,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
 
+                        // Add potentially missing keys to current Process Dictionary
                         foreach (KeyValue p in SEBSettings.permittedProcessDataDef)
                             if (permittedProcessData.ContainsKey(p.Key) == false)
                                 permittedProcessData.Add        (p.Key, p.Value);
@@ -922,11 +923,12 @@ namespace SebWindowsClient.ConfigurationUtils
                         // Get the Permitted Argument List
                         SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
 
-                        // Traverse actions of current rule
+                        // Traverse Arguments of current Process
                         for (int sublistIndex = 0; sublistIndex < SEBSettings.permittedArgumentList.Count; sublistIndex++)
                         {
                             SEBSettings.permittedArgumentData = (DictObj)SEBSettings.permittedArgumentList[sublistIndex];
 
+                            // Add potentially missing keys to current Argument Dictionary
                             foreach (KeyValue p in SEBSettings.permittedArgumentDataDef)
                                 if (permittedArgumentData.ContainsKey(p.Key) == false)
                                     permittedArgumentData.Add        (p.Key, p.Value);
@@ -962,6 +964,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[listIndex];
 
+                        // Add potentially missing keys to current Process Dictionary
                         foreach (KeyValue p in SEBSettings.prohibitedProcessDataDef)
                             if (prohibitedProcessData.ContainsKey(p.Key) == false)
                                 prohibitedProcessData.Add        (p.Key, p.Value);
@@ -980,6 +983,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[listIndex];
 
+                        // Add potentially missing keys to current Certificate Dictionary
                         foreach (KeyValue p in SEBSettings.embeddedCertificateDataDef)
                             if (embeddedCertificateData.ContainsKey(p.Key) == false)
                                 embeddedCertificateData.Add        (p.Key, p.Value);
@@ -996,8 +1000,9 @@ namespace SebWindowsClient.ConfigurationUtils
                     // Traverse URL Filter Rules of currently opened file
                     for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
                     {
-                        SEBSettings.urlFilterRuleData   = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
+                        SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
 
+                        // Add potentially missing keys to current Rule Dictionary
                         foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
                             if (urlFilterRuleData.ContainsKey(p.Key) == false)
                                 urlFilterRuleData.Add        (p.Key, p.Value);
@@ -1005,11 +1010,12 @@ namespace SebWindowsClient.ConfigurationUtils
                         // Get the URL Filter Action List
                         SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
 
-                        // Traverse actions of current rule
+                        // Traverse actions of current Rule
                         for (int sublistIndex = 0; sublistIndex < SEBSettings.urlFilterActionList.Count; sublistIndex++)
                         {
                             SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[sublistIndex];
 
+                            // Add potentially missing keys to current Action Dictionary
                             foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
                                 if (urlFilterActionData.ContainsKey(p.Key) == false)
                                     urlFilterActionData.Add        (p.Key, p.Value);
@@ -1017,6 +1023,28 @@ namespace SebWindowsClient.ConfigurationUtils
                         } // next sublistIndex
                     } // next listIndex
                 } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
+
+
+                if (key.Equals(SEBSettings.MessageProxies))
+                {
+                    // Get the Proxies Dictionary
+                    SEBSettings.proxiesData = (DictObj)sebSettings[key];
+
+                    // Add potentially missing keys to current Proxies Dictionary
+                    foreach (KeyValue p in SEBSettings.proxiesDataDef)
+                        if (proxiesData.ContainsKey(p.Key) == false)
+                            proxiesData.Add        (p.Key, p.Value);
+
+                    // Get the Bypassed Proxy List
+                    SEBSettings.bypassedProxyList = (ListObj)proxiesData[SEBSettings.MessageExceptionsList];
+
+                    // Traverse Bypassed Proxies of currently opened file
+                    for (int listIndex = 0; listIndex < SEBSettings.bypassedProxyList.Count; listIndex++)
+                    {
+                        if (SEBSettings.bypassedProxyList[listIndex] == "")
+                            SEBSettings.bypassedProxyList[listIndex] = bypassedProxyDataDef;
+                    } // next listIndex
+                } // end if (key.Equals(SEBSettings.MessageProxies))
 
 
             } // next key in sebSettingsTarget
