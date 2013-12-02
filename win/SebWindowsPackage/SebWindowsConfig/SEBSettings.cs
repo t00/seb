@@ -478,8 +478,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Create the XulRunner argument list with the XulRunner arguments
             permittedArgumentListXulRunner.Clear();
-            permittedArgumentListXulRunner.Add(permittedArgumentDataXulRunner1);
-            permittedArgumentListXulRunner.Add(permittedArgumentDataXulRunner2);
+            permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner1);
+            permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner2);
 
             // Default settings for permitted process data
             permittedProcessDataDef.Clear();
@@ -511,7 +511,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Create a Permitted Process list with the XulRunner process
             permittedProcessListXulRunner.Clear();
-            permittedProcessListXulRunner.Add(permittedProcessDataXulRunner);
+            permittedProcessListXulRunner.Add(SEBSettings.permittedProcessDataXulRunner);
 
             // Default settings for prohibited process data
             prohibitedProcessDataDef.Clear();
