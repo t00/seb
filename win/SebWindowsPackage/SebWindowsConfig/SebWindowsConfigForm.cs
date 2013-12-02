@@ -16,8 +16,9 @@ using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ConfigurationUtils;
 using PlistCS;
 
-using ListObj = System.Collections.Generic.List<object>;
-using DictObj = System.Collections.Generic.Dictionary<string, object>;
+using ListObj  = System.Collections.Generic.List                <object>;
+using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
+using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
 
 
 

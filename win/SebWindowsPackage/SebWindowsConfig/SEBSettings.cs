@@ -8,8 +8,8 @@ using System.Security.Cryptography.X509Certificates;
 using SebWindowsClient.CryptographyUtils;
 using PlistCS;
 
-using ListObj  = System.Collections.Generic.List<object>;
-using DictObj  = System.Collections.Generic.Dictionary<string, object>;
+using ListObj  = System.Collections.Generic.List                <object>;
+using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
 using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
 
 
@@ -513,9 +513,6 @@ namespace SebWindowsClient.ConfigurationUtils
             permittedProcessListXulRunner.Clear();
             permittedProcessListXulRunner.Add(permittedProcessDataXulRunner);
 
-            // Add this Permitted Process list with XulRunner to the default SEB settings dictionary
-            //settingsDef.Add(SEBSettings.MessagePermittedProcesses, permittedProcessListXulRunner);
-
             // Default settings for prohibited process data
             prohibitedProcessDataDef.Clear();
             prohibitedProcessDataDef.Add(SEBSettings.MessageActive     , true);
@@ -886,9 +883,9 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
 
-        // **************************
-        // Repair settings dictionary
-        // **************************
+        // ************************
+        // Fill settings dictionary
+        // ************************
         public static void FillSettingsDictionary(DictObj sebSettings)
         {
 
@@ -960,69 +957,6 @@ namespace SebWindowsClient.ConfigurationUtils
                         } // next actionIndex
                     } // next ruleIndex
                 } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
-
-
-            } // next key in sebSettingsTarget
-
-            return;
-        }
-
-
-
-        // **************************
-        // Repair settings dictionary
-        // **************************
-        public static void FillSettingsDictionaryBuggy(DictObj sebSettings)
-        {
-
-            // Traverse (key, value) pairs of dictionary
-            foreach (KeyValue pair in sebSettings)
-            {
-                string key   = pair.Key;
-                object value = pair.Value;
-                string type  = pair.Value.GetType().ToString();
-
-
-                if (type.Contains("List"))
-                {
-                    // Get the mainlist
-                    ListObj list = (ListObj)value;
-
-                    // Traverse the mainlist
-                    for (int listIndex = 0; listIndex < list.Count; listIndex++)
-                    {
-                        DictObj dictToRepair = (DictObj)list[listIndex];
-                        DictObj dictDefault  = null;
-
-                        if (key.Equals(MessagePermittedProcesses)) dictDefault = SEBSettings.permittedProcessDataDef;
-                        if (key.Equals(MessageURLFilterRules    )) dictDefault = SEBSettings.urlFilterRuleDataDef;
-
-                        foreach (KeyValue p in dictDefault)
-                            if (dictToRepair.ContainsKey(p.Key) == false)
-                                dictToRepair.Add        (p.Key, p.Value);
-
-                        // Get the sublist
-                        ListObj sublist = null;
-
-                        if (key.Equals(MessagePermittedProcesses)) sublist = (ListObj)dictToRepair[MessageArguments];
-                        if (key.Equals(MessageURLFilterRules    )) sublist = (ListObj)dictToRepair[MessageRuleActions];
-
-                        // Traverse entries of sublist
-                        for (int sublistIndex = 0; sublistIndex < sublist.Count; sublistIndex++)
-                        {
-                            DictObj subdictToRepair = (DictObj)sublist[sublistIndex];
-                            DictObj subdictDefault  = null;
-
-                            if (key.Equals(MessagePermittedProcesses)) subdictDefault = SEBSettings.permittedArgumentDataDef;
-                            if (key.Equals(MessageURLFilterRules    )) subdictDefault = SEBSettings.  urlFilterActionDataDef;
-
-                            foreach (KeyValue p in subdictDefault)
-                                if (subdictToRepair.ContainsKey(p.Key) == false)
-                                    subdictToRepair.Add        (p.Key, p.Value);
-
-                        } // next sublistIndex
-                    } // next listIndex
-                } // end if (type.Contains("List"))
 
 
             } // next key in sebSettingsTarget
