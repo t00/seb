@@ -889,7 +889,6 @@ namespace SebWindowsClient.ConfigurationUtils
         // ************************
         public static void FillSettingsDictionary(DictObj sebSettings)
         {
-
             // Traverse (key, value) pairs of dictionary
             foreach (KeyValue pair in sebSettings)
             {
@@ -898,13 +897,11 @@ namespace SebWindowsClient.ConfigurationUtils
                 string type    = pair.Value.GetType().ToString();
 
 
+                // Fill up missing keys in Permitted Processes and Arguments
                 if (key.Equals(SEBSettings.MessagePermittedProcesses))
                 {
                     // Get the Permitted Process List
                     SEBSettings.permittedProcessList = (ListObj)sebSettings[key];
-
-                    // Position of XulRunner process in Permitted Process List
-                    int indexOfProcessXulRunnerExe = -1;
 
                     // Traverse Permitted Processes of currently opened file
                     for (int listIndex = 0; listIndex < SEBSettings.permittedProcessList.Count; listIndex++)
@@ -915,10 +912,6 @@ namespace SebWindowsClient.ConfigurationUtils
                         foreach (KeyValue p in SEBSettings.permittedProcessDataDef)
                             if (permittedProcessData.ContainsKey(p.Key) == false)
                                 permittedProcessData.Add        (p.Key, p.Value);
-
-                        // Check if XulRunner process is in Permitted Process List
-                        if (SEBSettings.permittedProcessData[SEBSettings.MessageExecutable].Equals("xulrunner.exe"))
-                            indexOfProcessXulRunnerExe = listIndex;
 
                         // Get the Permitted Argument List
                         SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
@@ -935,25 +928,10 @@ namespace SebWindowsClient.ConfigurationUtils
 
                         } // next sublistIndex
                     } // next listIndex
-
-
-                    // If XulRunner process was not in Permitted Process List, add it
-                    if (indexOfProcessXulRunnerExe == -1)
-                    {
-                        permittedProcessList.Add(permittedProcessDataXulRunner);
-                    }
-                    // Assure that XulRunner process has correct settings:
-                    // Remove XulRunner process from Permitted Process List.
-                    // Add    XulRunner process to   Permitted Process List.
-                    else
-                    {
-                        permittedProcessList.RemoveAt(indexOfProcessXulRunnerExe);
-                        permittedProcessList.Insert  (indexOfProcessXulRunnerExe, permittedProcessDataXulRunner);
-                    }
-
                 } // end if (key.Equals(SEBSettings.MessagePermittedProcesses))
 
 
+                // Fill up missing keys in Prohibited Processes
                 if (key.Equals(SEBSettings.MessageProhibitedProcesses))
                 {
                     // Get the Prohibited Process List
@@ -973,6 +951,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 } // end if (key.Equals(SEBSettings.MessageProhibitedProcesses))
 
 
+                // Fill up missing keys in Embedded Certificates
                 if (key.Equals(SEBSettings.MessageEmbeddedCertificates))
                 {
                     // Get the Embedded Certificate List
@@ -992,6 +971,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 } // end if (key.Equals(SEBSettings.MessageEmbeddedCertificates))
 
 
+                // Fill up missing keys in URL Filter Rules and Actions
                 if (key.Equals(SEBSettings.MessageURLFilterRules))
                 {
                     // Get the URL Filter Rule List
@@ -1025,6 +1005,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
 
 
+                // Fill up missing keys in Proxies
                 if (key.Equals(SEBSettings.MessageProxies))
                 {
                     // Get the Proxies Dictionary
@@ -1041,13 +1022,54 @@ namespace SebWindowsClient.ConfigurationUtils
                     // Traverse Bypassed Proxies of currently opened file
                     for (int listIndex = 0; listIndex < SEBSettings.bypassedProxyList.Count; listIndex++)
                     {
-                        if (SEBSettings.bypassedProxyList[listIndex] == "")
-                            SEBSettings.bypassedProxyList[listIndex] = bypassedProxyDataDef;
+                        if ((String)SEBSettings.bypassedProxyList[listIndex] == "")
+                                    SEBSettings.bypassedProxyList[listIndex] = bypassedProxyDataDef;
                     } // next listIndex
                 } // end if (key.Equals(SEBSettings.MessageProxies))
 
 
             } // next key in sebSettingsTarget
+
+            return;
+        }
+
+
+
+        // **********************************************
+        // Add XulRunnerProcess to Permitted Process List
+        // **********************************************
+        public static void PermitXulRunnerProcess(DictObj sebSettings)
+        {
+            // Get the Permitted Process List
+            SEBSettings.permittedProcessList = (ListObj)sebSettings[SEBSettings.MessagePermittedProcesses];
+
+            // Position of XulRunner process in Permitted Process List
+            int indexOfProcessXulRunnerExe = -1;
+
+            // Traverse Permitted Processes of currently opened file
+            for (int listIndex = 0; listIndex < SEBSettings.permittedProcessList.Count; listIndex++)
+            {
+                SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
+
+                // Check if XulRunner process is in Permitted Process List
+                if (SEBSettings.permittedProcessData[SEBSettings.MessageExecutable].Equals("xulrunner.exe"))
+                    indexOfProcessXulRunnerExe = listIndex;
+
+            } // next listIndex
+
+            // If XulRunner process was not in Permitted Process List, add it
+            if (indexOfProcessXulRunnerExe == -1)
+            {
+                permittedProcessList.Add(permittedProcessDataXulRunner);
+            }
+            // Assure that XulRunner process has correct settings:
+            // Remove XulRunner process from Permitted Process List.
+            // Add    XulRunner process to   Permitted Process List.
+            else
+            {
+              //permittedProcessList.RemoveAt(indexOfProcessXulRunnerExe);
+              //permittedProcessList.Insert  (indexOfProcessXulRunnerExe, permittedProcessDataXulRunner);
+            }
 
             return;
         }
@@ -1188,6 +1210,7 @@ namespace SebWindowsClient.ConfigurationUtils
             CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
             FillSettingsDictionary(SEBSettings.settingsNew);
+            PermitXulRunnerProcess(SEBSettings.settingsNew);
 
             return true;
         }
