@@ -39,8 +39,9 @@ namespace SebWindowsConfig
 
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             SEBSettings.RestoreDefaultAndNewSettings();
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
+            SEBSettings.PermitXulRunnerProcess (SEBSettings.settingsNew);
+            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInConstructor.txt");
+            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInConstructor.txt");
 
             // Initialise the global variables for the GUI widgets
             InitialiseGlobalVariablesForGUIWidgets();
@@ -68,9 +69,9 @@ namespace SebWindowsConfig
             if (!SEBSettings.ReadSebConfigurationFile(fileName)) return false;
 
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmp.txt");
-            SEBSettings.PrintSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
+            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDef.txt");
+            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmp.txt");
+            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNew.txt");
 
             // GUI-related part: Update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -719,6 +720,9 @@ namespace SebWindowsConfig
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_before_RevertToDefault.xml");
             SEBSettings.RestoreDefaultAndNewSettings();
+            SEBSettings.PermitXulRunnerProcess (SEBSettings.settingsNew);
+            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInButtonDefault.txt");
+            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInButtonDefault.txt");
             UpdateAllWidgetsOfProgram();
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_after_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_after_RevertToDefault.xml");

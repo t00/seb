@@ -740,7 +740,6 @@ namespace SebWindowsClient.ConfigurationUtils
             settingsNew.Clear();
             CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
-          //FillSettingsDictionary(SEBSettings.settingsNew);
         }
 
 
@@ -1143,7 +1142,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *************************
         // Print settings dictionary
         // *************************
-        public static void PrintSettingsDictionary(DictObj sebSettings, String  fileName)
+        public static void LoggSettingsDictionary(DictObj sebSettings, String  fileName)
         {
             FileStream   fileStream;
             StreamWriter fileWriter;
@@ -1207,10 +1206,26 @@ namespace SebWindowsClient.ConfigurationUtils
             RestoreDefaultAndNewSettings();
 
             // And merge "tmp" settings into "new" settings
+            LoggSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyBefore.txt");
+            LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyBefore.txt");
             CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
             CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
+            LoggSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyAfter.txt");
+            LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyAfter.txt");
+
+            LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillBefore.txt");
             FillSettingsDictionary(SEBSettings.settingsNew);
+            LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillAfter.txt");
+
+            LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
+            LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
             PermitXulRunnerProcess(SEBSettings.settingsNew);
+            LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
+            LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
+
+            LoggSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFile.txt");
+            LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFile.txt");
+            LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFile.txt");
 
             return true;
         }
