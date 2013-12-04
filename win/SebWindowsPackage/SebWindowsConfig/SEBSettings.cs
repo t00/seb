@@ -739,7 +739,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             SEBSettings.settingsNew.Clear();
             SEBSettings.CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
-            SEBSettings.CopySettingsDictionary(SEBSettings.settingsDef, SEBSettings.settingsNew);
+            SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsDef, ref SEBSettings.settingsNew);
         }
 
 
@@ -765,8 +765,8 @@ namespace SebWindowsClient.ConfigurationUtils
         // ************************
         // Copy settings dictionary
         // ************************
-        public static void CopySettingsDictionary(DictObj sebSettingsSource,
-                                                  DictObj sebSettingsTarget)
+        public static void CopySettingsDictionary(ref DictObj sebSettingsSource,
+                                                  ref DictObj sebSettingsTarget)
         {
             // Copy all settings from one dictionary to another
             // Create a dictionary "target settings".
@@ -789,7 +789,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // **************
         // Merge settings
         // **************
-        public static void MergeSettings(object objectSource, object objectTarget)
+        public static void MergeSettings(ref object objectSource, ref object objectTarget)
         {
             // Determine the type of the input objects
             string typeSource = objectSource.GetType().ToString();
@@ -832,7 +832,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         object childSource = dictSource[key];
                         object childTarget = dictTarget[key];
-                        MergeSettings(childSource, childTarget);
+                        MergeSettings(ref childSource, ref childTarget);
                     }
 
                 } // next (KeyValue pair in dictSource)
@@ -872,7 +872,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         object childSource = listSource[index];
                         object childTarget = listTarget[index];
-                        MergeSettings(childSource, childTarget);
+                        MergeSettings(ref childSource, ref childTarget);
                     }
 
                 } // next (element in listSource)
@@ -886,7 +886,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // ************************
         // Fill settings dictionary
         // ************************
-        public static void FillSettingsDictionary(DictObj sebSettings)
+        public static void FillSettingsDictionary(ref DictObj sebSettings)
         {
             // Traverse (key, value) pairs of dictionary
             foreach (KeyValue pair in sebSettings)
@@ -1037,7 +1037,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // **********************************************
         // Add XulRunnerProcess to Permitted Process List
         // **********************************************
-        public static void PermitXulRunnerProcess(DictObj sebSettings)
+        public static void PermitXulRunnerProcess(ref DictObj sebSettings)
         {
             // Get the Permitted Process List
             SEBSettings.permittedProcessList = (ListObj)sebSettings[SEBSettings.MessagePermittedProcesses];
@@ -1142,7 +1142,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *************************
         // Print settings dictionary
         // *************************
-        public static void LoggSettingsDictionary(DictObj sebSettings, String  fileName)
+        public static void LoggSettingsDictionary(ref DictObj sebSettings, String  fileName)
         {
             FileStream   fileStream;
             StreamWriter fileWriter;
@@ -1207,28 +1207,30 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.RestoreDefaultAndNewSettings();
 
             // And merge "tmp" settings into "new" settings
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyBefore.txt");
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyBefore.txt");
+
             SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
-            SEBSettings.CopySettingsDictionary(SEBSettings.settingsTmp, SEBSettings.settingsNew);
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyAfter.txt");
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyAfter.txt");
+            SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsTmp, ref SEBSettings.settingsNew);
 
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillBefore.txt");
-          //SEBSettings.BuildUpDefaultSettings();
-            SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyAfter.txt");
 
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
-          //SEBSettings.BuildUpDefaultSettings();
-            SEBSettings.PermitXulRunnerProcess(SEBSettings.settingsNew);
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillBefore.txt");
+            SEBSettings.FillSettingsDictionary(ref SEBSettings.settingsNew);
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillAfter.txt");
 
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFile.txt");
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFile.txt");
-            SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFile.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
+            SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
+
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFile.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFile.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFile.txt");
 
             return true;
         }
