@@ -1201,6 +1201,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 return false;
             }
 
+
             // If the settings could be read from file,
             // recreate "def" settings and "new" settings
             SEBSettings.RestoreDefaultAndNewSettings();
@@ -1214,13 +1215,13 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyAfter.txt");
 
             SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillBefore.txt");
-            SEBSettings.BuildUpDefaultSettings();
+          //SEBSettings.BuildUpDefaultSettings();
             SEBSettings.FillSettingsDictionary(SEBSettings.settingsNew);
             SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillAfter.txt");
 
             SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
-            SEBSettings.BuildUpDefaultSettings();
+          //SEBSettings.BuildUpDefaultSettings();
             SEBSettings.PermitXulRunnerProcess(SEBSettings.settingsNew);
             SEBSettings.LoggSettingsDictionary(SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
             SEBSettings.LoggSettingsDictionary(SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
