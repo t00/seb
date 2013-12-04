@@ -289,15 +289,20 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************
 
         // Some settings are not stored in Plists but in Arrays
-        public static String [,] settingsStr = new String [StateNum + 1, ValueNum + 1];
-        public static     int[,] settingsInt = new     int[StateNum + 1, ValueNum + 1];
+        public static String [] strArrayDef = new String [ValueNum + 1];
+        public static String [] strArrayNew = new String [ValueNum + 1];
+        public static String [] strArrayTmp = new String [ValueNum + 1];
+
+        public static     int[] intArrayDef = new     int[ValueNum + 1];
+        public static     int[] intArrayNew = new     int[ValueNum + 1];
+        public static     int[] intArrayTmp = new     int[ValueNum + 1];
 
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
+        public static DictObj settingsDef = new DictObj();
         public static DictObj settingsNew = new DictObj();
         public static DictObj settingsTmp = new DictObj();
-        public static DictObj settingsDef = new DictObj();
 
         public static int     permittedProcessIndex;
         public static ListObj permittedProcessList    = new ListObj();
@@ -361,11 +366,15 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void BuildUpDefaultSettings()
         {
             // Initialise the global arrays
-            for (int state = 1; state <= StateNum; state++)
             for (int value = 1; value <= ValueNum; value++)
             {
-                SEBSettings.settingsInt[state, value] = 0;
-                SEBSettings.settingsStr[state, value] = "";
+                SEBSettings.intArrayDef[value] = 0;
+                SEBSettings.intArrayNew[value] = 0;
+                SEBSettings.intArrayTmp[value] = 0;
+
+                SEBSettings.strArrayDef[value] = "";
+                SEBSettings.strArrayNew[value] = "";
+                SEBSettings.strArrayTmp[value] = "";
             }
 
             // Initialise the default settings Plist
@@ -398,8 +407,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
-            SEBSettings.settingsInt[SEBSettings.StateDef, SEBSettings.ValueCryptoIdentity] = 0;
-            SEBSettings.settingsStr[SEBSettings.StateDef, SEBSettings.ValueCryptoIdentity] = "";
+            SEBSettings.intArrayDef[SEBSettings.ValueCryptoIdentity] = 0;
+            SEBSettings.strArrayDef[SEBSettings.ValueCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
             SEBSettings.settingsDef.Add(SEBSettings.MessageBrowserViewMode             , 0);
@@ -413,10 +422,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
-            SEBSettings.settingsInt[SEBSettings.StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = 2;
-            SEBSettings.settingsInt[SEBSettings.StateDef, SEBSettings.ValueMainBrowserWindowHeight] = 2;
-            SEBSettings.settingsStr[SEBSettings.StateDef, SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
-            SEBSettings.settingsStr[SEBSettings.StateDef, SEBSettings.ValueMainBrowserWindowHeight] = "100%";
+            SEBSettings.intArrayDef[SEBSettings.ValueMainBrowserWindowWidth ] = 2;
+            SEBSettings.intArrayDef[SEBSettings.ValueMainBrowserWindowHeight] = 2;
+            SEBSettings.strArrayDef[SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
+            SEBSettings.strArrayDef[SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
             SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
@@ -435,10 +444,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
-            SEBSettings.settingsInt[SEBSettings.StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
-            SEBSettings.settingsInt[SEBSettings.StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = 2;
-            SEBSettings.settingsStr[SEBSettings.StateDef, SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
-            SEBSettings.settingsStr[SEBSettings.StateDef, SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
+            SEBSettings.intArrayDef[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
+            SEBSettings.intArrayDef[SEBSettings.ValueNewBrowserWindowByLinkHeight] = 2;
+            SEBSettings.strArrayDef[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
+            SEBSettings.strArrayDef[SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
             SEBSettings.settingsDef.Add(SEBSettings.MessageAllowDownUploads        , true);
@@ -738,7 +747,8 @@ namespace SebWindowsClient.ConfigurationUtils
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
             SEBSettings.settingsNew.Clear();
-            SEBSettings.CopySettingsArrays    (SEBSettings.StateDef   , SEBSettings.StateNew);
+            SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayDef, ref SEBSettings.intArrayNew);
+            SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayDef, ref SEBSettings.strArrayNew);
             SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsDef, ref SEBSettings.settingsNew);
         }
 
@@ -747,19 +757,22 @@ namespace SebWindowsClient.ConfigurationUtils
         // ********************
         // Copy settings arrays
         // ********************
-        public static void CopySettingsArrays(int StateSource, int StateTarget)
+        public static void CopySettingsIntegArray(ref int[] intArraySource, ref int[] intArrayTarget)
         {
             // Copy all settings from one array to another
-            int value;
-
-            for (value = 1; value <= SEBSettings.ValueNum; value++)
-            {
-                SEBSettings.settingsStr[StateTarget, value] = SEBSettings.settingsStr[StateSource, value];
-                SEBSettings.settingsInt[StateTarget, value] = SEBSettings.settingsInt[StateSource, value];
-            }
-
+            for (int value = 1; value <= SEBSettings.ValueNum; value++)
+                intArrayTarget[value] = intArraySource[value];
             return;
         }
+
+        public static void CopySettingsStrinArray(ref string[] strArraySource, ref string[] strArrayTarget)
+        {
+            // Copy all settings from one array to another
+            for (int value = 1; value <= SEBSettings.ValueNum; value++)
+                strArrayTarget[value] = strArraySource[value];
+            return;
+        }
+
 
 
         // ************************
@@ -1210,7 +1223,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyBefore.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyBefore.txt");
 
-            SEBSettings.CopySettingsArrays    (SEBSettings.StateTmp   , SEBSettings.StateNew);
+            SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayTmp, ref SEBSettings.intArrayNew);
+            SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayTmp, ref SEBSettings.strArrayNew);
             SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsTmp, ref SEBSettings.settingsNew);
 
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyAfter.txt");
