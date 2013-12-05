@@ -1141,6 +1141,8 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************************
         public static bool ReadSebConfigurationFile(String fileName)
         {
+            SEBSettings.settingsNew.Clear();
+
             try
             {
                 // Read the configuration settings from .seb file.

@@ -720,7 +720,7 @@ namespace SebWindowsConfig
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_before_RevertToDefault.xml");
             SEBSettings.RestoreDefaultAndNewSettings();
-          //SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
+            SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInButtonDefault.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInButtonDefault.txt");
             UpdateAllWidgetsOfProgram();
