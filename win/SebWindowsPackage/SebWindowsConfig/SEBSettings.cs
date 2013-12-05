@@ -291,11 +291,9 @@ namespace SebWindowsClient.ConfigurationUtils
         // Some settings are not stored in Plists but in Arrays
         public static String [] strArrayDef = new String [ValueNum + 1];
         public static String [] strArrayNew = new String [ValueNum + 1];
-        public static String [] strArrayTmp = new String [ValueNum + 1];
 
         public static     int[] intArrayDef = new     int[ValueNum + 1];
         public static     int[] intArrayNew = new     int[ValueNum + 1];
-        public static     int[] intArrayTmp = new     int[ValueNum + 1];
 
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
@@ -370,11 +368,9 @@ namespace SebWindowsClient.ConfigurationUtils
             {
                 SEBSettings.intArrayDef[value] = 0;
                 SEBSettings.intArrayNew[value] = 0;
-                SEBSettings.intArrayTmp[value] = 0;
 
                 SEBSettings.strArrayDef[value] = "";
                 SEBSettings.strArrayNew[value] = "";
-                SEBSettings.strArrayTmp[value] = "";
             }
 
             // Initialise the default settings Plist
@@ -746,10 +742,12 @@ namespace SebWindowsClient.ConfigurationUtils
             // in the "new" and "def" dictionaries,
             // even if the loaded "tmp" dictionary does NOT contain every pair.
 
-            SEBSettings.settingsNew.Clear();
             SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayDef, ref SEBSettings.intArrayNew);
             SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayDef, ref SEBSettings.strArrayNew);
-            SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsDef, ref SEBSettings.settingsNew);
+
+            SEBSettings.settingsNew.Clear();
+          //SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsDef, ref SEBSettings.settingsNew);
+            SEBSettings.FillSettingsDictionary();
         }
 
 
@@ -899,148 +897,136 @@ namespace SebWindowsClient.ConfigurationUtils
         // ************************
         // Fill settings dictionary
         // ************************
-        public static void FillSettingsDictionary(ref DictObj sebSettings)
+        public static void FillSettingsDictionary()
         {
-            // Traverse (key, value) pairs of dictionary
-            foreach (KeyValue pair in sebSettings)
+
+            // Add potentially missing keys to current Main Dictionary
+            foreach (KeyValue p in SEBSettings.settingsDef)
+                               if (SEBSettings.settingsNew.ContainsKey(p.Key) == false)
+                                   SEBSettings.settingsNew.Add        (p.Key, p.Value);
+
+
+
+            // Get the Permitted Process List
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+
+            // Traverse Permitted Processes of currently opened file
+            for (int listIndex = 0; listIndex < SEBSettings.permittedProcessList.Count; listIndex++)
             {
-                string key     = pair.Key;
-                object value   = pair.Value;
-                string type    = pair.Value.GetType().ToString();
+                // Get the Permitted Process Data
+                SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
 
+                // Add potentially missing keys to current Process Dictionary
+                foreach (KeyValue p in SEBSettings.permittedProcessDataDef)
+                                   if (SEBSettings.permittedProcessData.ContainsKey(p.Key) == false)
+                                       SEBSettings.permittedProcessData.Add        (p.Key, p.Value);
 
-                // Fill up missing keys in Permitted Processes and Arguments
-                if (key.Equals(SEBSettings.MessagePermittedProcesses))
+                // Get the Permitted Argument List
+                SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
+
+                // Traverse Arguments of current Process
+                for (int sublistIndex = 0; sublistIndex < SEBSettings.permittedArgumentList.Count; sublistIndex++)
                 {
-                    // Get the Permitted Process List
-                    SEBSettings.permittedProcessList = (ListObj)sebSettings[key];
+                    // Get the Permitted Argument Data
+                    SEBSettings.permittedArgumentData = (DictObj)SEBSettings.permittedArgumentList[sublistIndex];
 
-                    // Traverse Permitted Processes of currently opened file
-                    for (int listIndex = 0; listIndex < SEBSettings.permittedProcessList.Count; listIndex++)
-                    {
-                        SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
+                    // Add potentially missing keys to current Argument Dictionary
+                    foreach (KeyValue p in SEBSettings.permittedArgumentDataDef)
+                                       if (SEBSettings.permittedArgumentData.ContainsKey(p.Key) == false)
+                                           SEBSettings.permittedArgumentData.Add        (p.Key, p.Value);
 
-                        // Add potentially missing keys to current Process Dictionary
-                        foreach (KeyValue p in SEBSettings.permittedProcessDataDef)
-                                           if (SEBSettings.permittedProcessData.ContainsKey(p.Key) == false)
-                                               SEBSettings.permittedProcessData.Add        (p.Key, p.Value);
-
-                        // Get the Permitted Argument List
-                        SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
-
-                        // Traverse Arguments of current Process
-                        for (int sublistIndex = 0; sublistIndex < SEBSettings.permittedArgumentList.Count; sublistIndex++)
-                        {
-                            SEBSettings.permittedArgumentData = (DictObj)SEBSettings.permittedArgumentList[sublistIndex];
-
-                            // Add potentially missing keys to current Argument Dictionary
-                            foreach (KeyValue p in SEBSettings.permittedArgumentDataDef)
-                                               if (SEBSettings.permittedArgumentData.ContainsKey(p.Key) == false)
-                                                   SEBSettings.permittedArgumentData.Add        (p.Key, p.Value);
-
-                        } // next sublistIndex
-                    } // next listIndex
-                } // end if (key.Equals(SEBSettings.MessagePermittedProcesses))
+                } // next sublistIndex
+            } // next listIndex
 
 
-                // Fill up missing keys in Prohibited Processes
-                if (key.Equals(SEBSettings.MessageProhibitedProcesses))
+
+            // Get the Prohibited Process List
+            SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+
+            // Traverse Prohibited Processes of currently opened file
+            for (int listIndex = 0; listIndex < SEBSettings.prohibitedProcessList.Count; listIndex++)
+            {
+                // Get the Prohibited Process Data
+                SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[listIndex];
+
+                // Add potentially missing keys to current Process Dictionary
+                foreach (KeyValue p in SEBSettings.prohibitedProcessDataDef)
+                                   if (SEBSettings.prohibitedProcessData.ContainsKey(p.Key) == false)
+                                       SEBSettings.prohibitedProcessData.Add        (p.Key, p.Value);
+
+            } // next listIndex
+
+
+
+            // Get the Embedded Certificate List
+            SEBSettings.embeddedCertificateList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessageEmbeddedCertificates];
+
+            // Traverse Embedded Certificates of currently opened file
+            for (int listIndex = 0; listIndex < SEBSettings.embeddedCertificateList.Count; listIndex++)
+            {
+                // Get the Embedded Certificate Data
+                SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[listIndex];
+
+                // Add potentially missing keys to current Certificate Dictionary
+                foreach (KeyValue p in SEBSettings.embeddedCertificateDataDef)
+                                   if (SEBSettings.embeddedCertificateData.ContainsKey(p.Key) == false)
+                                       SEBSettings.embeddedCertificateData.Add        (p.Key, p.Value);
+
+            } // next listIndex
+
+
+
+            // Get the URL Filter Rule List
+            SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessageURLFilterRules];
+
+            // Traverse URL Filter Rules of currently opened file
+            for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
+            {
+                // Get the URL Filter Rule Data
+                SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
+
+                // Add potentially missing keys to current Rule Dictionary
+                foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
+                                   if (SEBSettings.urlFilterRuleData.ContainsKey(p.Key) == false)
+                                       SEBSettings.urlFilterRuleData.Add        (p.Key, p.Value);
+
+                // Get the URL Filter Action List
+                SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+
+                // Traverse Actions of current Rule
+                for (int sublistIndex = 0; sublistIndex < SEBSettings.urlFilterActionList.Count; sublistIndex++)
                 {
-                    // Get the Prohibited Process List
-                    SEBSettings.prohibitedProcessList = (ListObj)sebSettings[key];
+                    // Get the URL Filter Action Data
+                    SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[sublistIndex];
 
-                    // Traverse Prohibited Processes of currently opened file
-                    for (int listIndex = 0; listIndex < SEBSettings.prohibitedProcessList.Count; listIndex++)
-                    {
-                        SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[listIndex];
+                    // Add potentially missing keys to current Action Dictionary
+                    foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
+                                       if (SEBSettings.urlFilterActionData.ContainsKey(p.Key) == false)
+                                           SEBSettings.urlFilterActionData.Add        (p.Key, p.Value);
 
-                        // Add potentially missing keys to current Process Dictionary
-                        foreach (KeyValue p in SEBSettings.prohibitedProcessDataDef)
-                                           if (SEBSettings.prohibitedProcessData.ContainsKey(p.Key) == false)
-                                               SEBSettings.prohibitedProcessData.Add        (p.Key, p.Value);
-
-                    } // next listIndex
-                } // end if (key.Equals(SEBSettings.MessageProhibitedProcesses))
+                } // next sublistIndex
+            } // next listIndex
 
 
-                // Fill up missing keys in Embedded Certificates
-                if (key.Equals(SEBSettings.MessageEmbeddedCertificates))
-                {
-                    // Get the Embedded Certificate List
-                    SEBSettings.embeddedCertificateList = (ListObj)sebSettings[key];
 
-                    // Traverse Embedded Certificates of currently opened file
-                    for (int listIndex = 0; listIndex < SEBSettings.embeddedCertificateList.Count; listIndex++)
-                    {
-                        SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[listIndex];
+            // Get the Proxies Dictionary
+            SEBSettings.proxiesData = (DictObj)SEBSettings.settingsNew[SEBSettings.MessageProxies];
 
-                        // Add potentially missing keys to current Certificate Dictionary
-                        foreach (KeyValue p in SEBSettings.embeddedCertificateDataDef)
-                                           if (SEBSettings.embeddedCertificateData.ContainsKey(p.Key) == false)
-                                               SEBSettings.embeddedCertificateData.Add        (p.Key, p.Value);
+            // Add potentially missing keys to current Proxies Dictionary
+            foreach (KeyValue p in SEBSettings.proxiesDataDef)
+                               if (SEBSettings.proxiesData.ContainsKey(p.Key) == false)
+                                   SEBSettings.proxiesData.Add        (p.Key, p.Value);
 
-                    } // next listIndex
-                } // end if (key.Equals(SEBSettings.MessageEmbeddedCertificates))
+            // Get the Bypassed Proxy List
+            SEBSettings.bypassedProxyList = (ListObj)proxiesData[SEBSettings.MessageExceptionsList];
 
+            // Traverse Bypassed Proxies of currently opened file
+            for (int listIndex = 0; listIndex < SEBSettings.bypassedProxyList.Count; listIndex++)
+            {
+                if ((String)SEBSettings.bypassedProxyList[listIndex] == "")
+                            SEBSettings.bypassedProxyList[listIndex] = bypassedProxyDataDef;
+            } // next listIndex
 
-                // Fill up missing keys in URL Filter Rules and Actions
-                if (key.Equals(SEBSettings.MessageURLFilterRules))
-                {
-                    // Get the URL Filter Rule List
-                    SEBSettings.urlFilterRuleList = (ListObj)sebSettings[key];
-
-                    // Traverse URL Filter Rules of currently opened file
-                    for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
-                    {
-                        SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
-
-                        // Add potentially missing keys to current Rule Dictionary
-                        foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
-                                           if (SEBSettings.urlFilterRuleData.ContainsKey(p.Key) == false)
-                                               SEBSettings.urlFilterRuleData.Add        (p.Key, p.Value);
-
-                        // Get the URL Filter Action List
-                        SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
-
-                        // Traverse actions of current Rule
-                        for (int sublistIndex = 0; sublistIndex < SEBSettings.urlFilterActionList.Count; sublistIndex++)
-                        {
-                            SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[sublistIndex];
-
-                            // Add potentially missing keys to current Action Dictionary
-                            foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
-                                               if (SEBSettings.urlFilterActionData.ContainsKey(p.Key) == false)
-                                                   SEBSettings.urlFilterActionData.Add        (p.Key, p.Value);
-
-                        } // next sublistIndex
-                    } // next listIndex
-                } // end if (key.Equals(SEBSettings.MessageURLFilterRules))
-
-
-                // Fill up missing keys in Proxies
-                if (key.Equals(SEBSettings.MessageProxies))
-                {
-                    // Get the Proxies Dictionary
-                    SEBSettings.proxiesData = (DictObj)sebSettings[key];
-
-                    // Add potentially missing keys to current Proxies Dictionary
-                    foreach (KeyValue p in SEBSettings.proxiesDataDef)
-                                       if (SEBSettings.proxiesData.ContainsKey(p.Key) == false)
-                                           SEBSettings.proxiesData.Add        (p.Key, p.Value);
-
-                    // Get the Bypassed Proxy List
-                    SEBSettings.bypassedProxyList = (ListObj)proxiesData[SEBSettings.MessageExceptionsList];
-
-                    // Traverse Bypassed Proxies of currently opened file
-                    for (int listIndex = 0; listIndex < SEBSettings.bypassedProxyList.Count; listIndex++)
-                    {
-                        if ((String)SEBSettings.bypassedProxyList[listIndex] == "")
-                                    SEBSettings.bypassedProxyList[listIndex] = bypassedProxyDataDef;
-                    } // next listIndex
-                } // end if (key.Equals(SEBSettings.MessageProxies))
-
-
-            } // next key in sebSettingsTarget
 
             return;
         }
@@ -1204,7 +1190,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
               //decryptedSettings = decryptedSettings.Trim();
 
-                SEBSettings.settingsTmp = (DictObj)Plist.readPlistSource(decryptedSettings);
+                SEBSettings.settingsNew = (DictObj)Plist.readPlistSource(decryptedSettings);
             }
             catch (Exception streamReadException)
             {
@@ -1216,26 +1202,19 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // If the settings could be read from file,
-            // recreate "def" settings and "new" settings
-            SEBSettings.RestoreDefaultAndNewSettings();
+            // recreate the "default" settings
+            SEBSettings.BuildUpDefaultSettings();
+            SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayDef, ref SEBSettings.intArrayNew);
+            SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayDef, ref SEBSettings.strArrayNew);
 
-            // And merge "tmp" settings into "new" settings
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyBefore.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyBefore.txt");
-
-            SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayTmp, ref SEBSettings.intArrayNew);
-            SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayTmp, ref SEBSettings.strArrayNew);
-            SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsTmp, ref SEBSettings.settingsNew);
-
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFileCopyAfter.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileCopyAfter.txt");
-
+            // Fill up the Dictionary read from file with default settings, where necessary
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillBefore.txt");
-            SEBSettings.FillSettingsDictionary(ref SEBSettings.settingsNew);
+            SEBSettings.FillSettingsDictionary();
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillAfter.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillAfter.txt");
 
+            // Add the XulRunner process to the Permitted Process List, if necessary
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
