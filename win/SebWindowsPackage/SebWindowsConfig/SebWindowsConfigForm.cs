@@ -71,7 +71,6 @@ namespace SebWindowsConfig
 
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_OpenConfigurationFile.xml");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDef.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmp.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNew.txt");
 
             // GUI-related part: Update the widgets

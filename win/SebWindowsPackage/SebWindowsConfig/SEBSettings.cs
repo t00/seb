@@ -300,7 +300,6 @@ namespace SebWindowsClient.ConfigurationUtils
         // from/to a human-readable .xml and an encrypted.seb file format.
         public static DictObj settingsDef = new DictObj();
         public static DictObj settingsNew = new DictObj();
-        public static DictObj settingsTmp = new DictObj();
 
         public static int     permittedProcessIndex;
         public static ListObj permittedProcessList    = new ListObj();
@@ -736,17 +735,15 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // IMPORTANT:
             // Create a second dictionary "new settings"
-            // and copy all default settings to the new settings.
-            // This must be done BEFORE any config file is loaded
-            // and assures that every (key, value) pair is contained
+            // and fill up default settings to the new settings where necessary.
+            // This assures that every (key, value) pair is contained
             // in the "new" and "def" dictionaries,
-            // even if the loaded "tmp" dictionary does NOT contain every pair.
+            // even if the loaded "new" dictionary did NOT contain every pair.
 
             SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayDef, ref SEBSettings.intArrayNew);
             SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayDef, ref SEBSettings.strArrayNew);
 
             SEBSettings.settingsNew.Clear();
-          //SEBSettings.CopySettingsDictionary(ref SEBSettings.settingsDef, ref SEBSettings.settingsNew);
             SEBSettings.FillSettingsDictionary();
         }
 
@@ -776,6 +773,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // ************************
         // Copy settings dictionary
         // ************************
+/*
         public static void CopySettingsDictionary(ref DictObj sebSettingsSource,
                                                   ref DictObj sebSettingsTarget)
         {
@@ -794,12 +792,13 @@ namespace SebWindowsClient.ConfigurationUtils
 
             return;
         }
-
+*/
 
 
         // **************
         // Merge settings
         // **************
+/*
         public static void MergeSettings(ref object objectSource, ref object objectTarget)
         {
             // Determine the type of the input objects
@@ -825,20 +824,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if  (dictTarget.ContainsKey(key))
                          dictTarget[key] = value;
                     else dictTarget.Add(key, value);
-/*
-                    if (type.Contains("Dictionary"))
-                    {
-                        DictObj subdictSource = (DictObj)dictSource[key];
-                        DictObj subdictTarget = (DictObj)dictTarget[key];
-                        MergeSettings(subdictSource, subdictTarget);
-                    }
-                    else if (type.Contains("List"))
-                    {
-                        ListObj sublistSource = (ListObj)dictSource[key];
-                        ListObj sublistTarget = (ListObj)dictTarget[key];
-                        MergeSettings(sublistSource, sublistTarget);
-                    }
-*/
+
                     if (type.Contains("Dictionary") || type.Contains("List"))
                     {
                         object childSource = dictSource[key];
@@ -865,20 +851,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if  (listTarget.Count > index)
                          listTarget[index] = elem;
                     else listTarget.Add(elem);
-/*
-                    if (type.Contains("Dictionary"))
-                    {
-                        DictObj subdictSource = (DictObj)listSource[index];
-                        DictObj subdictTarget = (DictObj)listTarget[index];
-                        MergeSettings(subdictSource, subdictTarget);
-                    }
-                    else if (type.Contains("List"))
-                    {
-                        ListObj sublistSource = (ListObj)listSource[index];
-                        ListObj sublistTarget = (ListObj)listTarget[index];
-                        MergeSettings(sublistSource, sublistTarget);
-                    }
-*/
+
                     if (type.Contains("Dictionary") || type.Contains("List"))
                     {
                         object childSource = listSource[index];
@@ -891,7 +864,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             return;
         }
-
+*/
 
 
         // ************************
@@ -1221,7 +1194,6 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
 
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsTmp, "SettingsTmpInReadSebConfigurationFile.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFile.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFile.txt");
 
