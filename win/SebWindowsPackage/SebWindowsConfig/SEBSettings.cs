@@ -30,9 +30,8 @@ namespace SebWindowsClient.ConfigurationUtils
         // The values can be in 3 different states:
         // new, temporary and default values
         public const int StateNew = 1;
-        public const int StateTmp = 2;
-        public const int StateDef = 3;
-        public const int StateNum = 3;
+        public const int StateDef = 2;
+        public const int StateNum = 2;
 
         // Operating systems
         const int IntOSX = 0;
@@ -731,18 +730,16 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void RestoreDefaultAndNewSettings()
         {
             // Set all the default values for the Plist structure "settingsNew"
-            SEBSettings.BuildUpDefaultSettings();
 
-            // IMPORTANT:
-            // Create a second dictionary "new settings"
-            // and fill up default settings to the new settings where necessary.
+            // Create a default Dictionary "settingsDef".
+            // Create a current Dictionary "settingsNew".
+            // Fill up new settings by default settings, where necessary.
             // This assures that every (key, value) pair is contained
-            // in the "new" and "def" dictionaries,
+            // in the "def" and "new" dictionaries,
             // even if the loaded "new" dictionary did NOT contain every pair.
 
-            SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayDef, ref SEBSettings.intArrayNew);
-            SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayDef, ref SEBSettings.strArrayNew);
-
+            SEBSettings.BuildUpDefaultSettings();
+            SEBSettings.InitSettingsArrays();
             SEBSettings.settingsNew.Clear();
             SEBSettings.FillSettingsDictionary();
         }
@@ -752,19 +749,14 @@ namespace SebWindowsClient.ConfigurationUtils
         // ********************
         // Copy settings arrays
         // ********************
-        public static void CopySettingsIntegArray(ref int[] intArraySource, ref int[] intArrayTarget)
+        public static void InitSettingsArrays()
         {
             // Copy all settings from one array to another
             for (int value = 1; value <= SEBSettings.ValueNum; value++)
-                intArrayTarget[value] = intArraySource[value];
-            return;
-        }
-
-        public static void CopySettingsStrinArray(ref string[] strArraySource, ref string[] strArrayTarget)
-        {
-            // Copy all settings from one array to another
-            for (int value = 1; value <= SEBSettings.ValueNum; value++)
-                strArrayTarget[value] = strArraySource[value];
+            {
+                intArrayNew[value] = intArrayDef[value];
+                strArrayNew[value] = strArrayDef[value];
+            }
             return;
         }
 
@@ -1177,8 +1169,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // If the settings could be read from file,
             // recreate the "default" settings
             SEBSettings.BuildUpDefaultSettings();
-            SEBSettings.CopySettingsIntegArray(ref SEBSettings.intArrayDef, ref SEBSettings.intArrayNew);
-            SEBSettings.CopySettingsStrinArray(ref SEBSettings.strArrayDef, ref SEBSettings.strArrayNew);
+            SEBSettings.InitSettingsArrays();
 
             // Fill up the Dictionary read from file with default settings, where necessary
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
