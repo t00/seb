@@ -39,7 +39,7 @@ namespace SebWindowsConfig
 
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             SEBSettings.RestoreDefaultAndNewSettings();
-          //SEBSettings.PermitXulRunnerProcess(SEBSettings.settingsNew);
+            SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
 
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInConstructor.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInConstructor.txt");
