@@ -41,6 +41,12 @@ namespace SebWindowsConfig
             SEBSettings.RestoreDefaultAndNewSettings();
           //SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
 
+            // Read the settings from the standard configuration file??? Currently not
+            //SEBSettings.WriteSebConfigurationFile(defaultPathSebConfigFile);
+            //SEBSettings. ReadSebConfigurationFile(defaultPathSebConfigFile);
+            SEBSettings.WriteSebConfigurationFile("sebClientDefaultMist.seb");
+            SEBSettings. ReadSebConfigurationFile("sebClientDefaultMist.seb");
+
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInConstructor.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInConstructor.txt");
 
@@ -49,9 +55,6 @@ namespace SebWindowsConfig
 
             // Initialise the GUI widgets themselves
             InitialiseGUIWidgets();
-
-            // Read the settings from the standard configuration file??? Currently not
-            //OpenConfigurationFile(defaultPathSebConfigFile);
 
             // When starting up, set the widgets to the default values
             UpdateAllWidgetsOfProgram();
