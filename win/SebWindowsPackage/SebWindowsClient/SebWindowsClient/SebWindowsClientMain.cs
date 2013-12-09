@@ -26,8 +26,33 @@ using SebWindowsClient.ServiceUtils;
 using System.Runtime.InteropServices;
 using System.Threading;
 
+using Microsoft.VisualBasic.ApplicationServices;
+
 namespace SebWindowsClient
 {
+    public class SingleInstanceController : WindowsFormsApplicationBase
+    {
+        public SingleInstanceController()
+        {
+            IsSingleInstance = true;
+
+            StartupNextInstance += this_StartupNextInstance;
+        }
+
+        void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
+        {
+            SebWindowsClientForm form = MainForm as SebWindowsClientForm; //My derived form type
+            form.LoadFile(e.CommandLine[1]);
+        }
+
+        protected override void OnCreateMainForm()
+        {
+            //SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
+            MainForm = SEBClientInfo.SebWindowsClientForm;
+
+        }
+    }
+
     static class SebWindowsClientMain
     {
 
@@ -45,18 +70,31 @@ namespace SebWindowsClient
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-//        [STAThread]
+        //[STAThread]
         static void Main()
         {
-            //SerialiseAndEncryptSettings();
+
+             if (InitSebDesktop())
+             {
+                 Application.EnableVisualStyles();
+                 Application.SetCompatibleTextRenderingDefault(false);
+                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
+                 string[] arguments = Environment.GetCommandLineArgs();
+                 SingleInstanceController controller = new SingleInstanceController();
+                 controller.Run(arguments);
+             }
+        }
+
+
+        public static void InitApplication()
+        {
             if (InitSebDesktop())
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 Application.Run(SEBClientInfo.SebWindowsClientForm);
             }
         }
+
 
         /// <summary>
         /// Detect if SEB Running inside VPC.
@@ -96,43 +134,6 @@ namespace SebWindowsClient
             }
         }
 
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
-        /// Serialise and encrypt settings.
-        /// </summary>
-        /// <param name="publicKeyHash">public key hash</param>
-        /// ----------------------------------------------------------------------------------------
-        public static void SerialiseAndEncryptSettings()
-        {
-            //string sebEncryptedWithPswClientConfigPath = "";
-            //MemoryStream settingsMemStream = new MemoryStream();
-            //XmlSerializer serializer = new XmlSerializer(typeof(SEBClientConfig));
-            //serializer.Serialize(settingsMemStream, SEBClientInfo.sebClientConfig);
-            //byte[] settingsDataBytes = settingsMemStream.ToArray();
-
-            TextReader sebClientConfigFileReader = new StreamReader(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClient.seb");
-            string settingsData = sebClientConfigFileReader.ReadToEnd();
-
-            //// Get certificate from disk
-            SEBProtectionController sebProtectionController = new SEBProtectionController();
-            sebProtectionController.KeyCertFilename = "C:\\SebWindowsClient\\SEBConfigKeys\\SEB-Configuration.pfx";
-            sebProtectionController.KeyCertPassword = "seb-configuration";
-            X509Certificate2 myCertificate = new X509Certificate2(sebProtectionController.KeyCertFilename, sebProtectionController.KeyCertPassword, X509KeyStorageFlags.Exportable);
-            // Encrypt seb client settings
-            //string encrypted = sebProtectionControler.EncryptWithCertificate(settingsData, myCertificate);
-            //sebProtectionControler.EncryptWithPasswordAndSave(settingsData, sebEncryptedWithPswClientConfigPath);
-
-            //byte[] encrypted = sebProtectionControler.EncryptWithCertifikat(settingsData, myCertificate);
-            //byte[] encrypted = sebProtectionControler.EncryptWithPassword(settingsData, "sebpassword");
-            //File.WriteAllBytes(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClientEncP.seb", encrypted);
-
-            byte[] encryptedBytes = File.ReadAllBytes(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClientEncP.seb");
-            string decrypted = sebProtectionController.DecryptWithPassword(encryptedBytes, "sebpassword");
-            //TextWriter tx = new StreamWriter(@"C:\Users\viktor\AppData\Local\ETH_Zuerich\SebClientEnc.seb");
-            //tx.Write(encrypted);
-            //tx.Close();
-        }
-
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
@@ -155,12 +156,12 @@ namespace SebWindowsClient
             }
  
             // Set XulRunner configuration
-            if (!SEBClientInfo.SetXulRunnerConfiguration())
-            {
-                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CONFIG_JSON_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                Logger.AddError("Error when opening the file config.json!", null, null);
-                return false;
-            }
+            //if (!SEBClientInfo.SetXulRunnerConfiguration())
+            //{
+            //    SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CONFIG_JSON_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+            //    Logger.AddError("Error when opening the file config.json!", null, null);
+            //    return false;
+            //}
 
             // Trunk version (XUL-Runner)
             if (!SEBClientInfo.SetSystemVersionInfo())

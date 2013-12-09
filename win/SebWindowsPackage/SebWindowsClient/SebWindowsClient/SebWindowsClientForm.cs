@@ -99,6 +99,25 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
+        /// OnLoad: Get the file name from command line arguments and load it.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+            {
+                LoadFile(args[1]);
+            }
+        }
+        public void LoadFile(string file)
+        {
+            //textBox1.Text = File.ReadAllText(file);
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
         // Start xulRunner process.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
@@ -109,9 +128,14 @@ namespace SebWindowsClient
 
             try
             {
+                string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SebWindowsClient.ConfigurationUtils.SEBClientInfo.sebSettings);
+                // Create JSON object with XULRunner parameters to pass to xulrunner.exe as base64 string
                 StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
-                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).
-                                                        Append(" -configpath ").Append(SEBClientInfo.XulRunnerConfigFile);
+                //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).
+                //Append(" -configpath ").Append(SEBClientInfo.XulRunnerConfigFile);
+                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -profile \"").Append(SEBClientInfo.SebClientConfigFileDirectory).Append("Profiles\"").//Append(" -config \"winctrl\" -debug 1 -purgecaches -jsconsole").
+                    Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
+                //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -ctlr 1 ");
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
                 string xulRunnerPath = xulRunnerPathBuilder.ToString();
@@ -130,7 +154,7 @@ namespace SebWindowsClient
             }
             catch (Exception ex)
             {
-                Logger.AddError("An error occurred by starting XulRunner", this, ex, ex.Message);
+                Logger.AddError("An error occurred starting XULRunner", this, ex, ex.Message);
                 return;
             }
         }
@@ -207,6 +231,12 @@ namespace SebWindowsClient
                     }
                 }
             }
+            //System.Diagnostics.Process oskProcess = null;
+            // create the process.
+            //oskProcess = SEBDesktopController.CreateProcess("C:\Program Files\Common Files\Microsoft Shared\ink\TabTip.exe", SEBClientInfo.DesktopName);
+            //SEBDesktopController.CreateProcess("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe", SEBClientInfo.DesktopName);
+            //oskProcess = Process.Start("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe");
+
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -539,6 +569,10 @@ namespace SebWindowsClient
             addPermittedProcessesToTS();
             SetFormOnDesktop();
             StartXulRunner();
+            //System.Diagnostics.Process oskProcess = null;
+            //oskProcess = Process.Start("OSK");
+            //SEBDesktopController d = SEBDesktopController.OpenDesktop(SEBClientInfo.DesktopName);
+            //oskProcess = d.CreateProcess("OSK");
             if (sebCloseDialogForm == null)
             {
                 sebCloseDialogForm = new SebCloseDialogForm();
