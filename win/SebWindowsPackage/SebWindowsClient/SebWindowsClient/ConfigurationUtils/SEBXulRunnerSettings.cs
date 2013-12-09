@@ -95,6 +95,22 @@ namespace SebWindowsClient.ConfigurationUtils
 
             return objXULRunnerConfig;
         }
+        /// <summary>
+        /// JSON Serialization of Settings Dictionary
+        /// </summary>
+        public static string XULRunnerConfigDictionarySerialize(Dictionary<string, object> xulRunnerSettings)
+        {
+            //Serialise 
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            string jsonSettings = serializer.Serialize(xulRunnerSettings);
+            // Convert to Base64 String
+            byte[] bytesJson = Encoding.UTF8.GetBytes(jsonSettings);
+            string base64Json = Convert.ToBase64String(bytesJson);
+            //// remove the two chars "==" from the end of the string
+            //string base64Json = base64String.Substring(0, base64String.Length - 2);
+
+            return base64Json;
+        }
 
     }
 }

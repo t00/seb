@@ -137,7 +137,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string XulRunnerConfigFile;
         public static string XulRunnerExePath;
         public static string XulRunnerSebIniPath;
-        public static string ExamUrl      { get; set; }
+
+        public static string XulRunnerParameter;
+        public static string ExamUrl { get; set; }
         public static string QuitPassword { get; set; }
         public static string QuitHashcode { get; set; }
 
