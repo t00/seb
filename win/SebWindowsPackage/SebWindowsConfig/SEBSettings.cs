@@ -361,6 +361,15 @@ namespace SebWindowsClient.ConfigurationUtils
         // *******************************************************************
         public static void BuildUpDefaultSettings()
         {
+            //permittedProcessListXulRunner.Dispose();
+            permittedProcessListXulRunner = new ListObj();
+            permittedProcessDataXulRunner = new DictObj();
+
+            permittedArgumentListXulRunner  = new ListObj();
+            permittedArgumentDataXulRunner1 = new DictObj();
+            permittedArgumentDataXulRunner2 = new DictObj();
+
+
             // Initialise the global arrays
             for (int value = 1; value <= ValueNum; value++)
             {

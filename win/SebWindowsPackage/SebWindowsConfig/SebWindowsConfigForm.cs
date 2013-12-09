@@ -39,7 +39,7 @@ namespace SebWindowsConfig
 
             // Set all the default values for the Plist structure "SEBSettings.settingsNew"
             SEBSettings.RestoreDefaultAndNewSettings();
-          //SEBSettings.PermitXulRunnerProcess();
+            SEBSettings.PermitXulRunnerProcess();
 
             // Read the settings from the standard configuration file??? Currently not
             //SEBSettings.WriteSebConfigurationFile(defaultPathSebConfigFile);
@@ -723,7 +723,7 @@ namespace SebWindowsConfig
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsDef_before_RevertToDefault.xml");
             SEBSettings.RestoreDefaultAndNewSettings();
-          //SEBSettings.PermitXulRunnerProcess();
+            SEBSettings.PermitXulRunnerProcess();
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInButtonDefault.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInButtonDefault.txt");
             UpdateAllWidgetsOfProgram();
