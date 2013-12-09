@@ -1155,6 +1155,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
               //decryptedSettings = decryptedSettings.Trim();
 
+                SEBSettings.settingsNew.Clear();
                 SEBSettings.settingsNew = (DictObj)Plist.readPlistSource(decryptedSettings);
             }
             catch (Exception streamReadException)
