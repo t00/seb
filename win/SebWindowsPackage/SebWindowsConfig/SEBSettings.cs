@@ -1001,10 +1001,10 @@ namespace SebWindowsClient.ConfigurationUtils
         // **********************************************
         // Add XulRunnerProcess to Permitted Process List
         // **********************************************
-        public static void PermitXulRunnerProcess(ref DictObj sebSettings)
+        public static void PermitXulRunnerProcess()
         {
             // Get the Permitted Process List
-            SEBSettings.permittedProcessList = (ListObj)sebSettings[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
 
             // Position of XulRunner process in Permitted Process List
             int indexOfProcessXulRunnerExe = -1;
@@ -1182,7 +1182,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Add the XulRunner process to the Permitted Process List, if necessary
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
-            SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
+            SEBSettings.PermitXulRunnerProcess();
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
 
