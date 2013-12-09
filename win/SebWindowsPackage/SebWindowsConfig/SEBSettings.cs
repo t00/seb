@@ -739,7 +739,6 @@ namespace SebWindowsClient.ConfigurationUtils
             // even if the loaded "new" dictionary did NOT contain every pair.
 
             SEBSettings.BuildUpDefaultSettings();
-            SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsDef);
             SEBSettings.InitSettingsArrays();
             SEBSettings.settingsNew.Clear();
             SEBSettings.FillSettingsDictionary();
@@ -1170,7 +1169,6 @@ namespace SebWindowsClient.ConfigurationUtils
             // If the settings could be read from file,
             // recreate the "default" settings
             SEBSettings.BuildUpDefaultSettings();
-            SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsDef);
             SEBSettings.InitSettingsArrays();
 
             // Fill up the Dictionary read from file with default settings, where necessary
@@ -1183,7 +1181,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Add the XulRunner process to the Permitted Process List, if necessary
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
-          //SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
+            SEBSettings.PermitXulRunnerProcess(ref SEBSettings.settingsNew);
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
 

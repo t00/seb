@@ -44,8 +44,8 @@ namespace SebWindowsConfig
             // Read the settings from the standard configuration file??? Currently not
             //SEBSettings.WriteSebConfigurationFile(defaultPathSebConfigFile);
             //SEBSettings. ReadSebConfigurationFile(defaultPathSebConfigFile);
-            SEBSettings.WriteSebConfigurationFile("sebClientDefaultMist.seb");
-            SEBSettings. ReadSebConfigurationFile("sebClientDefaultMist.seb");
+            //SEBSettings.WriteSebConfigurationFile("sebClientDefaultMist.seb");
+            //SEBSettings. ReadSebConfigurationFile("sebClientDefaultMist.seb");
 
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInConstructor.txt");
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInConstructor.txt");
