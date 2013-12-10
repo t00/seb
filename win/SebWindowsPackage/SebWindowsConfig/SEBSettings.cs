@@ -27,12 +27,6 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String DefaultSebConfigXml = "SebClient.xml";
         public const String DefaultSebConfigSeb = "SebClient.seb";
 
-        // The values can be in 3 different states:
-        // new, temporary and default values
-        public const int StateNew = 1;
-        public const int StateDef = 2;
-        public const int StateNum = 2;
-
         // Operating systems
         const int IntOSX = 0;
         const int IntWin = 1;
