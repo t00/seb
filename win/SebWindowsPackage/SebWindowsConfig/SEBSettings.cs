@@ -352,13 +352,50 @@ namespace SebWindowsClient.ConfigurationUtils
         // *******************************************************************
         // Set all the default values for the Plist structure "sebSettingsDef"
         // *******************************************************************
-        public static void BuildUpDefaultSettings()
+        public static void CreateDefaultSettingsFromScratch()
         {
             // Destroy all default lists and dictionaries
-            permittedProcessDataXulRunner   = new DictObj();
-            permittedArgumentListXulRunner  = new ListObj();
+            settingsDef = new DictObj();
+            settingsNew = new DictObj();
+
+            permittedProcessList          = new ListObj();
+            permittedProcessData          = new DictObj();
+            permittedProcessDataDefault   = new DictObj();
+            permittedProcessDataXulRunner = new DictObj();
+
+            permittedArgumentList           = new ListObj();
+            permittedArgumentData           = new DictObj();
+            permittedArgumentDataDefault    = new DictObj();
             permittedArgumentDataXulRunner1 = new DictObj();
             permittedArgumentDataXulRunner2 = new DictObj();
+            permittedArgumentListXulRunner  = new ListObj();
+
+            prohibitedProcessList        = new ListObj();
+            prohibitedProcessData        = new DictObj();
+            prohibitedProcessDataDefault = new DictObj();
+
+            urlFilterRuleList        = new ListObj();
+            urlFilterRuleData        = new DictObj();
+            urlFilterRuleDataDefault = new DictObj();
+            urlFilterRuleDataStorage = new DictObj();
+
+            urlFilterActionList        = new ListObj();
+            urlFilterActionListDefault = new ListObj();
+            urlFilterActionListStorage = new ListObj();
+            urlFilterActionData        = new DictObj();
+            urlFilterActionDataDefault = new DictObj();
+            urlFilterActionDataStorage = new DictObj();
+
+            embeddedCertificateList        = new ListObj();
+            embeddedCertificateData        = new DictObj();
+            embeddedCertificateDataDefault = new DictObj();
+
+            proxiesData        = new DictObj();
+            proxiesDataDefault = new DictObj();
+
+            bypassedProxyList        = new ListObj();
+            bypassedProxyData        = "";
+            bypassedProxyDataDefault = "";
 
 
             // Initialise the global arrays
@@ -729,7 +766,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // in the "def" and "new" dictionaries,
             // even if the loaded "new" dictionary did NOT contain every pair.
 
-            SEBSettings.BuildUpDefaultSettings();
+            SEBSettings.CreateDefaultSettingsFromScratch();
             SEBSettings.InitSettingsArrays();
             SEBSettings.settingsNew.Clear();
             SEBSettings.FillSettingsDictionary();
@@ -1132,6 +1169,10 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************************
         public static bool ReadSebConfigurationFile(String fileName)
         {
+            // recreate the "default" settings
+            SEBSettings.CreateDefaultSettingsFromScratch();
+            SEBSettings.InitSettingsArrays();
+
             try
             {
                 // Read the configuration settings from .seb file.
@@ -1157,11 +1198,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 return false;
             }
 
-
-            // If the settings could be read from file,
-            // recreate the "default" settings
-            SEBSettings.BuildUpDefaultSettings();
-            SEBSettings.InitSettingsArrays();
+            // If the settings could be read from file...
 
             // Fill up the Dictionary read from file with default settings, where necessary
             SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
