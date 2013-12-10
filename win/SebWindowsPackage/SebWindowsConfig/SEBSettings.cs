@@ -721,6 +721,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.embeddedCertificateData.Clear();
 
             SEBSettings.proxyProtocolIndex = -1;
+            SEBSettings.proxiesData.Clear();
 
             SEBSettings.bypassedProxyIndex = -1;
             SEBSettings.bypassedProxyList.Clear();
