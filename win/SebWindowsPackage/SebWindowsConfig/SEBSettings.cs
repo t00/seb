@@ -538,7 +538,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.urlFilterActionDataDef.Clear();
             SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageActive    , true);
             SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageRegex     , false);
-            SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageExpression, "");
+            SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageExpression, "*");
             SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageAction    , 0);
 
             // Create a default action list with one entry (the default action)
