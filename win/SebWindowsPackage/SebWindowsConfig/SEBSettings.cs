@@ -560,6 +560,9 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.urlFilterActionDataStored.Add(SEBSettings.MessageExpression, "*");
             SEBSettings.urlFilterActionDataStored.Add(SEBSettings.MessageAction    , 0);
 
+            // Initialise the stored action list with no entry
+            SEBSettings.urlFilterActionListStored.Clear();
+
             // Initialise the stored rule
             SEBSettings.urlFilterRuleDataStored.Clear();
             SEBSettings.urlFilterRuleDataStored.Add(SEBSettings.MessageActive     , true);
