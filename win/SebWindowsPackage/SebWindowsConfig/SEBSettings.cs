@@ -282,11 +282,11 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************
 
         // Some settings are not stored in Plists but in Arrays
-        public static String [] strArrayDef = new String [ValueNum + 1];
-        public static String [] strArrayNew = new String [ValueNum + 1];
+        public static String [] strArrayDefault = new String [ValueNum + 1];
+        public static String [] strArrayCurrent = new String [ValueNum + 1];
 
-        public static     int[] intArrayDef = new     int[ValueNum + 1];
-        public static     int[] intArrayNew = new     int[ValueNum + 1];
+        public static     int[] intArrayDefault = new     int[ValueNum + 1];
+        public static     int[] intArrayCurrent = new     int[ValueNum + 1];
 
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
@@ -295,52 +295,52 @@ namespace SebWindowsClient.ConfigurationUtils
         public static DictObj settingsNew = new DictObj();
 
         public static int     permittedProcessIndex;
-        public static ListObj permittedProcessList    = new ListObj();
-        public static DictObj permittedProcessData    = new DictObj();
-        public static DictObj permittedProcessDataDef = new DictObj();
+        public static ListObj permittedProcessList          = new ListObj();
+        public static DictObj permittedProcessData          = new DictObj();
+        public static DictObj permittedProcessDataDefault   = new DictObj();
         public static DictObj permittedProcessDataXulRunner = new DictObj();
 
         public static int     permittedArgumentIndex;
-        public static ListObj permittedArgumentList    = new ListObj();
-        public static DictObj permittedArgumentData    = new DictObj();
-        public static DictObj permittedArgumentDataDef = new DictObj();
+        public static ListObj permittedArgumentList           = new ListObj();
+        public static DictObj permittedArgumentData           = new DictObj();
+        public static DictObj permittedArgumentDataDefault    = new DictObj();
         public static DictObj permittedArgumentDataXulRunner1 = new DictObj();
         public static DictObj permittedArgumentDataXulRunner2 = new DictObj();
         public static ListObj permittedArgumentListXulRunner  = new ListObj();
 
         public static int     prohibitedProcessIndex;
-        public static ListObj prohibitedProcessList    = new ListObj();
-        public static DictObj prohibitedProcessData    = new DictObj();
-        public static DictObj prohibitedProcessDataDef = new DictObj();
+        public static ListObj prohibitedProcessList        = new ListObj();
+        public static DictObj prohibitedProcessData        = new DictObj();
+        public static DictObj prohibitedProcessDataDefault = new DictObj();
 
         public static int     urlFilterRuleIndex;
-        public static ListObj urlFilterRuleList       = new ListObj();
-        public static DictObj urlFilterRuleData       = new DictObj();
-        public static DictObj urlFilterRuleDataDef    = new DictObj();
-        public static DictObj urlFilterRuleDataStored = new DictObj();
+        public static ListObj urlFilterRuleList        = new ListObj();
+        public static DictObj urlFilterRuleData        = new DictObj();
+        public static DictObj urlFilterRuleDataDefault = new DictObj();
+        public static DictObj urlFilterRuleDataStorage = new DictObj();
 
         public static int     urlFilterActionIndex;
-        public static ListObj urlFilterActionList       = new ListObj();
-        public static ListObj urlFilterActionListDef    = new ListObj();
-        public static ListObj urlFilterActionListStored = new ListObj();
-        public static DictObj urlFilterActionData       = new DictObj();
-        public static DictObj urlFilterActionDataDef    = new DictObj();
-        public static DictObj urlFilterActionDataStored = new DictObj();
+        public static ListObj urlFilterActionList        = new ListObj();
+        public static ListObj urlFilterActionListDefault = new ListObj();
+        public static ListObj urlFilterActionListStorage = new ListObj();
+        public static DictObj urlFilterActionData        = new DictObj();
+        public static DictObj urlFilterActionDataDefault = new DictObj();
+        public static DictObj urlFilterActionDataStorage = new DictObj();
 
         public static int     embeddedCertificateIndex;
-        public static ListObj embeddedCertificateList    = new ListObj();
-        public static DictObj embeddedCertificateData    = new DictObj();
-        public static DictObj embeddedCertificateDataDef = new DictObj();
+        public static ListObj embeddedCertificateList        = new ListObj();
+        public static DictObj embeddedCertificateData        = new DictObj();
+        public static DictObj embeddedCertificateDataDefault = new DictObj();
 
-        public static DictObj proxiesData    = new DictObj();
-        public static DictObj proxiesDataDef = new DictObj();
+        public static DictObj proxiesData        = new DictObj();
+        public static DictObj proxiesDataDefault = new DictObj();
 
         public static int     proxyProtocolIndex;
 
         public static int     bypassedProxyIndex;
-        public static ListObj bypassedProxyList    = new ListObj();
-        public static String  bypassedProxyData    = "";
-        public static String  bypassedProxyDataDef = "";
+        public static ListObj bypassedProxyList        = new ListObj();
+        public static String  bypassedProxyData        = "";
+        public static String  bypassedProxyDataDefault = "";
 
 
 
@@ -364,11 +364,11 @@ namespace SebWindowsClient.ConfigurationUtils
             // Initialise the global arrays
             for (int value = 1; value <= ValueNum; value++)
             {
-                SEBSettings.intArrayDef[value] = 0;
-                SEBSettings.intArrayNew[value] = 0;
+                SEBSettings.intArrayDefault[value] = 0;
+                SEBSettings.intArrayCurrent[value] = 0;
 
-                SEBSettings.strArrayDef[value] = "";
-                SEBSettings.strArrayNew[value] = "";
+                SEBSettings.strArrayDefault[value] = "";
+                SEBSettings.strArrayCurrent[value] = "";
             }
 
             // Initialise the default settings Plist
@@ -401,8 +401,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
-            SEBSettings.intArrayDef[SEBSettings.ValueCryptoIdentity] = 0;
-            SEBSettings.strArrayDef[SEBSettings.ValueCryptoIdentity] = "";
+            SEBSettings.intArrayDefault[SEBSettings.ValueCryptoIdentity] = 0;
+            SEBSettings.strArrayDefault[SEBSettings.ValueCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
             SEBSettings.settingsDef.Add(SEBSettings.MessageBrowserViewMode             , 0);
@@ -416,10 +416,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
-            SEBSettings.intArrayDef[SEBSettings.ValueMainBrowserWindowWidth ] = 2;
-            SEBSettings.intArrayDef[SEBSettings.ValueMainBrowserWindowHeight] = 2;
-            SEBSettings.strArrayDef[SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
-            SEBSettings.strArrayDef[SEBSettings.ValueMainBrowserWindowHeight] = "100%";
+            SEBSettings.intArrayDefault[SEBSettings.ValueMainBrowserWindowWidth ] = 2;
+            SEBSettings.intArrayDefault[SEBSettings.ValueMainBrowserWindowHeight] = 2;
+            SEBSettings.strArrayDefault[SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
+            SEBSettings.strArrayDefault[SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
             SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
@@ -438,10 +438,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
-            SEBSettings.intArrayDef[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
-            SEBSettings.intArrayDef[SEBSettings.ValueNewBrowserWindowByLinkHeight] = 2;
-            SEBSettings.strArrayDef[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
-            SEBSettings.strArrayDef[SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
+            SEBSettings.intArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
+            SEBSettings.intArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkHeight] = 2;
+            SEBSettings.strArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
+            SEBSettings.strArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
             SEBSettings.settingsDef.Add(SEBSettings.MessageAllowDownUploads        , true);
@@ -466,9 +466,9 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new ListObj());
 
             // Default settings for permitted argument data
-            SEBSettings.permittedArgumentDataDef.Clear();
-            SEBSettings.permittedArgumentDataDef.Add(SEBSettings.MessageActive, true);
-            SEBSettings.permittedArgumentDataDef.Add(SEBSettings.MessageArgument, "");
+            SEBSettings.permittedArgumentDataDefault.Clear();
+            SEBSettings.permittedArgumentDataDefault.Add(SEBSettings.MessageActive, true);
+            SEBSettings.permittedArgumentDataDefault.Add(SEBSettings.MessageArgument, "");
 
             // Define the XulRunner arguments
             SEBSettings.permittedArgumentDataXulRunner1.Clear();
@@ -484,20 +484,6 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner1);
             SEBSettings.permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner2);
 
-            // Default settings for permitted process data
-            SEBSettings.permittedProcessDataDef.Clear();
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageAutostart  , true);
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageAutohide   , true);
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageAllowUser  , true);
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageOS         , IntWin);
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageTitle      , "");
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageDescription, "");
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageExecutable , "");
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessagePath       , "");
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageIdentifier , "");
-            SEBSettings.permittedProcessDataDef.Add(SEBSettings.MessageArguments  , new ListObj());
-
             // Create a XulRunner process with the XulRunner argument list
             SEBSettings.permittedProcessDataXulRunner.Clear();
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageActive     , true);
@@ -512,16 +498,30 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageIdentifier , "XulRunner");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageArguments  , permittedArgumentListXulRunner);
 
+            // Default settings for permitted process data
+            SEBSettings.permittedProcessDataDefault.Clear();
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageActive     , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageAutostart  , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageAutohide   , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageAllowUser  , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageOS         , IntWin);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageTitle      , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageDescription, "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageExecutable , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessagePath       , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageIdentifier , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageArguments  , new ListObj());
+
             // Default settings for prohibited process data
-            SEBSettings.prohibitedProcessDataDef.Clear();
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageCurrentUser, true);
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageStrongKill , false);
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageOS         , IntWin);
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageExecutable , "");
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageDescription, "");
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageIdentifier , "");
-            SEBSettings.prohibitedProcessDataDef.Add(SEBSettings.MessageUser       , "");
+            SEBSettings.prohibitedProcessDataDefault.Clear();
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageActive     , true);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageCurrentUser, true);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageStrongKill , false);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageOS         , IntWin);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageExecutable , "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageDescription, "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageIdentifier , "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageUser       , "");
 
             // Default settings for group "Network - Filter"
             SEBSettings.settingsDef.Add(SEBSettings.MessageEnableURLFilter       , false);
@@ -529,98 +529,98 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageURLFilterRules        , new ListObj());
 
             // Create a default action
-            SEBSettings.urlFilterActionDataDef.Clear();
-            SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageActive    , true);
-            SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageRegex     , false);
-            SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageExpression, "*");
-            SEBSettings.urlFilterActionDataDef.Add(SEBSettings.MessageAction    , 0);
+            SEBSettings.urlFilterActionDataDefault.Clear();
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageActive    , true);
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageRegex     , false);
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageExpression, "*");
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageAction    , 0);
 
             // Create a default action list with one entry (the default action)
-            SEBSettings.urlFilterActionListDef.Clear();
-            SEBSettings.urlFilterActionListDef.Add(SEBSettings.urlFilterActionDataDef);
+            SEBSettings.urlFilterActionListDefault.Clear();
+            SEBSettings.urlFilterActionListDefault.Add(SEBSettings.urlFilterActionDataDefault);
 
             // Create a default rule with this default action list.
             // This default rule is used for the "Insert Rule" operation:
             // when a new rule is created, it initially contains one action.
-            SEBSettings.urlFilterRuleDataDef.Clear();
-            SEBSettings.urlFilterRuleDataDef.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.urlFilterRuleDataDef.Add(SEBSettings.MessageExpression , "Rule");
-            SEBSettings.urlFilterRuleDataDef.Add(SEBSettings.MessageRuleActions, SEBSettings.urlFilterActionListDef);
+            SEBSettings.urlFilterRuleDataDefault.Clear();
+            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.MessageActive     , true);
+            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.MessageExpression , "Rule");
+            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.MessageRuleActions, SEBSettings.urlFilterActionListDefault);
 
             // Initialise the stored action
-            SEBSettings.urlFilterActionDataStored.Clear();
-            SEBSettings.urlFilterActionDataStored.Add(SEBSettings.MessageActive    , true);
-            SEBSettings.urlFilterActionDataStored.Add(SEBSettings.MessageRegex     , false);
-            SEBSettings.urlFilterActionDataStored.Add(SEBSettings.MessageExpression, "*");
-            SEBSettings.urlFilterActionDataStored.Add(SEBSettings.MessageAction    , 0);
+            SEBSettings.urlFilterActionDataStorage.Clear();
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageActive    , true);
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageRegex     , false);
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageExpression, "*");
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageAction    , 0);
 
             // Initialise the stored action list with no entry
-            SEBSettings.urlFilterActionListStored.Clear();
+            SEBSettings.urlFilterActionListStorage.Clear();
 
             // Initialise the stored rule
-            SEBSettings.urlFilterRuleDataStored.Clear();
-            SEBSettings.urlFilterRuleDataStored.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.urlFilterRuleDataStored.Add(SEBSettings.MessageExpression , "Rule");
-            SEBSettings.urlFilterRuleDataStored.Add(SEBSettings.MessageRuleActions, SEBSettings.urlFilterActionListStored);
+            SEBSettings.urlFilterRuleDataStorage.Clear();
+            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.MessageActive     , true);
+            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.MessageExpression , "Rule");
+            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.MessageRuleActions, SEBSettings.urlFilterActionListStorage);
 
             // Default settings for group "Network - Certificates"
             SEBSettings.settingsDef.Add(SEBSettings.MessageEmbeddedCertificates, new ListObj());
 
-            SEBSettings.embeddedCertificateDataDef.Clear();
-            SEBSettings.embeddedCertificateDataDef.Add(SEBSettings.MessageCertificateData, "");
-            SEBSettings.embeddedCertificateDataDef.Add(SEBSettings.MessageType           , 0);
-            SEBSettings.embeddedCertificateDataDef.Add(SEBSettings.MessageName           , "");
+            SEBSettings.embeddedCertificateDataDefault.Clear();
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.MessageCertificateData, "");
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.MessageType           , 0);
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.MessageName           , "");
 
             // Default settings for group "Network - Proxies"
-            SEBSettings.proxiesDataDef.Clear();
+            SEBSettings.proxiesDataDefault.Clear();
 
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageExceptionsList             , new ListObj());
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageExcludeSimpleHostnames     , true);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageAutoDiscoveryEnabled       , false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageAutoConfigurationEnabled   , false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageAutoConfigurationJavaScript, "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageAutoConfigurationURL       , "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageFTPPassive                 , true);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageExceptionsList             , new ListObj());
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageExcludeSimpleHostnames     , true);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoDiscoveryEnabled       , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoConfigurationEnabled   , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoConfigurationJavaScript, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoConfigurationURL       , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPPassive                 , true);
 
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPEnable  , false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPPort    , 0);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPHost    , "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPRequires, false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPUsername, "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPPassword, "");
 
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPSEnable  , false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPSPort    , 0);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPSHost    , "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPSRequires, false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPSUsername, "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageHTTPSPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSPassword, "");
 
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageFTPEnable  , false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageFTPPort    , 0);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageFTPHost    , "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageFTPRequires, false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageFTPUsername, "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageFTPPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPPassword, "");
 
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageSOCKSEnable  , false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageSOCKSPort    , 0);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageSOCKSHost    , "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageSOCKSRequires, false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageSOCKSUsername, "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageSOCKSPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSPassword, "");
 
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageRTSPEnable  , false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageRTSPPort    , 0);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageRTSPHost    , "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageRTSPRequires, false);
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageRTSPUsername, "");
-            SEBSettings.proxiesDataDef.Add(SEBSettings.MessageRTSPPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPPassword, "");
 
-            SEBSettings.bypassedProxyDataDef = "";
+            SEBSettings.bypassedProxyDataDefault = "";
 
             SEBSettings.settingsDef.Add(SEBSettings.MessageProxySettingsPolicy, 0);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageProxies            , SEBSettings.proxiesDataDef);
+            SEBSettings.settingsDef.Add(SEBSettings.MessageProxies            , SEBSettings.proxiesDataDefault);
 
             // Default settings for group "Security"
             SEBSettings.settingsDef.Add(SEBSettings.MessageSebServicePolicy   , 2);
@@ -745,8 +745,8 @@ namespace SebWindowsClient.ConfigurationUtils
             // Copy all settings from one array to another
             for (int value = 1; value <= SEBSettings.ValueNum; value++)
             {
-                intArrayNew[value] = intArrayDef[value];
-                strArrayNew[value] = strArrayDef[value];
+                intArrayCurrent[value] = intArrayDefault[value];
+                strArrayCurrent[value] = strArrayDefault[value];
             }
             return;
         }
@@ -873,7 +873,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
 
                 // Add potentially missing keys to current Process Dictionary
-                foreach (KeyValue p in SEBSettings.permittedProcessDataDef)
+                foreach (KeyValue p in SEBSettings.permittedProcessDataDefault)
                                    if (SEBSettings.permittedProcessData.ContainsKey(p.Key) == false)
                                        SEBSettings.permittedProcessData.Add        (p.Key, p.Value);
 
@@ -887,7 +887,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     SEBSettings.permittedArgumentData = (DictObj)SEBSettings.permittedArgumentList[sublistIndex];
 
                     // Add potentially missing keys to current Argument Dictionary
-                    foreach (KeyValue p in SEBSettings.permittedArgumentDataDef)
+                    foreach (KeyValue p in SEBSettings.permittedArgumentDataDefault)
                                        if (SEBSettings.permittedArgumentData.ContainsKey(p.Key) == false)
                                            SEBSettings.permittedArgumentData.Add        (p.Key, p.Value);
 
@@ -906,7 +906,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[listIndex];
 
                 // Add potentially missing keys to current Process Dictionary
-                foreach (KeyValue p in SEBSettings.prohibitedProcessDataDef)
+                foreach (KeyValue p in SEBSettings.prohibitedProcessDataDefault)
                                    if (SEBSettings.prohibitedProcessData.ContainsKey(p.Key) == false)
                                        SEBSettings.prohibitedProcessData.Add        (p.Key, p.Value);
 
@@ -924,7 +924,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[listIndex];
 
                 // Add potentially missing keys to current Certificate Dictionary
-                foreach (KeyValue p in SEBSettings.embeddedCertificateDataDef)
+                foreach (KeyValue p in SEBSettings.embeddedCertificateDataDefault)
                                    if (SEBSettings.embeddedCertificateData.ContainsKey(p.Key) == false)
                                        SEBSettings.embeddedCertificateData.Add        (p.Key, p.Value);
 
@@ -942,7 +942,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
 
                 // Add potentially missing keys to current Rule Dictionary
-                foreach (KeyValue p in SEBSettings.urlFilterRuleDataDef)
+                foreach (KeyValue p in SEBSettings.urlFilterRuleDataDefault)
                                    if (SEBSettings.urlFilterRuleData.ContainsKey(p.Key) == false)
                                        SEBSettings.urlFilterRuleData.Add        (p.Key, p.Value);
 
@@ -956,7 +956,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[sublistIndex];
 
                     // Add potentially missing keys to current Action Dictionary
-                    foreach (KeyValue p in SEBSettings.urlFilterActionDataDef)
+                    foreach (KeyValue p in SEBSettings.urlFilterActionDataDefault)
                                        if (SEBSettings.urlFilterActionData.ContainsKey(p.Key) == false)
                                            SEBSettings.urlFilterActionData.Add        (p.Key, p.Value);
 
@@ -969,7 +969,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.proxiesData = (DictObj)SEBSettings.settingsNew[SEBSettings.MessageProxies];
 
             // Add potentially missing keys to current Proxies Dictionary
-            foreach (KeyValue p in SEBSettings.proxiesDataDef)
+            foreach (KeyValue p in SEBSettings.proxiesDataDefault)
                                if (SEBSettings.proxiesData.ContainsKey(p.Key) == false)
                                    SEBSettings.proxiesData.Add        (p.Key, p.Value);
 
@@ -980,7 +980,7 @@ namespace SebWindowsClient.ConfigurationUtils
             for (int listIndex = 0; listIndex < SEBSettings.bypassedProxyList.Count; listIndex++)
             {
                 if ((String)SEBSettings.bypassedProxyList[listIndex] == "")
-                            SEBSettings.bypassedProxyList[listIndex] = bypassedProxyDataDef;
+                            SEBSettings.bypassedProxyList[listIndex] = bypassedProxyDataDefault;
             } // next listIndex
 
 

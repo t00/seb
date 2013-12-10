@@ -272,7 +272,7 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam     .Checked =    ((int)SEBSettings.settingsNew[SEBSettings.MessageSebConfigPurpose] == 0);
             radioButtonConfiguringAClient .Checked =    ((int)SEBSettings.settingsNew[SEBSettings.MessageSebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)SEBSettings.settingsNew[SEBSettings.MessageAllowPreferencesWindow];
-            comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.intArrayNew[SEBSettings.ValueCryptoIdentity];
+            comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.intArrayCurrent[SEBSettings.ValueCryptoIdentity];
              textBoxSettingsPassword       .Text   =  (String)SEBSettings.settingsNew[SEBSettings.MessageSettingsPassword];
            //textBoxConfirmSettingsPassword.Text   =  (String)SEBSettings.settingsNew[SEBSettings.MessageConfirmSettingsPassword];
            //textBoxHashedSettingsPassword .Text   =  (String)SEBSettings.settingsNew[SEBSettings.MessageHashedSettingsPassword];
@@ -697,14 +697,14 @@ namespace SebWindowsConfig
 
         private void comboBoxCryptoIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void comboBoxCryptoIdentity_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -794,32 +794,32 @@ namespace SebWindowsConfig
 
         private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
@@ -853,8 +853,8 @@ namespace SebWindowsConfig
 
         private void comboBoxTaskBarHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueTaskBarHeight  ] = comboBoxTaskBarHeight.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueTaskBarHeight  ] = comboBoxTaskBarHeight.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueTaskBarHeight  ] = comboBoxTaskBarHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueTaskBarHeight  ] = comboBoxTaskBarHeight.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageTaskBarHeight] = Int32.Parse(comboBoxTaskBarHeight.Text);
         }
@@ -886,32 +886,32 @@ namespace SebWindowsConfig
 
         private void comboBoxNewBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
 
         private void comboBoxNewBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
 
         private void comboBoxNewBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
 
         private void comboBoxNewBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayNew[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayNew[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.Text;
           //SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsNew[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
@@ -1938,8 +1938,8 @@ namespace SebWindowsConfig
 
                 // Load default rule for Insert operation.
                 // Load stored  rule for Paste  operation.
-                if (operation == IntOperationInsert) SEBSettings.urlFilterRuleData = SEBSettings.urlFilterRuleDataDef;
-                if (operation == IntOperationPaste ) SEBSettings.urlFilterRuleData = SEBSettings.urlFilterRuleDataStored;
+                if (operation == IntOperationInsert) SEBSettings.urlFilterRuleData = SEBSettings.urlFilterRuleDataDefault;
+                if (operation == IntOperationPaste ) SEBSettings.urlFilterRuleData = SEBSettings.urlFilterRuleDataStorage;
 
                 // INSERT or PASTE new rule into rule list at correct position index
                 SEBSettings.urlFilterRuleList     .Insert(SEBSettings.urlFilterRuleIndex, SEBSettings.urlFilterRuleData);
@@ -1959,8 +1959,8 @@ namespace SebWindowsConfig
 
                 // Load default action for Insert operation.
                 // Load stored  action for Paste  operation.
-                if (operation == IntOperationInsert) SEBSettings.urlFilterActionData = SEBSettings.urlFilterActionDataDef;
-                if (operation == IntOperationPaste ) SEBSettings.urlFilterActionData = SEBSettings.urlFilterActionDataStored;
+                if (operation == IntOperationInsert) SEBSettings.urlFilterActionData = SEBSettings.urlFilterActionDataDefault;
+                if (operation == IntOperationPaste ) SEBSettings.urlFilterActionData = SEBSettings.urlFilterActionDataStorage;
 
                 // INSERT or PASTE new action into action list at correct position index
                 SEBSettings.urlFilterActionList.Insert(SEBSettings.urlFilterActionIndex, SEBSettings.urlFilterActionData);
@@ -1997,7 +1997,7 @@ namespace SebWindowsConfig
                 if ((operation == IntOperationCopy) || (operation == IntOperationCut))
                 {
                     // Store currently selected rule for later Paste operation
-                    SEBSettings.urlFilterRuleDataStored = (DictObj)SEBSettings.urlFilterRuleList[SEBSettings.urlFilterRuleIndex];
+                    SEBSettings.urlFilterRuleDataStorage = (DictObj)SEBSettings.urlFilterRuleList[SEBSettings.urlFilterRuleIndex];
                 }
 
                 if ((operation == IntOperationDelete) || (operation == IntOperationCut))
@@ -2019,7 +2019,7 @@ namespace SebWindowsConfig
                 if ((operation == IntOperationCopy) || (operation == IntOperationCut))
                 {
                     // Store currently selected action for later Paste operation
-                    SEBSettings.urlFilterActionDataStored = (DictObj)SEBSettings.urlFilterActionList[SEBSettings.urlFilterActionIndex];
+                    SEBSettings.urlFilterActionDataStorage = (DictObj)SEBSettings.urlFilterActionList[SEBSettings.urlFilterActionIndex];
                 }
 
                 if ((operation == IntOperationDelete) || (operation == IntOperationCut))
