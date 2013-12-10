@@ -684,17 +684,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF11, false);
             SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF12, false);
 
-/*
-            // Default settings for group "Online exam"
-            String s0 = "Seb,../xulrunner/xulrunner.exe";
-            String s1 = " -app \"..\\xul_seb\\seb.ini\"";
-            String s2 = " -profile \"%LOCALAPPDATA%\\ETH_Zuerich\\xul_seb\\Profiles\"";
-            String SebBrowserString = s0 + s1 + s2;
 
-            settingString[StateDef, SEBDefaultSettings.ValueSebBrowser           ] = SebBrowserString;
-            settingString[StateDef, SEBDefaultSettings.ValueAutostartProcess     ] = "Seb";
-            settingString[StateDef, SEBDefaultSettings.ValuePermittedApplications] = "Calculator,calc.exe;Notepad,notepad.exe;";
-*/
+            // Clear all "current" lists and dictionaries
 
             SEBSettings.permittedProcessIndex = -1;
             SEBSettings.permittedProcessList.Clear();
