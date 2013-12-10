@@ -291,8 +291,8 @@ namespace SebWindowsClient.ConfigurationUtils
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
         // from/to a human-readable .xml and an encrypted.seb file format.
-        public static DictObj settingsDef = new DictObj();
-        public static DictObj settingsNew = new DictObj();
+        public static DictObj settingsDefault = new DictObj();
+        public static DictObj settingsCurrent = new DictObj();
 
         public static int     permittedProcessIndex;
         public static ListObj permittedProcessList          = new ListObj();
@@ -349,14 +349,14 @@ namespace SebWindowsClient.ConfigurationUtils
         // ************************
 
 
-        // *******************************************************************
-        // Set all the default values for the Plist structure "sebSettingsDef"
-        // *******************************************************************
-        public static void CreateDefaultSettingsFromScratch()
+        // ********************************************************************
+        // Set all the default values for the Plist structure "settingsDefault"
+        // ********************************************************************
+        public static void CreateDefaultAndCurrentSettingsFromScratch()
         {
             // Destroy all default lists and dictionaries
-            settingsDef = new DictObj();
-            settingsNew = new DictObj();
+            settingsDefault = new DictObj();
+            settingsCurrent = new DictObj();
 
             permittedProcessList          = new ListObj();
             permittedProcessData          = new DictObj();
@@ -409,48 +409,48 @@ namespace SebWindowsClient.ConfigurationUtils
             }
 
             // Initialise the default settings Plist
-            SEBSettings.settingsDef.Clear();
+            SEBSettings.settingsDefault.Clear();
 
             // Default settings for keys not belonging to any group
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOriginatorVersion, "SEB_Win_2.0pre_build");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOriginatorVersion, "SEB_Win_2.0pre_build");
 
             // Default settings for group "General"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageStartURL            , "http://www.safeexambrowser.org");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageSebServerURL        , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAdminPassword       , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageConfirmAdminPassword, "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageHashedAdminPassword , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowQuit           , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageIgnoreQuitPassword  , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageQuitPassword        , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageConfirmQuitPassword , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageHashedQuitPassword  , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageExitKey1,  2);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageExitKey2, 10);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageExitKey3,  5);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageSebMode, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageStartURL            , "http://www.safeexambrowser.org");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebServerURL        , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAdminPassword       , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageConfirmAdminPassword, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageHashedAdminPassword , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowQuit           , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageIgnoreQuitPassword  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageQuitPassword        , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageConfirmQuitPassword , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageHashedQuitPassword  , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageExitKey1,  2);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageExitKey2, 10);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageExitKey3,  5);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebMode, 0);
 
             // Default settings for group "Config File"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageSebConfigPurpose       , 0);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowPreferencesWindow , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageSettingsPassword       , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageConfirmSettingsPassword, "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageHashedSettingsPassword , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebConfigPurpose       , 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowPreferencesWindow , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageSettingsPassword       , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageConfirmSettingsPassword, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValueCryptoIdentity] = 0;
             SEBSettings.strArrayDefault[SEBSettings.ValueCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageBrowserViewMode             , 0);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageMainBrowserWindowWidth      , "100%");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageMainBrowserWindowHeight     , "100%");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageMainBrowserWindowPositioning, 1);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableBrowserWindowToolbar  , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageHideBrowserWindowToolbar    , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageShowMenuBar                 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageShowTaskBar                 , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageTaskBarHeight               , 40);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageBrowserViewMode             , 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageMainBrowserWindowWidth      , "100%");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageMainBrowserWindowHeight     , "100%");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageMainBrowserWindowPositioning, 1);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableBrowserWindowToolbar  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageHideBrowserWindowToolbar    , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageShowMenuBar                 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageShowTaskBar                 , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValueMainBrowserWindowWidth ] = 2;
@@ -459,20 +459,20 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.strArrayDefault[SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByScriptPolicy      , 2);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkBlockForeign  , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByScriptBlockForeign, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkWidth         , "1000");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkHeight        , "100%");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageNewBrowserWindowByLinkPositioning   , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByScriptPolicy      , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkBlockForeign  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByScriptBlockForeign, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkWidth         , "1000");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkHeight        , "100%");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkPositioning   , 2);
 
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnablePlugIns           , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableJava              , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableJavaScript        , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageBlockPopUpWindows       , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowBrowsingBackForward, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableSebBrowser        , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnablePlugIns           , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableJava              , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableJavaScript        , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageBlockPopUpWindows       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowBrowsingBackForward, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
@@ -481,26 +481,26 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.strArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowDownUploads        , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageDownloadDirectoryOSX    , "~/Downloads");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageDownloadDirectoryWin    , "Desktop");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOpenDownloads           , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageChooseFileToUploadPolicy, 0);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageDownloadPDFFiles        , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowDownUploads        , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageDownloadDirectoryOSX    , "~/Downloads");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageDownloadDirectoryWin    , "Desktop");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOpenDownloads           , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageChooseFileToUploadPolicy, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageExamKeySalt       , new Byte[] {});
-            SEBSettings.settingsDef.Add(SEBSettings.MessageBrowserExamKey    , "");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageCopyBrowserExamKey, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageSendBrowserExamKey, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageQuitURL           , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageExamKeySalt       , new Byte[] {});
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageBrowserExamKey    , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageCopyBrowserExamKey, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageSendBrowserExamKey, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageQuitURL           , "");
 
             // Default settings for group "Applications"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageMonitorProcesses         , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowSwitchToApplications, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
-            SEBSettings.settingsDef.Add(SEBSettings.MessageProhibitedProcesses      , new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageMonitorProcesses         , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowSwitchToApplications, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageProhibitedProcesses      , new ListObj());
 
             // Default settings for permitted argument data
             SEBSettings.permittedArgumentDataDefault.Clear();
@@ -561,9 +561,9 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageUser       , "");
 
             // Default settings for group "Network - Filter"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableURLFilter       , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableURLContentFilter, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageURLFilterRules        , new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableURLFilter       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableURLContentFilter, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageURLFilterRules        , new ListObj());
 
             // Create a default action
             SEBSettings.urlFilterActionDataDefault.Clear();
@@ -601,7 +601,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.MessageRuleActions, SEBSettings.urlFilterActionListStorage);
 
             // Default settings for group "Network - Certificates"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEmbeddedCertificates, new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEmbeddedCertificates, new ListObj());
 
             SEBSettings.embeddedCertificateDataDefault.Clear();
             SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.MessageCertificateData, "");
@@ -656,64 +656,64 @@ namespace SebWindowsClient.ConfigurationUtils
 
             SEBSettings.bypassedProxyDataDefault = "";
 
-            SEBSettings.settingsDef.Add(SEBSettings.MessageProxySettingsPolicy, 0);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageProxies            , SEBSettings.proxiesDataDefault);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageProxySettingsPolicy, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageProxies            , SEBSettings.proxiesDataDefault);
 
             // Default settings for group "Security"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageSebServicePolicy   , 2);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowVirtualMachine, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageCreateNewDesktop   , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageKillExplorerShell  , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageAllowUserSwitching , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableLogging      , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageLogDirectoryOSX    , "~/Documents");
-            SEBSettings.settingsDef.Add(SEBSettings.MessageLogDirectoryWin    , "My Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebServicePolicy   , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowVirtualMachine, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageCreateNewDesktop   , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageKillExplorerShell  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowUserSwitching , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableLogging      , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageLogDirectoryOSX    , "~/Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageLogDirectoryWin    , "My Documents");
 
             // Default settings for group "Inside SEB"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableSwitchUser       , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableLockThisComputer , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableChangeAPassword  , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableStartTaskManager , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableLogOff           , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableShutDown         , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableEaseOfAccess     , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageInsideSebEnableVmWareClientShade, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableSwitchUser       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableLockThisComputer , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableChangeAPassword  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableStartTaskManager , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableLogOff           , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableShutDown         , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableEaseOfAccess     , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableVmWareClientShade, false);
 
             // Default settings for group "Outside SEB"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableSwitchUser       , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableLockThisComputer , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableChangeAPassword  , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableStartTaskManager , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableLogOff           , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableShutDown         , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableEaseOfAccess     , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageOutsideSebEnableVmWareClientShade, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableSwitchUser       , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableLockThisComputer , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableChangeAPassword  , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableStartTaskManager , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableLogOff           , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableShutDown         , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableEaseOfAccess     , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableVmWareClientShade, true);
 
             // Default settings for group "Hooked Keys"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageHookKeys, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageHookKeys, true);
 
             // Default settings for group "Special Keys"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableEsc       , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableCtrlEsc   , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableAltEsc    , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableAltTab    , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableAltF4     , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableStartMenu , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableRightMouse, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableEsc       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableCtrlEsc   , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableAltEsc    , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableAltTab    , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableAltF4     , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableStartMenu , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableRightMouse, false);
 
             // Default settings for group "Function Keys"
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF1 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF2 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF3 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF4 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF5 , true);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF6 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF7 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF8 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF9 , false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF10, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF11, false);
-            SEBSettings.settingsDef.Add(SEBSettings.MessageEnableF12, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF1 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF2 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF3 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF4 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF5 , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF6 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF7 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF8 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF9 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF10, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF11, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF12, false);
 
 
             // Clear all "current" lists and dictionaries
@@ -755,21 +755,21 @@ namespace SebWindowsClient.ConfigurationUtils
         // *****************************************
         // Restore default settings and new settings
         // *****************************************
-        public static void RestoreDefaultAndNewSettings()
+        public static void RestoreDefaultAndCurrentSettings()
         {
-            // Set all the default values for the Plist structure "settingsNew"
+            // Set all the default values for the Plist structure "settingsCurrent"
 
-            // Create a default Dictionary "settingsDef".
-            // Create a current Dictionary "settingsNew".
+            // Create a default Dictionary "settingsDefault".
+            // Create a current Dictionary "settingsCurrent".
             // Fill up new settings by default settings, where necessary.
             // This assures that every (key, value) pair is contained
-            // in the "def" and "new" dictionaries,
-            // even if the loaded "new" dictionary did NOT contain every pair.
+            // in the "default" and "current" dictionaries,
+            // even if the loaded "current" dictionary did NOT contain every pair.
 
-            SEBSettings.CreateDefaultSettingsFromScratch();
-            SEBSettings.InitSettingsArrays();
-            SEBSettings.settingsNew.Clear();
+            SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
+            SEBSettings.settingsCurrent.Clear();
             SEBSettings.FillSettingsDictionary();
+            SEBSettings.FillSettingsArrays();
         }
 
 
@@ -777,9 +777,9 @@ namespace SebWindowsClient.ConfigurationUtils
         // ********************
         // Copy settings arrays
         // ********************
-        public static void InitSettingsArrays()
+        public static void FillSettingsArrays()
         {
-            // Copy all settings from one array to another
+            // Set all array values to default values
             for (int value = 1; value <= SEBSettings.ValueNum; value++)
             {
                 intArrayCurrent[value] = intArrayDefault[value];
@@ -894,14 +894,14 @@ namespace SebWindowsClient.ConfigurationUtils
         {
 
             // Add potentially missing keys to current Main Dictionary
-            foreach (KeyValue p in SEBSettings.settingsDef)
-                               if (SEBSettings.settingsNew.ContainsKey(p.Key) == false)
-                                   SEBSettings.settingsNew.Add        (p.Key, p.Value);
+            foreach (KeyValue p in SEBSettings.settingsDefault)
+                               if (SEBSettings.settingsCurrent.ContainsKey(p.Key) == false)
+                                   SEBSettings.settingsCurrent.Add        (p.Key, p.Value);
 
 
 
             // Get the Permitted Process List
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessagePermittedProcesses];
 
             // Traverse Permitted Processes of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.permittedProcessList.Count; listIndex++)
@@ -934,7 +934,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the Prohibited Process List
-            SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessageProhibitedProcesses];
 
             // Traverse Prohibited Processes of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.prohibitedProcessList.Count; listIndex++)
@@ -952,7 +952,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the Embedded Certificate List
-            SEBSettings.embeddedCertificateList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessageEmbeddedCertificates];
+            SEBSettings.embeddedCertificateList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessageEmbeddedCertificates];
 
             // Traverse Embedded Certificates of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.embeddedCertificateList.Count; listIndex++)
@@ -970,7 +970,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the URL Filter Rule List
-            SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessageURLFilterRules];
+            SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessageURLFilterRules];
 
             // Traverse URL Filter Rules of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
@@ -1003,7 +1003,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the Proxies Dictionary
-            SEBSettings.proxiesData = (DictObj)SEBSettings.settingsNew[SEBSettings.MessageProxies];
+            SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent[SEBSettings.MessageProxies];
 
             // Add potentially missing keys to current Proxies Dictionary
             foreach (KeyValue p in SEBSettings.proxiesDataDefault)
@@ -1032,7 +1032,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void PermitXulRunnerProcess()
         {
             // Get the Permitted Process List
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsNew[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessagePermittedProcesses];
 
             // Position of XulRunner process in Permitted Process List
             int indexOfProcessXulRunnerExe = -1;
@@ -1169,9 +1169,8 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************************
         public static bool ReadSebConfigurationFile(String fileName)
         {
-            // recreate the "default" settings
-            SEBSettings.CreateDefaultSettingsFromScratch();
-            SEBSettings.InitSettingsArrays();
+            // Recreate the default and current settings
+            SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
 
             try
             {
@@ -1187,8 +1186,8 @@ namespace SebWindowsClient.ConfigurationUtils
                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
               //decryptedSettings = decryptedSettings.Trim();
 
-                SEBSettings.settingsNew.Clear();
-                SEBSettings.settingsNew = (DictObj)Plist.readPlistSource(decryptedSettings);
+                SEBSettings.settingsCurrent.Clear();
+                SEBSettings.settingsCurrent = (DictObj)Plist.readPlistSource(decryptedSettings);
             }
             catch (Exception streamReadException)
             {
@@ -1201,21 +1200,22 @@ namespace SebWindowsClient.ConfigurationUtils
             // If the settings could be read from file...
 
             // Fill up the Dictionary read from file with default settings, where necessary
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillBefore.txt");
             SEBSettings.FillSettingsDictionary();
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFileFillAfter.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFileFillAfter.txt");
+            SEBSettings.FillSettingsArrays();
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillAfter.txt");
 
             // Add the XulRunner process to the Permitted Process List, if necessary
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.PermitXulRunnerProcess();
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFilePermitAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitAfter.txt");
 
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDef, "SettingsDefInReadSebConfigurationFile.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsNew, "SettingsNewInReadSebConfigurationFile.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFile.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFile.txt");
 
             return true;
         }
@@ -1243,7 +1243,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 if (false)
                 {
-                    decryptedSettings = Plist.writeXml(SEBSettings.settingsNew);
+                    decryptedSettings = Plist.writeXml(SEBSettings.settingsCurrent);
                     encryptedSettings = sebProtectionController.EncryptWithPassword   (decryptedSettings, password);
                     encryptedSettings = sebProtectionController.EncryptWithCertificate(decryptedSettings, certificate);
 
@@ -1251,8 +1251,8 @@ namespace SebWindowsClient.ConfigurationUtils
                 }
                 else // unencrypted .xml file
                 {
-                    Plist.writeXml(SEBSettings.settingsNew, fileName);
-                    Plist.writeXml(SEBSettings.settingsNew, "DebugSettingsNew_in_SaveConfigurationFile.xml");
+                    Plist.writeXml(SEBSettings.settingsCurrent, fileName);
+                    Plist.writeXml(SEBSettings.settingsCurrent, "DebugsettingsCurrent_in_SaveConfigurationFile.xml");
                 }
             }
             catch (Exception streamWriteException) 
