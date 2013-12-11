@@ -179,7 +179,7 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Add Permited process names to ToolStrip conrol .
+        /// Add Permitted process names to ToolStrip control
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         private void addPermittedProcessesToTS()
