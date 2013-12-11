@@ -47,8 +47,8 @@ namespace SebWindowsConfig
             //SEBSettings.WriteSebConfigurationFile("sebClientDefaultMist.seb");
             //SEBSettings. ReadSebConfigurationFile("sebClientDefaultMist.seb");
 
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "settingsDefaultInConstructor.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInConstructor.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_Constructor.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_Constructor.txt");
 
             // Initialise the global variables for the GUI widgets
             InitialiseGlobalVariablesForGUIWidgets();
@@ -72,9 +72,10 @@ namespace SebWindowsConfig
             // Read the file into "new" settings
             if (!SEBSettings.ReadSebConfigurationFile(fileName)) return false;
 
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugsettingsCurrent_in_OpenConfigurationFile.xml");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "settingsDefault.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrent.txt");
+            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.xml");
+            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_LoadConfigurationFile.xml");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_LoadConfigurationFile.txt");
 
             // GUI-related part: Update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -720,23 +721,23 @@ namespace SebWindowsConfig
 
         private void buttonDefaultSettings_Click(object sender, EventArgs e)
         {
-            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_before_RevertToDefault.xml");
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_before_RevertToDefault.xml");
+            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_Before_RevertToDefault.xml");
+            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToDefault.xml");
             SEBSettings.RestoreDefaultAndCurrentSettings();
             SEBSettings.PermitXulRunnerProcess();
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefaultInButtonDefault.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "SettingsCurrentInButtonDefault.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_ButtonDefault.txt");
+            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_ButtonDefault.txt");
             UpdateAllWidgetsOfProgram();
-            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_after_RevertToDefault.xml");
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_after_RevertToDefault.xml");
+            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_After_RevertToDefault.xml");
+            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_After_RevertToDefault.xml");
         }
 
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugsettingsCurrent_before_RevertToLastOpened.xml");
+            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToLastOpened.xml");
             LoadConfigurationFileIntoEditor(currentPathSebConfigFile);
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugsettingsCurrent_after_RevertToLastOpened.xml");
+            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_After_RevertToLastOpened.xml");
         }
 
 

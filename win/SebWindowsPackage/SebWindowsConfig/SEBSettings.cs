@@ -1200,22 +1200,22 @@ namespace SebWindowsClient.ConfigurationUtils
             // If the settings could be read from file...
 
             // Fill up the Dictionary read from file with default settings, where necessary
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillBefore.txt");
             SEBSettings.FillSettingsDictionary();
             SEBSettings.FillSettingsArrays();
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillAfter.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillAfter.txt");
 
             // Add the XulRunner process to the Permitted Process List, if necessary
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.PermitXulRunnerProcess();
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitAfter.txt");
 
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFile.txt");
-            SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFile.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFile.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFile.txt");
 
             return true;
         }
