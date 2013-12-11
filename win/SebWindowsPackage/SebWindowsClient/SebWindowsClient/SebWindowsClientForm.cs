@@ -193,18 +193,20 @@ namespace SebWindowsClient
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
                     if ((Boolean)permittedProcess[SEBSettings.KeyActive])
                     {
-                        string tsbName = (string)permittedProcess[SEBSettings.KeyTitle];
-                        string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
-                        toolStripButton.Name = permittedProcessName;
-                        toolStripButton.ToolTipText = tsbName;
-                        if (permittedProcessName.Contains("notepad.exe"))
+                        string title      = (string)permittedProcess[SEBSettings.KeyTitle];
+                        string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
+
+                        toolStripButton.Name        = executable;
+                        toolStripButton.ToolTipText = title;
+
+                        if (executable.Contains("notepad.exe"))
                             toolStripButton.Image = ilProcessIcons.Images[2];
-                        else if (permittedProcessName.Contains("calc.exe"))
+                        else if (executable.Contains("calc.exe"))
                             toolStripButton.Image = ilProcessIcons.Images[1];
-                        else if (permittedProcessName.Contains("xulrunner.exe"))
+                        else if (executable.Contains("xulrunner.exe"))
                             toolStripButton.Image = ilProcessIcons.Images[3];
                         else
-                            toolStripButton.Text = tsbName;
+                            toolStripButton.Text = title;
 
                         toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
@@ -213,9 +215,9 @@ namespace SebWindowsClient
                         // Autostart
                         if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
                         {
-                            if (!permittedProcessName.Contains(SEBClientInfo.XUL_RUNNER))
+                            if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
                             {
-                                StringBuilder startProcessNameBuilder = new StringBuilder(permittedProcessName);
+                                StringBuilder startProcessNameBuilder = new StringBuilder(executable);
                                 List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
                                 for (int j = 0; j < argumentList.Count; j++)
                                 {
@@ -256,18 +258,18 @@ namespace SebWindowsClient
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
+                    string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
                     if((Boolean)permittedProcess[SEBSettings.KeyActive])
                     {
-                        if (toolStripButton.Name.CompareTo(permittedProcessName) == 0)
+                        if (toolStripButton.Name.CompareTo(executable) == 0)
                         {
-                            if (permittedProcessName.Contains(SEBClientInfo.XUL_RUNNER))
+                            if (executable.Contains(SEBClientInfo.XUL_RUNNER))
                             {
                                 bool xulRunnerRunning = false;
                                 Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
                                 for (int j = 0; j < runningApplications.Count(); j++)
                                 {
-                                    if (permittedProcessName.Contains(runningApplications[j].ProcessName))
+                                    if (executable.Contains(runningApplications[j].ProcessName))
                                     {
                                         xulRunnerRunning = true;
                                     }
@@ -277,7 +279,7 @@ namespace SebWindowsClient
                             }
                             else
                             {
-                                StringBuilder startProcessNameBuilder = new StringBuilder(permittedProcessName);
+                                StringBuilder startProcessNameBuilder = new StringBuilder(executable);
                                 List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
                                 for (int j = 0; j < argumentList.Count; j++)
                                 {
