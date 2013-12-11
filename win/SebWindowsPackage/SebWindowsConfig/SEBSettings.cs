@@ -42,216 +42,216 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int ValueNum = 6;
 
         // Keys not belonging to any group
-        public const String MessageOriginatorVersion = "originatorVersion";
+        public const String KeyOriginatorVersion = "originatorVersion";
 
         // Group "General"
-        public const String MessageStartURL             = "startURL";
-        public const String MessageSebServerURL         = "sebServerURL";
-        public const String MessageAdminPassword        = "adminPassword";
-        public const String MessageConfirmAdminPassword = "confirmAdminPassword";
-        public const String MessageHashedAdminPassword  = "hashedAdminPassword";
-        public const String MessageAllowQuit            = "allowQuit";
-        public const String MessageIgnoreQuitPassword   = "ignoreQuitPassword";
-        public const String MessageQuitPassword         = "quitPassword";
-        public const String MessageConfirmQuitPassword  = "confirmQuitPassword";
-        public const String MessageHashedQuitPassword   = "hashedQuitPassword";
-        public const String MessageExitKey1             = "exitKey1";
-        public const String MessageExitKey2             = "exitKey2";
-        public const String MessageExitKey3             = "exitKey3";
-        public const String MessageSebMode              = "sebMode";
+        public const String KeyStartURL             = "startURL";
+        public const String KeySebServerURL         = "sebServerURL";
+        public const String KeyAdminPassword        = "adminPassword";
+        public const String KeyConfirmAdminPassword = "confirmAdminPassword";
+        public const String KeyHashedAdminPassword  = "hashedAdminPassword";
+        public const String KeyAllowQuit            = "allowQuit";
+        public const String KeyIgnoreQuitPassword   = "ignoreQuitPassword";
+        public const String KeyQuitPassword         = "quitPassword";
+        public const String KeyConfirmQuitPassword  = "confirmQuitPassword";
+        public const String KeyHashedQuitPassword   = "hashedQuitPassword";
+        public const String KeyExitKey1             = "exitKey1";
+        public const String KeyExitKey2             = "exitKey2";
+        public const String KeyExitKey3             = "exitKey3";
+        public const String KeySebMode              = "sebMode";
 
         // Group "Config File"
-        public const String MessageSebConfigPurpose        = "sebConfigPurpose";
-        public const String MessageAllowPreferencesWindow  = "allowPreferencesWindow";
-        public const String MessageCryptoIdentity          = "cryptoIdentity";
-        public const String MessageSettingsPassword        = "settingsPassword";
-        public const String MessageConfirmSettingsPassword = "confirmSettingsPassword";
-        public const String MessageHashedSettingsPassword  = "hashedSettingsPassword";
+        public const String KeySebConfigPurpose        = "sebConfigPurpose";
+        public const String KeyAllowPreferencesWindow  = "allowPreferencesWindow";
+        public const String KeyCryptoIdentity          = "cryptoIdentity";
+        public const String KeySettingsPassword        = "settingsPassword";
+        public const String KeyConfirmSettingsPassword = "confirmSettingsPassword";
+        public const String KeyHashedSettingsPassword  = "hashedSettingsPassword";
 
         // Group "Appearance"
-        public const String MessageBrowserViewMode              = "browserViewMode";
-        public const String MessageMainBrowserWindowWidth       = "mainBrowserWindowWidth";
-        public const String MessageMainBrowserWindowHeight      = "mainBrowserWindowHeight";
-        public const String MessageMainBrowserWindowPositioning = "mainBrowserWindowPositioning";
-        public const String MessageEnableBrowserWindowToolbar   = "enableBrowserWindowToolbar";
-        public const String MessageHideBrowserWindowToolbar     = "hideBrowserWindowToolbar";
-        public const String MessageShowMenuBar                  = "showMenuBar";
-        public const String MessageShowTaskBar                  = "showTaskBar";
-        public const String MessageTaskBarHeight                = "taskBarHeight";
+        public const String KeyBrowserViewMode              = "browserViewMode";
+        public const String KeyMainBrowserWindowWidth       = "mainBrowserWindowWidth";
+        public const String KeyMainBrowserWindowHeight      = "mainBrowserWindowHeight";
+        public const String KeyMainBrowserWindowPositioning = "mainBrowserWindowPositioning";
+        public const String KeyEnableBrowserWindowToolbar   = "enableBrowserWindowToolbar";
+        public const String KeyHideBrowserWindowToolbar     = "hideBrowserWindowToolbar";
+        public const String KeyShowMenuBar                  = "showMenuBar";
+        public const String KeyShowTaskBar                  = "showTaskBar";
+        public const String KeyTaskBarHeight                = "taskBarHeight";
 
         // Group "Browser"
-        public const String MessageNewBrowserWindowByLinkPolicy         = "newBrowserWindowByLinkPolicy";
-        public const String MessageNewBrowserWindowByScriptPolicy       = "newBrowserWindowByScriptPolicy";
-        public const String MessageNewBrowserWindowByLinkBlockForeign   = "newBrowserWindowByLinkBlockForeign";
-        public const String MessageNewBrowserWindowByScriptBlockForeign = "newBrowserWindowByScriptBlockForeign";
-        public const String MessageNewBrowserWindowByLinkWidth          = "newBrowserWindowByLinkWidth";
-        public const String MessageNewBrowserWindowByLinkHeight         = "newBrowserWindowByLinkHeight";
-        public const String MessageNewBrowserWindowByLinkPositioning    = "newBrowserWindowByLinkPositioning";
-        public const String MessageEnablePlugIns                        = "enablePlugIns";
-        public const String MessageEnableJava                           = "enableJava";
-        public const String MessageEnableJavaScript                     = "enableJavaScript";
-        public const String MessageBlockPopUpWindows                    = "blockPopUpWindows";
-        public const String MessageAllowBrowsingBackForward             = "allowBrowsingBackForward";
-        public const String MessageEnableSebBrowser                     = "enableSebBrowser";
+        public const String KeyNewBrowserWindowByLinkPolicy         = "newBrowserWindowByLinkPolicy";
+        public const String KeyNewBrowserWindowByScriptPolicy       = "newBrowserWindowByScriptPolicy";
+        public const String KeyNewBrowserWindowByLinkBlockForeign   = "newBrowserWindowByLinkBlockForeign";
+        public const String KeyNewBrowserWindowByScriptBlockForeign = "newBrowserWindowByScriptBlockForeign";
+        public const String KeyNewBrowserWindowByLinkWidth          = "newBrowserWindowByLinkWidth";
+        public const String KeyNewBrowserWindowByLinkHeight         = "newBrowserWindowByLinkHeight";
+        public const String KeyNewBrowserWindowByLinkPositioning    = "newBrowserWindowByLinkPositioning";
+        public const String KeyEnablePlugIns                        = "enablePlugIns";
+        public const String KeyEnableJava                           = "enableJava";
+        public const String KeyEnableJavaScript                     = "enableJavaScript";
+        public const String KeyBlockPopUpWindows                    = "blockPopUpWindows";
+        public const String KeyAllowBrowsingBackForward             = "allowBrowsingBackForward";
+        public const String KeyEnableSebBrowser                     = "enableSebBrowser";
 
         // Group "DownUploads"
-        public const String MessageAllowDownUploads         = "allowDownUploads";
-        public const String MessageDownloadDirectoryOSX     = "downloadDirectoryOSX";
-        public const String MessageDownloadDirectoryWin     = "downloadDirectoryWin";
-        public const String MessageOpenDownloads            = "openDownloads";
-        public const String MessageChooseFileToUploadPolicy = "chooseFileToUploadPolicy";
-        public const String MessageDownloadPDFFiles         = "downloadPDFFiles";
+        public const String KeyAllowDownUploads         = "allowDownUploads";
+        public const String KeyDownloadDirectoryOSX     = "downloadDirectoryOSX";
+        public const String KeyDownloadDirectoryWin     = "downloadDirectoryWin";
+        public const String KeyOpenDownloads            = "openDownloads";
+        public const String KeyChooseFileToUploadPolicy = "chooseFileToUploadPolicy";
+        public const String KeyDownloadPDFFiles         = "downloadPDFFiles";
 
         // Group "Exam"
-        public const String MessageExamKeySalt        = "examKeySalt";
-        public const String MessageBrowserExamKey     = "browserExamKey";
-        public const String MessageCopyBrowserExamKey = "copyBrowserExamKeyToClipboardWhenQuitting";
-        public const String MessageSendBrowserExamKey = "sendBrowserExamKey";
-        public const String MessageQuitURL            = "quitURL";
+        public const String KeyExamKeySalt        = "examKeySalt";
+        public const String KeyBrowserExamKey     = "browserExamKey";
+        public const String KeyCopyBrowserExamKey = "copyBrowserExamKeyToClipboardWhenQuitting";
+        public const String KeySendBrowserExamKey = "sendBrowserExamKey";
+        public const String KeyQuitURL            = "quitURL";
 
         // Group "Applications"
-        public const String MessageMonitorProcesses = "monitorProcesses";
+        public const String KeyMonitorProcesses = "monitorProcesses";
 
         // Group "Applications - Permitted  Processes"
-        public const String MessagePermittedProcesses        = "permittedProcesses";
-        public const String MessageAllowSwitchToApplications = "allowSwitchToApplications";
-        public const String MessageAllowFlashFullscreen      = "allowFlashFullscreen";
+        public const String KeyPermittedProcesses        = "permittedProcesses";
+        public const String KeyAllowSwitchToApplications = "allowSwitchToApplications";
+        public const String KeyAllowFlashFullscreen      = "allowFlashFullscreen";
 
         // Group "Applications - Prohibited Processes"
-        public const String MessageProhibitedProcesses = "prohibitedProcesses";
+        public const String KeyProhibitedProcesses = "prohibitedProcesses";
 
-        public const String MessageActive      = "active";
-        public const String MessageAutostart   = "autostart";
-        public const String MessageAutohide    = "autohide";
-        public const String MessageAllowUser   = "allowUserToChooseApp";
-        public const String MessageCurrentUser = "currentUser";
-        public const String MessageStrongKill  = "strongKill";
-        public const String MessageOS          = "os";
-        public const String MessageTitle       = "title";
-        public const String MessageDescription = "description";
-        public const String MessageExecutable  = "executable";
-        public const String MessagePath        = "path";
-        public const String MessageIdentifier  = "identifier";
-        public const String MessageUser        = "user";
-        public const String MessageArguments   = "arguments";
-        public const String MessageArgument    = "argument";
+        public const String KeyActive      = "active";
+        public const String KeyAutostart   = "autostart";
+        public const String KeyAutohide    = "autohide";
+        public const String KeyAllowUser   = "allowUserToChooseApp";
+        public const String KeyCurrentUser = "currentUser";
+        public const String KeyStrongKill  = "strongKill";
+        public const String KeyOS          = "os";
+        public const String KeyTitle       = "title";
+        public const String KeyDescription = "description";
+        public const String KeyExecutable  = "executable";
+        public const String KeyPath        = "path";
+        public const String KeyIdentifier  = "identifier";
+        public const String KeyUser        = "user";
+        public const String KeyArguments   = "arguments";
+        public const String KeyArgument    = "argument";
 
         // Group "Network"
-        public const String MessageEnableURLFilter        = "enableURLFilter";
-        public const String MessageEnableURLContentFilter = "enableURLContentFilter";
+        public const String KeyEnableURLFilter        = "enableURLFilter";
+        public const String KeyEnableURLContentFilter = "enableURLContentFilter";
 
         // Group "Network - Filter"
-        public const String MessageURLFilterRules = "URLFilterRules";
-        public const String MessageExpression     = "expression";
-        public const String MessageRuleActions    = "ruleActions";
-        public const String MessageRegex          = "regex";
-        public const String MessageAction         = "action";
+        public const String KeyURLFilterRules = "URLFilterRules";
+        public const String KeyExpression     = "expression";
+        public const String KeyRuleActions    = "ruleActions";
+        public const String KeyRegex          = "regex";
+        public const String KeyAction         = "action";
 
         // Group "Network - Certificates"
-        public const String MessageEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
-        public const String MessageEmbedIdentity             = "EmbedIdentity";
-        public const String MessageEmbeddedCertificates      = "embeddedCertificates";
-        public const String MessageCertificateData           = "certificateData";
-        public const String MessageType                      = "type";
-        public const String MessageName                      = "name";
+        public const String KeyEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
+        public const String KeyEmbedIdentity             = "EmbedIdentity";
+        public const String KeyEmbeddedCertificates      = "embeddedCertificates";
+        public const String KeyCertificateData           = "certificateData";
+        public const String KeyType                      = "type";
+        public const String KeyName                      = "name";
 
         // Group "Network - Proxies"
-        public const String MessageProxySettingsPolicy       = "proxySettingsPolicy";
+        public const String KeyProxySettingsPolicy       = "proxySettingsPolicy";
 
-        public const String MessageProxies                     = "proxies";
-        public const String MessageExceptionsList              = "ExceptionsList";
-        public const String MessageExcludeSimpleHostnames      = "ExcludeSimpleHostnames";
-        public const String MessageFTPPassive                  = "FTPPassive";
+        public const String KeyProxies                     = "proxies";
+        public const String KeyExceptionsList              = "ExceptionsList";
+        public const String KeyExcludeSimpleHostnames      = "ExcludeSimpleHostnames";
+        public const String KeyFTPPassive                  = "FTPPassive";
 
-        public const String MessageAutoDiscoveryEnabled        = "AutoDiscoveryEnabled";
-        public const String MessageAutoConfigurationEnabled    = "AutoConfigurationEnabled";
-        public const String MessageAutoConfigurationJavaScript = "AutoConfigurationJavaScript";
-        public const String MessageAutoConfigurationURL        = "AutoConfigurationURL";
+        public const String KeyAutoDiscoveryEnabled        = "AutoDiscoveryEnabled";
+        public const String KeyAutoConfigurationEnabled    = "AutoConfigurationEnabled";
+        public const String KeyAutoConfigurationJavaScript = "AutoConfigurationJavaScript";
+        public const String KeyAutoConfigurationURL        = "AutoConfigurationURL";
 
-        public const String MessageAutoDiscovery     = "";
-        public const String MessageAutoConfiguration = "";
-        public const String MessageHTTP              = "HTTP";
-        public const String MessageHTTPS             = "HTTPS";
-        public const String MessageFTP               = "FTP";
-        public const String MessageSOCKS             = "SOCKS";
-        public const String MessageRTSP              = "RTSP";
+        public const String KeyAutoDiscovery     = "";
+        public const String KeyAutoConfiguration = "";
+        public const String KeyHTTP              = "HTTP";
+        public const String KeyHTTPS             = "HTTPS";
+        public const String KeyFTP               = "FTP";
+        public const String KeySOCKS             = "SOCKS";
+        public const String KeyRTSP              = "RTSP";
 
-        public const String MessageEnable   = "Enable";
-        public const String MessagePort     = "Port";
-        public const String MessageHost     = "Proxy";
-        public const String MessageRequires = "RequiresPassword";
-        public const String MessageUsername = "Username";
-        public const String MessagePassword = "Password";
+        public const String KeyEnable   = "Enable";
+        public const String KeyPort     = "Port";
+        public const String KeyHost     = "Proxy";
+        public const String KeyRequires = "RequiresPassword";
+        public const String KeyUsername = "Username";
+        public const String KeyPassword = "Password";
 
-        public const String MessageHTTPEnable   = "HTTPEnable";
-        public const String MessageHTTPPort     = "HTTPPort";
-        public const String MessageHTTPHost     = "HTTPProxy";
-        public const String MessageHTTPRequires = "HTTPRequiresPassword";
-        public const String MessageHTTPUsername = "HTTPUsername";
-        public const String MessageHTTPPassword = "HTTPPassword";
+        public const String KeyHTTPEnable   = "HTTPEnable";
+        public const String KeyHTTPPort     = "HTTPPort";
+        public const String KeyHTTPHost     = "HTTPProxy";
+        public const String KeyHTTPRequires = "HTTPRequiresPassword";
+        public const String KeyHTTPUsername = "HTTPUsername";
+        public const String KeyHTTPPassword = "HTTPPassword";
 
-        public const String MessageHTTPSEnable   = "HTTPSEnable";
-        public const String MessageHTTPSPort     = "HTTPSPort";
-        public const String MessageHTTPSHost     = "HTTPSProxy";
-        public const String MessageHTTPSRequires = "HTTPSRequiresPassword";
-        public const String MessageHTTPSUsername = "HTTPSUsername";
-        public const String MessageHTTPSPassword = "HTTPSPassword";
+        public const String KeyHTTPSEnable   = "HTTPSEnable";
+        public const String KeyHTTPSPort     = "HTTPSPort";
+        public const String KeyHTTPSHost     = "HTTPSProxy";
+        public const String KeyHTTPSRequires = "HTTPSRequiresPassword";
+        public const String KeyHTTPSUsername = "HTTPSUsername";
+        public const String KeyHTTPSPassword = "HTTPSPassword";
 
-        public const String MessageFTPEnable   = "FTPEnable";
-        public const String MessageFTPPort     = "FTPPort";
-        public const String MessageFTPHost     = "FTPProxy";
-        public const String MessageFTPRequires = "FTPRequiresPassword";
-        public const String MessageFTPUsername = "FTPUsername";
-        public const String MessageFTPPassword = "FTPPassword";
+        public const String KeyFTPEnable   = "FTPEnable";
+        public const String KeyFTPPort     = "FTPPort";
+        public const String KeyFTPHost     = "FTPProxy";
+        public const String KeyFTPRequires = "FTPRequiresPassword";
+        public const String KeyFTPUsername = "FTPUsername";
+        public const String KeyFTPPassword = "FTPPassword";
 
-        public const String MessageSOCKSEnable   = "SOCKSEnable";
-        public const String MessageSOCKSPort     = "SOCKSPort";
-        public const String MessageSOCKSHost     = "SOCKSProxy";
-        public const String MessageSOCKSRequires = "SOCKSRequiresPassword";
-        public const String MessageSOCKSUsername = "SOCKSUsername";
-        public const String MessageSOCKSPassword = "SOCKSPassword";
+        public const String KeySOCKSEnable   = "SOCKSEnable";
+        public const String KeySOCKSPort     = "SOCKSPort";
+        public const String KeySOCKSHost     = "SOCKSProxy";
+        public const String KeySOCKSRequires = "SOCKSRequiresPassword";
+        public const String KeySOCKSUsername = "SOCKSUsername";
+        public const String KeySOCKSPassword = "SOCKSPassword";
 
-        public const String MessageRTSPEnable   = "RTSPEnable";
-        public const String MessageRTSPPort     = "RTSPPort";
-        public const String MessageRTSPHost     = "RTSPProxy";
-        public const String MessageRTSPRequires = "RTSPRequiresPassword";
-        public const String MessageRTSPUsername = "RTSPUsername";
-        public const String MessageRTSPPassword = "RTSPPassword";
+        public const String KeyRTSPEnable   = "RTSPEnable";
+        public const String KeyRTSPPort     = "RTSPPort";
+        public const String KeyRTSPHost     = "RTSPProxy";
+        public const String KeyRTSPRequires = "RTSPRequiresPassword";
+        public const String KeyRTSPUsername = "RTSPUsername";
+        public const String KeyRTSPPassword = "RTSPPassword";
 
         // Group "Security"
-        public const String MessageSebServicePolicy    = "sebServicePolicy";
-        public const String MessageAllowVirtualMachine = "allowVirtualMachine";
-        public const String MessageCreateNewDesktop    = "createNewDesktop";
-        public const String MessageKillExplorerShell   = "killExplorerShell";
-        public const String MessageAllowUserSwitching  = "allowUserSwitching";
-        public const String MessageEnableLogging       = "enableLogging";
-        public const String MessageLogDirectoryOSX     = "logDirectoryOSX";
-        public const String MessageLogDirectoryWin     = "logDirectoryWin";
+        public const String KeySebServicePolicy    = "sebServicePolicy";
+        public const String KeyAllowVirtualMachine = "allowVirtualMachine";
+        public const String KeyCreateNewDesktop    = "createNewDesktop";
+        public const String KeyKillExplorerShell   = "killExplorerShell";
+        public const String KeyAllowUserSwitching  = "allowUserSwitching";
+        public const String KeyEnableLogging       = "enableLogging";
+        public const String KeyLogDirectoryOSX     = "logDirectoryOSX";
+        public const String KeyLogDirectoryWin     = "logDirectoryWin";
 
         // Group "Registry"
 
         // Group "Inside SEB"
-        public const String MessageInsideSebEnableSwitchUser        = "insideSebEnableSwitchUser";
-        public const String MessageInsideSebEnableLockThisComputer  = "insideSebEnableLockThisComputer";
-        public const String MessageInsideSebEnableChangeAPassword   = "insideSebEnableChangeAPassword";
-        public const String MessageInsideSebEnableStartTaskManager  = "insideSebEnableStartTaskManager";
-        public const String MessageInsideSebEnableLogOff            = "insideSebEnableLogOff";
-        public const String MessageInsideSebEnableShutDown          = "insideSebEnableShutDown";
-        public const String MessageInsideSebEnableEaseOfAccess      = "insideSebEnableEaseOfAccess";
-        public const String MessageInsideSebEnableVmWareClientShade = "insideSebEnableVmWareClientShade";
+        public const String KeyInsideSebEnableSwitchUser        = "insideSebEnableSwitchUser";
+        public const String KeyInsideSebEnableLockThisComputer  = "insideSebEnableLockThisComputer";
+        public const String KeyInsideSebEnableChangeAPassword   = "insideSebEnableChangeAPassword";
+        public const String KeyInsideSebEnableStartTaskManager  = "insideSebEnableStartTaskManager";
+        public const String KeyInsideSebEnableLogOff            = "insideSebEnableLogOff";
+        public const String KeyInsideSebEnableShutDown          = "insideSebEnableShutDown";
+        public const String KeyInsideSebEnableEaseOfAccess      = "insideSebEnableEaseOfAccess";
+        public const String KeyInsideSebEnableVmWareClientShade = "insideSebEnableVmWareClientShade";
 
         // Group "Outside SEB"
-        public const String MessageOutsideSebEnableSwitchUser        = "outsideSebEnableSwitchUser";
-        public const String MessageOutsideSebEnableLockThisComputer  = "outsideSebEnableLockThisComputer";
-        public const String MessageOutsideSebEnableChangeAPassword   = "outsideSebEnableChangeAPassword";
-        public const String MessageOutsideSebEnableStartTaskManager  = "outsideSebEnableStartTaskManager";
-        public const String MessageOutsideSebEnableLogOff            = "outsideSebEnableLogOff";
-        public const String MessageOutsideSebEnableShutDown          = "outsideSebEnableShutDown";
-        public const String MessageOutsideSebEnableEaseOfAccess      = "outsideSebEnableEaseOfAccess";
-        public const String MessageOutsideSebEnableVmWareClientShade = "outsideSebEnableVmWareClientShade";
+        public const String KeyOutsideSebEnableSwitchUser        = "outsideSebEnableSwitchUser";
+        public const String KeyOutsideSebEnableLockThisComputer  = "outsideSebEnableLockThisComputer";
+        public const String KeyOutsideSebEnableChangeAPassword   = "outsideSebEnableChangeAPassword";
+        public const String KeyOutsideSebEnableStartTaskManager  = "outsideSebEnableStartTaskManager";
+        public const String KeyOutsideSebEnableLogOff            = "outsideSebEnableLogOff";
+        public const String KeyOutsideSebEnableShutDown          = "outsideSebEnableShutDown";
+        public const String KeyOutsideSebEnableEaseOfAccess      = "outsideSebEnableEaseOfAccess";
+        public const String KeyOutsideSebEnableVmWareClientShade = "outsideSebEnableVmWareClientShade";
 
         // Group "Hooked Keys"
-        public const String MessageHookKeys = "hookKeys";
+        public const String KeyHookKeys = "hookKeys";
 
         // Group "Special Keys"
         public const String MessageEnableEsc        = "enableEsc";
@@ -412,45 +412,45 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Clear();
 
             // Default settings for keys not belonging to any group
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOriginatorVersion, "SEB_Win_2.0pre_build");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.0pre_build");
 
             // Default settings for group "General"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageStartURL            , "http://www.safeexambrowser.org");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebServerURL        , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAdminPassword       , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageConfirmAdminPassword, "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageHashedAdminPassword , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowQuit           , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageIgnoreQuitPassword  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageQuitPassword        , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageConfirmQuitPassword , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageHashedQuitPassword  , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageExitKey1,  2);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageExitKey2, 10);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageExitKey3,  5);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebMode, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyStartURL            , "http://www.safeexambrowser.org");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySebServerURL        , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAdminPassword       , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyConfirmAdminPassword, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedAdminPassword , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowQuit           , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreQuitPassword  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyQuitPassword        , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyConfirmQuitPassword , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedQuitPassword  , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey1,  2);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey2, 10);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey3,  5);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySebMode, 0);
 
             // Default settings for group "Config File"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebConfigPurpose       , 0);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowPreferencesWindow , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageSettingsPassword       , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageConfirmSettingsPassword, "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageHashedSettingsPassword , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySebConfigPurpose       , 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowPreferencesWindow , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySettingsPassword       , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyConfirmSettingsPassword, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValueCryptoIdentity] = 0;
             SEBSettings.strArrayDefault[SEBSettings.ValueCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageBrowserViewMode             , 0);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageMainBrowserWindowWidth      , "100%");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageMainBrowserWindowHeight     , "100%");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageMainBrowserWindowPositioning, 1);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableBrowserWindowToolbar  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageHideBrowserWindowToolbar    , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageShowMenuBar                 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageShowTaskBar                 , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageTaskBarHeight               , 40);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserViewMode             , 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyMainBrowserWindowWidth      , "100%");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyMainBrowserWindowHeight     , "100%");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyMainBrowserWindowPositioning, 1);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableBrowserWindowToolbar  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyHideBrowserWindowToolbar    , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyShowMenuBar                 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyShowTaskBar                 , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValueMainBrowserWindowWidth ] = 2;
@@ -459,20 +459,20 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.strArrayDefault[SEBSettings.ValueMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkPolicy        , 2);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByScriptPolicy      , 2);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkBlockForeign  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByScriptBlockForeign, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkWidth         , "1000");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkHeight        , "100%");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageNewBrowserWindowByLinkPositioning   , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkPolicy        , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByScriptPolicy      , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkBlockForeign  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByScriptBlockForeign, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkWidth         , "1000");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkHeight        , "100%");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkPositioning   , 2);
 
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnablePlugIns           , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableJava              , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableJavaScript        , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageBlockPopUpWindows       , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowBrowsingBackForward, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableSebBrowser        , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnablePlugIns           , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableJava              , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableJavaScript        , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBlockPopUpWindows       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowBrowsingBackForward, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
@@ -481,40 +481,40 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.strArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowDownUploads        , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageDownloadDirectoryOSX    , "~/Downloads");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageDownloadDirectoryWin    , "Desktop");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOpenDownloads           , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageChooseFileToUploadPolicy, 0);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageDownloadPDFFiles        , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowDownUploads        , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadDirectoryOSX    , "~/Downloads");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadDirectoryWin    , "Desktop");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOpenDownloads           , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyChooseFileToUploadPolicy, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadPDFFiles        , false);
 
             // Default settings for group "Exam"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageExamKeySalt       , new Byte[] {});
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageBrowserExamKey    , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageCopyBrowserExamKey, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageSendBrowserExamKey, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageQuitURL           , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyExamKeySalt       , new Byte[] {});
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserExamKey    , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyCopyBrowserExamKey, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySendBrowserExamKey, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyQuitURL           , "");
 
             // Default settings for group "Applications"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageMonitorProcesses         , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowSwitchToApplications, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowFlashFullscreen     , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessagePermittedProcesses       , new ListObj());
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageProhibitedProcesses      , new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyMonitorProcesses         , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowSwitchToApplications, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowFlashFullscreen     , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyPermittedProcesses       , new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyProhibitedProcesses      , new ListObj());
 
             // Default settings for permitted argument data
             SEBSettings.permittedArgumentDataDefault.Clear();
-            SEBSettings.permittedArgumentDataDefault.Add(SEBSettings.MessageActive, true);
-            SEBSettings.permittedArgumentDataDefault.Add(SEBSettings.MessageArgument, "");
+            SEBSettings.permittedArgumentDataDefault.Add(SEBSettings.KeyActive, true);
+            SEBSettings.permittedArgumentDataDefault.Add(SEBSettings.KeyArgument, "");
 
             // Define the XulRunner arguments
             SEBSettings.permittedArgumentDataXulRunner1.Clear();
-            SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.MessageActive, true);
-            SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.MessageArgument, "-app \"..\\xul_seb\\seb.ini\"");
+            SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.KeyActive, true);
+            SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.KeyArgument, "-app \"..\\xul_seb\\seb.ini\"");
 
             SEBSettings.permittedArgumentDataXulRunner2.Clear();
-            SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.MessageActive, true);
-            SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.MessageArgument, "-profile \"%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles\"");
+            SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.KeyActive, true);
+            SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.KeyArgument, "-profile \"%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles\"");
 
             // Create the XulRunner argument list with the XulRunner arguments
             SEBSettings.permittedArgumentListXulRunner.Clear();
@@ -523,54 +523,54 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Create a XulRunner process with the XulRunner argument list
             SEBSettings.permittedProcessDataXulRunner.Clear();
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageAutostart  , true);
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageAutohide   , true);
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageAllowUser  , true);
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageOS         , IntWin);
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageTitle      , "SEB");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageDescription, "");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageExecutable , "xulrunner.exe");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessagePath       , "../xulrunner/");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageIdentifier , "XulRunner");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.MessageArguments  , permittedArgumentListXulRunner);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyActive     , true);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAutostart  , true);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAutohide   , true);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAllowUser  , true);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyOS         , IntWin);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyTitle      , "SEB");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyDescription, "");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyExecutable , "xulrunner.exe");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyPath       , "../xulrunner/");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyIdentifier , "XulRunner");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyArguments  , permittedArgumentListXulRunner);
 
             // Default settings for permitted process data
             SEBSettings.permittedProcessDataDefault.Clear();
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageAutostart  , true);
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageAutohide   , true);
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageAllowUser  , true);
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageOS         , IntWin);
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageTitle      , "");
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageDescription, "");
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageExecutable , "");
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessagePath       , "");
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageIdentifier , "");
-            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.MessageArguments  , new ListObj());
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyActive     , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyAutostart  , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyAutohide   , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyAllowUser  , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyOS         , IntWin);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyTitle      , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyDescription, "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyExecutable , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyPath       , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyIdentifier , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyArguments  , new ListObj());
 
             // Default settings for prohibited process data
             SEBSettings.prohibitedProcessDataDefault.Clear();
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageCurrentUser, true);
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageStrongKill , false);
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageOS         , IntWin);
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageExecutable , "");
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageDescription, "");
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageIdentifier , "");
-            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.MessageUser       , "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyActive     , true);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyCurrentUser, true);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyStrongKill , false);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyOS         , IntWin);
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyExecutable , "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyDescription, "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyIdentifier , "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyUser       , "");
 
             // Default settings for group "Network - Filter"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableURLFilter       , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableURLContentFilter, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageURLFilterRules        , new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableURLFilter       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableURLContentFilter, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyURLFilterRules        , new ListObj());
 
             // Create a default action
             SEBSettings.urlFilterActionDataDefault.Clear();
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageActive    , true);
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageRegex     , false);
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageExpression, "*");
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.MessageAction    , 0);
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyActive    , true);
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyRegex     , false);
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyExpression, "*");
+            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyAction    , 0);
 
             // Create a default action list with one entry (the default action)
             SEBSettings.urlFilterActionListDefault.Clear();
@@ -580,117 +580,117 @@ namespace SebWindowsClient.ConfigurationUtils
             // This default rule is used for the "Insert Rule" operation:
             // when a new rule is created, it initially contains one action.
             SEBSettings.urlFilterRuleDataDefault.Clear();
-            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.MessageExpression , "Rule");
-            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.MessageRuleActions, SEBSettings.urlFilterActionListDefault);
+            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyActive     , true);
+            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyExpression , "Rule");
+            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyRuleActions, SEBSettings.urlFilterActionListDefault);
 
             // Initialise the stored action
             SEBSettings.urlFilterActionDataStorage.Clear();
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageActive    , true);
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageRegex     , false);
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageExpression, "*");
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.MessageAction    , 0);
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyActive    , true);
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyRegex     , false);
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyExpression, "*");
+            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyAction    , 0);
 
             // Initialise the stored action list with no entry
             SEBSettings.urlFilterActionListStorage.Clear();
 
             // Initialise the stored rule
             SEBSettings.urlFilterRuleDataStorage.Clear();
-            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.MessageActive     , true);
-            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.MessageExpression , "Rule");
-            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.MessageRuleActions, SEBSettings.urlFilterActionListStorage);
+            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyActive     , true);
+            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyExpression , "Rule");
+            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyRuleActions, SEBSettings.urlFilterActionListStorage);
 
             // Default settings for group "Network - Certificates"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEmbeddedCertificates, new ListObj());
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEmbeddedCertificates, new ListObj());
 
             SEBSettings.embeddedCertificateDataDefault.Clear();
-            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.MessageCertificateData, "");
-            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.MessageType           , 0);
-            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.MessageName           , "");
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyCertificateData, "");
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyType           , 0);
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyName           , "");
 
             // Default settings for group "Network - Proxies"
             SEBSettings.proxiesDataDefault.Clear();
 
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageExceptionsList             , new ListObj());
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageExcludeSimpleHostnames     , true);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoDiscoveryEnabled       , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoConfigurationEnabled   , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoConfigurationJavaScript, "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageAutoConfigurationURL       , "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPPassive                 , true);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyExceptionsList             , new ListObj());
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyExcludeSimpleHostnames     , true);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyAutoDiscoveryEnabled       , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyAutoConfigurationEnabled   , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyAutoConfigurationJavaScript, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyAutoConfigurationURL       , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPPassive                 , true);
 
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPPort    , 0);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPHost    , "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPRequires, false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPUsername, "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPPassword, "");
 
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSPort    , 0);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSHost    , "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSRequires, false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSUsername, "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageHTTPSPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSPassword, "");
 
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPPort    , 0);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPHost    , "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPRequires, false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPUsername, "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageFTPPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPPassword, "");
 
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSPort    , 0);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSHost    , "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSRequires, false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSUsername, "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageSOCKSPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSPassword, "");
 
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPPort    , 0);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPHost    , "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPRequires, false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPUsername, "");
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.MessageRTSPPassword, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPEnable  , false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPHost    , "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPRequires, false);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPUsername, "");
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPPassword, "");
 
             SEBSettings.bypassedProxyDataDefault = "";
 
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageProxySettingsPolicy, 0);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageProxies            , SEBSettings.proxiesDataDefault);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyProxySettingsPolicy, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyProxies            , SEBSettings.proxiesDataDefault);
 
             // Default settings for group "Security"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageSebServicePolicy   , 2);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowVirtualMachine, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageCreateNewDesktop   , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageKillExplorerShell  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageAllowUserSwitching , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableLogging      , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageLogDirectoryOSX    , "~/Documents");
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageLogDirectoryWin    , "My Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySebServicePolicy   , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowVirtualMachine, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyCreateNewDesktop   , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyKillExplorerShell  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowUserSwitching , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "~/Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "My Documents");
 
             // Default settings for group "Inside SEB"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableSwitchUser       , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableLockThisComputer , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableChangeAPassword  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableStartTaskManager , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableLogOff           , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableShutDown         , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableEaseOfAccess     , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageInsideSebEnableVmWareClientShade, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableSwitchUser       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableLockThisComputer , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableChangeAPassword  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableStartTaskManager , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableLogOff           , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableShutDown         , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableEaseOfAccess     , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableVmWareClientShade, false);
 
             // Default settings for group "Outside SEB"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableSwitchUser       , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableLockThisComputer , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableChangeAPassword  , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableStartTaskManager , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableLogOff           , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableShutDown         , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableEaseOfAccess     , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageOutsideSebEnableVmWareClientShade, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableSwitchUser       , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableLockThisComputer , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableChangeAPassword  , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableStartTaskManager , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableLogOff           , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableShutDown         , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableEaseOfAccess     , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableVmWareClientShade, true);
 
             // Default settings for group "Hooked Keys"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageHookKeys, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyHookKeys, true);
 
             // Default settings for group "Special Keys"
             SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableEsc       , false);
@@ -901,7 +901,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the Permitted Process List
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyPermittedProcesses];
 
             // Traverse Permitted Processes of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.permittedProcessList.Count; listIndex++)
@@ -915,7 +915,7 @@ namespace SebWindowsClient.ConfigurationUtils
                                        SEBSettings.permittedProcessData.Add        (p.Key, p.Value);
 
                 // Get the Permitted Argument List
-                SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.MessageArguments];
+                SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.KeyArguments];
 
                 // Traverse Arguments of current Process
                 for (int sublistIndex = 0; sublistIndex < SEBSettings.permittedArgumentList.Count; sublistIndex++)
@@ -934,7 +934,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the Prohibited Process List
-            SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessageProhibitedProcesses];
+            SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyProhibitedProcesses];
 
             // Traverse Prohibited Processes of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.prohibitedProcessList.Count; listIndex++)
@@ -952,7 +952,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the Embedded Certificate List
-            SEBSettings.embeddedCertificateList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessageEmbeddedCertificates];
+            SEBSettings.embeddedCertificateList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyEmbeddedCertificates];
 
             // Traverse Embedded Certificates of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.embeddedCertificateList.Count; listIndex++)
@@ -970,7 +970,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the URL Filter Rule List
-            SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessageURLFilterRules];
+            SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterRules];
 
             // Traverse URL Filter Rules of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
@@ -984,7 +984,7 @@ namespace SebWindowsClient.ConfigurationUtils
                                        SEBSettings.urlFilterRuleData.Add        (p.Key, p.Value);
 
                 // Get the URL Filter Action List
-                SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.MessageRuleActions];
+                SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.KeyRuleActions];
 
                 // Traverse Actions of current Rule
                 for (int sublistIndex = 0; sublistIndex < SEBSettings.urlFilterActionList.Count; sublistIndex++)
@@ -1003,7 +1003,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
             // Get the Proxies Dictionary
-            SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent[SEBSettings.MessageProxies];
+            SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
 
             // Add potentially missing keys to current Proxies Dictionary
             foreach (KeyValue p in SEBSettings.proxiesDataDefault)
@@ -1011,7 +1011,7 @@ namespace SebWindowsClient.ConfigurationUtils
                                    SEBSettings.proxiesData.Add        (p.Key, p.Value);
 
             // Get the Bypassed Proxy List
-            SEBSettings.bypassedProxyList = (ListObj)proxiesData[SEBSettings.MessageExceptionsList];
+            SEBSettings.bypassedProxyList = (ListObj)proxiesData[SEBSettings.KeyExceptionsList];
 
             // Traverse Bypassed Proxies of currently opened file
             for (int listIndex = 0; listIndex < SEBSettings.bypassedProxyList.Count; listIndex++)
@@ -1032,7 +1032,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void PermitXulRunnerProcess()
         {
             // Get the Permitted Process List
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.MessagePermittedProcesses];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyPermittedProcesses];
 
             // Position of XulRunner process in Permitted Process List
             int indexOfProcessXulRunnerExe = -1;
@@ -1043,7 +1043,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
 
                 // Check if XulRunner process is in Permitted Process List
-                if (SEBSettings.permittedProcessData[SEBSettings.MessageExecutable].Equals("xulrunner.exe"))
+                if (SEBSettings.permittedProcessData[SEBSettings.KeyExecutable].Equals("xulrunner.exe"))
                     indexOfProcessXulRunnerExe = listIndex;
 
             } // next listIndex
