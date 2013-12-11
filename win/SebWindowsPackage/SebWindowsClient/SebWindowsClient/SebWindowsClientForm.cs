@@ -128,7 +128,7 @@ namespace SebWindowsClient
 
             try
             {
-                string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SebWindowsClient.ConfigurationUtils.SEBClientInfo.sebSettings);
+                string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SEBSettings.settingsCurrent);
                 // Create JSON object with XULRunner parameters to pass to xulrunner.exe as base64 string
                 StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
                 //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).

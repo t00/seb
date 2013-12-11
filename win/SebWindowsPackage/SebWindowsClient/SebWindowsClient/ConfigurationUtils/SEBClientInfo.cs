@@ -143,7 +143,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string QuitPassword { get; set; }
         public static string QuitHashcode { get; set; }
 
-        public static Dictionary<string, object> sebSettings = new Dictionary<string, object>();
+        //public static Dictionary<string, object> sebSettings = new Dictionary<string, object>();
 
         public static SebWindowsClientForm SebWindowsClientForm;
 
@@ -173,7 +173,7 @@ namespace SebWindowsClient.ConfigurationUtils
              object sebSetting = null;
              try
              {
-                 sebSetting = sebSettings[key];
+                 sebSetting = SEBSettings.settingsCurrent[key];
               } 
              catch 
              {
@@ -181,7 +181,7 @@ namespace SebWindowsClient.ConfigurationUtils
              }
 
              if (sebSetting != null)
-                 return sebSettings;
+                 return SEBSettings.settingsCurrent;
              else
                  return SEBSettings.settingsDefault;
          }
@@ -267,7 +267,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBProtectionController sebProtectionControler = new SEBProtectionController();
 
 
-                if (!OpenSebFile(SebClientConfigFile))
+                if (!SEBSettings.ReadSebConfigurationFile(SebClientConfigFile))
                     return false;
 
 
@@ -301,37 +301,6 @@ namespace SebWindowsClient.ConfigurationUtils
             return setSebClientConfiguration;
         }
 
-         // ****************************************
-         // Open the .seb file and read the settings
-         // ****************************************
-         private static bool OpenSebFile(String fileName)
-         {
-             try
-             {
-                 // Read the configuration settings from .seb file
-                 // Decrypt the configuration settings
-
-                 SEBProtectionController sebProtectionController = new SEBProtectionController();
-                 String decryptedSettings = "";
-
-                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
-
-                 decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
-                 //decryptedSettings = decryptedSettings.Trim();
-
-                 sebSettings = (Dictionary<string, object>)Plist.readPlistSource(decryptedSettings);
-
-             }
-             catch (Exception streamReadException)
-             {
-                 // Let the user know what went wrong
-                 Console.WriteLine("The .seb file could not be read:");
-                 Console.WriteLine(streamReadException.Message);
-                 return false;
-             }
-
-             return true;
-         }
 
          /// <summary>
          /// Sets properties in config.json XULRunner configuration file.
