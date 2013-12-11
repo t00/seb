@@ -1200,22 +1200,22 @@ namespace SebWindowsClient.ConfigurationUtils
             // If the settings could be read from file...
 
             // Fill up the Dictionary read from file with default settings, where necessary
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillBefore.txt");
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefaultInReadSebConfigurationFileFillBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrentInReadSebConfigurationFileFillBefore.txt");
             SEBSettings.FillSettingsDictionary();
             SEBSettings.FillSettingsArrays();
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFileFillAfter.txt");
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFileFillAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefaultInReadSebConfigurationFileFillAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrentInReadSebConfigurationFileFillAfter.txt");
 
             // Add the XulRunner process to the Permitted Process List, if necessary
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitBefore.txt");
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefaultInReadSebConfigurationFilePermitBefore.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrentInReadSebConfigurationFilePermitBefore.txt");
             SEBSettings.PermitXulRunnerProcess();
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFilePermitAfter.txt");
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFilePermitAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefaultInReadSebConfigurationFilePermitAfter.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrentInReadSebConfigurationFilePermitAfter.txt");
 
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "SettingsDefInReadSebConfigurationFile.txt");
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "settingsCurrentInReadSebConfigurationFile.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefaultInReadSebConfigurationFile.txt");
+          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrentInReadSebConfigurationFile.txt");
 
             return true;
         }
@@ -1252,7 +1252,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 else // unencrypted .xml file
                 {
                     Plist.writeXml(SEBSettings.settingsCurrent, fileName);
-                    Plist.writeXml(SEBSettings.settingsCurrent, "DebugsettingsCurrent_in_SaveConfigurationFile.xml");
+                  //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_SaveConfigurationFile.xml");
                 }
             }
             catch (Exception streamWriteException) 
