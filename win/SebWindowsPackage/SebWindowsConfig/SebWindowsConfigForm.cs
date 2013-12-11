@@ -256,13 +256,13 @@ namespace SebWindowsConfig
             // Group "General"
             textBoxStartURL            .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyStartURL];
             textBoxSebServerURL        .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeySebServerURL];
-          //textBoxAdminPassword       .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.MessageAdminPassword];
-          //textBoxConfirmAdminPassword.Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.MessageConfirmAdminPassword];
+          //textBoxAdminPassword       .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyAdminPassword];
+          //textBoxConfirmAdminPassword.Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyConfirmAdminPassword];
             textBoxHashedAdminPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword];
             checkBoxAllowQuit         .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit];
             checkBoxIgnoreQuitPassword.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyIgnoreQuitPassword];
-          //textBoxQuitPassword        .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.MessageQuitPassword];
-          //textBoxConfirmQuitPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.MessageConfirmQuitPassword];
+          //textBoxQuitPassword        .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyQuitPassword];
+          //textBoxConfirmQuitPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyConfirmQuitPassword];
             textBoxHashedQuitPassword  .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
             listBoxExitKey1.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey1];
             listBoxExitKey2.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey2];
@@ -272,10 +272,10 @@ namespace SebWindowsConfig
             radioButtonStartingAnExam     .Checked =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == 0);
             radioButtonConfiguringAClient .Checked =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowPreferencesWindow];
-            comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.intArrayCurrent[SEBSettings.ValueCryptoIdentity];
+            comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.intArrayCurrent[SEBSettings.ValCryptoIdentity];
              textBoxSettingsPassword       .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeySettingsPassword];
-           //textBoxConfirmSettingsPassword.Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.MessageConfirmSettingsPassword];
-           //textBoxHashedSettingsPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.MessageHashedSettingsPassword];
+           //textBoxConfirmSettingsPassword.Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyConfirmSettingsPassword];
+           //textBoxHashedSettingsPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedSettingsPassword];
 
             // Group "Appearance"
             radioButtonUseBrowserWindow       .Checked     =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] == 0);
@@ -315,7 +315,7 @@ namespace SebWindowsConfig
              listBoxChooseFileToUploadPolicy.SelectedIndex = (int)SEBSettings.settingsCurrent[SEBSettings.KeyChooseFileToUploadPolicy];
 
             // Group "Exam"
-           //textBoxBrowserExamKey    .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.MessageBrowserExamKey];
+           //textBoxBrowserExamKey    .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserExamKey];
              textBoxQuitURL           .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyQuitURL];
             checkBoxCopyBrowserExamKey.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyCopyBrowserExamKey];
             checkBoxSendBrowserExamKey.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeySendBrowserExamKey];
@@ -410,20 +410,20 @@ namespace SebWindowsConfig
             }
 /*
             // Get the "Enabled" boolean values of current "proxies" dictionary
-            BooleanProxyProtocolEnabled[IntProxyAutoDiscovery    ] = (Boolean)SEBSettings.proxiesData[SEBSettings.MessageAutoDiscoveryEnabled];
-            BooleanProxyProtocolEnabled[IntProxyAutoConfiguration] = (Boolean)SEBSettings.proxiesData[SEBSettings.MessageAutoConfigurationEnabled];
-            BooleanProxyProtocolEnabled[IntProxyHTTP             ] = (Boolean)SEBSettings.proxiesData[SEBSettings.MessageHTTPEnable];
-            BooleanProxyProtocolEnabled[IntProxyHTTPS            ] = (Boolean)SEBSettings.proxiesData[SEBSettings.MessageHTTPSEnable];
-            BooleanProxyProtocolEnabled[IntProxyFTP              ] = (Boolean)SEBSettings.proxiesData[SEBSettings.MessageFTPEnable];
-            BooleanProxyProtocolEnabled[IntProxySOCKS            ] = (Boolean)SEBSettings.proxiesData[SEBSettings.MessageSOCKSEnable];
-            BooleanProxyProtocolEnabled[IntProxyRTSP             ] = (Boolean)SEBSettings.proxiesData[SEBSettings.MessageRTSPEnable];
+            BooleanProxyProtocolEnabled[IntProxyAutoDiscovery    ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyAutoDiscoveryEnabled];
+            BooleanProxyProtocolEnabled[IntProxyAutoConfiguration] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyAutoConfigurationEnabled];
+            BooleanProxyProtocolEnabled[IntProxyHTTP             ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyHTTPEnable];
+            BooleanProxyProtocolEnabled[IntProxyHTTPS            ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyHTTPSEnable];
+            BooleanProxyProtocolEnabled[IntProxyFTP              ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyFTPEnable];
+            BooleanProxyProtocolEnabled[IntProxySOCKS            ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeySOCKSEnable];
+            BooleanProxyProtocolEnabled[IntProxyRTSP             ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyRTSPEnable];
 */
             // Get the "Enabled" boolean values of current "proxies" dictionary.
             // Add Proxy Protocols of currently opened file to DataGridView.
             for (int index = 0; index < NumProxyProtocols; index++)
             {
-                Boolean enable = (Boolean)SEBSettings.proxiesData[MessageProxyProtocolEnableKey   [index]];
-                String  type   = (String )                         StringProxyProtocolTableCaption[index];
+                Boolean enable = (Boolean)SEBSettings.proxiesData[KeyProxyProtocolEnable      [index]];
+                String  type   = (String )                     StringProxyProtocolTableCaption[index];
                 dataGridViewProxyProtocols.Rows.Add(enable, type);
                 BooleanProxyProtocolEnabled[index] = enable;
             }
@@ -697,14 +697,14 @@ namespace SebWindowsConfig
 
         private void comboBoxCryptoIdentity_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void comboBoxCryptoIdentity_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueCryptoIdentity] = comboBoxCryptoIdentity.Text;
+            SEBSettings.intArrayCurrent[SEBSettings.ValCryptoIdentity] = comboBoxCryptoIdentity.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValCryptoIdentity] = comboBoxCryptoIdentity.Text;
         }
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -794,33 +794,33 @@ namespace SebWindowsConfig
 
         private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowWidth  ] = comboBoxMainBrowserWindowWidth.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowWidth] = comboBoxMainBrowserWindowWidth.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
         private void comboBoxMainBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueMainBrowserWindowHeight  ] = comboBoxMainBrowserWindowHeight.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyMainBrowserWindowHeight] = comboBoxMainBrowserWindowHeight.Text;
         }
 
@@ -832,7 +832,7 @@ namespace SebWindowsConfig
         private void checkBoxEnableBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableBrowserWindowToolbar] = checkBoxEnableBrowserWindowToolbar.Checked;
-            checkBoxHideBrowserWindowToolbar.Enabled                                   = checkBoxEnableBrowserWindowToolbar.Checked;
+            checkBoxHideBrowserWindowToolbar.Enabled                               = checkBoxEnableBrowserWindowToolbar.Checked;
         }
 
         private void checkBoxHideBrowserWindowToolbar_CheckedChanged(object sender, EventArgs e)
@@ -848,14 +848,14 @@ namespace SebWindowsConfig
         private void checkBoxShowTaskBar_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyShowTaskBar] = checkBoxShowTaskBar.Checked;
-            comboBoxTaskBarHeight.Enabled                               = checkBoxShowTaskBar.Checked;
+            comboBoxTaskBarHeight.Enabled                           = checkBoxShowTaskBar.Checked;
         }
 
         private void comboBoxTaskBarHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueTaskBarHeight  ] = comboBoxTaskBarHeight.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueTaskBarHeight  ] = comboBoxTaskBarHeight.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValTaskBarHeight] = comboBoxTaskBarHeight.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = Int32.Parse(comboBoxTaskBarHeight.Text);
         }
 
@@ -886,33 +886,33 @@ namespace SebWindowsConfig
 
         private void comboBoxNewBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
 
         private void comboBoxNewBrowserWindowWidth_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkWidth  ] = comboBoxNewBrowserWindowWidth.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkWidth] = comboBoxNewBrowserWindowWidth.Text;
         }
 
         private void comboBoxNewBrowserWindowHeight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
 
         private void comboBoxNewBrowserWindowHeight_TextUpdate(object sender, EventArgs e)
         {
-            SEBSettings.intArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.SelectedIndex;
-            SEBSettings.strArrayCurrent[SEBSettings.ValueNewBrowserWindowByLinkHeight  ] = comboBoxNewBrowserWindowHeight.Text;
-          //SEBSettings.settingsCurrent[SEBSettings.MessageNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            SEBSettings.intArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.SelectedIndex;
             SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkHeight] = comboBoxNewBrowserWindowHeight.Text;
         }
 
@@ -977,7 +977,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK", ...
             SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin]     = path;
-                                                      labelDownloadDirectoryWin.Text = path;
+                                                  labelDownloadDirectoryWin.Text = path;
         }
 
         private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
@@ -1007,7 +1007,7 @@ namespace SebWindowsConfig
 
         private void textBoxBrowserExamKey_TextChanged(object sender, EventArgs e)
         {
-          //SEBSettings.settingsCurrent[SEBSettings.MessageBrowserExamKey] = textBoxBrowserExamKey.Text;
+          //SEBSettings.settingsCurrent[SEBSettings.KeyBrowserExamKey] = textBoxBrowserExamKey.Text;
         }
 
         private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
@@ -1042,7 +1042,7 @@ namespace SebWindowsConfig
         private void checkBoxAllowSwitchToApplications_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowSwitchToApplications] = checkBoxAllowSwitchToApplications.Checked;
-            checkBoxAllowFlashFullscreen.Enabled                                      = checkBoxAllowSwitchToApplications.Checked;
+            checkBoxAllowFlashFullscreen.Enabled                                  = checkBoxAllowSwitchToApplications.Checked;
         }
 
         private void checkBoxAllowFlashFullscreen_CheckedChanged(object sender, EventArgs e)
@@ -1268,88 +1268,88 @@ namespace SebWindowsConfig
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyActive] = checkBoxPermittedProcessActive.Checked;
-            Boolean                                             active  = checkBoxPermittedProcessActive.Checked;
+            Boolean                                         active  = checkBoxPermittedProcessActive.Checked;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
         }
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyAutostart] = checkBoxPermittedProcessAutostart.Checked;
         }
 
         private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyAutohide] = checkBoxPermittedProcessAutohide.Checked;
         }
 
         private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
         }
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyOS] = listBoxPermittedProcessOS.SelectedIndex;
-            Int32                                               os  = listBoxPermittedProcessOS.SelectedIndex;
+            Int32                                           os  = listBoxPermittedProcessOS.SelectedIndex;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
         }
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyTitle] = textBoxPermittedProcessTitle.Text;
-            String                                              title  = textBoxPermittedProcessTitle.Text;
+            String                                          title  = textBoxPermittedProcessTitle.Text;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessTitle].Value = title;
         }
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyDescription] = textBoxPermittedProcessDescription.Text;
         }
 
         private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyExecutable] = textBoxPermittedProcessExecutable.Text;
-            String                                              executable  = textBoxPermittedProcessExecutable.Text;
+            String                                          executable  = textBoxPermittedProcessExecutable.Text;
             dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
         }
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyPath] = textBoxPermittedProcessPath.Text;
         }
 
         private void textBoxPermittedProcessIdentifier_TextChanged(object sender, EventArgs e)
         {
             if (SEBSettings.permittedProcessIndex < 0) return;
-            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyPermittedProcesses];
-            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList [SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyIdentifier] = textBoxPermittedProcessIdentifier.Text;
         }
 
@@ -1670,7 +1670,7 @@ namespace SebWindowsConfig
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyActive] = checkBoxProhibitedProcessActive.Checked;
-            Boolean                                              active  = checkBoxProhibitedProcessActive.Checked;
+            Boolean                                          active  = checkBoxProhibitedProcessActive.Checked;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
         }
 
@@ -1696,7 +1696,7 @@ namespace SebWindowsConfig
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyOS] = listBoxProhibitedProcessOS.SelectedIndex;
-            Int32                                                os  = listBoxProhibitedProcessOS.SelectedIndex;
+            Int32                                            os  = listBoxProhibitedProcessOS.SelectedIndex;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
         }
 
@@ -1706,7 +1706,7 @@ namespace SebWindowsConfig
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyExecutable] = textBoxProhibitedProcessExecutable.Text;
-            String                                               executable  = textBoxProhibitedProcessExecutable.Text;
+            String                                           executable  = textBoxProhibitedProcessExecutable.Text;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
         }
 
@@ -1716,7 +1716,7 @@ namespace SebWindowsConfig
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyDescription] = textBoxProhibitedProcessDescription.Text;
-            String                                               description  = textBoxProhibitedProcessDescription.Text;
+            String                                           description  = textBoxProhibitedProcessDescription.Text;
             dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessDescription].Value = description;
         }
 
@@ -1848,7 +1848,7 @@ namespace SebWindowsConfig
             {
                 if (column == IntColumnURLFilterRuleActive    ) SEBSettings.urlFilterRuleData[SEBSettings.KeyActive    ] = (Boolean)value;
                 if (column == IntColumnURLFilterRuleExpression) SEBSettings.urlFilterRuleData[SEBSettings.KeyExpression] = (String )value;
-              //if (column == IntColumnURLFilterRuleShow      ) urlFilterTableShowRule[SEBSettings.urlFilterRuleIndex]       = (Boolean)value;
+              //if (column == IntColumnURLFilterRuleShow      ) urlFilterTableShowRule[SEBSettings.urlFilterRuleIndex  ] = (Boolean)value;
               //if (column == IntColumnURLFilterRuleShow      ) UpdateTableOfURLFilterRules();
             }
             else
@@ -2161,7 +2161,7 @@ namespace SebWindowsConfig
             else
             {
                 // If certificate list is now empty, disable it
-                SEBSettings.embeddedCertificateIndex = -1;
+                SEBSettings.embeddedCertificateIndex     = -1;
                 dataGridViewEmbeddedCertificates.Enabled = false;
             }
         }
@@ -2249,7 +2249,7 @@ namespace SebWindowsConfig
             }
 
             // Get the proxy protocol type
-            String MessageProtocolType = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex];
+            String KeyProtocolType = KeyProxyProtocolType[SEBSettings.proxyProtocolIndex];
 
             // Get the proxies data
             SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
@@ -2262,11 +2262,11 @@ namespace SebWindowsConfig
 
             if (useProxyServer)
             {
-                checkBoxProxyServerRequires.Checked = (Boolean)SEBSettings.proxiesData[MessageProtocolType + SEBSettings.KeyRequires];
-                 textBoxProxyServerHost    .Text    =  (String)SEBSettings.proxiesData[MessageProtocolType + SEBSettings.KeyHost    ];
-                 textBoxProxyServerPort    .Text    =  (String)SEBSettings.proxiesData[MessageProtocolType + SEBSettings.KeyPort    ].ToString();
-                 textBoxProxyServerUsername.Text    =  (String)SEBSettings.proxiesData[MessageProtocolType + SEBSettings.KeyUsername];
-                 textBoxProxyServerPassword.Text    =  (String)SEBSettings.proxiesData[MessageProtocolType + SEBSettings.KeyPassword];
+                checkBoxProxyServerRequires.Checked = (Boolean)SEBSettings.proxiesData[KeyProtocolType + SEBSettings.KeyRequires];
+                 textBoxProxyServerHost    .Text    =  (String)SEBSettings.proxiesData[KeyProtocolType + SEBSettings.KeyHost    ];
+                 textBoxProxyServerPort    .Text    =  (String)SEBSettings.proxiesData[KeyProtocolType + SEBSettings.KeyPort    ].ToString();
+                 textBoxProxyServerUsername.Text    =  (String)SEBSettings.proxiesData[KeyProtocolType + SEBSettings.KeyUsername];
+                 textBoxProxyServerPassword.Text    =  (String)SEBSettings.proxiesData[KeyProtocolType + SEBSettings.KeyPassword];
 
                  // Disable the username/password textboxes when they are not required
                  textBoxProxyServerUsername.Enabled =  checkBoxProxyServerRequires.Checked;
@@ -2305,8 +2305,8 @@ namespace SebWindowsConfig
             // Update the proxy enable data belonging to the current cell
             if (column == IntColumnProxyProtocolEnable)
             {
-                String key = MessageProxyProtocolEnableKey[row];
-                SEBSettings.proxiesData[key]     = (Boolean)value;
+                String key = KeyProxyProtocolEnable[row];
+                SEBSettings.proxiesData    [key] = (Boolean)value;
                 BooleanProxyProtocolEnabled[row] = (Boolean)value;
             }
         }
@@ -2328,16 +2328,16 @@ namespace SebWindowsConfig
         private void textBoxProxyServerHost_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyHost;
-            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent    [SEBSettings.KeyProxies];
+            String key = KeyProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyHost;
+            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
             SEBSettings.proxiesData[key] = textBoxProxyServerHost.Text;
         }
 
         private void textBoxProxyServerPort_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyPort;
-            SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent         [SEBSettings.KeyProxies];
+            String key =  KeyProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyPort;
+            SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProxies];
 
             // Convert the "Port" string to an integer
             try
@@ -2353,8 +2353,8 @@ namespace SebWindowsConfig
         private void checkBoxProxyServerRequiresPassword_CheckedChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyRequires;
-            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent    [SEBSettings.KeyProxies];
+            String key = KeyProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyRequires;
+            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
             SEBSettings.proxiesData[key] = (Boolean)checkBoxProxyServerRequires.Checked;
 
             // Disable the username/password textboxes when they are not required
@@ -2365,16 +2365,16 @@ namespace SebWindowsConfig
         private void textBoxProxyServerUsername_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyUsername;
-            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent    [SEBSettings.KeyProxies];
+            String key = KeyProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyUsername;
+            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
             SEBSettings.proxiesData[key] = textBoxProxyServerUsername.Text;
         }
 
         private void textBoxProxyServerPassword_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
-            String key = MessageProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyPassword;
-            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent    [SEBSettings.KeyProxies];
+            String key = KeyProxyProtocolType[SEBSettings.proxyProtocolIndex] + SEBSettings.KeyPassword;
+            SEBSettings.proxiesData      = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
             SEBSettings.proxiesData[key] = textBoxProxyServerPassword.Text;
         }
 
@@ -2476,7 +2476,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK", ...
             SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin]     = path;
-                                                      labelLogDirectoryWin.Text = path;
+                                                  labelLogDirectoryWin.Text = path;
         }
 
 

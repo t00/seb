@@ -197,9 +197,9 @@ namespace SebWindowsConfig
         static  String[]  StringProxyProtocolServerLabel  = new  String[7];
         static Boolean[] BooleanProxyProtocolEnabled      = new Boolean[7];
 
-        static  String[]  MessageProxyProtocolType      = new  String[7];
-        static  String[]  MessageProxyProtocolAttribute = new  String[7];
-        static  String[]  MessageProxyProtocolEnableKey = new  String[7];
+        static  String[]  KeyProxyProtocolType      = new  String[7];
+        static  String[]  KeyProxyProtocolAttribute = new  String[7];
+        static  String[]  KeyProxyProtocolEnable    = new  String[7];
 
 
         // Global variable: index of current table row (selected row)
@@ -349,30 +349,30 @@ namespace SebWindowsConfig
             }
 
             // Define the strings for the Proxy Protocol Types
-            MessageProxyProtocolType[0] = SEBSettings.KeyAutoDiscovery;
-            MessageProxyProtocolType[1] = SEBSettings.KeyAutoConfiguration;
-            MessageProxyProtocolType[2] = SEBSettings.KeyHTTP;
-            MessageProxyProtocolType[3] = SEBSettings.KeyHTTPS;
-            MessageProxyProtocolType[4] = SEBSettings.KeyFTP;
-            MessageProxyProtocolType[5] = SEBSettings.KeySOCKS;
-            MessageProxyProtocolType[6] = SEBSettings.KeyRTSP;
+            KeyProxyProtocolType[0] = SEBSettings.KeyAutoDiscovery;
+            KeyProxyProtocolType[1] = SEBSettings.KeyAutoConfiguration;
+            KeyProxyProtocolType[2] = SEBSettings.KeyHTTP;
+            KeyProxyProtocolType[3] = SEBSettings.KeyHTTPS;
+            KeyProxyProtocolType[4] = SEBSettings.KeyFTP;
+            KeyProxyProtocolType[5] = SEBSettings.KeySOCKS;
+            KeyProxyProtocolType[6] = SEBSettings.KeyRTSP;
 
             // Define the strings for the Proxy Protocol Attributes
-            MessageProxyProtocolAttribute[0] = SEBSettings.KeyEnable;
-            MessageProxyProtocolAttribute[1] = SEBSettings.KeyPort;
-            MessageProxyProtocolAttribute[2] = SEBSettings.KeyHost;
-            MessageProxyProtocolAttribute[3] = SEBSettings.KeyRequires;
-            MessageProxyProtocolAttribute[4] = SEBSettings.KeyUsername;
-            MessageProxyProtocolAttribute[5] = SEBSettings.KeyPassword;
+            KeyProxyProtocolAttribute[0] = SEBSettings.KeyEnable;
+            KeyProxyProtocolAttribute[1] = SEBSettings.KeyPort;
+            KeyProxyProtocolAttribute[2] = SEBSettings.KeyHost;
+            KeyProxyProtocolAttribute[3] = SEBSettings.KeyRequires;
+            KeyProxyProtocolAttribute[4] = SEBSettings.KeyUsername;
+            KeyProxyProtocolAttribute[5] = SEBSettings.KeyPassword;
 
-            // Define the strings for the Proxy Protocol Enable Keys
-            MessageProxyProtocolEnableKey[0] = SEBSettings.KeyAutoDiscoveryEnabled;
-            MessageProxyProtocolEnableKey[1] = SEBSettings.KeyAutoConfigurationEnabled;
-            MessageProxyProtocolEnableKey[2] = SEBSettings.KeyHTTPEnable;
-            MessageProxyProtocolEnableKey[3] = SEBSettings.KeyHTTPSEnable;
-            MessageProxyProtocolEnableKey[4] = SEBSettings.KeyFTPEnable;
-            MessageProxyProtocolEnableKey[5] = SEBSettings.KeySOCKSEnable;
-            MessageProxyProtocolEnableKey[6] = SEBSettings.KeyRTSPEnable;
+            // Define the strings for the Proxy Protocol Enables
+            KeyProxyProtocolEnable[0] = SEBSettings.KeyAutoDiscoveryEnabled;
+            KeyProxyProtocolEnable[1] = SEBSettings.KeyAutoConfigurationEnabled;
+            KeyProxyProtocolEnable[2] = SEBSettings.KeyHTTPEnable;
+            KeyProxyProtocolEnable[3] = SEBSettings.KeyHTTPSEnable;
+            KeyProxyProtocolEnable[4] = SEBSettings.KeyFTPEnable;
+            KeyProxyProtocolEnable[5] = SEBSettings.KeySOCKSEnable;
+            KeyProxyProtocolEnable[6] = SEBSettings.KeyRTSPEnable;
         }
 
 

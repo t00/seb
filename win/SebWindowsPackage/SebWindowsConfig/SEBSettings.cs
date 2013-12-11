@@ -33,13 +33,13 @@ namespace SebWindowsClient.ConfigurationUtils
 
         // Some key/value pairs are not stored in the sebSettings Plist structures,
         // so they must be separately stored in arrays
-        public const int ValueCryptoIdentity               = 1;
-        public const int ValueMainBrowserWindowWidth       = 2;
-        public const int ValueMainBrowserWindowHeight      = 3;
-        public const int ValueNewBrowserWindowByLinkWidth  = 4;
-        public const int ValueNewBrowserWindowByLinkHeight = 5;
-        public const int ValueTaskBarHeight                = 6;
-        public const int ValueNum = 6;
+        public const int ValCryptoIdentity               = 1;
+        public const int ValMainBrowserWindowWidth       = 2;
+        public const int ValMainBrowserWindowHeight      = 3;
+        public const int ValNewBrowserWindowByLinkWidth  = 4;
+        public const int ValNewBrowserWindowByLinkHeight = 5;
+        public const int ValTaskBarHeight                = 6;
+        public const int ValNum = 6;
 
         // Keys not belonging to any group
         public const String KeyOriginatorVersion = "originatorVersion";
@@ -282,11 +282,11 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************
 
         // Some settings are not stored in Plists but in Arrays
-        public static String [] strArrayDefault = new String [ValueNum + 1];
-        public static String [] strArrayCurrent = new String [ValueNum + 1];
+        public static String [] strArrayDefault = new String [ValNum + 1];
+        public static String [] strArrayCurrent = new String [ValNum + 1];
 
-        public static     int[] intArrayDefault = new     int[ValueNum + 1];
-        public static     int[] intArrayCurrent = new     int[ValueNum + 1];
+        public static     int[] intArrayDefault = new     int[ValNum + 1];
+        public static     int[] intArrayCurrent = new     int[ValNum + 1];
 
         // Class SEBSettings contains all settings
         // and is used for importing/exporting the settings
@@ -355,51 +355,51 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void CreateDefaultAndCurrentSettingsFromScratch()
         {
             // Destroy all default lists and dictionaries
-            settingsDefault = new DictObj();
-            settingsCurrent = new DictObj();
+            SEBSettings.settingsDefault = new DictObj();
+            SEBSettings.settingsCurrent = new DictObj();
 
-            permittedProcessList          = new ListObj();
-            permittedProcessData          = new DictObj();
-            permittedProcessDataDefault   = new DictObj();
-            permittedProcessDataXulRunner = new DictObj();
+            SEBSettings.permittedProcessList          = new ListObj();
+            SEBSettings.permittedProcessData          = new DictObj();
+            SEBSettings.permittedProcessDataDefault   = new DictObj();
+            SEBSettings.permittedProcessDataXulRunner = new DictObj();
 
-            permittedArgumentList           = new ListObj();
-            permittedArgumentData           = new DictObj();
-            permittedArgumentDataDefault    = new DictObj();
-            permittedArgumentDataXulRunner1 = new DictObj();
-            permittedArgumentDataXulRunner2 = new DictObj();
-            permittedArgumentListXulRunner  = new ListObj();
+            SEBSettings.permittedArgumentList           = new ListObj();
+            SEBSettings.permittedArgumentData           = new DictObj();
+            SEBSettings.permittedArgumentDataDefault    = new DictObj();
+            SEBSettings.permittedArgumentDataXulRunner1 = new DictObj();
+            SEBSettings.permittedArgumentDataXulRunner2 = new DictObj();
+            SEBSettings.permittedArgumentListXulRunner  = new ListObj();
 
-            prohibitedProcessList        = new ListObj();
-            prohibitedProcessData        = new DictObj();
-            prohibitedProcessDataDefault = new DictObj();
+            SEBSettings.prohibitedProcessList        = new ListObj();
+            SEBSettings.prohibitedProcessData        = new DictObj();
+            SEBSettings.prohibitedProcessDataDefault = new DictObj();
 
-            urlFilterRuleList        = new ListObj();
-            urlFilterRuleData        = new DictObj();
-            urlFilterRuleDataDefault = new DictObj();
-            urlFilterRuleDataStorage = new DictObj();
+            SEBSettings.urlFilterRuleList        = new ListObj();
+            SEBSettings.urlFilterRuleData        = new DictObj();
+            SEBSettings.urlFilterRuleDataDefault = new DictObj();
+            SEBSettings.urlFilterRuleDataStorage = new DictObj();
 
-            urlFilterActionList        = new ListObj();
-            urlFilterActionListDefault = new ListObj();
-            urlFilterActionListStorage = new ListObj();
-            urlFilterActionData        = new DictObj();
-            urlFilterActionDataDefault = new DictObj();
-            urlFilterActionDataStorage = new DictObj();
+            SEBSettings.urlFilterActionList        = new ListObj();
+            SEBSettings.urlFilterActionListDefault = new ListObj();
+            SEBSettings.urlFilterActionListStorage = new ListObj();
+            SEBSettings.urlFilterActionData        = new DictObj();
+            SEBSettings.urlFilterActionDataDefault = new DictObj();
+            SEBSettings.urlFilterActionDataStorage = new DictObj();
 
-            embeddedCertificateList        = new ListObj();
-            embeddedCertificateData        = new DictObj();
-            embeddedCertificateDataDefault = new DictObj();
+            SEBSettings.embeddedCertificateList        = new ListObj();
+            SEBSettings.embeddedCertificateData        = new DictObj();
+            SEBSettings.embeddedCertificateDataDefault = new DictObj();
 
-            proxiesData        = new DictObj();
-            proxiesDataDefault = new DictObj();
+            SEBSettings.proxiesData        = new DictObj();
+            SEBSettings.proxiesDataDefault = new DictObj();
 
-            bypassedProxyList        = new ListObj();
-            bypassedProxyData        = "";
-            bypassedProxyDataDefault = "";
+            SEBSettings.bypassedProxyList        = new ListObj();
+            SEBSettings.bypassedProxyData        = "";
+            SEBSettings.bypassedProxyDataDefault = "";
 
 
             // Initialise the global arrays
-            for (int value = 1; value <= ValueNum; value++)
+            for (int value = 1; value <= ValNum; value++)
             {
                 SEBSettings.intArrayDefault[value] = 0;
                 SEBSettings.intArrayCurrent[value] = 0;
@@ -438,8 +438,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
-            SEBSettings.intArrayDefault[SEBSettings.ValueCryptoIdentity] = 0;
-            SEBSettings.strArrayDefault[SEBSettings.ValueCryptoIdentity] = "";
+            SEBSettings.intArrayDefault[SEBSettings.ValCryptoIdentity] = 0;
+            SEBSettings.strArrayDefault[SEBSettings.ValCryptoIdentity] = "";
 
             // Default settings for group "Appearance"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserViewMode             , 0);
@@ -453,10 +453,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyTaskBarHeight               , 40);
 
             // MainBrowserWindow Width and Height is stored additionally
-            SEBSettings.intArrayDefault[SEBSettings.ValueMainBrowserWindowWidth ] = 2;
-            SEBSettings.intArrayDefault[SEBSettings.ValueMainBrowserWindowHeight] = 2;
-            SEBSettings.strArrayDefault[SEBSettings.ValueMainBrowserWindowWidth ] = "100%";
-            SEBSettings.strArrayDefault[SEBSettings.ValueMainBrowserWindowHeight] = "100%";
+            SEBSettings.intArrayDefault[SEBSettings.ValMainBrowserWindowWidth ] = 2;
+            SEBSettings.intArrayDefault[SEBSettings.ValMainBrowserWindowHeight] = 2;
+            SEBSettings.strArrayDefault[SEBSettings.ValMainBrowserWindowWidth ] = "100%";
+            SEBSettings.strArrayDefault[SEBSettings.ValMainBrowserWindowHeight] = "100%";
 
             // Default settings for group "Browser"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyNewBrowserWindowByLinkPolicy        , 2);
@@ -475,10 +475,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
-            SEBSettings.intArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = 4;
-            SEBSettings.intArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkHeight] = 2;
-            SEBSettings.strArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkWidth ] = "1000";
-            SEBSettings.strArrayDefault[SEBSettings.ValueNewBrowserWindowByLinkHeight] = "100%";
+            SEBSettings.intArrayDefault[SEBSettings.ValNewBrowserWindowByLinkWidth ] = 4;
+            SEBSettings.intArrayDefault[SEBSettings.ValNewBrowserWindowByLinkHeight] = 2;
+            SEBSettings.strArrayDefault[SEBSettings.ValNewBrowserWindowByLinkWidth ] = "1000";
+            SEBSettings.strArrayDefault[SEBSettings.ValNewBrowserWindowByLinkHeight] = "100%";
 
             // Default settings for group "DownUploads"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowDownUploads        , true);
@@ -780,10 +780,10 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void FillSettingsArrays()
         {
             // Set all array values to default values
-            for (int value = 1; value <= SEBSettings.ValueNum; value++)
+            for (int value = 1; value <= SEBSettings.ValNum; value++)
             {
-                intArrayCurrent[value] = intArrayDefault[value];
-                strArrayCurrent[value] = strArrayDefault[value];
+                SEBSettings.intArrayCurrent[value] = SEBSettings.intArrayDefault[value];
+                SEBSettings.strArrayCurrent[value] = SEBSettings.strArrayDefault[value];
             }
             return;
         }
