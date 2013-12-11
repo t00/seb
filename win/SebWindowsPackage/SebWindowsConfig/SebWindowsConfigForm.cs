@@ -506,26 +506,26 @@ namespace SebWindowsConfig
             // Group "Hooked Keys"
             checkBoxHookKeys.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyHookKeys];
 
-            checkBoxEnableEsc       .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableEsc];
-            checkBoxEnableCtrlEsc   .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableCtrlEsc];
-            checkBoxEnableAltEsc    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableAltEsc];
-            checkBoxEnableAltTab    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableAltTab];
-            checkBoxEnableAltF4     .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableAltF4];
-            checkBoxEnableStartMenu .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableStartMenu];
-            checkBoxEnableRightMouse.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableRightMouse];
+            checkBoxEnableEsc       .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableEsc];
+            checkBoxEnableCtrlEsc   .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableCtrlEsc];
+            checkBoxEnableAltEsc    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltEsc];
+            checkBoxEnableAltTab    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltTab];
+            checkBoxEnableAltF4     .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltF4];
+            checkBoxEnableStartMenu .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableStartMenu];
+            checkBoxEnableRightMouse.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableRightMouse];
 
-            checkBoxEnableF1 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF1];
-            checkBoxEnableF2 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF2];
-            checkBoxEnableF3 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF3];
-            checkBoxEnableF4 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF4];
-            checkBoxEnableF5 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF5];
-            checkBoxEnableF6 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF6];
-            checkBoxEnableF7 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF7];
-            checkBoxEnableF8 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF8];
-            checkBoxEnableF9 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF9];
-            checkBoxEnableF10.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF10];
-            checkBoxEnableF11.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF11];
-            checkBoxEnableF12.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.MessageEnableF12];
+            checkBoxEnableF1 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF1];
+            checkBoxEnableF2 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF2];
+            checkBoxEnableF3 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF3];
+            checkBoxEnableF4 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF4];
+            checkBoxEnableF5 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF5];
+            checkBoxEnableF6 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF6];
+            checkBoxEnableF7 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF7];
+            checkBoxEnableF8 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF8];
+            checkBoxEnableF9 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF9];
+            checkBoxEnableF10.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF10];
+            checkBoxEnableF11.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF11];
+            checkBoxEnableF12.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF12];
 
             return;
         }
@@ -2609,37 +2609,37 @@ namespace SebWindowsConfig
         // ********************
         private void checkBoxEnableEsc_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableEsc] = checkBoxEnableEsc.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableEsc] = checkBoxEnableEsc.Checked;
         }
 
         private void checkBoxEnableCtrlEsc_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableCtrlEsc] = checkBoxEnableCtrlEsc.Checked;
         }
 
         private void checkBoxEnableAltEsc_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableAltEsc] = checkBoxEnableAltEsc.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltEsc] = checkBoxEnableAltEsc.Checked;
         }
 
         private void checkBoxEnableAltTab_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableAltTab] = checkBoxEnableAltTab.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltTab] = checkBoxEnableAltTab.Checked;
         }
 
         private void checkBoxEnableAltF4_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableAltF4] = checkBoxEnableAltF4.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltF4] = checkBoxEnableAltF4.Checked;
         }
 
         private void checkBoxEnableStartMenu_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableStartMenu] = checkBoxEnableStartMenu.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableStartMenu] = checkBoxEnableStartMenu.Checked;
         }
 
         private void checkBoxEnableRightMouse_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableRightMouse] = checkBoxEnableRightMouse.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableRightMouse] = checkBoxEnableRightMouse.Checked;
         }
 
 
@@ -2649,62 +2649,62 @@ namespace SebWindowsConfig
         // *********************
         private void checkBoxEnableF1_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF1] = checkBoxEnableF1.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF1] = checkBoxEnableF1.Checked;
         }
 
         private void checkBoxEnableF2_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF2] = checkBoxEnableF2.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF2] = checkBoxEnableF2.Checked;
         }
 
         private void checkBoxEnableF3_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF3] = checkBoxEnableF3.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF3] = checkBoxEnableF3.Checked;
         }
 
         private void checkBoxEnableF4_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF4] = checkBoxEnableF4.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF4] = checkBoxEnableF4.Checked;
         }
 
         private void checkBoxEnableF5_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF5] = checkBoxEnableF5.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF5] = checkBoxEnableF5.Checked;
         }
 
         private void checkBoxEnableF6_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF6] = checkBoxEnableF6.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF6] = checkBoxEnableF6.Checked;
         }
 
         private void checkBoxEnableF7_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF7] = checkBoxEnableF7.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF7] = checkBoxEnableF7.Checked;
         }
 
         private void checkBoxEnableF8_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF8] = checkBoxEnableF8.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF8] = checkBoxEnableF8.Checked;
         }
 
         private void checkBoxEnableF9_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF9] = checkBoxEnableF9.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF9] = checkBoxEnableF9.Checked;
         }
 
         private void checkBoxEnableF10_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF10] = checkBoxEnableF10.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF10] = checkBoxEnableF10.Checked;
         }
 
         private void checkBoxEnableF11_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF11] = checkBoxEnableF11.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF11] = checkBoxEnableF11.Checked;
         }
 
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.MessageEnableF12] = checkBoxEnableF12.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableF12] = checkBoxEnableF12.Checked;
         }
 
     } // end of   class     SebWindowsConfigForm

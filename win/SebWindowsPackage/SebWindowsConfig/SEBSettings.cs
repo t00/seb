@@ -254,27 +254,27 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyHookKeys = "hookKeys";
 
         // Group "Special Keys"
-        public const String MessageEnableEsc        = "enableEsc";
-        public const String MessageEnableCtrlEsc    = "enableCtrlEsc";
-        public const String MessageEnableAltEsc     = "enableAltEsc";
-        public const String MessageEnableAltTab     = "enableAltTab";
-        public const String MessageEnableAltF4      = "enableAltF4";
-        public const String MessageEnableStartMenu  = "enableStartMenu";
-        public const String MessageEnableRightMouse = "enableRightMouse";
+        public const String KeyEnableEsc        = "enableEsc";
+        public const String KeyEnableCtrlEsc    = "enableCtrlEsc";
+        public const String KeyEnableAltEsc     = "enableAltEsc";
+        public const String KeyEnableAltTab     = "enableAltTab";
+        public const String KeyEnableAltF4      = "enableAltF4";
+        public const String KeyEnableStartMenu  = "enableStartMenu";
+        public const String KeyEnableRightMouse = "enableRightMouse";
 
         // Group "Function Keys"
-        public const String MessageEnableF1  = "enableF1";
-        public const String MessageEnableF2  = "enableF2";
-        public const String MessageEnableF3  = "enableF3";
-        public const String MessageEnableF4  = "enableF4";
-        public const String MessageEnableF5  = "enableF5";
-        public const String MessageEnableF6  = "enableF6";
-        public const String MessageEnableF7  = "enableF7";
-        public const String MessageEnableF8  = "enableF8";
-        public const String MessageEnableF9  = "enableF9";
-        public const String MessageEnableF10 = "enableF10";
-        public const String MessageEnableF11 = "enableF11";
-        public const String MessageEnableF12 = "enableF12";
+        public const String KeyEnableF1  = "enableF1";
+        public const String KeyEnableF2  = "enableF2";
+        public const String KeyEnableF3  = "enableF3";
+        public const String KeyEnableF4  = "enableF4";
+        public const String KeyEnableF5  = "enableF5";
+        public const String KeyEnableF6  = "enableF6";
+        public const String KeyEnableF7  = "enableF7";
+        public const String KeyEnableF8  = "enableF8";
+        public const String KeyEnableF9  = "enableF9";
+        public const String KeyEnableF10 = "enableF10";
+        public const String KeyEnableF11 = "enableF11";
+        public const String KeyEnableF12 = "enableF12";
 
 
         // *********************************
@@ -693,27 +693,27 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHookKeys, true);
 
             // Default settings for group "Special Keys"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableEsc       , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableCtrlEsc   , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableAltEsc    , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableAltTab    , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableAltF4     , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableStartMenu , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableRightMouse, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableEsc       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableCtrlEsc   , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltEsc    , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltTab    , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltF4     , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableStartMenu , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableRightMouse, false);
 
             // Default settings for group "Function Keys"
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF1 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF2 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF3 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF4 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF5 , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF6 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF7 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF8 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF9 , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF10, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF11, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.MessageEnableF12, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF1 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF2 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF3 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF4 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF5 , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF6 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF7 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF8 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF9 , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF10, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF11, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF12, false);
 
 
             // Clear all "current" lists and dictionaries
