@@ -184,17 +184,17 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void addPermittedProcessesToTS()
         {
-            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessagePermittedProcesses)[SEBSettings.MessagePermittedProcesses];
+            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     ToolStripButton toolStripButton = new ToolStripButton();
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    if ((Boolean)permittedProcess[SEBSettings.MessageActive])
+                    if ((Boolean)permittedProcess[SEBSettings.KeyActive])
                     {
-                        string tsbName = (string)permittedProcess[SEBSettings.MessageTitle];
-                        string permittedProcessName = (string)permittedProcess[SEBSettings.MessageExecutable];
+                        string tsbName = (string)permittedProcess[SEBSettings.KeyTitle];
+                        string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
                         toolStripButton.Name = permittedProcessName;
                         toolStripButton.ToolTipText = tsbName;
                         if (permittedProcessName.Contains("notepad.exe"))
@@ -211,18 +211,18 @@ namespace SebWindowsClient
                         tsPermittedProcesses.Items.Add(toolStripButton);
 
                         // Autostart
-                        if ((Boolean)permittedProcess[SEBSettings.MessageAutostart])
+                        if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
                         {
                             if (!permittedProcessName.Contains(SEBClientInfo.XUL_RUNNER))
                             {
                                 StringBuilder startProcessNameBuilder = new StringBuilder(permittedProcessName);
-                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.MessageArguments];
+                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
                                 for (int j = 0; j < argumentList.Count; j++)
                                 {
                                     Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                    if ((Boolean)argument[SEBSettings.MessageActive])
+                                    if ((Boolean)argument[SEBSettings.KeyActive])
                                     {
-                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.MessageArgument]);
+                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
                                     }
                                 }
                                 SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
@@ -250,14 +250,14 @@ namespace SebWindowsClient
         {
             // identify which button was clicked and perform necessary actions
             ToolStripButton toolStripButton = sender as ToolStripButton;
-            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessagePermittedProcesses)[SEBSettings.MessagePermittedProcesses];
+            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBSettings.MessageExecutable];
-                    if((Boolean)permittedProcess[SEBSettings.MessageActive])
+                    string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
+                    if((Boolean)permittedProcess[SEBSettings.KeyActive])
                     {
                         if (toolStripButton.Name.CompareTo(permittedProcessName) == 0)
                         {
@@ -278,13 +278,13 @@ namespace SebWindowsClient
                             else
                             {
                                 StringBuilder startProcessNameBuilder = new StringBuilder(permittedProcessName);
-                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.MessageArguments];
+                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
                                 for (int j = 0; j < argumentList.Count; j++)
                                 {
                                     Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                    if ((Boolean)argument[SEBSettings.MessageActive])
+                                    if ((Boolean)argument[SEBSettings.KeyActive])
                                     {
-                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.MessageArgument]);
+                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
                                     }
                                 }
                                 SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
@@ -445,7 +445,7 @@ namespace SebWindowsClient
                 if (bSocketConnected)
                 {
                     // Set receive timeout
-                    if (((Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageSebServicePolicy)[SEBSettings.MessageSebServicePolicy]) == (Int32)sebServicePolicies.forceSebService)
+                    if (((Int32)SEBClientInfo.getSebSetting(SEBSettings.KeySebServicePolicy)[SEBSettings.KeySebServicePolicy]) == (Int32)sebServicePolicies.forceSebService)
                     {
                         SEBClientInfo.RecvTimeout = 0;   // timeout "0" means "infinite" in this case !!!
                         Logger.AddInformation("Force Windows Service demanded, therefore socket recvTimeout = infinite", this, null);
@@ -517,14 +517,14 @@ namespace SebWindowsClient
                 try
                 {
                     // Kill processes
-                    List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessageProhibitedProcesses)[SEBSettings.MessageProhibitedProcesses];
+                    List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyProhibitedProcesses)[SEBSettings.KeyProhibitedProcesses];
                 if (prohibitedProcessList.Count() > 0)
                 {
                     for (int i = 0; i < prohibitedProcessList.Count(); i++)
                     {
                         Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                        string prohibitedProcessName = (string)prohibitedProcess[SEBSettings.MessageExecutable];
-                        if ((Boolean)prohibitedProcess[SEBSettings.MessageActive])
+                        string prohibitedProcessName = (string)prohibitedProcess[SEBSettings.KeyExecutable];
+                        if ((Boolean)prohibitedProcess[SEBSettings.KeyActive])
                         {
                             Logger.AddInformation("Kill process by name: " + prohibitedProcessName, this, null);
                             // Close process
@@ -673,14 +673,14 @@ namespace SebWindowsClient
 
                 // ShutDown Processes
                 Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
-                List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessagePermittedProcesses)[SEBSettings.MessagePermittedProcesses];
+                List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
                 for (int i = 0; i < permittedProcessList.Count(); i++)
                 {
                     for (int j = 0; j < runningApplications.Count(); j++)
                     {
                         Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                        string permittedProcessName = (string)permittedProcess[SEBSettings.MessageExecutable];
-                        if ((Boolean)permittedProcess[SEBSettings.MessageActive])
+                        string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
+                        if ((Boolean)permittedProcess[SEBSettings.KeyActive])
                         {
                             if (permittedProcessName.Contains(runningApplications[j].ProcessName))
                             {
@@ -702,7 +702,7 @@ namespace SebWindowsClient
 
 
                 // Restart the explorer.exe shell
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageKillExplorerShell)[SEBSettings.MessageKillExplorerShell])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
                     if (SEBClientInfo.ExplorerShellWasKilled)
                     {
@@ -716,7 +716,7 @@ namespace SebWindowsClient
                 }
 
                 // Switch to Default Desktop
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageCreateNewDesktop)[SEBSettings.MessageCreateNewDesktop])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
                 {
                     SEBDesktopController.Show      (SEBClientInfo.OriginalDesktop.DesktopName);
                     SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);

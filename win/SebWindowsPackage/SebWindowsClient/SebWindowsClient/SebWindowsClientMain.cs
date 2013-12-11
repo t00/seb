@@ -182,7 +182,7 @@ namespace SebWindowsClient
                 Logger.AddInformation("SEB Windows service is not available.", null, null);
             }
 
-            int forceService = (Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageSebServicePolicy)[SEBSettings.MessageSebServicePolicy]; 
+            int forceService = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeySebServicePolicy)[SEBSettings.KeySebServicePolicy]; 
             switch(forceService)
             {
                 case (int)sebServicePolicies.ignoreService:
@@ -211,7 +211,7 @@ namespace SebWindowsClient
             }
 
              // Test if run inside virtual machine
-            bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageAllowVirtualMachine)[SEBSettings.MessageAllowVirtualMachine];
+            bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyAllowVirtualMachine)[SEBSettings.KeyAllowVirtualMachine];
             if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
@@ -236,12 +236,12 @@ namespace SebWindowsClient
                 //sebSettings
                 bool killExplorerShell = false;
 
-                List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessageProhibitedProcesses)[SEBSettings.MessageProhibitedProcesses];
+                List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyProhibitedProcesses)[SEBSettings.KeyProhibitedProcesses];
                 for (int i = 0; i < prohibitedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                    string prohibitedProcessName = (string)prohibitedProcess[SEBSettings.MessageExecutable];
-                    if ((Boolean)prohibitedProcess[SEBSettings.MessageActive])
+                    string prohibitedProcessName = (string)prohibitedProcess[SEBSettings.KeyExecutable];
+                    if ((Boolean)prohibitedProcess[SEBSettings.KeyActive])
                     {
                         if (prohibitedProcessName.Contains("explorer.exe"))
                         {
@@ -258,7 +258,7 @@ namespace SebWindowsClient
                     Logger.AddInformation("Process by name(explorer.exe) killed", null, null);
                 }
                 //tell Win9x / Me that the screensaver is running to lock system tasks
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageCreateNewDesktop)[SEBSettings.MessageCreateNewDesktop])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
                 {
                     SEBDesktopController.DisableTaskSwitching();
                 }
@@ -266,7 +266,7 @@ namespace SebWindowsClient
             else
             {
                 //on NT4/NT5 the desktop is killed
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageKillExplorerShell)[SEBSettings.MessageKillExplorerShell])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
                     Logger.AddInformation("Kill process by PostMessage(WM_USER + 436)", null, null);
 
@@ -307,7 +307,7 @@ namespace SebWindowsClient
 
 
                 //on NT4/NT5 a new desktop is created
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageCreateNewDesktop)[SEBSettings.MessageCreateNewDesktop])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
                 {
                     SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
                     SEBDesktopController OriginalInput = SEBDesktopController.OpenInputDesktop();

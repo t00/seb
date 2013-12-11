@@ -183,7 +183,7 @@ namespace SebWindowsClient.ConfigurationUtils
              if (sebSetting != null)
                  return sebSettings;
              else
-                 return SEBSettings.settingsDef;
+                 return SEBSettings.settingsDefault;
          }
 
         /// <summary>
@@ -210,9 +210,9 @@ namespace SebWindowsClient.ConfigurationUtils
             NumMessages            = DEFAULT_NUM_MESSAGES;
 
             // Initialise error messages
-            SEBErrorMessages  .SetCurrentLanguage();
-            SEBErrorMessages  .InitErrorMessages();
-            SEBSettings.InitialiseSEBDefaultSettings();
+            SEBErrorMessages.SetCurrentLanguage();
+            SEBErrorMessages.InitErrorMessages();
+            SEBSettings     .CreateDefaultAndCurrentSettingsFromScratch();
 
             // Get the path of the "Program" directory.
             ApplicationExecutableDirectory = Path.GetDirectoryName(Application.ExecutablePath);
@@ -272,7 +272,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
                 // Initialise Loger, if enabled
-                if ((Boolean)getSebSetting(SEBSettings.MessageEnableLogging)[SEBSettings.MessageEnableLogging])
+                if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
                 {
                     Logger.initLogger(SebClientLogFile);
                 }
@@ -355,9 +355,9 @@ namespace SebWindowsClient.ConfigurationUtils
                  XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
                  XULRunnerConfig xulRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-                 xulRunnerConfig.seb_openwin_width  = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkWidth)[SEBSettings.MessageNewBrowserWindowByLinkWidth].ToString());
-                 xulRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.MessageNewBrowserWindowByLinkHeight)[SEBSettings.MessageNewBrowserWindowByLinkHeight].ToString());
-                 if ((Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageBrowserViewMode)[SEBSettings.MessageBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
+                 xulRunnerConfig.seb_openwin_width  = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.KeyNewBrowserWindowByLinkWidth )[SEBSettings.KeyNewBrowserWindowByLinkWidth ].ToString());
+                 xulRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.KeyNewBrowserWindowByLinkHeight)[SEBSettings.KeyNewBrowserWindowByLinkHeight].ToString());
+                 if ((Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyBrowserViewMode)[SEBSettings.KeyBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
                  {
                      xulRunnerConfig.seb_mainWindow_titlebar_enabled = true;
                  }
@@ -366,7 +366,7 @@ namespace SebWindowsClient.ConfigurationUtils
                      xulRunnerConfig.seb_mainWindow_titlebar_enabled = false;
 
                  }
-                 xulRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBSettings.MessageStartURL)[SEBSettings.MessageStartURL].ToString();
+                 xulRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBSettings.KeyStartURL)[SEBSettings.KeyStartURL].ToString();
                  setXulRunnerConfiguration = true;
                  SEBXulRunnerSettings.XULRunnerConfigSerialize(xulRunnerConfig, XulRunnerConfigFile);
              }

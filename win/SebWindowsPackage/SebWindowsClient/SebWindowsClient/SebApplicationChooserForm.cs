@@ -156,15 +156,15 @@ namespace SebWindowsClient
             ImageList ilApplicationIcons = new ImageList();
             this.lWindowHandles.Clear();
             int index = 0;
-            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.MessagePermittedProcesses)[SEBSettings.MessagePermittedProcesses];
+            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
                 Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
                 for (int i = 0; i < permittedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBSettings.MessageExecutable];
-                    if ((Boolean)permittedProcess[SEBSettings.MessageActive])
+                    string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
+                    if ((Boolean)permittedProcess[SEBSettings.KeyActive])
                     {
                         for (int j = 0; j < runningApplications.Count(); j++)
                         {

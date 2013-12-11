@@ -147,7 +147,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
         {
             MSLLHOOKSTRUCT MouseButtonInfo = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(MSLLHOOKSTRUCT));
 
-            if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableRightMouse)[SEBSettings.MessageEnableRightMouse])
+            if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableRightMouse)[SEBSettings.KeyEnableRightMouse])
             {
                 if (nCode >= 0 && MouseMessages.WM_RBUTTONDOWN == (MouseMessages)wp)
                     return true;
@@ -165,27 +165,27 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
             try
             {
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableEsc)[SEBSettings.MessageEnableEsc] && (KeyInfo.key == Keys.Escape))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableEsc)[SEBSettings.KeyEnableEsc] && (KeyInfo.key == Keys.Escape))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableCtrlEsc)[SEBSettings.MessageEnableCtrlEsc])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableCtrlEsc)[SEBSettings.KeyEnableCtrlEsc])
                 {
                     if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Escape))
                         return true;
 
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableAltEsc)[SEBSettings.MessageEnableAltEsc])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltEsc)[SEBSettings.KeyEnableAltEsc])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Escape))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableAltTab)[SEBSettings.MessageEnableAltTab])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                         return true;
                 }
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableAltTab)[SEBSettings.MessageEnableAltTab])
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
                 {
                     //if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                     //{
@@ -206,7 +206,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                     //    return true;
                     //}
                 }
-                //if ((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.MessageEnableAltTab)[SEBDefaultSettings.MessageEnableAltTab])
+                //if ((Boolean)SEBClientInfo.getSebSetting(SEBDefaultSettings.KeyEnableAltTab)[SEBDefaultSettings.KeyEnableAltTab])
                 //{
                 //    if (wp == (IntPtr)WM_SYSKEYUP)
                 //    {
@@ -217,56 +217,56 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 //        }
                 //    }
                 //}
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableAltF4)[SEBSettings.MessageEnableAltF4])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltF4)[SEBSettings.KeyEnableAltF4])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.F4))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF1)[SEBSettings.MessageEnableF1] && (KeyInfo.key == Keys.F1))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF1)[SEBSettings.KeyEnableF1] && (KeyInfo.key == Keys.F1))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF2)[SEBSettings.MessageEnableF2] && (KeyInfo.key == Keys.F2))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF2)[SEBSettings.KeyEnableF2] && (KeyInfo.key == Keys.F2))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF3)[SEBSettings.MessageEnableF3] && (KeyInfo.key == Keys.F3))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF3)[SEBSettings.KeyEnableF3] && (KeyInfo.key == Keys.F3))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF4)[SEBSettings.MessageEnableF4] && (KeyInfo.key == Keys.F4))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF4)[SEBSettings.KeyEnableF4] && (KeyInfo.key == Keys.F4))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF5)[SEBSettings.MessageEnableF5] && (KeyInfo.key == Keys.F5))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF5)[SEBSettings.KeyEnableF5] && (KeyInfo.key == Keys.F5))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF6)[SEBSettings.MessageEnableF6] && (KeyInfo.key == Keys.F6))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF6)[SEBSettings.KeyEnableF6] && (KeyInfo.key == Keys.F6))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF7)[SEBSettings.MessageEnableF7] && (KeyInfo.key == Keys.F7))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF7)[SEBSettings.KeyEnableF7] && (KeyInfo.key == Keys.F7))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF8)[SEBSettings.MessageEnableF8] && (KeyInfo.key == Keys.F8))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF8)[SEBSettings.KeyEnableF8] && (KeyInfo.key == Keys.F8))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF9)[SEBSettings.MessageEnableF9] && (KeyInfo.key == Keys.F9))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF9)[SEBSettings.KeyEnableF9] && (KeyInfo.key == Keys.F9))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF10)[SEBSettings.MessageEnableF10] && (KeyInfo.key == Keys.F10))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF10)[SEBSettings.KeyEnableF10] && (KeyInfo.key == Keys.F10))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF11)[SEBSettings.MessageEnableF11] && (KeyInfo.key == Keys.F11))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF11)[SEBSettings.KeyEnableF11] && (KeyInfo.key == Keys.F11))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.MessageEnableF12)[SEBSettings.MessageEnableF12] && (KeyInfo.key == Keys.F12))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF12)[SEBSettings.KeyEnableF12] && (KeyInfo.key == Keys.F12))
                 {
                     return true;
                 }
@@ -283,9 +283,9 @@ namespace SebWindowsClient.BlockShortcutsUtils
         ///</summary>
         private static void SetExitKeys()
         {
-            int iExitKey1 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageExitKey1)[SEBSettings.MessageExitKey1];
-            int iExitKey2 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageExitKey2)[SEBSettings.MessageExitKey2];
-            int iExitKey3 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.MessageExitKey3)[SEBSettings.MessageExitKey3];
+            int iExitKey1 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyExitKey1)[SEBSettings.KeyExitKey1];
+            int iExitKey2 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyExitKey2)[SEBSettings.KeyExitKey2];
+            int iExitKey3 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyExitKey3)[SEBSettings.KeyExitKey3];
             switch (iExitKey1)
             {
                 case 0:
