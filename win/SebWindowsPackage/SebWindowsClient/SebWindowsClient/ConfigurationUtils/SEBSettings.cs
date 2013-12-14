@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.CryptographyUtils;
 using PlistCS;
 
@@ -275,6 +276,11 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableF10 = "enableF10";
         public const String KeyEnableF11 = "enableF11";
         public const String KeyEnableF12 = "enableF12";
+
+        public enum sebConfigPurposes
+        {
+            sebConfigPurposeStartingExam, sebConfigPurposeConfiguringClient
+        }
 
 
         // *********************************
@@ -1181,13 +1187,12 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBProtectionController sebProtectionController = new SEBProtectionController();
 
                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
-                String decryptedSettings = "";
 
-                decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
-              //decryptedSettings = decryptedSettings.Trim();
+                //decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
 
                 SEBSettings.settingsCurrent.Clear();
-                SEBSettings.settingsCurrent = (DictObj)Plist.readPlistSource(decryptedSettings);
+                //SEBSettings.settingsCurrent = (DictObj)Plist.readPlistSource(decryptedSettings);
+                SEBSettings.settingsCurrent = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings);
             }
             catch (Exception streamReadException)
             {
