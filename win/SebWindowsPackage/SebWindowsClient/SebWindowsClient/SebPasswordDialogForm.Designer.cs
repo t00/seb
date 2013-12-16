@@ -69,9 +69,8 @@
             this.lblSEBPassword.AutoSize = true;
             this.lblSEBPassword.Location = new System.Drawing.Point(12, 20);
             this.lblSEBPassword.Name = "lblSEBPassword";
-            this.lblSEBPassword.Size = new System.Drawing.Size(122, 13);
+            this.lblSEBPassword.Size = new System.Drawing.Size(0, 13);
             this.lblSEBPassword.TabIndex = 3;
-            this.lblSEBPassword.Text = "Enter settings password:";
             // 
             // SebPasswordDialogForm
             // 

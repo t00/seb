@@ -334,19 +334,19 @@ namespace SebWindowsClient
         /// Show SEB Password Dialog Form.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static string ShowPasswordDialogForm()
+        public static string ShowPasswordDialogForm(string title, string passwordRequestText)
         {
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            //sebPasswordDialogForm.Visible = true;
-            //sebPasswordDialogForm.Activate();
-            //sebPasswordDialogForm.txtSEBPassword.Focus();
-
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            // Set the title of the dialog window
+            sebPasswordDialogForm.Text = title;
+            // Set the text of the dialog
+            sebPasswordDialogForm.LabelText = passwordRequestText;
+            // Show password dialog as a modal dialog and determine if DialogResult = OK.
             if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
             {
                 // Read the contents of testDialog's TextBox.
                 string password = sebPasswordDialogForm.txtSEBPassword.Text;
                 sebPasswordDialogForm.txtSEBPassword.Text = "";
+                sebPasswordDialogForm.txtSEBPassword.Focus();
                 return password;
             }
             else

@@ -124,13 +124,11 @@ namespace SebWindowsClient.ConfigurationUtils
                 do {
                     i--;
                     // Prompt for password
-                    //if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading New SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
-                    string password = SebWindowsClientMain.ShowPasswordDialogForm();
-                    //string password = "seb"; //[self.sebController.enterPassword stringValue];
+                    string password = SebWindowsClientMain.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
                     if (password == null) return null;
                     //error = nil;
                     sebDataDecrypted = SEBProtectionController.DecryptWithPassword(sebData, password);
-                    enterPasswordString = "Try again to enter the correct password:";
+                    enterPasswordString = "Wrong Password! Try again to enter the correct password:";
                     // in case we get an error we allow the user to try it again
                 } while ((sebDataDecrypted == null) && i>0);
                 if (sebDataDecrypted == null) {
@@ -294,8 +292,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
     /// ----------------------------------------------------------------------------------------
     /// <summary>
-    /// Class for compressing and decompressing byte arrays using gzip
-    /// Thanks to K. Jacobson
+    /// Compressing and decompressing byte arrays using gzip
     /// </summary>
     /// ----------------------------------------------------------------------------------------
     public static class GZipByte
@@ -339,8 +336,7 @@ namespace SebWindowsClient.ConfigurationUtils
             }
             catch (Exception)
             {
-                
-                throw;
+                return null;
             }
         }
     }

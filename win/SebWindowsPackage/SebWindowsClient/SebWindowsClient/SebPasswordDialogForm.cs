@@ -32,5 +32,19 @@ namespace SebWindowsClient
         {
             this.Visible = false;
         }
+
+        // Expose the label for changing from outside of the form
+        public string LabelText
+        {
+            get
+            {
+                return this.lblSEBPassword.Text;
+            }
+            set
+            {
+                this.lblSEBPassword.Text = value;
+            }
+        }
+
     }
 }

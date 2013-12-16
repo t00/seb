@@ -167,8 +167,8 @@ namespace SebWindowsClient.ConfigurationUtils
                 _languageIndex = SEBGlobalConstants.IND_LANGUAGE_ENGLISH;
 
                 String language = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-                if (language.CompareTo("en") == 0) _languageIndex = SEBGlobalConstants.IND_LANGUAGE_GERMAN;
-                if (language.CompareTo("de") == 0) _languageIndex = SEBGlobalConstants.IND_LANGUAGE_ENGLISH;
+                if (language.CompareTo("de") == 0) _languageIndex = SEBGlobalConstants.IND_LANGUAGE_GERMAN;
+                if (language.CompareTo("en") == 0) _languageIndex = SEBGlobalConstants.IND_LANGUAGE_ENGLISH;
                 if (language.CompareTo("fr") == 0) _languageIndex = SEBGlobalConstants.IND_LANGUAGE_FRENCH;
             }
 

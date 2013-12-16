@@ -1183,7 +1183,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
                 String decryptedSettings = "";
 
-                decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
+                decryptedSettings = sebProtectionController.DecryptSEBSettings(encryptedSettings);
               //decryptedSettings = decryptedSettings.Trim();
 
                 SEBSettings.settingsCurrent.Clear();
