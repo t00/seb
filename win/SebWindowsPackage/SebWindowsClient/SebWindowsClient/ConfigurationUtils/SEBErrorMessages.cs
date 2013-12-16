@@ -46,9 +46,9 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_WRITE_PERMISSION] = "No write permission!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_NO_WRITE_PERMISSION] = "Pas de droit à l'écrire!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Fehler beim Öffnen der Datei SebClient.seb!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Error when opening the file SebClient.seb!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Erreur en ouvrant le fichier SebClient.seb!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Fehler beim Öffnen der Datei SEBClientSettings.seb!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Error when opening the file SEBClientSettings.seb!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Erreur en ouvrant le fichier SEBClientSettings.seb!";
 
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_CONFIG_JSON_ERROR] = "Fehler beim Öffnen der Datei config.json!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CONFIG_JSON_ERROR] = "Error when opening the file config.json!";
@@ -76,11 +76,11 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_REGISTRY_WARNING] = "Registry Warning!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_REGISTRY_WARNING] = "Avertissement du Registry!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_PROCESS_CALL_FAILED] = "Prozeß-Aufruf fehlgeschlagen!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_PROCESS_CALL_FAILED] = "Prozess-Aufruf fehlgeschlagen!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_PROCESS_CALL_FAILED] = "Process call failed!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_PROCESS_CALL_FAILED] = "Activation du procès manqué / échoué!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Prozeß-Fenster nicht gefunden!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Prozess-Fenster nicht gefunden!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Process wSEBGlobalConstants.INDow not found!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Fenêtre du procès ne pas trouvée!";
 
@@ -121,11 +121,11 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_SEB_TERMINATED] = "SEB terminated!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_SEB_TERMINATED] = "SEB terminé!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_NO_OS_SUPPORT] = "Das Betriebssystem wird nicht unterstützt!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_OS_SUPPORT] = "The OS is not supported!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_NO_OS_SUPPORT] = "Dieses Betriebssystem wird nicht unterstützt!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_OS_SUPPORT] = "This OS is not supported!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_NO_OS_SUPPORT] = "Le système d'exploitation n'est pas supporté!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_KILL_PROCESS_FAILED] = "Abschießen des Prozesses %s fehlgeschlagen: %d!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_KILL_PROCESS_FAILED] = "Abschiessen des Prozesses %s fehlgeschlagen: %d!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_KILL_PROCESS_FAILED] = "Killing process %s failed: %d!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_KILL_PROCESS_FAILED] = "Abattre le procès %s manqué / échoué: %d!";
 
@@ -137,13 +137,21 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED] = "Closing process %s failed! Kill this process?";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED] = "Abattre le procès %s manqué / échoué!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE] = "SEB Windows Dienst läuft nicht";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE] = "SEB Windows-Dienst läuft nicht";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE] = "SEB Windows service is not available";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE] = "";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Schliessen des SebClient fehlgeschlagen. Falsches Kennwort.";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Closing SebClient failed! Password incorrect.";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Abattre le SebClient manqué / échoué!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Schliessen von SEB fehlgeschlagen. Falsches Kennwort.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Closing SEB failed! Password incorrect.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Abattre SEB manqué / échoué!";
+
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED] = "Einstellungen können nicht entschlüsselt werden.\nSie haben entweder ein falsches Passwort eingegeben oder diese Einstellungen wurden mit einer inkompatiblen Version gespeichert.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED] = "Cannot decrypt settings!\nYou either entered the wrong password or these settings were saved with an incompatible SEB version.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED] = "Cannot decrypt settings!\nYou either entered the wrong password or these settings were saved with an incompatible SEB version.";
+
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_SETTINGS_NOT_USABLE] = "Öffnen der neuen Einstellungen fehlgeschlagen!\nDiese Einstellungen können nicht benutzt werden. Sie wurden möglicherweise mit einer neueren, inkompatiblen Version von SEB erstellt oder sie sind beschädigt.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_SETTINGS_NOT_USABLE] = "Opening new settings failed!\nThese settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_SETTINGS_NOT_USABLE] = "Opening new settings failed!\nThese settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corruptedd.";
         }
 
         // ************************

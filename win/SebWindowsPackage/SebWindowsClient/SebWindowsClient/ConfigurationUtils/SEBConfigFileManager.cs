@@ -5,7 +5,9 @@ using System.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.ConfigurationUtils;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using PlistCS;
 
@@ -53,6 +55,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
                  // Write values from .seb config file to the local preferences (shared UserDefaults)
 
+                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLIENT_SETTINGS_RECONFIGURED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION);
                  //int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
                  //                             NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
                  //switch(answer)
@@ -60,8 +63,9 @@ namespace SebWindowsClient.ConfigurationUtils
                  //    case NSAlertDefaultReturn:
                  //        break; //Cancel: don't quit
                  //    default:
-                 //        self.sebController.quittingMyself = TRUE; //SEB is terminating itself
-                 //        [NSApp terminate: nil]; //quit SEB
+                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                 //Application.Exit();
+
                  //}
 
                  return true; //reading preferences was successful
@@ -121,8 +125,9 @@ namespace SebWindowsClient.ConfigurationUtils
                     i--;
                     // Prompt for password
                     //if ([self.sebController showEnterPasswordDialog:enterPasswordString modalForWindow:nil windowTitle:NSLocalizedString(@"Loading New SEB Settings",nil)] == SEBEnterPasswordCancel) return NO;
-                    string password = "seb"; //[self.sebController.enterPassword stringValue];
-                    //if (!password) return NO;
+                    string password = SebWindowsClientMain.ShowPasswordDialogForm();
+                    //string password = "seb"; //[self.sebController.enterPassword stringValue];
+                    if (password == null) return null;
                     //error = nil;
                     sebDataDecrypted = SEBProtectionController.DecryptWithPassword(sebData, password);
                     enterPasswordString = "Try again to enter the correct password:";
@@ -130,9 +135,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 } while ((sebDataDecrypted == null) && i>0);
                 if (sebDataDecrypted == null) {
                     //wrong password entered in 5th try: stop reading .seb file
-                    //NSRunAlertPanel(NSLocalizedString(@"Cannot Decrypt SEB Settings", nil),
-                    //                NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil),
-                    //                NSLocalizedString(@"OK", nil), nil, nil);
+                    SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                     return null;
                 }
                 sebData = sebDataDecrypted;
@@ -160,9 +163,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         } else {
                             // No valid prefix and no unencrypted file with valid header
                             // cancel reading .seb file
-                            //NSRunAlertPanel(NSLocalizedString(@"Loading new SEB settings failed!", nil),
-                            //                NSLocalizedString(@"This settings file cannot be used. It may have been created by an newer, incompatible version of SEB or it is corrupted.", nil),
-                            //                NSLocalizedString(@"OK", nil), nil, nil);
+                            SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SETTINGS_NOT_USABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                             return null;
                         }
                     }
@@ -203,7 +204,7 @@ namespace SebWindowsClient.ConfigurationUtils
             catch (Exception streamReadException)
             {
                 // Let the user know what went wrong
-                Console.WriteLine("The .seb file could not be read:");
+                Console.WriteLine("These settings could not be read:");
                 Console.WriteLine(streamReadException.Message);
                 return null;
             }
@@ -242,6 +243,8 @@ namespace SebWindowsClient.ConfigurationUtils
     
             X509Certificate2 certificateRef = SEBProtectionController.GetCertificateFromStore(publicKeyHash);
             if (certificateRef == null) {
+                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CERTIFICATE_NOT_FOUND, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+
                 //NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
                 //                NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
                 //                NSLocalizedString(@"OK", nil), nil, nil);
@@ -311,41 +314,34 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public static byte[] Decompress(byte[] input)
         {
-            using (GZipStream stream = new GZipStream(new MemoryStream(input),
-                          CompressionMode.Decompress))
+            try
             {
-                const int size = 4096;
-                byte[] buffer = new byte[size];
-                using (MemoryStream memory = new MemoryStream())
+                using (GZipStream stream = new GZipStream(new MemoryStream(input),
+                              CompressionMode.Decompress))
                 {
-                    int count = 0;
-                    do
+                    const int size = 4096;
+                    byte[] buffer = new byte[size];
+                    using (MemoryStream output = new MemoryStream())
                     {
-                        count = stream.Read(buffer, 0, size);
-                        if (count > 0)
+                        int count = 0;
+                        do
                         {
-                            memory.Write(buffer, 0, count);
+                            count = stream.Read(buffer, 0, size);
+                            if (count > 0)
+                            {
+                                output.Write(buffer, 0, count);
+                            }
                         }
+                        while (count > 0);
+                        return output.ToArray();
                     }
-                    while (count > 0);
-                    return memory.ToArray();
                 }
             }
-            /*
-            using (MemoryStream output = new MemoryStream(input))
+            catch (Exception)
             {
-                using (GZipStream zip = new GZipStream(output, CompressionMode.Decompress))
-                {
-                    List<byte> bytes = new List<byte>();
-                    int b = zip.ReadByte();
-                    while (b != -1)
-                    {
-                        bytes.Add((byte)b);
-                        b = zip.ReadByte();
-                    }
-                    return bytes.ToArray();
-                }
-            }*/
+                
+                throw;
+            }
         }
     }
 }    
