@@ -78,6 +78,7 @@ namespace SebWindowsClient
         //private SebApplicationChooserForm SebApplicationChooser = null;
 
         public bool closeSebClient = false;
+        public string sebPassword = null;
 
         private SebCloseDialogForm sebCloseDialogForm;
         private SebApplicationChooserForm sebApplicationChooserForm;
@@ -414,7 +415,18 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            ShowCloseDialogForm();
+            if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit] == true)
+            {
+                string hashedQuitPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
+                if (String.IsNullOrEmpty(hashedQuitPassword) == true)
+                {
+
+                }
+                else
+                {
+                    ShowCloseDialogForm();
+                }
+            }
             //if (this.closeSebClient)
             //{
             //    this.Close();
@@ -434,7 +446,8 @@ namespace SebWindowsClient
             SecurityIdentifier       userSid  = sebLocalHostInfo.GetSID();
             string                   userName = sebLocalHostInfo.GetUserName();
 
-            lbl_User.Text = "Logged in as: " + userName;
+            // Label with Username
+            //lbl_User.Text = "Logged in as: " + userName;
 
             Logger.AddInformation("HostName: " + hostInfo.HostName + "HostAddress: " + SEBClientInfo.HostIpAddress + "PortNumber: " + SEBClientInfo.PortNumber.ToString(), this, null);
 
@@ -589,7 +602,14 @@ namespace SebWindowsClient
                 sebApplicationChooserForm.TopMost = true;
                 sebApplicationChooserForm.Show();
                 sebApplicationChooserForm.Visible = false;
-            }
+            } 
+            //if (sebPasswordDialogForm == null)
+            //{
+            //    sebPasswordDialogForm = new SebPasswordDialogForm();
+            //    sebPasswordDialogForm.TopMost = true;
+            //    sebPasswordDialogForm.Show();
+            //    sebPasswordDialogForm.Visible = false;
+            //}
         }
 
         /// ----------------------------------------------------------------------------------------

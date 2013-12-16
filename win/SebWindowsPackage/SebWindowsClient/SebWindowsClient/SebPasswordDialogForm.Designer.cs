@@ -1,6 +1,6 @@
 ﻿namespace SebWindowsClient
 {
-    partial class SebCloseDialogForm
+    partial class SebPasswordDialogForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtQuitPassword = new System.Windows.Forms.MaskedTextBox();
+            this.txtSEBPassword = new System.Windows.Forms.MaskedTextBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lblQuitPassword = new System.Windows.Forms.Label();
+            this.lblSEBPassword = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // txtQuitPassword
+            // txtSEBPassword
             // 
-            this.txtQuitPassword.Location = new System.Drawing.Point(12, 45);
-            this.txtQuitPassword.Name = "txtQuitPassword";
-            this.txtQuitPassword.PasswordChar = '*';
-            this.txtQuitPassword.Size = new System.Drawing.Size(325, 20);
-            this.txtQuitPassword.TabIndex = 0;
+            this.txtSEBPassword.Location = new System.Drawing.Point(12, 45);
+            this.txtSEBPassword.Name = "txtSEBPassword";
+            this.txtSEBPassword.PasswordChar = '*';
+            this.txtSEBPassword.Size = new System.Drawing.Size(325, 20);
+            this.txtSEBPassword.TabIndex = 0;
             // 
             // btnOk
             // 
@@ -64,16 +64,16 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // lblQuitPassword
+            // lblSEBPassword
             // 
-            this.lblQuitPassword.AutoSize = true;
-            this.lblQuitPassword.Location = new System.Drawing.Point(12, 20);
-            this.lblQuitPassword.Name = "lblQuitPassword";
-            this.lblQuitPassword.Size = new System.Drawing.Size(103, 13);
-            this.lblQuitPassword.TabIndex = 3;
-            this.lblQuitPassword.Text = "Enter quit password:";
+            this.lblSEBPassword.AutoSize = true;
+            this.lblSEBPassword.Location = new System.Drawing.Point(12, 20);
+            this.lblSEBPassword.Name = "lblSEBPassword";
+            this.lblSEBPassword.Size = new System.Drawing.Size(122, 13);
+            this.lblSEBPassword.TabIndex = 3;
+            this.lblSEBPassword.Text = "Enter settings password:";
             // 
-            // SebCloseDialogForm
+            // SebPasswordDialogForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -81,16 +81,16 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(349, 116);
             this.ControlBox = false;
-            this.Controls.Add(this.lblQuitPassword);
+            this.Controls.Add(this.lblSEBPassword);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.txtQuitPassword);
+            this.Controls.Add(this.txtSEBPassword);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SebCloseDialogForm";
+            this.Name = "SebPasswordDialogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Close Safe Exam Browser";
+            this.Text = "Reconfiguring Local SEB Settings";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,7 +100,7 @@
 
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label lblQuitPassword;
-        public System.Windows.Forms.MaskedTextBox txtQuitPassword;
+        private System.Windows.Forms.Label lblSEBPassword;
+        public System.Windows.Forms.MaskedTextBox txtSEBPassword;
     }
 }

@@ -42,24 +42,25 @@
             this.listApplications.Location = new System.Drawing.Point(0, 0);
             this.listApplications.MultiSelect = false;
             this.listApplications.Name = "listApplications";
-            this.listApplications.Size = new System.Drawing.Size(523, 204);
+            this.listApplications.Size = new System.Drawing.Size(523, 104);
             this.listApplications.TabIndex = 0;
             this.listApplications.UseCompatibleStateImageBehavior = false;
-            //this.listApplications.ItemActivate += new System.EventHandler(this.listApplications_ItemActivate);
             // 
             // SebApplicationChooserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 204);
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.ClientSize = new System.Drawing.Size(523, 104);
             this.ControlBox = false;
             this.Controls.Add(this.listApplications);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "SebApplicationChooserForm";
+            this.Opacity = 0.75D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Seb Application Chooser";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
 
         }

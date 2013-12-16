@@ -55,6 +55,7 @@ namespace SebWindowsClient
 
     static class SebWindowsClientMain
     {
+        public static SebPasswordDialogForm sebPasswordDialogForm;
 
         // For killing the Explorer Shell at SEB startup
 
@@ -73,26 +74,15 @@ namespace SebWindowsClient
         //[STAThread]
         static void Main()
         {
-
-             if (InitSebDesktop())
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            if (InitSebDesktop())
              {
-                 Application.EnableVisualStyles();
-                 Application.SetCompatibleTextRenderingDefault(false);
                  SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                  string[] arguments = Environment.GetCommandLineArgs();
                  SingleInstanceController controller = new SingleInstanceController();
                  controller.Run(arguments);
              }
-        }
-
-
-        public static void InitApplication()
-        {
-            if (InitSebDesktop())
-            {
-                SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
-                Application.Run(SEBClientInfo.SebWindowsClientForm);
-            }
         }
 
 
@@ -143,6 +133,16 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private static bool InitSebDesktop()
         {
+            // Initialize the password entry dialog form
+            if (sebPasswordDialogForm == null)
+            {
+                sebPasswordDialogForm = new SebPasswordDialogForm();
+                sebPasswordDialogForm.TopMost = true;
+                sebPasswordDialogForm.Show();
+                sebPasswordDialogForm.Visible = false;
+            }
+
+
             //SebWindowsClientForm.SetVisibility(true);
 
             //string hash = SEBProtectionController.ComputeQuitPasswordHash("SEB");
@@ -327,6 +327,32 @@ namespace SebWindowsClient
             }
 
             return true;
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Show SEB Password Dialog Form.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static string ShowPasswordDialogForm()
+        {
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            //sebPasswordDialogForm.Visible = true;
+            //sebPasswordDialogForm.Activate();
+            //sebPasswordDialogForm.txtSEBPassword.Focus();
+
+            // Show testDialog as a modal dialog and determine if DialogResult = OK.
+            if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
+            {
+                // Read the contents of testDialog's TextBox.
+                string password = sebPasswordDialogForm.txtSEBPassword.Text;
+                sebPasswordDialogForm.txtSEBPassword.Text = "";
+                return password;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
