@@ -71,7 +71,7 @@ namespace SebWindowsClient.ConfigurationUtils
         #region Constants
 
         // Name and location of SEB configuration files and logfiles
-        private const string SEB_CLIENT_CONFIG = "SebClient.seb";
+        private const string SEB_CLIENT_CONFIG = "SebClientSettings.seb";
         private const string SEB_CLIENT_LOG    = "SebClient.log";
         private const string XUL_RUNNER_CONFIG = "config.json";
         public  const string XUL_RUNNER        = "xulrunner.exe";
@@ -79,11 +79,12 @@ namespace SebWindowsClient.ConfigurationUtils
  
         // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
         // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
-        private const string MANUFACTURER_LOCAL   = "ETH_Zuerich";
-        private const string MANUFACTURER         = "ETH Zuerich";
-        private const string PRODUCT_NAME         = "SEB Windows 1.9.1";
-        private const string XUL_RUNNER_DIRECTORY = "SebWindowsClient\\xulrunner";
-        private const string XUL_SEB_DIRECTORY    = "SebWindowsClient\\xul_seb";
+        private const string MANUFACTURER_LOCAL     = "SafeExamBrowser";
+        //private const string MANUFACTURER         = "ETH Zuerich";
+        private const string PRODUCT_NAME           = "SafeExamBrowser";
+        private const string SEB_BROWSER_DIRECTORY  = "SebWindowsBrowser";
+        private const string XUL_RUNNER_DIRECTORY   = "xulrunner";
+        private const string XUL_SEB_DIRECTORY      = "xul_seb";
 
         public  const string END_OF_STRING_KEYWORD   = "---SEB---";
         private const string DEFAULT_USERNAME        = "";
@@ -229,23 +230,29 @@ namespace SebWindowsClient.ConfigurationUtils
             SebClientConfigFileDirectory = sebClientConfigFileDirectoryBuilder.ToString();
 
             // Set the location of the SebWindowsClientDirectory
-            StringBuilder sebClientDirectoryBuilder = new StringBuilder(ProgramFilesX86Directory).Append("\\").Append(MANUFACTURER).Append("\\").Append(PRODUCT_NAME).Append("\\");
+            StringBuilder sebClientDirectoryBuilder = new StringBuilder(ProgramFilesX86Directory).Append("\\").Append(PRODUCT_NAME).Append("\\");
             SebClientDirectory = sebClientDirectoryBuilder.ToString();
 
             // Set the location of the XulRunnerDirectory
-            StringBuilder xulRunnerDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_RUNNER_DIRECTORY).Append("\\");
+            //StringBuilder xulRunnerDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_RUNNER_DIRECTORY).Append("\\");
+            //XulRunnerDirectory = xulRunnerDirectoryBuilder.ToString();
+            StringBuilder xulRunnerDirectoryBuilder = new StringBuilder(SEB_BROWSER_DIRECTORY).Append("\\").Append(XUL_RUNNER_DIRECTORY).Append("\\");
             XulRunnerDirectory = xulRunnerDirectoryBuilder.ToString();
 
             // Set the location of the XulSebDirectory
-            StringBuilder xulSebDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_SEB_DIRECTORY).Append("\\");
+            //StringBuilder xulSebDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_SEB_DIRECTORY).Append("\\");
+            //XulSebDirectory = xulSebDirectoryBuilder.ToString();
+            StringBuilder xulSebDirectoryBuilder = new StringBuilder(SEB_BROWSER_DIRECTORY).Append("\\").Append(XUL_SEB_DIRECTORY).Append("\\");
             XulSebDirectory = xulSebDirectoryBuilder.ToString();
 
             // Set the location of the XulRunnerExePath
-            StringBuilder xulRunnerExePathBuilder = new StringBuilder("\"").Append(XulRunnerDirectory).Append(XUL_RUNNER).Append("\"");
+            //StringBuilder xulRunnerExePathBuilder = new StringBuilder("\"").Append(XulRunnerDirectory).Append(XUL_RUNNER).Append("\"");
+            //XulRunnerExePath = xulRunnerExePathBuilder.ToString();
+            StringBuilder xulRunnerExePathBuilder = new StringBuilder(XulRunnerDirectory).Append(XUL_RUNNER); //.Append("\"");
             XulRunnerExePath = xulRunnerExePathBuilder.ToString();
 
             // Set the location of the seb.ini
-            StringBuilder xulRunnerSebIniPathBuilder = new StringBuilder("\"").Append(XulSebDirectory).Append(XUL_RUNNER_INI).Append("\"");
+            StringBuilder xulRunnerSebIniPathBuilder = new StringBuilder(XulSebDirectory).Append(XUL_RUNNER_INI); //.Append("\"");
             XulRunnerSebIniPath = xulRunnerSebIniPathBuilder.ToString();
 
             // Set the location of the SebLogConfigFileDirectory
