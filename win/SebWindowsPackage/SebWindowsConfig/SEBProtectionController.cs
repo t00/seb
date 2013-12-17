@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System.IO.Compression;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
 
@@ -63,72 +64,12 @@ namespace SebWindowsClient.CryptographyUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Check encrypted data.
-        /// Format: 0-3 Prefix
-        ///         4-n Encryptet data
-        /// Prefix: 1. pkhs 0-3 Prefix
-        ///                 4-23 Public key hash
-        ///                 24-n Encrypted data  
-        ///         2. pswd 0 version
-        ///                 1 option
-        ///                 2-9 encryption salt
-        ///                 10-17 HMAC salt
-        ///                 18-33 IV
-        ///                 34-n-33 encrypted data
-        ///                 n-31-n HMAC
-        /// </summary>
-        /// ----------------------------------------------------------------------------------------
-        public string DecryptSebClientSettings(byte[] encryptedData)
-        {
-            string decryptedDataString = null;
-            byte[] encryptedBytesWithPrefix = encryptedData;
-            byte[] encryptedBytesWithKey = new byte[encryptedBytesWithPrefix.Length - PREFIX_LENGTH];
-            byte[] prefix = new byte[PREFIX_LENGTH];
-
-            Buffer.BlockCopy(encryptedBytesWithPrefix, 0, prefix, 0, PREFIX_LENGTH);
-            Buffer.BlockCopy(encryptedBytesWithPrefix, PREFIX_LENGTH, encryptedBytesWithKey, 0, encryptedBytesWithPrefix.Length - PREFIX_LENGTH);
-
-            // Check prefix and set encryption type
-            string prefixStr = Encoding.UTF8.GetString(prefix);
-            if (prefixStr.CompareTo(PUBLIC_KEY_HASH_MODE) == 0)
-            {
-                // decrypt settings with private key
-                _encryptionType = EncryptionT.pkhs;
-                decryptedDataString = DecryptWithCertificate(encryptedBytesWithKey);
-            }
-            else if (prefixStr.CompareTo(PASSWORD_MODE) == 0)
-            {
-                // decrypt settings with password
-                _encryptionType = EncryptionT.pswd;
-                decryptedDataString = DecryptWithPassword(encryptedBytesWithKey, "seb");
-            }
-            else if (prefixStr.CompareTo(PLAIN_DATA_MODE) == 0)
-            {
-                _encryptionType = EncryptionT.plnd;
-            }
-            else if (prefixStr.CompareTo(PASSWORD_CONFIGURING_CLIENT_MODE) == 0)
-            {
-                _encryptionType = EncryptionT.pwcc;
-                decryptedDataString = DecryptWithPassword(encryptedBytesWithKey, "seb");
-            }
-            else
-            {
-                _encryptionType = EncryptionT.unknown;
-                decryptedDataString = Encoding.UTF8.GetString(encryptedData);
-            }
-
-            return decryptedDataString;
-        }
-
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
         ///  Get certificate from store.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private X509Certificate2 GetCertificateFromStore(byte[] publicKeyHash)
+        public static X509Certificate2 GetCertificateFromStore(byte[] publicKeyHash)
         {
-            string certificateName;
+            //string certificateName;
             //string certificateHash;
             X509Certificate2 sebCertificate = null;
 
@@ -142,7 +83,7 @@ namespace SebWindowsClient.CryptographyUtils
                 SHA1 sha = new SHA1CryptoServiceProvider(); 
                 byte[] certificateHash = sha.ComputeHash(publicKeyRawData);
 
-                certificateName = x509Certificate.Subject;
+                //certificateName = x509Certificate.Subject;
                 if (certificateHash.SequenceEqual(publicKeyHash))
                 {
                     sebCertificate = x509Certificate;
@@ -161,22 +102,14 @@ namespace SebWindowsClient.CryptographyUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Decrypt with Public key and RSA Algoritmus.
+        /// Decrypt with X509 certificate/private key and RSA algorithm
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public string DecryptWithCertificate(byte[] encryptedBytesWithKey)
+        public static byte[] DecryptWithCertificate(byte[] encryptedData, X509Certificate2 sebCertificate)
         {
             try
             {
-                // Get certificate
-                byte[] publicKeyHash = new byte[PUBLIC_KEY_HASH_LENGTH];
-                Buffer.BlockCopy(encryptedBytesWithKey, 0, publicKeyHash, 0, PUBLIC_KEY_HASH_LENGTH);
-                X509Certificate2 sebCertificate = GetCertificateFromStore(publicKeyHash);
-
-                // decrypt config data
-
-                byte[] encryptedData = new byte[encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH];
-                Buffer.BlockCopy(encryptedBytesWithKey, PUBLIC_KEY_HASH_LENGTH, encryptedData, 0, encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH);
+                // Decrypt config data
 
                 RSACryptoServiceProvider privateKey = sebCertificate.PrivateKey as RSACryptoServiceProvider;
                 //byte[] decryptedData = privateKey.Decrypt(encryptedDataBytes, false);
@@ -220,55 +153,17 @@ namespace SebWindowsClient.CryptographyUtils
                 }
                 byte[] decryptedData = decryptedStream.ToArray();
 
-                // This is only temporary: To Do: Proper encapsulated decrypting pkhs/pswd/plnd
-                byte[] decryptedDataStrippedInnerPrefix = new byte[decryptedData.Length - PREFIX_LENGTH];
-                Buffer.BlockCopy(decryptedData, PREFIX_LENGTH, decryptedDataStrippedInnerPrefix, 0, decryptedData.Length - PREFIX_LENGTH);
-                // Temporary end
-
-                string decryptedStr = Encoding.UTF8.GetString(decryptedDataStrippedInnerPrefix);
-                string decryptedStrTrimmed = Encoding.UTF8.GetString(decryptedDataStrippedInnerPrefix).TrimEnd(new[] { '\0' });
-                string decryptedStrASCII = Encoding.ASCII.GetString(decryptedDataStrippedInnerPrefix);
-                string decryptedStrASCIITrimmed = Encoding.ASCII.GetString(decryptedDataStrippedInnerPrefix).TrimEnd(new[] { '\0' });
-
-                //byte[] encryptedDataBytes = new byte[encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH];
-                //Buffer.BlockCopy(encryptedBytesWithKey, PUBLIC_KEY_HASH_LENGTH, encryptedDataBytes, 0, encryptedBytesWithKey.Length - PUBLIC_KEY_HASH_LENGTH);
-                //string encryptedDataString = Encoding.ASCII.GetString(encryptedDataBytes);
-
-                //// TODO: Add Proper Exception Handlers
-                //dwKeySize = sebCertificate.PrivateKey.KeySize;
-                //RSACryptoServiceProvider rsaCryptoServiceProvider = (RSACryptoServiceProvider)sebCertificate.PrivateKey;
-                ////RSACryptoServiceProvider rsaCryptoServiceProvider
-                ////                         = new RSACryptoServiceProvider(dwKeySize);
-                ////rsaCryptoServiceProvider.FromXmlString(xmlString);
-                //int base64BlockSize = ((dwKeySize / 8) % 3 != 0) ?
-                //  (((dwKeySize / 8) / 3) * 4) + 4 : ((dwKeySize / 8) / 3) * 4;
-                //int iterations = encryptedDataString.Length / base64BlockSize;
-                //ArrayList arrayList = new ArrayList();
-                //for (int i = 0; i < iterations; i++)
-                //{
-                //    byte[] encryptedBytes = Convert.FromBase64String(
-                //         encryptedDataString.Substring(base64BlockSize * i, base64BlockSize));
-                //    // Be aware the RSACryptoServiceProvider reverses the order of 
-                //    // encrypted bytes after encryption and before decryption.
-                //    // If you do not require compatibility with Microsoft Cryptographic 
-                //    // API (CAPI) and/or other vendors.
-                //    // Comment out the next line and the corresponding one in the 
-                //    // EncryptString function.
-                //    Array.Reverse(encryptedBytes);
-                //    arrayList.AddRange(rsaCryptoServiceProvider.Decrypt(
-                //                        encryptedBytes, true));
-                //}
-                //return Encoding.UTF8.GetString(arrayList.ToArray(
-                //                          Type.GetType("System.Byte")) as byte[]);
-                return decryptedStr;
+                return decryptedData;
             }
             catch (CryptographicException cex)
             {
-                return cex.Message;
+                //return cex.Message;
+                return null;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                //return ex.Message;
+                return null;
             }
           }
 
@@ -496,23 +391,10 @@ namespace SebWindowsClient.CryptographyUtils
         {
             try
             {
-                // generate salt
-                byte[] key, iv;
-                byte[] salt = new byte[8];
-                RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-                rng.GetNonZeroBytes(salt);
-                DeriveKeyAndIV(passphrase, salt, out key, out iv);
                 // encrypt bytes
-                byte[] encryptedBytes = EncryptStringToBytesAes(plainText, key, iv);
-                // add salt as first 8 bytes
-                byte[] encryptedBytesWithSalt = new byte[salt.Length + encryptedBytes.Length + PASSWORD_MODE.Length];
+                byte[] encryptedBytesWithSalt;
 
-
-                Buffer.BlockCopy(Encoding.ASCII.GetBytes(PASSWORD_MODE), 0, encryptedBytesWithSalt, 0, PASSWORD_MODE.Length);
-                Buffer.BlockCopy(salt, 0, encryptedBytesWithSalt, PASSWORD_MODE.Length, salt.Length);
-                Buffer.BlockCopy(encryptedBytes, 0, encryptedBytesWithSalt, salt.Length + PASSWORD_MODE.Length, encryptedBytes.Length);
-
-                return encryptedBytesWithSalt;
+                return null;
 
                 // base64 encode
                 //return Convert.ToBase64String(encryptedBytesWithSalt);
@@ -535,189 +417,371 @@ namespace SebWindowsClient.CryptographyUtils
         /// Decrypt with password, key, salt using AES (Open SSL Decrypt)..
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public string DecryptWithPassword(byte[] encryptedBytesWithSalt, string passphrase)
+        public static byte[] DecryptWithPassword(byte[] encryptedBytesWithSalt, string passphrase)
         {
 
             try
             {
-                //string encryptedDataString = Encoding.ASCII.GetString(encryptedBytesWithKey);
-                // base 64 decode
-                //byte[] encryptedBytesWithSalt = Convert.FromBase64String(encryptedDataString);
+                byte[] decryptedData = AESThenHMAC.SimpleDecryptWithPassword(encryptedBytesWithSalt, passphrase, nonSecretPayloadLength: 2);
 
-                // extract salt (first 8 bytes of encrypted)
-                byte[] salt = new byte[8];
-                byte[] encryptedBytes = new byte[encryptedBytesWithSalt.Length - salt.Length - PASSWORD_MODE.Length];
-                Buffer.BlockCopy(encryptedBytesWithSalt, PASSWORD_MODE.Length, salt, 0, salt.Length);
-                Buffer.BlockCopy(encryptedBytesWithSalt, salt.Length + PASSWORD_MODE.Length, encryptedBytes, 0, encryptedBytes.Length);
-                // get key and iv
-                byte[] key, iv;
-                DeriveKeyAndIV(passphrase, salt, out key, out iv);
-                return DecryptStringFromBytesAes(encryptedBytes, key, iv);
+                return decryptedData;
             }
             catch (CryptographicException cex)
             {
-                return cex.Message;
+                //return cex.Message;
+                return null;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                //return ex.Message;
+                return null;
             }
         }
 
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
-        /// Derive Key and IV.
-        /// </summary>
-        /// ----------------------------------------------------------------------------------------
-        private static void DeriveKeyAndIV(string passphrase, byte[] salt, out byte[] key, out byte[] iv)
+
+        public static class AESThenHMAC
         {
-            // generate key and iv
-            List<byte> concatenatedHashes = new List<byte>(48);
+            private static readonly RandomNumberGenerator Random = RandomNumberGenerator.Create();
 
-            byte[] password = Encoding.UTF8.GetBytes(passphrase);
-            byte[] currentHash = new byte[0];
-            MD5 md5 = MD5.Create();
-            bool enoughBytesForKey = false;
-            // See http://www.openssl.org/docs/crypto/EVP_BytesToKey.html#KEY_DERIVATION_ALGORITHM
-            while (!enoughBytesForKey)
+            //Preconfigured Encryption Parameters
+            public static readonly int BlockBitSize = 128;
+            public static readonly int KeyBitSize = 256;
+
+            //Preconfigured Password Key Derivation Parameters
+            public static readonly int SaltBitSize = 64;
+            public static readonly int Iterations = 10000;
+            public static readonly int MinPasswordLength = 3;
+
+            /// <summary>
+            /// Helper that generates a random key on each call.
+            /// </summary>
+            /// <returns></returns>
+            public static byte[] NewKey()
             {
-                int preHashLength = currentHash.Length + password.Length + salt.Length;
-                byte[] preHash = new byte[preHashLength];
-
-                Buffer.BlockCopy(currentHash, 0, preHash, 0, currentHash.Length);
-                Buffer.BlockCopy(password, 0, preHash, currentHash.Length, password.Length);
-                Buffer.BlockCopy(salt, 0, preHash, currentHash.Length + password.Length, salt.Length);
-
-                currentHash = md5.ComputeHash(preHash);
-                concatenatedHashes.AddRange(currentHash);
-
-                if (concatenatedHashes.Count >= 48)
-                    enoughBytesForKey = true;
+                var key = new byte[KeyBitSize / 8];
+                Random.GetBytes(key);
+                return key;
             }
 
-            key = new byte[32];
-            iv = new byte[16];
-            concatenatedHashes.CopyTo(0, key, 0, 32);
-            concatenatedHashes.CopyTo(32, iv, 0, 16);
-
-            md5.Clear();
-            md5 = null;
-        }
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
-        /// Encrypt using AES (Rijndael algoritmus).
-        /// </summary>
-        /// ----------------------------------------------------------------------------------------
-        private static byte[] EncryptStringToBytesAes(string plainText, byte[] key, byte[] iv)
-        {
-            // Check arguments.
-            if (plainText == null || plainText.Length <= 0)
-                throw new ArgumentNullException("plainText");
-            if (key == null || key.Length <= 0)
-                throw new ArgumentNullException("key");
-            if (iv == null || iv.Length <= 0)
-                throw new ArgumentNullException("iv");
-
-            // Declare the stream used to encrypt to an in memory
-            // array of bytes.
-            MemoryStream msEncrypt;
-
-            // Declare the RijndaelManaged object
-            // used to encrypt the data.
-            RijndaelManaged aesAlg = null;
-
-            try
+            /// <summary>
+            /// Simple Encryption (AES) then Authentication (HMAC) for a UTF8 Message.
+            /// </summary>
+            /// <param name="secretMessage">The secret message.</param>
+            /// <param name="cryptKey">The crypt key.</param>
+            /// <param name="authKey">The auth key.</param>
+            /// <param name="nonSecretPayload">(Optional) Non-Secret Payload.</param>
+            /// <returns>
+            /// Encrypted Message
+            /// </returns>
+            /// <exception cref="System.ArgumentException">Secret Message Required!;secretMessage</exception>
+            /// <remarks>
+            /// Adds overhead of (Optional-Payload + BlockSize(16) + Message-Padded-To-Blocksize +  HMac-Tag(32)) * 1.33 Base64
+            /// </remarks>
+            public static string SimpleEncrypt(string secretMessage, byte[] cryptKey, byte[] authKey,
+                               byte[] nonSecretPayload = null)
             {
-                // Create a RijndaelManaged object
-                // with the specified key and IV.
-                aesAlg = new RijndaelManaged { Mode = CipherMode.CBC, KeySize = 256, BlockSize = 128, Key = key, IV = iv };
+                if (string.IsNullOrEmpty(secretMessage))
+                    throw new ArgumentException("Secret Message Required!", "secretMessage");
 
-                // Create an encryptor to perform the stream transform.
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+                var plainText = Encoding.UTF8.GetBytes(secretMessage);
+                var cipherText = SimpleEncrypt(plainText, cryptKey, authKey, nonSecretPayload);
+                return Convert.ToBase64String(cipherText);
+            }
 
-                // Create the streams used for encryption.
-                msEncrypt = new MemoryStream();
-                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+            /// <summary>
+            /// Simple Authentication (HMAC) then Decryption (AES) for a secrets UTF8 Message.
+            /// </summary>
+            /// <param name="encryptedMessage">The encrypted message.</param>
+            /// <param name="cryptKey">The crypt key.</param>
+            /// <param name="authKey">The auth key.</param>
+            /// <param name="nonSecretPayloadLength">Length of the non secret payload.</param>
+            /// <returns>
+            /// Decrypted Message
+            /// </returns>
+            /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage</exception>
+            public static string SimpleDecrypt(string encryptedMessage, byte[] cryptKey, byte[] authKey,
+                               int nonSecretPayloadLength = 0)
+            {
+                if (string.IsNullOrWhiteSpace(encryptedMessage))
+                    throw new ArgumentException("Encrypted Message Required!", "encryptedMessage");
+
+                var cipherText = Convert.FromBase64String(encryptedMessage);
+                var plainText = SimpleDecrypt(cipherText, cryptKey, authKey, nonSecretPayloadLength);
+                return Encoding.UTF8.GetString(plainText);
+            }
+
+            /// <summary>
+            /// Simple Encryption (AES) then Authentication (HMAC) of a UTF8 message
+            /// using Keys derived from a Password (PBKDF2).
+            /// </summary>
+            /// <param name="secretMessage">The secret message.</param>
+            /// <param name="password">The password.</param>
+            /// <param name="nonSecretPayload">The non secret payload.</param>
+            /// <returns>
+            /// Encrypted Message
+            /// </returns>
+            /// <exception cref="System.ArgumentException">password</exception>
+            /// <remarks>
+            /// Significantly less secure than using random binary keys.
+            /// Adds additional non secret payload for key generation parameters.
+            /// </remarks>
+            public static string SimpleEncryptWithPassword(string secretMessage, string password,
+                                     byte[] nonSecretPayload = null)
+            {
+                if (string.IsNullOrEmpty(secretMessage))
+                    throw new ArgumentException("Secret Message Required!", "secretMessage");
+
+                var plainText = Encoding.UTF8.GetBytes(secretMessage);
+                var cipherText = SimpleEncryptWithPassword(plainText, password, nonSecretPayload);
+                return Convert.ToBase64String(cipherText);
+            }
+
+            /// <summary>
+            /// Simple Authentication (HMAC) and then Descryption (AES) of a UTF8 Message
+            /// using keys derived from a password (PBKDF2). 
+            /// </summary>
+            /// <param name="encryptedMessage">The encrypted message.</param>
+            /// <param name="password">The password.</param>
+            /// <param name="nonSecretPayloadLength">Length of the non secret payload.</param>
+            /// <returns>
+            /// Decrypted Message
+            /// </returns>
+            /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage</exception>
+            /// <remarks>
+            /// Significantly less secure than using random binary keys.
+            /// </remarks>
+            public static string SimpleDecryptWithPassword(string encryptedMessage, string password,
+                                     int nonSecretPayloadLength = 0)
+            {
+                if (string.IsNullOrWhiteSpace(encryptedMessage))
+                    throw new ArgumentException("Encrypted Message Required!", "encryptedMessage");
+
+                var cipherText = Convert.FromBase64String(encryptedMessage);
+                var plainText = SimpleDecryptWithPassword(cipherText, password, nonSecretPayloadLength);
+                return Encoding.UTF8.GetString(plainText);
+            }
+
+            public static byte[] SimpleEncrypt(byte[] secretMessage, byte[] cryptKey, byte[] authKey, byte[] nonSecretPayload = null)
+            {
+                //User Error Checks
+                if (cryptKey == null || cryptKey.Length != KeyBitSize / 8)
+                    throw new ArgumentException(String.Format("Key needs to be {0} bit!", KeyBitSize), "cryptKey");
+
+                if (authKey == null || authKey.Length != KeyBitSize / 8)
+                    throw new ArgumentException(String.Format("Key needs to be {0} bit!", KeyBitSize), "authKey");
+
+                if (secretMessage == null || secretMessage.Length < 1)
+                    throw new ArgumentException("Secret Message Required!", "secretMessage");
+
+                //non-secret payload optional
+                nonSecretPayload = nonSecretPayload ?? new byte[] { };
+
+                byte[] cipherText;
+                byte[] iv;
+
+                using (var aes = new AesManaged
                 {
-                    using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                    {
-
-                        //Write all data to the stream.
-                        swEncrypt.Write(plainText);
-                        swEncrypt.Flush();
-                        swEncrypt.Close();
-                    }
-                }
-            }
-            finally
-            {
-                // Clear the RijndaelManaged object.
-                if (aesAlg != null)
-                    aesAlg.Clear();
-            }
-
-            // Return the encrypted bytes from the memory stream.
-            return msEncrypt.ToArray();
-        }
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
-        /// Decrypt using AES (Rijndael algoritmus).
-        /// </summary>
-        /// ----------------------------------------------------------------------------------------
-        private static string DecryptStringFromBytesAes(byte[] cipherText, byte[] key, byte[] iv)
-        {
-            // Check arguments.
-            if (cipherText == null || cipherText.Length <= 0)
-                throw new ArgumentNullException("cipherText");
-            if (key == null || key.Length <= 0)
-                throw new ArgumentNullException("key");
-            if (iv == null || iv.Length <= 0)
-                throw new ArgumentNullException("iv");
-
-            // Declare the RijndaelManaged object
-            // used to decrypt the data.
-            RijndaelManaged aesAlg = null;
-
-            // Declare the string used to hold
-            // the decrypted text.
-            string plaintext;
-
-            try
-            {
-                // Create a RijndaelManaged object
-                // with the specified key and IV.
-                aesAlg = new RijndaelManaged {Mode = CipherMode.CBC, KeySize = 256, BlockSize = 128, Key = key, IV = iv};
-
-                // Create a decrytor to perform the stream transform.
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-                // Create the streams used for decryption.
-                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
+                    KeySize = KeyBitSize,
+                    BlockSize = BlockBitSize,
+                    Mode = CipherMode.CBC,
+                    Padding = PaddingMode.PKCS7
+                })
                 {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+
+                    //Use random IV
+                    aes.GenerateIV();
+                    iv = aes.IV;
+
+                    using (var encrypter = aes.CreateEncryptor(cryptKey, iv))
+                    using (var cipherStream = new MemoryStream())
                     {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        using (var cryptoStream = new CryptoStream(cipherStream, encrypter, CryptoStreamMode.Write))
+                        using (var binaryWriter = new BinaryWriter(cryptoStream))
                         {
-                            // Read the decrypted bytes from the decrypting stream
-                            // and place them in a string.
-                            plaintext = srDecrypt.ReadToEnd();
-                            srDecrypt.Close();
+                            //Encrypt Data
+                            binaryWriter.Write(secretMessage);
+                        }
+
+                        cipherText = cipherStream.ToArray();
+                    }
+
+                }
+
+                //Assemble encrypted message and add authentication
+                using (var hmac = new HMACSHA256(authKey))
+                using (var encryptedStream = new MemoryStream())
+                {
+                    using (var binaryWriter = new BinaryWriter(encryptedStream))
+                    {
+                        //Prepend non-secret payload if any
+                        binaryWriter.Write(nonSecretPayload);
+                        //Prepend IV
+                        binaryWriter.Write(iv);
+                        //Write Ciphertext
+                        binaryWriter.Write(cipherText);
+                        binaryWriter.Flush();
+
+                        //Authenticate all data
+                        var tag = hmac.ComputeHash(encryptedStream.ToArray());
+                        //Postpend tag
+                        binaryWriter.Write(tag);
+                    }
+                    return encryptedStream.ToArray();
+                }
+
+            }
+
+            public static byte[] SimpleDecrypt(byte[] encryptedMessage, byte[] cryptKey, byte[] authKey, int nonSecretPayloadLength = 0)
+            {
+
+                //Basic Usage Error Checks
+                if (cryptKey == null || cryptKey.Length != KeyBitSize / 8)
+                    throw new ArgumentException(String.Format("CryptKey needs to be {0} bit!", KeyBitSize), "cryptKey");
+
+                if (authKey == null || authKey.Length != KeyBitSize / 8)
+                    throw new ArgumentException(String.Format("AuthKey needs to be {0} bit!", KeyBitSize), "authKey");
+
+                if (encryptedMessage == null || encryptedMessage.Length == 0)
+                    throw new ArgumentException("Encrypted Message Required!", "encryptedMessage");
+
+                using (var hmac = new HMACSHA256(authKey))
+                {
+                    var sentTag = new byte[hmac.HashSize / 8];
+                    //Calculate Tag
+                    var calcTag = hmac.ComputeHash(encryptedMessage, 0, encryptedMessage.Length - sentTag.Length);
+                    var ivLength = (BlockBitSize / 8);
+
+                    //if message length is to small just return null
+                    if (encryptedMessage.Length < sentTag.Length + nonSecretPayloadLength + ivLength)
+                        return null;
+
+                    //Grab Sent Tag
+                    Array.Copy(encryptedMessage, encryptedMessage.Length - sentTag.Length, sentTag, 0, sentTag.Length);
+
+                    //Compare Tag with constant time comparison
+                    var compare = 0;
+                    for (var i = 0; i < sentTag.Length; i++)
+                        compare |= sentTag[i] ^ calcTag[i];
+
+                    //if message doesn't authenticate return null
+                    if (compare != 0)
+                        return null;
+
+                    using (var aes = new AesManaged
+                    {
+                        KeySize = KeyBitSize,
+                        BlockSize = BlockBitSize,
+                        Mode = CipherMode.CBC,
+                        Padding = PaddingMode.PKCS7
+                    })
+                    {
+
+                        //Grab IV from message
+                        var iv = new byte[ivLength];
+                        Array.Copy(encryptedMessage, nonSecretPayloadLength, iv, 0, iv.Length);
+
+                        using (var decrypter = aes.CreateDecryptor(cryptKey, iv))
+                        using (var plainTextStream = new MemoryStream())
+                        {
+                            using (var decrypterStream = new CryptoStream(plainTextStream, decrypter, CryptoStreamMode.Write))
+                            using (var binaryWriter = new BinaryWriter(decrypterStream))
+                            {
+                                //Decrypt Cipher Text from Message
+                                binaryWriter.Write(
+                                  encryptedMessage,
+                                  nonSecretPayloadLength + iv.Length,
+                                  encryptedMessage.Length - nonSecretPayloadLength - iv.Length - sentTag.Length
+                                );
+                            }
+                            //Return Plain Text
+                            return plainTextStream.ToArray();
                         }
                     }
                 }
             }
-            finally
+
+            public static byte[] SimpleEncryptWithPassword(byte[] secretMessage, string password, byte[] nonSecretPayload = null)
             {
-                // Clear the RijndaelManaged object.
-                if (aesAlg != null)
-                    aesAlg.Clear();
+                nonSecretPayload = nonSecretPayload ?? new byte[] { };
+
+                //User Error Checks
+                if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
+                    throw new ArgumentException(String.Format("Must have a password of at least {0} characters!", MinPasswordLength), "password");
+
+                if (secretMessage == null || secretMessage.Length == 0)
+                    throw new ArgumentException("Secret Message Required!", "secretMessage");
+
+                var payload = new byte[((SaltBitSize / 8) * 2) + nonSecretPayload.Length];
+
+                Array.Copy(nonSecretPayload, payload, nonSecretPayload.Length);
+                int payloadIndex = nonSecretPayload.Length;
+
+                byte[] cryptKey;
+                byte[] authKey;
+                //Use Random Salt to prevent pre-generated weak password attacks.
+                using (var generator = new Rfc2898DeriveBytes(password, SaltBitSize / 8, Iterations))
+                {
+                    var salt = generator.Salt;
+
+                    //Generate Keys
+                    cryptKey = generator.GetBytes(KeyBitSize / 8);
+
+                    //Create Non Secret Payload
+                    Array.Copy(salt, 0, payload, payloadIndex, salt.Length);
+                    payloadIndex += salt.Length;
+                }
+
+                //Deriving separate key, might be less efficient than using HKDF, 
+                //but now compatible with RNEncryptor which had a very similar wireformat and requires less code than HKDF.
+                using (var generator = new Rfc2898DeriveBytes(password, SaltBitSize / 8, Iterations))
+                {
+                    var salt = generator.Salt;
+
+                    //Generate Keys
+                    authKey = generator.GetBytes(KeyBitSize / 8);
+
+                    //Create Rest of Non Secret Payload
+                    Array.Copy(salt, 0, payload, payloadIndex, salt.Length);
+                }
+
+                return SimpleEncrypt(secretMessage, cryptKey, authKey, payload);
             }
 
-            return plaintext;
+            public static byte[] SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
+            {
+                //User Error Checks
+                //if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
+                //    throw new ArgumentException(String.Format("Must have a password of at least {0} characters!", MinPasswordLength), "password");
+
+                if (encryptedMessage == null || encryptedMessage.Length == 0)
+                    throw new ArgumentException("Encrypted Message Required!", "encryptedMessage");
+
+                var cryptSalt = new byte[SaltBitSize / 8];
+                var authSalt = new byte[SaltBitSize / 8];
+
+                //Grab Salt from Non-Secret Payload
+                Array.Copy(encryptedMessage, nonSecretPayloadLength, cryptSalt, 0, cryptSalt.Length);
+                Array.Copy(encryptedMessage, nonSecretPayloadLength + cryptSalt.Length, authSalt, 0, authSalt.Length);
+
+                byte[] cryptKey;
+                byte[] authKey;
+
+                //Generate crypt key
+                using (var generator = new Rfc2898DeriveBytes(password, cryptSalt, Iterations))
+                {
+                    cryptKey = generator.GetBytes(KeyBitSize / 8);
+                }
+                //Generate auth key
+                using (var generator = new Rfc2898DeriveBytes(password, authSalt, Iterations))
+                {
+                    authKey = generator.GetBytes(KeyBitSize / 8);
+                }
+
+                return SimpleDecrypt(encryptedMessage, cryptKey, authKey, cryptSalt.Length + authSalt.Length + nonSecretPayloadLength);
+            }
         }
 
-        public string ComputeQuitPasswordHash(string input)
+        public static string ComputePasswordHash(string input)
         {
             HashAlgorithm algorithm = new SHA256CryptoServiceProvider();
             Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
