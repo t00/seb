@@ -16,6 +16,8 @@ namespace SebWindowsClient.ConfigurationUtils
 {
     public class SEBConfigFileManager
     {
+        public static SebPasswordDialogForm sebPasswordDialogForm;
+
         // Prefixes
         private const int PREFIX_LENGTH = 4;
         private const string PUBLIC_KEY_HASH_MODE = "pkhs";
@@ -26,6 +28,20 @@ namespace SebWindowsClient.ConfigurationUtils
 
         // Public key hash identifier length
         private const int PUBLIC_KEY_HASH_LENGTH = 20;
+
+        // Initializing
+        public static void InitSEBConfigFileManager()
+        {
+            // Initialize the password entry dialog form
+            if (sebPasswordDialogForm == null)
+            {
+                sebPasswordDialogForm = new SebPasswordDialogForm();
+                sebPasswordDialogForm.TopMost = true;
+                //sebPasswordDialogForm.Show();
+                //sebPasswordDialogForm.Visible = false;
+            }
+        }
+
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
@@ -131,7 +147,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 do {
                     i--;
                     // Prompt for password
-                    string password = SebWindowsClientMain.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
+                    string password = ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
                     if (password == null) return null;
                     //error = nil;
                     sebDataDecrypted = SEBProtectionController.DecryptWithPassword(sebData, password);
@@ -258,7 +274,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         {
                             i--;
                             // Prompt for password
-                            password = SebWindowsClientMain.ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
+                            password = ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
                             // If cancel was pressed, abort
                             if (password == null) return null;
                             hashedPassword = SEBProtectionController.ComputePasswordHash(password);
@@ -293,7 +309,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         i--;
                         // Prompt for password
-                        password = SebWindowsClientMain.ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
+                        password = ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
                         // If cancel was pressed, abort
                         if (password == null) return null;
                         decryptedSebData = SEBProtectionController.DecryptWithPassword(sebData, password);
@@ -408,6 +424,33 @@ namespace SebWindowsClient.ConfigurationUtils
             data = dataStrippedKey;
 
             return prefixData;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Show SEB Password Dialog Form.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static string ShowPasswordDialogForm(string title, string passwordRequestText)
+        {
+            // Set the title of the dialog window
+            sebPasswordDialogForm.Text = title;
+            // Set the text of the dialog
+            sebPasswordDialogForm.LabelText = passwordRequestText;
+            // Show password dialog as a modal dialog and determine if DialogResult = OK.
+            if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
+            {
+                // Read the contents of testDialog's TextBox.
+                string password = sebPasswordDialogForm.txtSEBPassword.Text;
+                sebPasswordDialogForm.txtSEBPassword.Text = "";
+                sebPasswordDialogForm.txtSEBPassword.Focus();
+                return password;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 

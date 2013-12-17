@@ -354,21 +354,6 @@ namespace SebWindowsClient.ConfigurationUtils
              return setXulRunnerConfiguration;
          }
 
-         /// <summary>
-         /// Deserialize SEBClientConfig from decripted string.
-         /// </summary>
-         /// <returns></returns>
-        // private static SEBClientConfig DeserializeFromDeryptedXML(string decriptedSebClientSettings)
-        //{
-        //    decriptedSebClientSettings = decriptedSebClientSettings.Trim();
-        //    MemoryStream memStream = new MemoryStream(Encoding.UTF8.GetBytes(decriptedSebClientSettings));
-        //    XmlSerializer deserializer = new XmlSerializer(typeof(SEBClientConfig));
-        //    SEBClientConfig sebSettings;
-        //    sebSettings = (SEBClientConfig)deserializer.Deserialize(memStream);
-        //    memStream.Close();
-
-        //    return sebSettings;
-        //}
 
         /// <summary>
         /// Sets system version info.

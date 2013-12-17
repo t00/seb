@@ -585,8 +585,8 @@ namespace SebWindowsClient
                 sebCloseDialogForm = new SebCloseDialogForm();
 //              SetForegroundWindow(sebCloseDialogForm.Handle);
                 sebCloseDialogForm.TopMost = true;
-                sebCloseDialogForm.Show();
-                sebCloseDialogForm.Visible = false;
+                //sebCloseDialogForm.Show();
+                //sebCloseDialogForm.Visible = false;
             }
             if (sebApplicationChooserForm == null)
             {

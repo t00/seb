@@ -46,9 +46,9 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_WRITE_PERMISSION] = "No write permission!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_NO_WRITE_PERMISSION] = "Pas de droit à l'écrire!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Fehler beim Öffnen der Datei SEBClientSettings.seb!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Error when opening the file SEBClientSettings.seb!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Erreur en ouvrant le fichier SEBClientSettings.seb!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Fehler beim Öffnen der Datei SebClientSettings.seb!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Error when opening the file SebClientSettings.seb!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR] = "Erreur en ouvrant le fichier SebClientSettings.seb!";
 
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_CONFIG_JSON_ERROR] = "Fehler beim Öffnen der Datei config.json!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CONFIG_JSON_ERROR] = "Error when opening the file config.json!";

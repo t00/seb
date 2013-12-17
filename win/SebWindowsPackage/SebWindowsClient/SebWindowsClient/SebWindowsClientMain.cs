@@ -55,8 +55,6 @@ namespace SebWindowsClient
 
     static class SebWindowsClientMain
     {
-        public static SebPasswordDialogForm sebPasswordDialogForm;
-
         // For killing the Explorer Shell at SEB startup
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -133,19 +131,10 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private static bool InitSebDesktop()
         {
-            // Initialize the password entry dialog form
-            if (sebPasswordDialogForm == null)
-            {
-                sebPasswordDialogForm = new SebPasswordDialogForm();
-                sebPasswordDialogForm.TopMost = true;
-                sebPasswordDialogForm.Show();
-                sebPasswordDialogForm.Visible = false;
-            }
-
+            //// Initialize the password entry dialog form
+            SebWindowsClient.ConfigurationUtils.SEBConfigFileManager.InitSEBConfigFileManager();
 
             //SebWindowsClientForm.SetVisibility(true);
-
-            //string hash = SEBProtectionController.ComputeQuitPasswordHash("SEB");
 
            // Set SebClient configuration
             if (!SEBClientInfo.SetSebClientConfiguration())
@@ -155,15 +144,7 @@ namespace SebWindowsClient
                 return false;
             }
  
-            // Set XulRunner configuration
-            //if (!SEBClientInfo.SetXulRunnerConfiguration())
-            //{
-            //    SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CONFIG_JSON_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-            //    Logger.AddError("Error when opening the file config.json!", null, null);
-            //    return false;
-            //}
-
-            // Trunk version (XUL-Runner)
+            // Check system version
             if (!SEBClientInfo.SetSystemVersionInfo())
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_NO_OS_SUPPORT, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
@@ -327,32 +308,6 @@ namespace SebWindowsClient
             }
 
             return true;
-        }
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
-        /// Show SEB Password Dialog Form.
-        /// </summary>
-        /// ----------------------------------------------------------------------------------------
-        public static string ShowPasswordDialogForm(string title, string passwordRequestText)
-        {
-            // Set the title of the dialog window
-            sebPasswordDialogForm.Text = title;
-            // Set the text of the dialog
-            sebPasswordDialogForm.LabelText = passwordRequestText;
-            // Show password dialog as a modal dialog and determine if DialogResult = OK.
-            if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
-            {
-                // Read the contents of testDialog's TextBox.
-                string password = sebPasswordDialogForm.txtSEBPassword.Text;
-                sebPasswordDialogForm.txtSEBPassword.Text = "";
-                sebPasswordDialogForm.txtSEBPassword.Focus();
-                return password;
-            }
-            else
-            {
-                return null;
-            }
         }
     }
 }
