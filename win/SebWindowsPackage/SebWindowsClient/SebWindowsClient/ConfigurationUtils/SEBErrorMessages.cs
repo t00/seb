@@ -238,5 +238,65 @@ namespace SebWindowsClient.ConfigurationUtils
 
         } // end of method   OutputErrorMessage()
 
+        // **********************************
+        // Output an error or warning message
+        // **********************************
+        public static bool OutputErrorMessageNew(string messageText, int messageKindIndex,
+            string sparam = null, int iparam = -1)
+        {
+            bool result = false;
+
+            MessageBoxIcon icon;
+            MessageBoxButtons buttons;
+            string caption = "";
+
+            //logg(fp, "Enter OutputErrorMessage()\n\n");
+            if (messageIcon[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_ERROR)
+            {
+                icon = MessageBoxIcon.Error;
+            }
+            else if (messageIcon[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION)
+            {
+                icon = MessageBoxIcon.Question;
+            }
+            else
+            {
+                icon = MessageBoxIcon.Warning;
+            }
+
+            //logg(fp, "Enter OutputErrorMessage()\n\n");
+            if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_ERROR)
+            {
+                buttons = MessageBoxButtons.OK;
+            }
+            else if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION)
+            {
+                buttons = MessageBoxButtons.YesNo;
+            }
+            else
+            {
+                buttons = MessageBoxButtons.OK;
+            }
+
+
+            caption = messageCaption[_languageIndex, messageKindIndex];
+
+            if (sparam != null)
+            {
+                messageText = messageText.Replace("%s", sparam);
+            }
+            if (iparam != -1)
+            {
+                messageText = messageText.Replace("%d", iparam.ToString());
+            }
+
+            if (MessageBox.Show(messageText, caption, buttons, icon) == DialogResult.Yes)
+                result = true;
+
+            //logg(fp, "Leave OutputErrorMessage()\n\n");
+            return result;
+
+        } // end of method   OutputErrorMessageNew()
+
     }
 }

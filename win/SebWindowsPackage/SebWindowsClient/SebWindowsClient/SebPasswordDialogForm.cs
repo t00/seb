@@ -24,7 +24,7 @@ namespace SebWindowsClient
         private void btnCancel_Click(object sender, EventArgs e)
         {
             //SEBClientInfo.SebWindowsClientForm.sebPassword = null;
-            //this.txtSEBPassword.Text = "";
+            this.txtSEBPassword.Text = "";
             //this.Visible = false;
         }
 

@@ -750,8 +750,8 @@ namespace SebWindowsClient.CryptographyUtils
             public static byte[] SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
             {
                 //User Error Checks
-                if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
-                    throw new ArgumentException(String.Format("Must have a password of at least {0} characters!", MinPasswordLength), "password");
+                //if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
+                //    throw new ArgumentException(String.Format("Must have a password of at least {0} characters!", MinPasswordLength), "password");
 
                 if (encryptedMessage == null || encryptedMessage.Length == 0)
                     throw new ArgumentException("Encrypted Message Required!", "encryptedMessage");
@@ -781,7 +781,7 @@ namespace SebWindowsClient.CryptographyUtils
             }
         }
 
-        public static string ComputeQuitPasswordHash(string input)
+        public static string ComputePasswordHash(string input)
         {
             HashAlgorithm algorithm = new SHA256CryptoServiceProvider();
             Byte[] inputBytes = Encoding.UTF8.GetBytes(input);

@@ -417,15 +417,7 @@ namespace SebWindowsClient
         {
             if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit] == true)
             {
-                string hashedQuitPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
-                if (String.IsNullOrEmpty(hashedQuitPassword) == true)
-                {
-
-                }
-                else
-                {
-                    ShowCloseDialogForm();
-                }
+                ShowCloseDialogForm();
             }
             //if (this.closeSebClient)
             //{
@@ -659,10 +651,29 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void ShowCloseDialogForm()
         {
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            sebCloseDialogForm.Visible = true;
-            sebCloseDialogForm.Activate();
-            sebCloseDialogForm.txtQuitPassword.Focus();
+            // Test if quitting SEB is allowed
+            if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit] == true)
+            {
+                // Is a quit password set?
+                string hashedQuitPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
+                if (String.IsNullOrEmpty(hashedQuitPassword) == true)
+                    // If there is no quit password set, we just ask user to confirm quitting
+                {
+                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION))
+                    {
+                        SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                        Application.Exit();
+
+                    }
+                }
+                else
+                {
+                    // Show testDialog as a modal dialog and determine if DialogResult = OK.
+                    sebCloseDialogForm.Visible = true;
+                    sebCloseDialogForm.Activate();
+                    sebCloseDialogForm.txtQuitPassword.Focus();
+                }
+            }
         }
 
         /// ----------------------------------------------------------------------------------------

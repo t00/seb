@@ -117,10 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="certificateNotFoundInStore" xml:space="preserve">
+    <value>Error decrypting settings! The certificate needed to decrypt settings has not been found in the Windows certificate store. </value>
+  </data>
+  <data name="confirmQuitting" xml:space="preserve">
+    <value>Are you sure you want to quit SEB?</value>
+  </data>
+  <data name="decryptingSettingsFailed" xml:space="preserve">
+    <value>Cannot decrypt settings!\nYou either entered the wrong password or these settings were saved with an incompatible SEB version.</value>
+  </data>
+  <data name="enterCurrentAdminPwdForReconfiguring" xml:space="preserve">
+    <value>You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):</value>
+  </data>
+  <data name="enterCurrentAdminPwdForReconfiguringAgain" xml:space="preserve">
+    <value>Wrong Password! Try again to enter the correct current SEB administrator password:</value>
+  </data>
+  <data name="enterEncryptionPassword" xml:space="preserve">
+    <value>Enter password used to encrypt .seb file:</value>
+  </data>
+  <data name="enterEncryptionPasswordAgain" xml:space="preserve">
+    <value>Wrong Password! Try again to enter the correct password used to encrypt .seb file:</value>
+  </data>
+  <data name="enterPassword" xml:space="preserve">
+    <value>Enter Password:</value>
+  </data>
+  <data name="enterPasswordAgain" xml:space="preserve">
+    <value>Wrong Password! Try again to enter the correct password:</value>
+  </data>
   <data name="loadingSettings" xml:space="preserve">
     <value>Loading Settings</value>
   </data>
+  <data name="loadingSettingsFailed" xml:space="preserve">
+    <value>Loading settings failed! These settings are corrupted and cannot be used.</value>
+  </data>
   <data name="reconfiguringLocalSettings" xml:space="preserve">
-    <value>Reconfiguring Local SEB Settings</value>
+    <value>Reconfiguring Local Settings</value>
+  </data>
+  <data name="settingsNotUsable" xml:space="preserve">
+    <value>Opening new settings failed!\nThese settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.</value>
   </data>
 </root>

@@ -44,6 +44,13 @@ namespace SebWindowsClient.ConfigurationUtils
 
                  /// If these SEB settings are ment to start an exam
 
+                 // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
+                 //[NSUserDefaults setUserDefaultsPrivate:YES];
+
+                 // Write values from .seb config file to the local preferences (shared UserDefaults)
+                 //[self saveIntoUserDefaults:sebPreferencesDict];
+
+                 //[self.sebController.preferencesController initPreferencesWindow];
 
                  return true; //reading preferences was successful
 
@@ -119,7 +126,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 // if the user enters the right one
                 byte [] sebDataDecrypted = null;
                 // Allow up to 5 attempts for entering decoding password
-                string enterPasswordString = "Enter Password:";
+                string enterPasswordString = SEBUIStrings.enterPassword;
                 int i = 5;
                 do {
                     i--;
@@ -128,12 +135,12 @@ namespace SebWindowsClient.ConfigurationUtils
                     if (password == null) return null;
                     //error = nil;
                     sebDataDecrypted = SEBProtectionController.DecryptWithPassword(sebData, password);
-                    enterPasswordString = "Wrong Password! Try again to enter the correct password:";
+                    enterPasswordString = SEBUIStrings.enterPasswordAgain;
                     // in case we get an error we allow the user to try it again
                 } while ((sebDataDecrypted == null) && i>0);
                 if (sebDataDecrypted == null) {
                     //wrong password entered in 5th try: stop reading .seb file
-                    SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.decryptingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                     return null;
                 }
                 sebData = sebDataDecrypted;
@@ -161,7 +168,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         } else {
                             // No valid prefix and no unencrypted file with valid header
                             // cancel reading .seb file
-                            SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SETTINGS_NOT_USABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsNotUsable, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                             return null;
                         }
                     }
@@ -169,45 +176,31 @@ namespace SebWindowsClient.ConfigurationUtils
             }
     
             //if decrypting wasn't successfull then stop here
-            if (sebData == null) return null;
-    
+            if (sebData == null) {
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.decryptingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                return null;
+            }
             // If we don't deal with an unencrypted seb file
             // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
             if (prefixString.CompareTo(UNENCRYPTED_MODE) != 0) sebData = GZipByte.Decompress(sebData);
 
             try
             {
-            // Get preferences dictionary from decrypted data
-            DictObj sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
-            //Dictionary sebPreferencesDict = [self getPreferencesDictionaryFromConfigData:sebData error:&error];
-            //if (error) {
-            //    [NSApp presentError:error];
-            //    return false; //we abort reading the new settings here
-            //}
+                // Get preferences dictionary from decrypted data
+                DictObj sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
 
-            // Check if a some value is from a wrong class (another than the value from default settings)
-            // and quit reading .seb file if a wrong value was found
-            //if (![self checkClassOfSettings:sebPreferencesDict]) return NO;
-        
-            // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
-            //[NSUserDefaults setUserDefaultsPrivate:YES];
-    
-            // Write values from .seb config file to the local preferences (shared UserDefaults)
-            //[self saveIntoUserDefaults:sebPreferencesDict];
+                // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
+                SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
 
-            //[self.sebController.preferencesController initPreferencesWindow];
-    
-            return sebPreferencesDict; //reading preferences was successful
+                // Reading preferences was successful!
+                return sebPreferencesDict; 
             }
-            catch (Exception streamReadException)
+            catch (Exception readPlistException)
             {
-                // Let the user know what went wrong
-                Console.WriteLine("These settings could not be read:");
-                Console.WriteLine(streamReadException.Message);
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                Console.WriteLine(readPlistException.Message);
                 return null;
             }
-
-
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -221,7 +214,140 @@ namespace SebWindowsClient.ConfigurationUtils
         /// ----------------------------------------------------------------------------------------
         private static DictObj DecryptDataWithPasswordAndConfigureClient(byte [] sebData)
         {
-            return null;
+            // First try to decrypt with the current admin password
+            // get admin password hash
+            //string hashedAdminPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword];
+            string hashedAdminPassword = (string)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedAdminPassword)[SEBSettings.KeyHashedAdminPassword];
+            //if (!hashedAdminPassword) hashedAdminPassword = @"";
+            DictObj sebPreferencesDict = null;
+            byte[] decryptedSebData = SEBProtectionController.DecryptWithPassword(sebData, hashedAdminPassword);
+            if (decryptedSebData == null)
+            {
+                // If decryption with admin password didn't work, try it with an empty password
+                decryptedSebData = SEBProtectionController.DecryptWithPassword(sebData, "");
+                if (decryptedSebData != null)
+                {
+                    // Decrypting with empty password worked
+                    // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+                    decryptedSebData = GZipByte.Decompress(decryptedSebData);
+                    // Check if the openend reconfiguring seb file has the same admin password inside like the current one
+                    try
+                    {
+                        sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
+                    }
+                    catch (Exception readPlistException)
+                    {
+                        // We abort reading the new settings here
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                        Console.WriteLine(readPlistException.Message);
+                        return null;
+                    }
+                    string sebFileHashedAdminPassword = (string)sebPreferencesDict[SEBSettings.KeyHashedAdminPassword];
+                    if (String.Compare(hashedAdminPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) != 0)
+                    {
+                        //No: The admin password inside the .seb file wasn't the same like the current one
+                        //now we have to ask for the current admin password and
+                        //allow reconfiguring only if the user enters the right one
+                        // Allow up to 5 attempts for entering current admin password
+                        int i = 5;
+                        string password = null;
+                        string hashedPassword;
+                        string enterPasswordString = SEBUIStrings.enterCurrentAdminPwdForReconfiguring;
+                        bool passwordsMatch;
+                        do
+                        {
+                            i--;
+                            // Prompt for password
+                            password = SebWindowsClientMain.ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
+                            // If cancel was pressed, abort
+                            if (password == null) return null;
+                            hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                            if (String.Compare(hashedAdminPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) == 0)
+                            {
+                                passwordsMatch = true;
+                            }
+                            else
+                            {
+                                passwordsMatch = false;
+                            }
+                            // in case we get an error we allow the user to try it again
+                            enterPasswordString = SEBUIStrings.enterCurrentAdminPwdForReconfiguringAgain;
+                        } while ((password == null || !passwordsMatch) && i > 0);
+                        if (!passwordsMatch)
+                        {
+                            //wrong password entered in 5th try: stop reading .seb file
+                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.decryptingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                            return null;
+                        }
+                    }
+
+                }
+                else
+                {
+                    // If decryption with admin password didn't work, ask for the password the .seb file was encrypted with
+                    // Allow up to 5 attempts for entering decoding password
+                    int i = 5;
+                    string password = null;
+                    string enterPasswordString = SEBUIStrings.enterEncryptionPassword;
+                    do
+                    {
+                        i--;
+                        // Prompt for password
+                        password = SebWindowsClientMain.ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
+                        // If cancel was pressed, abort
+                        if (password == null) return null;
+                        decryptedSebData = SEBProtectionController.DecryptWithPassword(sebData, password);
+                        // in case we get an error we allow the user to try it again
+                        enterPasswordString = SEBUIStrings.enterEncryptionPasswordAgain;
+                    } while (decryptedSebData == null && i > 0);
+                    if (decryptedSebData == null)
+                    {
+                        //wrong password entered in 5th try: stop reading .seb file
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.decryptingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                        return null;
+                    }
+                }
+            }
+
+            sebData = decryptedSebData;
+            //if decrypting wasn't successfull then stop here
+
+            if (sebData == null)
+            {
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.decryptingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                return null;
+            }
+            // Decryption worked
+            // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+            sebData = GZipByte.Decompress(sebData);
+
+            // If we don't have the dictionary yet from above
+            if (sebPreferencesDict == null)
+            {
+                try
+                {
+                    // Get preferences dictionary from decrypted data
+                    sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
+
+                    // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
+                    SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
+
+                    // Reading preferences was successful!
+                    return sebPreferencesDict;
+                }
+                catch (Exception readPlistException)
+                {
+                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                    Console.WriteLine(readPlistException.Message);
+                    return null;
+                }
+
+            }
+            // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
+            SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient;
+
+            // Reading preferences was successful!
+            return sebPreferencesDict;
         }
 
 
@@ -241,11 +367,7 @@ namespace SebWindowsClient.ConfigurationUtils
     
             X509Certificate2 certificateRef = SEBProtectionController.GetCertificateFromStore(publicKeyHash);
             if (certificateRef == null) {
-                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CERTIFICATE_NOT_FOUND, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-
-                //NSRunAlertPanel(NSLocalizedString(@"Error Decrypting Settings", nil),
-                //                NSLocalizedString(@"The identity needed to decrypt settings has not been found in the keychain!", nil),
-                //                NSLocalizedString(@"OK", nil), nil, nil);
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.certificateNotFoundInStore, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                 return null;
             }
 
