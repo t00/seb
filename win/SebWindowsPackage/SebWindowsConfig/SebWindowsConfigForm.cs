@@ -14,7 +14,6 @@ using System.Xml.Serialization;
 using SebWindowsClient;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ConfigurationUtils;
-using PlistCS;
 
 using ListObj  = System.Collections.Generic.List                <object>;
 using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
@@ -26,6 +25,8 @@ namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
     {
+        string filePassword = null;
+        X509Certificate2 fileCertificateRef = null;
 
         // ***********
         //
@@ -36,6 +37,9 @@ namespace SebWindowsConfig
         public SebWindowsConfigForm()
         {
             InitializeComponent();
+
+            // This is necessary to instanciate the password dialog
+            SEBConfigFileManager.InitSEBConfigFileManager();
 
             // Set all the default values for the Plist structure "SEBSettings.settingsCurrent"
             SEBSettings.RestoreDefaultAndCurrentSettings();
@@ -70,7 +74,13 @@ namespace SebWindowsConfig
         private Boolean LoadConfigurationFileIntoEditor(String fileName)
         {
             // Read the file into "new" settings
-            if (!SEBSettings.ReadSebConfigurationFile(fileName)) return false;
+
+            // In these variables we get back the configuration file password the user entered for decrypting and/or 
+            // the certificate reference found in the config file:
+            // string filePassword
+            // X509Certificate2 fileCertificateRef
+
+            if (!SEBSettings.ReadSebConfigurationFile(fileName, true, ref filePassword, ref fileCertificateRef)) return false;
 
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.xml");
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_LoadConfigurationFile.xml");
