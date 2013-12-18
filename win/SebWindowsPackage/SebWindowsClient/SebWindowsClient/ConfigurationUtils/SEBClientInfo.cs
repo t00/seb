@@ -9,6 +9,7 @@ using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.DesktopUtils;
 using System.Xml.Serialization;
 using SebWindowsClient.CryptographyUtils;
+using System.Security.Cryptography.X509Certificates;
 using PlistCS;
 
 namespace SebWindowsClient.ConfigurationUtils
@@ -273,8 +274,10 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Load encrypted SebClient configuration  
                 SEBProtectionController sebProtectionControler = new SEBProtectionController();
 
+                string outPassword = null;
+                X509Certificate2 outCertificateRef = null;
 
-                if (!SEBSettings.ReadSebConfigurationFile(SebClientConfigFile))
+                if (!SEBSettings.ReadSebConfigurationFile(SebClientConfigFile, false, ref outPassword, ref outCertificateRef))
                     return false;
 
 
