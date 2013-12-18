@@ -88,6 +88,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the SEB administrator password used in these settings:.
+        /// </summary>
+        internal static string enterAdminPasswordRequired {
+            get {
+                return ResourceManager.GetString("enterAdminPasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong Password! Try again to enter the correct SEB administrator password from these settings:.
+        /// </summary>
+        internal static string enterAdminPasswordRequiredAgain {
+            get {
+                return ResourceManager.GetString("enterAdminPasswordRequiredAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):.
         /// </summary>
         internal static string enterCurrentAdminPwdForReconfiguring {

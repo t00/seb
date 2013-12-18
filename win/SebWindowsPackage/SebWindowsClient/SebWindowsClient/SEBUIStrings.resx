@@ -126,6 +126,12 @@
   <data name="decryptingSettingsFailed" xml:space="preserve">
     <value>Cannot decrypt settings!\nYou either entered the wrong password or these settings were saved with an incompatible SEB version.</value>
   </data>
+  <data name="enterAdminPasswordRequired" xml:space="preserve">
+    <value>Enter the SEB administrator password used in these settings:</value>
+  </data>
+  <data name="enterAdminPasswordRequiredAgain" xml:space="preserve">
+    <value>Wrong Password! Try again to enter the correct SEB administrator password from these settings:</value>
+  </data>
   <data name="enterCurrentAdminPwdForReconfiguring" xml:space="preserve">
     <value>You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):</value>
   </data>

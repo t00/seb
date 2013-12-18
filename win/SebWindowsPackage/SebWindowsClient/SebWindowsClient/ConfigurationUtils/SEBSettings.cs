@@ -1186,12 +1186,10 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
 
-                //decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
-
                 SEBSettings.settingsCurrent.Clear();
-                //SEBSettings.settingsCurrent = (DictObj)Plist.readPlistSource(decryptedSettings);
 
                 SEBSettings.settingsCurrent = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings, forEditing, ref filePassword, ref fileCertificateRef);
+                if (SEBSettings.settingsCurrent == null) return false;
             }
             catch (Exception streamReadException)
             {
