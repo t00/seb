@@ -1173,7 +1173,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************************
         // Read the settings from the configuration file
         // *********************************************
-        public static bool ReadSebConfigurationFile(String fileName)
+        public static bool ReadSebConfigurationFile(String fileName, bool forEditing, ref string filePassword, ref X509Certificate2 fileCertificateRef)
         {
             // Recreate the default and current settings
             SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
@@ -1184,15 +1184,14 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Decrypt the configuration settings.
                 // Convert the XML structure into a C# object.
 
-                SEBProtectionController sebProtectionController = new SEBProtectionController();
-
                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
 
                 //decryptedSettings = sebProtectionController.DecryptSebClientSettings(encryptedSettings);
 
                 SEBSettings.settingsCurrent.Clear();
                 //SEBSettings.settingsCurrent = (DictObj)Plist.readPlistSource(decryptedSettings);
-                SEBSettings.settingsCurrent = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings);
+
+                SEBSettings.settingsCurrent = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings, forEditing, ref filePassword, ref fileCertificateRef);
             }
             catch (Exception streamReadException)
             {
