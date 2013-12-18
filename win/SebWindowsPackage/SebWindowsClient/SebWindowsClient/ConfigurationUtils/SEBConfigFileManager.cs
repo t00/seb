@@ -17,6 +17,9 @@ namespace SebWindowsClient.ConfigurationUtils
     public class SEBConfigFileManager
     {
         public static SebPasswordDialogForm sebPasswordDialogForm;
+        static bool settingsForEditing;
+        static string settingsSebFilePassword;
+        static X509Certificate2 settingsSebFileCertificateRef;
 
         // Prefixes
         private const int PREFIX_LENGTH = 4;
@@ -45,14 +48,16 @@ namespace SebWindowsClient.ConfigurationUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Decrypt, parse and store SEB settings
+        /// Decrypt, deserialize and store SEB settings
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         public static bool StoreDecryptedSEBSettings(byte[] sebData)
         {
             DictObj sebPreferencesDict;
+            string outPassword = null;
+            X509Certificate2 outCertificateRef = null;
 
-            sebPreferencesDict = DecryptSEBSettings(sebData);
+            sebPreferencesDict = DecryptSEBSettings(sebData, false, ref outPassword, ref outCertificateRef);
              if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
 
              if ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
@@ -97,11 +102,15 @@ namespace SebWindowsClient.ConfigurationUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Decrypt, parse and save SEB settings
+        /// Decrypt and deserialize SEB settings
+        /// When forEditing = true, then the decrypting password the user entered and/or 
+        /// certificate reference found in the .seb file is returned 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static DictObj DecryptSEBSettings(byte[] sebData)
+        public static DictObj DecryptSEBSettings(byte[] sebData, bool forEditing, ref string sebFilePassword, ref X509Certificate2 sebFileCertificateRef)
         {
+            settingsForEditing = forEditing;
+
             // Ungzip the .seb (according to specification >= v14) source data
             byte[] unzippedSebData = GZipByte.Decompress(sebData);
 
@@ -128,6 +137,9 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (sebData == null) {
                     return null;
                 }
+                // If these settings are being decrypted for editing, we will return the decryption certificate reference
+                if (forEditing) sebFileCertificateRef = settingsSebFileCertificateRef;
+
 
                 // Get 4-char prefix again
                 // and remaining data without prefix, which is either plain or still encoded with password
@@ -141,13 +153,14 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Decrypt with password
                 // if the user enters the right one
                 byte [] sebDataDecrypted = null;
+                string password;
                 // Allow up to 5 attempts for entering decoding password
                 string enterPasswordString = SEBUIStrings.enterPassword;
                 int i = 5;
                 do {
                     i--;
                     // Prompt for password
-                    string password = ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
+                    password = ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
                     if (password == null) return null;
                     //error = nil;
                     sebDataDecrypted = SEBProtectionController.DecryptWithPassword(sebData, password);
@@ -160,6 +173,8 @@ namespace SebWindowsClient.ConfigurationUtils
                     return null;
                 }
                 sebData = sebDataDecrypted;
+                // If these settings are being decrypted for editing, we return the decryption password
+                if (forEditing) sebFilePassword = password;
             } else {
         
                 // Prefix = pwcc ("Password Configuring Client") ?
@@ -168,7 +183,9 @@ namespace SebWindowsClient.ConfigurationUtils
             
                     // Decrypt with password and configure local client settings
                     // and quit afterwards, returning if reading the .seb file was successfull
-                    return DecryptDataWithPasswordAndConfigureClient(sebData);
+                    DictObj sebSettings = DecryptDataWithPasswordAndConfigureClient(sebData);
+                    sebFilePassword = settingsSebFilePassword;
+                    return sebSettings;
             
                 } else {
 
@@ -230,6 +247,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// ----------------------------------------------------------------------------------------
         private static DictObj DecryptDataWithPasswordAndConfigureClient(byte [] sebData)
         {
+            string password = null;
             // First try to decrypt with the current admin password
             // get admin password hash
             //string hashedAdminPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword];
@@ -246,7 +264,9 @@ namespace SebWindowsClient.ConfigurationUtils
                     // Decrypting with empty password worked
                     // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
                     decryptedSebData = GZipByte.Decompress(decryptedSebData);
+
                     // Check if the openend reconfiguring seb file has the same admin password inside like the current one
+                    
                     try
                     {
                         sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
@@ -266,7 +286,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         //allow reconfiguring only if the user enters the right one
                         // Allow up to 5 attempts for entering current admin password
                         int i = 5;
-                        string password = null;
+                        password = null;
                         string hashedPassword;
                         string enterPasswordString = SEBUIStrings.enterCurrentAdminPwdForReconfiguring;
                         bool passwordsMatch;
@@ -300,10 +320,10 @@ namespace SebWindowsClient.ConfigurationUtils
                 }
                 else
                 {
-                    // If decryption with admin password didn't work, ask for the password the .seb file was encrypted with
+                    // If decryption with empty password didn't work, ask for the password the .seb file was encrypted with
                     // Allow up to 5 attempts for entering decoding password
                     int i = 5;
-                    string password = null;
+                    password = null;
                     string enterPasswordString = SEBUIStrings.enterEncryptionPassword;
                     do
                     {
@@ -322,7 +342,17 @@ namespace SebWindowsClient.ConfigurationUtils
                         SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.decryptingSettingsFailed, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                         return null;
                     }
+                    else
+                    {
+                        // Decrypting with entered password worked: We save it for returning it later
+                        if (settingsForEditing) settingsSebFilePassword = password;
+                    }
                 }
+            }
+            else
+            {
+                //decrypting with hashedAdminPassword worked: we save it for returning as decryption password if settings are meant for editing
+                if (settingsForEditing) settingsSebFilePassword = hashedAdminPassword;
             }
 
             sebData = decryptedSebData;
@@ -386,6 +416,8 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.certificateNotFoundInStore, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                 return null;
             }
+            // If these settings are being decrypted for editing, we will return the decryption certificate reference
+            if (settingsForEditing) settingsSebFileCertificateRef = certificateRef;
 
             sebData = SEBProtectionController.DecryptWithCertificate(sebData, certificateRef);
     
