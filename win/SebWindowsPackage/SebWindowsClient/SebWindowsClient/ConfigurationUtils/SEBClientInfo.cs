@@ -272,7 +272,7 @@ namespace SebWindowsClient.ConfigurationUtils
             try
             {
                 // Load encrypted SebClient configuration  
-                SEBProtectionController sebProtectionControler = new SEBProtectionController();
+                //SEBProtectionController sebProtectionControler = new SEBProtectionController();
 
                 string outPassword = null;
                 X509Certificate2 outCertificateRef = null;

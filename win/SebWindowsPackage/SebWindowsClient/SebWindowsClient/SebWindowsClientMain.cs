@@ -140,7 +140,7 @@ namespace SebWindowsClient
             if (!SEBClientInfo.SetSebClientConfiguration())
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                Logger.AddError("Error when opening the file SebClient.seb!", null, null);
+                Logger.AddError("Error when opening the file SebClientSettings.seb!", null, null);
                 return false;
             }
  

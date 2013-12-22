@@ -241,7 +241,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // **********************************
         // Output an error or warning message
         // **********************************
-        public static bool OutputErrorMessageNew(string messageText, int messageKindIndex,
+        public static bool OutputErrorMessageNew(string messageTitle, string messageText, int messageKindIndex, MessageBoxButtons messageButtons,
             string sparam = null, int iparam = -1)
         {
             bool result = false;
@@ -265,18 +265,18 @@ namespace SebWindowsClient.ConfigurationUtils
             }
 
             //logg(fp, "Enter OutputErrorMessage()\n\n");
-            if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_ERROR)
-            {
-                buttons = MessageBoxButtons.OK;
-            }
-            else if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION)
-            {
-                buttons = MessageBoxButtons.YesNo;
-            }
-            else
-            {
-                buttons = MessageBoxButtons.OK;
-            }
+            //if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_ERROR)
+            //{
+            //    buttons = MessageBoxButtons.OK;
+            //}
+            //else if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION)
+            //{
+            //    buttons = MessageBoxButtons.YesNo;
+            //}
+            //else
+            //{
+            //    buttons = MessageBoxButtons.OK;
+            //}
 
 
             caption = messageCaption[_languageIndex, messageKindIndex];
@@ -290,7 +290,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 messageText = messageText.Replace("%d", iparam.ToString());
             }
 
-            if (MessageBox.Show(messageText, caption, buttons, icon) == DialogResult.Yes)
+            if (MessageBox.Show(messageText, messageTitle, messageButtons, icon) == DialogResult.Yes)
                 result = true;
 
             //logg(fp, "Leave OutputErrorMessage()\n\n");

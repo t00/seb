@@ -61,7 +61,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error decrypting settings! The certificate needed to decrypt settings has not been found in the Windows certificate store. .
+        ///   Looks up a localized string similar to The certificate needed to decrypt settings has not been found in the Windows certificate store. .
         /// </summary>
         internal static string certificateNotFoundInStore {
             get {
@@ -79,11 +79,20 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot decrypt settings!\nYou either entered the wrong password or these settings were saved with an incompatible SEB version..
+        ///   Looks up a localized string similar to Cannot decrypt settings.
         /// </summary>
         internal static string decryptingSettingsFailed {
             get {
                 return ResourceManager.GetString("decryptingSettingsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You either entered the wrong password or these settings were saved with an incompatible SEB version..
+        /// </summary>
+        internal static string decryptingSettingsFailedReason {
+            get {
+                return ResourceManager.GetString("decryptingSettingsFailedReason", resourceCulture);
             }
         }
         
@@ -97,7 +106,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong Password! Try again to enter the correct SEB administrator password from these settings:.
+        ///   Looks up a localized string similar to Wrong password! Try again to enter the correct SEB administrator password from these settings:.
         /// </summary>
         internal static string enterAdminPasswordRequiredAgain {
             get {
@@ -115,7 +124,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong Password! Try again to enter the correct current SEB administrator password:.
+        ///   Looks up a localized string similar to Wrong password! Try again to enter the correct current SEB administrator password:.
         /// </summary>
         internal static string enterCurrentAdminPwdForReconfiguringAgain {
             get {
@@ -124,7 +133,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter password used to encrypt .seb file:.
+        ///   Looks up a localized string similar to Enter password used to encrypt these settings:.
         /// </summary>
         internal static string enterEncryptionPassword {
             get {
@@ -133,7 +142,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong Password! Try again to enter the correct password used to encrypt .seb file:.
+        ///   Looks up a localized string similar to Wrong password! Try again to enter the correct password used to encrypt these settings:.
         /// </summary>
         internal static string enterEncryptionPasswordAgain {
             get {
@@ -142,7 +151,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter Password:.
+        ///   Looks up a localized string similar to Enter password:.
         /// </summary>
         internal static string enterPassword {
             get {
@@ -151,11 +160,20 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong Password! Try again to enter the correct password:.
+        ///   Looks up a localized string similar to Wrong password! Try again to enter the correct password:.
         /// </summary>
         internal static string enterPasswordAgain {
             get {
                 return ResourceManager.GetString("enterPasswordAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error decrypting settings.
+        /// </summary>
+        internal static string errorDecryptingSettings {
+            get {
+                return ResourceManager.GetString("errorDecryptingSettings", resourceCulture);
             }
         }
         
@@ -169,11 +187,47 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading settings failed! These settings are corrupted and cannot be used..
+        ///   Looks up a localized string similar to Loading settings failed.
         /// </summary>
         internal static string loadingSettingsFailed {
             get {
                 return ResourceManager.GetString("loadingSettingsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These settings are corrupted and cannot be used..
+        /// </summary>
+        internal static string loadingSettingsFailedReason {
+            get {
+                return ResourceManager.GetString("loadingSettingsFailedReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you don&apos;t enter the right administrator password from these settings you cannot open them..
+        /// </summary>
+        internal static string loadingSettingsFailedWrongAdminPwd {
+            get {
+                return ResourceManager.GetString("loadingSettingsFailedWrongAdminPwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No encryption credentials chosen.
+        /// </summary>
+        internal static string noEncryptionChosen {
+            get {
+                return ResourceManager.GetString("noEncryptionChosen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You should either enter a password or choose a certificate to encrypt the settings file.\n\nDo you really want to save an unencrypted SEB file (not recommended for use in exams)?.
+        /// </summary>
+        internal static string noEncryptionChosenSaveUnencrypted {
+            get {
+                return ResourceManager.GetString("noEncryptionChosenSaveUnencrypted", resourceCulture);
             }
         }
         
@@ -187,11 +241,47 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening new settings failed!\nThese settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted..
+        ///   Looks up a localized string similar to Reconfiguring local settings failed.
+        /// </summary>
+        internal static string reconfiguringLocalSettingsFailed {
+            get {
+                return ResourceManager.GetString("reconfiguringLocalSettingsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you don&apos;t enter the right administrator password from these settings you cannot use them..
+        /// </summary>
+        internal static string reconfiguringLocalSettingsFailedWrongAdminPwd {
+            get {
+                return ResourceManager.GetString("reconfiguringLocalSettingsFailedWrongAdminPwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you don&apos;t enter the correct password these settings were encrypted with, you cannot use them..
+        /// </summary>
+        internal static string reconfiguringLocalSettingsFailedWrongPassword {
+            get {
+                return ResourceManager.GetString("reconfiguringLocalSettingsFailedWrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening new settings failed.
         /// </summary>
         internal static string settingsNotUsable {
             get {
                 return ResourceManager.GetString("settingsNotUsable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted..
+        /// </summary>
+        internal static string settingsNotUsableReason {
+            get {
+                return ResourceManager.GetString("settingsNotUsableReason", resourceCulture);
             }
         }
     }
