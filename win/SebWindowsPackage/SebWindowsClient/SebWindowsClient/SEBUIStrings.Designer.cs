@@ -70,11 +70,20 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to quit SEB?.
+        ///   Looks up a localized string similar to Quit Safe Exam Browser.
         /// </summary>
         internal static string confirmQuitting {
             get {
                 return ResourceManager.GetString("confirmQuitting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to quit SEB?.
+        /// </summary>
+        internal static string confirmQuittingQuestion {
+            get {
+                return ResourceManager.GetString("confirmQuittingQuestion", resourceCulture);
             }
         }
         

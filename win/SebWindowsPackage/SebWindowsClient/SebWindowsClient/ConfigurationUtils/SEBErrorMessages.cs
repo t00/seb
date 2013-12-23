@@ -278,9 +278,6 @@ namespace SebWindowsClient.ConfigurationUtils
             //    buttons = MessageBoxButtons.OK;
             //}
 
-
-            caption = messageCaption[_languageIndex, messageKindIndex];
-
             if (sparam != null)
             {
                 messageText = messageText.Replace("%s", sparam);

@@ -128,8 +128,12 @@ namespace SebWindowsConfig
         // ********************************************************
         private Boolean SaveConfigurationFileFromEditor(String fileName)
         {
+            string filePassword = null; // "seb";
+            X509Certificate2 fileCertificateRef = null;
+            SEBSettings.sebConfigPurposes configPurpose = SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
+
             // Write the "new" settings to file
-            if (!SEBSettings.WriteSebConfigurationFile(fileName)) return false;
+            if (!SEBSettings.WriteSebConfigurationFile(fileName, filePassword, fileCertificateRef, configPurpose)) return false;
 
             // If the settings could be written to file, update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);

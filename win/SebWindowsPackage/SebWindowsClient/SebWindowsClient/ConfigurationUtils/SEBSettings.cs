@@ -1227,35 +1227,16 @@ namespace SebWindowsClient.ConfigurationUtils
         // ********************************************************
         // Write the settings to the configuration file and save it
         // ********************************************************
-        public static bool WriteSebConfigurationFile(String fileName)
+        public static bool WriteSebConfigurationFile(String fileName, string filePassword, X509Certificate2 fileCertificateRef, SEBSettings.sebConfigPurposes configPurpose)
         {
             try 
             {
-                // Convert the C# object into an XML structure.
-                // Encrypt the configuration settings.
+                // Convert the C# settings dictionary object into an XML structure.
+                // Encrypt the configuration settings depending on passed credentials
                 // Write the configuration settings into .seb file.
 
-                SEBProtectionController sebProtectionController = new SEBProtectionController();
-
-                byte[] encryptedSettings;
-                String decryptedSettings = "";
-
-                String password              = "seb";
-                X509Certificate2 certificate = null;
-
-                if (false)
-                {
-                    decryptedSettings = Plist.writeXml(SEBSettings.settingsCurrent);
-                    encryptedSettings = sebProtectionController.EncryptWithPassword   (decryptedSettings, password);
-                    encryptedSettings = sebProtectionController.EncryptWithCertificate(decryptedSettings, certificate);
-
-                    File.WriteAllBytes(fileName, encryptedSettings);
-                }
-                else // unencrypted .xml file
-                {
-                    Plist.writeXml(SEBSettings.settingsCurrent, fileName);
-                  //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_SaveConfigurationFile.xml");
-                }
+                byte [] encryptedSettings = SEBConfigFileManager.EncryptSEBSettingsWithCredentials(filePassword, fileCertificateRef, configPurpose);
+                File.WriteAllBytes(fileName, encryptedSettings);
             }
             catch (Exception streamWriteException) 
             {
@@ -1264,11 +1245,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 Console.WriteLine(streamWriteException.Message);
                 return false;
             }
-
             return true;
         }
-
-
-
     }
 }

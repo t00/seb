@@ -121,6 +121,9 @@
     <value>The certificate needed to decrypt settings has not been found in the Windows certificate store. </value>
   </data>
   <data name="confirmQuitting" xml:space="preserve">
+    <value>Quit Safe Exam Browser</value>
+  </data>
+  <data name="confirmQuittingQuestion" xml:space="preserve">
     <value>Are you sure you want to quit SEB?</value>
   </data>
   <data name="decryptingSettingsFailed" xml:space="preserve">

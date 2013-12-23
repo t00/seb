@@ -659,7 +659,7 @@ namespace SebWindowsClient
                 if (String.IsNullOrEmpty(hashedQuitPassword) == true)
                     // If there is no quit password set, we just ask user to confirm quitting
                 {
-                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION))
+                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
                     {
                         SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         Application.Exit();

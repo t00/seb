@@ -159,7 +159,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     password = ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
                     if (password == null) return null;
                     //error = nil;
-                    sebDataDecrypted = SEBProtectionController.DecryptWithPassword(sebData, password);
+                    sebDataDecrypted = SEBProtectionController.DecryptDataWithPassword(sebData, password);
                     enterPasswordString = SEBUIStrings.enterPasswordAgain;
                     // in case we get an error we allow the user to try it again
                 } while ((sebDataDecrypted == null) && i>0);
@@ -286,11 +286,11 @@ namespace SebWindowsClient.ConfigurationUtils
             string hashedAdminPassword = (string)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedAdminPassword)[SEBSettings.KeyHashedAdminPassword];
             //if (!hashedAdminPassword) hashedAdminPassword = @"";
             DictObj sebPreferencesDict = null;
-            byte[] decryptedSebData = SEBProtectionController.DecryptWithPassword(sebData, hashedAdminPassword);
+            byte[] decryptedSebData = SEBProtectionController.DecryptDataWithPassword(sebData, hashedAdminPassword);
             if (decryptedSebData == null)
             {
                 // If decryption with admin password didn't work, try it with an empty password
-                decryptedSebData = SEBProtectionController.DecryptWithPassword(sebData, "");
+                decryptedSebData = SEBProtectionController.DecryptDataWithPassword(sebData, "");
                 if (decryptedSebData != null)
                 {
                     // Decrypting with empty password worked
@@ -365,7 +365,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         password = ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
                         // If cancel was pressed, abort
                         if (password == null) return null;
-                        decryptedSebData = SEBProtectionController.DecryptWithPassword(sebData, password);
+                        decryptedSebData = SEBProtectionController.DecryptDataWithPassword(sebData, password);
                         // in case we get an error we allow the user to try it again
                         enterPasswordString = SEBUIStrings.enterEncryptionPasswordAgain;
                     } while (decryptedSebData == null && i > 0);
@@ -478,7 +478,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // If these settings are being decrypted for editing, we will return the decryption certificate reference
             if (forEditing) sebFileCertificateRef = certificateRef;
 
-            sebData = SEBProtectionController.DecryptWithCertificate(sebData, certificateRef);
+            sebData = SEBProtectionController.DecryptDataWithCertificate(sebData, certificateRef);
     
             return sebData;
         }
@@ -544,126 +544,147 @@ namespace SebWindowsClient.ConfigurationUtils
             }
         }
 
-        /*
-                /// Generate Encrypted .seb Settings Data
+        /// Generate Encrypted .seb Settings Data
 
-                /// ----------------------------------------------------------------------------------------
-                /// <summary>
-                /// Read SEB settings from UserDefaults and encrypt them using provided security credentials
-                /// </summary>
-                /// ----------------------------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Read SEB settings from UserDefaults and encrypt them using provided security credentials
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
 
-                public static byte[] EncryptSEBSettingsWithPassword(string settingsPassword, X509Certificate2 certificateRef, SEBSettings.sebConfigPurposes configPurpose)
-                {
+        public static byte[] EncryptSEBSettingsWithCredentials(string settingsPassword, X509Certificate2 certificateRef, SEBSettings.sebConfigPurposes configPurpose)
+        {
 
-                    // Serialize preferences dictionary to an XML string
+            // Serialize preferences dictionary to an XML string
             string sebXML = Plist.writeXml(SEBSettings.settingsCurrent);
-    
+
             byte[] encryptedSebData = Encoding.UTF8.GetBytes(sebXML);
-    
+
             string encryptingPassword = null;
-    
+
             // Check for special case: .seb configures client, empty password
-            if (String.IsNullOrEmpty(settingsPassword) && configPurpose == SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient) {
-                encryptingPassword = @"";
-            } else {
+            if (String.IsNullOrEmpty(settingsPassword) && configPurpose == SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient)
+            {
+                encryptingPassword = "";
+            }
+            else
+            {
                 // in all other cases:
                 // Check if no password entered and no identity selected
-                if (String.IsNullOrEmpty(settingsPassword) && certificateRef == null) {
-                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel)) {
-                            // OK: save .seb config data unencrypted
-                            return encryptedSebData;
-                    } else {
+                if (String.IsNullOrEmpty(settingsPassword) && certificateRef == null)
+                {
+                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
+                    {
+                        // OK: save .seb config data unencrypted
+                        return encryptedSebData;
+                    }
+                    else
+                    {
                         return null;
                     }
                 }
             }
             // gzip the serialized XML data
             encryptedSebData = GZipByte.Compress(encryptedSebData);
-    
-            // Check if password for encryption is entered
-            if (String.IsNullOrEmpty(settingsPassword)) {
+
+            // Check if password for encryption is provided and use it then
+            if (!String.IsNullOrEmpty(settingsPassword))
+            {
                 encryptingPassword = settingsPassword;
             }
-            // So if password is empty (special case) or entered
-            if (String.IsNullOrEmpty(encryptingPassword)) {
+            // So if password is empty (special case) or provided
+            if (!String.IsNullOrEmpty(encryptingPassword))
+            {
                 // encrypt with password
-                encryptedSebData = EncryptDataWithPassword(encryptedSebData, encryptingPassword, configPurpose);
-            } else {
-                // if no encryption with password: add a spare 4-char prefix identifying plain data
-                string prefixString = "plnd";
-                byte[] encryptedData = Encoding.UTF8.GetBytes(prefixString);
-                //append plain data
-                [encryptedData appendData:encryptedSebData];
-                encryptedSebData = [NSData dataWithData:encryptedData];
+                encryptedSebData = EncryptDataUsingPassword(encryptedSebData, encryptingPassword, configPurpose);
+            }
+            else
+            {
+                // Create byte array large enough to hold prefix and data
+                byte[] encryptedData = new byte [encryptedSebData.Length + PREFIX_LENGTH];
+ 
+                // if no encryption with password: Add a 4-char prefix identifying plain data
+                string prefixString = PLAIN_DATA_MODE;
+                Buffer.BlockCopy(Encoding.UTF8.GetBytes(prefixString), 0, encryptedData, 0, PREFIX_LENGTH);
+                // append plain data
+                Buffer.BlockCopy(encryptedSebData, 0, encryptedData, PREFIX_LENGTH, encryptedSebData.Length);
+                encryptedSebData = (byte[])encryptedData.Clone();
             }
             // Check if cryptographic identity for encryption is selected
-            if (identityRef) {
+            if (certificateRef != null)
+            {
                 // Encrypt preferences using a cryptographic identity
-                encryptedSebData = [self encryptData:encryptedSebData usingIdentity:identityRef];
+                encryptedSebData = EncryptDataUsingIdentity(encryptedSebData, certificateRef);
             }
-    
+
             // gzip the encrypted data
-            encryptedSebData = [encryptedSebData gzipDeflate];
-    
+            encryptedSebData = GZipByte.Compress(encryptedSebData);
+
             return encryptedSebData;
         }
 
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Encrypt preferences using a certificate
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
 
-        // Encrypt preferences using a certificate
-        -(NSData *) encryptData:(NSData *) data usingIdentity:(SecIdentityRef) identityRef
+        public static byte[] EncryptDataUsingIdentity(byte[] data, X509Certificate2 certificateRef)
         {
-            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    
-            //get certificate from selected identity
-            SecCertificateRef certificateRef = [keychainManager getCertificateFromIdentity:identityRef];
-    
             //get public key hash from selected identity's certificate
-            NSData* publicKeyHash = [keychainManager getPublicKeyHashFromCertificate:certificateRef];
-    
+            byte[] publicKeyHash = SEBProtectionController.GetPublicKeyHashFromCertificate(certificateRef);
+
             //encrypt data using public key
-            NSData *encryptedData = [keychainManager encryptData:data withPublicKeyFromCertificate:certificateRef];
-    
-            //Prefix indicating data has been encrypted with a public key identified by hash
-            NSString *prefixString = @"pkhs";
-            NSMutableData *encryptedSebData = [NSMutableData dataWithData:[prefixString dataUsingEncoding:NSUTF8StringEncoding]];
-            //append public key hash
-            [encryptedSebData appendData:publicKeyHash];
-            //append encrypted data
-            [encryptedSebData appendData:encryptedData];
-    
+            byte[] encryptedData = SEBProtectionController.EncryptDataWithCertificate(data, certificateRef);
+
+            // Create byte array large enough to hold prefix, public key hash and encrypted data
+            byte[] encryptedSebData = new byte[encryptedData.Length + PREFIX_LENGTH + publicKeyHash.Length];
+            // Copy prefix indicating data has been encrypted with a public key identified by hash into out data
+            string prefixString = PUBLIC_KEY_HASH_MODE;
+            Buffer.BlockCopy(Encoding.UTF8.GetBytes(prefixString), 0, encryptedSebData, 0, PREFIX_LENGTH);
+            // Copy public key hash to out data
+            Buffer.BlockCopy(publicKeyHash, 0, encryptedSebData, PREFIX_LENGTH, publicKeyHash.Length);
+            // Copy encrypted data to out data
+            Buffer.BlockCopy(encryptedData, 0, encryptedSebData, PREFIX_LENGTH + publicKeyHash.Length, encryptedData.Length);
+
             return encryptedSebData;
         }
 
 
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Encrypt preferences using a password
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
         // Encrypt preferences using a password
-        - (NSData*) encryptData:(NSData*)data usingPassword:password forPurpose:(sebConfigPurposes)configPurpose {
-            const char *utfString;
+        public static byte[] EncryptDataUsingPassword(byte[] data, string password, SEBSettings.sebConfigPurposes configPurpose)
+        {
+            string prefixString;
             // Check if .seb file should start exam or configure client
-            if (configPurpose == sebConfigPurposeStartingExam) {
+            if (configPurpose == SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
+            {
                 // prefix string for starting exam: normal password will be prompted
-                utfString = [@"pswd" UTF8String];
-            } else {
+                prefixString = PASSWORD_MODE;
+            }
+            else
+            {
                 // prefix string for configuring client: configuring password will either be hashed admin pw on client
                 // or if no admin pw on client set: empty pw //(((or prompt pw before configuring)))
-                utfString = [@"pwcc" UTF8String];
-                if (![password isEqualToString:@""]) {
+                prefixString = PASSWORD_CONFIGURING_CLIENT_MODE;
+                if (!String.IsNullOrEmpty(password))
+                {
                     //empty password means no admin pw on clients and should not be hashed
-                    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                    password = [keychainManager generateSHAHashString:password];
+                    password = SEBProtectionController.ComputePasswordHash(password);
                 }
             }
-            NSMutableData *encryptedSebData = [NSMutableData dataWithBytes:utfString length:4];
-            NSError *error;
-            NSData *encryptedData = [RNEncryptor encryptData:data
-                                                withSettings:kRNCryptorAES256Settings
-                                                    password:password
-                                                       error:&error];;
-            [encryptedSebData appendData:encryptedData];
-    
+            byte[] encryptedData = SEBProtectionController.EncryptDataWithPassword(data, password);
+            // Create byte array large enough to hold prefix and data
+            byte[] encryptedSebData = new byte[encryptedData.Length + PREFIX_LENGTH];
+            Buffer.BlockCopy(Encoding.UTF8.GetBytes(prefixString), 0, encryptedSebData, 0, PREFIX_LENGTH);
+            Buffer.BlockCopy(encryptedData, 0, encryptedSebData, PREFIX_LENGTH, encryptedData.Length);
+
             return encryptedSebData;
         }
-        */
 
     }
 
