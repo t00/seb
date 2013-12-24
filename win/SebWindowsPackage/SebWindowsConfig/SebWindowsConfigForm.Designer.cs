@@ -2527,7 +2527,7 @@
             this.checkBoxCopyBrowserExamKey.Text = "Copy Browser Exam Key to clipboard when quitting SEB Windows Configuration Editor" +
     "";
             this.checkBoxCopyBrowserExamKey.UseVisualStyleBackColor = true;
-            this.checkBoxCopyBrowserExamKey.CheckedChanged += new System.EventHandler(this.checkBoxCopyBrowserExamKey_CheckedChanged);
+            //this.checkBoxCopyBrowserExamKey.CheckedChanged += new System.EventHandler(this.checkBoxCopyBrowserExamKey_CheckedChanged);
             // 
             // tabPageDownUploads
             // 

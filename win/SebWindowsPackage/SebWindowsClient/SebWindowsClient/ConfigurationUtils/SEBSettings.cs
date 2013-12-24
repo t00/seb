@@ -48,13 +48,9 @@ namespace SebWindowsClient.ConfigurationUtils
         // Group "General"
         public const String KeyStartURL             = "startURL";
         public const String KeySebServerURL         = "sebServerURL";
-        public const String KeyAdminPassword        = "adminPassword";
-        public const String KeyConfirmAdminPassword = "confirmAdminPassword";
         public const String KeyHashedAdminPassword  = "hashedAdminPassword";
         public const String KeyAllowQuit            = "allowQuit";
         public const String KeyIgnoreQuitPassword   = "ignoreQuitPassword";
-        public const String KeyQuitPassword         = "quitPassword";
-        public const String KeyConfirmQuitPassword  = "confirmQuitPassword";
         public const String KeyHashedQuitPassword   = "hashedQuitPassword";
         public const String KeyExitKey1             = "exitKey1";
         public const String KeyExitKey2             = "exitKey2";
@@ -106,7 +102,6 @@ namespace SebWindowsClient.ConfigurationUtils
         // Group "Exam"
         public const String KeyExamKeySalt        = "examKeySalt";
         public const String KeyBrowserExamKey     = "browserExamKey";
-        public const String KeyCopyBrowserExamKey = "copyBrowserExamKeyToClipboardWhenQuitting";
         public const String KeySendBrowserExamKey = "sendBrowserExamKey";
         public const String KeyQuitURL            = "quitURL";
 
@@ -423,13 +418,9 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "General"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyStartURL            , "http://www.safeexambrowser.org");
             SEBSettings.settingsDefault.Add(SEBSettings.KeySebServerURL        , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyAdminPassword       , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyConfirmAdminPassword, "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedAdminPassword , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowQuit           , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreQuitPassword  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyQuitPassword        , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyConfirmQuitPassword , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedQuitPassword  , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey1,  2);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey2, 10);
@@ -439,8 +430,6 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "Config File"
             SEBSettings.settingsDefault.Add(SEBSettings.KeySebConfigPurpose       , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowPreferencesWindow , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeySettingsPassword       , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyConfirmSettingsPassword, "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
@@ -497,7 +486,6 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "Exam"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExamKeySalt       , new Byte[] {});
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserExamKey    , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyCopyBrowserExamKey, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeySendBrowserExamKey, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyQuitURL           , "");
 
@@ -901,10 +889,9 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Add potentially missing keys to current Main Dictionary
             foreach (KeyValue p in SEBSettings.settingsDefault)
-                               if (SEBSettings.settingsCurrent.ContainsKey(p.Key) == false)
-                                   SEBSettings.settingsCurrent.Add        (p.Key, p.Value);
-
-
+                if (SEBSettings.settingsCurrent.ContainsKey(p.Key) == false) {
+                    SEBSettings.settingsCurrent.Add(p.Key, p.Value);
+                }
 
             // Get the Permitted Process List
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyPermittedProcesses];
@@ -931,7 +918,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
                     // Add potentially missing keys to current Argument Dictionary
                     foreach (KeyValue p in SEBSettings.permittedArgumentDataDefault)
-                                       if (SEBSettings.permittedArgumentData.ContainsKey(p.Key) == false)
+                        if (SEBSettings.permittedArgumentData.ContainsKey(p.Key) == false && p.Value != "")
                                            SEBSettings.permittedArgumentData.Add        (p.Key, p.Value);
 
                 } // next sublistIndex
@@ -950,7 +937,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 // Add potentially missing keys to current Process Dictionary
                 foreach (KeyValue p in SEBSettings.prohibitedProcessDataDefault)
-                                   if (SEBSettings.prohibitedProcessData.ContainsKey(p.Key) == false)
+                    if (SEBSettings.prohibitedProcessData.ContainsKey(p.Key) == false)
                                        SEBSettings.prohibitedProcessData.Add        (p.Key, p.Value);
 
             } // next listIndex
@@ -1031,6 +1018,196 @@ namespace SebWindowsClient.ConfigurationUtils
         }
 
 
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Return a settings dictionary with removed empty ListObj and DictObj elements 
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static DictObj CleanSettingsDictionary()
+        {
+            DictObj cleanSettings = new DictObj();
+
+            // Add key/values to the clear dictionary if they're not an empty array (ListObj) or empty dictionary (DictObj)
+            foreach (KeyValue p in SEBSettings.settingsDefault)
+                if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+                    cleanSettings.Add(p.Key, p.Value);
+
+
+
+            // Get the Permitted Process List
+            ListObj permittedProcessList = (ListObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyPermittedProcesses);
+            if (permittedProcessList != null)
+            {
+                // Traverse Permitted Processes of currently opened file
+                for (int listIndex = 0; listIndex < permittedProcessList.Count; listIndex++)
+                {
+                    // Get the Permitted Process Data
+                    DictObj permittedProcessData = (DictObj)permittedProcessList[listIndex];
+                    if (permittedProcessData != null)
+                    {
+                        // Add potentially missing keys to current Process Dictionary
+                        foreach (KeyValue p in permittedProcessDataDefault)
+                            if (permittedProcessData.ContainsKey(p.Key) == false && !(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+                                permittedProcessData.Add(p.Key, p.Value);
+
+                        // Get the Permitted Argument List
+                        ListObj permittedArgumentList = (ListObj)valueForDictionaryKey(permittedProcessData, SEBSettings.KeyArguments);
+                        if (permittedArgumentList != null)
+                        {
+                            // Traverse Arguments of current Process
+                            for (int sublistIndex = 0; sublistIndex < permittedArgumentList.Count; sublistIndex++)
+                            {
+                                // Get the Permitted Argument Data
+                                DictObj permittedArgumentData = (DictObj)permittedArgumentList[sublistIndex];
+
+                                // Add potentially missing keys to current Argument Dictionary
+                                foreach (KeyValue p in permittedArgumentDataDefault)
+                                    if (permittedArgumentData.ContainsKey(p.Key) == false && p.Value != "")
+                                        permittedArgumentData.Add(p.Key, p.Value);
+
+                            } // next sublistIndex
+                        }
+                    }
+                } // next listIndex
+            }
+
+            // Get the Prohibited Process List
+            ListObj prohibitedProcessList = (ListObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyProhibitedProcesses);
+            if (prohibitedProcessList != null)
+            {
+                // Traverse Prohibited Processes of currently opened file
+                for (int listIndex = 0; listIndex < prohibitedProcessList.Count; listIndex++)
+                {
+                    // Get the Prohibited Process Data
+                    DictObj prohibitedProcessData = (DictObj)prohibitedProcessList[listIndex];
+
+                    // Add potentially missing keys to current Process Dictionary
+                    foreach (KeyValue p in prohibitedProcessDataDefault)
+                        if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+                            prohibitedProcessData.Add(p.Key, p.Value);
+
+                } // next listIndex
+            }
+
+            // Get the Embedded Certificate List
+            ListObj embeddedCertificateList = (ListObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyEmbeddedCertificates);
+            if (embeddedCertificateList != null)
+            {
+                // Traverse Embedded Certificates of currently opened file
+                for (int listIndex = 0; listIndex < embeddedCertificateList.Count; listIndex++)
+                {
+                    // Get the Embedded Certificate Data
+                    DictObj embeddedCertificateData = (DictObj)embeddedCertificateList[listIndex];
+
+                    // Add potentially missing keys to current Certificate Dictionary
+                    foreach (KeyValue p in embeddedCertificateDataDefault)
+                        if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+                            embeddedCertificateData.Add(p.Key, p.Value);
+
+                } // next listIndex
+            }
+
+            // Get the URL Filter Rule List
+            ListObj urlFilterRuleList = (ListObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyURLFilterRules);
+            if (urlFilterRuleList != null)
+            {
+                // Traverse URL Filter Rules of currently opened file
+                for (int listIndex = 0; listIndex < urlFilterRuleList.Count; listIndex++)
+                {
+                    // Get the URL Filter Rule Data
+                    DictObj urlFilterRuleData = (DictObj)urlFilterRuleList[listIndex];
+
+                    // Add potentially missing keys to current Rule Dictionary
+                    foreach (KeyValue p in urlFilterRuleDataDefault)
+                        if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+                            urlFilterRuleData.Add(p.Key, p.Value);
+
+                    // Get the URL Filter Action List
+                    ListObj urlFilterActionList = (ListObj)valueForDictionaryKey(urlFilterRuleData, SEBSettings.KeyRuleActions);
+                    if (urlFilterActionList != null)
+                    {
+                        // Traverse Actions of current Rule
+                        for (int sublistIndex = 0; sublistIndex < urlFilterActionList.Count; sublistIndex++)
+                        {
+                            // Get the URL Filter Action Data
+                            DictObj urlFilterActionData = (DictObj)urlFilterActionList[sublistIndex];
+
+                            // Add potentially missing keys to current Action Dictionary
+                            foreach (KeyValue p in urlFilterActionDataDefault)
+                                if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+                                    urlFilterActionData.Add(p.Key, p.Value);
+
+                        } // next sublistIndex
+                    }
+                } // next listIndex
+            }
+
+            // Get the Proxies Dictionary
+            DictObj proxiesData = (DictObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyProxies);
+            if (proxiesData != null)
+            {
+                // Add potentially missing keys to current Proxies Dictionary
+                foreach (KeyValue p in proxiesDataDefault)
+                    if (proxiesData.ContainsKey(p.Key) == false && !(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+                        proxiesData.Add(p.Key, p.Value);
+
+                // Get the Bypassed Proxy List
+                ListObj bypassedProxyList = (ListObj)valueForDictionaryKey(proxiesData, SEBSettings.KeyExceptionsList);
+                if (bypassedProxyList != null)
+                {
+                    if (bypassedProxyList.Count == 0)
+                    {
+                        //proxiesData.Remove(SEBSettings.KeyExceptionsList);
+                    }
+                    else
+                    {
+                        // Traverse Bypassed Proxies of currently opened file
+                        for (int listIndex = 0; listIndex < bypassedProxyList.Count; listIndex++)
+                        {
+                            if ((String)bypassedProxyList[listIndex] == "")
+                                bypassedProxyList[listIndex] = bypassedProxyDataDefault;
+                        } // next listIndex
+                    }
+                }
+            }
+
+            return cleanSettings;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Read the value for a key from a dictionary and 
+        /// return null for the value if the key doesn't exist 
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static object valueForDictionaryKey(DictObj dictionary, string key)
+        {
+            if (dictionary.ContainsKey(key))
+            {
+                return dictionary[key];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Clone a dictionary 
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static Dictionary<TKey, TValue> CloneDictionaryCloningValues<TKey, TValue>(Dictionary<TKey, TValue> original) where TValue : ICloneable
+        {
+            Dictionary<TKey, TValue> ret = new Dictionary<TKey, TValue>(original.Count, original.Comparer);
+            foreach (KeyValuePair<TKey, TValue> entry in original)
+            {
+                ret.Add(entry.Key, (TValue)entry.Value.Clone());
+            }
+            return ret;
+        }
 
         // **********************************************
         // Add XulRunnerProcess to Permitted Process List

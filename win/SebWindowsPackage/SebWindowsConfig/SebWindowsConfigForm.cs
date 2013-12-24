@@ -271,13 +271,9 @@ namespace SebWindowsConfig
             // Group "General"
             textBoxStartURL            .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyStartURL];
             textBoxSebServerURL        .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeySebServerURL];
-          //textBoxAdminPassword       .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyAdminPassword];
-          //textBoxConfirmAdminPassword.Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyConfirmAdminPassword];
             textBoxHashedAdminPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword];
             checkBoxAllowQuit         .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit];
             checkBoxIgnoreQuitPassword.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyIgnoreQuitPassword];
-          //textBoxQuitPassword        .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyQuitPassword];
-          //textBoxConfirmQuitPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyConfirmQuitPassword];
             textBoxHashedQuitPassword  .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
             listBoxExitKey1.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey1];
             listBoxExitKey2.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey2];
@@ -288,8 +284,7 @@ namespace SebWindowsConfig
             radioButtonConfiguringAClient .Checked =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowPreferencesWindow];
             comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.intArrayCurrent[SEBSettings.ValCryptoIdentity];
-             textBoxSettingsPassword       .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeySettingsPassword];
-           //textBoxConfirmSettingsPassword.Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyConfirmSettingsPassword];
+             //textBoxSettingsPassword       .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeySettingsPassword];
            //textBoxHashedSettingsPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedSettingsPassword];
 
             // Group "Appearance"
@@ -332,7 +327,6 @@ namespace SebWindowsConfig
             // Group "Exam"
            //textBoxBrowserExamKey    .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserExamKey];
              textBoxQuitURL           .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyQuitURL];
-            checkBoxCopyBrowserExamKey.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyCopyBrowserExamKey];
             checkBoxSendBrowserExamKey.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeySendBrowserExamKey];
 
             // Group "Applications"
@@ -575,12 +569,12 @@ namespace SebWindowsConfig
 
         private void textBoxAdminPassword_TextChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyAdminPassword] = textBoxAdminPassword.Text;
+            //SEBSettings.settingsCurrent[SEBSettings.KeyAdminPassword] = textBoxAdminPassword.Text;
         }
 
         private void textBoxConfirmAdminPassword_TextChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyConfirmAdminPassword] = textBoxConfirmAdminPassword.Text;
+            //SEBSettings.settingsCurrent[SEBSettings.KeyConfirmAdminPassword] = textBoxConfirmAdminPassword.Text;
         }
 
         private void checkBoxAllowQuit_CheckedChanged(object sender, EventArgs e)
@@ -613,14 +607,14 @@ namespace SebWindowsConfig
 
             textBoxHashedQuitPassword.Text = newStringQuitHashcode;
 
-            SEBSettings.settingsCurrent[SEBSettings.KeyQuitPassword      ] = newStringQuitPassword;
-            SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword] = newStringQuitHashcode;
+            //SEBSettings.settingsCurrent[SEBSettings.KeyQuitPassword      ] = newStringQuitPassword;
+            //SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword] = newStringQuitHashcode;
         }
 
 
         private void textBoxConfirmQuitPassword_TextChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyConfirmQuitPassword] = textBoxConfirmQuitPassword.Text;
+            //SEBSettings.settingsCurrent[SEBSettings.KeyConfirmQuitPassword] = textBoxConfirmQuitPassword.Text;
         }
 
         private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1023,11 +1017,6 @@ namespace SebWindowsConfig
         private void textBoxBrowserExamKey_TextChanged(object sender, EventArgs e)
         {
           //SEBSettings.settingsCurrent[SEBSettings.KeyBrowserExamKey] = textBoxBrowserExamKey.Text;
-        }
-
-        private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyCopyBrowserExamKey] = checkBoxCopyBrowserExamKey.Checked;
         }
 
         private void checkBoxSendBrowserExamKey_CheckedChanged(object sender, EventArgs e)

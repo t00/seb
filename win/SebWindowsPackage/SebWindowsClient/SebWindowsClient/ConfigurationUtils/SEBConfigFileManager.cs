@@ -554,11 +554,16 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public static byte[] EncryptSEBSettingsWithCredentials(string settingsPassword, X509Certificate2 certificateRef, SEBSettings.sebConfigPurposes configPurpose)
         {
+            // Get current settings dictionary and clean it from empty arrays and dictionaries
+            //DictObj cleanedCurrentSettings = SEBSettings.CleanSettingsDictionary();
 
             // Serialize preferences dictionary to an XML string
             string sebXML = Plist.writeXml(SEBSettings.settingsCurrent);
+            string cleanedSebXML = sebXML.Replace("<array />", "<array></array>");
+            cleanedSebXML = cleanedSebXML.Replace("<dict />", "<dict></dict>");
+            cleanedSebXML = cleanedSebXML.Replace("<data />", "<data></data>");
 
-            byte[] encryptedSebData = Encoding.UTF8.GetBytes(sebXML);
+            byte[] encryptedSebData = Encoding.UTF8.GetBytes(cleanedSebXML);
 
             string encryptingPassword = null;
 
