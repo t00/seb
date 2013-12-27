@@ -136,7 +136,6 @@ namespace SebWindowsClient.ConfigurationUtils
                 // in the variable which was passed as reference when calling this method
                 //if (forEditing) sebFileCertificateRef = settingsSebFileCertificateRef;
 
-
                 // Get 4-char prefix again
                 // and remaining data without prefix, which is either plain or still encoded with password
                 prefixString = GetPrefixStringFromData(ref sebData);
@@ -222,15 +221,15 @@ namespace SebWindowsClient.ConfigurationUtils
                 Console.WriteLine(readPlistException.Message);
                 return null;
             }
-            // In editing mode, the user has to enter the right SEB administrator password before he can access the settings contents
+            // In editing mode, the user has to enter the right SEB administrator password used in those settings before he can access their contents
             if (forEditing)
             {
-                //string sebFileHashedAdminPassword = (string)sebPreferencesDict[SEBSettings.KeyHashedAdminPassword];
-                string sebFileHashedAdminPassword = (string)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedAdminPassword)[SEBSettings.KeyHashedAdminPassword];
+                string sebFileHashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(sebPreferencesDict, SEBSettings.KeyHashedAdminPassword);
+                // If there was no admin password set in these settings, the user can access them anyways
                 if (!String.IsNullOrEmpty(sebFileHashedAdminPassword))
                 {
-                    // We have to ask for the current SEB administrator password and
-                    // allow opening settings only if the user enters the right one
+                    // We have to ask for the SEB administrator password used in the settings 
+                    // and allow opening settings only if the user enters the right one
                     // Allow up to 5 attempts for entering  admin password
                     int i = 5;
                     string password = null;
@@ -282,7 +281,6 @@ namespace SebWindowsClient.ConfigurationUtils
             string password = null;
             // First try to decrypt with the current admin password
             // get admin password hash
-            //string hashedAdminPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword];
             string hashedAdminPassword = (string)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedAdminPassword)[SEBSettings.KeyHashedAdminPassword];
             //if (!hashedAdminPassword) hashedAdminPassword = @"";
             DictObj sebPreferencesDict = null;
@@ -310,8 +308,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         Console.WriteLine(readPlistException.Message);
                         return null;
                     }
-                    //string sebFileHashedAdminPassword = (string)sebPreferencesDict[SEBSettings.KeyHashedAdminPassword];
-                    string sebFileHashedAdminPassword = (string)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedAdminPassword)[SEBSettings.KeyHashedAdminPassword];
+                    string sebFileHashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(sebPreferencesDict, SEBSettings.KeyHashedAdminPassword);
                     if (String.Compare(hashedAdminPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) != 0)
                     {
                         //No: The admin password inside the .seb file wasn't the same like the current one
