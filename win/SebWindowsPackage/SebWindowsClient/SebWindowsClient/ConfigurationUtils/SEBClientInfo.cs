@@ -276,8 +276,9 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 string outPassword = null;
                 X509Certificate2 outCertificateRef = null;
+                bool passwordIsHash = false;
 
-                if (!SEBSettings.ReadSebConfigurationFile(SebClientConfigFile, false, ref outPassword, ref outCertificateRef))
+                if (!SEBSettings.ReadSebConfigurationFile(SebClientConfigFile, false, ref outPassword, ref passwordIsHash, ref outCertificateRef))
                     return false;
 
 

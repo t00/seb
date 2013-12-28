@@ -577,8 +577,8 @@ namespace SebWindowsClient.CryptographyUtils
             nonSecretPayload = nonSecretPayload ?? new byte[] { };
 
             //User Error Checks
-            if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
-                throw new ArgumentException(String.Format("Must have a password of at least {0} characters!", MinPasswordLength), "password");
+            //if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
+            //    throw new ArgumentException(String.Format("Must have a password of at least {0} characters!", MinPasswordLength), "password");
 
             if (secretMessage == null || secretMessage.Length == 0)
                 throw new ArgumentException("Secret Message Required!", "secretMessage");

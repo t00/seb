@@ -61,9 +61,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeySebConfigPurpose        = "sebConfigPurpose";
         public const String KeyAllowPreferencesWindow  = "allowPreferencesWindow";
         public const String KeyCryptoIdentity          = "cryptoIdentity";
-        public const String KeySettingsPassword        = "settingsPassword";
-        public const String KeyConfirmSettingsPassword = "confirmSettingsPassword";
-        public const String KeyHashedSettingsPassword  = "hashedSettingsPassword";
+        //public const String KeySettingsPassword        = "settingsPassword";
+        //public const String KeyConfirmSettingsPassword = "confirmSettingsPassword";
+        //public const String KeyHashedSettingsPassword  = "hashedSettingsPassword";
 
         // Group "Appearance"
         public const String KeyBrowserViewMode              = "browserViewMode";
@@ -430,7 +430,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "Config File"
             SEBSettings.settingsDefault.Add(SEBSettings.KeySebConfigPurpose       , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowPreferencesWindow , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
+            //SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
 
             // CryptoIdentity is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValCryptoIdentity] = 0;
@@ -1350,7 +1350,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************************
         // Read the settings from the configuration file
         // *********************************************
-        public static bool ReadSebConfigurationFile(String fileName, bool forEditing, ref string filePassword, ref X509Certificate2 fileCertificateRef)
+        public static bool ReadSebConfigurationFile(String fileName, bool forEditing, ref string filePassword, ref bool passwordIsHash, ref X509Certificate2 fileCertificateRef)
         {
             // Recreate the default and current settings
             SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
@@ -1365,7 +1365,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 SEBSettings.settingsCurrent.Clear();
 
-                SEBSettings.settingsCurrent = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings, forEditing, ref filePassword, ref fileCertificateRef);
+                SEBSettings.settingsCurrent = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings, forEditing, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
                 if (SEBSettings.settingsCurrent == null) return false;
             }
             catch (Exception streamReadException)
@@ -1404,7 +1404,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // ********************************************************
         // Write the settings to the configuration file and save it
         // ********************************************************
-        public static bool WriteSebConfigurationFile(String fileName, string filePassword, X509Certificate2 fileCertificateRef, SEBSettings.sebConfigPurposes configPurpose)
+        public static bool WriteSebConfigurationFile(String fileName, string filePassword, bool passwordIsHash, X509Certificate2 fileCertificateRef, SEBSettings.sebConfigPurposes configPurpose)
         {
             try 
             {
@@ -1412,7 +1412,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Encrypt the configuration settings depending on passed credentials
                 // Write the configuration settings into .seb file.
 
-                byte [] encryptedSettings = SEBConfigFileManager.EncryptSEBSettingsWithCredentials(filePassword, fileCertificateRef, configPurpose);
+                byte [] encryptedSettings = SEBConfigFileManager.EncryptSEBSettingsWithCredentials(filePassword, passwordIsHash, fileCertificateRef, configPurpose);
                 File.WriteAllBytes(fileName, encryptedSettings);
             }
             catch (Exception streamWriteException) 

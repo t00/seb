@@ -52,9 +52,10 @@ namespace SebWindowsClient.ConfigurationUtils
         {
             DictObj sebPreferencesDict;
             string sebFilePassword = null;
+            bool passwordIsHash = false;
             X509Certificate2 sebFileCertificateRef = null;
 
-            sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref sebFileCertificateRef);
+            sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref passwordIsHash, ref sebFileCertificateRef);
              if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
 
              if ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
@@ -104,7 +105,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// certificate reference found in the .seb file is returned 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static DictObj DecryptSEBSettings(byte[] sebData, bool forEditing, ref string sebFilePassword, ref X509Certificate2 sebFileCertificateRef)
+        public static DictObj DecryptSEBSettings(byte[] sebData, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash, ref X509Certificate2 sebFileCertificateRef)
         {
             // Ungzip the .seb (according to specification >= v14) source data
             byte[] unzippedSebData = GZipByte.Decompress(sebData);
@@ -178,7 +179,7 @@ namespace SebWindowsClient.ConfigurationUtils
             
                     // Decrypt with password and configure local client settings
                     // and quit afterwards, returning if reading the .seb file was successfull
-                    DictObj sebSettings = DecryptDataWithPasswordAndConfigureClient(sebData, forEditing, ref sebFilePassword);
+                    DictObj sebSettings = DecryptDataWithPasswordAndConfigureClient(sebData, forEditing, ref sebFilePassword, ref passwordIsHash);
                     return sebSettings;
             
                 } else {
@@ -276,13 +277,16 @@ namespace SebWindowsClient.ConfigurationUtils
         /// are replaced with those new settings 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private static DictObj DecryptDataWithPasswordAndConfigureClient(byte[] sebData, bool forEditing, ref string sebFilePassword)
+        private static DictObj DecryptDataWithPasswordAndConfigureClient(byte[] sebData, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash)
         {
+            passwordIsHash = false;
             string password = null;
             // First try to decrypt with the current admin password
             // get admin password hash
-            string hashedAdminPassword = (string)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedAdminPassword)[SEBSettings.KeyHashedAdminPassword];
-            //if (!hashedAdminPassword) hashedAdminPassword = @"";
+            string hashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyHashedAdminPassword);
+            if (hashedAdminPassword == null) hashedAdminPassword = @"";
+            // We use always uppercase letters in the base16 hashed admin password used for encrypting
+            hashedAdminPassword = hashedAdminPassword.ToUpper();
             DictObj sebPreferencesDict = null;
             byte[] decryptedSebData = SEBProtectionController.DecryptDataWithPassword(sebData, hashedAdminPassword);
             if (decryptedSebData == null)
@@ -328,7 +332,7 @@ namespace SebWindowsClient.ConfigurationUtils
                             // If cancel was pressed, abort
                             if (password == null) return null;
                             hashedPassword = SEBProtectionController.ComputePasswordHash(password);
-                            if (String.Compare(hashedAdminPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) == 0)
+                            if (String.Compare(hashedPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) == 0)
                             {
                                 passwordsMatch = true;
                             }
@@ -362,7 +366,9 @@ namespace SebWindowsClient.ConfigurationUtils
                         password = ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
                         // If cancel was pressed, abort
                         if (password == null) return null;
-                        decryptedSebData = SEBProtectionController.DecryptDataWithPassword(sebData, password);
+                        string hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                        // we try to decrypt with the hashed password
+                        decryptedSebData = SEBProtectionController.DecryptDataWithPassword(sebData, hashedPassword);
                         // in case we get an error we allow the user to try it again
                         enterPasswordString = SEBUIStrings.enterEncryptionPasswordAgain;
                     } while (decryptedSebData == null && i > 0);
@@ -382,7 +388,12 @@ namespace SebWindowsClient.ConfigurationUtils
             else
             {
                 //decrypting with hashedAdminPassword worked: we save it for returning as decryption password if settings are meant for editing
-                //if (forEditing) sebFilePassword = hashedAdminPassword;
+                if (forEditing) {
+                    sebFilePassword = hashedAdminPassword;
+                    // identify that password as hash
+                    passwordIsHash = true;
+                }
+
             }
             /// Decryption worked
             // If we don't have the dictionary yet from above
@@ -549,7 +560,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// </summary>
         /// ----------------------------------------------------------------------------------------
 
-        public static byte[] EncryptSEBSettingsWithCredentials(string settingsPassword, X509Certificate2 certificateRef, SEBSettings.sebConfigPurposes configPurpose)
+        public static byte[] EncryptSEBSettingsWithCredentials(string settingsPassword, bool passwordIsHash, X509Certificate2 certificateRef, SEBSettings.sebConfigPurposes configPurpose)
         {
             // Get current settings dictionary and clean it from empty arrays and dictionaries
             //DictObj cleanedCurrentSettings = SEBSettings.CleanSettingsDictionary();
@@ -595,10 +606,10 @@ namespace SebWindowsClient.ConfigurationUtils
                 encryptingPassword = settingsPassword;
             }
             // So if password is empty (special case) or provided
-            if (!String.IsNullOrEmpty(encryptingPassword))
+            if (!(encryptingPassword == null))
             {
                 // encrypt with password
-                encryptedSebData = EncryptDataUsingPassword(encryptedSebData, encryptingPassword, configPurpose);
+                encryptedSebData = EncryptDataUsingPassword(encryptedSebData, encryptingPassword, passwordIsHash, configPurpose);
             }
             else
             {
@@ -659,7 +670,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         // Encrypt preferences using a password
-        public static byte[] EncryptDataUsingPassword(byte[] data, string password, SEBSettings.sebConfigPurposes configPurpose)
+        public static byte[] EncryptDataUsingPassword(byte[] data, string password, bool passwordIsHash, SEBSettings.sebConfigPurposes configPurpose)
         {
             string prefixString;
             // Check if .seb file should start exam or configure client
@@ -671,11 +682,12 @@ namespace SebWindowsClient.ConfigurationUtils
             else
             {
                 // prefix string for configuring client: configuring password will either be hashed admin pw on client
-                // or if no admin pw on client set: empty pw //(((or prompt pw before configuring)))
+                // or if no admin pw on client set: empty pw
                 prefixString = PASSWORD_CONFIGURING_CLIENT_MODE;
-                if (!String.IsNullOrEmpty(password))
+                if (!String.IsNullOrEmpty(password) && !passwordIsHash)
                 {
                     //empty password means no admin pw on clients and should not be hashed
+                    //or we got already a hashed admin pw as settings pw, then we don't hash again
                     password = SEBProtectionController.ComputePasswordHash(password);
                 }
             }

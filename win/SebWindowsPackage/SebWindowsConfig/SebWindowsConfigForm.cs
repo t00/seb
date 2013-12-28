@@ -81,20 +81,23 @@ namespace SebWindowsConfig
 
             // In these variables we get back the configuration file password the user entered for decrypting and/or 
             // the certificate reference found in the config file:
-             string filePassword = null;
-             X509Certificate2 fileCertificateRef = null;
+            string filePassword = null;
+            X509Certificate2 fileCertificateRef = null;
+            bool passwordIsHash = false;
 
-            if (!SEBSettings.ReadSebConfigurationFile(fileName, true, ref filePassword, ref fileCertificateRef)) return false;
+            if (!SEBSettings.ReadSebConfigurationFile(fileName, true, ref filePassword, ref passwordIsHash, ref fileCertificateRef)) return false;
 
             if (!String.IsNullOrEmpty(filePassword)) {
                 // If we got the settings password because the user entered it when opening the .seb file, 
                 // we store it in a local variable
                 settingsPassword = filePassword;
+                settingsPasswordFieldsContainHash = passwordIsHash;
             }
             else
             {
                 // We didn't get back any settings password, we clear the local variable
                 settingsPassword = "";
+                settingsPasswordFieldsContainHash = false;
             }
 
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.xml");
@@ -143,12 +146,13 @@ namespace SebWindowsConfig
         // ********************************************************
         private Boolean SaveConfigurationFileFromEditor(String fileName)
         {
-            string filePassword = textBoxSettingsPassword.Text;
+            string filePassword = settingsPassword;
             X509Certificate2 fileCertificateRef = null;
-            SEBSettings.sebConfigPurposes configPurpose = SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
+            int currentConfigPurpose = (int)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeySebConfigPurpose);
+            SEBSettings.sebConfigPurposes configPurpose = (SEBSettings.sebConfigPurposes)currentConfigPurpose;
 
             // Write the "new" settings to file
-            if (!SEBSettings.WriteSebConfigurationFile(fileName, filePassword, fileCertificateRef, configPurpose)) return false;
+            if (!SEBSettings.WriteSebConfigurationFile(fileName, filePassword, settingsPasswordFieldsContainHash, fileCertificateRef, configPurpose)) return false;
 
             // If the settings could be written to file, update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
@@ -330,8 +334,18 @@ namespace SebWindowsConfig
             radioButtonConfiguringAClient .Checked =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowPreferencesWindow];
             comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.intArrayCurrent[SEBSettings.ValCryptoIdentity];
-            textBoxSettingsPassword       .Text    = settingsPassword;
-            textBoxConfirmSettingsPassword.Text    = settingsPassword;
+
+            // If the settings password local variable contains a hash (and it isn't empty)
+            if (settingsPasswordFieldsContainHash && !String.IsNullOrEmpty(settingsPassword))
+            {
+                textBoxSettingsPassword.Text = "0000000000";
+                textBoxConfirmSettingsPassword.Text = "0000000000";
+            }
+            else
+            {
+                textBoxSettingsPassword.Text = settingsPassword;
+                textBoxConfirmSettingsPassword.Text = settingsPassword;
+            }
 
             // Group "Appearance"
             radioButtonUseBrowserWindow       .Checked     =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] == 0);
@@ -800,11 +814,17 @@ namespace SebWindowsConfig
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
         {
             ComparePasswords(textBoxSettingsPassword, textBoxConfirmSettingsPassword, ref settingsPasswordFieldsContainHash, labelSettingsPasswordCompare, null);
+            // We can store the settings password regardless if the same is entered in the confirm text field, 
+            // as saving the .seb file is only allowed when they are same
+            settingsPassword = textBoxSettingsPassword.Text;
         }
 
         private void textBoxConfirmSettingsPassword_TextChanged(object sender, EventArgs e)
         {
             ComparePasswords(textBoxSettingsPassword, textBoxConfirmSettingsPassword, ref settingsPasswordFieldsContainHash, labelSettingsPasswordCompare, null);
+            // We can store the settings password regardless if the same is entered in the confirm text field, 
+            // as saving the .seb file is only allowed when they are same
+            settingsPassword = textBoxSettingsPassword.Text;
         }
 
 
@@ -813,6 +833,7 @@ namespace SebWindowsConfig
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_Before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToDefault.xml");
             settingsPassword = "";
+            settingsPasswordFieldsContainHash = false;
             SEBSettings.RestoreDefaultAndCurrentSettings();
             SEBSettings.PermitXulRunnerProcess();
           //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_ButtonDefault.txt");
