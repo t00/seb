@@ -317,8 +317,8 @@ namespace SebWindowsConfig
             {
                 // Same here: The order of setting the placeholders and the flag is very much relevant!
                 quitPasswordFieldsContainHash = false;
-                textBoxAdminPassword.Text = "";
-                textBoxConfirmAdminPassword.Text = "";
+                textBoxQuitPassword.Text = "";
+                textBoxConfirmQuitPassword.Text = "";
             }
 
             listBoxExitKey1.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey1];
