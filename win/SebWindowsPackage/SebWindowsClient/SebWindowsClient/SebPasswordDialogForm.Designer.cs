@@ -36,16 +36,16 @@
             // 
             // txtSEBPassword
             // 
-            this.txtSEBPassword.Location = new System.Drawing.Point(12, 45);
+            this.txtSEBPassword.Location = new System.Drawing.Point(12, 55);
             this.txtSEBPassword.Name = "txtSEBPassword";
-            this.txtSEBPassword.PasswordChar = '*';
+            this.txtSEBPassword.PasswordChar = '●';
             this.txtSEBPassword.Size = new System.Drawing.Size(325, 20);
             this.txtSEBPassword.TabIndex = 0;
             // 
             // btnOk
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(94, 81);
+            this.btnOk.Location = new System.Drawing.Point(94, 91);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 1;
@@ -56,7 +56,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(180, 81);
+            this.btnCancel.Location = new System.Drawing.Point(180, 91);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 2;

@@ -25,8 +25,12 @@ namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
     {
-        string filePassword = null;
-        X509Certificate2 fileCertificateRef = null;
+        public bool adminPasswordFieldsContainHash = false;
+        public bool quitPasswordFieldsContainHash = false;
+        public bool settingsPasswordFieldsContainHash = false;
+
+        string settingsPassword = "";
+        //X509Certificate2 fileCertificateRef = null;
 
         // ***********
         //
@@ -77,10 +81,21 @@ namespace SebWindowsConfig
 
             // In these variables we get back the configuration file password the user entered for decrypting and/or 
             // the certificate reference found in the config file:
-            // string filePassword
-            // X509Certificate2 fileCertificateRef
+             string filePassword = null;
+             X509Certificate2 fileCertificateRef = null;
 
             if (!SEBSettings.ReadSebConfigurationFile(fileName, true, ref filePassword, ref fileCertificateRef)) return false;
+
+            if (!String.IsNullOrEmpty(filePassword)) {
+                // If we got the settings password because the user entered it when opening the .seb file, 
+                // we store it in a local variable
+                settingsPassword = filePassword;
+            }
+            else
+            {
+                // We didn't get back any settings password, we clear the local variable
+                settingsPassword = "";
+            }
 
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.xml");
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_LoadConfigurationFile.xml");
@@ -128,7 +143,7 @@ namespace SebWindowsConfig
         // ********************************************************
         private Boolean SaveConfigurationFileFromEditor(String fileName)
         {
-            string filePassword = null; // "seb";
+            string filePassword = textBoxSettingsPassword.Text;
             X509Certificate2 fileCertificateRef = null;
             SEBSettings.sebConfigPurposes configPurpose = SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
 
@@ -271,10 +286,41 @@ namespace SebWindowsConfig
             // Group "General"
             textBoxStartURL            .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyStartURL];
             textBoxSebServerURL        .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeySebServerURL];
-            textBoxHashedAdminPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword];
+            // If an admin password is saved in the settings (as a hash), 
+            // then we fill a placeholder string into the admin password text fields
+            if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword]))
+            {
+                // The order of setting the placeholders and the flag is very much relevant!
+                textBoxAdminPassword.Text = "0000000000";
+                adminPasswordFieldsContainHash = true;
+                textBoxConfirmAdminPassword.Text = "0000000000";
+            }
+            else
+            {
+                // Same here: The order of setting the placeholders and the flag is very much relevant!
+                adminPasswordFieldsContainHash = false;
+                textBoxAdminPassword.Text = "";
+                textBoxConfirmAdminPassword.Text = "";
+            }
             checkBoxAllowQuit         .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit];
             checkBoxIgnoreQuitPassword.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyIgnoreQuitPassword];
-            textBoxHashedQuitPassword  .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
+            // If a quit password is saved in the settings (as a hash), 
+            // then we fill a placeholder string into the quit password text fields
+            if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword]))
+            {
+                // The order of setting the placeholders and the flag is very much relevant!
+                textBoxQuitPassword.Text = "0000000000";
+                quitPasswordFieldsContainHash = true;
+                textBoxConfirmQuitPassword.Text = "0000000000";
+            }
+            else
+            {
+                // Same here: The order of setting the placeholders and the flag is very much relevant!
+                quitPasswordFieldsContainHash = false;
+                textBoxAdminPassword.Text = "";
+                textBoxConfirmAdminPassword.Text = "";
+            }
+
             listBoxExitKey1.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey1];
             listBoxExitKey2.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey2];
             listBoxExitKey3.SelectedIndex      =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyExitKey3];
@@ -284,8 +330,8 @@ namespace SebWindowsConfig
             radioButtonConfiguringAClient .Checked =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == 1);
             checkBoxAllowPreferencesWindow.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowPreferencesWindow];
             comboBoxCryptoIdentity.SelectedIndex   =          SEBSettings.intArrayCurrent[SEBSettings.ValCryptoIdentity];
-             //textBoxSettingsPassword       .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeySettingsPassword];
-           //textBoxHashedSettingsPassword .Text   =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedSettingsPassword];
+            textBoxSettingsPassword       .Text    = settingsPassword;
+            textBoxConfirmSettingsPassword.Text    = settingsPassword;
 
             // Group "Appearance"
             radioButtonUseBrowserWindow       .Checked     =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] == 0);
@@ -539,6 +585,64 @@ namespace SebWindowsConfig
             return;
         }
 
+                /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Compare password textfields and show or hide compare label accordingly
+        /// if passwords are same, save the password hash
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public void ComparePasswords(TextBox passwordField, TextBox confirmPasswordField, ref bool passwordFieldsContainHash, Label label, string settingsKey)
+        {
+            // Get the password text from the text fields
+            string password = passwordField.Text;
+            string confirmPassword = confirmPasswordField.Text;
+
+            if (passwordFieldsContainHash)
+            {
+                // If the flag is set for password fields contain a placeholder 
+                // instead of the hash loaded from settings (no clear text password)
+                if (password.CompareTo(confirmPassword) != 0)
+                {
+                    // and when the password texts aren't the same anymore, this means the user tries to edit the password
+                    // (which is only the placeholder right now), we have to clear the placeholder from the textFields
+                    passwordField.Text = "";
+                    confirmPasswordField.Text = "";
+                    passwordFieldsContainHash = false;
+                }
+            }
+            // Password fields contain actual passwords, not the placeholder for a hash value
+            if (password.CompareTo(confirmPassword) == 0)
+            {
+                /// Passwords are same
+                // Hide the "Please confirm password" label
+                label.Visible = false;
+
+                String newStringHashcode = "";
+                if (!passwordFieldsContainHash && !String.IsNullOrEmpty(password) && settingsKey != null)
+                {
+                    // If the password isn't the placeholder for the hash, isn't empty 
+                    // and we got the key to where to save the hash (for the settings pw we don't need a hash)
+                    // we hash the password, otherwise just save the empty string into settings
+                    // Password hashing using the SHA-256 hash algorithm
+                    SHA256 sha256Algorithm = new SHA256Managed();
+                    // Hash the new quit password
+                    byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                    byte[] hashcodeBytes = sha256Algorithm.ComputeHash(passwordBytes);
+                    // Generate a base16 hash string
+                    newStringHashcode = BitConverter.ToString(hashcodeBytes);
+                    newStringHashcode = newStringHashcode.Replace("-", "");
+                }
+                // Save the new hash string into settings
+                if (!passwordFieldsContainHash && settingsKey != null) SEBSettings.settingsCurrent[settingsKey] = newStringHashcode;
+                // Enable the save settings button
+                this.buttonSaveSettingsAs.Enabled = true;
+            }
+            else
+            {
+                this.buttonSaveSettingsAs.Enabled = false;
+                label.Visible = true;
+            }
+        }
 
 
         // **************
@@ -569,12 +673,12 @@ namespace SebWindowsConfig
 
         private void textBoxAdminPassword_TextChanged(object sender, EventArgs e)
         {
-            //SEBSettings.settingsCurrent[SEBSettings.KeyAdminPassword] = textBoxAdminPassword.Text;
+            ComparePasswords(textBoxAdminPassword, textBoxConfirmAdminPassword, ref adminPasswordFieldsContainHash, labelAdminPasswordCompare, SEBSettings.KeyHashedAdminPassword);
         }
 
         private void textBoxConfirmAdminPassword_TextChanged(object sender, EventArgs e)
         {
-            //SEBSettings.settingsCurrent[SEBSettings.KeyConfirmAdminPassword] = textBoxConfirmAdminPassword.Text;
+            ComparePasswords(textBoxAdminPassword, textBoxConfirmAdminPassword, ref adminPasswordFieldsContainHash, labelAdminPasswordCompare, SEBSettings.KeyHashedAdminPassword);
         }
 
         private void checkBoxAllowQuit_CheckedChanged(object sender, EventArgs e)
@@ -590,31 +694,13 @@ namespace SebWindowsConfig
 
         private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
         {
-            // Get the new quit password
-            String newStringQuitPassword = textBoxQuitPassword.Text;
-            String newStringQuitHashcode = "";
-
-            // Password encryption using the SHA-256 hash algorithm
-            SHA256        sha256Algorithm = new SHA256Managed();
-          //HashAlgorithm sha256Algorithm = new SHA256CryptoServiceProvider();
-
-            // Encrypt the new quit password
-            byte[] passwordBytes = Encoding.UTF8.GetBytes(newStringQuitPassword);
-            byte[] hashcodeBytes = sha256Algorithm.ComputeHash(passwordBytes);
-
-            newStringQuitHashcode = BitConverter.ToString(hashcodeBytes);
-            newStringQuitHashcode = newStringQuitHashcode.Replace("-", "");
-
-            textBoxHashedQuitPassword.Text = newStringQuitHashcode;
-
-            //SEBSettings.settingsCurrent[SEBSettings.KeyQuitPassword      ] = newStringQuitPassword;
-            //SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword] = newStringQuitHashcode;
+            ComparePasswords(textBoxQuitPassword, textBoxConfirmQuitPassword, ref quitPasswordFieldsContainHash, labelQuitPasswordCompare, SEBSettings.KeyHashedQuitPassword);
         }
 
 
         private void textBoxConfirmQuitPassword_TextChanged(object sender, EventArgs e)
         {
-            //SEBSettings.settingsCurrent[SEBSettings.KeyConfirmQuitPassword] = textBoxConfirmQuitPassword.Text;
+            ComparePasswords(textBoxQuitPassword, textBoxConfirmQuitPassword, ref quitPasswordFieldsContainHash, labelQuitPasswordCompare, SEBSettings.KeyHashedQuitPassword);
         }
 
         private void listBoxExitKey1_SelectedIndexChanged(object sender, EventArgs e)
@@ -675,11 +761,6 @@ namespace SebWindowsConfig
             this.Close();
         }
 
-        private void buttonRestartSEB_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
 
         // *******************
@@ -718,12 +799,12 @@ namespace SebWindowsConfig
 
         private void textBoxSettingsPassword_TextChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeySettingsPassword] = textBoxSettingsPassword.Text;
+            ComparePasswords(textBoxSettingsPassword, textBoxConfirmSettingsPassword, ref settingsPasswordFieldsContainHash, labelSettingsPasswordCompare, null);
         }
 
         private void textBoxConfirmSettingsPassword_TextChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyConfirmSettingsPassword] = textBoxConfirmSettingsPassword.Text;
+            ComparePasswords(textBoxSettingsPassword, textBoxConfirmSettingsPassword, ref settingsPasswordFieldsContainHash, labelSettingsPasswordCompare, null);
         }
 
 
@@ -731,6 +812,7 @@ namespace SebWindowsConfig
         {
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_Before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToDefault.xml");
+            settingsPassword = "";
             SEBSettings.RestoreDefaultAndCurrentSettings();
             SEBSettings.PermitXulRunnerProcess();
           //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_ButtonDefault.txt");
@@ -2709,6 +2791,11 @@ namespace SebWindowsConfig
         private void checkBoxEnableF12_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableF12] = checkBoxEnableF12.Checked;
+        }
+
+        private void labelHashedAdminPassword_Click(object sender, EventArgs e)
+        {
+
         }
 
     } // end of   class     SebWindowsConfigForm

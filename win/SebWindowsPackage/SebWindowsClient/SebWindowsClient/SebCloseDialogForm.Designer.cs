@@ -38,7 +38,7 @@
             // 
             this.txtQuitPassword.Location = new System.Drawing.Point(12, 45);
             this.txtQuitPassword.Name = "txtQuitPassword";
-            this.txtQuitPassword.PasswordChar = '*';
+            this.txtQuitPassword.PasswordChar = '●';
             this.txtQuitPassword.Size = new System.Drawing.Size(325, 20);
             this.txtQuitPassword.TabIndex = 0;
             // 
