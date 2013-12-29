@@ -77,7 +77,7 @@ namespace SebWindowsClient
         private SebSocketClient sebSocketClient = new SebSocketClient();
         //private SebApplicationChooserForm SebApplicationChooser = null;
 
-        public bool closeSebClient = false;
+        public bool closeSebClient = true;
         public string sebPassword = null;
 
         private SebCloseDialogForm sebCloseDialogForm;
@@ -86,7 +86,7 @@ namespace SebWindowsClient
         private Process xulRunner = new Process();
         private int xulRunnerExitCode;
         private DateTime xulRunnerExitTime;
-        private bool xulRunnerExitEventHandled;
+        //private bool xulRunnerExitEventHandled;
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
@@ -168,17 +168,18 @@ namespace SebWindowsClient
         private void xulRunner_Exited(object sender, System.EventArgs e)
         {
 
-            xulRunnerExitEventHandled = true;
+            //xulRunnerExitEventHandled = true;
             xulRunnerExitCode = xulRunner.ExitCode;
             xulRunnerExitTime = xulRunner.ExitTime;
             if (xulRunnerExitCode != 0)
             {
-                Logger.AddError("An error occurred by exitting XulRunner. Exit code: " + xulRunnerExitCode.ToString(), this, null);
+                // An error occured when exiting XULRunner, maybe it crashed?
+                Logger.AddError("An error occurred by exiting XULRunner. Exit code: " + xulRunnerExitCode.ToString(), this, null);
             }
             else
             {
-                SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                Application.Exit();
+                // If the flag for closing SEB is set, we exit
+                if (SEBClientInfo.SebWindowsClientForm.closeSebClient) Application.Exit();
             }
 
         }
@@ -666,7 +667,7 @@ namespace SebWindowsClient
                 {
                     if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
                     {
-                        SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                        //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         Application.Exit();
 
                     }
