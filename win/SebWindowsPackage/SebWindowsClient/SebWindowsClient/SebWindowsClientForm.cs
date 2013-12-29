@@ -83,10 +83,10 @@ namespace SebWindowsClient
         private SebCloseDialogForm sebCloseDialogForm;
         private SebApplicationChooserForm sebApplicationChooserForm;
 
-        //private Process xulRunner = new Process();
-        //private int xulRunnerExitCode;
-        //private DateTime xulRunnerExitTime;
-        //private bool xulRunnerExitEventHandled;
+        private Process xulRunner = new Process();
+        private int xulRunnerExitCode;
+        private DateTime xulRunnerExitTime;
+        private bool xulRunnerExitEventHandled;
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
@@ -143,13 +143,13 @@ namespace SebWindowsClient
 
                 //string path = SEBClientInfo.XulRunnerExePath;
                 //path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
-                SEBDesktopController.CreateProcess(xulRunnerPath, SEBClientInfo.DesktopName);
+                xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, SEBClientInfo.DesktopName);
                 //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
                 ////xulRunner.StartInfo.Verb = "XulRunner";
                 //xulRunner.StartInfo.Arguments = " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
                 //xulRunner.StartInfo.CreateNoWindow = true;
-                //xulRunner.EnableRaisingEvents = true;
-                //xulRunner.Exited += new EventHandler(xulRunner_Exited);
+                xulRunner.EnableRaisingEvents = true;
+                xulRunner.Exited += new EventHandler(xulRunner_Exited);
                 //xulRunner.Start();
 
             }
@@ -162,21 +162,26 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        // Handle xulRunner_Exited event and display process information.
+        /// Handle xulRunner_Exited event and display process information.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        //private void xulRunner_Exited(object sender, System.EventArgs e)
-        //{
+        private void xulRunner_Exited(object sender, System.EventArgs e)
+        {
 
-        //    xulRunnerExitEventHandled = true;
-        //    xulRunnerExitCode = xulRunner.ExitCode;
-        //    xulRunnerExitTime = xulRunner.ExitTime;
-        //    if (xulRunnerExitCode != 0)
-        //    {
-        //       Logger.AddError("An error occurred by exitting XulRunner. Exit code: " + xulRunnerExitCode.ToString() , this, null);
-        //    }
- 
-        //}
+            xulRunnerExitEventHandled = true;
+            xulRunnerExitCode = xulRunner.ExitCode;
+            xulRunnerExitTime = xulRunner.ExitTime;
+            if (xulRunnerExitCode != 0)
+            {
+                Logger.AddError("An error occurred by exitting XulRunner. Exit code: " + xulRunnerExitCode.ToString(), this, null);
+            }
+            else
+            {
+                SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                Application.Exit();
+            }
+
+        }
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
