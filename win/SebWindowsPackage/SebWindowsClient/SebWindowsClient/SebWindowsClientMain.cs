@@ -148,7 +148,7 @@ namespace SebWindowsClient
             if (!SEBClientInfo.SetSystemVersionInfo())
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_NO_OS_SUPPORT, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                Logger.AddError("Unknown OS. Exit SEB.",null,null);
+                Logger.AddError("Unknown OS. Exiting SEB.",null,null);
                 return false;
             }
 
@@ -196,8 +196,8 @@ namespace SebWindowsClient
             if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                Logger.AddError("Forbidden to run SEB on a VIRTUAL machine!", null, null);
-                Logger.AddInformation("Leave SebStarter", null, null);
+                Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
+                Logger.AddInformation("Safe Exam Browser is exiting", null, null);
                 return false;
 
             }

@@ -231,9 +231,17 @@ namespace SebWindowsService
                 Console.Write("   ");
                 Console.Write(outputString);
                 //sebEventLog.WriteEntry(outputString);
-                File.AppendAllText(logPath, DateTime.Now.ToString());
-                File.AppendAllText(logPath, "   ");
-                File.AppendAllText(logPath, outputString);
+                try
+                {
+                    File.AppendAllText(logPath, DateTime.Now.ToString());
+                    File.AppendAllText(logPath, "   ");
+                    File.AppendAllText(logPath, outputString);
+                }
+                catch (Exception logFileExeption)
+                {
+                    Console.Write("Could not write to log file.");
+                    Console.WriteLine(logFileExeption.Message);
+                }
             }
             return;
         }
@@ -249,7 +257,15 @@ namespace SebWindowsService
             {
                 DebugOutput(debugMode, outputString);
                 Console.WriteLine();
-                File.AppendAllText(logPath, System.Environment.NewLine);
+                try
+                {
+                    File.AppendAllText(logPath, System.Environment.NewLine);
+                }
+                catch (Exception logFileExeption)
+                {
+                    Console.Write("Could not write to log file.");
+                    Console.WriteLine(logFileExeption.Message);
+                }
             }
             return;
         }
@@ -264,7 +280,15 @@ namespace SebWindowsService
         public void SebSocketServerLoop()
         {
             // If an older logfile exists, delete it
-            File.Delete(logPath);
+            try
+            {
+                File.Delete(logPath);
+            }
+            catch (Exception logFileExeption)
+            {
+                Console.Write("Could not write to log file.");
+                Console.WriteLine(logFileExeption.Message);
+            }
 
             DebugOutputLine(debugMode, "");
             DebugOutputLine(debugMode, "");

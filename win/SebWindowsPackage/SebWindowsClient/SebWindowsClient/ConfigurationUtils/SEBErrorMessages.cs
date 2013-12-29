@@ -247,10 +247,7 @@ namespace SebWindowsClient.ConfigurationUtils
             bool result = false;
 
             MessageBoxIcon icon;
-            MessageBoxButtons buttons;
-            string caption = "";
 
-            //logg(fp, "Enter OutputErrorMessage()\n\n");
             if (messageIcon[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_ERROR)
             {
                 icon = MessageBoxIcon.Error;
@@ -264,20 +261,6 @@ namespace SebWindowsClient.ConfigurationUtils
                 icon = MessageBoxIcon.Warning;
             }
 
-            //logg(fp, "Enter OutputErrorMessage()\n\n");
-            //if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_ERROR)
-            //{
-            //    buttons = MessageBoxButtons.OK;
-            //}
-            //else if (messageButtons[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION)
-            //{
-            //    buttons = MessageBoxButtons.YesNo;
-            //}
-            //else
-            //{
-            //    buttons = MessageBoxButtons.OK;
-            //}
-
             if (sparam != null)
             {
                 messageText = messageText.Replace("%s", sparam);
@@ -286,11 +269,10 @@ namespace SebWindowsClient.ConfigurationUtils
             {
                 messageText = messageText.Replace("%d", iparam.ToString());
             }
-
-            if (MessageBox.Show(messageText, messageTitle, messageButtons, icon) == DialogResult.Yes)
+            DialogResult messageBoxResult = MessageBox.Show(messageText, messageTitle, messageButtons, icon);
+            if (messageBoxResult == DialogResult.OK || messageBoxResult == DialogResult.Yes || messageBoxResult == DialogResult.Retry)
                 result = true;
 
-            //logg(fp, "Leave OutputErrorMessage()\n\n");
             return result;
 
         } // end of method   OutputErrorMessageNew()

@@ -134,7 +134,7 @@ namespace SebWindowsClient
                 StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
                 //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).
                 //Append(" -configpath ").Append(SEBClientInfo.XulRunnerConfigFile);
-                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -profile \"").Append(SEBClientInfo.SebClientConfigFileDirectory).Append("Profiles\"").//Append(" -config \"winctrl\" -debug 1 -purgecaches -jsconsole").
+                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"").//Append(" -config \"winctrl\" -debug 1 -purgecaches -jsconsole").
                     Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
                 //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -ctlr 1 ");
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();

@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.DiagnosticsUtils;
 using PlistCS;
 
 using ListObj  = System.Collections.Generic.List                <object>;
@@ -654,7 +655,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyProxies            , SEBSettings.proxiesDataDefault);
 
             // Default settings for group "Security"
-            SEBSettings.settingsDefault.Add(SEBSettings.KeySebServicePolicy   , 2);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySebServicePolicy   , 1);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowVirtualMachine, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyCreateNewDesktop   , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyKillExplorerShell  , false);
@@ -1344,6 +1345,50 @@ namespace SebWindowsClient.ConfigurationUtils
             fileStream.Close();
             return;
         }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Try to read SEB settings from drive, decrypt, deserialize and return as data
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static bool StoreSebClientSettings(byte [] sebSettings)
+        {
+            // Recreate the default and current settings
+            SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
+
+            string filePassword = null;
+            bool passwordIsHash = false;
+            X509Certificate2 fileCertificateRef = null;
+
+            try
+            {
+                // Read the configuration settings from .seb file.
+                // Decrypt the configuration settings.
+                // Convert the XML structure into a C# object.
+
+                SEBSettings.settingsCurrent.Clear();
+
+                DictObj settingsDict = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(sebSettings, false, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
+                if (settingsDict != null) SEBSettings.settingsCurrent = settingsDict;
+            }
+            catch (Exception streamReadException)
+            {
+                // Let the user know what went wrong
+                Logger.AddError("The .seb file could not be decrypted. ", null, streamReadException, streamReadException.Message);
+                return false;
+            }
+
+            // Fill up the Dictionary read from file with default settings, where necessary
+            SEBSettings.FillSettingsDictionary();
+            SEBSettings.FillSettingsArrays();
+
+            // Add the XulRunner process to the Permitted Process List, if necessary
+            SEBSettings.PermitXulRunnerProcess();
+
+            return true;
+        }
+        
 
 
 
