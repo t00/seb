@@ -173,6 +173,7 @@ namespace SebWindowsConfig
         //static ArrayList chooseIdentityStringArrayList = new ArrayList();
         //static String[]  chooseIdentityStringArray = new String[1];
         static List<String> StringCryptoIdentity = new List<String>();
+        static ArrayList certificateReferences = new ArrayList();
 
         // Entries of ListBoxes
       //static    Byte[]    ByteArrayExamKeySalt          = new Byte[] {};
@@ -403,7 +404,11 @@ namespace SebWindowsConfig
             listBoxExitKey2.Items.AddRange(StringFunctionKey);
             listBoxExitKey3.Items.AddRange(StringFunctionKey);
 
-            comboBoxCryptoIdentity.Items.AddRange(StringCryptoIdentity.ToArray());
+            // Assing the list of cryptographic identities/certificates to the ComboBox
+            ArrayList certificateNames = new ArrayList();
+            certificateReferences = SEBProtectionController.GetCertificatesAndNames(ref certificateNames);
+            certificateNames.Insert(0, "None");
+            comboBoxCryptoIdentity.Items.AddRange(certificateNames.ToArray());
 
             // At program start, no file has yet been opened, so revert is not possible
             buttonRevertToLastOpened.Enabled = false;

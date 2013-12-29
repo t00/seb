@@ -100,6 +100,14 @@ namespace SebWindowsConfig
                 settingsPasswordFieldsContainHash = false;
             }
 
+            // Check if we got a certificate reference used to encrypt the openend settings back
+            if (fileCertificateRef != null)
+            {
+                int indexOfCertificateRef = certificateReferences.IndexOf(fileCertificateRef);
+                // Find this certificate reference in the list of all certificates from the certificate store
+                // if found (this should always be the case), select that certificate in the comboBox list
+                if (indexOfCertificateRef != -1) comboBoxCryptoIdentity.SelectedIndex = indexOfCertificateRef+1;
+            }
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.xml");
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_LoadConfigurationFile.xml");
             //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.txt");
@@ -146,8 +154,18 @@ namespace SebWindowsConfig
         // ********************************************************
         private Boolean SaveConfigurationFileFromEditor(String fileName)
         {
+            // Get settings password
             string filePassword = settingsPassword;
+
+            // Get selected certificate
             X509Certificate2 fileCertificateRef = null;
+            int selectedCertificate = (int)SEBSettings.intArrayCurrent[SEBSettings.ValCryptoIdentity];
+            if (selectedCertificate > 0)
+            {
+                fileCertificateRef = (X509Certificate2)certificateReferences[selectedCertificate-1];
+            } //comboBoxCryptoIdentity.SelectedIndex;
+
+            // Get selected config purpose
             int currentConfigPurpose = (int)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeySebConfigPurpose);
             SEBSettings.sebConfigPurposes configPurpose = (SEBSettings.sebConfigPurposes)currentConfigPurpose;
 

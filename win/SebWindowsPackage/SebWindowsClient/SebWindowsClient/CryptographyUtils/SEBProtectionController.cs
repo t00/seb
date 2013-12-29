@@ -36,6 +36,29 @@ namespace SebWindowsClient.CryptographyUtils
             unknown
         };
 
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        ///  Get array of certificate references and the according names from the certificate store.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static ArrayList GetCertificatesAndNames(ref ArrayList certificateNames)
+        {
+            ArrayList certificates = new ArrayList();
+
+            X509Store store = new X509Store(StoreLocation.CurrentUser);
+            store.Open(OpenFlags.ReadOnly);
+
+            foreach (X509Certificate2 x509Certificate in store.Certificates)
+            {
+                certificates.Add(x509Certificate);
+                certificateNames.Add(x509Certificate.FriendlyName);
+            }
+
+            //Close the store.
+            store.Close();
+            return certificates;
+        }
+
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
@@ -46,7 +69,6 @@ namespace SebWindowsClient.CryptographyUtils
         {
             X509Certificate2 sebCertificate = null;
 
-            //Create new X509 store called teststore from the local certificate store.
             X509Store store = new X509Store(StoreLocation.CurrentUser);
             store.Open(OpenFlags.ReadOnly);
 
@@ -108,7 +130,7 @@ namespace SebWindowsClient.CryptographyUtils
 
 
                 // Blocksize is for example 2048/8 = 256 
-                int blockSize = publicKey.KeySize / 8;
+                int blockSize = (publicKey.KeySize / 8) - 32;
 
                 // buffer to hold byte sequence of the encrypted information
                 byte[] encryptedBuffer = new byte[blockSize];

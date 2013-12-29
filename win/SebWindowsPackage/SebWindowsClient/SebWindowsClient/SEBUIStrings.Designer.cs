@@ -88,7 +88,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot decrypt settings.
+        ///   Looks up a localized string similar to Cannot Decrypt Settings.
         /// </summary>
         internal static string decryptingSettingsFailed {
             get {
@@ -178,7 +178,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error decrypting settings.
+        ///   Looks up a localized string similar to Error Decrypting Settings.
         /// </summary>
         internal static string errorDecryptingSettings {
             get {
@@ -196,7 +196,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading settings failed.
+        ///   Looks up a localized string similar to Loading Settings Failed.
         /// </summary>
         internal static string loadingSettingsFailed {
             get {
@@ -223,7 +223,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No encryption credentials chosen.
+        ///   Looks up a localized string similar to No Encryption Credentials Chosen.
         /// </summary>
         internal static string noEncryptionChosen {
             get {
@@ -232,7 +232,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You should either enter a password or choose a certificate to encrypt the settings file.\n\nDo you really want to save an unencrypted SEB file (not recommended for use in exams)?.
+        ///   Looks up a localized string similar to You should either enter a password or choose a certificate to encrypt the settings file. Do you really want to save an unencrypted SEB file (not recommended for use in exams)?.
         /// </summary>
         internal static string noEncryptionChosenSaveUnencrypted {
             get {
@@ -241,7 +241,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reconfiguring Local Settings.
+        ///   Looks up a localized string similar to Opening Settings for Reconfiguring Client.
         /// </summary>
         internal static string reconfiguringLocalSettings {
             get {
@@ -250,7 +250,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reconfiguring local settings failed.
+        ///   Looks up a localized string similar to Opening Settings for Reconfiguring Client Failed.
         /// </summary>
         internal static string reconfiguringLocalSettingsFailed {
             get {
@@ -277,7 +277,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening new settings failed.
+        ///   Looks up a localized string similar to Opening New Settings Failed.
         /// </summary>
         internal static string settingsNotUsable {
             get {

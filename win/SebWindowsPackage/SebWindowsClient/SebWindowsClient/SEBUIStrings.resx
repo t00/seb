@@ -127,7 +127,7 @@
     <value>Are you sure you want to quit SEB?</value>
   </data>
   <data name="decryptingSettingsFailed" xml:space="preserve">
-    <value>Cannot decrypt settings</value>
+    <value>Cannot Decrypt Settings</value>
   </data>
   <data name="decryptingSettingsFailedReason" xml:space="preserve">
     <value>You either entered the wrong password or these settings were saved with an incompatible SEB version.</value>
@@ -157,13 +157,13 @@
     <value>Wrong password! Try again to enter the correct password:</value>
   </data>
   <data name="errorDecryptingSettings" xml:space="preserve">
-    <value>Error decrypting settings</value>
+    <value>Error Decrypting Settings</value>
   </data>
   <data name="loadingSettings" xml:space="preserve">
     <value>Loading Settings</value>
   </data>
   <data name="loadingSettingsFailed" xml:space="preserve">
-    <value>Loading settings failed</value>
+    <value>Loading Settings Failed</value>
   </data>
   <data name="loadingSettingsFailedReason" xml:space="preserve">
     <value>These settings are corrupted and cannot be used.</value>
@@ -172,16 +172,16 @@
     <value>If you don't enter the right administrator password from these settings you cannot open them.</value>
   </data>
   <data name="noEncryptionChosen" xml:space="preserve">
-    <value>No encryption credentials chosen</value>
+    <value>No Encryption Credentials Chosen</value>
   </data>
   <data name="noEncryptionChosenSaveUnencrypted" xml:space="preserve">
-    <value>You should either enter a password or choose a certificate to encrypt the settings file.\n\nDo you really want to save an unencrypted SEB file (not recommended for use in exams)?</value>
+    <value>You should either enter a password or choose a certificate to encrypt the settings file. Do you really want to save an unencrypted SEB file (not recommended for use in exams)?</value>
   </data>
   <data name="reconfiguringLocalSettings" xml:space="preserve">
-    <value>Reconfiguring Local Settings</value>
+    <value>Opening Settings for Reconfiguring Client</value>
   </data>
   <data name="reconfiguringLocalSettingsFailed" xml:space="preserve">
-    <value>Reconfiguring local settings failed</value>
+    <value>Opening Settings for Reconfiguring Client Failed</value>
   </data>
   <data name="reconfiguringLocalSettingsFailedWrongAdminPwd" xml:space="preserve">
     <value>If you don't enter the right administrator password from these settings you cannot use them.</value>
@@ -190,7 +190,7 @@
     <value>If you don't enter the correct password these settings were encrypted with, you cannot use them.</value>
   </data>
   <data name="settingsNotUsable" xml:space="preserve">
-    <value>Opening new settings failed</value>
+    <value>Opening New Settings Failed</value>
   </data>
   <data name="settingsNotUsableReason" xml:space="preserve">
     <value>These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.</value>
