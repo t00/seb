@@ -2837,5 +2837,20 @@ namespace SebWindowsConfig
 
         }
 
+        private void labelOpenLinksHTML_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButtonPreviousValuesFromFile_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

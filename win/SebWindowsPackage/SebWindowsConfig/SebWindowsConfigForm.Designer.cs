@@ -263,6 +263,7 @@
             this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
             this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
+            this.labelSettingsPasswordCompare = new System.Windows.Forms.Label();
             this.buttonSaveSettingsAs = new System.Windows.Forms.Button();
             this.buttonOpenSettings = new System.Windows.Forms.Button();
             this.labelUseEither = new System.Windows.Forms.Label();
@@ -304,7 +305,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.labelSettingsPasswordCompare = new System.Windows.Forms.Label();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -409,7 +409,7 @@
             this.groupBoxFunctionKeys.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxFunctionKeys.Name = "groupBoxFunctionKeys";
             this.groupBoxFunctionKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(98, 317);
+            this.groupBoxFunctionKeys.Size = new System.Drawing.Size(130, 317);
             this.groupBoxFunctionKeys.TabIndex = 41;
             this.groupBoxFunctionKeys.TabStop = false;
             this.groupBoxFunctionKeys.Text = "Function Keys";
@@ -584,7 +584,7 @@
             this.groupBoxSpecialKeys.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(128, 195);
+            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 195);
             this.groupBoxSpecialKeys.TabIndex = 39;
             this.groupBoxSpecialKeys.TabStop = false;
             this.groupBoxSpecialKeys.Text = "Special Keys";
@@ -824,6 +824,7 @@
             this.groupBoxSetOutsideSebValues.TabIndex = 31;
             this.groupBoxSetOutsideSebValues.TabStop = false;
             this.groupBoxSetOutsideSebValues.Text = "Set outside SEB values";
+            this.groupBoxSetOutsideSebValues.Visible = false;
             // 
             // radioButtonInsideValuesManually
             // 
@@ -846,6 +847,7 @@
             this.radioButtonPreviousValuesFromFile.TabIndex = 27;
             this.radioButtonPreviousValuesFromFile.Text = "to previous values from file";
             this.radioButtonPreviousValuesFromFile.UseVisualStyleBackColor = true;
+            this.radioButtonPreviousValuesFromFile.CheckedChanged += new System.EventHandler(this.radioButtonPreviousValuesFromFile_CheckedChanged_1);
             // 
             // radioButtonEnvironmentValues
             // 
@@ -1282,6 +1284,7 @@
             // checkBoxEnableURLContentFilter
             // 
             this.checkBoxEnableURLContentFilter.AutoSize = true;
+            this.checkBoxEnableURLContentFilter.Enabled = false;
             this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(34, 37);
             this.checkBoxEnableURLContentFilter.Margin = new System.Windows.Forms.Padding(2);
@@ -1295,6 +1298,7 @@
             // checkBoxEnableURLFilter
             // 
             this.checkBoxEnableURLFilter.AutoSize = true;
+            this.checkBoxEnableURLFilter.Enabled = false;
             this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(19, 16);
             this.checkBoxEnableURLFilter.Margin = new System.Windows.Forms.Padding(2);
@@ -1354,6 +1358,7 @@
             // 
             // comboBoxChooseSSLClientCertificate
             // 
+            this.comboBoxChooseSSLClientCertificate.Enabled = false;
             this.comboBoxChooseSSLClientCertificate.FormattingEnabled = true;
             this.comboBoxChooseSSLClientCertificate.Location = new System.Drawing.Point(19, 41);
             this.comboBoxChooseSSLClientCertificate.Margin = new System.Windows.Forms.Padding(2);
@@ -1688,6 +1693,7 @@
             // radioButtonUseSebProxySettings
             // 
             this.radioButtonUseSebProxySettings.AutoSize = true;
+            this.radioButtonUseSebProxySettings.Enabled = false;
             this.radioButtonUseSebProxySettings.Location = new System.Drawing.Point(19, 41);
             this.radioButtonUseSebProxySettings.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonUseSebProxySettings.Name = "radioButtonUseSebProxySettings";
@@ -2548,6 +2554,8 @@
             this.checkBoxCopyBrowserExamKey.Text = "Copy Browser Exam Key to clipboard when quitting SEB Windows Configuration Editor" +
     "";
             this.checkBoxCopyBrowserExamKey.UseVisualStyleBackColor = true;
+            this.checkBoxCopyBrowserExamKey.Visible = false;
+            this.checkBoxCopyBrowserExamKey.CheckedChanged += new System.EventHandler(this.checkBoxCopyBrowserExamKey_CheckedChanged);
             // 
             // tabPageDownUploads
             // 
@@ -2605,9 +2613,9 @@
             this.labelChooseFileToUploadPolicy.Location = new System.Drawing.Point(22, 198);
             this.labelChooseFileToUploadPolicy.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelChooseFileToUploadPolicy.Name = "labelChooseFileToUploadPolicy";
-            this.labelChooseFileToUploadPolicy.Size = new System.Drawing.Size(115, 13);
+            this.labelChooseFileToUploadPolicy.Size = new System.Drawing.Size(145, 13);
             this.labelChooseFileToUploadPolicy.TabIndex = 75;
-            this.labelChooseFileToUploadPolicy.Text = "Choose file to upload...";
+            this.labelChooseFileToUploadPolicy.Text = "Choose file to upload... (Mac)";
             // 
             // checkBoxDownloadPDFFiles
             // 
@@ -2616,9 +2624,9 @@
             this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(25, 285);
             this.checkBoxDownloadPDFFiles.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxDownloadPDFFiles.Name = "checkBoxDownloadPDFFiles";
-            this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(318, 17);
+            this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(348, 17);
             this.checkBoxDownloadPDFFiles.TabIndex = 73;
-            this.checkBoxDownloadPDFFiles.Text = "Download and open PDF files instead of displaying them inline";
+            this.checkBoxDownloadPDFFiles.Text = "Download and open PDF files instead of displaying them inline (Mac)";
             this.checkBoxDownloadPDFFiles.UseVisualStyleBackColor = true;
             this.checkBoxDownloadPDFFiles.CheckedChanged += new System.EventHandler(this.checkBoxDownloadPDFFiles_CheckedChanged);
             // 
@@ -2629,9 +2637,9 @@
             this.checkBoxOpenDownloads.Location = new System.Drawing.Point(114, 107);
             this.checkBoxOpenDownloads.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxOpenDownloads.Name = "checkBoxOpenDownloads";
-            this.checkBoxOpenDownloads.Size = new System.Drawing.Size(160, 17);
+            this.checkBoxOpenDownloads.Size = new System.Drawing.Size(190, 17);
             this.checkBoxOpenDownloads.TabIndex = 72;
-            this.checkBoxOpenDownloads.Text = "Open files after downloading";
+            this.checkBoxOpenDownloads.Text = "Open files after downloading (Mac)";
             this.checkBoxOpenDownloads.UseVisualStyleBackColor = true;
             this.checkBoxOpenDownloads.CheckedChanged += new System.EventHandler(this.checkBoxOpenDownloads_CheckedChanged);
             // 
@@ -2642,9 +2650,9 @@
             this.checkBoxAllowDownUploads.Location = new System.Drawing.Point(25, 26);
             this.checkBoxAllowDownUploads.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowDownUploads.Name = "checkBoxAllowDownUploads";
-            this.checkBoxAllowDownUploads.Size = new System.Drawing.Size(205, 17);
+            this.checkBoxAllowDownUploads.Size = new System.Drawing.Size(235, 17);
             this.checkBoxAllowDownUploads.TabIndex = 71;
-            this.checkBoxAllowDownUploads.Text = "Allow downloading and uploading files";
+            this.checkBoxAllowDownUploads.Text = "Allow downloading and uploading files (Mac)";
             this.checkBoxAllowDownUploads.UseVisualStyleBackColor = true;
             this.checkBoxAllowDownUploads.CheckedChanged += new System.EventHandler(this.checkBoxAllowDownUploads_CheckedChanged);
             // 
@@ -2712,9 +2720,9 @@
             this.checkBoxBlockPopUpWindows.Location = new System.Drawing.Point(170, 301);
             this.checkBoxBlockPopUpWindows.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBlockPopUpWindows.Name = "checkBoxBlockPopUpWindows";
-            this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(133, 17);
+            this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(163, 17);
             this.checkBoxBlockPopUpWindows.TabIndex = 71;
-            this.checkBoxBlockPopUpWindows.Text = "Block pop-up windows";
+            this.checkBoxBlockPopUpWindows.Text = "Block pop-up windows (Mac)";
             this.checkBoxBlockPopUpWindows.UseVisualStyleBackColor = true;
             this.checkBoxBlockPopUpWindows.CheckedChanged += new System.EventHandler(this.checkBoxBlockPopUpWindows_CheckedChanged);
             // 
@@ -2738,9 +2746,9 @@
             this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(170, 279);
             this.checkBoxEnableJavaScript.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
-            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(142, 17);
             this.checkBoxEnableJavaScript.TabIndex = 69;
-            this.checkBoxEnableJavaScript.Text = "Enable JavaScript";
+            this.checkBoxEnableJavaScript.Text = "Enable JavaScript (Mac)";
             this.checkBoxEnableJavaScript.UseVisualStyleBackColor = true;
             this.checkBoxEnableJavaScript.CheckedChanged += new System.EventHandler(this.checkBoxEnableJavaScript_CheckedChanged);
             // 
@@ -2751,9 +2759,9 @@
             this.checkBoxEnableJava.Location = new System.Drawing.Point(23, 301);
             this.checkBoxEnableJava.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJava.Name = "checkBoxEnableJava";
-            this.checkBoxEnableJava.Size = new System.Drawing.Size(85, 17);
+            this.checkBoxEnableJava.Size = new System.Drawing.Size(115, 17);
             this.checkBoxEnableJava.TabIndex = 68;
-            this.checkBoxEnableJava.Text = "Enable Java";
+            this.checkBoxEnableJava.Text = "Enable Java (Mac)";
             this.checkBoxEnableJava.UseVisualStyleBackColor = true;
             this.checkBoxEnableJava.CheckedChanged += new System.EventHandler(this.checkBoxEnableJava_CheckedChanged);
             // 
@@ -2764,9 +2772,9 @@
             this.checkBoxEnablePlugIns.Location = new System.Drawing.Point(23, 279);
             this.checkBoxEnablePlugIns.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePlugIns.Name = "checkBoxEnablePlugIns";
-            this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(98, 17);
+            this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(128, 17);
             this.checkBoxEnablePlugIns.TabIndex = 67;
-            this.checkBoxEnablePlugIns.Text = "Enable plug-ins";
+            this.checkBoxEnablePlugIns.Text = "Enable plug-ins (Mac)";
             this.checkBoxEnablePlugIns.UseVisualStyleBackColor = true;
             this.checkBoxEnablePlugIns.CheckedChanged += new System.EventHandler(this.checkBoxEnablePlugins_CheckedChanged);
             // 
@@ -2800,9 +2808,9 @@
             this.labelOpenLinksJava.Location = new System.Drawing.Point(21, 202);
             this.labelOpenLinksJava.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelOpenLinksJava.Name = "labelOpenLinksJava";
-            this.labelOpenLinksJava.Size = new System.Drawing.Size(152, 13);
+            this.labelOpenLinksJava.Size = new System.Drawing.Size(204, 13);
             this.labelOpenLinksJava.TabIndex = 61;
-            this.labelOpenLinksJava.Text = "Links in JavaScript / plug-ins...";
+            this.labelOpenLinksJava.Text = "Links in JavaScript / plug-ins... (Mac only)";
             // 
             // labelOpenLinksHTML
             // 
@@ -2810,9 +2818,10 @@
             this.labelOpenLinksHTML.Location = new System.Drawing.Point(21, 15);
             this.labelOpenLinksHTML.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelOpenLinksHTML.Name = "labelOpenLinksHTML";
-            this.labelOpenLinksHTML.Size = new System.Drawing.Size(281, 13);
+            this.labelOpenLinksHTML.Size = new System.Drawing.Size(333, 13);
             this.labelOpenLinksHTML.TabIndex = 60;
-            this.labelOpenLinksHTML.Text = "Links requesting to be opened in a new browser window...";
+            this.labelOpenLinksHTML.Text = "Links requesting to be opened in a new browser window... (Mac only)";
+            this.labelOpenLinksHTML.Click += new System.EventHandler(this.labelOpenLinksHTML_Click);
             // 
             // checkBoxBlockLinksHTML
             // 
@@ -3051,9 +3060,9 @@
             this.checkBoxShowMenuBar.Location = new System.Drawing.Point(23, 275);
             this.checkBoxShowMenuBar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxShowMenuBar.Name = "checkBoxShowMenuBar";
-            this.checkBoxShowMenuBar.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxShowMenuBar.Size = new System.Drawing.Size(130, 17);
             this.checkBoxShowMenuBar.TabIndex = 55;
-            this.checkBoxShowMenuBar.Text = "Show menu bar";
+            this.checkBoxShowMenuBar.Text = "Show menu bar (Mac)";
             this.checkBoxShowMenuBar.UseVisualStyleBackColor = true;
             this.checkBoxShowMenuBar.CheckedChanged += new System.EventHandler(this.checkBoxShowMenuBar_CheckedChanged);
             // 
@@ -3064,9 +3073,9 @@
             this.checkBoxHideBrowserWindowToolbar.Location = new System.Drawing.Point(38, 232);
             this.checkBoxHideBrowserWindowToolbar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxHideBrowserWindowToolbar.Name = "checkBoxHideBrowserWindowToolbar";
-            this.checkBoxHideBrowserWindowToolbar.Size = new System.Drawing.Size(132, 17);
+            this.checkBoxHideBrowserWindowToolbar.Size = new System.Drawing.Size(162, 17);
             this.checkBoxHideBrowserWindowToolbar.TabIndex = 54;
-            this.checkBoxHideBrowserWindowToolbar.Text = "Hide toolbar as default";
+            this.checkBoxHideBrowserWindowToolbar.Text = "Hide toolbar as default (Mac)";
             this.checkBoxHideBrowserWindowToolbar.UseVisualStyleBackColor = true;
             this.checkBoxHideBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxHideBrowserWindowToolbar_CheckedChanged);
             // 
@@ -3076,9 +3085,9 @@
             this.checkBoxEnableBrowserWindowToolbar.Location = new System.Drawing.Point(23, 210);
             this.checkBoxEnableBrowserWindowToolbar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableBrowserWindowToolbar.Name = "checkBoxEnableBrowserWindowToolbar";
-            this.checkBoxEnableBrowserWindowToolbar.Size = new System.Drawing.Size(173, 17);
+            this.checkBoxEnableBrowserWindowToolbar.Size = new System.Drawing.Size(203, 17);
             this.checkBoxEnableBrowserWindowToolbar.TabIndex = 53;
-            this.checkBoxEnableBrowserWindowToolbar.Text = "Enable browser window toolbar";
+            this.checkBoxEnableBrowserWindowToolbar.Text = "Enable browser window toolbar (Mac)";
             this.checkBoxEnableBrowserWindowToolbar.UseVisualStyleBackColor = true;
             this.checkBoxEnableBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxEnableBrowserWindowToolbar_CheckedChanged);
             // 
@@ -3135,6 +3144,20 @@
             this.tabPageConfigFile.TabIndex = 6;
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
+            // 
+            // labelSettingsPasswordCompare
+            // 
+            this.labelSettingsPasswordCompare.AutoSize = true;
+            this.labelSettingsPasswordCompare.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSettingsPasswordCompare.ForeColor = System.Drawing.Color.Red;
+            this.labelSettingsPasswordCompare.Location = new System.Drawing.Point(346, 251);
+            this.labelSettingsPasswordCompare.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelSettingsPasswordCompare.Name = "labelSettingsPasswordCompare";
+            this.labelSettingsPasswordCompare.Size = new System.Drawing.Size(124, 13);
+            this.labelSettingsPasswordCompare.TabIndex = 64;
+            this.labelSettingsPasswordCompare.Text = "Please confirm password";
+            this.labelSettingsPasswordCompare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelSettingsPasswordCompare.Visible = false;
             // 
             // buttonSaveSettingsAs
             // 
@@ -3443,6 +3466,7 @@
             this.labelSebServerURL.Size = new System.Drawing.Size(87, 13);
             this.labelSebServerURL.TabIndex = 47;
             this.labelSebServerURL.Text = "SEB Server URL";
+            this.labelSebServerURL.Visible = false;
             // 
             // textBoxSebServerURL
             // 
@@ -3453,6 +3477,7 @@
             this.textBoxSebServerURL.Name = "textBoxSebServerURL";
             this.textBoxSebServerURL.Size = new System.Drawing.Size(402, 19);
             this.textBoxSebServerURL.TabIndex = 46;
+            this.textBoxSebServerURL.Visible = false;
             this.textBoxSebServerURL.TextChanged += new System.EventHandler(this.textBoxSebServerURL_TextChanged);
             // 
             // textBoxConfirmAdminPassword
@@ -3635,20 +3660,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(825, 650);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // labelSettingsPasswordCompare
-            // 
-            this.labelSettingsPasswordCompare.AutoSize = true;
-            this.labelSettingsPasswordCompare.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSettingsPasswordCompare.ForeColor = System.Drawing.Color.Red;
-            this.labelSettingsPasswordCompare.Location = new System.Drawing.Point(346, 251);
-            this.labelSettingsPasswordCompare.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelSettingsPasswordCompare.Name = "labelSettingsPasswordCompare";
-            this.labelSettingsPasswordCompare.Size = new System.Drawing.Size(124, 13);
-            this.labelSettingsPasswordCompare.TabIndex = 64;
-            this.labelSettingsPasswordCompare.Text = "Please confirm password";
-            this.labelSettingsPasswordCompare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelSettingsPasswordCompare.Visible = false;
             // 
             // SebWindowsConfigForm
             // 
