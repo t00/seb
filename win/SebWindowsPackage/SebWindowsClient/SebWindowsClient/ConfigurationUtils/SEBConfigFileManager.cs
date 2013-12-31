@@ -50,52 +50,54 @@ namespace SebWindowsClient.ConfigurationUtils
         /// ----------------------------------------------------------------------------------------
         public static bool StoreDecryptedSEBSettings(byte[] sebData)
         {
-            DictObj sebPreferencesDict;
-            string sebFilePassword = null;
-            bool passwordIsHash = false;
-            X509Certificate2 sebFileCertificateRef = null;
+            //DictObj sebPreferencesDict;
+            //string sebFilePassword = null;
+            //bool passwordIsHash = false;
+            //X509Certificate2 sebFileCertificateRef = null;
 
-            sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref passwordIsHash, ref sebFileCertificateRef);
-             if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
+            //sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref passwordIsHash, ref sebFileCertificateRef);
+            //if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
 
-             if ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
-             {
+            if (!SEBSettings.StoreSebClientSettings(sebData)) return false;
 
-                 /// If these SEB settings are ment to start an exam
+            if ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
+            {
 
-                 // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
-                 //[NSUserDefaults setUserDefaultsPrivate:YES];
+                /// If these SEB settings are ment to start an exam
 
-                 // Write values from .seb config file to the local preferences (shared UserDefaults)
-                 //[self saveIntoUserDefaults:sebPreferencesDict];
+                // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
+                //[NSUserDefaults setUserDefaultsPrivate:YES];
 
-                 //[self.sebController.preferencesController initPreferencesWindow];
+                // Write values from .seb config file to the local preferences (shared UserDefaults)
+                //[self saveIntoUserDefaults:sebPreferencesDict];
 
-                 return true; //reading preferences was successful
+                //[self.sebController.preferencesController initPreferencesWindow];
 
-             }
-             else
-             {
+                return true; //reading preferences was successful
 
-                 /// If these SEB settings are ment to configure a client
+            }
+            else
+            {
 
-                 // Write values from .seb config file to the local preferences (shared UserDefaults)
+                /// If these SEB settings are ment to configure a client
 
-                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLIENT_SETTINGS_RECONFIGURED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION);
-                 //int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
-                 //                             NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
-                 //switch(answer)
-                 //{
-                 //    case NSAlertDefaultReturn:
-                 //        break; //Cancel: don't quit
-                 //    default:
-                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                 //Application.Exit();
+                // Write values from .seb config file to the local preferences (shared UserDefaults)
 
-                 //}
+                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLIENT_SETTINGS_RECONFIGURED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION);
+                //int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
+                //                             NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
+                //switch(answer)
+                //{
+                //    case NSAlertDefaultReturn:
+                //        break; //Cancel: don't quit
+                //    default:
+                //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                //Application.Exit();
 
-                 return true; //reading preferences was successful
-             }
+                //}
+
+                return true; //reading preferences was successful
+            }
         }
 
         /// ----------------------------------------------------------------------------------------

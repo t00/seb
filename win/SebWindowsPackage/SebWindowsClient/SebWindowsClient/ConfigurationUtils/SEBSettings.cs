@@ -1349,7 +1349,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Try to read SEB settings from drive, decrypt, deserialize and return as data
+        /// Decrypt, deserialize and store SEB settings as data
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         public static bool StoreSebClientSettings(byte [] sebSettings)

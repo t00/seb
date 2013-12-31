@@ -34,15 +34,14 @@
             // listApplications
             // 
             this.listApplications.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.listApplications.BackColor = System.Drawing.SystemColors.Control;
-            this.listApplications.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listApplications.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listApplications.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.listApplications.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listApplications.GridLines = true;
             this.listApplications.HoverSelection = true;
             this.listApplications.Location = new System.Drawing.Point(0, 0);
             this.listApplications.MultiSelect = false;
             this.listApplications.Name = "listApplications";
-            this.listApplications.Size = new System.Drawing.Size(523, 104);
+            this.listApplications.Size = new System.Drawing.Size(500, 70);
             this.listApplications.TabIndex = 0;
             this.listApplications.UseCompatibleStateImageBehavior = false;
             // 
@@ -50,14 +49,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(523, 104);
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ClientSize = new System.Drawing.Size(500, 70);
             this.ControlBox = false;
             this.Controls.Add(this.listApplications);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SebApplicationChooserForm";
             this.Opacity = 0.75D;
+            this.Padding = new System.Windows.Forms.Padding(10, 15, 10, 15);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

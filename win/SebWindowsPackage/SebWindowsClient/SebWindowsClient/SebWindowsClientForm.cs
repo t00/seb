@@ -11,6 +11,7 @@ using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.DesktopUtils;
 using SebWindowsClient.ClientSocketUtils;
 using System.Net;
+using System.IO;
 using System.Security.Principal;
 using SebWindowsClient.RegistryUtils;
 using SebWindowsClient.ProcessUtils;
@@ -114,7 +115,55 @@ namespace SebWindowsClient
         }
         public void LoadFile(string file)
         {
-            //textBox1.Text = File.ReadAllText(file);
+            byte[] sebSettings = null;
+            Uri uri;
+            try
+            {
+                uri = new Uri(file);
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("SEB was opened with a wrong parameter", this, ex, ex.Message); 
+                return;
+            }
+            if (uri.Scheme == "seb")
+            {
+                // The URI is holding a seb:// web address for a .seb settings file: download it
+                WebClient myWebClient = new WebClient();
+                // Try first by http
+                UriBuilder httpURL = new UriBuilder("http", uri.Host, uri.Port, uri.AbsolutePath);
+                using (myWebClient)
+                {
+                    sebSettings = myWebClient.DownloadData(httpURL.Uri);
+                }
+                if (sebSettings == null)
+                {
+                    // Nothing got downloaded: Try by https
+                    UriBuilder httpsURL = new UriBuilder("https", uri.Host, uri.Port, uri.AbsolutePath);
+                    using (myWebClient)
+                    {
+                        sebSettings = myWebClient.DownloadData(httpsURL.Uri);
+                    }
+                }
+            }
+            else if (uri.IsFile)
+            {
+                try
+                {
+                    sebSettings = File.ReadAllBytes(file);
+                }
+                catch (Exception streamReadException)
+                {
+                    // Write error into string with temporary log string builder
+                    Logger.AddError("Settings could not be read from file.", this, streamReadException, streamReadException.Message);
+                    return;
+                }
+            }
+            // If some settings got loaded in the end
+            if (sebSettings == null) return;
+
+            // Decrypt, parse and store new settings and restart SEB if this was successfull
+            if (SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings)) SebWindowsClientMain.RestartSEB();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -174,7 +223,9 @@ namespace SebWindowsClient
             if (xulRunnerExitCode != 0)
             {
                 // An error occured when exiting XULRunner, maybe it crashed?
-                Logger.AddError("An error occurred by exiting XULRunner. Exit code: " + xulRunnerExitCode.ToString(), this, null);
+                Logger.AddError("An error occurred when exiting XULRunner. Exit code: " + xulRunnerExitCode.ToString(), this, null);
+                // Restart XULRunner
+                //StartXulRunner();
             }
             else
             {
@@ -191,6 +242,8 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void addPermittedProcessesToTS()
         {
+            // First clear the toolstrip permitted processes in case of a SEB restart
+            tsPermittedProcesses.Items.Clear();
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
@@ -204,16 +257,23 @@ namespace SebWindowsClient
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
 
                         toolStripButton.Name        = executable;
+                        toolStripButton.Padding     = new Padding(5, 0, 5, 0);
                         toolStripButton.ToolTipText = title;
-
-                        if (executable.Contains("notepad.exe"))
-                            toolStripButton.Image = ilProcessIcons.Images[2];
-                        else if (executable.Contains("calc.exe"))
-                            toolStripButton.Image = ilProcessIcons.Images[1];
-                        else if (executable.Contains("xulrunner.exe"))
-                            toolStripButton.Image = ilProcessIcons.Images[3];
-                        else
-                            toolStripButton.Text = title;
+                        if (executable.Contains("xulrunner.exe"))
+                            toolStripButton.Image = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
+                        //else
+                        //{
+                        //    Icon processIcon = Icon.ExtractAssociatedIcon(executable);
+                        //    toolStripButton.Image = processIcon.ToBitmap();
+                        //}
+                        //if (executable.Contains("notepad.exe"))
+                        //    toolStripButton.Image = ilProcessIcons.Images[2];
+                        //else if (executable.Contains("calc.exe"))
+                        //    toolStripButton.Image = ilProcessIcons.Images[1];
+                        //else if (executable.Contains("xulrunner.exe"))
+                        //    toolStripButton.Image = ilProcessIcons.Images[3];
+                        //else
+                        //    toolStripButton.Text = title;
 
                         toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
@@ -234,7 +294,9 @@ namespace SebWindowsClient
                                         startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
                                     }
                                 }
-                                SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                                Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                                Icon processIcon = Icon.ExtractAssociatedIcon(newProcess.MainModule.FileName);
+                                toolStripButton.Image = processIcon.ToBitmap();
                             }
                         }
                     }
@@ -571,7 +633,7 @@ namespace SebWindowsClient
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------------------
-        private void SebWindowsClientForm_Load(object sender, EventArgs e)
+        public void SebWindowsClientForm_Load(object sender, EventArgs e)
         {
             bool bClientInfo = InitClientSocket();
             bool bClientRegistryAndProcesses = InitClientRegistryAndProcesses();
@@ -689,7 +751,7 @@ namespace SebWindowsClient
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------------------
-        private void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        public void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             //bool bQuit = false;
             //bQuit = CheckQuitPassword();

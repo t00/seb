@@ -134,7 +134,7 @@ namespace SebWindowsClient
                     hIcon = LoadIcon(IntPtr.Zero, (IntPtr)0x7F00/*IDI_APPLICATION*/);
 
                 if (hIcon != IntPtr.Zero)
-                    return new Bitmap(Icon.FromHandle(hIcon).ToBitmap(), 16, 16);
+                    return new Bitmap(Icon.FromHandle(hIcon).ToBitmap(), 32, 32);
                 else
                     return null;
             }
@@ -154,6 +154,7 @@ namespace SebWindowsClient
         {
             List<string> lRunningApplications = new List<string>();
             ImageList ilApplicationIcons = new ImageList();
+            ilApplicationIcons.ImageSize = new Size(32, 32);
             this.lWindowHandles.Clear();
             int index = 0;
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
@@ -163,18 +164,27 @@ namespace SebWindowsClient
                 for (int i = 0; i < permittedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
+                    string permittedProcessExecutable = (string)permittedProcess[SEBSettings.KeyExecutable];
+                    string permittedProcessTitle = (string)permittedProcess[SEBSettings.KeyTitle];
                     if ((Boolean)permittedProcess[SEBSettings.KeyActive])
                     {
                         for (int j = 0; j < runningApplications.Count(); j++)
                         {
-                            if (permittedProcessName.Contains(runningApplications[j].ProcessName))
+                            if (permittedProcessExecutable.Contains(runningApplications[j].ProcessName))
                             {
-                                if (!permittedProcessName.Contains("SebWindowsClient"))
+                                if (!permittedProcessExecutable.Contains("SebWindowsClient"))
                                 {
                                     this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
-                                    lRunningApplications.Add(runningApplications[j].ProcessName);
-                                    ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
+                                    //lRunningApplications.Add(runningApplications[j].ProcessName);
+                                    lRunningApplications.Add(permittedProcessTitle);
+                                    if (permittedProcessExecutable == "xulrunner.exe")
+                                    {
+                                        ilApplicationIcons.Images.Add(Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap());
+                                    }
+                                    else
+                                    {
+                                        ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
+                                    }
                                     index++;
                                 }
                             }

@@ -55,6 +55,8 @@ namespace SebWindowsClient
 
     static class SebWindowsClientMain
     {
+        static SingleInstanceController singleInstanceController;
+
         // For killing the Explorer Shell at SEB startup
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -74,13 +76,27 @@ namespace SebWindowsClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (InitSebDesktop())
+            if (InitSebSettings())
              {
                  SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                  string[] arguments = Environment.GetCommandLineArgs();
-                 SingleInstanceController controller = new SingleInstanceController();
-                 controller.Run(arguments);
+                 singleInstanceController = new SingleInstanceController();
+                 singleInstanceController.Run(arguments);
              }
+        }
+
+
+        /// <summary>
+        /// Restart SEB.
+        /// </summary>
+        public static void RestartSEB()
+        {
+            SEBClientInfo.SebWindowsClientForm.SebWindowsClientForm_FormClosing(null, null);
+            if (InitSebDesktop())
+            {
+                //SEBClientInfo.SebWindowsClientForm.InitializeComponent();
+                SEBClientInfo.SebWindowsClientForm.SebWindowsClientForm_Load(null, null);
+            }
         }
 
 
@@ -125,33 +141,46 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Create and initialise new desktop.
+        /// Create and initialise SEB client settings and check system compatibility.
+        /// This method needs to be executed only once when SEB first starts 
+        /// (not when reconfiguring).
         /// </summary>
         /// <returns>true if succeed</returns>
         /// ----------------------------------------------------------------------------------------
-        private static bool InitSebDesktop()
+        private static bool InitSebSettings()
         {
-            //// Initialize the password entry dialog form
+            // Initialize the password entry dialog form
             SebWindowsClient.ConfigurationUtils.SEBConfigFileManager.InitSEBConfigFileManager();
 
             //SebWindowsClientForm.SetVisibility(true);
 
-           // Set SebClient configuration
+            // Set SebClient configuration
             if (!SEBClientInfo.SetSebClientConfiguration())
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                 Logger.AddError("Error when opening the file SebClientSettings.seb!", null, null);
                 return false;
             }
- 
+
             // Check system version
             if (!SEBClientInfo.SetSystemVersionInfo())
             {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_NO_OS_SUPPORT, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                Logger.AddError("Unknown OS. Exiting SEB.",null,null);
+                Logger.AddError("Unknown OS. Exiting SEB.", null, null);
                 return false;
             }
 
+            return InitSebDesktop();
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Create and initialise new desktop.
+        /// </summary>
+        /// <returns>true if succeed</returns>
+        /// ----------------------------------------------------------------------------------------
+        private static bool InitSebDesktop()
+        {
             // Test if Windows Service is running
             bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
             if (serviceAvailable)
@@ -233,10 +262,10 @@ namespace SebWindowsClient
 
                 if (killExplorerShell)
                 {
-                    Logger.AddInformation("Kill process by name(explorer.exe)", null, null);
+                    Logger.AddInformation("Kill process by name (explorer.exe)", null, null);
                     SEBNotAllowedProcessController.KillProcessByName("explorer.exe");
                     SEBClientInfo.ExplorerShellWasKilled = true;
-                    Logger.AddInformation("Process by name(explorer.exe) killed", null, null);
+                    Logger.AddInformation("Process by name (explorer.exe) killed", null, null);
                 }
                 //tell Win9x / Me that the screensaver is running to lock system tasks
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
