@@ -45,33 +45,35 @@ namespace SebWindowsClient.ConfigurationUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Decrypt, deserialize and store SEB settings
+        /// Decrypt, deserialize and store new settings as current SEB settings
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         public static bool StoreDecryptedSEBSettings(byte[] sebData)
         {
-            //DictObj sebPreferencesDict;
-            //string sebFilePassword = null;
-            //bool passwordIsHash = false;
-            //X509Certificate2 sebFileCertificateRef = null;
+            DictObj sebPreferencesDict;
+            string sebFilePassword = null;
+            bool passwordIsHash = false;
+            X509Certificate2 sebFileCertificateRef = null;
 
-            //sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref passwordIsHash, ref sebFileCertificateRef);
-            //if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
+            sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref passwordIsHash, ref sebFileCertificateRef);
+            if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
 
-            if (!SEBSettings.StoreSebClientSettings(sebData)) return false;
+            // Reset SEB, close third party applications
+            SEBClientInfo.SebWindowsClientForm.CloseSEBForm();
+
+
 
             if ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
             {
 
                 /// If these SEB settings are ment to start an exam
 
-                // Switch to private UserDefaults (saved non-persistantly in memory instead in ~/Library/Preferences)
-                //[NSUserDefaults setUserDefaultsPrivate:YES];
+                // Store decrypted settings
+                SEBSettings.StoreSebClientSettings(sebPreferencesDict);
 
-                // Write values from .seb config file to the local preferences (shared UserDefaults)
-                //[self saveIntoUserDefaults:sebPreferencesDict];
-
-                //[self.sebController.preferencesController initPreferencesWindow];
+                // Re-Initialize SEB according to the new settings
+                if (!SebWindowsClientMain.InitSebDesktop()) return false;
+                SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
 
                 return true; //reading preferences was successful
 
@@ -82,6 +84,13 @@ namespace SebWindowsClient.ConfigurationUtils
                 /// If these SEB settings are ment to configure a client
 
                 // Write values from .seb config file to the local preferences (shared UserDefaults)
+
+                // Store decrypted settings
+                SEBSettings.StoreSebClientSettings(sebPreferencesDict);
+
+                // Re-Initialize SEB according to the new settings
+                if (!SebWindowsClientMain.InitSebDesktop()) return false;
+                SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
 
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLIENT_SETTINGS_RECONFIGURED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION);
                 //int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
@@ -215,7 +224,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
 
                 // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
-                SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
+                sebPreferencesDict[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
 
             }
             catch (Exception readPlistException)
@@ -459,7 +468,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 }
             }
             // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
-            SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient;
+            sebPreferencesDict[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient;
 
             // Reading preferences was successful!
             return sebPreferencesDict;

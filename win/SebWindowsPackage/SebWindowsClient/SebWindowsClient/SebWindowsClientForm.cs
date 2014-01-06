@@ -163,7 +163,7 @@ namespace SebWindowsClient
             if (sebSettings == null) return;
 
             // Decrypt, parse and store new settings and restart SEB if this was successfull
-            if (SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings)) SebWindowsClientMain.RestartSEB();
+            SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -237,7 +237,8 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Add Permitted process names to ToolStrip control
+        /// Add permitted process names and icons to the SEB task bar (ToolStrip control) 
+        /// and start permitted processes which have the autostart option set 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         private void addPermittedProcessesToTS()
@@ -261,20 +262,15 @@ namespace SebWindowsClient
                         toolStripButton.ToolTipText = title;
                         if (executable.Contains("xulrunner.exe"))
                             toolStripButton.Image = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
-                        //else
-                        //{
-                        //    Icon processIcon = Icon.ExtractAssociatedIcon(executable);
-                        //    toolStripButton.Image = processIcon.ToBitmap();
-                        //}
-                        //if (executable.Contains("notepad.exe"))
-                        //    toolStripButton.Image = ilProcessIcons.Images[2];
-                        //else if (executable.Contains("calc.exe"))
-                        //    toolStripButton.Image = ilProcessIcons.Images[1];
-                        //else if (executable.Contains("xulrunner.exe"))
-                        //    toolStripButton.Image = ilProcessIcons.Images[3];
-                        //else
-                        //    toolStripButton.Text = title;
-
+                        else
+                        {
+                            //string fullPath = GetApplicationPath(executable);
+                            //if (fullPath != null)
+                            //{
+                            //    Icon processIcon = Icon.ExtractAssociatedIcon(fullPath);
+                            //}
+                        }
+                        
                         toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
                         tsPermittedProcesses.Items.Add(toolStripButton);
@@ -295,7 +291,9 @@ namespace SebWindowsClient
                                     }
                                 }
                                 Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
-                                Icon processIcon = Icon.ExtractAssociatedIcon(newProcess.MainModule.FileName);
+                                Icon processIcon = getProcessIcon(newProcess);
+                                if (processIcon == null) processIcon = getProcessIcon(newProcess);
+                                if (processIcon == null) processIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
                                 toolStripButton.Image = processIcon.ToBitmap();
                             }
                         }
@@ -308,6 +306,56 @@ namespace SebWindowsClient
             //SEBDesktopController.CreateProcess("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe", SEBClientInfo.DesktopName);
             //oskProcess = Process.Start("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe");
 
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Get icon for a running process.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private Icon getProcessIcon (Process process)
+        {
+            Icon processIcon;
+            try
+            {
+                string processExecutableFileName = process.MainModule.FileName;
+                processIcon = Icon.ExtractAssociatedIcon(processExecutableFileName);
+            }
+            catch (Exception ex)
+            {
+                processIcon = null;
+            }
+            return processIcon;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Get the full path of an application from which we know the executable name 
+        /// by searching the application paths which are set in the Registry.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public string GetApplicationPath(string appname)
+        {
+            using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.RegistryKey.OpenRemoteBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, ""))
+            {
+                string subKeyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + appname;
+                using (Microsoft.Win32.RegistryKey subkey = key.OpenSubKey(subKeyName))
+                {
+                    if (subkey == null)
+                    {
+                        //string expanded = System.Environment.GetEnvironmentVariable("path") + appname;
+                        string fullPath = Environment.SystemDirectory + "\\" + appname;
+                        return fullPath;
+                    }
+
+                    object path = subkey.GetValue("@");
+
+                    if (path != null)
+                        return (string)path;
+                }
+            }
+            return null;
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -628,52 +676,6 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Load form.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// ----------------------------------------------------------------------------------------
-        public void SebWindowsClientForm_Load(object sender, EventArgs e)
-        {
-            bool bClientInfo = InitClientSocket();
-            bool bClientRegistryAndProcesses = InitClientRegistryAndProcesses();
-
-            // Disable unwanted keys.
-            SebKeyCapture.FilterKeys = true;
-
-            addPermittedProcessesToTS();
-            SetFormOnDesktop();
-            StartXulRunner();
-            //System.Diagnostics.Process oskProcess = null;
-            //oskProcess = Process.Start("OSK");
-            //SEBDesktopController d = SEBDesktopController.OpenDesktop(SEBClientInfo.DesktopName);
-            //oskProcess = d.CreateProcess("OSK");
-            if (sebCloseDialogForm == null)
-            {
-                sebCloseDialogForm = new SebCloseDialogForm();
-//              SetForegroundWindow(sebCloseDialogForm.Handle);
-                sebCloseDialogForm.TopMost = true;
-                //sebCloseDialogForm.Show();
-                //sebCloseDialogForm.Visible = false;
-            }
-            if (sebApplicationChooserForm == null)
-            {
-                sebApplicationChooserForm = new SebApplicationChooserForm();
-                sebApplicationChooserForm.TopMost = true;
-                sebApplicationChooserForm.Show();
-                sebApplicationChooserForm.Visible = false;
-            } 
-            //if (sebPasswordDialogForm == null)
-            //{
-            //    sebPasswordDialogForm = new SebPasswordDialogForm();
-            //    sebPasswordDialogForm.TopMost = true;
-            //    sebPasswordDialogForm.Show();
-            //    sebPasswordDialogForm.Visible = false;
-            //}
-        }
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
         /// Show SEB Application Chooser Form.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
@@ -682,7 +684,7 @@ namespace SebWindowsClient
             // Show testDialog as a modal dialog and determine if DialogResult = OK.
             SetForegroundWindow(this.Handle);
             //this.Activate();
-            sebApplicationChooserForm.fillListApplications(); 
+            sebApplicationChooserForm.fillListApplications();
             sebApplicationChooserForm.Visible = true;
             sebCloseDialogForm.Activate();
         }
@@ -725,7 +727,7 @@ namespace SebWindowsClient
                 // Is a quit password set?
                 string hashedQuitPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
                 if (String.IsNullOrEmpty(hashedQuitPassword) == true)
-                    // If there is no quit password set, we just ask user to confirm quitting
+                // If there is no quit password set, we just ask user to confirm quitting
                 {
                     if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
                     {
@@ -746,20 +748,63 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Close form, if Quit Password is correct.
+        /// Open SEB form.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         /// ----------------------------------------------------------------------------------------
-        public void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        public void OpenSEBForm()
         {
-            //bool bQuit = false;
-            //bQuit = CheckQuitPassword();
+            bool bClientInfo = InitClientSocket();
+            bool bClientRegistryAndProcesses = InitClientRegistryAndProcesses();
 
-            //if (bQuit)
+            // Disable unwanted keys.
+            SebKeyCapture.FilterKeys = true;
+
+            addPermittedProcessesToTS();
+            SetFormOnDesktop();
+            StartXulRunner();
+            //System.Diagnostics.Process oskProcess = null;
+            //oskProcess = Process.Start("OSK");
+            //SEBDesktopController d = SEBDesktopController.OpenDesktop(SEBClientInfo.DesktopName);
+            //oskProcess = d.CreateProcess("OSK");
+            if (sebCloseDialogForm == null)
+            {
+                sebCloseDialogForm = new SebCloseDialogForm();
+                //              SetForegroundWindow(sebCloseDialogForm.Handle);
+                sebCloseDialogForm.TopMost = true;
+                //sebCloseDialogForm.Show();
+                //sebCloseDialogForm.Visible = false;
+            }
+            if (sebApplicationChooserForm == null)
+            {
+                sebApplicationChooserForm = new SebApplicationChooserForm();
+                sebApplicationChooserForm.TopMost = true;
+                sebApplicationChooserForm.Show();
+                sebApplicationChooserForm.Visible = false;
+            }
+            //if (sebPasswordDialogForm == null)
             //{
+            //    sebPasswordDialogForm = new SebPasswordDialogForm();
+            //    sebPasswordDialogForm.TopMost = true;
+            //    sebPasswordDialogForm.Show();
+            //    sebPasswordDialogForm.Visible = false;
+            //}
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Close SEB Form.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public void CloseSEBForm()
+        {
+            {
+                //bool bQuit = false;
+                //bQuit = CheckQuitPassword();
+
+                //if (bQuit)
+                //{
                 bool bSocketResult;
-                SEBLocalHostInfo  sebLocalHostInfo = new SEBLocalHostInfo();
+                SEBLocalHostInfo sebLocalHostInfo = new SEBLocalHostInfo();
                 string userName = sebLocalHostInfo.GetUserName();
 
                 // ShutDown message to SebWindowsService
@@ -790,10 +835,10 @@ namespace SebWindowsClient
 
                                 //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
                                 //{
-                                    //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
-                                    //{
-                                        SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
-                                    //}
+                                //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
+                                //{
+                                SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
+                                //}
 
                                 //}
                             }
@@ -809,8 +854,8 @@ namespace SebWindowsClient
                     {
                         Logger.AddInformation("Restarting the shell.", null, null);
                         string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
-                        Process process = new Process();           
-                        process.StartInfo.FileName        = explorer;
+                        Process process = new Process();
+                        process.StartInfo.FileName = explorer;
                         process.StartInfo.UseShellExecute = true;
                         process.Start();
                     }
@@ -819,9 +864,9 @@ namespace SebWindowsClient
                 // Switch to Default Desktop
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
                 {
-                    SEBDesktopController.Show      (SEBClientInfo.OriginalDesktop.DesktopName);
+                    SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
                     SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
-                    SEBClientInfo       .SEBNewlDesktop.Close();
+                    SEBClientInfo.SEBNewlDesktop.Close();
                 }
                 else
                 {
@@ -833,13 +878,39 @@ namespace SebWindowsClient
                 Logger.AddInformation("Clipboard deleted.", null, null);
                 SebKeyCapture.FilterKeys = false;
                 Logger.closeLoger();
-            //}
-            //else
-            //{
-            //    e.Cancel = true;
-            //}
+                //}
+                //else
+                //{
+                //    e.Cancel = true;
+                //}
 
-            //sebCloseDialogForm.Dispose();
+                //sebCloseDialogForm.Dispose();
+            }
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Load form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------------------
+        public void SebWindowsClientForm_Load(object sender, EventArgs e)
+        {
+            OpenSEBForm();
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Close form, if Quit Password is correct.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------------------
+        public void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CloseSEBForm();
         }
      }
 }

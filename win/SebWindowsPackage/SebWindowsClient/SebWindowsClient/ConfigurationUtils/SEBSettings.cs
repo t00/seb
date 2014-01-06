@@ -1349,35 +1349,57 @@ namespace SebWindowsClient.ConfigurationUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Decrypt, deserialize and store SEB settings as data
+        /// Decrypt, deserialize and store new settings as current SEB settings 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static bool StoreSebClientSettings(byte [] sebSettings)
+        public static bool StoreDecryptedSebClientSettings(byte [] sebSettings)
         {
-            // Recreate the default and current settings
+            DictObj settingsDict = null;
+            // If we were passed empty settings, we skip decrypting and just use default settings
+            if (sebSettings != null)
+            {
+                string filePassword = null;
+                bool passwordIsHash = false;
+                X509Certificate2 fileCertificateRef = null;
+
+                try
+                {
+                    // Decrypt the configuration settings.
+                    // Convert the XML structure into a C# object.
+
+                    settingsDict = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(sebSettings, false, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
+                    if (settingsDict == null)
+                    {
+                        Logger.AddError("The .seb file could not be decrypted. ", null, null, "");
+                        return false;
+                    }
+                }
+                catch (Exception streamReadException)
+                {
+                    // Let the user know what went wrong
+                    Logger.AddError("The .seb file could not be decrypted. ", null, streamReadException, streamReadException.Message);
+                    return false;
+                }
+            }
+            // Store the new settings or use defaults if new settings were empty
+            StoreSebClientSettings(settingsDict);
+            return true;
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Store passed new settings as current SEB settings 
+        /// or use default settings if none were passed.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static void StoreSebClientSettings(DictObj settingsDict)
+        {
+            // Recreate the default and current settings dictionaries
             SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
+            SEBSettings.settingsCurrent.Clear();
 
-            string filePassword = null;
-            bool passwordIsHash = false;
-            X509Certificate2 fileCertificateRef = null;
-
-            try
-            {
-                // Read the configuration settings from .seb file.
-                // Decrypt the configuration settings.
-                // Convert the XML structure into a C# object.
-
-                SEBSettings.settingsCurrent.Clear();
-
-                DictObj settingsDict = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(sebSettings, false, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
-                if (settingsDict != null) SEBSettings.settingsCurrent = settingsDict;
-            }
-            catch (Exception streamReadException)
-            {
-                // Let the user know what went wrong
-                Logger.AddError("The .seb file could not be decrypted. ", null, streamReadException, streamReadException.Message);
-                return false;
-            }
+            // If we got new settings, we use them (othervise use defaults)
+            if (settingsDict != null) SEBSettings.settingsCurrent = settingsDict;
 
             // Fill up the Dictionary read from file with default settings, where necessary
             SEBSettings.FillSettingsDictionary();
@@ -1385,11 +1407,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Add the XulRunner process to the Permitted Process List, if necessary
             SEBSettings.PermitXulRunnerProcess();
-
-            return true;
         }
-        
-
 
 
         // *********************************************

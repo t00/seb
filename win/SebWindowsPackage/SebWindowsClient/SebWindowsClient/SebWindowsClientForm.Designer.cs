@@ -92,6 +92,7 @@ namespace SebWindowsClient
             this.Name = "SebWindowsClientForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.TransparencyKey = System.Drawing.Color.White;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsClientForm_FormClosing);
             this.Load += new System.EventHandler(this.SebWindowsClientForm_Load);
             this.ResumeLayout(false);

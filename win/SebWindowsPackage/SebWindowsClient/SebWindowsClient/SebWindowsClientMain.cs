@@ -21,7 +21,7 @@ using SebWindowsClient.CryptographyUtils;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography;
 using System.Text;
-using COM.Tools.VMDetect;
+//using COM.Tools.VMDetect;
 using SebWindowsClient.ServiceUtils;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -87,23 +87,37 @@ namespace SebWindowsClient
 
 
         /// <summary>
-        /// Restart SEB.
+        /// Detect if running in various virtual machines.
+        /// C# code only solution which is more compatible.
         /// </summary>
-        public static void RestartSEB()
+        private static bool IsInsideVM()
         {
-            SEBClientInfo.SebWindowsClientForm.SebWindowsClientForm_FormClosing(null, null);
-            if (InitSebDesktop())
+            using (var searcher = new System.Management.ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
             {
-                //SEBClientInfo.SebWindowsClientForm.InitializeComponent();
-                SEBClientInfo.SebWindowsClientForm.SebWindowsClientForm_Load(null, null);
+                using (var items = searcher.Get())
+                {
+                    foreach (var item in items)
+                    {
+                        string manufacturer = item["Manufacturer"].ToString().ToLower();
+                        if (manufacturer == "microsoft corporation"
+                            || manufacturer.Contains("vmware")
+                            || manufacturer.Contains("parallels software") 
+                            || manufacturer.Contains("xen")
+                            || item["Model"].ToString().ToLower().Contains("xen")
+                            || item["Model"].ToString() == "VirtualBox")
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
+            return false;
         }
-
-
+        
         /// <summary>
         /// Detect if SEB Running inside VPC.
         /// </summary>
-        private static bool IsInsideVPC()
+        /*private static bool IsInsideVPC()
         {
             if (VMDetect.IsInsideVPC)
             {
@@ -136,7 +150,7 @@ namespace SebWindowsClient
                 Logger.AddInformation("Not running inside VMWare!", null, null);
                 return false;
             }
-        }
+        }*/
 
 
         /// ----------------------------------------------------------------------------------------
@@ -179,7 +193,7 @@ namespace SebWindowsClient
         /// </summary>
         /// <returns>true if succeed</returns>
         /// ----------------------------------------------------------------------------------------
-        private static bool InitSebDesktop()
+        public static bool InitSebDesktop()
         {
             // Test if Windows Service is running
             bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
@@ -222,8 +236,9 @@ namespace SebWindowsClient
 
              // Test if run inside virtual machine
             bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyAllowVirtualMachine)[SEBSettings.KeyAllowVirtualMachine];
-            if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
-            {
+            if (IsInsideVM() && (!allowVirtualMachine))
+                //if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
+                {
                 SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                 Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
                 Logger.AddInformation("Safe Exam Browser is exiting", null, null);

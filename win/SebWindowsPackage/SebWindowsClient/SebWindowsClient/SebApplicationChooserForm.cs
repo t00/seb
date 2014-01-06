@@ -154,6 +154,7 @@ namespace SebWindowsClient
         {
             List<string> lRunningApplications = new List<string>();
             ImageList ilApplicationIcons = new ImageList();
+            ilApplicationIcons.TransparentColor = Color.White;
             ilApplicationIcons.ImageSize = new Size(32, 32);
             this.lWindowHandles.Clear();
             int index = 0;

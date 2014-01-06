@@ -313,7 +313,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 }
             }
             // Store the decrypted configuration settings.
-            if (!SEBSettings.StoreSebClientSettings(sebClientSettings))
+            if (!SEBSettings.StoreDecryptedSebClientSettings(sebClientSettings))
                 return false;
 
             // Initialise Loger, if enabled
