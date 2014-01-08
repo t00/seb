@@ -94,6 +94,47 @@ namespace SebWindowsClient.ProcessUtils
             }
         }
 
+        /// <summary>
+        /// Closes process by process name.
+        /// </summary>
+        /// <returns></returns>
+        public static void CloseProcess(Process processToClose)
+        {
+                    try
+                    {
+                        //// Display physical memory usage 5 times at intervals of 2 seconds.
+                        //for (int i = 0; i < 5; i++)
+                        //{
+                        //    if (!processToClose.HasExited)
+                        //    {
+                        //        // Discard cached information about the process.
+                        //        processToClose.Refresh();
+                        //        // Print working set to console.
+                        //        Console.WriteLine("Physical Memory Usage: "
+                        //                                + processToClose.WorkingSet64.ToString());
+                        //        // Wait 2 seconds.
+                        //        Thread.Sleep(2000);
+                        //    }
+                        //    else
+                        //    {
+                        //        break;
+                        //    }
+                        //}
+
+                        if (!processToClose.HasExited)
+                        {
+                            // Close process by sending a close message to its main window.
+                            processToClose.CloseMainWindow();
+                            // Free resources associated with process.
+                            processToClose.Close();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("The following exception was raised: ");
+                        Console.WriteLine(e.Message);
+                    }
+        }
 
         /// <summary>
         /// Gets all processes.

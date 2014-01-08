@@ -89,6 +89,8 @@ namespace SebWindowsClient
         private DateTime xulRunnerExitTime;
         //private bool xulRunnerExitEventHandled;
 
+        public List<Process> runningPermittedProcesses = new List<Process>();
+
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Constructor - initialise components.
@@ -193,6 +195,7 @@ namespace SebWindowsClient
                 //string path = SEBClientInfo.XulRunnerExePath;
                 //path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, SEBClientInfo.DesktopName);
+                runningPermittedProcesses.Add(xulRunner);
                 //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
                 ////xulRunner.StartInfo.Verb = "XulRunner";
                 //xulRunner.StartInfo.Arguments = " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
@@ -278,6 +281,7 @@ namespace SebWindowsClient
                         // Autostart
                         if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
                         {
+                            //toolStripButton.Checked = true;
                             if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
                             {
                                 StringBuilder startProcessNameBuilder = new StringBuilder(executable);
@@ -291,6 +295,7 @@ namespace SebWindowsClient
                                     }
                                 }
                                 Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                                runningPermittedProcesses.Add(newProcess);
                                 Icon processIcon = getProcessIcon(newProcess);
                                 if (processIcon == null) processIcon = getProcessIcon(newProcess);
                                 if (processIcon == null) processIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
@@ -406,7 +411,8 @@ namespace SebWindowsClient
                                         startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
                                     }
                                 }
-                                SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                                Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                                runningPermittedProcesses.Add(newProcess);
                             }
                         }
                     }
@@ -818,32 +824,37 @@ namespace SebWindowsClient
                 }
 
                 // ShutDown Processes
-                Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
-                List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
-                for (int i = 0; i < permittedProcessList.Count(); i++)
+                //Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
+                //List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
+                //for (int i = 0; i < permittedProcessList.Count(); i++)
+                //{
+                //    for (int j = 0; j < runningApplications.Count(); j++)
+                //    {
+                //        Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+                //        string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
+                //        if ((Boolean)permittedProcess[SEBSettings.KeyActive])
+                //        {
+                //            if (permittedProcessName.Contains(runningApplications[j].ProcessName))
+                //            {
+                //                // Close process
+                //                //SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
+
+                //                //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
+                //                //{
+                //                //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
+                //                //{
+                //                SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
+                //                //}
+
+                //                //}
+                //            }
+                //        }
+                //    }
+                //}
+
+                foreach (Process processToClose in runningPermittedProcesses)
                 {
-                    for (int j = 0; j < runningApplications.Count(); j++)
-                    {
-                        Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                        string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
-                        if ((Boolean)permittedProcess[SEBSettings.KeyActive])
-                        {
-                            if (permittedProcessName.Contains(runningApplications[j].ProcessName))
-                            {
-                                // Close process
-                                //SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
-
-                                //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
-                                //{
-                                //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
-                                //{
-                                SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
-                                //}
-
-                                //}
-                            }
-                        }
-                    }
+                    SEBNotAllowedProcessController.CloseProcess(processToClose);
                 }
 
 
