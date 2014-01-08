@@ -12,6 +12,7 @@ using System.Collections;
 using System.Management;
 using System.Threading;
 using SebWindowsClient.DiagnosticsUtils;
+using SebWindowsClient.ConfigurationUtils;
 
 namespace SebWindowsClient.ProcessUtils
 {
@@ -120,21 +121,18 @@ namespace SebWindowsClient.ProcessUtils
                         //        break;
                         //    }
                         //}
-                        string processName = "";
                         processToClose.Refresh();
                         if (processToClose != null && !processToClose.HasExited)
                         {
-                            processName = processToClose.ProcessName;
                             // Close process by sending a close message to its main window.
                             processToClose.CloseMainWindow();
                             // Free resources associated with process.
                             if (!processToClose.HasExited)
-                                // Close process by sending a close message to its second (now main) window.
-                                processToClose.CloseMainWindow();
-                            if (!processToClose.HasExited)
                                 // If process still hasn't exited, we kill it
                                 processToClose.Kill();
-                            if (!processName.Contains("xulrunner")) processToClose.Close();
+                            // And we can free the process information memory of a definitely closed process
+                            // If it's not 
+                            if (processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner) processToClose.Close();
                         }
                     }
                     catch (Exception e)

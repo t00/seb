@@ -84,7 +84,7 @@ namespace SebWindowsClient
         private SebCloseDialogForm sebCloseDialogForm;
         private SebApplicationChooserForm sebApplicationChooserForm;
 
-        private Process xulRunner = new Process();
+        public Process xulRunner = new Process();
         private int xulRunnerExitCode;
         private DateTime xulRunnerExitTime;
         //private bool xulRunnerExitEventHandled;
