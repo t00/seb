@@ -856,7 +856,7 @@ namespace SebWindowsClient
                 {
                     SEBNotAllowedProcessController.CloseProcess(processToClose);
                 }
-
+                runningPermittedProcesses.Clear();
 
                 // Restart the explorer.exe shell
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])

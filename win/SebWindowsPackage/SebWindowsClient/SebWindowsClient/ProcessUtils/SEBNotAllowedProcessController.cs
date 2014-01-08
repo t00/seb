@@ -120,13 +120,21 @@ namespace SebWindowsClient.ProcessUtils
                         //        break;
                         //    }
                         //}
-
-                        if (!processToClose.HasExited)
+                        string processName = "";
+                        processToClose.Refresh();
+                        if (processToClose != null && !processToClose.HasExited)
                         {
+                            processName = processToClose.ProcessName;
                             // Close process by sending a close message to its main window.
                             processToClose.CloseMainWindow();
                             // Free resources associated with process.
-                            processToClose.Close();
+                            if (!processToClose.HasExited)
+                                // Close process by sending a close message to its second (now main) window.
+                                processToClose.CloseMainWindow();
+                            if (!processToClose.HasExited)
+                                // If process still hasn't exited, we kill it
+                                processToClose.Kill();
+                            if (!processName.Contains("xulrunner")) processToClose.Close();
                         }
                     }
                     catch (Exception e)
