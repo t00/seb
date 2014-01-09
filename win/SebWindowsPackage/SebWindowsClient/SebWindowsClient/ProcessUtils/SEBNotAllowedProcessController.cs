@@ -103,25 +103,6 @@ namespace SebWindowsClient.ProcessUtils
         {
                     try
                     {
-                        //// Display physical memory usage 5 times at intervals of 2 seconds.
-                        //for (int i = 0; i < 5; i++)
-                        //{
-                        //    if (!processToClose.HasExited)
-                        //    {
-                        //        // Discard cached information about the process.
-                        //        processToClose.Refresh();
-                        //        // Print working set to console.
-                        //        Console.WriteLine("Physical Memory Usage: "
-                        //                                + processToClose.WorkingSet64.ToString());
-                        //        // Wait 2 seconds.
-                        //        Thread.Sleep(2000);
-                        //    }
-                        //    else
-                        //    {
-                        //        break;
-                        //    }
-                        //}
-                        processToClose.Refresh();
                         if (processToClose != null && !processToClose.HasExited)
                         {
                             // Close process by sending a close message to its main window.
@@ -135,10 +116,9 @@ namespace SebWindowsClient.ProcessUtils
                             if (processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner) processToClose.Close();
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("The following exception was raised: ");
-                        Console.WriteLine(e.Message);
+                        Logger.AddError("Error when killing process", null, ex); 
                     }
         }
 

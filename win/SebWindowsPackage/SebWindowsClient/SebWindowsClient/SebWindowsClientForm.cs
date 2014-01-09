@@ -177,24 +177,26 @@ namespace SebWindowsClient
         {
 
 //            xulRunnerExitEventHandled = false;
-
+            string xulRunnerPath = "";
+            string desktopName = "";
             try
             {
                 string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SEBSettings.settingsCurrent);
                 // Create JSON object with XULRunner parameters to pass to xulrunner.exe as base64 string
                 StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
                 //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).
-                //Append(" -configpath ").Append(SEBClientInfo.XulRunnerConfigFile);
-                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"").//Append(" -config \"winctrl\" -debug 1 -purgecaches -jsconsole").
+                //Append(" -configpath ").Append(SEBClientInfo.XulRunnerConfigFile);.Append(Application.StartupPath).Append(".\\").Append(SEBClientInfo.XulRunnerSebIniPath)
+                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append(".\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\""). //Append("-debug 1 -purgecaches -jsconsole"). //" -config \"winctrl\" 
                     Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
                 //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -ctlr 1 ");
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
-                string xulRunnerPath = xulRunnerPathBuilder.ToString();
+                xulRunnerPath = xulRunnerPathBuilder.ToString();
 
                 //string path = SEBClientInfo.XulRunnerExePath;
                 //path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
-                xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, SEBClientInfo.DesktopName);
+                desktopName = SEBClientInfo.DesktopName;
+                xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
                 runningPermittedProcesses.Add(xulRunner);
                 //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
                 ////xulRunner.StartInfo.Verb = "XulRunner";
@@ -207,7 +209,7 @@ namespace SebWindowsClient
             }
             catch (Exception ex)
             {
-                Logger.AddError("An error occurred starting XULRunner", this, ex, ex.Message);
+                Logger.AddError("An error occurred starting XULRunner, path: "+xulRunnerPath+" desktop name: "+desktopName+" ", this, ex, ex.Message);
                 return;
             }
         }
