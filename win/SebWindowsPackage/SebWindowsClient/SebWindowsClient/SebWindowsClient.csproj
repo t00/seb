@@ -75,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockShortcutsUtils\SebKeyCapture.cs" />
+    <Compile Include="taskbarToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ClientSocketUtils\SEBLocalHostInfo.cs" />
     <Compile Include="ClientSocketUtils\SebSocketClient.cs" />
     <Compile Include="ConfigurationUtils\PList.cs" />

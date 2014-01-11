@@ -35,36 +35,10 @@ namespace SebWindowsClient
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsClientForm));
-            this.btn_Exit = new System.Windows.Forms.Button();
-            this.tsPermittedProcesses = new System.Windows.Forms.ToolStrip();
             this.ilProcessIcons = new System.Windows.Forms.ImageList(this.components);
+            this.taskbarToolStrip = new SebWindowsClient.TaskbarToolStrip();
+            this.btn_Exit = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btn_Exit
-            // 
-            this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Exit.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_Exit.Location = new System.Drawing.Point(787, 9);
-            this.btn_Exit.MaximumSize = new System.Drawing.Size(102, 23);
-            this.btn_Exit.Name = "btn_Exit";
-            this.btn_Exit.Size = new System.Drawing.Size(102, 23);
-            this.btn_Exit.TabIndex = 0;
-            this.btn_Exit.Text = "Quit";
-            this.btn_Exit.UseVisualStyleBackColor = true;
-            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
-            // 
-            // tsPermittedProcesses
-            // 
-            this.tsPermittedProcesses.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tsPermittedProcesses.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.tsPermittedProcesses.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.tsPermittedProcesses.Location = new System.Drawing.Point(0, 15);
-            this.tsPermittedProcesses.Name = "tsPermittedProcesses";
-            this.tsPermittedProcesses.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.tsPermittedProcesses.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsPermittedProcesses.Size = new System.Drawing.Size(896, 25);
-            this.tsPermittedProcesses.TabIndex = 2;
-            this.tsPermittedProcesses.Text = "tsPermittedProcesses";
             // 
             // ilProcessIcons
             // 
@@ -75,6 +49,32 @@ namespace SebWindowsClient
             this.ilProcessIcons.Images.SetKeyName(2, "notepad");
             this.ilProcessIcons.Images.SetKeyName(3, "xulrunner");
             // 
+            // taskbarToolStrip
+            // 
+            this.taskbarToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.taskbarToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.taskbarToolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.taskbarToolStrip.Location = new System.Drawing.Point(0, 15);
+            this.taskbarToolStrip.Name = "taskbarToolStrip";
+            this.taskbarToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.taskbarToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.taskbarToolStrip.Size = new System.Drawing.Size(896, 25);
+            this.taskbarToolStrip.TabIndex = 3;
+            this.taskbarToolStrip.Text = "taskbarToolStrip";
+            // 
+            // btn_Exit
+            // 
+            this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Exit.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn_Exit.Location = new System.Drawing.Point(788, 8);
+            this.btn_Exit.MaximumSize = new System.Drawing.Size(102, 23);
+            this.btn_Exit.Name = "btn_Exit";
+            this.btn_Exit.Size = new System.Drawing.Size(102, 23);
+            this.btn_Exit.TabIndex = 4;
+            this.btn_Exit.Text = "Quit";
+            this.btn_Exit.UseVisualStyleBackColor = true;
+            this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
+            // 
             // SebWindowsClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,7 +84,7 @@ namespace SebWindowsClient
             this.ClientSize = new System.Drawing.Size(896, 40);
             this.ControlBox = false;
             this.Controls.Add(this.btn_Exit);
-            this.Controls.Add(this.tsPermittedProcesses);
+            this.Controls.Add(this.taskbarToolStrip);
             this.ForeColor = System.Drawing.SystemColors.Control;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -102,9 +102,9 @@ namespace SebWindowsClient
 
         #endregion
 
-        private System.Windows.Forms.Button btn_Exit;
-        private System.Windows.Forms.ToolStrip tsPermittedProcesses;
         private System.Windows.Forms.ImageList ilProcessIcons;
+        private TaskbarToolStrip taskbarToolStrip;
+        private System.Windows.Forms.Button btn_Exit;
     }
 }
 

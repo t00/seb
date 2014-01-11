@@ -548,13 +548,15 @@ namespace SebWindowsClient.ConfigurationUtils
             sebPasswordDialogForm.Text = title;
             // Set the text of the dialog
             sebPasswordDialogForm.LabelText = passwordRequestText;
+            sebPasswordDialogForm.txtSEBPassword.Focus();
+            SEBClientInfo.SebWindowsClientForm.Activate();
             // Show password dialog as a modal dialog and determine if DialogResult = OK.
             if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
             {
                 // Read the contents of testDialog's TextBox.
                 string password = sebPasswordDialogForm.txtSEBPassword.Text;
                 sebPasswordDialogForm.txtSEBPassword.Text = "";
-                sebPasswordDialogForm.txtSEBPassword.Focus();
+                //sebPasswordDialogForm.txtSEBPassword.Focus();
                 return password;
             }
             else

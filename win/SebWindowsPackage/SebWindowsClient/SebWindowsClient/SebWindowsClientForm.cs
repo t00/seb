@@ -28,6 +28,8 @@ using SebWindowsClient.ServiceUtils;
 // -------------------------------------------------------------
 namespace SebWindowsClient
 {
+    
+
     public partial class SebWindowsClientForm : Form
     {
         [DllImport("user32.dll")]
@@ -173,7 +175,7 @@ namespace SebWindowsClient
         // Start xulRunner process.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private void StartXulRunner()
+        private bool StartXulRunner()
         {
 
 //            xulRunnerExitEventHandled = false;
@@ -205,12 +207,13 @@ namespace SebWindowsClient
                 xulRunner.EnableRaisingEvents = true;
                 xulRunner.Exited += new EventHandler(xulRunner_Exited);
                 //xulRunner.Start();
+                return true;
 
             }
             catch (Exception ex)
             {
                 Logger.AddError("An error occurred starting XULRunner, path: "+xulRunnerPath+" desktop name: "+desktopName+" ", this, ex, ex.Message);
-                return;
+                return false;
             }
         }
 
@@ -249,7 +252,7 @@ namespace SebWindowsClient
         private void addPermittedProcessesToTS()
         {
             // First clear the toolstrip permitted processes in case of a SEB restart
-            tsPermittedProcesses.Items.Clear();
+            taskbarToolStrip.Items.Clear();
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
@@ -278,7 +281,7 @@ namespace SebWindowsClient
                         
                         toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
-                        tsPermittedProcesses.Items.Add(toolStripButton);
+                        taskbarToolStrip.Items.Add(toolStripButton);
 
                         // Autostart
                         if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
@@ -389,17 +392,28 @@ namespace SebWindowsClient
                         {
                             if (executable.Contains(SEBClientInfo.XUL_RUNNER))
                             {
-                                bool xulRunnerRunning = false;
-                                Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
-                                for (int j = 0; j < runningApplications.Count(); j++)
+                                try
                                 {
-                                    if (executable.Contains(runningApplications[j].ProcessName))
+                                    // In case the XULRunner process exited but wasn't closed, this will throw an exception
+                                    if (xulRunner.HasExited)
                                     {
-                                        xulRunnerRunning = true;
+                                        StartXulRunner();
                                     }
                                 }
-                                if (!xulRunnerRunning)
+                                catch (Exception)  // XULRunner wasn't running anymore
+                                {
                                     StartXulRunner();
+                                }
+                                //Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
+                                //for (int j = 0; j < runningApplications.Count(); j++)
+                                //{
+                                //    if (executable.Contains(runningApplications[j].ProcessName))
+                                //    {
+                                //        xulRunnerRunning = true;
+                                //    }
+                                //}
+                                //if (!xulRunnerRunning)
+                                //    StartXulRunner();
                             }
                             else
                             {
@@ -924,6 +938,11 @@ namespace SebWindowsClient
         public void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             CloseSEBForm();
+        }
+
+        private void btn_Exit_Click_1(object sender, EventArgs e)
+        {
+
         }
      }
 }
