@@ -1434,8 +1434,7 @@ namespace SebWindowsClient.ConfigurationUtils
             catch (Exception streamReadException)
             {
                 // Let the user know what went wrong
-                Console.WriteLine("The .seb file could not be read:");
-                Console.WriteLine(streamReadException.Message);
+                Logger.AddError("The .seb file could not be read: ", null, streamReadException, streamReadException.Message);
                 return false;
             }
 
@@ -1481,8 +1480,7 @@ namespace SebWindowsClient.ConfigurationUtils
             catch (Exception streamWriteException) 
             {
                 // Let the user know what went wrong
-                Console.WriteLine("The configuration file could not be written:");
-                Console.WriteLine(streamWriteException.Message);
+                Logger.AddError("The configuration file could not be written: ", null, streamWriteException, streamWriteException.Message);
                 return false;
             }
             return true;

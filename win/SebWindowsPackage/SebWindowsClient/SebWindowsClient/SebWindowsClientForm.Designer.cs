@@ -66,7 +66,7 @@ namespace SebWindowsClient
             // 
             this.btn_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Exit.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_Exit.Location = new System.Drawing.Point(788, 8);
+            this.btn_Exit.Location = new System.Drawing.Point(788, 9);
             this.btn_Exit.MaximumSize = new System.Drawing.Size(102, 23);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(102, 23);

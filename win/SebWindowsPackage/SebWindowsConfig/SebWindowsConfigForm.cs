@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using SebWindowsClient;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DiagnosticsUtils;
 
 using ListObj  = System.Collections.Generic.List                <object>;
 using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
@@ -30,6 +31,9 @@ namespace SebWindowsConfig
         public bool settingsPasswordFieldsContainHash = false;
 
         string settingsPassword = "";
+
+        private const string SEB_CONFIG_LOG = "SebConfig.log";
+
         //X509Certificate2 fileCertificateRef = null;
 
         // ***********
@@ -44,6 +48,17 @@ namespace SebWindowsConfig
 
             // This is necessary to instanciate the password dialog
             SEBConfigFileManager.InitSEBConfigFileManager();
+
+            /// Initialize the Logger
+
+            //Sets paths to files SEB has to save or read from the file system
+            SEBClientInfo.SetSebPaths();
+
+            // Set the path of the SebConfig.log file
+            StringBuilder sebConfigLogFileBuilder = new StringBuilder(SEBClientInfo.SebClientLogFileDirectory).Append(SEB_CONFIG_LOG);
+            string SebConfigLogFile = sebConfigLogFileBuilder.ToString();
+
+            Logger.initLogger(SebConfigLogFile);
 
             // Set all the default values for the Plist structure "SEBSettings.settingsCurrent"
             SEBSettings.RestoreDefaultAndCurrentSettings();

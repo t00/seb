@@ -218,7 +218,76 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBErrorMessages.InitErrorMessages();
             SEBSettings     .CreateDefaultAndCurrentSettingsFromScratch();
 
-            // Get the path of the "Program" directory.
+            //Sets paths to files SEB has to save or read from the file system
+            SetSebPaths();
+
+            byte[] sebClientSettings = null;
+
+            // Create a string builder for a temporary log (until we can write it with the Logger)
+            StringBuilder tempLogStringBuilder = new StringBuilder();
+
+            // Try to read the SebClientSettigs.seb file from the program data directory
+            try
+            {
+                sebClientSettings = File.ReadAllBytes(SebClientSettingsProgramDataFile);
+            }
+            catch (Exception streamReadException)
+            {
+                // Write error into string with temporary log string builder
+                tempLogStringBuilder.Append("Could not load SebClientSettigs.seb from the Program Data directory").Append(streamReadException == null ? null : streamReadException.GetType().ToString()).Append(streamReadException.Message);
+            }
+            if (sebClientSettings == null)
+            {
+                // Try to read the SebClientSettigs.seb file from the local application data directory
+                try
+                {
+                    sebClientSettings = File.ReadAllBytes(SebClientSettingsLocalAppDataFile);
+                }
+                catch (Exception streamReadException)
+                {
+                    // Write error into string with temporary log string builder
+                    tempLogStringBuilder.Append("Could not load SebClientSettigs.seb from the Local Application Data directory. ").Append(streamReadException == null ? null : streamReadException.GetType().ToString()).Append(streamReadException.Message);
+                }
+            }
+            // Store the decrypted configuration settings.
+            if (!SEBSettings.StoreDecryptedSebClientSettings(sebClientSettings))
+                return false;
+
+            // Initialise Loger, if enabled
+            if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
+            {
+                Logger.initLogger(SebClientLogFile);
+            }
+
+            // Save the temporary log string into the log
+            Logger.AddError(tempLogStringBuilder.ToString(), null, null);
+
+            // Set username
+            UserName = Environment.UserName;
+
+            setSebClientConfiguration = true;
+            
+            // Write settings in log
+            StringBuilder userInfo =
+                new StringBuilder ("User Name: "                   ).Append(UserName)
+                          .Append(" Host Name: "                   ).Append(HostName)                         
+                          .Append(" Port Number: "                 ).Append(PortNumber)
+                          .Append(" Send Interval: "               ).Append(SendInterval)
+                          .Append(" Recv Timeout: "                ).Append(RecvTimeout)
+                          .Append(" Num Messages: "                ).Append(NumMessages)
+                          .Append(" SebClientConfigFileDirectory: ").Append(SebClientSettingsLocalAppDirectory)
+                          .Append(" SebClientConfigFile: "         ).Append(SebClientSettingsLocalAppDataFile);
+            Logger.AddInformation(userInfo.ToString(), null, null);
+
+            return setSebClientConfiguration;
+        }
+
+        /// <summary>
+        /// Sets paths to files SEB has to save or read from the file system.
+        /// </summary>
+        public static void SetSebPaths()
+        {
+            // Get the path of the directory the application executable lies in
             ApplicationExecutableDirectory = Path.GetDirectoryName(Application.ExecutablePath);
 
             // Get the path of the "Program Files X86" directory.
@@ -283,68 +352,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Set the path of the SebClient.log file
             StringBuilder sebClientLogFileBuilder = new StringBuilder(SebClientLogFileDirectory).Append(SEB_CLIENT_LOG);
             SebClientLogFile = sebClientLogFileBuilder.ToString();
-
-            byte[] sebClientSettings = null;
-
-            // Create a string builder for a temporary log (until we can write it with the Logger)
-            StringBuilder tempLogStringBuilder = new StringBuilder();
-
-            // Try to read the SebClientSettigs.seb file from the program data directory
-            try
-            {
-                sebClientSettings = File.ReadAllBytes(SebClientSettingsProgramDataFile);
-            }
-            catch (Exception streamReadException)
-            {
-                // Write error into string with temporary log string builder
-                tempLogStringBuilder.Append("Could not load SebClientSettigs.seb from the Program Data directory").Append(streamReadException == null ? null : streamReadException.GetType().ToString()).Append(streamReadException.Message);
-            }
-            if (sebClientSettings == null)
-            {
-                // Try to read the SebClientSettigs.seb file from the local application data directory
-                try
-                {
-                    sebClientSettings = File.ReadAllBytes(SebClientSettingsLocalAppDataFile);
-                }
-                catch (Exception streamReadException)
-                {
-                    // Write error into string with temporary log string builder
-                    tempLogStringBuilder.Append("Could not load SebClientSettigs.seb from the Local Application Data directory. ").Append(streamReadException == null ? null : streamReadException.GetType().ToString()).Append(streamReadException.Message);
-                }
-            }
-            // Store the decrypted configuration settings.
-            if (!SEBSettings.StoreDecryptedSebClientSettings(sebClientSettings))
-                return false;
-
-            // Initialise Loger, if enabled
-            if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
-            {
-                Logger.initLogger(SebClientLogFile);
-            }
-
-            // Save the temporary log string into the log
-            Logger.AddError(tempLogStringBuilder.ToString(), null, null);
-
-            // Set username
-            UserName = Environment.UserName;
-
-            setSebClientConfiguration = true;
-            
-            // Write settings in log
-            StringBuilder userInfo =
-                new StringBuilder ("User Name: "                   ).Append(UserName)
-                          .Append(" Host Name: "                   ).Append(HostName)                         
-                          .Append(" Port Number: "                 ).Append(PortNumber)
-                          .Append(" Send Interval: "               ).Append(SendInterval)
-                          .Append(" Recv Timeout: "                ).Append(RecvTimeout)
-                          .Append(" Num Messages: "                ).Append(NumMessages)
-                          .Append(" SebClientConfigFileDirectory: ").Append(SebClientSettingsLocalAppDirectory)
-                          .Append(" SebClientConfigFile: "         ).Append(SebClientSettingsLocalAppDataFile);
-            Logger.AddInformation(userInfo.ToString(), null, null);
-
-            return setSebClientConfiguration;
         }
-
 
          /// <summary>
          /// Sets properties in config.json XULRunner configuration file.

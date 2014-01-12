@@ -939,10 +939,5 @@ namespace SebWindowsClient
         {
             CloseSEBForm();
         }
-
-        private void btn_Exit_Click_1(object sender, EventArgs e)
-        {
-
-        }
      }
 }
