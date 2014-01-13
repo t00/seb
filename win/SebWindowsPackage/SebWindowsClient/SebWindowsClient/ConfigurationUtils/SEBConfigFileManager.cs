@@ -59,9 +59,9 @@ namespace SebWindowsClient.ConfigurationUtils
             if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
 
             // Reset SEB, close third party applications
+            SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
             SEBClientInfo.SebWindowsClientForm.CloseSEBForm();
-
-
+            SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
 
             if ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
             {

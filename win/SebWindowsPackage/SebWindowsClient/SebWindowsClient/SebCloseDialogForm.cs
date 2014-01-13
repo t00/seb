@@ -20,7 +20,7 @@ namespace SebWindowsClient
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
+            //SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
             this.txtQuitPassword.Text = "";
             this.Visible = false;
         }
@@ -29,7 +29,7 @@ namespace SebWindowsClient
         {
             string userQuitPassword = this.txtQuitPassword.Text;
 
-            SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
+            //SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
 
             //SEBProtectionController sebProtectionControler = new SEBProtectionController();
             string hPassword = SEBProtectionController.ComputePasswordHash(userQuitPassword);
@@ -43,7 +43,7 @@ namespace SebWindowsClient
             }
             else
             {
-                SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                 Application.Exit();
             }
         }
