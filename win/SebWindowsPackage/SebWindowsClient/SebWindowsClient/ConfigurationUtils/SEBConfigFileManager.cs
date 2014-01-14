@@ -63,7 +63,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBClientInfo.SebWindowsClientForm.CloseSEBForm();
             SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
 
-            if ((int)SEBSettings.settingsCurrent[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
+            if ((int)sebPreferencesDict[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
             {
 
                 /// If these SEB settings are ment to start an exam
@@ -88,22 +88,21 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Store decrypted settings
                 SEBSettings.StoreSebClientSettings(sebPreferencesDict);
 
+                // Write new settings to the localapp directory
+                SEBSettings.WriteSebConfigurationFile(SEBClientInfo.SebClientSettingsLocalAppDataFile, "", false, null, SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
+
                 // Re-Initialize SEB according to the new settings
                 if (!SebWindowsClientMain.InitSebDesktop()) return false;
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
 
-                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLIENT_SETTINGS_RECONFIGURED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION);
-                //int answer = NSRunAlertPanel(NSLocalizedString(@"SEB Re-Configured",nil), NSLocalizedString(@"Local settings of SEB have been reconfigured. Do you want to start working with SEB now or quit?",nil),
-                //                             NSLocalizedString(@"Continue",nil), NSLocalizedString(@"Quit",nil), nil);
-                //switch(answer)
-                //{
-                //    case NSAlertDefaultReturn:
-                //        break; //Cancel: don't quit
-                //    default:
-                //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                //Application.Exit();
+                // Activate SebWindowsClient so the message box gets focus
+                SEBClientInfo.SebWindowsClientForm.Activate();
 
-                //}
+                if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
+                {
+                    SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                    Application.Exit();
+                }
 
                 return true; //reading preferences was successful
             }
@@ -144,9 +143,6 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (sebData == null) {
                     return null;
                 }
-                // If these settings are being decrypted for editing, we will return the decryption certificate reference
-                // in the variable which was passed as reference when calling this method
-                //if (forEditing) sebFileCertificateRef = settingsSebFileCertificateRef;
 
                 // Get 4-char prefix again
                 // and remaining data without prefix, which is either plain or still encoded with password
@@ -495,6 +491,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 return null;
             }
             // If these settings are being decrypted for editing, we will return the decryption certificate reference
+            // in the variable which was passed as reference when calling this method
             if (forEditing) sebFileCertificateRef = certificateRef;
 
             sebData = SEBProtectionController.DecryptDataWithCertificate(sebData, certificateRef);

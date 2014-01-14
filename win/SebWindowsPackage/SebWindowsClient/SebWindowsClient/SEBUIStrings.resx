@@ -189,6 +189,12 @@
   <data name="reconfiguringLocalSettingsFailedWrongPassword" xml:space="preserve">
     <value>If you don't enter the correct password these settings were encrypted with, you cannot use them.</value>
   </data>
+  <data name="sebReconfigured" xml:space="preserve">
+    <value>SEB Re-Configured</value>
+  </data>
+  <data name="sebReconfiguredQuestion" xml:space="preserve">
+    <value>Local settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking "No" will quit SEB)</value>
+  </data>
   <data name="settingsNotUsable" xml:space="preserve">
     <value>Opening New Settings Failed</value>
   </data>

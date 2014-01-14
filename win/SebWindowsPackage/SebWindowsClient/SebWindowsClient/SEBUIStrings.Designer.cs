@@ -277,6 +277,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SEB Re-Configured.
+        /// </summary>
+        internal static string sebReconfigured {
+            get {
+                return ResourceManager.GetString("sebReconfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking &quot;No&quot; will quit SEB).
+        /// </summary>
+        internal static string sebReconfiguredQuestion {
+            get {
+                return ResourceManager.GetString("sebReconfiguredQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening New Settings Failed.
         /// </summary>
         internal static string settingsNotUsable {
