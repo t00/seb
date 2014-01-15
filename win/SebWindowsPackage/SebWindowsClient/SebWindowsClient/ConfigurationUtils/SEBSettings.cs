@@ -51,6 +51,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeySebServerURL         = "sebServerURL";
         public const String KeyHashedAdminPassword  = "hashedAdminPassword";
         public const String KeyAllowQuit            = "allowQuit";
+        public const String KeyIgnoreExitKeys       = "ignoreExitKeys";
         public const String KeyIgnoreQuitPassword   = "ignoreQuitPassword";
         public const String KeyHashedQuitPassword   = "hashedQuitPassword";
         public const String KeyExitKey1             = "exitKey1";
@@ -62,9 +63,6 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeySebConfigPurpose        = "sebConfigPurpose";
         public const String KeyAllowPreferencesWindow  = "allowPreferencesWindow";
         public const String KeyCryptoIdentity          = "cryptoIdentity";
-        //public const String KeySettingsPassword        = "settingsPassword";
-        //public const String KeyConfirmSettingsPassword = "confirmSettingsPassword";
-        //public const String KeyHashedSettingsPassword  = "hashedSettingsPassword";
 
         // Group "Appearance"
         public const String KeyBrowserViewMode              = "browserViewMode";
@@ -421,6 +419,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeySebServerURL        , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedAdminPassword , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowQuit           , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreExitKeys            , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreQuitPassword  , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedQuitPassword  , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey1,  2);
