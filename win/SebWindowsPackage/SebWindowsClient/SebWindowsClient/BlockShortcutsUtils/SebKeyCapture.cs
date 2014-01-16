@@ -550,7 +550,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 {
                     SEBClientInfo.SebWindowsClientForm.ShowCloseDialogForm();
                 }
-                if (SetAndTestExitKeySequence(wp, lp))
+                if (SetAndTestExitKeySequence(wp, lp) && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyIgnoreExitKeys) == false)
                 {
                     Application.Exit();
                 }

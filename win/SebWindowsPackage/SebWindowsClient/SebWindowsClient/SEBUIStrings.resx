@@ -171,6 +171,12 @@
   <data name="loadingSettingsFailedWrongAdminPwd" xml:space="preserve">
     <value>If you don't enter the right administrator password from these settings you cannot open them.</value>
   </data>
+  <data name="loadingSettingsNotAllowed" xml:space="preserve">
+    <value>Loading New SEB Settings Not Allowed!</value>
+  </data>
+  <data name="loadingSettingsNotAllowedReason" xml:space="preserve">
+    <value>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</value>
+  </data>
   <data name="noEncryptionChosen" xml:space="preserve">
     <value>No Encryption Credentials Chosen</value>
   </data>

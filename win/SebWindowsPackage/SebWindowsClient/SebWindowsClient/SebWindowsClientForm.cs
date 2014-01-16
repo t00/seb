@@ -130,6 +130,14 @@ namespace SebWindowsClient
                 Logger.AddError("SEB was opened with a wrong parameter", this, ex, ex.Message); 
                 return;
             }
+            // Check if we're running in exam mode already, if yes, then refuse to load a .seb file
+            if (SEBClientInfo.examMode)
+            {
+                SEBClientInfo.SebWindowsClientForm.Activate();
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsNotAllowed, SEBUIStrings.loadingSettingsNotAllowedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                return;
+            }
+
             if (uri.Scheme == "seb")
             {
                 // The URI is holding a seb:// web address for a .seb settings file: download it

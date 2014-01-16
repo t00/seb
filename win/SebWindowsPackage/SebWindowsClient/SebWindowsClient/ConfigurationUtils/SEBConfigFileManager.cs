@@ -71,6 +71,9 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Store decrypted settings
                 SEBSettings.StoreSebClientSettings(sebPreferencesDict);
 
+                // Set the flag that SEB is running in exam mode now
+                SEBClientInfo.examMode = true;
+
                 // Re-Initialize SEB according to the new settings
                 if (!SebWindowsClientMain.InitSebDesktop()) return false;
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();

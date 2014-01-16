@@ -105,6 +105,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public static bool ExplorerShellWasKilled { get; set; }
         public static bool IsNewOS { get; set; }
+        public static bool examMode = false;
 
         // SEB Client Socket properties
         public static char[] UserNameRegistryFlags { get; set; }
