@@ -412,7 +412,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Clear();
 
             // Default settings for keys not belonging to any group
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.0pre_build");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.0RC");
 
             // Default settings for group "General"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyStartURL            , "http://www.safeexambrowser.org");

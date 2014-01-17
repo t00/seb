@@ -276,17 +276,24 @@ namespace SebWindowsClient
                         toolStripButton.Name        = executable;
                         toolStripButton.Padding     = new Padding(5, 0, 5, 0);
                         toolStripButton.ToolTipText = title;
+                        Icon processIcon = null;
+                        string fullPath;
                         if (executable.Contains("xulrunner.exe"))
-                            toolStripButton.Image = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
+                            fullPath = Application.ExecutablePath;
                         else
                         {
-                            //string fullPath = GetApplicationPath(executable);
-                            //if (fullPath != null)
-                            //{
-                            //    Icon processIcon = Icon.ExtractAssociatedIcon(fullPath);
-                            //}
+                            fullPath = GetApplicationPath(executable);
+                            if (fullPath == null)
+                                fullPath = Application.ExecutablePath;
                         }
-                        
+                        processIcon = GetApplicationIcon(fullPath);
+                        if (processIcon == null)
+                        {
+                            fullPath = Application.ExecutablePath;
+                            processIcon = GetApplicationIcon(fullPath);
+                        }
+                        toolStripButton.Image = processIcon.ToBitmap();
+
                         toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
                         taskbarToolStrip.Items.Add(toolStripButton);
@@ -309,10 +316,10 @@ namespace SebWindowsClient
                                 }
                                 Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
                                 runningPermittedProcesses.Add(newProcess);
-                                Icon processIcon = getProcessIcon(newProcess);
-                                if (processIcon == null) processIcon = getProcessIcon(newProcess);
-                                if (processIcon == null) processIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-                                toolStripButton.Image = processIcon.ToBitmap();
+                                //Icon processIcon = getProcessIcon(newProcess);
+                                //if (processIcon == null) processIcon = getProcessIcon(newProcess);
+                                //if (processIcon == null) processIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+                                //toolStripButton.Image = processIcon.ToBitmap();
                             }
                         }
                     }
@@ -331,7 +338,7 @@ namespace SebWindowsClient
         /// Get icon for a running process.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private Icon getProcessIcon (Process process)
+        private Icon GetProcessIcon(Process process)
         {
             Icon processIcon;
             try
@@ -349,14 +356,45 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
+        /// Get icon for an application specified by a full path.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private Icon GetApplicationIcon(string fullPath)
+        {
+            Icon processIcon;
+            try
+            {
+                processIcon = Icon.ExtractAssociatedIcon(fullPath);
+            }
+            catch (Exception)
+            {
+                processIcon = null;
+            }
+            return processIcon;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
         /// Get the full path of an application from which we know the executable name 
         /// by searching the application paths which are set in the Registry.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         public string GetApplicationPath(string appname)
         {
+            if (File.Exists(appname)) return appname;
             using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.RegistryKey.OpenRemoteBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, ""))
             {
+                //// Get all paths from the PATH environement variable
+                //string RegKeyName = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
+                //string pathVariableString = (string)Microsoft.Win32.Registry.LocalMachine.OpenSubKey(RegKeyName).GetValue
+                //    ("Path", "", Microsoft.Win32.RegistryValueOptions.DoNotExpandEnvironmentNames);
+                //string[] paths = pathVariableString.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                //foreach (string subPath in paths)
+                //{
+                //    Console.WriteLine(subPath);
+                //}
+
                 string subKeyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + appname;
                 using (Microsoft.Win32.RegistryKey subkey = key.OpenSubKey(subKeyName))
                 {
@@ -367,7 +405,7 @@ namespace SebWindowsClient
                         return fullPath;
                     }
 
-                    object path = subkey.GetValue("@");
+                    object path = subkey.GetValue("Path");
 
                     if (path != null)
                         return (string)path;
