@@ -276,6 +276,11 @@ namespace SebWindowsClient.ConfigurationUtils
             sebConfigPurposeStartingExam, sebConfigPurposeConfiguringClient
         }
 
+        public enum operatingSystems
+        {
+            operatingSystemOSX, operatingSystemWin
+        }
+
 
         // *********************************
         // Global Variables for SEB settings

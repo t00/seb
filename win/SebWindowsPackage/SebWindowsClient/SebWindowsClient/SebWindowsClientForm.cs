@@ -20,6 +20,8 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ServiceUtils;
+using DictObj = System.Collections.Generic.Dictionary<string, object>;
+
 
 // -------------------------------------------------------------
 //     Viktor tomas
@@ -268,9 +270,13 @@ namespace SebWindowsClient
                 {
                     ToolStripButton toolStripButton = new ToolStripButton();
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    if ((Boolean)permittedProcess[SEBSettings.KeyActive])
+                    SEBSettings.operatingSystems permittedProcessOS = (SEBSettings.operatingSystems)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyOS);
+                    bool permittedProcessActive = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyActive);
+                    //if (permittedProcessActive == null) permittedProcessActive = false;
+                    if (permittedProcessOS == SEBSettings.operatingSystems.operatingSystemWin && permittedProcessActive)
                     {
-                        string title      = (string)permittedProcess[SEBSettings.KeyTitle];
+                        string title      = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
+                        if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
 
                         toolStripButton.Name        = executable;
@@ -282,7 +288,8 @@ namespace SebWindowsClient
                             fullPath = Application.ExecutablePath;
                         else
                         {
-                            fullPath = GetApplicationPath(executable);
+                            //fullPath = GetApplicationPath(executable);
+                            fullPath = GetPermittedApplicationPath(permittedProcess);
                             if (fullPath == null)
                                 fullPath = Application.ExecutablePath;
                         }
@@ -304,7 +311,7 @@ namespace SebWindowsClient
                             //toolStripButton.Checked = true;
                             if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
                             {
-                                StringBuilder startProcessNameBuilder = new StringBuilder(executable);
+                                StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
                                 List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
                                 for (int j = 0; j < argumentList.Count; j++)
                                 {
@@ -408,11 +415,51 @@ namespace SebWindowsClient
                     object path = subkey.GetValue("Path");
 
                     if (path != null)
-                        return (string)path;
+                        return (string)path + "\\" + appname;
                 }
             }
             return null;
         }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Get the full path of an application from which we know the executable name 
+        /// by searching the application paths which are set in the Registry.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public string GetPermittedApplicationPath(DictObj permittedProcess)
+        {
+            string executable = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyExecutable);
+            if (executable == null) executable = "";
+            string executablePath = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyPath);
+            if (executablePath == null) executablePath = "";
+            bool allowChoosingApp = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyAllowUser);
+            if (allowChoosingApp == null) allowChoosingApp = false;
+
+            string fullPath;
+            // There is a permittedProcess.path value
+            if (executablePath != "")
+            {
+                fullPath = executablePath + "\\" + executable;
+                // In case path to the executable's directory + the file name of the executable is already the correct file, we return this full path
+                if (File.Exists(fullPath)) return fullPath;
+                // Otherwise try to determine the applications full path
+                fullPath = GetApplicationPath(fullPath);
+                if (fullPath != null) if (File.Exists(fullPath)) return fullPath;
+            }
+            // There is no permittedProcess.path value:
+            // try to find path using just the executable file name
+            fullPath = GetApplicationPath(executable);
+
+            // If we still didn't find the application and the setting for this permitted process allows user to find the application
+            if (fullPath == null && allowChoosingApp)
+            {
+                // Ask the user to locate the application
+                return null;
+            }
+            return fullPath;
+        }
+
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
