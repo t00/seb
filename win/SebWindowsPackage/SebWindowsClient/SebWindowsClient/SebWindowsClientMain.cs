@@ -214,40 +214,43 @@ namespace SebWindowsClient
                 case (int)sebServicePolicies.indicateMissingService:
                     if (!serviceAvailable)
                     {
-                        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                        SEBClientInfo.SebWindowsClientForm.Activate();
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.indicateMissingServiceReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                     }
                     break;
                 case (int)sebServicePolicies.forceSebService:
                     if (!serviceAvailable)
                     {
-                        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                        SEBClientInfo.SebWindowsClientForm.Activate();
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                         Logger.AddError("SEB Windows service is not available and sebServicePolicies is set to forceSebService", null, null);
-                        Logger.AddInformation("Leave SebStarter", null, null);
+                        Logger.AddInformation("SafeExamBrowser is exiting", null, null);
                         Application.Exit();
 
                         return false;
                     }
                     break;
-                default:
-                    if (!serviceAvailable)
-                    {
-                        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                    }
-                    break;
+                //default:
+                //    if (!serviceAvailable)
+                //    {
+                //        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                //    }
+                //    break;
             }
 
              // Test if run inside virtual machine
             bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyAllowVirtualMachine)[SEBSettings.KeyAllowVirtualMachine];
             if (IsInsideVM() && (!allowVirtualMachine))
-                //if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
-                {
-                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_VIRTUAL_MACHINE_FORBIDDEN, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+            //if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
+            {
+                SEBClientInfo.SebWindowsClientForm.Activate();
+
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.detectedVirtualMachine, SEBUIStrings.detectedVirtualMachineForbiddenMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                 Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
                 Logger.AddInformation("Safe Exam Browser is exiting", null, null);
                 Application.Exit();
 
                 return false;
-
             }
 
             // Clean clipboard

@@ -132,6 +132,12 @@
   <data name="decryptingSettingsFailedReason" xml:space="preserve">
     <value>You either entered the wrong password or these settings were saved with an incompatible SEB version.</value>
   </data>
+  <data name="detectedVirtualMachine" xml:space="preserve">
+    <value>Virtual Machine Detected</value>
+  </data>
+  <data name="detectedVirtualMachineForbiddenMessage" xml:space="preserve">
+    <value>It is not allowed to run SEB on a virtual machine! SEB will quit now.</value>
+  </data>
   <data name="enterAdminPasswordRequired" xml:space="preserve">
     <value>Enter the SEB administrator password used in these settings:</value>
   </data>
@@ -159,6 +165,15 @@
   <data name="errorDecryptingSettings" xml:space="preserve">
     <value>Error Decrypting Settings</value>
   </data>
+  <data name="forceSebServiceMessage" xml:space="preserve">
+    <value>SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter. The exam cannot be started, SEB will quit now.</value>
+  </data>
+  <data name="indicateMissingService" xml:space="preserve">
+    <value>SEB Windows Service Not Available</value>
+  </data>
+  <data name="indicateMissingServiceReason" xml:space="preserve">
+    <value>SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter.</value>
+  </data>
   <data name="loadingSettings" xml:space="preserve">
     <value>Loading Settings</value>
   </data>
@@ -182,6 +197,12 @@
   </data>
   <data name="noEncryptionChosenSaveUnencrypted" xml:space="preserve">
     <value>You should either enter a password or choose a certificate to encrypt the settings file. Do you really want to save an unencrypted SEB file (not recommended for use in exams)?</value>
+  </data>
+  <data name="quittingFailed" xml:space="preserve">
+    <value>Wrong Password: Quitting SEB Failed</value>
+  </data>
+  <data name="quittingFailedReason" xml:space="preserve">
+    <value>You can only quit SEB by entering the correct quit password. Ask your exam supporter for the correct password. DO NOT RESET YOUR MACHINE! This may have undesired effects on your system's settings (see www.safeexambrowser.org/faq).</value>
   </data>
   <data name="reconfiguringLocalSettings" xml:space="preserve">
     <value>Opening Settings for Reconfiguring Client</value>

@@ -37,7 +37,7 @@ namespace SebWindowsClient
             int quit = String.Compare(settingsPasswordHash, hPassword, StringComparison.OrdinalIgnoreCase);
             if (quit != 0)
             {
-                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_SEB_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.quittingFailed, SEBUIStrings.quittingFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                 this.txtQuitPassword.Text = "";
                 this.Visible = false;
             }

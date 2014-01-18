@@ -40,7 +40,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_UNDEFINED_ERROR] = "Undefinierter Fehler beim Prüfen der Schreibberechtigung!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_UNDEFINED_ERROR] = "Undefined error in CheckWritePermission!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_UNDEFINED_ERROR] = "Erreur SEBGlobalConstants.INDéfinie en vérifiant le droit à l'écrire!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_UNDEFINED_ERROR] = "Erreur indéfinie en vérifiant le droit à l'écrire!";
 
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_NO_WRITE_PERMISSION] = "Keine Schreibberechtigung!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_WRITE_PERMISSION] = "No write permission!";
@@ -62,8 +62,8 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_INITIALISE_ERROR] = "Initialisation failed!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_INITIALISE_ERROR] = "Initialisation manquée / échouée!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_REGISTRY_EDIT_ERROR] = "Fehler beim Bearbeiten der WSEBGlobalConstants.INDows Registry!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_REGISTRY_EDIT_ERROR] = "Error editing the WSEBGlobalConstants.INDows Registry!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_REGISTRY_EDIT_ERROR] = "Fehler beim Bearbeiten der Windows Registry!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_REGISTRY_EDIT_ERROR] = "Error editing the Windows Registry!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_REGISTRY_EDIT_ERROR] = "Erreur en éditant le Windows Registry!";
 
 
@@ -81,7 +81,7 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_PROCESS_CALL_FAILED] = "Activation du procès manqué / échoué!";
 
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Prozess-Fenster nicht gefunden!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Process wSEBGlobalConstants.INDow not found!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Process window not found!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_PROCESS_WINDOW_NOT_FOUND] = "Fenêtre du procès ne pas trouvée!";
 
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_LOAD_LIBRARY_ERROR] = "Konnte die Bibliothek nicht laden!";
@@ -96,8 +96,8 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_INSTANCE] = "Could not get my instance!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_NO_INSTANCE] = "Ne pouvais pas obtenir mon instance!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_NO_FILE_ERROR] = "Konnte Datei nicht erzeugen oder fSEBGlobalConstants.INDen!";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_FILE_ERROR] = "Could not create or fSEBGlobalConstants.IND file!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_NO_FILE_ERROR] = "Konnte Datei nicht erzeugen oder finden!";
+            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_NO_FILE_ERROR] = "Could not create or find file!";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_NO_FILE_ERROR] = "Ne pouvais pas créer ou trouver le fichier!";
 
             messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_NO_TASKBAR_HANDLE] = "Kein Taskleisten-Handler!";

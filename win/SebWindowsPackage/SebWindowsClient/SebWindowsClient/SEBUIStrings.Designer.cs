@@ -106,6 +106,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual Machine Detected.
+        /// </summary>
+        internal static string detectedVirtualMachine {
+            get {
+                return ResourceManager.GetString("detectedVirtualMachine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is not allowed to run SEB on a virtual machine! SEB will quit now..
+        /// </summary>
+        internal static string detectedVirtualMachineForbiddenMessage {
+            get {
+                return ResourceManager.GetString("detectedVirtualMachineForbiddenMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the SEB administrator password used in these settings:.
         /// </summary>
         internal static string enterAdminPasswordRequired {
@@ -187,6 +205,33 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter. The exam cannot be started, SEB will quit now..
+        /// </summary>
+        internal static string forceSebServiceMessage {
+            get {
+                return ResourceManager.GetString("forceSebServiceMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEB Windows Service Not Available.
+        /// </summary>
+        internal static string indicateMissingService {
+            get {
+                return ResourceManager.GetString("indicateMissingService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter..
+        /// </summary>
+        internal static string indicateMissingServiceReason {
+            get {
+                return ResourceManager.GetString("indicateMissingServiceReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading Settings.
         /// </summary>
         internal static string loadingSettings {
@@ -255,6 +300,24 @@ namespace SebWindowsClient {
         internal static string noEncryptionChosenSaveUnencrypted {
             get {
                 return ResourceManager.GetString("noEncryptionChosenSaveUnencrypted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong Password: Quitting SEB Failed.
+        /// </summary>
+        internal static string quittingFailed {
+            get {
+                return ResourceManager.GetString("quittingFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only quit SEB by entering the correct quit password. Ask your exam supporter for the correct password. DO NOT RESET YOUR MACHINE! This may have undesired effects on your system&apos;s settings (see www.safeexambrowser.org/faq)..
+        /// </summary>
+        internal static string quittingFailedReason {
+            get {
+                return ResourceManager.GetString("quittingFailedReason", resourceCulture);
             }
         }
         
