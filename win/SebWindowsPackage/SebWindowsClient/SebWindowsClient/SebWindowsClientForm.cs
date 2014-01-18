@@ -93,6 +93,7 @@ namespace SebWindowsClient
         private DateTime xulRunnerExitTime;
         //private bool xulRunnerExitEventHandled;
 
+        public List<string> allPermittedProcesses = new List<string>();
         public List<Process> runningPermittedProcesses = new List<Process>();
 
         /// ----------------------------------------------------------------------------------------
@@ -261,8 +262,11 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void addPermittedProcessesToTS()
         {
-            // First clear the toolstrip permitted processes in case of a SEB restart
+            // First clear the permitted processes toolstrip/lists in case of a SEB restart
             taskbarToolStrip.Items.Clear();
+            allPermittedProcesses.Clear();
+            runningPermittedProcesses.Clear();
+
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
@@ -290,43 +294,41 @@ namespace SebWindowsClient
                         {
                             //fullPath = GetApplicationPath(executable);
                             fullPath = GetPermittedApplicationPath(permittedProcess);
-                            if (fullPath == null)
-                                fullPath = Application.ExecutablePath;
                         }
-                        processIcon = GetApplicationIcon(fullPath);
-                        if (processIcon == null)
+                        // Continue only if the application has been found
+                        if (fullPath != null)
                         {
-                            fullPath = Application.ExecutablePath;
                             processIcon = GetApplicationIcon(fullPath);
-                        }
-                        toolStripButton.Image = processIcon.ToBitmap();
-
-                        toolStripButton.Click += new EventHandler(ToolStripButton_Click);
-
-                        taskbarToolStrip.Items.Add(toolStripButton);
-
-                        // Autostart
-                        if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
-                        {
-                            //toolStripButton.Checked = true;
-                            if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
+                            if (processIcon == null)
                             {
-                                StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
-                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
-                                for (int j = 0; j < argumentList.Count; j++)
+                                processIcon = GetApplicationIcon(Application.ExecutablePath);
+                            }
+                            toolStripButton.Image = processIcon.ToBitmap();
+
+                            toolStripButton.Click += new EventHandler(ToolStripButton_Click);
+
+                            taskbarToolStrip.Items.Add(toolStripButton);
+                            allPermittedProcesses.Add(fullPath);
+
+                            // Autostart
+                            if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
+                            {
+                                //toolStripButton.Checked = true;
+                                if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
                                 {
-                                    Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                    if ((Boolean)argument[SEBSettings.KeyActive])
+                                    StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
+                                    List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
+                                    for (int j = 0; j < argumentList.Count; j++)
                                     {
-                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
+                                        Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
+                                        if ((Boolean)argument[SEBSettings.KeyActive])
+                                        {
+                                            startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
+                                        }
                                     }
+                                    Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
+                                    runningPermittedProcesses.Add(newProcess);
                                 }
-                                Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
-                                runningPermittedProcesses.Add(newProcess);
-                                //Icon processIcon = getProcessIcon(newProcess);
-                                //if (processIcon == null) processIcon = getProcessIcon(newProcess);
-                                //if (processIcon == null) processIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-                                //toolStripButton.Image = processIcon.ToBitmap();
                             }
                         }
                     }
