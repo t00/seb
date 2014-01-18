@@ -76,13 +76,13 @@ namespace SebWindowsClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (InitSebSettings())
-             {
+            //if (InitSebSettings())
+             //{
                  SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                  string[] arguments = Environment.GetCommandLineArgs();
                  singleInstanceController = new SingleInstanceController();
                  singleInstanceController.Run(arguments);
-             }
+             //}
         }
 
 
@@ -161,7 +161,7 @@ namespace SebWindowsClient
         /// </summary>
         /// <returns>true if succeed</returns>
         /// ----------------------------------------------------------------------------------------
-        private static bool InitSebSettings()
+        public static bool InitSebSettings()
         {
             // Initialize the password entry dialog form
             SebWindowsClient.ConfigurationUtils.SEBConfigFileManager.InitSEBConfigFileManager();
@@ -184,7 +184,7 @@ namespace SebWindowsClient
                 return false;
             }
 
-            return InitSebDesktop();
+            return true; //InitSebDesktop();
         }
 
         /// ----------------------------------------------------------------------------------------

@@ -866,43 +866,44 @@ namespace SebWindowsClient
         /// Open SEB form.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public void OpenSEBForm()
+        public bool OpenSEBForm()
         {
-            bool bClientInfo = InitClientSocket();
-            bool bClientRegistryAndProcesses = InitClientRegistryAndProcesses();
+            if (SebWindowsClientMain.InitSebDesktop()) {
+                bool bClientInfo = InitClientSocket();
+                bool bClientRegistryAndProcesses = InitClientRegistryAndProcesses();
 
-            // Disable unwanted keys.
-            SebKeyCapture.FilterKeys = true;
+                // Disable unwanted keys.
+                SebKeyCapture.FilterKeys = true;
 
-            addPermittedProcessesToTS();
-            SetFormOnDesktop();
-            StartXulRunner();
-            //System.Diagnostics.Process oskProcess = null;
-            //oskProcess = Process.Start("OSK");
-            //SEBDesktopController d = SEBDesktopController.OpenDesktop(SEBClientInfo.DesktopName);
-            //oskProcess = d.CreateProcess("OSK");
-            if (sebCloseDialogForm == null)
-            {
-                sebCloseDialogForm = new SebCloseDialogForm();
-                //              SetForegroundWindow(sebCloseDialogForm.Handle);
-                sebCloseDialogForm.TopMost = true;
-                //sebCloseDialogForm.Show();
-                //sebCloseDialogForm.Visible = false;
+                addPermittedProcessesToTS();
+                SetFormOnDesktop();
+                StartXulRunner();
+                //System.Diagnostics.Process oskProcess = null;
+                //oskProcess = Process.Start("OSK");
+                //SEBDesktopController d = SEBDesktopController.OpenDesktop(SEBClientInfo.DesktopName);
+                //oskProcess = d.CreateProcess("OSK");
+                if (sebCloseDialogForm == null)
+                {
+                    sebCloseDialogForm = new SebCloseDialogForm();
+                    //              SetForegroundWindow(sebCloseDialogForm.Handle);
+                    sebCloseDialogForm.TopMost = true;
+                    //sebCloseDialogForm.Show();
+                    //sebCloseDialogForm.Visible = false;
+                }
+                if (sebApplicationChooserForm == null)
+                {
+                    sebApplicationChooserForm = new SebApplicationChooserForm();
+                    sebApplicationChooserForm.TopMost = true;
+                    sebApplicationChooserForm.Show();
+                    sebApplicationChooserForm.Visible = false;
+                }
+                return true;
             }
-            if (sebApplicationChooserForm == null)
+            else
             {
-                sebApplicationChooserForm = new SebApplicationChooserForm();
-                sebApplicationChooserForm.TopMost = true;
-                sebApplicationChooserForm.Show();
-                sebApplicationChooserForm.Visible = false;
+                Application.Exit();
+                return false;
             }
-            //if (sebPasswordDialogForm == null)
-            //{
-            //    sebPasswordDialogForm = new SebPasswordDialogForm();
-            //    sebPasswordDialogForm.TopMost = true;
-            //    sebPasswordDialogForm.Show();
-            //    sebPasswordDialogForm.Visible = false;
-            //}
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -1018,7 +1019,13 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SebWindowsClientForm_Load(object sender, EventArgs e)
         {
-            OpenSEBForm();
+            if (SebWindowsClientMain.InitSebSettings())
+            {
+                OpenSEBForm();
+            }
+            else {
+                Application.Exit();
+            }
         }
 
         /// ----------------------------------------------------------------------------------------

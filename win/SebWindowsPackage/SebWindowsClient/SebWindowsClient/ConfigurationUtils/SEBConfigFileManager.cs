@@ -75,11 +75,10 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBClientInfo.examMode = true;
 
                 // Re-Initialize SEB according to the new settings
-                if (!SebWindowsClientMain.InitSebDesktop()) return false;
-                SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
+                //if (!SebWindowsClientMain.InitSebDesktop()) return false;
 
-                return true; //reading preferences was successful
-
+                //return if initializing SEB with openend preferences was successful
+                return SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
             }
             else
             {
@@ -95,19 +94,24 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.WriteSebConfigurationFile(SEBClientInfo.SebClientSettingsLocalAppDataFile, "", false, null, SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
 
                 // Re-Initialize SEB according to the new settings
-                if (!SebWindowsClientMain.InitSebDesktop()) return false;
-                SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
-
-                // Activate SebWindowsClient so the message box gets focus
-                SEBClientInfo.SebWindowsClientForm.Activate();
-
-                if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
+                //if (!SebWindowsClientMain.InitSebDesktop()) return false;
+                if (SEBClientInfo.SebWindowsClientForm.OpenSEBForm())
                 {
-                    SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                    Application.Exit();
-                }
+                    // Activate SebWindowsClient so the message box gets focus
+                    SEBClientInfo.SebWindowsClientForm.Activate();
 
-                return true; //reading preferences was successful
+                    if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
+                    {
+                        SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                        Application.Exit();
+                    }
+
+                    return true; //reading preferences was successful
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

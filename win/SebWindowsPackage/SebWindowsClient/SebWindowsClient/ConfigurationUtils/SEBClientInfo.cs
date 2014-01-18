@@ -217,7 +217,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Initialise error messages
             SEBErrorMessages.SetCurrentLanguage();
             SEBErrorMessages.InitErrorMessages();
-            SEBSettings     .CreateDefaultAndCurrentSettingsFromScratch();
+            //SEBSettings     .CreateDefaultAndCurrentSettingsFromScratch();
 
             //Sets paths to files SEB has to save or read from the file system
             SetSebPaths();
