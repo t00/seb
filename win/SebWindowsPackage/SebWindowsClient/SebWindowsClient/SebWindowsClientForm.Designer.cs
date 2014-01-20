@@ -38,6 +38,7 @@ namespace SebWindowsClient
             this.ilProcessIcons = new System.Windows.Forms.ImageList(this.components);
             this.taskbarToolStrip = new SebWindowsClient.TaskbarToolStrip();
             this.btn_Exit = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // ilProcessIcons
@@ -75,6 +76,10 @@ namespace SebWindowsClient
             this.btn_Exit.UseVisualStyleBackColor = true;
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
             // SebWindowsClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -105,6 +110,7 @@ namespace SebWindowsClient
         private System.Windows.Forms.ImageList ilProcessIcons;
         private TaskbarToolStrip taskbarToolStrip;
         private System.Windows.Forms.Button btn_Exit;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
 

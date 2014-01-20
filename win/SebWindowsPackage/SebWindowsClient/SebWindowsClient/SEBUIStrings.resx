@@ -172,7 +172,7 @@
     <value>SEB Windows Service Not Available</value>
   </data>
   <data name="indicateMissingServiceReason" xml:space="preserve">
-    <value>SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter.</value>
+    <value>SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter. </value>
   </data>
   <data name="loadingSettings" xml:space="preserve">
     <value>Loading Settings</value>
@@ -192,11 +192,20 @@
   <data name="loadingSettingsNotAllowedReason" xml:space="preserve">
     <value>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</value>
   </data>
+  <data name="locatePermittedApplication" xml:space="preserve">
+    <value>Locate Third Party Application</value>
+  </data>
   <data name="noEncryptionChosen" xml:space="preserve">
     <value>No Encryption Credentials Chosen</value>
   </data>
   <data name="noEncryptionChosenSaveUnencrypted" xml:space="preserve">
     <value>You should either enter a password or choose a certificate to encrypt the settings file. Do you really want to save an unencrypted SEB file (not recommended for use in exams)?</value>
+  </data>
+  <data name="permittedApplicationNotFound" xml:space="preserve">
+    <value>Third Party Application Not Found</value>
+  </data>
+  <data name="permittedApplicationNotFoundMessage" xml:space="preserve">
+    <value>The permitted application %s wasn't found on this system. If the exam settings don't indicate a precise path, SEB can find applications which are properly registred in the system and those installed in the Windows system directory.</value>
   </data>
   <data name="quittingFailed" xml:space="preserve">
     <value>Wrong Password: Quitting SEB Failed</value>

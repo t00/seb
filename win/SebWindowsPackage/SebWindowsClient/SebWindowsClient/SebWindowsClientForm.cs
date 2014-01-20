@@ -96,6 +96,8 @@ namespace SebWindowsClient
         public List<string> allPermittedProcesses = new List<string>();
         public List<Process> runningPermittedProcesses = new List<Process>();
 
+        //private System.Windows.Forms.OpenFileDialog openFileDialog;
+
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Constructor - initialise components.
@@ -331,6 +333,11 @@ namespace SebWindowsClient
                                 }
                             }
                         }
+                        else
+                        {
+                            SEBClientInfo.SebWindowsClientForm.Activate();
+                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.permittedApplicationNotFound, SEBUIStrings.permittedApplicationNotFoundMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK, title);
+                        }
                     }
                 }
             }
@@ -355,7 +362,7 @@ namespace SebWindowsClient
                 string processExecutableFileName = process.MainModule.FileName;
                 processIcon = Icon.ExtractAssociatedIcon(processExecutableFileName);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 processIcon = null;
             }
@@ -411,7 +418,8 @@ namespace SebWindowsClient
                     {
                         //string expanded = System.Environment.GetEnvironmentVariable("path") + appname;
                         string fullPath = Environment.SystemDirectory + "\\" + appname;
-                        return fullPath;
+                        if (File.Exists(fullPath)) return fullPath;
+                        return null;
                     }
 
                     object path = subkey.GetValue("Path");
@@ -457,6 +465,26 @@ namespace SebWindowsClient
             if (fullPath == null && allowChoosingApp)
             {
                 // Ask the user to locate the application
+                // Set the default directory and file name in the File Dialog
+                // Get the path of the "Program Files X86" directory.
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                openFileDialog.FileName = executable;
+                openFileDialog.Filter = executable + " | " + executable;
+                openFileDialog.CheckFileExists = true;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.DefaultExt = "exe";
+                openFileDialog.Title = SEBUIStrings.locatePermittedApplication;
+                //openFileDialog.
+
+                // Get the user inputs in the File Dialog
+                DialogResult fileDialogResult = openFileDialog.ShowDialog();
+                String fileName = openFileDialog.FileName;
+
+                // If the user clicked "Cancel", do nothing
+                // If the user clicked "OK"    , use the third party applications file name and path as the permitted process
+                if (fileDialogResult.Equals(DialogResult.Cancel)) return null;
+                if (fileDialogResult.Equals(DialogResult.OK)) return fileName;
+
                 return null;
             }
             return fullPath;

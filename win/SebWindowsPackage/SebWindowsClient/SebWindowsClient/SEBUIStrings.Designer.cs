@@ -223,7 +223,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter..
+        ///   Looks up a localized string similar to SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter. .
         /// </summary>
         internal static string indicateMissingServiceReason {
             get {
@@ -286,6 +286,15 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Locate Third Party Application.
+        /// </summary>
+        internal static string locatePermittedApplication {
+            get {
+                return ResourceManager.GetString("locatePermittedApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Encryption Credentials Chosen.
         /// </summary>
         internal static string noEncryptionChosen {
@@ -300,6 +309,24 @@ namespace SebWindowsClient {
         internal static string noEncryptionChosenSaveUnencrypted {
             get {
                 return ResourceManager.GetString("noEncryptionChosenSaveUnencrypted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Third Party Application Not Found.
+        /// </summary>
+        internal static string permittedApplicationNotFound {
+            get {
+                return ResourceManager.GetString("permittedApplicationNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The permitted application %s wasn&apos;t found on this system. If the exam settings don&apos;t indicate a precise path, SEB can find applications which are properly registred in the system and those installed in the Windows system directory..
+        /// </summary>
+        internal static string permittedApplicationNotFoundMessage {
+            get {
+                return ResourceManager.GetString("permittedApplicationNotFoundMessage", resourceCulture);
             }
         }
         
