@@ -444,7 +444,7 @@ namespace SebWindowsClient
             string executablePath = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyPath);
             if (executablePath == null) executablePath = "";
             bool allowChoosingApp = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyAllowUser);
-            if (allowChoosingApp == null) allowChoosingApp = false;
+            //if (allowChoosingApp == null) allowChoosingApp = false;
 
             string fullPath;
             // There is a permittedProcess.path value
