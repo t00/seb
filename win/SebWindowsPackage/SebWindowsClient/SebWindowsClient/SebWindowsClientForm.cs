@@ -93,8 +93,8 @@ namespace SebWindowsClient
         private DateTime xulRunnerExitTime;
         //private bool xulRunnerExitEventHandled;
 
-        public List<string> allPermittedProcesses = new List<string>();
-        public List<Process> runningPermittedProcesses = new List<Process>();
+        public List<string> permittedProcessesCalls = new List<string>();
+        public List<Process> permittedProcessesReferences = new List<Process>();
 
         //private System.Windows.Forms.OpenFileDialog openFileDialog;
 
@@ -212,7 +212,7 @@ namespace SebWindowsClient
                 //path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
-                runningPermittedProcesses.Add(xulRunner);
+                permittedProcessesReferences.Add(xulRunner);
                 //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
                 ////xulRunner.StartInfo.Verb = "XulRunner";
                 //xulRunner.StartInfo.Arguments = " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
@@ -266,8 +266,8 @@ namespace SebWindowsClient
         {
             // First clear the permitted processes toolstrip/lists in case of a SEB restart
             taskbarToolStrip.Items.Clear();
-            allPermittedProcesses.Clear();
-            runningPermittedProcesses.Clear();
+            permittedProcessesCalls.Clear();
+            permittedProcessesReferences.Clear();
 
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
@@ -285,7 +285,6 @@ namespace SebWindowsClient
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
 
-                        toolStripButton.Name        = executable;
                         toolStripButton.Padding     = new Padding(5, 0, 5, 0);
                         toolStripButton.ToolTipText = title;
                         Icon processIcon = null;
@@ -309,29 +308,46 @@ namespace SebWindowsClient
 
                             toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
-                            taskbarToolStrip.Items.Add(toolStripButton);
-                            allPermittedProcesses.Add(fullPath);
+                            // We save the index of the permitted process to the toolStripButton.Name property
+                            toolStripButton.Name = permittedProcessesCalls.Count.ToString();
 
-                            // Autostart
-                            if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
+                            taskbarToolStrip.Items.Add(toolStripButton);
+
+                            //toolStripButton.Checked = true;
+                            if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
                             {
-                                //toolStripButton.Checked = true;
-                                if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
+                                StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
+                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
+                                for (int j = 0; j < argumentList.Count; j++)
                                 {
-                                    StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
-                                    List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
-                                    for (int j = 0; j < argumentList.Count; j++)
+                                    Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
+                                    if ((Boolean)argument[SEBSettings.KeyActive])
                                     {
-                                        Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                        if ((Boolean)argument[SEBSettings.KeyActive])
-                                        {
-                                            startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
-                                        }
+                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
                                     }
-                                    Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
-                                    runningPermittedProcesses.Add(newProcess);
                                 }
+                                string fullPathArgumentsCall = startProcessNameBuilder.ToString();
+
+                                // Save the full path of the permitted process executable including arguments
+                                permittedProcessesCalls.Add(fullPathArgumentsCall);
+
+                                // Autostart processes which have the according flag set
+                                Process newProcess = null;
+                                if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
+                                {
+                                    newProcess = SEBDesktopController.CreateProcess(fullPathArgumentsCall, SEBClientInfo.DesktopName);
+                                }
+                                // Save the process reference if the process was started, otherwise null
+                                permittedProcessesReferences.Add(newProcess);
                             }
+                            else
+                            {
+                                // Save the process reference of XULRunner
+                                permittedProcessesReferences.Add(xulRunner);
+                                // Save an empty path for XULRunner (we don't need the path)
+                                permittedProcessesCalls.Add("");
+                            }
+
                         }
                         else
                         {
@@ -493,7 +509,8 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Execute selected permited Process.
+        /// Handle click on permitted process in SEB taskbar: If process isn't running,
+        /// it is started, otherwise the click is ignored.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -502,59 +519,38 @@ namespace SebWindowsClient
         {
             // identify which button was clicked and perform necessary actions
             ToolStripButton toolStripButton = sender as ToolStripButton;
-            List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
-            if (permittedProcessList.Count > 0)
+
+            int i = Convert.ToInt32(toolStripButton.Name);
+            Process processReference = permittedProcessesReferences[i];
+            if (processReference == xulRunner)
             {
-                for (int i = 0; i < permittedProcessList.Count; i++)
+                try
                 {
-                    Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                    string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
-                    if((Boolean)permittedProcess[SEBSettings.KeyActive])
+                    // In case the XULRunner process exited but wasn't closed, this will throw an exception
+                    if (xulRunner.HasExited)
                     {
-                        if (toolStripButton.Name.CompareTo(executable) == 0)
-                        {
-                            if (executable.Contains(SEBClientInfo.XUL_RUNNER))
-                            {
-                                try
-                                {
-                                    // In case the XULRunner process exited but wasn't closed, this will throw an exception
-                                    if (xulRunner.HasExited)
-                                    {
-                                        StartXulRunner();
-                                    }
-                                }
-                                catch (Exception)  // XULRunner wasn't running anymore
-                                {
-                                    StartXulRunner();
-                                }
-                                //Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
-                                //for (int j = 0; j < runningApplications.Count(); j++)
-                                //{
-                                //    if (executable.Contains(runningApplications[j].ProcessName))
-                                //    {
-                                //        xulRunnerRunning = true;
-                                //    }
-                                //}
-                                //if (!xulRunnerRunning)
-                                //    StartXulRunner();
-                            }
-                            else
-                            {
-                                StringBuilder startProcessNameBuilder = new StringBuilder(executable);
-                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
-                                for (int j = 0; j < argumentList.Count; j++)
-                                {
-                                    Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                    if ((Boolean)argument[SEBSettings.KeyActive])
-                                    {
-                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
-                                    }
-                                }
-                                Process newProcess = SEBDesktopController.CreateProcess(startProcessNameBuilder.ToString(), SEBClientInfo.DesktopName);
-                                runningPermittedProcesses.Add(newProcess);
-                            }
-                        }
+                        StartXulRunner();
                     }
+                }
+                catch (Exception)  // XULRunner wasn't running anymore
+                {
+                    StartXulRunner();
+                }
+            }
+            else
+            {
+                try
+                {
+                    if (processReference == null || processReference.HasExited == true)
+                    {
+                        string permittedProcessCall = (string)permittedProcessesCalls[i];
+                        Process newProcess = SEBDesktopController.CreateProcess(permittedProcessCall, SEBClientInfo.DesktopName);
+                        permittedProcessesReferences[i] = newProcess;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddError("Error when trying to start permitted process by clicking in SEB taskbar: ", null, ex);
                 }
             }
             //if (SebKeyCapture.SebApplicationChooser == null)
@@ -992,11 +988,11 @@ namespace SebWindowsClient
                 //    }
                 //}
 
-                foreach (Process processToClose in runningPermittedProcesses)
+                foreach (Process processToClose in permittedProcessesReferences)
                 {
                     SEBNotAllowedProcessController.CloseProcess(processToClose);
                 }
-                runningPermittedProcesses.Clear();
+                permittedProcessesReferences.Clear();
 
                 // Restart the explorer.exe shell
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
