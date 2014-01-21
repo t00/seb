@@ -305,6 +305,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkBoxIgnoreExitKeys = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -3334,6 +3335,7 @@
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.checkBoxIgnoreExitKeys);
             this.tabPageGeneral.Controls.Add(this.labelQuitPasswordCompare);
             this.tabPageGeneral.Controls.Add(this.labelAdminPasswordCompare);
             this.tabPageGeneral.Controls.Add(this.groupBoxExitSequence);
@@ -3660,6 +3662,19 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(825, 650);
             this.tabControlSebWindowsConfig.TabIndex = 2;
+            // 
+            // checkBoxIgnoreExitKeys
+            // 
+            this.checkBoxIgnoreExitKeys.AutoSize = true;
+            this.checkBoxIgnoreExitKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(46, 204);
+            this.checkBoxIgnoreExitKeys.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxIgnoreExitKeys.Name = "checkBoxIgnoreExitKeys";
+            this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxIgnoreExitKeys.TabIndex = 57;
+            this.checkBoxIgnoreExitKeys.Text = "Ignore exit keys";
+            this.checkBoxIgnoreExitKeys.UseVisualStyleBackColor = true;
+            this.checkBoxIgnoreExitKeys.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreExitKeys_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -4012,6 +4027,7 @@
         private System.Windows.Forms.ComboBox comboBoxTaskBarHeight;
         private System.Windows.Forms.Label labelQuitPasswordCompare;
         private System.Windows.Forms.Label labelSettingsPasswordCompare;
+        private System.Windows.Forms.CheckBox checkBoxIgnoreExitKeys;
 
     }
 }
