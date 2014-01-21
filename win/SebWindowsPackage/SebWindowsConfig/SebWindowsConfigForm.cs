@@ -662,6 +662,7 @@ namespace SebWindowsConfig
                     passwordFieldsContainHash = false;
                 }
             }
+
             // Password fields contain actual passwords, not the placeholder for a hash value
             if (password.CompareTo(confirmPassword) == 0)
             {
