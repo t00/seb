@@ -330,9 +330,9 @@ namespace SebWindowsConfig
             if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword]))
             {
                 // The order of setting the placeholders and the flag is very much relevant!
-                adminPasswordFieldsContainHash   = true;
                 textBoxAdminPassword       .Text = "0000000000";
                 textBoxConfirmAdminPassword.Text = "0000000000";
+                adminPasswordFieldsContainHash = true;
             }
             else
             {
@@ -351,9 +351,9 @@ namespace SebWindowsConfig
             if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword]))
             {
                 // The order of setting the placeholders and the flag is very much relevant!
-                quitPasswordFieldsContainHash   = true;
                 textBoxQuitPassword.Text        = "0000000000";
                 textBoxConfirmQuitPassword.Text = "0000000000";
+                quitPasswordFieldsContainHash = true;
             }
             else
             {
@@ -376,8 +376,12 @@ namespace SebWindowsConfig
             // If the settings password local variable contains a hash (and it isn't empty)
             if (settingsPasswordFieldsContainHash && !String.IsNullOrEmpty(settingsPassword))
             {
+                // We need to reset this flag before changing the textBox text value, because otherwise the compare passwords
+                // method will delete the first textBox again
+                settingsPasswordFieldsContainHash = false;
                 textBoxSettingsPassword       .Text = "0000000000";
                 textBoxConfirmSettingsPassword.Text = "0000000000";
+                settingsPasswordFieldsContainHash = true;
             }
             else
             {
