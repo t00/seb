@@ -335,7 +335,7 @@ namespace SebWindowsClient
                                 Process newProcess = null;
                                 if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
                                 {
-                                    newProcess = SEBDesktopController.CreateProcess(fullPathArgumentsCall, SEBClientInfo.DesktopName);
+                                    newProcess = CreateProcessWithExitHandler(fullPathArgumentsCall);
                                 }
                                 // Save the process reference if the process was started, otherwise null
                                 permittedProcessesReferences.Add(newProcess);
@@ -546,7 +546,7 @@ namespace SebWindowsClient
                     if (processReference == null || processReference.HasExited == true)
                     {
                         string permittedProcessCall = (string)permittedProcessesCalls[i];
-                        Process newProcess = SEBDesktopController.CreateProcess(permittedProcessCall, SEBClientInfo.DesktopName);
+                        Process newProcess = CreateProcessWithExitHandler(permittedProcessCall);
                         permittedProcessesReferences[i] = newProcess;
                     }
                 }
@@ -560,6 +560,39 @@ namespace SebWindowsClient
             //SebKeyCapture.SebApplicationChooser.fillListApplications();
             //SebKeyCapture.SebApplicationChooser.Visible = true;
         }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Create a new process and add an exited event handler.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private Process CreateProcessWithExitHandler(string fullPathArgumentsCall)
+        {
+            Process newProcess = SEBDesktopController.CreateProcess(fullPathArgumentsCall, SEBClientInfo.DesktopName);
+            newProcess.EnableRaisingEvents = true;
+            newProcess.Exited += new EventHandler(permittedProcess_Exited);
+
+            return newProcess;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Handle xulRunner_Exited event and display process information.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private void permittedProcess_Exited(object sender, System.EventArgs e)
+        {
+            Process permittedProcess = (Process)sender;
+            //int permittedProcessExitCode = permittedProcess.ExitCode;
+            //DateTime permittedProcessExitTime = permittedProcess.ExitTime;
+            //if (permittedProcessExitCode != 0)
+            //{
+            //    // An error occured when exiting the permitted process, maybe it crashed?
+            //    Logger.AddError("An error occurred when exiting a permitted process. Exit code: " + permittedProcessExitCode.ToString() + ". Exit time: " + permittedProcess.ExitTime.ToString(), this, null);
+            //}
+        }
+
 
 
         /// ----------------------------------------------------------------------------------------

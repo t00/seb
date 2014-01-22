@@ -175,6 +175,7 @@ namespace SebWindowsClient
                             {
                                 try
                                 {
+                                    runningApplications[j].Refresh();
                                     if (!runningApplications[j].HasExited)
                                     {
                                         if (permittedProcessExecutable.Contains(runningApplications[j].ProcessName))
