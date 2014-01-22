@@ -212,7 +212,7 @@ namespace SebWindowsClient
                 //path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
-                permittedProcessesReferences.Add(xulRunner);
+                //permittedProcessesReferences.Add(xulRunner);
                 //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
                 ////xulRunner.StartInfo.Verb = "XulRunner";
                 //xulRunner.StartInfo.Arguments = " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
@@ -342,6 +342,8 @@ namespace SebWindowsClient
                             }
                             else
                             {
+                                // Start XULRunner
+                                StartXulRunner();
                                 // Save the process reference of XULRunner
                                 permittedProcessesReferences.Add(xulRunner);
                                 // Save an empty path for XULRunner (we don't need the path)
@@ -903,7 +905,7 @@ namespace SebWindowsClient
 
                 addPermittedProcessesToTS();
                 SetFormOnDesktop();
-                StartXulRunner();
+                //StartXulRunner();
                 //System.Diagnostics.Process oskProcess = null;
                 //oskProcess = Process.Start("OSK");
                 //SEBDesktopController d = SEBDesktopController.OpenDesktop(SEBClientInfo.DesktopName);

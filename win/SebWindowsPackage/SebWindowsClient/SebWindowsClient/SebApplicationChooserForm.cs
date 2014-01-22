@@ -161,7 +161,7 @@ namespace SebWindowsClient
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
-                Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
+                List<Process> runningApplications = SEBClientInfo.SebWindowsClientForm.permittedProcessesReferences;
                 for (int i = 0; i < permittedProcessList.Count(); i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
@@ -171,30 +171,86 @@ namespace SebWindowsClient
                     {
                         for (int j = 0; j < runningApplications.Count(); j++)
                         {
-                            if (permittedProcessExecutable.Contains(runningApplications[j].ProcessName))
+                            if (runningApplications[j] != null)
                             {
-                                if (!permittedProcessExecutable.Contains("SebWindowsClient"))
+                                try
                                 {
-                                    this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
-                                    //lRunningApplications.Add(runningApplications[j].ProcessName);
-                                    lRunningApplications.Add(permittedProcessTitle);
-                                    if (permittedProcessExecutable == "xulrunner.exe")
+                                    if (!runningApplications[j].HasExited)
                                     {
-                                        ilApplicationIcons.Images.Add(Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap());
+                                        if (permittedProcessExecutable.Contains(runningApplications[j].ProcessName))
+                                        {
+                                            this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
+                                            //lRunningApplications.Add(runningApplications[j].ProcessName);
+                                            lRunningApplications.Add(permittedProcessTitle);
+                                            if (permittedProcessExecutable == "xulrunner.exe")
+                                            {
+                                                Bitmap sebIconBitmap = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
+                                                sebIconBitmap.MakeTransparent(BackColor);
+                                                ilApplicationIcons.Images.Add(sebIconBitmap);
+                                            }
+                                            else
+                                            {
+                                                ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
+                                            }
+                                            index++;
+                                        }
                                     }
-                                    else
-                                    {
-                                        ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
-                                    }
-                                    index++;
+                                }
+                                catch (Exception)
+                                {
+                                    
                                 }
                             }
                         }
                     }
                 }
-
             }
- 
+
+            //List<string> lRunningApplications = new List<string>();
+            //ImageList ilApplicationIcons = new ImageList();
+            ////ilApplicationIcons.TransparentColor = Color.White;
+            //ilApplicationIcons.ImageSize = new Size(32, 32);
+            //this.lWindowHandles.Clear();
+            //int index = 0;
+            //List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
+            //if (permittedProcessList.Count > 0)
+            //{
+            //    Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
+            //    for (int i = 0; i < permittedProcessList.Count(); i++)
+            //    {
+            //        Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+            //        string permittedProcessExecutable = (string)permittedProcess[SEBSettings.KeyExecutable];
+            //        string permittedProcessTitle = (string)permittedProcess[SEBSettings.KeyTitle];
+            //        if ((Boolean)permittedProcess[SEBSettings.KeyActive])
+            //        {
+            //            for (int j = 0; j < runningApplications.Count(); j++)
+            //            {
+            //                if (permittedProcessExecutable.Contains(runningApplications[j].ProcessName))
+            //                {
+            //                    if (!permittedProcessExecutable.Contains("SebWindowsClient"))
+            //                    {
+            //                        this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
+            //                        //lRunningApplications.Add(runningApplications[j].ProcessName);
+            //                        lRunningApplications.Add(permittedProcessTitle);
+            //                        if (permittedProcessExecutable == "xulrunner.exe")
+            //                        {
+            //                            Bitmap sebIconBitmap = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
+            //                            sebIconBitmap.MakeTransparent(Color.White);
+            //                            ilApplicationIcons.Images.Add(sebIconBitmap);
+            //                        }
+            //                        else
+            //                        {
+            //                            ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
+            //                        }
+            //                        index++;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //}
+
             // Suspending automatic refreshes as items are added/removed.
             this.listApplications.BeginUpdate();
             this.listApplications.Clear();
