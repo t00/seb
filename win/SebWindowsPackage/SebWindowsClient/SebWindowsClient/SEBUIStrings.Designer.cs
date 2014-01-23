@@ -70,6 +70,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permitted Processes Are Aleady Running.
+        /// </summary>
+        internal static string closeProcesses {
+            get {
+                return ResourceManager.GetString("closeProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The processes below are already running, they need to be closed before starting the exam. Do you want to close those processes now (this may lead to loss of data!)? Otherwise SEB will quit and you can close those applications yourself before trying to start the exam again..
+        /// </summary>
+        internal static string closeProcessesQuestion {
+            get {
+                return ResourceManager.GetString("closeProcessesQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit Safe Exam Browser.
         /// </summary>
         internal static string confirmQuitting {

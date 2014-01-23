@@ -272,6 +272,56 @@ namespace SebWindowsClient
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
+                // Check if the permitted third party applications are already running
+                Process[] runningApplications;
+                List<Process> runningProcessesToClose = new List<Process>();
+                List<string> runningApplicationsToClose = new List<string>();
+                for (int i = 0; i < permittedProcessList.Count; i++)
+                {
+                    Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+                    SEBSettings.operatingSystems permittedProcessOS = (SEBSettings.operatingSystems)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyOS);
+                    bool permittedProcessActive = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyActive);
+                    if (permittedProcessOS == SEBSettings.operatingSystems.operatingSystemWin && permittedProcessActive)
+                    {
+                        string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
+                        if (title == null) title = "";
+                        string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
+                        // Check if the process is already running
+                        runningApplications = Process.GetProcesses();
+                        for (int j = 0; j < runningApplications.Count(); j++)
+                        {
+                            if (executable.Contains(runningApplications[j].ProcessName))
+                            {
+                                runningProcessesToClose.Add(runningApplications[j]);
+                                runningApplicationsToClose.Add(title == "SEB" ? executable : title);
+                                //runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
+                            }
+                        }
+                    }
+                }
+                // If we found already running permitted processes, we ask the user how to quit them
+                if (runningProcessesToClose.Count > 0)
+                {
+                    StringBuilder applicationsListToClose = new StringBuilder();
+                    foreach (string applicationToClose in runningApplicationsToClose)
+                    {
+                        applicationsListToClose.AppendLine("    " + applicationToClose);
+                    }
+                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.closeProcesses, SEBUIStrings.closeProcessesQuestion + "\n\n" + applicationsListToClose.ToString(), SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
+                    {
+                        foreach (Process processToClose in runningProcessesToClose)
+                        {
+                            SEBNotAllowedProcessController.CloseProcess(processToClose);
+                        }
+                    }
+                    else
+                    {
+                        Application.Exit();
+                        return;
+                    }
+                }
+
+
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     ToolStripButton toolStripButton = new ToolStripButton();
@@ -281,11 +331,10 @@ namespace SebWindowsClient
                     //if (permittedProcessActive == null) permittedProcessActive = false;
                     if (permittedProcessOS == SEBSettings.operatingSystems.operatingSystemWin && permittedProcessActive)
                     {
-                        string title      = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
+                        string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
-
-                        toolStripButton.Padding     = new Padding(5, 0, 5, 0);
+                        toolStripButton.Padding = new Padding(5, 0, 5, 0);
                         toolStripButton.ToolTipText = title;
                         Icon processIcon = null;
                         string fullPath;
@@ -300,11 +349,11 @@ namespace SebWindowsClient
                         if (fullPath != null)
                         {
                             processIcon = GetApplicationIcon(fullPath);
-                            if (processIcon == null)
-                            {
-                                processIcon = GetApplicationIcon(Application.ExecutablePath);
-                            }
-                            toolStripButton.Image = processIcon.ToBitmap();
+                            // If the icon couldn't be read, we try it again
+                            if (processIcon == null) processIcon = GetApplicationIcon(fullPath);
+                            // If it again didn't work out, we try to take the icon of SEB
+                            if (processIcon == null) processIcon = GetApplicationIcon(Application.ExecutablePath);
+                            if (processIcon != null) toolStripButton.Image = processIcon.ToBitmap();
 
                             toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
@@ -569,8 +618,8 @@ namespace SebWindowsClient
         private Process CreateProcessWithExitHandler(string fullPathArgumentsCall)
         {
             Process newProcess = SEBDesktopController.CreateProcess(fullPathArgumentsCall, SEBClientInfo.DesktopName);
-            newProcess.EnableRaisingEvents = true;
-            newProcess.Exited += new EventHandler(permittedProcess_Exited);
+            //newProcess.EnableRaisingEvents = true;
+            //newProcess.Exited += new EventHandler(permittedProcess_Exited);
 
             return newProcess;
         }
