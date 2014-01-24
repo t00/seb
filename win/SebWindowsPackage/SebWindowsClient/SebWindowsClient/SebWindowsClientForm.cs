@@ -292,9 +292,19 @@ namespace SebWindowsClient
                         {
                             if (executable.Contains(runningApplications[j].ProcessName))
                             {
-                                runningProcessesToClose.Add(runningApplications[j]);
-                                runningApplicationsToClose.Add(title == "SEB" ? executable : title);
-                                //runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
+                                // If the flag strongKill is set, then the process is killed without asking the user
+                                object strongKill = SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
+                                if (strongKill != null) 
+                                    if ((bool)strongKill)
+                                    {
+                                        SEBNotAllowedProcessController.CloseProcess(runningApplications[j]);
+                                    }
+                                    else
+                                    {
+                                        runningProcessesToClose.Add(runningApplications[j]);
+                                        runningApplicationsToClose.Add(title == "SEB" ? executable : title);
+                                        //runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
+                                    }
                             }
                         }
                     }
