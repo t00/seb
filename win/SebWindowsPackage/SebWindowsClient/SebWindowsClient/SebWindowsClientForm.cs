@@ -59,6 +59,9 @@ namespace SebWindowsClient
         [DllImport("user32.dll")]
         private static extern IntPtr FindWindowEx(IntPtr parentHwnd, IntPtr childAfterHwnd, IntPtr className, string windowText);
 
+        [DllImport("User32.dll")]
+        private static extern bool IsIconic(IntPtr handle);
+
         [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
 
@@ -74,6 +77,7 @@ namespace SebWindowsClient
 
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;
+        private const int SW_RESTORE = 9;
 
         private const string VistaStartMenuCaption = "Start";
         private static IntPtr vistaStartMenuWnd = IntPtr.Zero;
@@ -293,9 +297,8 @@ namespace SebWindowsClient
                             if (executable.Contains(runningApplications[j].ProcessName))
                             {
                                 // If the flag strongKill is set, then the process is killed without asking the user
-                                object strongKill = SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
-                                if (strongKill != null) 
-                                    if ((bool)strongKill)
+                                bool strongKill = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
+                                if (strongKill)
                                     {
                                         SEBNotAllowedProcessController.CloseProcess(runningApplications[j]);
                                     }
@@ -476,6 +479,10 @@ namespace SebWindowsClient
         public string GetApplicationPath(string appname)
         {
             if (File.Exists(appname)) return appname;
+            // Check if file is in programmdir
+            string programdirAppname = SEBClientInfo.ProgramFilesX86Directory + "\\" + appname;
+            if (File.Exists(programdirAppname)) return programdirAppname;
+
             using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.RegistryKey.OpenRemoteBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, ""))
             {
                 //// Get all paths from the PATH environement variable
@@ -592,6 +599,12 @@ namespace SebWindowsClient
                     {
                         StartXulRunner();
                     }
+                    else
+                    {
+                        IntPtr handle = processReference.MainWindowHandle;
+                        if (IsIconic(handle)) ShowWindow(handle, SW_RESTORE);
+                        SetForegroundWindow(handle);
+                    }
                 }
                 catch (Exception)  // XULRunner wasn't running anymore
                 {
@@ -607,6 +620,12 @@ namespace SebWindowsClient
                         string permittedProcessCall = (string)permittedProcessesCalls[i];
                         Process newProcess = CreateProcessWithExitHandler(permittedProcessCall);
                         permittedProcessesReferences[i] = newProcess;
+                    }
+                    else
+                    {
+                        IntPtr handle = processReference.MainWindowHandle;
+                        if (IsIconic(handle)) ShowWindow(handle, SW_RESTORE);
+                        SetForegroundWindow(handle);
                     }
                 }
                 catch (Exception ex)

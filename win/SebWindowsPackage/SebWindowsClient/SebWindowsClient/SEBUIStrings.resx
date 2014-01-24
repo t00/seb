@@ -211,7 +211,7 @@
     <value>Third Party Application Not Found</value>
   </data>
   <data name="permittedApplicationNotFoundMessage" xml:space="preserve">
-    <value>The permitted application %s wasn't found on this system. If the exam settings don't indicate a precise path, SEB can find applications which are properly registred in the system and those installed in the Windows system directory.</value>
+    <value>The permitted application %s wasn't found on this system. If the exam settings don't indicate a precise path, SEB can find applications installed in the Program Files or Windows system directory and those which are registred in the system.</value>
   </data>
   <data name="quittingFailed" xml:space="preserve">
     <value>Wrong Password: Quitting SEB Failed</value>
