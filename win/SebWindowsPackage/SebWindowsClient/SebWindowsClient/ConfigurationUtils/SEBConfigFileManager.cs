@@ -98,7 +98,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (SEBClientInfo.SebWindowsClientForm.OpenSEBForm())
                 {
                     // Activate SebWindowsClient so the message box gets focus
-                    SEBClientInfo.SebWindowsClientForm.Activate();
+                    //SEBClientInfo.SebWindowsClientForm.Activate();
 
                     if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
                     {
@@ -554,7 +554,7 @@ namespace SebWindowsClient.ConfigurationUtils
             sebPasswordDialogForm.LabelText = passwordRequestText;
             sebPasswordDialogForm.txtSEBPassword.Focus();
             // If we are running in SebWindowsClient we need to activate it before showing the password dialog
-            if (SEBClientInfo.SebWindowsClientForm != null) SEBClientInfo.SebWindowsClientForm.Activate();
+            if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientForm.SEBToForeground(); //SEBClientInfo.SebWindowsClientForm.Activate();
             // Show password dialog as a modal dialog and determine if DialogResult = OK.
             if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
             {

@@ -142,7 +142,7 @@ namespace SebWindowsClient
             // Check if we're running in exam mode already, if yes, then refuse to load a .seb file
             if (SEBClientInfo.examMode)
             {
-                SEBClientInfo.SebWindowsClientForm.Activate();
+                //SEBClientInfo.SebWindowsClientForm.Activate();
                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsNotAllowed, SEBUIStrings.loadingSettingsNotAllowedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                 return;
             }
@@ -187,6 +187,19 @@ namespace SebWindowsClient
             SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
         }
 
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Move SEB to the foreground.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static void SEBToForeground()
+        {
+            SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
+            SEBClientInfo.SebWindowsClientForm.Activate();
+        }
+
+        
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         // Start xulRunner process.
@@ -194,8 +207,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private bool StartXulRunner()
         {
-
-//            xulRunnerExitEventHandled = false;
+            //xulRunnerExitEventHandled = false;
             string xulRunnerPath = "";
             string desktopName = "";
             try
@@ -415,7 +427,7 @@ namespace SebWindowsClient
                         }
                         else
                         {
-                            SEBClientInfo.SebWindowsClientForm.Activate();
+                            //SEBClientInfo.SebWindowsClientForm.Activate();
                             SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.permittedApplicationNotFound, SEBUIStrings.permittedApplicationNotFoundMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK, title);
                         }
                     }
@@ -884,17 +896,17 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private bool InitClientRegistryAndProcesses()
         {
-                // Edit Registry
-                SEBEditRegistry sebEditRegistry = new SEBEditRegistry();
-                if (!sebEditRegistry.EditRegistry())
-                {
-                    sebEditRegistry.addResetRegValues("EditRegistry", 0);
-                }
+            // Edit Registry
+            SEBEditRegistry sebEditRegistry = new SEBEditRegistry();
+            if (!sebEditRegistry.EditRegistry())
+            {
+                sebEditRegistry.addResetRegValues("EditRegistry", 0);
+            }
 
-                try
-                {
-                    // Kill processes
-                    List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyProhibitedProcesses)[SEBSettings.KeyProhibitedProcesses];
+            try
+            {
+                // Kill processes
+                List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyProhibitedProcesses)[SEBSettings.KeyProhibitedProcesses];
                 if (prohibitedProcessList.Count() > 0)
                 {
                     for (int i = 0; i < prohibitedProcessList.Count(); i++)
@@ -992,6 +1004,7 @@ namespace SebWindowsClient
                 }
                 else
                 {
+                    SetForegroundWindow(this.Handle);
                     // Show testDialog as a modal dialog and determine if DialogResult = OK.
                     sebCloseDialogForm.Visible = true;
                     sebCloseDialogForm.Activate();
@@ -1073,34 +1086,6 @@ namespace SebWindowsClient
                 }
 
                 // ShutDown Processes
-                //Process[] runningApplications = SEBDesktopController.GetInputProcessesWithGI();
-                //List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
-                //for (int i = 0; i < permittedProcessList.Count(); i++)
-                //{
-                //    for (int j = 0; j < runningApplications.Count(); j++)
-                //    {
-                //        Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
-                //        string permittedProcessName = (string)permittedProcess[SEBSettings.KeyExecutable];
-                //        if ((Boolean)permittedProcess[SEBSettings.KeyActive])
-                //        {
-                //            if (permittedProcessName.Contains(runningApplications[j].ProcessName))
-                //            {
-                //                // Close process
-                //                //SEBNotAllowedProcessController.CloseProcessByName(runningApplications[j].ProcessName);
-
-                //                //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(runningApplications[j].ProcessName))
-                //                //{
-                //                //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, runningApplications[j].ProcessName))
-                //                //{
-                //                SEBNotAllowedProcessController.KillProcessByName(runningApplications[j].ProcessName);
-                //                //}
-
-                //                //}
-                //            }
-                //        }
-                //    }
-                //}
-
                 foreach (Process processToClose in permittedProcessesReferences)
                 {
                     SEBNotAllowedProcessController.CloseProcess(processToClose);

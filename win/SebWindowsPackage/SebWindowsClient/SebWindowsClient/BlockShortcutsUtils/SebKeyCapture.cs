@@ -185,6 +185,11 @@ namespace SebWindowsClient.BlockShortcutsUtils
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                         return true;
                 }
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnablePrintScreen)[SEBSettings.KeyEnablePrintScreen])
+                {
+                    if (KeyInfo.key == Keys.PrintScreen)
+                        return true;
+                }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
                 {
                     //if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))

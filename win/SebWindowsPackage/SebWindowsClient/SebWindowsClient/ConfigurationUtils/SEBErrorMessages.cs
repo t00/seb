@@ -182,6 +182,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public static bool OutputErrorMessage(int messageTextIndex, int messageKindIndex,
             string sparam = null, int iparam = -1)
         {
+            // If we are running in SebWindowsClient we need to activate it before showing the password dialog
+            if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientForm.SEBToForeground(); //SEBClientInfo.SebWindowsClientForm.Activate();
+
             bool result = false;
 
             MessageBoxIcon icon;
@@ -244,6 +247,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public static bool OutputErrorMessageNew(string messageTitle, string messageText, int messageKindIndex, MessageBoxButtons messageButtons,
             string sparam = null, int iparam = -1)
         {
+            // If we are running in SebWindowsClient we need to activate it before showing the password dialog
+            if (SEBClientInfo.SebWindowsClientForm != null) SEBClientInfo.SebWindowsClientForm.Activate(); //SebWindowsClientForm.SEBToForeground();
+            
             bool result = false;
 
             MessageBoxIcon icon;

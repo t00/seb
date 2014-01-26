@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ServiceProcess;
+using SebWindowsClient.DiagnosticsUtils;
 
 namespace SebWindowsClient.ServiceUtils
 {
@@ -25,9 +26,16 @@ namespace SebWindowsClient.ServiceUtils
         {
             bool serviceAvailable = false;
 
-            ServiceController serviceController   = new ServiceController(service);
-            serviceAvailable = (serviceController.Status == ServiceControllerStatus.Running);
-            serviceController.Close();
+            try
+            {
+                ServiceController serviceController = new ServiceController(service);
+                serviceAvailable = (serviceController.Status == ServiceControllerStatus.Running);
+                serviceController.Close();
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("The SEB Windows Service is not installed.", null, ex, ex.Message);
+            }
 
             return serviceAvailable;
         }

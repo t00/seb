@@ -250,6 +250,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
         // Group "Special Keys"
         public const String KeyEnableEsc        = "enableEsc";
+        public const String KeyEnablePrintScreen    = "enablePrintSc";
         public const String KeyEnableCtrlEsc    = "enableCtrlEsc";
         public const String KeyEnableAltEsc     = "enableAltEsc";
         public const String KeyEnableAltTab     = "enableAltTab";
@@ -695,6 +696,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Default settings for group "Special Keys"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableEsc       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnablePrintScreen, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableCtrlEsc   , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltEsc    , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltTab    , true);

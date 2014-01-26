@@ -214,14 +214,14 @@ namespace SebWindowsClient
                 case (int)sebServicePolicies.indicateMissingService:
                     if (!serviceAvailable)
                     {
-                        SEBClientInfo.SebWindowsClientForm.Activate();
+                        //SEBClientInfo.SebWindowsClientForm.Activate();
                         SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.indicateMissingServiceReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                     }
                     break;
                 case (int)sebServicePolicies.forceSebService:
                     if (!serviceAvailable)
                     {
-                        SEBClientInfo.SebWindowsClientForm.Activate();
+                        //SEBClientInfo.SebWindowsClientForm.Activate();
                         SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                         Logger.AddError("SEB Windows service is not available and sebServicePolicies is set to forceSebService", null, null);
                         Logger.AddInformation("SafeExamBrowser is exiting", null, null);
@@ -243,8 +243,7 @@ namespace SebWindowsClient
             if (IsInsideVM() && (!allowVirtualMachine))
             //if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
             {
-                SEBClientInfo.SebWindowsClientForm.Activate();
-
+                //SEBClientInfo.SebWindowsClientForm.Activate();
                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.detectedVirtualMachine, SEBUIStrings.detectedVirtualMachineForbiddenMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                 Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
                 Logger.AddInformation("Safe Exam Browser is exiting", null, null);
