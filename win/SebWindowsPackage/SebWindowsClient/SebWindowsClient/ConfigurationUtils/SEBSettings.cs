@@ -527,7 +527,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAutostart  , true);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAutohide   , true);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAllowUser  , false);
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyStrongKill , false);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyStrongKill , true);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyOS         , IntWin);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyTitle      , "SEB");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyDescription, "");
