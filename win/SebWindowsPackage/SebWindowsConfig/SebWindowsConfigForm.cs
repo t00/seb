@@ -617,13 +617,14 @@ namespace SebWindowsConfig
             // Group "Hooked Keys"
             checkBoxHookKeys.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyHookKeys];
 
-            checkBoxEnableEsc       .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableEsc];
-            checkBoxEnableCtrlEsc   .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableCtrlEsc];
-            checkBoxEnableAltEsc    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltEsc];
-            checkBoxEnableAltTab    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltTab];
-            checkBoxEnableAltF4     .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltF4];
-            checkBoxEnableStartMenu .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableStartMenu];
-            checkBoxEnableRightMouse.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableRightMouse];
+            checkBoxEnableEsc        .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableEsc];
+            checkBoxEnableCtrlEsc    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableCtrlEsc];
+            checkBoxEnableAltEsc     .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltEsc];
+            checkBoxEnableAltTab     .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltTab];
+            checkBoxEnableAltF4      .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltF4];
+            checkBoxEnableStartMenu  .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableStartMenu];
+            checkBoxEnableRightMouse .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableRightMouse];
+            checkBoxEnablePrintScreen.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen];
 
             checkBoxEnableF1 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF1];
             checkBoxEnableF2 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF2];
@@ -2797,6 +2798,11 @@ namespace SebWindowsConfig
         private void checkBoxEnableRightMouse_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableRightMouse] = checkBoxEnableRightMouse.Checked;
+        }
+
+        private void checkBoxEnablePrintScreen_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnablePrintScreen.Checked;
         }
 
 

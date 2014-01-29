@@ -50,6 +50,7 @@
             this.checkBoxEnableF7 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF8 = new System.Windows.Forms.CheckBox();
             this.groupBoxSpecialKeys = new System.Windows.Forms.GroupBox();
+            this.checkBoxEnablePrintScreen = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableEsc = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableCtrlEsc = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableAltEsc = new System.Windows.Forms.CheckBox();
@@ -280,6 +281,7 @@
             this.buttonDefaultSettings = new System.Windows.Forms.Button();
             this.buttonRevertToLastOpened = new System.Windows.Forms.Button();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.checkBoxIgnoreExitKeys = new System.Windows.Forms.CheckBox();
             this.labelQuitPasswordCompare = new System.Windows.Forms.Label();
             this.labelAdminPasswordCompare = new System.Windows.Forms.Label();
             this.groupBoxExitSequence = new System.Windows.Forms.GroupBox();
@@ -305,7 +307,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.checkBoxIgnoreExitKeys = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -573,6 +574,7 @@
             // 
             // groupBoxSpecialKeys
             // 
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnablePrintScreen);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableEsc);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableCtrlEsc);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltEsc);
@@ -585,10 +587,23 @@
             this.groupBoxSpecialKeys.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 195);
+            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 220);
             this.groupBoxSpecialKeys.TabIndex = 39;
             this.groupBoxSpecialKeys.TabStop = false;
             this.groupBoxSpecialKeys.Text = "Special Keys";
+            // 
+            // checkBoxEnablePrintScreen
+            // 
+            this.checkBoxEnablePrintScreen.AutoSize = true;
+            this.checkBoxEnablePrintScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 196);
+            this.checkBoxEnablePrintScreen.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnablePrintScreen.Name = "checkBoxEnablePrintScreen";
+            this.checkBoxEnablePrintScreen.Size = new System.Drawing.Size(117, 17);
+            this.checkBoxEnablePrintScreen.TabIndex = 42;
+            this.checkBoxEnablePrintScreen.Text = "Enable PrintScreen";
+            this.checkBoxEnablePrintScreen.UseVisualStyleBackColor = true;
+            this.checkBoxEnablePrintScreen.CheckedChanged += new System.EventHandler(this.checkBoxEnablePrintScreen_CheckedChanged);
             // 
             // checkBoxEnableEsc
             // 
@@ -3366,6 +3381,19 @@
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
+            // checkBoxIgnoreExitKeys
+            // 
+            this.checkBoxIgnoreExitKeys.AutoSize = true;
+            this.checkBoxIgnoreExitKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(46, 204);
+            this.checkBoxIgnoreExitKeys.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxIgnoreExitKeys.Name = "checkBoxIgnoreExitKeys";
+            this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxIgnoreExitKeys.TabIndex = 57;
+            this.checkBoxIgnoreExitKeys.Text = "Ignore exit keys";
+            this.checkBoxIgnoreExitKeys.UseVisualStyleBackColor = true;
+            this.checkBoxIgnoreExitKeys.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreExitKeys_CheckedChanged);
+            // 
             // labelQuitPasswordCompare
             // 
             this.labelQuitPasswordCompare.AutoSize = true;
@@ -3662,19 +3690,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(825, 650);
             this.tabControlSebWindowsConfig.TabIndex = 2;
-            // 
-            // checkBoxIgnoreExitKeys
-            // 
-            this.checkBoxIgnoreExitKeys.AutoSize = true;
-            this.checkBoxIgnoreExitKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(46, 204);
-            this.checkBoxIgnoreExitKeys.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxIgnoreExitKeys.Name = "checkBoxIgnoreExitKeys";
-            this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
-            this.checkBoxIgnoreExitKeys.TabIndex = 57;
-            this.checkBoxIgnoreExitKeys.Text = "Ignore exit keys";
-            this.checkBoxIgnoreExitKeys.UseVisualStyleBackColor = true;
-            this.checkBoxIgnoreExitKeys.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreExitKeys_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -4028,6 +4043,7 @@
         private System.Windows.Forms.Label labelQuitPasswordCompare;
         private System.Windows.Forms.Label labelSettingsPasswordCompare;
         private System.Windows.Forms.CheckBox checkBoxIgnoreExitKeys;
+        private System.Windows.Forms.CheckBox checkBoxEnablePrintScreen;
 
     }
 }
