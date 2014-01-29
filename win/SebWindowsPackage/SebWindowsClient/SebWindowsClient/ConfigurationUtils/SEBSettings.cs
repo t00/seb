@@ -421,13 +421,13 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.0RC");
 
             // Default settings for group "General"
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyStartURL            , "http://www.safeexambrowser.org");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeySebServerURL        , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedAdminPassword , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowQuit           , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreExitKeys            , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreQuitPassword  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedQuitPassword  , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyStartURL           , "http://www.safeexambrowser.org");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeySebServerURL       , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedAdminPassword, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowQuit          , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreExitKeys     , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreQuitPassword , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedQuitPassword , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey1,  2);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey2, 10);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey3,  5);
@@ -527,7 +527,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAutostart  , true);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAutohide   , true);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAllowUser  , false);
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyStrongKill , true);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyStrongKill , false);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyOS         , IntWin);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyTitle      , "SEB");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyDescription, "");
@@ -695,14 +695,14 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHookKeys, true);
 
             // Default settings for group "Special Keys"
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableEsc       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableEsc        , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableCtrlEsc    , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltEsc     , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltTab     , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltF4      , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableStartMenu  , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableRightMouse , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnablePrintScreen, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableCtrlEsc   , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltEsc    , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltTab    , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAltF4     , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableStartMenu , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableRightMouse, false);
 
             // Default settings for group "Function Keys"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF1 , false);
@@ -898,9 +898,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Add potentially missing keys to current Main Dictionary
             foreach (KeyValue p in SEBSettings.settingsDefault)
-                if (SEBSettings.settingsCurrent.ContainsKey(p.Key) == false) {
-                    SEBSettings.settingsCurrent.Add(p.Key, p.Value);
-                }
+                               if (SEBSettings.settingsCurrent.ContainsKey(p.Key) == false)
+                                   SEBSettings.settingsCurrent.Add        (p.Key, p.Value);
 
             // Get the Permitted Process List
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyPermittedProcesses];
@@ -928,7 +927,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     // Add potentially missing keys to current Argument Dictionary
                     foreach (KeyValue p in SEBSettings.permittedArgumentDataDefault)
                         if (SEBSettings.permittedArgumentData.ContainsKey(p.Key) == false && p.Value != "")
-                                           SEBSettings.permittedArgumentData.Add        (p.Key, p.Value);
+                            SEBSettings.permittedArgumentData.Add        (p.Key, p.Value);
 
                 } // next sublistIndex
             } // next listIndex
@@ -946,7 +945,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 // Add potentially missing keys to current Process Dictionary
                 foreach (KeyValue p in SEBSettings.prohibitedProcessDataDefault)
-                    if (SEBSettings.prohibitedProcessData.ContainsKey(p.Key) == false)
+                                   if (SEBSettings.prohibitedProcessData.ContainsKey(p.Key) == false)
                                        SEBSettings.prohibitedProcessData.Add        (p.Key, p.Value);
 
             } // next listIndex
@@ -1042,7 +1041,6 @@ namespace SebWindowsClient.ConfigurationUtils
                     cleanSettings.Add(p.Key, p.Value);
 
 
-
             // Get the Permitted Process List
             ListObj permittedProcessList = (ListObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyPermittedProcesses);
             if (permittedProcessList != null)
@@ -1071,8 +1069,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
                                 // Add potentially missing keys to current Argument Dictionary
                                 foreach (KeyValue p in permittedArgumentDataDefault)
-                                    if (permittedArgumentData.ContainsKey(p.Key) == false && p.Value != "")
-                                        permittedArgumentData.Add(p.Key, p.Value);
+                                                   if (permittedArgumentData.ContainsKey(p.Key) == false && p.Value != "")
+                                                       permittedArgumentData.Add        (p.Key, p.Value);
 
                             } // next sublistIndex
                         }
