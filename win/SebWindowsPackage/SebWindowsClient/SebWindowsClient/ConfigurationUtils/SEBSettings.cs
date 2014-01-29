@@ -249,14 +249,14 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyHookKeys = "hookKeys";
 
         // Group "Special Keys"
-        public const String KeyEnableEsc        = "enableEsc";
-        public const String KeyEnablePrintScreen    = "enablePrintSc";
-        public const String KeyEnableCtrlEsc    = "enableCtrlEsc";
-        public const String KeyEnableAltEsc     = "enableAltEsc";
-        public const String KeyEnableAltTab     = "enableAltTab";
-        public const String KeyEnableAltF4      = "enableAltF4";
-        public const String KeyEnableStartMenu  = "enableStartMenu";
-        public const String KeyEnableRightMouse = "enableRightMouse";
+        public const String KeyEnableEsc         = "enableEsc";
+        public const String KeyEnablePrintScreen = "enablePrintScreen";
+        public const String KeyEnableCtrlEsc     = "enableCtrlEsc";
+        public const String KeyEnableAltEsc      = "enableAltEsc";
+        public const String KeyEnableAltTab      = "enableAltTab";
+        public const String KeyEnableAltF4       = "enableAltF4";
+        public const String KeyEnableStartMenu   = "enableStartMenu";
+        public const String KeyEnableRightMouse  = "enableRightMouse";
 
         // Group "Function Keys"
         public const String KeyEnableF1  = "enableF1";
