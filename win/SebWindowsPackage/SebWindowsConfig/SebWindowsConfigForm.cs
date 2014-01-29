@@ -1217,16 +1217,17 @@ namespace SebWindowsConfig
             SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.KeyArguments];
 
             // Update the widgets in the "Selected Process" group
-            checkBoxPermittedProcessActive   .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyActive];
-            checkBoxPermittedProcessAutostart.Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAutostart];
-            checkBoxPermittedProcessAutohide .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAutohide];
-            checkBoxPermittedProcessAllowUser.Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAllowUser];
-             listBoxPermittedProcessOS.SelectedIndex  =   (Int32)SEBSettings.permittedProcessData[SEBSettings.KeyOS];
-             textBoxPermittedProcessTitle      .Text  =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyTitle];
-             textBoxPermittedProcessDescription.Text  =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyDescription];
-             textBoxPermittedProcessExecutable .Text  =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyExecutable];
-             textBoxPermittedProcessPath       .Text  =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyPath];
-             textBoxPermittedProcessIdentifier .Text  =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyIdentifier];
+            checkBoxPermittedProcessActive    .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyActive];
+            checkBoxPermittedProcessAutostart .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAutostart];
+            checkBoxPermittedProcessAutohide  .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAutohide];
+            checkBoxPermittedProcessAllowUser .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAllowUser];
+            checkBoxPermittedProcessStrongKill.Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyStrongKill];
+             listBoxPermittedProcessOS.SelectedIndex   =   (Int32)SEBSettings.permittedProcessData[SEBSettings.KeyOS];
+             textBoxPermittedProcessTitle      .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyTitle];
+             textBoxPermittedProcessDescription.Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyDescription];
+             textBoxPermittedProcessExecutable .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyExecutable];
+             textBoxPermittedProcessPath       .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyPath];
+             textBoxPermittedProcessIdentifier .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyIdentifier];
 
              // Check if selected process has any arguments
             if  (SEBSettings.permittedArgumentList.Count > 0)
@@ -1255,16 +1256,17 @@ namespace SebWindowsConfig
         private void ClearPermittedSelectedProcessGroup()
         {
             // Clear the widgets in the "Selected Process" group
-            checkBoxPermittedProcessActive   .Checked = true;
-            checkBoxPermittedProcessAutostart.Checked = true;
-            checkBoxPermittedProcessAutohide .Checked = true;
-            checkBoxPermittedProcessAllowUser.Checked = true;
-             listBoxPermittedProcessOS.SelectedIndex  = IntWin;
-             textBoxPermittedProcessTitle      .Text  = "";
-             textBoxPermittedProcessDescription.Text  = "";
-             textBoxPermittedProcessExecutable .Text  = "";
-             textBoxPermittedProcessPath       .Text  = "";
-             textBoxPermittedProcessIdentifier .Text  = "";
+            checkBoxPermittedProcessActive    .Checked = true;
+            checkBoxPermittedProcessAutostart .Checked = true;
+            checkBoxPermittedProcessAutohide  .Checked = true;
+            checkBoxPermittedProcessAllowUser .Checked = true;
+            checkBoxPermittedProcessStrongKill.Checked = false;
+             listBoxPermittedProcessOS.SelectedIndex   = IntWin;
+             textBoxPermittedProcessTitle      .Text   = "";
+             textBoxPermittedProcessDescription.Text   = "";
+             textBoxPermittedProcessExecutable .Text   = "";
+             textBoxPermittedProcessPath       .Text   = "";
+             textBoxPermittedProcessIdentifier .Text   = "";
 
             // Remove all previously displayed arguments from DataGridView
             dataGridViewPermittedProcessArguments.Enabled = false;
@@ -1367,6 +1369,7 @@ namespace SebWindowsConfig
             processData[SEBSettings.KeyAutostart  ] = true;
             processData[SEBSettings.KeyAutohide   ] = true;
             processData[SEBSettings.KeyAllowUser  ] = true;
+            processData[SEBSettings.KeyStrongKill ] = false;
             processData[SEBSettings.KeyOS         ] = IntWin;
             processData[SEBSettings.KeyTitle      ] = "";
             processData[SEBSettings.KeyDescription] = "";
@@ -1456,6 +1459,15 @@ namespace SebWindowsConfig
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyAllowUser] = checkBoxPermittedProcessAllowUser.Checked;
         }
+
+        private void checkBoxPermittedProcessStrongKill_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SEBSettings.permittedProcessIndex < 0) return;
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessData[SEBSettings.KeyStrongKill] = checkBoxPermittedProcessStrongKill.Checked;
+        }
+
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {

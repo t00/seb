@@ -157,6 +157,7 @@
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.groupBoxPermittedProcess = new System.Windows.Forms.GroupBox();
+            this.checkBoxPermittedProcessStrongKill = new System.Windows.Forms.CheckBox();
             this.buttonPermittedProcessCodeSignature = new System.Windows.Forms.Button();
             this.dataGridViewPermittedProcessArguments = new System.Windows.Forms.DataGridView();
             this.ArgumentActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -374,7 +375,7 @@
             this.tabPageHookedKeys.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageHookedKeys.Name = "tabPageHookedKeys";
             this.tabPageHookedKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageHookedKeys.Size = new System.Drawing.Size(817, 607);
+            this.tabPageHookedKeys.Size = new System.Drawing.Size(817, 617);
             this.tabPageHookedKeys.TabIndex = 27;
             this.tabPageHookedKeys.Text = "Hooked Keys";
             this.tabPageHookedKeys.UseVisualStyleBackColor = true;
@@ -705,7 +706,7 @@
             this.tabPageRegistry.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageRegistry.Name = "tabPageRegistry";
             this.tabPageRegistry.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageRegistry.Size = new System.Drawing.Size(817, 607);
+            this.tabPageRegistry.Size = new System.Drawing.Size(817, 617);
             this.tabPageRegistry.TabIndex = 25;
             this.tabPageRegistry.Text = "Registry";
             this.tabPageRegistry.UseVisualStyleBackColor = true;
@@ -1007,7 +1008,7 @@
             this.tabPageSecurity.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageSecurity.Name = "tabPageSecurity";
             this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageSecurity.Size = new System.Drawing.Size(817, 607);
+            this.tabPageSecurity.Size = new System.Drawing.Size(817, 617);
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
@@ -1125,7 +1126,7 @@
             this.tabPageNetwork.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageNetwork.Name = "tabPageNetwork";
             this.tabPageNetwork.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageNetwork.Size = new System.Drawing.Size(817, 607);
+            this.tabPageNetwork.Size = new System.Drawing.Size(817, 617);
             this.tabPageNetwork.TabIndex = 23;
             this.tabPageNetwork.Text = "Network";
             this.tabPageNetwork.UseVisualStyleBackColor = true;
@@ -1739,7 +1740,7 @@
             this.tabPageApplications.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageApplications.Name = "tabPageApplications";
             this.tabPageApplications.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageApplications.Size = new System.Drawing.Size(817, 607);
+            this.tabPageApplications.Size = new System.Drawing.Size(817, 617);
             this.tabPageApplications.TabIndex = 21;
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
@@ -1752,7 +1753,7 @@
             this.tabControlApplications.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlApplications.Name = "tabControlApplications";
             this.tabControlApplications.SelectedIndex = 0;
-            this.tabControlApplications.Size = new System.Drawing.Size(614, 545);
+            this.tabControlApplications.Size = new System.Drawing.Size(614, 550);
             this.tabControlApplications.TabIndex = 79;
             // 
             // tabPagePermittedProcesses
@@ -1769,7 +1770,7 @@
             this.tabPagePermittedProcesses.Margin = new System.Windows.Forms.Padding(2);
             this.tabPagePermittedProcesses.Name = "tabPagePermittedProcesses";
             this.tabPagePermittedProcesses.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(606, 519);
+            this.tabPagePermittedProcesses.Size = new System.Drawing.Size(606, 524);
             this.tabPagePermittedProcesses.TabIndex = 0;
             this.tabPagePermittedProcesses.Text = "Permitted Processes";
             this.tabPagePermittedProcesses.UseVisualStyleBackColor = true;
@@ -1866,6 +1867,7 @@
             // 
             // groupBoxPermittedProcess
             // 
+            this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessStrongKill);
             this.groupBoxPermittedProcess.Controls.Add(this.buttonPermittedProcessCodeSignature);
             this.groupBoxPermittedProcess.Controls.Add(this.dataGridViewPermittedProcessArguments);
             this.groupBoxPermittedProcess.Controls.Add(this.labelPermittedProcessIdentifier);
@@ -1891,10 +1893,22 @@
             this.groupBoxPermittedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxPermittedProcess.Name = "groupBoxPermittedProcess";
             this.groupBoxPermittedProcess.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxPermittedProcess.Size = new System.Drawing.Size(550, 284);
+            this.groupBoxPermittedProcess.Size = new System.Drawing.Size(550, 294);
             this.groupBoxPermittedProcess.TabIndex = 80;
             this.groupBoxPermittedProcess.TabStop = false;
             this.groupBoxPermittedProcess.Text = "Selected Process";
+            // 
+            // checkBoxPermittedProcessStrongKill
+            // 
+            this.checkBoxPermittedProcessStrongKill.AutoSize = true;
+            this.checkBoxPermittedProcessStrongKill.Location = new System.Drawing.Point(14, 271);
+            this.checkBoxPermittedProcessStrongKill.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxPermittedProcessStrongKill.Name = "checkBoxPermittedProcessStrongKill";
+            this.checkBoxPermittedProcessStrongKill.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxPermittedProcessStrongKill.TabIndex = 96;
+            this.checkBoxPermittedProcessStrongKill.Text = "Strong kill (risk of data loss)";
+            this.checkBoxPermittedProcessStrongKill.UseVisualStyleBackColor = true;
+            this.checkBoxPermittedProcessStrongKill.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessStrongKill_CheckedChanged);
             // 
             // buttonPermittedProcessCodeSignature
             // 
@@ -2170,7 +2184,7 @@
             this.tabPageProhibitedProcesses.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageProhibitedProcesses.Name = "tabPageProhibitedProcesses";
             this.tabPageProhibitedProcesses.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(606, 519);
+            this.tabPageProhibitedProcesses.Size = new System.Drawing.Size(606, 524);
             this.tabPageProhibitedProcesses.TabIndex = 1;
             this.tabPageProhibitedProcesses.Text = "Prohibited Processes";
             this.tabPageProhibitedProcesses.UseVisualStyleBackColor = true;
@@ -2461,7 +2475,7 @@
             this.tabPageExam.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageExam.Name = "tabPageExam";
             this.tabPageExam.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageExam.Size = new System.Drawing.Size(817, 607);
+            this.tabPageExam.Size = new System.Drawing.Size(817, 617);
             this.tabPageExam.TabIndex = 18;
             this.tabPageExam.Text = "Exam";
             this.tabPageExam.UseVisualStyleBackColor = true;
@@ -2587,7 +2601,7 @@
             this.tabPageDownUploads.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageDownUploads.Name = "tabPageDownUploads";
             this.tabPageDownUploads.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageDownUploads.Size = new System.Drawing.Size(817, 607);
+            this.tabPageDownUploads.Size = new System.Drawing.Size(817, 617);
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
@@ -2693,7 +2707,7 @@
             this.tabPageBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageBrowser.Name = "tabPageBrowser";
             this.tabPageBrowser.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageBrowser.Size = new System.Drawing.Size(817, 607);
+            this.tabPageBrowser.Size = new System.Drawing.Size(817, 617);
             this.tabPageBrowser.TabIndex = 14;
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
@@ -2948,7 +2962,7 @@
             this.tabPageAppearance.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAppearance.Name = "tabPageAppearance";
             this.tabPageAppearance.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAppearance.Size = new System.Drawing.Size(817, 607);
+            this.tabPageAppearance.Size = new System.Drawing.Size(817, 617);
             this.tabPageAppearance.TabIndex = 8;
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
@@ -3156,7 +3170,7 @@
             this.tabPageConfigFile.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageConfigFile.Name = "tabPageConfigFile";
             this.tabPageConfigFile.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageConfigFile.Size = new System.Drawing.Size(817, 607);
+            this.tabPageConfigFile.Size = new System.Drawing.Size(817, 617);
             this.tabPageConfigFile.TabIndex = 6;
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
@@ -3376,7 +3390,7 @@
             this.tabPageGeneral.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageGeneral.Size = new System.Drawing.Size(817, 607);
+            this.tabPageGeneral.Size = new System.Drawing.Size(817, 617);
             this.tabPageGeneral.TabIndex = 4;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -3688,7 +3702,7 @@
             this.tabControlSebWindowsConfig.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
-            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(825, 650);
+            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(825, 660);
             this.tabControlSebWindowsConfig.TabIndex = 2;
             // 
             // SebWindowsConfigForm
@@ -4044,6 +4058,7 @@
         private System.Windows.Forms.Label labelSettingsPasswordCompare;
         private System.Windows.Forms.CheckBox checkBoxIgnoreExitKeys;
         private System.Windows.Forms.CheckBox checkBoxEnablePrintScreen;
+        private System.Windows.Forms.CheckBox checkBoxPermittedProcessStrongKill;
 
     }
 }
