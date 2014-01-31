@@ -443,6 +443,7 @@ namespace SebWindowsClient
                     }
                 }
             }
+            SEBToForeground();
             //System.Diagnostics.Process oskProcess = null;
             // create the process.
             //oskProcess = SEBDesktopController.CreateProcess("C:\Program Files\Common Files\Microsoft Shared\ink\TabTip.exe", SEBClientInfo.DesktopName);
@@ -1194,4 +1195,19 @@ namespace SebWindowsClient
             SebWindowsClientMain.ResetSEBDesktop();
         }
      }
+
+    /// ----------------------------------------------------------------------------------------
+    /// <summary>
+    /// Button subclass which makes the button-not-selectable. 
+    /// Why this isn't a default attribute of a button???.
+    /// </summary>
+    /// ----------------------------------------------------------------------------------------
+    class NoSelectButton : Button
+    {
+        public NoSelectButton()
+        {
+            SetStyle(ControlStyles.Selectable, false);
+        }
+    }
+
 }

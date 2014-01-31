@@ -28,6 +28,7 @@ namespace SebWindowsClient
             using (SebPasswordDialogForm sebPasswordDialogForm = new SebPasswordDialogForm())
             {
                 SetForegroundWindow(sebPasswordDialogForm.Handle);
+                sebPasswordDialogForm.TopMost = true;
                 // Set the title of the dialog window
                 sebPasswordDialogForm.Text = title;
                 // Set the text of the dialog

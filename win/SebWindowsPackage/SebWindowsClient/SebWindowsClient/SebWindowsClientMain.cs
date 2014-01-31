@@ -149,12 +149,13 @@ namespace SebWindowsClient
                         Logger.AddInformation("Win32_ComputerSystem Manufacturer: " + item["Manufacturer"].ToString() + ", Model: " + item["Model"].ToString(), null, null);
 
                         string manufacturer = item["Manufacturer"].ToString().ToLower();
-                        if (manufacturer == "microsoft corporation"
+                        string model = item["Model"].ToString().ToLower();
+                        if ((manufacturer == "microsoft corporation" && !model.Contains("surface"))
                             || manufacturer.Contains("vmware")
                             || manufacturer.Contains("parallels software") 
                             || manufacturer.Contains("xen")
-                            || item["Model"].ToString().ToLower().Contains("xen")
-                            || item["Model"].ToString() == "VirtualBox")
+                            || model.Contains("xen")
+                            || model.Contains("virtualbox"))
                         {
                             return true;
                         }
