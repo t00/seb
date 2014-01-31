@@ -111,8 +111,8 @@ namespace SebWindowsClient.ProcessUtils
                             if (!processToClose.HasExited)
                                 // If process still hasn't exited, we kill it
                                 processToClose.Kill();
-                            // And we can free the process information memory of a definitely closed process
-                            // If it's not 
+                            // and we can free the process information memory of a definitely closed process
+                            // if it's not the XULRunner process
                             if (processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner) processToClose.Close();
                         }
                     }

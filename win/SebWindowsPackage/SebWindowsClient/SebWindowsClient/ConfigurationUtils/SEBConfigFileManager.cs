@@ -31,20 +31,6 @@ namespace SebWindowsClient.ConfigurationUtils
         // Public key hash identifier length
         private const int PUBLIC_KEY_HASH_LENGTH = 20;
 
-        // Initializing
-        //public static void InitSEBConfigFileManager()
-        //{
-        //    // Initialize the password entry dialog form
-        //    if (sebPasswordDialogForm == null)
-        //    {
-        //        sebPasswordDialogForm = new SebPasswordDialogForm();
-        //        sebPasswordDialogForm.TopMost = true;
-        //        //sebPasswordDialogForm.Show();
-        //        //sebPasswordDialogForm.Visible = false;
-        //    }
-        //}
-
-
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Decrypt, deserialize and store new settings as current SEB settings

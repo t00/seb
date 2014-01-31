@@ -99,6 +99,7 @@ namespace SebWindowsClient
 
         public List<string> permittedProcessesCalls = new List<string>();
         public List<Process> permittedProcessesReferences = new List<Process>();
+        public List<Image> permittedProcessesIconImages = new List<Image>();
 
         private List<Process> runningProcessesToClose = new List<Process>();
         private List<string> runningApplicationsToClose = new List<string>();
@@ -286,6 +287,7 @@ namespace SebWindowsClient
             taskbarToolStrip.Items.Clear();
             permittedProcessesCalls.Clear();
             permittedProcessesReferences.Clear();
+            permittedProcessesIconImages.Clear();
 
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
@@ -326,29 +328,35 @@ namespace SebWindowsClient
                         }
                     }
                 }
-                // If we found already running permitted processes, we ask the user how to quit them
-                if (runningProcessesToClose.Count > 0)
+            }
+            // If we found already running permitted or if there were prohibited processes on the list, 
+            //we ask the user how to quit them
+            if (runningProcessesToClose.Count > 0)
+            {
+                StringBuilder applicationsListToClose = new StringBuilder();
+                foreach (string applicationToClose in runningApplicationsToClose)
                 {
-                    StringBuilder applicationsListToClose = new StringBuilder();
-                    foreach (string applicationToClose in runningApplicationsToClose)
-                    {
-                        applicationsListToClose.AppendLine("    " + applicationToClose);
-                    }
-                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.closeProcesses, SEBUIStrings.closeProcessesQuestion + "\n\n" + applicationsListToClose.ToString(), SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
-                    {
-                        foreach (Process processToClose in runningProcessesToClose)
-                        {
-                            SEBNotAllowedProcessController.CloseProcess(processToClose);
-                        }
-                    }
-                    else
-                    {
-                        Application.Exit();
-                        return;
-                    }
+                    applicationsListToClose.AppendLine("    " + applicationToClose);
                 }
+                if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.closeProcesses, SEBUIStrings.closeProcessesQuestion + "\n\n" + applicationsListToClose.ToString(), SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
+                {
+                    foreach (Process processToClose in runningProcessesToClose)
+                    {
+                        SEBNotAllowedProcessController.CloseProcess(processToClose);
+                    }
+                    runningProcessesToClose.Clear();
+                    runningApplicationsToClose.Clear();
+                }
+                else
+                {
+                    Application.Exit();
+                    return;
+                }
+            }
 
-
+            // So if there are any permitted processes, we add them to the SEB task bar
+            if (permittedProcessList.Count > 0)
+            {
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     ToolStripButton toolStripButton = new ToolStripButton();
@@ -381,7 +389,8 @@ namespace SebWindowsClient
                             // If it again didn't work out, we try to take the icon of SEB
                             if (processIcon == null) processIcon = GetApplicationIcon(Application.ExecutablePath);
                             if (processIcon != null) toolStripButton.Image = processIcon.ToBitmap();
-
+                            // Save the icon image also to be used for the app chooser
+                            permittedProcessesIconImages.Add(toolStripButton.Image);
                             toolStripButton.Click += new EventHandler(ToolStripButton_Click);
 
                             // We save the index of the permitted process to the toolStripButton.Name property
@@ -425,7 +434,6 @@ namespace SebWindowsClient
                                 // Save an empty path for XULRunner (we don't need the path)
                                 permittedProcessesCalls.Add("");
                             }
-
                         }
                         else
                         {
@@ -440,7 +448,6 @@ namespace SebWindowsClient
             //oskProcess = SEBDesktopController.CreateProcess("C:\Program Files\Common Files\Microsoft Shared\ink\TabTip.exe", SEBClientInfo.DesktopName);
             //SEBDesktopController.CreateProcess("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe", SEBClientInfo.DesktopName);
             //oskProcess = Process.Start("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe");
-
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -885,13 +892,15 @@ namespace SebWindowsClient
                 sebEditRegistry.addResetRegValues("EditRegistry", 0);
             }
 
-            // Kill processes
-
+            // Add prohibited processes to the "processes not permitted to run" list 
+            // which will be dealt with after checking if permitted processes are already running;
+            // the user will be asked to quit all those processes him/herself or to let SEB kill them
+            // Prohibited processes with the strongKill flag set can be killed without user consent
 
             List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyProhibitedProcesses)[SEBSettings.KeyProhibitedProcesses];
             if (prohibitedProcessList.Count() > 0)
             {
-                // Check if the permitted third party applications are already running
+                // Check if the prohibited processes are running
                 Process[] runningApplications;
                 runningProcessesToClose.Clear();
                 runningApplicationsToClose.Clear();
@@ -905,11 +914,12 @@ namespace SebWindowsClient
                         string title = (string)SEBSettings.valueForDictionaryKey(prohibitedProcess, SEBSettings.KeyTitle);
                         if (title == null) title = "";
                         string executable = (string)prohibitedProcess[SEBSettings.KeyExecutable];
-                        // Check if the process is already running
+                        // Check if the process is running
                         runningApplications = Process.GetProcesses();
                         for (int j = 0; j < runningApplications.Count(); j++)
                         {
-                            if (executable.Contains(runningApplications[j].ProcessName))
+                            string runningProcessName = runningApplications[j].ProcessName;
+                            if (runningProcessName != null && executable.Contains(runningProcessName))
                             {
                                 // If the flag strongKill is set, then the process is killed without asking the user
                                 bool strongKill = (bool)SEBSettings.valueForDictionaryKey(prohibitedProcess, SEBSettings.KeyStrongKill);
@@ -926,61 +936,6 @@ namespace SebWindowsClient
                             }
                         }
                     }
-                }
-                // If we found already running permitted processes, we ask the user how to quit them
-                if (runningProcessesToClose.Count > 0)
-                {
-                    StringBuilder applicationsListToClose = new StringBuilder();
-                    foreach (string applicationToClose in runningApplicationsToClose)
-                    {
-                        applicationsListToClose.AppendLine("    " + applicationToClose);
-                    }
-                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.closeProcesses, SEBUIStrings.closeProcessesQuestion + "\n\n" + applicationsListToClose.ToString(), SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
-                    {
-                        foreach (Process processToClose in runningProcessesToClose)
-                        {
-                            SEBNotAllowedProcessController.CloseProcess(processToClose);
-                        }
-                    }
-                    else
-                    {
-                        Application.Exit();
-                        return false;
-                    }
-                }
-                try
-                {
-                    // Kill processes
-                    if (prohibitedProcessList.Count() > 0)
-                    {
-                        for (int i = 0; i < prohibitedProcessList.Count(); i++)
-                        {
-                            Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                            string prohibitedProcessName = (string)prohibitedProcess[SEBSettings.KeyExecutable];
-                            if ((Boolean)prohibitedProcess[SEBSettings.KeyActive])
-                            {
-                                Logger.AddInformation("Kill process by name: " + prohibitedProcessName, this, null);
-                                // Close process
-                                //SEBNotAllowedProcessController.CloseProcessByName(prohibitedProcessName);
-
-                                //if (SEBNotAllowedProcessController.CheckIfAProcessIsRunning(prohibitedProcessName))
-                                //{
-                                //if (SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_CLOSE_PROCESS_FAILED, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, prohibitedProcessName))
-                                //{
-                                SEBNotAllowedProcessController.KillProcessByName(prohibitedProcessName);
-                                //}
-
-                                //}
-                            }
-                        }
-
-                    }
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Logger.AddError("Error when killing prohibited processes!", null, ex);
-                    return false;
                 }
             }
             return true;

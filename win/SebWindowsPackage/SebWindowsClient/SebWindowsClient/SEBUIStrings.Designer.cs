@@ -358,7 +358,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The permitted application %s wasn&apos;t found on this system. If the exam settings don&apos;t indicate a precise path, SEB can find applications installed in the Program Files or Windows system directory and those which are registred in the system..
+        ///   Looks up a localized string similar to The permitted application %s wasn&apos;t found on this system. If exam settings don&apos;t indicate a precise path, SEB can find applications installed in the Program Files or Windows System directory and those which are registered in the system..
         /// </summary>
         internal static string permittedApplicationNotFoundMessage {
             get {
