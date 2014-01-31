@@ -99,7 +99,7 @@ namespace SebWindowsClient
         private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
 
         [DllImportAttribute("User32.dll")]
-        private static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+        public static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out int lpdwProcessId);

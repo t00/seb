@@ -20,8 +20,7 @@ namespace SebWindowsClient
         // This method will be called when the thread is started. 
         public void ShowFileDialogInThread()
         {
-            //OpenFileDialog openFileDialog = new OpenFileDialog();
-            OpenFileDialog openFileDialog = SEBClientInfo.SebWindowsClientForm.SEBOpenFileDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
             // Set the default directory and file name in the File Dialog
             // Get the path of the "Program Files X86" directory.
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
@@ -61,32 +60,43 @@ namespace SebWindowsClient
     {
         public static string ShowPasswordDialogForm(string title, string passwordRequestText)
         {
-            // Switch to default desktop
-            if (SebWindowsClientMain.sessionCreateNewDesktop) SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
-            // Create the thread object. This does not start the thread.
-            Worker workerObject = new Worker();
-            Thread workerThread = new Thread(workerObject.ShowPasswordDialogInThread);
+            // Check if SEB is running on a separate desktop
+            if (SebWindowsClientMain.sessionCreateNewDesktop)  //Switch to default desktop: SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+            {
+                // SEB is already running on a separate desktop: we can show the password entry dialog without a separate thread
+                return SebPasswordDialogForm.ShowPasswordDialogForm(title, passwordRequestText);
+            }
+            else
+            {
+                // SEB isn't running on a separate desktop (or not yet): 
+                // We need to show the password dialog in a separate thread to avoid hooks/references for the current main thread 
+                // (this makes switching desktops impossible in case it would be necessary later)
 
-            workerObject.dialogTitle = title;
-            workerObject.dialogText = passwordRequestText;
+                // Create the thread object. This does not start the thread.
+                Worker workerObject = new Worker();
+                Thread workerThread = new Thread(workerObject.ShowPasswordDialogInThread);
 
-            // Start the worker thread.
-            workerThread.Start();
+                workerObject.dialogTitle = title;
+                workerObject.dialogText = passwordRequestText;
 
-            // Loop until worker thread activates. 
-            while (!workerThread.IsAlive) ;
+                // Start the worker thread.
+                workerThread.Start();
 
-            // Request that the worker thread stop itself:
-            //workerObject.RequestStop();
+                // Loop until worker thread activates. 
+                while (!workerThread.IsAlive) ;
 
-            // Use the Join method to block the current thread  
-            // until the object's thread terminates.
-            workerThread.Join();
-            
-            // Switch to new desktop
-            if (SebWindowsClientMain.sessionCreateNewDesktop) SEBDesktopController.Show(SEBClientInfo.SEBNewlDesktop.DesktopName);
+                // Request that the worker thread stop itself:
+                //workerObject.RequestStop();
 
-            return workerObject.dialogResultText;
+                // Use the Join method to block the current thread  
+                // until the object's thread terminates.
+                workerThread.Join();
+
+                // Switch to new desktop
+                if (SebWindowsClientMain.sessionCreateNewDesktop) SEBDesktopController.Show(SEBClientInfo.SEBNewlDesktop.DesktopName);
+
+                return workerObject.dialogResultText;
+            }
         }
 
         public static string ShowFileDialogForExecutable(string fileName)

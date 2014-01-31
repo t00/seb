@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.CryptographyUtils;
 
@@ -13,6 +14,10 @@ namespace SebWindowsClient
 {
     public partial class SebPasswordDialogForm : Form
     {
+        [DllImportAttribute("User32.dll")]
+        public static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+
+
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Show SEB Password Dialog Form.
@@ -22,6 +27,7 @@ namespace SebWindowsClient
         {
             using (SebPasswordDialogForm sebPasswordDialogForm = new SebPasswordDialogForm())
             {
+                SetForegroundWindow(sebPasswordDialogForm.Handle);
                 // Set the title of the dialog window
                 sebPasswordDialogForm.Text = title;
                 // Set the text of the dialog

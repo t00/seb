@@ -202,12 +202,6 @@ namespace SebWindowsClient
             SEBClientInfo.SebWindowsClientForm.Activate();
         }
 
-        public OpenFileDialog SEBOpenFileDialog()
-        {
-            return this.openFileDialog;
-        }
-
-        
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         // Start xulRunner process.
