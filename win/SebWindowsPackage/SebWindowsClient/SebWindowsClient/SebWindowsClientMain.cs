@@ -51,11 +51,16 @@ namespace SebWindowsClient
             MainForm = SEBClientInfo.SebWindowsClientForm;
 
         }
+
+        public void SetMainForm(Form newMainForm)
+        {
+            MainForm = newMainForm;
+        }
     }
 
     static class SebWindowsClientMain
     {
-        static SingleInstanceController singleInstanceController;
+        public static SingleInstanceController singleInstanceController;
 
         // For killing the Explorer Shell at SEB startup
 
@@ -65,24 +70,67 @@ namespace SebWindowsClient
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetDesktopWindow();
+
+        [DllImport("user32.dll")]
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X,
+           int Y, int cx, int cy, uint uFlags);
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern bool EnumThreadWindows(int threadId, EnumThreadProc pfnEnum, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr FindWindowEx(IntPtr parentHwnd, IntPtr childAfterHwnd, IntPtr className, string windowText);
+
+        [DllImport("User32.dll")]
+        private static extern bool IsIconic(IntPtr handle);
+
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
+
+        [DllImportAttribute("User32.dll")]
+        private static extern IntPtr SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out int lpdwProcessId);
+
         const int WM_USER = 0x0400; //http://msdn.microsoft.com/en-us/library/windows/desktop/ms644931(v=vs.85).aspx
 
+        private const int SW_HIDE = 0;
+        private const int SW_SHOW = 5;
+        private const int SW_RESTORE = 9;
+
+        private const string VistaStartMenuCaption = "Start";
+        private static IntPtr vistaStartMenuWnd = IntPtr.Zero;
+        private delegate bool EnumThreadProc(IntPtr hwnd, IntPtr lParam);
+
+        public static bool sessionCreateNewDesktop;
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        //[STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //if (InitSebSettings())
-             //{
-                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
-                 string[] arguments = Environment.GetCommandLineArgs();
-                 singleInstanceController = new SingleInstanceController();
-                 singleInstanceController.Run(arguments);
-             //}
+            if (InitSebSettings())
+            {
+                SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
+                string[] arguments = Environment.GetCommandLineArgs();
+                singleInstanceController = new SingleInstanceController();
+                singleInstanceController.Run(arguments);
+            }
         }
 
 
@@ -163,10 +211,8 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSebSettings()
         {
-            // Initialize the password entry dialog form
-            SebWindowsClient.ConfigurationUtils.SEBConfigFileManager.InitSEBConfigFileManager();
-
             //SebWindowsClientForm.SetVisibility(true);
+            //SEBErrorMessages.OutputErrorMessageNew("Test", "Test, ob das Öffnen einer Message-Box createNewDesktop verunmöglicht.", SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
 
             // Set SebClient configuration
             if (!SEBClientInfo.SetSebClientConfiguration())
@@ -184,87 +230,59 @@ namespace SebWindowsClient
                 return false;
             }
 
-            return true; //InitSebDesktop();
+            //on NT4/NT5 ++ a new desktop is created
+            if (SEBClientInfo.IsNewOS)
+            {
+                sessionCreateNewDesktop = (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop];
+                if (sessionCreateNewDesktop)
+                {
+                    SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
+                    SEBDesktopController OriginalInput = SEBDesktopController.OpenInputDesktop();
+
+                    SEBClientInfo.SEBNewlDesktop = SEBDesktopController.CreateDesktop(SEBClientInfo.SEB_NEW_DESKTOP_NAME);
+                    SEBDesktopController.Show(SEBClientInfo.SEBNewlDesktop.DesktopName);
+                    if (!SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop))
+                    {
+                        Logger.AddError("SetThreadDesktop failed! Looks like the thread has hooks or windows in the current desktop.", null, null);
+                        SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+                        SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
+                        SEBClientInfo.SEBNewlDesktop.Close();
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.createNewDesktopFailed, SEBUIStrings.createNewDesktopFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        return false;
+                    }
+                    SEBClientInfo.DesktopName = SEBClientInfo.SEB_NEW_DESKTOP_NAME;
+                }
+                else
+                {
+                    SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
+                    SEBClientInfo.DesktopName = SEBClientInfo.OriginalDesktop.DesktopName;
+                    SebWindowsClientForm.SetVisibility(false);
+                }
+            }
+
+
+            return InitSEBDesktop();
         }
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Create and initialise new desktop.
+        /// Create and initialize new desktop.
         /// </summary>
-        /// <returns>true if succeed</returns>
+        /// <returns>true if succeeded</returns>
         /// ----------------------------------------------------------------------------------------
-        public static bool InitSebDesktop()
+        public static bool InitSEBDesktop()
         {
-            // Test if Windows Service is running
-            bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
-            if (serviceAvailable)
-            {
-                Logger.AddInformation("SEB Windows service available", null, null);
-            }
-            else
-            {
-                Logger.AddInformation("SEB Windows service is not available.", null, null);
-            }
-
-            int forceService = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeySebServicePolicy)[SEBSettings.KeySebServicePolicy]; 
-            switch(forceService)
-            {
-                case (int)sebServicePolicies.ignoreService:
-                    break;
-                case (int)sebServicePolicies.indicateMissingService:
-                    if (!serviceAvailable)
-                    {
-                        //SEBClientInfo.SebWindowsClientForm.Activate();
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.indicateMissingServiceReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                    }
-                    break;
-                case (int)sebServicePolicies.forceSebService:
-                    if (!serviceAvailable)
-                    {
-                        //SEBClientInfo.SebWindowsClientForm.Activate();
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                        Logger.AddError("SEB Windows service is not available and sebServicePolicies is set to forceSebService", null, null);
-                        Logger.AddInformation("SafeExamBrowser is exiting", null, null);
-                        Application.Exit();
-
-                        return false;
-                    }
-                    break;
-                //default:
-                //    if (!serviceAvailable)
-                //    {
-                //        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                //    }
-                //    break;
-            }
-
-             // Test if run inside virtual machine
-            bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyAllowVirtualMachine)[SEBSettings.KeyAllowVirtualMachine];
-            if (IsInsideVM() && (!allowVirtualMachine))
-            //if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
-            {
-                //SEBClientInfo.SebWindowsClientForm.Activate();
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.detectedVirtualMachine, SEBUIStrings.detectedVirtualMachineForbiddenMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
-                Logger.AddInformation("Safe Exam Browser is exiting", null, null);
-                Application.Exit();
-
-                return false;
-            }
-
             // Clean clipboard
             SEBClipboard.CleanClipboard();
-            Logger.AddInformation("Clipboard deleted.", null, null);
+            Logger.AddInformation("Clipboard cleaned.", null, null);
 
-
-            // Global variable if the explorer shell has been killed
+            // Global variable indicating if the explorer shell has been killed
             SEBClientInfo.ExplorerShellWasKilled = false;
 
             // locks OS
             if (!SEBClientInfo.IsNewOS)
             {
                 ////just kill explorer.exe on Win9x / Me
-                //sebSettings
                 bool killExplorerShell = false;
 
                 List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyProhibitedProcesses)[SEBSettings.KeyProhibitedProcesses];
@@ -336,25 +354,173 @@ namespace SebWindowsClient
                     SEBClientInfo.ExplorerShellWasKilled = true;
                 }
 
+            }
 
-                //on NT4/NT5 a new desktop is created
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+            return true;
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Reset desktop to the default one which was active before starting SEB.
+        /// </summary>
+        /// <returns>true if succeed</returns>
+        /// ----------------------------------------------------------------------------------------
+        public static void ResetSEBDesktop()
+        {
+            // Switch to Default Desktop
+            if (sessionCreateNewDesktop)
+            {
+                SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+                SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
+                SEBClientInfo.SEBNewlDesktop.Close();
+            }
+            else
+            {
+                SetVisibility(true);
+            }
+        }
+
+        /// <summary>
+        /// Hide or show the Windows taskbar and startmenu.
+        /// </summary>
+        /// <param name="show">true to show, false to hide</param>
+        public static void SetVisibility(bool show)
+        {
+            // get taskbar window
+            IntPtr taskBarWnd = FindWindow("Shell_TrayWnd", null);
+
+            // try it the WinXP way first...
+            IntPtr startWnd = FindWindowEx(taskBarWnd, IntPtr.Zero, "Button", "Start");
+
+            if (startWnd == IntPtr.Zero)
+            {
+                // try an alternate way, as mentioned on CodeProject by Earl Waylon Flinn
+                startWnd = FindWindowEx(IntPtr.Zero, IntPtr.Zero, (IntPtr)0xC017, "Start");
+            }
+
+            if (startWnd == IntPtr.Zero)
+            {
+                // ok, let's try the Vista easy way...
+                startWnd = FindWindow("Button", null);
+
+                if (startWnd == IntPtr.Zero)
                 {
-                    SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
-                    SEBDesktopController OriginalInput = SEBDesktopController.OpenInputDesktop();
-
-                    SEBClientInfo.SEBNewlDesktop = SEBDesktopController.CreateDesktop(SEBClientInfo.SEB_NEW_DESKTOP_NAME);
-                    SEBDesktopController.Show(SEBClientInfo.SEBNewlDesktop.DesktopName);
-                    SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
-                    SEBClientInfo.DesktopName = SEBClientInfo.SEB_NEW_DESKTOP_NAME;
-
+                    // no chance, we need to to it the hard way...
+                    startWnd = GetVistaStartMenuWnd(taskBarWnd);
                 }
-                else
+            }
+
+            ShowWindow(taskBarWnd, show ? SW_SHOW : SW_HIDE);
+            ShowWindow(startWnd, show ? SW_SHOW : SW_HIDE);
+        }
+
+        /// <summary>
+        /// Returns the window handle of the Vista start menu orb.
+        /// </summary>
+        /// <param name="taskBarWnd">windo handle of taskbar</param>
+        /// <returns>window handle of start menu</returns>
+        private static IntPtr GetVistaStartMenuWnd(IntPtr taskBarWnd)
+        {
+            // get process that owns the taskbar window
+            int procId;
+            GetWindowThreadProcessId(taskBarWnd, out procId);
+
+            Process p = Process.GetProcessById(procId);
+            if (p != null)
+            {
+                // enumerate all threads of that process...
+                foreach (ProcessThread t in p.Threads)
                 {
-                    SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
-                    SEBClientInfo.DesktopName = SEBClientInfo.OriginalDesktop.DesktopName;
-                    SebWindowsClientForm.SetVisibility(false);
+                    EnumThreadWindows(t.Id, MyEnumThreadWindowsProc, IntPtr.Zero);
                 }
+            }
+            return vistaStartMenuWnd;
+        }
+
+        /// <summary>
+        /// Callback method that is called from 'EnumThreadWindows' in 'GetVistaStartMenuWnd'.
+        /// </summary>
+        /// <param name="hWnd">window handle</param>
+        /// <param name="lParam">parameter</param>
+        /// <returns>true to continue enumeration, false to stop it</returns>
+        private static bool MyEnumThreadWindowsProc(IntPtr hWnd, IntPtr lParam)
+        {
+            StringBuilder buffer = new StringBuilder(256);
+            if (GetWindowText(hWnd, buffer, buffer.Capacity) > 0)
+            {
+                Console.WriteLine(buffer);
+                if (buffer.ToString() == VistaStartMenuCaption)
+                {
+                    vistaStartMenuWnd = hWnd;
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Check if running in VM and if SEB Windows Service is running or not.
+        /// </summary>
+        /// <returns>true if both checks are positive, false means SEB needs to quit.</returns>
+        /// ----------------------------------------------------------------------------------------
+        public static bool CheckVMService()
+        {
+            // Test if run inside virtual machine
+            bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyAllowVirtualMachine)[SEBSettings.KeyAllowVirtualMachine];
+            if (IsInsideVM() && (!allowVirtualMachine))
+            //if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
+            {
+                //SEBClientInfo.SebWindowsClientForm.Activate();
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.detectedVirtualMachine, SEBUIStrings.detectedVirtualMachineForbiddenMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
+                Logger.AddInformation("Safe Exam Browser is exiting", null, null);
+                Application.Exit();
+                return false;
+            }
+
+            // Test if Windows Service is running
+            bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
+            if (serviceAvailable)
+            {
+                Logger.AddInformation("SEB Windows service available", null, null);
+            }
+            else
+            {
+                Logger.AddInformation("SEB Windows service is not available.", null, null);
+            }
+
+            int forceService = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeySebServicePolicy)[SEBSettings.KeySebServicePolicy];
+            switch (forceService)
+            {
+                case (int)sebServicePolicies.ignoreService:
+                    break;
+                case (int)sebServicePolicies.indicateMissingService:
+                    if (!serviceAvailable)
+                    {
+                        //SEBClientInfo.SebWindowsClientForm.Activate();
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.indicateMissingServiceReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    }
+                    break;
+                case (int)sebServicePolicies.forceSebService:
+                    if (!serviceAvailable)
+                    {
+                        //SEBClientInfo.SebWindowsClientForm.Activate();
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        Logger.AddError("SEB Windows service is not available and sebServicePolicies is set to forceSebService", null, null);
+                        Logger.AddInformation("SafeExamBrowser is exiting", null, null);
+                        Application.Exit();
+
+                        return false;
+                    }
+                    break;
+                //default:
+                //    if (!serviceAvailable)
+                //    {
+                //        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                //    }
+                //    break;
             }
 
             return true;

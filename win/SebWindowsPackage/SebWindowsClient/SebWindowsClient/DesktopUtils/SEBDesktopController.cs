@@ -56,7 +56,7 @@ namespace SebWindowsClient.DesktopUtils
 		private static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumDesktopWindowsProc lpfn, IntPtr lParam);
 
 		[DllImport("user32.dll")]
-		private static extern bool SetThreadDesktop(IntPtr hDesktop);
+		public static extern bool SetThreadDesktop(IntPtr hDesktop);
 
 		[DllImport("user32.dll")]
 		private static extern IntPtr GetThreadDesktop(int dwThreadId);
@@ -617,7 +617,7 @@ namespace SebWindowsClient.DesktopUtils
 		/// <summary>
 		/// Gets the desktop of the calling thread.
 		/// </summary>
-		/// <returns>Returns a Desktop object for the valling thread.</returns>
+		/// <returns>Returns a Desktop object for the calling thread.</returns>
 		public static SEBDesktopController GetCurrent()
 		{
 			// get the desktop.
@@ -649,7 +649,7 @@ namespace SebWindowsClient.DesktopUtils
 			SEBDesktopController desktop = new SEBDesktopController();
 			bool result = desktop.Open(name);
 
-			// somethng went wrong.
+			// something went wrong
 			if (!result) return null;
 
 			return desktop;

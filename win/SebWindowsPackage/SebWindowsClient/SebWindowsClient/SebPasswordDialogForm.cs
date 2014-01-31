@@ -13,7 +13,37 @@ namespace SebWindowsClient
 {
     public partial class SebPasswordDialogForm : Form
     {
-        public SebPasswordDialogForm sebPasswordDialogForm;
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Show SEB Password Dialog Form.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static string ShowPasswordDialogForm(string title, string passwordRequestText)
+        {
+            using (SebPasswordDialogForm sebPasswordDialogForm = new SebPasswordDialogForm())
+            {
+                // Set the title of the dialog window
+                sebPasswordDialogForm.Text = title;
+                // Set the text of the dialog
+                sebPasswordDialogForm.LabelText = passwordRequestText;
+                sebPasswordDialogForm.txtSEBPassword.Focus();
+                // If we are running in SebWindowsClient we need to activate it before showing the password dialog
+                //if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientForm.SEBToForeground(); //SEBClientInfo.SebWindowsClientForm.Activate();
+                // Show password dialog as a modal dialog and determine if DialogResult = OK.
+                if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Read the contents of testDialog's TextBox.
+                    string password = sebPasswordDialogForm.txtSEBPassword.Text;
+                    sebPasswordDialogForm.txtSEBPassword.Text = "";
+                    //sebPasswordDialogForm.txtSEBPassword.Focus();
+                    return password;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public SebPasswordDialogForm()
         {

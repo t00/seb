@@ -36,9 +36,9 @@ namespace SebWindowsClient
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsClientForm));
             this.ilProcessIcons = new System.Windows.Forms.ImageList(this.components);
-            this.taskbarToolStrip = new SebWindowsClient.TaskbarToolStrip();
             this.btn_Exit = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.taskbarToolStrip = new SebWindowsClient.TaskbarToolStrip();
             this.SuspendLayout();
             // 
             // ilProcessIcons
@@ -49,19 +49,6 @@ namespace SebWindowsClient
             this.ilProcessIcons.Images.SetKeyName(1, "calc");
             this.ilProcessIcons.Images.SetKeyName(2, "notepad");
             this.ilProcessIcons.Images.SetKeyName(3, "xulrunner");
-            // 
-            // taskbarToolStrip
-            // 
-            this.taskbarToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.taskbarToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.taskbarToolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.taskbarToolStrip.Location = new System.Drawing.Point(0, 15);
-            this.taskbarToolStrip.Name = "taskbarToolStrip";
-            this.taskbarToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.taskbarToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.taskbarToolStrip.Size = new System.Drawing.Size(896, 25);
-            this.taskbarToolStrip.TabIndex = 3;
-            this.taskbarToolStrip.Text = "taskbarToolStrip";
             // 
             // btn_Exit
             // 
@@ -80,24 +67,38 @@ namespace SebWindowsClient
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
+            // taskbarToolStrip
+            // 
+            this.taskbarToolStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.taskbarToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.taskbarToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.taskbarToolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.taskbarToolStrip.Location = new System.Drawing.Point(0, 15);
+            this.taskbarToolStrip.Name = "taskbarToolStrip";
+            this.taskbarToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.taskbarToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.taskbarToolStrip.Size = new System.Drawing.Size(896, 25);
+            this.taskbarToolStrip.TabIndex = 3;
+            this.taskbarToolStrip.Text = "taskbarToolStrip";
+            // 
             // SebWindowsClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
+            this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(896, 40);
             this.ControlBox = false;
             this.Controls.Add(this.btn_Exit);
             this.Controls.Add(this.taskbarToolStrip);
-            this.ForeColor = System.Drawing.SystemColors.Control;
+            this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SebWindowsClientForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.TransparencyKey = System.Drawing.Color.White;
+            this.TransparencyKey = System.Drawing.Color.Black;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsClientForm_FormClosing);
             this.Load += new System.EventHandler(this.SebWindowsClientForm_Load);
             this.ResumeLayout(false);

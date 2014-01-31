@@ -106,6 +106,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating New Desktop Failed.
+        /// </summary>
+        internal static string createNewDesktopFailed {
+            get {
+                return ResourceManager.GetString("createNewDesktopFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SetThreadDesktop failed! Looks like the thread has hooks or windows in the current desktop..
+        /// </summary>
+        internal static string createNewDesktopFailedReason {
+            get {
+                return ResourceManager.GetString("createNewDesktopFailedReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot Decrypt Settings.
         /// </summary>
         internal static string decryptingSettingsFailed {

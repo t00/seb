@@ -51,7 +51,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(500, 70);
+            this.ClientSize = new System.Drawing.Size(498, 70);
             this.ControlBox = false;
             this.Controls.Add(this.listApplications);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;

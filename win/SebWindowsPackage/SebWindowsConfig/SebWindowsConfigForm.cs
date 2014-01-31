@@ -47,7 +47,7 @@ namespace SebWindowsConfig
             InitializeComponent();
 
             // This is necessary to instanciate the password dialog
-            SEBConfigFileManager.InitSEBConfigFileManager();
+            //SEBConfigFileManager.InitSEBConfigFileManager();
 
             /// Initialize the Logger
 

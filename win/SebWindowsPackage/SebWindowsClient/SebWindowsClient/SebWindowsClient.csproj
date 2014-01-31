@@ -134,6 +134,7 @@
     <Compile Include="SebWindowsClientMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceUtils\SEBWindowsServiceController.cs" />
+    <Compile Include="ThreadedDialog.cs" />
     <EmbeddedResource Include="SEBUIStrings.de.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SEBUIStrings.de.Designer.cs</LastGenOutput>

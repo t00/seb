@@ -132,6 +132,12 @@
   <data name="confirmQuittingQuestion" xml:space="preserve">
     <value>Are you sure you want to quit SEB?</value>
   </data>
+  <data name="createNewDesktopFailed" xml:space="preserve">
+    <value>Creating New Desktop Failed</value>
+  </data>
+  <data name="createNewDesktopFailedReason" xml:space="preserve">
+    <value>SetThreadDesktop failed! Looks like the thread has hooks or windows in the current desktop.</value>
+  </data>
   <data name="decryptingSettingsFailed" xml:space="preserve">
     <value>Cannot Decrypt Settings</value>
   </data>

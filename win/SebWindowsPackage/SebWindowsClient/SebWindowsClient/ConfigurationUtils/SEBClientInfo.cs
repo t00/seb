@@ -142,8 +142,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string XulRunnerConfigFile;
         public static string XulRunnerExePath;
         public static string XulRunnerSebIniPath;
-
         public static string XulRunnerParameter;
+        public static string XulRunnerFlashContainerState { get; set; }
+
         public static string ExamUrl { get; set; }
         public static string QuitPassword { get; set; }
         public static string QuitHashcode { get; set; }
@@ -250,15 +251,27 @@ namespace SebWindowsClient.ConfigurationUtils
                     tempLogStringBuilder.Append("Could not load SebClientSettigs.seb from the Local Application Data directory. ").Append(streamReadException == null ? null : streamReadException.GetType().ToString()).Append(streamReadException.Message);
                 }
             }
+
+            //// Initialize the password entry dialog form
+            //SebWindowsClient.ConfigurationUtils.SEBConfigFileManager.InitSEBConfigFileManager();
+
             // Store the decrypted configuration settings.
             if (!SEBSettings.StoreDecryptedSebClientSettings(sebClientSettings))
                 return false;
 
-            // Initialise Loger, if enabled
-            if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
-            {
-                Logger.initLogger(SebClientLogFile);
-            }
+            // Close the password entry form
+            //SEBConfigFileManager.sebPasswordDialogForm.Close();
+            //SEBConfigFileManager.sebPasswordDialogForm.Dispose();
+            //int i = 0;
+            //do
+            //{
+            //    Console.WriteLine("Waiting for password dialog to get disposed...");
+            //    i++;
+            //} while (SEBConfigFileManager.sebPasswordDialogForm.Disposing && i < 10000);
+            //SEBConfigFileManager.sebPasswordDialogForm = null;
+
+            // Initialise Logger, if enabled
+            InitializeLogger();
 
             // Save the temporary log string into the log
             Logger.AddError(tempLogStringBuilder.ToString(), null, null);
@@ -281,6 +294,17 @@ namespace SebWindowsClient.ConfigurationUtils
             Logger.AddInformation(userInfo.ToString(), null, null);
 
             return setSebClientConfiguration;
+        }
+
+        /// <summary>
+        /// Initialise Logger if it's enabled.
+        /// </summary>
+        public static void InitializeLogger()
+        {
+            //if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
+            //{
+                Logger.initLogger(SebClientLogFile);
+            //}
         }
 
         /// <summary>
