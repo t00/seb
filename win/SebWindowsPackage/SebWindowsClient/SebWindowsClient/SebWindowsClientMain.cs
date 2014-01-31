@@ -119,7 +119,7 @@ namespace SebWindowsClient
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        //[STAThread]
+        //[STAThread] Do not use this, it breaks the ability to switch to a new desktop
         static void Main()
         {
             Application.EnableVisualStyles();
@@ -146,6 +146,8 @@ namespace SebWindowsClient
                 {
                     foreach (var item in items)
                     {
+                        Logger.AddInformation("Win32_ComputerSystem Manufacturer: " + item["Manufacturer"].ToString() + ", Model: " + item["Model"].ToString(), null, null);
+
                         string manufacturer = item["Manufacturer"].ToString().ToLower();
                         if (manufacturer == "microsoft corporation"
                             || manufacturer.Contains("vmware")
@@ -203,7 +205,7 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Create and initialise SEB client settings and check system compatibility.
+        /// Create and initialize SEB client settings and check system compatibility.
         /// This method needs to be executed only once when SEB first starts 
         /// (not when reconfiguring).
         /// </summary>
