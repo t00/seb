@@ -778,7 +778,7 @@ namespace SebWindowsClient
             return true;
         }
 
-         /// ----------------------------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Show dialog if SEB should be closed
         /// </summary>
@@ -1193,6 +1193,19 @@ namespace SebWindowsClient
         {
             CloseSEBForm();
             SebWindowsClientMain.ResetSEBDesktop();
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Show dialog asking whether SEB should be closed
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private void noSelectButton1_Click(object sender, EventArgs e)
+        {
+            if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit] == true)
+            {
+                ShowCloseDialogForm();
+            }
         }
      }
 
