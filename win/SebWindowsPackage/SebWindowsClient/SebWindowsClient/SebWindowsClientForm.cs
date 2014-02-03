@@ -292,10 +292,8 @@ namespace SebWindowsClient
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
             if (permittedProcessList.Count > 0)
             {
-                // Check if the permitted third party applications are already running
+                // Check if permitted third party applications are already running
                 Process[] runningApplications;
-                //List<Process> runningProcessesToClose = new List<Process>();
-                //List<string> runningApplicationsToClose = new List<string>();
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
@@ -427,12 +425,15 @@ namespace SebWindowsClient
                             }
                             else
                             {
-                                // Start XULRunner
-                                StartXulRunner();
-                                // Save the process reference of XULRunner
-                                permittedProcessesReferences.Add(xulRunner);
-                                // Save an empty path for XULRunner (we don't need the path)
-                                permittedProcessesCalls.Add("");
+                                if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser))
+                                {
+                                    // Start XULRunner
+                                    StartXulRunner();
+                                    // Save the process reference of XULRunner
+                                    permittedProcessesReferences.Add(xulRunner);
+                                    // Save an empty path for XULRunner (we don't need the path)
+                                    permittedProcessesCalls.Add("");
+                                }
                             }
                         }
                         else
@@ -1022,6 +1023,15 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public bool OpenSEBForm()
         {
+            if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
+            {
+                taskbarToolStrip.Visible = true;
+            }
+            else
+            {
+                taskbarToolStrip.Visible = false;
+            }
+
             SetFormOnDesktop();
 
             // Check if VM and SEB Windows Service available and required
