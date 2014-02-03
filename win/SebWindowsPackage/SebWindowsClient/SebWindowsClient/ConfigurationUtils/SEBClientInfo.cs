@@ -303,7 +303,7 @@ namespace SebWindowsClient.ConfigurationUtils
         {
             //if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
             //{
-                Logger.initLogger(SebClientLogFile);
+                Logger.initLogger(SebClientLogFileDirectory, SebClientLogFile);
             //}
         }
 

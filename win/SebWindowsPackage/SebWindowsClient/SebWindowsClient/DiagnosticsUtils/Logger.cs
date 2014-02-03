@@ -29,13 +29,16 @@ namespace SebWindowsClient.DiagnosticsUtils
         /// Open Logger.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static bool initLogger(string logFilePath)
+        public static bool initLogger(string logFileDirectory, string logFilePath)
         {
             try
             {
                 if (_sw == null)
                 {
                     //_logFile = new FileStream(logFile, FileMode.OpenOrCreate);
+                    if (File.Exists(logFileDirectory) == false)
+                        File.Create(logFileDirectory);
+
                     _sw = new StreamWriter(logFilePath, true);
                 }
                 return true;
