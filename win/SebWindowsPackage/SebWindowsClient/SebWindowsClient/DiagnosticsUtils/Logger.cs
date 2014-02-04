@@ -36,8 +36,8 @@ namespace SebWindowsClient.DiagnosticsUtils
                 if (_sw == null)
                 {
                     //_logFile = new FileStream(logFile, FileMode.OpenOrCreate);
-                    if (File.Exists(logFileDirectory) == false)
-                        File.Create(logFileDirectory);
+                    if (Directory.Exists         (logFileDirectory) == false)
+                        Directory.CreateDirectory(logFileDirectory);
 
                     _sw = new StreamWriter(logFilePath, true);
                 }
