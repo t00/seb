@@ -330,9 +330,9 @@ namespace SebWindowsConfig
             if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword]))
             {
                 // The order of setting the placeholders and the flag is very much relevant!
-                textBoxAdminPassword       .Text = "0000000000";
-                textBoxConfirmAdminPassword.Text = "0000000000";
+                textBoxAdminPassword.Text = "0000000000000000";
                 adminPasswordFieldsContainHash = true;
+                textBoxConfirmAdminPassword.Text = "0000000000000000";
             }
             else
             {
@@ -351,9 +351,9 @@ namespace SebWindowsConfig
             if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword]))
             {
                 // The order of setting the placeholders and the flag is very much relevant!
-                textBoxQuitPassword.Text        = "0000000000";
-                textBoxConfirmQuitPassword.Text = "0000000000";
+                textBoxQuitPassword.Text = "0000000000000000";
                 quitPasswordFieldsContainHash = true;
+                textBoxConfirmQuitPassword.Text = "0000000000000000";
             }
             else
             {
@@ -379,9 +379,8 @@ namespace SebWindowsConfig
                 // We need to reset this flag before changing the textBox text value, because otherwise the compare passwords
                 // method will delete the first textBox again
                 settingsPasswordFieldsContainHash = false;
-                textBoxSettingsPassword       .Text = "0000000000";
-                textBoxConfirmSettingsPassword.Text = "0000000000";
-                settingsPasswordFieldsContainHash = true;
+                textBoxSettingsPassword.Text = "0000000000000000";
+                textBoxConfirmSettingsPassword.Text = "0000000000000000";
             }
             else
             {
@@ -651,7 +650,7 @@ namespace SebWindowsConfig
         public void ComparePasswords(TextBox passwordField, TextBox confirmPasswordField, ref bool passwordFieldsContainHash, Label label, string settingsKey)
         {
             // Get the password text from the text fields
-            string        password =        passwordField.Text;
+            string password = passwordField.Text;
             string confirmPassword = confirmPasswordField.Text;
 
             if (passwordFieldsContainHash)
@@ -662,8 +661,10 @@ namespace SebWindowsConfig
                 {
                     // and when the password texts aren't the same anymore, this means the user tries to edit the password
                     // (which is only the placeholder right now), we have to clear the placeholder from the textFields
-                           passwordField.Text = "";
+                    passwordField.Text = "";
                     confirmPasswordField.Text = "";
+                    password = "";
+                    confirmPassword = "";
                     passwordFieldsContainHash = false;
                 }
             }
