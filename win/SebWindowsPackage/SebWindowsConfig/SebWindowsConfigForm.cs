@@ -380,6 +380,7 @@ namespace SebWindowsConfig
                 // method will delete the first textBox again
                 settingsPasswordFieldsContainHash = false;
                 textBoxSettingsPassword.Text = "0000000000000000";
+                settingsPasswordFieldsContainHash = true;
                 textBoxConfirmSettingsPassword.Text = "0000000000000000";
             }
             else
