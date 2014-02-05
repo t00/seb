@@ -304,15 +304,17 @@ namespace SebWindowsClient
                         string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
-                        // Check if the process is already running
-                        runningApplications = Process.GetProcesses();
-                        for (int j = 0; j < runningApplications.Count(); j++)
+                        if (!(executable.Contains("xulrunner.exe") && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
-                            if (executable.Contains(runningApplications[j].ProcessName))
+                            // Check if the process is already running
+                            runningApplications = Process.GetProcesses();
+                            for (int j = 0; j < runningApplications.Count(); j++)
                             {
-                                // If the flag strongKill is set, then the process is killed without asking the user
-                                bool strongKill = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
-                                if (strongKill)
+                                if (executable.Contains(runningApplications[j].ProcessName))
+                                {
+                                    // If the flag strongKill is set, then the process is killed without asking the user
+                                    bool strongKill = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
+                                    if (strongKill)
                                     {
                                         SEBNotAllowedProcessController.CloseProcess(runningApplications[j]);
                                     }
@@ -322,6 +324,7 @@ namespace SebWindowsClient
                                         runningApplicationsToClose.Add(title == "SEB" ? executable : title);
                                         //runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
                                     }
+                                }
                             }
                         }
                     }
@@ -367,79 +370,82 @@ namespace SebWindowsClient
                         string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
-                        toolStripButton.Padding = new Padding(5, 0, 5, 0);
-                        toolStripButton.ToolTipText = title;
-                        Icon processIcon = null;
-                        string fullPath;
-                        if (executable.Contains("xulrunner.exe"))
-                            fullPath = Application.ExecutablePath;
-                        else
+                        if (!(executable.Contains("xulrunner.exe") && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
-                            //fullPath = GetApplicationPath(executable);
-                            fullPath = GetPermittedApplicationPath(permittedProcess);
-                        }
-                        // Continue only if the application has been found
-                        if (fullPath != null)
-                        {
-                            processIcon = GetApplicationIcon(fullPath);
-                            // If the icon couldn't be read, we try it again
-                            if (processIcon == null) processIcon = GetApplicationIcon(fullPath);
-                            // If it again didn't work out, we try to take the icon of SEB
-                            if (processIcon == null) processIcon = GetApplicationIcon(Application.ExecutablePath);
-                            if (processIcon != null) toolStripButton.Image = processIcon.ToBitmap();
-                            // Save the icon image also to be used for the app chooser
-                            permittedProcessesIconImages.Add(toolStripButton.Image);
-                            toolStripButton.Click += new EventHandler(ToolStripButton_Click);
-
-                            // We save the index of the permitted process to the toolStripButton.Name property
-                            toolStripButton.Name = permittedProcessesCalls.Count.ToString();
-
-                            taskbarToolStrip.Items.Add(toolStripButton);
-
-                            //toolStripButton.Checked = true;
-                            if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
+                            toolStripButton.Padding = new Padding(5, 0, 5, 0);
+                            toolStripButton.ToolTipText = title;
+                            Icon processIcon = null;
+                            string fullPath;
+                            if (executable.Contains("xulrunner.exe"))
+                                fullPath = Application.ExecutablePath;
+                            else
                             {
-                                StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
-                                List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
-                                for (int j = 0; j < argumentList.Count; j++)
+                                //fullPath = GetApplicationPath(executable);
+                                fullPath = GetPermittedApplicationPath(permittedProcess);
+                            }
+                            // Continue only if the application has been found
+                            if (fullPath != null)
+                            {
+                                processIcon = GetApplicationIcon(fullPath);
+                                // If the icon couldn't be read, we try it again
+                                if (processIcon == null) processIcon = GetApplicationIcon(fullPath);
+                                // If it again didn't work out, we try to take the icon of SEB
+                                if (processIcon == null) processIcon = GetApplicationIcon(Application.ExecutablePath);
+                                if (processIcon != null) toolStripButton.Image = processIcon.ToBitmap();
+                                // Save the icon image also to be used for the app chooser
+                                permittedProcessesIconImages.Add(toolStripButton.Image);
+                                toolStripButton.Click += new EventHandler(ToolStripButton_Click);
+
+                                // We save the index of the permitted process to the toolStripButton.Name property
+                                toolStripButton.Name = permittedProcessesCalls.Count.ToString();
+
+                                taskbarToolStrip.Items.Add(toolStripButton);
+
+                                //toolStripButton.Checked = true;
+                                if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
                                 {
-                                    Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
-                                    if ((Boolean)argument[SEBSettings.KeyActive])
+                                    StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
+                                    List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
+                                    for (int j = 0; j < argumentList.Count; j++)
                                     {
-                                        startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
+                                        Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
+                                        if ((Boolean)argument[SEBSettings.KeyActive])
+                                        {
+                                            startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
+                                        }
+                                    }
+                                    string fullPathArgumentsCall = startProcessNameBuilder.ToString();
+
+                                    // Save the full path of the permitted process executable including arguments
+                                    permittedProcessesCalls.Add(fullPathArgumentsCall);
+
+                                    // Autostart processes which have the according flag set
+                                    Process newProcess = null;
+                                    if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
+                                    {
+                                        newProcess = CreateProcessWithExitHandler(fullPathArgumentsCall);
+                                    }
+                                    // Save the process reference if the process was started, otherwise null
+                                    permittedProcessesReferences.Add(newProcess);
+                                }
+                                else
+                                {
+                                    if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser))
+                                    {
+                                        // Start XULRunner
+                                        StartXulRunner();
+                                        // Save the process reference of XULRunner
+                                        permittedProcessesReferences.Add(xulRunner);
+                                        // Save an empty path for XULRunner (we don't need the path)
+                                        permittedProcessesCalls.Add("");
                                     }
                                 }
-                                string fullPathArgumentsCall = startProcessNameBuilder.ToString();
-
-                                // Save the full path of the permitted process executable including arguments
-                                permittedProcessesCalls.Add(fullPathArgumentsCall);
-
-                                // Autostart processes which have the according flag set
-                                Process newProcess = null;
-                                if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
-                                {
-                                    newProcess = CreateProcessWithExitHandler(fullPathArgumentsCall);
-                                }
-                                // Save the process reference if the process was started, otherwise null
-                                permittedProcessesReferences.Add(newProcess);
                             }
                             else
                             {
-                                if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser))
-                                {
-                                    // Start XULRunner
-                                    StartXulRunner();
-                                    // Save the process reference of XULRunner
-                                    permittedProcessesReferences.Add(xulRunner);
-                                    // Save an empty path for XULRunner (we don't need the path)
-                                    permittedProcessesCalls.Add("");
-                                }
+                                //SEBClientInfo.SebWindowsClientForm.Activate();
+                                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.permittedApplicationNotFound, SEBUIStrings.permittedApplicationNotFoundMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK, title);
                             }
-                        }
-                        else
-                        {
-                            //SEBClientInfo.SebWindowsClientForm.Activate();
-                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.permittedApplicationNotFound, SEBUIStrings.permittedApplicationNotFoundMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK, title);
                         }
                     }
                 }

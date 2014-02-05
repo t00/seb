@@ -36,8 +36,8 @@ namespace SebWindowsClient
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsClientForm));
             this.ilProcessIcons = new System.Windows.Forms.ImageList(this.components);
-            this.taskbarToolStrip = new SebWindowsClient.TaskbarToolStrip();
             this.quitButton = new SebWindowsClient.NoSelectButton();
+            this.taskbarToolStrip = new SebWindowsClient.TaskbarToolStrip();
             this.SuspendLayout();
             // 
             // ilProcessIcons
@@ -48,6 +48,23 @@ namespace SebWindowsClient
             this.ilProcessIcons.Images.SetKeyName(1, "calc");
             this.ilProcessIcons.Images.SetKeyName(2, "notepad");
             this.ilProcessIcons.Images.SetKeyName(3, "xulrunner");
+            // 
+            // quitButton
+            // 
+            this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.quitButton.BackColor = System.Drawing.Color.Black;
+            this.quitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.quitButton.CausesValidation = false;
+            this.quitButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.quitButton.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quitButton.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.quitButton.Location = new System.Drawing.Point(788, 9);
+            this.quitButton.Name = "quitButton";
+            this.quitButton.Size = new System.Drawing.Size(100, 23);
+            this.quitButton.TabIndex = 5;
+            this.quitButton.Text = "Quit";
+            this.quitButton.UseVisualStyleBackColor = false;
+            this.quitButton.Click += new System.EventHandler(this.noSelectButton1_Click);
             // 
             // taskbarToolStrip
             // 
@@ -62,22 +79,6 @@ namespace SebWindowsClient
             this.taskbarToolStrip.Size = new System.Drawing.Size(896, 25);
             this.taskbarToolStrip.TabIndex = 3;
             this.taskbarToolStrip.Text = "taskbarToolStrip";
-            // 
-            // quitButton
-            // 
-            this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.quitButton.BackColor = System.Drawing.Color.LightGray;
-            this.quitButton.CausesValidation = false;
-            this.quitButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.quitButton.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quitButton.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.quitButton.Location = new System.Drawing.Point(788, 9);
-            this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(100, 23);
-            this.quitButton.TabIndex = 5;
-            this.quitButton.Text = "Quit";
-            this.quitButton.UseVisualStyleBackColor = false;
-            this.quitButton.Click += new System.EventHandler(this.noSelectButton1_Click);
             // 
             // SebWindowsClientForm
             // 
