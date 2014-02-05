@@ -52,9 +52,12 @@ namespace SebWindowsClient
             // quitButton
             // 
             this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.quitButton.BackColor = System.Drawing.Color.Black;
+            this.quitButton.BackColor = System.Drawing.Color.Gainsboro;
             this.quitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.quitButton.CausesValidation = false;
+            this.quitButton.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.quitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.quitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.quitButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.quitButton.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.quitButton.ForeColor = System.Drawing.SystemColors.InfoText;
@@ -97,7 +100,7 @@ namespace SebWindowsClient
             this.Name = "SebWindowsClientForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.TransparencyKey = System.Drawing.Color.Black;
+            this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsClientForm_FormClosing);
             this.Load += new System.EventHandler(this.SebWindowsClientForm_Load);
             this.ResumeLayout(false);
