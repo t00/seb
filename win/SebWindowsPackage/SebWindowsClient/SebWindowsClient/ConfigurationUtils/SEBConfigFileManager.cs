@@ -82,7 +82,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 /// If these SEB settings are ment to configure a client
 
-                // Write values from .seb config file to the local preferences (shared UserDefaults)
+                // We need to check if setting for createNewDesktop changed
+                bool createNewDesktopOldValue = (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop);
 
                 // Store decrypted settings
                 SEBSettings.StoreSebClientSettings(sebPreferencesDict);
@@ -101,9 +102,19 @@ namespace SebWindowsClient.ConfigurationUtils
                     // Activate SebWindowsClient so the message box gets focus
                     //SEBClientInfo.SebWindowsClientForm.Activate();
 
+                    // Check if setting for createNewDesktop changed
+                    if (createNewDesktopOldValue != (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop))
+                    {
+                        // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfiguredRestartNeeded, SEBUIStrings.sebReconfiguredRestartNeededReason, SEBGlobalConstants.IND_MESSAGE_KIND_WARNING, MessageBoxButtons.OK);
+                        //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                        Application.Exit();
+                        return false;
+                    }
+
                     if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
                     {
-                        SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                        //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         Application.Exit();
                         return false;
                     }

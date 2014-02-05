@@ -186,7 +186,7 @@ namespace SebWindowsClient
                                             if (permittedProcessExecutable == "xulrunner.exe")
                                             {
                                                 Bitmap sebIconBitmap = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
-                                                sebIconBitmap.MakeTransparent(BackColor);
+                                                //sebIconBitmap.MakeTransparent(BackColor);
                                                 ilApplicationIcons.Images.Add(sebIconBitmap);
                                             }
                                             else
@@ -223,6 +223,10 @@ namespace SebWindowsClient
             }
             this.listApplications.Dock = DockStyle.Fill;
             //listApplications.k
+
+            // Calculate necessary size of the app chooser form according to number of applications/icons
+ 
+
             // Re-enable the display.
             this.listApplications.EndUpdate();
             if (this.listApplications.Items.Count > 0)

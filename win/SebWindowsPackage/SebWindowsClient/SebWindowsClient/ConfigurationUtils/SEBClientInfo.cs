@@ -143,7 +143,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string XulRunnerExePath;
         public static string XulRunnerSebIniPath;
         public static string XulRunnerParameter;
-        public static string XulRunnerFlashContainerState { get; set; }
+        //public static string XulRunnerFlashContainerState { get; set; }
 
         public static string ExamUrl { get; set; }
         public static string QuitPassword { get; set; }

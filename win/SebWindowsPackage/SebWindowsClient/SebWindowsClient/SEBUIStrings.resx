@@ -243,6 +243,12 @@
   <data name="sebReconfiguredQuestion" xml:space="preserve">
     <value>Local settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking "No" will quit SEB)</value>
   </data>
+  <data name="sebReconfiguredRestartNeeded" xml:space="preserve">
+    <value>SEB Needs to be Restarted</value>
+  </data>
+  <data name="sebReconfiguredRestartNeededReason" xml:space="preserve">
+    <value>Local settings of SEB have been reconfigured, but it needs to be restarted for the changed "Create New Desktop" setting to take effect. SEB will quit now, please restart it manually.</value>
+  </data>
   <data name="settingsNotUsable" xml:space="preserve">
     <value>Opening New Settings Failed</value>
   </data>

@@ -199,8 +199,11 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static void SEBToForeground()
         {
-            SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
-            SEBClientInfo.SebWindowsClientForm.Activate();
+            if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
+            {
+                SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
+                SEBClientInfo.SebWindowsClientForm.Activate();
+            }
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -399,7 +402,8 @@ namespace SebWindowsClient
                                 // We save the index of the permitted process to the toolStripButton.Name property
                                 toolStripButton.Name = permittedProcessesCalls.Count.ToString();
 
-                                taskbarToolStrip.Items.Add(toolStripButton);
+                                if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
+                                    taskbarToolStrip.Items.Add(toolStripButton);
 
                                 //toolStripButton.Checked = true;
                                 if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
@@ -957,7 +961,7 @@ namespace SebWindowsClient
         public void ShowApplicationChooserForm()
         {
             // Show testDialog as a modal dialog and determine if DialogResult = OK.
-            SetForegroundWindow(this.Handle);
+            //SetForegroundWindow(this.Handle);
             //this.Activate();
             sebApplicationChooserForm.fillListApplications();
             sebApplicationChooserForm.Visible = true;
@@ -1031,14 +1035,27 @@ namespace SebWindowsClient
         {
             if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             {
-                taskbarToolStrip.Visible = true;
+                this.Show();
+                SetFormOnDesktop();
+                //if (!this.Controls.Contains(this.taskbarToolStrip))
+                //{
+                //    this.Controls.Add(this.taskbarToolStrip);
+                //    taskbarToolStrip.Show();
+                //    Logger.AddInformation("Removed SEB taskbar re-added to form.", null, null);
+                //}
             }
             else
             {
-                taskbarToolStrip.Visible = false;
+                this.Hide();
+                //if (this.Controls.Contains(this.taskbarToolStrip))
+                //{
+                //    this.Controls.Remove(this.taskbarToolStrip);
+                //    taskbarToolStrip.Hide();
+                //    Logger.AddInformation("Tried to remove SEB taskbar from form.", null, null);
+                //    if (this.Controls.Contains(this.taskbarToolStrip)) Logger.AddInformation("Removing SEB taskbar from form didn't work.", null, null);
+                //}
             }
 
-            SetFormOnDesktop();
 
             // Check if VM and SEB Windows Service available and required
             if (SebWindowsClientMain.CheckVMService()) {
@@ -1050,17 +1067,17 @@ namespace SebWindowsClient
 
                 // Save the value of the environment variable determining if XULRunner (and Mozilla Firefox) start plugins in plugins-container.exe
                 // If SEB runs on an own desktop (createNewDesktop = true), plugins like Flash won't work if they are started in plugin-container.exe
-                SEBClientInfo.XulRunnerFlashContainerState = System.Environment.GetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", EnvironmentVariableTarget.User);
+                //SEBClientInfo.XulRunnerFlashContainerState = System.Environment.GetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", EnvironmentVariableTarget.User);
 
-                // Disable plugins-container if enablePlugIns = true and createNewDesktop = true
-                if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePlugIns] && (bool)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop])
-                {
-                    System.Environment.SetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", "1", EnvironmentVariableTarget.User);
-                    string xulRunnerFlashContainer = System.Environment.GetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", EnvironmentVariableTarget.User);
-                    Logger.AddInformation("Environment Variable MOZ_DISABLE_OOP_PLUGINS had value: " +
-                        (SEBClientInfo.XulRunnerFlashContainerState == null ? "null" : SEBClientInfo.XulRunnerFlashContainerState), null, null);
-                    Logger.AddInformation("Environment Variable MOZ_DISABLE_OOP_PLUGINS was set to value: " + xulRunnerFlashContainer, null, null);
-                }
+                //// Disable plugins-container if enablePlugIns = true and createNewDesktop = true
+                //if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePlugIns] && (bool)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop])
+                //{
+                //    System.Environment.SetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", "1", EnvironmentVariableTarget.User);
+                //    string xulRunnerFlashContainer = System.Environment.GetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", EnvironmentVariableTarget.User);
+                //    Logger.AddInformation("Environment Variable MOZ_DISABLE_OOP_PLUGINS had value: " +
+                //        (SEBClientInfo.XulRunnerFlashContainerState == null ? "null" : SEBClientInfo.XulRunnerFlashContainerState), null, null);
+                //    Logger.AddInformation("Environment Variable MOZ_DISABLE_OOP_PLUGINS was set to value: " + xulRunnerFlashContainer, null, null);
+                //}
 
                 addPermittedProcessesToTS();
                 //SetFormOnDesktop();
@@ -1073,7 +1090,7 @@ namespace SebWindowsClient
                 if (sebCloseDialogForm == null)
                 {
                     sebCloseDialogForm = new SebCloseDialogForm();
-                    //              SetForegroundWindow(sebCloseDialogForm.Handle);
+                    //SetForegroundWindow(sebCloseDialogForm.Handle);
                     sebCloseDialogForm.TopMost = true;
                     //sebCloseDialogForm.Show();
                     //sebCloseDialogForm.Visible = false;
@@ -1157,12 +1174,12 @@ namespace SebWindowsClient
                 //}
 
                 // Reset plugins-container to the system's state before SEB was started if enablePlugIns = true and createNewDesktop = true
-                if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePlugIns] && (bool)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop])
-                {
-                    System.Environment.SetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", SEBClientInfo.XulRunnerFlashContainerState, EnvironmentVariableTarget.User);
-                    string xulRunnerFlashContainer = System.Environment.GetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", EnvironmentVariableTarget.User);
-                    Logger.AddInformation("Environment Variable MOZ_DISABLE_OOP_PLUGINS reset to value: " + xulRunnerFlashContainer, null, null);
-                }
+                //if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePlugIns] && (bool)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop])
+                //{
+                //    System.Environment.SetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", SEBClientInfo.XulRunnerFlashContainerState, EnvironmentVariableTarget.User);
+                //    string xulRunnerFlashContainer = System.Environment.GetEnvironmentVariable("MOZ_DISABLE_OOP_PLUGINS", EnvironmentVariableTarget.User);
+                //    Logger.AddInformation("Environment Variable MOZ_DISABLE_OOP_PLUGINS reset to value: " + xulRunnerFlashContainer, null, null);
+                //}
 
                 // Clean clipboard
                 SEBClipboard.CleanClipboard();

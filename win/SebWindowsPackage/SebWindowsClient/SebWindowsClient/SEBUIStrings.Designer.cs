@@ -439,6 +439,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SEB Needs to be Restarted.
+        /// </summary>
+        internal static string sebReconfiguredRestartNeeded {
+            get {
+                return ResourceManager.GetString("sebReconfiguredRestartNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local settings of SEB have been reconfigured, but it needs to be restarted for the changed &quot;Create New Desktop&quot; setting to take effect. SEB will quit now, please restart it manually..
+        /// </summary>
+        internal static string sebReconfiguredRestartNeededReason {
+            get {
+                return ResourceManager.GetString("sebReconfiguredRestartNeededReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening New Settings Failed.
         /// </summary>
         internal static string settingsNotUsable {
