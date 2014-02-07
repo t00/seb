@@ -183,7 +183,7 @@ namespace SebWindowsClient.ConfigurationUtils
             string sparam = null, int iparam = -1)
         {
             // If we are running in SebWindowsClient we need to activate it before showing the password dialog
-            //if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientForm.SEBToForeground(); //SEBClientInfo.SebWindowsClientForm.Activate();
+            if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientForm.SEBToForeground(); //SEBClientInfo.SebWindowsClientForm.Activate();
 
             bool result = false;
 
@@ -248,7 +248,7 @@ namespace SebWindowsClient.ConfigurationUtils
             string sparam = null, int iparam = -1)
         {
             // If we are running in SebWindowsClient we need to activate it before showing the password dialog
-            if (SEBClientInfo.SebWindowsClientForm != null) SEBClientInfo.SebWindowsClientForm.Activate(); //SebWindowsClientForm.SEBToForeground();
+            if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientForm.SEBToForeground();
             
             bool result = false;
 

@@ -27,6 +27,9 @@ namespace SebWindowsClient
         private static IntPtr IDI_APPLICATION = new IntPtr(0x7F00);
         private static int GCL_HICON = -14;
 
+        private static int appChooserFormXPadding = 32;
+        private static int appChooserFormXGap = 45;
+
         private int selectedItemIndex = 0;
 
         /// <summary>
@@ -225,7 +228,19 @@ namespace SebWindowsClient
             //listApplications.k
 
             // Calculate necessary size of the app chooser form according to number of applications/icons
- 
+            int numberIcons = lRunningApplications.Count();
+            int formWidth;
+            if (numberIcons > 0) formWidth = 2 * appChooserFormXPadding + numberIcons * 32 + (numberIcons - 1) * appChooserFormXGap;
+            else formWidth = 2 * appChooserFormXPadding;
+            // Check if calculated width is larger that current screen width, if yes, adjust height accordingly
+            if (Screen.PrimaryScreen.Bounds.Width < formWidth)
+            {
+                formWidth = Screen.PrimaryScreen.Bounds.Width;
+                this.Height = 140;
+            } 
+
+            this.Width = formWidth;
+            this.CenterToScreen();
 
             // Re-enable the display.
             this.listApplications.EndUpdate();

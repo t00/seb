@@ -35,7 +35,8 @@ namespace SebWindowsClient
                 sebPasswordDialogForm.LabelText = passwordRequestText;
                 sebPasswordDialogForm.txtSEBPassword.Focus();
                 // If we are running in SebWindowsClient we need to activate it before showing the password dialog
-                //if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientForm.SEBToForeground(); //SEBClientInfo.SebWindowsClientForm.Activate();
+                // Don't do this; it will fail when the password dialog is running in a separate thread
+                //if (SEBClientInfo.SebWindowsClientForm != null) SEBClientInfo.SebWindowsClientForm.Activate();
                 // Show password dialog as a modal dialog and determine if DialogResult = OK.
                 if (sebPasswordDialogForm.ShowDialog() == DialogResult.OK)
                 {

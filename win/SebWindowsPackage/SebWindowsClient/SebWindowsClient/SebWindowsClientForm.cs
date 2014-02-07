@@ -83,6 +83,8 @@ namespace SebWindowsClient
         private static IntPtr vistaStartMenuWnd = IntPtr.Zero;
         private delegate bool EnumThreadProc(IntPtr hwnd, IntPtr lParam);
 
+        private int taskbarHeight;
+
         private SebSocketClient sebSocketClient = new SebSocketClient();
         //private SebApplicationChooserForm SebApplicationChooser = null;
 
@@ -114,6 +116,7 @@ namespace SebWindowsClient
         public SebWindowsClientForm()
         {
             InitializeComponent();
+            taskbarHeight = this.Height;
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -199,11 +202,11 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static void SEBToForeground()
         {
-            if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
-            {
+            //if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
+            //{
                 SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
                 SEBClientInfo.SebWindowsClientForm.Activate();
-            }
+            //}
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -704,7 +707,7 @@ namespace SebWindowsClient
             int x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
             int y = Screen.PrimaryScreen.Bounds.Height - this.Height;
 
-            //this.Height = height;
+            this.Height = taskbarHeight;
             this.Width = width;
             this.Location = new Point(x, y);
             this.TopMost = true;
@@ -1035,7 +1038,7 @@ namespace SebWindowsClient
         {
             if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             {
-                this.Show();
+                //this.Show();
                 SetFormOnDesktop();
                 //if (!this.Controls.Contains(this.taskbarToolStrip))
                 //{
@@ -1046,7 +1049,11 @@ namespace SebWindowsClient
             }
             else
             {
-                this.Hide();
+                //this.Hide();
+                this.Location = new System.Drawing.Point(-50000, -50000);
+
+                this.Size = new System.Drawing.Size(1, 1);
+
                 //if (this.Controls.Contains(this.taskbarToolStrip))
                 //{
                 //    this.Controls.Remove(this.taskbarToolStrip);
