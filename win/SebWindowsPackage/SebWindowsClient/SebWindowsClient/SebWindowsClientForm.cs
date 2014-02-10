@@ -116,7 +116,7 @@ namespace SebWindowsClient
         public SebWindowsClientForm()
         {
             InitializeComponent();
-            taskbarHeight = this.Height;
+            taskbarHeight = this.Height-2;
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -405,10 +405,11 @@ namespace SebWindowsClient
                                 // We save the index of the permitted process to the toolStripButton.Name property
                                 toolStripButton.Name = permittedProcessesCalls.Count.ToString();
 
-                                if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
-                                    taskbarToolStrip.Items.Add(toolStripButton);
-
+                                //if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
+                                taskbarToolStrip.Items.Add(toolStripButton);
                                 //toolStripButton.Checked = true;
+
+                                // Treat XULRunner different than other processes
                                 if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
                                 {
                                     StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
@@ -426,23 +427,11 @@ namespace SebWindowsClient
                                     // Save the full path of the permitted process executable including arguments
                                     permittedProcessesCalls.Add(fullPathArgumentsCall);
 
-                                    // Autostart processes which have the according flag set
-                                    Process newProcess = null;
-                                    if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
-                                    {
-                                        newProcess = CreateProcessWithExitHandler(fullPathArgumentsCall);
-                                    }
-                                    // Save the process reference if the process was started, otherwise null
-                                    permittedProcessesReferences.Add(newProcess);
                                 }
                                 else
                                 {
                                     if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser))
                                     {
-                                        // Start XULRunner
-                                        StartXulRunner();
-                                        // Save the process reference of XULRunner
-                                        permittedProcessesReferences.Add(xulRunner);
                                         // Save an empty path for XULRunner (we don't need the path)
                                         permittedProcessesCalls.Add("");
                                     }
@@ -457,6 +446,45 @@ namespace SebWindowsClient
                     }
                 }
             }
+
+            // Start permitted processes
+            int permittedProcessesIndex = 0;
+            for (int i = 0; i < permittedProcessList.Count; i++)
+            //foreach (string processCallToStart in permittedProcessesCalls)
+            {
+                Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+                SEBSettings.operatingSystems permittedProcessOS = (SEBSettings.operatingSystems)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyOS);
+                bool permittedProcessActive = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyActive);
+                string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
+                if (permittedProcessOS == SEBSettings.operatingSystems.operatingSystemWin && permittedProcessActive)
+                {
+                    if (!executable.Contains(SEBClientInfo.XUL_RUNNER))
+                    {
+                        // Autostart processes which have the according flag set
+                        Process newProcess = null;
+                        if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
+                        {
+                            string fullPathArgumentsCall = permittedProcessesCalls[permittedProcessesIndex];
+                            newProcess = CreateProcessWithExitHandler(fullPathArgumentsCall);
+                        }
+                        // Save the process reference if the process was started, otherwise null
+                        permittedProcessesReferences.Add(newProcess);
+                    }
+                    else
+                    {
+                        if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser))
+                        {
+                            // Start XULRunner
+                            StartXulRunner();
+                            // Save the process reference of XULRunner
+                            permittedProcessesReferences.Add(xulRunner);
+                            // Save an empty path for XULRunner (we don't need the path)
+                        }
+                    }
+                    permittedProcessesIndex++;
+                }
+            }
+
             SEBToForeground();
             //System.Diagnostics.Process oskProcess = null;
             // create the process.
@@ -585,6 +613,7 @@ namespace SebWindowsClient
             if (fullPath == null && allowChoosingApp)
             {
                 // Ask the user to locate the application
+                SEBToForeground();
                 return ThreadedDialog.ShowFileDialogForExecutable(executable);
             }
             return fullPath;
@@ -705,7 +734,7 @@ namespace SebWindowsClient
             //int height = Screen.PrimaryScreen.Bounds.Height;
             int width = Screen.PrimaryScreen.Bounds.Width;
             int x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
-            int y = Screen.PrimaryScreen.Bounds.Height - this.Height;
+            int y = Screen.PrimaryScreen.Bounds.Height - taskbarHeight;
 
             this.Height = taskbarHeight;
             this.Width = width;
