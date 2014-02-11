@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.IO;
 using System.Text;
-using System.Runtime.Serialization;  
+using System.Runtime.Serialization;
+using SebWindowsClient.CryptographyUtils;
 
 namespace SebWindowsClient.ConfigurationUtils
 {
@@ -100,7 +101,13 @@ namespace SebWindowsClient.ConfigurationUtils
         /// </summary>
         public static string XULRunnerConfigDictionarySerialize(Dictionary<string, object> xulRunnerSettings)
         {
-            //Serialise 
+            // Add current Browser Exam Key
+            if ((bool)xulRunnerSettings[SEBSettings.KeySendBrowserExamKey])
+            {
+                string browserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                xulRunnerSettings.Add(SEBSettings.KeyBrowserExamKey, browserExamKey);
+            }
+            // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string jsonSettings = serializer.Serialize(xulRunnerSettings);
             // Convert to Base64 String

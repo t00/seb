@@ -7,6 +7,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
+using SebWindowsClient.ConfigurationUtils;
+using PlistCS;
 
 namespace SebWindowsClient.CryptographyUtils
 {
@@ -320,6 +322,47 @@ namespace SebWindowsClient.CryptographyUtils
 
             return pswdHash.Replace("-", "");
         }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Compute a Browser Exam Key SHA256 hash base16 string.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static string ComputeBrowserExamKey()
+        {
+            HashAlgorithm algorithm = new SHA256Managed();
+            // First delete a possibly existing Browser Exam Key from settings
+
+            // Serialize preferences dictionary to an XML string
+            string sebXML = Plist.writeXml(SEBSettings.settingsCurrent);
+
+            Byte[] message = Encoding.UTF8.GetBytes(sebXML);
+            Byte[] key = Encoding.UTF8.GetBytes((string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyExamKeySalt));
+
+            var hash = new HMACSHA256(key);
+            return hash.ComputeHash(message).ToString();
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Compute a Browser Exam Key Salt as base16 string.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static string ComputeBrowserExamKeySalt()
+        {
+            HashAlgorithm algorithm = new SHA256Managed();
+            // First delete a possibly existing Browser Exam Key from settings
+
+            // Serialize preferences dictionary to an XML string
+            string sebXML = Plist.writeXml(SEBSettings.settingsCurrent);
+
+            Byte[] message = Encoding.UTF8.GetBytes(sebXML);
+            Byte[] key = Encoding.UTF8.GetBytes((string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyExamKeySalt));
+
+            var hash = new HMACSHA256(key);
+            return hash.ComputeHash(message).ToString();
+        }
+
     }
 
     /// ----------------------------------------------------------------------------------------
