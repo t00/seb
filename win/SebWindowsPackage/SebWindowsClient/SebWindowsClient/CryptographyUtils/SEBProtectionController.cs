@@ -350,19 +350,11 @@ namespace SebWindowsClient.CryptographyUtils
         /// ----------------------------------------------------------------------------------------
         public static string ComputeBrowserExamKeySalt()
         {
-            HashAlgorithm algorithm = new SHA256Managed();
-            // First delete a possibly existing Browser Exam Key from settings
+            byte[] saltBytes = AESThenHMAC.NewKey();
+            string saltString = BitConverter.ToString(saltBytes);
 
-            // Serialize preferences dictionary to an XML string
-            string sebXML = Plist.writeXml(SEBSettings.settingsCurrent);
-
-            Byte[] message = Encoding.UTF8.GetBytes(sebXML);
-            Byte[] key = Encoding.UTF8.GetBytes((string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyExamKeySalt));
-
-            var hash = new HMACSHA256(key);
-            return hash.ComputeHash(message).ToString();
+            return saltString.Replace("-", "");
         }
-
     }
 
     /// ----------------------------------------------------------------------------------------
