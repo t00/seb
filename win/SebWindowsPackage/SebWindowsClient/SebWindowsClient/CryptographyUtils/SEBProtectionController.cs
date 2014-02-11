@@ -330,17 +330,16 @@ namespace SebWindowsClient.CryptographyUtils
         /// ----------------------------------------------------------------------------------------
         public static string ComputeBrowserExamKey()
         {
-            HashAlgorithm algorithm = new SHA256Managed();
-            // First delete a possibly existing Browser Exam Key from settings
-
             // Serialize preferences dictionary to an XML string
             string sebXML = Plist.writeXml(SEBSettings.settingsCurrent);
 
-            Byte[] message = Encoding.UTF8.GetBytes(sebXML);
-            Byte[] key = Encoding.UTF8.GetBytes((string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyExamKeySalt));
-
-            var hash = new HMACSHA256(key);
-            return hash.ComputeHash(message).ToString();
+            byte[] message = Encoding.UTF8.GetBytes(sebXML);
+            byte[] salt = (byte[])SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyExamKeySalt);
+            var hash = new HMACSHA256(salt);
+            byte[] browserExamKey = hash.ComputeHash(message);
+            string browserExamKeyString = BitConverter.ToString(browserExamKey);
+            //browserExamKeyString.Replace("-", "");
+            return browserExamKeyString.Replace("-", "").ToLower();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -348,12 +347,12 @@ namespace SebWindowsClient.CryptographyUtils
         /// Compute a Browser Exam Key Salt as base16 string.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static string ComputeBrowserExamKeySalt()
+        public static byte[] ComputeBrowserExamKeySalt()
         {
             byte[] saltBytes = AESThenHMAC.NewKey();
-            string saltString = BitConverter.ToString(saltBytes);
-
-            return saltString.Replace("-", "");
+            //string saltString = BitConverter.ToString(saltBytes);
+            //return saltString.Replace("-", "");
+            return saltBytes;
         }
     }
 

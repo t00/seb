@@ -105,7 +105,7 @@ namespace SebWindowsClient.ConfigurationUtils
             if ((bool)xulRunnerSettings[SEBSettings.KeySendBrowserExamKey])
             {
                 string browserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                xulRunnerSettings.Add(SEBSettings.KeyBrowserExamKey, browserExamKey);
+                xulRunnerSettings[SEBSettings.KeyBrowserExamKey] = browserExamKey;
             }
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
