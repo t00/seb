@@ -1167,7 +1167,8 @@ namespace SebWindowsConfig
         // ************
         private void buttonGenerateBrowserExamKey_Click(object sender, EventArgs e)
         {
-
+            string browserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            textBoxBrowserExamKey.Text = browserExamKey;
         }
 
         private void textBoxBrowserExamKey_TextChanged(object sender, EventArgs e)
