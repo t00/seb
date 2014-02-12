@@ -101,6 +101,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // Group "Exam"
         public const String KeyExamKeySalt        = "examKeySalt";
         public const String KeyBrowserExamKey     = "browserExamKey";
+        public const String KeyBrowserURLSalt     = "browserURLSalt";
         public const String KeySendBrowserExamKey = "sendBrowserExamKey";
         public const String KeyQuitURL            = "quitURL";
 
@@ -492,6 +493,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "Exam"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExamKeySalt       , new Byte[] {});
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserExamKey    , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserURLSalt    , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeySendBrowserExamKey, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyQuitURL           , "");
 
