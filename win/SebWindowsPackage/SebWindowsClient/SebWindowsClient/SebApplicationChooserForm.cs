@@ -159,6 +159,7 @@ namespace SebWindowsClient
             ImageList ilApplicationIcons = new ImageList();
             //ilApplicationIcons.TransparentColor = Color.White;
             ilApplicationIcons.ImageSize = new Size(32, 32);
+            ilApplicationIcons.ColorDepth = ColorDepth.Depth32Bit;
             this.lWindowHandles.Clear();
             int index = 0;
             List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
