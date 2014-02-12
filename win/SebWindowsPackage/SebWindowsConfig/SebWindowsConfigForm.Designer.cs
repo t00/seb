@@ -714,7 +714,7 @@
             this.tabPageRegistry.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageRegistry.Name = "tabPageRegistry";
             this.tabPageRegistry.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageRegistry.Size = new System.Drawing.Size(1042, 617);
+            this.tabPageRegistry.Size = new System.Drawing.Size(1092, 617);
             this.tabPageRegistry.TabIndex = 25;
             this.tabPageRegistry.Text = "Registry";
             this.tabPageRegistry.UseVisualStyleBackColor = true;
@@ -1017,7 +1017,7 @@
             this.tabPageSecurity.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageSecurity.Name = "tabPageSecurity";
             this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageSecurity.Size = new System.Drawing.Size(992, 617);
+            this.tabPageSecurity.Size = new System.Drawing.Size(1092, 617);
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
@@ -1136,7 +1136,7 @@
             this.tabPageNetwork.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageNetwork.Name = "tabPageNetwork";
             this.tabPageNetwork.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageNetwork.Size = new System.Drawing.Size(992, 617);
+            this.tabPageNetwork.Size = new System.Drawing.Size(1092, 617);
             this.tabPageNetwork.TabIndex = 23;
             this.tabPageNetwork.Text = "Network";
             this.tabPageNetwork.UseVisualStyleBackColor = true;
@@ -2487,7 +2487,7 @@
             this.tabPageExam.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageExam.Name = "tabPageExam";
             this.tabPageExam.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageExam.Size = new System.Drawing.Size(817, 617);
+            this.tabPageExam.Size = new System.Drawing.Size(1092, 617);
             this.tabPageExam.TabIndex = 18;
             this.tabPageExam.Text = "Exam";
             this.tabPageExam.UseVisualStyleBackColor = true;
@@ -2613,7 +2613,7 @@
             this.tabPageDownUploads.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageDownUploads.Name = "tabPageDownUploads";
             this.tabPageDownUploads.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageDownUploads.Size = new System.Drawing.Size(817, 617);
+            this.tabPageDownUploads.Size = new System.Drawing.Size(1092, 617);
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
@@ -2719,7 +2719,7 @@
             this.tabPageBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageBrowser.Name = "tabPageBrowser";
             this.tabPageBrowser.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageBrowser.Size = new System.Drawing.Size(817, 617);
+            this.tabPageBrowser.Size = new System.Drawing.Size(1092, 617);
             this.tabPageBrowser.TabIndex = 14;
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
@@ -2975,7 +2975,7 @@
             this.tabPageAppearance.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAppearance.Name = "tabPageAppearance";
             this.tabPageAppearance.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAppearance.Size = new System.Drawing.Size(817, 617);
+            this.tabPageAppearance.Size = new System.Drawing.Size(1092, 617);
             this.tabPageAppearance.TabIndex = 8;
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
@@ -3183,7 +3183,7 @@
             this.tabPageConfigFile.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageConfigFile.Name = "tabPageConfigFile";
             this.tabPageConfigFile.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageConfigFile.Size = new System.Drawing.Size(817, 617);
+            this.tabPageConfigFile.Size = new System.Drawing.Size(1092, 617);
             this.tabPageConfigFile.TabIndex = 6;
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
