@@ -360,22 +360,29 @@
             // 
             this.imageListTabIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTabIcons.ImageStream")));
             this.imageListTabIcons.TransparentColor = System.Drawing.Color.White;
-            this.imageListTabIcons.Images.SetKeyName(0, "041_Sort_32x32_72.png");
-            this.imageListTabIcons.Images.SetKeyName(1, "109_AllAnnotations_Help_32x32_72.png");
-            this.imageListTabIcons.Images.SetKeyName(2, "EntityDataModel_ADODotNetDataService_Better.png");
-            this.imageListTabIcons.Images.SetKeyName(3, "Gear.png");
-            this.imageListTabIcons.Images.SetKeyName(4, "SebIcon.png");
+            this.imageListTabIcons.Images.SetKeyName(0, "Icon_01_General.png");
+            this.imageListTabIcons.Images.SetKeyName(1, "Icon_02_ConfigFile.png");
+            this.imageListTabIcons.Images.SetKeyName(2, "Icon_03_Appearance.png");
+            this.imageListTabIcons.Images.SetKeyName(3, "Icon_04_Browser.png");
+            this.imageListTabIcons.Images.SetKeyName(4, "Icon_05_DownUploads.png");
+            this.imageListTabIcons.Images.SetKeyName(5, "Icon_06_Exam.png");
+            this.imageListTabIcons.Images.SetKeyName(6, "Icon_07_Applications.png");
+            this.imageListTabIcons.Images.SetKeyName(7, "Icon_08_Network.png");
+            this.imageListTabIcons.Images.SetKeyName(8, "Icon_09_Security.png");
+            this.imageListTabIcons.Images.SetKeyName(9, "Icon_10_Registry.png");
+            this.imageListTabIcons.Images.SetKeyName(10, "Icon_11_HookedKeys.png");
             // 
             // tabPageHookedKeys
             // 
             this.tabPageHookedKeys.Controls.Add(this.checkBoxHookKeys);
             this.tabPageHookedKeys.Controls.Add(this.groupBoxFunctionKeys);
             this.tabPageHookedKeys.Controls.Add(this.groupBoxSpecialKeys);
+            this.tabPageHookedKeys.ImageIndex = 10;
             this.tabPageHookedKeys.Location = new System.Drawing.Point(4, 39);
             this.tabPageHookedKeys.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageHookedKeys.Name = "tabPageHookedKeys";
             this.tabPageHookedKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageHookedKeys.Size = new System.Drawing.Size(817, 617);
+            this.tabPageHookedKeys.Size = new System.Drawing.Size(1092, 617);
             this.tabPageHookedKeys.TabIndex = 27;
             this.tabPageHookedKeys.Text = "Hooked Keys";
             this.tabPageHookedKeys.UseVisualStyleBackColor = true;
@@ -702,11 +709,12 @@
             this.tabPageRegistry.Controls.Add(this.groupBoxOutsideSeb);
             this.tabPageRegistry.Controls.Add(this.groupBoxSetOutsideSebValues);
             this.tabPageRegistry.Controls.Add(this.groupBoxInsideSeb);
+            this.tabPageRegistry.ImageIndex = 9;
             this.tabPageRegistry.Location = new System.Drawing.Point(4, 39);
             this.tabPageRegistry.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageRegistry.Name = "tabPageRegistry";
             this.tabPageRegistry.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageRegistry.Size = new System.Drawing.Size(817, 617);
+            this.tabPageRegistry.Size = new System.Drawing.Size(1042, 617);
             this.tabPageRegistry.TabIndex = 25;
             this.tabPageRegistry.Text = "Registry";
             this.tabPageRegistry.UseVisualStyleBackColor = true;
@@ -1004,11 +1012,12 @@
             this.tabPageSecurity.Controls.Add(this.listBoxSebServicePolicy);
             this.tabPageSecurity.Controls.Add(this.checkBoxEnableLogging);
             this.tabPageSecurity.Controls.Add(this.checkBoxAllowVirtualMachine);
+            this.tabPageSecurity.ImageIndex = 8;
             this.tabPageSecurity.Location = new System.Drawing.Point(4, 39);
             this.tabPageSecurity.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageSecurity.Name = "tabPageSecurity";
             this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageSecurity.Size = new System.Drawing.Size(817, 617);
+            this.tabPageSecurity.Size = new System.Drawing.Size(992, 617);
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
@@ -1122,11 +1131,12 @@
             // tabPageNetwork
             // 
             this.tabPageNetwork.Controls.Add(this.tabControlNetwork);
+            this.tabPageNetwork.ImageIndex = 7;
             this.tabPageNetwork.Location = new System.Drawing.Point(4, 39);
             this.tabPageNetwork.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageNetwork.Name = "tabPageNetwork";
             this.tabPageNetwork.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageNetwork.Size = new System.Drawing.Size(817, 617);
+            this.tabPageNetwork.Size = new System.Drawing.Size(992, 617);
             this.tabPageNetwork.TabIndex = 23;
             this.tabPageNetwork.Text = "Network";
             this.tabPageNetwork.UseVisualStyleBackColor = true;
@@ -1736,6 +1746,7 @@
             // 
             this.tabPageApplications.Controls.Add(this.tabControlApplications);
             this.tabPageApplications.Controls.Add(this.checkBoxMonitorProcesses);
+            this.tabPageApplications.ImageIndex = 6;
             this.tabPageApplications.Location = new System.Drawing.Point(4, 39);
             this.tabPageApplications.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageApplications.Name = "tabPageApplications";
@@ -2471,6 +2482,7 @@
             this.tabPageExam.Controls.Add(this.labelQuitURL);
             this.tabPageExam.Controls.Add(this.checkBoxSendBrowserExamKey);
             this.tabPageExam.Controls.Add(this.checkBoxCopyBrowserExamKey);
+            this.tabPageExam.ImageIndex = 5;
             this.tabPageExam.Location = new System.Drawing.Point(4, 39);
             this.tabPageExam.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageExam.Name = "tabPageExam";
@@ -2596,7 +2608,7 @@
             this.tabPageDownUploads.Controls.Add(this.checkBoxDownloadPDFFiles);
             this.tabPageDownUploads.Controls.Add(this.checkBoxOpenDownloads);
             this.tabPageDownUploads.Controls.Add(this.checkBoxAllowDownUploads);
-            this.tabPageDownUploads.ImageIndex = 0;
+            this.tabPageDownUploads.ImageIndex = 4;
             this.tabPageDownUploads.Location = new System.Drawing.Point(4, 39);
             this.tabPageDownUploads.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageDownUploads.Name = "tabPageDownUploads";
@@ -2702,7 +2714,7 @@
             this.tabPageBrowser.Controls.Add(this.labelOpenLinksHTML);
             this.tabPageBrowser.Controls.Add(this.checkBoxBlockLinksHTML);
             this.tabPageBrowser.Controls.Add(this.groupBoxNewBrowserWindow);
-            this.tabPageBrowser.ImageIndex = 4;
+            this.tabPageBrowser.ImageIndex = 3;
             this.tabPageBrowser.Location = new System.Drawing.Point(4, 39);
             this.tabPageBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageBrowser.Name = "tabPageBrowser";
@@ -2958,6 +2970,7 @@
             this.tabPageAppearance.Controls.Add(this.checkBoxEnableBrowserWindowToolbar);
             this.tabPageAppearance.Controls.Add(this.radioButtonUseFullScreenMode);
             this.tabPageAppearance.Controls.Add(this.radioButtonUseBrowserWindow);
+            this.tabPageAppearance.ImageIndex = 2;
             this.tabPageAppearance.Location = new System.Drawing.Point(4, 39);
             this.tabPageAppearance.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAppearance.Name = "tabPageAppearance";
@@ -3165,7 +3178,7 @@
             this.tabPageConfigFile.Controls.Add(this.checkBoxAllowPreferencesWindow);
             this.tabPageConfigFile.Controls.Add(this.buttonDefaultSettings);
             this.tabPageConfigFile.Controls.Add(this.buttonRevertToLastOpened);
-            this.tabPageConfigFile.ImageIndex = 3;
+            this.tabPageConfigFile.ImageIndex = 1;
             this.tabPageConfigFile.Location = new System.Drawing.Point(4, 39);
             this.tabPageConfigFile.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageConfigFile.Name = "tabPageConfigFile";
@@ -3385,12 +3398,12 @@
             this.tabPageGeneral.Controls.Add(this.checkBoxAllowQuit);
             this.tabPageGeneral.Controls.Add(this.labelQuitPassword);
             this.tabPageGeneral.Controls.Add(this.labelStartURL);
-            this.tabPageGeneral.ImageIndex = 5;
+            this.tabPageGeneral.ImageIndex = 0;
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 39);
             this.tabPageGeneral.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageGeneral.Size = new System.Drawing.Size(817, 617);
+            this.tabPageGeneral.Size = new System.Drawing.Size(1092, 617);
             this.tabPageGeneral.TabIndex = 4;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -3702,15 +3715,15 @@
             this.tabControlSebWindowsConfig.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlSebWindowsConfig.Name = "tabControlSebWindowsConfig";
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
-            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(825, 660);
-            this.tabControlSebWindowsConfig.TabIndex = 2;
+            this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
+            this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1036, 695);
+            this.ClientSize = new System.Drawing.Size(1184, 695);
             this.Controls.Add(this.tabControlSebWindowsConfig);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SebWindowsConfigForm";
