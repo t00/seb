@@ -291,8 +291,8 @@ namespace SebWindowsClient
                     uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
                     AttachThreadInput(activeThreadID, currentThreadID, true);
                     SetForegroundWindow(lWindowHandles[selectedItemIndex]);
-                    BringWindowToTop(lWindowHandles[selectedItemIndex]);
-                    ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
+                    //BringWindowToTop(lWindowHandles[selectedItemIndex]);
+                    //ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
                     AttachThreadInput(activeThreadID, currentThreadID, false);
                 }
                 else

@@ -299,7 +299,7 @@ namespace SebWindowsClient
             if (permittedProcessList.Count > 0)
             {
                 // Check if permitted third party applications are already running
-                Process[] runningApplications;
+                Process[] runningApplications = Process.GetProcesses();
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
@@ -313,7 +313,7 @@ namespace SebWindowsClient
                         if (!(executable.Contains("xulrunner.exe") && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
                             // Check if the process is already running
-                            runningApplications = Process.GetProcesses();
+                            //runningApplications = Process.GetProcesses();
                             for (int j = 0; j < runningApplications.Count(); j++)
                             {
                                 if (executable.Contains(runningApplications[j].ProcessName))
@@ -366,7 +366,6 @@ namespace SebWindowsClient
             {
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
-                    ToolStripButton toolStripButton = new ToolStripButton();
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
                     SEBSettings.operatingSystems permittedProcessOS = (SEBSettings.operatingSystems)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyOS);
                     bool permittedProcessActive = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyActive);
@@ -378,6 +377,7 @@ namespace SebWindowsClient
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
                         if (!(executable.Contains("xulrunner.exe") && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
+                            ToolStripButton toolStripButton = new ToolStripButton();
                             toolStripButton.Padding = new Padding(5, 0, 5, 0);
                             toolStripButton.ToolTipText = title;
                             Icon processIcon = null;
@@ -439,6 +439,8 @@ namespace SebWindowsClient
                             }
                             else
                             {
+                                // Permitted application has not been found: Set its "active" flag to false
+                                permittedProcess[SEBSettings.KeyActive] = false;
                                 //SEBClientInfo.SebWindowsClientForm.Activate();
                                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.permittedApplicationNotFound, SEBUIStrings.permittedApplicationNotFoundMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK, title);
                             }
@@ -469,6 +471,7 @@ namespace SebWindowsClient
                         }
                         // Save the process reference if the process was started, otherwise null
                         permittedProcessesReferences.Add(newProcess);
+                        permittedProcessesIndex++;
                     }
                     else
                     {
@@ -478,10 +481,9 @@ namespace SebWindowsClient
                             StartXulRunner();
                             // Save the process reference of XULRunner
                             permittedProcessesReferences.Add(xulRunner);
-                            // Save an empty path for XULRunner (we don't need the path)
+                            permittedProcessesIndex++;
                         }
                     }
-                    permittedProcessesIndex++;
                 }
             }
 
@@ -1044,7 +1046,6 @@ namespace SebWindowsClient
                     {
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         Application.Exit();
-
                     }
                 }
                 else

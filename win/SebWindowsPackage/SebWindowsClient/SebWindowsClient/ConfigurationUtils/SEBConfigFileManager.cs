@@ -53,6 +53,9 @@ namespace SebWindowsClient.ConfigurationUtils
             //SEBClientInfo.SebWindowsClientForm.Close();
             //SEBClientInfo.SebWindowsClientForm.Dispose();
 
+            // We need to check if setting for createNewDesktop changed
+            bool createNewDesktopOldValue = (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop);
+
             if ((int)sebPreferencesDict[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
             {
 
@@ -66,6 +69,16 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 //Re-initialize logger
                 SEBClientInfo.InitializeLogger();
+
+                // Check if SEB is running on the standard desktop and the new settings demand to run in new desktop (createNewDesktop = true)
+                if (createNewDesktopOldValue == false && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop) == true)
+                {
+                    // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
+                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsRequireNewDesktop, SEBUIStrings.settingsRequireNewDesktopReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                    Application.Exit();
+                    return false;
+                }
 
                 // Re-Initialize SEB according to the new settings
                 if (!SebWindowsClientMain.InitSEBDesktop()) return false;
@@ -81,9 +94,6 @@ namespace SebWindowsClient.ConfigurationUtils
             {
 
                 /// If these SEB settings are ment to configure a client
-
-                // We need to check if setting for createNewDesktop changed
-                bool createNewDesktopOldValue = (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop);
 
                 // Store decrypted settings
                 SEBSettings.StoreSebClientSettings(sebPreferencesDict);

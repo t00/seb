@@ -430,7 +430,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking &quot;No&quot; will quit SEB).
+        ///   Looks up a localized string similar to Local client settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking &quot;No&quot; will quit SEB).
         /// </summary>
         internal static string sebReconfiguredQuestion {
             get {
@@ -471,6 +471,24 @@ namespace SebWindowsClient {
         internal static string settingsNotUsableReason {
             get {
                 return ResourceManager.GetString("settingsNotUsableReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings Require New Desktop.
+        /// </summary>
+        internal static string settingsRequireNewDesktop {
+            get {
+                return ResourceManager.GetString("settingsRequireNewDesktop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the &quot;Create New Desktop&quot; parameter set. SEB will quit now..
+        /// </summary>
+        internal static string settingsRequireNewDesktopReason {
+            get {
+                return ResourceManager.GetString("settingsRequireNewDesktopReason", resourceCulture);
             }
         }
     }

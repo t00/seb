@@ -241,7 +241,7 @@
     <value>SEB Re-Configured</value>
   </data>
   <data name="sebReconfiguredQuestion" xml:space="preserve">
-    <value>Local settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking "No" will quit SEB)</value>
+    <value>Local client settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking "No" will quit SEB)</value>
   </data>
   <data name="sebReconfiguredRestartNeeded" xml:space="preserve">
     <value>SEB Needs to be Restarted</value>
@@ -254,5 +254,11 @@
   </data>
   <data name="settingsNotUsableReason" xml:space="preserve">
     <value>These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.</value>
+  </data>
+  <data name="settingsRequireNewDesktop" xml:space="preserve">
+    <value>Settings Require New Desktop</value>
+  </data>
+  <data name="settingsRequireNewDesktopReason" xml:space="preserve">
+    <value>The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the "Create New Desktop" parameter set. SEB will quit now.</value>
   </data>
 </root>

@@ -528,5 +528,20 @@ namespace SebWindowsClient
 
             return true;
         }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Move SEB to the foreground.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static void SEBToForeground()
+        {
+            //if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
+            //{
+            SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
+            SEBClientInfo.SebWindowsClientForm.Activate();
+            //}
+        }
+
     }
 }
