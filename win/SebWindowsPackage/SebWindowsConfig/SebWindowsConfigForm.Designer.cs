@@ -1751,7 +1751,7 @@
             this.tabPageApplications.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageApplications.Name = "tabPageApplications";
             this.tabPageApplications.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageApplications.Size = new System.Drawing.Size(817, 617);
+            this.tabPageApplications.Size = new System.Drawing.Size(1092, 617);
             this.tabPageApplications.TabIndex = 21;
             this.tabPageApplications.Text = "Applications";
             this.tabPageApplications.UseVisualStyleBackColor = true;
@@ -3722,6 +3722,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1184, 712);
             this.Controls.Add(this.tabControlSebWindowsConfig);
