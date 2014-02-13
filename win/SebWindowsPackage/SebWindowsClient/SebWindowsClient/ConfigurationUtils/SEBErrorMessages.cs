@@ -145,13 +145,6 @@ namespace SebWindowsClient.ConfigurationUtils
             messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Closing SEB failed! Password incorrect.";
             messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_CLOSE_SEB_FAILED] = "Abattre SEB manqué / échoué!";
 
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED] = "Einstellungen können nicht entschlüsselt werden.\nSie haben entweder ein falsches Passwort eingegeben oder diese Einstellungen wurden mit einer inkompatiblen Version gespeichert.";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED] = "Cannot decrypt settings!\nYou either entered the wrong password or these settings were saved with an incompatible SEB version.";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_DECRYPTING_SETTINGS_FAILED] = "Cannot decrypt settings!\nYou either entered the wrong password or these settings were saved with an incompatible SEB version.";
-
-            messageText[SEBGlobalConstants.IND_LANGUAGE_GERMAN, SEBGlobalConstants.IND_SETTINGS_NOT_USABLE] = "Öffnen der neuen Einstellungen fehlgeschlagen!\nDiese Einstellungen können nicht benutzt werden. Sie wurden möglicherweise mit einer neueren, inkompatiblen Version von SEB erstellt oder sie sind beschädigt.";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_ENGLISH, SEBGlobalConstants.IND_SETTINGS_NOT_USABLE] = "Opening new settings failed!\nThese settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.";
-            messageText[SEBGlobalConstants.IND_LANGUAGE_FRENCH, SEBGlobalConstants.IND_SETTINGS_NOT_USABLE] = "Opening new settings failed!\nThese settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corruptedd.";
         }
 
         // ************************

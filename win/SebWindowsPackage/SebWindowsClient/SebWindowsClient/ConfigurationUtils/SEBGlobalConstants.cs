@@ -89,13 +89,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int IND_CLOSE_PROCESS_FAILED             = 26;
         public const int IND_WINDOWS_SERVICE_NOT_AVAILABLE    = 27;
         public const int IND_CLOSE_SEB_FAILED                 = 28;
-        public const int IND_DECRYPTING_SETTINGS_FAILED       = 29;
-        public const int IND_SETTINGS_NOT_USABLE              = 30;
-        public const int IND_SETTINGS_NOT_USABLE2             = 31;
-        public const int IND_CLIENT_SETTINGS_RECONFIGURED     = 32;
-        public const int IND_CERTIFICATE_NOT_FOUND            = 33;
-        public const int IND_MESSAGE_TEXT_MAX = 33;
-        public const int IND_MESSAGE_TEXT_NUM = 34;
+        public const int IND_MESSAGE_TEXT_MAX = 28;
+        public const int IND_MESSAGE_TEXT_NUM = 29;
 
 
         // MessageBox supports errors and warnings
