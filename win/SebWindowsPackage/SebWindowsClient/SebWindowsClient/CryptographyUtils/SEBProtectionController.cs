@@ -344,10 +344,10 @@ namespace SebWindowsClient.CryptographyUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Compute a Browser Exam Key Salt as base16 string.
+        /// Generate a Browser Exam Key Salt as byte data.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static byte[] ComputeBrowserExamKeySalt()
+        public static byte[] GenerateBrowserExamKeySalt()
         {
             byte[] saltBytes = AESThenHMAC.NewKey();
             //string saltString = BitConverter.ToString(saltBytes);

@@ -119,6 +119,7 @@
             this.dataGridViewComboBoxColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
+            this.textBoxIfYourNetworkAdministrator = new System.Windows.Forms.TextBox();
             this.labelProxyServerPort = new System.Windows.Forms.Label();
             this.labelProxyServerPassword = new System.Windows.Forms.Label();
             this.labelProxyServerUsername = new System.Windows.Forms.Label();
@@ -211,7 +212,6 @@
             this.tabPageExam = new System.Windows.Forms.TabPage();
             this.labelPlaceThisQuitLink = new System.Windows.Forms.Label();
             this.labelCopyBrowserExamKey = new System.Windows.Forms.Label();
-            this.buttonGenerateBrowserExamKey = new System.Windows.Forms.Button();
             this.labelBrowserExamKey = new System.Windows.Forms.Label();
             this.textBoxBrowserExamKey = new System.Windows.Forms.TextBox();
             this.textBoxQuitURL = new System.Windows.Forms.TextBox();
@@ -307,7 +307,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.textBoxIfYourNetworkAdministrator = new System.Windows.Forms.TextBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -391,12 +390,12 @@
             // 
             this.checkBoxHookKeys.AutoSize = true;
             this.checkBoxHookKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxHookKeys.Location = new System.Drawing.Point(34, 259);
+            this.checkBoxHookKeys.Location = new System.Drawing.Point(23, 259);
             this.checkBoxHookKeys.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxHookKeys.Name = "checkBoxHookKeys";
-            this.checkBoxHookKeys.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxHookKeys.Size = new System.Drawing.Size(127, 17);
             this.checkBoxHookKeys.TabIndex = 48;
-            this.checkBoxHookKeys.Text = "Hook keys";
+            this.checkBoxHookKeys.Text = "Hook keys (Win only)";
             this.checkBoxHookKeys.UseVisualStyleBackColor = true;
             this.checkBoxHookKeys.CheckedChanged += new System.EventHandler(this.checkBoxHookKeys_CheckedChanged);
             // 
@@ -1043,6 +1042,7 @@
             this.labelLogDirectoryWin.Name = "labelLogDirectoryWin";
             this.labelLogDirectoryWin.Size = new System.Drawing.Size(0, 13);
             this.labelLogDirectoryWin.TabIndex = 79;
+            this.labelLogDirectoryWin.Visible = false;
             // 
             // buttonLogDirectoryWin
             // 
@@ -1054,6 +1054,7 @@
             this.buttonLogDirectoryWin.TabIndex = 78;
             this.buttonLogDirectoryWin.Text = "Save log file to...";
             this.buttonLogDirectoryWin.UseVisualStyleBackColor = true;
+            this.buttonLogDirectoryWin.Visible = false;
             this.buttonLogDirectoryWin.Click += new System.EventHandler(this.buttonLogDirectoryWin_Click);
             // 
             // checkBoxCreateNewDesktop
@@ -1473,6 +1474,21 @@
             this.tabPageProxies.TabIndex = 2;
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
+            // 
+            // textBoxIfYourNetworkAdministrator
+            // 
+            this.textBoxIfYourNetworkAdministrator.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxIfYourNetworkAdministrator.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxIfYourNetworkAdministrator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxIfYourNetworkAdministrator.Location = new System.Drawing.Point(303, 54);
+            this.textBoxIfYourNetworkAdministrator.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxIfYourNetworkAdministrator.Multiline = true;
+            this.textBoxIfYourNetworkAdministrator.Name = "textBoxIfYourNetworkAdministrator";
+            this.textBoxIfYourNetworkAdministrator.ReadOnly = true;
+            this.textBoxIfYourNetworkAdministrator.Size = new System.Drawing.Size(285, 30);
+            this.textBoxIfYourNetworkAdministrator.TabIndex = 111;
+            this.textBoxIfYourNetworkAdministrator.Text = "If your network administrator provided you with the address of an automatic proxy" +
+    " configuration (.pac) file, enter it above.";
             // 
             // labelProxyServerPort
             // 
@@ -2170,9 +2186,9 @@
             this.checkBoxAllowFlashFullscreen.Location = new System.Drawing.Point(34, 37);
             this.checkBoxAllowFlashFullscreen.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
-            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(213, 17);
+            this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(243, 17);
             this.checkBoxAllowFlashFullscreen.TabIndex = 78;
-            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash to switch to fullscreen mode";
+            this.checkBoxAllowFlashFullscreen.Text = "Allow Flash to switch to fullscreen mode (Mac)";
             this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
             this.checkBoxAllowFlashFullscreen.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreen_CheckedChanged);
             // 
@@ -2454,6 +2470,7 @@
             // checkBoxMonitorProcesses
             // 
             this.checkBoxMonitorProcesses.AutoSize = true;
+            this.checkBoxMonitorProcesses.Enabled = false;
             this.checkBoxMonitorProcesses.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(24, 20);
             this.checkBoxMonitorProcesses.Margin = new System.Windows.Forms.Padding(2);
@@ -2468,7 +2485,6 @@
             // 
             this.tabPageExam.Controls.Add(this.labelPlaceThisQuitLink);
             this.tabPageExam.Controls.Add(this.labelCopyBrowserExamKey);
-            this.tabPageExam.Controls.Add(this.buttonGenerateBrowserExamKey);
             this.tabPageExam.Controls.Add(this.labelBrowserExamKey);
             this.tabPageExam.Controls.Add(this.textBoxBrowserExamKey);
             this.tabPageExam.Controls.Add(this.textBoxQuitURL);
@@ -2511,18 +2527,6 @@
     " your quiz settings in the exam system having support for SEB 2.0 or later built" +
     " in.";
             // 
-            // buttonGenerateBrowserExamKey
-            // 
-            this.buttonGenerateBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGenerateBrowserExamKey.Location = new System.Drawing.Point(132, 22);
-            this.buttonGenerateBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonGenerateBrowserExamKey.Name = "buttonGenerateBrowserExamKey";
-            this.buttonGenerateBrowserExamKey.Size = new System.Drawing.Size(100, 20);
-            this.buttonGenerateBrowserExamKey.TabIndex = 79;
-            this.buttonGenerateBrowserExamKey.Text = "Generate";
-            this.buttonGenerateBrowserExamKey.UseVisualStyleBackColor = true;
-            this.buttonGenerateBrowserExamKey.Click += new System.EventHandler(this.buttonGenerateBrowserExamKey_Click);
-            // 
             // labelBrowserExamKey
             // 
             this.labelBrowserExamKey.AutoSize = true;
@@ -2530,9 +2534,9 @@
             this.labelBrowserExamKey.Location = new System.Drawing.Point(22, 25);
             this.labelBrowserExamKey.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBrowserExamKey.Name = "labelBrowserExamKey";
-            this.labelBrowserExamKey.Size = new System.Drawing.Size(95, 13);
+            this.labelBrowserExamKey.Size = new System.Drawing.Size(321, 13);
             this.labelBrowserExamKey.TabIndex = 78;
-            this.labelBrowserExamKey.Text = "Browser Exam Key";
+            this.labelBrowserExamKey.Text = "Browser Exam Key (valid only for the saved state of the current file)";
             // 
             // textBoxBrowserExamKey
             // 
@@ -2983,6 +2987,7 @@
             this.labelTaskBarHeight.Size = new System.Drawing.Size(38, 13);
             this.labelTaskBarHeight.TabIndex = 63;
             this.labelTaskBarHeight.Text = "Height";
+            this.labelTaskBarHeight.Visible = false;
             // 
             // comboBoxTaskBarHeight
             // 
@@ -2992,6 +2997,7 @@
             this.comboBoxTaskBarHeight.Name = "comboBoxTaskBarHeight";
             this.comboBoxTaskBarHeight.Size = new System.Drawing.Size(92, 21);
             this.comboBoxTaskBarHeight.TabIndex = 62;
+            this.comboBoxTaskBarHeight.Visible = false;
             this.comboBoxTaskBarHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxTaskBarHeight_SelectedIndexChanged);
             // 
             // groupBoxMainBrowserWindow
@@ -3338,9 +3344,9 @@
             this.checkBoxAllowPreferencesWindow.Location = new System.Drawing.Point(45, 95);
             this.checkBoxAllowPreferencesWindow.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowPreferencesWindow.Name = "checkBoxAllowPreferencesWindow";
-            this.checkBoxAllowPreferencesWindow.Size = new System.Drawing.Size(231, 17);
+            this.checkBoxAllowPreferencesWindow.Size = new System.Drawing.Size(261, 17);
             this.checkBoxAllowPreferencesWindow.TabIndex = 49;
-            this.checkBoxAllowPreferencesWindow.Text = "Allow to open preferences window on client";
+            this.checkBoxAllowPreferencesWindow.Text = "Allow to open preferences window on client (Mac)";
             this.checkBoxAllowPreferencesWindow.UseVisualStyleBackColor = true;
             this.checkBoxAllowPreferencesWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowPreferencesWindow_CheckedChanged);
             // 
@@ -3711,21 +3717,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
-            // textBoxIfYourNetworkAdministrator
-            // 
-            this.textBoxIfYourNetworkAdministrator.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxIfYourNetworkAdministrator.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxIfYourNetworkAdministrator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxIfYourNetworkAdministrator.Location = new System.Drawing.Point(303, 54);
-            this.textBoxIfYourNetworkAdministrator.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxIfYourNetworkAdministrator.Multiline = true;
-            this.textBoxIfYourNetworkAdministrator.Name = "textBoxIfYourNetworkAdministrator";
-            this.textBoxIfYourNetworkAdministrator.ReadOnly = true;
-            this.textBoxIfYourNetworkAdministrator.Size = new System.Drawing.Size(285, 30);
-            this.textBoxIfYourNetworkAdministrator.TabIndex = 111;
-            this.textBoxIfYourNetworkAdministrator.Text = "If your network administrator provided you with the address of an automatic proxy" +
-    " configuration (.pac) file, enter it above.";
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3869,7 +3860,6 @@
         private System.Windows.Forms.TabPage tabPageExam;
         private System.Windows.Forms.Label labelPlaceThisQuitLink;
         private System.Windows.Forms.Label labelCopyBrowserExamKey;
-        private System.Windows.Forms.Button buttonGenerateBrowserExamKey;
         private System.Windows.Forms.Label labelBrowserExamKey;
         private System.Windows.Forms.TextBox textBoxBrowserExamKey;
         private System.Windows.Forms.TextBox textBoxQuitURL;

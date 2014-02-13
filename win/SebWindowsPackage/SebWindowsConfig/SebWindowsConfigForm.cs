@@ -32,6 +32,8 @@ namespace SebWindowsConfig
 
         string settingsPassword = "";
 
+        private string lastBrowserExamKey = "";
+
         private const string SEB_CONFIG_LOG = "SebConfig.log";
 
         //X509Certificate2 fileCertificateRef = null;
@@ -919,6 +921,10 @@ namespace SebWindowsConfig
             // If the user clicked "OK"    , read the settings from the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
             if (fileDialogResult.Equals(DialogResult.OK    )) LoadConfigurationFileIntoEditor(fileName);
+            // Generate Browser Exam Key of this new settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
         }
 
 
@@ -935,6 +941,20 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             // If the user clicked "OK"    , write the settings to the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
+
+            // Generate Browser Exam Key and its salt, if settings changed
+            string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            if (!lastBrowserExamKey.Equals(newBrowserExamKey))
+            {
+                // If the exam key changed, then settings changed and we will generate a new salt
+                byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
+                // Save the new salt
+                SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
+                // Generate the new Browser Exam Key
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            }
             if (fileDialogResult.Equals(DialogResult.OK    )) SaveConfigurationFileFromEditor(fileName);
         }
 
