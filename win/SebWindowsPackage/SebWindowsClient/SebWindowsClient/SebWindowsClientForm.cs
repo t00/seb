@@ -439,8 +439,8 @@ namespace SebWindowsClient
                             }
                             else
                             {
-                                // Permitted application has not been found: Set its "active" flag to false
-                                permittedProcess[SEBSettings.KeyActive] = false;
+                                // Permitted application has not been found: Set its call entry to null
+                                permittedProcessesCalls.Add(null);
                                 //SEBClientInfo.SebWindowsClientForm.Activate();
                                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.permittedApplicationNotFound, SEBUIStrings.permittedApplicationNotFoundMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK, title);
                             }
@@ -467,7 +467,8 @@ namespace SebWindowsClient
                         if ((Boolean)permittedProcess[SEBSettings.KeyAutostart])
                         {
                             string fullPathArgumentsCall = permittedProcessesCalls[permittedProcessesIndex];
-                            newProcess = CreateProcessWithExitHandler(fullPathArgumentsCall);
+                            if (fullPathArgumentsCall != null) newProcess = CreateProcessWithExitHandler(fullPathArgumentsCall);
+                            else newProcess = null;
                         }
                         // Save the process reference if the process was started, otherwise null
                         permittedProcessesReferences.Add(newProcess);
