@@ -510,18 +510,19 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedArgumentDataDefault.Add(SEBSettings.KeyArgument, "");
 
             // Define the XulRunner arguments
-            SEBSettings.permittedArgumentDataXulRunner1.Clear();
-            SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.KeyActive, true);
-            SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.KeyArgument, "-app \"..\\xul_seb\\seb.ini\"");
+            //SEBSettings.permittedArgumentDataXulRunner1.Clear();
+            //SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.KeyActive, true);
+            //SEBSettings.permittedArgumentDataXulRunner1.Add(SEBSettings.KeyArgument, "-app \"..\\xul_seb\\seb.ini\"");
 
-            SEBSettings.permittedArgumentDataXulRunner2.Clear();
-            SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.KeyActive, true);
-            SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.KeyArgument, "-profile \"%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles\"");
+            //SEBSettings.permittedArgumentDataXulRunner2.Clear();
+            //SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.KeyActive, true);
+            //SEBSettings.permittedArgumentDataXulRunner2.Add(SEBSettings.KeyArgument, "-profile \"%LOCALAPPDATA%\\ETH Zuerich\\xul_seb\\Profiles\"");
 
             // Create the XulRunner argument list with the XulRunner arguments
             SEBSettings.permittedArgumentListXulRunner.Clear();
-            SEBSettings.permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner1);
-            SEBSettings.permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner2);
+            SEBSettings.permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataDefault);
+            //SEBSettings.permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner1);
+            //SEBSettings.permittedArgumentListXulRunner.Add(SEBSettings.permittedArgumentDataXulRunner2);
 
             // Create a XulRunner process with the XulRunner argument list
             SEBSettings.permittedProcessDataXulRunner.Clear();
@@ -535,7 +536,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyDescription, "");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyExecutable , "xulrunner.exe");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyPath       , "../xulrunner/");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyIdentifier , "XulRunner");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyIdentifier , "XULRunner");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyArguments  , permittedArgumentListXulRunner);
 
             // Default settings for permitted process data

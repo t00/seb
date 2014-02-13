@@ -214,37 +214,32 @@ namespace SebWindowsClient
         // Start xulRunner process.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private bool StartXulRunner()
+        private bool StartXulRunner(string userDefinedArguments)
         {
             //xulRunnerExitEventHandled = false;
             string xulRunnerPath = "";
             string desktopName = "";
+            if (userDefinedArguments == null) userDefinedArguments="";
             try
             {
-                string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SEBSettings.settingsCurrent);
                 // Create JSON object with XULRunner parameters to pass to xulrunner.exe as base64 string
+                string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SEBSettings.settingsCurrent);
+                // Create the path to xulrunner.exe plus all arguments
                 StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
-                //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).
-                //Append(" -configpath ").Append(SEBClientInfo.XulRunnerConfigFile);.Append(Application.StartupPath).Append(".\\").Append(SEBClientInfo.XulRunnerSebIniPath)
-                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append(".\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"").//Append("-debug 1 -purgecaches -jsconsole"). //" -config \"winctrl\" 
-                    Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
-                //StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app ").Append(SEBClientInfo.XulRunnerSebIniPath).Append(" -ctlr 1 ");
+                // Create all arguments, including user defined
+                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append(".\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\"");
+                // Check if there is a user defined -profile parameter, otherwise use the standard one 
+                if (!(userDefinedArguments.ToLower()).Contains("-profile"))
+                    xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"");
+                xulRunnerArgumentsBuilder.Append(" ").Append(userDefinedArguments).Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
                 xulRunnerPath = xulRunnerPathBuilder.ToString();
 
-                //string path = SEBClientInfo.XulRunnerExePath;
-                //path = path + " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
-                //permittedProcessesReferences.Add(xulRunner);
-                //xulRunner.StartInfo.FileName = "\"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulrunner\\xulrunner.exe\"";
-                ////xulRunner.StartInfo.Verb = "XulRunner";
-                //xulRunner.StartInfo.Arguments = " -app \"C:\\Program Files (x86)\\ETH Zuerich\\SEB Windows 1.9.1\\SebWindowsClient\\xulseb\\seb.ini\" -configpath  \"C:\\Users\\viktor\\AppData\\Local\\ETH_Zuerich\\config.json\"";
-                //xulRunner.StartInfo.CreateNoWindow = true;
                 xulRunner.EnableRaisingEvents = true;
                 xulRunner.Exited += new EventHandler(xulRunner_Exited);
-                //xulRunner.Start();
                 return true;
 
             }
@@ -430,10 +425,26 @@ namespace SebWindowsClient
                                 }
                                 else
                                 {
+                                    // The permitted process is XULRunner: Build list of arguments that are allowed to be user defined
                                     if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser))
                                     {
-                                        // Save an empty path for XULRunner (we don't need the path)
-                                        permittedProcessesCalls.Add("");
+                                        StringBuilder startProcessNameBuilder = new StringBuilder("");
+                                        List<object> argumentList = (List<object>)permittedProcess[SEBSettings.KeyArguments];
+                                        for (int j = 0; j < argumentList.Count; j++)
+                                        {
+                                            Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
+                                            if ((Boolean)argument[SEBSettings.KeyActive])
+                                            {
+                                                string argumentString = (string)argument[SEBSettings.KeyArgument];
+                                                // The parameters -app and -ctrl cannot be changed by the user, we skip them 
+                                                if (!argumentString.Contains("-app") && !argumentString.Contains("-ctrl")) 
+                                                    startProcessNameBuilder.Append(" ").Append((string)argument[SEBSettings.KeyArgument]);
+                                            }
+                                        }
+                                        string fullPathArgumentsCall = startProcessNameBuilder.ToString();
+
+                                        // Save the full path of the permitted process executable including arguments
+                                        permittedProcessesCalls.Add(fullPathArgumentsCall);
                                     }
                                 }
                             }
@@ -479,7 +490,7 @@ namespace SebWindowsClient
                         if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser))
                         {
                             // Start XULRunner
-                            StartXulRunner();
+                            StartXulRunner((string)permittedProcessesCalls[permittedProcessesIndex]);
                             // Save the process reference of XULRunner
                             permittedProcessesReferences.Add(xulRunner);
                             permittedProcessesIndex++;
@@ -645,7 +656,7 @@ namespace SebWindowsClient
                     // In case the XULRunner process exited but wasn't closed, this will throw an exception
                     if (xulRunner.HasExited)
                     {
-                        StartXulRunner();
+                        StartXulRunner((string)permittedProcessesCalls[i]);
                     }
                     else
                     {
@@ -656,7 +667,7 @@ namespace SebWindowsClient
                 }
                 catch (Exception)  // XULRunner wasn't running anymore
                 {
-                    StartXulRunner();
+                    StartXulRunner((string)permittedProcessesCalls[i]);
                 }
             }
             else
