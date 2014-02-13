@@ -134,7 +134,6 @@
             this.dataGridViewBypassedProxies = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumnDomainHostPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
-            this.labelIfYourNetworkAdministrator = new System.Windows.Forms.Label();
             this.labelProxyConfigurationFileURL = new System.Windows.Forms.Label();
             this.textBoxAutoProxyConfigurationURL = new System.Windows.Forms.TextBox();
             this.labelAutoProxyConfigurationURL = new System.Windows.Forms.Label();
@@ -308,6 +307,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.textBoxIfYourNetworkAdministrator = new System.Windows.Forms.TextBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1443,6 +1443,7 @@
             // 
             // tabPageProxies
             // 
+            this.tabPageProxies.Controls.Add(this.textBoxIfYourNetworkAdministrator);
             this.tabPageProxies.Controls.Add(this.labelProxyServerPort);
             this.tabPageProxies.Controls.Add(this.labelProxyServerPassword);
             this.tabPageProxies.Controls.Add(this.labelProxyServerUsername);
@@ -1455,7 +1456,6 @@
             this.tabPageProxies.Controls.Add(this.dataGridViewProxyProtocols);
             this.tabPageProxies.Controls.Add(this.dataGridViewBypassedProxies);
             this.tabPageProxies.Controls.Add(this.buttonChooseProxyConfigurationFile);
-            this.tabPageProxies.Controls.Add(this.labelIfYourNetworkAdministrator);
             this.tabPageProxies.Controls.Add(this.labelProxyConfigurationFileURL);
             this.tabPageProxies.Controls.Add(this.textBoxAutoProxyConfigurationURL);
             this.tabPageProxies.Controls.Add(this.labelAutoProxyConfigurationURL);
@@ -1623,26 +1623,16 @@
             // 
             // buttonChooseProxyConfigurationFile
             // 
+            this.buttonChooseProxyConfigurationFile.Enabled = false;
             this.buttonChooseProxyConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChooseProxyConfigurationFile.Location = new System.Drawing.Point(581, 50);
+            this.buttonChooseProxyConfigurationFile.Location = new System.Drawing.Point(592, 50);
             this.buttonChooseProxyConfigurationFile.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChooseProxyConfigurationFile.Name = "buttonChooseProxyConfigurationFile";
-            this.buttonChooseProxyConfigurationFile.Size = new System.Drawing.Size(93, 20);
+            this.buttonChooseProxyConfigurationFile.Size = new System.Drawing.Size(82, 20);
             this.buttonChooseProxyConfigurationFile.TabIndex = 99;
             this.buttonChooseProxyConfigurationFile.Text = "Choose file...";
             this.buttonChooseProxyConfigurationFile.UseVisualStyleBackColor = true;
             this.buttonChooseProxyConfigurationFile.Click += new System.EventHandler(this.buttonChooseProxyConfigurationFile_Click);
-            // 
-            // labelIfYourNetworkAdministrator
-            // 
-            this.labelIfYourNetworkAdministrator.AutoSize = true;
-            this.labelIfYourNetworkAdministrator.Location = new System.Drawing.Point(300, 72);
-            this.labelIfYourNetworkAdministrator.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelIfYourNetworkAdministrator.Name = "labelIfYourNetworkAdministrator";
-            this.labelIfYourNetworkAdministrator.Size = new System.Drawing.Size(571, 13);
-            this.labelIfYourNetworkAdministrator.TabIndex = 98;
-            this.labelIfYourNetworkAdministrator.Text = "If your network administrator provided you with the address of an automatic proxy" +
-    " configuration (.pac) file, enter it above.";
             // 
             // labelProxyConfigurationFileURL
             // 
@@ -3721,6 +3711,21 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
+            // textBoxIfYourNetworkAdministrator
+            // 
+            this.textBoxIfYourNetworkAdministrator.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxIfYourNetworkAdministrator.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxIfYourNetworkAdministrator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxIfYourNetworkAdministrator.Location = new System.Drawing.Point(303, 54);
+            this.textBoxIfYourNetworkAdministrator.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxIfYourNetworkAdministrator.Multiline = true;
+            this.textBoxIfYourNetworkAdministrator.Name = "textBoxIfYourNetworkAdministrator";
+            this.textBoxIfYourNetworkAdministrator.ReadOnly = true;
+            this.textBoxIfYourNetworkAdministrator.Size = new System.Drawing.Size(285, 30);
+            this.textBoxIfYourNetworkAdministrator.TabIndex = 111;
+            this.textBoxIfYourNetworkAdministrator.Text = "If your network administrator provided you with the address of an automatic proxy" +
+    " configuration (.pac) file, enter it above.";
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3997,7 +4002,6 @@
         private System.Windows.Forms.Label labelAutoProxyConfigurationURL;
         private System.Windows.Forms.TextBox textBoxAutoProxyConfigurationURL;
         private System.Windows.Forms.Label labelProxyConfigurationFileURL;
-        private System.Windows.Forms.Label labelIfYourNetworkAdministrator;
         private System.Windows.Forms.Button buttonChooseProxyConfigurationFile;
         private System.Windows.Forms.Button buttonSaveSettingsAs;
         private System.Windows.Forms.Button buttonOpenSettings;
@@ -4077,6 +4081,7 @@
         private System.Windows.Forms.CheckBox checkBoxIgnoreExitKeys;
         private System.Windows.Forms.CheckBox checkBoxEnablePrintScreen;
         private System.Windows.Forms.CheckBox checkBoxPermittedProcessStrongKill;
+        private System.Windows.Forms.TextBox textBoxIfYourNetworkAdministrator;
 
     }
 }

@@ -2393,10 +2393,9 @@ namespace SebWindowsConfig
             Boolean useProxyServer       = (SEBSettings.proxyProtocolIndex  > IntProxyAutoConfiguration);
 
             // Enable the proxy widgets belonging to Auto Configuration
-            labelAutoProxyConfigurationURL .Visible = useAutoConfiguration;
-            labelProxyConfigurationFileURL .Visible = useAutoConfiguration;
-            labelIfYourNetworkAdministrator.Visible = useAutoConfiguration;
-
+               labelAutoProxyConfigurationURL .Visible = useAutoConfiguration;
+               labelProxyConfigurationFileURL .Visible = useAutoConfiguration;
+             textBoxIfYourNetworkAdministrator.Visible = useAutoConfiguration;
              textBoxAutoProxyConfigurationURL .Visible = useAutoConfiguration;
             buttonChooseProxyConfigurationFile.Visible = useAutoConfiguration;
 
