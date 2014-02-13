@@ -537,7 +537,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyExecutable , "xulrunner.exe");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyPath       , "../xulrunner/");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyIdentifier , "XULRunner");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyArguments  , permittedArgumentListXulRunner);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyArguments  , new ListObj());
 
             // Default settings for permitted process data
             SEBSettings.permittedProcessDataDefault.Clear();
