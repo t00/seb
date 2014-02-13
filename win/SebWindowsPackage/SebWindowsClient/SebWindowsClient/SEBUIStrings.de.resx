@@ -118,147 +118,147 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="certificateNotFoundInStore" xml:space="preserve">
-    <value>The certificate needed to decrypt settings has not been found in the Windows certificate store. </value>
+    <value>Das zum Entschlüsseln der Einstellungen notwendige Zertifikat wurde nicht im Windows Zertifikatsspeicher gefunden.</value>
   </data>
   <data name="closeProcesses" xml:space="preserve">
-    <value>Permitted Processes Are Aleady Running</value>
+    <value>Zugelassene Prozesse laufen bereits</value>
   </data>
   <data name="closeProcessesQuestion" xml:space="preserve">
-    <value>The processes below are already running, they need to be closed before starting the exam. Do you want to close those processes now (this may lead to loss of data!)? Otherwise SEB will quit and you can close those applications yourself before trying to start the exam again.</value>
+    <value>Die untenstehenden Applikationen/Prozesse laufen bereits, sie müssen geschlossen werden, bevor die Prüfung gestartet wird. Wollen Sie diese Prozesse nun beenden (dies kann zu Datenverlust führen!)? Ansonsten wird SEB geschlossen und sie können diese Applikationen selber beenden, bevor Sie die Prüfung erneut starten.</value>
   </data>
   <data name="confirmQuitting" xml:space="preserve">
-    <value>Quit Safe Exam Browser</value>
+    <value>Safe Exam Browser beenden</value>
   </data>
   <data name="confirmQuittingQuestion" xml:space="preserve">
-    <value>Are you sure you want to quit SEB?</value>
+    <value>SEB wirklich beenden?</value>
   </data>
   <data name="createNewDesktopFailed" xml:space="preserve">
-    <value>Creating New Desktop Failed</value>
+    <value>Öffnen des neuen Desktops fehlgeschlagen</value>
   </data>
   <data name="createNewDesktopFailedReason" xml:space="preserve">
-    <value>SetThreadDesktop failed! Looks like the thread has hooks or windows in the current desktop.</value>
+    <value>Befehl "SetThreadDesktop" fehlgeschlagen: "Looks like the thread has hooks or windows in the current desktop."</value>
   </data>
   <data name="decryptingSettingsFailed" xml:space="preserve">
-    <value>Cannot Decrypt Settings</value>
+    <value>Einstellungen konnten nicht entschlüsselt werden</value>
   </data>
   <data name="decryptingSettingsFailedReason" xml:space="preserve">
-    <value>You either entered the wrong password or these settings were saved with an incompatible SEB version.</value>
+    <value>Sie haben entweder das falsche Passwort eingegeben oder diese Einstellungen wurden mit einer inkompatiblen SEB-Version gespeichert.</value>
   </data>
   <data name="detectedVirtualMachine" xml:space="preserve">
-    <value>Virtual Machine Detected</value>
+    <value>Virtuelle Maschine erkannt</value>
   </data>
   <data name="detectedVirtualMachineForbiddenMessage" xml:space="preserve">
-    <value>It is not allowed to run SEB on a virtual machine! SEB will quit now.</value>
+    <value>SEB darf nicht auf einer virtuellen Maschine ausgeführt werden! SEB wird jetzt beendet.</value>
   </data>
   <data name="enterAdminPasswordRequired" xml:space="preserve">
-    <value>Enter the SEB administrator password used in these settings:</value>
+    <value>In diesen Einstellungen benutztes SEB-Administrator-Passwort eingeben:</value>
   </data>
   <data name="enterAdminPasswordRequiredAgain" xml:space="preserve">
-    <value>Wrong password! Try again to enter the correct SEB administrator password from these settings:</value>
+    <value>Falsches Passwort! In diesen Einstellungen benutztes SEB-Administrator-Passwort erneut eingeben:</value>
   </data>
   <data name="enterCurrentAdminPwdForReconfiguring" xml:space="preserve">
-    <value>You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):</value>
+    <value>SEB kann nur umkonfiguriert werden, wenn das aktuelle SEB-Administrator-Passwort eingegeben wird (weil dieses nach der Installation von SEB geändert wurde):</value>
   </data>
   <data name="enterCurrentAdminPwdForReconfiguringAgain" xml:space="preserve">
-    <value>Wrong password! Try again to enter the correct current SEB administrator password:</value>
+    <value>Falsches Passwort! SEB-Administrator-Passwort erneut eingeben:</value>
   </data>
   <data name="enterEncryptionPassword" xml:space="preserve">
-    <value>Enter password used to encrypt these settings:</value>
+    <value>Für die Verschlüsselung dieser Einstellungen benutztes Passwort eingeben:</value>
   </data>
   <data name="enterEncryptionPasswordAgain" xml:space="preserve">
-    <value>Wrong password! Try again to enter the correct password used to encrypt these settings:</value>
+    <value>Falsches Passwort! Für die Verschlüsselung dieser Einstellungen benutztes Passwort erneut eingeben:</value>
   </data>
   <data name="enterPassword" xml:space="preserve">
-    <value>Enter password:</value>
+    <value>Passwort eingeben:</value>
   </data>
   <data name="enterPasswordAgain" xml:space="preserve">
-    <value>Wrong password! Try again to enter the correct password:</value>
+    <value>Falsches Passwort! Passwort erneut eingeben:</value>
   </data>
   <data name="errorDecryptingSettings" xml:space="preserve">
-    <value>Error Decrypting Settings</value>
+    <value>Fehler beim Entschlüsseln der Einstellungen</value>
   </data>
   <data name="forceSebServiceMessage" xml:space="preserve">
-    <value>SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter. The exam cannot be started, SEB will quit now.</value>
+    <value>Der SEB-Windows-Dienst läuft nicht oder die SEB-Installation wurde beschädigt. Möglicherweise hilft ein Neustart des Rechners oder eine Neuinstallation von SEB. Informieren Sie Ihren Prüfungs-Administrator/Supporter. Die Prüfung kann nicht gestartet werden, SEB wird beendet.</value>
   </data>
   <data name="indicateMissingService" xml:space="preserve">
-    <value>SEB Windows Service Not Available</value>
+    <value>SEB-Windows-Dienst nicht verfügbar</value>
   </data>
   <data name="indicateMissingServiceReason" xml:space="preserve">
-    <value>SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter. </value>
+    <value>Der SEB-Windows-Dienst läuft nicht oder die SEB-Installation wurde beschädigt. Möglicherweise hilft ein Neustart des Rechners oder eine Neuinstallation von SEB. Informieren Sie Ihren Prüfungs-Administrator/Supporter. </value>
   </data>
   <data name="loadingSettings" xml:space="preserve">
-    <value>Loading Settings</value>
+    <value>Einstellungen werden geladen</value>
   </data>
   <data name="loadingSettingsFailed" xml:space="preserve">
-    <value>Loading Settings Failed</value>
+    <value>Laden der Einstellungen fehlgeschlagen</value>
   </data>
   <data name="loadingSettingsFailedReason" xml:space="preserve">
-    <value>These settings are corrupted and cannot be used.</value>
+    <value>Diese Einstellungen sind beschädigt und können nicht verwendet werden.</value>
   </data>
   <data name="loadingSettingsFailedWrongAdminPwd" xml:space="preserve">
-    <value>If you don't enter the right administrator password from these settings you cannot open them.</value>
+    <value>Ohne das richtige Administrator-Passwort können diese Einstellungen nicht geöffnet werden.</value>
   </data>
   <data name="loadingSettingsNotAllowed" xml:space="preserve">
-    <value>Loading New SEB Settings Not Allowed!</value>
+    <value>Laden von neuen SEB-Einstellungen nicht erlaubt!</value>
   </data>
   <data name="loadingSettingsNotAllowedReason" xml:space="preserve">
-    <value>SEB is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam and quit SEB before starting another exam.</value>
+    <value>SEB läuft bereits im Prüfungsmodus und es ist nicht erlaubt, dies mittels Starten einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfung und schliessen Sie SEB, bevor Sie eine andere Prüfung starten.</value>
   </data>
   <data name="locatePermittedApplication" xml:space="preserve">
-    <value>Locate Third Party Application</value>
+    <value>Drittapplikation suchen</value>
   </data>
   <data name="noEncryptionChosen" xml:space="preserve">
-    <value>No Encryption Credentials Chosen</value>
+    <value>Keine Verschlüsselung ausgewählt</value>
   </data>
   <data name="noEncryptionChosenSaveUnencrypted" xml:space="preserve">
-    <value>You should either enter a password or choose a certificate to encrypt the settings file. Do you really want to save an unencrypted SEB file (not recommended for use in exams)?</value>
+    <value>Sie sollten entweder ein Passwort oder ein Zertifikat verwenden, um die Einstellungen zu verschlüsseln. Wollen Sie wirklich eine unverschlüsselte SEB-Einstellungsdatei speichern (für Prüfungseinsatz nicht empfohlen)?</value>
   </data>
   <data name="permittedApplicationNotFound" xml:space="preserve">
-    <value>Third Party Application Not Found</value>
+    <value>Drittapplikation nicht gefunden</value>
   </data>
   <data name="permittedApplicationNotFoundMessage" xml:space="preserve">
-    <value>The permitted application %s wasn't found on this system. If exam settings don't indicate a precise path, SEB can find applications installed in the Program Files or Windows System directory and those which are registered in the system.</value>
+    <value>Die zugelassene Applikation %s wurde auf diesem System nicht gefunden. Wenn in den Prüfungseinstellungen kein exakter Dateipfad angegeben ist, kann SEB Applikationen im Programme oder Windows Systemverzeichnis finden, und solche, die im System registriert sind.</value>
   </data>
   <data name="quittingFailed" xml:space="preserve">
-    <value>Wrong Password: Quitting SEB Failed</value>
+    <value>Schliessen von SEB fehlgeschlagen: Falsches Passwort</value>
   </data>
   <data name="quittingFailedReason" xml:space="preserve">
-    <value>You can only quit SEB by entering the correct quit password. Ask your exam supporter for the correct password. DO NOT RESET YOUR MACHINE! This may have undesired effects on your system's settings (see www.safeexambrowser.org/faq).</value>
+    <value>SEB kann nur nach Eingabe des korrekten Passworts geschlossen werden. Fragen Sie Ihren Prüfungs-Supporter nach dem Passwort. FÜHREN SIE KEINEN NEUSTART/RESET DURCH! Dies könnte unerwünschte Effekte auf Ihre Systemeinstellungen haben (siehe www.safeexambrowser.org/faq).</value>
   </data>
   <data name="reconfiguringLocalSettings" xml:space="preserve">
-    <value>Opening Settings for Reconfiguring Client</value>
+    <value>Einstellungen zum Neu-Konfigurieren des Clients öffnen</value>
   </data>
   <data name="reconfiguringLocalSettingsFailed" xml:space="preserve">
-    <value>Opening Settings for Reconfiguring Client Failed</value>
+    <value>Öffnen der Einstellungen zum Neu-Konfigurieren des Clients fehlgeschlagen!</value>
   </data>
   <data name="reconfiguringLocalSettingsFailedWrongAdminPwd" xml:space="preserve">
-    <value>If you don't enter the right administrator password from these settings you cannot use them.</value>
+    <value>Ohne das richtige Administrator-Passwort aus diesen Einstellungen können diese nicht verwendet werden.</value>
   </data>
   <data name="reconfiguringLocalSettingsFailedWrongPassword" xml:space="preserve">
-    <value>If you don't enter the correct password these settings were encrypted with, you cannot use them.</value>
+    <value>Ohne das korrekte Passwort, mit dem diese Einstellungen verschlüsselt wurden, können diese nicht verwendet werden.</value>
   </data>
   <data name="sebReconfigured" xml:space="preserve">
-    <value>SEB Re-Configured</value>
+    <value>SEB neu konfiguriert</value>
   </data>
   <data name="sebReconfiguredQuestion" xml:space="preserve">
-    <value>Local client settings of SEB have been reconfigured. Do you want to start working with SEB now? (clicking "No" will quit SEB)</value>
+    <value>Die lokalen Client-Einstellungen von SEB wurden neu konfiguriert. Wollen Sie mit nun mit SEB arbeiten? ("Nein" beendet SEB)</value>
   </data>
   <data name="sebReconfiguredRestartNeeded" xml:space="preserve">
-    <value>SEB Needs to be Restarted</value>
+    <value>SEB muss neu gestartet werden</value>
   </data>
   <data name="sebReconfiguredRestartNeededReason" xml:space="preserve">
-    <value>Local settings of SEB have been reconfigured, but it needs to be restarted for the changed "Create New Desktop" setting to take effect. SEB will quit now, please restart it manually.</value>
+    <value>Die lokalen Client-Einstellungen von SEB wurden neu konfiguriert, aber wegen der geänderten "Create New Desktop"-Einstellung ist ein Neustart notwendig. SEB wird beendet, bitte manuell neu starten.</value>
   </data>
   <data name="settingsNotUsable" xml:space="preserve">
-    <value>Opening New Settings Failed</value>
+    <value>Öffnen der neuen Einstellungen fehlgeschlagen</value>
   </data>
   <data name="settingsNotUsableReason" xml:space="preserve">
-    <value>These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.</value>
+    <value>Diese Einstellungen können nicht benutzt werden. Sie wurden möglicherweise mit einer neueren, inkompatiblen Version von SEB erstellt oder sie sind beschädigt.</value>
   </data>
   <data name="settingsRequireNewDesktop" xml:space="preserve">
-    <value>Settings Require New Desktop</value>
+    <value>Einstellungen verlangen neuen Desktop</value>
   </data>
   <data name="settingsRequireNewDesktopReason" xml:space="preserve">
-    <value>The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the "Create New Desktop" parameter set. SEB will quit now.</value>
+    <value>Die geöffneten Prüfungseinstellungen verlangen das Öffnen eines neuen Desktops, aber momentan läuf SEB auf dem Standard-Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern ("Create New Desktop"-Parameter gesetzt). SEB wird jetzt beendet.</value>
   </data>
 </root>
