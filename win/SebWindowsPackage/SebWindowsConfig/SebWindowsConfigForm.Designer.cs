@@ -729,7 +729,6 @@
             this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableShutDown);
             this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableEaseOfAccess);
             this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableVmWareClientShade);
-            this.groupBoxOutsideSeb.Enabled = false;
             this.groupBoxOutsideSeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxOutsideSeb.Location = new System.Drawing.Point(226, 28);
             this.groupBoxOutsideSeb.Margin = new System.Windows.Forms.Padding(2);
@@ -841,6 +840,7 @@
             this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonInsideValuesManually);
             this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonPreviousValuesFromFile);
             this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonEnvironmentValues);
+            this.groupBoxSetOutsideSebValues.Enabled = false;
             this.groupBoxSetOutsideSebValues.Location = new System.Drawing.Point(226, 262);
             this.groupBoxSetOutsideSebValues.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSetOutsideSebValues.Name = "groupBoxSetOutsideSebValues";
@@ -1375,6 +1375,7 @@
             // 
             // comboBoxChooseIdentityToEmbed
             // 
+            this.comboBoxChooseIdentityToEmbed.Enabled = false;
             this.comboBoxChooseIdentityToEmbed.FormattingEnabled = true;
             this.comboBoxChooseIdentityToEmbed.Location = new System.Drawing.Point(19, 91);
             this.comboBoxChooseIdentityToEmbed.Margin = new System.Windows.Forms.Padding(2);
@@ -1411,6 +1412,7 @@
             this.dataGridViewEmbeddedCertificates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewComboBoxColumnType,
             this.dataGridViewTextBoxColumnName});
+            this.dataGridViewEmbeddedCertificates.Enabled = false;
             this.dataGridViewEmbeddedCertificates.Location = new System.Drawing.Point(19, 131);
             this.dataGridViewEmbeddedCertificates.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewEmbeddedCertificates.Name = "dataGridViewEmbeddedCertificates";
@@ -1601,6 +1603,7 @@
             this.dataGridViewBypassedProxies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewBypassedProxies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumnDomainHostPort});
+            this.dataGridViewBypassedProxies.Enabled = false;
             this.dataGridViewBypassedProxies.Location = new System.Drawing.Point(19, 325);
             this.dataGridViewBypassedProxies.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewBypassedProxies.Name = "dataGridViewBypassedProxies";
@@ -2645,7 +2648,7 @@
             this.listBoxChooseFileToUploadPolicy.Location = new System.Drawing.Point(25, 227);
             this.listBoxChooseFileToUploadPolicy.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxChooseFileToUploadPolicy.Name = "listBoxChooseFileToUploadPolicy";
-            this.listBoxChooseFileToUploadPolicy.Size = new System.Drawing.Size(234, 43);
+            this.listBoxChooseFileToUploadPolicy.Size = new System.Drawing.Size(348, 43);
             this.listBoxChooseFileToUploadPolicy.TabIndex = 76;
             this.listBoxChooseFileToUploadPolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUploadPolicy_SelectedIndexChanged);
             // 
@@ -2747,7 +2750,7 @@
             // labelUseSEBWithoutBrowser
             // 
             this.labelUseSEBWithoutBrowser.AutoSize = true;
-            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(198, 329);
+            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(201, 351);
             this.labelUseSEBWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUseSEBWithoutBrowser.Name = "labelUseSEBWithoutBrowser";
             this.labelUseSEBWithoutBrowser.Size = new System.Drawing.Size(436, 13);
@@ -2759,7 +2762,7 @@
             // 
             this.checkBoxBlockPopUpWindows.AutoSize = true;
             this.checkBoxBlockPopUpWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxBlockPopUpWindows.Location = new System.Drawing.Point(170, 301);
+            this.checkBoxBlockPopUpWindows.Location = new System.Drawing.Point(200, 300);
             this.checkBoxBlockPopUpWindows.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBlockPopUpWindows.Name = "checkBoxBlockPopUpWindows";
             this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(163, 17);
@@ -2772,7 +2775,7 @@
             // 
             this.checkBoxAllowBrowsingBackForward.AutoSize = true;
             this.checkBoxAllowBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(365, 279);
+            this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(23, 320);
             this.checkBoxAllowBrowsingBackForward.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
             this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(163, 17);
@@ -2785,7 +2788,7 @@
             // 
             this.checkBoxEnableJavaScript.AutoSize = true;
             this.checkBoxEnableJavaScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(170, 279);
+            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(200, 280);
             this.checkBoxEnableJavaScript.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
             this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(142, 17);
@@ -2798,7 +2801,7 @@
             // 
             this.checkBoxEnableJava.AutoSize = true;
             this.checkBoxEnableJava.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableJava.Location = new System.Drawing.Point(23, 301);
+            this.checkBoxEnableJava.Location = new System.Drawing.Point(23, 300);
             this.checkBoxEnableJava.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJava.Name = "checkBoxEnableJava";
             this.checkBoxEnableJava.Size = new System.Drawing.Size(115, 17);
@@ -2811,7 +2814,7 @@
             // 
             this.checkBoxEnablePlugIns.AutoSize = true;
             this.checkBoxEnablePlugIns.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnablePlugIns.Location = new System.Drawing.Point(23, 279);
+            this.checkBoxEnablePlugIns.Location = new System.Drawing.Point(23, 280);
             this.checkBoxEnablePlugIns.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePlugIns.Name = "checkBoxEnablePlugIns";
             this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(128, 17);
@@ -2823,7 +2826,7 @@
             // checkBoxUseSebWithoutBrowser
             // 
             this.checkBoxUseSebWithoutBrowser.AutoSize = true;
-            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 328);
+            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 350);
             this.checkBoxUseSebWithoutBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
             this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(185, 17);
