@@ -210,8 +210,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxMonitorProcesses = new System.Windows.Forms.CheckBox();
             this.tabPageExam = new System.Windows.Forms.TabPage();
-            this.labelPlaceThisQuitLink = new System.Windows.Forms.Label();
-            this.labelCopyBrowserExamKey = new System.Windows.Forms.Label();
             this.labelBrowserExamKey = new System.Windows.Forms.Label();
             this.textBoxBrowserExamKey = new System.Windows.Forms.TextBox();
             this.textBoxQuitURL = new System.Windows.Forms.TextBox();
@@ -307,6 +305,8 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -2483,8 +2483,8 @@
             // 
             // tabPageExam
             // 
-            this.tabPageExam.Controls.Add(this.labelPlaceThisQuitLink);
-            this.tabPageExam.Controls.Add(this.labelCopyBrowserExamKey);
+            this.tabPageExam.Controls.Add(this.textBox2);
+            this.tabPageExam.Controls.Add(this.textBox1);
             this.tabPageExam.Controls.Add(this.labelBrowserExamKey);
             this.tabPageExam.Controls.Add(this.textBoxBrowserExamKey);
             this.tabPageExam.Controls.Add(this.textBoxQuitURL);
@@ -2500,32 +2500,6 @@
             this.tabPageExam.TabIndex = 18;
             this.tabPageExam.Text = "Exam";
             this.tabPageExam.UseVisualStyleBackColor = true;
-            // 
-            // labelPlaceThisQuitLink
-            // 
-            this.labelPlaceThisQuitLink.AutoSize = true;
-            this.labelPlaceThisQuitLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlaceThisQuitLink.Location = new System.Drawing.Point(22, 262);
-            this.labelPlaceThisQuitLink.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelPlaceThisQuitLink.Name = "labelPlaceThisQuitLink";
-            this.labelPlaceThisQuitLink.Size = new System.Drawing.Size(786, 13);
-            this.labelPlaceThisQuitLink.TabIndex = 81;
-            this.labelPlaceThisQuitLink.Text = "Place this quit link to the \"feedback\" page displayed after an exam was successfu" +
-    "lly finished. Clicking that link will quit SEB without having to enter the quit " +
-    "password.";
-            // 
-            // labelCopyBrowserExamKey
-            // 
-            this.labelCopyBrowserExamKey.AutoSize = true;
-            this.labelCopyBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCopyBrowserExamKey.Location = new System.Drawing.Point(22, 82);
-            this.labelCopyBrowserExamKey.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelCopyBrowserExamKey.Name = "labelCopyBrowserExamKey";
-            this.labelCopyBrowserExamKey.Size = new System.Drawing.Size(767, 13);
-            this.labelCopyBrowserExamKey.TabIndex = 80;
-            this.labelCopyBrowserExamKey.Text = "Copy this key (which depends on your SEB configuration) to the according field in" +
-    " your quiz settings in the exam system having support for SEB 2.0 or later built" +
-    " in.";
             // 
             // labelBrowserExamKey
             // 
@@ -2553,7 +2527,7 @@
             this.textBoxQuitURL.Location = new System.Drawing.Point(24, 234);
             this.textBoxQuitURL.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxQuitURL.Name = "textBoxQuitURL";
-            this.textBoxQuitURL.Size = new System.Drawing.Size(402, 19);
+            this.textBoxQuitURL.Size = new System.Drawing.Size(526, 19);
             this.textBoxQuitURL.TabIndex = 76;
             this.textBoxQuitURL.TextChanged += new System.EventHandler(this.textBoxQuitURL_TextChanged);
             // 
@@ -2572,7 +2546,7 @@
             // 
             this.checkBoxSendBrowserExamKey.AutoSize = true;
             this.checkBoxSendBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxSendBrowserExamKey.Location = new System.Drawing.Point(24, 143);
+            this.checkBoxSendBrowserExamKey.Location = new System.Drawing.Point(25, 152);
             this.checkBoxSendBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxSendBrowserExamKey.Name = "checkBoxSendBrowserExamKey";
             this.checkBoxSendBrowserExamKey.Size = new System.Drawing.Size(221, 17);
@@ -2585,7 +2559,7 @@
             // 
             this.checkBoxCopyBrowserExamKey.AutoSize = true;
             this.checkBoxCopyBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopyBrowserExamKey.Location = new System.Drawing.Point(50, 113);
+            this.checkBoxCopyBrowserExamKey.Location = new System.Drawing.Point(49, 122);
             this.checkBoxCopyBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCopyBrowserExamKey.Name = "checkBoxCopyBrowserExamKey";
             this.checkBoxCopyBrowserExamKey.Size = new System.Drawing.Size(431, 17);
@@ -2744,7 +2718,7 @@
             // labelUseSEBWithoutBrowser
             // 
             this.labelUseSEBWithoutBrowser.AutoSize = true;
-            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(201, 351);
+            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(45, 369);
             this.labelUseSEBWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUseSEBWithoutBrowser.Name = "labelUseSEBWithoutBrowser";
             this.labelUseSEBWithoutBrowser.Size = new System.Drawing.Size(436, 13);
@@ -2887,7 +2861,7 @@
             this.groupBoxNewBrowserWindow.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxNewBrowserWindow.Name = "groupBoxNewBrowserWindow";
             this.groupBoxNewBrowserWindow.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxNewBrowserWindow.Size = new System.Drawing.Size(664, 90);
+            this.groupBoxNewBrowserWindow.Size = new System.Drawing.Size(460, 90);
             this.groupBoxNewBrowserWindow.TabIndex = 58;
             this.groupBoxNewBrowserWindow.TabStop = false;
             this.groupBoxNewBrowserWindow.Text = "New browser window size and position";
@@ -3013,7 +2987,7 @@
             this.groupBoxMainBrowserWindow.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxMainBrowserWindow.Name = "groupBoxMainBrowserWindow";
             this.groupBoxMainBrowserWindow.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxMainBrowserWindow.Size = new System.Drawing.Size(664, 90);
+            this.groupBoxMainBrowserWindow.Size = new System.Drawing.Size(460, 90);
             this.groupBoxMainBrowserWindow.TabIndex = 57;
             this.groupBoxMainBrowserWindow.TabStop = false;
             this.groupBoxMainBrowserWindow.Text = "Main browser window size and position";
@@ -3717,6 +3691,38 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(24, 257);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(456, 30);
+            this.textBox1.TabIndex = 113;
+            this.textBox1.Text = "Place this quit link to the \"feedback\" page displayed after an exam was successfu" +
+    "lly finished. Clicking that link will quit SEB without having to enter the quit " +
+    "password.";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(24, 79);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(474, 30);
+            this.textBox2.TabIndex = 114;
+            this.textBox2.Text = "Copy this key (which depends on your SEB configuration) to the according field in" +
+    " your quiz settings in the exam system having support for SEB 2.0 or later built" +
+    " in.";
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3858,8 +3864,6 @@
         private System.Windows.Forms.CheckBox checkBoxAllowSwitchToApplications;
         private System.Windows.Forms.CheckBox checkBoxMonitorProcesses;
         private System.Windows.Forms.TabPage tabPageExam;
-        private System.Windows.Forms.Label labelPlaceThisQuitLink;
-        private System.Windows.Forms.Label labelCopyBrowserExamKey;
         private System.Windows.Forms.Label labelBrowserExamKey;
         private System.Windows.Forms.TextBox textBoxBrowserExamKey;
         private System.Windows.Forms.TextBox textBoxQuitURL;
@@ -4072,6 +4076,8 @@
         private System.Windows.Forms.CheckBox checkBoxEnablePrintScreen;
         private System.Windows.Forms.CheckBox checkBoxPermittedProcessStrongKill;
         private System.Windows.Forms.TextBox textBoxIfYourNetworkAdministrator;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
 
     }
 }
