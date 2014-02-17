@@ -314,9 +314,9 @@ namespace SebWindowsClient.CryptographyUtils
         public static string ComputePasswordHash(string input)
         {
             HashAlgorithm algorithm = new SHA256Managed();
-            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
 
-            Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
+            byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
 
             string pswdHash = BitConverter.ToString(hashedBytes);
 
