@@ -3411,7 +3411,7 @@
             // 
             this.checkBoxIgnoreExitKeys.AutoSize = true;
             this.checkBoxIgnoreExitKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(46, 204);
+            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(46, 229);
             this.checkBoxIgnoreExitKeys.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnoreExitKeys.Name = "checkBoxIgnoreExitKeys";
             this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
@@ -3425,7 +3425,7 @@
             this.labelQuitPasswordCompare.AutoSize = true;
             this.labelQuitPasswordCompare.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuitPasswordCompare.ForeColor = System.Drawing.Color.Red;
-            this.labelQuitPasswordCompare.Location = new System.Drawing.Point(330, 233);
+            this.labelQuitPasswordCompare.Location = new System.Drawing.Point(176, 326);
             this.labelQuitPasswordCompare.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitPasswordCompare.Name = "labelQuitPasswordCompare";
             this.labelQuitPasswordCompare.Size = new System.Drawing.Size(124, 13);
@@ -3439,7 +3439,7 @@
             this.labelAdminPasswordCompare.AutoSize = true;
             this.labelAdminPasswordCompare.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAdminPasswordCompare.ForeColor = System.Drawing.Color.Red;
-            this.labelAdminPasswordCompare.Location = new System.Drawing.Point(330, 133);
+            this.labelAdminPasswordCompare.Location = new System.Drawing.Point(176, 155);
             this.labelAdminPasswordCompare.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAdminPasswordCompare.Name = "labelAdminPasswordCompare";
             this.labelAdminPasswordCompare.Size = new System.Drawing.Size(124, 13);
@@ -3455,11 +3455,11 @@
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey3);
             this.groupBoxExitSequence.Controls.Add(this.listBoxExitKey2);
             this.groupBoxExitSequence.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxExitSequence.Location = new System.Drawing.Point(552, 98);
+            this.groupBoxExitSequence.Location = new System.Drawing.Point(387, 106);
             this.groupBoxExitSequence.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxExitSequence.Name = "groupBoxExitSequence";
             this.groupBoxExitSequence.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxExitSequence.Size = new System.Drawing.Size(120, 195);
+            this.groupBoxExitSequence.Size = new System.Drawing.Size(120, 218);
             this.groupBoxExitSequence.TabIndex = 53;
             this.groupBoxExitSequence.TabStop = false;
             this.groupBoxExitSequence.Text = "Exit Sequence";
@@ -3502,7 +3502,7 @@
             this.checkBoxIgnoreQuitPassword.AutoSize = true;
             this.checkBoxIgnoreQuitPassword.Enabled = false;
             this.checkBoxIgnoreQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(46, 183);
+            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(46, 208);
             this.checkBoxIgnoreQuitPassword.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnoreQuitPassword.Name = "checkBoxIgnoreQuitPassword";
             this.checkBoxIgnoreQuitPassword.Size = new System.Drawing.Size(124, 17);
@@ -3539,7 +3539,7 @@
             // textBoxConfirmAdminPassword
             // 
             this.textBoxConfirmAdminPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfirmAdminPassword.Location = new System.Drawing.Point(333, 112);
+            this.textBoxConfirmAdminPassword.Location = new System.Drawing.Point(179, 132);
             this.textBoxConfirmAdminPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxConfirmAdminPassword.Name = "textBoxConfirmAdminPassword";
             this.textBoxConfirmAdminPassword.PasswordChar = '●';
@@ -3551,7 +3551,7 @@
             // textBoxAdminPassword
             // 
             this.textBoxAdminPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAdminPassword.Location = new System.Drawing.Point(333, 89);
+            this.textBoxAdminPassword.Location = new System.Drawing.Point(179, 106);
             this.textBoxAdminPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAdminPassword.Name = "textBoxAdminPassword";
             this.textBoxAdminPassword.PasswordChar = '●';
@@ -3563,7 +3563,7 @@
             // textBoxConfirmQuitPassword
             // 
             this.textBoxConfirmQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfirmQuitPassword.Location = new System.Drawing.Point(333, 212);
+            this.textBoxConfirmQuitPassword.Location = new System.Drawing.Point(179, 305);
             this.textBoxConfirmQuitPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxConfirmQuitPassword.Name = "textBoxConfirmQuitPassword";
             this.textBoxConfirmQuitPassword.PasswordChar = '●';
@@ -3575,7 +3575,7 @@
             // textBoxQuitPassword
             // 
             this.textBoxQuitPassword.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuitPassword.Location = new System.Drawing.Point(333, 189);
+            this.textBoxQuitPassword.Location = new System.Drawing.Point(179, 282);
             this.textBoxQuitPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxQuitPassword.Name = "textBoxQuitPassword";
             this.textBoxQuitPassword.PasswordChar = '●';
@@ -3596,7 +3596,7 @@
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Location = new System.Drawing.Point(273, 312);
+            this.buttonHelp.Location = new System.Drawing.Point(227, 384);
             this.buttonHelp.Margin = new System.Windows.Forms.Padding(2);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(56, 19);
@@ -3608,7 +3608,7 @@
             // 
             // buttonQuit
             // 
-            this.buttonQuit.Location = new System.Drawing.Point(451, 312);
+            this.buttonQuit.Location = new System.Drawing.Point(356, 384);
             this.buttonQuit.Margin = new System.Windows.Forms.Padding(2);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(56, 19);
@@ -3619,7 +3619,7 @@
             // 
             // buttonAbout
             // 
-            this.buttonAbout.Location = new System.Drawing.Point(81, 312);
+            this.buttonAbout.Location = new System.Drawing.Point(90, 384);
             this.buttonAbout.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAbout.Name = "buttonAbout";
             this.buttonAbout.Size = new System.Drawing.Size(56, 19);
@@ -3633,7 +3633,7 @@
             // 
             this.labelConfirmAdminPassword.AutoSize = true;
             this.labelConfirmAdminPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmAdminPassword.Location = new System.Drawing.Point(174, 112);
+            this.labelConfirmAdminPassword.Location = new System.Drawing.Point(17, 133);
             this.labelConfirmAdminPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmAdminPassword.Name = "labelConfirmAdminPassword";
             this.labelConfirmAdminPassword.Size = new System.Drawing.Size(152, 13);
@@ -3644,7 +3644,7 @@
             // 
             this.labelAdminPassword.AutoSize = true;
             this.labelAdminPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdminPassword.Location = new System.Drawing.Point(212, 89);
+            this.labelAdminPassword.Location = new System.Drawing.Point(54, 112);
             this.labelAdminPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAdminPassword.Name = "labelAdminPassword";
             this.labelAdminPassword.Size = new System.Drawing.Size(115, 13);
@@ -3655,7 +3655,7 @@
             // 
             this.labelConfirmQuitPassword.AutoSize = true;
             this.labelConfirmQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(218, 216);
+            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(17, 306);
             this.labelConfirmQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
             this.labelConfirmQuitPassword.Size = new System.Drawing.Size(110, 13);
@@ -3665,7 +3665,7 @@
             // checkBoxAllowQuit
             // 
             this.checkBoxAllowQuit.AutoSize = true;
-            this.checkBoxAllowQuit.Location = new System.Drawing.Point(46, 161);
+            this.checkBoxAllowQuit.Location = new System.Drawing.Point(46, 187);
             this.checkBoxAllowQuit.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowQuit.Name = "checkBoxAllowQuit";
             this.checkBoxAllowQuit.Size = new System.Drawing.Size(130, 17);
@@ -3678,7 +3678,7 @@
             // 
             this.labelQuitPassword.AutoSize = true;
             this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitPassword.Location = new System.Drawing.Point(255, 189);
+            this.labelQuitPassword.Location = new System.Drawing.Point(54, 289);
             this.labelQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitPassword.Name = "labelQuitPassword";
             this.labelQuitPassword.Size = new System.Drawing.Size(74, 13);
