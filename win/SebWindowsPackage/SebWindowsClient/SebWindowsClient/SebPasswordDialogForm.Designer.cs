@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebPasswordDialogForm));
             this.txtSEBPassword = new System.Windows.Forms.MaskedTextBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -36,50 +37,37 @@
             // 
             // txtSEBPassword
             // 
-            this.txtSEBPassword.Location = new System.Drawing.Point(12, 55);
+            resources.ApplyResources(this.txtSEBPassword, "txtSEBPassword");
             this.txtSEBPassword.Name = "txtSEBPassword";
             this.txtSEBPassword.PasswordChar = '●';
-            this.txtSEBPassword.Size = new System.Drawing.Size(325, 20);
-            this.txtSEBPassword.TabIndex = 0;
             // 
             // btnOk
             // 
+            resources.ApplyResources(this.btnOk, "btnOk");
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(94, 91);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 1;
-            this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(180, 91);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblSEBPassword
             // 
-            this.lblSEBPassword.AutoSize = true;
-            this.lblSEBPassword.Location = new System.Drawing.Point(15, 20);
-            this.lblSEBPassword.MaximumSize = new System.Drawing.Size(325, 30);
+            resources.ApplyResources(this.lblSEBPassword, "lblSEBPassword");
             this.lblSEBPassword.Name = "lblSEBPassword";
-            this.lblSEBPassword.Size = new System.Drawing.Size(0, 13);
-            this.lblSEBPassword.TabIndex = 3;
             // 
             // SebPasswordDialogForm
             // 
             this.AcceptButton = this.btnOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(349, 136);
             this.ControlBox = false;
             this.Controls.Add(this.lblSEBPassword);
             this.Controls.Add(this.btnCancel);
@@ -89,8 +77,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SebPasswordDialogForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Reconfiguring Local SEB Settings";
             this.ResumeLayout(false);
             this.PerformLayout();
 

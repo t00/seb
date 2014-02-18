@@ -220,10 +220,10 @@
     <value>Die zugelassene Applikation %s wurde auf diesem System nicht gefunden. Wenn in den Prüfungseinstellungen kein exakter Dateipfad angegeben ist, kann SEB Applikationen im Programme oder Windows Systemverzeichnis finden, und solche, die im System registriert sind.</value>
   </data>
   <data name="quittingFailed" xml:space="preserve">
-    <value>Schliessen von SEB fehlgeschlagen: Falsches Passwort</value>
+    <value>Beenden von SEB fehlgeschlagen: Falsches Passwort</value>
   </data>
   <data name="quittingFailedReason" xml:space="preserve">
-    <value>SEB kann nur nach Eingabe des korrekten Passworts geschlossen werden. Fragen Sie Ihren Prüfungs-Supporter nach dem Passwort. FÜHREN SIE KEINEN NEUSTART/RESET DURCH! Dies könnte unerwünschte Effekte auf Ihre Systemeinstellungen haben (siehe www.safeexambrowser.org/faq).</value>
+    <value>SEB kann nur nach Eingabe des korrekten Passworts beendet werden. Fragen Sie Ihren Prüfungs-Supporter nach dem Passwort. FÜHREN SIE KEINEN NEUSTART/RESET DURCH! Dies könnte unerwünschte Effekte auf Ihre Systemeinstellungen haben (siehe www.safeexambrowser.org/faq).</value>
   </data>
   <data name="reconfiguringLocalSettings" xml:space="preserve">
     <value>Einstellungen zum Neu-Konfigurieren des Clients öffnen</value>

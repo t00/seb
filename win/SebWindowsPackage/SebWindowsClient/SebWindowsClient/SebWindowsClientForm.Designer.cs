@@ -51,45 +51,30 @@ namespace SebWindowsClient
             // 
             // quitButton
             // 
-            this.quitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.quitButton, "quitButton");
             this.quitButton.BackColor = System.Drawing.Color.Gainsboro;
-            this.quitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.quitButton.CausesValidation = false;
             this.quitButton.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
             this.quitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.quitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.quitButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.quitButton.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.quitButton.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.quitButton.Location = new System.Drawing.Point(788, 9);
             this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(100, 23);
-            this.quitButton.TabIndex = 5;
-            this.quitButton.Text = "Quit";
             this.quitButton.UseVisualStyleBackColor = false;
             this.quitButton.Click += new System.EventHandler(this.noSelectButton1_Click);
             // 
             // taskbarToolStrip
             // 
-            this.taskbarToolStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.taskbarToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            resources.ApplyResources(this.taskbarToolStrip, "taskbarToolStrip");
             this.taskbarToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.taskbarToolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.taskbarToolStrip.Location = new System.Drawing.Point(0, 15);
             this.taskbarToolStrip.Name = "taskbarToolStrip";
-            this.taskbarToolStrip.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.taskbarToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.taskbarToolStrip.Size = new System.Drawing.Size(896, 25);
-            this.taskbarToolStrip.TabIndex = 3;
-            this.taskbarToolStrip.Text = "taskbarToolStrip";
             // 
             // SebWindowsClientForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(896, 40);
             this.ControlBox = false;
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.taskbarToolStrip);
@@ -99,7 +84,6 @@ namespace SebWindowsClient
             this.MinimizeBox = false;
             this.Name = "SebWindowsClientForm";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsClientForm_FormClosing);
             this.Load += new System.EventHandler(this.SebWindowsClientForm_Load);
