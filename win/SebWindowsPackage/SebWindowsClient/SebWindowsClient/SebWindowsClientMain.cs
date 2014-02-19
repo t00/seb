@@ -116,6 +116,11 @@ namespace SebWindowsClient
 
         public static bool sessionCreateNewDesktop;
 
+        // Volatile is used as hint to the compiler that this data 
+        // member will be accessed by multiple threads. 
+        private volatile static bool _loadingSebFile = false;
+        public static bool clientSettingsSet { get; set; }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -131,6 +136,14 @@ namespace SebWindowsClient
                 singleInstanceController = new SingleInstanceController();
                 singleInstanceController.Run(arguments);
             }
+        }
+
+        /// <summary>
+        /// Set loading .seb file flag.
+        /// </summary>
+        public static void LoadingSebFile(bool loading)
+        {
+            _loadingSebFile = loading;
         }
 
 
@@ -217,12 +230,18 @@ namespace SebWindowsClient
             //SebWindowsClientForm.SetVisibility(true);
             //SEBErrorMessages.OutputErrorMessageNew("Test", "Test, ob das Öffnen einer Message-Box createNewDesktop verunmöglicht.", SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
 
-            // Set SebClient configuration
-            if (!SEBClientInfo.SetSebClientConfiguration())
+            // If loading of a .seb file isn't in progress and client settings aren't set yet
+            if (_loadingSebFile == false && clientSettingsSet == false)
             {
-                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
-                Logger.AddError("Error when opening the file SebClientSettings.seb!", null, null);
-                return false;
+                // Set SebClient configuration
+                if (!SEBClientInfo.SetSebClientConfiguration())
+                {
+                    SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                    Logger.AddError("Error when opening the file SebClientSettings.seb!", null, null);
+                    return false;
+                }
+                SebWindowsClientMain.clientSettingsSet = true;
+                Logger.AddError("SEB client configuration set in InitSebSettings().", null, null);
             }
 
             // Check system version

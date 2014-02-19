@@ -281,7 +281,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             setSebClientConfiguration = true;
             
-            // Write settings in log
+            // Write settings into log
             StringBuilder userInfo =
                 new StringBuilder ("User Name: "                   ).Append(UserName)
                           .Append(" Host Name: "                   ).Append(HostName)                         

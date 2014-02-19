@@ -1374,7 +1374,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 try
                 {
                     // Decrypt the configuration settings.
-                    // Convert the XML structure into a C# object.
+                    // Convert the XML structure into a C# dictionary object.
 
                     settingsDict = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(sebSettings, false, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
                     if (settingsDict == null)

@@ -135,6 +135,17 @@ namespace SebWindowsClient
         }
         public void LoadFile(string file)
         {
+            SebWindowsClientMain.LoadingSebFile(true);
+            // Check if client settings were already set
+            if (SebWindowsClientMain.clientSettingsSet == false)
+            {
+                // We need to set the client settings first
+                if (SEBClientInfo.SetSebClientConfiguration())
+                {
+                    SebWindowsClientMain.clientSettingsSet = true;
+                    Logger.AddError("SEB client configuration set in LoadFile(URI).", null, null);
+                }
+            }
             byte[] sebSettings = null;
             Uri uri;
             try
@@ -143,7 +154,8 @@ namespace SebWindowsClient
             }
             catch (Exception ex)
             {
-                Logger.AddError("SEB was opened with a wrong parameter", this, ex, ex.Message); 
+                Logger.AddError("SEB was opened with a wrong parameter", this, ex, ex.Message);
+                SebWindowsClientMain.LoadingSebFile(false);
                 return;
             }
             // Check if we're running in exam mode already, if yes, then refuse to load a .seb file
@@ -151,6 +163,7 @@ namespace SebWindowsClient
             {
                 //SEBClientInfo.SebWindowsClientForm.Activate();
                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsNotAllowed, SEBUIStrings.loadingSettingsNotAllowedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                SebWindowsClientMain.LoadingSebFile(false);
                 return;
             }
 
@@ -184,14 +197,20 @@ namespace SebWindowsClient
                 {
                     // Write error into string with temporary log string builder
                     Logger.AddError("Settings could not be read from file.", this, streamReadException, streamReadException.Message);
+                    SebWindowsClientMain.LoadingSebFile(false);
                     return;
                 }
             }
             // If some settings got loaded in the end
-            if (sebSettings == null) return;
+            if (sebSettings == null)
+            {
+                SebWindowsClientMain.LoadingSebFile(false);
+                return;
+            } 
 
             // Decrypt, parse and store new settings and restart SEB if this was successfull
             SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
+            SebWindowsClientMain.LoadingSebFile(false);
         }
 
 
@@ -259,8 +278,16 @@ namespace SebWindowsClient
         {
 
             //xulRunnerExitEventHandled = true;
-            xulRunnerExitCode = xulRunner.ExitCode;
-            xulRunnerExitTime = xulRunner.ExitTime;
+            if (xulRunner != null)
+            {
+                xulRunnerExitCode = xulRunner.ExitCode;
+                xulRunnerExitTime = xulRunner.ExitTime;
+            }
+            else
+            {
+                xulRunnerExitCode = 0;
+               // xulRunnerExitTime = ;
+            }
             if (xulRunnerExitCode != 0)
             {
                 // An error occured when exiting XULRunner, maybe it crashed?
