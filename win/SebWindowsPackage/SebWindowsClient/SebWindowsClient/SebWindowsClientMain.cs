@@ -42,6 +42,23 @@ namespace SebWindowsClient
         void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
         {
             SebWindowsClientForm form = MainForm as SebWindowsClientForm; //My derived form type
+            string es = string.Join(", ", e.CommandLine);
+            Logger.AddError("StartupNextInstanceEventArgs: " + es, null, null);
+
+            try
+            {
+                if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null && AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData != null && AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData.Length > 0)
+                {
+                    string[] activationData = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
+                    string ads = string.Join(", ", activationData);
+                    Logger.AddError("Activation Data: " + ads, null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("Could not get ActivationArguments.ActivationData. ", null, ex);
+            }
+
             form.LoadFile(e.CommandLine[1]);
         }
 
