@@ -159,6 +159,17 @@ namespace SebWindowsConfig
         // Global Variables for GUI widgets
         // ********************************
 
+        // Prevent double events from switching to false process index
+        static Boolean ignoreCellEventPermittedProcessesActive     = false;
+        static Boolean ignoreCellEventPermittedProcessesOS         = false;
+        static Boolean ignoreCellEventPermittedProcessesExecutable = false;
+        static Boolean ignoreCellEventPermittedProcessesTitle      = false;
+
+        static Boolean ignoreCellEventProhibitedProcessesActive      = false;
+        static Boolean ignoreCellEventProhibitedProcessesOS          = false;
+        static Boolean ignoreCellEventProhibitedProcessesExecutable  = false;
+        static Boolean ignoreCellEventProhibitedProcessesDescription = false;
+
         // The current SEB configuration file
         static String currentDireSebConfigFile;
         static String currentFileSebConfigFile;
@@ -238,6 +249,12 @@ namespace SebWindowsConfig
         // *****************************************************************
         private void InitialiseGlobalVariablesForGUIWidgets()
         {
+
+            SEBSettings.   permittedProcessIndex = 0;
+            SEBSettings.  prohibitedProcessIndex = 0;
+            SEBSettings.embeddedCertificateIndex = 0;
+            SEBSettings.      bypassedProxyIndex = 0;
+
             // Define the strings for the Encryption Identity
             StringCryptoIdentity.Add("none");
             StringCryptoIdentity.Add("alpha");
