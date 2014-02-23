@@ -132,20 +132,6 @@ namespace SebWindowsClient
             string es = string.Join(", ", args);
             Logger.AddError("OnLoad EventArgs: " + es, null, null);
 
-            try
-            {
-                if (AppDomain.CurrentDomain.SetupInformation.ActivationArguments != null && AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData != null && AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData.Length > 0)
-                {
-                    string[] activationData = AppDomain.CurrentDomain.SetupInformation.ActivationArguments.ActivationData;
-                    string ads = string.Join(", ", activationData);
-                    Logger.AddError("Activation Data: " + ads, null, null);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.AddError("Could not get ActivationArguments.ActivationData. ", null, ex);
-            }
-
             if (args.Length > 1)
             {
                 LoadFile(args[1]);
@@ -298,8 +284,17 @@ namespace SebWindowsClient
             //xulRunnerExitEventHandled = true;
             if (xulRunner != null)
             {
-                xulRunnerExitCode = xulRunner.ExitCode;
-                xulRunnerExitTime = xulRunner.ExitTime;
+                try
+                {
+                    xulRunnerExitCode = xulRunner.ExitCode;
+                    xulRunnerExitTime = xulRunner.ExitTime;
+                }
+                catch (Exception ex)
+                {
+                    xulRunnerExitCode = 0;
+                    // An error occured when reading exit code, probably XULRunner didn't actually exit yet
+                    Logger.AddError("Error reading XULRunner exit code!", this, ex);
+                }
             }
             else
             {
