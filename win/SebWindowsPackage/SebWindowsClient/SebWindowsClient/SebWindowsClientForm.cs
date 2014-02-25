@@ -139,82 +139,85 @@ namespace SebWindowsClient
         }
         public void LoadFile(string file)
         {
-            SebWindowsClientMain.LoadingSebFile(true);
-            // Check if client settings were already set
-            if (SebWindowsClientMain.clientSettingsSet == false)
+            if (!SebWindowsClientMain.isLoadingSebFile())
             {
-                // We need to set the client settings first
-                if (SEBClientInfo.SetSebClientConfiguration())
+                SebWindowsClientMain.LoadingSebFile(true);
+                // Check if client settings were already set
+                if (SebWindowsClientMain.clientSettingsSet == false)
                 {
-                    SebWindowsClientMain.clientSettingsSet = true;
-                    Logger.AddError("SEB client configuration set in LoadFile(URI).", null, null);
-                }
-            }
-            byte[] sebSettings = null;
-            Uri uri;
-            try
-            {
-                uri = new Uri(file);
-            }
-            catch (Exception ex)
-            {
-                Logger.AddError("SEB was opened with a wrong parameter", this, ex, ex.Message);
-                SebWindowsClientMain.LoadingSebFile(false);
-                return;
-            }
-            // Check if we're running in exam mode already, if yes, then refuse to load a .seb file
-            if (SEBClientInfo.examMode)
-            {
-                //SEBClientInfo.SebWindowsClientForm.Activate();
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsNotAllowed, SEBUIStrings.loadingSettingsNotAllowedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                SebWindowsClientMain.LoadingSebFile(false);
-                return;
-            }
-
-            if (uri.Scheme == "seb")
-            {
-                // The URI is holding a seb:// web address for a .seb settings file: download it
-                WebClient myWebClient = new WebClient();
-                // Try first by http
-                UriBuilder httpURL = new UriBuilder("http", uri.Host, uri.Port, uri.AbsolutePath);
-                using (myWebClient)
-                {
-                    sebSettings = myWebClient.DownloadData(httpURL.Uri);
-                }
-                if (sebSettings == null)
-                {
-                    // Nothing got downloaded: Try by https
-                    UriBuilder httpsURL = new UriBuilder("https", uri.Host, uri.Port, uri.AbsolutePath);
-                    using (myWebClient)
+                    // We need to set the client settings first
+                    if (SEBClientInfo.SetSebClientConfiguration())
                     {
-                        sebSettings = myWebClient.DownloadData(httpsURL.Uri);
+                        SebWindowsClientMain.clientSettingsSet = true;
+                        Logger.AddError("SEB client configuration set in LoadFile(URI).", null, null);
                     }
                 }
-            }
-            else if (uri.IsFile)
-            {
+                byte[] sebSettings = null;
+                Uri uri;
                 try
                 {
-                    sebSettings = File.ReadAllBytes(file);
+                    uri = new Uri(file);
                 }
-                catch (Exception streamReadException)
+                catch (Exception ex)
                 {
-                    // Write error into string with temporary log string builder
-                    Logger.AddError("Settings could not be read from file.", this, streamReadException, streamReadException.Message);
+                    Logger.AddError("SEB was opened with a wrong parameter", this, ex, ex.Message);
                     SebWindowsClientMain.LoadingSebFile(false);
                     return;
                 }
-            }
-            // If some settings got loaded in the end
-            if (sebSettings == null)
-            {
-                SebWindowsClientMain.LoadingSebFile(false);
-                return;
-            } 
+                // Check if we're running in exam mode already, if yes, then refuse to load a .seb file
+                if (SEBClientInfo.examMode)
+                {
+                    //SEBClientInfo.SebWindowsClientForm.Activate();
+                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsNotAllowed, SEBUIStrings.loadingSettingsNotAllowedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    SebWindowsClientMain.LoadingSebFile(false);
+                    return;
+                }
 
-            // Decrypt, parse and store new settings and restart SEB if this was successfull
-            SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
-            SebWindowsClientMain.LoadingSebFile(false);
+                if (uri.Scheme == "seb")
+                {
+                    // The URI is holding a seb:// web address for a .seb settings file: download it
+                    WebClient myWebClient = new WebClient();
+                    // Try first by http
+                    UriBuilder httpURL = new UriBuilder("http", uri.Host, uri.Port, uri.AbsolutePath);
+                    using (myWebClient)
+                    {
+                        sebSettings = myWebClient.DownloadData(httpURL.Uri);
+                    }
+                    if (sebSettings == null)
+                    {
+                        // Nothing got downloaded: Try by https
+                        UriBuilder httpsURL = new UriBuilder("https", uri.Host, uri.Port, uri.AbsolutePath);
+                        using (myWebClient)
+                        {
+                            sebSettings = myWebClient.DownloadData(httpsURL.Uri);
+                        }
+                    }
+                }
+                else if (uri.IsFile)
+                {
+                    try
+                    {
+                        sebSettings = File.ReadAllBytes(file);
+                    }
+                    catch (Exception streamReadException)
+                    {
+                        // Write error into string with temporary log string builder
+                        Logger.AddError("Settings could not be read from file.", this, streamReadException, streamReadException.Message);
+                        SebWindowsClientMain.LoadingSebFile(false);
+                        return;
+                    }
+                }
+                // If some settings got loaded in the end
+                if (sebSettings == null)
+                {
+                    SebWindowsClientMain.LoadingSebFile(false);
+                    return;
+                }
+
+                // Decrypt, parse and store new settings and restart SEB if this was successfull
+                SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
+                SebWindowsClientMain.LoadingSebFile(false);
+            }
         }
 
 

@@ -151,6 +151,15 @@ namespace SebWindowsClient
 
 
         /// <summary>
+        /// Get loading .seb file flag.
+        /// </summary>
+        public static bool isLoadingSebFile()
+        {
+            return _loadingSebFile;
+        }
+
+
+        /// <summary>
         /// Detect if running in various virtual machines.
         /// C# code only solution which is more compatible.
         /// </summary>
