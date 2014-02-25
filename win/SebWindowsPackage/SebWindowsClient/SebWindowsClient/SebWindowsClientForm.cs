@@ -250,7 +250,7 @@ namespace SebWindowsClient
                 // Create the path to xulrunner.exe plus all arguments
                 StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
                 // Create all arguments, including user defined
-                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append(".\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\"");
+                StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append("\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\"");
                 // Check if there is a user defined -profile parameter, otherwise use the standard one 
                 if (!(userDefinedArguments.ToLower()).Contains("-profile"))
                     xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"");
@@ -258,6 +258,7 @@ namespace SebWindowsClient
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
                 xulRunnerPath = xulRunnerPathBuilder.ToString();
+                Logger.AddError("Starting XULRunner with call: " + xulRunnerPath, this, null);
 
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
@@ -280,24 +281,28 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private void xulRunner_Exited(object sender, System.EventArgs e)
         {
+            Logger.AddError("XULRunner exit event fired.", this, null);
 
             //xulRunnerExitEventHandled = true;
+            // Is the handle for the XULRunner process valid?
             if (xulRunner != null)
             {
                 try
                 {
+                    // Read the exit code. Strange enough this often fails in Windows 8.1
                     xulRunnerExitCode = xulRunner.ExitCode;
                     xulRunnerExitTime = xulRunner.ExitTime;
                 }
                 catch (Exception ex)
                 {
-                    xulRunnerExitCode = 0;
+                    xulRunnerExitCode = -1;
                     // An error occured when reading exit code, probably XULRunner didn't actually exit yet
                     Logger.AddError("Error reading XULRunner exit code!", this, ex);
                 }
             }
             else
             {
+                // The XULRunner process didn't exist anymore
                 xulRunnerExitCode = 0;
                // xulRunnerExitTime = ;
             }
@@ -311,7 +316,11 @@ namespace SebWindowsClient
             else
             {
                 // If the flag for closing SEB is set, we exit
-                if (SEBClientInfo.SebWindowsClientForm.closeSebClient) Application.Exit();
+                if (SEBClientInfo.SebWindowsClientForm.closeSebClient)
+                {
+                    Logger.AddError("XULRunner was closed, SEB will exit now.", this, null);
+                    Application.Exit();
+                }
             }
 
         }
@@ -357,6 +366,7 @@ namespace SebWindowsClient
                                     bool strongKill = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
                                     if (strongKill)
                                     {
+                                        Logger.AddError("Closing already running permitted process with strongKill flag set: " + runningApplications[j].ProcessName, null, null);
                                         SEBNotAllowedProcessController.CloseProcess(runningApplications[j]);
                                     }
                                     else

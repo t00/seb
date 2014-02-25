@@ -105,15 +105,19 @@ namespace SebWindowsClient.ProcessUtils
                     {
                         if (processToClose != null && !processToClose.HasExited)
                         {
+                            string name = processToClose.ProcessName;
                             // Close process by sending a close message to its main window.
                             processToClose.CloseMainWindow();
+                            Logger.AddError("Send CloseMainWindow to process " + name, null, null); 
                             // Free resources associated with process.
                             if (!processToClose.HasExited)
                                 // If process still hasn't exited, we kill it
                                 processToClose.Kill();
+                            Logger.AddError("Killed process " + name, null, null); 
                             // and we can free the process information memory of a definitely closed process
                             // if it's not the XULRunner process
-                            if (processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner) processToClose.Close();
+                            //if (processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner) 
+                            processToClose.Close();
                         }
                     }
                     catch (Exception ex)
