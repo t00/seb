@@ -1316,6 +1316,45 @@ namespace SebWindowsConfig
         }
 
 
+        private void dataGridViewPermittedProcesses_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            // Get the current cell where the user has changed a value
+            int row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
+            int column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
+
+            // At the beginning, row = -1 and column = -1, so skip this event
+            if (row    < 0) return;
+            if (column < 0) return;
+
+            // Get the changed value of the current cell
+            object value = dataGridViewPermittedProcesses.CurrentCell.EditedFormattedValue;
+
+            // Convert the selected "OS" ListBox entry from String to Integer
+            if (column == IntColumnProcessOS)
+            {
+                     if ((String)value == StringOSX) value = IntOSX;
+                else if ((String)value == StringWin) value = IntWin;
+            }
+
+            // Get the process data of the process belonging to the current row
+            SEBSettings.permittedProcessIndex = row;
+            SEBSettings.permittedProcessList  = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData  = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
+
+            // Update the process data belonging to the current cell
+            if (column == IntColumnProcessActive    ) SEBSettings.permittedProcessData[SEBSettings.KeyActive    ] = (Boolean)value;
+            if (column == IntColumnProcessOS        ) SEBSettings.permittedProcessData[SEBSettings.KeyOS        ] = (Int32  )value;
+            if (column == IntColumnProcessExecutable) SEBSettings.permittedProcessData[SEBSettings.KeyExecutable] = (String )value;
+            if (column == IntColumnProcessTitle     ) SEBSettings.permittedProcessData[SEBSettings.KeyTitle     ] = (String )value;
+
+            // Update the widget belonging to the current cell (in "Selected Process" group)
+            if (column == IntColumnProcessActive    ) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
+            if (column == IntColumnProcessOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
+            if (column == IntColumnProcessExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
+            if (column == IntColumnProcessTitle     )  textBoxPermittedProcessTitle     .Text  = (String )value;
+        }
+
+
         private void dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
