@@ -1318,6 +1318,7 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+/*
             // Get the current cell where the user has changed a value
             int row    = dataGridViewPermittedProcesses.CurrentCellAddress.Y;
             int column = dataGridViewPermittedProcesses.CurrentCellAddress.X;
@@ -1352,6 +1353,7 @@ namespace SebWindowsConfig
             if (column == IntColumnProcessOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnProcessExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
             if (column == IntColumnProcessTitle     )  textBoxPermittedProcessTitle     .Text  = (String )value;
+*/
         }
 
 
