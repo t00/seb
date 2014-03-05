@@ -170,6 +170,16 @@ namespace SebWindowsConfig
         static Boolean ignoreCellEventProhibitedProcessesExecutable  = false;
         static Boolean ignoreCellEventProhibitedProcessesDescription = false;
 
+        static Boolean ignoreWidgetEventPermittedProcessesActive     = false;
+        static Boolean ignoreWidgetEventPermittedProcessesOS         = false;
+        static Boolean ignoreWidgetEventPermittedProcessesExecutable = false;
+        static Boolean ignoreWidgetEventPermittedProcessesTitle      = false;
+
+        static Boolean ignoreWidgetEventProhibitedProcessesActive      = false;
+        static Boolean ignoreWidgetEventProhibitedProcessesOS          = false;
+        static Boolean ignoreWidgetEventProhibitedProcessesExecutable  = false;
+        static Boolean ignoreWidgetEventProhibitedProcessesDescription = false;
+
         // The current SEB configuration file
         static String currentDireSebConfigFile;
         static String currentFileSebConfigFile;

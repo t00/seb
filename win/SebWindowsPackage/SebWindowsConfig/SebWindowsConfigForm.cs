@@ -1369,6 +1369,7 @@ namespace SebWindowsConfig
 
         private void dataGridViewPermittedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+
             // Prevent double events from switching to false process index
             if (ignoreCellEventPermittedProcessesActive == true)
             {
@@ -1423,7 +1424,16 @@ namespace SebWindowsConfig
             if (column == IntColumnProcessExecutable) SEBSettings.permittedProcessData[SEBSettings.KeyExecutable] = (String )value;
             if (column == IntColumnProcessTitle     ) SEBSettings.permittedProcessData[SEBSettings.KeyTitle     ] = (String )value;
 
-            // Update the widget belonging to the current cell (in "Selected Process" group)
+            // Beware double events:
+            // when a cell has been edited, update its corresponding widget in "Selected Process" group,
+            // but prevent the following "widget changed" event from firing the "cell changed" event once more!
+            if (column == IntColumnProcessActive    ) ignoreWidgetEventPermittedProcessesActive     = true;
+            if (column == IntColumnProcessOS        ) ignoreWidgetEventPermittedProcessesOS         = true;
+            if (column == IntColumnProcessExecutable) ignoreWidgetEventPermittedProcessesExecutable = true;
+            if (column == IntColumnProcessTitle     ) ignoreWidgetEventPermittedProcessesTitle      = true;
+
+            // In "Selected Process" group: update the widget belonging to the current cell
+            // (this will fire the corresponding "widget changed" event).
             if (column == IntColumnProcessActive    ) checkBoxPermittedProcessActive.Checked   = (Boolean)value;
             if (column == IntColumnProcessOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnProcessExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
@@ -1516,14 +1526,21 @@ namespace SebWindowsConfig
 
         private void checkBoxPermittedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventPermittedProcessesActive == true)
+            {
+                ignoreWidgetEventPermittedProcessesActive = false;
+                return;
+            }
             if (SEBSettings.permittedProcessIndex < 0) return;
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyActive] = checkBoxPermittedProcessActive.Checked;
             Boolean                                         active  = checkBoxPermittedProcessActive.Checked;
-            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
             ignoreCellEventPermittedProcessesActive = true;
+            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
         }
+
 
         private void checkBoxPermittedProcessAutostart_CheckedChanged(object sender, EventArgs e)
         {
@@ -1560,25 +1577,39 @@ namespace SebWindowsConfig
 
         private void listBoxPermittedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventPermittedProcessesOS == true)
+            {
+                ignoreWidgetEventPermittedProcessesOS = false;
+                return;
+            }
             if (SEBSettings.permittedProcessIndex < 0) return;
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyOS] = listBoxPermittedProcessOS.SelectedIndex;
             Int32                                           os  = listBoxPermittedProcessOS.SelectedIndex;
-            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
             ignoreCellEventPermittedProcessesOS = true;
+            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
         }
+
 
         private void textBoxPermittedProcessTitle_TextChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventPermittedProcessesTitle == true)
+            {
+                ignoreWidgetEventPermittedProcessesTitle = false;
+                return;
+            }
             if (SEBSettings.permittedProcessIndex < 0) return;
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyTitle] = textBoxPermittedProcessTitle.Text;
             String                                          title  = textBoxPermittedProcessTitle.Text;
-            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessTitle].Value = title;
             ignoreCellEventPermittedProcessesTitle = true;
+            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessTitle].Value = title;
         }
+
 
         private void textBoxPermittedProcessDescription_TextChanged(object sender, EventArgs e)
         {
@@ -1588,16 +1619,24 @@ namespace SebWindowsConfig
             SEBSettings.permittedProcessData[SEBSettings.KeyDescription] = textBoxPermittedProcessDescription.Text;
         }
 
+
         private void textBoxPermittedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventPermittedProcessesExecutable == true)
+            {
+                ignoreWidgetEventPermittedProcessesExecutable = false;
+                return;
+            }
             if (SEBSettings.permittedProcessIndex < 0) return;
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyExecutable] = textBoxPermittedProcessExecutable.Text;
             String                                          executable  = textBoxPermittedProcessExecutable.Text;
-            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
             ignoreCellEventPermittedProcessesExecutable = true;
+            dataGridViewPermittedProcesses.Rows[SEBSettings.permittedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
         }
+
 
         private void textBoxPermittedProcessPath_TextChanged(object sender, EventArgs e)
         {
@@ -1810,6 +1849,7 @@ namespace SebWindowsConfig
 
         private void dataGridViewProhibitedProcesses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+
             // Prevent double events from switching to false process index
             if (ignoreCellEventProhibitedProcessesActive == true)
             {
@@ -1864,7 +1904,16 @@ namespace SebWindowsConfig
             if (column == IntColumnProcessExecutable ) SEBSettings.prohibitedProcessData[SEBSettings.KeyExecutable ] = (String )value;
             if (column == IntColumnProcessDescription) SEBSettings.prohibitedProcessData[SEBSettings.KeyDescription] = (String )value;
 
-            // Update the widget belonging to the current cell (in "Selected Process" group)
+            // Beware double events:
+            // when a cell has been edited, update its corresponding widget in "Selected Process" group,
+            // but prevent the following "widget changed" event from firing the "cell changed" event once more!
+            if (column == IntColumnProcessActive     ) ignoreWidgetEventProhibitedProcessesActive      = true;
+            if (column == IntColumnProcessOS         ) ignoreWidgetEventProhibitedProcessesOS          = true;
+            if (column == IntColumnProcessExecutable ) ignoreWidgetEventProhibitedProcessesExecutable  = true;
+            if (column == IntColumnProcessDescription) ignoreWidgetEventProhibitedProcessesDescription = true;
+
+            // In "Selected Process" group: update the widget belonging to the current cell
+            // (this will fire the corresponding "widget changed" event).
             if (column == IntColumnProcessActive     ) checkBoxProhibitedProcessActive.Checked   = (Boolean)value;
             if (column == IntColumnProcessOS         )  listBoxProhibitedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnProcessExecutable )  textBoxProhibitedProcessExecutable .Text = (String )value;
@@ -1953,14 +2002,21 @@ namespace SebWindowsConfig
 
         private void checkBoxProhibitedProcessActive_CheckedChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventProhibitedProcessesActive == true)
+            {
+                ignoreWidgetEventProhibitedProcessesActive = false;
+                return;
+            }
             if (SEBSettings.prohibitedProcessIndex < 0) return;
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyActive] = checkBoxProhibitedProcessActive.Checked;
             Boolean                                          active  = checkBoxProhibitedProcessActive.Checked;
-            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
             ignoreCellEventProhibitedProcessesActive = true;
+            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessActive].Value = active.ToString();
         }
+
 
         private void checkBoxProhibitedProcessCurrentUser_CheckedChanged(object sender, EventArgs e)
         {
@@ -1978,38 +2034,60 @@ namespace SebWindowsConfig
             SEBSettings.prohibitedProcessData[SEBSettings.KeyStrongKill] = checkBoxProhibitedProcessStrongKill.Checked;
         }
 
+
         private void listBoxProhibitedProcessOS_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventProhibitedProcessesOS == true)
+            {
+                ignoreWidgetEventProhibitedProcessesOS = false;
+                return;
+            }
             if (SEBSettings.prohibitedProcessIndex < 0) return;
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyOS] = listBoxProhibitedProcessOS.SelectedIndex;
             Int32                                            os  = listBoxProhibitedProcessOS.SelectedIndex;
-            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
             ignoreCellEventProhibitedProcessesOS = true;
+            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessOS].Value = StringOS[os];
         }
+
 
         private void textBoxProhibitedProcessExecutable_TextChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventProhibitedProcessesExecutable == true)
+            {
+                ignoreWidgetEventProhibitedProcessesExecutable = false;
+                return;
+            }
             if (SEBSettings.prohibitedProcessIndex < 0) return;
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyExecutable] = textBoxProhibitedProcessExecutable.Text;
             String                                           executable  = textBoxProhibitedProcessExecutable.Text;
-            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
             ignoreCellEventProhibitedProcessesExecutable = true;
+            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessExecutable].Value = executable;
         }
+
 
         private void textBoxProhibitedProcessDescription_TextChanged(object sender, EventArgs e)
         {
+            // Prevent double events from switching to false process index
+            if (ignoreWidgetEventProhibitedProcessesDescription == true)
+            {
+                ignoreWidgetEventProhibitedProcessesDescription = false;
+                return;
+            }
             if (SEBSettings.prohibitedProcessIndex < 0) return;
             SEBSettings.prohibitedProcessList = (ListObj)SEBSettings.settingsCurrent      [SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData = (DictObj)SEBSettings.prohibitedProcessList[SEBSettings.prohibitedProcessIndex];
             SEBSettings.prohibitedProcessData[SEBSettings.KeyDescription] = textBoxProhibitedProcessDescription.Text;
             String                                           description  = textBoxProhibitedProcessDescription.Text;
-            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessDescription].Value = description;
             ignoreCellEventProhibitedProcessesDescription = true;
+            dataGridViewProhibitedProcesses.Rows[SEBSettings.prohibitedProcessIndex].Cells[IntColumnProcessDescription].Value = description;
         }
+
 
         private void textBoxProhibitedProcessIdentifier_TextChanged(object sender, EventArgs e)
         {
