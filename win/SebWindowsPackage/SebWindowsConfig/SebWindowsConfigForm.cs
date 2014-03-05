@@ -1238,6 +1238,14 @@ namespace SebWindowsConfig
             SEBSettings.permittedProcessData  = (DictObj)SEBSettings.permittedProcessList[selectedProcessIndex];
             SEBSettings.permittedArgumentList = (ListObj)SEBSettings.permittedProcessData[SEBSettings.KeyArguments];
 
+            // Beware double events:
+            // Update the widgets in "Selected Process" group,
+            // but prevent the following "widget changed" event from firing the "cell changed" event once more!
+            ignoreWidgetEventPermittedProcessesActive     = true;
+            ignoreWidgetEventPermittedProcessesOS         = true;
+            ignoreWidgetEventPermittedProcessesExecutable = true;
+            ignoreWidgetEventPermittedProcessesTitle      = true;
+
             // Update the widgets in the "Selected Process" group
             checkBoxPermittedProcessActive    .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyActive];
             checkBoxPermittedProcessAutostart .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAutostart];
@@ -1277,6 +1285,14 @@ namespace SebWindowsConfig
 
         private void ClearPermittedSelectedProcessGroup()
         {
+            // Beware double events:
+            // Update the widgets in "Selected Process" group,
+            // but prevent the following "widget changed" event from firing the "cell changed" event once more!
+            ignoreWidgetEventPermittedProcessesActive     = true;
+            ignoreWidgetEventPermittedProcessesOS         = true;
+            ignoreWidgetEventPermittedProcessesExecutable = true;
+            ignoreWidgetEventPermittedProcessesTitle      = true;
+
             // Clear the widgets in the "Selected Process" group
             checkBoxPermittedProcessActive    .Checked = true;
             checkBoxPermittedProcessAutostart .Checked = true;
@@ -1791,6 +1807,14 @@ namespace SebWindowsConfig
             SEBSettings.prohibitedProcessList  = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyProhibitedProcesses];
             SEBSettings.prohibitedProcessData  = (DictObj)SEBSettings.prohibitedProcessList[selectedProcessIndex];
 
+            // Beware double events:
+            // Update the widgets in "Selected Process" group,
+            // but prevent the following "widget changed" event from firing the "cell changed" event once more!
+            ignoreWidgetEventProhibitedProcessesActive      = true;
+            ignoreWidgetEventProhibitedProcessesOS          = true;
+            ignoreWidgetEventProhibitedProcessesExecutable  = true;
+            ignoreWidgetEventProhibitedProcessesDescription = true;
+
             // Update the widgets in the "Selected Process" group
             checkBoxProhibitedProcessActive     .Checked = (Boolean)SEBSettings.prohibitedProcessData[SEBSettings.KeyActive];
             checkBoxProhibitedProcessCurrentUser.Checked = (Boolean)SEBSettings.prohibitedProcessData[SEBSettings.KeyCurrentUser];
@@ -1805,6 +1829,14 @@ namespace SebWindowsConfig
 
         private void ClearProhibitedSelectedProcessGroup()
         {
+            // Beware double events:
+            // Update the widgets in "Selected Process" group,
+            // but prevent the following "widget changed" event from firing the "cell changed" event once more!
+            ignoreWidgetEventProhibitedProcessesActive      = true;
+            ignoreWidgetEventProhibitedProcessesOS          = true;
+            ignoreWidgetEventProhibitedProcessesExecutable  = true;
+            ignoreWidgetEventProhibitedProcessesDescription = true;
+
             // Clear the widgets in the "Selected Process" group
             checkBoxProhibitedProcessActive     .Checked = true;
             checkBoxProhibitedProcessCurrentUser.Checked = true;
