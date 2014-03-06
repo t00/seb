@@ -26,8 +26,8 @@ namespace SebWindowsConfig
 {
     public partial class SebWindowsConfigForm : Form
     {
-        public bool adminPasswordFieldsContainHash = false;
-        public bool quitPasswordFieldsContainHash = false;
+        public bool    adminPasswordFieldsContainHash = false;
+        public bool     quitPasswordFieldsContainHash = false;
         public bool settingsPasswordFieldsContainHash = false;
 
         string settingsPassword = "";
@@ -141,8 +141,8 @@ namespace SebWindowsConfig
             // in the DataGridViewURLFilterRules prior to loading the new config file.
                         urlFilterTableRow        = -1;
                         urlFilterTableRowIsTitle =  false;
-            SEBSettings.urlFilterRuleIndex   = -1;
-            SEBSettings.urlFilterActionIndex = -1;
+            SEBSettings.urlFilterRuleIndex       = -1;
+            SEBSettings.urlFilterActionIndex     = -1;
 
             // Get the URL Filter Rules
             SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterRules];
@@ -331,14 +331,16 @@ namespace SebWindowsConfig
             // then we fill a placeholder string into the admin password text fields
             if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedAdminPassword]))
             {
-                // The order of setting the placeholders and the flag is very much relevant!
-                textBoxAdminPassword.Text = "0000000000000000";
-                adminPasswordFieldsContainHash = true;
+                // CAUTION: Do not change the order of setting the placeholders and the flag,
+                // since the fired textBox..._TextChanged() events use these data!
+                textBoxAdminPassword.Text        = "0000000000000000";
+                adminPasswordFieldsContainHash   = true;
                 textBoxConfirmAdminPassword.Text = "0000000000000000";
             }
             else
             {
-                // Same here: The order of setting the placeholders and the flag is very much relevant!
+                // CAUTION: Do not change the order of setting the placeholders and the flag,
+                // since the fired textBox..._TextChanged() events use these data!
                 adminPasswordFieldsContainHash   = false;
                 textBoxAdminPassword       .Text = "";
                 textBoxConfirmAdminPassword.Text = "";
@@ -352,14 +354,16 @@ namespace SebWindowsConfig
             // then we fill a placeholder string into the quit password text fields
             if (!String.IsNullOrEmpty((String)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword]))
             {
-                // The order of setting the placeholders and the flag is very much relevant!
-                textBoxQuitPassword.Text = "0000000000000000";
-                quitPasswordFieldsContainHash = true;
+                // CAUTION: Do not change the order of setting the placeholders and the flag,
+                // since the fired textBox..._TextChanged() events use these data!
+                textBoxQuitPassword.Text        = "0000000000000000";
+                quitPasswordFieldsContainHash   = true;
                 textBoxConfirmQuitPassword.Text = "0000000000000000";
             }
             else
             {
-                // Same here: The order of setting the placeholders and the flag is very much relevant!
+                // CAUTION: Do not change the order of setting the placeholders and the flag,
+                // since the fired textBox..._TextChanged() events use these data!
                 quitPasswordFieldsContainHash   = false;
                 textBoxQuitPassword       .Text = "";
                 textBoxConfirmQuitPassword.Text = "";
@@ -378,11 +382,11 @@ namespace SebWindowsConfig
             // If the settings password local variable contains a hash (and it isn't empty)
             if (settingsPasswordFieldsContainHash && !String.IsNullOrEmpty(settingsPassword))
             {
-                // We need to reset this flag before changing the textBox text value, because otherwise the compare passwords
-                // method will delete the first textBox again
-                settingsPasswordFieldsContainHash = false;
-                textBoxSettingsPassword.Text = "0000000000000000";
-                settingsPasswordFieldsContainHash = true;
+                // CAUTION: We need to reset this flag BEFORE changing the textBox text value,
+                // because otherwise the compare passwords method will delete the first textBox again.
+                settingsPasswordFieldsContainHash   = false;
+                textBoxSettingsPassword.Text        = "0000000000000000";
+                settingsPasswordFieldsContainHash   = true;
                 textBoxConfirmSettingsPassword.Text = "0000000000000000";
             }
             else
@@ -887,7 +891,7 @@ namespace SebWindowsConfig
         {
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_Before_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToDefault.xml");
-            settingsPassword = "";
+            settingsPassword                  = "";
             settingsPasswordFieldsContainHash = false;
             SEBSettings.RestoreDefaultAndCurrentSettings();
             SEBSettings.PermitXulRunnerProcess();
@@ -955,7 +959,7 @@ namespace SebWindowsConfig
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
-            if (fileDialogResult.Equals(DialogResult.OK    )) SaveConfigurationFileFromEditor(fileName);
+            if (fileDialogResult.Equals(DialogResult.OK)) SaveConfigurationFileFromEditor(fileName);
         }
 
 
