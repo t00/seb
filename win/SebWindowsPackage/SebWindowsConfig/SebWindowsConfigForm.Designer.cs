@@ -1810,7 +1810,6 @@
             this.dataGridViewPermittedProcesses.RowTemplate.Height = 24;
             this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(550, 106);
             this.dataGridViewPermittedProcesses.TabIndex = 89;
-            this.dataGridViewPermittedProcesses.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellEndEdit);
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
             this.dataGridViewPermittedProcesses.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged);
             this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);

@@ -160,6 +160,8 @@ namespace SebWindowsConfig
         // ********************************
 
         // Prevent double events from switching to false process index
+        static Boolean cellIsCurrentlyBeingEditedByTheUser = false;
+
         static Boolean ignoreCellEventPermittedProcessesActive     = false;
         static Boolean ignoreCellEventPermittedProcessesOS         = false;
         static Boolean ignoreCellEventPermittedProcessesExecutable = false;
