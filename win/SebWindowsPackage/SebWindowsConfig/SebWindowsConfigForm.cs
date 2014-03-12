@@ -1429,6 +1429,12 @@ namespace SebWindowsConfig
             if (column == IntColumnProcessOS        )  listBoxPermittedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnProcessExecutable)  textBoxPermittedProcessExecutable.Text  = (String )value;
             if (column == IntColumnProcessTitle     )  textBoxPermittedProcessTitle     .Text  = (String )value;
+
+            // Reset the ignore widget event flags
+            if (column == IntColumnProcessActive    ) ignoreWidgetEventPermittedProcessesActive     = false;
+            if (column == IntColumnProcessOS        ) ignoreWidgetEventPermittedProcessesOS         = false;
+            if (column == IntColumnProcessExecutable) ignoreWidgetEventPermittedProcessesExecutable = false;
+            if (column == IntColumnProcessTitle     ) ignoreWidgetEventPermittedProcessesTitle      = false;
         }
 
 
@@ -1937,6 +1943,12 @@ namespace SebWindowsConfig
             if (column == IntColumnProcessOS         )  listBoxProhibitedProcessOS.SelectedIndex = (Int32  )value;
             if (column == IntColumnProcessExecutable )  textBoxProhibitedProcessExecutable .Text = (String )value;
             if (column == IntColumnProcessDescription)  textBoxProhibitedProcessDescription.Text = (String )value;
+
+            // Reset the ignore widget event flags
+            if (column == IntColumnProcessActive     ) ignoreWidgetEventProhibitedProcessesActive      = false;
+            if (column == IntColumnProcessOS         ) ignoreWidgetEventProhibitedProcessesOS          = false;
+            if (column == IntColumnProcessExecutable ) ignoreWidgetEventProhibitedProcessesExecutable  = false;
+            if (column == IntColumnProcessDescription) ignoreWidgetEventProhibitedProcessesDescription = false;
         }
 
 
