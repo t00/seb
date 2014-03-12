@@ -1316,6 +1316,7 @@ namespace SebWindowsConfig
              textBoxPermittedProcessPath       .Text   = "";
              textBoxPermittedProcessIdentifier .Text   = "";
 
+            // Reset the ignore widget event flags
             ignoreWidgetEventPermittedProcessesActive     = false;
             ignoreWidgetEventPermittedProcessesOS         = false;
             ignoreWidgetEventPermittedProcessesExecutable = false;
@@ -1826,6 +1827,12 @@ namespace SebWindowsConfig
              textBoxProhibitedProcessDescription.Text    = "";
              textBoxProhibitedProcessIdentifier .Text    = "";
              textBoxProhibitedProcessUser       .Text    = "";
+
+            // Reset the ignore widget event flags
+            ignoreWidgetEventProhibitedProcessesActive      = false;
+            ignoreWidgetEventProhibitedProcessesOS          = false;
+            ignoreWidgetEventProhibitedProcessesExecutable  = false;
+            ignoreWidgetEventProhibitedProcessesDescription = false;
         }
 
 
