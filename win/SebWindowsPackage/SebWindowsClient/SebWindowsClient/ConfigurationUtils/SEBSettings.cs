@@ -534,7 +534,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyOS         , IntWin);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyTitle      , "SEB");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyDescription, "");
-            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyExecutable , "xulrunner.exe");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyExecutable, SEBClientInfo.XUL_RUNNER);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyPath       , "../xulrunner/");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyIdentifier , "XULRunner");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyArguments  , new ListObj());
@@ -1236,7 +1236,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[listIndex];
 
                 // Check if XulRunner process is in Permitted Process List
-                if (SEBSettings.permittedProcessData[SEBSettings.KeyExecutable].Equals("xulrunner.exe"))
+                if (SEBSettings.permittedProcessData[SEBSettings.KeyExecutable].Equals(SEBClientInfo.XUL_RUNNER))
                     indexOfProcessXulRunnerExe = listIndex;
 
             } // next listIndex

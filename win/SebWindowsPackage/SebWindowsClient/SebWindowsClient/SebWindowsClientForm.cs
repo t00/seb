@@ -357,7 +357,7 @@ namespace SebWindowsClient
                         string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
-                        if (!(executable.Contains("xulrunner.exe") && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
+                        if (!(executable.Contains(SEBClientInfo.XUL_RUNNER) && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
                             // Check if the process is already running
                             //runningApplications = Process.GetProcesses();
@@ -385,7 +385,7 @@ namespace SebWindowsClient
                 }
             }
             // If we found already running permitted or if there were prohibited processes on the list, 
-            //we ask the user how to quit them
+            // we ask the user how to quit them
             if (runningProcessesToClose.Count > 0)
             {
                 StringBuilder applicationsListToClose = new StringBuilder();
@@ -423,14 +423,14 @@ namespace SebWindowsClient
                         string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
-                        if (!(executable.Contains("xulrunner.exe") && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
+                        if (!(executable.Contains(SEBClientInfo.XUL_RUNNER) && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
                             ToolStripButton toolStripButton = new ToolStripButton();
                             toolStripButton.Padding = new Padding(5, 0, 5, 0);
                             toolStripButton.ToolTipText = title;
                             Icon processIcon = null;
                             string fullPath;
-                            if (executable.Contains("xulrunner.exe"))
+                            if (executable.Contains(SEBClientInfo.XUL_RUNNER))
                                 fullPath = Application.ExecutablePath;
                             else
                             {
@@ -607,16 +607,23 @@ namespace SebWindowsClient
         /// by searching the application paths which are set in the Registry.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public string GetApplicationPath(string appname)
+        public string GetApplicationPath(string executable)
         {
-            if (File.Exists(appname)) return appname;
-            // Check if file is in programmdir
-            string programdirAppname = SEBClientInfo.ProgramFilesX86Directory + "\\" + appname;
-            if (File.Exists(programdirAppname)) return programdirAppname;
+            // Check if executable string contained also a valid path
+            if (File.Exists(executable)) return executable;
+
+            // Check if executable is in the Programm Directory
+            string programDir = SEBClientInfo.ProgramFilesX86Directory + "\\";
+            if (File.Exists(programDir + executable)) return programDir;
+
+            // Check if executable is in the System Directory
+            string systemDirectory = Environment.SystemDirectory + "\\";
+            if (File.Exists(systemDirectory + executable)) return systemDirectory;
 
             using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.RegistryKey.OpenRemoteBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, ""))
             {
                 //// Get all paths from the PATH environement variable
+                //// This code didn't get the results expected, just left here for reference
                 //string RegKeyName = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
                 //string pathVariableString = (string)Microsoft.Win32.Registry.LocalMachine.OpenSubKey(RegKeyName).GetValue
                 //    ("Path", "", Microsoft.Win32.RegistryValueOptions.DoNotExpandEnvironmentNames);
@@ -626,21 +633,20 @@ namespace SebWindowsClient
                 //    Console.WriteLine(subPath);
                 //}
 
-                string subKeyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + appname;
+                string subKeyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + executable;
                 using (Microsoft.Win32.RegistryKey subkey = key.OpenSubKey(subKeyName))
                 {
                     if (subkey == null)
                     {
-                        //string expanded = System.Environment.GetEnvironmentVariable("path") + appname;
-                        string fullPath = Environment.SystemDirectory + "\\" + appname;
-                        if (File.Exists(fullPath)) return fullPath;
                         return null;
                     }
 
                     object path = subkey.GetValue("Path");
 
                     if (path != null)
-                        return (string)path + "\\" + appname;
+                    {
+                        return (string)path;
+                    }
                 }
             }
             return null;
@@ -660,21 +666,37 @@ namespace SebWindowsClient
             if (executablePath == null) executablePath = "";
             bool allowChoosingApp = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyAllowUser);
             //if (allowChoosingApp == null) allowChoosingApp = false;
-
             string fullPath;
+
             // There is a permittedProcess.path value
             if (executablePath != "")
             {
                 fullPath = executablePath + "\\" + executable;
                 // In case path to the executable's directory + the file name of the executable is already the correct file, we return this full path
                 if (File.Exists(fullPath)) return fullPath;
-                // Otherwise try to determine the applications full path
-                fullPath = GetApplicationPath(fullPath);
-                if (fullPath != null) if (File.Exists(fullPath)) return fullPath;
             }
-            // There is no permittedProcess.path value:
-            // try to find path using just the executable file name
-            fullPath = GetApplicationPath(executable);
+            // Otherwise try to determine the applications full path
+            string path = GetApplicationPath(executable);
+
+            // If a path to the executable was found
+            if (path != null)
+            {
+                fullPath = path + executable;
+                // Maybe the executablePath information wasn't necessary to find the application, then we return this found path
+                if (File.Exists(fullPath)) return fullPath;
+ 
+                // But maybe the executable path is a relative path from the applications main directory to some subdirectory with the executable in it?
+                fullPath = path + executablePath + "\\" + executable;
+                if (File.Exists(fullPath)) return fullPath;
+            }
+
+            // In the end we try to find the application using one of the system's standard paths + subdirectory path + executable
+            fullPath = null;
+            path = GetApplicationPath(executablePath + "\\" + executable);
+            if (path != null)
+            {
+                fullPath = path + executable;
+            }
 
             // If we still didn't find the application and the setting for this permitted process allows user to find the application
             if (fullPath == null && allowChoosingApp)
@@ -713,6 +735,7 @@ namespace SebWindowsClient
                     }
                     else
                     {
+                        processReference.Refresh();
                         IntPtr handle = processReference.MainWindowHandle;
                         if (IsIconic(handle)) ShowWindow(handle, SW_RESTORE);
                         SetForegroundWindow(handle);
@@ -735,6 +758,7 @@ namespace SebWindowsClient
                     }
                     else
                     {
+                        processReference.Refresh();
                         IntPtr handle = processReference.MainWindowHandle;
                         if (IsIconic(handle)) ShowWindow(handle, SW_RESTORE);
                         SetForegroundWindow(handle);

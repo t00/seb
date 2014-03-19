@@ -898,6 +898,11 @@ namespace SebWindowsConfig
           //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_ButtonDefault.txt");
           //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_ButtonDefault.txt");
             UpdateAllWidgetsOfProgram();
+            // Generate Browser Exam Key of default settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+
             //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_After_RevertToDefault.xml");
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_After_RevertToDefault.xml");
         }
@@ -906,7 +911,11 @@ namespace SebWindowsConfig
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToLastOpened.xml");
-            LoadConfigurationFileIntoEditor(currentPathSebConfigFile);
+            if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile)) return;
+            // Generate Browser Exam Key of this new settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
             //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_After_RevertToLastOpened.xml");
         }
 
@@ -924,11 +933,14 @@ namespace SebWindowsConfig
             // If the user clicked "Cancel", do nothing
             // If the user clicked "OK"    , read the settings from the configuration file
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-            if (fileDialogResult.Equals(DialogResult.OK    )) LoadConfigurationFileIntoEditor(fileName);
-            // Generate Browser Exam Key of this new settings
-            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            // Display the new Browser Exam Key in Exam pane
-            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            if (fileDialogResult.Equals(DialogResult.OK))
+            {
+                if (!LoadConfigurationFileIntoEditor(fileName)) return;
+                // Generate Browser Exam Key of this new settings
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            }
         }
 
 

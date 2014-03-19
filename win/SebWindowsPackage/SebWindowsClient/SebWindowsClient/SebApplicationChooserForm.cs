@@ -184,10 +184,11 @@ namespace SebWindowsClient
                                     {
                                         if (permittedProcessExecutable.Contains(runningApplications[j].ProcessName))
                                         {
+                                            runningApplications[j].Refresh();
                                             this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
                                             //lRunningApplications.Add(runningApplications[j].ProcessName);
                                             lRunningApplications.Add(permittedProcessTitle);
-                                            if (permittedProcessExecutable == "xulrunner.exe")
+                                            if (permittedProcessExecutable == SEBClientInfo.XUL_RUNNER)
                                             {
                                                 Bitmap sebIconBitmap = Icon.ExtractAssociatedIcon(Application.ExecutablePath).ToBitmap();
                                                 //sebIconBitmap.MakeTransparent(BackColor);
@@ -195,6 +196,7 @@ namespace SebWindowsClient
                                             }
                                             else
                                             {
+                                                runningApplications[j].Refresh();
                                                 ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
                                             }
                                             index++;
@@ -245,16 +247,16 @@ namespace SebWindowsClient
 
             // Re-enable the display.
             this.listApplications.EndUpdate();
-            if (this.listApplications.Items.Count > 0)
+            if (this.listApplications.Items.Count == 1)
             {
                 this.listApplications.Items[0].Selected = true;
+                selectedItemIndex = 0;
             }
-            selectedItemIndex = 0;
             if (this.listApplications.Items.Count > 1)
             {
                 this.listApplications.Items[1].Selected = true;
+                selectedItemIndex = 1;
             }
-            selectedItemIndex = 1;
             SelectNextListItem();
         }
 

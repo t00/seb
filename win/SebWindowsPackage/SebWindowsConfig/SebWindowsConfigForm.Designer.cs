@@ -297,7 +297,6 @@
             this.textBoxQuitPassword = new System.Windows.Forms.TextBox();
             this.textBoxStartURL = new System.Windows.Forms.TextBox();
             this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonQuit = new System.Windows.Forms.Button();
             this.buttonAbout = new System.Windows.Forms.Button();
             this.labelConfirmAdminPassword = new System.Windows.Forms.Label();
             this.labelAdminPassword = new System.Windows.Forms.Label();
@@ -307,6 +306,7 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -705,6 +705,7 @@
             // 
             // tabPageRegistry
             // 
+            this.tabPageRegistry.Controls.Add(this.label1);
             this.tabPageRegistry.Controls.Add(this.groupBoxOutsideSeb);
             this.tabPageRegistry.Controls.Add(this.groupBoxSetOutsideSebValues);
             this.tabPageRegistry.Controls.Add(this.groupBoxInsideSeb);
@@ -729,14 +730,14 @@
             this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableEaseOfAccess);
             this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableVmWareClientShade);
             this.groupBoxOutsideSeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxOutsideSeb.Location = new System.Drawing.Point(226, 28);
+            this.groupBoxOutsideSeb.Location = new System.Drawing.Point(226, 54);
             this.groupBoxOutsideSeb.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxOutsideSeb.Name = "groupBoxOutsideSeb";
             this.groupBoxOutsideSeb.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxOutsideSeb.Size = new System.Drawing.Size(188, 214);
             this.groupBoxOutsideSeb.TabIndex = 32;
             this.groupBoxOutsideSeb.TabStop = false;
-            this.groupBoxOutsideSeb.Text = "Outside SEB";
+            this.groupBoxOutsideSeb.Text = "After quitting SEB";
             // 
             // checkBoxOutsideSebEnableSwitchUser
             // 
@@ -840,11 +841,11 @@
             this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonPreviousValuesFromFile);
             this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonEnvironmentValues);
             this.groupBoxSetOutsideSebValues.Enabled = false;
-            this.groupBoxSetOutsideSebValues.Location = new System.Drawing.Point(226, 262);
+            this.groupBoxSetOutsideSebValues.Location = new System.Drawing.Point(226, 288);
             this.groupBoxSetOutsideSebValues.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSetOutsideSebValues.Name = "groupBoxSetOutsideSebValues";
             this.groupBoxSetOutsideSebValues.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxSetOutsideSebValues.Size = new System.Drawing.Size(166, 108);
+            this.groupBoxSetOutsideSebValues.Size = new System.Drawing.Size(166, 109);
             this.groupBoxSetOutsideSebValues.TabIndex = 31;
             this.groupBoxSetOutsideSebValues.TabStop = false;
             this.groupBoxSetOutsideSebValues.Text = "Set outside SEB values";
@@ -895,14 +896,14 @@
             this.groupBoxInsideSeb.Controls.Add(this.checkBoxInsideSebEnableEaseOfAccess);
             this.groupBoxInsideSeb.Controls.Add(this.checkBoxInsideSebEnableVmWareClientShade);
             this.groupBoxInsideSeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxInsideSeb.Location = new System.Drawing.Point(20, 28);
+            this.groupBoxInsideSeb.Location = new System.Drawing.Point(20, 54);
             this.groupBoxInsideSeb.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxInsideSeb.Name = "groupBoxInsideSeb";
             this.groupBoxInsideSeb.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxInsideSeb.Size = new System.Drawing.Size(188, 214);
             this.groupBoxInsideSeb.TabIndex = 25;
             this.groupBoxInsideSeb.TabStop = false;
-            this.groupBoxInsideSeb.Text = "Inside SEB";
+            this.groupBoxInsideSeb.Text = "While running SEB";
             // 
             // checkBoxInsideSebEnableSwitchUser
             // 
@@ -1114,6 +1115,7 @@
             this.checkBoxEnableLogging.TabIndex = 48;
             this.checkBoxEnableLogging.Text = "Enable logging";
             this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLogging.Visible = false;
             this.checkBoxEnableLogging.CheckedChanged += new System.EventHandler(this.checkBoxEnableLogging_CheckedChanged);
             // 
             // checkBoxAllowVirtualMachine
@@ -1850,6 +1852,7 @@
             this.buttonChoosePermittedProcess.TabIndex = 88;
             this.buttonChoosePermittedProcess.Text = "Choose Process...";
             this.buttonChoosePermittedProcess.UseVisualStyleBackColor = true;
+            this.buttonChoosePermittedProcess.Visible = false;
             this.buttonChoosePermittedProcess.Click += new System.EventHandler(this.buttonChoosePermittedProcess_Click);
             // 
             // buttonChoosePermittedApplication
@@ -1861,6 +1864,7 @@
             this.buttonChoosePermittedApplication.TabIndex = 87;
             this.buttonChoosePermittedApplication.Text = "Choose Application...";
             this.buttonChoosePermittedApplication.UseVisualStyleBackColor = true;
+            this.buttonChoosePermittedApplication.Visible = false;
             this.buttonChoosePermittedApplication.Click += new System.EventHandler(this.buttonChoosePermittedApplication_Click);
             // 
             // buttonRemovePermittedProcess
@@ -1939,6 +1943,7 @@
             this.buttonPermittedProcessCodeSignature.TabIndex = 95;
             this.buttonPermittedProcessCodeSignature.Text = "Code Signature...";
             this.buttonPermittedProcessCodeSignature.UseVisualStyleBackColor = true;
+            this.buttonPermittedProcessCodeSignature.Visible = false;
             this.buttonPermittedProcessCodeSignature.Click += new System.EventHandler(this.buttonPermittedProcessCodeSignature_Click);
             // 
             // dataGridViewPermittedProcessArguments
@@ -2243,6 +2248,7 @@
             this.buttonProhibitedProcessCodeSignature.TabIndex = 94;
             this.buttonProhibitedProcessCodeSignature.Text = "Code Signature...";
             this.buttonProhibitedProcessCodeSignature.UseVisualStyleBackColor = true;
+            this.buttonProhibitedProcessCodeSignature.Visible = false;
             this.buttonProhibitedProcessCodeSignature.Click += new System.EventHandler(this.buttonProhibitedProcessCodeSignature_Click);
             // 
             // labelProhibitedProcessOS
@@ -2386,6 +2392,7 @@
             this.buttonChooseProhibitedProcess.TabIndex = 94;
             this.buttonChooseProhibitedProcess.Text = "Choose Process...";
             this.buttonChooseProhibitedProcess.UseVisualStyleBackColor = true;
+            this.buttonChooseProhibitedProcess.Visible = false;
             this.buttonChooseProhibitedProcess.Click += new System.EventHandler(this.buttonChooseProhibitedProcess_Click);
             // 
             // buttonChooseProhibitedExecutable
@@ -2397,6 +2404,7 @@
             this.buttonChooseProhibitedExecutable.TabIndex = 93;
             this.buttonChooseProhibitedExecutable.Text = "Choose Executable...";
             this.buttonChooseProhibitedExecutable.UseVisualStyleBackColor = true;
+            this.buttonChooseProhibitedExecutable.Visible = false;
             this.buttonChooseProhibitedExecutable.Click += new System.EventHandler(this.buttonChooseProhibitedExecutable_Click);
             // 
             // buttonRemoveProhibitedProcess
@@ -2475,9 +2483,9 @@
             this.checkBoxMonitorProcesses.Location = new System.Drawing.Point(24, 20);
             this.checkBoxMonitorProcesses.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
-            this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(211, 17);
             this.checkBoxMonitorProcesses.TabIndex = 50;
-            this.checkBoxMonitorProcesses.Text = "Monitor processes";
+            this.checkBoxMonitorProcesses.Text = "Monitor processes while SEB is running";
             this.checkBoxMonitorProcesses.UseVisualStyleBackColor = true;
             this.checkBoxMonitorProcesses.CheckedChanged += new System.EventHandler(this.checkBoxMonitorProcesses_CheckedChanged);
             // 
@@ -3096,9 +3104,9 @@
             this.checkBoxShowTaskBar.Location = new System.Drawing.Point(23, 297);
             this.checkBoxShowTaskBar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxShowTaskBar.Name = "checkBoxShowTaskBar";
-            this.checkBoxShowTaskBar.Size = new System.Drawing.Size(147, 17);
+            this.checkBoxShowTaskBar.Size = new System.Drawing.Size(118, 17);
             this.checkBoxShowTaskBar.TabIndex = 56;
-            this.checkBoxShowTaskBar.Text = "Show SEB dock/task bar";
+            this.checkBoxShowTaskBar.Text = "Show SEB task bar";
             this.checkBoxShowTaskBar.UseVisualStyleBackColor = true;
             this.checkBoxShowTaskBar.CheckedChanged += new System.EventHandler(this.checkBoxShowTaskBar_CheckedChanged);
             // 
@@ -3395,7 +3403,6 @@
             this.tabPageGeneral.Controls.Add(this.textBoxQuitPassword);
             this.tabPageGeneral.Controls.Add(this.textBoxStartURL);
             this.tabPageGeneral.Controls.Add(this.buttonHelp);
-            this.tabPageGeneral.Controls.Add(this.buttonQuit);
             this.tabPageGeneral.Controls.Add(this.buttonAbout);
             this.tabPageGeneral.Controls.Add(this.labelConfirmAdminPassword);
             this.tabPageGeneral.Controls.Add(this.labelAdminPassword);
@@ -3612,17 +3619,6 @@
             this.buttonHelp.Visible = false;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
-            // buttonQuit
-            // 
-            this.buttonQuit.Location = new System.Drawing.Point(356, 384);
-            this.buttonQuit.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonQuit.Name = "buttonQuit";
-            this.buttonQuit.Size = new System.Drawing.Size(56, 19);
-            this.buttonQuit.TabIndex = 43;
-            this.buttonQuit.Text = "Quit";
-            this.buttonQuit.UseVisualStyleBackColor = true;
-            this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
-            // 
             // buttonAbout
             // 
             this.buttonAbout.Location = new System.Drawing.Point(90, 384);
@@ -3723,6 +3719,16 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(307, 13);
+            this.label1.TabIndex = 76;
+            this.label1.Text = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del:";
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3743,6 +3749,7 @@
             this.groupBoxSpecialKeys.ResumeLayout(false);
             this.groupBoxSpecialKeys.PerformLayout();
             this.tabPageRegistry.ResumeLayout(false);
+            this.tabPageRegistry.PerformLayout();
             this.groupBoxOutsideSeb.ResumeLayout(false);
             this.groupBoxOutsideSeb.PerformLayout();
             this.groupBoxSetOutsideSebValues.ResumeLayout(false);
@@ -3940,7 +3947,6 @@
         private System.Windows.Forms.TextBox textBoxQuitPassword;
         private System.Windows.Forms.TextBox textBoxStartURL;
         private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonQuit;
         private System.Windows.Forms.Button buttonAbout;
         private System.Windows.Forms.Label labelConfirmAdminPassword;
         private System.Windows.Forms.Label labelAdminPassword;
@@ -4078,6 +4084,7 @@
         private System.Windows.Forms.TextBox textBoxIfYourNetworkAdministrator;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label1;
 
     }
 }
