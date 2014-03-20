@@ -271,15 +271,15 @@ namespace SebWindowsClient
             //this.Focus();
             if (this.listApplications.Items.Count > 0)
             {
-                int lastSelectedItemIndex = selectedItemIndex-1;
                 if (selectedItemIndex >= listApplications.Items.Count)
                 {
                     selectedItemIndex = 0;
                 }
-                if (lastSelectedItemIndex < 0)
-                {
-                    lastSelectedItemIndex = listApplications.Items.Count - 1;
-                }
+                //int lastSelectedItemIndex = selectedItemIndex - 1;
+                //if (lastSelectedItemIndex < 0)
+                //{
+                //    lastSelectedItemIndex = listApplications.Items.Count - 1;
+                //}
                 this.listApplications.Items[selectedItemIndex].Selected = true;
                 this.listApplications.Items[selectedItemIndex].Focused = true;
                 string selectedThreadName = this.listApplications.Items[selectedItemIndex].Text;
