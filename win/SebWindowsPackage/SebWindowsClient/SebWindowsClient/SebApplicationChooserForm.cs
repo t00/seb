@@ -225,6 +225,7 @@ namespace SebWindowsClient
             {
                 ListViewItem listItem = new ListViewItem(lRunningApplications[i]);
                 listItem.ImageIndex = i;
+
                 this.listApplications.Items.Add(listItem);
             }
             this.listApplications.Dock = DockStyle.Fill;
@@ -247,16 +248,18 @@ namespace SebWindowsClient
 
             // Re-enable the display.
             this.listApplications.EndUpdate();
+
             if (this.listApplications.Items.Count == 1)
             {
-                this.listApplications.Items[0].Selected = true;
+                //this.listApplications.Items[0].Selected = true;
                 selectedItemIndex = 0;
             }
             if (this.listApplications.Items.Count > 1)
             {
-                this.listApplications.Items[1].Selected = true;
+                //this.listApplications.Items[1].Selected = true;
                 selectedItemIndex = 1;
             }
+
             SelectNextListItem();
         }
 
@@ -283,31 +286,31 @@ namespace SebWindowsClient
                 this.listApplications.Items[selectedItemIndex].Selected = true;
                 this.listApplications.Items[selectedItemIndex].Focused = true;
                 string selectedThreadName = this.listApplications.Items[selectedItemIndex].Text;
-                if (!selectedThreadName.Contains("xulrunner"))
-                {
+                //if (!selectedThreadName.Contains("xulrunner"))
+                //{
                     //this.listApplications.Items[selectedItemIndex].ForeColor = Color.White;
                     //this.listApplications.Items[lastSelectedItemIndex].ForeColor = Color.Black; ;
                     //uint selectedWindowThreadId = GetWindowThreadProcessId(this.Handle, IntPtr.Zero);
-                    IntPtr hWndForegroundWindow = GetForegroundWindow();
-                    uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
-                    uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
-                    AttachThreadInput(activeThreadID, currentThreadID, true);
-                    SetForegroundWindow(lWindowHandles[selectedItemIndex]);
-                    //BringWindowToTop(lWindowHandles[selectedItemIndex]);
-                    //ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
-                    AttachThreadInput(activeThreadID, currentThreadID, false);
-                }
-                else
-                {
-                    IntPtr hWndForegroundWindow = GetForegroundWindow();
-                    uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
-                    uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
-                    AttachThreadInput(activeThreadID, currentThreadID, true);
-                    SetForegroundWindow(lWindowHandles[selectedItemIndex]);
-                    //BringWindowToTop(lWindowHandles[selectedItemIndex]);
-                    //ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
-                    AttachThreadInput(activeThreadID, currentThreadID, false);
-                }
+                IntPtr hWndForegroundWindow = GetForegroundWindow();
+                uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
+                uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+                AttachThreadInput(activeThreadID, currentThreadID, true);
+                SetForegroundWindow(lWindowHandles[selectedItemIndex]);
+                BringWindowToTop(lWindowHandles[selectedItemIndex]);
+                ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
+                AttachThreadInput(activeThreadID, currentThreadID, false);
+                //}
+                //else
+                //{
+                //    IntPtr hWndForegroundWindow = GetForegroundWindow();
+                //    uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
+                //    uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+                //    AttachThreadInput(activeThreadID, currentThreadID, true);
+                //    SetForegroundWindow(lWindowHandles[selectedItemIndex]);
+                //    //BringWindowToTop(lWindowHandles[selectedItemIndex]);
+                //    //ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
+                //    AttachThreadInput(activeThreadID, currentThreadID, false);
+                //}
                 selectedItemIndex++;
                 this.listApplications.Focus();
             }
@@ -315,16 +318,28 @@ namespace SebWindowsClient
 
         public static void forceSetForegroundWindow(IntPtr hWnd)
         {
+            //uint selectedWindowThreadId = GetWindowThreadProcessId(hWnd, IntPtr.Zero);
+            //uint foregroundThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
+            //if (foregroundThreadID != selectedWindowThreadId)
+            //{
+            //    AttachThreadInput(selectedWindowThreadId, foregroundThreadID, true);
+            //    SetForegroundWindow(hWnd);
+            //    AttachThreadInput(selectedWindowThreadId, foregroundThreadID, false);
+            //}
+            //else
+            //    SetForegroundWindow(hWnd);
+            IntPtr hWndForegroundWindow = GetForegroundWindow();
+            uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
+            uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
             uint selectedWindowThreadId = GetWindowThreadProcessId(hWnd, IntPtr.Zero);
-            uint foregroundThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
-            if (foregroundThreadID != selectedWindowThreadId)
-            {
-                AttachThreadInput(selectedWindowThreadId, foregroundThreadID, true);
+            //if (currentThreadID != selectedWindowThreadId)
+            //{
+                AttachThreadInput(activeThreadID, currentThreadID, true);
                 SetForegroundWindow(hWnd);
-                AttachThreadInput(selectedWindowThreadId, foregroundThreadID, false);
-            }
-            else
-                SetForegroundWindow(hWnd);
+                AttachThreadInput(activeThreadID, currentThreadID, false);
+            //}
+            //else
+            //    SetForegroundWindow(hWnd);
         }
          /// ----------------------------------------------------------------------------------------
         /// <summary>

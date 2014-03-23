@@ -640,7 +640,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
         }
 
         /// <summary>
-        /// Reset ctrl-Q Exit Key Sequence
+        /// Reset Alt Tab Key Sequence
         ///</summary>
         private static bool ResetAlt(IntPtr wp, IntPtr lp)
         {

@@ -842,14 +842,14 @@ namespace SebWindowsClient
         /// <returns>window handle of start menu</returns>
         private static IntPtr GetActiveWindowOfProcess(Process proc)
         {
-            if (proc != null)
-            {
-                // enumerate all threads of that process...
-                foreach (ProcessThread thread in proc.Threads)
-                {
-                    if (EnumThreadWindows(thread.Id, MyEnumThreadWindowsForProcess, IntPtr.Zero)) break;
-                }
-            }
+            //if (proc != null)
+            //{
+            //    // enumerate all threads of that process...
+            //    foreach (ProcessThread thread in proc.Threads)
+            //    {
+            //        if (EnumThreadWindows(thread.Id, MyEnumThreadWindowsForProcess, IntPtr.Zero)) break;
+            //    }
+            //}
             return vistaStartMenuWnd;
         }
 
@@ -861,11 +861,11 @@ namespace SebWindowsClient
         /// <returns>true to continue enumeration, false to stop it</returns>
         private static bool MyEnumThreadWindowsForProcess(int pid, IntPtr lParam)
         {
-                if (pid ==)
-                {
-                    vistaStartMenuWnd = hWnd;
-                    return false;
-                }
+                //if (pid ==)
+                //{
+                //    vistaStartMenuWnd = hWnd;
+                //    return false;
+                //}
             return true;
         }
 
@@ -1119,12 +1119,11 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void ShowApplicationChooserForm()
         {
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
             //SetForegroundWindow(this.Handle);
             //this.Activate();
             sebApplicationChooserForm.fillListApplications();
             sebApplicationChooserForm.Visible = true;
-            sebCloseDialogForm.Activate();
+            //sebCloseDialogForm.Activate();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -1134,10 +1133,9 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SelectNextListItem()
         {
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
             sebApplicationChooserForm.SelectNextListItem();
             //sebApplicationChooserForm.Visible = true;
-            sebCloseDialogForm.Activate();
+            //sebCloseDialogForm.Activate();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -1147,7 +1145,6 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void HideApplicationChooserForm()
         {
-            // Show testDialog as a modal dialog and determine if DialogResult = OK.
             sebApplicationChooserForm.Visible = false;
             //sebCloseDialogForm.Activate();
         }
