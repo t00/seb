@@ -81,6 +81,7 @@ namespace SebWindowsClient
 
         private const string VistaStartMenuCaption = "Start";
         private static IntPtr vistaStartMenuWnd = IntPtr.Zero;
+        private static IntPtr processWindowHandle = IntPtr.Zero;
         private delegate bool EnumThreadProc(IntPtr hwnd, IntPtr lParam);
 
         private int taskbarHeight;
@@ -833,6 +834,41 @@ namespace SebWindowsClient
             this.TopMost = true;
             return true;
         }
+
+        /// <summary>
+        /// Returns the handle of the active window of a process
+        /// </summary>
+        /// <param name="taskBarWnd">window handle of taskbar</param>
+        /// <returns>window handle of start menu</returns>
+        private static IntPtr GetActiveWindowOfProcess(Process proc)
+        {
+            if (proc != null)
+            {
+                // enumerate all threads of that process...
+                foreach (ProcessThread thread in proc.Threads)
+                {
+                    if (EnumThreadWindows(thread.Id, MyEnumThreadWindowsForProcess, IntPtr.Zero)) break;
+                }
+            }
+            return vistaStartMenuWnd;
+        }
+
+        /// <summary>
+        /// Callback method that is called from 'EnumThreadWindows' in 'GetVistaStartMenuWnd'.
+        /// </summary>
+        /// <param name="hWnd">window handle</param>
+        /// <param name="lParam">parameter</param>
+        /// <returns>true to continue enumeration, false to stop it</returns>
+        private static bool MyEnumThreadWindowsForProcess(int pid, IntPtr lParam)
+        {
+                if (pid ==)
+                {
+                    vistaStartMenuWnd = hWnd;
+                    return false;
+                }
+            return true;
+        }
+
 
         /// <summary>
         /// Hide or show the Windows taskbar and startmenu.

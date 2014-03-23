@@ -321,7 +321,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // First try to decrypt with the current admin password
             // get admin password hash
             string hashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyHashedAdminPassword);
-            if (hashedAdminPassword == null) hashedAdminPassword = @"";
+            if (hashedAdminPassword == null) hashedAdminPassword = "";
             // We use always uppercase letters in the base16 hashed admin password used for encrypting
             hashedAdminPassword = hashedAdminPassword.ToUpper();
             DictObj sebPreferencesDict = null;
@@ -368,7 +368,14 @@ namespace SebWindowsClient.ConfigurationUtils
                             password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
                             // If cancel was pressed, abort
                             if (password == null) return null;
-                            hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                            if (password == "") 
+                            {
+                                hashedPassword = "";
+                            }
+                            else
+                            {
+                                hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                            }
                             if (String.Compare(hashedPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) == 0)
                             {
                                 passwordsMatch = true;

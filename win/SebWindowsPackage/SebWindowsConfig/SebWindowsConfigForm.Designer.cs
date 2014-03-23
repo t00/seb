@@ -59,6 +59,7 @@
             this.checkBoxEnableStartMenu = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
             this.tabPageRegistry = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBoxOutsideSeb = new System.Windows.Forms.GroupBox();
             this.checkBoxOutsideSebEnableSwitchUser = new System.Windows.Forms.CheckBox();
             this.checkBoxOutsideSebEnableLockThisComputer = new System.Windows.Forms.CheckBox();
@@ -306,7 +307,6 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -718,6 +718,16 @@
             this.tabPageRegistry.TabIndex = 25;
             this.tabPageRegistry.Text = "Registry";
             this.tabPageRegistry.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(307, 13);
+            this.label1.TabIndex = 76;
+            this.label1.Text = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del:";
             // 
             // groupBoxOutsideSeb
             // 
@@ -2138,6 +2148,7 @@
             // checkBoxPermittedProcessAutohide
             // 
             this.checkBoxPermittedProcessAutohide.AutoSize = true;
+            this.checkBoxPermittedProcessAutohide.Enabled = false;
             this.checkBoxPermittedProcessAutohide.Location = new System.Drawing.Point(14, 227);
             this.checkBoxPermittedProcessAutohide.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessAutohide.Name = "checkBoxPermittedProcessAutohide";
@@ -2786,9 +2797,9 @@
             this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(23, 320);
             this.checkBoxAllowBrowsingBackForward.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
-            this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(163, 17);
+            this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(215, 17);
             this.checkBoxAllowBrowsingBackForward.TabIndex = 70;
-            this.checkBoxAllowBrowsingBackForward.Text = "Allow browsing back/forward";
+            this.checkBoxAllowBrowsingBackForward.Text = "Allow browsing back/forward (Mac only)";
             this.checkBoxAllowBrowsingBackForward.UseVisualStyleBackColor = true;
             this.checkBoxAllowBrowsingBackForward.CheckedChanged += new System.EventHandler(this.checkBoxAllowBrowsingBackForward_CheckedChanged);
             // 
@@ -3718,16 +3729,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 25);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(307, 13);
-            this.label1.TabIndex = 76;
-            this.label1.Text = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del:";
             // 
             // SebWindowsConfigForm
             // 
