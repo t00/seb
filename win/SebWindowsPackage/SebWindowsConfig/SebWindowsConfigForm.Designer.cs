@@ -882,7 +882,7 @@
             this.radioButtonPreviousValuesFromFile.TabIndex = 27;
             this.radioButtonPreviousValuesFromFile.Text = "to previous values from file";
             this.radioButtonPreviousValuesFromFile.UseVisualStyleBackColor = true;
-            this.radioButtonPreviousValuesFromFile.CheckedChanged += new System.EventHandler(this.radioButtonPreviousValuesFromFile_CheckedChanged_1);
+            this.radioButtonPreviousValuesFromFile.CheckedChanged += new System.EventHandler(this.radioButtonPreviousValuesFromFile_CheckedChanged);
             // 
             // radioButtonEnvironmentValues
             // 

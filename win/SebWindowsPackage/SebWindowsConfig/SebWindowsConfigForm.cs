@@ -3075,10 +3075,7 @@ namespace SebWindowsConfig
 
         }
 
-        private void radioButtonPreviousValuesFromFile_CheckedChanged_1(object sender, EventArgs e)
-        {
 
-        }
 
 
 
