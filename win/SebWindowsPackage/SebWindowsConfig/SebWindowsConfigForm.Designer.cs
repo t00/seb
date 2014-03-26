@@ -760,6 +760,7 @@
             this.checkBoxOutsideSebEnableSwitchUser.TabIndex = 0;
             this.checkBoxOutsideSebEnableSwitchUser.Text = "Enable Switch User";
             this.checkBoxOutsideSebEnableSwitchUser.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableSwitchUser.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableSwitchUser_CheckedChanged);
             // 
             // checkBoxOutsideSebEnableLockThisComputer
             // 
@@ -772,6 +773,7 @@
             this.checkBoxOutsideSebEnableLockThisComputer.TabIndex = 1;
             this.checkBoxOutsideSebEnableLockThisComputer.Text = "Enable Lock this computer";
             this.checkBoxOutsideSebEnableLockThisComputer.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableLockThisComputer.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableLockThisComputer_CheckedChanged);
             // 
             // checkBoxOutsideSebEnableChangeAPassword
             // 
@@ -784,6 +786,7 @@
             this.checkBoxOutsideSebEnableChangeAPassword.TabIndex = 3;
             this.checkBoxOutsideSebEnableChangeAPassword.Text = "Enable Change a password";
             this.checkBoxOutsideSebEnableChangeAPassword.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableChangeAPassword_CheckedChanged);
             // 
             // checkBoxOutsideSebEnableStartTaskManager
             // 
@@ -796,6 +799,7 @@
             this.checkBoxOutsideSebEnableStartTaskManager.TabIndex = 2;
             this.checkBoxOutsideSebEnableStartTaskManager.Text = "Enable Start Task Manager";
             this.checkBoxOutsideSebEnableStartTaskManager.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableStartTaskManager_CheckedChanged);
             // 
             // checkBoxOutsideSebEnableLogOff
             // 
@@ -808,6 +812,7 @@
             this.checkBoxOutsideSebEnableLogOff.TabIndex = 6;
             this.checkBoxOutsideSebEnableLogOff.Text = "Enable Log off";
             this.checkBoxOutsideSebEnableLogOff.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableLogOff_CheckedChanged);
             // 
             // checkBoxOutsideSebEnableShutDown
             // 
@@ -820,6 +825,7 @@
             this.checkBoxOutsideSebEnableShutDown.TabIndex = 4;
             this.checkBoxOutsideSebEnableShutDown.Text = "Enable Shut down";
             this.checkBoxOutsideSebEnableShutDown.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableShutDown_CheckedChanged);
             // 
             // checkBoxOutsideSebEnableEaseOfAccess
             // 
@@ -832,6 +838,7 @@
             this.checkBoxOutsideSebEnableEaseOfAccess.TabIndex = 16;
             this.checkBoxOutsideSebEnableEaseOfAccess.Text = "Enable Ease of Access";
             this.checkBoxOutsideSebEnableEaseOfAccess.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged);
             // 
             // checkBoxOutsideSebEnableVmWareClientShade
             // 
@@ -844,6 +851,7 @@
             this.checkBoxOutsideSebEnableVmWareClientShade.TabIndex = 7;
             this.checkBoxOutsideSebEnableVmWareClientShade.Text = "Enable VMware Client Shade";
             this.checkBoxOutsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
+            this.checkBoxOutsideSebEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged);
             // 
             // groupBoxSetOutsideSebValues
             // 
