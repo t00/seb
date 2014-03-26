@@ -2873,6 +2873,7 @@ namespace SebWindowsConfig
         private void checkBoxInsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyInsideSebEnableStartTaskManager] = checkBoxInsideSebEnableStartTaskManager.Checked;
+
         }
 
         private void checkBoxInsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
@@ -3074,6 +3075,8 @@ namespace SebWindowsConfig
         {
 
         }
+
+
 
 
 
