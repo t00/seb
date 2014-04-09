@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Safe Exam Browser")]
-[assembly: AssemblyCopyright("Copyright ©  2010-2014 ETH Zürich, Educational Development and Technology (LET)")]
+[assembly: AssemblyCopyright("Copyright ©  2010-2014 ETH Zurich, Educational Development and Technology (LET)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

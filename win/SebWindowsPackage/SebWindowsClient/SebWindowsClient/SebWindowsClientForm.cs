@@ -347,7 +347,9 @@ namespace SebWindowsClient
             if (permittedProcessList.Count > 0)
             {
                 // Check if permitted third party applications are already running
-                Process[] runningApplications = Process.GetProcesses();
+                List<Process> runningApplications = new List<Process>();
+                runningApplications = Process.GetProcesses().ToList();
+                //Process[] runningApplications = Process.GetProcesses();
                 for (int i = 0; i < permittedProcessList.Count; i++)
                 {
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
@@ -362,23 +364,41 @@ namespace SebWindowsClient
                         {
                             // Check if the process is already running
                             //runningApplications = Process.GetProcesses();
-                            for (int j = 0; j < runningApplications.Count(); j++)
+                            int j = 0;
+                            while (j < runningApplications.Count())
                             {
-                                if (executable.Contains(runningApplications[j].ProcessName))
+                                try
                                 {
-                                    // If the flag strongKill is set, then the process is killed without asking the user
-                                    bool strongKill = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
-                                    if (strongKill)
+                                    // Get the name of the running process. This might fail if the process has terminated in between, we have to catch this case
+                                    string name = runningApplications[j].ProcessName;
+                                    if (executable.Contains(name))
                                     {
-                                        Logger.AddError("Closing already running permitted process with strongKill flag set: " + runningApplications[j].ProcessName, null, null);
-                                        SEBNotAllowedProcessController.CloseProcess(runningApplications[j]);
+                                        // If the flag strongKill is set, then the process is killed without asking the user
+                                        bool strongKill = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
+                                        if (strongKill)
+                                        {
+                                            Logger.AddError("Closing already running permitted process with strongKill flag set: " + name, null, null);
+                                            SEBNotAllowedProcessController.CloseProcess(runningApplications[j]);
+                                            // Remove the process from the list of running processes
+                                            runningApplications.RemoveAt(j);
+                                        }
+                                        else
+                                        {
+                                            runningProcessesToClose.Add(runningApplications[j]);
+                                            runningApplicationsToClose.Add(title == "SEB" ? executable : title);
+                                            //runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
+                                            j++;
+                                        }
                                     }
                                     else
                                     {
-                                        runningProcessesToClose.Add(runningApplications[j]);
-                                        runningApplicationsToClose.Add(title == "SEB" ? executable : title);
-                                        //runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
+                                        j++;
                                     }
+                                }
+                                catch (Exception)
+                                {
+                                    // Running process has been terminated in the meantime, so we remove it from the list
+                                    runningApplications.RemoveAt(j);
                                 }
                             }
                         }

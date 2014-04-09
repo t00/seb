@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SEB Windows Config")]
-[assembly: AssemblyDescription("SEB Windows Config")]
+[assembly: AssemblyTitle("SEB Config Tool")]
+[assembly: AssemblyDescription("SEB Configuration Tool")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SEB Windows Config")]
-[assembly: AssemblyCopyright("Copyright © 2010-2014 ETH Zürich, Educational Development and Technology (LET)")]
+[assembly: AssemblyProduct("SEB Config Tool")]
+[assembly: AssemblyCopyright("Copyright © 2010-2014 ETH Zurich, Educational Development and Technology (LET)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
