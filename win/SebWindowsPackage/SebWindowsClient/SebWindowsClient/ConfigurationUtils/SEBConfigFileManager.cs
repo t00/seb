@@ -102,7 +102,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBClientInfo.InitializeLogger();
 
                 // Write new settings to the localapp directory
-                SEBSettings.WriteSebConfigurationFile(SEBClientInfo.SebClientSettingsLocalAppDataFile, "", false, null, SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
+                SEBSettings.WriteSebConfigurationFile(SEBClientInfo.SebClientSettingsAppDataFile, "", false, null, SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
 
                 // Re-Initialize SEB desktop according to the new settings
                 if (!SebWindowsClientMain.InitSEBDesktop()) return false;

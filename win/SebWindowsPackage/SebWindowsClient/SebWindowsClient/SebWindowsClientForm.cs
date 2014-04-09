@@ -1336,6 +1336,8 @@ namespace SebWindowsClient
                         Process process = new Process();
                         process.StartInfo.FileName = explorer;
                         process.StartInfo.UseShellExecute = true;
+                        process.StartInfo.WorkingDirectory = Application.StartupPath;
+                        process.StartInfo.CreateNoWindow = true;
                         process.Start();
                     }
                 }

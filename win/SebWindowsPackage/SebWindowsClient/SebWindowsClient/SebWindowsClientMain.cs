@@ -317,23 +317,7 @@ namespace SebWindowsClient
             if (!SEBClientInfo.IsNewOS)
             {
                 ////just kill explorer.exe on Win9x / Me
-                bool killExplorerShell = false;
-
-                List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyProhibitedProcesses)[SEBSettings.KeyProhibitedProcesses];
-                for (int i = 0; i < prohibitedProcessList.Count(); i++)
-                {
-                    Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-                    string prohibitedProcessName = (string)prohibitedProcess[SEBSettings.KeyExecutable];
-                    if ((Boolean)prohibitedProcess[SEBSettings.KeyActive])
-                    {
-                        if (prohibitedProcessName.Contains("explorer.exe"))
-                        {
-                            killExplorerShell = true;
-                        }
-                    }
-                }
-
-                if (killExplorerShell)
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
                     Logger.AddInformation("Kill process by name (explorer.exe)", null, null);
                     SEBNotAllowedProcessController.KillProcessByName("explorer.exe");
