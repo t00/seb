@@ -39,7 +39,14 @@ namespace SebWindowsClient
             // If the user clicked "OK"    , use the third party applications file name and path as the permitted process
             fileNameFullPath = null;
             //if (fileDialogResult.Equals(DialogResult.Cancel)) fileNameFullPath = null;
-            if (fileDialogResult.Equals(DialogResult.OK)) fileNameFullPath = openFileDialog.FileName;
+            if (fileDialogResult.Equals(DialogResult.OK))
+            {
+                // We check if the returned path really ends with the same executable as was searched
+                if (openFileDialog.FileName.EndsWith(fileNameExecutable))
+                {
+                    fileNameFullPath = openFileDialog.FileName;
+                }
+            }
         }
         public void RequestStop()
         {

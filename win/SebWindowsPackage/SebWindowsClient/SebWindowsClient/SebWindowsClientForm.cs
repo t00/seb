@@ -720,7 +720,7 @@ namespace SebWindowsClient
             }
 
             // If we still didn't find the application and the setting for this permitted process allows user to find the application
-            if (fullPath == null && allowChoosingApp)
+            if (fullPath == null && allowChoosingApp && !String.IsNullOrEmpty(executable))
             {
                 // Ask the user to locate the application
                 SEBToForeground();
