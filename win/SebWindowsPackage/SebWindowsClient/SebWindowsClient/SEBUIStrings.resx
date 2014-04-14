@@ -237,6 +237,9 @@
   <data name="reconfiguringLocalSettingsFailedWrongPassword" xml:space="preserve">
     <value>If you don't enter the correct password these settings were encrypted with, you cannot use them.</value>
   </data>
+  <data name="sebFileTypeName" xml:space="preserve">
+    <value>SEB Configuration Files</value>
+  </data>
   <data name="sebReconfigured" xml:space="preserve">
     <value>SEB Re-Configured</value>
   </data>

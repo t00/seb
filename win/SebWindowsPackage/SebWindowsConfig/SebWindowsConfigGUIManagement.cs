@@ -411,7 +411,7 @@ namespace SebWindowsConfig
         private void InitialiseGUIWidgets()
         {
             // At program start, no configuration file is loaded
-            currentDireSebConfigFile = Directory.GetCurrentDirectory();
+            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
             currentFileSebConfigFile = "";
             currentPathSebConfigFile = "";
 

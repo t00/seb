@@ -60,19 +60,6 @@
             this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
             this.tabPageRegistry = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBoxOutsideSeb = new System.Windows.Forms.GroupBox();
-            this.checkBoxOutsideSebEnableSwitchUser = new System.Windows.Forms.CheckBox();
-            this.checkBoxOutsideSebEnableLockThisComputer = new System.Windows.Forms.CheckBox();
-            this.checkBoxOutsideSebEnableChangeAPassword = new System.Windows.Forms.CheckBox();
-            this.checkBoxOutsideSebEnableStartTaskManager = new System.Windows.Forms.CheckBox();
-            this.checkBoxOutsideSebEnableLogOff = new System.Windows.Forms.CheckBox();
-            this.checkBoxOutsideSebEnableShutDown = new System.Windows.Forms.CheckBox();
-            this.checkBoxOutsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
-            this.checkBoxOutsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
-            this.groupBoxSetOutsideSebValues = new System.Windows.Forms.GroupBox();
-            this.radioButtonInsideValuesManually = new System.Windows.Forms.RadioButton();
-            this.radioButtonPreviousValuesFromFile = new System.Windows.Forms.RadioButton();
-            this.radioButtonEnvironmentValues = new System.Windows.Forms.RadioButton();
             this.groupBoxInsideSeb = new System.Windows.Forms.GroupBox();
             this.checkBoxInsideSebEnableSwitchUser = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableLockThisComputer = new System.Windows.Forms.CheckBox();
@@ -311,8 +298,6 @@
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
             this.tabPageRegistry.SuspendLayout();
-            this.groupBoxOutsideSeb.SuspendLayout();
-            this.groupBoxSetOutsideSebValues.SuspendLayout();
             this.groupBoxInsideSeb.SuspendLayout();
             this.tabPageSecurity.SuspendLayout();
             this.tabPageNetwork.SuspendLayout();
@@ -394,7 +379,7 @@
             this.checkBoxHookKeys.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxHookKeys.Name = "checkBoxHookKeys";
             this.checkBoxHookKeys.Size = new System.Drawing.Size(127, 17);
-            this.checkBoxHookKeys.TabIndex = 48;
+            this.checkBoxHookKeys.TabIndex = 0;
             this.checkBoxHookKeys.Text = "Hook keys (Win only)";
             this.checkBoxHookKeys.UseVisualStyleBackColor = true;
             this.checkBoxHookKeys.CheckedChanged += new System.EventHandler(this.checkBoxHookKeys_CheckedChanged);
@@ -431,7 +416,7 @@
             this.checkBoxEnableF1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF1.Name = "checkBoxEnableF1";
             this.checkBoxEnableF1.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF1.TabIndex = 25;
+            this.checkBoxEnableF1.TabIndex = 0;
             this.checkBoxEnableF1.Text = "Enable F1";
             this.checkBoxEnableF1.UseVisualStyleBackColor = true;
             this.checkBoxEnableF1.CheckedChanged += new System.EventHandler(this.checkBoxEnableF1_CheckedChanged);
@@ -444,7 +429,7 @@
             this.checkBoxEnableF2.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF2.Name = "checkBoxEnableF2";
             this.checkBoxEnableF2.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF2.TabIndex = 26;
+            this.checkBoxEnableF2.TabIndex = 1;
             this.checkBoxEnableF2.Text = "Enable F2";
             this.checkBoxEnableF2.UseVisualStyleBackColor = true;
             this.checkBoxEnableF2.CheckedChanged += new System.EventHandler(this.checkBoxEnableF2_CheckedChanged);
@@ -457,7 +442,7 @@
             this.checkBoxEnableF12.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF12.Name = "checkBoxEnableF12";
             this.checkBoxEnableF12.Size = new System.Drawing.Size(80, 17);
-            this.checkBoxEnableF12.TabIndex = 37;
+            this.checkBoxEnableF12.TabIndex = 11;
             this.checkBoxEnableF12.Text = "Enable F12";
             this.checkBoxEnableF12.UseVisualStyleBackColor = true;
             this.checkBoxEnableF12.CheckedChanged += new System.EventHandler(this.checkBoxEnableF12_CheckedChanged);
@@ -470,7 +455,7 @@
             this.checkBoxEnableF3.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF3.Name = "checkBoxEnableF3";
             this.checkBoxEnableF3.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF3.TabIndex = 27;
+            this.checkBoxEnableF3.TabIndex = 2;
             this.checkBoxEnableF3.Text = "Enable F3";
             this.checkBoxEnableF3.UseVisualStyleBackColor = true;
             this.checkBoxEnableF3.CheckedChanged += new System.EventHandler(this.checkBoxEnableF3_CheckedChanged);
@@ -483,7 +468,7 @@
             this.checkBoxEnableF11.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF11.Name = "checkBoxEnableF11";
             this.checkBoxEnableF11.Size = new System.Drawing.Size(80, 17);
-            this.checkBoxEnableF11.TabIndex = 36;
+            this.checkBoxEnableF11.TabIndex = 10;
             this.checkBoxEnableF11.Text = "Enable F11";
             this.checkBoxEnableF11.UseVisualStyleBackColor = true;
             this.checkBoxEnableF11.CheckedChanged += new System.EventHandler(this.checkBoxEnableF11_CheckedChanged);
@@ -496,7 +481,7 @@
             this.checkBoxEnableF4.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF4.Name = "checkBoxEnableF4";
             this.checkBoxEnableF4.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF4.TabIndex = 28;
+            this.checkBoxEnableF4.TabIndex = 3;
             this.checkBoxEnableF4.Text = "Enable F4";
             this.checkBoxEnableF4.UseVisualStyleBackColor = true;
             this.checkBoxEnableF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableF4_CheckedChanged);
@@ -509,7 +494,7 @@
             this.checkBoxEnableF5.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF5.Name = "checkBoxEnableF5";
             this.checkBoxEnableF5.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF5.TabIndex = 29;
+            this.checkBoxEnableF5.TabIndex = 4;
             this.checkBoxEnableF5.Text = "Enable F5";
             this.checkBoxEnableF5.UseVisualStyleBackColor = true;
             this.checkBoxEnableF5.CheckedChanged += new System.EventHandler(this.checkBoxEnableF5_CheckedChanged);
@@ -522,7 +507,7 @@
             this.checkBoxEnableF10.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF10.Name = "checkBoxEnableF10";
             this.checkBoxEnableF10.Size = new System.Drawing.Size(80, 17);
-            this.checkBoxEnableF10.TabIndex = 34;
+            this.checkBoxEnableF10.TabIndex = 9;
             this.checkBoxEnableF10.Text = "Enable F10";
             this.checkBoxEnableF10.UseVisualStyleBackColor = true;
             this.checkBoxEnableF10.CheckedChanged += new System.EventHandler(this.checkBoxEnableF10_CheckedChanged);
@@ -535,7 +520,7 @@
             this.checkBoxEnableF6.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF6.Name = "checkBoxEnableF6";
             this.checkBoxEnableF6.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF6.TabIndex = 30;
+            this.checkBoxEnableF6.TabIndex = 5;
             this.checkBoxEnableF6.Text = "Enable F6";
             this.checkBoxEnableF6.UseVisualStyleBackColor = true;
             this.checkBoxEnableF6.CheckedChanged += new System.EventHandler(this.checkBoxEnableF6_CheckedChanged);
@@ -548,7 +533,7 @@
             this.checkBoxEnableF9.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF9.Name = "checkBoxEnableF9";
             this.checkBoxEnableF9.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF9.TabIndex = 33;
+            this.checkBoxEnableF9.TabIndex = 8;
             this.checkBoxEnableF9.Text = "Enable F9";
             this.checkBoxEnableF9.UseVisualStyleBackColor = true;
             this.checkBoxEnableF9.CheckedChanged += new System.EventHandler(this.checkBoxEnableF9_CheckedChanged);
@@ -561,7 +546,7 @@
             this.checkBoxEnableF7.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF7.Name = "checkBoxEnableF7";
             this.checkBoxEnableF7.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF7.TabIndex = 31;
+            this.checkBoxEnableF7.TabIndex = 6;
             this.checkBoxEnableF7.Text = "Enable F7";
             this.checkBoxEnableF7.UseVisualStyleBackColor = true;
             this.checkBoxEnableF7.CheckedChanged += new System.EventHandler(this.checkBoxEnableF7_CheckedChanged);
@@ -574,7 +559,7 @@
             this.checkBoxEnableF8.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableF8.Name = "checkBoxEnableF8";
             this.checkBoxEnableF8.Size = new System.Drawing.Size(74, 17);
-            this.checkBoxEnableF8.TabIndex = 32;
+            this.checkBoxEnableF8.TabIndex = 7;
             this.checkBoxEnableF8.Text = "Enable F8";
             this.checkBoxEnableF8.UseVisualStyleBackColor = true;
             this.checkBoxEnableF8.CheckedChanged += new System.EventHandler(this.checkBoxEnableF8_CheckedChanged);
@@ -607,7 +592,7 @@
             this.checkBoxEnablePrintScreen.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePrintScreen.Name = "checkBoxEnablePrintScreen";
             this.checkBoxEnablePrintScreen.Size = new System.Drawing.Size(117, 17);
-            this.checkBoxEnablePrintScreen.TabIndex = 42;
+            this.checkBoxEnablePrintScreen.TabIndex = 7;
             this.checkBoxEnablePrintScreen.Text = "Enable PrintScreen";
             this.checkBoxEnablePrintScreen.UseVisualStyleBackColor = true;
             this.checkBoxEnablePrintScreen.CheckedChanged += new System.EventHandler(this.checkBoxEnablePrintScreen_CheckedChanged);
@@ -620,7 +605,7 @@
             this.checkBoxEnableEsc.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableEsc.Name = "checkBoxEnableEsc";
             this.checkBoxEnableEsc.Size = new System.Drawing.Size(80, 17);
-            this.checkBoxEnableEsc.TabIndex = 41;
+            this.checkBoxEnableEsc.TabIndex = 0;
             this.checkBoxEnableEsc.Text = "Enable Esc";
             this.checkBoxEnableEsc.UseVisualStyleBackColor = true;
             this.checkBoxEnableEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableEsc_CheckedChanged);
@@ -633,7 +618,7 @@
             this.checkBoxEnableCtrlEsc.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableCtrlEsc.Name = "checkBoxEnableCtrlEsc";
             this.checkBoxEnableCtrlEsc.Size = new System.Drawing.Size(98, 17);
-            this.checkBoxEnableCtrlEsc.TabIndex = 19;
+            this.checkBoxEnableCtrlEsc.TabIndex = 1;
             this.checkBoxEnableCtrlEsc.Text = "Enable Ctrl-Esc";
             this.checkBoxEnableCtrlEsc.UseVisualStyleBackColor = true;
             this.checkBoxEnableCtrlEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableCtrlEsc_CheckedChanged);
@@ -646,7 +631,7 @@
             this.checkBoxEnableAltEsc.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableAltEsc.Name = "checkBoxEnableAltEsc";
             this.checkBoxEnableAltEsc.Size = new System.Drawing.Size(95, 17);
-            this.checkBoxEnableAltEsc.TabIndex = 20;
+            this.checkBoxEnableAltEsc.TabIndex = 2;
             this.checkBoxEnableAltEsc.Text = "Enable Alt-Esc";
             this.checkBoxEnableAltEsc.UseVisualStyleBackColor = true;
             this.checkBoxEnableAltEsc.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltEsc_CheckedChanged);
@@ -659,7 +644,7 @@
             this.checkBoxEnableAltTab.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableAltTab.Name = "checkBoxEnableAltTab";
             this.checkBoxEnableAltTab.Size = new System.Drawing.Size(96, 17);
-            this.checkBoxEnableAltTab.TabIndex = 21;
+            this.checkBoxEnableAltTab.TabIndex = 3;
             this.checkBoxEnableAltTab.Text = "Enable Alt-Tab";
             this.checkBoxEnableAltTab.UseVisualStyleBackColor = true;
             this.checkBoxEnableAltTab.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltTab_CheckedChanged);
@@ -672,7 +657,7 @@
             this.checkBoxEnableAltF4.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableAltF4.Name = "checkBoxEnableAltF4";
             this.checkBoxEnableAltF4.Size = new System.Drawing.Size(89, 17);
-            this.checkBoxEnableAltF4.TabIndex = 22;
+            this.checkBoxEnableAltF4.TabIndex = 4;
             this.checkBoxEnableAltF4.Text = "Enable Alt-F4";
             this.checkBoxEnableAltF4.UseVisualStyleBackColor = true;
             this.checkBoxEnableAltF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltF4_CheckedChanged);
@@ -685,7 +670,7 @@
             this.checkBoxEnableStartMenu.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableStartMenu.Name = "checkBoxEnableStartMenu";
             this.checkBoxEnableStartMenu.Size = new System.Drawing.Size(114, 17);
-            this.checkBoxEnableStartMenu.TabIndex = 23;
+            this.checkBoxEnableStartMenu.TabIndex = 5;
             this.checkBoxEnableStartMenu.Text = "Enable Start Menu";
             this.checkBoxEnableStartMenu.UseVisualStyleBackColor = true;
             this.checkBoxEnableStartMenu.CheckedChanged += new System.EventHandler(this.checkBoxEnableStartMenu_CheckedChanged);
@@ -698,7 +683,7 @@
             this.checkBoxEnableRightMouse.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableRightMouse.Name = "checkBoxEnableRightMouse";
             this.checkBoxEnableRightMouse.Size = new System.Drawing.Size(122, 17);
-            this.checkBoxEnableRightMouse.TabIndex = 24;
+            this.checkBoxEnableRightMouse.TabIndex = 6;
             this.checkBoxEnableRightMouse.Text = "Enable Right Mouse";
             this.checkBoxEnableRightMouse.UseVisualStyleBackColor = true;
             this.checkBoxEnableRightMouse.CheckedChanged += new System.EventHandler(this.checkBoxEnableRightMouse_CheckedChanged);
@@ -706,8 +691,6 @@
             // tabPageRegistry
             // 
             this.tabPageRegistry.Controls.Add(this.label1);
-            this.tabPageRegistry.Controls.Add(this.groupBoxOutsideSeb);
-            this.tabPageRegistry.Controls.Add(this.groupBoxSetOutsideSebValues);
             this.tabPageRegistry.Controls.Add(this.groupBoxInsideSeb);
             this.tabPageRegistry.ImageIndex = 9;
             this.tabPageRegistry.Location = new System.Drawing.Point(4, 39);
@@ -728,180 +711,6 @@
             this.label1.Size = new System.Drawing.Size(307, 13);
             this.label1.TabIndex = 76;
             this.label1.Text = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del:";
-            // 
-            // groupBoxOutsideSeb
-            // 
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableSwitchUser);
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableLockThisComputer);
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableChangeAPassword);
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableStartTaskManager);
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableLogOff);
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableShutDown);
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableEaseOfAccess);
-            this.groupBoxOutsideSeb.Controls.Add(this.checkBoxOutsideSebEnableVmWareClientShade);
-            this.groupBoxOutsideSeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxOutsideSeb.Location = new System.Drawing.Point(226, 54);
-            this.groupBoxOutsideSeb.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBoxOutsideSeb.Name = "groupBoxOutsideSeb";
-            this.groupBoxOutsideSeb.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxOutsideSeb.Size = new System.Drawing.Size(188, 214);
-            this.groupBoxOutsideSeb.TabIndex = 32;
-            this.groupBoxOutsideSeb.TabStop = false;
-            this.groupBoxOutsideSeb.Text = "After quitting SEB";
-            // 
-            // checkBoxOutsideSebEnableSwitchUser
-            // 
-            this.checkBoxOutsideSebEnableSwitchUser.AutoSize = true;
-            this.checkBoxOutsideSebEnableSwitchUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableSwitchUser.Location = new System.Drawing.Point(7, 27);
-            this.checkBoxOutsideSebEnableSwitchUser.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableSwitchUser.Name = "checkBoxOutsideSebEnableSwitchUser";
-            this.checkBoxOutsideSebEnableSwitchUser.Size = new System.Drawing.Size(119, 17);
-            this.checkBoxOutsideSebEnableSwitchUser.TabIndex = 0;
-            this.checkBoxOutsideSebEnableSwitchUser.Text = "Enable Switch User";
-            this.checkBoxOutsideSebEnableSwitchUser.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableSwitchUser.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableSwitchUser_CheckedChanged);
-            // 
-            // checkBoxOutsideSebEnableLockThisComputer
-            // 
-            this.checkBoxOutsideSebEnableLockThisComputer.AutoSize = true;
-            this.checkBoxOutsideSebEnableLockThisComputer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableLockThisComputer.Location = new System.Drawing.Point(7, 49);
-            this.checkBoxOutsideSebEnableLockThisComputer.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableLockThisComputer.Name = "checkBoxOutsideSebEnableLockThisComputer";
-            this.checkBoxOutsideSebEnableLockThisComputer.Size = new System.Drawing.Size(152, 17);
-            this.checkBoxOutsideSebEnableLockThisComputer.TabIndex = 1;
-            this.checkBoxOutsideSebEnableLockThisComputer.Text = "Enable Lock this computer";
-            this.checkBoxOutsideSebEnableLockThisComputer.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableLockThisComputer.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableLockThisComputer_CheckedChanged);
-            // 
-            // checkBoxOutsideSebEnableChangeAPassword
-            // 
-            this.checkBoxOutsideSebEnableChangeAPassword.AutoSize = true;
-            this.checkBoxOutsideSebEnableChangeAPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableChangeAPassword.Location = new System.Drawing.Point(7, 71);
-            this.checkBoxOutsideSebEnableChangeAPassword.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableChangeAPassword.Name = "checkBoxOutsideSebEnableChangeAPassword";
-            this.checkBoxOutsideSebEnableChangeAPassword.Size = new System.Drawing.Size(156, 17);
-            this.checkBoxOutsideSebEnableChangeAPassword.TabIndex = 3;
-            this.checkBoxOutsideSebEnableChangeAPassword.Text = "Enable Change a password";
-            this.checkBoxOutsideSebEnableChangeAPassword.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableChangeAPassword_CheckedChanged);
-            // 
-            // checkBoxOutsideSebEnableStartTaskManager
-            // 
-            this.checkBoxOutsideSebEnableStartTaskManager.AutoSize = true;
-            this.checkBoxOutsideSebEnableStartTaskManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableStartTaskManager.Location = new System.Drawing.Point(7, 93);
-            this.checkBoxOutsideSebEnableStartTaskManager.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableStartTaskManager.Name = "checkBoxOutsideSebEnableStartTaskManager";
-            this.checkBoxOutsideSebEnableStartTaskManager.Size = new System.Drawing.Size(156, 17);
-            this.checkBoxOutsideSebEnableStartTaskManager.TabIndex = 2;
-            this.checkBoxOutsideSebEnableStartTaskManager.Text = "Enable Start Task Manager";
-            this.checkBoxOutsideSebEnableStartTaskManager.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableStartTaskManager_CheckedChanged);
-            // 
-            // checkBoxOutsideSebEnableLogOff
-            // 
-            this.checkBoxOutsideSebEnableLogOff.AutoSize = true;
-            this.checkBoxOutsideSebEnableLogOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableLogOff.Location = new System.Drawing.Point(7, 115);
-            this.checkBoxOutsideSebEnableLogOff.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableLogOff.Name = "checkBoxOutsideSebEnableLogOff";
-            this.checkBoxOutsideSebEnableLogOff.Size = new System.Drawing.Size(95, 17);
-            this.checkBoxOutsideSebEnableLogOff.TabIndex = 6;
-            this.checkBoxOutsideSebEnableLogOff.Text = "Enable Log off";
-            this.checkBoxOutsideSebEnableLogOff.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableLogOff_CheckedChanged);
-            // 
-            // checkBoxOutsideSebEnableShutDown
-            // 
-            this.checkBoxOutsideSebEnableShutDown.AutoSize = true;
-            this.checkBoxOutsideSebEnableShutDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableShutDown.Location = new System.Drawing.Point(7, 136);
-            this.checkBoxOutsideSebEnableShutDown.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableShutDown.Name = "checkBoxOutsideSebEnableShutDown";
-            this.checkBoxOutsideSebEnableShutDown.Size = new System.Drawing.Size(113, 17);
-            this.checkBoxOutsideSebEnableShutDown.TabIndex = 4;
-            this.checkBoxOutsideSebEnableShutDown.Text = "Enable Shut down";
-            this.checkBoxOutsideSebEnableShutDown.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableShutDown_CheckedChanged);
-            // 
-            // checkBoxOutsideSebEnableEaseOfAccess
-            // 
-            this.checkBoxOutsideSebEnableEaseOfAccess.AutoSize = true;
-            this.checkBoxOutsideSebEnableEaseOfAccess.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableEaseOfAccess.Location = new System.Drawing.Point(7, 158);
-            this.checkBoxOutsideSebEnableEaseOfAccess.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableEaseOfAccess.Name = "checkBoxOutsideSebEnableEaseOfAccess";
-            this.checkBoxOutsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(136, 17);
-            this.checkBoxOutsideSebEnableEaseOfAccess.TabIndex = 16;
-            this.checkBoxOutsideSebEnableEaseOfAccess.Text = "Enable Ease of Access";
-            this.checkBoxOutsideSebEnableEaseOfAccess.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged);
-            // 
-            // checkBoxOutsideSebEnableVmWareClientShade
-            // 
-            this.checkBoxOutsideSebEnableVmWareClientShade.AutoSize = true;
-            this.checkBoxOutsideSebEnableVmWareClientShade.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOutsideSebEnableVmWareClientShade.Location = new System.Drawing.Point(7, 180);
-            this.checkBoxOutsideSebEnableVmWareClientShade.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxOutsideSebEnableVmWareClientShade.Name = "checkBoxOutsideSebEnableVmWareClientShade";
-            this.checkBoxOutsideSebEnableVmWareClientShade.Size = new System.Drawing.Size(164, 17);
-            this.checkBoxOutsideSebEnableVmWareClientShade.TabIndex = 7;
-            this.checkBoxOutsideSebEnableVmWareClientShade.Text = "Enable VMware Client Shade";
-            this.checkBoxOutsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
-            this.checkBoxOutsideSebEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged);
-            // 
-            // groupBoxSetOutsideSebValues
-            // 
-            this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonInsideValuesManually);
-            this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonPreviousValuesFromFile);
-            this.groupBoxSetOutsideSebValues.Controls.Add(this.radioButtonEnvironmentValues);
-            this.groupBoxSetOutsideSebValues.Enabled = false;
-            this.groupBoxSetOutsideSebValues.Location = new System.Drawing.Point(226, 288);
-            this.groupBoxSetOutsideSebValues.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBoxSetOutsideSebValues.Name = "groupBoxSetOutsideSebValues";
-            this.groupBoxSetOutsideSebValues.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxSetOutsideSebValues.Size = new System.Drawing.Size(166, 109);
-            this.groupBoxSetOutsideSebValues.TabIndex = 31;
-            this.groupBoxSetOutsideSebValues.TabStop = false;
-            this.groupBoxSetOutsideSebValues.Text = "Set outside SEB values";
-            this.groupBoxSetOutsideSebValues.Visible = false;
-            // 
-            // radioButtonInsideValuesManually
-            // 
-            this.radioButtonInsideValuesManually.AutoSize = true;
-            this.radioButtonInsideValuesManually.Location = new System.Drawing.Point(6, 72);
-            this.radioButtonInsideValuesManually.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonInsideValuesManually.Name = "radioButtonInsideValuesManually";
-            this.radioButtonInsideValuesManually.Size = new System.Drawing.Size(75, 17);
-            this.radioButtonInsideValuesManually.TabIndex = 29;
-            this.radioButtonInsideValuesManually.Text = "manually...";
-            this.radioButtonInsideValuesManually.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonPreviousValuesFromFile
-            // 
-            this.radioButtonPreviousValuesFromFile.AutoSize = true;
-            this.radioButtonPreviousValuesFromFile.Location = new System.Drawing.Point(7, 28);
-            this.radioButtonPreviousValuesFromFile.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonPreviousValuesFromFile.Name = "radioButtonPreviousValuesFromFile";
-            this.radioButtonPreviousValuesFromFile.Size = new System.Drawing.Size(150, 17);
-            this.radioButtonPreviousValuesFromFile.TabIndex = 27;
-            this.radioButtonPreviousValuesFromFile.Text = "to previous values from file";
-            this.radioButtonPreviousValuesFromFile.UseVisualStyleBackColor = true;
-            this.radioButtonPreviousValuesFromFile.CheckedChanged += new System.EventHandler(this.radioButtonPreviousValuesFromFile_CheckedChanged);
-            // 
-            // radioButtonEnvironmentValues
-            // 
-            this.radioButtonEnvironmentValues.AutoSize = true;
-            this.radioButtonEnvironmentValues.Location = new System.Drawing.Point(7, 50);
-            this.radioButtonEnvironmentValues.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonEnvironmentValues.Name = "radioButtonEnvironmentValues";
-            this.radioButtonEnvironmentValues.Size = new System.Drawing.Size(129, 17);
-            this.radioButtonEnvironmentValues.TabIndex = 28;
-            this.radioButtonEnvironmentValues.Text = "to environment values";
-            this.radioButtonEnvironmentValues.UseVisualStyleBackColor = true;
             // 
             // groupBoxInsideSeb
             // 
@@ -957,7 +766,7 @@
             this.checkBoxInsideSebEnableChangeAPassword.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxInsideSebEnableChangeAPassword.Name = "checkBoxInsideSebEnableChangeAPassword";
             this.checkBoxInsideSebEnableChangeAPassword.Size = new System.Drawing.Size(156, 17);
-            this.checkBoxInsideSebEnableChangeAPassword.TabIndex = 3;
+            this.checkBoxInsideSebEnableChangeAPassword.TabIndex = 2;
             this.checkBoxInsideSebEnableChangeAPassword.Text = "Enable Change a password";
             this.checkBoxInsideSebEnableChangeAPassword.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableChangeAPassword_CheckedChanged);
@@ -970,7 +779,7 @@
             this.checkBoxInsideSebEnableStartTaskManager.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxInsideSebEnableStartTaskManager.Name = "checkBoxInsideSebEnableStartTaskManager";
             this.checkBoxInsideSebEnableStartTaskManager.Size = new System.Drawing.Size(156, 17);
-            this.checkBoxInsideSebEnableStartTaskManager.TabIndex = 2;
+            this.checkBoxInsideSebEnableStartTaskManager.TabIndex = 3;
             this.checkBoxInsideSebEnableStartTaskManager.Text = "Enable Start Task Manager";
             this.checkBoxInsideSebEnableStartTaskManager.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableStartTaskManager_CheckedChanged);
@@ -983,7 +792,7 @@
             this.checkBoxInsideSebEnableLogOff.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxInsideSebEnableLogOff.Name = "checkBoxInsideSebEnableLogOff";
             this.checkBoxInsideSebEnableLogOff.Size = new System.Drawing.Size(95, 17);
-            this.checkBoxInsideSebEnableLogOff.TabIndex = 6;
+            this.checkBoxInsideSebEnableLogOff.TabIndex = 4;
             this.checkBoxInsideSebEnableLogOff.Text = "Enable Log off";
             this.checkBoxInsideSebEnableLogOff.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableLogOff_CheckedChanged);
@@ -996,7 +805,7 @@
             this.checkBoxInsideSebEnableShutDown.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxInsideSebEnableShutDown.Name = "checkBoxInsideSebEnableShutDown";
             this.checkBoxInsideSebEnableShutDown.Size = new System.Drawing.Size(113, 17);
-            this.checkBoxInsideSebEnableShutDown.TabIndex = 4;
+            this.checkBoxInsideSebEnableShutDown.TabIndex = 5;
             this.checkBoxInsideSebEnableShutDown.Text = "Enable Shut down";
             this.checkBoxInsideSebEnableShutDown.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableShutDown_CheckedChanged);
@@ -1009,7 +818,7 @@
             this.checkBoxInsideSebEnableEaseOfAccess.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxInsideSebEnableEaseOfAccess.Name = "checkBoxInsideSebEnableEaseOfAccess";
             this.checkBoxInsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(136, 17);
-            this.checkBoxInsideSebEnableEaseOfAccess.TabIndex = 16;
+            this.checkBoxInsideSebEnableEaseOfAccess.TabIndex = 6;
             this.checkBoxInsideSebEnableEaseOfAccess.Text = "Enable Ease of Access";
             this.checkBoxInsideSebEnableEaseOfAccess.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableEaseOfAccess_CheckedChanged);
@@ -1056,7 +865,7 @@
             this.checkBoxKillExplorerShell.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxKillExplorerShell.Name = "checkBoxKillExplorerShell";
             this.checkBoxKillExplorerShell.Size = new System.Drawing.Size(153, 17);
-            this.checkBoxKillExplorerShell.TabIndex = 80;
+            this.checkBoxKillExplorerShell.TabIndex = 3;
             this.checkBoxKillExplorerShell.Text = "Kill explorer shell (Win only)";
             this.checkBoxKillExplorerShell.UseVisualStyleBackColor = true;
             this.checkBoxKillExplorerShell.CheckedChanged += new System.EventHandler(this.checkBoxKillExplorerShell_CheckedChanged);
@@ -1078,7 +887,7 @@
             this.buttonLogDirectoryWin.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLogDirectoryWin.Name = "buttonLogDirectoryWin";
             this.buttonLogDirectoryWin.Size = new System.Drawing.Size(143, 20);
-            this.buttonLogDirectoryWin.TabIndex = 78;
+            this.buttonLogDirectoryWin.TabIndex = 6;
             this.buttonLogDirectoryWin.Text = "Save log file to...";
             this.buttonLogDirectoryWin.UseVisualStyleBackColor = true;
             this.buttonLogDirectoryWin.Visible = false;
@@ -1092,7 +901,7 @@
             this.checkBoxCreateNewDesktop.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
             this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(121, 17);
-            this.checkBoxCreateNewDesktop.TabIndex = 45;
+            this.checkBoxCreateNewDesktop.TabIndex = 2;
             this.checkBoxCreateNewDesktop.Text = "Create new desktop";
             this.checkBoxCreateNewDesktop.UseVisualStyleBackColor = true;
             this.checkBoxCreateNewDesktop.CheckedChanged += new System.EventHandler(this.checkBoxCreateNewDesktop_CheckedChanged);
@@ -1105,7 +914,7 @@
             this.checkBoxAllowUserSwitching.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowUserSwitching.Name = "checkBoxAllowUserSwitching";
             this.checkBoxAllowUserSwitching.Size = new System.Drawing.Size(173, 17);
-            this.checkBoxAllowUserSwitching.TabIndex = 76;
+            this.checkBoxAllowUserSwitching.TabIndex = 4;
             this.checkBoxAllowUserSwitching.Text = "Allow user switching (Mac only)";
             this.checkBoxAllowUserSwitching.UseVisualStyleBackColor = true;
             this.checkBoxAllowUserSwitching.CheckedChanged += new System.EventHandler(this.checkBoxAllowUserSwitching_CheckedChanged);
@@ -1127,7 +936,7 @@
             this.listBoxSebServicePolicy.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxSebServicePolicy.Name = "listBoxSebServicePolicy";
             this.listBoxSebServicePolicy.Size = new System.Drawing.Size(282, 43);
-            this.listBoxSebServicePolicy.TabIndex = 74;
+            this.listBoxSebServicePolicy.TabIndex = 0;
             this.listBoxSebServicePolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxSebServicePolicy_SelectedIndexChanged);
             // 
             // checkBoxEnableLogging
@@ -1138,7 +947,7 @@
             this.checkBoxEnableLogging.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(96, 17);
-            this.checkBoxEnableLogging.TabIndex = 48;
+            this.checkBoxEnableLogging.TabIndex = 5;
             this.checkBoxEnableLogging.Text = "Enable logging";
             this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
             this.checkBoxEnableLogging.Visible = false;
@@ -1152,7 +961,7 @@
             this.checkBoxAllowVirtualMachine.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowVirtualMachine.Name = "checkBoxAllowVirtualMachine";
             this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(209, 17);
-            this.checkBoxAllowVirtualMachine.TabIndex = 43;
+            this.checkBoxAllowVirtualMachine.TabIndex = 1;
             this.checkBoxAllowVirtualMachine.Text = "Allow SEB to run inside virtual machine";
             this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
             this.checkBoxAllowVirtualMachine.CheckedChanged += new System.EventHandler(this.checkBoxAllowVirtualMachine_CheckedChanged);
@@ -1209,7 +1018,7 @@
             this.buttonCutSelected.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCutSelected.Name = "buttonCutSelected";
             this.buttonCutSelected.Size = new System.Drawing.Size(128, 24);
-            this.buttonCutSelected.TabIndex = 102;
+            this.buttonCutSelected.TabIndex = 9;
             this.buttonCutSelected.Text = "Cut selected";
             this.buttonCutSelected.UseVisualStyleBackColor = true;
             this.buttonCutSelected.Click += new System.EventHandler(this.buttonCutSelected_Click);
@@ -1220,7 +1029,7 @@
             this.buttonCopySelected.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCopySelected.Name = "buttonCopySelected";
             this.buttonCopySelected.Size = new System.Drawing.Size(128, 24);
-            this.buttonCopySelected.TabIndex = 101;
+            this.buttonCopySelected.TabIndex = 8;
             this.buttonCopySelected.Text = "Copy selected";
             this.buttonCopySelected.UseVisualStyleBackColor = true;
             this.buttonCopySelected.Click += new System.EventHandler(this.buttonCopySelected_Click);
@@ -1231,7 +1040,7 @@
             this.buttonPasteAfterSelected.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPasteAfterSelected.Name = "buttonPasteAfterSelected";
             this.buttonPasteAfterSelected.Size = new System.Drawing.Size(128, 24);
-            this.buttonPasteAfterSelected.TabIndex = 100;
+            this.buttonPasteAfterSelected.TabIndex = 7;
             this.buttonPasteAfterSelected.Text = "Paste after selected";
             this.buttonPasteAfterSelected.UseVisualStyleBackColor = true;
             this.buttonPasteAfterSelected.Click += new System.EventHandler(this.buttonPasteAfterSelected_Click);
@@ -1242,7 +1051,7 @@
             this.buttonPasteBeforeSelected.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPasteBeforeSelected.Name = "buttonPasteBeforeSelected";
             this.buttonPasteBeforeSelected.Size = new System.Drawing.Size(128, 24);
-            this.buttonPasteBeforeSelected.TabIndex = 99;
+            this.buttonPasteBeforeSelected.TabIndex = 6;
             this.buttonPasteBeforeSelected.Text = "Paste before selected";
             this.buttonPasteBeforeSelected.UseVisualStyleBackColor = true;
             this.buttonPasteBeforeSelected.Click += new System.EventHandler(this.buttonPasteBeforeSelected_Click);
@@ -1253,7 +1062,7 @@
             this.buttonInsertBeforeSelected.Margin = new System.Windows.Forms.Padding(2);
             this.buttonInsertBeforeSelected.Name = "buttonInsertBeforeSelected";
             this.buttonInsertBeforeSelected.Size = new System.Drawing.Size(128, 24);
-            this.buttonInsertBeforeSelected.TabIndex = 91;
+            this.buttonInsertBeforeSelected.TabIndex = 3;
             this.buttonInsertBeforeSelected.Text = "Insert before selected";
             this.buttonInsertBeforeSelected.UseVisualStyleBackColor = true;
             this.buttonInsertBeforeSelected.Click += new System.EventHandler(this.buttonInsertBeforeSelected_Click);
@@ -1273,7 +1082,7 @@
             this.dataGridViewURLFilterRules.RowHeadersVisible = false;
             this.dataGridViewURLFilterRules.RowTemplate.Height = 24;
             this.dataGridViewURLFilterRules.Size = new System.Drawing.Size(595, 244);
-            this.dataGridViewURLFilterRules.TabIndex = 90;
+            this.dataGridViewURLFilterRules.TabIndex = 2;
             this.dataGridViewURLFilterRules.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewURLFilterRules_CellContentClick);
             this.dataGridViewURLFilterRules.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridViewURLFilterRules_CellPainting);
             this.dataGridViewURLFilterRules.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewURLFilterRules_CellValueChanged);
@@ -1321,7 +1130,7 @@
             this.buttonDeleteSelected.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDeleteSelected.Name = "buttonDeleteSelected";
             this.buttonDeleteSelected.Size = new System.Drawing.Size(128, 24);
-            this.buttonDeleteSelected.TabIndex = 87;
+            this.buttonDeleteSelected.TabIndex = 5;
             this.buttonDeleteSelected.Text = "Delete selected";
             this.buttonDeleteSelected.UseVisualStyleBackColor = true;
             this.buttonDeleteSelected.Click += new System.EventHandler(this.buttonDeleteSelected_Click);
@@ -1332,7 +1141,7 @@
             this.buttonInsertAfterSelected.Margin = new System.Windows.Forms.Padding(2);
             this.buttonInsertAfterSelected.Name = "buttonInsertAfterSelected";
             this.buttonInsertAfterSelected.Size = new System.Drawing.Size(128, 24);
-            this.buttonInsertAfterSelected.TabIndex = 86;
+            this.buttonInsertAfterSelected.TabIndex = 4;
             this.buttonInsertAfterSelected.Text = "Insert after selected";
             this.buttonInsertAfterSelected.UseVisualStyleBackColor = true;
             this.buttonInsertAfterSelected.Click += new System.EventHandler(this.buttonInsertAfterSelected_Click);
@@ -1346,7 +1155,7 @@
             this.checkBoxEnableURLContentFilter.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
             this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(162, 17);
-            this.checkBoxEnableURLContentFilter.TabIndex = 79;
+            this.checkBoxEnableURLContentFilter.TabIndex = 1;
             this.checkBoxEnableURLContentFilter.Text = "Filter also embedded content";
             this.checkBoxEnableURLContentFilter.UseVisualStyleBackColor = true;
             this.checkBoxEnableURLContentFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLContentFilter_CheckedChanged);
@@ -1360,7 +1169,7 @@
             this.checkBoxEnableURLFilter.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
             this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxEnableURLFilter.TabIndex = 78;
+            this.checkBoxEnableURLFilter.TabIndex = 0;
             this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
             this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
             this.checkBoxEnableURLFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLFilter_CheckedChanged);
@@ -1410,7 +1219,7 @@
             this.comboBoxChooseIdentityToEmbed.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxChooseIdentityToEmbed.Name = "comboBoxChooseIdentityToEmbed";
             this.comboBoxChooseIdentityToEmbed.Size = new System.Drawing.Size(491, 21);
-            this.comboBoxChooseIdentityToEmbed.TabIndex = 95;
+            this.comboBoxChooseIdentityToEmbed.TabIndex = 1;
             this.comboBoxChooseIdentityToEmbed.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
             // 
             // comboBoxChooseSSLClientCertificate
@@ -1421,7 +1230,7 @@
             this.comboBoxChooseSSLClientCertificate.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxChooseSSLClientCertificate.Name = "comboBoxChooseSSLClientCertificate";
             this.comboBoxChooseSSLClientCertificate.Size = new System.Drawing.Size(491, 21);
-            this.comboBoxChooseSSLClientCertificate.TabIndex = 94;
+            this.comboBoxChooseSSLClientCertificate.TabIndex = 0;
             this.comboBoxChooseSSLClientCertificate.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseSSLClientCertificate_SelectedIndexChanged);
             // 
             // buttonRemoveCertificate
@@ -1430,7 +1239,7 @@
             this.buttonRemoveCertificate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRemoveCertificate.Name = "buttonRemoveCertificate";
             this.buttonRemoveCertificate.Size = new System.Drawing.Size(22, 24);
-            this.buttonRemoveCertificate.TabIndex = 93;
+            this.buttonRemoveCertificate.TabIndex = 3;
             this.buttonRemoveCertificate.Text = "-";
             this.buttonRemoveCertificate.UseVisualStyleBackColor = true;
             this.buttonRemoveCertificate.Click += new System.EventHandler(this.buttonRemoveEmbeddedCertificate_Click);
@@ -1448,7 +1257,7 @@
             this.dataGridViewEmbeddedCertificates.RowHeadersVisible = false;
             this.dataGridViewEmbeddedCertificates.RowTemplate.Height = 24;
             this.dataGridViewEmbeddedCertificates.Size = new System.Drawing.Size(490, 146);
-            this.dataGridViewEmbeddedCertificates.TabIndex = 90;
+            this.dataGridViewEmbeddedCertificates.TabIndex = 2;
             this.dataGridViewEmbeddedCertificates.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEmbeddedCertificates_CellValueChanged);
             this.dataGridViewEmbeddedCertificates.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewEmbeddedCertificates_CurrentCellDirtyStateChanged);
             this.dataGridViewEmbeddedCertificates.SelectionChanged += new System.EventHandler(this.dataGridViewEmbeddedCertificates_SelectionChanged);
@@ -1555,7 +1364,7 @@
             this.textBoxProxyServerPassword.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProxyServerPassword.Name = "textBoxProxyServerPassword";
             this.textBoxProxyServerPassword.Size = new System.Drawing.Size(293, 19);
-            this.textBoxProxyServerPassword.TabIndex = 107;
+            this.textBoxProxyServerPassword.TabIndex = 11;
             this.textBoxProxyServerPassword.TextChanged += new System.EventHandler(this.textBoxProxyServerPassword_TextChanged);
             // 
             // textBoxProxyServerUsername
@@ -1565,7 +1374,7 @@
             this.textBoxProxyServerUsername.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProxyServerUsername.Name = "textBoxProxyServerUsername";
             this.textBoxProxyServerUsername.Size = new System.Drawing.Size(293, 19);
-            this.textBoxProxyServerUsername.TabIndex = 106;
+            this.textBoxProxyServerUsername.TabIndex = 10;
             this.textBoxProxyServerUsername.TextChanged += new System.EventHandler(this.textBoxProxyServerUsername_TextChanged);
             // 
             // checkBoxProxyServerRequires
@@ -1576,7 +1385,7 @@
             this.checkBoxProxyServerRequires.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxProxyServerRequires.Name = "checkBoxProxyServerRequires";
             this.checkBoxProxyServerRequires.Size = new System.Drawing.Size(172, 17);
-            this.checkBoxProxyServerRequires.TabIndex = 105;
+            this.checkBoxProxyServerRequires.TabIndex = 9;
             this.checkBoxProxyServerRequires.Text = "Proxy server requires password";
             this.checkBoxProxyServerRequires.UseVisualStyleBackColor = true;
             this.checkBoxProxyServerRequires.CheckedChanged += new System.EventHandler(this.checkBoxProxyServerRequiresPassword_CheckedChanged);
@@ -1588,7 +1397,7 @@
             this.textBoxProxyServerPort.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProxyServerPort.Name = "textBoxProxyServerPort";
             this.textBoxProxyServerPort.Size = new System.Drawing.Size(53, 19);
-            this.textBoxProxyServerPort.TabIndex = 104;
+            this.textBoxProxyServerPort.TabIndex = 8;
             this.textBoxProxyServerPort.TextChanged += new System.EventHandler(this.textBoxProxyServerPort_TextChanged);
             // 
             // labelProxyServerHost
@@ -1608,7 +1417,7 @@
             this.textBoxProxyServerHost.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProxyServerHost.Name = "textBoxProxyServerHost";
             this.textBoxProxyServerHost.Size = new System.Drawing.Size(300, 19);
-            this.textBoxProxyServerHost.TabIndex = 102;
+            this.textBoxProxyServerHost.TabIndex = 7;
             this.textBoxProxyServerHost.TextChanged += new System.EventHandler(this.textBoxProxyServerHost_TextChanged);
             // 
             // dataGridViewProxyProtocols
@@ -1624,7 +1433,7 @@
             this.dataGridViewProxyProtocols.RowHeadersVisible = false;
             this.dataGridViewProxyProtocols.RowTemplate.Height = 24;
             this.dataGridViewProxyProtocols.Size = new System.Drawing.Size(262, 139);
-            this.dataGridViewProxyProtocols.TabIndex = 101;
+            this.dataGridViewProxyProtocols.TabIndex = 2;
             this.dataGridViewProxyProtocols.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProxyProtocols_CellValueChanged);
             this.dataGridViewProxyProtocols.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewProxyProtocols_CurrentCellDirtyStateChanged);
             this.dataGridViewProxyProtocols.SelectionChanged += new System.EventHandler(this.dataGridViewProxyProtocols_SelectionChanged);
@@ -1654,7 +1463,7 @@
             this.dataGridViewBypassedProxies.RowHeadersVisible = false;
             this.dataGridViewBypassedProxies.RowTemplate.Height = 24;
             this.dataGridViewBypassedProxies.Size = new System.Drawing.Size(490, 89);
-            this.dataGridViewBypassedProxies.TabIndex = 100;
+            this.dataGridViewBypassedProxies.TabIndex = 4;
             this.dataGridViewBypassedProxies.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBypassedProxies_CellValueChanged);
             this.dataGridViewBypassedProxies.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewBypassedProxies_CurrentCellDirtyStateChanged);
             this.dataGridViewBypassedProxies.SelectionChanged += new System.EventHandler(this.dataGridViewBypassedProxies_SelectionChanged);
@@ -1695,7 +1504,7 @@
             this.textBoxAutoProxyConfigurationURL.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAutoProxyConfigurationURL.Name = "textBoxAutoProxyConfigurationURL";
             this.textBoxAutoProxyConfigurationURL.Size = new System.Drawing.Size(341, 19);
-            this.textBoxAutoProxyConfigurationURL.TabIndex = 96;
+            this.textBoxAutoProxyConfigurationURL.TabIndex = 6;
             this.textBoxAutoProxyConfigurationURL.TextChanged += new System.EventHandler(this.textBoxAutoProxyConfigurationURL_TextChanged);
             // 
             // labelAutoProxyConfigurationURL
@@ -1726,7 +1535,7 @@
             this.checkBoxUsePassiveFTPMode.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxUsePassiveFTPMode.Name = "checkBoxUsePassiveFTPMode";
             this.checkBoxUsePassiveFTPMode.Size = new System.Drawing.Size(175, 17);
-            this.checkBoxUsePassiveFTPMode.TabIndex = 92;
+            this.checkBoxUsePassiveFTPMode.TabIndex = 5;
             this.checkBoxUsePassiveFTPMode.Text = "Use Passive FTP Mode (PASV)";
             this.checkBoxUsePassiveFTPMode.UseVisualStyleBackColor = true;
             this.checkBoxUsePassiveFTPMode.CheckedChanged += new System.EventHandler(this.checkBoxUsePassiveFTPMode_CheckedChanged);
@@ -1739,7 +1548,7 @@
             this.checkBoxExcludeSimpleHostnames.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxExcludeSimpleHostnames.Name = "checkBoxExcludeSimpleHostnames";
             this.checkBoxExcludeSimpleHostnames.Size = new System.Drawing.Size(150, 17);
-            this.checkBoxExcludeSimpleHostnames.TabIndex = 91;
+            this.checkBoxExcludeSimpleHostnames.TabIndex = 3;
             this.checkBoxExcludeSimpleHostnames.Text = "Exclude simple hostnames";
             this.checkBoxExcludeSimpleHostnames.UseVisualStyleBackColor = true;
             this.checkBoxExcludeSimpleHostnames.CheckedChanged += new System.EventHandler(this.checkBoxExcludeSimpleHostnames_CheckedChanged);
@@ -1762,7 +1571,7 @@
             this.radioButtonUseSebProxySettings.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonUseSebProxySettings.Name = "radioButtonUseSebProxySettings";
             this.radioButtonUseSebProxySettings.Size = new System.Drawing.Size(135, 17);
-            this.radioButtonUseSebProxySettings.TabIndex = 52;
+            this.radioButtonUseSebProxySettings.TabIndex = 1;
             this.radioButtonUseSebProxySettings.Text = "Use SEB proxy settings";
             this.radioButtonUseSebProxySettings.UseVisualStyleBackColor = true;
             this.radioButtonUseSebProxySettings.CheckedChanged += new System.EventHandler(this.radioButtonUseSebProxySettings_CheckedChanged);
@@ -1774,7 +1583,7 @@
             this.radioButtonUseSystemProxySettings.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonUseSystemProxySettings.Name = "radioButtonUseSystemProxySettings";
             this.radioButtonUseSystemProxySettings.Size = new System.Drawing.Size(146, 17);
-            this.radioButtonUseSystemProxySettings.TabIndex = 51;
+            this.radioButtonUseSystemProxySettings.TabIndex = 0;
             this.radioButtonUseSystemProxySettings.Text = "Use system proxy settings";
             this.radioButtonUseSystemProxySettings.UseVisualStyleBackColor = true;
             this.radioButtonUseSystemProxySettings.CheckedChanged += new System.EventHandler(this.radioButtonUseSystemProxySettings_CheckedChanged);
@@ -1802,7 +1611,7 @@
             this.tabControlApplications.Name = "tabControlApplications";
             this.tabControlApplications.SelectedIndex = 0;
             this.tabControlApplications.Size = new System.Drawing.Size(614, 550);
-            this.tabControlApplications.TabIndex = 79;
+            this.tabControlApplications.TabIndex = 1;
             // 
             // tabPagePermittedProcesses
             // 
@@ -1837,7 +1646,7 @@
             this.dataGridViewPermittedProcesses.RowHeadersVisible = false;
             this.dataGridViewPermittedProcesses.RowTemplate.Height = 24;
             this.dataGridViewPermittedProcesses.Size = new System.Drawing.Size(550, 106);
-            this.dataGridViewPermittedProcesses.TabIndex = 89;
+            this.dataGridViewPermittedProcesses.TabIndex = 2;
             this.dataGridViewPermittedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcesses_CellValueChanged);
             this.dataGridViewPermittedProcesses.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_CurrentCellDirtyStateChanged);
             this.dataGridViewPermittedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcesses_SelectionChanged);
@@ -1875,7 +1684,7 @@
             this.buttonChoosePermittedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChoosePermittedProcess.Name = "buttonChoosePermittedProcess";
             this.buttonChoosePermittedProcess.Size = new System.Drawing.Size(112, 24);
-            this.buttonChoosePermittedProcess.TabIndex = 88;
+            this.buttonChoosePermittedProcess.TabIndex = 6;
             this.buttonChoosePermittedProcess.Text = "Choose Process...";
             this.buttonChoosePermittedProcess.UseVisualStyleBackColor = true;
             this.buttonChoosePermittedProcess.Visible = false;
@@ -1887,7 +1696,7 @@
             this.buttonChoosePermittedApplication.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChoosePermittedApplication.Name = "buttonChoosePermittedApplication";
             this.buttonChoosePermittedApplication.Size = new System.Drawing.Size(112, 24);
-            this.buttonChoosePermittedApplication.TabIndex = 87;
+            this.buttonChoosePermittedApplication.TabIndex = 5;
             this.buttonChoosePermittedApplication.Text = "Choose Application...";
             this.buttonChoosePermittedApplication.UseVisualStyleBackColor = true;
             this.buttonChoosePermittedApplication.Visible = false;
@@ -1899,7 +1708,7 @@
             this.buttonRemovePermittedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRemovePermittedProcess.Name = "buttonRemovePermittedProcess";
             this.buttonRemovePermittedProcess.Size = new System.Drawing.Size(22, 24);
-            this.buttonRemovePermittedProcess.TabIndex = 86;
+            this.buttonRemovePermittedProcess.TabIndex = 4;
             this.buttonRemovePermittedProcess.Text = "-";
             this.buttonRemovePermittedProcess.UseVisualStyleBackColor = true;
             this.buttonRemovePermittedProcess.Click += new System.EventHandler(this.buttonRemovePermittedProcess_Click);
@@ -1910,7 +1719,7 @@
             this.buttonAddPermittedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddPermittedProcess.Name = "buttonAddPermittedProcess";
             this.buttonAddPermittedProcess.Size = new System.Drawing.Size(22, 24);
-            this.buttonAddPermittedProcess.TabIndex = 85;
+            this.buttonAddPermittedProcess.TabIndex = 3;
             this.buttonAddPermittedProcess.Text = "+";
             this.buttonAddPermittedProcess.UseVisualStyleBackColor = true;
             this.buttonAddPermittedProcess.Click += new System.EventHandler(this.buttonAddPermittedProcess_Click);
@@ -1955,7 +1764,7 @@
             this.checkBoxPermittedProcessStrongKill.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessStrongKill.Name = "checkBoxPermittedProcessStrongKill";
             this.checkBoxPermittedProcessStrongKill.Size = new System.Drawing.Size(154, 17);
-            this.checkBoxPermittedProcessStrongKill.TabIndex = 96;
+            this.checkBoxPermittedProcessStrongKill.TabIndex = 13;
             this.checkBoxPermittedProcessStrongKill.Text = "Strong kill (risk of data loss)";
             this.checkBoxPermittedProcessStrongKill.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessStrongKill.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessStrongKill_CheckedChanged);
@@ -1966,7 +1775,7 @@
             this.buttonPermittedProcessCodeSignature.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPermittedProcessCodeSignature.Name = "buttonPermittedProcessCodeSignature";
             this.buttonPermittedProcessCodeSignature.Size = new System.Drawing.Size(112, 24);
-            this.buttonPermittedProcessCodeSignature.TabIndex = 95;
+            this.buttonPermittedProcessCodeSignature.TabIndex = 14;
             this.buttonPermittedProcessCodeSignature.Text = "Code Signature...";
             this.buttonPermittedProcessCodeSignature.UseVisualStyleBackColor = true;
             this.buttonPermittedProcessCodeSignature.Visible = false;
@@ -1985,7 +1794,7 @@
             this.dataGridViewPermittedProcessArguments.RowHeadersVisible = false;
             this.dataGridViewPermittedProcessArguments.RowTemplate.Height = 24;
             this.dataGridViewPermittedProcessArguments.Size = new System.Drawing.Size(429, 47);
-            this.dataGridViewPermittedProcessArguments.TabIndex = 90;
+            this.dataGridViewPermittedProcessArguments.TabIndex = 6;
             this.dataGridViewPermittedProcessArguments.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcessArguments_CellValueChanged);
             this.dataGridViewPermittedProcessArguments.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_CurrentCellDirtyStateChanged);
             this.dataGridViewPermittedProcessArguments.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_SelectionChanged);
@@ -2018,7 +1827,7 @@
             this.textBoxPermittedProcessIdentifier.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessIdentifier.Name = "textBoxPermittedProcessIdentifier";
             this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(338, 20);
-            this.textBoxPermittedProcessIdentifier.TabIndex = 89;
+            this.textBoxPermittedProcessIdentifier.TabIndex = 9;
             this.textBoxPermittedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxPermittedProcessIdentifier_TextChanged);
             // 
             // buttonPermittedProcessRemoveArgument
@@ -2027,7 +1836,7 @@
             this.buttonPermittedProcessRemoveArgument.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPermittedProcessRemoveArgument.Name = "buttonPermittedProcessRemoveArgument";
             this.buttonPermittedProcessRemoveArgument.Size = new System.Drawing.Size(19, 19);
-            this.buttonPermittedProcessRemoveArgument.TabIndex = 87;
+            this.buttonPermittedProcessRemoveArgument.TabIndex = 8;
             this.buttonPermittedProcessRemoveArgument.Text = "-";
             this.buttonPermittedProcessRemoveArgument.UseVisualStyleBackColor = true;
             this.buttonPermittedProcessRemoveArgument.Click += new System.EventHandler(this.buttonPermittedProcessRemoveArgument_Click);
@@ -2038,7 +1847,7 @@
             this.buttonPermittedProcessAddArgument.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPermittedProcessAddArgument.Name = "buttonPermittedProcessAddArgument";
             this.buttonPermittedProcessAddArgument.Size = new System.Drawing.Size(22, 19);
-            this.buttonPermittedProcessAddArgument.TabIndex = 86;
+            this.buttonPermittedProcessAddArgument.TabIndex = 7;
             this.buttonPermittedProcessAddArgument.Text = "+";
             this.buttonPermittedProcessAddArgument.UseVisualStyleBackColor = true;
             this.buttonPermittedProcessAddArgument.Click += new System.EventHandler(this.buttonPermittedProcessAddArgument_Click);
@@ -2070,7 +1879,7 @@
             this.listBoxPermittedProcessOS.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxPermittedProcessOS.Name = "listBoxPermittedProcessOS";
             this.listBoxPermittedProcessOS.Size = new System.Drawing.Size(48, 30);
-            this.listBoxPermittedProcessOS.TabIndex = 12;
+            this.listBoxPermittedProcessOS.TabIndex = 3;
             this.listBoxPermittedProcessOS.SelectedIndexChanged += new System.EventHandler(this.listBoxPermittedProcessOS_SelectedIndexChanged);
             // 
             // labelPermittedProcessExecutable
@@ -2099,7 +1908,7 @@
             this.textBoxPermittedProcessPath.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessPath.Name = "textBoxPermittedProcessPath";
             this.textBoxPermittedProcessPath.Size = new System.Drawing.Size(430, 20);
-            this.textBoxPermittedProcessPath.TabIndex = 9;
+            this.textBoxPermittedProcessPath.TabIndex = 5;
             this.textBoxPermittedProcessPath.TextChanged += new System.EventHandler(this.textBoxPermittedProcessPath_TextChanged);
             // 
             // textBoxPermittedProcessExecutable
@@ -2108,7 +1917,7 @@
             this.textBoxPermittedProcessExecutable.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessExecutable.Name = "textBoxPermittedProcessExecutable";
             this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(338, 20);
-            this.textBoxPermittedProcessExecutable.TabIndex = 8;
+            this.textBoxPermittedProcessExecutable.TabIndex = 4;
             this.textBoxPermittedProcessExecutable.TextChanged += new System.EventHandler(this.textBoxPermittedProcessExecutable_TextChanged);
             // 
             // textBoxPermittedProcessDescription
@@ -2117,7 +1926,7 @@
             this.textBoxPermittedProcessDescription.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessDescription.Name = "textBoxPermittedProcessDescription";
             this.textBoxPermittedProcessDescription.Size = new System.Drawing.Size(430, 20);
-            this.textBoxPermittedProcessDescription.TabIndex = 7;
+            this.textBoxPermittedProcessDescription.TabIndex = 2;
             this.textBoxPermittedProcessDescription.TextChanged += new System.EventHandler(this.textBoxPermittedProcessDescription_TextChanged);
             // 
             // labelPermittedProcessDescription
@@ -2146,7 +1955,7 @@
             this.textBoxPermittedProcessTitle.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessTitle.Name = "textBoxPermittedProcessTitle";
             this.textBoxPermittedProcessTitle.Size = new System.Drawing.Size(338, 20);
-            this.textBoxPermittedProcessTitle.TabIndex = 4;
+            this.textBoxPermittedProcessTitle.TabIndex = 1;
             this.textBoxPermittedProcessTitle.TextChanged += new System.EventHandler(this.textBoxPermittedProcessTitle_TextChanged);
             // 
             // checkBoxPermittedProcessAllowUser
@@ -2156,7 +1965,7 @@
             this.checkBoxPermittedProcessAllowUser.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessAllowUser.Name = "checkBoxPermittedProcessAllowUser";
             this.checkBoxPermittedProcessAllowUser.Size = new System.Drawing.Size(223, 17);
-            this.checkBoxPermittedProcessAllowUser.TabIndex = 3;
+            this.checkBoxPermittedProcessAllowUser.TabIndex = 12;
             this.checkBoxPermittedProcessAllowUser.Text = "Allow user to select location of application";
             this.checkBoxPermittedProcessAllowUser.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessAllowUser.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAllowUser_CheckedChanged);
@@ -2169,7 +1978,7 @@
             this.checkBoxPermittedProcessAutohide.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessAutohide.Name = "checkBoxPermittedProcessAutohide";
             this.checkBoxPermittedProcessAutohide.Size = new System.Drawing.Size(68, 17);
-            this.checkBoxPermittedProcessAutohide.TabIndex = 2;
+            this.checkBoxPermittedProcessAutohide.TabIndex = 11;
             this.checkBoxPermittedProcessAutohide.Text = "Autohide";
             this.checkBoxPermittedProcessAutohide.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessAutohide.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAutohide_CheckedChanged);
@@ -2181,7 +1990,7 @@
             this.checkBoxPermittedProcessAutostart.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessAutostart.Name = "checkBoxPermittedProcessAutostart";
             this.checkBoxPermittedProcessAutostart.Size = new System.Drawing.Size(68, 17);
-            this.checkBoxPermittedProcessAutostart.TabIndex = 1;
+            this.checkBoxPermittedProcessAutostart.TabIndex = 10;
             this.checkBoxPermittedProcessAutostart.Text = "Autostart";
             this.checkBoxPermittedProcessAutostart.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessAutostart.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAutostart_CheckedChanged);
@@ -2206,7 +2015,7 @@
             this.checkBoxAllowSwitchToApplications.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowSwitchToApplications.Name = "checkBoxAllowSwitchToApplications";
             this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(218, 17);
-            this.checkBoxAllowSwitchToApplications.TabIndex = 77;
+            this.checkBoxAllowSwitchToApplications.TabIndex = 0;
             this.checkBoxAllowSwitchToApplications.Text = "Allow switching to third party applications";
             this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
             this.checkBoxAllowSwitchToApplications.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToApplications_CheckedChanged);
@@ -2219,7 +2028,7 @@
             this.checkBoxAllowFlashFullscreen.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowFlashFullscreen.Name = "checkBoxAllowFlashFullscreen";
             this.checkBoxAllowFlashFullscreen.Size = new System.Drawing.Size(243, 17);
-            this.checkBoxAllowFlashFullscreen.TabIndex = 78;
+            this.checkBoxAllowFlashFullscreen.TabIndex = 1;
             this.checkBoxAllowFlashFullscreen.Text = "Allow Flash to switch to fullscreen mode (Mac)";
             this.checkBoxAllowFlashFullscreen.UseVisualStyleBackColor = true;
             this.checkBoxAllowFlashFullscreen.CheckedChanged += new System.EventHandler(this.checkBoxAllowFlashFullscreen_CheckedChanged);
@@ -2272,7 +2081,7 @@
             this.buttonProhibitedProcessCodeSignature.Margin = new System.Windows.Forms.Padding(2);
             this.buttonProhibitedProcessCodeSignature.Name = "buttonProhibitedProcessCodeSignature";
             this.buttonProhibitedProcessCodeSignature.Size = new System.Drawing.Size(112, 24);
-            this.buttonProhibitedProcessCodeSignature.TabIndex = 94;
+            this.buttonProhibitedProcessCodeSignature.TabIndex = 8;
             this.buttonProhibitedProcessCodeSignature.Text = "Code Signature...";
             this.buttonProhibitedProcessCodeSignature.UseVisualStyleBackColor = true;
             this.buttonProhibitedProcessCodeSignature.Visible = false;
@@ -2295,7 +2104,7 @@
             this.listBoxProhibitedProcessOS.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxProhibitedProcessOS.Name = "listBoxProhibitedProcessOS";
             this.listBoxProhibitedProcessOS.Size = new System.Drawing.Size(48, 30);
-            this.listBoxProhibitedProcessOS.TabIndex = 12;
+            this.listBoxProhibitedProcessOS.TabIndex = 3;
             this.listBoxProhibitedProcessOS.SelectedIndexChanged += new System.EventHandler(this.listBoxProhibitedProcessOS_SelectedIndexChanged);
             // 
             // labelProhibitedProcessIdentifier
@@ -2324,7 +2133,7 @@
             this.textBoxProhibitedProcessUser.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProhibitedProcessUser.Name = "textBoxProhibitedProcessUser";
             this.textBoxProhibitedProcessUser.Size = new System.Drawing.Size(338, 20);
-            this.textBoxProhibitedProcessUser.TabIndex = 9;
+            this.textBoxProhibitedProcessUser.TabIndex = 5;
             this.textBoxProhibitedProcessUser.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessUser_TextChanged);
             // 
             // textBoxProhibitedProcessIdentifier
@@ -2333,7 +2142,7 @@
             this.textBoxProhibitedProcessIdentifier.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProhibitedProcessIdentifier.Name = "textBoxProhibitedProcessIdentifier";
             this.textBoxProhibitedProcessIdentifier.Size = new System.Drawing.Size(338, 20);
-            this.textBoxProhibitedProcessIdentifier.TabIndex = 8;
+            this.textBoxProhibitedProcessIdentifier.TabIndex = 4;
             this.textBoxProhibitedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessIdentifier_TextChanged);
             // 
             // textBoxProhibitedProcessDescription
@@ -2342,7 +2151,7 @@
             this.textBoxProhibitedProcessDescription.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProhibitedProcessDescription.Name = "textBoxProhibitedProcessDescription";
             this.textBoxProhibitedProcessDescription.Size = new System.Drawing.Size(430, 20);
-            this.textBoxProhibitedProcessDescription.TabIndex = 7;
+            this.textBoxProhibitedProcessDescription.TabIndex = 2;
             this.textBoxProhibitedProcessDescription.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessDescription_TextChanged);
             // 
             // labelProhibitedProcessDescription
@@ -2371,7 +2180,7 @@
             this.textBoxProhibitedProcessExecutable.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProhibitedProcessExecutable.Name = "textBoxProhibitedProcessExecutable";
             this.textBoxProhibitedProcessExecutable.Size = new System.Drawing.Size(338, 20);
-            this.textBoxProhibitedProcessExecutable.TabIndex = 4;
+            this.textBoxProhibitedProcessExecutable.TabIndex = 1;
             this.textBoxProhibitedProcessExecutable.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessExecutable_TextChanged);
             // 
             // checkBoxProhibitedProcessStrongKill
@@ -2381,7 +2190,7 @@
             this.checkBoxProhibitedProcessStrongKill.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxProhibitedProcessStrongKill.Name = "checkBoxProhibitedProcessStrongKill";
             this.checkBoxProhibitedProcessStrongKill.Size = new System.Drawing.Size(154, 17);
-            this.checkBoxProhibitedProcessStrongKill.TabIndex = 2;
+            this.checkBoxProhibitedProcessStrongKill.TabIndex = 7;
             this.checkBoxProhibitedProcessStrongKill.Text = "Strong kill (risk of data loss)";
             this.checkBoxProhibitedProcessStrongKill.UseVisualStyleBackColor = true;
             this.checkBoxProhibitedProcessStrongKill.CheckedChanged += new System.EventHandler(this.checkBoxProhibitedProcessStrongKill_CheckedChanged);
@@ -2393,7 +2202,7 @@
             this.checkBoxProhibitedProcessCurrentUser.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxProhibitedProcessCurrentUser.Name = "checkBoxProhibitedProcessCurrentUser";
             this.checkBoxProhibitedProcessCurrentUser.Size = new System.Drawing.Size(83, 17);
-            this.checkBoxProhibitedProcessCurrentUser.TabIndex = 1;
+            this.checkBoxProhibitedProcessCurrentUser.TabIndex = 6;
             this.checkBoxProhibitedProcessCurrentUser.Text = "Current user";
             this.checkBoxProhibitedProcessCurrentUser.UseVisualStyleBackColor = true;
             this.checkBoxProhibitedProcessCurrentUser.CheckedChanged += new System.EventHandler(this.checkBoxProhibitedProcessCurrentUser_CheckedChanged);
@@ -2416,7 +2225,7 @@
             this.buttonChooseProhibitedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChooseProhibitedProcess.Name = "buttonChooseProhibitedProcess";
             this.buttonChooseProhibitedProcess.Size = new System.Drawing.Size(112, 24);
-            this.buttonChooseProhibitedProcess.TabIndex = 94;
+            this.buttonChooseProhibitedProcess.TabIndex = 4;
             this.buttonChooseProhibitedProcess.Text = "Choose Process...";
             this.buttonChooseProhibitedProcess.UseVisualStyleBackColor = true;
             this.buttonChooseProhibitedProcess.Visible = false;
@@ -2428,7 +2237,7 @@
             this.buttonChooseProhibitedExecutable.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChooseProhibitedExecutable.Name = "buttonChooseProhibitedExecutable";
             this.buttonChooseProhibitedExecutable.Size = new System.Drawing.Size(112, 24);
-            this.buttonChooseProhibitedExecutable.TabIndex = 93;
+            this.buttonChooseProhibitedExecutable.TabIndex = 3;
             this.buttonChooseProhibitedExecutable.Text = "Choose Executable...";
             this.buttonChooseProhibitedExecutable.UseVisualStyleBackColor = true;
             this.buttonChooseProhibitedExecutable.Visible = false;
@@ -2440,7 +2249,7 @@
             this.buttonRemoveProhibitedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRemoveProhibitedProcess.Name = "buttonRemoveProhibitedProcess";
             this.buttonRemoveProhibitedProcess.Size = new System.Drawing.Size(22, 24);
-            this.buttonRemoveProhibitedProcess.TabIndex = 92;
+            this.buttonRemoveProhibitedProcess.TabIndex = 2;
             this.buttonRemoveProhibitedProcess.Text = "-";
             this.buttonRemoveProhibitedProcess.UseVisualStyleBackColor = true;
             this.buttonRemoveProhibitedProcess.Click += new System.EventHandler(this.buttonRemoveProhibitedProcess_Click);
@@ -2451,7 +2260,7 @@
             this.buttonAddProhibitedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddProhibitedProcess.Name = "buttonAddProhibitedProcess";
             this.buttonAddProhibitedProcess.Size = new System.Drawing.Size(22, 24);
-            this.buttonAddProhibitedProcess.TabIndex = 91;
+            this.buttonAddProhibitedProcess.TabIndex = 1;
             this.buttonAddProhibitedProcess.Text = "+";
             this.buttonAddProhibitedProcess.UseVisualStyleBackColor = true;
             this.buttonAddProhibitedProcess.Click += new System.EventHandler(this.buttonAddProhibitedProcess_Click);
@@ -2470,7 +2279,7 @@
             this.dataGridViewProhibitedProcesses.RowHeadersVisible = false;
             this.dataGridViewProhibitedProcesses.RowTemplate.Height = 24;
             this.dataGridViewProhibitedProcesses.Size = new System.Drawing.Size(550, 106);
-            this.dataGridViewProhibitedProcesses.TabIndex = 90;
+            this.dataGridViewProhibitedProcesses.TabIndex = 0;
             this.dataGridViewProhibitedProcesses.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProhibitedProcesses_CellValueChanged);
             this.dataGridViewProhibitedProcesses.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewProhibitedProcesses_CurrentCellDirtyStateChanged);
             this.dataGridViewProhibitedProcesses.SelectionChanged += new System.EventHandler(this.dataGridViewProhibitedProcesses_SelectionChanged);
@@ -2511,7 +2320,7 @@
             this.checkBoxMonitorProcesses.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxMonitorProcesses.Name = "checkBoxMonitorProcesses";
             this.checkBoxMonitorProcesses.Size = new System.Drawing.Size(211, 17);
-            this.checkBoxMonitorProcesses.TabIndex = 50;
+            this.checkBoxMonitorProcesses.TabIndex = 0;
             this.checkBoxMonitorProcesses.Text = "Monitor processes while SEB is running";
             this.checkBoxMonitorProcesses.UseVisualStyleBackColor = true;
             this.checkBoxMonitorProcesses.CheckedChanged += new System.EventHandler(this.checkBoxMonitorProcesses_CheckedChanged);
@@ -2585,7 +2394,7 @@
             this.textBoxBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxBrowserExamKey.Name = "textBoxBrowserExamKey";
             this.textBoxBrowserExamKey.Size = new System.Drawing.Size(526, 20);
-            this.textBoxBrowserExamKey.TabIndex = 77;
+            this.textBoxBrowserExamKey.TabIndex = 0;
             this.textBoxBrowserExamKey.TextChanged += new System.EventHandler(this.textBoxBrowserExamKey_TextChanged);
             // 
             // textBoxQuitURL
@@ -2595,7 +2404,7 @@
             this.textBoxQuitURL.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxQuitURL.Name = "textBoxQuitURL";
             this.textBoxQuitURL.Size = new System.Drawing.Size(526, 19);
-            this.textBoxQuitURL.TabIndex = 76;
+            this.textBoxQuitURL.TabIndex = 3;
             this.textBoxQuitURL.TextChanged += new System.EventHandler(this.textBoxQuitURL_TextChanged);
             // 
             // labelQuitURL
@@ -2617,7 +2426,7 @@
             this.checkBoxSendBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxSendBrowserExamKey.Name = "checkBoxSendBrowserExamKey";
             this.checkBoxSendBrowserExamKey.Size = new System.Drawing.Size(221, 17);
-            this.checkBoxSendBrowserExamKey.TabIndex = 74;
+            this.checkBoxSendBrowserExamKey.TabIndex = 2;
             this.checkBoxSendBrowserExamKey.Text = "Send Browser Exam Key in HTTP header";
             this.checkBoxSendBrowserExamKey.UseVisualStyleBackColor = true;
             this.checkBoxSendBrowserExamKey.CheckedChanged += new System.EventHandler(this.checkBoxSendBrowserExamKey_CheckedChanged);
@@ -2630,7 +2439,7 @@
             this.checkBoxCopyBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCopyBrowserExamKey.Name = "checkBoxCopyBrowserExamKey";
             this.checkBoxCopyBrowserExamKey.Size = new System.Drawing.Size(431, 17);
-            this.checkBoxCopyBrowserExamKey.TabIndex = 73;
+            this.checkBoxCopyBrowserExamKey.TabIndex = 1;
             this.checkBoxCopyBrowserExamKey.Text = "Copy Browser Exam Key to clipboard when quitting SEB Windows Configuration Editor" +
     "";
             this.checkBoxCopyBrowserExamKey.UseVisualStyleBackColor = true;
@@ -2672,7 +2481,7 @@
             this.buttonDownloadDirectoryWin.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDownloadDirectoryWin.Name = "buttonDownloadDirectoryWin";
             this.buttonDownloadDirectoryWin.Size = new System.Drawing.Size(143, 20);
-            this.buttonDownloadDirectoryWin.TabIndex = 77;
+            this.buttonDownloadDirectoryWin.TabIndex = 0;
             this.buttonDownloadDirectoryWin.Text = "Save downloaded files to...";
             this.buttonDownloadDirectoryWin.UseVisualStyleBackColor = true;
             this.buttonDownloadDirectoryWin.Click += new System.EventHandler(this.buttonDownloadDirectoryWin_Click);
@@ -2684,7 +2493,7 @@
             this.listBoxChooseFileToUploadPolicy.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxChooseFileToUploadPolicy.Name = "listBoxChooseFileToUploadPolicy";
             this.listBoxChooseFileToUploadPolicy.Size = new System.Drawing.Size(348, 43);
-            this.listBoxChooseFileToUploadPolicy.TabIndex = 76;
+            this.listBoxChooseFileToUploadPolicy.TabIndex = 2;
             this.listBoxChooseFileToUploadPolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxChooseFileToUploadPolicy_SelectedIndexChanged);
             // 
             // labelChooseFileToUploadPolicy
@@ -2705,7 +2514,7 @@
             this.checkBoxDownloadPDFFiles.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxDownloadPDFFiles.Name = "checkBoxDownloadPDFFiles";
             this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(348, 17);
-            this.checkBoxDownloadPDFFiles.TabIndex = 73;
+            this.checkBoxDownloadPDFFiles.TabIndex = 3;
             this.checkBoxDownloadPDFFiles.Text = "Download and open PDF files instead of displaying them inline (Mac)";
             this.checkBoxDownloadPDFFiles.UseVisualStyleBackColor = true;
             this.checkBoxDownloadPDFFiles.CheckedChanged += new System.EventHandler(this.checkBoxDownloadPDFFiles_CheckedChanged);
@@ -2718,7 +2527,7 @@
             this.checkBoxOpenDownloads.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxOpenDownloads.Name = "checkBoxOpenDownloads";
             this.checkBoxOpenDownloads.Size = new System.Drawing.Size(190, 17);
-            this.checkBoxOpenDownloads.TabIndex = 72;
+            this.checkBoxOpenDownloads.TabIndex = 1;
             this.checkBoxOpenDownloads.Text = "Open files after downloading (Mac)";
             this.checkBoxOpenDownloads.UseVisualStyleBackColor = true;
             this.checkBoxOpenDownloads.CheckedChanged += new System.EventHandler(this.checkBoxOpenDownloads_CheckedChanged);
@@ -2769,7 +2578,7 @@
             this.listBoxOpenLinksJava.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxOpenLinksJava.Name = "listBoxOpenLinksJava";
             this.listBoxOpenLinksJava.Size = new System.Drawing.Size(149, 43);
-            this.listBoxOpenLinksJava.TabIndex = 74;
+            this.listBoxOpenLinksJava.TabIndex = 2;
             this.listBoxOpenLinksJava.SelectedIndexChanged += new System.EventHandler(this.listBoxOpenLinksJava_SelectedIndexChanged);
             // 
             // listBoxOpenLinksHTML
@@ -2779,7 +2588,7 @@
             this.listBoxOpenLinksHTML.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxOpenLinksHTML.Name = "listBoxOpenLinksHTML";
             this.listBoxOpenLinksHTML.Size = new System.Drawing.Size(149, 43);
-            this.listBoxOpenLinksHTML.TabIndex = 73;
+            this.listBoxOpenLinksHTML.TabIndex = 0;
             this.listBoxOpenLinksHTML.SelectedIndexChanged += new System.EventHandler(this.listBoxOpenLinksHTML_SelectedIndexChanged);
             // 
             // labelUseSEBWithoutBrowser
@@ -2789,7 +2598,7 @@
             this.labelUseSEBWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUseSEBWithoutBrowser.Name = "labelUseSEBWithoutBrowser";
             this.labelUseSEBWithoutBrowser.Size = new System.Drawing.Size(436, 13);
-            this.labelUseSEBWithoutBrowser.TabIndex = 72;
+            this.labelUseSEBWithoutBrowser.TabIndex = 10;
             this.labelUseSEBWithoutBrowser.Text = "to start another application in kiosk mode (for example a virtual desktop infrast" +
     "ructure client)";
             // 
@@ -2801,7 +2610,7 @@
             this.checkBoxBlockPopUpWindows.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBlockPopUpWindows.Name = "checkBoxBlockPopUpWindows";
             this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(163, 17);
-            this.checkBoxBlockPopUpWindows.TabIndex = 71;
+            this.checkBoxBlockPopUpWindows.TabIndex = 7;
             this.checkBoxBlockPopUpWindows.Text = "Block pop-up windows (Mac)";
             this.checkBoxBlockPopUpWindows.UseVisualStyleBackColor = true;
             this.checkBoxBlockPopUpWindows.CheckedChanged += new System.EventHandler(this.checkBoxBlockPopUpWindows_CheckedChanged);
@@ -2814,7 +2623,7 @@
             this.checkBoxAllowBrowsingBackForward.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
             this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(215, 17);
-            this.checkBoxAllowBrowsingBackForward.TabIndex = 70;
+            this.checkBoxAllowBrowsingBackForward.TabIndex = 8;
             this.checkBoxAllowBrowsingBackForward.Text = "Allow browsing back/forward (Mac only)";
             this.checkBoxAllowBrowsingBackForward.UseVisualStyleBackColor = true;
             this.checkBoxAllowBrowsingBackForward.CheckedChanged += new System.EventHandler(this.checkBoxAllowBrowsingBackForward_CheckedChanged);
@@ -2827,7 +2636,7 @@
             this.checkBoxEnableJavaScript.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
             this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(142, 17);
-            this.checkBoxEnableJavaScript.TabIndex = 69;
+            this.checkBoxEnableJavaScript.TabIndex = 5;
             this.checkBoxEnableJavaScript.Text = "Enable JavaScript (Mac)";
             this.checkBoxEnableJavaScript.UseVisualStyleBackColor = true;
             this.checkBoxEnableJavaScript.CheckedChanged += new System.EventHandler(this.checkBoxEnableJavaScript_CheckedChanged);
@@ -2840,7 +2649,7 @@
             this.checkBoxEnableJava.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJava.Name = "checkBoxEnableJava";
             this.checkBoxEnableJava.Size = new System.Drawing.Size(115, 17);
-            this.checkBoxEnableJava.TabIndex = 68;
+            this.checkBoxEnableJava.TabIndex = 6;
             this.checkBoxEnableJava.Text = "Enable Java (Mac)";
             this.checkBoxEnableJava.UseVisualStyleBackColor = true;
             this.checkBoxEnableJava.CheckedChanged += new System.EventHandler(this.checkBoxEnableJava_CheckedChanged);
@@ -2853,7 +2662,7 @@
             this.checkBoxEnablePlugIns.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePlugIns.Name = "checkBoxEnablePlugIns";
             this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(128, 17);
-            this.checkBoxEnablePlugIns.TabIndex = 67;
+            this.checkBoxEnablePlugIns.TabIndex = 4;
             this.checkBoxEnablePlugIns.Text = "Enable plug-ins (Mac)";
             this.checkBoxEnablePlugIns.UseVisualStyleBackColor = true;
             this.checkBoxEnablePlugIns.CheckedChanged += new System.EventHandler(this.checkBoxEnablePlugins_CheckedChanged);
@@ -2865,7 +2674,7 @@
             this.checkBoxUseSebWithoutBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
             this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(185, 17);
-            this.checkBoxUseSebWithoutBrowser.TabIndex = 66;
+            this.checkBoxUseSebWithoutBrowser.TabIndex = 9;
             this.checkBoxUseSebWithoutBrowser.Text = "Use SEB without browser window";
             this.checkBoxUseSebWithoutBrowser.UseVisualStyleBackColor = true;
             this.checkBoxUseSebWithoutBrowser.CheckedChanged += new System.EventHandler(this.checkBoxUseSebWithoutBrowser_CheckedChanged);
@@ -2877,7 +2686,7 @@
             this.checkBoxBlockLinksJava.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBlockLinksJava.Name = "checkBoxBlockLinksJava";
             this.checkBoxBlockLinksJava.Size = new System.Drawing.Size(218, 17);
-            this.checkBoxBlockLinksJava.TabIndex = 62;
+            this.checkBoxBlockLinksJava.TabIndex = 3;
             this.checkBoxBlockLinksJava.Text = "block when directing to a different server";
             this.checkBoxBlockLinksJava.UseVisualStyleBackColor = true;
             this.checkBoxBlockLinksJava.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksJava_CheckedChanged);
@@ -2910,7 +2719,7 @@
             this.checkBoxBlockLinksHTML.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBlockLinksHTML.Name = "checkBoxBlockLinksHTML";
             this.checkBoxBlockLinksHTML.Size = new System.Drawing.Size(218, 17);
-            this.checkBoxBlockLinksHTML.TabIndex = 59;
+            this.checkBoxBlockLinksHTML.TabIndex = 1;
             this.checkBoxBlockLinksHTML.Text = "block when directing to a different server";
             this.checkBoxBlockLinksHTML.UseVisualStyleBackColor = true;
             this.checkBoxBlockLinksHTML.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksHTML_CheckedChanged);
@@ -2940,7 +2749,7 @@
             this.comboBoxNewBrowserWindowHeight.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxNewBrowserWindowHeight.Name = "comboBoxNewBrowserWindowHeight";
             this.comboBoxNewBrowserWindowHeight.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxNewBrowserWindowHeight.TabIndex = 63;
+            this.comboBoxNewBrowserWindowHeight.TabIndex = 1;
             this.comboBoxNewBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_SelectedIndexChanged);
             this.comboBoxNewBrowserWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxNewBrowserWindowHeight_TextUpdate);
             // 
@@ -2951,7 +2760,7 @@
             this.comboBoxNewBrowserWindowWidth.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxNewBrowserWindowWidth.Name = "comboBoxNewBrowserWindowWidth";
             this.comboBoxNewBrowserWindowWidth.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxNewBrowserWindowWidth.TabIndex = 62;
+            this.comboBoxNewBrowserWindowWidth.TabIndex = 0;
             this.comboBoxNewBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxNewBrowserWindowWidth_SelectedIndexChanged);
             this.comboBoxNewBrowserWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxNewBrowserWindowWidth_TextUpdate);
             // 
@@ -2994,7 +2803,7 @@
             this.listBoxNewBrowserWindowPositioning.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxNewBrowserWindowPositioning.Name = "listBoxNewBrowserWindowPositioning";
             this.listBoxNewBrowserWindowPositioning.Size = new System.Drawing.Size(91, 43);
-            this.listBoxNewBrowserWindowPositioning.TabIndex = 57;
+            this.listBoxNewBrowserWindowPositioning.TabIndex = 2;
             this.listBoxNewBrowserWindowPositioning.SelectedIndexChanged += new System.EventHandler(this.listBoxNewBrowserWindowPositioning_SelectedIndexChanged);
             // 
             // tabPageAppearance
@@ -3037,7 +2846,7 @@
             this.comboBoxTaskBarHeight.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTaskBarHeight.Name = "comboBoxTaskBarHeight";
             this.comboBoxTaskBarHeight.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxTaskBarHeight.TabIndex = 62;
+            this.comboBoxTaskBarHeight.TabIndex = 6;
             this.comboBoxTaskBarHeight.Visible = false;
             this.comboBoxTaskBarHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxTaskBarHeight_SelectedIndexChanged);
             // 
@@ -3066,7 +2875,7 @@
             this.comboBoxMainBrowserWindowHeight.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxMainBrowserWindowHeight.Name = "comboBoxMainBrowserWindowHeight";
             this.comboBoxMainBrowserWindowHeight.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxMainBrowserWindowHeight.TabIndex = 62;
+            this.comboBoxMainBrowserWindowHeight.TabIndex = 1;
             this.comboBoxMainBrowserWindowHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowHeight_SelectedIndexChanged);
             this.comboBoxMainBrowserWindowHeight.TextUpdate += new System.EventHandler(this.comboBoxMainBrowserWindowHeight_TextUpdate);
             // 
@@ -3077,7 +2886,7 @@
             this.comboBoxMainBrowserWindowWidth.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxMainBrowserWindowWidth.Name = "comboBoxMainBrowserWindowWidth";
             this.comboBoxMainBrowserWindowWidth.Size = new System.Drawing.Size(92, 21);
-            this.comboBoxMainBrowserWindowWidth.TabIndex = 61;
+            this.comboBoxMainBrowserWindowWidth.TabIndex = 0;
             this.comboBoxMainBrowserWindowWidth.SelectedIndexChanged += new System.EventHandler(this.comboBoxMainBrowserWindowWidth_SelectedIndexChanged);
             this.comboBoxMainBrowserWindowWidth.TextUpdate += new System.EventHandler(this.comboBoxMainBrowserWindowWidth_TextUpdate);
             // 
@@ -3122,7 +2931,7 @@
             this.listBoxMainBrowserWindowPositioning.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxMainBrowserWindowPositioning.Name = "listBoxMainBrowserWindowPositioning";
             this.listBoxMainBrowserWindowPositioning.Size = new System.Drawing.Size(91, 43);
-            this.listBoxMainBrowserWindowPositioning.TabIndex = 57;
+            this.listBoxMainBrowserWindowPositioning.TabIndex = 2;
             this.listBoxMainBrowserWindowPositioning.SelectedIndexChanged += new System.EventHandler(this.listBoxMainBrowserWindowPositioning_SelectedIndexChanged);
             // 
             // checkBoxShowTaskBar
@@ -3132,7 +2941,7 @@
             this.checkBoxShowTaskBar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxShowTaskBar.Name = "checkBoxShowTaskBar";
             this.checkBoxShowTaskBar.Size = new System.Drawing.Size(118, 17);
-            this.checkBoxShowTaskBar.TabIndex = 56;
+            this.checkBoxShowTaskBar.TabIndex = 5;
             this.checkBoxShowTaskBar.Text = "Show SEB task bar";
             this.checkBoxShowTaskBar.UseVisualStyleBackColor = true;
             this.checkBoxShowTaskBar.CheckedChanged += new System.EventHandler(this.checkBoxShowTaskBar_CheckedChanged);
@@ -3144,7 +2953,7 @@
             this.checkBoxShowMenuBar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxShowMenuBar.Name = "checkBoxShowMenuBar";
             this.checkBoxShowMenuBar.Size = new System.Drawing.Size(130, 17);
-            this.checkBoxShowMenuBar.TabIndex = 55;
+            this.checkBoxShowMenuBar.TabIndex = 4;
             this.checkBoxShowMenuBar.Text = "Show menu bar (Mac)";
             this.checkBoxShowMenuBar.UseVisualStyleBackColor = true;
             this.checkBoxShowMenuBar.CheckedChanged += new System.EventHandler(this.checkBoxShowMenuBar_CheckedChanged);
@@ -3157,7 +2966,7 @@
             this.checkBoxHideBrowserWindowToolbar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxHideBrowserWindowToolbar.Name = "checkBoxHideBrowserWindowToolbar";
             this.checkBoxHideBrowserWindowToolbar.Size = new System.Drawing.Size(162, 17);
-            this.checkBoxHideBrowserWindowToolbar.TabIndex = 54;
+            this.checkBoxHideBrowserWindowToolbar.TabIndex = 3;
             this.checkBoxHideBrowserWindowToolbar.Text = "Hide toolbar as default (Mac)";
             this.checkBoxHideBrowserWindowToolbar.UseVisualStyleBackColor = true;
             this.checkBoxHideBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxHideBrowserWindowToolbar_CheckedChanged);
@@ -3169,7 +2978,7 @@
             this.checkBoxEnableBrowserWindowToolbar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableBrowserWindowToolbar.Name = "checkBoxEnableBrowserWindowToolbar";
             this.checkBoxEnableBrowserWindowToolbar.Size = new System.Drawing.Size(203, 17);
-            this.checkBoxEnableBrowserWindowToolbar.TabIndex = 53;
+            this.checkBoxEnableBrowserWindowToolbar.TabIndex = 2;
             this.checkBoxEnableBrowserWindowToolbar.Text = "Enable browser window toolbar (Mac)";
             this.checkBoxEnableBrowserWindowToolbar.UseVisualStyleBackColor = true;
             this.checkBoxEnableBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxEnableBrowserWindowToolbar_CheckedChanged);
@@ -3182,7 +2991,7 @@
             this.radioButtonUseFullScreenMode.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonUseFullScreenMode.Name = "radioButtonUseFullScreenMode";
             this.radioButtonUseFullScreenMode.Size = new System.Drawing.Size(124, 17);
-            this.radioButtonUseFullScreenMode.TabIndex = 52;
+            this.radioButtonUseFullScreenMode.TabIndex = 1;
             this.radioButtonUseFullScreenMode.TabStop = true;
             this.radioButtonUseFullScreenMode.Text = "Use full screen mode";
             this.radioButtonUseFullScreenMode.UseVisualStyleBackColor = true;
@@ -3195,7 +3004,7 @@
             this.radioButtonUseBrowserWindow.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonUseBrowserWindow.Name = "radioButtonUseBrowserWindow";
             this.radioButtonUseBrowserWindow.Size = new System.Drawing.Size(123, 17);
-            this.radioButtonUseBrowserWindow.TabIndex = 51;
+            this.radioButtonUseBrowserWindow.TabIndex = 0;
             this.radioButtonUseBrowserWindow.Text = "Use browser window";
             this.radioButtonUseBrowserWindow.UseVisualStyleBackColor = true;
             this.radioButtonUseBrowserWindow.CheckedChanged += new System.EventHandler(this.radioButtonUseBrowserWindow_CheckedChanged);
@@ -3249,7 +3058,7 @@
             this.buttonSaveSettingsAs.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSaveSettingsAs.Name = "buttonSaveSettingsAs";
             this.buttonSaveSettingsAs.Size = new System.Drawing.Size(143, 32);
-            this.buttonSaveSettingsAs.TabIndex = 63;
+            this.buttonSaveSettingsAs.TabIndex = 9;
             this.buttonSaveSettingsAs.Text = "Save Settings As...";
             this.buttonSaveSettingsAs.UseVisualStyleBackColor = true;
             this.buttonSaveSettingsAs.Click += new System.EventHandler(this.buttonSaveSettingsAs_Click);
@@ -3261,7 +3070,7 @@
             this.buttonOpenSettings.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOpenSettings.Name = "buttonOpenSettings";
             this.buttonOpenSettings.Size = new System.Drawing.Size(142, 32);
-            this.buttonOpenSettings.TabIndex = 62;
+            this.buttonOpenSettings.TabIndex = 8;
             this.buttonOpenSettings.Text = "Open Settings...";
             this.buttonOpenSettings.UseVisualStyleBackColor = true;
             this.buttonOpenSettings.Click += new System.EventHandler(this.buttonOpenSettings_Click);
@@ -3293,7 +3102,7 @@
             this.comboBoxCryptoIdentity.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxCryptoIdentity.Name = "comboBoxCryptoIdentity";
             this.comboBoxCryptoIdentity.Size = new System.Drawing.Size(494, 21);
-            this.comboBoxCryptoIdentity.TabIndex = 57;
+            this.comboBoxCryptoIdentity.TabIndex = 3;
             this.comboBoxCryptoIdentity.SelectedIndexChanged += new System.EventHandler(this.comboBoxCryptoIdentity_SelectedIndexChanged);
             this.comboBoxCryptoIdentity.TextUpdate += new System.EventHandler(this.comboBoxCryptoIdentity_TextUpdate);
             // 
@@ -3327,7 +3136,7 @@
             this.textBoxConfirmSettingsPassword.Name = "textBoxConfirmSettingsPassword";
             this.textBoxConfirmSettingsPassword.PasswordChar = '●';
             this.textBoxConfirmSettingsPassword.Size = new System.Drawing.Size(174, 19);
-            this.textBoxConfirmSettingsPassword.TabIndex = 54;
+            this.textBoxConfirmSettingsPassword.TabIndex = 5;
             this.textBoxConfirmSettingsPassword.WordWrap = false;
             this.textBoxConfirmSettingsPassword.TextChanged += new System.EventHandler(this.textBoxConfirmSettingsPassword_TextChanged);
             // 
@@ -3339,7 +3148,7 @@
             this.textBoxSettingsPassword.Name = "textBoxSettingsPassword";
             this.textBoxSettingsPassword.PasswordChar = '●';
             this.textBoxSettingsPassword.Size = new System.Drawing.Size(174, 19);
-            this.textBoxSettingsPassword.TabIndex = 53;
+            this.textBoxSettingsPassword.TabIndex = 4;
             this.textBoxSettingsPassword.WordWrap = false;
             this.textBoxSettingsPassword.TextChanged += new System.EventHandler(this.textBoxSettingsPassword_TextChanged);
             // 
@@ -3360,7 +3169,7 @@
             this.radioButtonConfiguringAClient.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonConfiguringAClient.Name = "radioButtonConfiguringAClient";
             this.radioButtonConfiguringAClient.Size = new System.Drawing.Size(114, 17);
-            this.radioButtonConfiguringAClient.TabIndex = 51;
+            this.radioButtonConfiguringAClient.TabIndex = 1;
             this.radioButtonConfiguringAClient.TabStop = true;
             this.radioButtonConfiguringAClient.Text = "configuring a client";
             this.radioButtonConfiguringAClient.UseVisualStyleBackColor = true;
@@ -3373,7 +3182,7 @@
             this.radioButtonStartingAnExam.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonStartingAnExam.Name = "radioButtonStartingAnExam";
             this.radioButtonStartingAnExam.Size = new System.Drawing.Size(102, 17);
-            this.radioButtonStartingAnExam.TabIndex = 50;
+            this.radioButtonStartingAnExam.TabIndex = 0;
             this.radioButtonStartingAnExam.Text = "starting an exam";
             this.radioButtonStartingAnExam.UseVisualStyleBackColor = true;
             this.radioButtonStartingAnExam.CheckedChanged += new System.EventHandler(this.radioButtonStartingAnExam_CheckedChanged);
@@ -3386,7 +3195,7 @@
             this.checkBoxAllowPreferencesWindow.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowPreferencesWindow.Name = "checkBoxAllowPreferencesWindow";
             this.checkBoxAllowPreferencesWindow.Size = new System.Drawing.Size(261, 17);
-            this.checkBoxAllowPreferencesWindow.TabIndex = 49;
+            this.checkBoxAllowPreferencesWindow.TabIndex = 2;
             this.checkBoxAllowPreferencesWindow.Text = "Allow to open preferences window on client (Mac)";
             this.checkBoxAllowPreferencesWindow.UseVisualStyleBackColor = true;
             this.checkBoxAllowPreferencesWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowPreferencesWindow_CheckedChanged);
@@ -3398,7 +3207,7 @@
             this.buttonDefaultSettings.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDefaultSettings.Name = "buttonDefaultSettings";
             this.buttonDefaultSettings.Size = new System.Drawing.Size(143, 32);
-            this.buttonDefaultSettings.TabIndex = 44;
+            this.buttonDefaultSettings.TabIndex = 6;
             this.buttonDefaultSettings.Text = "Default Settings";
             this.buttonDefaultSettings.UseVisualStyleBackColor = true;
             this.buttonDefaultSettings.Click += new System.EventHandler(this.buttonDefaultSettings_Click);
@@ -3410,7 +3219,7 @@
             this.buttonRevertToLastOpened.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRevertToLastOpened.Name = "buttonRevertToLastOpened";
             this.buttonRevertToLastOpened.Size = new System.Drawing.Size(143, 32);
-            this.buttonRevertToLastOpened.TabIndex = 19;
+            this.buttonRevertToLastOpened.TabIndex = 7;
             this.buttonRevertToLastOpened.Text = "Revert To Last Opened";
             this.buttonRevertToLastOpened.UseVisualStyleBackColor = true;
             this.buttonRevertToLastOpened.Click += new System.EventHandler(this.buttonRevertToLastOpened_Click);
@@ -3455,7 +3264,7 @@
             this.checkBoxIgnoreExitKeys.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnoreExitKeys.Name = "checkBoxIgnoreExitKeys";
             this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
-            this.checkBoxIgnoreExitKeys.TabIndex = 57;
+            this.checkBoxIgnoreExitKeys.TabIndex = 8;
             this.checkBoxIgnoreExitKeys.Text = "Ignore exit keys";
             this.checkBoxIgnoreExitKeys.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreExitKeys.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreExitKeys_CheckedChanged);
@@ -3500,7 +3309,7 @@
             this.groupBoxExitSequence.Name = "groupBoxExitSequence";
             this.groupBoxExitSequence.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxExitSequence.Size = new System.Drawing.Size(120, 218);
-            this.groupBoxExitSequence.TabIndex = 53;
+            this.groupBoxExitSequence.TabIndex = 11;
             this.groupBoxExitSequence.TabStop = false;
             this.groupBoxExitSequence.Text = "Exit Sequence";
             // 
@@ -3512,7 +3321,7 @@
             this.listBoxExitKey1.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxExitKey1.Name = "listBoxExitKey1";
             this.listBoxExitKey1.Size = new System.Drawing.Size(31, 160);
-            this.listBoxExitKey1.TabIndex = 47;
+            this.listBoxExitKey1.TabIndex = 0;
             this.listBoxExitKey1.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey1_SelectedIndexChanged);
             // 
             // listBoxExitKey3
@@ -3523,7 +3332,7 @@
             this.listBoxExitKey3.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxExitKey3.Name = "listBoxExitKey3";
             this.listBoxExitKey3.Size = new System.Drawing.Size(31, 160);
-            this.listBoxExitKey3.TabIndex = 50;
+            this.listBoxExitKey3.TabIndex = 2;
             this.listBoxExitKey3.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey3_SelectedIndexChanged);
             // 
             // listBoxExitKey2
@@ -3534,7 +3343,7 @@
             this.listBoxExitKey2.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxExitKey2.Name = "listBoxExitKey2";
             this.listBoxExitKey2.Size = new System.Drawing.Size(31, 160);
-            this.listBoxExitKey2.TabIndex = 49;
+            this.listBoxExitKey2.TabIndex = 1;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
             // 
             // checkBoxIgnoreQuitPassword
@@ -3546,7 +3355,7 @@
             this.checkBoxIgnoreQuitPassword.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnoreQuitPassword.Name = "checkBoxIgnoreQuitPassword";
             this.checkBoxIgnoreQuitPassword.Size = new System.Drawing.Size(124, 17);
-            this.checkBoxIgnoreQuitPassword.TabIndex = 49;
+            this.checkBoxIgnoreQuitPassword.TabIndex = 7;
             this.checkBoxIgnoreQuitPassword.Text = "Ignore quit password";
             this.checkBoxIgnoreQuitPassword.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreQuitPassword.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreQuitPassword_CheckedChanged);
@@ -3572,7 +3381,7 @@
             this.textBoxSebServerURL.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSebServerURL.Name = "textBoxSebServerURL";
             this.textBoxSebServerURL.Size = new System.Drawing.Size(402, 19);
-            this.textBoxSebServerURL.TabIndex = 46;
+            this.textBoxSebServerURL.TabIndex = 1;
             this.textBoxSebServerURL.Visible = false;
             this.textBoxSebServerURL.TextChanged += new System.EventHandler(this.textBoxSebServerURL_TextChanged);
             // 
@@ -3584,7 +3393,7 @@
             this.textBoxConfirmAdminPassword.Name = "textBoxConfirmAdminPassword";
             this.textBoxConfirmAdminPassword.PasswordChar = '●';
             this.textBoxConfirmAdminPassword.Size = new System.Drawing.Size(174, 19);
-            this.textBoxConfirmAdminPassword.TabIndex = 41;
+            this.textBoxConfirmAdminPassword.TabIndex = 3;
             this.textBoxConfirmAdminPassword.WordWrap = false;
             this.textBoxConfirmAdminPassword.TextChanged += new System.EventHandler(this.textBoxConfirmAdminPassword_TextChanged);
             // 
@@ -3596,7 +3405,7 @@
             this.textBoxAdminPassword.Name = "textBoxAdminPassword";
             this.textBoxAdminPassword.PasswordChar = '●';
             this.textBoxAdminPassword.Size = new System.Drawing.Size(174, 19);
-            this.textBoxAdminPassword.TabIndex = 39;
+            this.textBoxAdminPassword.TabIndex = 2;
             this.textBoxAdminPassword.WordWrap = false;
             this.textBoxAdminPassword.TextChanged += new System.EventHandler(this.textBoxAdminPassword_TextChanged);
             // 
@@ -3608,7 +3417,7 @@
             this.textBoxConfirmQuitPassword.Name = "textBoxConfirmQuitPassword";
             this.textBoxConfirmQuitPassword.PasswordChar = '●';
             this.textBoxConfirmQuitPassword.Size = new System.Drawing.Size(174, 19);
-            this.textBoxConfirmQuitPassword.TabIndex = 37;
+            this.textBoxConfirmQuitPassword.TabIndex = 5;
             this.textBoxConfirmQuitPassword.WordWrap = false;
             this.textBoxConfirmQuitPassword.TextChanged += new System.EventHandler(this.textBoxConfirmQuitPassword_TextChanged);
             // 
@@ -3620,7 +3429,7 @@
             this.textBoxQuitPassword.Name = "textBoxQuitPassword";
             this.textBoxQuitPassword.PasswordChar = '●';
             this.textBoxQuitPassword.Size = new System.Drawing.Size(174, 19);
-            this.textBoxQuitPassword.TabIndex = 33;
+            this.textBoxQuitPassword.TabIndex = 4;
             this.textBoxQuitPassword.WordWrap = false;
             this.textBoxQuitPassword.TextChanged += new System.EventHandler(this.textBoxQuitPassword_TextChanged);
             // 
@@ -3631,7 +3440,7 @@
             this.textBoxStartURL.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxStartURL.Name = "textBoxStartURL";
             this.textBoxStartURL.Size = new System.Drawing.Size(402, 19);
-            this.textBoxStartURL.TabIndex = 21;
+            this.textBoxStartURL.TabIndex = 0;
             this.textBoxStartURL.TextChanged += new System.EventHandler(this.textBoxStartURL_TextChanged);
             // 
             // buttonHelp
@@ -3688,7 +3497,7 @@
             this.labelConfirmQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
             this.labelConfirmQuitPassword.Size = new System.Drawing.Size(110, 13);
-            this.labelConfirmQuitPassword.TabIndex = 36;
+            this.labelConfirmQuitPassword.TabIndex = 10;
             this.labelConfirmQuitPassword.Text = "Confirm quit password";
             // 
             // checkBoxAllowQuit
@@ -3698,7 +3507,7 @@
             this.checkBoxAllowQuit.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowQuit.Name = "checkBoxAllowQuit";
             this.checkBoxAllowQuit.Size = new System.Drawing.Size(130, 17);
-            this.checkBoxAllowQuit.TabIndex = 35;
+            this.checkBoxAllowQuit.TabIndex = 6;
             this.checkBoxAllowQuit.Text = "Allow user to quit SEB";
             this.checkBoxAllowQuit.UseVisualStyleBackColor = true;
             this.checkBoxAllowQuit.CheckedChanged += new System.EventHandler(this.checkBoxAllowQuit_CheckedChanged);
@@ -3711,7 +3520,7 @@
             this.labelQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitPassword.Name = "labelQuitPassword";
             this.labelQuitPassword.Size = new System.Drawing.Size(74, 13);
-            this.labelQuitPassword.TabIndex = 30;
+            this.labelQuitPassword.TabIndex = 9;
             this.labelQuitPassword.Text = "Quit password";
             // 
             // labelStartURL
@@ -3767,10 +3576,6 @@
             this.groupBoxSpecialKeys.PerformLayout();
             this.tabPageRegistry.ResumeLayout(false);
             this.tabPageRegistry.PerformLayout();
-            this.groupBoxOutsideSeb.ResumeLayout(false);
-            this.groupBoxOutsideSeb.PerformLayout();
-            this.groupBoxSetOutsideSebValues.ResumeLayout(false);
-            this.groupBoxSetOutsideSebValues.PerformLayout();
             this.groupBoxInsideSeb.ResumeLayout(false);
             this.groupBoxInsideSeb.PerformLayout();
             this.tabPageSecurity.ResumeLayout(false);
@@ -3853,19 +3658,6 @@
         private System.Windows.Forms.CheckBox checkBoxEnableStartMenu;
         private System.Windows.Forms.CheckBox checkBoxEnableRightMouse;
         private System.Windows.Forms.TabPage tabPageRegistry;
-        private System.Windows.Forms.GroupBox groupBoxOutsideSeb;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableSwitchUser;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableLockThisComputer;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableChangeAPassword;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableStartTaskManager;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableLogOff;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableShutDown;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableEaseOfAccess;
-        private System.Windows.Forms.CheckBox checkBoxOutsideSebEnableVmWareClientShade;
-        private System.Windows.Forms.GroupBox groupBoxSetOutsideSebValues;
-        private System.Windows.Forms.RadioButton radioButtonInsideValuesManually;
-        private System.Windows.Forms.RadioButton radioButtonPreviousValuesFromFile;
-        private System.Windows.Forms.RadioButton radioButtonEnvironmentValues;
         private System.Windows.Forms.GroupBox groupBoxInsideSeb;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableSwitchUser;
         private System.Windows.Forms.CheckBox checkBoxInsideSebEnableLockThisComputer;

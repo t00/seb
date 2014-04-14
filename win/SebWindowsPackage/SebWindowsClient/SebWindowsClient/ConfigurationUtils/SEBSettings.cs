@@ -236,16 +236,6 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyInsideSebEnableEaseOfAccess      = "insideSebEnableEaseOfAccess";
         public const String KeyInsideSebEnableVmWareClientShade = "insideSebEnableVmWareClientShade";
 
-        // Group "Outside SEB"
-        public const String KeyOutsideSebEnableSwitchUser        = "outsideSebEnableSwitchUser";
-        public const String KeyOutsideSebEnableLockThisComputer  = "outsideSebEnableLockThisComputer";
-        public const String KeyOutsideSebEnableChangeAPassword   = "outsideSebEnableChangeAPassword";
-        public const String KeyOutsideSebEnableStartTaskManager  = "outsideSebEnableStartTaskManager";
-        public const String KeyOutsideSebEnableLogOff            = "outsideSebEnableLogOff";
-        public const String KeyOutsideSebEnableShutDown          = "outsideSebEnableShutDown";
-        public const String KeyOutsideSebEnableEaseOfAccess      = "outsideSebEnableEaseOfAccess";
-        public const String KeyOutsideSebEnableVmWareClientShade = "outsideSebEnableVmWareClientShade";
-
         // Group "Hooked Keys"
         public const String KeyHookKeys = "hookKeys";
 
@@ -683,16 +673,6 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableShutDown         , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableEaseOfAccess     , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableVmWareClientShade, false);
-
-            // Default settings for group "Outside SEB"
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableSwitchUser       , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableLockThisComputer , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableChangeAPassword  , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableStartTaskManager , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableLogOff           , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableShutDown         , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableEaseOfAccess     , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOutsideSebEnableVmWareClientShade, true);
 
             // Default settings for group "Hooked Keys"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHookKeys, true);

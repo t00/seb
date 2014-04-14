@@ -611,15 +611,6 @@ namespace SebWindowsConfig
             checkBoxInsideSebEnableEaseOfAccess     .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyInsideSebEnableEaseOfAccess];
             checkBoxInsideSebEnableVmWareClientShade.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyInsideSebEnableVmWareClientShade];
 
-            checkBoxOutsideSebEnableSwitchUser       .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableSwitchUser];
-            checkBoxOutsideSebEnableLockThisComputer .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableLockThisComputer];
-            checkBoxOutsideSebEnableChangeAPassword  .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableChangeAPassword];
-            checkBoxOutsideSebEnableStartTaskManager .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableStartTaskManager];
-            checkBoxOutsideSebEnableLogOff           .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableLogOff];
-            checkBoxOutsideSebEnableShutDown         .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableShutDown];
-            checkBoxOutsideSebEnableEaseOfAccess     .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableEaseOfAccess];
-            checkBoxOutsideSebEnableVmWareClientShade.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableVmWareClientShade];
-
             // Group "Hooked Keys"
             checkBoxHookKeys.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyHookKeys];
 
@@ -925,6 +916,8 @@ namespace SebWindowsConfig
             // Set the default directory and file name in the File Dialog
             openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
             openFileDialogSebConfigFile.FileName         = currentFileSebConfigFile;
+            openFileDialogSebConfigFile.DefaultExt = "seb";
+            openFileDialogSebConfigFile.Filter = "SEB Files|*.seb";
 
             // Get the user inputs in the File Dialog
             DialogResult fileDialogResult = openFileDialogSebConfigFile.ShowDialog();
@@ -989,8 +982,15 @@ namespace SebWindowsConfig
         private void radioButtonUseFullScreenMode_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonUseFullScreenMode.Checked == true)
-                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 1;
-            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 0;
+            {
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 1;
+                groupBoxMainBrowserWindow.Enabled = false;
+            }
+            else
+            {
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 0;
+                groupBoxMainBrowserWindow.Enabled = true;
+            }
         }
 
         private void comboBoxMainBrowserWindowWidth_SelectedIndexChanged(object sender, EventArgs e)
@@ -2834,20 +2834,14 @@ namespace SebWindowsConfig
         // ****************
         private void radioButtonPreviousValuesFromFile_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxOutsideSeb.Visible = (radioButtonInsideValuesManually.Checked == true);
-            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
 
         private void radioButtonEnvironmentValues_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxOutsideSeb.Visible = true;
-            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
 
         private void radioButtonInsideValuesManually_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxOutsideSeb.Visible = true;
-            groupBoxOutsideSeb.Enabled = (radioButtonInsideValuesManually.Checked == true);
         }
 
 
@@ -2895,52 +2889,6 @@ namespace SebWindowsConfig
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyInsideSebEnableVmWareClientShade] = checkBoxInsideSebEnableVmWareClientShade.Checked;
         }
-
-
-
-        // *******************
-        // Group "Outside SEB"
-        // *******************
-        private void checkBoxOutsideSebEnableSwitchUser_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableSwitchUser] = checkBoxOutsideSebEnableSwitchUser.Checked;
-        }
-
-        private void checkBoxOutsideSebEnableLockThisComputer_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableLockThisComputer] = checkBoxOutsideSebEnableLockThisComputer.Checked;
-        }
-
-        private void checkBoxOutsideSebEnableChangeAPassword_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableChangeAPassword] = checkBoxOutsideSebEnableChangeAPassword.Checked;
-        }
-
-        private void checkBoxOutsideSebEnableStartTaskManager_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableStartTaskManager] = checkBoxOutsideSebEnableStartTaskManager.Checked;
-        }
-
-        private void checkBoxOutsideSebEnableLogOff_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableLogOff] = checkBoxOutsideSebEnableLogOff.Checked;
-        }
-
-        private void checkBoxOutsideSebEnableShutDown_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableShutDown] = checkBoxOutsideSebEnableShutDown.Checked;
-        }
-
-        private void checkBoxOutsideSebEnableEaseOfAccess_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableEaseOfAccess] = checkBoxOutsideSebEnableEaseOfAccess.Checked;
-        }
-
-        private void checkBoxOutsideSebEnableVmWareClientShade_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyOutsideSebEnableVmWareClientShade] = checkBoxOutsideSebEnableVmWareClientShade.Checked;
-        }
-
 
 
         // *******************

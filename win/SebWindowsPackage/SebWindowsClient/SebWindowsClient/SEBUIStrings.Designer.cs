@@ -421,6 +421,15 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SEB Configuration Files.
+        /// </summary>
+        internal static string sebFileTypeName {
+            get {
+                return ResourceManager.GetString("sebFileTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SEB Re-Configured.
         /// </summary>
         internal static string sebReconfigured {

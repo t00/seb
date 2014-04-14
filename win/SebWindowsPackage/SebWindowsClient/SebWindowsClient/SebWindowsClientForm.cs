@@ -262,7 +262,7 @@ namespace SebWindowsClient
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
                 xulRunnerPath = xulRunnerPathBuilder.ToString();
-                Logger.AddError("Starting XULRunner with call: " + xulRunnerPath, this, null);
+                //Logger.AddError("Starting XULRunner with call: " + xulRunnerPath, this, null);
 
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
