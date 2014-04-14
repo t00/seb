@@ -4,22 +4,22 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.DesktopUtils;
-using SebWindowsClient.ClientSocketUtils;
 using System.Net;
 using System.IO;
 using System.Security.Principal;
-using SebWindowsClient.RegistryUtils;
 using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.BlockShortcutsUtils;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ServiceUtils;
+using SebWindowsServiceWCF.ServiceContracts;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 
 
@@ -86,7 +86,6 @@ namespace SebWindowsClient
 
         private int taskbarHeight;
 
-        private SebSocketClient sebSocketClient = new SebSocketClient();
         //private SebApplicationChooserForm SebApplicationChooser = null;
 
         public bool closeSebClient = true;
@@ -118,6 +117,7 @@ namespace SebWindowsClient
         {
             InitializeComponent();
             taskbarHeight = this.Height-2;
+
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -989,99 +989,12 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Initialise Client Socket.  Send User, UserSid, Registry Flags string to SebWindowsService
-        /// </summary>
-        /// <returns>true if succeed</returns>
-        /// ----------------------------------------------------------------------------------------
-        private bool InitClientSocket()
-        {
-            SEBLocalHostInfo sebLocalHostInfo = new SEBLocalHostInfo();
-            IPHostEntry              hostInfo = sebLocalHostInfo.GetHostInfo();
-            SecurityIdentifier       userSid  = sebLocalHostInfo.GetSID();
-            string                   userName = sebLocalHostInfo.GetUserName();
-
-            // Label with Username
-            //lbl_User.Text = "Logged in as: " + userName;
-
-            Logger.AddInformation("HostName: " + hostInfo.HostName + "HostAddress: " + SEBClientInfo.HostIpAddress + "PortNumber: " + SEBClientInfo.PortNumber.ToString(), this, null);
-
-            bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
-            if (serviceAvailable)
-            {
-                // Open socket
-                bool bSocketConnected = sebSocketClient.OpenSocket(SEBClientInfo.HostIpAddress, SEBClientInfo.PortNumber.ToString());
-
-                if (bSocketConnected)
-                {
-                    // Set receive timeout
-                    if (((Int32)SEBClientInfo.getSebSetting(SEBSettings.KeySebServicePolicy)[SEBSettings.KeySebServicePolicy]) == (Int32)sebServicePolicies.forceSebService)
-                    {
-                        SEBClientInfo.RecvTimeout = 0;   // timeout "0" means "infinite" in this case !!!
-                        Logger.AddInformation("Force Windows Service demanded, therefore socket recvTimeout = infinite", this, null);
-
-                    }
-                    else
-                    {
-                        Logger.AddInformation("Force Windows Service not demanded, therefore socket recvTimeout = " + SEBClientInfo.RecvTimeout, this, null);
-                    }
-
-                    bool bSetRecvTimeout = sebSocketClient.SetRecvTimeout(SEBClientInfo.RecvTimeout);
-
-                    //Set registry flags
-                    StringBuilder registryFlagsBuilder = new StringBuilder();
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableSwitchUser       )[SEBSettings.KeyInsideSebEnableSwitchUser       ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableLockThisComputer )[SEBSettings.KeyInsideSebEnableLockThisComputer ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableChangeAPassword  )[SEBSettings.KeyInsideSebEnableChangeAPassword  ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableStartTaskManager )[SEBSettings.KeyInsideSebEnableStartTaskManager ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableLogOff           )[SEBSettings.KeyInsideSebEnableLogOff           ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableShutDown         )[SEBSettings.KeyInsideSebEnableShutDown         ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableEaseOfAccess     )[SEBSettings.KeyInsideSebEnableEaseOfAccess     ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableVmWareClientShade)[SEBSettings.KeyInsideSebEnableVmWareClientShade] ? 1 : 0);
-
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableSwitchUser       )[SEBSettings.KeyOutsideSebEnableSwitchUser       ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableLockThisComputer )[SEBSettings.KeyOutsideSebEnableLockThisComputer ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableChangeAPassword  )[SEBSettings.KeyOutsideSebEnableChangeAPassword  ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableStartTaskManager )[SEBSettings.KeyOutsideSebEnableStartTaskManager ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableLogOff           )[SEBSettings.KeyOutsideSebEnableLogOff           ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableShutDown         )[SEBSettings.KeyOutsideSebEnableShutDown         ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableEaseOfAccess     )[SEBSettings.KeyOutsideSebEnableEaseOfAccess     ] ? 1 : 0);
-                    registryFlagsBuilder.Append((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyOutsideSebEnableVmWareClientShade)[SEBSettings.KeyOutsideSebEnableVmWareClientShade] ? 1 : 0);
-                    string registryFlags = registryFlagsBuilder.ToString();
-
-                    Logger.AddInformation("UserName: " + userName + " UserSid: " + userSid.ToString() + " RegistryFlags: " + registryFlags, this, null);
-
-                    bool bSocketResult;
-                    // Send UserName to server
-                    bSocketResult = sebSocketClient.SendEquationToSocketServer("UserName", userName, SEBClientInfo.SendInterval);
-                    string[] resultUserName = sebSocketClient.RecvEquationOfSocketServer();
-
-                    // Send UserSid to server
-                    bSocketResult = sebSocketClient.SendEquationToSocketServer("UserSid", userSid.ToString(), SEBClientInfo.SendInterval);
-                    string[] resultUserSid = sebSocketClient.RecvEquationOfSocketServer();
-
-                    // Send RegistryFlags to server
-                    bSocketResult = sebSocketClient.SendEquationToSocketServer("RegistryFlags", registryFlags, SEBClientInfo.SendInterval);
-                    string[] resultRegistryFlags = sebSocketClient.RecvEquationOfSocketServer();
-
-                }
-            }
-            return true;
-        }
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
         /// Set registry values and close prohibited processes.
         /// </summary>
         /// <returns>true if succeed</returns>
         /// ----------------------------------------------------------------------------------------
         private bool InitClientRegistryAndKillProcesses()
         {
-            // Edit Registry
-            SEBEditRegistry sebEditRegistry = new SEBEditRegistry();
-            if (!sebEditRegistry.EditRegistry())
-            {
-                sebEditRegistry.addResetRegValues("EditRegistry", 0);
-            }
 
             // Add prohibited processes to the "processes not permitted to run" list 
             // which will be dealt with after checking if permitted processes are already running;
@@ -1238,7 +1151,16 @@ namespace SebWindowsClient
 
             // Check if VM and SEB Windows Service available and required
             if (SebWindowsClientMain.CheckVMService()) {
-                bool bClientInfo = InitClientSocket();
+                try
+                {
+                    if(SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.SetRegistryAccordingToConfiguration())
+                        Logger.AddWarning("Unable to set registry values",this,null);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddError("Unable to set Registry values",this,ex);
+                }
+                
                 bool bClientRegistryAndProcesses = InitClientRegistryAndKillProcesses();
 
                 // Disable unwanted keys.
@@ -1303,21 +1225,18 @@ namespace SebWindowsClient
                 //bool bQuit = false;
                 //bQuit = CheckQuitPassword();
 
-                //if (bQuit)
-                //{
-                bool bSocketResult;
-                SEBLocalHostInfo sebLocalHostInfo = new SEBLocalHostInfo();
-                string userName = sebLocalHostInfo.GetUserName();
-
-                // ShutDown message to SebWindowsService
-                bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
-                if (serviceAvailable)
+                try
                 {
-                    // Send ShutDown to server
-                    bSocketResult = sebSocketClient.SendEquationToSocketServer("ShutDown", userName, SEBClientInfo.SendInterval);
-                    string[] resultShutDown = sebSocketClient.RecvEquationOfSocketServer();
-                    this.sebSocketClient.CloseSocket();
+                    if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.ResetRegistry())
+                    {
+                        Logger.AddWarning("Unable to reset Registry values",this,null);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Logger.AddError("Unable to reset Registry values",this,ex);
+                }
+                    
 
                 // ShutDown Processes
                 foreach (Process processToClose in permittedProcessesReferences)

@@ -12,7 +12,6 @@ using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.DesktopUtils;
 using System.Diagnostics;
-using SebWindowsClient.ClientSocketUtils;
 using System.Net;
 using System.Security.Principal;
 using System.Xml.Serialization;
@@ -499,15 +498,7 @@ namespace SebWindowsClient
             }
 
             // Test if Windows Service is running
-            bool serviceAvailable = SEBWindowsServiceController.ServiceAvailable(SEBClientInfo.SEB_WINDOWS_SERVICE_NAME);
-            if (serviceAvailable)
-            {
-                Logger.AddInformation("SEB Windows service available", null, null);
-            }
-            else
-            {
-                Logger.AddInformation("SEB Windows service is not available.", null, null);
-            }
+            bool serviceAvailable = SebWindowsServiceHandler.IsServiceAvailable;
 
             int forceService = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeySebServicePolicy)[SEBSettings.KeySebServicePolicy];
             switch (forceService)

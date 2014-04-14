@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SebWindowsClient</RootNamespace>
     <AssemblyName>SafeExamBrowser</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -39,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -48,6 +49,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -63,6 +65,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
@@ -79,8 +82,6 @@
     <Compile Include="taskbarToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ClientSocketUtils\SEBLocalHostInfo.cs" />
-    <Compile Include="ClientSocketUtils\SebSocketClient.cs" />
     <Compile Include="ConfigurationUtils\PList.cs" />
     <Compile Include="ConfigurationUtils\SEBConfigFileManager.cs" />
     <Compile Include="ConfigurationUtils\SEBSettings.cs" />
@@ -124,7 +125,6 @@
     </Compile>
     <Compile Include="ProcessUtils\SEBClipboard.cs" />
     <Compile Include="ProcessUtils\SEBNotAllowedProcessController.cs" />
-    <Compile Include="RegistryUtils\SEBEditRegistry.cs" />
     <Compile Include="SEBException.cs" />
     <Compile Include="SebWindowsClientForm.cs">
       <SubType>Form</SubType>
@@ -225,6 +225,12 @@
   <ItemGroup>
     <Content Include="SEBDocumentIcon.ico" />
     <Content Include="SEBicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SebWindowsServiceWCF\SebWindowsServiceWCF.csproj">
+      <Project>{10093827-ff41-4c09-b2ff-9c0d27b4b41a}</Project>
+      <Name>SebWindowsServiceWCF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
