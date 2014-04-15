@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
@@ -100,11 +101,20 @@ namespace SebWindowsClient
         [DllImport("user32.dll")]
         private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
 
-        [DllImportAttribute("User32.dll")]
+        [DllImport("User32.dll")]
         public static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out int lpdwProcessId);
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
+
+        //[System.Runtime.InteropServices.DllImport("User32")]
+        //private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        private const int WM_COMMAND = 0x111;
+        private const int MIN_ALL = 419;
 
         const int WM_USER = 0x0400; //http://msdn.microsoft.com/en-us/library/windows/desktop/ms644931(v=vs.85).aspx
 
@@ -126,11 +136,12 @@ namespace SebWindowsClient
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        //[STAThread] Do not use this, it breaks the ability to switch to a new desktop
+        //[STAThread] //Do not use this, it breaks the ability to switch to a new desktop
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             if (InitSebSettings())
             {
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
@@ -138,6 +149,7 @@ namespace SebWindowsClient
                 singleInstanceController = new SingleInstanceController();
                 singleInstanceController.Run(arguments);
             }
+            
         }
 
         /// <summary>
@@ -164,7 +176,7 @@ namespace SebWindowsClient
         /// </summary>
         private static bool IsInsideVM()
         {
-            using (var searcher = new System.Management.ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
+            using (var searcher = new ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
             {
                 using (var items = searcher.Get())
                 {
@@ -251,7 +263,7 @@ namespace SebWindowsClient
                     Logger.AddError("Error when opening the file SebClientSettings.seb!", null, null);
                     return false;
                 }
-                SebWindowsClientMain.clientSettingsSet = true;
+                clientSettingsSet = true;
                 Logger.AddError("SEB client configuration set in InitSebSettings().", null, null);
             }
 
@@ -289,10 +301,17 @@ namespace SebWindowsClient
                 {
                     SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
                     SEBClientInfo.DesktopName = SEBClientInfo.OriginalDesktop.DesktopName;
-                    SebWindowsClientForm.SetVisibility(false);
+                    //If you kill the explorer shell you don't need this!
+                    //SebWindowsClientForm.SetVisibility(false);
                 }
             }
 
+            if (!(Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+            {
+                //Minimize all Windows - Necessary when not using CreateNewDesktop but Kill Explorer shell
+                IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
+                SendMessage(lHwnd, WM_COMMAND, (IntPtr) MIN_ALL, IntPtr.Zero);
+            }
 
             return InitSEBDesktop();
         }
@@ -393,7 +412,8 @@ namespace SebWindowsClient
             }
             else
             {
-                SetVisibility(true);
+                //If you kill the explorer shell you don't need this!
+                //SetVisibility(true);
             }
         }
 
@@ -548,6 +568,5 @@ namespace SebWindowsClient
             SEBClientInfo.SebWindowsClientForm.Activate();
             //}
         }
-
     }
 }

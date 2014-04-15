@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
@@ -71,10 +72,6 @@ namespace SebWindowsClient
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out int lpdwProcessId);
 
-        //[System.Runtime.InteropServices.DllImport("User32")]
-        //private static extern bool SetForegroundWindow(IntPtr hWnd);
-
-
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;
         private const int SW_RESTORE = 9;
@@ -117,7 +114,6 @@ namespace SebWindowsClient
         {
             InitializeComponent();
             taskbarHeight = this.Height-2;
-
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -1250,7 +1246,6 @@ namespace SebWindowsClient
                 {
                     if (SEBClientInfo.ExplorerShellWasKilled)
                     {
-                        Logger.AddInformation("Restarting the shell.", null, null);
                         string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
                         Process process = new Process();
                         process.StartInfo.FileName = explorer;
@@ -1258,6 +1253,13 @@ namespace SebWindowsClient
                         process.StartInfo.WorkingDirectory = Application.StartupPath;
                         process.StartInfo.CreateNoWindow = true;
                         process.Start();
+                        //while (Process.GetProcessesByName("explorer").Length == 1)
+                        //{
+                        //    Thread.Sleep(10);
+                        //    Console.WriteLine(String.Format("Running: {0} {1}", Process.GetProcessesByName("explorer").Length, DateTime.Now.ToLocalTime()));
+                        //}
+
+                        Logger.AddInformation("Restarting the shell.", null, null);
                     }
                 }
 
@@ -1282,6 +1284,7 @@ namespace SebWindowsClient
                 //}
 
                 // Clean clipboard
+
                 SEBClipboard.CleanClipboard();
                 Logger.AddInformation("Clipboard deleted.", null, null);
                 SebKeyCapture.FilterKeys = false;
@@ -1340,7 +1343,7 @@ namespace SebWindowsClient
                 ShowCloseDialogForm();
             }
         }
-     }
+    }
 
     /// ----------------------------------------------------------------------------------------
     /// <summary>
