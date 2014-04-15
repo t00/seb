@@ -110,6 +110,7 @@ namespace SebWindowsClient
         [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
         private static extern IntPtr SendMessage(IntPtr hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
 
+
         //[System.Runtime.InteropServices.DllImport("User32")]
         //private static extern bool SetForegroundWindow(IntPtr hWnd);
 
@@ -141,7 +142,6 @@ namespace SebWindowsClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             if (InitSebSettings())
             {
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
@@ -308,9 +308,31 @@ namespace SebWindowsClient
 
             if (!(Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
             {
-                //Minimize all Windows - Necessary when not using CreateNewDesktop but Kill Explorer shell
+                //Check if explorer is running by trying to get the TrayWindow Handle
                 IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
-                SendMessage(lHwnd, WM_COMMAND, (IntPtr) MIN_ALL, IntPtr.Zero);
+                if (lHwnd.ToInt32() == 0)
+                {
+                    //If not running, start explorer.exe
+                    string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"),"explorer.exe");
+                    Process process = new Process();
+                    process.StartInfo.FileName = explorer;
+                    process.StartInfo.UseShellExecute = true;
+                    process.StartInfo.WorkingDirectory = Application.StartupPath;
+                    process.StartInfo.CreateNoWindow = true;
+                    process.Start();
+                    //Wait until the explorer is up again because its functions are needed in the next call
+                    while (FindWindow("Shell_TrayWnd", null).ToInt32() == 0)
+                    {
+                        Thread.Sleep(100);
+                    }
+                    lHwnd = FindWindow("Shell_TrayWnd", null);
+                    //Sleep six seconds to get the explorer running
+                    Thread.Sleep(6000);
+                }
+                
+                //Minimize all Windows - Necessary when not using CreateNewDesktop but Kill Explorer shell
+                lHwnd = FindWindow("Shell_TrayWnd", null);
+                SendMessage(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL, IntPtr.Zero);
             }
 
             return InitSEBDesktop();
