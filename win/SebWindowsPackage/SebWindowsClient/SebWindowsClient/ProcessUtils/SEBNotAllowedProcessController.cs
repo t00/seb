@@ -111,29 +111,25 @@ namespace SebWindowsClient.ProcessUtils
                             if (!processToClose.HasExited)
                             {
                                 name = processToClose.ProcessName;
-                                // XULRunner has to be killed instead of closing its main window
-                                if (!SEBClientInfo.XUL_RUNNER.Contains(name))
-                                {
-                                    // Close process by sending a close message to its main window.
-                                    Logger.AddError("Send CloseMainWindow to process " + name, null, null);
-                                    processToClose.CloseMainWindow();
+                                // Close process by sending a close message to its main window.
+                                Logger.AddError("Send CloseMainWindow to process " + name, null, null);
+                                processToClose.CloseMainWindow();
 
-                                    // Wait max. 10 seconds till the process exits: No use, it slows SEB too much down
-                                    // Wait 1 second till the process exits
-                                    for (int i = 0; i < 1; i++)
+                                // Wait max. 5 seconds till the process exits
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    processToClose.Refresh();
+                                    // If process still hasn't exited, we wait another second
+                                    if (processToClose != null && !processToClose.HasExited)
                                     {
-                                        processToClose.Refresh();
-                                        // If process still hasn't exited, we wait another second
-                                        if (processToClose != null && !processToClose.HasExited)
-                                        {
-                                            Logger.AddError("Process " + name + " still hasn't exited, wait another second.", null, null);
-                                            Thread.Sleep(1000);
-                                        }
-                                        else
-                                        {
-                                            Logger.AddError("Process " + name + " has exited.", null, null);
-                                            break;
-                                        }
+                                        Logger.AddError("Process " + name + " hasn't exited by closing its main window, wait up to one more second and check again.", null, null);
+                                        //Thread.Sleep(1000);
+                                        processToClose.WaitForExit(1000);
+                                    }
+                                    else
+                                    {
+                                        Logger.AddError("Process " + name + " has exited.", null, null);
+                                        break;
                                     }
                                 }
                             }
@@ -152,8 +148,9 @@ namespace SebWindowsClient.ProcessUtils
                                     // If process still hasn't exited, we wait another second
                                     if (processToClose != null && !processToClose.HasExited)
                                     {
-                                        Logger.AddError("Process " + name + " still hasn't exited, wait another second.", null, null);
-                                        Thread.Sleep(1000);
+                                        Logger.AddError("Process " + name + " still hasn't exited, wait up to one more second and check again.", null, null);
+                                        //Thread.Sleep(1000);
+                                        processToClose.WaitForExit(1000);
                                     }
                                     else
                                     {
@@ -172,27 +169,29 @@ namespace SebWindowsClient.ProcessUtils
                             }
 
                             // Close the process if it has exited (freeing resources)
-                            if (processToClose.HasExited && processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner)
-                            {
+                            if (processToClose.HasExited)
+                                //if (processToClose.HasExited && processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner)
+                                {
                                 Logger.AddError("Send Close to process " + name, null, null);
                                 processToClose.Close();
 
-                                //// Wait max. 10 seconds till the process exits
-                                //for (int i = 0; i < 10; i++)
-                                //{
-                                //    processToClose.Refresh();
-                                //    // If process still wasn't closed, we wait another second
-                                //    if (processToClose != null)
-                                //    {
-                                //        Logger.AddError("Process " + name + " still wasn't closed, wait another second.", null, null);
-                                //        Thread.Sleep(1000);
-                                //    }
-                                //    else
-                                //    {
-                                //        Logger.AddError("Process " + name + " was successfully closed.", null, null);
-                                //        break;
-                                //    }
-                                //}
+                                // Wait max. 10 seconds till the process exits
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    processToClose.Refresh();
+                                    // If process still wasn't closed, we wait another second
+                                    if (processToClose != null)
+                                    {
+                                        Logger.AddError("Process " + name + " still wasn't closed, wait up to one more second and check again.", null, null);
+                                        //Thread.Sleep(1000);
+                                        processToClose.WaitForExit(1000);
+                                    }
+                                    else
+                                    {
+                                        Logger.AddError("Process " + name + " was successfully closed.", null, null);
+                                        break;
+                                    }
+                                }
 
                                 // If process still wasn't closed, we log this
                                 processToClose.Refresh();
@@ -206,10 +205,6 @@ namespace SebWindowsClient.ProcessUtils
                                 Logger.AddError("Although it didn't exit yet, send Close anyways to process " + name, null, null);
                                 processToClose.Close();
                             }
-                            // and we can free the process information memory of a definitely closed process
-                            // if it's not the XULRunner process
-                            //if (processToClose != SEBClientInfo.SebWindowsClientForm.xulRunner) 
-
                         }
                     }
                     catch (Exception ex)
