@@ -10,12 +10,13 @@ using SebWindowsClient.ConfigurationUtils;
 using System.Diagnostics;
 using SebWindowsClient.DesktopUtils;
 using System.Runtime.InteropServices;
-
 // -------------------------------------------------------------
 //     Viktor tomas
 //     BFH-TI, http://www.ti.bfh.ch
 //     Biel, 2012
 // -------------------------------------------------------------
+using SebWindowsClient.ProcessUtils;
+
 namespace SebWindowsClient
 {
     public partial class SebApplicationChooserForm : Form
@@ -295,6 +296,25 @@ namespace SebWindowsClient
                 uint activeThreadID = GetWindowThreadProcessId(hWndForegroundWindow, IntPtr.Zero);
                 uint currentThreadID = GetCurrentThreadId();  //GetWindowThreadProcessId(GetForegroundWindow(), IntPtr.Zero);
                 AttachThreadInput(activeThreadID, currentThreadID, true);
+
+                var hwnd = lWindowHandles[selectedItemIndex];
+                if (hwnd == IntPtr.Zero)
+                {
+                        //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
+                    string title = selectedThreadName;
+                    foreach (KeyValuePair<IntPtr, string> lWindow in OpenWindowGetter.GetOpenWindows())
+                    {
+                        if (lWindow.Value.Contains(title))
+                        {
+                            SetForegroundWindow(lWindow.Key);
+                            SetForegroundWindow(lWindow.Key);
+                            BringWindowToTop(lWindow.Key);
+                            ShowWindow(lWindow.Key, WindowShowStyle.ShowNormal);
+                            //do not exit here because if multiple windows are found...
+                        }
+                    }
+                }
+
                 SetForegroundWindow(lWindowHandles[selectedItemIndex]);
                 BringWindowToTop(lWindowHandles[selectedItemIndex]);
                 ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);

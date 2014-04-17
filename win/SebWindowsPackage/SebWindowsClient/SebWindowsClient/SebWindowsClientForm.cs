@@ -22,6 +22,7 @@ using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ServiceUtils;
 using SebWindowsServiceWCF.ServiceContracts;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
+using SebWindowsClient.ProcessUtils;
 
 
 // -------------------------------------------------------------
@@ -725,7 +726,6 @@ namespace SebWindowsClient
             return fullPath;
         }
 
-
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Handle click on permitted process in SEB taskbar: If process isn't running,
@@ -741,7 +741,7 @@ namespace SebWindowsClient
 
             int i = Convert.ToInt32(toolStripButton.Name);
             Process processReference = permittedProcessesReferences[i];
-            if (processReference == xulRunner)
+            if (xulRunner != null && processReference == xulRunner)
             {
                 try
                 {
@@ -777,6 +777,27 @@ namespace SebWindowsClient
                     {
                         processReference.Refresh();
                         IntPtr handle = processReference.MainWindowHandle;
+                        if (handle == IntPtr.Zero)
+                        {
+                            //Try open with EnumThreadWindows if window handle is in subthread
+                            foreach (ProcessThread pt in processReference.Threads)
+                            {
+                                EnumThreadWindows(pt.Id, EnumThreadCallback, IntPtr.Zero);
+                            }
+
+                            //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
+                            string title = toolStripButton.ToolTipText;
+                            foreach (KeyValuePair<IntPtr, string> lWindow in OpenWindowGetter.GetOpenWindows())
+                            {
+                                if (lWindow.Value.Contains(title))
+                                {
+                                    if (IsIconic(lWindow.Key)) ShowWindow(lWindow.Key, SW_RESTORE);
+                                    SetForegroundWindow(lWindow.Key);
+                                    //do not exit here because if multiple windows are found...
+                                }
+                            }
+                        }
+                        
                         if (IsIconic(handle)) ShowWindow(handle, SW_RESTORE);
                         SetForegroundWindow(handle);
                     }
@@ -790,6 +811,13 @@ namespace SebWindowsClient
             //    SebKeyCapture.SebApplicationChooser = new SebApplicationChooserForm();
             //SebKeyCapture.SebApplicationChooser.fillListApplications();
             //SebKeyCapture.SebApplicationChooser.Visible = true;
+        }
+
+        static bool EnumThreadCallback(IntPtr hWnd, IntPtr lParam)
+        {
+            if (IsIconic(hWnd)) ShowWindow(hWnd, SW_RESTORE);
+            SetForegroundWindow(hWnd);
+            return true;
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -1253,11 +1281,6 @@ namespace SebWindowsClient
                         process.StartInfo.WorkingDirectory = Application.StartupPath;
                         process.StartInfo.CreateNoWindow = true;
                         process.Start();
-                        //while (Process.GetProcessesByName("explorer").Length == 1)
-                        //{
-                        //    Thread.Sleep(10);
-                        //    Console.WriteLine(String.Format("Running: {0} {1}", Process.GetProcessesByName("explorer").Length, DateTime.Now.ToLocalTime()));
-                        //}
 
                         Logger.AddInformation("Restarting the shell.", null, null);
                     }

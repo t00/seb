@@ -36,6 +36,10 @@ namespace SebWindowsClient.ServiceUtils
 
                 _sebWindowsServicePipeProxy = pipeFactory.CreateChannel();
 
+                //Get the current username - without the username the registry entries cannot be set
+                if (_username == null)
+                    _username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+
                 _initialized = true;
             }
         }
@@ -46,7 +50,7 @@ namespace SebWindowsClient.ServiceUtils
         /// </summary>
         /// <returns>succeded or not</returns>
         public static bool SetRegistryAccordingToConfiguration()
-        {        
+        {
             var valuesToSet = new Dictionary<RegistryIdentifiers, object>
             {
                 {RegistryIdentifiers.DisableLockWorkstation, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableLockThisComputer )[SEBSettings.KeyInsideSebEnableLockThisComputer ] ? 0 : 1},
@@ -58,7 +62,12 @@ namespace SebWindowsClient.ServiceUtils
                 {RegistryIdentifiers.EnableShade, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableVmWareClientShade)[SEBSettings.KeyInsideSebEnableVmWareClientShade] ? 1 : 0},
                 {RegistryIdentifiers.EaseOfAccess, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableEaseOfAccess     )[SEBSettings.KeyInsideSebEnableEaseOfAccess     ] ? "" : "SebDummy.exe"},
             };
-            
+
+            return SetRegistryAccordingToConfiguration(valuesToSet);
+        }
+
+        public static bool SetRegistryAccordingToConfiguration(Dictionary<RegistryIdentifiers, object> valuesToSet)
+        {
             Initialize();
             return _sebWindowsServicePipeProxy.SetRegistryEntries(valuesToSet, _username);
         }
@@ -84,10 +93,6 @@ namespace SebWindowsClient.ServiceUtils
             {
                 try
                 {
-                    //Get the current username - without the username the registry entries cannot be set
-                    if(_username == null)
-                    _username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-
                     Initialize();
                     if (_sebWindowsServicePipeProxy.TestServiceConnetcion())
                     {

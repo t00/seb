@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockShortcutsUtils\SebKeyCapture.cs" />
+    <Compile Include="ProcessUtils\OpenWindowGetter.cs" />
     <Compile Include="taskbarToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
