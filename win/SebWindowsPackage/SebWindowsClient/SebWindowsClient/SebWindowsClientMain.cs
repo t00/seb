@@ -306,7 +306,7 @@ namespace SebWindowsClient
                 }
             }
 
-            if (!(Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+            if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop] && (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
             {
                 //Check if explorer is running by trying to get the TrayWindow Handle
                 IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);

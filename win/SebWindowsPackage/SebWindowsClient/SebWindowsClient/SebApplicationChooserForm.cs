@@ -183,10 +183,27 @@ namespace SebWindowsClient
                                     runningApplications[j].Refresh();
                                     if (!runningApplications[j].HasExited)
                                     {
-                                        if (permittedProcessExecutable.Contains(runningApplications[j].ProcessName))
+                                        if (permittedProcessExecutable.StartsWith(runningApplications[j].ProcessName))
                                         {
                                             runningApplications[j].Refresh();
-                                            this.lWindowHandles.Add(runningApplications[j].MainWindowHandle);
+                                            //Get the mainWindowHandle and it is not mapped to the process handle, get the window with the same title
+                                            var wHandle = runningApplications[j].MainWindowHandle;
+                                            if (wHandle == IntPtr.Zero)
+                                            {
+                                                string title = permittedProcessTitle;
+                                                foreach (
+                                                    KeyValuePair<IntPtr, string> lWindow in
+                                                        OpenWindowGetter.GetOpenWindows())
+                                                {
+                                                    if (lWindow.Value.Contains(title))
+                                                    {
+                                                        wHandle = lWindow.Key;
+                                                    }
+                                                }
+                                            }
+
+                                            this.lWindowHandles.Add(wHandle);
+
                                             //lRunningApplications.Add(runningApplications[j].ProcessName);
                                             lRunningApplications.Add(permittedProcessTitle);
                                             if (permittedProcessExecutable == SEBClientInfo.XUL_RUNNER)
@@ -198,7 +215,10 @@ namespace SebWindowsClient
                                             else
                                             {
                                                 runningApplications[j].Refresh();
-                                                ilApplicationIcons.Images.Add("rAppIcon" + index, GetSmallWindowIcon(runningApplications[j].MainWindowHandle));
+
+                                                Image image = GetSmallWindowIcon(wHandle); ;
+                                                
+                                                ilApplicationIcons.Images.Add("rAppIcon" + index, image);
                                             }
                                             index++;
                                         }
@@ -235,7 +255,7 @@ namespace SebWindowsClient
             // Calculate necessary size of the app chooser form according to number of applications/icons
             int numberIcons = lRunningApplications.Count();
             int formWidth;
-            if (numberIcons > 0) formWidth = 2 * appChooserFormXPadding + numberIcons * 32 + (numberIcons - 1) * appChooserFormXGap;
+            if (numberIcons > 0) formWidth = 2 * appChooserFormXPadding + numberIcons * 128 + (numberIcons - 1) * appChooserFormXGap;
             else formWidth = 2 * appChooserFormXPadding;
             // Check if calculated width is larger that current screen width, if yes, adjust height accordingly
             if (Screen.PrimaryScreen.Bounds.Width < formWidth)
@@ -300,10 +320,10 @@ namespace SebWindowsClient
                 var hwnd = lWindowHandles[selectedItemIndex];
                 if (hwnd == IntPtr.Zero)
                 {
-                        //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
+                    //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
                     string title = selectedThreadName;
                     foreach (KeyValuePair<IntPtr, string> lWindow in OpenWindowGetter.GetOpenWindows())
-                    {
+                    { 
                         if (lWindow.Value.Contains(title))
                         {
                             SetForegroundWindow(lWindow.Key);
