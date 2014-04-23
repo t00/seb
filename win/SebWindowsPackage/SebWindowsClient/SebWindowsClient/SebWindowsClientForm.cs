@@ -717,7 +717,7 @@ namespace SebWindowsClient
             }
 
             // If we still didn't find the application and the setting for this permitted process allows user to find the application
-            if (fullPath == null && allowChoosingApp && !String.IsNullOrEmpty(executable))
+            if (fullPath == null && allowChoosingApp == true && !String.IsNullOrEmpty(executable))
             {
                 // Ask the user to locate the application
                 SEBToForeground();
@@ -1121,6 +1121,8 @@ namespace SebWindowsClient
                 if (String.IsNullOrEmpty(hashedQuitPassword) == true)
                 // If there is no quit password set, we just ask user to confirm quitting
                 {
+                    SebWindowsClientMain.SEBToForeground();
+
                     if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
                     {
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;

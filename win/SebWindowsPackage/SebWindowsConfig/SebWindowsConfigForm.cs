@@ -1455,7 +1455,7 @@ namespace SebWindowsConfig
             processData[SEBSettings.KeyActive     ] = true;
             processData[SEBSettings.KeyAutostart  ] = true;
             processData[SEBSettings.KeyAutohide   ] = true;
-            processData[SEBSettings.KeyAllowUser  ] = true;
+            processData[SEBSettings.KeyAllowUser  ] = false;
             processData[SEBSettings.KeyStrongKill ] = false;
             processData[SEBSettings.KeyOS         ] = IntWin;
             processData[SEBSettings.KeyTitle      ] = "";
