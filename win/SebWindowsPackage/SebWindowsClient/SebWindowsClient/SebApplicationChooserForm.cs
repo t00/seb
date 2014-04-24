@@ -22,6 +22,7 @@ namespace SebWindowsClient
     public partial class SebApplicationChooserForm : Form
     {
         List<IntPtr> lWindowHandles = new List<IntPtr>();
+        List<string> lWindowTitles = new List<string>(); 
 
         private static uint WM_GETICON = 0x007f;
         private static IntPtr ICON_SMALL2 = new IntPtr(2);
@@ -172,6 +173,7 @@ namespace SebWindowsClient
                     Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
                     string permittedProcessExecutable = (string)permittedProcess[SEBSettings.KeyExecutable];
                     string permittedProcessTitle = (string)permittedProcess[SEBSettings.KeyTitle];
+                    string permittedProcessIdentifier = (string)permittedProcess[SEBSettings.KeyIdentifier];
                     if ((Boolean)permittedProcess[SEBSettings.KeyActive])
                     {
                         for (int j = 0; j < runningApplications.Count(); j++)
@@ -190,12 +192,11 @@ namespace SebWindowsClient
                                             var wHandle = runningApplications[j].MainWindowHandle;
                                             if (wHandle == IntPtr.Zero)
                                             {
-                                                string title = permittedProcessTitle;
                                                 foreach (
                                                     KeyValuePair<IntPtr, string> lWindow in
                                                         OpenWindowGetter.GetOpenWindows())
                                                 {
-                                                    if (lWindow.Value.Contains(title))
+                                                    if (!String.IsNullOrEmpty(permittedProcessIdentifier) && lWindow.Value.Contains(permittedProcessIdentifier))
                                                     {
                                                         wHandle = lWindow.Key;
                                                     }
@@ -203,7 +204,7 @@ namespace SebWindowsClient
                                             }
 
                                             this.lWindowHandles.Add(wHandle);
-
+                                            this.lWindowTitles.Add(permittedProcessIdentifier);
                                             //lRunningApplications.Add(runningApplications[j].ProcessName);
                                             lRunningApplications.Add(permittedProcessTitle);
                                             if (permittedProcessExecutable == SEBClientInfo.XUL_RUNNER)
@@ -216,7 +217,7 @@ namespace SebWindowsClient
                                             {
                                                 runningApplications[j].Refresh();
 
-                                                Image image = GetSmallWindowIcon(wHandle); ;
+                                                Image image = GetSmallWindowIcon(wHandle);
                                                 
                                                 ilApplicationIcons.Images.Add("rAppIcon" + index, image);
                                             }
@@ -321,10 +322,10 @@ namespace SebWindowsClient
                 if (hwnd == IntPtr.Zero)
                 {
                     //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
-                    string title = selectedThreadName;
+                    string title = this.lWindowTitles[selectedItemIndex];
                     foreach (KeyValuePair<IntPtr, string> lWindow in OpenWindowGetter.GetOpenWindows())
                     { 
-                        if (lWindow.Value.Contains(title))
+                        if( !String.IsNullOrEmpty(title) && lWindow.Value.Contains(title))
                         {
                             SetForegroundWindow(lWindow.Key);
                             SetForegroundWindow(lWindow.Key);

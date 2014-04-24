@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ServiceUtils;
+using SebWindowsClient.UI;
 using SebWindowsServiceWCF.ServiceContracts;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using SebWindowsClient.ProcessUtils;
@@ -439,13 +440,15 @@ namespace SebWindowsClient
                     if (permittedProcessOS == SEBSettings.operatingSystems.operatingSystemWin && permittedProcessActive)
                     {
                         string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
+                        string identifier = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyIdentifier);
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
                         if (!(executable.Contains(SEBClientInfo.XUL_RUNNER) && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
-                            ToolStripButton toolStripButton = new ToolStripButton();
+                            var toolStripButton = new SEBToolStripButton();
                             toolStripButton.Padding = new Padding(5, 0, 5, 0);
                             toolStripButton.ToolTipText = title;
+                            toolStripButton.Identifier = identifier;
                             Icon processIcon = null;
                             string fullPath;
                             if (executable.Contains(SEBClientInfo.XUL_RUNNER))
@@ -737,7 +740,7 @@ namespace SebWindowsClient
         protected void ToolStripButton_Click(object sender, EventArgs e)
         {
             // identify which button was clicked and perform necessary actions
-            ToolStripButton toolStripButton = sender as ToolStripButton;
+            var toolStripButton = sender as SEBToolStripButton;
 
             int i = Convert.ToInt32(toolStripButton.Name);
             Process processReference = permittedProcessesReferences[i];
@@ -779,17 +782,11 @@ namespace SebWindowsClient
                         IntPtr handle = processReference.MainWindowHandle;
                         if (handle == IntPtr.Zero)
                         {
-                            //Try open with EnumThreadWindows if window handle is in subthread
-                            foreach (ProcessThread pt in processReference.Threads)
-                            {
-                                EnumThreadWindows(pt.Id, EnumThreadCallback, IntPtr.Zero);
-                            }
-
                             //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
-                            string title = toolStripButton.ToolTipText;
+                            string title = toolStripButton.Identifier;
                             foreach (KeyValuePair<IntPtr, string> lWindow in OpenWindowGetter.GetOpenWindows())
                             {
-                                if (lWindow.Value.Contains(title))
+                                if (!String.IsNullOrEmpty(title) && lWindow.Value.Contains(title))
                                 {
                                     if (IsIconic(lWindow.Key)) ShowWindow(lWindow.Key, SW_RESTORE);
                                     SetForegroundWindow(lWindow.Key);
