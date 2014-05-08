@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 using Alchemy;
 using Alchemy.Classes;
 using SebWindowsClient.ConfigurationUtils;
@@ -11,12 +7,13 @@ using SebWindowsClient.DiagnosticsUtils;
 
 namespace SebWindowsClient.WebSocketsServer
 {
-    public class SEBWebSocketClient
+    public static class SEBWebSocketClient
     {
         public static event EventHandler OnShutDownRequested;
         public static event EventHandler OnQuitLink;
 
         private static WebSocketClient client;
+
         public static void Initialize()
         {
             if (client != null)
@@ -29,6 +26,14 @@ namespace SebWindowsClient.WebSocketsServer
                     OnReceive = OnReceive
                 };
                 client.Connect();
+
+                var timer = new Timer();
+                timer.Interval = 1000 * 60 * 2;
+                timer.Elapsed += delegate
+                {
+                    client.Send("ping");
+                };
+                timer.Start();
             }
             catch (Exception ex)
             {
@@ -69,5 +74,6 @@ namespace SebWindowsClient.WebSocketsServer
             if(client == null) Initialize();
             if(client != null) client.Send(message);
         }
+
     }
 }

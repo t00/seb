@@ -40,7 +40,7 @@ namespace SebWindowsClient.WebSocketsServer
                     OnConnect = OnConnect,
                     OnConnected = OnConnected,
                     OnDisconnect = OnDisconnect,
-                    TimeOut = new TimeSpan(0, 0, 30)
+                    TimeOut = new TimeSpan(0, 5, 0)
                 };
                 server.Start();
             }
@@ -71,7 +71,7 @@ namespace SebWindowsClient.WebSocketsServer
 
         private static void OnSend(UserContext context)
         {
-            Console.WriteLine("SocketServer sent: " + context.Data);
+            Console.WriteLine("SocketServer sent: " + context.DataFrame.ToString());
         }
 
         private static void OnReceive(UserContext context)
