@@ -600,6 +600,7 @@ namespace SebWindowsConfig
             checkBoxAllowUserSwitching .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
             labelLogDirectoryWin       .Text       =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
+            checkboxAllowWlan       .Checked       =  (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLANWin];
 
             // Group "Registry"
             checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyInsideSebEnableSwitchUser];
@@ -1272,6 +1273,7 @@ namespace SebWindowsConfig
              textBoxPermittedProcessTitle      .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyTitle];
              textBoxPermittedProcessDescription.Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyDescription];
              textBoxPermittedProcessExecutable .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyExecutable];
+             textBoxPermittedProcessExecutables .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyAllowedExecutables];
              textBoxPermittedProcessPath       .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyPath];
              textBoxPermittedProcessIdentifier .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyIdentifier];
 
@@ -1325,6 +1327,7 @@ namespace SebWindowsConfig
              textBoxPermittedProcessTitle      .Text   = "";
              textBoxPermittedProcessDescription.Text   = "";
              textBoxPermittedProcessExecutable .Text   = "";
+             textBoxPermittedProcessExecutables .Text   = "";
              textBoxPermittedProcessPath       .Text   = "";
              textBoxPermittedProcessIdentifier .Text   = "";
 
@@ -1629,6 +1632,14 @@ namespace SebWindowsConfig
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyIdentifier] = textBoxPermittedProcessIdentifier.Text;
+        }
+
+        private void textBoxPermittedProcessExecutables_TextChanged(object sender, EventArgs e)
+        {
+            if (SEBSettings.permittedProcessIndex < 0) return;
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessData[SEBSettings.KeyAllowedExecutables] = textBoxPermittedProcessExecutables.Text;
         }
 
         private void buttonPermittedProcessCodeSignature_Click(object sender, EventArgs e)
@@ -2799,6 +2810,11 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell] = checkBoxKillExplorerShell.Checked;
         }
 
+        private void checkBoxAllowWlan_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLANWin] = checkboxAllowWlan.Checked;
+        }
+
         private void checkBoxAllowUserSwitching_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching] = checkBoxAllowUserSwitching.Checked;
@@ -3020,6 +3036,11 @@ namespace SebWindowsConfig
         }
 
         private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

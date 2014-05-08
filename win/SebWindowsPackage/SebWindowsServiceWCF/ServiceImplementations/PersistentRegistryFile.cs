@@ -7,12 +7,29 @@ using SebWindowsServiceWCF.ServiceContracts;
 
 namespace SebWindowsServiceWCF.ServiceImplementations
 {
+    /// <summary>
+    /// The class that gets serialized, this is a subclass for 
+    /// </summary>
+    [Serializable]
+    public class FileContent
+    {
+        public Dictionary<RegistryIdentifiers, object> RegistryValues
+        { get; set; }
+        public string Username
+        { get; set; }
+        public bool EnableWindowsUpdate
+        { get; set; }
+    }
+
     public class PersistentRegistryFile : IDisposable
     {
         private readonly string _filePath;
-
-        public Dictionary<RegistryIdentifiers, object> RegistryValues = new Dictionary<RegistryIdentifiers, object>();
-        public string Username = "";
+        public FileContent FileContent = new FileContent()
+        {
+            EnableWindowsUpdate = false, 
+            RegistryValues = new Dictionary<RegistryIdentifiers, object>(), 
+            Username = ""
+        };
 
         /// <summary>
         /// Create an in-memory instance of a persistent registry file.
@@ -34,7 +51,7 @@ namespace SebWindowsServiceWCF.ServiceImplementations
             
 
             if (username != null)
-                this.Username = username;
+                this.FileContent.Username = username;
 
             if (File.Exists(_filePath))
             {
@@ -53,9 +70,7 @@ namespace SebWindowsServiceWCF.ServiceImplementations
             {
                 stream = File.OpenRead(_filePath);
                 var deserializer = new BinaryFormatter();
-                var fileContent = (Tuple<string, Dictionary<RegistryIdentifiers, object>>)deserializer.Deserialize(stream);
-                this.Username = fileContent.Item1;
-                this.RegistryValues = fileContent.Item2;
+                FileContent = (FileContent)deserializer.Deserialize(stream);
                 stream.Close();
             }
             catch (Exception ex)
@@ -79,7 +94,7 @@ namespace SebWindowsServiceWCF.ServiceImplementations
                 Delete();
                 stream = File.OpenWrite(_filePath);
                 var serializer = new BinaryFormatter();
-                serializer.Serialize(stream, Tuple.Create(this.Username, this.RegistryValues));
+                serializer.Serialize(stream, FileContent);
                 stream.Close();
             }
             catch (Exception ex)
@@ -111,9 +126,7 @@ namespace SebWindowsServiceWCF.ServiceImplementations
 
         public void Dispose()
         {
-            this.Username = null;
-            this.RegistryValues.Clear();
-            this.RegistryValues = null;
+            this.FileContent = null;
         }
     }
 }

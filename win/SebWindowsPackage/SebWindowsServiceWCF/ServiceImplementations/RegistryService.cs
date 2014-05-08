@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SebWindowsServiceWCF.RegistryHandler;
 using SebWindowsServiceWCF.ServiceContracts;
+using WUApiLib;
 
 namespace SebWindowsServiceWCF.ServiceImplementations
 {
@@ -55,20 +56,20 @@ namespace SebWindowsServiceWCF.ServiceImplementations
                             if (registryValue.Value == regEntry.DataValue) continue;
 
                             //Only store the entry in the persistent file if not already existing
-                            if (!persistentRegistryFile.RegistryValues.ContainsKey(registryValue.Key))
+                            if (!persistentRegistryFile.FileContent.RegistryValues.ContainsKey(registryValue.Key))
                             {
-                                persistentRegistryFile.RegistryValues.Add(registryValue.Key, regEntry.DataValue);
+                                persistentRegistryFile.FileContent.RegistryValues.Add(registryValue.Key, regEntry.DataValue);
                                 //Save after every change
                                 persistentRegistryFile.Save();
                             }
                             //Change the registry value if all operations succeeded until here
                             regEntry.DataValue = registryValue.Value;
+                            Logger.Log(String.Format("Set Registry Key {0} to {1}", registryValue.Key, registryValue.Value));
                         }
                         catch (Exception ex)
                         {
                             Logger.Log(ex, String.Format("Unable to set the registry value for {0}", registryValue.Key));
                             res = false;
-                            continue;
                         }
                     }
                 }
@@ -81,14 +82,23 @@ namespace SebWindowsServiceWCF.ServiceImplementations
             return res;
         }
 
-        public bool ResetRegistry()
+        /// <summary>
+        /// Resets the registry values if a PersistentRegistryFile is existing
+        /// </summary>
+        /// <returns></returns>
+        public bool Reset()
         {
             bool res = true;
             try
             {
                 using (var persistentRegistryFile = new PersistentRegistryFile())
                 {
-                    res = this.SetRegistryEntries(persistentRegistryFile.RegistryValues, persistentRegistryFile.Username);
+                    //Reset the registry values
+                    res = this.SetRegistryEntries(persistentRegistryFile.FileContent.RegistryValues, persistentRegistryFile.FileContent.Username);
+                    //Enable the windows Service if necessary
+                    if (persistentRegistryFile.FileContent.EnableWindowsUpdate)
+                        SetWindowsUpdate(true);
+
                     persistentRegistryFile.Delete();
                 }
             }
@@ -98,6 +108,45 @@ namespace SebWindowsServiceWCF.ServiceImplementations
             }
             return res;
         }
+
+        /// <summary>
+        /// Disables the automatic windows update service
+        /// </summary>
+        public bool DisableWindowsUpdate()
+        {
+            if (SetWindowsUpdate(false))
+            {
+                using (var persistentRegistryFile = new PersistentRegistryFile())
+                {
+                    persistentRegistryFile.FileContent.EnableWindowsUpdate = true;
+                    persistentRegistryFile.Save();
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private bool SetWindowsUpdate(bool enable)
+        {
+            try
+            {
+                var auc = new AutomaticUpdatesClass();
+
+                if(enable)
+                    auc.Resume();
+                else
+                    auc.Pause();
+
+                Logger.Log(String.Format("Set windows update to {0}",enable));
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
 
         public void Dispose()
         {

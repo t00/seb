@@ -46,7 +46,7 @@ namespace SebRegistryResetter
                     Console.WriteLine(String.Format("Found {0}",filePath));
                     Console.WriteLine("Resetting Registry keys...");
                     var service = new RegistryService();
-                    if (service.ResetRegistry())
+                    if (service.Reset())
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Registry keys resetted successfully!");
@@ -101,12 +101,13 @@ namespace SebRegistryResetter
                 new RegDisableTaskMgr(sid),
                 new RegHideFastUserSwitching(sid),
                 new RegNoClose(sid),
-                new RegNoLogoff(sid)
+                new RegNoLogoff(sid),
             };
 
             var entriesToOne = new List<RegistryEntry>
             {
-                new RegEnableShade(sid)
+                new RegEnableShade(sid),
+                new RegEnableShadeHorizon(sid)
             };
 
             foreach (var entry in entriesToZero)

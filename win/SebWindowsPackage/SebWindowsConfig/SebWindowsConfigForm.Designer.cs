@@ -70,6 +70,7 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.checkboxAllowWlan = new System.Windows.Forms.CheckBox();
             this.checkBoxKillExplorerShell = new System.Windows.Forms.CheckBox();
             this.labelLogDirectoryWin = new System.Windows.Forms.Label();
             this.buttonLogDirectoryWin = new System.Windows.Forms.Button();
@@ -145,6 +146,8 @@
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.groupBoxPermittedProcess = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxPermittedProcessExecutables = new System.Windows.Forms.TextBox();
             this.checkBoxPermittedProcessStrongKill = new System.Windows.Forms.CheckBox();
             this.buttonPermittedProcessCodeSignature = new System.Windows.Forms.Button();
             this.dataGridViewPermittedProcessArguments = new System.Windows.Forms.DataGridView();
@@ -294,6 +297,19 @@
             this.labelStartURL = new System.Windows.Forms.Label();
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkActivateUrlFilter = new System.Windows.Forms.CheckBox();
+            this.chkFilterEmbeddedContent = new System.Windows.Forms.CheckBox();
+            this.datagridWhitelist = new System.Windows.Forms.DataGridView();
+            this.btnRemoveWhitelistFilter = new System.Windows.Forms.Button();
+            this.btnAddWhitelistFilter = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.datagridBlackListFilter = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRemoveBlackListFilter = new System.Windows.Forms.Button();
+            this.btnAddBlackListFilter = new System.Windows.Forms.Button();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -328,6 +344,11 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridWhitelist)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridBlackListFilter)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -838,6 +859,7 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.checkboxAllowWlan);
             this.tabPageSecurity.Controls.Add(this.checkBoxKillExplorerShell);
             this.tabPageSecurity.Controls.Add(this.labelLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.buttonLogDirectoryWin);
@@ -856,6 +878,19 @@
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // checkboxAllowWlan
+            // 
+            this.checkboxAllowWlan.AutoSize = true;
+            this.checkboxAllowWlan.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkboxAllowWlan.Location = new System.Drawing.Point(22, 180);
+            this.checkboxAllowWlan.Margin = new System.Windows.Forms.Padding(2);
+            this.checkboxAllowWlan.Name = "checkboxAllowWlan";
+            this.checkboxAllowWlan.Size = new System.Drawing.Size(172, 17);
+            this.checkboxAllowWlan.TabIndex = 80;
+            this.checkboxAllowWlan.Text = "Allow WLAN Control (Win only)";
+            this.checkboxAllowWlan.UseVisualStyleBackColor = true;
+            this.checkboxAllowWlan.CheckedChanged += new System.EventHandler(this.checkBoxAllowWlan_CheckedChanged);
             // 
             // checkBoxKillExplorerShell
             // 
@@ -883,7 +918,7 @@
             // buttonLogDirectoryWin
             // 
             this.buttonLogDirectoryWin.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogDirectoryWin.Location = new System.Drawing.Point(56, 245);
+            this.buttonLogDirectoryWin.Location = new System.Drawing.Point(56, 260);
             this.buttonLogDirectoryWin.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLogDirectoryWin.Name = "buttonLogDirectoryWin";
             this.buttonLogDirectoryWin.Size = new System.Drawing.Size(143, 20);
@@ -897,7 +932,7 @@
             // 
             this.checkBoxCreateNewDesktop.AutoSize = true;
             this.checkBoxCreateNewDesktop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(23, 138);
+            this.checkBoxCreateNewDesktop.Location = new System.Drawing.Point(22, 140);
             this.checkBoxCreateNewDesktop.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCreateNewDesktop.Name = "checkBoxCreateNewDesktop";
             this.checkBoxCreateNewDesktop.Size = new System.Drawing.Size(121, 17);
@@ -910,7 +945,7 @@
             // 
             this.checkBoxAllowUserSwitching.AutoSize = true;
             this.checkBoxAllowUserSwitching.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowUserSwitching.Location = new System.Drawing.Point(22, 194);
+            this.checkBoxAllowUserSwitching.Location = new System.Drawing.Point(22, 209);
             this.checkBoxAllowUserSwitching.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowUserSwitching.Name = "checkBoxAllowUserSwitching";
             this.checkBoxAllowUserSwitching.Size = new System.Drawing.Size(173, 17);
@@ -943,7 +978,7 @@
             // 
             this.checkBoxEnableLogging.AutoSize = true;
             this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(22, 216);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(22, 231);
             this.checkBoxEnableLogging.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(96, 17);
@@ -984,6 +1019,7 @@
             this.tabControlNetwork.Controls.Add(this.tabPageFilter);
             this.tabControlNetwork.Controls.Add(this.tabPageCertificates);
             this.tabControlNetwork.Controls.Add(this.tabPageProxies);
+            this.tabControlNetwork.Controls.Add(this.tabPage1);
             this.tabControlNetwork.Location = new System.Drawing.Point(22, 24);
             this.tabControlNetwork.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlNetwork.Name = "tabControlNetwork";
@@ -1726,6 +1762,8 @@
             // 
             // groupBoxPermittedProcess
             // 
+            this.groupBoxPermittedProcess.Controls.Add(this.label2);
+            this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessExecutables);
             this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessStrongKill);
             this.groupBoxPermittedProcess.Controls.Add(this.buttonPermittedProcessCodeSignature);
             this.groupBoxPermittedProcess.Controls.Add(this.dataGridViewPermittedProcessArguments);
@@ -1756,6 +1794,25 @@
             this.groupBoxPermittedProcess.TabIndex = 80;
             this.groupBoxPermittedProcess.TabStop = false;
             this.groupBoxPermittedProcess.Text = "Selected Process";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(90, 108);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(152, 13);
+            this.label2.TabIndex = 91;
+            this.label2.Text = "Window Handling Process (es)";
+            // 
+            // textBoxPermittedProcessExecutables
+            // 
+            this.textBoxPermittedProcessExecutables.Location = new System.Drawing.Point(246, 105);
+            this.textBoxPermittedProcessExecutables.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPermittedProcessExecutables.Name = "textBoxPermittedProcessExecutables";
+            this.textBoxPermittedProcessExecutables.Size = new System.Drawing.Size(270, 20);
+            this.textBoxPermittedProcessExecutables.TabIndex = 90;
+            this.textBoxPermittedProcessExecutables.TextChanged += new System.EventHandler(this.textBoxPermittedProcessExecutables_TextChanged);
             // 
             // checkBoxPermittedProcessStrongKill
             // 
@@ -1814,7 +1871,7 @@
             // labelPermittedProcessIdentifier
             // 
             this.labelPermittedProcessIdentifier.AutoSize = true;
-            this.labelPermittedProcessIdentifier.Location = new System.Drawing.Point(127, 207);
+            this.labelPermittedProcessIdentifier.Location = new System.Drawing.Point(148, 208);
             this.labelPermittedProcessIdentifier.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPermittedProcessIdentifier.Name = "labelPermittedProcessIdentifier";
             this.labelPermittedProcessIdentifier.Size = new System.Drawing.Size(47, 13);
@@ -1823,10 +1880,10 @@
             // 
             // textBoxPermittedProcessIdentifier
             // 
-            this.textBoxPermittedProcessIdentifier.Location = new System.Drawing.Point(178, 205);
+            this.textBoxPermittedProcessIdentifier.Location = new System.Drawing.Point(199, 205);
             this.textBoxPermittedProcessIdentifier.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessIdentifier.Name = "textBoxPermittedProcessIdentifier";
-            this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(338, 20);
+            this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(317, 20);
             this.textBoxPermittedProcessIdentifier.TabIndex = 9;
             this.textBoxPermittedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxPermittedProcessIdentifier_TextChanged);
             // 
@@ -1885,7 +1942,7 @@
             // labelPermittedProcessExecutable
             // 
             this.labelPermittedProcessExecutable.AutoSize = true;
-            this.labelPermittedProcessExecutable.Location = new System.Drawing.Point(116, 89);
+            this.labelPermittedProcessExecutable.Location = new System.Drawing.Point(135, 84);
             this.labelPermittedProcessExecutable.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPermittedProcessExecutable.Name = "labelPermittedProcessExecutable";
             this.labelPermittedProcessExecutable.Size = new System.Drawing.Size(60, 13);
@@ -1895,7 +1952,7 @@
             // labelPermittedProcessPath
             // 
             this.labelPermittedProcessPath.AutoSize = true;
-            this.labelPermittedProcessPath.Location = new System.Drawing.Point(48, 122);
+            this.labelPermittedProcessPath.Location = new System.Drawing.Point(48, 129);
             this.labelPermittedProcessPath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPermittedProcessPath.Name = "labelPermittedProcessPath";
             this.labelPermittedProcessPath.Size = new System.Drawing.Size(29, 13);
@@ -1904,7 +1961,7 @@
             // 
             // textBoxPermittedProcessPath
             // 
-            this.textBoxPermittedProcessPath.Location = new System.Drawing.Point(86, 122);
+            this.textBoxPermittedProcessPath.Location = new System.Drawing.Point(86, 129);
             this.textBoxPermittedProcessPath.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessPath.Name = "textBoxPermittedProcessPath";
             this.textBoxPermittedProcessPath.Size = new System.Drawing.Size(430, 20);
@@ -1913,10 +1970,10 @@
             // 
             // textBoxPermittedProcessExecutable
             // 
-            this.textBoxPermittedProcessExecutable.Location = new System.Drawing.Point(178, 89);
+            this.textBoxPermittedProcessExecutable.Location = new System.Drawing.Point(199, 81);
             this.textBoxPermittedProcessExecutable.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessExecutable.Name = "textBoxPermittedProcessExecutable";
-            this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(338, 20);
+            this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(317, 20);
             this.textBoxPermittedProcessExecutable.TabIndex = 4;
             this.textBoxPermittedProcessExecutable.TextChanged += new System.EventHandler(this.textBoxPermittedProcessExecutable_TextChanged);
             // 
@@ -1942,7 +1999,7 @@
             // labelPermittedProcessTitle
             // 
             this.labelPermittedProcessTitle.AutoSize = true;
-            this.labelPermittedProcessTitle.Location = new System.Drawing.Point(147, 26);
+            this.labelPermittedProcessTitle.Location = new System.Drawing.Point(168, 29);
             this.labelPermittedProcessTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPermittedProcessTitle.Name = "labelPermittedProcessTitle";
             this.labelPermittedProcessTitle.Size = new System.Drawing.Size(27, 13);
@@ -1951,10 +2008,10 @@
             // 
             // textBoxPermittedProcessTitle
             // 
-            this.textBoxPermittedProcessTitle.Location = new System.Drawing.Point(178, 26);
+            this.textBoxPermittedProcessTitle.Location = new System.Drawing.Point(199, 26);
             this.textBoxPermittedProcessTitle.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessTitle.Name = "textBoxPermittedProcessTitle";
-            this.textBoxPermittedProcessTitle.Size = new System.Drawing.Size(338, 20);
+            this.textBoxPermittedProcessTitle.Size = new System.Drawing.Size(317, 20);
             this.textBoxPermittedProcessTitle.TabIndex = 1;
             this.textBoxPermittedProcessTitle.TextChanged += new System.EventHandler(this.textBoxPermittedProcessTitle_TextChanged);
             // 
@@ -3555,6 +3612,156 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.chkFilterEmbeddedContent);
+            this.tabPage1.Controls.Add(this.chkActivateUrlFilter);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(698, 462);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Url Filter";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chkActivateUrlFilter
+            // 
+            this.chkActivateUrlFilter.AutoSize = true;
+            this.chkActivateUrlFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkActivateUrlFilter.Location = new System.Drawing.Point(15, 14);
+            this.chkActivateUrlFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.chkActivateUrlFilter.Name = "chkActivateUrlFilter";
+            this.chkActivateUrlFilter.Size = new System.Drawing.Size(126, 17);
+            this.chkActivateUrlFilter.TabIndex = 1;
+            this.chkActivateUrlFilter.Text = "Activate URL filtering";
+            this.chkActivateUrlFilter.UseVisualStyleBackColor = true;
+            // 
+            // chkFilterEmbeddedContent
+            // 
+            this.chkFilterEmbeddedContent.AutoSize = true;
+            this.chkFilterEmbeddedContent.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkFilterEmbeddedContent.Location = new System.Drawing.Point(145, 14);
+            this.chkFilterEmbeddedContent.Margin = new System.Windows.Forms.Padding(2);
+            this.chkFilterEmbeddedContent.Name = "chkFilterEmbeddedContent";
+            this.chkFilterEmbeddedContent.Size = new System.Drawing.Size(162, 17);
+            this.chkFilterEmbeddedContent.TabIndex = 2;
+            this.chkFilterEmbeddedContent.Text = "Filter also embedded content";
+            this.chkFilterEmbeddedContent.UseVisualStyleBackColor = true;
+            // 
+            // datagridWhitelist
+            // 
+            this.datagridWhitelist.AllowUserToResizeColumns = false;
+            this.datagridWhitelist.AllowUserToResizeRows = false;
+            this.datagridWhitelist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridWhitelist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3});
+            this.datagridWhitelist.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.datagridWhitelist.Location = new System.Drawing.Point(5, 18);
+            this.datagridWhitelist.Margin = new System.Windows.Forms.Padding(2);
+            this.datagridWhitelist.MultiSelect = false;
+            this.datagridWhitelist.Name = "datagridWhitelist";
+            this.datagridWhitelist.RowHeadersVisible = false;
+            this.datagridWhitelist.RowTemplate.Height = 24;
+            this.datagridWhitelist.Size = new System.Drawing.Size(656, 118);
+            this.datagridWhitelist.TabIndex = 15;
+            // 
+            // btnRemoveWhitelistFilter
+            // 
+            this.btnRemoveWhitelistFilter.Location = new System.Drawing.Point(32, 140);
+            this.btnRemoveWhitelistFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveWhitelistFilter.Name = "btnRemoveWhitelistFilter";
+            this.btnRemoveWhitelistFilter.Size = new System.Drawing.Size(19, 19);
+            this.btnRemoveWhitelistFilter.TabIndex = 17;
+            this.btnRemoveWhitelistFilter.Text = "-";
+            this.btnRemoveWhitelistFilter.UseVisualStyleBackColor = true;
+            // 
+            // btnAddWhitelistFilter
+            // 
+            this.btnAddWhitelistFilter.Location = new System.Drawing.Point(5, 140);
+            this.btnAddWhitelistFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddWhitelistFilter.Name = "btnAddWhitelistFilter";
+            this.btnAddWhitelistFilter.Size = new System.Drawing.Size(22, 19);
+            this.btnAddWhitelistFilter.TabIndex = 16;
+            this.btnAddWhitelistFilter.Text = "+";
+            this.btnAddWhitelistFilter.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.datagridWhitelist);
+            this.groupBox1.Controls.Add(this.btnRemoveWhitelistFilter);
+            this.groupBox1.Controls.Add(this.btnAddWhitelistFilter);
+            this.groupBox1.Location = new System.Drawing.Point(15, 36);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(666, 163);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Whitelist";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Filter Rules";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ToolTipText = "Filter Rule";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.datagridBlackListFilter);
+            this.groupBox2.Controls.Add(this.btnRemoveBlackListFilter);
+            this.groupBox2.Controls.Add(this.btnAddBlackListFilter);
+            this.groupBox2.Location = new System.Drawing.Point(14, 214);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(666, 163);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Blacklist";
+            // 
+            // datagridBlackListFilter
+            // 
+            this.datagridBlackListFilter.AllowUserToResizeColumns = false;
+            this.datagridBlackListFilter.AllowUserToResizeRows = false;
+            this.datagridBlackListFilter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridBlackListFilter.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn4});
+            this.datagridBlackListFilter.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.datagridBlackListFilter.Location = new System.Drawing.Point(5, 18);
+            this.datagridBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.datagridBlackListFilter.MultiSelect = false;
+            this.datagridBlackListFilter.Name = "datagridBlackListFilter";
+            this.datagridBlackListFilter.RowHeadersVisible = false;
+            this.datagridBlackListFilter.RowTemplate.Height = 24;
+            this.datagridBlackListFilter.Size = new System.Drawing.Size(656, 118);
+            this.datagridBlackListFilter.TabIndex = 15;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Filter Rules";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ToolTipText = "Filter Rule";
+            // 
+            // btnRemoveBlackListFilter
+            // 
+            this.btnRemoveBlackListFilter.Location = new System.Drawing.Point(32, 140);
+            this.btnRemoveBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveBlackListFilter.Name = "btnRemoveBlackListFilter";
+            this.btnRemoveBlackListFilter.Size = new System.Drawing.Size(19, 19);
+            this.btnRemoveBlackListFilter.TabIndex = 17;
+            this.btnRemoveBlackListFilter.Text = "-";
+            this.btnRemoveBlackListFilter.UseVisualStyleBackColor = true;
+            // 
+            // btnAddBlackListFilter
+            // 
+            this.btnAddBlackListFilter.Location = new System.Drawing.Point(5, 140);
+            this.btnAddBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddBlackListFilter.Name = "btnAddBlackListFilter";
+            this.btnAddBlackListFilter.Size = new System.Drawing.Size(22, 19);
+            this.btnAddBlackListFilter.TabIndex = 16;
+            this.btnAddBlackListFilter.Text = "+";
+            this.btnAddBlackListFilter.UseVisualStyleBackColor = true;
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3623,6 +3830,12 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridWhitelist)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.datagridBlackListFilter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3894,6 +4107,22 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxPermittedProcessExecutables;
+        private System.Windows.Forms.CheckBox checkboxAllowWlan;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView datagridWhitelist;
+        private System.Windows.Forms.Button btnRemoveWhitelistFilter;
+        private System.Windows.Forms.Button btnAddWhitelistFilter;
+        private System.Windows.Forms.CheckBox chkFilterEmbeddedContent;
+        private System.Windows.Forms.CheckBox chkActivateUrlFilter;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView datagridBlackListFilter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Button btnRemoveBlackListFilter;
+        private System.Windows.Forms.Button btnAddBlackListFilter;
 
     }
 }

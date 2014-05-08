@@ -9,7 +9,7 @@ using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using PlistCS;
-
+using SebWindowsClient.WebSocketsServer;
 using ListObj  = System.Collections.Generic.List                <object>;
 using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
 using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
@@ -58,6 +58,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyExitKey2             = "exitKey2";
         public const String KeyExitKey3             = "exitKey3";
         public const String KeySebMode              = "sebMode";
+        public const String KeyBrowserMessagingSocket = "browserMessagingSocket";
 
         // Group "Config File"
         public const String KeySebConfigPurpose        = "sebConfigPurpose";
@@ -131,6 +132,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyUser        = "user";
         public const String KeyArguments   = "arguments";
         public const String KeyArgument    = "argument";
+        public const String KeyAllowedExecutables = "allowedExecutables";
 
         // Group "Network"
         public const String KeyEnableURLFilter        = "enableURLFilter";
@@ -223,6 +225,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableLogging       = "enableLogging";
         public const String KeyLogDirectoryOSX     = "logDirectoryOSX";
         public const String KeyLogDirectoryWin     = "logDirectoryWin";
+        public const String KeyAllowWLANWin     = "allowWlanWin";
 
         // Group "Registry"
 
@@ -337,8 +340,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static int     bypassedProxyIndex;
         public static ListObj bypassedProxyList        = new ListObj();
         public static String  bypassedProxyData        = "";
-        public static String  bypassedProxyDataDefault = "";
-
+        public static String  bypassedProxyDataDefault = ""; 
 
 
         // ************************
@@ -423,6 +425,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey2, 10);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey3,  5);
             SEBSettings.settingsDefault.Add(SEBSettings.KeySebMode, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserMessagingSocket, SEBXULRunnerWebSocketServer.ServerAddress);
 
             // Default settings for group "Config File"
             SEBSettings.settingsDefault.Add(SEBSettings.KeySebConfigPurpose       , 0);
@@ -527,6 +530,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyExecutable, SEBClientInfo.XUL_RUNNER);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyPath       , "../xulrunner/");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyIdentifier , "XULRunner");
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAllowedExecutables , "");
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyArguments  , new ListObj());
 
             // Default settings for permitted process data
@@ -542,6 +546,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyExecutable , "");
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyPath       , "");
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyIdentifier , "");
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyAllowedExecutables , "");
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyArguments  , new ListObj());
 
             // Default settings for prohibited process data
@@ -553,6 +558,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyExecutable , "");
             SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyDescription, "");
             SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyIdentifier , "");
+            SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyAllowedExecutables , "");
             SEBSettings.prohibitedProcessDataDefault.Add(SEBSettings.KeyUser       , "");
 
             // Default settings for group "Network - Filter"
@@ -663,6 +669,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "~/Documents");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "My Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLANWin    , false);
 
             // Default settings for group "Inside SEB"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableSwitchUser       , false);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.XULRunnerCommunication;
 
 namespace SebWindowsClient
 {
@@ -44,6 +45,7 @@ namespace SebWindowsClient
             }
             else
             {
+                SEBXulRunnerHandler.AllowCloseXulRunner();
                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                 Application.Exit();
             }

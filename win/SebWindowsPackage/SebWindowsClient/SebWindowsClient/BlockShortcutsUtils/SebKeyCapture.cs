@@ -6,12 +6,13 @@ using System.Text;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
-
 // -------------------------------------------------------------
 //     Viktor tomas
 //     BFH-TI, http://www.ti.bfh.ch
 //     Biel, 2012
 // -------------------------------------------------------------
+using SebWindowsClient.XULRunnerCommunication;
+
 namespace SebWindowsClient.BlockShortcutsUtils
 {
     /// <summary>
@@ -557,6 +558,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 }
                 if (SetAndTestExitKeySequence(wp, lp) && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyIgnoreExitKeys) == false)
                 {
+                    SEBXulRunnerHandler.AllowCloseXulRunner();
                     Application.Exit();
                 }
             }

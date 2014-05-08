@@ -12,52 +12,49 @@ using Microsoft.Win32;
 
 namespace SebWindowsClient.DesktopUtils
 {
-    public class SEBDesktopWallpaper
+    public static class SEBDesktopWallpaper
     {
         const int SPI_SETDESKWALLPAPER = 20;
         const int SPIF_UPDATEINIFILE = 0x01;
         const int SPIF_SENDWININICHANGE = 0x02;
-
-        public SEBDesktopWallpaper()
-        {
-        }
+        const int SPI_GETDESKWALLPAPER = 0x73;
+        const int MAX_PATH = 260;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int SystemParametersInfo(
             int uAction, int uParam, string lpvParam, int fuWinIni);
+
+        private static string _currentWallpaper = null;
 
         public enum Style : int
         {
             Tiled, Centered, Stretched
         }
 
-        public void SetWallpaper(string path, Style style)
+        public static void BlankWallpaper()
         {
-            if (System.IO.File.Exists(path))
-            {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey("Control Panel\\Desktop", true);
+            if (_currentWallpaper == null)
+                _currentWallpaper = GetWallpaper();
 
-                switch (style)
-                {
-                    case Style.Stretched:
-                        key.SetValue(@"WallpaperStyle", "2");
-                        key.SetValue(@"TileWallpaper", "0");
-                        break;
-                    case Style.Centered:
-                        key.SetValue(@"WallpaperStyle", "1");
-                        key.SetValue(@"TileWallpaper", "0");
-                        break;
-                    case Style.Tiled:
-                        key.SetValue(@"WallpaperStyle", "1");
-                        key.SetValue(@"TileWallpaper", "1");
-                        break;
-                }
-                SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
-            }
-            else
-            {
-                throw new System.IO.FileNotFoundException();
-            }
+            SetWallpaper("");
+        }
+
+        public static void Reset()
+        {
+            if(_currentWallpaper != null)
+                SetWallpaper(_currentWallpaper);
+        }
+
+        private static string GetWallpaper()
+        {
+            var currentWallpaper = new string('\0', MAX_PATH);
+            SystemParametersInfo(SPI_GETDESKWALLPAPER, currentWallpaper.Length, currentWallpaper, 0);
+            return currentWallpaper.Substring(0, currentWallpaper.IndexOf('\0'));
+        }
+
+        private static void SetWallpaper(string path)
+        {
+            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
         }
     }
 }

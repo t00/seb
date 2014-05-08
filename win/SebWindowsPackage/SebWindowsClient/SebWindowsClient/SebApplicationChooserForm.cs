@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 //     BFH-TI, http://www.ti.bfh.ch
 //     Biel, 2012
 // -------------------------------------------------------------
+using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.ProcessUtils;
 
 namespace SebWindowsClient
@@ -188,19 +189,13 @@ namespace SebWindowsClient
                                         if (permittedProcessExecutable.StartsWith(runningApplications[j].ProcessName))
                                         {
                                             runningApplications[j].Refresh();
-                                            //Get the mainWindowHandle and it is not mapped to the process handle, get the window with the same title
+                                            //Get the mainWindowHandle and if it is not mapped to the process handle, get the window with the same title
                                             var wHandle = runningApplications[j].MainWindowHandle;
-                                            if (wHandle == IntPtr.Zero)
+                                            if (wHandle == IntPtr.Zero && !String.IsNullOrEmpty(permittedProcessExecutable))
                                             {
-                                                foreach (
-                                                    KeyValuePair<IntPtr, string> lWindow in
-                                                        OpenWindowGetter.GetOpenWindows())
-                                                {
-                                                    if (!String.IsNullOrEmpty(permittedProcessIdentifier) && lWindow.Value.Contains(permittedProcessIdentifier))
-                                                    {
-                                                        wHandle = lWindow.Key;
-                                                    }
-                                                }
+                                                wHandle =
+                                                    SEBWindowHandler.GetWindowHandleByTitle(
+                                                        permittedProcessIdentifier);
                                             }
 
                                             this.lWindowHandles.Add(wHandle);
@@ -322,23 +317,18 @@ namespace SebWindowsClient
                 if (hwnd == IntPtr.Zero)
                 {
                     //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
-                    string title = this.lWindowTitles[selectedItemIndex];
-                    foreach (KeyValuePair<IntPtr, string> lWindow in OpenWindowGetter.GetOpenWindows())
-                    { 
-                        if( !String.IsNullOrEmpty(title) && lWindow.Value.Contains(title))
-                        {
-                            SetForegroundWindow(lWindow.Key);
-                            SetForegroundWindow(lWindow.Key);
-                            BringWindowToTop(lWindow.Key);
-                            ShowWindow(lWindow.Key, WindowShowStyle.ShowNormal);
-                            //do not exit here because if multiple windows are found...
-                        }
+                    foreach (
+                        var windowHandle in
+                            SEBWindowHandler.GetWindowHandlesByTitle(this.lWindowTitles[selectedItemIndex]))
+                    {
+                        windowHandle.BringToTop();
                     }
                 }
-
-                SetForegroundWindow(lWindowHandles[selectedItemIndex]);
-                BringWindowToTop(lWindowHandles[selectedItemIndex]);
-                ShowWindow(lWindowHandles[selectedItemIndex], WindowShowStyle.ShowNormal);
+                else
+                {
+                    hwnd.BringToTop();
+                }
+                
                 AttachThreadInput(activeThreadID, currentThreadID, false);
                 //}
                 //else

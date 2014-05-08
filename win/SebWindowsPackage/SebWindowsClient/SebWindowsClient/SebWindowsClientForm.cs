@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -21,6 +22,8 @@ using System.Diagnostics;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ServiceUtils;
 using SebWindowsClient.UI;
+using SebWindowsClient.WebSocketsServer;
+using SebWindowsClient.XULRunnerCommunication;
 using SebWindowsServiceWCF.ServiceContracts;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using SebWindowsClient.ProcessUtils;
@@ -116,6 +119,26 @@ namespace SebWindowsClient
         {
             InitializeComponent();
             taskbarHeight = this.Height-2;
+
+            if (!(bool) SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
+            {
+                this.quitButton.Visible = false;   
+            }
+            else
+            {
+                SEBWebSocketClient.OnShutDownRequested += OnXULRunnerShutdDownRequested;
+            }
+            SEBWebSocketClient.OnQuitLink += OnXulRunnerQuitLinkPressed;
+        }
+
+        private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
+        {
+            this.BeginInvoke(new Action(this.ShowCloseDialogForm));
+        }
+
+        private void OnXulRunnerQuitLinkPressed(object sender, EventArgs e)
+        {
+            this.BeginInvoke(new Action(this.ShowCloseDialogFormConfirmation));
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -265,7 +288,8 @@ namespace SebWindowsClient
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
                 xulRunner.EnableRaisingEvents = true;
-                xulRunner.Exited += new EventHandler(xulRunner_Exited);
+                if(!SEBXulRunnerHandler.IsCommunicationEstablished)
+                    xulRunner.Exited += new EventHandler(xulRunner_Exited);
                 return true;
 
             }
@@ -358,6 +382,7 @@ namespace SebWindowsClient
                         string title = (string)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyTitle);
                         if (title == null) title = "";
                         string executable = (string)permittedProcess[SEBSettings.KeyExecutable];
+                        string identifier = (string)permittedProcess[SEBSettings.KeyIdentifier];
                         if (!(executable.Contains(SEBClientInfo.XUL_RUNNER) && !(bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableSebBrowser)))
                         {
                             // Check if the process is already running
@@ -371,18 +396,28 @@ namespace SebWindowsClient
                                     string name = runningApplications[j].ProcessName;
                                     if (executable.Contains(name))
                                     {
+                                        //Define the running process
+                                        var proc = runningApplications[j];
+                                        //If it has another process handling the windows
+                                        if (proc != null && !proc.HasExited && proc.MainWindowHandle == IntPtr.Zero)
+                                        {
+                                            //Get Process from WindowHandle by Name
+                                            proc = SEBWindowHandler.GetWindowHandleByTitle(identifier).GetProcess();
+                                        }
+
                                         // If the flag strongKill is set, then the process is killed without asking the user
                                         bool strongKill = (bool)SEBSettings.valueForDictionaryKey(permittedProcess, SEBSettings.KeyStrongKill);
                                         if (strongKill)
                                         {
                                             Logger.AddError("Closing already running permitted process with strongKill flag set: " + name, null, null);
-                                            SEBNotAllowedProcessController.CloseProcess(runningApplications[j]);
+
+                                            SEBNotAllowedProcessController.CloseProcess(proc);
                                             // Remove the process from the list of running processes
                                             runningApplications.RemoveAt(j);
                                         }
                                         else
                                         {
-                                            runningProcessesToClose.Add(runningApplications[j]);
+                                            runningProcessesToClose.Add(proc);
                                             runningApplicationsToClose.Add(title == "SEB" ? executable : title);
                                             //runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
                                             j++;
@@ -403,6 +438,7 @@ namespace SebWindowsClient
                     }
                 }
             }
+
             // If we found already running permitted or if there were prohibited processes on the list, 
             // we ask the user how to quit them
             if (runningProcessesToClose.Count > 0)
@@ -426,7 +462,7 @@ namespace SebWindowsClient
                     Application.Exit();
                     return;
                 }
-            }
+            }            
 
             // So if there are any permitted processes, we add them to the SEB task bar
             if (permittedProcessList.Count > 0)
@@ -532,6 +568,12 @@ namespace SebWindowsClient
                         }
                     }
                 }
+            }
+
+            if ((bool) SEBClientInfo.getSebSetting(SEBSettings.KeyAllowWLANWin)[SEBSettings.KeyAllowWLANWin])
+            {
+                var wlan = new SEBWlanToolStripButton();
+                taskbarToolStrip.Items.Add(wlan);
             }
 
             // Start permitted processes
@@ -783,15 +825,10 @@ namespace SebWindowsClient
                         if (handle == IntPtr.Zero)
                         {
                             //Try open by window name comparing with title set in config which then is set to the tooltip of the button :)
-                            string title = toolStripButton.Identifier;
-                            foreach (KeyValuePair<IntPtr, string> lWindow in OpenWindowGetter.GetOpenWindows())
+                            foreach(var windowHandle in SEBWindowHandler.GetWindowHandlesByTitle(toolStripButton.Identifier))
                             {
-                                if (!String.IsNullOrEmpty(title) && lWindow.Value.Contains(title))
-                                {
-                                    if (IsIconic(lWindow.Key)) ShowWindow(lWindow.Key, SW_RESTORE);
-                                    SetForegroundWindow(lWindow.Key);
-                                    //do not exit here because if multiple windows are found...
-                                }
+                                if (IsIconic(windowHandle)) ShowWindow(windowHandle, SW_RESTORE);
+                                SetForegroundWindow(windowHandle);
                             }
                         }
                         
@@ -991,25 +1028,6 @@ namespace SebWindowsClient
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Show dialog if SEB should be closed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// ----------------------------------------------------------------------------------------
-        private void btn_Exit_Click(object sender, EventArgs e)
-        {
-            if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit] == true)
-            {
-                ShowCloseDialogForm();
-            }
-            //if (this.closeSebClient)
-            //{
-            //    this.Close();
-            //}
-        }
-
-        /// ----------------------------------------------------------------------------------------
-        /// <summary>
         /// Set registry values and close prohibited processes.
         /// </summary>
         /// <returns>true if succeed</returns>
@@ -1118,13 +1136,7 @@ namespace SebWindowsClient
                 if (String.IsNullOrEmpty(hashedQuitPassword) == true)
                 // If there is no quit password set, we just ask user to confirm quitting
                 {
-                    SebWindowsClientMain.SEBToForeground();
-
-                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
-                    {
-                        //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                        Application.Exit();
-                    }
+                    ShowCloseDialogFormConfirmation();
                 }
                 else
                 {
@@ -1134,6 +1146,18 @@ namespace SebWindowsClient
                     sebCloseDialogForm.Activate();
                     sebCloseDialogForm.txtQuitPassword.Focus();
                 }
+            }
+        }
+
+        public void ShowCloseDialogFormConfirmation()
+        {
+            SebWindowsClientMain.SEBToForeground();
+
+            if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
+            {
+                SEBXulRunnerHandler.AllowCloseXulRunner();
+                //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                Application.Exit();
             }
         }
 
@@ -1174,6 +1198,7 @@ namespace SebWindowsClient
 
             // Check if VM and SEB Windows Service available and required
             if (SebWindowsClientMain.CheckVMService()) {
+                //Set Registry Values to lock down CTRL+ALT+DELETE Menu (with SEBWindowsServiceWCF)
                 try
                 {
                     if(SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.SetRegistryAccordingToConfiguration())
@@ -1183,6 +1208,18 @@ namespace SebWindowsClient
                 {
                     Logger.AddError("Unable to set Registry values",this,ex);
                 }
+
+                //Disable windows update service (with SEBWindowsServiceWCF)
+                try
+                {
+                    if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.DisableWindowsUpdate())
+                        Logger.AddWarning("Unable to disable windows upate service", this, null);
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddError("Unable to disable windows update service", this, ex);
+                }
+
                 
                 bool bClientRegistryAndProcesses = InitClientRegistryAndKillProcesses();
 
@@ -1247,7 +1284,7 @@ namespace SebWindowsClient
             {
                 //bool bQuit = false;
                 //bQuit = CheckQuitPassword();
-
+                SEBXULRunnerWebSocketServer.StopServer();
                 try
                 {
                     if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.ResetRegistry())
@@ -1259,12 +1296,20 @@ namespace SebWindowsClient
                 {
                     Logger.AddError("Unable to reset Registry values",this,ex);
                 }
-                    
 
                 // ShutDown Processes
-                foreach (Process processToClose in permittedProcessesReferences)
+                for(int i = 0; i < permittedProcessesReferences.Count; i++)
                 {
-                    SEBNotAllowedProcessController.CloseProcess(processToClose);
+                    var proc = permittedProcessesReferences[i];
+                    if (proc != null && !proc.HasExited && proc.MainWindowHandle == IntPtr.Zero)
+                    {
+                        //Get Process from WindowHandle by Name
+                        var permittedProcessSettings = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
+                        var currentProcessData = (Dictionary<string,object>)permittedProcessSettings[i];
+                        var title = (string)currentProcessData[SEBSettings.KeyIdentifier];
+                        proc = SEBWindowHandler.GetWindowHandleByTitle(title).GetProcess();
+                    }
+                    SEBNotAllowedProcessController.CloseProcess(proc);
                 }
                 permittedProcessesReferences.Clear();
 
@@ -1273,17 +1318,16 @@ namespace SebWindowsClient
                 {
                     if (SEBClientInfo.ExplorerShellWasKilled)
                     {
-                        string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
-                        Process process = new Process();
-                        process.StartInfo.FileName = explorer;
-                        process.StartInfo.UseShellExecute = true;
-                        process.StartInfo.WorkingDirectory = Application.StartupPath;
-                        process.StartInfo.CreateNoWindow = true;
-                        process.Start();
+                        SEBProcessHandler.StartExplorerShell(false);
 
                         Logger.AddInformation("Restarting the shell.", null, null);
                     }
                 }
+
+                SEBWindowHandler.DisableForegroundWatchDog();
+                SEBWindowHandler.RestoreHiddenWindows();
+
+                SEBDesktopWallpaper.Reset();
 
                 //// Switch to Default Desktop
                 //if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
@@ -1365,6 +1409,7 @@ namespace SebWindowsClient
                 ShowCloseDialogForm();
             }
         }
+
     }
 
     /// ----------------------------------------------------------------------------------------

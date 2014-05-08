@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using Alchemy;
+using Alchemy.Classes;
+using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DiagnosticsUtils;
+
+namespace SebWindowsClient.WebSocketsServer
+{
+    public class SEBWebSocketClient
+    {
+        public static event EventHandler OnShutDownRequested;
+        public static event EventHandler OnQuitLink;
+
+        private static WebSocketClient client;
+        public static void Initialize()
+        {
+            if (client != null)
+                return;
+
+            try
+            {
+                client = new WebSocketClient(SEBXULRunnerWebSocketServer.ServerAddress)
+                {
+                    OnReceive = OnReceive
+                };
+                client.Connect();
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("Unable to start WebSocketClient for communicating with XULRunner",null,ex);
+            }
+        }
+
+        public static bool IsConnectionEstablished
+        {
+            get
+            {
+                return client != null;
+            }
+        }
+
+        public const string XULRunner_Close = "SEB.close";
+        public const string XULRunner_OnClosing = "seb.beforeclose.manual";
+        public const string XULRunner_QuitLink = "seb.beforeclose.quiturl";
+
+        private static void OnReceive(UserContext context)
+        {
+            Console.WriteLine("Client Received: " + context.DataFrame.ToString());
+            switch (context.DataFrame.ToString())
+            {
+                case XULRunner_OnClosing:
+                    if (OnShutDownRequested != null)
+                        OnShutDownRequested(null, EventArgs.Empty);
+                    break;
+                case XULRunner_QuitLink:
+                    if (OnQuitLink != null)
+                        OnQuitLink(null, EventArgs.Empty);
+                    break;
+            }
+        }
+
+        public static void Send(string message)
+        {
+            if(client == null) Initialize();
+            if(client != null) client.Send(message);
+        }
+    }
+}

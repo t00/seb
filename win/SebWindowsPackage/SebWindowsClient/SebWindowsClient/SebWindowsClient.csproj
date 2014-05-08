@@ -59,6 +59,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Alchemy">
+      <HintPath>..\..\packages\Alchemy.2.2.1\lib\net40\Alchemy.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -84,7 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockShortcutsUtils\SebKeyCapture.cs" />
-    <Compile Include="ProcessUtils\OpenWindowGetter.cs" />
+    <Compile Include="ProcessUtils\ProcessInfo.cs" />
+    <Compile Include="ProcessUtils\SEBProcessHandler.cs" />
+    <Compile Include="ProcessUtils\SEBWindowHandler.cs" />
     <Compile Include="taskbarToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -142,11 +147,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceUtils\SEBWindowsServiceController.cs" />
     <Compile Include="ThreadedDialog.cs" />
+    <Compile Include="UI\SEBWlanToolStripButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\SEBToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XULRunnerCommunication\SEBWebSocketClient.cs" />
+    <Compile Include="XULRunnerCommunication\SEBXulRunnerHandler.cs" />
+    <Compile Include="XULRunnerCommunication\SEBXULRunnerWebSocketServer.cs" />
+    <Compile Include="WlanUtils\Interop.cs" />
+    <Compile Include="WlanUtils\SEBWlanNetworkSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WlanUtils\SEBWlanNetworkSelector.Designer.cs">
+      <DependentUpon>SEBWlanNetworkSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WlanUtils\WlanApi.cs" />
     <EmbeddedResource Include="SebCloseDialogForm.de.resx">
       <DependentUpon>SebCloseDialogForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SebPasswordDialogForm.de.resx">
       <DependentUpon>SebPasswordDialogForm.cs</DependentUpon>
@@ -188,14 +208,21 @@
       <DependentUpon>SebWindowsClientForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SEBWlanToolStripButton.resx">
+      <DependentUpon>SEBWlanToolStripButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SEBToolStripButton.resx">
       <DependentUpon>SEBToolStripButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WlanUtils\SEBWlanNetworkSelector.resx">
+      <DependentUpon>SEBWlanNetworkSelector.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="app.manifest" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -237,6 +264,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\signalstrength\0.png" />
+    <Resource Include="Resources\signalstrength\100.png" />
+    <Resource Include="Resources\signalstrength\33.png" />
+    <Resource Include="Resources\signalstrength\66.png" />
+    <Resource Include="Resources\signalstrength\nointerface.png" />
     <Content Include="SEBDocumentIcon.ico" />
     <Content Include="SEBicon.ico" />
   </ItemGroup>
@@ -246,6 +278,7 @@
       <Name>SebWindowsServiceWCF</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

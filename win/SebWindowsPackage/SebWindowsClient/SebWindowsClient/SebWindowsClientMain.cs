@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
@@ -27,6 +28,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 
 using Microsoft.VisualBasic.ApplicationServices;
+using SebWindowsClient.XULRunnerCommunication;
 
 namespace SebWindowsClient
 {
@@ -52,7 +54,6 @@ namespace SebWindowsClient
         {
             //SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
             MainForm = SEBClientInfo.SebWindowsClientForm;
-
         }
 
         public void SetMainForm(Form newMainForm)
@@ -64,11 +65,6 @@ namespace SebWindowsClient
     static class SebWindowsClientMain
     {
         public static SingleInstanceController singleInstanceController;
-
-        // For killing the Explorer Shell at SEB startup
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern bool PostMessage(IntPtr hWnd, [MarshalAs(UnmanagedType.U4)] uint Msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -107,17 +103,8 @@ namespace SebWindowsClient
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hwnd, out int lpdwProcessId);
 
-        [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
-
-
         //[System.Runtime.InteropServices.DllImport("User32")]
         //private static extern bool SetForegroundWindow(IntPtr hWnd);
-
-        private const int WM_COMMAND = 0x111;
-        private const int MIN_ALL = 419;
-
-        const int WM_USER = 0x0400; //http://msdn.microsoft.com/en-us/library/windows/desktop/ms644931(v=vs.85).aspx
 
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;
@@ -149,7 +136,6 @@ namespace SebWindowsClient
                 singleInstanceController = new SingleInstanceController();
                 singleInstanceController.Run(arguments);
             }
-            
         }
 
         /// <summary>
@@ -250,6 +236,9 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSebSettings()
         {
+            SEBDesktopWallpaper.BlankWallpaper();
+            SEBProcessHandler.PreventSleep();
+
             //SebWindowsClientForm.SetVisibility(true);
             //SEBErrorMessages.OutputErrorMessageNew("Test", "Test, ob das Öffnen einer Message-Box createNewDesktop verunmöglicht.", SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
 
@@ -306,35 +295,6 @@ namespace SebWindowsClient
                 }
             }
 
-            if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop] && (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
-            {
-                //Check if explorer is running by trying to get the TrayWindow Handle
-                IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
-                if (lHwnd.ToInt32() == 0)
-                {
-                    //If not running, start explorer.exe
-                    string explorer = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"),"explorer.exe");
-                    Process process = new Process();
-                    process.StartInfo.FileName = explorer;
-                    process.StartInfo.UseShellExecute = true;
-                    process.StartInfo.WorkingDirectory = Application.StartupPath;
-                    process.StartInfo.CreateNoWindow = true;
-                    process.Start();
-                    //Wait until the explorer is up again because its functions are needed in the next call
-                    while (FindWindow("Shell_TrayWnd", null).ToInt32() == 0)
-                    {
-                        Thread.Sleep(100);
-                    }
-                    lHwnd = FindWindow("Shell_TrayWnd", null);
-                    //Sleep six seconds to get the explorer running
-                    Thread.Sleep(6000);
-                }
-                
-                //Minimize all Windows - Necessary when not using CreateNewDesktop but Kill Explorer shell
-                lHwnd = FindWindow("Shell_TrayWnd", null);
-                SendMessage(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL, IntPtr.Zero);
-            }
-
             return InitSEBDesktop();
         }
 
@@ -346,6 +306,8 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSEBDesktop()
         {
+            SEBXulRunnerHandler.Initialize();
+
             // Clean clipboard
             SEBClipboard.CleanClipboard();
             Logger.AddInformation("Clipboard cleaned.", null, null);
@@ -356,6 +318,7 @@ namespace SebWindowsClient
             // locks OS
             if (!SEBClientInfo.IsNewOS)
             {
+                //Obsolete?
                 ////just kill explorer.exe on Win9x / Me
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
@@ -375,41 +338,45 @@ namespace SebWindowsClient
                 //on NT4/NT5 the desktop is killed
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
-                    Logger.AddInformation("Kill process by PostMessage(WM_USER + 436)", null, null);
+                    //Start explorer shell if it is not running
+                    if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop] && (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
+                    {
+                        SEBProcessHandler.StartExplorerShell();
+                    }
 
-                    //SEBNotAllowedProcessController.KillProcessByName("explorer.exe");
-                    //PostMessage(FindWindow("Shell_TrayWnd", null), WM_USER + 436, (IntPtr)0, (IntPtr)0);
+                    //Add the SafeExamBrowser to the allowed executables
+                    SEBWindowHandler.AllowedExecutables.Add("safeexambrowser");
+                    //Add allowed executables from all allowedProcessList
+                    foreach (Dictionary<string, object> process in SEBSettings.permittedProcessList)
+                    {
+                        //First add the executable itself
+                        SEBWindowHandler.AllowedExecutables.Add(((string)process[SEBSettings.KeyExecutable]).ToLower());
+                        //Then add the allowed Executables
+                        var allowedExecutables = process[SEBSettings.KeyAllowedExecutables] as string;
+                        if (!String.IsNullOrWhiteSpace(allowedExecutables))
+                        {
+                            SEBWindowHandler.AllowedExecutables.AddRange(allowedExecutables.Trim().ToLower().Split(',').Select(exe => exe.Trim()));
+                        }
+                    }
+#if DEBUG
+                    //Add visual studio to allowed executables for debugging
+                    SEBWindowHandler.AllowedExecutables.Add("devenv");
+#endif
+                    SEBWindowHandler.MinimizeAllOpenWindows();
+                    //This prevents the not allowed executables from poping up
+                    SEBWindowHandler.EnableForegroundWatchDog();
+
+                    //Add prohibited executables
+                    foreach (Dictionary<string, object> process in SEBSettings.prohibitedProcessList)
+                    {
+                        //First add the executable itself
+                        SEBProcessHandler.ProhibitedExecutables.Add(((string)process[SEBSettings.KeyExecutable]).ToLower());
+                    }
+                    //This prevents the prohibited executables from starting up
+                    SEBProcessHandler.EnableProcessWatchDog();
 
                     // When starting up SEB, kill the explorer.exe shell
-                    try
-                    {
-                        var ptr = FindWindow("Shell_TrayWnd", null);
-                        Logger.AddInformation("INIT PTR: {0}", ptr.ToInt32(), null, null);
-                        PostMessage(ptr, WM_USER + 436, (IntPtr)0, (IntPtr)0);
-
-                        do
-                        {
-                            ptr = FindWindow("Shell_TrayWnd", null);
-                            Logger.AddInformation("PTR: {0}", ptr.ToInt32(), null, null);
-
-                            if (ptr.ToInt32() == 0)
-                            {
-                                Logger.AddInformation("Success. Breaking out of loop.", null, null);
-                                break;
-                            }
-
-                            Thread.Sleep(1000);
-                        }
-                        while (true);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.AddInformation("{0} {1}", ex.Message, null, null);
-                        SEBClientInfo.ExplorerShellWasKilled = false;
-                    }
-
-                    Logger.AddInformation("Process by PostMessage(WM_USER + 436) killed", null, null);
-                    SEBClientInfo.ExplorerShellWasKilled = true;
+                    SEBClientInfo.ExplorerShellWasKilled = SEBProcessHandler.KillExplorerShell();
                 }
 
             }

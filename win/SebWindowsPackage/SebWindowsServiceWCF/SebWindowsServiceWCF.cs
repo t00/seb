@@ -49,7 +49,7 @@ namespace SebWindowsServiceWCF
 
                 using (var service = new RegistryService())
                 {
-                    service.ResetRegistry();
+                    service.Reset();
                 }
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace SebWindowsServiceWCF
 
                 using (var service = new RegistryService())
                 {
-                    service.ResetRegistry();
+                    service.Reset();
                 }
             }
             catch (Exception ex)

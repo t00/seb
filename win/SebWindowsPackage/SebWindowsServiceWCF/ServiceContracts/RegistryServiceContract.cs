@@ -16,7 +16,10 @@ namespace SebWindowsServiceWCF.ServiceContracts
         bool SetRegistryEntries(Dictionary<RegistryIdentifiers, object> registryValues, string username);
 
         [OperationContract]
-        bool ResetRegistry();
+        bool Reset();
+
+        [OperationContract]
+        bool DisableWindowsUpdate();
     }
 
     /// <summary>
@@ -32,6 +35,7 @@ namespace SebWindowsServiceWCF.ServiceContracts
         NoLogoff,
         NoClose,
         EnableShade,
+        EnableShadeHorizon,
         EaseOfAccess
     }
 

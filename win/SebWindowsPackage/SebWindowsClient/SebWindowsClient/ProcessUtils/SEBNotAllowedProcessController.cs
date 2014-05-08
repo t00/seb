@@ -13,6 +13,7 @@ using System.Management;
 using System.Threading;
 using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.XULRunnerCommunication;
 
 namespace SebWindowsClient.ProcessUtils
 {
