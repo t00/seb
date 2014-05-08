@@ -33,16 +33,16 @@ namespace SebWindowsClient.DesktopUtils
 
         public static void BlankWallpaper()
         {
-            if (_currentWallpaper == null)
-                _currentWallpaper = GetWallpaper();
+            //if (_currentWallpaper == null)
+            //    _currentWallpaper = GetWallpaper();
 
-            SetWallpaper("");
+            //SetWallpaper("");
         }
 
         public static void Reset()
         {
-            if(_currentWallpaper != null)
-                SetWallpaper(_currentWallpaper);
+            //if(_currentWallpaper != null)
+            //    SetWallpaper(_currentWallpaper);
         }
 
         private static string GetWallpaper()
