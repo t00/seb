@@ -306,7 +306,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSEBDesktop()
         {
-            SEBXulRunnerHandler.Initialize();
+            //SEBXulRunnerHandler.Initialize();
 
             // Clean clipboard
             SEBClipboard.CleanClipboard();

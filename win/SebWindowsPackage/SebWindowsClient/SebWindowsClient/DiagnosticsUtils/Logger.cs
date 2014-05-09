@@ -166,7 +166,7 @@ namespace SebWindowsClient.DiagnosticsUtils
         /// <param name="exception">The exception.</param>
         /// <param name="details">Optional details about the error.</param>
         /// ---------------------------------------------------------------------------------------
-        public static void AddInformation(string message, object eventSource, Exception exception, string details = null)
+        public static void AddInformation(string message, object eventSource = null, Exception exception = null, string details = null)
         {
             Insert(SEBGlobalConstants.INFORMATION, eventSource == null ? null : eventSource.ToString(), 0, message, exception == null ? null : exception.GetType().ToString(), details);
         }

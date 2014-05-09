@@ -126,9 +126,9 @@ namespace SebWindowsClient
             }
             else
             {
-                SEBWebSocketClient.OnShutDownRequested += OnXULRunnerShutdDownRequested;
+                SEBXULWebSocketClient.OnShutDownRequested += OnXULRunnerShutdDownRequested;
             }
-            SEBWebSocketClient.OnQuitLink += OnXulRunnerQuitLinkPressed;
+            SEBXULWebSocketClient.OnQuitLink += OnXulRunnerQuitLinkPressed;
         }
 
         private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)

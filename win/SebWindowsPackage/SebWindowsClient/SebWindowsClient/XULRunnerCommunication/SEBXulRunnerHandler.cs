@@ -5,10 +5,14 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.WebSocketsServer;
 
 namespace SebWindowsClient.XULRunnerCommunication
 {
+    /// <summary>
+    /// Handles the communication with the XULRunner
+    /// </summary>
     public static class SEBXulRunnerHandler
     {
         /// <summary>
@@ -18,23 +22,30 @@ namespace SebWindowsClient.XULRunnerCommunication
         public static void Initialize()
         {
             SEBXULRunnerWebSocketServer.StartServer();
-            SEBWebSocketClient.Initialize();
+            SEBXULWebSocketClient.Initialize();
         }
 
+        /// <summary>
+        /// Checks if the communication to the WebSocketServer can be established
+        /// </summary>
         public static bool IsCommunicationEstablished
         {
             get
             {
-                return SEBWebSocketClient.IsConnectionEstablished;
+                return SEBXULWebSocketClient.IsConnectionEstablished;
             }
         }
 
         /// <summary>
         /// Send a shutdown request to the XULRunner
+        /// This forces the xulrunner to allow a closing request which will be denied normally
         /// </summary>
         public static void AllowCloseXulRunner()
         {
-            SEBWebSocketClient.Send(SEBWebSocketClient.XULRunner_Close);
+            /*
+            Logger.AddInformation("Sending Allow Close to XULRunner",null,null);
+            SEBXULWebSocketClient.Send(SEBXULWebSocketClient.XULRunner_Close);
+             * */
         }
     }
 }

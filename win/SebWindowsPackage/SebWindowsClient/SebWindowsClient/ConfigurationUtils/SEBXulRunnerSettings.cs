@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Runtime.Serialization;
 using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.DiagnosticsUtils;
 
 namespace SebWindowsClient.ConfigurationUtils
 {
@@ -107,6 +108,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 string browserExamKey = SEBProtectionController.ComputeBrowserExamKey();
                 xulRunnerSettings[SEBSettings.KeyBrowserExamKey] = browserExamKey;
             }
+            Logger.AddInformation("Socket: " + xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket].ToString(),null,null);
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string jsonSettings = serializer.Serialize(xulRunnerSettings);

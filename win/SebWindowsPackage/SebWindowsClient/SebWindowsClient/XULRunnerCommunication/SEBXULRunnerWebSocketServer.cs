@@ -10,8 +10,14 @@ using SebWindowsClient.DiagnosticsUtils;
 
 namespace SebWindowsClient.WebSocketsServer
 {
+    /// <summary>
+    /// WebSocket Server to communicate with the XULRunner
+    /// </summary>
     public class SEBXULRunnerWebSocketServer
     {
+        /// <summary>
+        /// The URL to connect to
+        /// </summary>
         public static string ServerAddress
         {
             get
@@ -26,6 +32,9 @@ namespace SebWindowsClient.WebSocketsServer
         private static UserContext SEB;
         private static UserContext XULRunner;
 
+        /// <summary>
+        /// Start the server if not already running
+        /// </summary>
         public static void StartServer()
         {
             if (server != null)
@@ -52,6 +61,9 @@ namespace SebWindowsClient.WebSocketsServer
             
         }
 
+        /// <summary>
+        /// Stop the server
+        /// </summary>
         public static void StopServer()
         {
             if (server != null)
@@ -74,6 +86,10 @@ namespace SebWindowsClient.WebSocketsServer
         {
         }
 
+        /// <summary>
+        /// Take the message and send it to the receiver (it's a commnunication between XUL and SEB so you know the receiver always)
+        /// </summary>
+        /// <param name="context"></param>
         private static void OnReceive(UserContext context)
         {
             Console.WriteLine("Received Data From :" + context.ClientAddress + " : " + context.DataFrame.ToString());
@@ -87,6 +103,10 @@ namespace SebWindowsClient.WebSocketsServer
             receiver.Send(context.DataFrame);
         }
 
+        /// <summary>
+        /// The first client is the SEBClient, whenever a new client connects it gets assigned as XUL, so it should only happen once
+        /// </summary>
+        /// <param name="context"></param>
         static void OnConnected(UserContext context)
         {
             Console.WriteLine("Client Connection From : " + context.ClientAddress.ToString());
