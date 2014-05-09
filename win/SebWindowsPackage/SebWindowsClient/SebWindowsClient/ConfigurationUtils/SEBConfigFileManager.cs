@@ -10,6 +10,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using System.Threading;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.XULRunnerCommunication;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using PlistCS;
 
@@ -118,6 +119,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
                         SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfiguredRestartNeeded, SEBUIStrings.sebReconfiguredRestartNeededReason, SEBGlobalConstants.IND_MESSAGE_KIND_WARNING, MessageBoxButtons.OK);
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                        SEBXulRunnerHandler.AllowCloseXulRunner();
                         Application.Exit();
                         return false;
                     }
@@ -125,6 +127,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
                     {
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+                        SEBXulRunnerHandler.AllowCloseXulRunner();
                         Application.Exit();
                         return false;
                     }

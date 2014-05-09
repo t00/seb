@@ -104,12 +104,15 @@ namespace SebWindowsClient.ProcessUtils
             try
             {
                 var handle = FindWindow("Shell_TrayWnd", null);
-                PostMessage(handle, WM_USER + 436, IntPtr.Zero, IntPtr.Zero);
-
-                //Wait until the explorer shell has been killed
-                while (FindWindow("Shell_TrayWnd", null) != IntPtr.Zero)
+                if (handle != IntPtr.Zero)
                 {
-                    Thread.Sleep(500);
+                    PostMessage(handle, WM_USER + 436, IntPtr.Zero, IntPtr.Zero);
+
+                    //Wait until the explorer shell has been killed
+                    while (FindWindow("Shell_TrayWnd", null) != IntPtr.Zero)
+                    {
+                        Thread.Sleep(500);
+                    }
                 }
                 return true;
             }
@@ -223,11 +226,14 @@ namespace SebWindowsClient.ProcessUtils
 
         public void StartWatchDog()
         {
-            foreach (var processName in SEBProcessHandler.ProhibitedExecutables)
+            if (_processesToWatch.Count == 0)
             {
-                var processToWatch = new ProcessInfo(processName);
-                processToWatch.Started += ProcessStarted;
-                _processesToWatch.Add(processToWatch);
+                foreach (var processName in SEBProcessHandler.ProhibitedExecutables)
+                {
+                    var processToWatch = new ProcessInfo(processName);
+                    processToWatch.Started += ProcessStarted;
+                    _processesToWatch.Add(processToWatch);
+                }
             }
         }
 

@@ -20,7 +20,7 @@ namespace SebWindowsClient.WebSocketsServer
             }
         }
 
-        private static int port = 8767;
+        private static int port = 8706;
         private static WebSocketServer server;
 
         private static UserContext SEB;
@@ -43,6 +43,7 @@ namespace SebWindowsClient.WebSocketsServer
                     TimeOut = new TimeSpan(0, 5, 0)
                 };
                 server.Start();
+                Logger.AddInformation("Starting WebSocketServer on " + ServerAddress,null,null);
             }
             catch (Exception ex)
             {
@@ -71,7 +72,6 @@ namespace SebWindowsClient.WebSocketsServer
 
         private static void OnSend(UserContext context)
         {
-            Console.WriteLine("SocketServer sent: " + context.DataFrame.ToString());
         }
 
         private static void OnReceive(UserContext context)

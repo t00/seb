@@ -595,8 +595,8 @@ namespace SebWindowsConfig
             // Group "Security"
              listBoxSebServicePolicy.SelectedIndex =     (int)SEBSettings.settingsCurrent[SEBSettings.KeySebServicePolicy];
             checkBoxAllowVirtualMachine.Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowVirtualMachine];
-            checkBoxCreateNewDesktop   .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop];
-            checkBoxKillExplorerShell  .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell];
+            radioCreateNewDesktop   .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop];
+            radioKillExplorerShell  .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell];
             checkBoxAllowUserSwitching .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
             labelLogDirectoryWin       .Text       =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
@@ -2800,14 +2800,14 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowVirtualMachine] = checkBoxAllowVirtualMachine.Checked;
         }
 
-        private void checkBoxCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
+        private void radioCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop] = checkBoxCreateNewDesktop.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop] = radioCreateNewDesktop.Checked;
         }
 
-        private void checkBoxKillExplorerShell_CheckedChanged(object sender, EventArgs e)
+        private void radioKillExplorerShell_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell] = checkBoxKillExplorerShell.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell] = radioKillExplorerShell.Checked;
         }
 
         private void checkBoxAllowWlan_CheckedChanged(object sender, EventArgs e)
@@ -3036,11 +3036,6 @@ namespace SebWindowsConfig
         }
 
         private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
         {
 
         }

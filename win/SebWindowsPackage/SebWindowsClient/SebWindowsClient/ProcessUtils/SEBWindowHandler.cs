@@ -363,6 +363,24 @@ namespace SebWindowsClient.ProcessUtils
                     }
                     catch
                     {
+                        try
+                        {
+                            //If ShowWindowAsync failes (attention: it returns a value != zero if the state has been changed, if the state has remained unchained it returns false)
+                            //Do it the hard way
+                            if (action == ShowWindowCommand.SW_SHOWMINIMIZED)
+                            {
+                                SendMessage(windowHandle, 274, (IntPtr)SC_MINIMIZE, IntPtr.Zero);
+                            }
+                            else if (action == ShowWindowCommand.SW_HIDE)
+                            {
+                                //This is a drastic action! If an application cannot be handled by the previous actions, for example if it has administrator privileges, then it gets closed!
+                                SendMessage(windowHandle, 274, (IntPtr)SC_CLOSE, IntPtr.Zero);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        
                     }
                 });
         }
@@ -446,8 +464,13 @@ namespace SebWindowsClient.ProcessUtils
 
         public void StartWatchDog()
         {
-            _hooks.Add(SetWinEventHook(EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND, IntPtr.Zero, dele, 0, 0, WINEVENT_OUTOFCONTEXT));
-            _hooks.Add(SetWinEventHook(EVENT_SYSTEM_CAPTURESTART, EVENT_SYSTEM_CAPTURESTART, IntPtr.Zero, dele, 0, 0, WINEVENT_OUTOFCONTEXT));
+            if (_hooks.Count == 0)
+            {
+                _hooks.Add(SetWinEventHook(EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND, IntPtr.Zero, dele, 0, 0,
+                    WINEVENT_OUTOFCONTEXT));
+                _hooks.Add(SetWinEventHook(EVENT_SYSTEM_CAPTURESTART, EVENT_SYSTEM_CAPTURESTART, IntPtr.Zero, dele, 0, 0,
+                    WINEVENT_OUTOFCONTEXT));
+            }
         }
 
         public void StopWatchDog()

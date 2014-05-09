@@ -31,7 +31,7 @@ namespace SebWindowsClient.WebSocketsServer
                 timer.Interval = 1000 * 60 * 2;
                 timer.Elapsed += delegate
                 {
-                    client.Send("ping");
+                    client.Send(SocketServerPing);
                 };
                 timer.Start();
             }
@@ -52,6 +52,7 @@ namespace SebWindowsClient.WebSocketsServer
         public const string XULRunner_Close = "SEB.close";
         public const string XULRunner_OnClosing = "seb.beforeclose.manual";
         public const string XULRunner_QuitLink = "seb.beforeclose.quiturl";
+        public const string SocketServerPing = "SEB.ping";
 
         private static void OnReceive(UserContext context)
         {

@@ -1322,12 +1322,14 @@ namespace SebWindowsClient
 
                         Logger.AddInformation("Restarting the shell.", null, null);
                     }
+
+                    SEBWindowHandler.DisableForegroundWatchDog();
+                    SEBWindowHandler.RestoreHiddenWindows();
+
+                    SEBDesktopWallpaper.Reset();
                 }
 
-                SEBWindowHandler.DisableForegroundWatchDog();
-                SEBWindowHandler.RestoreHiddenWindows();
-
-                SEBDesktopWallpaper.Reset();
+                
 
                 //// Switch to Default Desktop
                 //if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])

@@ -358,6 +358,7 @@ namespace SebWindowsClient
                             SEBWindowHandler.AllowedExecutables.AddRange(allowedExecutables.Trim().ToLower().Split(',').Select(exe => exe.Trim()));
                         }
                     }
+                    SEBWindowHandler.AllowedExecutables.Clear();
 #if DEBUG
                     //Add visual studio to allowed executables for debugging
                     SEBWindowHandler.AllowedExecutables.Add("devenv");
