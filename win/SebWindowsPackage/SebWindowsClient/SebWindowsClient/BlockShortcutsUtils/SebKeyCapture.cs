@@ -558,7 +558,6 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 }
                 if (SetAndTestExitKeySequence(wp, lp) && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyIgnoreExitKeys) == false)
                 {
-                    SEBXulRunnerHandler.AllowCloseXulRunner();
                     Application.Exit();
                 }
             }

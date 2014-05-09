@@ -59,9 +59,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Alchemy">
-      <HintPath>..\..\packages\Alchemy.2.2.1\lib\net40\Alchemy.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -153,8 +150,6 @@
     <Compile Include="UI\SEBToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XULRunnerCommunication\SEBWebSocketClient.cs" />
-    <Compile Include="XULRunnerCommunication\SEBXulRunnerHandler.cs" />
     <Compile Include="XULRunnerCommunication\SEBXULRunnerWebSocketServer.cs" />
     <Compile Include="WlanUtils\Interop.cs" />
     <Compile Include="WlanUtils\SEBWlanNetworkSelector.cs">
@@ -222,7 +217,6 @@
     </None>
     <None Include="app.manifest" />
     <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -276,6 +270,10 @@
     <ProjectReference Include="..\..\SebWindowsServiceWCF\SebWindowsServiceWCF.csproj">
       <Project>{10093827-ff41-4c09-b2ff-9c0d27b4b41a}</Project>
       <Name>SebWindowsServiceWCF</Name>
+    </ProjectReference>
+    <ProjectReference Include="Fleck\Fleck.csproj">
+      <Project>{8b12d929-afa9-4307-beff-2ed0f1070fee}</Project>
+      <Name>Fleck</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

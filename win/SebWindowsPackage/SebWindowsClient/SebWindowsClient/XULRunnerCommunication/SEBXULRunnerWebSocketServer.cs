@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Alchemy;
-using Alchemy.Classes;
+using System.Net.Sockets;
+using System.ServiceModel.Security;
+using Fleck;
 using SebWindowsClient.DiagnosticsUtils;
 
-namespace SebWindowsClient.WebSocketsServer
+namespace SebWindowsClient.XULRunnerCommunication
 {
     /// <summary>
     /// WebSocket Server to communicate with the XULRunner
@@ -22,15 +19,25 @@ namespace SebWindowsClient.WebSocketsServer
         {
             get
             {
-                return String.Format("ws://localhost:{0}/",port);
+                return String.Format("ws://localhost:{0}",port);
             }
         }
 
+        public static bool IsRunning
+        {
+            get
+            {
+                return server != null && XULRunner != null;
+            }
+        }
+
+        public static event EventHandler OnXulRunnerCloseRequested;
+        public static event EventHandler OnXulRunnerQuitLinkClicked;
+
+        private static IWebSocketConnection XULRunner;
+
         private static int port = 8706;
         private static WebSocketServer server;
-
-        private static UserContext SEB;
-        private static UserContext XULRunner;
 
         /// <summary>
         /// Start the server if not already running
@@ -42,79 +49,48 @@ namespace SebWindowsClient.WebSocketsServer
 
             try
             {
-                server = new WebSocketServer(port, IPAddress.Parse("127.0.0.1"))
+                server = new WebSocketServer(ServerAddress);
+                FleckLog.Level = LogLevel.Debug;
+                server.Start(socket =>
                 {
-                    OnReceive = OnReceive,
-                    OnSend = OnSend,
-                    OnConnect = OnConnect,
-                    OnConnected = OnConnected,
-                    OnDisconnect = OnDisconnect,
-                    TimeOut = new TimeSpan(0, 5, 0)
-                };
-                server.Start();
+                    socket.OnOpen = () => XULRunner = socket;
+                    socket.OnClose = () => XULRunner = null;
+                    socket.OnMessage = message => OnClientMessage(message);
+                });
                 Logger.AddInformation("Starting WebSocketServer on " + ServerAddress,null,null);
             }
             catch (Exception ex)
             {
                 Logger.AddError("Unable to start WebSocketsServer for communication with XulRunner", null, ex);
             }
+        }
+
+        public static void SendAllowCloseToXulRunner()
+        {
+            try
+            {
+                if(XULRunner != null)
+                XULRunner.Send("SEB.close");
+            }
+            catch (Exception)
+            {
+            }
             
         }
 
-        /// <summary>
-        /// Stop the server
-        /// </summary>
-        public static void StopServer()
+        private static void OnClientMessage(string message)
         {
-            if (server != null)
+            switch (message)
             {
-                server.Stop();
-                server.Dispose();
-                server = null; 
+                case "seb.beforeclose.manual":
+                    if (OnXulRunnerCloseRequested != null)
+                        OnXulRunnerCloseRequested(null, EventArgs.Empty);
+                    break;
+                case "seb.beforeclose.quiturl":
+                    if (OnXulRunnerQuitLinkClicked != null)
+                        OnXulRunnerQuitLinkClicked(null, EventArgs.Empty);
+                    break;
             }
-        }
-
-        private static void OnDisconnect(UserContext context)
-        {
-        }
-
-        private static void OnConnect(UserContext context)
-        {
-        }
-
-        private static void OnSend(UserContext context)
-        {
-        }
-
-        /// <summary>
-        /// Take the message and send it to the receiver (it's a commnunication between XUL and SEB so you know the receiver always)
-        /// </summary>
-        /// <param name="context"></param>
-        private static void OnReceive(UserContext context)
-        {
-            Console.WriteLine("Received Data From :" + context.ClientAddress + " : " + context.DataFrame.ToString());
-
-            if (SEB == null || XULRunner == null)
-                return;
-
-            //Get the receiver - it's not the sender :)
-            var receiver = context.ClientAddress == SEB.ClientAddress ? XULRunner : SEB;
-            //Forward the message to him
-            receiver.Send(context.DataFrame);
-        }
-
-        /// <summary>
-        /// The first client is the SEBClient, whenever a new client connects it gets assigned as XUL, so it should only happen once
-        /// </summary>
-        /// <param name="context"></param>
-        static void OnConnected(UserContext context)
-        {
-            Console.WriteLine("Client Connection From : " + context.ClientAddress.ToString());
-
-            if (SEB == null)
-                SEB = context;
-            else
-                XULRunner = context;
         }
     }
 }

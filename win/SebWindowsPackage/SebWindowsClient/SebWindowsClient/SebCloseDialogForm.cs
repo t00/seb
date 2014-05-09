@@ -45,7 +45,6 @@ namespace SebWindowsClient
             }
             else
             {
-                SEBXulRunnerHandler.AllowCloseXulRunner();
                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                 Application.Exit();
             }

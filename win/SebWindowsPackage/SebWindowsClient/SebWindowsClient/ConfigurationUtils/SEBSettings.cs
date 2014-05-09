@@ -9,7 +9,7 @@ using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using PlistCS;
-using SebWindowsClient.WebSocketsServer;
+using SebWindowsClient.XULRunnerCommunication;
 using ListObj  = System.Collections.Generic.List                <object>;
 using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
 using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;

@@ -236,6 +236,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSebSettings()
         {
+            SEBXULRunnerWebSocketServer.StartServer();
             SEBDesktopWallpaper.BlankWallpaper();
             SEBProcessHandler.PreventSleep();
 
@@ -304,10 +305,8 @@ namespace SebWindowsClient
         /// </summary>
         /// <returns>true if succeeded</returns>
         /// ----------------------------------------------------------------------------------------
-        public static bool InitSEBDesktop()
+        public static bool InitSEBDesktop(bool isRestart = false)
         {
-            //SEBXulRunnerHandler.Initialize();
-
             // Clean clipboard
             SEBClipboard.CleanClipboard();
             Logger.AddInformation("Clipboard cleaned.", null, null);
@@ -338,12 +337,16 @@ namespace SebWindowsClient
                 //on NT4/NT5 the desktop is killed
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
-                    //Start explorer shell if it is not running
-                    if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop] && (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
-                    {
+                    //Start Explorer Shell if not running
+                    if (!isRestart)
                         SEBProcessHandler.StartExplorerShell();
-                    }
 
+                    //Window Handling
+
+                    if(isRestart)
+                        SEBWindowHandler.DisableForegroundWatchDog();
+
+                    SEBWindowHandler.AllowedExecutables.Clear();
                     //Add the SafeExamBrowser to the allowed executables
                     SEBWindowHandler.AllowedExecutables.Add("safeexambrowser");
                     //Add allowed executables from all allowedProcessList
@@ -358,7 +361,7 @@ namespace SebWindowsClient
                             SEBWindowHandler.AllowedExecutables.AddRange(allowedExecutables.Trim().ToLower().Split(',').Select(exe => exe.Trim()));
                         }
                     }
-                    SEBWindowHandler.AllowedExecutables.Clear();
+                    
 #if DEBUG
                     //Add visual studio to allowed executables for debugging
                     SEBWindowHandler.AllowedExecutables.Add("devenv");
@@ -367,6 +370,11 @@ namespace SebWindowsClient
                     //This prevents the not allowed executables from poping up
                     SEBWindowHandler.EnableForegroundWatchDog();
 
+                    //Process Handling
+                    if(isRestart)
+                        SEBProcessHandler.DisableProcessWatchDog();
+
+                    SEBProcessHandler.ProhibitedExecutables.Clear();
                     //Add prohibited executables
                     foreach (Dictionary<string, object> process in SEBSettings.prohibitedProcessList)
                     {

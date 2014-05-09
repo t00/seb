@@ -22,7 +22,6 @@ using System.Diagnostics;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ServiceUtils;
 using SebWindowsClient.UI;
-using SebWindowsClient.WebSocketsServer;
 using SebWindowsClient.XULRunnerCommunication;
 using SebWindowsServiceWCF.ServiceContracts;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
@@ -126,9 +125,9 @@ namespace SebWindowsClient
             }
             else
             {
-                SEBXULWebSocketClient.OnShutDownRequested += OnXULRunnerShutdDownRequested;
+                SEBXULRunnerWebSocketServer.OnXulRunnerCloseRequested += OnXULRunnerShutdDownRequested;
             }
-            SEBXULWebSocketClient.OnQuitLink += OnXulRunnerQuitLinkPressed;
+            SEBXULRunnerWebSocketServer.OnXulRunnerQuitLinkClicked += OnXulRunnerQuitLinkPressed;
         }
 
         private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
@@ -288,7 +287,7 @@ namespace SebWindowsClient
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
                 xulRunner.EnableRaisingEvents = true;
-                if(!SEBXulRunnerHandler.IsCommunicationEstablished)
+                if(!SEBXULRunnerWebSocketServer.IsRunning)
                     xulRunner.Exited += new EventHandler(xulRunner_Exited);
                 return true;
 
@@ -1155,7 +1154,6 @@ namespace SebWindowsClient
 
             if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
             {
-                SEBXulRunnerHandler.AllowCloseXulRunner();
                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                 Application.Exit();
             }
@@ -1284,7 +1282,8 @@ namespace SebWindowsClient
             {
                 //bool bQuit = false;
                 //bQuit = CheckQuitPassword();
-                SEBXULRunnerWebSocketServer.StopServer();
+                SEBXULRunnerWebSocketServer.SendAllowCloseToXulRunner();
+
                 try
                 {
                     if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.ResetRegistry())
@@ -1316,6 +1315,8 @@ namespace SebWindowsClient
                 // Restart the explorer.exe shell
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
+                    SEBProcessHandler.DisableProcessWatchDog();
+
                     if (SEBClientInfo.ExplorerShellWasKilled)
                     {
                         SEBProcessHandler.StartExplorerShell(false);
@@ -1328,8 +1329,6 @@ namespace SebWindowsClient
 
                     SEBDesktopWallpaper.Reset();
                 }
-
-                
 
                 //// Switch to Default Desktop
                 //if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
