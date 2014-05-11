@@ -106,6 +106,9 @@ namespace SebWindowsClient.ProcessUtils
                     {
                         if (processToClose != null) // && !processToClose.HasExited)
                         {
+                            if (processToClose.ProcessName.Contains("xulrunner"))
+                                SEBXULRunnerWebSocketServer.SendAllowCloseToXulRunner();
+
                             string name = "processHasExitedTrue";
 
                             // Try to close process nicely with CloseMainWindow
@@ -181,6 +184,7 @@ namespace SebWindowsClient.ProcessUtils
                                 {
                                     processToClose.Refresh();
                                     // If process still wasn't closed, we wait another second
+                                    //Well this is wrong, the process has ended already but never becomes null 
                                     if (processToClose != null)
                                     {
                                         Logger.AddError("Process " + name + " still wasn't closed, wait up to one more second and check again.", null, null);
