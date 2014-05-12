@@ -1465,6 +1465,7 @@ namespace SebWindowsConfig
             processData[SEBSettings.KeyTitle      ] = "";
             processData[SEBSettings.KeyDescription] = "";
             processData[SEBSettings.KeyExecutable ] = "";
+            processData[SEBSettings.KeyAllowedExecutables ] = "";
             processData[SEBSettings.KeyPath       ] = "";
             processData[SEBSettings.KeyIdentifier ] = "";
             processData[SEBSettings.KeyArguments  ] = new ListObj();

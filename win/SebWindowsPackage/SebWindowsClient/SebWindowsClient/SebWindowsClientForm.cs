@@ -9,6 +9,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Input;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.DesktopUtils;
@@ -575,6 +576,9 @@ namespace SebWindowsClient
                 var wlan = new SEBWlanToolStripButton();
                 taskbarToolStrip.Items.Add(wlan);
             }
+
+            //if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+            //    taskbarToolStrip.Items.Add(new SEBOnScreenKeyboardToolStripButton());
 
             // Start permitted processes
             int permittedProcessesIndex = 0;
@@ -1398,7 +1402,14 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CloseSEBForm();
+            try
+            {
+                CloseSEBForm();
+            }
+            catch (Exception)
+            {
+            }
+            
             SebWindowsClientMain.ResetSEBDesktop();
         }
 
@@ -1413,8 +1424,7 @@ namespace SebWindowsClient
             {
                 ShowCloseDialogForm();
             }
-        }
-
+        }       
     }
 
     /// ----------------------------------------------------------------------------------------
