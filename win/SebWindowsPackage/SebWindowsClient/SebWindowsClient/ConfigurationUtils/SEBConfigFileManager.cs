@@ -82,7 +82,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 }
 
                 // Re-Initialize SEB according to the new settings
-                if (!SebWindowsClientMain.InitSEBDesktop(true)) return false;
+                if (!SebWindowsClientMain.InitSEBDesktop()) return false;
 
                 // Re-open the main form
                 //SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
@@ -106,7 +106,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBSettings.WriteSebConfigurationFile(SEBClientInfo.SebClientSettingsAppDataFile, "", false, null, SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
 
                 // Re-Initialize SEB desktop according to the new settings
-                if (!SebWindowsClientMain.InitSEBDesktop(true)) return false;
+                if (!SebWindowsClientMain.InitSEBDesktop()) return false;
 
                 if (SEBClientInfo.SebWindowsClientForm.OpenSEBForm())
                 {

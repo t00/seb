@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.ServiceModel.Security;
 using Fleck;
@@ -27,6 +28,30 @@ namespace SebWindowsClient.XULRunnerCommunication
         {
             get
             {
+                if (server != null)
+                    return true;
+
+                IPGlobalProperties ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
+                TcpConnectionInformation[] tcpConnInfoArray = ipGlobalProperties.GetActiveTcpConnections();
+
+                foreach (TcpConnectionInformation tcpi in tcpConnInfoArray)
+                {
+                    if (tcpi.LocalEndPoint.Port == port)
+                    {
+                        Logger.AddInformation("Server already running!");
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            
+        }
+
+        public static bool IsXULRunnerConnected
+        {
+            get
+            {
                 return server != null && XULRunner != null;
             }
         }
@@ -44,7 +69,7 @@ namespace SebWindowsClient.XULRunnerCommunication
         /// </summary>
         public static void StartServer()
         {
-            if (server != null)
+            if (IsRunning)
                 return;
 
             try
@@ -57,7 +82,7 @@ namespace SebWindowsClient.XULRunnerCommunication
                     socket.OnClose = () => XULRunner = null;
                     socket.OnMessage = message => OnClientMessage(message);
                 });
-                Logger.AddInformation("Starting WebSocketServer on " + ServerAddress,null,null);
+                Logger.AddInformation("Starting WebSocketServer on " + ServerAddress, null, null);
             }
             catch (Exception ex)
             {
@@ -69,17 +94,20 @@ namespace SebWindowsClient.XULRunnerCommunication
         {
             try
             {
-                if(XULRunner != null)
-                XULRunner.Send("SEB.close");
+                if (XULRunner != null)
+                {
+                    Console.WriteLine("SEB.Close sent");
+                    XULRunner.Send("SEB.close");
+                }
             }
             catch (Exception)
             {
             }
-            
         }
 
         private static void OnClientMessage(string message)
         {
+            Console.WriteLine("RECV: " + message);
             switch (message)
             {
                 case "seb.beforeclose.manual":

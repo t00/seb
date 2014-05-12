@@ -302,8 +302,6 @@ namespace SebWindowsClient.ProcessUtils
             if (_foregroundChecker != null)
             {
                 _foregroundChecker.StopWatchDog();
-                _foregroundChecker.Dispose();
-                _foregroundChecker = null;
             }
         }
 
@@ -441,7 +439,7 @@ namespace SebWindowsClient.ProcessUtils
         #endregion
     }
 
-    class ForegroundWatchDog : IDisposable
+    class ForegroundWatchDog
     {
         delegate void WinEventDelegate(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
         private WinEventDelegate dele = null;
@@ -457,43 +455,40 @@ namespace SebWindowsClient.ProcessUtils
 
         private List<IntPtr> _hooks = new List<IntPtr>();
 
+        private bool running = false;
+
         public ForegroundWatchDog()
         {
-            dele = WinEventProc;
+            if (dele == null)
+                dele = WinEventProc;
+
+            SetWinEventHook(EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND, IntPtr.Zero, dele, 0, 0,
+                    WINEVENT_OUTOFCONTEXT);
+            SetWinEventHook(EVENT_SYSTEM_CAPTURESTART, EVENT_SYSTEM_CAPTURESTART, IntPtr.Zero, dele, 0, 0,
+                WINEVENT_OUTOFCONTEXT);
         }
 
         public void StartWatchDog()
         {
-            if (_hooks.Count == 0)
-            {
-                _hooks.Add(SetWinEventHook(EVENT_SYSTEM_FOREGROUND, EVENT_SYSTEM_FOREGROUND, IntPtr.Zero, dele, 0, 0,
-                    WINEVENT_OUTOFCONTEXT));
-                _hooks.Add(SetWinEventHook(EVENT_SYSTEM_CAPTURESTART, EVENT_SYSTEM_CAPTURESTART, IntPtr.Zero, dele, 0, 0,
-                    WINEVENT_OUTOFCONTEXT));
-            }
+            running = true;
         }
 
         public void StopWatchDog()
         {
-            _hooks.Clear();
+            running = false;
         }
 
         public void WinEventProc(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            Console.WriteLine(hwnd);
+            //Only if running
+            if (!running) return;
 
-            //Only if there are any hooks
-            if (_hooks.Count == 0) return;
+            Console.WriteLine(hwnd);
 
             if (hwnd == IntPtr.Zero) return;
 
             if (!hwnd.IsAllowed())
                 hwnd.HideWindow();
-        }
-
-        public void Dispose()
-        {
-            StopWatchDog();
         }
 
         #region DLL Imports

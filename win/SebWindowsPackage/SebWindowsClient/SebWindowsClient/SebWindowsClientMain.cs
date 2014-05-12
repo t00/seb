@@ -236,10 +236,6 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSebSettings()
         {
-            SEBXULRunnerWebSocketServer.StartServer();
-            SEBDesktopWallpaper.BlankWallpaper();
-            SEBProcessHandler.PreventSleep();
-
             //SebWindowsClientForm.SetVisibility(true);
             //SEBErrorMessages.OutputErrorMessageNew("Test", "Test, ob das Öffnen einer Message-Box createNewDesktop verunmöglicht.", SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
 
@@ -305,8 +301,9 @@ namespace SebWindowsClient
         /// </summary>
         /// <returns>true if succeeded</returns>
         /// ----------------------------------------------------------------------------------------
-        public static bool InitSEBDesktop(bool isRestart = false)
+        public static bool InitSEBDesktop()
         {
+            SEBDesktopWallpaper.BlankWallpaper();
             // Clean clipboard
             SEBClipboard.CleanClipboard();
             Logger.AddInformation("Clipboard cleaned.", null, null);
@@ -338,14 +335,9 @@ namespace SebWindowsClient
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
                     //Start Explorer Shell if not running
-                    if (!isRestart)
-                        SEBProcessHandler.StartExplorerShell();
+                    //SEBProcessHandler.StartExplorerShell();
 
                     //Window Handling
-
-                    if(isRestart)
-                        SEBWindowHandler.DisableForegroundWatchDog();
-
                     SEBWindowHandler.AllowedExecutables.Clear();
                     //Add the SafeExamBrowser to the allowed executables
                     SEBWindowHandler.AllowedExecutables.Add("safeexambrowser");
@@ -369,10 +361,6 @@ namespace SebWindowsClient
                     SEBWindowHandler.MinimizeAllOpenWindows();
                     //This prevents the not allowed executables from poping up
                     SEBWindowHandler.EnableForegroundWatchDog();
-
-                    //Process Handling
-                    if(isRestart)
-                        SEBProcessHandler.DisableProcessWatchDog();
 
                     SEBProcessHandler.ProhibitedExecutables.Clear();
                     //Add prohibited executables

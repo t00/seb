@@ -128,6 +128,7 @@ namespace SebWindowsClient
                 SEBXULRunnerWebSocketServer.OnXulRunnerCloseRequested += OnXULRunnerShutdDownRequested;
             }
             SEBXULRunnerWebSocketServer.OnXulRunnerQuitLinkClicked += OnXulRunnerQuitLinkPressed;
+            SEBProcessHandler.PreventSleep();
         }
 
         private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
@@ -287,7 +288,7 @@ namespace SebWindowsClient
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
                 xulRunner.EnableRaisingEvents = true;
-                if(!SEBXULRunnerWebSocketServer.IsRunning)
+                if(!SEBXULRunnerWebSocketServer.IsXULRunnerConnected)
                     xulRunner.Exited += new EventHandler(xulRunner_Exited);
                 return true;
 
@@ -1166,6 +1167,8 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public bool OpenSEBForm()
         {
+            SEBXULRunnerWebSocketServer.StartServer();
+
             if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             {
                 //this.Show();
@@ -1356,6 +1359,7 @@ namespace SebWindowsClient
                 Logger.AddInformation("Clipboard deleted.", null, null);
                 SebKeyCapture.FilterKeys = false;
                 Logger.closeLoger();
+
                 //}
                 //else
                 //{

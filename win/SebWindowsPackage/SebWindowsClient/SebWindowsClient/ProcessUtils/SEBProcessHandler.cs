@@ -145,7 +145,6 @@ namespace SebWindowsClient.ProcessUtils
             if (_processWatchDog != null)
             {
                 _processWatchDog.StopWatchDog();
-                _processWatchDog.Dispose();
                 _processWatchDog = null;
             }
         }
@@ -216,7 +215,7 @@ namespace SebWindowsClient.ProcessUtils
         #endregion
     }
 
-    class ProcessWatchDog : IDisposable
+    class ProcessWatchDog
     {
         private List<ProcessInfo> _processesToWatch = new List<ProcessInfo>();
 
@@ -254,12 +253,6 @@ namespace SebWindowsClient.ProcessUtils
                 processInfo.Dispose();
 
             _processesToWatch.Clear();
-        }
-
-        public void Dispose()
-        {
-            StopWatchDog();
-            _processesToWatch = null;
         }
     }
 }
