@@ -59,7 +59,22 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EnsureThat">
+      <HintPath>..\..\packages\Ensure.That.1.0.0\lib\portable-win+net40+sl40+wp71\EnsureThat.dll\EnsureThat.dll</HintPath>
+    </Reference>
+    <Reference Include="Fleck">
+      <HintPath>..\..\packages\Fleck.0.9.8.25\lib\net40\Fleck.dll</HintPath>
+    </Reference>
+    <Reference Include="Fleck.Extended">
+      <HintPath>..\..\packages\Fleck.Extended.0.5.0\lib\net40\Fleck.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="iLogger">
+      <HintPath>..\..\packages\iLogger.0.1.0\lib\net45\iLogger.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -223,6 +238,7 @@
     </None>
     <None Include="app.manifest" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -277,10 +293,6 @@
     <ProjectReference Include="..\..\SebWindowsServiceWCF\SebWindowsServiceWCF.csproj">
       <Project>{10093827-ff41-4c09-b2ff-9c0d27b4b41a}</Project>
       <Name>SebWindowsServiceWCF</Name>
-    </ProjectReference>
-    <ProjectReference Include="Fleck\Fleck.csproj">
-      <Project>{8b12d929-afa9-4307-beff-2ed0f1070fee}</Project>
-      <Name>Fleck</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
