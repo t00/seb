@@ -59,27 +59,13 @@ namespace SebWindowsClient.XULRunnerCommunication
         private static int port = 8706;
         private static WebSocketServer server;
 
-        private static SEBLoading loading = null;
         /// <summary>
         /// Start the server if not already running
         /// </summary>
         public static void StartServer()
         {
             if (IsRunning)
-            {
-                loading = new SEBLoading();
-                loading.Shown += delegate
-                {
-                    while (IsRunning)
-                    {
-                        Thread.Sleep(200);
-                    }
-                };
-                loading.Show();
-            }
-
-            if (loading != null)
-                loading.Close();
+                return;
 
             try
             {

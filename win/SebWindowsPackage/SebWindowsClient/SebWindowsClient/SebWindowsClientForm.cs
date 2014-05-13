@@ -1171,6 +1171,8 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public bool OpenSEBForm()
         {
+            SEBXULRunnerWebSocketServer.StartServer();
+
             if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             {
                 //this.Show();
