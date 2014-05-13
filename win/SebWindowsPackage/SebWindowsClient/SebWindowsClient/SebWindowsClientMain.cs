@@ -129,10 +129,23 @@ namespace SebWindowsClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (InitSebSettings())
+
+            string[] arguments = Environment.GetCommandLineArgs();
+            //var sw = File.AppendText(@"c:\www\seb\log.log");
+            //sw.Write(DateTime.Now.ToLocalTime() + " Arguments: " + String.Join(", ",arguments) + "\r\n");
+            //sw.Close();
+            if (arguments.Count() == 1)
             {
+                InitSebSettings();
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
-                string[] arguments = Environment.GetCommandLineArgs();
+                SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
+                singleInstanceController = new SingleInstanceController();
+                singleInstanceController.Run(arguments);
+            }
+            else
+            {
+                InitSebSettings();
+                SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 singleInstanceController = new SingleInstanceController();
                 singleInstanceController.Run(arguments);
             }

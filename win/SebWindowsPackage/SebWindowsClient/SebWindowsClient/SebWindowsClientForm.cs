@@ -1386,7 +1386,7 @@ namespace SebWindowsClient
         {
             //if (SebWindowsClientMain.InitSebSettings())
             //{
-                OpenSEBForm();
+                //OpenSEBForm();
             //}
             //else {
             //    Application.Exit();
