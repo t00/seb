@@ -136,6 +136,7 @@ namespace SebWindowsClient
             //sw.Close();
             if (arguments.Count() == 1)
             {
+                SEBXULRunnerWebSocketServer.StartServer();
                 InitSebSettings();
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();

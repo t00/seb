@@ -290,7 +290,7 @@ namespace SebWindowsClient
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
                 xulRunner.EnableRaisingEvents = true;
                 //if(!SEBXULRunnerWebSocketServer.IsXULRunnerConnected)
-                xulRunner.Exited += new EventHandler(xulRunner_Exited);
+                xulRunner.Exited += xulRunner_Exited;
                 return true;
 
             }
@@ -1171,8 +1171,6 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public bool OpenSEBForm()
         {
-            SEBXULRunnerWebSocketServer.StartServer();
-
             if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             {
                 //this.Show();
@@ -1290,7 +1288,6 @@ namespace SebWindowsClient
                 //bool bQuit = false;
                 //bQuit = CheckQuitPassword();
                 SEBXULRunnerWebSocketServer.SendAllowCloseToXulRunner();
-
                 try
                 {
                     if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.ResetRegistry())

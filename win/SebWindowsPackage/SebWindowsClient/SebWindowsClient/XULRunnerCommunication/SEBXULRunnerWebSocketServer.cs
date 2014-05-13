@@ -1,8 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
+using System.Threading;
+using System.Windows;
 using Fleck;
 using SebWindowsClient.DiagnosticsUtils;
 
@@ -45,15 +49,6 @@ namespace SebWindowsClient.XULRunnerCommunication
 
                 return false;
             }
-            
-        }
-
-        public static bool IsXULRunnerConnected
-        {
-            get
-            {
-                return server != null && XULRunner != null;
-            }
         }
 
         public static event EventHandler OnXulRunnerCloseRequested;
@@ -64,13 +59,27 @@ namespace SebWindowsClient.XULRunnerCommunication
         private static int port = 8706;
         private static WebSocketServer server;
 
+        private static SEBLoading loading = null;
         /// <summary>
         /// Start the server if not already running
         /// </summary>
         public static void StartServer()
         {
             if (IsRunning)
-                return;
+            {
+                loading = new SEBLoading();
+                loading.Shown += delegate
+                {
+                    while (IsRunning)
+                    {
+                        Thread.Sleep(200);
+                    }
+                };
+                loading.Show();
+            }
+
+            if (loading != null)
+                loading.Close();
 
             try
             {
