@@ -289,8 +289,8 @@ namespace SebWindowsClient
                 desktopName = SEBClientInfo.DesktopName;
                 xulRunner = SEBDesktopController.CreateProcess(xulRunnerPath, desktopName);
                 xulRunner.EnableRaisingEvents = true;
-                if(!SEBXULRunnerWebSocketServer.IsXULRunnerConnected)
-                    xulRunner.Exited += new EventHandler(xulRunner_Exited);
+                //if(!SEBXULRunnerWebSocketServer.IsXULRunnerConnected)
+                xulRunner.Exited += new EventHandler(xulRunner_Exited);
                 return true;
 
             }

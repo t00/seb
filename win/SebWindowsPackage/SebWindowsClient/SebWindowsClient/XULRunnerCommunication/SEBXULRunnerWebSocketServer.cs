@@ -78,9 +78,9 @@ namespace SebWindowsClient.XULRunnerCommunication
                 FleckLog.Level = LogLevel.Debug;
                 server.Start(socket =>
                 {
-                    socket.OnOpen = () => XULRunner = socket;
-                    socket.OnClose = () => XULRunner = null;
-                    socket.OnMessage = message => OnClientMessage(message);
+                    socket.OnOpen = () => OnClientConnected(socket);
+                    socket.OnClose = OnClientDisconnected;
+                    socket.OnMessage = OnClientMessage;
                 });
                 Logger.AddInformation("Starting WebSocketServer on " + ServerAddress, null, null);
             }
@@ -90,6 +90,18 @@ namespace SebWindowsClient.XULRunnerCommunication
             }
         }
 
+        private static void OnClientDisconnected()
+        {
+            Logger.AddInformation("WebSocket: Client disconnected");
+            XULRunner = null;
+        }
+
+        private static void OnClientConnected(IWebSocketConnection socket)
+        {
+            Logger.AddInformation("WebSocket: Client Connectedon port:" + socket.ConnectionInfo.ClientPort);
+            XULRunner = socket;
+        }
+
         public static void SendAllowCloseToXulRunner()
         {
             try
@@ -97,6 +109,7 @@ namespace SebWindowsClient.XULRunnerCommunication
                 if (XULRunner != null)
                 {
                     Console.WriteLine("SEB.Close sent");
+                    Logger.AddInformation("WebSocket: Send message: SEB.close");
                     XULRunner.Send("SEB.close");
                 }
             }
@@ -108,6 +121,7 @@ namespace SebWindowsClient.XULRunnerCommunication
         private static void OnClientMessage(string message)
         {
             Console.WriteLine("RECV: " + message);
+            Logger.AddInformation("WebSocket: Received message: " + message);
             switch (message)
             {
                 case "seb.beforeclose.manual":

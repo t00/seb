@@ -140,7 +140,7 @@ namespace SebWindowsClient.ProcessUtils
                             processToClose.Refresh();
 
                             // Check if process has exited now and otherwise kill it
-                            if (processToClose != null && !processToClose.HasExited)
+                            if (!processToClose.HasExited)
                             {
                                 // If process still hasn't exited, we kill it
                                 Logger.AddError("Send Kill to process " + name, null, null);
@@ -184,8 +184,7 @@ namespace SebWindowsClient.ProcessUtils
                                 {
                                     processToClose.Refresh();
                                     // If process still wasn't closed, we wait another second
-                                    //Well this is wrong, the process has ended already but never becomes null 
-                                    if (processToClose != null)
+                                    if (processToClose.Handle != IntPtr.Zero)
                                     {
                                         Logger.AddError("Process " + name + " still wasn't closed, wait up to one more second and check again.", null, null);
                                         //Thread.Sleep(1000);
@@ -200,7 +199,7 @@ namespace SebWindowsClient.ProcessUtils
 
                                 // If process still wasn't closed, we log this
                                 processToClose.Refresh();
-                                if (processToClose != null)
+                                if (processToClose.Handle != IntPtr.Zero)
                                 {
                                     Logger.AddError("Process " + name + " didn't close.", null, null);
                                 }
