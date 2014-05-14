@@ -79,7 +79,6 @@ namespace SebWindowsClient.XULRunnerCommunication
                         break;
 
                     loading.Progress();
-                    loading.Refresh();
                     Thread.Sleep(1000);
                 }
                 loading.Close();

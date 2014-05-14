@@ -34,6 +34,7 @@ namespace SebWindowsClient
                     lblLoading.Text = "Loading";
                     break;
             }
+            this.Refresh();
         }
     }
 }
