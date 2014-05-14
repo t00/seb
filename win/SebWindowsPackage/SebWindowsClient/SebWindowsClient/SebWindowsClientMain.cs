@@ -130,13 +130,20 @@ namespace SebWindowsClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Logger.initLogger();
+
             string[] arguments = Environment.GetCommandLineArgs();
-            //var sw = File.AppendText(@"c:\www\seb\log.log");
-            //sw.Write(DateTime.Now.ToLocalTime() + " Arguments: " + String.Join(", ",arguments) + "\r\n");
-            //sw.Close();
+            Logger.AddInformation(" Arguments: " + String.Join(", ", arguments));
             if (arguments.Count() == 1)
             {
-                InitSebSettings();
+                try
+                {
+                    InitSebSettings();
+                }
+                catch (Exception ex) 
+                {
+                    Logger.AddError("Unable to InitSebSettings",null, ex);
+                }
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
                 singleInstanceController = new SingleInstanceController();
@@ -144,7 +151,14 @@ namespace SebWindowsClient
             }
             else
             {
-                InitSebSettings();
+                try
+                {
+                    InitSebSettings();
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddError("Unable to InitSebSettings", null, ex);
+                }
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 singleInstanceController = new SingleInstanceController();
                 singleInstanceController.Run(arguments);
@@ -347,8 +361,16 @@ namespace SebWindowsClient
                 //on NT4/NT5 the desktop is killed
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
-                    //Start Explorer Shell if not running
-                    //SEBProcessHandler.StartExplorerShell();
+                    try
+                    {
+                        //Start Explorer Shell if not running
+                        SEBProcessHandler.StartExplorerShell();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddError("Unable to StartExplorerShell", null, ex);
+                    }
+                    
 
                     //Window Handling
                     SEBWindowHandler.AllowedExecutables.Clear();
@@ -371,9 +393,25 @@ namespace SebWindowsClient
                     //Add visual studio to allowed executables for debugging
                     SEBWindowHandler.AllowedExecutables.Add("devenv");
 #endif
-                    SEBWindowHandler.MinimizeAllOpenWindows();
+                    try
+                    {
+                        SEBWindowHandler.MinimizeAllOpenWindows();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddError("Unable to MinimizeAllOpenWindows",null,ex);
+                    }
+                    
                     //This prevents the not allowed executables from poping up
-                    SEBWindowHandler.EnableForegroundWatchDog();
+                    try
+                    {
+                        SEBWindowHandler.EnableForegroundWatchDog();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddError("Unable to EnableForegroundWatchDog",null,ex);
+                    }
+                    
 
                     SEBProcessHandler.ProhibitedExecutables.Clear();
                     //Add prohibited executables
@@ -383,10 +421,25 @@ namespace SebWindowsClient
                         SEBProcessHandler.ProhibitedExecutables.Add(((string)process[SEBSettings.KeyExecutable]).ToLower());
                     }
                     //This prevents the prohibited executables from starting up
-                    SEBProcessHandler.EnableProcessWatchDog();
+                    try
+                    {
+                        SEBProcessHandler.EnableProcessWatchDog();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddError("Unable to EnableProcessWatchDog",null, ex);
+                    }
 
-                    // When starting up SEB, kill the explorer.exe shell
-                    SEBClientInfo.ExplorerShellWasKilled = SEBProcessHandler.KillExplorerShell();
+                    try
+                    {
+                        // When starting up SEB, kill the explorer.exe shell
+                        SEBClientInfo.ExplorerShellWasKilled = SEBProcessHandler.KillExplorerShell();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddError("Unable to KillExplorerShell",null, ex);
+                    }
+                    
                 }
 
             }

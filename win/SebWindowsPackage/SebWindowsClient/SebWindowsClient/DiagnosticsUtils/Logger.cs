@@ -29,8 +29,17 @@ namespace SebWindowsClient.DiagnosticsUtils
         /// Open Logger.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static bool initLogger(string logFileDirectory, string logFilePath)
+        public static bool initLogger(string logFileDirectory = null, string logFilePath = null)
         {
+            if (logFileDirectory == null)
+            {
+                logFileDirectory = String.Format(@"{0}\SafeExamBrowser\",Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+            }
+            if (logFilePath == null)
+            {
+                logFilePath = String.Format(@"{0}SebClient.log",logFileDirectory);
+            }
+
             try
             {
                 if (_sw == null)

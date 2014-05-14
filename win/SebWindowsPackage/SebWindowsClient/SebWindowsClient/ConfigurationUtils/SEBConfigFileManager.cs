@@ -10,6 +10,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using System.Threading;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.XULRunnerCommunication;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using PlistCS;
@@ -39,6 +40,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// ----------------------------------------------------------------------------------------
         public static bool StoreDecryptedSEBSettings(byte[] sebData)
         {
+            Logger.AddInformation("Reconfiguring");
             DictObj sebPreferencesDict;
             string sebFilePassword = null;
             bool passwordIsHash = false;
@@ -49,7 +51,9 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Reset SEB, close third party applications
             SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
+            Logger.AddInformation("Attempting to CloseSEBForm for reconfiguration");
             SEBClientInfo.SebWindowsClientForm.CloseSEBForm();
+            Logger.AddInformation("Succesfully CloseSEBForm for reconfiguration");
             SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
             //SEBClientInfo.SebWindowsClientForm.Close();
             //SEBClientInfo.SebWindowsClientForm.Dispose();
@@ -59,11 +63,13 @@ namespace SebWindowsClient.ConfigurationUtils
 
             if ((int)sebPreferencesDict[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
             {
-
+                Logger.AddInformation("Reconfiguring to start an exam");
                 /// If these SEB settings are ment to start an exam
 
                 // Store decrypted settings
+                Logger.AddInformation("Attempting to StoreSebClientSettings");
                 SEBSettings.StoreSebClientSettings(sebPreferencesDict);
+                Logger.AddInformation("Successfully StoreSebClientSettings");
 
                 // Set the flag that SEB is running in exam mode now
                 SEBClientInfo.examMode = true;
@@ -82,18 +88,22 @@ namespace SebWindowsClient.ConfigurationUtils
                 }
 
                 // Re-Initialize SEB according to the new settings
+                Logger.AddInformation("Attemting to InitSEBDesktop for reconfiguration");
                 if (!SebWindowsClientMain.InitSEBDesktop()) return false;
-
+                Logger.AddInformation("Sucessfully InitSEBDesktop for reconfiguration");
                 // Re-open the main form
                 //SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 //SebWindowsClientMain.singleInstanceController.SetMainForm(SEBClientInfo.SebWindowsClientForm);
 
                 //return if initializing SEB with openend preferences was successful
-                return SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
+                Logger.AddInformation("Attempting to OpenSEBForm for reconfiguration");
+                var ret = SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
+                Logger.AddInformation("Successfully OpenSEBForm for reconfiguration");
+                return ret;
             }
             else
             {
-
+                Logger.AddInformation("Reconfiguring to configure a client");
                 /// If these SEB settings are ment to configure a client
 
                 // Store decrypted settings

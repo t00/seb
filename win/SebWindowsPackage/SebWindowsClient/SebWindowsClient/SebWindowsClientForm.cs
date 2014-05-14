@@ -129,7 +129,15 @@ namespace SebWindowsClient
                 SEBXULRunnerWebSocketServer.OnXulRunnerCloseRequested += OnXULRunnerShutdDownRequested;
             }
             SEBXULRunnerWebSocketServer.OnXulRunnerQuitLinkClicked += OnXulRunnerQuitLinkPressed;
-            SEBProcessHandler.PreventSleep();
+            try
+            {
+                SEBProcessHandler.PreventSleep();
+            }
+            catch (Exception ex)
+            {
+                Logger.AddError("Unable to PreventSleep", null, ex);
+            }
+            
         }
 
         private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
@@ -236,9 +244,10 @@ namespace SebWindowsClient
                     SebWindowsClientMain.LoadingSebFile(false);
                     return;
                 }
-
+                Logger.AddInformation("Succesfully read the new configuration");
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
                 SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
+                Logger.AddInformation("Successfully StoreDecryptedSEBSettings");
                 SebWindowsClientMain.LoadingSebFile(false);
             }
         }
@@ -1225,8 +1234,15 @@ namespace SebWindowsClient
                     Logger.AddError("Unable to disable windows update service", this, ex);
                 }
 
+                try
+                {
+                    bool bClientRegistryAndProcesses = InitClientRegistryAndKillProcesses();
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddError("Unable to kill processes that are running before start", this, ex);
+                }
                 
-                bool bClientRegistryAndProcesses = InitClientRegistryAndKillProcesses();
 
                 // Disable unwanted keys.
                 SebKeyCapture.FilterKeys = true;
@@ -1244,8 +1260,15 @@ namespace SebWindowsClient
                 //        (SEBClientInfo.XulRunnerFlashContainerState == null ? "null" : SEBClientInfo.XulRunnerFlashContainerState), null, null);
                 //    Logger.AddInformation("Environment Variable MOZ_DISABLE_OOP_PLUGINS was set to value: " + xulRunnerFlashContainer, null, null);
                 //}
-
-                addPermittedProcessesToTS();
+                try
+                {
+                    addPermittedProcessesToTS();
+                }
+                catch (Exception ex)
+                {
+                    Logger.AddError("Unable to addPermittedProcessesToTS",this,ex);
+                }
+                
                 //SetFormOnDesktop();
                 
                 //System.Diagnostics.Process oskProcess = null;
@@ -1305,16 +1328,24 @@ namespace SebWindowsClient
                 // ShutDown Processes
                 for(int i = 0; i < permittedProcessesReferences.Count; i++)
                 {
-                    var proc = permittedProcessesReferences[i];
-                    if (proc != null && !proc.HasExited && proc.MainWindowHandle == IntPtr.Zero)
+                    try
                     {
-                        //Get Process from WindowHandle by Name
-                        var permittedProcessSettings = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
-                        var currentProcessData = (Dictionary<string,object>)permittedProcessSettings[i];
-                        var title = (string)currentProcessData[SEBSettings.KeyIdentifier];
-                        proc = SEBWindowHandler.GetWindowHandleByTitle(title).GetProcess();
+                        var proc = permittedProcessesReferences[i];
+                        if (proc != null && !proc.HasExited && proc.MainWindowHandle == IntPtr.Zero)
+                        {
+                            //Get Process from WindowHandle by Name
+                            var permittedProcessSettings = (List<object>)SEBClientInfo.getSebSetting(SEBSettings.KeyPermittedProcesses)[SEBSettings.KeyPermittedProcesses];
+                            var currentProcessData = (Dictionary<string, object>)permittedProcessSettings[i];
+                            var title = (string)currentProcessData[SEBSettings.KeyIdentifier];
+                            proc = SEBWindowHandler.GetWindowHandleByTitle(title).GetProcess();
+                        }
+                        SEBNotAllowedProcessController.CloseProcess(proc);
                     }
-                    SEBNotAllowedProcessController.CloseProcess(proc);
+                    catch (Exception ex)
+                    {
+                        Logger.AddError("Unable to Shutdown Process",null, ex);
+                    }
+                    
                 }
                 permittedProcessesReferences.Clear();
 
@@ -1325,14 +1356,27 @@ namespace SebWindowsClient
 
                     if (SEBClientInfo.ExplorerShellWasKilled)
                     {
-                        SEBProcessHandler.StartExplorerShell(false);
-
+                        try
+                        {
+                            SEBProcessHandler.StartExplorerShell();
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.AddError("Unable to StartExplorerShell",null,ex);
+                        }
                         Logger.AddInformation("Restarting the shell.", null, null);
                     }
 
                     SEBWindowHandler.DisableForegroundWatchDog();
-                    SEBWindowHandler.RestoreHiddenWindows();
-
+                    try
+                    {
+                        SEBWindowHandler.RestoreHiddenWindows();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.AddError("Unable to restore hidden windows",null,ex);
+                    }
+                    
                     SEBDesktopWallpaper.Reset();
                 }
 
