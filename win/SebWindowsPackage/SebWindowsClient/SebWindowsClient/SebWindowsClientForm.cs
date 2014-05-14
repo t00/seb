@@ -252,7 +252,11 @@ namespace SebWindowsClient
                 Logger.AddInformation("Succesfully read the new configuration");
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
                 Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
-                SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
+                if (!SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings))
+                {
+                    Logger.AddInformation("StoreDecryptedSettings returned false, this means the password was wrong or something with the new settings is wrong, exiting");
+                        Application.Exit();
+                }
                 Logger.AddInformation("Successfully StoreDecryptedSEBSettings");
                 SebWindowsClientMain.LoadingSebFile(false);
             }
@@ -919,6 +923,8 @@ namespace SebWindowsClient
             // sezt das formular auf die Taskbar
             SetParent(this.Handle, GetDesktopWindow());
             //this.BackColor = Color.Red;
+
+            //TODO: This does not work correctly with other DPI settings than 96 (i.e. 100%)
 
             //int height = Screen.PrimaryScreen.Bounds.Height;
             int width = Screen.PrimaryScreen.Bounds.Width;
