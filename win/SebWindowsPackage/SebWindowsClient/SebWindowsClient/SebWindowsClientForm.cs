@@ -1171,8 +1171,6 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public bool OpenSEBForm()
         {
-            SEBXULRunnerWebSocketServer.StartServer();
-
             if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             {
                 //this.Show();
@@ -1200,9 +1198,11 @@ namespace SebWindowsClient
                 //}
             }
 
-
             // Check if VM and SEB Windows Service available and required
             if (SebWindowsClientMain.CheckVMService()) {
+
+                SEBXULRunnerWebSocketServer.StartServer();
+
                 //Set Registry Values to lock down CTRL+ALT+DELETE Menu (with SEBWindowsServiceWCF)
                 try
                 {
