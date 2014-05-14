@@ -40,13 +40,14 @@
             this.lblLoading.BackColor = System.Drawing.Color.Transparent;
             this.lblLoading.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblLoading.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoading.Location = new System.Drawing.Point(0, 294);
+            this.lblLoading.Location = new System.Drawing.Point(0, 302);
             this.lblLoading.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLoading.Name = "lblLoading";
-            this.lblLoading.Size = new System.Drawing.Size(544, 30);
+            this.lblLoading.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.lblLoading.Size = new System.Drawing.Size(544, 22);
             this.lblLoading.TabIndex = 0;
             this.lblLoading.Text = "Loading";
-            this.lblLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblLoading.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox1
             // 
@@ -68,7 +69,7 @@
             this.textBox1.Location = new System.Drawing.Point(327, 113);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(205, 187);
+            this.textBox1.Size = new System.Drawing.Size(205, 182);
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
