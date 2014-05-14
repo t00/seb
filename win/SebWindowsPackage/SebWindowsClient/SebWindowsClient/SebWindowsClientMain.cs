@@ -130,8 +130,6 @@ namespace SebWindowsClient
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Logger.initLogger();
-
             string[] arguments = Environment.GetCommandLineArgs();
             Logger.AddInformation(" Arguments: " + String.Join(", ", arguments));
             if (arguments.Count() == 1)

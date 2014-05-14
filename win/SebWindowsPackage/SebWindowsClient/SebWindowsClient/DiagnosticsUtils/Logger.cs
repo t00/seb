@@ -101,6 +101,7 @@ namespace SebWindowsClient.DiagnosticsUtils
         private static void Insert(int eventCode, string eventType, int eventDetailCode, string message, string exceptionType,
             string details, DateTime? eventDateTime = null, string additionalData = null)
         {
+            Logger.initLogger();
             string machineName = System.Environment.MachineName;
             if (!eventDateTime.HasValue) eventDateTime = DateTime.Now;
 
@@ -132,7 +133,7 @@ namespace SebWindowsClient.DiagnosticsUtils
             {
                 Console.WriteLine(logEntry);
             }
-
+            Logger.closeLoger();
         }
 
 

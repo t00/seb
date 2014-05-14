@@ -142,11 +142,15 @@ namespace SebWindowsClient
 
         private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
         {
+            Logger.AddInformation("Receiving Shutdown Request and opening ShowCloseDialogForm");
+            SebWindowsClientMain.SEBToForeground();
             this.BeginInvoke(new Action(this.ShowCloseDialogForm));
         }
 
         private void OnXulRunnerQuitLinkPressed(object sender, EventArgs e)
         {
+            Logger.AddInformation("Receiving Quit Link pressed and opening ShowCloseDialogForm");
+            SebWindowsClientMain.SEBToForeground();
             this.BeginInvoke(new Action(this.ShowCloseDialogFormConfirmation));
         }
 
@@ -1165,7 +1169,8 @@ namespace SebWindowsClient
         public void ShowCloseDialogFormConfirmation()
         {
             SebWindowsClientMain.SEBToForeground();
-
+            this.TopMost = true;
+            this.Show();
             if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
             {
                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
@@ -1194,9 +1199,13 @@ namespace SebWindowsClient
             else
             {
                 //this.Hide();
-                this.Location = new System.Drawing.Point(-50000, -50000);
+                this.Visible = false;
+                this.Height = 1;
+                this.Width = 1;
+                this.BackColor = Color.Transparent;
+                //this.Location = new System.Drawing.Point(-50000, -50000);
 
-                this.Size = new System.Drawing.Size(1, 1);
+                //this.Size = new System.Drawing.Size(1, 1);
 
                 //if (this.Controls.Contains(this.taskbarToolStrip))
                 //{
