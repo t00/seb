@@ -280,6 +280,7 @@
     <Resource Include="Resources\keyboard.png" />
     <None Include="Resources\loading.gif" />
     <None Include="Resources\SebGlobalDialogImage.bmp" />
+    <None Include="Resources\AboutSEB.png" />
     <Content Include="SEBicon.ico" />
   </ItemGroup>
   <ItemGroup>
