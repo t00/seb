@@ -1214,7 +1214,7 @@ namespace SebWindowsClient
                 this.Height = 1;
                 this.Width = 1;
                 //this.BackColor = Color.Transparent;
-                //this.Location = new System.Drawing.Point(-50000, -50000);
+                this.Location = new System.Drawing.Point(-50000, -50000);
 
                 //this.Size = new System.Drawing.Size(1, 1);
 
