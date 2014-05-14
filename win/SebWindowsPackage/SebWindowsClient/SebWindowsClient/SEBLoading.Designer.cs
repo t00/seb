@@ -43,7 +43,7 @@
             this.lblLoading.Location = new System.Drawing.Point(0, 302);
             this.lblLoading.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLoading.Name = "lblLoading";
-            this.lblLoading.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.lblLoading.Padding = new System.Windows.Forms.Padding(12, 0, 0, 5);
             this.lblLoading.Size = new System.Drawing.Size(544, 22);
             this.lblLoading.TabIndex = 0;
             this.lblLoading.Text = "Loading";
