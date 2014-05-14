@@ -84,9 +84,11 @@ namespace SebWindowsClient.ProcessUtils
                 };
                 process.Start();
                 //Wait until the explorer is up again because its functions are needed in the next call
-                while (FindWindow("Shell_TrayWnd", null) == IntPtr.Zero)
+                for (int i = 0; i < 3; i++)
                 {
-                    Thread.Sleep(100);
+                    if (FindWindow("Shell_TrayWnd", null) != IntPtr.Zero)
+                        break;
+                    Thread.Sleep(1000);
                 }
                 //Sleep six seconds to get the explorer running
                 if(waitForStartup)

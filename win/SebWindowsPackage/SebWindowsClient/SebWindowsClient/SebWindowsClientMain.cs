@@ -361,8 +361,10 @@ namespace SebWindowsClient
                 {
                     try
                     {
+                        Logger.AddInformation("Attempting to start Explorer Shell if it is not running");
                         //Start Explorer Shell if not running
                         SEBProcessHandler.StartExplorerShell();
+                        Logger.AddInformation("Successfull start Explorer Shell if it is not running");
                     }
                     catch (Exception ex)
                     {

@@ -174,6 +174,7 @@ namespace SebWindowsClient
         }
         public void LoadFile(string file)
         {
+            Logger.AddInformation("Attempting to read new configuration file");
             if (!SebWindowsClientMain.isLoadingSebFile())
             {
                 SebWindowsClientMain.LoadingSebFile(true);
@@ -250,6 +251,7 @@ namespace SebWindowsClient
                 }
                 Logger.AddInformation("Succesfully read the new configuration");
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
+                Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
                 SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings);
                 Logger.AddInformation("Successfully StoreDecryptedSEBSettings");
                 SebWindowsClientMain.LoadingSebFile(false);
@@ -927,6 +929,9 @@ namespace SebWindowsClient
             this.Width = width;
             this.Location = new Point(x, y);
             this.TopMost = true;
+
+            Logger.AddInformation(String.Format("SetFormOnDesktop: x:{0} y:{1} height:{2} width:{3}",x,y,taskbarHeight,width));
+
             return true;
         }
 
@@ -1202,8 +1207,8 @@ namespace SebWindowsClient
                 this.Visible = false;
                 this.Height = 1;
                 this.Width = 1;
-                this.BackColor = Color.Transparent;
-                //this.Location = new System.Drawing.Point(-50000, -50000);
+                //this.BackColor = Color.Transparent;
+                this.Location = new System.Drawing.Point(-50000, -50000);
 
                 //this.Size = new System.Drawing.Size(1, 1);
 
