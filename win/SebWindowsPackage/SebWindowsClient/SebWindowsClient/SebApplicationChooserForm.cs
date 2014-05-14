@@ -251,13 +251,13 @@ namespace SebWindowsClient
             // Calculate necessary size of the app chooser form according to number of applications/icons
             int numberIcons = lRunningApplications.Count();
             int formWidth;
-            if (numberIcons > 0) formWidth = 2 * appChooserFormXPadding + numberIcons * 128 + (numberIcons - 1) * appChooserFormXGap;
+            if (numberIcons > 0) formWidth = 2 * appChooserFormXPadding + numberIcons * 32 + (numberIcons - 1) * appChooserFormXGap;
             else formWidth = 2 * appChooserFormXPadding;
             // Check if calculated width is larger that current screen width, if yes, adjust height accordingly
             if (Screen.PrimaryScreen.Bounds.Width < formWidth)
             {
                 formWidth = Screen.PrimaryScreen.Bounds.Width;
-                this.Height = 140;
+                this.Height = 160;
             } 
 
             this.Width = formWidth;
