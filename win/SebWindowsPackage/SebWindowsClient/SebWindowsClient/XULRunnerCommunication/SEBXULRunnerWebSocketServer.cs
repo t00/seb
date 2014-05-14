@@ -17,6 +17,8 @@ namespace SebWindowsClient.XULRunnerCommunication
     /// </summary>
     public class SEBXULRunnerWebSocketServer
     {
+        public static bool Started = false;
+
         /// <summary>
         /// The URL to connect to
         /// </summary>
@@ -64,8 +66,27 @@ namespace SebWindowsClient.XULRunnerCommunication
         /// </summary>
         public static void StartServer()
         {
-            if (IsRunning)
+            if (IsRunning && Started)
                 return;
+
+            if (IsRunning)
+            {
+                var loading = new SEBLoading();
+                loading.Show();
+                for (int i = 0; i < 60; i++)
+                {
+                    if (!IsRunning)
+                        break;
+
+                    loading.Progress();
+                    loading.Refresh();
+                    Thread.Sleep(1000);
+                }
+                loading.Close();
+                if (IsRunning)
+                    MessageBox.Show(
+                        "Your TCP port 8706 is blocked. SEB uses this port to communicate with the browser. Although SEB is working without this, full functionality is not guaranteed");
+            }
 
             try
             {
@@ -78,6 +99,7 @@ namespace SebWindowsClient.XULRunnerCommunication
                     socket.OnMessage = OnClientMessage;
                 });
                 Logger.AddInformation("Starting WebSocketServer on " + ServerAddress, null, null);
+                Started = true;
             }
             catch (Exception ex)
             {

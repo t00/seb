@@ -28,39 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.lblLoading = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // lblLoading
             // 
-            this.pictureBox1.Image = global::SebWindowsClient.Properties.Resources.loading;
-            this.pictureBox1.Location = new System.Drawing.Point(152, 28);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(358, 270);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.UseWaitCursor = true;
+            this.lblLoading.BackColor = System.Drawing.Color.Transparent;
+            this.lblLoading.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblLoading.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoading.Location = new System.Drawing.Point(0, 338);
+            this.lblLoading.Name = "lblLoading";
+            this.lblLoading.Size = new System.Drawing.Size(522, 69);
+            this.lblLoading.TabIndex = 0;
+            this.lblLoading.Text = "Loading";
+            this.lblLoading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SEBLoading
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(666, 341);
-            this.Controls.Add(this.pictureBox1);
+            this.BackgroundImage = global::SebWindowsClient.Properties.Resources.SebGlobalDialogImage;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ClientSize = new System.Drawing.Size(522, 407);
+            this.Controls.Add(this.lblLoading);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SEBLoading";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SEBLoading";
             this.TopMost = true;
-            this.UseWaitCursor = true;
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblLoading;
     }
 }

@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,13 +15,25 @@ namespace SebWindowsClient
         public SEBLoading()
         {
             InitializeComponent();
-
-                      
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        public void Progress()
         {
-
+            switch (lblLoading.Text)
+            {
+                case "Loading":
+                    lblLoading.Text = "Loading .";
+                    break;
+                case "Loading .":
+                    lblLoading.Text = "Loading ..";
+                    break;
+                case "Loading ..":
+                    lblLoading.Text = "Loading ...";
+                    break;
+                default:
+                    lblLoading.Text = "Loading";
+                    break;
+            }
         }
     }
 }
