@@ -78,11 +78,15 @@ namespace SebWindowsClient.ConfigurationUtils
                 SEBClientInfo.InitializeLogger();
 
                 // Check if SEB is running on the standard desktop and the new settings demand to run in new desktop (createNewDesktop = true)
-                // or the other way around! TODO: Create correct error message!! if it is the other way around
+                // or the other way around!
                 if (createNewDesktopOldValue != (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop))
                 {
                     // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
-                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsRequireNewDesktop, SEBUIStrings.settingsRequireNewDesktopReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    if(createNewDesktopOldValue == false)
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsRequireNewDesktop, SEBUIStrings.settingsRequireNewDesktopReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    else
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsRequireNotNewDesktop, SEBUIStrings.settingsRequireNotNewDesktopReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+
                     //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                     Application.Exit();
                     return false;

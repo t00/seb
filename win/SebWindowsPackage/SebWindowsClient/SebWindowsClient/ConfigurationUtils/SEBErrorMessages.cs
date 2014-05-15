@@ -226,7 +226,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 text = text.Replace("%d", iparam.ToString());
             }
 
-            if (MessageBox.Show(text, caption, buttons, icon) == DialogResult.Yes)
+            if (MessageBox.Show(new Form() { TopMost = true },text, caption, buttons, icon) == DialogResult.Yes)
                 result = true;
 
             //logg(fp, "Leave OutputErrorMessage()\n\n");
@@ -268,7 +268,7 @@ namespace SebWindowsClient.ConfigurationUtils
             {
                 messageText = messageText.Replace("%d", iparam.ToString());
             }
-            DialogResult messageBoxResult = MessageBox.Show(messageText, messageTitle, messageButtons, icon);
+            DialogResult messageBoxResult = MessageBox.Show(new Form() { TopMost = true },messageText, messageTitle, messageButtons, icon);
             if (messageBoxResult == DialogResult.OK || messageBoxResult == DialogResult.Yes || messageBoxResult == DialogResult.Retry)
                 result = true;
 

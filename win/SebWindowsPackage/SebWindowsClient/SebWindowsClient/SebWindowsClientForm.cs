@@ -119,15 +119,8 @@ namespace SebWindowsClient
         {
             InitializeComponent();
             taskbarHeight = this.Height-2;
-
-            if (!(bool) SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
-            {
-                this.quitButton.Visible = false;   
-            }
-            else
-            {
-                SEBXULRunnerWebSocketServer.OnXulRunnerCloseRequested += OnXULRunnerShutdDownRequested;
-            }
+ 
+            SEBXULRunnerWebSocketServer.OnXulRunnerCloseRequested += OnXULRunnerShutdDownRequested;
             SEBXULRunnerWebSocketServer.OnXulRunnerQuitLinkClicked += OnXulRunnerQuitLinkPressed;
             try
             {
@@ -149,9 +142,12 @@ namespace SebWindowsClient
 
         private void OnXulRunnerQuitLinkPressed(object sender, EventArgs e)
         {
-            Logger.AddInformation("Receiving Quit Link pressed and opening ShowCloseDialogForm");
-            SebWindowsClientMain.SEBToForeground();
-            this.BeginInvoke(new Action(this.ShowCloseDialogFormConfirmation));
+            if (!(bool) SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
+            {
+                Logger.AddInformation("Receiving Quit Link pressed and opening ShowCloseDialogForm");
+                SebWindowsClientMain.SEBToForeground();
+                this.BeginInvoke(new Action(this.ShowCloseDialogFormConfirmation));
+            }
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -1226,6 +1222,9 @@ namespace SebWindowsClient
                 //    if (this.Controls.Contains(this.taskbarToolStrip)) Logger.AddInformation("Removing SEB taskbar from form didn't work.", null, null);
                 //}
             }
+
+            //Show or hide Quit Button according to Settings
+            this.quitButton.Visible = (bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit];
 
             // Check if VM and SEB Windows Service available and required
             if (SebWindowsClientMain.CheckVMService()) {
