@@ -42,7 +42,7 @@ namespace SebWindowsClient.XULRunnerCommunication
 
                 foreach (TcpConnectionInformation tcpi in tcpConnInfoArray)
                 {
-                    if (tcpi.LocalEndPoint.Port == port)
+                    if (tcpi.LocalEndPoint.Port == port && tcpi.State != TcpState.TimeWait)
                     {
                         Logger.AddInformation("Server already running!");
                         return true;
