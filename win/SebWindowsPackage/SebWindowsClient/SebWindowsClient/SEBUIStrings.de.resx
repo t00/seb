@@ -264,4 +264,10 @@
   <data name="settingsRequireNewDesktopReason" xml:space="preserve">
     <value>Die geöffneten Prüfungseinstellungen verlangen das Öffnen eines neuen Desktops, aber momentan läuf SEB auf dem Standard-Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern ("Create New Desktop"-Parameter gesetzt). SEB wird jetzt beendet.</value>
   </data>
+  <data name="settingsRequireNotNewDesktop" xml:space="preserve">
+    <value>Einstellungen verlangen den standard Desktop</value>
+  </data>
+  <data name="settingsRequireNotNewDesktopReason" xml:space="preserve">
+    <value>Die geöffneten Prüfungseinstellungen verlangen den standard Desktops, aber momentan läuf SEB auf einem neuen Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern: Kiosk-Modus darf nicht auf "Create New Desktop" sein. SEB wird jetzt beendet.</value>
+  </data>
 </root>

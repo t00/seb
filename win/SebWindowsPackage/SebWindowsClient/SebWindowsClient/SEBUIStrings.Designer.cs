@@ -511,7 +511,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the Kiosk mode set to something other than &quot;Create New Desktop&quot; parameter set. SEB will quit now..
+        ///   Looks up a localized string similar to The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the Kiosk mode set to something other than &quot;Create New Desktop&quot;. SEB will quit now..
         /// </summary>
         internal static string settingsRequireNotNewDesktopReason {
             get {

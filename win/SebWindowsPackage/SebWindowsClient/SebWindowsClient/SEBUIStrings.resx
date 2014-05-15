@@ -268,6 +268,6 @@
     <value>Settings Require standard Desktop</value>
   </data>
   <data name="settingsRequireNotNewDesktopReason" xml:space="preserve">
-    <value>The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the Kiosk mode set to something other than "Create New Desktop" parameter set. SEB will quit now.</value>
+    <value>The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the Kiosk mode set to something other than "Create New Desktop". SEB will quit now.</value>
   </data>
 </root>
