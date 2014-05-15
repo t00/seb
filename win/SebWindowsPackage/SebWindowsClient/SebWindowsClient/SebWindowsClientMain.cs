@@ -142,6 +142,16 @@ namespace SebWindowsClient
                 {
                     Logger.AddError("Unable to InitSebSettings",null, ex);
                 }
+                try
+                {
+                    InitSEBDesktop();
+                }
+                catch (Exception)
+                {
+
+                    Logger.AddInformation("Unable to InitSEBDesktop");
+                }
+                
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
                 singleInstanceController = new SingleInstanceController();
@@ -261,6 +271,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSebSettings()
         {
+            Logger.AddInformation("Attempting to InitSebSettings");
             //SebWindowsClientForm.SetVisibility(true);
             //SEBErrorMessages.OutputErrorMessageNew("Test", "Test, ob das Öffnen einer Message-Box createNewDesktop verunmöglicht.", SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
 
@@ -317,7 +328,9 @@ namespace SebWindowsClient
                 }
             }
 
-            return InitSEBDesktop();
+            Logger.AddInformation("Successfully InitSebSettings");
+            return true;
+            //return InitSEBDesktop();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -328,6 +341,7 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public static bool InitSEBDesktop()
         {
+            Logger.AddInformation("Attempting to InitSEBDesktop");
             SEBDesktopWallpaper.BlankWallpaper();
             // Clean clipboard
             SEBClipboard.CleanClipboard();
@@ -430,6 +444,8 @@ namespace SebWindowsClient
                 }
 
             }
+
+            Logger.AddInformation("Successfully InitSEBDesktop");
 
             return true;
         }
