@@ -135,19 +135,19 @@ namespace SebWindowsClient
 
         private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
         {
-            Logger.AddInformation("Receiving Shutdown Request and opening ShowCloseDialogForm");
-            SebWindowsClientMain.SEBToForeground();
-            this.BeginInvoke(new Action(this.ShowCloseDialogForm));
+            if ((bool) SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
+            {
+                Logger.AddInformation("Receiving Shutdown Request and opening ShowCloseDialogForm");
+                SebWindowsClientMain.SEBToForeground();
+                this.BeginInvoke(new Action(this.ShowCloseDialogForm));
+            }
         }
 
         private void OnXulRunnerQuitLinkPressed(object sender, EventArgs e)
         {
-            if (!(bool) SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
-            {
-                Logger.AddInformation("Receiving Quit Link pressed and opening ShowCloseDialogForm");
-                SebWindowsClientMain.SEBToForeground();
-                this.BeginInvoke(new Action(this.ShowCloseDialogFormConfirmation));
-            }
+            Logger.AddInformation("Receiving Quit Link pressed and opening ShowCloseDialogForm");
+            SebWindowsClientMain.SEBToForeground();
+            this.BeginInvoke(new Action(this.ShowCloseDialogFormConfirmation));
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -1371,22 +1371,23 @@ namespace SebWindowsClient
                 // Restart the explorer.exe shell
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
+                    SEBWindowHandler.DisableForegroundWatchDog();
                     SEBProcessHandler.DisableProcessWatchDog();
 
                     if (SEBClientInfo.ExplorerShellWasKilled)
                     {
                         try
                         {
+                            Logger.AddInformation("Attempting to start explorer shell");
                             SEBProcessHandler.StartExplorerShell();
+                            Logger.AddInformation("Successfully started explorer shell");
                         }
                         catch (Exception ex)
                         {
                             Logger.AddError("Unable to StartExplorerShell",null,ex);
                         }
-                        Logger.AddInformation("Restarting the shell.", null, null);
                     }
 
-                    SEBWindowHandler.DisableForegroundWatchDog();
                     try
                     {
                         SEBWindowHandler.RestoreHiddenWindows();

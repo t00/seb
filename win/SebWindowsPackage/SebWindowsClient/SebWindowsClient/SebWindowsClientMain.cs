@@ -359,19 +359,6 @@ namespace SebWindowsClient
                 //on NT4/NT5 the desktop is killed
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyKillExplorerShell)[SEBSettings.KeyKillExplorerShell])
                 {
-                    try
-                    {
-                        Logger.AddInformation("Attempting to start Explorer Shell if it is not running");
-                        //Start Explorer Shell if not running
-                        SEBProcessHandler.StartExplorerShell();
-                        Logger.AddInformation("Successfull start Explorer Shell if it is not running");
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.AddError("Unable to StartExplorerShell", null, ex);
-                    }
-                    
-
                     //Window Handling
                     SEBWindowHandler.AllowedExecutables.Clear();
                     //Add the SafeExamBrowser to the allowed executables
