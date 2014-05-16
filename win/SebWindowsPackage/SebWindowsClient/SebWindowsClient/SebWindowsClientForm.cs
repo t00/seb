@@ -138,7 +138,6 @@ namespace SebWindowsClient
             if ((bool) SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
             {
                 Logger.AddInformation("Receiving Shutdown Request and opening ShowCloseDialogForm");
-                SebWindowsClientMain.SEBToForeground();
                 this.BeginInvoke(new Action(this.ShowCloseDialogForm));
             }
         }
@@ -146,7 +145,6 @@ namespace SebWindowsClient
         private void OnXulRunnerQuitLinkPressed(object sender, EventArgs e)
         {
             Logger.AddInformation("Receiving Quit Link pressed and opening ShowCloseDialogForm");
-            SebWindowsClientMain.SEBToForeground();
             this.BeginInvoke(new Action(this.ShowCloseDialogFormConfirmation));
         }
 
@@ -248,7 +246,7 @@ namespace SebWindowsClient
                 Logger.AddInformation("Succesfully read the new configuration");
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
                 Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
-                if (!SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings))
+                if (!SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings) && !SEBXULRunnerWebSocketServer.Started)
                 {
                     Logger.AddInformation("StoreDecryptedSettings returned false, this means the password was wrong or something with the new settings is wrong, exiting");
                         Application.Exit();
@@ -268,8 +266,15 @@ namespace SebWindowsClient
         {
             //if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             //{
+            try
+            {
                 SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
                 SEBClientInfo.SebWindowsClientForm.Activate();
+            }
+            catch (Exception)
+            {
+            }
+                
             //}
         }
 
@@ -1155,6 +1160,7 @@ namespace SebWindowsClient
             // Test if quitting SEB is allowed
             if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit] == true)
             {
+                SebWindowsClientMain.SEBToForeground();
                 // Is a quit password set?
                 string hashedQuitPassword = (string)SEBSettings.settingsCurrent[SEBSettings.KeyHashedQuitPassword];
                 if (String.IsNullOrEmpty(hashedQuitPassword) == true)

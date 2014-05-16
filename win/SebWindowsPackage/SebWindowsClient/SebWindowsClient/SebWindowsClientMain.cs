@@ -619,8 +619,15 @@ namespace SebWindowsClient
         {
             //if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             //{
-            SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
-            SEBClientInfo.SebWindowsClientForm.Activate();
+            try
+            {
+                SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
+                SEBClientInfo.SebWindowsClientForm.Activate();
+            }
+            catch (Exception)
+            {
+            }
+            
             //}
         }
     }

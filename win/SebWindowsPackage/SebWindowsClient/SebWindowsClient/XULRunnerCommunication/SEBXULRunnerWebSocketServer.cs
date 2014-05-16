@@ -89,6 +89,7 @@ namespace SebWindowsClient.XULRunnerCommunication
 
             try
             {
+                Logger.AddInformation("Starting WebSocketServer on " + ServerAddress);
                 server = new WebSocketServer(ServerAddress);
                 FleckLog.Level = LogLevel.Debug;
                 server.Start(socket =>
@@ -97,7 +98,7 @@ namespace SebWindowsClient.XULRunnerCommunication
                     socket.OnClose = OnClientDisconnected;
                     socket.OnMessage = OnClientMessage;
                 });
-                Logger.AddInformation("Starting WebSocketServer on " + ServerAddress, null, null);
+                Logger.AddInformation("Started WebSocketServer on " + ServerAddress);
                 Started = true;
             }
             catch (Exception ex)
