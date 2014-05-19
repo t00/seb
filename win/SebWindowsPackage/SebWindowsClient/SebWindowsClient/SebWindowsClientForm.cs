@@ -810,6 +810,7 @@ namespace SebWindowsClient
 
             int i = Convert.ToInt32(toolStripButton.Name);
             Process processReference = permittedProcessesReferences[i];
+
             if (xulRunner != null && processReference == xulRunner)
             {
                 try
@@ -822,6 +823,7 @@ namespace SebWindowsClient
                     else
                     {
                         processReference.Refresh();
+
                         IntPtr handle = processReference.MainWindowHandle;
                         if (IsIconic(handle)) ShowWindow(handle, SW_RESTORE);
                         SetForegroundWindow(handle);
@@ -845,6 +847,7 @@ namespace SebWindowsClient
                     else
                     {
                         processReference.Refresh();
+
                         IntPtr handle = processReference.MainWindowHandle;
                         if (handle == IntPtr.Zero)
                         {
@@ -1431,7 +1434,6 @@ namespace SebWindowsClient
                 SEBClipboard.CleanClipboard();
                 Logger.AddInformation("Clipboard deleted.", null, null);
                 SebKeyCapture.FilterKeys = false;
-                Logger.closeLoger();
 
                 //}
                 //else
@@ -1471,15 +1473,21 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Logger.AddInformation("Attempting to CloseSEBForm in SebWindowsClientForm_FormClosing");
             try
             {
                 CloseSEBForm();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.AddError("Unable to CloseSEBForm()",this, ex);
             }
-            
+            Logger.AddInformation("Successfull CloseSEBForm");
+
+            Logger.AddInformation("Attempting to ResetSEBDesktop in SebWindowsClientForm_FormClosing");
             SebWindowsClientMain.ResetSEBDesktop();
+            Logger.AddInformation("Successfull ResetSEBDesktop");
+
         }
 
         /// ----------------------------------------------------------------------------------------

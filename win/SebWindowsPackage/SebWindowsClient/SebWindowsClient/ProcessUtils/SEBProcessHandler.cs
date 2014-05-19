@@ -172,6 +172,12 @@ namespace SebWindowsClient.ProcessUtils
             }
         }
 
+        public static IEnumerable<KeyValuePair<IntPtr, string>> GetOpenWindows(this Process process)
+        {
+            return SEBWindowHandler.GetOpenWindows()
+                .Where(oW => oW.Key.GetProcess().GetExecutableName() == process.GetExecutableName());
+        }
+
         #endregion
 
         #region Private Methods

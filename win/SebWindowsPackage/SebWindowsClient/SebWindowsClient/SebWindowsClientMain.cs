@@ -474,8 +474,11 @@ namespace SebWindowsClient
             // Switch to Default Desktop
             if (sessionCreateNewDesktop)
             {
+                Logger.AddInformation("Showing Original Desktop");
                 SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
+                Logger.AddInformation("Setting original Desktop as current");
                 SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
+                Logger.AddInformation("Closing New Dekstop");
                 SEBClientInfo.SEBNewlDesktop.Close();
             }
             else
