@@ -15,6 +15,9 @@ namespace SebWindowsClient
         public SEBLoading()
         {
             InitializeComponent();
+
+            this.Show();
+            this.Refresh();
         }
 
         public void Progress()

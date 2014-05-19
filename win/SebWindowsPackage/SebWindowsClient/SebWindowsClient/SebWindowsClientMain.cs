@@ -142,6 +142,7 @@ namespace SebWindowsClient
                 {
                     Logger.AddError("Unable to InitSebSettings",null, ex);
                 }
+                var splashScreen = new SEBLoading();
                 try
                 {
                     InitSEBDesktop();
@@ -155,6 +156,9 @@ namespace SebWindowsClient
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
                 singleInstanceController = new SingleInstanceController();
+
+                splashScreen.Close();
+
                 singleInstanceController.Run(arguments);
             }
             else
@@ -380,13 +384,18 @@ namespace SebWindowsClient
                     //Add allowed executables from all allowedProcessList
                     foreach (Dictionary<string, object> process in SEBSettings.permittedProcessList)
                     {
-                        //First add the executable itself
-                        SEBWindowHandler.AllowedExecutables.Add(((string)process[SEBSettings.KeyExecutable]).ToLower());
-                        //Then add the allowed Executables
-                        var allowedExecutables = process[SEBSettings.KeyAllowedExecutables] as string;
-                        if (!String.IsNullOrWhiteSpace(allowedExecutables))
+                        if((bool)process[SEBSettings.KeyActive])
                         {
-                            SEBWindowHandler.AllowedExecutables.AddRange(allowedExecutables.Trim().ToLower().Split(',').Select(exe => exe.Trim()));
+                            //First add the executable itself
+                            SEBWindowHandler.AllowedExecutables.Add(
+                                ((string) process[SEBSettings.KeyExecutable]).ToLower());
+                            //Then add the allowed Executables
+                            var allowedExecutables = process[SEBSettings.KeyAllowedExecutables] as string;
+                            if (!String.IsNullOrWhiteSpace(allowedExecutables))
+                            {
+                                SEBWindowHandler.AllowedExecutables.AddRange(
+                                    allowedExecutables.Trim().ToLower().Split(',').Select(exe => exe.Trim()));
+                            }
                         }
                     }
                     
@@ -418,8 +427,12 @@ namespace SebWindowsClient
                     //Add prohibited executables
                     foreach (Dictionary<string, object> process in SEBSettings.prohibitedProcessList)
                     {
-                        //First add the executable itself
-                        SEBProcessHandler.ProhibitedExecutables.Add(((string)process[SEBSettings.KeyExecutable]).ToLower());
+                        if ((bool) process[SEBSettings.KeyActive])
+                        {
+                            //First add the executable itself
+                            SEBProcessHandler.ProhibitedExecutables.Add(
+                                ((string) process[SEBSettings.KeyExecutable]).ToLower());
+                        }
                     }
                     //This prevents the prohibited executables from starting up
                     try

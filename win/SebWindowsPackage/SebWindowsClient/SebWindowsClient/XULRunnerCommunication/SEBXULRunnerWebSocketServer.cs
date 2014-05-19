@@ -72,7 +72,6 @@ namespace SebWindowsClient.XULRunnerCommunication
             if (IsRunning)
             {
                 var loading = new SEBLoading();
-                loading.Show();
                 for (int i = 0; i < 60; i++)
                 {
                     if (!IsRunning)

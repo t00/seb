@@ -46,7 +46,7 @@
             this.lblLoading.Padding = new System.Windows.Forms.Padding(12, 0, 0, 5);
             this.lblLoading.Size = new System.Drawing.Size(544, 22);
             this.lblLoading.TabIndex = 0;
-            this.lblLoading.Text = "Loading";
+            this.lblLoading.Text = "Loading ...";
             this.lblLoading.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox1
