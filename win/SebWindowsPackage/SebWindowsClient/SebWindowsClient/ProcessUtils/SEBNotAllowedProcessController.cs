@@ -153,11 +153,19 @@ namespace SebWindowsClient.ProcessUtils
                                 {
                                     processToClose.Refresh();
                                     // If process still hasn't exited, we wait another second
-                                    if (processToClose != null && !processToClose.HasExited)
+                                    if (!processToClose.HasExited)
                                     {
                                         Logger.AddError("Process " + name + " still hasn't exited, wait up to one more second and check again.", null, null);
                                         //Thread.Sleep(1000);
-                                        processToClose.WaitForExit(1000);
+                                        try
+                                        {
+                                            processToClose.WaitForExit(1000);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Logger.AddError("Unable to processToClose.WaitForExit(1000)",null,ex);
+                                        }
+                                        
                                     }
                                     else
                                     {
@@ -167,7 +175,7 @@ namespace SebWindowsClient.ProcessUtils
                                 }
                             }
                             processToClose.Refresh();
-
+                             
                             // If process still hasn't exited or wasn't closed, we log this
                             if (!processToClose.HasExited)
                             {

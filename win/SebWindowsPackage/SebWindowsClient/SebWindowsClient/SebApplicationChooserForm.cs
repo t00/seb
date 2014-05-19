@@ -186,7 +186,7 @@ namespace SebWindowsClient
                                     runningApplications[j].Refresh();
                                     if (!runningApplications[j].HasExited)
                                     {
-                                        if (permittedProcessExecutable.StartsWith(runningApplications[j].ProcessName))
+                                        if (permittedProcessExecutable.ToLower().StartsWith(runningApplications[j].ProcessName.ToLower()))
                                         {
                                             runningApplications[j].Refresh();
                                             //Get the mainWindowHandle and if it is not mapped to the process handle, get the window with the same title
@@ -251,7 +251,7 @@ namespace SebWindowsClient
             // Calculate necessary size of the app chooser form according to number of applications/icons
             int numberIcons = lRunningApplications.Count();
             int formWidth;
-            if (numberIcons > 0) formWidth = 2 * appChooserFormXPadding + numberIcons * 32 + (numberIcons - 1) * appChooserFormXGap;
+            if (numberIcons > 0) formWidth = 2 * appChooserFormXPadding + numberIcons * 128 + (numberIcons - 1) * appChooserFormXGap;
             else formWidth = 2 * appChooserFormXPadding;
             // Check if calculated width is larger that current screen width, if yes, adjust height accordingly
             if (Screen.PrimaryScreen.Bounds.Width < formWidth)
