@@ -182,10 +182,10 @@ namespace SebWindowsServiceWCF.RegistryHandler
     {
         public RegEnableShadeHorizon(string SID) : base(SID)
         {
-            this.RegistryPath = String.Format(@"HKEY_LOCAL_MACHINE\Software\VMware, Inc.\VMware VDM\Client");
+            this.RegistryPath = String.Format(@"HKEY_USERS\{0}\Software\Policies\VMware, Inc.\VMware VDM\Client", this.SID);
             this.DataItemName = "EnableShade";
-            //DWORD
-            this.DataType = typeof(Int32);
+            //SZ
+            this.DataType = typeof(String);
         }
     }
     
