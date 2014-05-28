@@ -250,7 +250,7 @@
     <value>SEB Needs to be Restarted</value>
   </data>
   <data name="sebReconfiguredRestartNeededReason" xml:space="preserve">
-    <value>Local settings have been reconfigured, but SEB needs to be restarted for the changed "Create New Desktop" setting to take effect. SEB will quit now, please restart it manually.</value>
+    <value>Local settings have been reconfigured, but SEB needs to be restarted for the changed "Create new desktop" setting to take effect. SEB will quit now, please restart it manually.</value>
   </data>
   <data name="settingsNotUsable" xml:space="preserve">
     <value>Opening New Settings Failed</value>
@@ -259,15 +259,15 @@
     <value>These settings cannot be used. They may have been created by an newer, incompatible version of SEB or are corrupted.</value>
   </data>
   <data name="settingsRequireNewDesktop" xml:space="preserve">
-    <value>Settings Require New Desktop</value>
+    <value>Settings Require New Desktop Kiosk Mode</value>
   </data>
   <data name="settingsRequireNewDesktopReason" xml:space="preserve">
-    <value>The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the "Create New Desktop" parameter set. SEB will quit now.</value>
+    <value>The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the "Create new desktop" kiosk mode. SEB will quit now.</value>
   </data>
   <data name="settingsRequireNotNewDesktop" xml:space="preserve">
-    <value>Settings Require standard Desktop</value>
+    <value>Settings Require Standard Desktop</value>
   </data>
   <data name="settingsRequireNotNewDesktopReason" xml:space="preserve">
-    <value>The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the Kiosk mode set to something other than "Create New Desktop". SEB will quit now.</value>
+    <value>The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the kiosk mode set to another than "Create new desktop". SEB will quit now.</value>
   </data>
 </root>

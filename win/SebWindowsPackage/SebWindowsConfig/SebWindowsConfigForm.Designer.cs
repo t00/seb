@@ -56,7 +56,6 @@
             this.checkBoxEnableAltEsc = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableAltTab = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableAltF4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableStartMenu = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableRightMouse = new System.Windows.Forms.CheckBox();
             this.tabPageRegistry = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
@@ -389,6 +388,7 @@
             this.checkBoxHookKeys.TabIndex = 0;
             this.checkBoxHookKeys.Text = "Hook keys (Win only)";
             this.checkBoxHookKeys.UseVisualStyleBackColor = true;
+            this.checkBoxHookKeys.Visible = false;
             this.checkBoxHookKeys.CheckedChanged += new System.EventHandler(this.checkBoxHookKeys_CheckedChanged);
             // 
             // groupBoxFunctionKeys
@@ -414,6 +414,8 @@
             this.groupBoxFunctionKeys.TabIndex = 41;
             this.groupBoxFunctionKeys.TabStop = false;
             this.groupBoxFunctionKeys.Text = "Function Keys";
+            this.toolTip1.SetToolTip(this.groupBoxFunctionKeys, "Enable or block function keys. This doesn\'t have any effect on the SEB exit seque" +
+        "nce. Depending on specific keyboards some function keys cannot be blocked.");
             // 
             // checkBoxEnableF1
             // 
@@ -579,23 +581,23 @@
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltEsc);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltTab);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableAltF4);
-            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableStartMenu);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableRightMouse);
             this.groupBoxSpecialKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxSpecialKeys.Location = new System.Drawing.Point(15, 15);
             this.groupBoxSpecialKeys.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 220);
+            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 196);
             this.groupBoxSpecialKeys.TabIndex = 39;
             this.groupBoxSpecialKeys.TabStop = false;
             this.groupBoxSpecialKeys.Text = "Special Keys";
+            this.toolTip1.SetToolTip(this.groupBoxSpecialKeys, "Settings to enable or block (hook) keys, key combinations and mouse buttons.");
             // 
             // checkBoxEnablePrintScreen
             // 
             this.checkBoxEnablePrintScreen.AutoSize = true;
             this.checkBoxEnablePrintScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 196);
+            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 170);
             this.checkBoxEnablePrintScreen.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePrintScreen.Name = "checkBoxEnablePrintScreen";
             this.checkBoxEnablePrintScreen.Size = new System.Drawing.Size(117, 17);
@@ -669,24 +671,11 @@
             this.checkBoxEnableAltF4.UseVisualStyleBackColor = true;
             this.checkBoxEnableAltF4.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltF4_CheckedChanged);
             // 
-            // checkBoxEnableStartMenu
-            // 
-            this.checkBoxEnableStartMenu.AutoSize = true;
-            this.checkBoxEnableStartMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableStartMenu.Location = new System.Drawing.Point(8, 146);
-            this.checkBoxEnableStartMenu.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableStartMenu.Name = "checkBoxEnableStartMenu";
-            this.checkBoxEnableStartMenu.Size = new System.Drawing.Size(114, 17);
-            this.checkBoxEnableStartMenu.TabIndex = 5;
-            this.checkBoxEnableStartMenu.Text = "Enable Start Menu";
-            this.checkBoxEnableStartMenu.UseVisualStyleBackColor = true;
-            this.checkBoxEnableStartMenu.CheckedChanged += new System.EventHandler(this.checkBoxEnableStartMenu_CheckedChanged);
-            // 
             // checkBoxEnableRightMouse
             // 
             this.checkBoxEnableRightMouse.AutoSize = true;
             this.checkBoxEnableRightMouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableRightMouse.Location = new System.Drawing.Point(8, 171);
+            this.checkBoxEnableRightMouse.Location = new System.Drawing.Point(8, 145);
             this.checkBoxEnableRightMouse.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableRightMouse.Name = "checkBoxEnableRightMouse";
             this.checkBoxEnableRightMouse.Size = new System.Drawing.Size(122, 17);
@@ -749,6 +738,7 @@
             this.checkBoxInsideSebEnableSwitchUser.Size = new System.Drawing.Size(119, 17);
             this.checkBoxInsideSebEnableSwitchUser.TabIndex = 0;
             this.checkBoxInsideSebEnableSwitchUser.Text = "Enable Switch User";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableSwitchUser, "Activates the button \"Switch User\"");
             this.checkBoxInsideSebEnableSwitchUser.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableSwitchUser.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableSwitchUser_CheckedChanged);
             // 
@@ -762,6 +752,7 @@
             this.checkBoxInsideSebEnableLockThisComputer.Size = new System.Drawing.Size(152, 17);
             this.checkBoxInsideSebEnableLockThisComputer.TabIndex = 1;
             this.checkBoxInsideSebEnableLockThisComputer.Text = "Enable Lock this computer";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableLockThisComputer, "Activates the button \"Lock this computer\"");
             this.checkBoxInsideSebEnableLockThisComputer.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableLockThisComputer.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableLockThisComputer_CheckedChanged);
             // 
@@ -775,6 +766,7 @@
             this.checkBoxInsideSebEnableChangeAPassword.Size = new System.Drawing.Size(156, 17);
             this.checkBoxInsideSebEnableChangeAPassword.TabIndex = 2;
             this.checkBoxInsideSebEnableChangeAPassword.Text = "Enable Change a password";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableChangeAPassword, "Activates the button \"Change a password...\"");
             this.checkBoxInsideSebEnableChangeAPassword.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableChangeAPassword.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableChangeAPassword_CheckedChanged);
             // 
@@ -788,6 +780,7 @@
             this.checkBoxInsideSebEnableStartTaskManager.Size = new System.Drawing.Size(156, 17);
             this.checkBoxInsideSebEnableStartTaskManager.TabIndex = 3;
             this.checkBoxInsideSebEnableStartTaskManager.Text = "Enable Start Task Manager";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableStartTaskManager, "Activates the button \"Start Task Manager\"");
             this.checkBoxInsideSebEnableStartTaskManager.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableStartTaskManager.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableStartTaskManager_CheckedChanged);
             // 
@@ -801,6 +794,7 @@
             this.checkBoxInsideSebEnableLogOff.Size = new System.Drawing.Size(95, 17);
             this.checkBoxInsideSebEnableLogOff.TabIndex = 4;
             this.checkBoxInsideSebEnableLogOff.Text = "Enable Log off";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableLogOff, "Activates the button \"Log off\"");
             this.checkBoxInsideSebEnableLogOff.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableLogOff.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableLogOff_CheckedChanged);
             // 
@@ -814,6 +808,7 @@
             this.checkBoxInsideSebEnableShutDown.Size = new System.Drawing.Size(113, 17);
             this.checkBoxInsideSebEnableShutDown.TabIndex = 5;
             this.checkBoxInsideSebEnableShutDown.Text = "Enable Shut down";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableShutDown, "Activates the button \"Shutdown\"");
             this.checkBoxInsideSebEnableShutDown.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableShutDown.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableShutDown_CheckedChanged);
             // 
@@ -827,6 +822,8 @@
             this.checkBoxInsideSebEnableEaseOfAccess.Size = new System.Drawing.Size(136, 17);
             this.checkBoxInsideSebEnableEaseOfAccess.TabIndex = 6;
             this.checkBoxInsideSebEnableEaseOfAccess.Text = "Enable Ease of Access";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableEaseOfAccess, "Activates the button \"Ease of Access\" in the lower left corner, which offers help" +
+        " e.g. to visually or aurally handicapped persons, like the Magnifier Glass.");
             this.checkBoxInsideSebEnableEaseOfAccess.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableEaseOfAccess.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableEaseOfAccess_CheckedChanged);
             // 
@@ -840,6 +837,8 @@
             this.checkBoxInsideSebEnableVmWareClientShade.Size = new System.Drawing.Size(164, 17);
             this.checkBoxInsideSebEnableVmWareClientShade.TabIndex = 7;
             this.checkBoxInsideSebEnableVmWareClientShade.Text = "Enable VMware Client Shade";
+            this.toolTip1.SetToolTip(this.checkBoxInsideSebEnableVmWareClientShade, "Activates the \"Shade\" bar at the upper edge of a virtual desktop, if existent. If" +
+        " you\'re not using VMware, this setting doesn\'t have any effect.");
             this.checkBoxInsideSebEnableVmWareClientShade.UseVisualStyleBackColor = true;
             this.checkBoxInsideSebEnableVmWareClientShade.CheckedChanged += new System.EventHandler(this.checkBoxInsideSebEnableVmWareClientShade_CheckedChanged);
             // 
@@ -877,6 +876,7 @@
             this.groupBox3.TabIndex = 81;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Kiosk Mode";
+            this.toolTip1.SetToolTip(this.groupBox3, "The kiosk mode setting reflects how the computer is locked down into SEB.");
             // 
             // radioNoKiosMode
             // 
@@ -888,6 +888,8 @@
             this.radioNoKiosMode.TabIndex = 84;
             this.radioNoKiosMode.TabStop = true;
             this.radioNoKiosMode.Text = "None (for debugging only)";
+            this.toolTip1.SetToolTip(this.radioNoKiosMode, "SEB runs without kiosk mode, switching to other applications is possible. Use thi" +
+        "s for debugging purposes only.");
             this.radioNoKiosMode.UseVisualStyleBackColor = true;
             // 
             // radioCreateNewDesktop
@@ -896,10 +898,13 @@
             this.radioCreateNewDesktop.Location = new System.Drawing.Point(18, 17);
             this.radioCreateNewDesktop.Margin = new System.Windows.Forms.Padding(2);
             this.radioCreateNewDesktop.Name = "radioCreateNewDesktop";
-            this.radioCreateNewDesktop.Size = new System.Drawing.Size(122, 17);
+            this.radioCreateNewDesktop.Size = new System.Drawing.Size(120, 17);
             this.radioCreateNewDesktop.TabIndex = 82;
             this.radioCreateNewDesktop.TabStop = true;
-            this.radioCreateNewDesktop.Text = "Create new Desktop";
+            this.radioCreateNewDesktop.Text = "Create new desktop";
+            this.toolTip1.SetToolTip(this.radioCreateNewDesktop, "This kiosk mode may prevent specific third party software to run correctly togeth" +
+        "er with SEB, like some screen recording software or the Windows onscreen keyboar" +
+        "d.");
             this.radioCreateNewDesktop.UseVisualStyleBackColor = true;
             this.radioCreateNewDesktop.CheckedChanged += new System.EventHandler(this.radioCreateNewDesktop_CheckedChanged);
             // 
@@ -913,6 +918,8 @@
             this.radioKillExplorerShell.TabIndex = 83;
             this.radioKillExplorerShell.TabStop = true;
             this.radioKillExplorerShell.Text = "Disable Explorer Shell";
+            this.toolTip1.SetToolTip(this.radioKillExplorerShell, "This kiosk mode is compatible with some screen recording/proctoring software and " +
+        "the Windows onscreen keyboard.");
             this.radioKillExplorerShell.UseVisualStyleBackColor = true;
             this.radioKillExplorerShell.CheckedChanged += new System.EventHandler(this.radioKillExplorerShell_CheckedChanged);
             // 
@@ -923,9 +930,11 @@
             this.checkboxAllowWlan.Location = new System.Drawing.Point(23, 131);
             this.checkboxAllowWlan.Margin = new System.Windows.Forms.Padding(2);
             this.checkboxAllowWlan.Name = "checkboxAllowWlan";
-            this.checkboxAllowWlan.Size = new System.Drawing.Size(172, 17);
+            this.checkboxAllowWlan.Size = new System.Drawing.Size(171, 17);
             this.checkboxAllowWlan.TabIndex = 80;
-            this.checkboxAllowWlan.Text = "Allow WLAN Control (Win only)";
+            this.checkboxAllowWlan.Text = "Enable Wi-Fi control (Win only)";
+            this.toolTip1.SetToolTip(this.checkboxAllowWlan, "The optional control icon in the SEB task bar allows to reconnect to WiFi network" +
+        "s which have previously been connected to (before using SEB).");
             this.checkboxAllowWlan.UseVisualStyleBackColor = true;
             this.checkboxAllowWlan.CheckedChanged += new System.EventHandler(this.checkBoxAllowWlan_CheckedChanged);
             // 
@@ -962,6 +971,7 @@
             this.checkBoxAllowUserSwitching.Size = new System.Drawing.Size(173, 17);
             this.checkBoxAllowUserSwitching.TabIndex = 4;
             this.checkBoxAllowUserSwitching.Text = "Allow user switching (Mac only)";
+            this.toolTip1.SetToolTip(this.checkBoxAllowUserSwitching, "Indicates if fast user switching is allowed.");
             this.checkBoxAllowUserSwitching.UseVisualStyleBackColor = true;
             this.checkBoxAllowUserSwitching.CheckedChanged += new System.EventHandler(this.checkBoxAllowUserSwitching_CheckedChanged);
             // 
@@ -983,6 +993,8 @@
             this.listBoxSebServicePolicy.Name = "listBoxSebServicePolicy";
             this.listBoxSebServicePolicy.Size = new System.Drawing.Size(282, 43);
             this.listBoxSebServicePolicy.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.listBoxSebServicePolicy, "Defines the policy that applies when an exam client doesn\'t have the SEB Service " +
+        "running.");
             this.listBoxSebServicePolicy.SelectedIndexChanged += new System.EventHandler(this.listBoxSebServicePolicy_SelectedIndexChanged);
             // 
             // checkBoxEnableLogging
@@ -1009,6 +1021,8 @@
             this.checkBoxAllowVirtualMachine.Size = new System.Drawing.Size(209, 17);
             this.checkBoxAllowVirtualMachine.TabIndex = 1;
             this.checkBoxAllowVirtualMachine.Text = "Allow SEB to run inside virtual machine";
+            this.toolTip1.SetToolTip(this.checkBoxAllowVirtualMachine, "Indicates if SEB is allowed to run in a virtual machine or not (in order to preve" +
+        "nt potential manipulation).");
             this.checkBoxAllowVirtualMachine.UseVisualStyleBackColor = true;
             this.checkBoxAllowVirtualMachine.CheckedChanged += new System.EventHandler(this.checkBoxAllowVirtualMachine_CheckedChanged);
             // 
@@ -1824,6 +1838,7 @@
             this.textBoxPermittedProcessExecutables.Name = "textBoxPermittedProcessExecutables";
             this.textBoxPermittedProcessExecutables.Size = new System.Drawing.Size(270, 20);
             this.textBoxPermittedProcessExecutables.TabIndex = 90;
+            this.toolTip1.SetToolTip(this.textBoxPermittedProcessExecutables, "Process executable which is actually handling the main window.");
             this.textBoxPermittedProcessExecutables.TextChanged += new System.EventHandler(this.textBoxPermittedProcessExecutables_TextChanged);
             // 
             // checkBoxPermittedProcessStrongKill
@@ -1835,6 +1850,7 @@
             this.checkBoxPermittedProcessStrongKill.Size = new System.Drawing.Size(154, 17);
             this.checkBoxPermittedProcessStrongKill.TabIndex = 13;
             this.checkBoxPermittedProcessStrongKill.Text = "Strong kill (risk of data loss)";
+            this.toolTip1.SetToolTip(this.checkBoxPermittedProcessStrongKill, resources.GetString("checkBoxPermittedProcessStrongKill.ToolTip"));
             this.checkBoxPermittedProcessStrongKill.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessStrongKill.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessStrongKill_CheckedChanged);
             // 
@@ -1864,6 +1880,8 @@
             this.dataGridViewPermittedProcessArguments.RowTemplate.Height = 24;
             this.dataGridViewPermittedProcessArguments.Size = new System.Drawing.Size(429, 47);
             this.dataGridViewPermittedProcessArguments.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.dataGridViewPermittedProcessArguments, "Arguments to append to the executable of the application when starting it. You ca" +
+        "n select if an argument is active or not (for testing).");
             this.dataGridViewPermittedProcessArguments.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPermittedProcessArguments_CellValueChanged);
             this.dataGridViewPermittedProcessArguments.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_CurrentCellDirtyStateChanged);
             this.dataGridViewPermittedProcessArguments.SelectionChanged += new System.EventHandler(this.dataGridViewPermittedProcessArguments_SelectionChanged);
@@ -1897,6 +1915,8 @@
             this.textBoxPermittedProcessIdentifier.Name = "textBoxPermittedProcessIdentifier";
             this.textBoxPermittedProcessIdentifier.Size = new System.Drawing.Size(317, 20);
             this.textBoxPermittedProcessIdentifier.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.textBoxPermittedProcessIdentifier, "Title of the main window of a Java third party application. Mac OS X: Bundle iden" +
+        "tifier of the process in reverse domain notation.");
             this.textBoxPermittedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxPermittedProcessIdentifier_TextChanged);
             // 
             // buttonPermittedProcessRemoveArgument
@@ -1907,6 +1927,7 @@
             this.buttonPermittedProcessRemoveArgument.Size = new System.Drawing.Size(19, 19);
             this.buttonPermittedProcessRemoveArgument.TabIndex = 8;
             this.buttonPermittedProcessRemoveArgument.Text = "-";
+            this.toolTip1.SetToolTip(this.buttonPermittedProcessRemoveArgument, "Remove an argument");
             this.buttonPermittedProcessRemoveArgument.UseVisualStyleBackColor = true;
             this.buttonPermittedProcessRemoveArgument.Click += new System.EventHandler(this.buttonPermittedProcessRemoveArgument_Click);
             // 
@@ -1918,6 +1939,7 @@
             this.buttonPermittedProcessAddArgument.Size = new System.Drawing.Size(22, 19);
             this.buttonPermittedProcessAddArgument.TabIndex = 7;
             this.buttonPermittedProcessAddArgument.Text = "+";
+            this.toolTip1.SetToolTip(this.buttonPermittedProcessAddArgument, "Add an argument");
             this.buttonPermittedProcessAddArgument.UseVisualStyleBackColor = true;
             this.buttonPermittedProcessAddArgument.Click += new System.EventHandler(this.buttonPermittedProcessAddArgument_Click);
             // 
@@ -1949,6 +1971,7 @@
             this.listBoxPermittedProcessOS.Name = "listBoxPermittedProcessOS";
             this.listBoxPermittedProcessOS.Size = new System.Drawing.Size(48, 30);
             this.listBoxPermittedProcessOS.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.listBoxPermittedProcessOS, "Indicates on which operating system the permitted process runs.");
             this.listBoxPermittedProcessOS.SelectedIndexChanged += new System.EventHandler(this.listBoxPermittedProcessOS_SelectedIndexChanged);
             // 
             // labelPermittedProcessExecutable
@@ -1978,6 +2001,7 @@
             this.textBoxPermittedProcessPath.Name = "textBoxPermittedProcessPath";
             this.textBoxPermittedProcessPath.Size = new System.Drawing.Size(430, 20);
             this.textBoxPermittedProcessPath.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxPermittedProcessPath, resources.GetString("textBoxPermittedProcessPath.ToolTip"));
             this.textBoxPermittedProcessPath.TextChanged += new System.EventHandler(this.textBoxPermittedProcessPath_TextChanged);
             // 
             // textBoxPermittedProcessExecutable
@@ -1987,6 +2011,8 @@
             this.textBoxPermittedProcessExecutable.Name = "textBoxPermittedProcessExecutable";
             this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(317, 20);
             this.textBoxPermittedProcessExecutable.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.textBoxPermittedProcessExecutable, "File name of the executable, which should not contain any parts of a file system " +
+        "path, only the filename of the exe file (like calc.exe).");
             this.textBoxPermittedProcessExecutable.TextChanged += new System.EventHandler(this.textBoxPermittedProcessExecutable_TextChanged);
             // 
             // textBoxPermittedProcessDescription
@@ -2028,7 +2054,7 @@
             this.textBoxPermittedProcessTitle.Size = new System.Drawing.Size(317, 20);
             this.textBoxPermittedProcessTitle.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxPermittedProcessTitle, "Application title which is displayed in the application chooser. Background proce" +
-        "sses don’t need to have a title, because they can’t be selected by users.");
+        "sses don’t have a title, because they can’t be selected by users.");
             this.textBoxPermittedProcessTitle.TextChanged += new System.EventHandler(this.textBoxPermittedProcessTitle_TextChanged);
             // 
             // checkBoxPermittedProcessAllowUser
@@ -2040,6 +2066,7 @@
             this.checkBoxPermittedProcessAllowUser.Size = new System.Drawing.Size(223, 17);
             this.checkBoxPermittedProcessAllowUser.TabIndex = 12;
             this.checkBoxPermittedProcessAllowUser.Text = "Allow user to select location of application";
+            this.toolTip1.SetToolTip(this.checkBoxPermittedProcessAllowUser, resources.GetString("checkBoxPermittedProcessAllowUser.ToolTip"));
             this.checkBoxPermittedProcessAllowUser.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessAllowUser.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAllowUser_CheckedChanged);
             // 
@@ -2050,9 +2077,11 @@
             this.checkBoxPermittedProcessAutohide.Location = new System.Drawing.Point(14, 227);
             this.checkBoxPermittedProcessAutohide.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessAutohide.Name = "checkBoxPermittedProcessAutohide";
-            this.checkBoxPermittedProcessAutohide.Size = new System.Drawing.Size(68, 17);
+            this.checkBoxPermittedProcessAutohide.Size = new System.Drawing.Size(117, 17);
             this.checkBoxPermittedProcessAutohide.TabIndex = 11;
-            this.checkBoxPermittedProcessAutohide.Text = "Autohide";
+            this.checkBoxPermittedProcessAutohide.Text = "Run in background";
+            this.toolTip1.SetToolTip(this.checkBoxPermittedProcessAutohide, "Only allow to run the application in background (users cannot switch to it, windo" +
+        "ws will be hidden).");
             this.checkBoxPermittedProcessAutohide.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessAutohide.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAutohide_CheckedChanged);
             // 
@@ -2065,6 +2094,7 @@
             this.checkBoxPermittedProcessAutostart.Size = new System.Drawing.Size(68, 17);
             this.checkBoxPermittedProcessAutostart.TabIndex = 10;
             this.checkBoxPermittedProcessAutostart.Text = "Autostart";
+            this.toolTip1.SetToolTip(this.checkBoxPermittedProcessAutostart, "Start the process automatically together with SEB.");
             this.checkBoxPermittedProcessAutostart.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessAutostart.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAutostart_CheckedChanged);
             // 
@@ -2077,6 +2107,7 @@
             this.checkBoxPermittedProcessActive.Size = new System.Drawing.Size(56, 17);
             this.checkBoxPermittedProcessActive.TabIndex = 0;
             this.checkBoxPermittedProcessActive.Text = "Active";
+            this.toolTip1.SetToolTip(this.checkBoxPermittedProcessActive, "This permitted process item is active.");
             this.checkBoxPermittedProcessActive.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessActive.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessActive_CheckedChanged);
             // 
@@ -2090,9 +2121,9 @@
             this.checkBoxAllowSwitchToApplications.Size = new System.Drawing.Size(248, 17);
             this.checkBoxAllowSwitchToApplications.TabIndex = 0;
             this.checkBoxAllowSwitchToApplications.Text = "Allow switching to third party applications (Mac)";
-            this.toolTip1.SetToolTip(this.checkBoxAllowSwitchToApplications, "Decreases security of the kiosk mode by allowing process switcher (cmd+Tab). The " +
+            this.toolTip1.SetToolTip(this.checkBoxAllowSwitchToApplications, "Decreases security of the kiosk mode by allowing process switcher (Cmd+Tab). The " +
         "blacked out background of SEB also doesn\'t cover some alerts and modal windows i" +
-        "n this mode!");
+        "n this mode.");
             this.checkBoxAllowSwitchToApplications.UseVisualStyleBackColor = true;
             this.checkBoxAllowSwitchToApplications.CheckedChanged += new System.EventHandler(this.checkBoxAllowSwitchToApplications_CheckedChanged);
             // 
@@ -2203,6 +2234,7 @@
             this.labelProhibitedProcessUser.Size = new System.Drawing.Size(29, 13);
             this.labelProhibitedProcessUser.TabIndex = 10;
             this.labelProhibitedProcessUser.Text = "User";
+            this.labelProhibitedProcessUser.Visible = false;
             // 
             // textBoxProhibitedProcessUser
             // 
@@ -2211,6 +2243,8 @@
             this.textBoxProhibitedProcessUser.Name = "textBoxProhibitedProcessUser";
             this.textBoxProhibitedProcessUser.Size = new System.Drawing.Size(338, 20);
             this.textBoxProhibitedProcessUser.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxProhibitedProcessUser, resources.GetString("textBoxProhibitedProcessUser.ToolTip"));
+            this.textBoxProhibitedProcessUser.Visible = false;
             this.textBoxProhibitedProcessUser.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessUser_TextChanged);
             // 
             // textBoxProhibitedProcessIdentifier
@@ -2220,6 +2254,8 @@
             this.textBoxProhibitedProcessIdentifier.Name = "textBoxProhibitedProcessIdentifier";
             this.textBoxProhibitedProcessIdentifier.Size = new System.Drawing.Size(338, 20);
             this.textBoxProhibitedProcessIdentifier.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.textBoxProhibitedProcessIdentifier, "Title of the main window of a Java third party application. Mac OS X: Bundle iden" +
+        "tifier of the process in reverse domain notation.");
             this.textBoxProhibitedProcessIdentifier.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessIdentifier_TextChanged);
             // 
             // textBoxProhibitedProcessDescription
@@ -2229,6 +2265,8 @@
             this.textBoxProhibitedProcessDescription.Name = "textBoxProhibitedProcessDescription";
             this.textBoxProhibitedProcessDescription.Size = new System.Drawing.Size(430, 20);
             this.textBoxProhibitedProcessDescription.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.textBoxProhibitedProcessDescription, "Optional, should explain what kind of process this is, because this might not be " +
+        "obvious only from the executable\'s name.");
             this.textBoxProhibitedProcessDescription.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessDescription_TextChanged);
             // 
             // labelProhibitedProcessDescription
@@ -2258,6 +2296,8 @@
             this.textBoxProhibitedProcessExecutable.Name = "textBoxProhibitedProcessExecutable";
             this.textBoxProhibitedProcessExecutable.Size = new System.Drawing.Size(338, 20);
             this.textBoxProhibitedProcessExecutable.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxProhibitedProcessExecutable, "File name of the executable, which should not contain any parts of a file system " +
+        "path, only the filename of the exe file (like calc.exe).");
             this.textBoxProhibitedProcessExecutable.TextChanged += new System.EventHandler(this.textBoxProhibitedProcessExecutable_TextChanged);
             // 
             // checkBoxProhibitedProcessStrongKill
@@ -2269,6 +2309,7 @@
             this.checkBoxProhibitedProcessStrongKill.Size = new System.Drawing.Size(154, 17);
             this.checkBoxProhibitedProcessStrongKill.TabIndex = 7;
             this.checkBoxProhibitedProcessStrongKill.Text = "Strong kill (risk of data loss)";
+            this.toolTip1.SetToolTip(this.checkBoxProhibitedProcessStrongKill, resources.GetString("checkBoxProhibitedProcessStrongKill.ToolTip"));
             this.checkBoxProhibitedProcessStrongKill.UseVisualStyleBackColor = true;
             this.checkBoxProhibitedProcessStrongKill.CheckedChanged += new System.EventHandler(this.checkBoxProhibitedProcessStrongKill_CheckedChanged);
             // 
@@ -2281,7 +2322,10 @@
             this.checkBoxProhibitedProcessCurrentUser.Size = new System.Drawing.Size(83, 17);
             this.checkBoxProhibitedProcessCurrentUser.TabIndex = 6;
             this.checkBoxProhibitedProcessCurrentUser.Text = "Current user";
+            this.toolTip1.SetToolTip(this.checkBoxProhibitedProcessCurrentUser, "indicating that the prohibited process has to run under the currently logged in u" +
+        "ser. Use it instead of indicating the user name.");
             this.checkBoxProhibitedProcessCurrentUser.UseVisualStyleBackColor = true;
+            this.checkBoxProhibitedProcessCurrentUser.Visible = false;
             this.checkBoxProhibitedProcessCurrentUser.CheckedChanged += new System.EventHandler(this.checkBoxProhibitedProcessCurrentUser_CheckedChanged);
             // 
             // checkBoxProhibitedProcessActive
@@ -2293,6 +2337,7 @@
             this.checkBoxProhibitedProcessActive.Size = new System.Drawing.Size(56, 17);
             this.checkBoxProhibitedProcessActive.TabIndex = 0;
             this.checkBoxProhibitedProcessActive.Text = "Active";
+            this.toolTip1.SetToolTip(this.checkBoxProhibitedProcessActive, "Indicates if this prohibited process item is active.");
             this.checkBoxProhibitedProcessActive.UseVisualStyleBackColor = true;
             this.checkBoxProhibitedProcessActive.CheckedChanged += new System.EventHandler(this.checkBoxProhibitedProcessActive_CheckedChanged);
             // 
@@ -2618,7 +2663,7 @@
             this.checkBoxOpenDownloads.TabIndex = 1;
             this.checkBoxOpenDownloads.Text = "Open files after downloading (Mac)";
             this.toolTip1.SetToolTip(this.checkBoxOpenDownloads, "Downloaded files will be opened with the according application, which has to be s" +
-        "et correctly in the system for each used file type! ");
+        "et correctly in the system for each used file type. ");
             this.checkBoxOpenDownloads.UseVisualStyleBackColor = true;
             this.checkBoxOpenDownloads.CheckedChanged += new System.EventHandler(this.checkBoxOpenDownloads_CheckedChanged);
             // 
@@ -2632,7 +2677,8 @@
             this.checkBoxAllowDownUploads.Size = new System.Drawing.Size(235, 17);
             this.checkBoxAllowDownUploads.TabIndex = 71;
             this.checkBoxAllowDownUploads.Text = "Allow downloading and uploading files (Mac)";
-            this.toolTip1.SetToolTip(this.checkBoxAllowDownUploads, "Usually to be used when switching to third party applications is enabled.");
+            this.toolTip1.SetToolTip(this.checkBoxAllowDownUploads, "Usually to be used with permitted third party applications for which you want to " +
+        "provide files to be downloaded.");
             this.checkBoxAllowDownUploads.UseVisualStyleBackColor = true;
             this.checkBoxAllowDownUploads.CheckedChanged += new System.EventHandler(this.checkBoxAllowDownUploads_CheckedChanged);
             // 
@@ -2791,8 +2837,8 @@
             this.checkBoxBlockLinksJava.Size = new System.Drawing.Size(218, 17);
             this.checkBoxBlockLinksJava.TabIndex = 3;
             this.checkBoxBlockLinksJava.Text = "block when directing to a different server";
-            this.toolTip1.SetToolTip(this.checkBoxBlockLinksJava, "Hyperlinks which direct to a different host than the one of the current main page" +
-        " will be ignored.");
+            this.toolTip1.SetToolTip(this.checkBoxBlockLinksJava, "USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a differ" +
+        "ent host than the one of the current main page will be ignored.");
             this.checkBoxBlockLinksJava.UseVisualStyleBackColor = true;
             this.checkBoxBlockLinksJava.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksJava_CheckedChanged);
             // 
@@ -3055,7 +3101,7 @@
             this.checkBoxShowTaskBar.Size = new System.Drawing.Size(118, 17);
             this.checkBoxShowTaskBar.TabIndex = 5;
             this.checkBoxShowTaskBar.Text = "Show SEB task bar";
-            this.toolTip1.SetToolTip(this.checkBoxShowTaskBar, "Usually to be used when switching to third party applications is enabled.");
+            this.toolTip1.SetToolTip(this.checkBoxShowTaskBar, "Usually to be used when you permitt third party applications.");
             this.checkBoxShowTaskBar.UseVisualStyleBackColor = true;
             this.checkBoxShowTaskBar.CheckedChanged += new System.EventHandler(this.checkBoxShowTaskBar_CheckedChanged);
             // 
@@ -3068,7 +3114,7 @@
             this.checkBoxShowMenuBar.Size = new System.Drawing.Size(130, 17);
             this.checkBoxShowMenuBar.TabIndex = 4;
             this.checkBoxShowMenuBar.Text = "Show menu bar (Mac)";
-            this.toolTip1.SetToolTip(this.checkBoxShowMenuBar, "Show the OS X menu bar to make settings like Wi-Fi accessible.");
+            this.toolTip1.SetToolTip(this.checkBoxShowMenuBar, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
             this.checkBoxShowMenuBar.UseVisualStyleBackColor = true;
             this.checkBoxShowMenuBar.CheckedChanged += new System.EventHandler(this.checkBoxShowMenuBar_CheckedChanged);
             // 
@@ -3095,8 +3141,8 @@
             this.checkBoxEnableBrowserWindowToolbar.Size = new System.Drawing.Size(203, 17);
             this.checkBoxEnableBrowserWindowToolbar.TabIndex = 2;
             this.checkBoxEnableBrowserWindowToolbar.Text = "Enable browser window toolbar (Mac)";
-            this.toolTip1.SetToolTip(this.checkBoxEnableBrowserWindowToolbar, "Indicaties if a toolbar is displayed on top of the browser window which can also " +
-        "be hidden by the user.");
+            this.toolTip1.SetToolTip(this.checkBoxEnableBrowserWindowToolbar, "Displays a toolbar on top of the browser window which can also be hidden by the u" +
+        "ser.");
             this.checkBoxEnableBrowserWindowToolbar.UseVisualStyleBackColor = true;
             this.checkBoxEnableBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxEnableBrowserWindowToolbar_CheckedChanged);
             // 
@@ -3258,7 +3304,7 @@
             this.textBoxConfirmSettingsPassword.PasswordChar = '●';
             this.textBoxConfirmSettingsPassword.Size = new System.Drawing.Size(174, 19);
             this.textBoxConfirmSettingsPassword.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.textBoxConfirmSettingsPassword, "Retype the settings password.");
+            this.toolTip1.SetToolTip(this.textBoxConfirmSettingsPassword, "Retype the settings password");
             this.textBoxConfirmSettingsPassword.WordWrap = false;
             this.textBoxConfirmSettingsPassword.TextChanged += new System.EventHandler(this.textBoxConfirmSettingsPassword_TextChanged);
             // 
@@ -3395,6 +3441,9 @@
             this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
             this.checkBoxIgnoreExitKeys.TabIndex = 8;
             this.checkBoxIgnoreExitKeys.Text = "Ignore exit keys";
+            this.toolTip1.SetToolTip(this.checkBoxIgnoreExitKeys, "SEB ignores the exit keys and can only be quit manually by entering the quit pass" +
+        "word (click Quit button in SEB taskbar, press Ctrl-Q or click the main browser w" +
+        "indow close button).");
             this.checkBoxIgnoreExitKeys.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreExitKeys.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreExitKeys_CheckedChanged);
             // 
@@ -3527,7 +3576,7 @@
             this.textBoxConfirmAdminPassword.PasswordChar = '●';
             this.textBoxConfirmAdminPassword.Size = new System.Drawing.Size(174, 19);
             this.textBoxConfirmAdminPassword.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.textBoxConfirmAdminPassword, "Retype the administrator password.");
+            this.toolTip1.SetToolTip(this.textBoxConfirmAdminPassword, "Retype the administrator password");
             this.textBoxConfirmAdminPassword.WordWrap = false;
             this.textBoxConfirmAdminPassword.TextChanged += new System.EventHandler(this.textBoxConfirmAdminPassword_TextChanged);
             // 
@@ -3554,7 +3603,7 @@
             this.textBoxConfirmQuitPassword.PasswordChar = '●';
             this.textBoxConfirmQuitPassword.Size = new System.Drawing.Size(174, 19);
             this.textBoxConfirmQuitPassword.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.textBoxConfirmQuitPassword, "Retype the quit password.");
+            this.toolTip1.SetToolTip(this.textBoxConfirmQuitPassword, "Retype the quit password");
             this.textBoxConfirmQuitPassword.WordWrap = false;
             this.textBoxConfirmQuitPassword.TextChanged += new System.EventHandler(this.textBoxConfirmQuitPassword_TextChanged);
             // 
@@ -3798,7 +3847,6 @@
         private System.Windows.Forms.CheckBox checkBoxEnableAltEsc;
         private System.Windows.Forms.CheckBox checkBoxEnableAltTab;
         private System.Windows.Forms.CheckBox checkBoxEnableAltF4;
-        private System.Windows.Forms.CheckBox checkBoxEnableStartMenu;
         private System.Windows.Forms.CheckBox checkBoxEnableRightMouse;
         private System.Windows.Forms.TabPage tabPageRegistry;
         private System.Windows.Forms.GroupBox groupBoxInsideSeb;

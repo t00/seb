@@ -457,7 +457,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Local settings have been reconfigured, but SEB needs to be restarted for the changed &quot;Create New Desktop&quot; setting to take effect. SEB will quit now, please restart it manually..
+        ///   Looks up a localized string similar to Local settings have been reconfigured, but SEB needs to be restarted for the changed &quot;Create new desktop&quot; setting to take effect. SEB will quit now, please restart it manually..
         /// </summary>
         internal static string sebReconfiguredRestartNeededReason {
             get {
@@ -484,7 +484,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings Require New Desktop.
+        ///   Looks up a localized string similar to Settings Require New Desktop Kiosk Mode.
         /// </summary>
         internal static string settingsRequireNewDesktop {
             get {
@@ -493,7 +493,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the &quot;Create New Desktop&quot; parameter set. SEB will quit now..
+        ///   Looks up a localized string similar to The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the &quot;Create new desktop&quot; kiosk mode. SEB will quit now..
         /// </summary>
         internal static string settingsRequireNewDesktopReason {
             get {
@@ -502,7 +502,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings Require standard Desktop.
+        ///   Looks up a localized string similar to Settings Require Standard Desktop.
         /// </summary>
         internal static string settingsRequireNotNewDesktop {
             get {
@@ -511,7 +511,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the Kiosk mode set to something other than &quot;Create New Desktop&quot;. SEB will quit now..
+        ///   Looks up a localized string similar to The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the kiosk mode set to another than &quot;Create new desktop&quot;. SEB will quit now..
         /// </summary>
         internal static string settingsRequireNotNewDesktopReason {
             get {

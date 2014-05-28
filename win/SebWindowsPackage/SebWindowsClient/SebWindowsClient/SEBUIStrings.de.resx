@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="certificateNotFoundInStore" xml:space="preserve">
-    <value>Das zum Entschlüsseln der Einstellungen notwendige Zertifikat wurde nicht im Windows Zertifikatsspeicher gefunden.</value>
+    <value>Das zum Entschlüsseln der Einstellungen notwendige Zertifikat wurde nicht im Windows-Zertifikatsspeicher gefunden.</value>
   </data>
   <data name="closeProcesses" xml:space="preserve">
     <value>Zugelassene Prozesse laufen bereits</value>
@@ -217,7 +217,7 @@
     <value>Drittapplikation nicht gefunden</value>
   </data>
   <data name="permittedApplicationNotFoundMessage" xml:space="preserve">
-    <value>Die zugelassene Applikation %s wurde auf diesem System nicht gefunden. Wenn in den Prüfungseinstellungen kein exakter Dateipfad angegeben ist, kann SEB Applikationen im Programme oder Windows Systemverzeichnis finden, und solche, die im System registriert sind.</value>
+    <value>Die zugelassene Applikation %s wurde auf diesem System nicht gefunden. Wenn in den Prüfungseinstellungen kein exakter Dateipfad angegeben ist, kann SEB Applikationen im Programme- oder Windows-Systemverzeichnis finden, und solche, die im System registriert sind.</value>
   </data>
   <data name="quittingFailed" xml:space="preserve">
     <value>Beenden von SEB fehlgeschlagen: Falsches Passwort</value>
@@ -256,18 +256,18 @@
     <value>Öffnen der neuen Einstellungen fehlgeschlagen</value>
   </data>
   <data name="settingsNotUsableReason" xml:space="preserve">
-    <value>Diese Einstellungen können nicht benutzt werden. Sie wurden möglicherweise mit einer neueren, inkompatiblen Version von SEB erstellt oder sie sind beschädigt.</value>
+    <value>Diese Einstellungen können nicht benutzt werden. Sie wurden möglicherweise mit einer neueren, inkompatiblen Version von SEB erstellt oder sind beschädigt.</value>
   </data>
   <data name="settingsRequireNewDesktop" xml:space="preserve">
-    <value>Einstellungen verlangen neuen Desktop</value>
+    <value>Einstellungen verlangen "Create new desktop"-Kiosk-Modus</value>
   </data>
   <data name="settingsRequireNewDesktopReason" xml:space="preserve">
-    <value>Die geöffneten Prüfungseinstellungen verlangen das Öffnen eines neuen Desktops, aber momentan läuf SEB auf dem Standard-Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern ("Create New Desktop"-Parameter gesetzt). SEB wird jetzt beendet.</value>
+    <value>Die geöffneten Prüfungseinstellungen verlangen das Öffnen eines neuen Desktops, aber momentan läuf SEB auf dem Standard-Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern (Kiosk-Modus "Create new desktop"). SEB wird jetzt beendet.</value>
   </data>
   <data name="settingsRequireNotNewDesktop" xml:space="preserve">
-    <value>Einstellungen verlangen den standard Desktop</value>
+    <value>Einstellungen verlangen den Standard-Desktop</value>
   </data>
   <data name="settingsRequireNotNewDesktopReason" xml:space="preserve">
-    <value>Die geöffneten Prüfungseinstellungen verlangen den standard Desktops, aber momentan läuf SEB auf einem neuen Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern: Kiosk-Modus darf nicht auf "Create New Desktop" sein. SEB wird jetzt beendet.</value>
+    <value>Die geöffneten Prüfungseinstellungen verlangen den Standard-Desktop, aber momentan läuf SEB auf einem neuen Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern: Kiosk-Modus darf nicht auf "Create new desktop" gesetzt sein. SEB wird jetzt beendet.</value>
   </data>
 </root>
