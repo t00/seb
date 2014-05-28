@@ -246,14 +246,14 @@ namespace SebWindowsClient
                 Logger.AddInformation("Succesfully read the new configuration");
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
                 Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
-                var loading = new SEBLoading();
-                loading.Show();
+                //var loading = new SEBLoading();
+                //loading.Show();
                 if (!SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings) && !SEBXULRunnerWebSocketServer.Started)
                 {
                     Logger.AddInformation("StoreDecryptedSettings returned false, this means the password was wrong or something with the new settings is wrong, exiting");
                     Application.Exit();
                 }
-                loading.Close();
+                //loading.Close();
                 Logger.AddInformation("Successfully StoreDecryptedSEBSettings");
                 SebWindowsClientMain.LoadingSebFile(false);
             }
