@@ -143,6 +143,7 @@ namespace SebWindowsClient
                     Logger.AddError("Unable to InitSebSettings",null, ex);
                 }
                 var splashScreen = new SEBLoading();
+                var time = DateTime.Now;
                 try
                 {
                     InitSEBDesktop();
@@ -151,13 +152,20 @@ namespace SebWindowsClient
                 {
 
                     Logger.AddInformation("Unable to InitSEBDesktop");
-                }
+                }                
+
                 
+
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
                 singleInstanceController = new SingleInstanceController();
 
+                while (DateTime.Now - time < new TimeSpan(0, 0, 3))
+                {
+                    splashScreen.Progress();
+                }
                 splashScreen.Close();
+                Application.DoEvents();
 
                 singleInstanceController.Run(arguments);
             }

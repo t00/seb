@@ -343,7 +343,8 @@ namespace SebWindowsClient.ProcessUtils
                     {
                         //If you want to minimize the window you have to wait for it to show up
                         if (action == ShowWindowCommand.SW_SHOWMINIMIZED && waitForShowingUp)
-                            Thread.Sleep(500);
+                            SEBProcessHandler.Sleep(500);
+                            //Thread.Sleep(500);
                         if (!ShowWindowAsync(windowHandle, (int)action))
                         {
                             //If ShowWindowAsync failes (attention: it returns a value != zero if the state has been changed, if the state has remained unchained it returns false)

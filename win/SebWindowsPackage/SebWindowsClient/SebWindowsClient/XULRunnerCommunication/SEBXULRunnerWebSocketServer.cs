@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows;
 using Fleck;
 using SebWindowsClient.DiagnosticsUtils;
+using SebWindowsClient.ProcessUtils;
 
 namespace SebWindowsClient.XULRunnerCommunication
 {
@@ -77,8 +78,8 @@ namespace SebWindowsClient.XULRunnerCommunication
                     if (!IsRunning)
                         break;
 
-                    loading.Progress();
-                    Thread.Sleep(1000);
+                    SEBProcessHandler.Sleep(500);
+                    //Thread.Sleep(500);
                 }
                 loading.Close();
                 if (IsRunning)

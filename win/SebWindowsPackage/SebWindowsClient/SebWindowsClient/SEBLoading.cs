@@ -12,32 +12,41 @@ namespace SebWindowsClient
 {
     public partial class SEBLoading : Form
     {
+        private DateTime lastUpdate;
+
         public SEBLoading()
         {
             InitializeComponent();
 
             this.Show();
-            this.Refresh();
-        }
+            Application.DoEvents();
 
+            lastUpdate = DateTime.Now;
+        }
+        
         public void Progress()
         {
-            switch (lblLoading.Text)
+            if (DateTime.Now - lastUpdate > new TimeSpan(0, 0, 0, 0, 200))
             {
-                case "Loading":
-                    lblLoading.Text = "Loading .";
-                    break;
-                case "Loading .":
-                    lblLoading.Text = "Loading ..";
-                    break;
-                case "Loading ..":
-                    lblLoading.Text = "Loading ...";
-                    break;
-                default:
-                    lblLoading.Text = "Loading";
-                    break;
+                switch (lblLoading.Text)
+                {
+                    case "Loading":
+                        lblLoading.Text = "Loading .";
+                        break;
+                    case "Loading .":
+                        lblLoading.Text = "Loading ..";
+                        break;
+                    case "Loading ..":
+                        lblLoading.Text = "Loading ...";
+                        break;
+                    default:
+                        lblLoading.Text = "Loading";
+                        break;
+                }
+                this.lblLoading.Refresh();
+                //Application.DoEvents();
+                lastUpdate = DateTime.Now;
             }
-            this.Refresh();
         }
     }
 }

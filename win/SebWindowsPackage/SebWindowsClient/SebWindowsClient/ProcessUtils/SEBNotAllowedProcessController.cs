@@ -73,7 +73,8 @@ namespace SebWindowsClient.ProcessUtils
                                 Console.WriteLine("Physical Memory Usage: "
                                                         + processToClosse.WorkingSet64.ToString());
                                 // Wait 2 seconds.
-                                Thread.Sleep(2000);
+                                SEBProcessHandler.Sleep(2000);
+                                //Thread.Sleep(2000);
                             }
                             else
                             {
@@ -130,7 +131,8 @@ namespace SebWindowsClient.ProcessUtils
                                         {
                                             Logger.AddError("Process " + name + " hasn't exited by closing its main window, wait up to one more second and check again.", null, null);
                                             //Thread.Sleep(1000);
-                                            processToClose.WaitForExit(1000);
+                                            SEBProcessHandler.Sleep(1000);
+                                            //processToClose.WaitForExit(1000);
                                         }
                                         else
                                         {
@@ -159,7 +161,8 @@ namespace SebWindowsClient.ProcessUtils
                                         //Thread.Sleep(1000);
                                         try
                                         {
-                                            processToClose.WaitForExit(1000);
+                                            SEBProcessHandler.Sleep(1000);
+                                            //processToClose.WaitForExit(1000);
                                         }
                                         catch (Exception ex)
                                         {
