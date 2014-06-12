@@ -120,6 +120,7 @@ namespace SebWindowsConfig
             // Check if we got a certificate reference used to encrypt the openend settings back
             if (fileCertificateRef != null)
             {
+                comboBoxCryptoIdentity.SelectedIndex = 0;
                 int indexOfCertificateRef = certificateReferences.IndexOf(fileCertificateRef);
                 // Find this certificate reference in the list of all certificates from the certificate store
                 // if found (this should always be the case), select that certificate in the comboBox list

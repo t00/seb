@@ -53,7 +53,10 @@ namespace SebWindowsClient.CryptographyUtils
             foreach (X509Certificate2 x509Certificate in store.Certificates)
             {
                 certificates.Add(x509Certificate);
-                certificateNames.Add(x509Certificate.FriendlyName);
+                if(!String.IsNullOrWhiteSpace(x509Certificate.FriendlyName))
+                    certificateNames.Add(x509Certificate.FriendlyName);
+                else if (!String.IsNullOrWhiteSpace(x509Certificate.SerialNumber))
+                    certificateNames.Add(x509Certificate.SerialNumber);
             }
 
             //Close the store.
@@ -84,6 +87,7 @@ namespace SebWindowsClient.CryptographyUtils
                 if (certificateHash.SequenceEqual(publicKeyHash))
                 {
                     sebCertificate = x509Certificate;
+                    break;
                 }
             }
 
