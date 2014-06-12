@@ -17,6 +17,11 @@ namespace SebWindowsClient
         {
             InitializeComponent();
 
+            this.Click += KillMe;
+            this.pictureBox1.Click += KillMe;
+            this.textBox1.Click += KillMe;
+            this.lblLoading.Click += KillMe;
+
             var t = new Timer {Interval = 200};
             t.Tick += (sender, args) => Progress();
             t.Start();

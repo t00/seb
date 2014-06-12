@@ -279,11 +279,16 @@ namespace SebWindowsClient
         {
             if (splash == null)
                 return;
-
-            // Shut down the splash screen
-            splash.Invoke(new EventHandler(splash.KillMe));
-            splash.Dispose();
-            splash = null;
+            try
+            {
+                // Shut down the splash screen
+                splash.Invoke(new EventHandler(splash.KillMe));
+                splash.Dispose();
+                splash = null;
+            }
+            catch (Exception)
+            {}
+            
         }
 
 
