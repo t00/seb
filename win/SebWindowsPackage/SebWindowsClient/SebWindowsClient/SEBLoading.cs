@@ -17,8 +17,6 @@ namespace SebWindowsClient
         {
             InitializeComponent();
 
-            this.TopMost = true;
-
             var t = new Timer {Interval = 200};
             t.Tick += (sender, args) => Progress();
             t.Start();
