@@ -9,7 +9,6 @@ using System.Threading;
 using System.Windows;
 using Fleck;
 using SebWindowsClient.DiagnosticsUtils;
-using SebWindowsClient.ProcessUtils;
 
 namespace SebWindowsClient.XULRunnerCommunication
 {
@@ -72,16 +71,12 @@ namespace SebWindowsClient.XULRunnerCommunication
 
             if (IsRunning)
             {
-                var loading = new SEBLoading();
                 for (int i = 0; i < 60; i++)
                 {
                     if (!IsRunning)
                         break;
-
-                    SEBProcessHandler.Sleep(500);
-                    //Thread.Sleep(500);
+                    Thread.Sleep(1000);
                 }
-                loading.Close();
                 if (IsRunning)
                     MessageBox.Show(
                         "Your TCP port 8706 is blocked. SEB uses this port to communicate with the browser. Although SEB is working without this, full functionality is not guaranteed");

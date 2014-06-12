@@ -121,6 +121,8 @@ namespace SebWindowsClient
         private volatile static bool _loadingSebFile = false;
         public static bool clientSettingsSet { get; set; }
 
+        public static SEBLoading splash;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -142,8 +144,9 @@ namespace SebWindowsClient
                 {
                     Logger.AddError("Unable to InitSebSettings",null, ex);
                 }
-                var splashScreen = new SEBLoading();
-                var time = DateTime.Now;
+                var splashThread = new Thread(new ThreadStart(StartSplash));
+                //var startTime = DateTime.Now;
+                splashThread.Start();
                 try
                 {
                     InitSEBDesktop();
@@ -152,20 +155,16 @@ namespace SebWindowsClient
                 {
 
                     Logger.AddInformation("Unable to InitSEBDesktop");
-                }                
-
+                }
                 
-
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
                 singleInstanceController = new SingleInstanceController();
 
-                while (DateTime.Now - time < new TimeSpan(0, 0, 3))
-                {
-                    splashScreen.Progress();
-                }
-                splashScreen.Close();
-                Application.DoEvents();
+                //while(DateTime.Now - startTime < new TimeSpan(0,0,5))
+                //    Thread.Sleep(1000);
+
+                CloseSplash();
 
                 singleInstanceController.Run(arguments);
             }
@@ -183,6 +182,29 @@ namespace SebWindowsClient
                 singleInstanceController = new SingleInstanceController();
                 singleInstanceController.Run(arguments);
             }
+        }
+
+        static public void StartSplash()
+        {
+            //Set the threads desktop to the new desktop if "Create new Desktop" is activated
+            if((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+                SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
+
+            // Instance a splash form given the image names
+            splash = new SEBLoading();
+            // Run the form
+            Application.Run(splash);
+        }
+
+        private static void CloseSplash()
+        {
+            if (splash == null)
+                return;
+
+            // Shut down the splash screen
+            splash.Invoke(new EventHandler(splash.KillMe));
+            splash.Dispose();
+            splash = null;
         }
 
         /// <summary>

@@ -108,6 +108,8 @@ namespace SebWindowsClient
         private List<Process> runningProcessesToClose = new List<Process>();
         private List<string> runningApplicationsToClose = new List<string>();
 
+        public static SEBLoading splash;
+
         //public OpenFileDialog openFileDialog;
 
         /// ----------------------------------------------------------------------------------------
@@ -130,6 +132,7 @@ namespace SebWindowsClient
             {
                 Logger.AddError("Unable to PreventSleep", null, ex);
             }
+            
         }
 
         private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
@@ -245,17 +248,42 @@ namespace SebWindowsClient
                 Logger.AddInformation("Succesfully read the new configuration");
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
                 Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
-                var loading = new SEBLoading();
-                loading.Show();
+                var splashThread = new Thread(new ThreadStart(StartSplash));
+                splashThread.Start();
+
                 if (!SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings) && !SEBXULRunnerWebSocketServer.Started)
                 {
                     Logger.AddInformation("StoreDecryptedSettings returned false, this means the password was wrong or something with the new settings is wrong, exiting");
                     Application.Exit();
                 }
-                loading.Close();
+                CloseSplash();
+
                 Logger.AddInformation("Successfully StoreDecryptedSEBSettings");
                 SebWindowsClientMain.LoadingSebFile(false);
             }
+        }
+
+        static public void StartSplash()
+        {
+            //Set the threads desktop to the new desktop if "Create new Desktop" is activated
+            if((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+                SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
+
+            // Instance a splash form given the image names
+            splash = new SEBLoading();
+            // Run the form
+            Application.Run(splash);
+        }
+
+        private static void CloseSplash()
+        {
+            if (splash == null)
+                return;
+
+            // Shut down the splash screen
+            splash.Invoke(new EventHandler(splash.KillMe));
+            splash.Dispose();
+            splash = null;
         }
 
 
@@ -1340,7 +1368,6 @@ namespace SebWindowsClient
         public void CloseSEBForm()
         {
             {
-                this.Enabled = false;
                 //bool bQuit = false;
                 //bQuit = CheckQuitPassword();
                 SEBXULRunnerWebSocketServer.SendAllowCloseToXulRunner();

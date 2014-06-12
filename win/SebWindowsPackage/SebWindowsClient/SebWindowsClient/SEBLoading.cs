@@ -7,46 +7,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Ink;
 
 namespace SebWindowsClient
 {
     public partial class SEBLoading : Form
     {
-        private DateTime lastUpdate;
-
         public SEBLoading()
         {
             InitializeComponent();
 
-            this.Show();
-            Application.DoEvents();
+            this.TopMost = true;
 
-            lastUpdate = DateTime.Now;
+            var t = new Timer {Interval = 200};
+            t.Tick += (sender, args) => Progress();
+            t.Start();
         }
-        
+
         public void Progress()
         {
-            if (DateTime.Now - lastUpdate > new TimeSpan(0, 0, 0, 0, 200))
+            switch (lblLoading.Text)
             {
-                switch (lblLoading.Text)
-                {
-                    case "Loading":
-                        lblLoading.Text = "Loading .";
-                        break;
-                    case "Loading .":
-                        lblLoading.Text = "Loading ..";
-                        break;
-                    case "Loading ..":
-                        lblLoading.Text = "Loading ...";
-                        break;
-                    default:
-                        lblLoading.Text = "Loading";
-                        break;
-                }
-                this.lblLoading.Refresh();
-                //Application.DoEvents();
-                lastUpdate = DateTime.Now;
+                case "Loading":
+                    lblLoading.Text = "Loading .";
+                    break;
+                case "Loading .":
+                    lblLoading.Text = "Loading ..";
+                    break;
+                case "Loading ..":
+                    lblLoading.Text = "Loading ...";
+                    break;
+                default:
+                    lblLoading.Text = "Loading";
+                    break;
             }
+        }
+
+        public void KillMe(object o, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

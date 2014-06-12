@@ -88,13 +88,11 @@ namespace SebWindowsClient.ProcessUtils
                 {
                     if (FindWindow("Shell_TrayWnd", null) != IntPtr.Zero)
                         break;
-                    SEBProcessHandler.Sleep(1000);
-                    //Thread.Sleep(1000);
+                    Thread.Sleep(1000);
                 }
                 //Sleep six seconds to get the explorer running
                 if(waitForStartup)
-                    SEBProcessHandler.Sleep(6000);
-                    //Thread.Sleep(6000);
+                    Thread.Sleep(6000);
             }
         }
 
@@ -115,8 +113,7 @@ namespace SebWindowsClient.ProcessUtils
                     //Wait until the explorer shell has been killed
                     while (FindWindow("Shell_TrayWnd", null) != IntPtr.Zero)
                     {
-                        SEBProcessHandler.Sleep(500);
-                        //Thread.Sleep(500);
+                        Thread.Sleep(500);
                     }
                 }
                 return true;
@@ -125,17 +122,6 @@ namespace SebWindowsClient.ProcessUtils
             {
                 Logger.AddInformation("{0} {1}", ex.Message, null, null);
                 return false;
-            }
-        }
-
-        public static void Sleep(int miliseconds)
-        {
-            var startTime = DateTime.Now;
-            var waitingTime = new TimeSpan(0, 0, 0, 0, miliseconds);
-            while (DateTime.Now - startTime < waitingTime)
-            {
-                Application.DoEvents();
-                //Do nothing
             }
         }
 
