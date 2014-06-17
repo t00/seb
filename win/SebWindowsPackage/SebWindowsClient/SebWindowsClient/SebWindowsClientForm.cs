@@ -249,6 +249,7 @@ namespace SebWindowsClient
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
                 Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
                 var splashThread = new Thread(new ThreadStart(StartSplash));
+                var startTime = DateTime.Now;
                 splashThread.Start();
 
                 if (!SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings) && !SEBXULRunnerWebSocketServer.Started)
@@ -256,6 +257,8 @@ namespace SebWindowsClient
                     Logger.AddInformation("StoreDecryptedSettings returned false, this means the password was wrong or something with the new settings is wrong, exiting");
                     Application.Exit();
                 }
+                while (DateTime.Now - startTime < new TimeSpan(0, 0, 3))
+                    Thread.Sleep(1000);
                 CloseSplash();
 
                 Logger.AddInformation("Successfully StoreDecryptedSEBSettings");

@@ -145,7 +145,7 @@ namespace SebWindowsClient
                     Logger.AddError("Unable to InitSebSettings",null, ex);
                 }
                 var splashThread = new Thread(new ThreadStart(StartSplash));
-                //var startTime = DateTime.Now;
+                var startTime = DateTime.Now;
                 splashThread.Start();
                 try
                 {
@@ -161,8 +161,8 @@ namespace SebWindowsClient
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
                 singleInstanceController = new SingleInstanceController();
 
-                //while(DateTime.Now - startTime < new TimeSpan(0,0,5))
-                //    Thread.Sleep(1000);
+                while(DateTime.Now - startTime < new TimeSpan(0,0,3))
+                    Thread.Sleep(1000);
 
                 CloseSplash();
 

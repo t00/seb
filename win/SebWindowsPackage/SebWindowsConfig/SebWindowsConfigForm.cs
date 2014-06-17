@@ -624,6 +624,7 @@ namespace SebWindowsConfig
             checkBoxEnableAltF4      .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltF4];
             checkBoxEnableRightMouse .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableRightMouse];
             checkBoxEnablePrintScreen.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen];
+            checkBoxEnableCtrlAlt.    Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableCtrlAlt];
 
             checkBoxEnableF1 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF1];
             checkBoxEnableF2 .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF2];
@@ -2957,7 +2958,10 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnablePrintScreen.Checked;
         }
 
-
+        private void checkBoxEnableCtrlAlt_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableCtrlAlt] = checkBoxEnableCtrlAlt.Checked;
+        }
 
         // *********************
         // Group "Function Keys"

@@ -50,6 +50,7 @@
             this.checkBoxEnableF7 = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableF8 = new System.Windows.Forms.CheckBox();
             this.groupBoxSpecialKeys = new System.Windows.Forms.GroupBox();
+            this.checkBoxEnableCtrlAlt = new System.Windows.Forms.CheckBox();
             this.checkBoxEnablePrintScreen = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableEsc = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableCtrlEsc = new System.Windows.Forms.CheckBox();
@@ -575,6 +576,7 @@
             // 
             // groupBoxSpecialKeys
             // 
+            this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableCtrlAlt);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnablePrintScreen);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableEsc);
             this.groupBoxSpecialKeys.Controls.Add(this.checkBoxEnableCtrlEsc);
@@ -587,17 +589,30 @@
             this.groupBoxSpecialKeys.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 196);
+            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 219);
             this.groupBoxSpecialKeys.TabIndex = 39;
             this.groupBoxSpecialKeys.TabStop = false;
             this.groupBoxSpecialKeys.Text = "Special Keys";
             this.toolTip1.SetToolTip(this.groupBoxSpecialKeys, "Settings to enable or block (hook) keys, key combinations and mouse buttons.");
             // 
+            // checkBoxEnableCtrlAlt
+            // 
+            this.checkBoxEnableCtrlAlt.AutoSize = true;
+            this.checkBoxEnableCtrlAlt.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableCtrlAlt.Location = new System.Drawing.Point(8, 193);
+            this.checkBoxEnableCtrlAlt.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableCtrlAlt.Name = "checkBoxEnableCtrlAlt";
+            this.checkBoxEnableCtrlAlt.Size = new System.Drawing.Size(92, 17);
+            this.checkBoxEnableCtrlAlt.TabIndex = 8;
+            this.checkBoxEnableCtrlAlt.Text = "Enable Ctrl-Alt";
+            this.checkBoxEnableCtrlAlt.UseVisualStyleBackColor = true;
+            this.checkBoxEnableCtrlAlt.CheckedChanged += new System.EventHandler(this.checkBoxEnableCtrlAlt_CheckedChanged);
+            // 
             // checkBoxEnablePrintScreen
             // 
             this.checkBoxEnablePrintScreen.AutoSize = true;
             this.checkBoxEnablePrintScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 170);
+            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 169);
             this.checkBoxEnablePrintScreen.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePrintScreen.Name = "checkBoxEnablePrintScreen";
             this.checkBoxEnablePrintScreen.Size = new System.Drawing.Size(117, 17);
@@ -3277,7 +3292,7 @@
             // 
             this.labelConfirmSettingsPassword.AutoSize = true;
             this.labelConfirmSettingsPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmSettingsPassword.Location = new System.Drawing.Point(208, 234);
+            this.labelConfirmSettingsPassword.Location = new System.Drawing.Point(208, 231);
             this.labelConfirmSettingsPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmSettingsPassword.Name = "labelConfirmSettingsPassword";
             this.labelConfirmSettingsPassword.Size = new System.Drawing.Size(129, 13);
@@ -3288,7 +3303,7 @@
             // 
             this.labelSettingsPassword.AutoSize = true;
             this.labelSettingsPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSettingsPassword.Location = new System.Drawing.Point(245, 211);
+            this.labelSettingsPassword.Location = new System.Drawing.Point(244, 208);
             this.labelSettingsPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSettingsPassword.Name = "labelSettingsPassword";
             this.labelSettingsPassword.Size = new System.Drawing.Size(93, 13);
@@ -3547,7 +3562,7 @@
             this.labelSebServerURL.AutoSize = true;
             this.labelSebServerURL.Enabled = false;
             this.labelSebServerURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSebServerURL.Location = new System.Drawing.Point(16, 58);
+            this.labelSebServerURL.Location = new System.Drawing.Point(14, 55);
             this.labelSebServerURL.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSebServerURL.Name = "labelSebServerURL";
             this.labelSebServerURL.Size = new System.Drawing.Size(87, 13);
@@ -3671,7 +3686,7 @@
             // 
             this.labelAdminPassword.AutoSize = true;
             this.labelAdminPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdminPassword.Location = new System.Drawing.Point(54, 112);
+            this.labelAdminPassword.Location = new System.Drawing.Point(54, 107);
             this.labelAdminPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAdminPassword.Name = "labelAdminPassword";
             this.labelAdminPassword.Size = new System.Drawing.Size(115, 13);
@@ -3682,7 +3697,7 @@
             // 
             this.labelConfirmQuitPassword.AutoSize = true;
             this.labelConfirmQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(17, 306);
+            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(60, 306);
             this.labelConfirmQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
             this.labelConfirmQuitPassword.Size = new System.Drawing.Size(110, 13);
@@ -3706,7 +3721,7 @@
             // 
             this.labelQuitPassword.AutoSize = true;
             this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitPassword.Location = new System.Drawing.Point(54, 289);
+            this.labelQuitPassword.Location = new System.Drawing.Point(95, 283);
             this.labelQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitPassword.Name = "labelQuitPassword";
             this.labelQuitPassword.Size = new System.Drawing.Size(74, 13);
@@ -3717,7 +3732,7 @@
             // 
             this.labelStartURL.AutoSize = true;
             this.labelStartURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStartURL.Location = new System.Drawing.Point(48, 35);
+            this.labelStartURL.Location = new System.Drawing.Point(47, 32);
             this.labelStartURL.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelStartURL.Name = "labelStartURL";
             this.labelStartURL.Size = new System.Drawing.Size(54, 13);
@@ -4091,6 +4106,7 @@
         private System.Windows.Forms.RadioButton radioCreateNewDesktop;
         private System.Windows.Forms.RadioButton radioKillExplorerShell;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox checkBoxEnableCtrlAlt;
 
     }
 }

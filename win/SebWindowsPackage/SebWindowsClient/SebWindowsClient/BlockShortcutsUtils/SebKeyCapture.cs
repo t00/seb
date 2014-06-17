@@ -191,6 +191,11 @@ namespace SebWindowsClient.BlockShortcutsUtils
                     if (KeyInfo.key == Keys.PrintScreen)
                         return true;
                 }
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableCtrlAlt)[SEBSettings.KeyEnableCtrlAlt])
+                {
+                    if (KeyInfo.scanCode == 58)
+                        return true;
+                }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
                 {
                     //if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))

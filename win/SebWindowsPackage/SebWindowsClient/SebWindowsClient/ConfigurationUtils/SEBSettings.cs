@@ -252,6 +252,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableAltF4       = "enableAltF4";
         public const String KeyEnableStartMenu   = "enableStartMenu";
         public const String KeyEnableRightMouse  = "enableRightMouse";
+        public const String KeyEnableCtrlAlt     = "enableAltCtrl";
 
         // Group "Function Keys"
         public const String KeyEnableF1  = "enableF1";
@@ -695,6 +696,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableStartMenu  , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableRightMouse , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnablePrintScreen, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableCtrlAlt    , true);
 
             // Default settings for group "Function Keys"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableF1 , false);
