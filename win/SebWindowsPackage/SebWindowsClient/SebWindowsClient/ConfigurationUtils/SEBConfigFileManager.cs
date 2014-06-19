@@ -444,10 +444,11 @@ namespace SebWindowsClient.ConfigurationUtils
 
             }
             /// Decryption worked
-            // If we don't have the dictionary yet from above
             if (sebPreferencesDict == null)
             {
+                // If we don't have the dictionary yet from above
                 sebData = decryptedSebData;
+
                 // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
                 sebData = GZipByte.Decompress(sebData);
 
