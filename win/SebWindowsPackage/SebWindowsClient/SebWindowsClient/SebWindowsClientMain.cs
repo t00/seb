@@ -79,10 +79,12 @@ namespace SebWindowsClient
         void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
         {
             SebWindowsClientForm form = MainForm as SebWindowsClientForm; //My derived form type
-            string es = string.Join(", ", e.CommandLine);
-            Logger.AddError("StartupNextInstanceEventArgs: " + es, null, null);
-
-            form.LoadFile(e.CommandLine[1]);
+            if (e.CommandLine.Count() > 0)
+            {
+                string es = string.Join(", ", e.CommandLine);
+                Logger.AddError("StartupNextInstanceEventArgs: " + es, null, null);
+                form.LoadFile(e.CommandLine[1]);
+            }
         }
 
         protected override void OnCreateMainForm()

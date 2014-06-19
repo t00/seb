@@ -102,7 +102,6 @@
     <Compile Include="ConfigurationUtils\SEBErrorMessages.cs" />
     <Compile Include="ConfigurationUtils\SEBGlobalConstants.cs" />
     <Compile Include="ConfigurationUtils\SEBClientInfo.cs" />
-    <Compile Include="ConfigurationUtils\SEBPropertyList.cs" />
     <Compile Include="ConfigurationUtils\SEBXulRunnerSettings.cs" />
     <Compile Include="CryptographyUtils\SEBProtectionController.cs" />
     <Compile Include="DesktopUtils\SEBDesktopController.cs" />

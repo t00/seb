@@ -68,7 +68,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
-        /// Decrypt, deserialize and store new settings as current SEB settings
+        /// Decrypt, parse and use new SEB settings
         /// </summary>
         /// ----------------------------------------------------------------------------------------
         public static bool StoreDecryptedSEBSettings(byte[] sebData)
@@ -265,7 +265,7 @@ namespace SebWindowsClient.ConfigurationUtils
             
                     // Decrypt with password and configure local client settings
                     // and quit afterwards, returning if reading the .seb file was successfull
-                    DictObj sebSettings = DecryptDataWithPasswordAndConfigureClient(sebData, forEditing, ref sebFilePassword, ref passwordIsHash);
+                    DictObj sebSettings = DecryptDataWithPasswordForConfiguringClient(sebData, forEditing, ref sebFilePassword, ref passwordIsHash);
                     return sebSettings;
             
                 } else {
@@ -290,66 +290,18 @@ namespace SebWindowsClient.ConfigurationUtils
             }
             // If we don't deal with an unencrypted seb file
             // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
-            if (prefixString.CompareTo(UNENCRYPTED_MODE) != 0) sebData = GZipByte.Decompress(sebData);
-
-            DictObj sebPreferencesDict = null;
-            try
-            {
-                // Get preferences dictionary from decrypted data
-                sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
-
-                // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
-                sebPreferencesDict[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
-
+            if (prefixString.CompareTo(UNENCRYPTED_MODE) != 0) {
+                sebData = GZipByte.Decompress(sebData);
             }
-            catch (Exception readPlistException)
-            {
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                Console.WriteLine(readPlistException.Message);
-                return null;
-            }
-            // In editing mode, the user has to enter the right SEB administrator password used in those settings before he can access their contents
-            if (forEditing)
-            {
-                string sebFileHashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(sebPreferencesDict, SEBSettings.KeyHashedAdminPassword);
-                // If there was no admin password set in these settings, the user can access them anyways
-                if (!String.IsNullOrEmpty(sebFileHashedAdminPassword))
-                {
-                    // We have to ask for the SEB administrator password used in the settings 
-                    // and allow opening settings only if the user enters the right one
-                    // Allow up to 5 attempts for entering  admin password
-                    int i = 5;
-                    string password = null;
-                    string hashedPassword;
-                    string enterPasswordString = SEBUIStrings.enterAdminPasswordRequired;
-                    bool passwordsMatch;
-                    do
-                    {
-                        i--;
-                        // Prompt for password
-                        password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
-                        // If cancel was pressed, abort
-                        if (password == null) return null;
-                        hashedPassword = SEBProtectionController.ComputePasswordHash(password);
-                        if (String.Compare(sebFileHashedAdminPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            passwordsMatch = true;
-                        }
-                        else
-                        {
-                            passwordsMatch = false;
-                        }
-                        // in case we get an error we allow the user to try it again
-                        enterPasswordString = SEBUIStrings.enterAdminPasswordRequiredAgain;
-                    } while ((password == null || !passwordsMatch) && i > 0);
-                    if (!passwordsMatch)
-                    {
-                        //wrong password entered in 5th try: stop reading .seb file
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedWrongAdminPwd, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                        return null;
-                    }
-                }
-            }
+
+            // Get preferences dictionary from decrypted data
+            DictObj sebPreferencesDict = GetPreferencesDictFromSebData(sebData, forEditing);
+            // If we didn't get a preferences dict back, we abort reading settings
+            if (sebPreferencesDict == null) return null;
+
+            // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
+            sebPreferencesDict[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam;
+
             // Reading preferences was successful!
             return sebPreferencesDict; 
         }
@@ -357,20 +309,22 @@ namespace SebWindowsClient.ConfigurationUtils
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Helper method which decrypts the byte array using an empty password, 
-        /// the administrator password currently set in SEB 
+        /// or the administrator password currently set in SEB 
         /// or asks for the password used for encrypting this SEB file
-        /// then the local client settings in the LOCALAPPDATA folder 
-        /// are replaced with those new settings 
+        /// for configuring the client 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private static DictObj DecryptDataWithPasswordAndConfigureClient(byte[] sebData, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash)
+        private static DictObj DecryptDataWithPasswordForConfiguringClient(byte[] sebData, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash)
         {
             passwordIsHash = false;
-            string password = null;
+            string password;
             // First try to decrypt with the current admin password
             // get admin password hash
             string hashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyHashedAdminPassword);
-            if (hashedAdminPassword == null) hashedAdminPassword = "";
+            if (hashedAdminPassword == null)
+            {
+                hashedAdminPassword = "";
+            }
             // We use always uppercase letters in the base16 hashed admin password used for encrypting
             hashedAdminPassword = hashedAdminPassword.ToUpper();
             DictObj sebPreferencesDict = null;
@@ -393,6 +347,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     }
                     catch (Exception readPlistException)
                     {
+                        // Error when deserializing the decrypted configuration data
                         // We abort reading the new settings here
                         SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                         Console.WriteLine(readPlistException.Message);
@@ -496,58 +451,10 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
                 sebData = GZipByte.Decompress(sebData);
 
-                try
-                {
-                    // Get preferences dictionary from decrypted data
-                    sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
-                }
-                catch (Exception readPlistException)
-                {
-                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                    Console.WriteLine(readPlistException.Message);
-                    return null;
-                }
-                // In editing mode, the user has to enter the right SEB administrator password before he can access the settings contents
-                if (forEditing)
-                {
-                    string sebFileHashedAdminPassword = (string)sebPreferencesDict[SEBSettings.KeyHashedAdminPassword];
-                    if (!String.IsNullOrEmpty(sebFileHashedAdminPassword))
-                    {
-                        // We have to ask for the current SEB administrator password and
-                        // allow opening settings only if the user enters the right one
-                        // Allow up to 5 attempts for entering  admin password
-                        int i = 5;
-                        password = null;
-                        string hashedPassword;
-                        string enterPasswordString = SEBUIStrings.enterAdminPasswordRequired;
-                        bool passwordsMatch;
-                        do
-                        {
-                            i--;
-                            // Prompt for password
-                            password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
-                            // If cancel was pressed, abort
-                            if (password == null) return null;
-                            hashedPassword = SEBProtectionController.ComputePasswordHash(password);
-                            if (String.Compare(sebFileHashedAdminPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) == 0)
-                            {
-                                passwordsMatch = true;
-                            }
-                            else
-                            {
-                                passwordsMatch = false;
-                            }
-                            // in case we get an error we allow the user to try it again
-                            enterPasswordString = SEBUIStrings.enterAdminPasswordRequiredAgain;
-                        } while ((password == null || !passwordsMatch) && i > 0);
-                        if (!passwordsMatch)
-                        {
-                            //wrong password entered in 5th try: stop reading .seb file
-                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedWrongAdminPwd, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                            return null;
-                        }
-                    }
-                }
+                // Get preferences dictionary from decrypted data
+                sebPreferencesDict = GetPreferencesDictFromSebData(sebData, forEditing);
+                // If we didn't get a preferences dict back, we abort reading settings
+                if (sebPreferencesDict == null) return null;
             }
             // We need to set the right value for the key sebConfigPurpose to know later where to store the new settings
             sebPreferencesDict[SEBSettings.KeySebConfigPurpose] = (int)SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient;
@@ -559,12 +466,80 @@ namespace SebWindowsClient.ConfigurationUtils
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
+        /// Helper method: Get preferences dictionary from decrypted data.
+        /// In editing mode, users have to enter the right SEB administrator password 
+        /// before they can access the settings contents
+        /// and returns the decrypted bytes 
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private static DictObj GetPreferencesDictFromSebData(byte[] sebData, bool forEditing)
+        {
+            DictObj sebPreferencesDict = null;
+            try
+            {
+                // Get preferences dictionary from decrypted data
+                sebPreferencesDict = (DictObj)Plist.readPlist(sebData);
+            }
+            catch (Exception readPlistException)
+            {
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                Console.WriteLine(readPlistException.Message);
+                return null;
+            }
+            // In editing mode, the user has to enter the right SEB administrator password used in those settings before he can access their contents
+            if (forEditing)
+            {
+                string sebFileHashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(sebPreferencesDict, SEBSettings.KeyHashedAdminPassword);
+                // If there was no or empty admin password set in these settings, the user can access them anyways
+                if (!String.IsNullOrEmpty(sebFileHashedAdminPassword))
+                {
+                    // We have to ask for the SEB administrator password used in the settings 
+                    // and allow opening settings only if the user enters the right one
+                    // Allow up to 5 attempts for entering  admin password
+                    int i = 5;
+                    string password = null;
+                    string hashedPassword;
+                    string enterPasswordString = SEBUIStrings.enterAdminPasswordRequired;
+                    bool passwordsMatch;
+                    do
+                    {
+                        i--;
+                        // Prompt for password
+                        password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
+                        // If cancel was pressed, abort
+                        if (password == null) return null;
+                        hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                        if (String.Compare(sebFileHashedAdminPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            passwordsMatch = true;
+                        }
+                        else
+                        {
+                            passwordsMatch = false;
+                        }
+                        // in case we get an error we allow the user to try it again
+                        enterPasswordString = SEBUIStrings.enterAdminPasswordRequiredAgain;
+                    } while ((password == null || !passwordsMatch) && i > 0);
+                    if (!passwordsMatch)
+                    {
+                        //wrong password entered in 5th try: stop reading .seb file
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedWrongAdminPwd, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        return null;
+                    }
+                }
+            }
+            // Reading preferences was successful!
+            return sebPreferencesDict; 
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
         /// Helper method which fetches the public key hash from a byte array, 
         /// retrieves the according cryptographic identity from the certificate store
         /// and returns the decrypted bytes 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-
         private static byte[] DecryptDataWithPublicKeyHashPrefix(byte[] sebData, bool forEditing, ref X509Certificate2 sebFileCertificateRef)
         {
             // Get 20 bytes public key hash prefix
