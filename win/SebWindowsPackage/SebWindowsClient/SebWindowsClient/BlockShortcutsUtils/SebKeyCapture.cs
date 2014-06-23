@@ -193,7 +193,9 @@ namespace SebWindowsClient.BlockShortcutsUtils
         {
             KBDLLHOOKSTRUCT KeyInfo =
               (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
-
+            Console.WriteLine(KeyInfo.scanCode);
+            Console.WriteLine(KeyInfo.key);
+            Console.WriteLine(KeyInfo.flags);
             try
             {
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableEsc)[SEBSettings.KeyEnableEsc] && (KeyInfo.key == Keys.Escape))
@@ -223,7 +225,9 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 }
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableCtrlAlt)[SEBSettings.KeyEnableCtrlAlt])
                 {
-                    if (KeyInfo.scanCode == 0 && KeyInfo.key == Keys.Alt)
+                    if (KeyInfo.flags == 0 && KeyInfo.key == Keys.Alt)
+                        return true;
+                    if (KeyInfo.key == Keys.LMenu && KeyInfo.flags == 128)
                         return true;
                 }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
