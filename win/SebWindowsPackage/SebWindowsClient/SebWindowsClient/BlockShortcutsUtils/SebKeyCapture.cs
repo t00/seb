@@ -223,7 +223,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 }
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableCtrlAlt)[SEBSettings.KeyEnableCtrlAlt])
                 {
-                    if (KeyInfo.scanCode == 58)
+                    if (KeyInfo.scanCode == 0 && KeyInfo.key == Keys.Alt)
                         return true;
                 }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
