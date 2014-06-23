@@ -138,8 +138,6 @@ namespace SebWindowsClient
         private List<Process> runningProcessesToClose = new List<Process>();
         private List<string> runningApplicationsToClose = new List<string>();
 
-        public static SEBLoading splash;
-
         //public OpenFileDialog openFileDialog;
 
         /// ----------------------------------------------------------------------------------------
@@ -278,50 +276,26 @@ namespace SebWindowsClient
                 Logger.AddInformation("Succesfully read the new configuration");
                 // Decrypt, parse and store new settings and restart SEB if this was successfull
                 Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
-                var splashThread = new Thread(new ThreadStart(StartSplash));
-                //var startTime = DateTime.Now;
+
+                //Close loading screen if displayed
+                //SEBLoading.CloseLoading();
+                //Show splashscreen
+                var splashThread = new Thread(SEBSplashScreen.StartSplash);
                 splashThread.Start();
 
                 if (!SEBConfigFileManager.StoreDecryptedSEBSettings(sebSettings) && !SEBXULRunnerWebSocketServer.Started)
                 {
                     Logger.AddInformation("StoreDecryptedSettings returned false, this means the password was wrong or something with the new settings is wrong, exiting");
-                    Application.Exit();
+                    //Application.Exit();
+                    ExitApplication();
                 }
-                //while (DateTime.Now - startTime < new TimeSpan(0, 0, 3))
-                //    Thread.Sleep(1000);
-                CloseSplash();
+
+                //close splashscreen
+                SEBSplashScreen.CloseSplash();
 
                 Logger.AddInformation("Successfully StoreDecryptedSEBSettings");
                 SebWindowsClientMain.LoadingSebFile(false);
             }
-        }
-
-        static public void StartSplash()
-        {
-            //Set the threads desktop to the new desktop if "Create new Desktop" is activated
-            if((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
-                SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
-
-            // Instance a splash form given the image names
-            splash = new SEBLoading();
-            // Run the form
-            Application.Run(splash);
-        }
-
-        private static void CloseSplash()
-        {
-            if (splash == null)
-                return;
-            try
-            {
-                // Shut down the splash screen
-                splash.Invoke(new EventHandler(splash.KillMe));
-                splash.Dispose();
-                splash = null;
-            }
-            catch (Exception)
-            {}
-            
         }
 
 
@@ -434,7 +408,8 @@ namespace SebWindowsClient
                 if (SEBClientInfo.SebWindowsClientForm.closeSebClient)
                 {
                     Logger.AddError("XULRunner was closed, SEB will exit now.", this, null);
-                    Application.Exit();
+                    //Application.Exit();
+                    ExitApplication();
                 }
             }
 
@@ -548,7 +523,8 @@ namespace SebWindowsClient
                 }
                 else
                 {
-                    Application.Exit();
+                    ExitApplication();
+                    //Application.Exit();
                     return;
                 }
             }            
@@ -1258,7 +1234,8 @@ namespace SebWindowsClient
             if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.OKCancel))
             {
                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                Application.Exit();
+                //Application.Exit();
+                ExitApplication();
             }
         }
 
@@ -1393,7 +1370,8 @@ namespace SebWindowsClient
             else
             {
                 // VM or service not available and set to be required
-                Application.Exit();
+                ExitApplication(false);
+                //Application.Exit();
                 return false;
             }
         }
@@ -1541,21 +1519,43 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public void SebWindowsClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Logger.AddInformation("Attempting to CloseSEBForm in SebWindowsClientForm_FormClosing");
+            //moved code -> call ExitApplication()
+        }
+
+        /// <summary>
+        /// Central code to exit the application
+        /// Closes the form and asks for a quit password if necessary
+        /// </summary>
+        public void ExitApplication(bool showLoadingScreen = true)
+        {
+            if (showLoadingScreen)
+            {
+                SEBSplashScreen.CloseSplash();
+                var loadingThread = new Thread(SEBLoading.StartLoading);
+                loadingThread.Start();
+            }
+            Logger.AddInformation("Attempting to CloseSEBForm in ExitApplication");
             try
             {
                 CloseSEBForm();
             }
             catch (Exception ex)
             {
-                Logger.AddError("Unable to CloseSEBForm()",this, ex);
+                Logger.AddError("Unable to CloseSEBForm()", this, ex);
             }
             Logger.AddInformation("Successfull CloseSEBForm");
 
-            Logger.AddInformation("Attempting to ResetSEBDesktop in SebWindowsClientForm_FormClosing");
+            if (showLoadingScreen)
+            {
+                SEBLoading.CloseLoading();
+            }
+                
+
+            Logger.AddInformation("Attempting to ResetSEBDesktop in ExitApplication");
             SebWindowsClientMain.ResetSEBDesktop();
             Logger.AddInformation("Successfull ResetSEBDesktop");
 
+            Application.Exit();
         }
 
         /// ----------------------------------------------------------------------------------------

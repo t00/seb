@@ -46,7 +46,8 @@ namespace SebWindowsClient
             else
             {
                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                Application.Exit();
+                SEBClientInfo.SebWindowsClientForm.ExitApplication();
+                //Application.Exit();
             }
         }
     }

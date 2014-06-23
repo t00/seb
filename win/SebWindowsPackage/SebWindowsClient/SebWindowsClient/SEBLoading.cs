@@ -1,54 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Ink;
+using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DesktopUtils;
+using SebWindowsClient.DiagnosticsUtils;
 
 namespace SebWindowsClient
 {
     public partial class SEBLoading : Form
     {
+        #region instance
         public SEBLoading()
         {
             InitializeComponent();
-
-            this.Click += KillMe;
-            this.pictureBox1.Click += KillMe;
-            this.textBox1.Click += KillMe;
-            this.lblLoading.Click += KillMe;
-
-            var t = new Timer {Interval = 200};
-            t.Tick += (sender, args) => Progress();
-            t.Start();
         }
 
-        public void Progress()
-        {
-            switch (lblLoading.Text)
-            {
-                case "Loading":
-                    lblLoading.Text = "Loading .";
-                    break;
-                case "Loading .":
-                    lblLoading.Text = "Loading ..";
-                    break;
-                case "Loading ..":
-                    lblLoading.Text = "Loading ...";
-                    break;
-                default:
-                    lblLoading.Text = "Loading";
-                    break;
-            }
-        }
-
+        /// <summary>
+        /// Close the window - invoked via CloseLoading()
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
         public void KillMe(object o, EventArgs e)
         {
             this.Close();
         }
+
+        #endregion
+
+        #region static Thread Access
+
+        private static SEBLoading loading;
+
+        /// <summary>
+        /// Call via separate thread
+        /// var thread = new Thread(SEBLoading.StartLoading);
+        /// thread.Start();
+        /// </summary>
+        static public void StartLoading()
+        {
+            //Set the threads desktop to the new desktop if "Create new Desktop" is activated
+            //Set the threads desktop to the new desktop if "Create new Desktop" is activated
+            if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop] || SEBClientInfo.CreateNewDesktopOldValue)
+                SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
+            else
+                SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
+
+            // Instance a loading screen form given the image names
+            loading = new SEBLoading();
+            // Run the form
+            Application.Run(loading);
+        }
+
+        /// <summary>
+        /// Invokes the running thread with the windows and closes it
+        /// </summary>
+        public static void CloseLoading()
+        {
+            if (loading == null)
+                return;
+            try
+            {
+                // Shut down the loading screen
+                loading.Invoke(new EventHandler(loading.KillMe));
+                loading.Dispose();
+                loading = null;
+            }
+            catch (Exception)
+            { }
+        }
+
+        #endregion
     }
 }

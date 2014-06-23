@@ -93,6 +93,12 @@
     <Compile Include="SEBLoading.Designer.cs">
       <DependentUpon>SEBLoading.cs</DependentUpon>
     </Compile>
+    <Compile Include="SEBSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SEBSplashScreen.Designer.cs">
+      <DependentUpon>SEBSplashScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="taskbarToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -173,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SEBLoading.resx">
       <DependentUpon>SEBLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SEBSplashScreen.resx">
+      <DependentUpon>SEBSplashScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SebPasswordDialogForm.de.resx">
       <DependentUpon>SebPasswordDialogForm.cs</DependentUpon>
@@ -279,6 +288,7 @@
     <Resource Include="Resources\keyboard.png" />
     <None Include="Resources\SebGlobalDialogImage.bmp" />
     <None Include="Resources\AboutSEB.png" />
+    <Content Include="Resources\loading.gif" />
     <Content Include="SEBicon.ico" />
   </ItemGroup>
   <ItemGroup>

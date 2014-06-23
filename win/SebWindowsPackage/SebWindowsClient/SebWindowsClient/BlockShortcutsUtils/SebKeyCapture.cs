@@ -593,7 +593,8 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 }
                 if (SetAndTestExitKeySequence(wp, lp) && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyIgnoreExitKeys) == false)
                 {
-                    Application.Exit();
+                    SEBClientInfo.SebWindowsClientForm.ExitApplication();
+                    //Application.Exit();
                 }
             }
             else if (wp == (IntPtr)WM_KEYUP)

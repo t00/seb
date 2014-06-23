@@ -558,5 +558,7 @@ namespace SebWindowsClient.ConfigurationUtils
             }
         }
 
+
+        public static bool CreateNewDesktopOldValue { get; set; }
     }
 }

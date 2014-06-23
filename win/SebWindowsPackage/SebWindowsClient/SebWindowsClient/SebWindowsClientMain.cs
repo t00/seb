@@ -158,8 +158,6 @@ namespace SebWindowsClient
         private volatile static bool _loadingSebFile = false;
         public static bool clientSettingsSet { get; set; }
 
-        public static SEBLoading splash;
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -181,9 +179,12 @@ namespace SebWindowsClient
                 {
                     Logger.AddError("Unable to InitSebSettings",null, ex);
                 }
-                var splashThread = new Thread(new ThreadStart(StartSplash));
-                //var startTime = DateTime.Now;
+
+                //Show splashscreen
+                var splashThread = new Thread(SEBSplashScreen.StartSplash);
+                var startTime = DateTime.Now;
                 splashThread.Start();
+
                 try
                 {
                     InitSEBDesktop();
@@ -198,10 +199,10 @@ namespace SebWindowsClient
                 SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
                 singleInstanceController = new SingleInstanceController();
 
-                //while(DateTime.Now - startTime < new TimeSpan(0,0,3))
-                //    Thread.Sleep(1000);
-
-                CloseSplash();
+                //Close splashscreen after minimun 3 secs displayed
+                while(DateTime.Now - startTime < new TimeSpan(0,0,3))
+                    Thread.Sleep(1000);
+                SEBSplashScreen.CloseSplash();
 
                 singleInstanceController.Run(arguments);
             }
@@ -219,34 +220,6 @@ namespace SebWindowsClient
                 singleInstanceController = new SingleInstanceController();
                 singleInstanceController.Run(arguments);
             }
-        }
-
-        static public void StartSplash()
-        {
-            //Set the threads desktop to the new desktop if "Create new Desktop" is activated
-            if((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
-                SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
-
-            // Instance a splash form given the image names
-            splash = new SEBLoading();
-            // Run the form
-            Application.Run(splash);
-        }
-
-        private static void CloseSplash()
-        {
-            if (splash == null)
-                return;
-            try
-            {
-                // Shut down the splash screen
-                splash.Invoke(new EventHandler(splash.KillMe));
-                splash.Dispose();
-                splash = null;
-            }
-            catch (Exception)
-            {}
-            
         }
 
         /// <summary>
@@ -656,7 +629,8 @@ namespace SebWindowsClient
                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.detectedVirtualMachine, SEBUIStrings.detectedVirtualMachineForbiddenMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                 Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
                 Logger.AddInformation("Safe Exam Browser is exiting", null, null);
-                Application.Exit();
+                //Application.Exit();
+                SEBClientInfo.SebWindowsClientForm.ExitApplication();
                 return false;
             }
 
@@ -682,7 +656,8 @@ namespace SebWindowsClient
                         SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                         Logger.AddError("SEB Windows service is not available and sebServicePolicies is set to forceSebService", null, null);
                         Logger.AddInformation("SafeExamBrowser is exiting", null, null);
-                        Application.Exit();
+                        SEBClientInfo.SebWindowsClientForm.ExitApplication();
+                        //Application.Exit();
 
                         return false;
                     }

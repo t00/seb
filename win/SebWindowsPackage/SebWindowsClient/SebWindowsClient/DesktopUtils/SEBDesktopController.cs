@@ -633,7 +633,7 @@ namespace SebWindowsClient.DesktopUtils
 		public static bool SetCurrent(SEBDesktopController desktop)
 		{
 			// set threads desktop.
-			if (!desktop.IsOpen) return false;
+			if (desktop == null || !desktop.IsOpen) return false;
 
 			return SetThreadDesktop(desktop.DesktopHandle);
 		}
