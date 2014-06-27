@@ -635,7 +635,7 @@ namespace SebWindowsClient
                 }
             }
 
-            if ((bool) SEBClientInfo.getSebSetting(SEBSettings.KeyAllowWLANWin)[SEBSettings.KeyAllowWLANWin])
+            if ((bool) SEBClientInfo.getSebSetting(SEBSettings.KeyAllowWLAN)[SEBSettings.KeyAllowWLAN])
             {
                 var wlan = new SEBWlanToolStripButton();
                 taskbarToolStrip.Items.Add(wlan);

@@ -602,7 +602,7 @@ namespace SebWindowsConfig
             checkBoxAllowUserSwitching .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
             labelLogDirectoryWin       .Text       =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
-            checkboxAllowWlan       .Checked       =  (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLANWin];
+            checkboxAllowWlan       .Checked       =  (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLAN];
 
             // Group "Registry"
             checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyInsideSebEnableSwitchUser];
@@ -642,7 +642,7 @@ namespace SebWindowsConfig
             return;
         }
 
-                /// ----------------------------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Compare password textfields and show or hide compare label accordingly
         /// if passwords are same, save the password hash
@@ -2815,7 +2815,7 @@ namespace SebWindowsConfig
 
         private void checkBoxAllowWlan_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLANWin] = checkboxAllowWlan.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLAN] = checkboxAllowWlan.Checked;
         }
 
         private void checkBoxAllowUserSwitching_CheckedChanged(object sender, EventArgs e)
