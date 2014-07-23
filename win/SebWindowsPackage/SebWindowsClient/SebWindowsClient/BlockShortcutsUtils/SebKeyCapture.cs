@@ -226,9 +226,21 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableCtrlAlt)[SEBSettings.KeyEnableCtrlAlt])
                 {
                     if (KeyInfo.flags == 0 && KeyInfo.key == Keys.Alt)
+                    {
+                        Logger.AddError("Hooked key message: KeyInfo.flags == 0 && KeyInfo.key == Keys.Alt", null, null, "");
                         return true;
+                    }
                     if (KeyInfo.key == Keys.LMenu && KeyInfo.flags == 128)
+                    {
+                        Logger.AddError("Hooked key message: KeyInfo.key == Keys.LMenu && KeyInfo.flags == 128", null, null, "");
                         return true;
+                    }
+                    // This works in Parallels
+                    if (KeyInfo.flags == 0 && KeyInfo.scanCode == 29)
+                    {
+                        Logger.AddError("Hooked key message: KeyInfo.flags == 0 && KeyInfo.scanCode == 29", null, null, "");
+                        return true;
+                    }
                 }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
                 {
