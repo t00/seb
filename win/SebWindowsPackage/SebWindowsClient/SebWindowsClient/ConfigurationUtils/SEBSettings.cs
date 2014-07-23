@@ -124,6 +124,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableJavaScript                     = "enableJavaScript";
         public const String KeyBlockPopUpWindows                    = "blockPopUpWindows";
         public const String KeyAllowBrowsingBackForward             = "allowBrowsingBackForward";
+        public const String KeyRemoveBrowserProfile                 = "removeBrowserProfile";
         public const String KeyEnableSebBrowser                     = "enableSebBrowser";
 
         // Group "DownUploads"
@@ -504,6 +505,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableJavaScript        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBlockPopUpWindows       , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowBrowsingBackForward, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveBrowserProfile    , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableSebBrowser        , true);
 
             // NewBrowserWindow Width and Height is stored additionally
@@ -650,7 +652,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.proxiesDataDefault.Clear();
 
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyExceptionsList             , new ListObj());
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyExcludeSimpleHostnames     , true);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyExcludeSimpleHostnames     , false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyAutoDiscoveryEnabled       , false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyAutoConfigurationEnabled   , false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyAutoConfigurationJavaScript, "");
@@ -658,35 +660,35 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPPassive                 , true);
 
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPPort    , 80);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPHost    , "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPRequires, false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPUsername, "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPPassword, "");
 
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSPort    , 443);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSHost    , "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSRequires, false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSUsername, "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyHTTPSPassword, "");
 
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPPort    , 21);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPHost    , "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPRequires, false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPUsername, "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyFTPPassword, "");
 
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSPort    , 1080);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSHost    , "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSRequires, false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSUsername, "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeySOCKSPassword, "");
 
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPEnable  , false);
-            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPPort    , 0);
+            SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPPort    , 554);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPHost    , "");
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPRequires, false);
             SEBSettings.proxiesDataDefault.Add(SEBSettings.KeyRTSPUsername, "");

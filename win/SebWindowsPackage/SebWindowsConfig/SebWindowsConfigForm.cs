@@ -423,6 +423,7 @@ namespace SebWindowsConfig
             checkBoxEnableJavaScript        .Checked =   (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableJavaScript];
             checkBoxBlockPopUpWindows       .Checked =   (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyBlockPopUpWindows];
             checkBoxAllowBrowsingBackForward.Checked =   (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowBrowsingBackForward];
+            checkBoxRemoveProfile           .Checked =   (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRemoveBrowserProfile];
             checkBoxUseSebWithoutBrowser    .Checked = !((Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableSebBrowser]);
             // BEWARE: you must invert this value since "Use Without" is "Not Enable"!
 
@@ -526,7 +527,7 @@ namespace SebWindowsConfig
                 String      name                    = (String )SEBSettings.embeddedCertificateData[SEBSettings.KeyName];
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
             }
-/*
+
             // Get the "Enabled" boolean values of current "proxies" dictionary
             BooleanProxyProtocolEnabled[IntProxyAutoDiscovery    ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyAutoDiscoveryEnabled];
             BooleanProxyProtocolEnabled[IntProxyAutoConfiguration] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyAutoConfigurationEnabled];
@@ -535,7 +536,7 @@ namespace SebWindowsConfig
             BooleanProxyProtocolEnabled[IntProxyFTP              ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyFTPEnable];
             BooleanProxyProtocolEnabled[IntProxySOCKS            ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeySOCKSEnable];
             BooleanProxyProtocolEnabled[IntProxyRTSP             ] = (Boolean)SEBSettings.proxiesData[SEBSettings.KeyRTSPEnable];
-*/
+
             // Get the "Enabled" boolean values of current "proxies" dictionary.
             // Add Proxy Protocols of currently opened file to DataGridView.
             for (int index = 0; index < NumProxyProtocols; index++)
@@ -1148,6 +1149,11 @@ namespace SebWindowsConfig
         private void checkBoxAllowBrowsingBackForward_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowBrowsingBackForward] = checkBoxAllowBrowsingBackForward.Checked;
+        }
+
+        private void checkBoxRemoveProfile_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyRemoveBrowserProfile] = checkBoxRemoveProfile.Checked;
         }
 
         // BEWARE: you must invert this value since "Use Without" is "Not Enable"!

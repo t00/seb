@@ -300,6 +300,7 @@
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1641,7 +1642,6 @@
             // radioButtonUseSebProxySettings
             // 
             this.radioButtonUseSebProxySettings.AutoSize = true;
-            this.radioButtonUseSebProxySettings.Enabled = false;
             this.radioButtonUseSebProxySettings.Location = new System.Drawing.Point(19, 41);
             this.radioButtonUseSebProxySettings.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonUseSebProxySettings.Name = "radioButtonUseSebProxySettings";
@@ -2699,6 +2699,7 @@
             // 
             // tabPageBrowser
             // 
+            this.tabPageBrowser.Controls.Add(this.checkBoxRemoveProfile);
             this.tabPageBrowser.Controls.Add(this.listBoxOpenLinksJava);
             this.tabPageBrowser.Controls.Add(this.listBoxOpenLinksHTML);
             this.tabPageBrowser.Controls.Add(this.labelUseSEBWithoutBrowser);
@@ -2746,7 +2747,7 @@
             // labelUseSEBWithoutBrowser
             // 
             this.labelUseSEBWithoutBrowser.AutoSize = true;
-            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(45, 369);
+            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(45, 401);
             this.labelUseSEBWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUseSEBWithoutBrowser.Name = "labelUseSEBWithoutBrowser";
             this.labelUseSEBWithoutBrowser.Size = new System.Drawing.Size(436, 13);
@@ -2832,7 +2833,7 @@
             // checkBoxUseSebWithoutBrowser
             // 
             this.checkBoxUseSebWithoutBrowser.AutoSize = true;
-            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 350);
+            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 382);
             this.checkBoxUseSebWithoutBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
             this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(185, 17);
@@ -3760,6 +3761,20 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
+            // checkBoxRemoveProfile
+            // 
+            this.checkBoxRemoveProfile.AutoSize = true;
+            this.checkBoxRemoveProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 351);
+            this.checkBoxRemoveProfile.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxRemoveProfile.Name = "checkBoxRemoveProfile";
+            this.checkBoxRemoveProfile.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxRemoveProfile.TabIndex = 62;
+            this.checkBoxRemoveProfile.Text = "Remove profile (Win)";
+            this.toolTip1.SetToolTip(this.checkBoxRemoveProfile, "Remove XULRunner browser profile when quitting SEB.");
+            this.checkBoxRemoveProfile.UseVisualStyleBackColor = true;
+            this.checkBoxRemoveProfile.CheckedChanged += new System.EventHandler(this.checkBoxRemoveProfile_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4107,6 +4122,7 @@
         private System.Windows.Forms.RadioButton radioKillExplorerShell;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox checkBoxEnableCtrlAlt;
+        private System.Windows.Forms.CheckBox checkBoxRemoveProfile;
 
     }
 }
