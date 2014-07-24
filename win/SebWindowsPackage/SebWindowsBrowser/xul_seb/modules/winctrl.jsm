@@ -59,7 +59,7 @@ var winctrl = (function() {
 						"seb.trusted.content"			:	urlFilterTrustedContent,
 						"seb.whitelist.pattern"			:	"whiteListURLFilter",
 						"seb.blacklist.pattern"			:	"blackListURLFilter",
-						"seb.removeProfile"			:	"removeBrowserProfile“,
+						"seb.removeProfile"			:	"removeBrowserProfile",
 						"network.proxy.type"			:	proxyType,
 						"network.proxy.autoconfig_url"		:	proxyAutoConfig,
 						"network.proxy.http" 			: 	proxyHttp,
