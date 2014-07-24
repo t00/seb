@@ -1451,9 +1451,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // *********************************************
         public static bool ReadSebConfigurationFile(String fileName, bool forEditing, ref string filePassword, ref bool passwordIsHash, ref X509Certificate2 fileCertificateRef)
         {
-            // Recreate the default and current settings
-            SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
-
+            DictObj newSettings = new DictObj();
             try
             {
                 // Read the configuration settings from .seb file.
@@ -1462,10 +1460,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 byte[] encryptedSettings = File.ReadAllBytes(fileName);
 
-                SEBSettings.settingsCurrent.Clear();
-
-                SEBSettings.settingsCurrent = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings, forEditing, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
-                if (SEBSettings.settingsCurrent == null) return false;
+                newSettings = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(encryptedSettings, forEditing, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
+                if (newSettings == null) return false;
             }
             catch (Exception streamReadException)
             {
@@ -1475,6 +1471,10 @@ namespace SebWindowsClient.ConfigurationUtils
             }
 
             // If the settings could be read from file...
+            // Recreate the default and current settings
+            SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
+            SEBSettings.settingsCurrent.Clear();
+            SEBSettings.settingsCurrent = newSettings;
 
             // Fill up the Dictionary read from file with default settings, where necessary
           //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefaultInReadSebConfigurationFileFillBefore.txt");
