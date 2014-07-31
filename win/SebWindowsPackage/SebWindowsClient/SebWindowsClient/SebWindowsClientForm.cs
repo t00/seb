@@ -342,7 +342,7 @@ namespace SebWindowsClient
                 // Check if there is a user defined -profile parameter, otherwise use the standard one 
                 if (!(userDefinedArguments.ToLower()).Contains("-profile"))
                     xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"");
-                xulRunnerArgumentsBuilder.Append(" ").Append(userDefinedArguments).Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
+                xulRunnerArgumentsBuilder.Append(" ").Append(Environment.ExpandEnvironmentVariables(userDefinedArguments)).Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
                 xulRunnerPath = xulRunnerPathBuilder.ToString();
