@@ -110,6 +110,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyShowMenuBar                  = "showMenuBar";
         public const String KeyShowTaskBar                  = "showTaskBar";
         public const String KeyTaskBarHeight                = "taskBarHeight";
+        public const String KeyBrowserScreenKeyboard        = "browserScreenKeyboard";
 
         // Group "Browser"
         public const String KeyNewBrowserWindowByLinkPolicy         = "newBrowserWindowByLinkPolicy";
@@ -134,6 +135,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyOpenDownloads            = "openDownloads";
         public const String KeyChooseFileToUploadPolicy = "chooseFileToUploadPolicy";
         public const String KeyDownloadPDFFiles         = "downloadPDFFiles";
+        public const String KeyDownloadAndOpenSebConfig = "downloadAndOpenSebConfig";
 
         // Group "Exam"
         public const String KeyExamKeySalt        = "examKeySalt";
@@ -448,7 +450,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Clear();
 
             // Default settings for keys not belonging to any group
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.0RC");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.0.1");
 
             // Default settings for group "General"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyStartURL           , "http://www.safeexambrowser.org");
@@ -484,6 +486,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowMenuBar                 , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowTaskBar                 , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyTaskBarHeight               , 40);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserScreenKeyboard       , false);
 
             // MainBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValMainBrowserWindowWidth ] = 2;
@@ -521,6 +524,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyOpenDownloads           , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyChooseFileToUploadPolicy, 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadPDFFiles        , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadAndOpenSebConfig, true);
 
             // Default settings for group "Exam"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExamKeySalt       , new Byte[] {});

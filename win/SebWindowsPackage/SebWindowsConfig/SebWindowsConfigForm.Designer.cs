@@ -220,6 +220,7 @@
             this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
             this.listBoxOpenLinksJava = new System.Windows.Forms.ListBox();
             this.listBoxOpenLinksHTML = new System.Windows.Forms.ListBox();
             this.labelUseSEBWithoutBrowser = new System.Windows.Forms.Label();
@@ -300,7 +301,6 @@
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1839,12 +1839,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(90, 108);
+            this.label2.Location = new System.Drawing.Point(92, 108);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 13);
+            this.label2.Size = new System.Drawing.Size(149, 13);
             this.label2.TabIndex = 91;
-            this.label2.Text = "Window Handling Process (es)";
+            this.label2.Text = "Window Handling Process(es)";
             // 
             // textBoxPermittedProcessExecutables
             // 
@@ -2723,6 +2723,20 @@
             this.tabPageBrowser.TabIndex = 14;
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRemoveProfile
+            // 
+            this.checkBoxRemoveProfile.AutoSize = true;
+            this.checkBoxRemoveProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 351);
+            this.checkBoxRemoveProfile.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxRemoveProfile.Name = "checkBoxRemoveProfile";
+            this.checkBoxRemoveProfile.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxRemoveProfile.TabIndex = 62;
+            this.checkBoxRemoveProfile.Text = "Remove profile (Win)";
+            this.toolTip1.SetToolTip(this.checkBoxRemoveProfile, "Remove XULRunner browser profile when quitting SEB.");
+            this.checkBoxRemoveProfile.UseVisualStyleBackColor = true;
+            this.checkBoxRemoveProfile.CheckedChanged += new System.EventHandler(this.checkBoxRemoveProfile_CheckedChanged);
             // 
             // listBoxOpenLinksJava
             // 
@@ -3760,20 +3774,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
-            // 
-            // checkBoxRemoveProfile
-            // 
-            this.checkBoxRemoveProfile.AutoSize = true;
-            this.checkBoxRemoveProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 351);
-            this.checkBoxRemoveProfile.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxRemoveProfile.Name = "checkBoxRemoveProfile";
-            this.checkBoxRemoveProfile.Size = new System.Drawing.Size(125, 17);
-            this.checkBoxRemoveProfile.TabIndex = 62;
-            this.checkBoxRemoveProfile.Text = "Remove profile (Win)";
-            this.toolTip1.SetToolTip(this.checkBoxRemoveProfile, "Remove XULRunner browser profile when quitting SEB.");
-            this.checkBoxRemoveProfile.UseVisualStyleBackColor = true;
-            this.checkBoxRemoveProfile.CheckedChanged += new System.EventHandler(this.checkBoxRemoveProfile_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
