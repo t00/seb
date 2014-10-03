@@ -1,5 +1,0 @@
-C:\Users\Dirk\seb\trunk\win\SebWindowsPackage\PlistCS\PlistCS\bin\Debug\PlistCS.dll
-C:\Users\Dirk\seb\trunk\win\SebWindowsPackage\PlistCS\PlistCS\bin\Debug\PlistCS.pdb
-C:\Users\Dirk\seb\trunk\win\SebWindowsPackage\PlistCS\PlistCS\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Dirk\seb\trunk\win\SebWindowsPackage\PlistCS\PlistCS\obj\Debug\PlistCS.dll
-C:\Users\Dirk\seb\trunk\win\SebWindowsPackage\PlistCS\PlistCS\obj\Debug\PlistCS.pdb
