@@ -603,7 +603,8 @@ namespace SebWindowsClient
                             // Continue only if the application has been found
                             if (fullPath != null)
                             {
-                                processImage = Iconextractor.ExtractHighResIconImage(fullPath);
+                                var x = toolStripButton.Height;
+                                processImage = Iconextractor.ExtractHighResIconImage(fullPath, taskbarHeight-8);
                                 if (processImage == null)
                                 {
                                     processIcon = GetApplicationIcon(fullPath);

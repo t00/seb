@@ -9,6 +9,11 @@ namespace SebWindowsClient.UI
 {
     public class SEBToolStripButton : ToolStripButton
     {
+        public SEBToolStripButton()
+        {
+            this.ImageScaling = ToolStripItemImageScaling.SizeToFit;
+        }
+
         public string Identifier
         { get; set; }
 
