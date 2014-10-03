@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<template xmlns = "http://www.w3.org" version = "$Id: template.xml,v 1.12 2005/11/01 01:09:18 akill Exp $" name = "ILIAS">
-	<style 	name = "NaviLess"
-			id = "naviless"
-			image_directory = "images"/>
-</template>
