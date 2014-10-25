@@ -237,6 +237,12 @@
   <data name="reconfiguringLocalSettingsFailedWrongPassword" xml:space="preserve">
     <value>If you don't enter the correct password these settings were encrypted with, you cannot use them.</value>
   </data>
+  <data name="reloadPage" xml:space="preserve">
+    <value>Reload Current Page</value>
+  </data>
+  <data name="reloadPageMessage" xml:space="preserve">
+    <value>Do you really want to reload the current web page?</value>
+  </data>
   <data name="sebFileTypeName" xml:space="preserve">
     <value>SEB Configuration Files</value>
   </data>
@@ -262,12 +268,12 @@
     <value>Settings Require New Desktop Kiosk Mode</value>
   </data>
   <data name="settingsRequireNewDesktopReason" xml:space="preserve">
-    <value>The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the "Create new desktop" kiosk mode. SEB will quit now.</value>
+    <value>Loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the "Create new desktop" kiosk mode. SEB will quit now.</value>
   </data>
   <data name="settingsRequireNotNewDesktop" xml:space="preserve">
     <value>Settings Require Standard Desktop</value>
   </data>
   <data name="settingsRequireNotNewDesktopReason" xml:space="preserve">
-    <value>The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the kiosk mode set to another than "Create new desktop". SEB will quit now.</value>
+    <value>Loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the kiosk mode set to another than "Create new desktop". SEB will quit now.</value>
   </data>
 </root>

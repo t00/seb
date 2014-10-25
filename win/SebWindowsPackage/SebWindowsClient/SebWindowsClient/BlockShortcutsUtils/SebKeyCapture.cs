@@ -661,7 +661,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                     var foregroundHandle = SEBWindowHandler.GetForegroundWindow();
                     if (foregroundHandle.GetProcess().GetExecutableName().Contains("xul"))
                     {
-                        if (!SEBErrorMessages.OutputErrorMessageNew("Refresh?", "Really?",
+                        if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.reloadPage, SEBUIStrings.reloadPageMessage,
                         SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
                         {
                             SEBWindowHandler.BringWindowToTop(foregroundHandle);

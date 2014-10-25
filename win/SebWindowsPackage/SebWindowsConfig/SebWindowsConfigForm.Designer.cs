@@ -223,6 +223,7 @@
             this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.checkboxShowReloadButton = new System.Windows.Forms.CheckBox();
             this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
             this.listBoxOpenLinksJava = new System.Windows.Forms.ListBox();
             this.listBoxOpenLinksHTML = new System.Windows.Forms.ListBox();
@@ -305,7 +306,6 @@
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkboxShowReloadButton = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -2486,7 +2486,7 @@
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(456, 30);
             this.textBox4.TabIndex = 118;
-            this.textBox4.Text = "This is the tooltip text of the restart button";
+            this.textBox4.Text = "Tool tip text of the restart button";
             // 
             // textBox3
             // 
@@ -2500,8 +2500,7 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(456, 30);
             this.textBox3.TabIndex = 118;
-            this.textBox3.Text = "This is the link, to where the student should be redirected when the restart exam" +
-    " button is pressed. Use this in case of unstable connection for example.";
+            this.textBox3.Text = "Link to redirect the exam to when the restart exam button is pressed. ";
             // 
             // textBoxRestartExamText
             // 
@@ -2534,10 +2533,10 @@
             this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(24, 466);
             this.checkBoxRestartExamPasswordProtected.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRestartExamPasswordProtected.Name = "checkBoxRestartExamPasswordProtected";
-            this.checkBoxRestartExamPasswordProtected.Size = new System.Drawing.Size(527, 17);
+            this.checkBoxRestartExamPasswordProtected.Size = new System.Drawing.Size(509, 17);
             this.checkBoxRestartExamPasswordProtected.TabIndex = 115;
-            this.checkBoxRestartExamPasswordProtected.Text = "Protect the restart exam button with the quit password (this only works when a qu" +
-    "it password has been set)";
+            this.checkBoxRestartExamPasswordProtected.Text = "Protect restart exam button with the quit password (this only works when a quit p" +
+    "assword has been set)";
             this.toolTip1.SetToolTip(this.checkBoxRestartExamPasswordProtected, "Protect the restart exam button with the quit password (this only works when a qu" +
         "it password has been set)");
             this.checkBoxRestartExamPasswordProtected.UseVisualStyleBackColor = true;
@@ -2614,9 +2613,9 @@
             this.label3.Location = new System.Drawing.Point(22, 323);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 13);
+            this.label3.Size = new System.Drawing.Size(102, 13);
             this.label3.TabIndex = 75;
-            this.label3.Text = "Restart Exam Button";
+            this.label3.Text = "Restart exam button";
             // 
             // labelQuitURL
             // 
@@ -2793,14 +2792,26 @@
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
             // 
+            // checkboxShowReloadButton
+            // 
+            this.checkboxShowReloadButton.AutoSize = true;
+            this.checkboxShowReloadButton.Location = new System.Drawing.Point(200, 342);
+            this.checkboxShowReloadButton.Margin = new System.Windows.Forms.Padding(2);
+            this.checkboxShowReloadButton.Name = "checkboxShowReloadButton";
+            this.checkboxShowReloadButton.Size = new System.Drawing.Size(194, 17);
+            this.checkboxShowReloadButton.TabIndex = 63;
+            this.checkboxShowReloadButton.Text = "Show reload button in SEB task bar";
+            this.checkboxShowReloadButton.UseVisualStyleBackColor = true;
+            this.checkboxShowReloadButton.CheckedChanged += new System.EventHandler(this.checkboxShowReloadButton_CheckedChanged);
+            // 
             // checkBoxRemoveProfile
             // 
             this.checkBoxRemoveProfile.AutoSize = true;
             this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 342);
             this.checkBoxRemoveProfile.Name = "checkBoxRemoveProfile";
-            this.checkBoxRemoveProfile.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxRemoveProfile.Size = new System.Drawing.Size(125, 17);
             this.checkBoxRemoveProfile.TabIndex = 62;
-            this.checkBoxRemoveProfile.Text = "Remove Profile (Win)";
+            this.checkBoxRemoveProfile.Text = "Remove profile (Win)";
             this.checkBoxRemoveProfile.UseVisualStyleBackColor = true;
             this.checkBoxRemoveProfile.CheckedChanged += new System.EventHandler(this.checkBoxRemoveProfile_CheckedChanged);
             // 
@@ -3082,12 +3093,12 @@
             // radioButtonTouchOptimized
             // 
             this.radioButtonTouchOptimized.AutoSize = true;
-            this.radioButtonTouchOptimized.Location = new System.Drawing.Point(23, 71);
+            this.radioButtonTouchOptimized.Location = new System.Drawing.Point(23, 72);
             this.radioButtonTouchOptimized.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonTouchOptimized.Name = "radioButtonTouchOptimized";
             this.radioButtonTouchOptimized.Size = new System.Drawing.Size(366, 17);
             this.radioButtonTouchOptimized.TabIndex = 64;
-            this.radioButtonTouchOptimized.Text = "Touch optimized (not working when Kiosk Mode = Create New Desktop)";
+            this.radioButtonTouchOptimized.Text = "Touch optimized (not working with the Create New Desktop kiosk mode)";
             this.radioButtonTouchOptimized.UseVisualStyleBackColor = true;
             this.radioButtonTouchOptimized.CheckedChanged += new System.EventHandler(this.radioButtonTouchOptimized_CheckedChanged);
             // 
@@ -3848,18 +3859,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
-            // 
-            // checkboxShowReloadButton
-            // 
-            this.checkboxShowReloadButton.AutoSize = true;
-            this.checkboxShowReloadButton.Location = new System.Drawing.Point(200, 342);
-            this.checkboxShowReloadButton.Margin = new System.Windows.Forms.Padding(2);
-            this.checkboxShowReloadButton.Name = "checkboxShowReloadButton";
-            this.checkboxShowReloadButton.Size = new System.Drawing.Size(201, 17);
-            this.checkboxShowReloadButton.TabIndex = 63;
-            this.checkboxShowReloadButton.Text = "Show Reload Button in SEB Taskbar";
-            this.checkboxShowReloadButton.UseVisualStyleBackColor = true;
-            this.checkboxShowReloadButton.CheckedChanged += new System.EventHandler(this.checkboxShowReloadButton_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 

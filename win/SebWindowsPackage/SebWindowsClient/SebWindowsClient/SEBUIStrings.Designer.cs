@@ -421,6 +421,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reload Current Page.
+        /// </summary>
+        internal static string reloadPage {
+            get {
+                return ResourceManager.GetString("reloadPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to reload the current web page?.
+        /// </summary>
+        internal static string reloadPageMessage {
+            get {
+                return ResourceManager.GetString("reloadPageMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SEB Configuration Files.
         /// </summary>
         internal static string sebFileTypeName {
@@ -493,7 +511,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the &quot;Create new desktop&quot; kiosk mode. SEB will quit now..
+        ///   Looks up a localized string similar to Loaded exam settings require a new desktop, but currently SEB is running on the standard desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the &quot;Create new desktop&quot; kiosk mode. SEB will quit now..
         /// </summary>
         internal static string settingsRequireNewDesktopReason {
             get {
@@ -511,7 +529,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the kiosk mode set to another than &quot;Create new desktop&quot;. SEB will quit now..
+        ///   Looks up a localized string similar to Loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the kiosk mode set to another than &quot;Create new desktop&quot;. SEB will quit now..
         /// </summary>
         internal static string settingsRequireNotNewDesktopReason {
             get {

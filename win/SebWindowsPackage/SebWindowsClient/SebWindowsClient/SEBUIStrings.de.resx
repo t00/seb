@@ -237,6 +237,12 @@
   <data name="reconfiguringLocalSettingsFailedWrongPassword" xml:space="preserve">
     <value>Ohne das korrekte Passwort, mit dem diese Einstellungen verschlüsselt wurden, können diese nicht verwendet werden.</value>
   </data>
+  <data name="reloadPage" xml:space="preserve">
+    <value>Seite neu laden</value>
+  </data>
+  <data name="reloadPageMessage" xml:space="preserve">
+    <value>Wollen Sie die geöffnete Webseite wirklich neu laden?</value>
+  </data>
   <data name="sebFileTypeName" xml:space="preserve">
     <value>SEB Konfigurationsdateien</value>
   </data>

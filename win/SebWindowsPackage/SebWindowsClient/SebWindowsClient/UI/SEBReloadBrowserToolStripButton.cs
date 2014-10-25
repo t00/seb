@@ -12,7 +12,7 @@ namespace SebWindowsClient.UI
     {
         public SEBReloadBrowserToolStripButton()
         {
-            this.ToolTipText = "Refresh browser";
+            this.ToolTipText = SEBUIStrings.reloadPage;
             base.Image = (Bitmap)Resources.ResourceManager.GetObject("reload");
             this.BackColor = Color.White;
             this.Alignment = ToolStripItemAlignment.Right;
