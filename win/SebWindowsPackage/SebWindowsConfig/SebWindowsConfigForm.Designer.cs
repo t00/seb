@@ -1467,7 +1467,6 @@
             // radioButtonUseSebProxySettings
             // 
             this.radioButtonUseSebProxySettings.AutoSize = true;
-            this.radioButtonUseSebProxySettings.Enabled = false;
             this.radioButtonUseSebProxySettings.Location = new System.Drawing.Point(19, 41);
             this.radioButtonUseSebProxySettings.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonUseSebProxySettings.Name = "radioButtonUseSebProxySettings";
@@ -1500,13 +1499,12 @@
             this.tabPageUrlFilter.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageUrlFilter.Size = new System.Drawing.Size(698, 462);
             this.tabPageUrlFilter.TabIndex = 3;
-            this.tabPageUrlFilter.Text = "Url Filter";
+            this.tabPageUrlFilter.Text = "Filter";
             this.tabPageUrlFilter.UseVisualStyleBackColor = true;
             // 
             // checkBoxUrlFilterRulesRegex
             // 
             this.checkBoxUrlFilterRulesRegex.AutoSize = true;
-            this.checkBoxUrlFilterRulesRegex.Enabled = false;
             this.checkBoxUrlFilterRulesRegex.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxUrlFilterRulesRegex.Location = new System.Drawing.Point(180, 14);
             this.checkBoxUrlFilterRulesRegex.Margin = new System.Windows.Forms.Padding(2);
@@ -3814,6 +3812,8 @@
             this.checkBoxAllowQuit.Size = new System.Drawing.Size(130, 17);
             this.checkBoxAllowQuit.TabIndex = 6;
             this.checkBoxAllowQuit.Text = "Allow user to quit SEB";
+            this.toolTip1.SetToolTip(this.checkBoxAllowQuit, "Users can quit SEB with Control-Q, window close or quit button. Otherwise use a q" +
+        "uit link in your exam system or shutdown/restart the computer.");
             this.checkBoxAllowQuit.UseVisualStyleBackColor = true;
             this.checkBoxAllowQuit.CheckedChanged += new System.EventHandler(this.checkBoxAllowQuit_CheckedChanged);
             // 
