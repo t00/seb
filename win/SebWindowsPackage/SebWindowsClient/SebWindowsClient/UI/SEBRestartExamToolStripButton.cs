@@ -19,7 +19,7 @@ namespace SebWindowsClient.UI
     {
         public SEBRestartExamToolStripButton()
         {
-            this.ToolTipText = SEBSettings.KeyRestartExamText;
+            this.ToolTipText = (String)SEBClientInfo.getSebSetting(SEBSettings.KeyRestartExamText)[SEBSettings.KeyRestartExamText];
             base.Image = (Bitmap)Resources.ResourceManager.GetObject("restartExam");
             this.Alignment = ToolStripItemAlignment.Right;
         }
@@ -31,7 +31,7 @@ namespace SebWindowsClient.UI
                 var quitPassword = (String)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedQuitPassword)[SEBSettings.KeyHashedQuitPassword];
                 if (String.IsNullOrWhiteSpace(quitPassword))
                     return;
-                var password = SebPasswordDialogForm.ShowPasswordDialogForm("Enter password","Enter password to restart exam");
+                var password = SebPasswordDialogForm.ShowPasswordDialogForm((String)SEBClientInfo.getSebSetting(SEBSettings.KeyRestartExamText)[SEBSettings.KeyRestartExamText], SEBUIStrings.restartExamMessage);
                 if (String.IsNullOrWhiteSpace(password)) return;
                 var hashedPassword = SEBProtectionController.ComputePasswordHash(password);
                 if (String.Compare(quitPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) != 0)

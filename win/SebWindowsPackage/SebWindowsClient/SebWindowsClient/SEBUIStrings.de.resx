@@ -243,6 +243,9 @@
   <data name="reloadPageMessage" xml:space="preserve">
     <value>Wollen Sie die geöffnete Webseite wirklich neu laden?</value>
   </data>
+  <data name="restartExamMessage" xml:space="preserve">
+    <value>Passwort eingeben:</value>
+  </data>
   <data name="sebFileTypeName" xml:space="preserve">
     <value>SEB Konfigurationsdateien</value>
   </data>

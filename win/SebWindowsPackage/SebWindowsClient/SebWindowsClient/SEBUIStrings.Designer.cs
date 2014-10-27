@@ -439,6 +439,15 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter password:.
+        /// </summary>
+        internal static string restartExamMessage {
+            get {
+                return ResourceManager.GetString("restartExamMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SEB Configuration Files.
         /// </summary>
         internal static string sebFileTypeName {
