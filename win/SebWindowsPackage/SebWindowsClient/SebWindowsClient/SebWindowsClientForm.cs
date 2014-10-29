@@ -1657,6 +1657,12 @@ namespace SebWindowsClient
         /// </summary>
         public void ExitApplication(bool showLoadingScreen = true)
         {
+            //Only show the loading screen when not in CreateNewDesktop-Mode
+            if ((bool) SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop])
+            {
+                showLoadingScreen = false;
+            }
+
             if (showLoadingScreen)
             {
                 SEBSplashScreen.CloseSplash();
