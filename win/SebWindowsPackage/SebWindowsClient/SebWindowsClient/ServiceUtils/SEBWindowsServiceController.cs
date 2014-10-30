@@ -28,6 +28,7 @@ namespace SebWindowsClient.ServiceUtils
         {
             if (!_initialized)
             {
+                Logger.AddInformation("initializing wcf service connetion");
                 var pipeFactory =
                     new ChannelFactory<IRegistryServiceContract>(
                         new NetNamedPipeBinding(NetNamedPipeSecurityMode.Transport),
@@ -80,12 +81,15 @@ namespace SebWindowsClient.ServiceUtils
         /// <returns>succeded or not</returns>
         public static bool ResetRegistry()
         {
+            Logger.AddInformation("resetting registry entries");
             Initialize();
+            Logger.AddInformation("calling reset on wcf service");
             return _sebWindowsServicePipeProxy.Reset();
         }
 
         public static bool DisableWindowsUpdate()
         {
+            Logger.AddInformation("calling disable windows update on wcf service");
             return _sebWindowsServicePipeProxy.DisableWindowsUpdate();
         }
 

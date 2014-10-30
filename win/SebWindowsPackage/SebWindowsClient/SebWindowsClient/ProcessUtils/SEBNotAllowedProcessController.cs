@@ -106,14 +106,19 @@ namespace SebWindowsClient.ProcessUtils
                     {
                         if (processToClose != null) // && !processToClose.HasExited)
                         {
+                            Logger.AddInformation("Closing " + processToClose.ProcessName);
                             if (processToClose.ProcessName.Contains("xulrunner"))
+                            {
+                                Logger.AddInformation("Closing XulRunner over Socket");
                                 SEBXULRunnerWebSocketServer.SendAllowCloseToXulRunner();
+                            }
 
                             string name = "processHasExitedTrue";
 
                             // Try to close process nicely with CloseMainWindow
                             if (!processToClose.HasExited)
                             {
+                                Logger.AddInformation("Process " + processToClose.ProcessName + " hasnt closed yet, try again");
                                 //If the process handles the mainWindow
                                 if (processToClose.MainWindowHandle != IntPtr.Zero)
                                 {

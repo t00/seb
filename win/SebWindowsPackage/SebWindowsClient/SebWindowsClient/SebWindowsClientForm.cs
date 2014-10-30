@@ -1396,10 +1396,13 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         public bool OpenSEBForm()
         {
+            Logger.AddInformation("entering Opensebform");
             if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
             {
                 //this.Show();
+                Logger.AddInformation("attempting to position the taskbar");
                 SetFormOnDesktop();
+                Logger.AddInformation("finished taskbar positioning");
                 //if (!this.Controls.Contains(this.taskbarToolStrip))
                 //{
                 //    this.Controls.Add(this.taskbarToolStrip);
@@ -1409,6 +1412,7 @@ namespace SebWindowsClient
             }
             else
             {
+                Logger.AddInformation("hiding the taskbar");
                 //this.Hide();
                 this.Visible = false;
                 this.Height = 1;
@@ -1429,12 +1433,13 @@ namespace SebWindowsClient
 
             // Check if VM and SEB Windows Service available and required
             if (SebWindowsClientMain.CheckVMService()) {
-
+                Logger.AddInformation("attempting to start socket server");
                 SEBXULRunnerWebSocketServer.StartServer();
 
                 //Set Registry Values to lock down CTRL+ALT+DELETE Menu (with SEBWindowsServiceWCF)
                 try
                 {
+                    Logger.AddInformation("setting registry values");
                     if(SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.SetRegistryAccordingToConfiguration())
                         Logger.AddWarning("Unable to set registry values",this,null);
                 }
@@ -1446,6 +1451,7 @@ namespace SebWindowsClient
                 //Disable windows update service (with SEBWindowsServiceWCF)
                 try
                 {
+                    Logger.AddInformation("disabling windows update");
                     if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.DisableWindowsUpdate())
                         Logger.AddWarning("Unable to disable windows upate service", this, null);
                 }
@@ -1456,6 +1462,7 @@ namespace SebWindowsClient
 
                 try
                 {
+                    Logger.AddInformation("killing processes that are not allowed to run");
                     bool bClientRegistryAndProcesses = InitClientRegistryAndKillProcesses();
                 }
                 catch (Exception ex)
@@ -1482,6 +1489,7 @@ namespace SebWindowsClient
                 //}
                 try
                 {
+                    Logger.AddInformation("adding allowed processes to taskbar");
                     addPermittedProcessesToTS();
                 }
                 catch (Exception ex)
@@ -1498,6 +1506,7 @@ namespace SebWindowsClient
                 
                 if (sebCloseDialogForm == null)
                 {
+                    Logger.AddInformation("creating close dialog form");
                     sebCloseDialogForm = new SebCloseDialogForm();
                     //SetForegroundWindow(sebCloseDialogForm.Handle);
                     sebCloseDialogForm.TopMost = true;
@@ -1506,6 +1515,7 @@ namespace SebWindowsClient
                 }
                 if (sebApplicationChooserForm == null)
                 {
+                    Logger.AddInformation("building application chooser form");
                     sebApplicationChooserForm = new SebApplicationChooserForm();
                     sebApplicationChooserForm.TopMost = true;
                     sebApplicationChooserForm.Show();
@@ -1517,6 +1527,7 @@ namespace SebWindowsClient
             else
             {
                 // VM or service not available and set to be required
+                Logger.AddInformation("exiting without starting up because vm test failed");
                 ExitApplication(false);
                 return false;
             }
@@ -1533,6 +1544,9 @@ namespace SebWindowsClient
                 //Restore Registry Values
                 try
                 {
+                    Logger.AddInformation("restoring registry entries");
+                    if (SebWindowsServiceHandler.IsServiceAvailable)
+                        Logger.AddInformation("windows service is available");
                     if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.ResetRegistry())
                     {
                         Logger.AddWarning("Unable to reset Registry values",this,null);
@@ -1545,7 +1559,9 @@ namespace SebWindowsClient
 
                 try
                 {
+                    Logger.AddInformation("attempting to reset workspacearea");
                     SEBWorkingAreaHandler.ResetWorkspaceArea();
+                    Logger.AddInformation("workspace area resettet");
                 }
                 catch (Exception ex)
                 {
@@ -1553,8 +1569,8 @@ namespace SebWindowsClient
                 }
 
                 // ShutDown Processes
-                //Close XulRunner
-                SEBXULRunnerWebSocketServer.SendAllowCloseToXulRunner();
+
+                Logger.AddInformation("clsoing processes that where started by seb");
                 for(int i = 0; i < permittedProcessesReferences.Count; i++)
                 {
                     try
@@ -1568,7 +1584,11 @@ namespace SebWindowsClient
                             var title = (string)currentProcessData[SEBSettings.KeyIdentifier];
                             proc = SEBWindowHandler.GetWindowHandleByTitle(title).GetProcess();
                         }
-                        SEBNotAllowedProcessController.CloseProcess(proc);
+                        if (proc != null)
+                        {
+                            Logger.AddInformation("attempting to close " + proc.ProcessName);
+                            SEBNotAllowedProcessController.CloseProcess(proc);   
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -1576,15 +1596,19 @@ namespace SebWindowsClient
                     }
                     
                 }
+                Logger.AddInformation("clearing running processes list");
                 permittedProcessesReferences.Clear();
 
                 //Disable Watchdogs
+                Logger.AddInformation("disabling foreground watchdog");
                 SEBWindowHandler.DisableForegroundWatchDog();
+                Logger.AddInformation("disabling process watchdog");
                 SEBProcessHandler.DisableProcessWatchDog();
 
                 //Restore the hidden Windows
                 try
                 {
+                    Logger.AddInformation("restoring hidden windows");
                     SEBWindowHandler.RestoreHiddenWindows();
                 }
                 catch (Exception ex)
@@ -1614,9 +1638,14 @@ namespace SebWindowsClient
                 }
 
                 // Clean clipboard
+
                 SEBClipboard.CleanClipboard();
                 Logger.AddInformation("Clipboard deleted.", null, null);
+
+                Logger.AddInformation("disabling filtered keys");
                 SebKeyCapture.FilterKeys = false;
+
+                Logger.AddInformation("returning from closesebform");
             }
         }
 
@@ -1663,10 +1692,11 @@ namespace SebWindowsClient
                 showLoadingScreen = false;
             }
 
+            Thread loadingThread = null;
             if (showLoadingScreen)
             {
                 SEBSplashScreen.CloseSplash();
-                var loadingThread = new Thread(SEBLoading.StartLoading);
+                loadingThread = new Thread(SEBLoading.StartLoading);
                 loadingThread.Start();
             }
             Logger.AddInformation("Attempting to CloseSEBForm in ExitApplication");
@@ -1682,7 +1712,13 @@ namespace SebWindowsClient
 
             if (showLoadingScreen)
             {
+                Logger.AddInformation("closing loading screen");
                 SEBLoading.CloseLoading();
+                try
+                {
+                   loadingThread.Abort();
+                }
+                catch{}
             }
 
 
@@ -1690,6 +1726,9 @@ namespace SebWindowsClient
             SebWindowsClientMain.ResetSEBDesktop();
             Logger.AddInformation("Successfull ResetSEBDesktop");
 
+
+            Logger.AddInformation("closing form and thenn calling application.exit");
+            this.Close();
             Application.Exit();
         }
 
