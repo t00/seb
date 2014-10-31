@@ -350,7 +350,28 @@ namespace SebWindowsClient
                 StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append("\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\"");
                 // Check if there is a user defined -profile parameter, otherwise use the standard one 
                 if (!(userDefinedArguments.ToLower()).Contains("-profile"))
+                {
                     xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"");
+                }
+                // If logging is enabled in settings and there is no custom xulrunner -logfile argument 
+                if (!(userDefinedArguments.ToLower()).Contains("-logfile") && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableLogging))
+                {
+                    string logDirectory = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyLogDirectoryWin);
+                    if (String.IsNullOrEmpty(logDirectory))
+                    {
+                        // When there is no directory indicated, we use the placeholder for telling xulrunner to use the xulrunner profile directory to store the log
+                        xulRunnerArgumentsBuilder.Append(" -logfile 1");
+                    }
+                    else
+                    {
+                        xulRunnerArgumentsBuilder.Append(" -logfile \"").Append(logDirectory).Append("\"");
+                    }
+
+                    if (!(userDefinedArguments.ToLower()).Contains("-debug"))
+                    {
+                        xulRunnerArgumentsBuilder.Append(" -debug 1");
+                    }
+                }
                 xulRunnerArgumentsBuilder.Append(" ").Append(Environment.ExpandEnvironmentVariables(userDefinedArguments)).Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
