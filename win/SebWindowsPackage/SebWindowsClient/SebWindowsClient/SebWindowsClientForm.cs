@@ -354,7 +354,7 @@ namespace SebWindowsClient
                     xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"");
                 }
                 // If logging is enabled in settings and there is no custom xulrunner -logfile argument 
-                if (!(userDefinedArguments.ToLower()).Contains("-logfile") && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableLogging))
+                if (!userDefinedArguments.ToLower().Contains("-logfile") && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableLogging))
                 {
                     string logDirectory = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyLogDirectoryWin);
                     if (String.IsNullOrEmpty(logDirectory))
@@ -364,7 +364,7 @@ namespace SebWindowsClient
                     }
                     else
                     {
-                        xulRunnerArgumentsBuilder.Append(" -logfile \"").Append(logDirectory).Append("\"");
+                        xulRunnerArgumentsBuilder.Append(" -logfile \"").Append(logDirectory).Append("\\seb.log\"");
                     }
 
                     if (!(userDefinedArguments.ToLower()).Contains("-debug"))

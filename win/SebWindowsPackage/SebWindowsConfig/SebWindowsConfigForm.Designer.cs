@@ -978,11 +978,10 @@
             this.buttonLogDirectoryWin.Location = new System.Drawing.Point(23, 229);
             this.buttonLogDirectoryWin.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLogDirectoryWin.Name = "buttonLogDirectoryWin";
-            this.buttonLogDirectoryWin.Size = new System.Drawing.Size(143, 20);
+            this.buttonLogDirectoryWin.Size = new System.Drawing.Size(143, 24);
             this.buttonLogDirectoryWin.TabIndex = 6;
             this.buttonLogDirectoryWin.Text = "Save log file to...";
             this.buttonLogDirectoryWin.UseVisualStyleBackColor = true;
-            this.buttonLogDirectoryWin.Visible = false;
             this.buttonLogDirectoryWin.Click += new System.EventHandler(this.buttonLogDirectoryWin_Click);
             // 
             // checkBoxAllowUserSwitching
@@ -1032,7 +1031,6 @@
             this.checkBoxEnableLogging.TabIndex = 5;
             this.checkBoxEnableLogging.Text = "Enable logging";
             this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
-            this.checkBoxEnableLogging.Visible = false;
             this.checkBoxEnableLogging.CheckedChanged += new System.EventHandler(this.checkBoxEnableLogging_CheckedChanged);
             // 
             // checkBoxAllowVirtualMachine
@@ -1379,10 +1377,10 @@
             // 
             this.buttonChooseProxyConfigurationFile.Enabled = false;
             this.buttonChooseProxyConfigurationFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonChooseProxyConfigurationFile.Location = new System.Drawing.Point(592, 50);
+            this.buttonChooseProxyConfigurationFile.Location = new System.Drawing.Point(592, 56);
             this.buttonChooseProxyConfigurationFile.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChooseProxyConfigurationFile.Name = "buttonChooseProxyConfigurationFile";
-            this.buttonChooseProxyConfigurationFile.Size = new System.Drawing.Size(82, 20);
+            this.buttonChooseProxyConfigurationFile.Size = new System.Drawing.Size(82, 24);
             this.buttonChooseProxyConfigurationFile.TabIndex = 99;
             this.buttonChooseProxyConfigurationFile.Text = "Choose file...";
             this.buttonChooseProxyConfigurationFile.UseVisualStyleBackColor = true;
@@ -2690,7 +2688,7 @@
             this.buttonDownloadDirectoryWin.Location = new System.Drawing.Point(114, 64);
             this.buttonDownloadDirectoryWin.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDownloadDirectoryWin.Name = "buttonDownloadDirectoryWin";
-            this.buttonDownloadDirectoryWin.Size = new System.Drawing.Size(143, 20);
+            this.buttonDownloadDirectoryWin.Size = new System.Drawing.Size(143, 24);
             this.buttonDownloadDirectoryWin.TabIndex = 0;
             this.buttonDownloadDirectoryWin.Text = "Save downloaded files to...";
             this.buttonDownloadDirectoryWin.UseVisualStyleBackColor = true;
@@ -3748,10 +3746,10 @@
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Location = new System.Drawing.Point(227, 384);
+            this.buttonHelp.Location = new System.Drawing.Point(179, 384);
             this.buttonHelp.Margin = new System.Windows.Forms.Padding(2);
             this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(56, 19);
+            this.buttonHelp.Size = new System.Drawing.Size(56, 24);
             this.buttonHelp.TabIndex = 45;
             this.buttonHelp.Text = "Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
@@ -3760,10 +3758,10 @@
             // 
             // buttonAbout
             // 
-            this.buttonAbout.Location = new System.Drawing.Point(90, 384);
+            this.buttonAbout.Location = new System.Drawing.Point(20, 384);
             this.buttonAbout.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAbout.Name = "buttonAbout";
-            this.buttonAbout.Size = new System.Drawing.Size(56, 19);
+            this.buttonAbout.Size = new System.Drawing.Size(56, 24);
             this.buttonAbout.TabIndex = 42;
             this.buttonAbout.Text = "About";
             this.buttonAbout.UseVisualStyleBackColor = true;
