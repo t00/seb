@@ -70,6 +70,8 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxLogDirectoryOSX = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radioNoKiosMode = new System.Windows.Forms.RadioButton();
             this.radioCreateNewDesktop = new System.Windows.Forms.RadioButton();
@@ -213,8 +215,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.labelQuitURL = new System.Windows.Forms.Label();
             this.checkBoxSendBrowserExamKey = new System.Windows.Forms.CheckBox();
-            this.checkBoxCopyBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.checkBoxDownloadOpenSEBFiles = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxDownloadDirectoryOSX = new System.Windows.Forms.TextBox();
             this.labelDownloadDirectoryWin = new System.Windows.Forms.Label();
             this.buttonDownloadDirectoryWin = new System.Windows.Forms.Button();
             this.listBoxChooseFileToUploadPolicy = new System.Windows.Forms.ListBox();
@@ -306,6 +310,7 @@
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxEnableScreenCapture = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -868,6 +873,9 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.checkBoxEnableScreenCapture);
+            this.tabPageSecurity.Controls.Add(this.label4);
+            this.tabPageSecurity.Controls.Add(this.textBoxLogDirectoryOSX);
             this.tabPageSecurity.Controls.Add(this.groupBox3);
             this.tabPageSecurity.Controls.Add(this.checkboxAllowWlan);
             this.tabPageSecurity.Controls.Add(this.labelLogDirectoryWin);
@@ -886,6 +894,25 @@
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(54, 265);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(112, 13);
+            this.label4.TabIndex = 83;
+            this.label4.Text = "Log file directory OS X";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBoxLogDirectoryOSX
+            // 
+            this.textBoxLogDirectoryOSX.Location = new System.Drawing.Point(176, 262);
+            this.textBoxLogDirectoryOSX.Name = "textBoxLogDirectoryOSX";
+            this.textBoxLogDirectoryOSX.Size = new System.Drawing.Size(379, 20);
+            this.textBoxLogDirectoryOSX.TabIndex = 82;
+            this.textBoxLogDirectoryOSX.TextChanged += new System.EventHandler(this.textBoxLogDirectoryOSX_TextChanged);
             // 
             // groupBox3
             // 
@@ -965,12 +992,11 @@
             // labelLogDirectoryWin
             // 
             this.labelLogDirectoryWin.AutoSize = true;
-            this.labelLogDirectoryWin.Location = new System.Drawing.Point(282, 249);
+            this.labelLogDirectoryWin.Location = new System.Drawing.Point(175, 234);
             this.labelLogDirectoryWin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelLogDirectoryWin.Name = "labelLogDirectoryWin";
             this.labelLogDirectoryWin.Size = new System.Drawing.Size(0, 13);
             this.labelLogDirectoryWin.TabIndex = 79;
-            this.labelLogDirectoryWin.Visible = false;
             // 
             // buttonLogDirectoryWin
             // 
@@ -988,7 +1014,7 @@
             // 
             this.checkBoxAllowUserSwitching.AutoSize = true;
             this.checkBoxAllowUserSwitching.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowUserSwitching.Location = new System.Drawing.Point(23, 154);
+            this.checkBoxAllowUserSwitching.Location = new System.Drawing.Point(23, 173);
             this.checkBoxAllowUserSwitching.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowUserSwitching.Name = "checkBoxAllowUserSwitching";
             this.checkBoxAllowUserSwitching.Size = new System.Drawing.Size(173, 17);
@@ -1024,7 +1050,7 @@
             // 
             this.checkBoxEnableLogging.AutoSize = true;
             this.checkBoxEnableLogging.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(23, 200);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(23, 203);
             this.checkBoxEnableLogging.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(96, 17);
@@ -1093,7 +1119,7 @@
             // labelChooseIdentityToEmbed
             // 
             this.labelChooseIdentityToEmbed.AutoSize = true;
-            this.labelChooseIdentityToEmbed.Location = new System.Drawing.Point(16, 75);
+            this.labelChooseIdentityToEmbed.Location = new System.Drawing.Point(16, 74);
             this.labelChooseIdentityToEmbed.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelChooseIdentityToEmbed.Name = "labelChooseIdentityToEmbed";
             this.labelChooseIdentityToEmbed.Size = new System.Drawing.Size(219, 13);
@@ -1239,7 +1265,7 @@
             // labelProxyServerPassword
             // 
             this.labelProxyServerPassword.AutoSize = true;
-            this.labelProxyServerPassword.Location = new System.Drawing.Point(323, 211);
+            this.labelProxyServerPassword.Location = new System.Drawing.Point(323, 212);
             this.labelProxyServerPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyServerPassword.Name = "labelProxyServerPassword";
             this.labelProxyServerPassword.Size = new System.Drawing.Size(53, 13);
@@ -1249,7 +1275,7 @@
             // labelProxyServerUsername
             // 
             this.labelProxyServerUsername.AutoSize = true;
-            this.labelProxyServerUsername.Location = new System.Drawing.Point(323, 185);
+            this.labelProxyServerUsername.Location = new System.Drawing.Point(323, 182);
             this.labelProxyServerUsername.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyServerUsername.Name = "labelProxyServerUsername";
             this.labelProxyServerUsername.Size = new System.Drawing.Size(55, 13);
@@ -1389,7 +1415,7 @@
             // labelProxyConfigurationFileURL
             // 
             this.labelProxyConfigurationFileURL.AutoSize = true;
-            this.labelProxyConfigurationFileURL.Location = new System.Drawing.Point(300, 31);
+            this.labelProxyConfigurationFileURL.Location = new System.Drawing.Point(298, 28);
             this.labelProxyConfigurationFileURL.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyConfigurationFileURL.Name = "labelProxyConfigurationFileURL";
             this.labelProxyConfigurationFileURL.Size = new System.Drawing.Size(32, 13);
@@ -1826,7 +1852,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(105, 108);
+            this.label2.Location = new System.Drawing.Point(107, 108);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(132, 13);
@@ -1934,7 +1960,7 @@
             // 
             // buttonPermittedProcessAddArgument
             // 
-            this.buttonPermittedProcessAddArgument.Location = new System.Drawing.Point(17, 171);
+            this.buttonPermittedProcessAddArgument.Location = new System.Drawing.Point(13, 171);
             this.buttonPermittedProcessAddArgument.Margin = new System.Windows.Forms.Padding(2);
             this.buttonPermittedProcessAddArgument.Name = "buttonPermittedProcessAddArgument";
             this.buttonPermittedProcessAddArgument.Size = new System.Drawing.Size(22, 19);
@@ -1947,7 +1973,7 @@
             // labelPermittedProcessArguments
             // 
             this.labelPermittedProcessArguments.AutoSize = true;
-            this.labelPermittedProcessArguments.Location = new System.Drawing.Point(15, 151);
+            this.labelPermittedProcessArguments.Location = new System.Drawing.Point(15, 153);
             this.labelPermittedProcessArguments.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPermittedProcessArguments.Name = "labelPermittedProcessArguments";
             this.labelPermittedProcessArguments.Size = new System.Drawing.Size(57, 13);
@@ -1988,7 +2014,7 @@
             // labelPermittedProcessPath
             // 
             this.labelPermittedProcessPath.AutoSize = true;
-            this.labelPermittedProcessPath.Location = new System.Drawing.Point(48, 129);
+            this.labelPermittedProcessPath.Location = new System.Drawing.Point(53, 132);
             this.labelPermittedProcessPath.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPermittedProcessPath.Name = "labelPermittedProcessPath";
             this.labelPermittedProcessPath.Size = new System.Drawing.Size(29, 13);
@@ -2029,7 +2055,7 @@
             // labelPermittedProcessDescription
             // 
             this.labelPermittedProcessDescription.AutoSize = true;
-            this.labelPermittedProcessDescription.Location = new System.Drawing.Point(16, 55);
+            this.labelPermittedProcessDescription.Location = new System.Drawing.Point(14, 58);
             this.labelPermittedProcessDescription.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPermittedProcessDescription.Name = "labelPermittedProcessDescription";
             this.labelPermittedProcessDescription.Size = new System.Drawing.Size(60, 13);
@@ -2099,7 +2125,7 @@
             // checkBoxPermittedProcessActive
             // 
             this.checkBoxPermittedProcessActive.AutoSize = true;
-            this.checkBoxPermittedProcessActive.Location = new System.Drawing.Point(17, 23);
+            this.checkBoxPermittedProcessActive.Location = new System.Drawing.Point(17, 28);
             this.checkBoxPermittedProcessActive.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessActive.Name = "checkBoxPermittedProcessActive";
             this.checkBoxPermittedProcessActive.Size = new System.Drawing.Size(56, 17);
@@ -2459,7 +2485,6 @@
             this.tabPageExam.Controls.Add(this.label3);
             this.tabPageExam.Controls.Add(this.labelQuitURL);
             this.tabPageExam.Controls.Add(this.checkBoxSendBrowserExamKey);
-            this.tabPageExam.Controls.Add(this.checkBoxCopyBrowserExamKey);
             this.tabPageExam.ImageIndex = 5;
             this.tabPageExam.Location = new System.Drawing.Point(4, 39);
             this.tabPageExam.Margin = new System.Windows.Forms.Padding(2);
@@ -2475,12 +2500,12 @@
             this.textBox4.BackColor = System.Drawing.SystemColors.Window;
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(25, 432);
+            this.textBox4.Location = new System.Drawing.Point(25, 389);
             this.textBox4.Margin = new System.Windows.Forms.Padding(2);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(456, 30);
+            this.textBox4.Size = new System.Drawing.Size(456, 22);
             this.textBox4.TabIndex = 118;
             this.textBox4.Text = "Tool tip text of the restart button";
             // 
@@ -2489,19 +2514,19 @@
             this.textBox3.BackColor = System.Drawing.SystemColors.Window;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(24, 375);
+            this.textBox3.Location = new System.Drawing.Point(25, 337);
             this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(456, 30);
+            this.textBox3.Size = new System.Drawing.Size(456, 23);
             this.textBox3.TabIndex = 118;
             this.textBox3.Text = "Link to redirect the exam to when the restart exam button is pressed. ";
             // 
             // textBoxRestartExamText
             // 
             this.textBoxRestartExamText.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxRestartExamText.Location = new System.Drawing.Point(24, 409);
+            this.textBoxRestartExamText.Location = new System.Drawing.Point(24, 364);
             this.textBoxRestartExamText.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxRestartExamText.Name = "textBoxRestartExamText";
             this.textBoxRestartExamText.Size = new System.Drawing.Size(526, 19);
@@ -2513,7 +2538,7 @@
             // textBoxRestartExamLink
             // 
             this.textBoxRestartExamLink.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxRestartExamLink.Location = new System.Drawing.Point(25, 352);
+            this.textBoxRestartExamLink.Location = new System.Drawing.Point(25, 311);
             this.textBoxRestartExamLink.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxRestartExamLink.Name = "textBoxRestartExamLink";
             this.textBoxRestartExamLink.Size = new System.Drawing.Size(526, 19);
@@ -2526,7 +2551,7 @@
             // 
             this.checkBoxRestartExamPasswordProtected.AutoSize = true;
             this.checkBoxRestartExamPasswordProtected.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(24, 466);
+            this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(24, 415);
             this.checkBoxRestartExamPasswordProtected.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRestartExamPasswordProtected.Name = "checkBoxRestartExamPasswordProtected";
             this.checkBoxRestartExamPasswordProtected.Size = new System.Drawing.Size(509, 17);
@@ -2543,7 +2568,7 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.Window;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(24, 79);
+            this.textBox2.Location = new System.Drawing.Point(24, 77);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
@@ -2559,7 +2584,7 @@
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(24, 257);
+            this.textBox1.Location = new System.Drawing.Point(24, 220);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -2574,7 +2599,7 @@
             // 
             this.labelBrowserExamKey.AutoSize = true;
             this.labelBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBrowserExamKey.Location = new System.Drawing.Point(22, 25);
+            this.labelBrowserExamKey.Location = new System.Drawing.Point(22, 26);
             this.labelBrowserExamKey.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBrowserExamKey.Name = "labelBrowserExamKey";
             this.labelBrowserExamKey.Size = new System.Drawing.Size(321, 13);
@@ -2583,7 +2608,7 @@
             // 
             // textBoxBrowserExamKey
             // 
-            this.textBoxBrowserExamKey.Location = new System.Drawing.Point(24, 54);
+            this.textBoxBrowserExamKey.Location = new System.Drawing.Point(24, 50);
             this.textBoxBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxBrowserExamKey.Name = "textBoxBrowserExamKey";
             this.textBoxBrowserExamKey.Size = new System.Drawing.Size(526, 20);
@@ -2593,7 +2618,7 @@
             // textBoxQuitURL
             // 
             this.textBoxQuitURL.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuitURL.Location = new System.Drawing.Point(24, 234);
+            this.textBoxQuitURL.Location = new System.Drawing.Point(24, 193);
             this.textBoxQuitURL.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxQuitURL.Name = "textBoxQuitURL";
             this.textBoxQuitURL.Size = new System.Drawing.Size(526, 19);
@@ -2606,7 +2631,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(22, 323);
+            this.label3.Location = new System.Drawing.Point(23, 287);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 13);
@@ -2617,7 +2642,7 @@
             // 
             this.labelQuitURL.AutoSize = true;
             this.labelQuitURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitURL.Location = new System.Drawing.Point(22, 207);
+            this.labelQuitURL.Location = new System.Drawing.Point(22, 168);
             this.labelQuitURL.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitURL.Name = "labelQuitURL";
             this.labelQuitURL.Size = new System.Drawing.Size(135, 13);
@@ -2628,7 +2653,7 @@
             // 
             this.checkBoxSendBrowserExamKey.AutoSize = true;
             this.checkBoxSendBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxSendBrowserExamKey.Location = new System.Drawing.Point(25, 152);
+            this.checkBoxSendBrowserExamKey.Location = new System.Drawing.Point(25, 116);
             this.checkBoxSendBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxSendBrowserExamKey.Name = "checkBoxSendBrowserExamKey";
             this.checkBoxSendBrowserExamKey.Size = new System.Drawing.Size(221, 17);
@@ -2639,23 +2664,11 @@
             this.checkBoxSendBrowserExamKey.UseVisualStyleBackColor = true;
             this.checkBoxSendBrowserExamKey.CheckedChanged += new System.EventHandler(this.checkBoxSendBrowserExamKey_CheckedChanged);
             // 
-            // checkBoxCopyBrowserExamKey
-            // 
-            this.checkBoxCopyBrowserExamKey.AutoSize = true;
-            this.checkBoxCopyBrowserExamKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopyBrowserExamKey.Location = new System.Drawing.Point(49, 122);
-            this.checkBoxCopyBrowserExamKey.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxCopyBrowserExamKey.Name = "checkBoxCopyBrowserExamKey";
-            this.checkBoxCopyBrowserExamKey.Size = new System.Drawing.Size(431, 17);
-            this.checkBoxCopyBrowserExamKey.TabIndex = 1;
-            this.checkBoxCopyBrowserExamKey.Text = "Copy Browser Exam Key to clipboard when quitting SEB Windows Configuration Editor" +
-    "";
-            this.checkBoxCopyBrowserExamKey.UseVisualStyleBackColor = true;
-            this.checkBoxCopyBrowserExamKey.Visible = false;
-            this.checkBoxCopyBrowserExamKey.CheckedChanged += new System.EventHandler(this.checkBoxCopyBrowserExamKey_CheckedChanged);
-            // 
             // tabPageDownUploads
             // 
+            this.tabPageDownUploads.Controls.Add(this.checkBoxDownloadOpenSEBFiles);
+            this.tabPageDownUploads.Controls.Add(this.label5);
+            this.tabPageDownUploads.Controls.Add(this.textBoxDownloadDirectoryOSX);
             this.tabPageDownUploads.Controls.Add(this.labelDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.buttonDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUploadPolicy);
@@ -2673,10 +2686,44 @@
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDownloadOpenSEBFiles
+            // 
+            this.checkBoxDownloadOpenSEBFiles.AutoSize = true;
+            this.checkBoxDownloadOpenSEBFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDownloadOpenSEBFiles.Location = new System.Drawing.Point(25, 304);
+            this.checkBoxDownloadOpenSEBFiles.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxDownloadOpenSEBFiles.Name = "checkBoxDownloadOpenSEBFiles";
+            this.checkBoxDownloadOpenSEBFiles.Size = new System.Drawing.Size(199, 17);
+            this.checkBoxDownloadOpenSEBFiles.TabIndex = 86;
+            this.checkBoxDownloadOpenSEBFiles.Text = "Download and open SEB config files";
+            this.toolTip1.SetToolTip(this.checkBoxDownloadOpenSEBFiles, "Download and open .seb config files regardless if downloading and opening other f" +
+        "ile types is allowed.");
+            this.checkBoxDownloadOpenSEBFiles.UseVisualStyleBackColor = true;
+            this.checkBoxDownloadOpenSEBFiles.CheckedChanged += new System.EventHandler(this.checkBoxDownloadOpenSEBFiles_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(131, 88);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(126, 13);
+            this.label5.TabIndex = 85;
+            this.label5.Text = "Download directory OS X";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBoxDownloadDirectoryOSX
+            // 
+            this.textBoxDownloadDirectoryOSX.Location = new System.Drawing.Point(269, 85);
+            this.textBoxDownloadDirectoryOSX.Name = "textBoxDownloadDirectoryOSX";
+            this.textBoxDownloadDirectoryOSX.Size = new System.Drawing.Size(379, 20);
+            this.textBoxDownloadDirectoryOSX.TabIndex = 84;
+            this.textBoxDownloadDirectoryOSX.TextChanged += new System.EventHandler(this.textBoxDownloadDirectoryOSX_TextChanged);
+            // 
             // labelDownloadDirectoryWin
             // 
             this.labelDownloadDirectoryWin.AutoSize = true;
-            this.labelDownloadDirectoryWin.Location = new System.Drawing.Point(325, 67);
+            this.labelDownloadDirectoryWin.Location = new System.Drawing.Point(268, 58);
             this.labelDownloadDirectoryWin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelDownloadDirectoryWin.Name = "labelDownloadDirectoryWin";
             this.labelDownloadDirectoryWin.Size = new System.Drawing.Size(0, 13);
@@ -2685,7 +2732,7 @@
             // buttonDownloadDirectoryWin
             // 
             this.buttonDownloadDirectoryWin.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDownloadDirectoryWin.Location = new System.Drawing.Point(114, 64);
+            this.buttonDownloadDirectoryWin.Location = new System.Drawing.Point(114, 52);
             this.buttonDownloadDirectoryWin.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDownloadDirectoryWin.Name = "buttonDownloadDirectoryWin";
             this.buttonDownloadDirectoryWin.Size = new System.Drawing.Size(143, 24);
@@ -2697,7 +2744,7 @@
             // listBoxChooseFileToUploadPolicy
             // 
             this.listBoxChooseFileToUploadPolicy.FormattingEnabled = true;
-            this.listBoxChooseFileToUploadPolicy.Location = new System.Drawing.Point(25, 227);
+            this.listBoxChooseFileToUploadPolicy.Location = new System.Drawing.Point(44, 183);
             this.listBoxChooseFileToUploadPolicy.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxChooseFileToUploadPolicy.Name = "listBoxChooseFileToUploadPolicy";
             this.listBoxChooseFileToUploadPolicy.Size = new System.Drawing.Size(348, 43);
@@ -2707,7 +2754,7 @@
             // labelChooseFileToUploadPolicy
             // 
             this.labelChooseFileToUploadPolicy.AutoSize = true;
-            this.labelChooseFileToUploadPolicy.Location = new System.Drawing.Point(22, 198);
+            this.labelChooseFileToUploadPolicy.Location = new System.Drawing.Point(41, 154);
             this.labelChooseFileToUploadPolicy.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelChooseFileToUploadPolicy.Name = "labelChooseFileToUploadPolicy";
             this.labelChooseFileToUploadPolicy.Size = new System.Drawing.Size(145, 13);
@@ -2718,7 +2765,7 @@
             // 
             this.checkBoxDownloadPDFFiles.AutoSize = true;
             this.checkBoxDownloadPDFFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(25, 285);
+            this.checkBoxDownloadPDFFiles.Location = new System.Drawing.Point(44, 241);
             this.checkBoxDownloadPDFFiles.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxDownloadPDFFiles.Name = "checkBoxDownloadPDFFiles";
             this.checkBoxDownloadPDFFiles.Size = new System.Drawing.Size(348, 17);
@@ -2734,7 +2781,7 @@
             // 
             this.checkBoxOpenDownloads.AutoSize = true;
             this.checkBoxOpenDownloads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxOpenDownloads.Location = new System.Drawing.Point(114, 107);
+            this.checkBoxOpenDownloads.Location = new System.Drawing.Point(114, 114);
             this.checkBoxOpenDownloads.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxOpenDownloads.Name = "checkBoxOpenDownloads";
             this.checkBoxOpenDownloads.Size = new System.Drawing.Size(190, 17);
@@ -3026,7 +3073,7 @@
             // 
             this.labelNewWindowHeight.AutoSize = true;
             this.labelNewWindowHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNewWindowHeight.Location = new System.Drawing.Point(22, 58);
+            this.labelNewWindowHeight.Location = new System.Drawing.Point(19, 61);
             this.labelNewWindowHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelNewWindowHeight.Name = "labelNewWindowHeight";
             this.labelNewWindowHeight.Size = new System.Drawing.Size(38, 13);
@@ -3037,7 +3084,7 @@
             // 
             this.labelNewWindowWidth.AutoSize = true;
             this.labelNewWindowWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNewWindowWidth.Location = new System.Drawing.Point(22, 30);
+            this.labelNewWindowWidth.Location = new System.Drawing.Point(22, 31);
             this.labelNewWindowWidth.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelNewWindowWidth.Name = "labelNewWindowWidth";
             this.labelNewWindowWidth.Size = new System.Drawing.Size(35, 13);
@@ -3102,24 +3149,22 @@
             // 
             this.labelTaskBarHeight.AutoSize = true;
             this.labelTaskBarHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTaskBarHeight.Location = new System.Drawing.Point(47, 348);
+            this.labelTaskBarHeight.Location = new System.Drawing.Point(287, 319);
             this.labelTaskBarHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTaskBarHeight.Name = "labelTaskBarHeight";
-            this.labelTaskBarHeight.Size = new System.Drawing.Size(38, 13);
+            this.labelTaskBarHeight.Size = new System.Drawing.Size(81, 13);
             this.labelTaskBarHeight.TabIndex = 63;
-            this.labelTaskBarHeight.Text = "Height";
-            this.labelTaskBarHeight.Visible = false;
+            this.labelTaskBarHeight.Text = "Task bar height";
             // 
             // comboBoxTaskBarHeight
             // 
             this.comboBoxTaskBarHeight.FormattingEnabled = true;
-            this.comboBoxTaskBarHeight.Location = new System.Drawing.Point(94, 346);
+            this.comboBoxTaskBarHeight.Location = new System.Drawing.Point(374, 316);
             this.comboBoxTaskBarHeight.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTaskBarHeight.Name = "comboBoxTaskBarHeight";
             this.comboBoxTaskBarHeight.Size = new System.Drawing.Size(92, 21);
             this.comboBoxTaskBarHeight.TabIndex = 6;
             this.toolTip1.SetToolTip(this.comboBoxTaskBarHeight, "Height of SEB task bar in pixel.");
-            this.comboBoxTaskBarHeight.Visible = false;
             this.comboBoxTaskBarHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxTaskBarHeight_SelectedIndexChanged);
             // 
             // groupBoxMainBrowserWindow
@@ -3168,7 +3213,7 @@
             // 
             this.labelMainWindowHeight.AutoSize = true;
             this.labelMainWindowHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMainWindowHeight.Location = new System.Drawing.Point(24, 58);
+            this.labelMainWindowHeight.Location = new System.Drawing.Point(24, 59);
             this.labelMainWindowHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMainWindowHeight.Name = "labelMainWindowHeight";
             this.labelMainWindowHeight.Size = new System.Drawing.Size(38, 13);
@@ -3179,7 +3224,7 @@
             // 
             this.labelMainWindowWidth.AutoSize = true;
             this.labelMainWindowWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMainWindowWidth.Location = new System.Drawing.Point(24, 30);
+            this.labelMainWindowWidth.Location = new System.Drawing.Point(24, 31);
             this.labelMainWindowWidth.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMainWindowWidth.Name = "labelMainWindowWidth";
             this.labelMainWindowWidth.Size = new System.Drawing.Size(35, 13);
@@ -3359,7 +3404,7 @@
             // labelUseEither
             // 
             this.labelUseEither.AutoSize = true;
-            this.labelUseEither.Location = new System.Drawing.Point(27, 174);
+            this.labelUseEither.Location = new System.Drawing.Point(27, 184);
             this.labelUseEither.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUseEither.Name = "labelUseEither";
             this.labelUseEither.Size = new System.Drawing.Size(272, 13);
@@ -3369,7 +3414,7 @@
             // labelCryptoIdentity
             // 
             this.labelCryptoIdentity.AutoSize = true;
-            this.labelCryptoIdentity.Location = new System.Drawing.Point(27, 136);
+            this.labelCryptoIdentity.Location = new System.Drawing.Point(27, 133);
             this.labelCryptoIdentity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCryptoIdentity.Name = "labelCryptoIdentity";
             this.labelCryptoIdentity.Size = new System.Drawing.Size(287, 13);
@@ -3391,7 +3436,7 @@
             // 
             this.labelConfirmSettingsPassword.AutoSize = true;
             this.labelConfirmSettingsPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmSettingsPassword.Location = new System.Drawing.Point(208, 234);
+            this.labelConfirmSettingsPassword.Location = new System.Drawing.Point(208, 231);
             this.labelConfirmSettingsPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmSettingsPassword.Name = "labelConfirmSettingsPassword";
             this.labelConfirmSettingsPassword.Size = new System.Drawing.Size(129, 13);
@@ -3402,7 +3447,7 @@
             // 
             this.labelSettingsPassword.AutoSize = true;
             this.labelSettingsPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSettingsPassword.Location = new System.Drawing.Point(245, 211);
+            this.labelSettingsPassword.Location = new System.Drawing.Point(244, 208);
             this.labelSettingsPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSettingsPassword.Name = "labelSettingsPassword";
             this.labelSettingsPassword.Size = new System.Drawing.Size(93, 13);
@@ -3548,7 +3593,7 @@
             // 
             this.checkBoxIgnoreExitKeys.AutoSize = true;
             this.checkBoxIgnoreExitKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(46, 229);
+            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(19, 227);
             this.checkBoxIgnoreExitKeys.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnoreExitKeys.Name = "checkBoxIgnoreExitKeys";
             this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
@@ -3644,7 +3689,7 @@
             this.checkBoxIgnoreQuitPassword.AutoSize = true;
             this.checkBoxIgnoreQuitPassword.Enabled = false;
             this.checkBoxIgnoreQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(46, 208);
+            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(19, 206);
             this.checkBoxIgnoreQuitPassword.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnoreQuitPassword.Name = "checkBoxIgnoreQuitPassword";
             this.checkBoxIgnoreQuitPassword.Size = new System.Drawing.Size(124, 17);
@@ -3783,7 +3828,7 @@
             // 
             this.labelAdminPassword.AutoSize = true;
             this.labelAdminPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAdminPassword.Location = new System.Drawing.Point(54, 112);
+            this.labelAdminPassword.Location = new System.Drawing.Point(54, 107);
             this.labelAdminPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAdminPassword.Name = "labelAdminPassword";
             this.labelAdminPassword.Size = new System.Drawing.Size(115, 13);
@@ -3794,7 +3839,7 @@
             // 
             this.labelConfirmQuitPassword.AutoSize = true;
             this.labelConfirmQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(17, 306);
+            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(58, 306);
             this.labelConfirmQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
             this.labelConfirmQuitPassword.Size = new System.Drawing.Size(110, 13);
@@ -3804,7 +3849,7 @@
             // checkBoxAllowQuit
             // 
             this.checkBoxAllowQuit.AutoSize = true;
-            this.checkBoxAllowQuit.Location = new System.Drawing.Point(46, 187);
+            this.checkBoxAllowQuit.Location = new System.Drawing.Point(19, 185);
             this.checkBoxAllowQuit.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowQuit.Name = "checkBoxAllowQuit";
             this.checkBoxAllowQuit.Size = new System.Drawing.Size(130, 17);
@@ -3819,7 +3864,7 @@
             // 
             this.labelQuitPassword.AutoSize = true;
             this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitPassword.Location = new System.Drawing.Point(54, 289);
+            this.labelQuitPassword.Location = new System.Drawing.Point(94, 283);
             this.labelQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitPassword.Name = "labelQuitPassword";
             this.labelQuitPassword.Size = new System.Drawing.Size(74, 13);
@@ -3857,6 +3902,21 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
+            // 
+            // checkBoxEnableScreenCapture
+            // 
+            this.checkBoxEnableScreenCapture.AutoSize = true;
+            this.checkBoxEnableScreenCapture.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableScreenCapture.Location = new System.Drawing.Point(23, 152);
+            this.checkBoxEnableScreenCapture.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableScreenCapture.Name = "checkBoxEnableScreenCapture";
+            this.checkBoxEnableScreenCapture.Size = new System.Drawing.Size(133, 17);
+            this.checkBoxEnableScreenCapture.TabIndex = 84;
+            this.checkBoxEnableScreenCapture.Text = "Enable screen capture";
+            this.toolTip1.SetToolTip(this.checkBoxEnableScreenCapture, "Controls Print Screen and OS X screen capture, corresponds with Enable Print Scre" +
+        "en in Hooked Keys settings.");
+            this.checkBoxEnableScreenCapture.UseVisualStyleBackColor = true;
+            this.checkBoxEnableScreenCapture.CheckedChanged += new System.EventHandler(this.checkBoxEnableScreenCapture_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -3991,7 +4051,6 @@
         private System.Windows.Forms.TextBox textBoxQuitURL;
         private System.Windows.Forms.Label labelQuitURL;
         private System.Windows.Forms.CheckBox checkBoxSendBrowserExamKey;
-        private System.Windows.Forms.CheckBox checkBoxCopyBrowserExamKey;
         private System.Windows.Forms.TabPage tabPageDownUploads;
         private System.Windows.Forms.Label labelDownloadDirectoryWin;
         private System.Windows.Forms.Button buttonDownloadDirectoryWin;
@@ -4214,6 +4273,12 @@
         private System.Windows.Forms.CheckBox checkBoxRestartExamPasswordProtected;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkboxShowReloadButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxLogDirectoryOSX;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxDownloadDirectoryOSX;
+        private System.Windows.Forms.CheckBox checkBoxDownloadOpenSEBFiles;
+        private System.Windows.Forms.CheckBox checkBoxEnableScreenCapture;
 
     }
 }

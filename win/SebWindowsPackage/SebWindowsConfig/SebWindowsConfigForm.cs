@@ -333,7 +333,9 @@ namespace SebWindowsConfig
             checkBoxOpenDownloads   .Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOpenDownloads];
             checkBoxDownloadPDFFiles.Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadPDFFiles];
             labelDownloadDirectoryWin.Text             =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin];
-             listBoxChooseFileToUploadPolicy.SelectedIndex = (int)SEBSettings.settingsCurrent[SEBSettings.KeyChooseFileToUploadPolicy];
+            textBoxDownloadDirectoryOSX.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryOSX];
+            listBoxChooseFileToUploadPolicy.SelectedIndex = (int)SEBSettings.settingsCurrent[SEBSettings.KeyChooseFileToUploadPolicy];
+            checkBoxDownloadOpenSEBFiles.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadAndOpenSebConfig];
 
             // Group "Exam"
            //textBoxBrowserExamKey    .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserExamKey];
@@ -517,8 +519,10 @@ namespace SebWindowsConfig
             radioNoKiosMode  .Checked    = !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell] && !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop];
             checkBoxAllowUserSwitching .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
-            labelLogDirectoryWin       .Text       =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
-            checkboxAllowWlan       .Checked       =  (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLAN];
+            labelLogDirectoryWin.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
+            textBoxLogDirectoryOSX.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryOSX];
+            checkboxAllowWlan.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLAN];
+            checkBoxEnableScreenCapture.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen];
 
             // Group "Registry"
             checkBoxInsideSebEnableSwitchUser       .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyInsideSebEnableSwitchUser];
@@ -2660,6 +2664,8 @@ namespace SebWindowsConfig
         private void checkBoxEnablePrintScreen_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnablePrintScreen.Checked;
+            checkBoxEnableScreenCapture.Checked = checkBoxEnablePrintScreen.Checked;
+
         }
 
         private void checkBoxEnableAltMouseWheel_CheckedChanged(object sender, EventArgs e)
@@ -2750,6 +2756,27 @@ namespace SebWindowsConfig
         private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBoxLogDirectoryOSX_TextChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryOSX] = textBoxLogDirectoryOSX.Text;
+        }
+
+        private void textBoxDownloadDirectoryOSX_TextChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryOSX] = textBoxDownloadDirectoryOSX.Text;
+        }
+
+        private void checkBoxDownloadOpenSEBFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadAndOpenSebConfig] = checkBoxDownloadOpenSEBFiles.Checked;
+        }
+
+        private void checkBoxEnableScreenCapture_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnableScreenCapture.Checked;
+            checkBoxEnablePrintScreen.Checked = checkBoxEnableScreenCapture.Checked;
         }
 
         

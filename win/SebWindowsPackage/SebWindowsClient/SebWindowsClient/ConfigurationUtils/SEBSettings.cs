@@ -276,7 +276,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableLogging       = "enableLogging";
         public const String KeyLogDirectoryOSX     = "logDirectoryOSX";
         public const String KeyLogDirectoryWin     = "logDirectoryWin";
-        public const String KeyAllowWLAN     = "allowWlan";
+        public const String KeyLogLevel            = "logLevel";
+        public const String KeyAllowWLAN           = "allowWlan";
 
         // Group "Registry"
 
@@ -737,8 +738,9 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowUserSwitching , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLAN    , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogLevel, 1);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLAN, false);
 
             // Default settings for group "Inside SEB"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableSwitchUser       , false);

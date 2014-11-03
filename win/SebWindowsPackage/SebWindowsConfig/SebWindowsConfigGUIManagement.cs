@@ -412,7 +412,7 @@ namespace SebWindowsConfig
         {
             // At program start, no configuration file is loaded
             currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
-            currentFileSebConfigFile = "";
+            currentFileSebConfigFile = "SebClientSettings.seb";
             currentPathSebConfigFile = "";
 
             // The default configuration file ("SebClient.seb")

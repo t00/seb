@@ -243,33 +243,36 @@ namespace SebWindowsClient
                 }
 
                 if (uri.Scheme == "seb")
+                // The URI is holding a seb:// web address for a .seb settings file: download it
                 {
-                    try
+                    // But only download and use the seb:// link to a .seb file if this is enabled
+                    if ((bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyDownloadAndOpenSebConfig))
                     {
-                        // The URI is holding a seb:// web address for a .seb settings file: download it
-                        WebClient myWebClient = new WebClient();
-                        // Try first by http
-                        UriBuilder httpURL = new UriBuilder("http", uri.Host, uri.Port, uri.AbsolutePath);
-                        using (myWebClient)
+                        try
                         {
-                            sebSettings = myWebClient.DownloadData(httpURL.Uri);
-                        }
-                        if (sebSettings == null)
-                        {
-                            // Nothing got downloaded: Try by https
-                            UriBuilder httpsURL = new UriBuilder("https", uri.Host, uri.Port, uri.AbsolutePath);
+                            WebClient myWebClient = new WebClient();
+                            // Try first by http
+                            UriBuilder httpURL = new UriBuilder("http", uri.Host, uri.Port, uri.AbsolutePath);
                             using (myWebClient)
                             {
-                                sebSettings = myWebClient.DownloadData(httpsURL.Uri);
+                                sebSettings = myWebClient.DownloadData(httpURL.Uri);
+                            }
+                            if (sebSettings == null)
+                            {
+                                // Nothing got downloaded: Try by https
+                                UriBuilder httpsURL = new UriBuilder("https", uri.Host, uri.Port, uri.AbsolutePath);
+                                using (myWebClient)
+                                {
+                                    sebSettings = myWebClient.DownloadData(httpsURL.Uri);
+                                }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(new Form(){TopMost = true}, "Unable to follow the link!");
-                        Logger.AddError("Unable to follow the link",this,ex);
-                    }
-                    
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(new Form() { TopMost = true }, "Unable to follow the link!");
+                            Logger.AddError("Unable to follow the link", this, ex);
+                        }
+                    }                    
                 }
                 else if (uri.IsFile)
                 {
