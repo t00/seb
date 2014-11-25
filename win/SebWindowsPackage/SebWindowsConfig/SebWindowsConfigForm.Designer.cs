@@ -70,6 +70,7 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.checkBoxEnableScreenCapture = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxLogDirectoryOSX = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -310,7 +311,6 @@
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxEnableScreenCapture = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -603,7 +603,7 @@
             this.groupBoxSpecialKeys.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSpecialKeys.Name = "groupBoxSpecialKeys";
             this.groupBoxSpecialKeys.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(130, 196);
+            this.groupBoxSpecialKeys.Size = new System.Drawing.Size(152, 212);
             this.groupBoxSpecialKeys.TabIndex = 39;
             this.groupBoxSpecialKeys.TabStop = false;
             this.groupBoxSpecialKeys.Text = "Special Keys";
@@ -613,7 +613,7 @@
             // 
             this.checkBoxEnableAltMouseWheel.AutoSize = true;
             this.checkBoxEnableAltMouseWheel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableAltMouseWheel.Location = new System.Drawing.Point(8, 220);
+            this.checkBoxEnableAltMouseWheel.Location = new System.Drawing.Point(8, 168);
             this.checkBoxEnableAltMouseWheel.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableAltMouseWheel.Name = "checkBoxEnableAltMouseWheel";
             this.checkBoxEnableAltMouseWheel.Size = new System.Drawing.Size(137, 17);
@@ -626,7 +626,7 @@
             // 
             this.checkBoxEnablePrintScreen.AutoSize = true;
             this.checkBoxEnablePrintScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 170);
+            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 191);
             this.checkBoxEnablePrintScreen.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePrintScreen.Name = "checkBoxEnablePrintScreen";
             this.checkBoxEnablePrintScreen.Size = new System.Drawing.Size(117, 17);
@@ -894,6 +894,21 @@
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableScreenCapture
+            // 
+            this.checkBoxEnableScreenCapture.AutoSize = true;
+            this.checkBoxEnableScreenCapture.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableScreenCapture.Location = new System.Drawing.Point(23, 152);
+            this.checkBoxEnableScreenCapture.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableScreenCapture.Name = "checkBoxEnableScreenCapture";
+            this.checkBoxEnableScreenCapture.Size = new System.Drawing.Size(133, 17);
+            this.checkBoxEnableScreenCapture.TabIndex = 84;
+            this.checkBoxEnableScreenCapture.Text = "Enable screen capture";
+            this.toolTip1.SetToolTip(this.checkBoxEnableScreenCapture, "Controls Print Screen and OS X screen capture, corresponds with Enable Print Scre" +
+        "en in Hooked Keys settings.");
+            this.checkBoxEnableScreenCapture.UseVisualStyleBackColor = true;
+            this.checkBoxEnableScreenCapture.CheckedChanged += new System.EventHandler(this.checkBoxEnableScreenCapture_CheckedChanged);
             // 
             // label4
             // 
@@ -3902,21 +3917,6 @@
             this.tabControlSebWindowsConfig.SelectedIndex = 0;
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
-            // 
-            // checkBoxEnableScreenCapture
-            // 
-            this.checkBoxEnableScreenCapture.AutoSize = true;
-            this.checkBoxEnableScreenCapture.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableScreenCapture.Location = new System.Drawing.Point(23, 152);
-            this.checkBoxEnableScreenCapture.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableScreenCapture.Name = "checkBoxEnableScreenCapture";
-            this.checkBoxEnableScreenCapture.Size = new System.Drawing.Size(133, 17);
-            this.checkBoxEnableScreenCapture.TabIndex = 84;
-            this.checkBoxEnableScreenCapture.Text = "Enable screen capture";
-            this.toolTip1.SetToolTip(this.checkBoxEnableScreenCapture, "Controls Print Screen and OS X screen capture, corresponds with Enable Print Scre" +
-        "en in Hooked Keys settings.");
-            this.checkBoxEnableScreenCapture.UseVisualStyleBackColor = true;
-            this.checkBoxEnableScreenCapture.CheckedChanged += new System.EventHandler(this.checkBoxEnableScreenCapture_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
