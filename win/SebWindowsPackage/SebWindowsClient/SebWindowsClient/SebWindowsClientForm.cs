@@ -375,7 +375,7 @@ namespace SebWindowsClient
                         xulRunnerArgumentsBuilder.Append(" -debug 1");
                     }
                 }
-                xulRunnerArgumentsBuilder.Append(" ").Append(Environment.ExpandEnvironmentVariables(userDefinedArguments)).Append(" -ctrl \"").Append(XULRunnerParameters).Append("\"");
+                xulRunnerArgumentsBuilder.Append(" ").Append(Environment.ExpandEnvironmentVariables(userDefinedArguments)).Append("–purgecaches -ctrl \"").Append(XULRunnerParameters).Append("\"");
                 string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
                 xulRunnerPathBuilder.Append(xulRunnerArguments);
                 xulRunnerPath = xulRunnerPathBuilder.ToString();
