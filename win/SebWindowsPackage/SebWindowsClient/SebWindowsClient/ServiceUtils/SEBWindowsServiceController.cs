@@ -5,10 +5,7 @@
 // -------------------------------------------------------------
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.ServiceProcess;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsServiceWCF.ServiceContracts;
@@ -36,13 +33,63 @@ namespace SebWindowsClient.ServiceUtils
                             "net.pipe://localhost/SebWindowsService"));
 
                 _sebWindowsServicePipeProxy = pipeFactory.CreateChannel();
-
+                
                 //Get the current username - without the username the registry entries cannot be set
-                if (_username == null)
-                    _username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                if (String.IsNullOrEmpty(_username))
+                {
+                    _username = GetCurrentUsername();
+                }
 
                 _initialized = true;
             }
+        }
+
+        private static string GetCurrentUsername()
+        {
+            string username = null;
+            //Get Username by WindowsIdentity
+            try
+            {
+                var windowsIdentity = System.Security.Principal.WindowsIdentity.GetCurrent();
+                if (windowsIdentity != null)
+                {
+                    //username = windowsIdentity.Name;
+                    if (!String.IsNullOrEmpty(username))
+                    {
+                        Logger.AddInformation("Username from WindowsIdentity = " + username);
+                        return username;
+                    }
+                }
+                else
+                {
+                    Logger.AddWarning("Unable to get Username from WindowsIdentity", null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddWarning("Unable to get Username from WindowsIdentity", null, ex);
+            }
+
+            //Get Username by Environment
+            try
+            {
+                username = Environment.UserName;
+                if (String.IsNullOrEmpty(username))
+                {
+                    Logger.AddWarning("Unable to get Username from Environment", null, null);
+                }
+                else
+                {
+                    Logger.AddInformation("Username from Environment = " + username);
+                    return username;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.AddWarning("Unable to get Username from Environment", null, ex);
+            }
+
+            throw new Exception("unable to get Username");
         }
 
         /// <summary>

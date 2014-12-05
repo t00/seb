@@ -74,8 +74,9 @@ namespace SebWindowsServiceWCF.ServiceImplementations
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Log(ex, "Unable to set Registry value");
                 res = false;
             }
             
