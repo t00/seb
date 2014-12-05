@@ -150,6 +150,22 @@ namespace SebWindowsClient.XULRunnerCommunication
             }
         }
 
+        public static void SendReloadPage()
+        {
+            try
+            {
+                if (XULRunner != null)
+                {
+                    Console.WriteLine("SEB.Reload Sent");
+                    Logger.AddInformation("WebSocket: Send message: SEB.reload");
+                    XULRunner.Send("SEB.reload");
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         private static void OnClientMessage(string message)
         {
             Console.WriteLine("RECV: " + message);

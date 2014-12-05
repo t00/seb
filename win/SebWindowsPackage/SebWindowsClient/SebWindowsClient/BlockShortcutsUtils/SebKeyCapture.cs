@@ -656,20 +656,20 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
                 
                 //Handle F5
-                if ((int)wp == 256 && KeyInfo.key == Keys.F5)
-                {
-                    var foregroundHandle = SEBWindowHandler.GetForegroundWindow();
-                    if (foregroundHandle.GetProcess().GetExecutableName().Contains("xul"))
-                    {
-                        if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.reloadPage, SEBUIStrings.reloadPageMessage,
-                        SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
-                        {
-                            SEBWindowHandler.BringWindowToTop(foregroundHandle);
-                            return (IntPtr)1;
-                        }
-                        SEBWindowHandler.BringWindowToTop(foregroundHandle);
-                    }
-                }
+                //if ((int)wp == 256 && KeyInfo.key == Keys.F5)
+                //{
+                //    var foregroundHandle = SEBWindowHandler.GetForegroundWindow();
+                //    if (foregroundHandle.GetProcess().GetExecutableName().Contains("xul"))
+                //    {
+                //        if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.reloadPage, SEBUIStrings.reloadPageMessage,
+                //        SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
+                //        {
+                //            SEBWindowHandler.BringWindowToTop(foregroundHandle);
+                //            return (IntPtr)1;
+                //        }
+                //        SEBWindowHandler.BringWindowToTop(foregroundHandle);
+                //    }
+                //}
             }
 
             // Pass the event to the next hook in the chain.
