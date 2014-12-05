@@ -129,12 +129,11 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyBlockPopUpWindows                    = "blockPopUpWindows";
         public const String KeyAllowBrowsingBackForward             = "allowBrowsingBackForward";
         public const String KeyRemoveBrowserProfile                 = "removeBrowserProfile";
-        public const String KeyRemoveLocalStorage                   = "removeLocalStorage";
         public const String KeyEnableSebBrowser                     = "enableSebBrowser";
         public const String KeyRestartExamText                      = "restartExamText";
         public const String KeyRestartExamURL                       = "restartExamURL";
         public const String KeyRestartExamPasswordProtected         = "restartExamPasswordProtected";
-        public const String KeyShowReloadButton                     = "showReloadButton";
+        public const String KeyShowReloadButton         = "showReloadButton";
 
         // Group "DownUploads"
         public const String KeyAllowDownUploads         = "allowDownUploads";
@@ -180,17 +179,16 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyArgument    = "argument";
         public const String KeyWindowHandlingProcess = "windowHandlingProcess";
 
+        // Group "Network"
+        public const String KeyEnableURLFilter        = "enableURLFilter";
+        public const String KeyEnableURLContentFilter = "enableURLContentFilter";
 
         // Group "Network - Filter"
+        public const String KeyURLFilterRules = "URLFilterRules";
         public const String KeyExpression     = "expression";
         public const String KeyRuleActions    = "ruleActions";
         public const String KeyRegex          = "regex";
         public const String KeyAction         = "action";
-
-        // New "Network" - Filter
-        public const String KeyURLFilterEnable = "URLFilterEnable";
-        public const String KeyURLFilterEnableContentFilter = "URLFilterEnableContentFilter";
-        public const String KeyURLFilterRules = "URLFilterRules";
 
         //Group "Network" - URL Filter
         public const String KeyUrlFilterWhitelist = "whitelistURLFilter";
@@ -278,10 +276,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableLogging       = "enableLogging";
         public const String KeyLogDirectoryOSX     = "logDirectoryOSX";
         public const String KeyLogDirectoryWin     = "logDirectoryWin";
-        public const String KeyLogLevel            = "logLevel";
-        public const String KeyAllowWLAN           = "allowWlan";
-        public const String KeyForceAppFolderInstall  = "forceAppFolderInstall";
-        public const String KeyEnableAppSwitcherCheck = "enableAppSwitcherCheck";
+        public const String KeyAllowWLAN     = "allowWlan";
 
         // Group "Registry"
 
@@ -529,11 +524,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableJavaScript        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBlockPopUpWindows       , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowBrowsingBackForward, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveBrowserProfile    , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveLocalStorage      , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveBrowserProfile, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableSebBrowser        , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamURL          , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText         , "Restart Exam");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamURL        , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText        , "Restart Exam");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamPasswordProtected        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowReloadButton        , true);
 
@@ -742,12 +736,9 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyKillExplorerShell  , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowUserSwitching , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin, "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogLevel, 1);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLAN, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyForceAppFolderInstall , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAppSwitcherCheck , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "~/Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "My Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLAN    , false);
 
             // Default settings for group "Inside SEB"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyInsideSebEnableSwitchUser       , false);
