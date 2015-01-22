@@ -674,7 +674,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEmbeddedCertificates, new ListObj());
 
             SEBSettings.embeddedCertificateDataDefault.Clear();
-            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyCertificateData, "");
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyCertificateData, new Byte[] {});
             SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyType           , 0);
             SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyName           , "");
 

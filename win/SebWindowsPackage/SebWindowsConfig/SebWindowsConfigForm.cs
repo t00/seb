@@ -440,7 +440,7 @@ namespace SebWindowsConfig
             for (int index = 0; index < SEBSettings.embeddedCertificateList.Count; index++)
             {
                 SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[index];
-                String      data                    = (String )SEBSettings.embeddedCertificateData[SEBSettings.KeyCertificateData];
+                byte[] data = (byte[])SEBSettings.embeddedCertificateData[SEBSettings.KeyCertificateData];
                 Int32       type                    = (Int32  )SEBSettings.embeddedCertificateData[SEBSettings.KeyType];
                 String      name                    = (String )SEBSettings.embeddedCertificateData[SEBSettings.KeyName];
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);

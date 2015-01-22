@@ -354,6 +354,10 @@ var seb = (function() {
 					x.debug("messageSocket handled: " + evt.data);
 					hostDisplaySettingsChanged();
 					break;
+				case "SEB.reload" :
+					x.debug("messageSocket handled: " + evt.data);
+					reload(null);
+					break;
 				default :
 					x.debug("messageSocket not handled msg: " + evt.data); 
 			}
@@ -697,10 +701,20 @@ var seb = (function() {
 	function reload(win) {
 		x.debug("try reload...");
 		net_tries = 0;
+		win = (win === null) ? x.getRecentWin() : win; // klassische win win situation!
 		//
 		//var doc = (win) ? win.content.document : mainWin.content.document;
 		//doc.location.reload();
-		x.reload(win);
+		if (x.getParam("seb.reload.warning")) {
+			var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+			var result = prompts.confirm(null, getLocStr("seb.reload.warning.title"), getLocStr("seb.reload.warning"));
+			if (result) {
+				x.reload(win);
+			}
+		}
+		else {
+			x.reload(win);
+		}
 	}
 	
 	function restart() { // only mainWin, experimental
@@ -1080,10 +1094,34 @@ var seb = (function() {
 	}	
 	
 	function force_shutdown() {
-		shutdownIgnoreWarning = true;
-		shutdownIgnorePassord = true;
-		shutdownEnabled = true;
-		shutdown();
+		var os = Services.appinfo.OS.toUpperCase();
+		if (os == "LINUX" || os == "UNIX") { // try sudo /sbin/halt from sebserver websocket message
+			// create an nsIFile for the executable
+			try {
+				var file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
+				file.initWithPath("/usr/bin/sudo");
+				// create an nsIProcess
+				var process = Cc["@mozilla.org/process/util;1"].createInstance(Ci.nsIProcess);
+				process.init(file);
+				// Run the process.
+				// If first param is true, calling thread will be blocked until
+				// called process terminates.
+				// Second and third params are used to pass command-line arguments
+				// to the process.
+				var args = ["/sbin/halt"];
+				process.run(false, args, args.length);
+			}
+			catch(e) {
+				//prompt.alert(mainWin, "Message from Admin", e);
+				x.err("Error " + e);
+			}
+		}
+		else { // this is the windows SEB websocket call
+			shutdownIgnoreWarning = true;
+			shutdownIgnorePassord = true;
+			shutdownEnabled = true;
+			shutdown();
+		}
 	}
 	
 	// url processing

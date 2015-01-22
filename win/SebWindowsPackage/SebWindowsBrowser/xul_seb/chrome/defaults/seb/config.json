@@ -1,6 +1,6 @@
 {
 	"prefs"					: {
-							"general.useragent.override" : "Firefox/33.0 SEB",
+							"general.useragent.override" : "SEBKEY",
 							"network.proxy.type" : 0,
 							"network.proxy.autoconfig_url" : "",
 							"network.proxy.http" : "",
@@ -9,7 +9,7 @@
 	"seb.url"				: "http://www.safeexambrowser.org",
 	"seb.language"				: "en-US",
 	"seb.request.header"			: "X-SafeExamBrowser-RequestHash",
-	"seb.request.key"			: "SEB",
+	"seb.request.key"			: "SEBKEY",
 	"seb.request.salt"			: false,
 	"seb.taskbar.enabled"			: false,
 	"seb.taskbar.height"			: 40,
@@ -43,6 +43,7 @@
 	"seb.load.modifiers"			: "control shift",
 	"seb.reload.keycode"			: "VK_F5",
 	"seb.reload.modifiers"			: "",
+	"seb.reload.warning"			: true,
 	"seb.restart.mode"			: 2,
 	"seb.restart.keycode"			: "VK_F9",
 	"seb.restart.modifiers"			: "control shift",

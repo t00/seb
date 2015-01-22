@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Input;
-using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.DiagnosticsUtils;
-using SebWindowsClient.ProcessUtils;
-using SebWindowsClient.XULRunnerCommunication;
-using MessageBox = System.Windows.Forms.MessageBox;
-
-//
+﻿//
 //  SebKeyCapture.cs
 //  SafeExamBrowser
 //
@@ -39,13 +25,27 @@ using MessageBox = System.Windows.Forms.MessageBox;
 //  The Initial Developers of the Original Code are Viktor Tomas, 
 //  Dirk Bauer, Daniel R. Schneider, Pascal Wyss.
 //  Portions created by Viktor Tomas, Dirk Bauer, Daniel R. Schneider, Pascal Wyss
-//  are Copyright (c) 2010-2014 Viktor Tomas, Dirk Bauer, Daniel R. Schneider, 
+//  are Copyright (c) 2010-2015 Viktor Tomas, Dirk Bauer, Daniel R. Schneider, 
 //  Pascal Wyss, ETH Zurich, Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
 //  Contributor(s): ______________________________________.
 //
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Input;
+using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DiagnosticsUtils;
+using SebWindowsClient.ProcessUtils;
+using SebWindowsClient.XULRunnerCommunication;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace SebWindowsClient.BlockShortcutsUtils
 {
@@ -626,28 +626,31 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
                 Console.WriteLine(String.Format("Ncode: {0}, wp:{1}, Key:{2}, KeyInt:{3}, flags: {4}",nCode, wp, KeyInfo.key, (int)KeyInfo.key, KeyInfo.flags));
 
-                //ALT-TAB for App-Switcher (wp 260 = keydown, wp 257 = keyup)
-                if (KeyInfo.key == Keys.Tab && KeyInfo.flags == 32 && (int)wp == 260)
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
                 {
-                    if (Tab_Pressed_First_Time && (int)wp == 260)
+                    //ALT-TAB for App-Switcher (wp 260 = keydown, wp 257 = keyup)
+                    if (KeyInfo.key == Keys.Tab && KeyInfo.flags == 32 && (int)wp == 260)
                     {
-                        SEBClientInfo.SebWindowsClientForm.ShowApplicationChooserForm();
-                        if (Tab_Pressed_First_Time)
+                        if (Tab_Pressed_First_Time && (int)wp == 260)
                         {
-                            Tab_Pressed_First_Time = false;
+                            SEBClientInfo.SebWindowsClientForm.ShowApplicationChooserForm();
+                            if (Tab_Pressed_First_Time)
+                            {
+                                Tab_Pressed_First_Time = false;
+                            }
+                            return (IntPtr)1;
                         }
-                        return (IntPtr)1;
+                        else if (!Tab_Pressed_First_Time && (int)wp == 260)
+                        {
+                            SEBClientInfo.SebWindowsClientForm.SelectNextListItem();
+                            return (IntPtr)1;
+                        }
                     }
-                    else if (!Tab_Pressed_First_Time && (int)wp == 260)
+                    if (((KeyInfo.key == Keys.LMenu && KeyInfo.flags == 128) || (KeyInfo.key == Keys.RMenu && KeyInfo.flags == 129)) && (int)wp == 257)
                     {
-                        SEBClientInfo.SebWindowsClientForm.SelectNextListItem();
-                        return (IntPtr)1;
+                        SEBClientInfo.SebWindowsClientForm.HideApplicationChooserForm();
+                        Tab_Pressed_First_Time = true;
                     }
-                }
-                if (((KeyInfo.key == Keys.LMenu && KeyInfo.flags == 128) || (KeyInfo.key == Keys.RMenu && KeyInfo.flags == 129)) && (int)wp == 257)
-                {
-                    SEBClientInfo.SebWindowsClientForm.HideApplicationChooserForm();
-                    Tab_Pressed_First_Time = true;
                 }
 
                 //Reject any key that's not on our list.

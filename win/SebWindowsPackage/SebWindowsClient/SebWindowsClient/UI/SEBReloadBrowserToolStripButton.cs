@@ -28,11 +28,7 @@ namespace SebWindowsClient.UI
                     SEBWindowHandler.GetOpenWindows()
                         .First(w => w.Key.GetProcess().GetExecutableName().Contains("xul")).Key);
 
-                if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.reloadPage, SEBUIStrings.reloadPageMessage,
-                    SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
-                {
-                    SEBXULRunnerWebSocketServer.SendReloadPage();
-                }
+                SEBXULRunnerWebSocketServer.SendReloadPage();
 
             }
             catch{}
