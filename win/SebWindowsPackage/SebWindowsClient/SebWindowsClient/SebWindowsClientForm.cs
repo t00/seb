@@ -1752,7 +1752,7 @@ namespace SebWindowsClient
 
 
             Logger.AddInformation("closing form and thenn calling application.exit");
-            this.Close();
+            //this.Close();
             Application.Exit();
         }
 
