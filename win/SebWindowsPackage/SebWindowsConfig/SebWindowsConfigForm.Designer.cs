@@ -97,6 +97,7 @@
             this.dataGridViewComboBoxColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageProxies = new System.Windows.Forms.TabPage();
+            this.textBoxBypassedProxyHostList = new System.Windows.Forms.TextBox();
             this.textBoxIfYourNetworkAdministrator = new System.Windows.Forms.TextBox();
             this.labelProxyServerPort = new System.Windows.Forms.Label();
             this.labelProxyServerPassword = new System.Windows.Forms.Label();
@@ -110,8 +111,6 @@
             this.dataGridViewProxyProtocols = new System.Windows.Forms.DataGridView();
             this.dataGridViewCheckBoxColumnProtocolEnable = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewTextBoxColumnProtocolType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewBypassedProxies = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumnDomainHostPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonChooseProxyConfigurationFile = new System.Windows.Forms.Button();
             this.labelProxyConfigurationFileURL = new System.Windows.Forms.Label();
             this.textBoxAutoProxyConfigurationURL = new System.Windows.Forms.TextBox();
@@ -324,7 +323,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).BeginInit();
             this.tabPageProxies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBypassedProxies)).BeginInit();
             this.tabPageUrlFilter.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridBlackListFilter)).BeginInit();
@@ -1221,6 +1219,7 @@
             // 
             // tabPageProxies
             // 
+            this.tabPageProxies.Controls.Add(this.textBoxBypassedProxyHostList);
             this.tabPageProxies.Controls.Add(this.textBoxIfYourNetworkAdministrator);
             this.tabPageProxies.Controls.Add(this.labelProxyServerPort);
             this.tabPageProxies.Controls.Add(this.labelProxyServerPassword);
@@ -1232,7 +1231,6 @@
             this.tabPageProxies.Controls.Add(this.labelProxyServerHost);
             this.tabPageProxies.Controls.Add(this.textBoxProxyServerHost);
             this.tabPageProxies.Controls.Add(this.dataGridViewProxyProtocols);
-            this.tabPageProxies.Controls.Add(this.dataGridViewBypassedProxies);
             this.tabPageProxies.Controls.Add(this.buttonChooseProxyConfigurationFile);
             this.tabPageProxies.Controls.Add(this.labelProxyConfigurationFileURL);
             this.tabPageProxies.Controls.Add(this.textBoxAutoProxyConfigurationURL);
@@ -1252,6 +1250,15 @@
             this.tabPageProxies.Text = "Proxies";
             this.tabPageProxies.UseVisualStyleBackColor = true;
             // 
+            // textBoxBypassedProxyHostList
+            // 
+            this.textBoxBypassedProxyHostList.Location = new System.Drawing.Point(19, 318);
+            this.textBoxBypassedProxyHostList.Multiline = true;
+            this.textBoxBypassedProxyHostList.Name = "textBoxBypassedProxyHostList";
+            this.textBoxBypassedProxyHostList.Size = new System.Drawing.Size(656, 99);
+            this.textBoxBypassedProxyHostList.TabIndex = 112;
+            this.textBoxBypassedProxyHostList.Validated += new System.EventHandler(this.textBoxBypassedProxyHostList_Validated);
+            // 
             // textBoxIfYourNetworkAdministrator
             // 
             this.textBoxIfYourNetworkAdministrator.BackColor = System.Drawing.SystemColors.Window;
@@ -1270,7 +1277,7 @@
             // labelProxyServerPort
             // 
             this.labelProxyServerPort.AutoSize = true;
-            this.labelProxyServerPort.Location = new System.Drawing.Point(605, 122);
+            this.labelProxyServerPort.Location = new System.Drawing.Point(607, 122);
             this.labelProxyServerPort.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelProxyServerPort.Name = "labelProxyServerPort";
             this.labelProxyServerPort.Size = new System.Drawing.Size(10, 13);
@@ -1333,7 +1340,7 @@
             // textBoxProxyServerPort
             // 
             this.textBoxProxyServerPort.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxProxyServerPort.Location = new System.Drawing.Point(619, 122);
+            this.textBoxProxyServerPort.Location = new System.Drawing.Point(622, 122);
             this.textBoxProxyServerPort.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxProxyServerPort.Name = "textBoxProxyServerPort";
             this.textBoxProxyServerPort.Size = new System.Drawing.Size(53, 19);
@@ -1391,29 +1398,6 @@
             this.dataGridViewTextBoxColumnProtocolType.ReadOnly = true;
             this.dataGridViewTextBoxColumnProtocolType.Width = 297;
             // 
-            // dataGridViewBypassedProxies
-            // 
-            this.dataGridViewBypassedProxies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewBypassedProxies.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumnDomainHostPort});
-            this.dataGridViewBypassedProxies.Enabled = false;
-            this.dataGridViewBypassedProxies.Location = new System.Drawing.Point(19, 325);
-            this.dataGridViewBypassedProxies.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridViewBypassedProxies.Name = "dataGridViewBypassedProxies";
-            this.dataGridViewBypassedProxies.RowHeadersVisible = false;
-            this.dataGridViewBypassedProxies.RowTemplate.Height = 24;
-            this.dataGridViewBypassedProxies.Size = new System.Drawing.Size(490, 89);
-            this.dataGridViewBypassedProxies.TabIndex = 4;
-            this.dataGridViewBypassedProxies.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewBypassedProxies_CellValueChanged);
-            this.dataGridViewBypassedProxies.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewBypassedProxies_CurrentCellDirtyStateChanged);
-            this.dataGridViewBypassedProxies.SelectionChanged += new System.EventHandler(this.dataGridViewBypassedProxies_SelectionChanged);
-            // 
-            // dataGridViewTextBoxColumnDomainHostPort
-            // 
-            this.dataGridViewTextBoxColumnDomainHostPort.HeaderText = "Domain, Host/Port";
-            this.dataGridViewTextBoxColumnDomainHostPort.Name = "dataGridViewTextBoxColumnDomainHostPort";
-            this.dataGridViewTextBoxColumnDomainHostPort.Width = 650;
-            // 
             // buttonChooseProxyConfigurationFile
             // 
             this.buttonChooseProxyConfigurationFile.Enabled = false;
@@ -1460,7 +1444,7 @@
             // labelBypassedProxies
             // 
             this.labelBypassedProxies.AutoSize = true;
-            this.labelBypassedProxies.Location = new System.Drawing.Point(19, 301);
+            this.labelBypassedProxies.Location = new System.Drawing.Point(16, 302);
             this.labelBypassedProxies.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBypassedProxies.Name = "labelBypassedProxies";
             this.labelBypassedProxies.Size = new System.Drawing.Size(246, 13);
@@ -3953,7 +3937,6 @@
             this.tabPageProxies.ResumeLayout(false);
             this.tabPageProxies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBypassedProxies)).EndInit();
             this.tabPageUrlFilter.ResumeLayout(false);
             this.tabPageUrlFilter.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -4215,7 +4198,6 @@
         private System.Windows.Forms.ComboBox comboBoxChooseSSLClientCertificate;
         private System.Windows.Forms.Label labelChooseIdentityToEmbed;
         private System.Windows.Forms.Label labelChooseSSLClientCertificate;
-        private System.Windows.Forms.DataGridView dataGridViewBypassedProxies;
         private System.Windows.Forms.DataGridView dataGridViewProxyProtocols;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumnType;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnName;
@@ -4230,7 +4212,6 @@
         private System.Windows.Forms.Label labelProxyServerPort;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumnProtocolEnable;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnProtocolType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumnDomainHostPort;
         private System.Windows.Forms.Label labelTaskBarHeight;
         private System.Windows.Forms.ComboBox comboBoxTaskBarHeight;
         private System.Windows.Forms.Label labelQuitPasswordCompare;
@@ -4279,6 +4260,7 @@
         private System.Windows.Forms.TextBox textBoxDownloadDirectoryOSX;
         private System.Windows.Forms.CheckBox checkBoxDownloadOpenSEBFiles;
         private System.Windows.Forms.CheckBox checkBoxEnableScreenCapture;
+        private System.Windows.Forms.TextBox textBoxBypassedProxyHostList;
 
     }
 }

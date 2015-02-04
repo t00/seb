@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography;
@@ -396,8 +397,7 @@ namespace SebWindowsConfig
             dataGridViewProxyProtocols.Enabled = true;
             dataGridViewProxyProtocols.Rows.Clear();
 
-            dataGridViewBypassedProxies.Enabled = (SEBSettings.bypassedProxyList.Count > 0);
-            dataGridViewBypassedProxies.Rows.Clear();
+            textBoxBypassedProxyHostList.Text = "";
 
             // Add Permitted Processes of currently opened file to DataGridView
             for (int index = 0; index < SEBSettings.permittedProcessList.Count; index++)
@@ -465,12 +465,18 @@ namespace SebWindowsConfig
                 BooleanProxyProtocolEnabled[index] = enable;
             }
 
-            // Add Bypassed Proxies of currently opened file to DataGridView
+            // Add Bypassed Proxies of currently opened file to the comma separated list
+            StringBuilder bypassedProxiesStringBuilder = new StringBuilder();
             for (int index = 0; index < SEBSettings.bypassedProxyList.Count; index++)
             {
                 SEBSettings.bypassedProxyData = (String)SEBSettings.bypassedProxyList[index];
-                dataGridViewBypassedProxies.Rows.Add   (SEBSettings.bypassedProxyData);
+                if (bypassedProxiesStringBuilder.Length > 0)
+                {
+                    bypassedProxiesStringBuilder.Append(", ");
+                }
+                bypassedProxiesStringBuilder.Append(SEBSettings.bypassedProxyData);
             }
+            textBoxBypassedProxyHostList.Text = bypassedProxiesStringBuilder.ToString();
 
             // Load the currently selected process data
             if (SEBSettings.permittedProcessList.Count > 0)
@@ -2444,54 +2450,22 @@ namespace SebWindowsConfig
         }
 
 
-        private void dataGridViewBypassedProxies_SelectionChanged(object sender, EventArgs e)
+        private void textBoxBypassedProxyHostList_Validated(object sender, EventArgs e)
         {
-            // CAUTION:
-            // If a row was previously selected and the user clicks onto another row,
-            // the SelectionChanged() event is fired TWICE!!!
-            // The first time, it is only for UNselecting the old row,
-            // so the SelectedRows.Count is ZERO, so ignore this event handler!
-            // The second time, SelectedRows.Count is ONE.
-            // Now you can set the widgets in the "Selected Process" groupBox.
-
-            if (dataGridViewBypassedProxies.SelectedRows.Count != 1) return;
-            SEBSettings.bypassedProxyIndex = dataGridViewBypassedProxies.SelectedRows[0].Index;
-        }
-
-
-        private void dataGridViewBypassedProxies_CurrentCellDirtyStateChanged(object sender, EventArgs e)
-        {
-            // When a CheckBox/ListBox/TextBox entry of a DataGridView table cell is edited,
-            // immediately call the CellValueChanged() event.
-            if (dataGridViewBypassedProxies.IsCurrentCellDirty)
-                dataGridViewBypassedProxies.CommitEdit(DataGridViewDataErrorContexts.Commit);
-        }
-
-
-        private void dataGridViewBypassedProxies_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            // Get the current cell where the user has changed a value
-            int row    = dataGridViewBypassedProxies.CurrentCellAddress.Y;
-            int column = dataGridViewBypassedProxies.CurrentCellAddress.X;
-
-            // At the beginning, row = -1 and column = -1, so skip this event
-            if (row    < 0) return;
-            if (column < 0) return;
-
-            // Get the changed value of the current cell
-            object value = dataGridViewBypassedProxies.CurrentCell.EditedFormattedValue;
-
-            // Get the data of the bypassed proxy belonging to the cell (row)
+            // Get the proxies data
             SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
-
-            SEBSettings.bypassedProxyIndex = row;
-            SEBSettings.bypassedProxyList  = (ListObj)SEBSettings.proxiesData[SEBSettings.KeyExceptionsList];
-
-            // Update the certificate data belonging to the current cell
-            if (column == IntColumnDomainHostPort) SEBSettings.bypassedProxyList[SEBSettings.bypassedProxyIndex] = (String)value;
+            string bypassedProxiesCommaSeparatedList = textBoxBypassedProxyHostList.Text;
+            // Create List
+            List<string> bypassedProxyHostList = bypassedProxiesCommaSeparatedList.Split(',').ToList();
+            // Trim whitespace from host strings
+            ListObj bypassedProxyTrimmedHostList = new ListObj();
+            foreach (string host in bypassedProxyHostList)
+            {
+                bypassedProxyTrimmedHostList.Add(host.Trim());
+            }
+            SEBSettings.proxiesData[SEBSettings.KeyExceptionsList] = bypassedProxyTrimmedHostList;
         }
-
-
+        
 
         // ****************
         // Group "Security"
@@ -2559,17 +2533,6 @@ namespace SebWindowsConfig
         // ****************
         // Group "Registry"
         // ****************
-        private void radioButtonPreviousValuesFromFile_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void radioButtonEnvironmentValues_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void radioButtonInsideValuesManually_CheckedChanged(object sender, EventArgs e)
-        {
-        }
 
 
 
@@ -2783,8 +2746,6 @@ namespace SebWindowsConfig
         {
 
         }
-
-        
 
 
     } // end of   class     SebWindowsConfigForm

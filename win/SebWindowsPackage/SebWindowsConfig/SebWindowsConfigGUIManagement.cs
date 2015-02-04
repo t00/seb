@@ -495,12 +495,6 @@ namespace SebWindowsConfig
             dataGridViewProxyProtocols.MultiSelect        = false;
             dataGridViewProxyProtocols.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
-            dataGridViewBypassedProxies.Enabled            = false;
-            dataGridViewBypassedProxies.ReadOnly           = false;
-            dataGridViewBypassedProxies.AllowUserToAddRows = false;
-            dataGridViewBypassedProxies.RowHeadersVisible  = false;
-            dataGridViewBypassedProxies.MultiSelect        = false;
-            dataGridViewBypassedProxies.SelectionMode      = DataGridViewSelectionMode.FullRowSelect;
 
             dataGridViewPermittedProcesses.Columns[IntColumnProcessActive    ].ValueType = typeof(Boolean);
             dataGridViewPermittedProcesses.Columns[IntColumnProcessOS        ].ValueType = typeof(String);
@@ -523,9 +517,6 @@ namespace SebWindowsConfig
 
             dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolEnable].ReadOnly = false;
             dataGridViewProxyProtocols.Columns[IntColumnProxyProtocolType  ].ReadOnly = true;
-
-            dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ValueType = typeof(String);
-            dataGridViewBypassedProxies.Columns[IntColumnDomainHostPort].ReadOnly  = false;
 
             // Assign the column names to the DataGridViews
 /*
