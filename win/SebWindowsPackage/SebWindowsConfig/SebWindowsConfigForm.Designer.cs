@@ -70,6 +70,7 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.checkBoxUseStandardDirectory = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableScreenCapture = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxLogDirectoryOSX = new System.Windows.Forms.TextBox();
@@ -227,6 +228,8 @@
             this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.checkBoxReloadWarning = new System.Windows.Forms.CheckBox();
+            this.checkBoxRemoveLocalStorage = new System.Windows.Forms.CheckBox();
             this.checkboxShowReloadButton = new System.Windows.Forms.CheckBox();
             this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
             this.listBoxOpenLinksJava = new System.Windows.Forms.ListBox();
@@ -267,6 +270,14 @@
             this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
             this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.labelSettingsPasswordCompare = new System.Windows.Forms.Label();
             this.buttonSaveSettingsAs = new System.Windows.Forms.Button();
             this.buttonOpenSettings = new System.Windows.Forms.Button();
@@ -611,7 +622,7 @@
             // 
             this.checkBoxEnableAltMouseWheel.AutoSize = true;
             this.checkBoxEnableAltMouseWheel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableAltMouseWheel.Location = new System.Drawing.Point(8, 168);
+            this.checkBoxEnableAltMouseWheel.Location = new System.Drawing.Point(8, 189);
             this.checkBoxEnableAltMouseWheel.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableAltMouseWheel.Name = "checkBoxEnableAltMouseWheel";
             this.checkBoxEnableAltMouseWheel.Size = new System.Drawing.Size(137, 17);
@@ -624,7 +635,7 @@
             // 
             this.checkBoxEnablePrintScreen.AutoSize = true;
             this.checkBoxEnablePrintScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 191);
+            this.checkBoxEnablePrintScreen.Location = new System.Drawing.Point(8, 167);
             this.checkBoxEnablePrintScreen.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePrintScreen.Name = "checkBoxEnablePrintScreen";
             this.checkBoxEnablePrintScreen.Size = new System.Drawing.Size(117, 17);
@@ -871,6 +882,7 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.checkBoxUseStandardDirectory);
             this.tabPageSecurity.Controls.Add(this.checkBoxEnableScreenCapture);
             this.tabPageSecurity.Controls.Add(this.label4);
             this.tabPageSecurity.Controls.Add(this.textBoxLogDirectoryOSX);
@@ -893,6 +905,20 @@
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
             // 
+            // checkBoxUseStandardDirectory
+            // 
+            this.checkBoxUseStandardDirectory.AutoSize = true;
+            this.checkBoxUseStandardDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxUseStandardDirectory.Location = new System.Drawing.Point(39, 257);
+            this.checkBoxUseStandardDirectory.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxUseStandardDirectory.Name = "checkBoxUseStandardDirectory";
+            this.checkBoxUseStandardDirectory.Size = new System.Drawing.Size(132, 17);
+            this.checkBoxUseStandardDirectory.TabIndex = 91;
+            this.checkBoxUseStandardDirectory.Text = "Use standard directory";
+            this.toolTip1.SetToolTip(this.checkBoxUseStandardDirectory, "The log is saved to the user\'s AppData\\Roaming\\SafeExamBrowser directory");
+            this.checkBoxUseStandardDirectory.UseVisualStyleBackColor = true;
+            this.checkBoxUseStandardDirectory.CheckedChanged += new System.EventHandler(this.checkBoxUseStandardDirectory_CheckedChanged);
+            // 
             // checkBoxEnableScreenCapture
             // 
             this.checkBoxEnableScreenCapture.AutoSize = true;
@@ -911,7 +937,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(54, 265);
+            this.label4.Location = new System.Drawing.Point(54, 283);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 13);
@@ -921,7 +947,7 @@
             // 
             // textBoxLogDirectoryOSX
             // 
-            this.textBoxLogDirectoryOSX.Location = new System.Drawing.Point(176, 262);
+            this.textBoxLogDirectoryOSX.Location = new System.Drawing.Point(176, 280);
             this.textBoxLogDirectoryOSX.Name = "textBoxLogDirectoryOSX";
             this.textBoxLogDirectoryOSX.Size = new System.Drawing.Size(379, 20);
             this.textBoxLogDirectoryOSX.TabIndex = 82;
@@ -1767,7 +1793,7 @@
             // 
             // buttonChoosePermittedProcess
             // 
-            this.buttonChoosePermittedProcess.Location = new System.Drawing.Point(225, 187);
+            this.buttonChoosePermittedProcess.Location = new System.Drawing.Point(224, 187);
             this.buttonChoosePermittedProcess.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChoosePermittedProcess.Name = "buttonChoosePermittedProcess";
             this.buttonChoosePermittedProcess.Size = new System.Drawing.Size(112, 24);
@@ -1782,11 +1808,10 @@
             this.buttonChoosePermittedApplication.Location = new System.Drawing.Point(90, 187);
             this.buttonChoosePermittedApplication.Margin = new System.Windows.Forms.Padding(2);
             this.buttonChoosePermittedApplication.Name = "buttonChoosePermittedApplication";
-            this.buttonChoosePermittedApplication.Size = new System.Drawing.Size(112, 24);
+            this.buttonChoosePermittedApplication.Size = new System.Drawing.Size(125, 24);
             this.buttonChoosePermittedApplication.TabIndex = 5;
             this.buttonChoosePermittedApplication.Text = "Choose Application...";
             this.buttonChoosePermittedApplication.UseVisualStyleBackColor = true;
-            this.buttonChoosePermittedApplication.Visible = false;
             this.buttonChoosePermittedApplication.Click += new System.EventHandler(this.buttonChoosePermittedApplication_Click);
             // 
             // buttonRemovePermittedProcess
@@ -2499,7 +2524,7 @@
             this.textBox4.BackColor = System.Drawing.SystemColors.Window;
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(25, 389);
+            this.textBox4.Location = new System.Drawing.Point(25, 393);
             this.textBox4.Margin = new System.Windows.Forms.Padding(2);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
@@ -2525,7 +2550,7 @@
             // textBoxRestartExamText
             // 
             this.textBoxRestartExamText.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxRestartExamText.Location = new System.Drawing.Point(24, 364);
+            this.textBoxRestartExamText.Location = new System.Drawing.Point(24, 368);
             this.textBoxRestartExamText.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxRestartExamText.Name = "textBoxRestartExamText";
             this.textBoxRestartExamText.Size = new System.Drawing.Size(526, 19);
@@ -2550,7 +2575,7 @@
             // 
             this.checkBoxRestartExamPasswordProtected.AutoSize = true;
             this.checkBoxRestartExamPasswordProtected.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(24, 415);
+            this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(24, 419);
             this.checkBoxRestartExamPasswordProtected.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRestartExamPasswordProtected.Name = "checkBoxRestartExamPasswordProtected";
             this.checkBoxRestartExamPasswordProtected.Size = new System.Drawing.Size(509, 17);
@@ -2808,6 +2833,8 @@
             // 
             // tabPageBrowser
             // 
+            this.tabPageBrowser.Controls.Add(this.checkBoxReloadWarning);
+            this.tabPageBrowser.Controls.Add(this.checkBoxRemoveLocalStorage);
             this.tabPageBrowser.Controls.Add(this.checkboxShowReloadButton);
             this.tabPageBrowser.Controls.Add(this.checkBoxRemoveProfile);
             this.tabPageBrowser.Controls.Add(this.listBoxOpenLinksJava);
@@ -2834,10 +2861,36 @@
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
             // 
+            // checkBoxReloadWarning
+            // 
+            this.checkBoxReloadWarning.AutoSize = true;
+            this.checkBoxReloadWarning.Location = new System.Drawing.Point(242, 351);
+            this.checkBoxReloadWarning.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxReloadWarning.Name = "checkBoxReloadWarning";
+            this.checkBoxReloadWarning.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxReloadWarning.TabIndex = 65;
+            this.checkBoxReloadWarning.Text = "Show reload warning";
+            this.toolTip1.SetToolTip(this.checkBoxReloadWarning, "User has to confirm reloading a web page with F5 or reload button");
+            this.checkBoxReloadWarning.UseVisualStyleBackColor = true;
+            this.checkBoxReloadWarning.CheckedChanged += new System.EventHandler(this.checkBoxReloadWarning_CheckedChanged);
+            // 
+            // checkBoxRemoveLocalStorage
+            // 
+            this.checkBoxRemoveLocalStorage.AutoSize = true;
+            this.checkBoxRemoveLocalStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxRemoveLocalStorage.Location = new System.Drawing.Point(242, 377);
+            this.checkBoxRemoveLocalStorage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxRemoveLocalStorage.Name = "checkBoxRemoveLocalStorage";
+            this.checkBoxRemoveLocalStorage.Size = new System.Drawing.Size(159, 17);
+            this.checkBoxRemoveLocalStorage.TabIndex = 64;
+            this.checkBoxRemoveLocalStorage.Text = "Remove local storage (Mac)";
+            this.toolTip1.SetToolTip(this.checkBoxRemoveLocalStorage, "Remove local storage when quitting SEB. Caches are removed always.");
+            this.checkBoxRemoveLocalStorage.UseVisualStyleBackColor = true;
+            // 
             // checkboxShowReloadButton
             // 
             this.checkboxShowReloadButton.AutoSize = true;
-            this.checkboxShowReloadButton.Location = new System.Drawing.Point(200, 342);
+            this.checkboxShowReloadButton.Location = new System.Drawing.Point(23, 351);
             this.checkboxShowReloadButton.Margin = new System.Windows.Forms.Padding(2);
             this.checkboxShowReloadButton.Name = "checkboxShowReloadButton";
             this.checkboxShowReloadButton.Size = new System.Drawing.Size(194, 17);
@@ -2849,7 +2902,7 @@
             // checkBoxRemoveProfile
             // 
             this.checkBoxRemoveProfile.AutoSize = true;
-            this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 342);
+            this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 377);
             this.checkBoxRemoveProfile.Name = "checkBoxRemoveProfile";
             this.checkBoxRemoveProfile.Size = new System.Drawing.Size(125, 17);
             this.checkBoxRemoveProfile.TabIndex = 62;
@@ -2880,7 +2933,7 @@
             // labelUseSEBWithoutBrowser
             // 
             this.labelUseSEBWithoutBrowser.AutoSize = true;
-            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(45, 386);
+            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(45, 422);
             this.labelUseSEBWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUseSEBWithoutBrowser.Name = "labelUseSEBWithoutBrowser";
             this.labelUseSEBWithoutBrowser.Size = new System.Drawing.Size(436, 13);
@@ -2892,7 +2945,7 @@
             // 
             this.checkBoxBlockPopUpWindows.AutoSize = true;
             this.checkBoxBlockPopUpWindows.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxBlockPopUpWindows.Location = new System.Drawing.Point(200, 300);
+            this.checkBoxBlockPopUpWindows.Location = new System.Drawing.Point(242, 300);
             this.checkBoxBlockPopUpWindows.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBlockPopUpWindows.Name = "checkBoxBlockPopUpWindows";
             this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(163, 17);
@@ -2907,7 +2960,7 @@
             // 
             this.checkBoxAllowBrowsingBackForward.AutoSize = true;
             this.checkBoxAllowBrowsingBackForward.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(23, 320);
+            this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(23, 325);
             this.checkBoxAllowBrowsingBackForward.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
             this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(215, 17);
@@ -2923,7 +2976,7 @@
             // 
             this.checkBoxEnableJavaScript.AutoSize = true;
             this.checkBoxEnableJavaScript.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(200, 280);
+            this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(242, 280);
             this.checkBoxEnableJavaScript.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
             this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(142, 17);
@@ -2966,7 +3019,7 @@
             // checkBoxUseSebWithoutBrowser
             // 
             this.checkBoxUseSebWithoutBrowser.AutoSize = true;
-            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 367);
+            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 403);
             this.checkBoxUseSebWithoutBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
             this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(185, 17);
@@ -3336,6 +3389,14 @@
             // 
             // tabPageConfigFile
             // 
+            this.tabPageConfigFile.Controls.Add(this.button3);
+            this.tabPageConfigFile.Controls.Add(this.label8);
+            this.tabPageConfigFile.Controls.Add(this.button4);
+            this.tabPageConfigFile.Controls.Add(this.button5);
+            this.tabPageConfigFile.Controls.Add(this.button2);
+            this.tabPageConfigFile.Controls.Add(this.label7);
+            this.tabPageConfigFile.Controls.Add(this.label6);
+            this.tabPageConfigFile.Controls.Add(this.button1);
             this.tabPageConfigFile.Controls.Add(this.labelSettingsPasswordCompare);
             this.tabPageConfigFile.Controls.Add(this.buttonSaveSettingsAs);
             this.tabPageConfigFile.Controls.Add(this.buttonOpenSettings);
@@ -3362,6 +3423,93 @@
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(378, 348);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(143, 32);
+            this.button3.TabIndex = 72;
+            this.button3.Text = "Configure Client";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(376, 283);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(125, 13);
+            this.label8.TabIndex = 71;
+            this.label8.Text = "Use Current Settings to...";
+            // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(378, 306);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(143, 32);
+            this.button4.TabIndex = 69;
+            this.button4.Text = "Edit Duplicate";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Location = new System.Drawing.Point(378, 391);
+            this.button5.Margin = new System.Windows.Forms.Padding(2);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(143, 32);
+            this.button5.TabIndex = 70;
+            this.button5.Text = "Apply and Start SEB";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(204, 348);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(143, 32);
+            this.button2.TabIndex = 68;
+            this.button2.Text = "Local Client Settings";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(202, 283);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.TabIndex = 67;
+            this.label7.Text = "Revert Settings to...";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(27, 283);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 13);
+            this.label6.TabIndex = 66;
+            this.label6.Text = "Config File Editing:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(28, 348);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(143, 32);
+            this.button1.TabIndex = 65;
+            this.button1.Text = "Save Settings";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // labelSettingsPasswordCompare
             // 
             this.labelSettingsPasswordCompare.AutoSize = true;
@@ -3379,7 +3527,7 @@
             // buttonSaveSettingsAs
             // 
             this.buttonSaveSettingsAs.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSaveSettingsAs.Location = new System.Drawing.Point(380, 299);
+            this.buttonSaveSettingsAs.Location = new System.Drawing.Point(28, 391);
             this.buttonSaveSettingsAs.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSaveSettingsAs.Name = "buttonSaveSettingsAs";
             this.buttonSaveSettingsAs.Size = new System.Drawing.Size(143, 32);
@@ -3391,7 +3539,7 @@
             // buttonOpenSettings
             // 
             this.buttonOpenSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOpenSettings.Location = new System.Drawing.Point(229, 299);
+            this.buttonOpenSettings.Location = new System.Drawing.Point(30, 306);
             this.buttonOpenSettings.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOpenSettings.Name = "buttonOpenSettings";
             this.buttonOpenSettings.Size = new System.Drawing.Size(142, 32);
@@ -3535,7 +3683,7 @@
             // buttonDefaultSettings
             // 
             this.buttonDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDefaultSettings.Location = new System.Drawing.Point(29, 257);
+            this.buttonDefaultSettings.Location = new System.Drawing.Point(204, 306);
             this.buttonDefaultSettings.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDefaultSettings.Name = "buttonDefaultSettings";
             this.buttonDefaultSettings.Size = new System.Drawing.Size(143, 32);
@@ -3547,12 +3695,12 @@
             // buttonRevertToLastOpened
             // 
             this.buttonRevertToLastOpened.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRevertToLastOpened.Location = new System.Drawing.Point(29, 299);
+            this.buttonRevertToLastOpened.Location = new System.Drawing.Point(204, 391);
             this.buttonRevertToLastOpened.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRevertToLastOpened.Name = "buttonRevertToLastOpened";
             this.buttonRevertToLastOpened.Size = new System.Drawing.Size(143, 32);
             this.buttonRevertToLastOpened.TabIndex = 7;
-            this.buttonRevertToLastOpened.Text = "Revert To Last Opened";
+            this.buttonRevertToLastOpened.Text = "Last Opened";
             this.buttonRevertToLastOpened.UseVisualStyleBackColor = true;
             this.buttonRevertToLastOpened.Click += new System.EventHandler(this.buttonRevertToLastOpened_Click);
             // 
@@ -4261,6 +4409,17 @@
         private System.Windows.Forms.CheckBox checkBoxDownloadOpenSEBFiles;
         private System.Windows.Forms.CheckBox checkBoxEnableScreenCapture;
         private System.Windows.Forms.TextBox textBoxBypassedProxyHostList;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkBoxRemoveLocalStorage;
+        private System.Windows.Forms.CheckBox checkBoxReloadWarning;
+        private System.Windows.Forms.CheckBox checkBoxUseStandardDirectory;
 
     }
 }

@@ -526,6 +526,14 @@ namespace SebWindowsConfig
             checkBoxAllowUserSwitching .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
             labelLogDirectoryWin.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
+            if (String.IsNullOrEmpty(labelLogDirectoryWin.Text))
+            {
+                checkBoxUseStandardDirectory.Checked = true;
+            }
+            else
+            {
+                checkBoxUseStandardDirectory.Checked = false;
+            }
             textBoxLogDirectoryOSX.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryOSX];
             checkboxAllowWlan.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowWLAN];
             checkBoxEnableScreenCapture.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen];
@@ -2524,10 +2532,17 @@ namespace SebWindowsConfig
             if (dialogResult.Equals(DialogResult.Cancel)) return;
 
             // If the user clicked "OK", ...
-            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin]     = path;
-                                                  labelLogDirectoryWin.Text = path;
+            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin]     = path;                                      
+            labelLogDirectoryWin.Text = path;
+            if (String.IsNullOrEmpty(path))
+            {
+                checkBoxUseStandardDirectory.Checked = true;
+            }
+            else
+            {
+                checkBoxUseStandardDirectory.Checked = false;
+            }
         }
-
 
 
         // ****************
@@ -2745,6 +2760,30 @@ namespace SebWindowsConfig
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxReloadWarning_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadWarning] = checkBoxReloadWarning.Checked;
+        }
+
+        private void checkBoxUseStandardDirectory_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxUseStandardDirectory.Checked)
+            {
+                SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin] = "";
+                labelLogDirectoryWin.Text = "";
+            }
         }
 
 

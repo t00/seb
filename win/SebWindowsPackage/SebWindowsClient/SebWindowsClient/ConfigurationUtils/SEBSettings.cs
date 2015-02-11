@@ -133,7 +133,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyRestartExamText                      = "restartExamText";
         public const String KeyRestartExamURL                       = "restartExamURL";
         public const String KeyRestartExamPasswordProtected         = "restartExamPasswordProtected";
-        public const String KeyShowReloadButton         = "showReloadButton";
+        public const String KeyShowReloadButton = "showReloadButton";
+        public const String KeyShowReloadWarning = "showReloadWarning";
 
         // Group "DownUploads"
         public const String KeyAllowDownUploads         = "allowDownUploads";
