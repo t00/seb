@@ -1585,7 +1585,7 @@ namespace SebWindowsClient
                 {
                     Logger.AddInformation("attempting to reset workspacearea");
                     SEBWorkingAreaHandler.ResetWorkspaceArea();
-                    Logger.AddInformation("workspace area resettet");
+                    Logger.AddInformation("workspace area resetted");
                 }
                 catch (Exception ex)
                 {
@@ -1594,7 +1594,7 @@ namespace SebWindowsClient
 
                 // ShutDown Processes
 
-                Logger.AddInformation("clsoing processes that where started by seb");
+                Logger.AddInformation("closing processes that where started by seb");
                 for(int i = 0; i < permittedProcessesReferences.Count; i++)
                 {
                     try
@@ -1751,7 +1751,7 @@ namespace SebWindowsClient
             Logger.AddInformation("Successfull ResetSEBDesktop");
 
 
-            Logger.AddInformation("closing form and thenn calling application.exit");
+            Logger.AddInformation("closing form and then calling application.exit");
             //this.Close();
             Application.Exit();
         }

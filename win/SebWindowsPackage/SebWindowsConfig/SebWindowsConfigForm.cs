@@ -2786,6 +2786,16 @@ namespace SebWindowsConfig
             }
         }
 
+        private void checkBoxEnableZoomText_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomText] = checkBoxEnableZoomText.Checked;
+        }
+
+        private void checkBoxEnableZoomPage_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomPage] = checkBoxEnableZoomPage.Checked;
+        }
+
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

@@ -111,6 +111,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyShowTaskBar                  = "showTaskBar";
         public const String KeyTaskBarHeight                = "taskBarHeight";
         public const String KeyTouchOptimized               = "touchOptimized";
+        public const String KeyEnableZoomText               = "enableZoomText";
+        public const String KeyEnableZoomPage               = "enableZoomPage";
 
         //Touch optimized settings
         public const String KeyBrowserScreenKeyboard = "browserScreenKeyboard";
@@ -133,8 +135,8 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyRestartExamText                      = "restartExamText";
         public const String KeyRestartExamURL                       = "restartExamURL";
         public const String KeyRestartExamPasswordProtected         = "restartExamPasswordProtected";
-        public const String KeyShowReloadButton = "showReloadButton";
-        public const String KeyShowReloadWarning = "showReloadWarning";
+        public const String KeyShowReloadButton                     = "showReloadButton";
+        public const String KeyShowReloadWarning                    = "showReloadWarning";
 
         // Group "DownUploads"
         public const String KeyAllowDownUploads         = "allowDownUploads";
@@ -501,6 +503,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowTaskBar                 , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyTaskBarHeight               , 40);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyTouchOptimized              , 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomText              , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomPage              , true);
 
             //Touch Settings
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserScreenKeyboard               , 0);

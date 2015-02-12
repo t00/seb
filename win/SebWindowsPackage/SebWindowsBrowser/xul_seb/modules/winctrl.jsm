@@ -46,6 +46,7 @@ var winctrl = (function() {
 						"seb.popupWindows.screen"		:	popupScreen,
 						"seb.taskbar.enabled"			:	"showTaskBar",
 						"seb.taskbar.height"			:	"taskBarHeight",
+						"seb.reload.warning"			:	"showReloadWarning",
 						"seb.shutdown.enabled"			:	"allowQuit",
 						"seb.popup.policy"			:	"newBrowserWindowByLinkPolicy",
 						"seb.shutdown.url"			: 	"quitURL",

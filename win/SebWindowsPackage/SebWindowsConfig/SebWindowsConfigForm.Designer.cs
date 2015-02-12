@@ -321,6 +321,8 @@
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxEnableZoomText = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableZoomPage = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -3165,6 +3167,8 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.checkBoxEnableZoomPage);
+            this.tabPageAppearance.Controls.Add(this.checkBoxEnableZoomText);
             this.tabPageAppearance.Controls.Add(this.radioButtonTouchOptimized);
             this.tabPageAppearance.Controls.Add(this.labelTaskBarHeight);
             this.tabPageAppearance.Controls.Add(this.comboBoxTaskBarHeight);
@@ -3201,7 +3205,7 @@
             // 
             this.labelTaskBarHeight.AutoSize = true;
             this.labelTaskBarHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTaskBarHeight.Location = new System.Drawing.Point(287, 319);
+            this.labelTaskBarHeight.Location = new System.Drawing.Point(287, 307);
             this.labelTaskBarHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTaskBarHeight.Name = "labelTaskBarHeight";
             this.labelTaskBarHeight.Size = new System.Drawing.Size(81, 13);
@@ -3211,7 +3215,7 @@
             // comboBoxTaskBarHeight
             // 
             this.comboBoxTaskBarHeight.FormattingEnabled = true;
-            this.comboBoxTaskBarHeight.Location = new System.Drawing.Point(374, 316);
+            this.comboBoxTaskBarHeight.Location = new System.Drawing.Point(374, 304);
             this.comboBoxTaskBarHeight.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTaskBarHeight.Name = "comboBoxTaskBarHeight";
             this.comboBoxTaskBarHeight.Size = new System.Drawing.Size(92, 21);
@@ -3308,7 +3312,7 @@
             // checkBoxShowTaskBar
             // 
             this.checkBoxShowTaskBar.AutoSize = true;
-            this.checkBoxShowTaskBar.Location = new System.Drawing.Point(23, 318);
+            this.checkBoxShowTaskBar.Location = new System.Drawing.Point(23, 306);
             this.checkBoxShowTaskBar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxShowTaskBar.Name = "checkBoxShowTaskBar";
             this.checkBoxShowTaskBar.Size = new System.Drawing.Size(118, 17);
@@ -3321,7 +3325,7 @@
             // checkBoxShowMenuBar
             // 
             this.checkBoxShowMenuBar.AutoSize = true;
-            this.checkBoxShowMenuBar.Location = new System.Drawing.Point(23, 296);
+            this.checkBoxShowMenuBar.Location = new System.Drawing.Point(23, 284);
             this.checkBoxShowMenuBar.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxShowMenuBar.Name = "checkBoxShowMenuBar";
             this.checkBoxShowMenuBar.Size = new System.Drawing.Size(130, 17);
@@ -4050,6 +4054,32 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
+            // checkBoxEnableZoomText
+            // 
+            this.checkBoxEnableZoomText.AutoSize = true;
+            this.checkBoxEnableZoomText.Location = new System.Drawing.Point(23, 337);
+            this.checkBoxEnableZoomText.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableZoomText.Name = "checkBoxEnableZoomText";
+            this.checkBoxEnableZoomText.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxEnableZoomText.TabIndex = 65;
+            this.checkBoxEnableZoomText.Text = "Enable text zoom";
+            this.toolTip1.SetToolTip(this.checkBoxEnableZoomText, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
+            this.checkBoxEnableZoomText.UseVisualStyleBackColor = true;
+            this.checkBoxEnableZoomText.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomText_CheckedChanged);
+            // 
+            // checkBoxEnableZoomPage
+            // 
+            this.checkBoxEnableZoomPage.AutoSize = true;
+            this.checkBoxEnableZoomPage.Location = new System.Drawing.Point(23, 358);
+            this.checkBoxEnableZoomPage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableZoomPage.Name = "checkBoxEnableZoomPage";
+            this.checkBoxEnableZoomPage.Size = new System.Drawing.Size(114, 17);
+            this.checkBoxEnableZoomPage.TabIndex = 66;
+            this.checkBoxEnableZoomPage.Text = "Enable page zoom";
+            this.toolTip1.SetToolTip(this.checkBoxEnableZoomPage, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
+            this.checkBoxEnableZoomPage.UseVisualStyleBackColor = true;
+            this.checkBoxEnableZoomPage.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomPage_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4420,6 +4450,8 @@
         private System.Windows.Forms.CheckBox checkBoxRemoveLocalStorage;
         private System.Windows.Forms.CheckBox checkBoxReloadWarning;
         private System.Windows.Forms.CheckBox checkBoxUseStandardDirectory;
+        private System.Windows.Forms.CheckBox checkBoxEnableZoomPage;
+        private System.Windows.Forms.CheckBox checkBoxEnableZoomText;
 
     }
 }
