@@ -324,6 +324,19 @@
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSettingsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.revertSettingsToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.localClientSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lastOpenedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useSettingsToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editDuplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -361,6 +374,7 @@
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -4084,6 +4098,111 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.revertSettingsToToolStripMenuItem,
+            this.useSettingsToToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1184, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openSettingsToolStripMenuItem,
+            this.saveSettingsToolStripMenuItem,
+            this.saveSettingsAsToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openSettingsToolStripMenuItem
+            // 
+            this.openSettingsToolStripMenuItem.Name = "openSettingsToolStripMenuItem";
+            this.openSettingsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.openSettingsToolStripMenuItem.Text = "Open Settings...";
+            this.openSettingsToolStripMenuItem.Click += new System.EventHandler(this.openSettingsToolStripMenuItem_Click);
+            // 
+            // saveSettingsToolStripMenuItem
+            // 
+            this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
+            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.saveSettingsToolStripMenuItem.Text = "Save Settings";
+            this.saveSettingsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsToolStripMenuItem_Click);
+            // 
+            // saveSettingsAsToolStripMenuItem
+            // 
+            this.saveSettingsAsToolStripMenuItem.Name = "saveSettingsAsToolStripMenuItem";
+            this.saveSettingsAsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.saveSettingsAsToolStripMenuItem.Text = "Save Settings As...";
+            this.saveSettingsAsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsAsToolStripMenuItem_Click);
+            // 
+            // revertSettingsToToolStripMenuItem
+            // 
+            this.revertSettingsToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.defaultSettingsToolStripMenuItem,
+            this.localClientSettingsToolStripMenuItem,
+            this.lastOpenedToolStripMenuItem});
+            this.revertSettingsToToolStripMenuItem.Name = "revertSettingsToToolStripMenuItem";
+            this.revertSettingsToToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.revertSettingsToToolStripMenuItem.Text = "Revert Settings to";
+            // 
+            // defaultSettingsToolStripMenuItem
+            // 
+            this.defaultSettingsToolStripMenuItem.Name = "defaultSettingsToolStripMenuItem";
+            this.defaultSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.defaultSettingsToolStripMenuItem.Text = "Default Settings";
+            this.defaultSettingsToolStripMenuItem.Click += new System.EventHandler(this.defaultSettingsToolStripMenuItem_Click);
+            // 
+            // localClientSettingsToolStripMenuItem
+            // 
+            this.localClientSettingsToolStripMenuItem.Name = "localClientSettingsToolStripMenuItem";
+            this.localClientSettingsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.localClientSettingsToolStripMenuItem.Text = "Local Client Settings";
+            this.localClientSettingsToolStripMenuItem.Click += new System.EventHandler(this.localClientSettingsToolStripMenuItem_Click);
+            // 
+            // lastOpenedToolStripMenuItem
+            // 
+            this.lastOpenedToolStripMenuItem.Name = "lastOpenedToolStripMenuItem";
+            this.lastOpenedToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.lastOpenedToolStripMenuItem.Text = "Last Opened";
+            this.lastOpenedToolStripMenuItem.Click += new System.EventHandler(this.lastOpenedToolStripMenuItem_Click);
+            // 
+            // useSettingsToToolStripMenuItem
+            // 
+            this.useSettingsToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editDuplicateToolStripMenuItem,
+            this.configureClientToolStripMenuItem,
+            this.applyAndStartSEBToolStripMenuItem});
+            this.useSettingsToToolStripMenuItem.Name = "useSettingsToToolStripMenuItem";
+            this.useSettingsToToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.useSettingsToToolStripMenuItem.Text = "Use Settings to";
+            // 
+            // editDuplicateToolStripMenuItem
+            // 
+            this.editDuplicateToolStripMenuItem.Name = "editDuplicateToolStripMenuItem";
+            this.editDuplicateToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.editDuplicateToolStripMenuItem.Text = "Edit Duplicate";
+            this.editDuplicateToolStripMenuItem.Click += new System.EventHandler(this.editDuplicateToolStripMenuItem_Click);
+            // 
+            // configureClientToolStripMenuItem
+            // 
+            this.configureClientToolStripMenuItem.Name = "configureClientToolStripMenuItem";
+            this.configureClientToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.configureClientToolStripMenuItem.Text = "Configure Client";
+            this.configureClientToolStripMenuItem.Click += new System.EventHandler(this.configureClientToolStripMenuItem_Click);
+            // 
+            // applyAndStartSEBToolStripMenuItem
+            // 
+            this.applyAndStartSEBToolStripMenuItem.Name = "applyAndStartSEBToolStripMenuItem";
+            this.applyAndStartSEBToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.applyAndStartSEBToolStripMenuItem.Text = "Apply and Start SEB";
+            this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4093,10 +4212,14 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1184, 712);
             this.Controls.Add(this.tabControlSebWindowsConfig);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SebWindowsConfigForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "SEB Windows Configuration Editor";
+            this.Load += new System.EventHandler(this.SebWindowsConfigForm_Load);
             this.tabPageHookedKeys.ResumeLayout(false);
             this.tabPageHookedKeys.PerformLayout();
             this.groupBoxFunctionKeys.ResumeLayout(false);
@@ -4156,7 +4279,10 @@
             this.tabPageGeneral.PerformLayout();
             this.groupBoxExitSequence.ResumeLayout(false);
             this.tabControlSebWindowsConfig.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -4457,6 +4583,19 @@
         private System.Windows.Forms.CheckBox checkBoxEnableZoomPage;
         private System.Windows.Forms.CheckBox checkBoxEnableZoomText;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveSettingsAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem revertSettingsToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem localClientSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lastOpenedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useSettingsToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editDuplicateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configureClientToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applyAndStartSEBToolStripMenuItem;
 
     }
 }

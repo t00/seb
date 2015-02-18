@@ -2914,5 +2914,55 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomPage] = checkBoxEnableZoomPage.Checked;
         }
 
+        private void SebWindowsConfigForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editDuplicateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonEditDuplicate_Click(null, null);
+        }
+
+        private void configureClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonConfigureClient_Click(null, null);
+        }
+
+        private void applyAndStartSEBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonApplyAndStartSEB_Click(null, null);
+        }
+
+        private void openSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonOpenSettings_Click(null, null);
+        }
+
+        private void saveSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonSaveSettings_Click(null, null);
+        }
+
+        private void saveSettingsAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonSaveSettingsAs_Click(null, null);
+        }
+
+        private void defaultSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonRevertToDefaultSettings_Click(null, null);
+        }
+
+        private void localClientSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonRevertToLocalClientSettings_Click(null, null);
+        }
+
+        private void lastOpenedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonRevertToLastOpened_Click(null, null);
+        }
+
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig
