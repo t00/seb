@@ -493,6 +493,15 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  copy.
+        /// </summary>
+        public static string settingsDuplicateSuffix {
+            get {
+                return ResourceManager.GetString("settingsDuplicateSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening New Settings Failed.
         /// </summary>
         public static string settingsNotUsable {
@@ -552,6 +561,15 @@ namespace SebWindowsClient {
         public static string settingsTitleDefaultSettings {
             get {
                 return ResourceManager.GetString("settingsTitleDefaultSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to untitled.
+        /// </summary>
+        public static string settingsUntitledFilename {
+            get {
+                return ResourceManager.GetString("settingsUntitledFilename", resourceCulture);
             }
         }
     }

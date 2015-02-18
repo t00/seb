@@ -939,36 +939,41 @@ namespace SebWindowsConfig
 
         private void buttonEditDuplicate_Click(object sender, EventArgs e)
         {
-            // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n")
-            // to the config name filename
-            // Get the current config file full path
-            //NSURL *currentConfigFilePath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-            //// Get the filename without extension
-            //NSString *filename = currentConfigFilePath.lastPathComponent.stringByDeletingPathExtension;
-            //// Get the extension (should be .seb)
-            //NSString *extension = currentConfigFilePath.pathExtension;
-            //if (filename.length == 0) {
-            //    filename = NSLocalizedString(@"untitled", @"untitled filename");
-            //    extension = @".seb";
-            //} else {
-            //    NSRange copyStringRange = [filename rangeOfString:NSLocalizedString(@" copy", @"word indicating the duplicate of a file, same as in Finder ' copy'") options:NSBackwardsSearch];
-            //    if (copyStringRange.location == NSNotFound) {
-            //        filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
-            //    } else {
-            //        NSString *copyNumberString = [filename substringFromIndex:copyStringRange.location+copyStringRange.length];
-            //        if (copyNumberString.length == 0) {
-            //            filename = [filename stringByAppendingString:NSLocalizedString(@" 1", nil)];
-            //        } else {
-            //            NSInteger copyNumber = [[copyNumberString substringFromIndex:1] integerValue];
-            //            if (copyNumber == 0) {
-            //                filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
-            //            } else {
-            //                filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", copyNumber+1]];
-            //            }
-            //        }
-            //    }
-            //}
+            // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n") to the config name filename
+            // Get the filename without extension
+            string filename = Path.GetFileNameWithoutExtension(currentFileSebConfigFile);
+            // Get the extension (should be .seb)
+            string extension = Path.GetExtension(currentFileSebConfigFile);
+            StringBuilder newFilename = new StringBuilder();
+            if (filename.Length == 0)
+            {
+                newFilename.Append(SEBUIStrings.settingsUntitledFilename);
+                extension = ".seb";
+            } else {
+                int copyStringPosition = filename.LastIndexOf(SEBUIStrings.settingsDuplicateSuffix);
+                if (copyStringPosition == -1) {
+                    newFilename.Append(filename).Append(SEBUIStrings.settingsDuplicateSuffix);
+                } else {
+                    newFilename.Append(filename.Substring(0, copyStringPosition+SEBUIStrings.settingsDuplicateSuffix.Length));
+                    string copyNumberString = filename.Substring(copyStringPosition+SEBUIStrings.settingsDuplicateSuffix.Length);
+                    if (copyNumberString.Length == 0) {
+                        newFilename.Append(" 1");
+                    } else {
+                        int copyNumber = Convert.ToInt16(copyNumberString.Substring(1));
+                        if (copyNumber == 0) {
+                            newFilename.Append(SEBUIStrings.settingsDuplicateSuffix);
+                        } else {
+                            newFilename.Append(" ").Append((copyNumber + 1).ToString());
+                        }
+                    }
+                }
+            }
+            currentFileSebConfigFile = newFilename.Append(extension).ToString();
 
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
+            currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
+            // Update title of edited settings file
+            UpdateAllWidgetsOfProgram();
         }
 
 
@@ -1015,7 +1020,7 @@ namespace SebWindowsConfig
 
             if (!currentPathSebConfigFile.Equals(localSebClientSettings))
             {
-                p.StartInfo.Arguments = currentPathSebConfigFile;
+                p.StartInfo.Arguments = String.Format("\"{0}\"", currentPathSebConfigFile);
             }
 
             p.Start();

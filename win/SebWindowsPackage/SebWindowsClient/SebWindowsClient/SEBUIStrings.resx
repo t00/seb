@@ -261,6 +261,9 @@
   <data name="sebReconfiguredRestartNeededReason" xml:space="preserve">
     <value>Local settings have been reconfigured, but SEB needs to be restarted for the changed "Create new desktop" setting to take effect. SEB will quit now, please restart it manually.</value>
   </data>
+  <data name="settingsDuplicateSuffix" xml:space="preserve">
+    <value> copy</value>
+  </data>
   <data name="settingsNotUsable" xml:space="preserve">
     <value>Opening New Settings Failed</value>
   </data>
@@ -281,5 +284,8 @@
   </data>
   <data name="settingsTitleDefaultSettings" xml:space="preserve">
     <value>Default Settings</value>
+  </data>
+  <data name="settingsUntitledFilename" xml:space="preserve">
+    <value>untitled</value>
   </data>
 </root>
