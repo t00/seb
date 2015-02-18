@@ -1001,12 +1001,26 @@ namespace SebWindowsConfig
         {
             buttonSaveSettings_Click(null, null);
 
+            // Get the path to the local client settings configuration file
+            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
+            currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
+            string localSebClientSettings = sebClientSettingsAppDataBuilder.ToString();
+
             StringBuilder sebClientExeBuilder = new StringBuilder(SEBClientInfo.SebClientDirectory).Append(SEBClientInfo.PRODUCT_NAME).Append(".exe");
             string sebClientExe = sebClientExeBuilder.ToString();
 
             var p = new Process();
             p.StartInfo.FileName = sebClientExe;
+
+            if (!currentPathSebConfigFile.Equals(localSebClientSettings))
+            {
+                p.StartInfo.Arguments = currentPathSebConfigFile;
+            }
+
             p.Start();
+
+            Application.Exit();
         }
 
 
