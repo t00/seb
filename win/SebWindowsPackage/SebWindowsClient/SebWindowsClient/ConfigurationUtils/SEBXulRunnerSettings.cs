@@ -164,6 +164,12 @@ namespace SebWindowsClient.ConfigurationUtils
             xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket] = SEBXULRunnerWebSocketServer.ServerAddress;
             Logger.AddInformation("Socket: " + xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket].ToString(),null,null);
 
+            // Expand environment variables in paths which XULRunner seb is processing
+            string downloadDirectoryWin = (string)xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin];
+            downloadDirectoryWin = Environment.ExpandEnvironmentVariables(downloadDirectoryWin);
+            //downloadDirectoryWin = downloadDirectoryWin.Replace(@"\", @"\\");
+            xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin] = downloadDirectoryWin;
+
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string jsonSettings = serializer.Serialize(xulRunnerSettings);

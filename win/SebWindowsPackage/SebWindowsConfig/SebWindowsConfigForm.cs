@@ -82,8 +82,14 @@ namespace SebWindowsConfig
             // Initialise the GUI widgets themselves
             InitialiseGUIWidgets();
 
-            // When starting up, set the widgets to the default values
-            UpdateAllWidgetsOfProgram();
+            //// When starting up, set the widgets to the default values
+            //UpdateAllWidgetsOfProgram();
+
+            // When starting up, load the default local client settings
+            if (LoadConfigurationFileIntoEditor(currentPathSebConfigFile) == false)
+            {
+                UpdateAllWidgetsOfProgram();
+            };
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -292,7 +298,7 @@ namespace SebWindowsConfig
             }
 
             // Group "Appearance"
-            if ((int) SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 1)
+            if ((int)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 1)
             {
                 radioButtonTouchOptimized.Checked = true;
             }
@@ -1140,8 +1146,9 @@ namespace SebWindowsConfig
             if (dialogResult.Equals(DialogResult.Cancel)) return;
 
             // If the user clicked "OK", ...
-            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin]     = path;
-                                                  labelDownloadDirectoryWin.Text = path;
+            string pathUsingEnvironmentVariables = SEBClientInfo.ContractEnvironmentVariables(path);
+            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin]     = pathUsingEnvironmentVariables;
+                                                  labelDownloadDirectoryWin.Text = pathUsingEnvironmentVariables;
         }
 
         private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
@@ -2491,7 +2498,7 @@ namespace SebWindowsConfig
         private void radioCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop] = radioCreateNewDesktop.Checked;
-            if (radioCreateNewDesktop.Checked && (int) SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 1)
+            if (radioCreateNewDesktop.Checked && (int)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 0)
             {
                 MessageBox.Show(
                     "Touch optimization will not work when the kiosk-mode is set to Create New Desktop, please change the appearance.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

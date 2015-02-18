@@ -185,11 +185,6 @@ namespace SebWindowsConfig
         static String currentFileSebConfigFile;
         static String currentPathSebConfigFile;
 
-        // The default SEB configuration file
-        static String defaultDireSebConfigFile;
-        static String defaultFileSebConfigFile;
-        static String defaultPathSebConfigFile;
-
         // Strings for encryption identities (KeyChain, Certificate Store)
         //static ArrayList chooseIdentityStringArrayList = new ArrayList();
         //static String[]  chooseIdentityStringArray = new String[1];
@@ -412,14 +407,9 @@ namespace SebWindowsConfig
         {
             // At program start, no configuration file is loaded
             currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
-            currentFileSebConfigFile = "SebClientSettings.seb";
-            currentPathSebConfigFile = "";
-
-            // The default configuration file ("SebClient.seb")
-            // lies in the LocalAppData directory
-            defaultDireSebConfigFile = Directory.GetCurrentDirectory();
-            defaultFileSebConfigFile =                  SEBSettings.DefaultSebConfigXml;
-            defaultPathSebConfigFile = Path.GetFullPath(SEBSettings.DefaultSebConfigXml);
+            currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
+            currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
 
             openFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;
             saveFileDialogSebConfigFile.InitialDirectory = Environment.CurrentDirectory;

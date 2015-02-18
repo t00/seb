@@ -545,7 +545,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // Default settings for group "DownUploads"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowDownUploads        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadDirectoryOSX    , "~/Downloads");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadDirectoryWin    , "Desktop");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadDirectoryWin    , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyOpenDownloads           , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyChooseFileToUploadPolicy, 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyDownloadPDFFiles        , false);

@@ -388,7 +388,7 @@ namespace SebWindowsClient
                 xulRunner.Exited += xulRunner_Exited;
 
                 //Maximize the Windows of the XulRunner if touch mode is enabled
-                //if ((int) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+                //if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
                 //{
                 //    while (!xulRunner.GetOpenWindows().Any())
                 //    {
@@ -1130,7 +1130,7 @@ namespace SebWindowsClient
             }
             var scaleFactor = dpiX / 96;
 
-            if ((int) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+            if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
             {
                 taskbarHeight = (int)(68 * scaleFactor);
                 this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight -8);

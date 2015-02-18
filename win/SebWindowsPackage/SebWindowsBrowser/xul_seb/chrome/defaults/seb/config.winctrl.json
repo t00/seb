@@ -4,7 +4,15 @@
 							"network.proxy.type" : 0,
 							"network.proxy.autoconfig_url" : "",
 							"network.proxy.http" : "",
-							"network.proxy.http_port" : 3128
+							"network.proxy.http_port" : 3128,
+							"network.proxy.ssl" : "",
+							"network.proxy.ssl_port" : 0,
+							"network.proxy.ftp" : "",
+							"network.proxy.ftp_port" : 0,
+							"network.proxy.socks" : "",
+							"network.proxy.socks_port" : 0,
+							"network.proxy.no_proxies_on" : "localhost,127.0.0.1"
+							
 						  },										
 	"seb.url"				: "http://www.safeexambrowser.org",
 	"seb.language"				: "en-US",
@@ -32,7 +40,7 @@
 	"seb.pattern.regex"			: false,
 	"seb.blacklist.pattern"			: "",
 	"seb.whitelist.pattern"			: "",
-	"seb.shutdown.enabled"			: true,
+	"seb.shutdown.enabled"			: "true",
 	"seb.shutdown.keycode"			: "VK_F4",
 	"seb.shutdown.modifiers"		: "control shift",
 	"seb.shutdown.url"			: "http://seb/shutdown",
@@ -43,6 +51,7 @@
 	"seb.load.modifiers"			: "control shift",
 	"seb.reload.keycode"			: "VK_F5",
 	"seb.reload.modifiers"			: "control shift",
+	"seb.reload.warning"			: true,
 	"seb.restart.mode"			: 2,
 	"seb.restart.keycode"			: "VK_F9",
 	"seb.restart.modifiers"			: "control shift",
@@ -73,5 +82,6 @@
 						  "socket" : "wss://localhost:8443/websocket"
 						  },
 	"seb.restart.url"	: "",
-	"seb.touch.optimized"	: 0
+	"seb.touch.optimized"	: 0,
+	"seb.embedded.certs"	: ""
 }

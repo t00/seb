@@ -34,7 +34,7 @@ namespace SebWindowsClient
             {
                 _process = process;
                 var appImages = new ImageList();
-                if ((int) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+                if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
                 {
                     appImages.ImageSize = new Size(48, 48);
                     this.Height = this.Height + 16;

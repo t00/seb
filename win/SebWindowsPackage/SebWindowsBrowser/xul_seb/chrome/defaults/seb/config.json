@@ -4,8 +4,16 @@
 							"network.proxy.type" : 0,
 							"network.proxy.autoconfig_url" : "",
 							"network.proxy.http" : "",
-							"network.proxy.http_port" : 3128
-						  },										
+							"network.proxy.http_port" : 3128,
+							"network.proxy.ssl" : "",
+							"network.proxy.ssl_port" : 0,
+							"network.proxy.ftp" : "",
+							"network.proxy.ftp_port" : 0,
+							"network.proxy.socks" : "",
+							"network.proxy.socks_port" : 0,
+							"network.proxy.no_proxies_on" : "localhost,127.0.0.1",
+							"browser.download.dir" : ""
+						  },
 	"seb.url"				: "http://www.safeexambrowser.org",
 	"seb.language"				: "en-US",
 	"seb.request.header"			: "X-SafeExamBrowser-RequestHash",
@@ -16,17 +24,17 @@
 	"seb.mainWindow.titlebar.enabled"	: false,
 	"seb.popupWindows.titlebar.enabled"	: true,
 	"seb.mainWindow.screen"			: {
-							"fullsize" : true, 
+							"fullsize" : true,
 							"width" : 800,
 							"height" : 600,
-							"position" : "center" 
+							"position" : "center"
 						  },
 	"seb.popupWindows.screen"		: {
-							"fullsize" : false, 
+							"fullsize" : false,
 							"width" : 800,
 							"height" : 600,
 							"position" : "center",
-							"offset" : 40 
+							"offset" : 40
 						  },
 	"seb.trusted.content"			: true,
 	"seb.pattern.regex"			: false,
@@ -42,7 +50,7 @@
 	"seb.load.keycode"			: "VK_F6",
 	"seb.load.modifiers"			: "control shift",
 	"seb.reload.keycode"			: "VK_F5",
-	"seb.reload.modifiers"			: "",
+	"seb.reload.modifiers"			: "control shift",
 	"seb.reload.warning"			: true,
 	"seb.restart.mode"			: 2,
 	"seb.restart.keycode"			: "VK_F9",
@@ -58,8 +66,8 @@
 	"seb.showall.keycode"			: "VK_F1",
 	"seb.popup.policy"			: 2,
 	"seb.distinct.popup"			: true,
-	"seb.bypass.cache"			: true,	
-	"seb.removeProfile"			: true, 
+	"seb.bypass.cache"			: true,
+	"seb.removeProfile"			: true,
 	"seb.alert.controller"			: true,
 	"seb.screenkeyboard.controller"		: true,
 	"seb.screenshot.controller"		: false,
@@ -74,5 +82,6 @@
 						  "socket" : "wss://localhost:8443/websocket"
 						  },
 	"seb.restart.url"	: "",
-	"seb.touch.optimized"	: 0
+	"seb.touch.optimized"	: 0,
+	"seb.embedded.certs"	: ""
 }

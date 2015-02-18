@@ -253,6 +253,8 @@
             this.labelNewWindowPosition = new System.Windows.Forms.Label();
             this.listBoxNewBrowserWindowPositioning = new System.Windows.Forms.ListBox();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
+            this.checkBoxEnableZoomPage = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableZoomText = new System.Windows.Forms.CheckBox();
             this.radioButtonTouchOptimized = new System.Windows.Forms.RadioButton();
             this.labelTaskBarHeight = new System.Windows.Forms.Label();
             this.comboBoxTaskBarHeight = new System.Windows.Forms.ComboBox();
@@ -321,8 +323,7 @@
             this.tabControlSebWindowsConfig = new System.Windows.Forms.TabControl();
             this.folderBrowserDialogLogDirectoryWin = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxEnableZoomText = new System.Windows.Forms.CheckBox();
-            this.checkBoxEnableZoomPage = new System.Windows.Forms.CheckBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1173,9 +1174,9 @@
             this.labelChooseSSLClientCertificate.Location = new System.Drawing.Point(16, 24);
             this.labelChooseSSLClientCertificate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelChooseSSLClientCertificate.Name = "labelChooseSSLClientCertificate";
-            this.labelChooseSSLClientCertificate.Size = new System.Drawing.Size(283, 13);
+            this.labelChooseSSLClientCertificate.Size = new System.Drawing.Size(308, 13);
             this.labelChooseSSLClientCertificate.TabIndex = 96;
-            this.labelChooseSSLClientCertificate.Text = "Choose SSL client certificate to embed into configuration...";
+            this.labelChooseSSLClientCertificate.Text = "Choose TLS/SSL client certificate to embed into configuration...";
             // 
             // comboBoxChooseIdentityToEmbed
             // 
@@ -3189,6 +3190,32 @@
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
             // 
+            // checkBoxEnableZoomPage
+            // 
+            this.checkBoxEnableZoomPage.AutoSize = true;
+            this.checkBoxEnableZoomPage.Location = new System.Drawing.Point(23, 358);
+            this.checkBoxEnableZoomPage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableZoomPage.Name = "checkBoxEnableZoomPage";
+            this.checkBoxEnableZoomPage.Size = new System.Drawing.Size(114, 17);
+            this.checkBoxEnableZoomPage.TabIndex = 66;
+            this.checkBoxEnableZoomPage.Text = "Enable page zoom";
+            this.toolTip1.SetToolTip(this.checkBoxEnableZoomPage, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
+            this.checkBoxEnableZoomPage.UseVisualStyleBackColor = true;
+            this.checkBoxEnableZoomPage.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomPage_CheckedChanged);
+            // 
+            // checkBoxEnableZoomText
+            // 
+            this.checkBoxEnableZoomText.AutoSize = true;
+            this.checkBoxEnableZoomText.Location = new System.Drawing.Point(23, 337);
+            this.checkBoxEnableZoomText.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableZoomText.Name = "checkBoxEnableZoomText";
+            this.checkBoxEnableZoomText.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxEnableZoomText.TabIndex = 65;
+            this.checkBoxEnableZoomText.Text = "Enable text zoom";
+            this.toolTip1.SetToolTip(this.checkBoxEnableZoomText, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
+            this.checkBoxEnableZoomText.UseVisualStyleBackColor = true;
+            this.checkBoxEnableZoomText.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomText_CheckedChanged);
+            // 
             // radioButtonTouchOptimized
             // 
             this.radioButtonTouchOptimized.AutoSize = true;
@@ -4054,32 +4081,6 @@
             this.tabControlSebWindowsConfig.Size = new System.Drawing.Size(1100, 660);
             this.tabControlSebWindowsConfig.TabIndex = 0;
             // 
-            // checkBoxEnableZoomText
-            // 
-            this.checkBoxEnableZoomText.AutoSize = true;
-            this.checkBoxEnableZoomText.Location = new System.Drawing.Point(23, 337);
-            this.checkBoxEnableZoomText.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableZoomText.Name = "checkBoxEnableZoomText";
-            this.checkBoxEnableZoomText.Size = new System.Drawing.Size(107, 17);
-            this.checkBoxEnableZoomText.TabIndex = 65;
-            this.checkBoxEnableZoomText.Text = "Enable text zoom";
-            this.toolTip1.SetToolTip(this.checkBoxEnableZoomText, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
-            this.checkBoxEnableZoomText.UseVisualStyleBackColor = true;
-            this.checkBoxEnableZoomText.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomText_CheckedChanged);
-            // 
-            // checkBoxEnableZoomPage
-            // 
-            this.checkBoxEnableZoomPage.AutoSize = true;
-            this.checkBoxEnableZoomPage.Location = new System.Drawing.Point(23, 358);
-            this.checkBoxEnableZoomPage.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableZoomPage.Name = "checkBoxEnableZoomPage";
-            this.checkBoxEnableZoomPage.Size = new System.Drawing.Size(114, 17);
-            this.checkBoxEnableZoomPage.TabIndex = 66;
-            this.checkBoxEnableZoomPage.Text = "Enable page zoom";
-            this.toolTip1.SetToolTip(this.checkBoxEnableZoomPage, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
-            this.checkBoxEnableZoomPage.UseVisualStyleBackColor = true;
-            this.checkBoxEnableZoomPage.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomPage_CheckedChanged);
-            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4452,6 +4453,7 @@
         private System.Windows.Forms.CheckBox checkBoxUseStandardDirectory;
         private System.Windows.Forms.CheckBox checkBoxEnableZoomPage;
         private System.Windows.Forms.CheckBox checkBoxEnableZoomText;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
     }
 }

@@ -59,7 +59,7 @@ namespace SebWindowsClient
             InitializeComponent();
             try
             {
-                if ((int) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+                if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
                 {
                     this.Font = new Font(FontFamily.GenericSansSerif, 12);
                     IntPtr hwnd = this.Handle;

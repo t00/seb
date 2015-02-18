@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 using SebWindowsClient.CryptographyUtils;
 using System.Security.Cryptography.X509Certificates;
 using PlistCS;
-
+using System.Collections;
 //
 //  SEBClientInfo.cs
 //  SafeExamBrowser
@@ -107,8 +107,8 @@ namespace SebWindowsClient.ConfigurationUtils
         #region Constants
 
         // Name and location of SEB configuration files and logfiles
-        private const string SEB_CLIENT_CONFIG = "SebClientSettings.seb";
-        private const string SEB_CLIENT_LOG    = "SebClient.log";
+        public const string SEB_CLIENT_CONFIG = "SebClientSettings.seb";
+        public const string SEB_CLIENT_LOG    = "SebClient.log";
         private const string XUL_RUNNER_CONFIG = "config.json";
         public  const string XUL_RUNNER        = "xulrunner.exe";
         private const string XUL_RUNNER_INI    = "seb.ini";
@@ -559,5 +559,22 @@ namespace SebWindowsClient.ConfigurationUtils
         }
 
         public static bool CreateNewDesktopOldValue { get; set; }
+
+        public static string ContractEnvironmentVariables(string path)
+        {
+            path = Path.GetFullPath(path);
+            DictionaryEntry currentEntry = new DictionaryEntry("", "");
+            foreach (object key in Environment.GetEnvironmentVariables().Keys)
+            {
+                string value = (string)Environment.GetEnvironmentVariables()[key];
+                if (path.ToUpperInvariant().Contains(value.ToUpperInvariant()) && value.Length > ((string)currentEntry.Value).Length)
+                {
+                    currentEntry.Key = (string)key;
+                    currentEntry.Value = value;
+                }
+            }
+            return path.Replace((string)currentEntry.Value, "%" + (string)currentEntry.Key + "%");
+        }
+
     }
 }
