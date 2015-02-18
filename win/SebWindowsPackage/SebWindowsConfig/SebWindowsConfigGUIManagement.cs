@@ -405,7 +405,7 @@ namespace SebWindowsConfig
         // *******************************************************
         private void InitialiseGUIWidgets()
         {
-            // At program start, no configuration file is loaded
+            // At program start, the local client settings configuration file is loaded
             currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
             currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);

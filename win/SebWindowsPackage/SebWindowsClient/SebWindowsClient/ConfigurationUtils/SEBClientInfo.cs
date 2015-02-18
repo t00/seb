@@ -117,7 +117,7 @@ namespace SebWindowsClient.ConfigurationUtils
         // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
         private const string MANUFACTURER_LOCAL     = "SafeExamBrowser";
         //private const string MANUFACTURER         = "ETH Zuerich";
-        private const string PRODUCT_NAME           = "SafeExamBrowser";
+        public const string PRODUCT_NAME           = "SafeExamBrowser";
         private const string SEB_BROWSER_DIRECTORY  = "SebWindowsBrowser";
         private const string XUL_RUNNER_DIRECTORY   = "xulrunner";
         private const string XUL_SEB_DIRECTORY      = "xul_seb";

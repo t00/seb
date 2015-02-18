@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +17,6 @@ using SebWindowsClient;
 using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
-
 using ListObj  = System.Collections.Generic.List                <object>;
 using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
 using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
@@ -67,27 +67,17 @@ namespace SebWindowsConfig
             SEBSettings.RestoreDefaultAndCurrentSettings();
             SEBSettings.PermitXulRunnerProcess();
 
-            // Read the settings from the standard configuration file??? Currently not
-            //SEBSettings.WriteSebConfigurationFile(defaultPathSebConfigFile);
-            //SEBSettings. ReadSebConfigurationFile(defaultPathSebConfigFile);
-            //SEBSettings.WriteSebConfigurationFile("sebClientDefaultMist.seb");
-            //SEBSettings. ReadSebConfigurationFile("sebClientDefaultMist.seb");
-
-            //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_Constructor.txt");
-            //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_Constructor.txt");
-
             // Initialise the global variables for the GUI widgets
             InitialiseGlobalVariablesForGUIWidgets();
 
             // Initialise the GUI widgets themselves
             InitialiseGUIWidgets();
 
-            //// When starting up, set the widgets to the default values
-            //UpdateAllWidgetsOfProgram();
-
             // When starting up, load the default local client settings
-            if (LoadConfigurationFileIntoEditor(currentPathSebConfigFile) == false)
+            if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile))
             {
+                // If this didn't work, then there are no local client settings and we set the current settings title to "Default Settings"
+                currentPathSebConfigFile = SEBUIStrings.settingsTitleDefaultSettings;
                 UpdateAllWidgetsOfProgram();
             };
 
@@ -822,50 +812,17 @@ namespace SebWindowsConfig
         }
 
 
-        private void buttonDefaultSettings_Click(object sender, EventArgs e)
-        {
-            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_Before_RevertToDefault.xml");
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToDefault.xml");
-            settingsPassword                  = "";
-            settingsPasswordFieldsContainHash = false;
-            SEBSettings.RestoreDefaultAndCurrentSettings();
-            SEBSettings.PermitXulRunnerProcess();
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_ButtonDefault.txt");
-          //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_ButtonDefault.txt");
-            UpdateAllWidgetsOfProgram();
-            // Generate Browser Exam Key of default settings
-            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            // Display the new Browser Exam Key in Exam pane
-            textBoxBrowserExamKey.Text = lastBrowserExamKey;
-
-            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_After_RevertToDefault.xml");
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_After_RevertToDefault.xml");
-        }
-
-
-        private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
-        {
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_Before_RevertToLastOpened.xml");
-            if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile)) return;
-            // Generate Browser Exam Key of this new settings
-            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            // Display the new Browser Exam Key in Exam pane
-            textBoxBrowserExamKey.Text = lastBrowserExamKey;
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_After_RevertToLastOpened.xml");
-        }
-
-
         private void buttonOpenSettings_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
-            openFileDialogSebConfigFile.FileName         = currentFileSebConfigFile;
+            openFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
             openFileDialogSebConfigFile.DefaultExt = "seb";
             openFileDialogSebConfigFile.Filter = "SEB Files|*.seb";
 
             // Get the user inputs in the File Dialog
             DialogResult fileDialogResult = openFileDialogSebConfigFile.ShowDialog();
-            String       fileName         = openFileDialogSebConfigFile.FileName;
+            String fileName = openFileDialogSebConfigFile.FileName;
 
             // If the user clicked "Cancel", do nothing
             // If the user clicked "OK"    , read the settings from the configuration file
@@ -880,16 +837,37 @@ namespace SebWindowsConfig
             }
         }
 
+        private void buttonSaveSettings_Click(object sender, EventArgs e)
+        {
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
+            String fileName = sebClientSettingsAppDataBuilder.ToString();
+
+            // Generate Browser Exam Key and its salt, if settings changed
+            string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            if (!lastBrowserExamKey.Equals(newBrowserExamKey))
+            {
+                // If the exam key changed, then settings changed and we will generate a new salt
+                byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
+                // Save the new salt
+                SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
+                // Generate the new Browser Exam Key
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            }
+            SaveConfigurationFileFromEditor(fileName);
+        }
+
 
         private void buttonSaveSettingsAs_Click(object sender, EventArgs e)
         {
             // Set the default directory and file name in the File Dialog
             saveFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
-            saveFileDialogSebConfigFile.FileName         = currentFileSebConfigFile;
+            saveFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
 
             // Get the user inputs in the File Dialog
             DialogResult fileDialogResult = saveFileDialogSebConfigFile.ShowDialog();
-            String       fileName         = saveFileDialogSebConfigFile.FileName;
+            String fileName = saveFileDialogSebConfigFile.FileName;
 
             // If the user clicked "Cancel", do nothing
             // If the user clicked "OK"    , write the settings to the configuration file
@@ -911,6 +889,125 @@ namespace SebWindowsConfig
             if (fileDialogResult.Equals(DialogResult.OK)) SaveConfigurationFileFromEditor(fileName);
         }
 
+
+        private void buttonRevertToDefaultSettings_Click(object sender, EventArgs e)
+        {
+            settingsPassword                  = "";
+            settingsPasswordFieldsContainHash = false;
+            SEBSettings.RestoreDefaultAndCurrentSettings();
+            SEBSettings.PermitXulRunnerProcess();
+            UpdateAllWidgetsOfProgram();
+            // Generate Browser Exam Key of default settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+        }
+
+        private void buttonRevertToLocalClientSettings_Click(object sender, EventArgs e)
+        {
+            // Get the path to the local client settings configuration file
+            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
+            currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
+            currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
+
+            if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile))
+            {
+                settingsPassword = "";
+                settingsPasswordFieldsContainHash = false;
+                SEBSettings.RestoreDefaultAndCurrentSettings();
+                SEBSettings.PermitXulRunnerProcess();
+                currentPathSebConfigFile = SEBUIStrings.settingsTitleDefaultSettings;
+                UpdateAllWidgetsOfProgram();
+            }
+            // Generate Browser Exam Key of this new settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+        }
+
+
+        private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
+        {
+            if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile)) return;
+            // Generate Browser Exam Key of this new settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+        }
+
+
+        private void buttonEditDuplicate_Click(object sender, EventArgs e)
+        {
+            // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n")
+            // to the config name filename
+            // Get the current config file full path
+            //NSURL *currentConfigFilePath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+            //// Get the filename without extension
+            //NSString *filename = currentConfigFilePath.lastPathComponent.stringByDeletingPathExtension;
+            //// Get the extension (should be .seb)
+            //NSString *extension = currentConfigFilePath.pathExtension;
+            //if (filename.length == 0) {
+            //    filename = NSLocalizedString(@"untitled", @"untitled filename");
+            //    extension = @".seb";
+            //} else {
+            //    NSRange copyStringRange = [filename rangeOfString:NSLocalizedString(@" copy", @"word indicating the duplicate of a file, same as in Finder ' copy'") options:NSBackwardsSearch];
+            //    if (copyStringRange.location == NSNotFound) {
+            //        filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+            //    } else {
+            //        NSString *copyNumberString = [filename substringFromIndex:copyStringRange.location+copyStringRange.length];
+            //        if (copyNumberString.length == 0) {
+            //            filename = [filename stringByAppendingString:NSLocalizedString(@" 1", nil)];
+            //        } else {
+            //            NSInteger copyNumber = [[copyNumberString substringFromIndex:1] integerValue];
+            //            if (copyNumber == 0) {
+            //                filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+            //            } else {
+            //                filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", copyNumber+1]];
+            //            }
+            //        }
+            //    }
+            //}
+
+        }
+
+
+        private void buttonConfigureClient_Click(object sender, EventArgs e)
+        {
+            // Get the path to the local client settings configuration file
+            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
+            currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
+            string filename = sebClientSettingsAppDataBuilder.ToString();
+
+            // Generate Browser Exam Key and its salt, if settings changed
+            string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            if (!lastBrowserExamKey.Equals(newBrowserExamKey))
+            {
+                // If the exam key changed, then settings changed and we will generate a new salt
+                byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
+                // Save the new salt
+                SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
+                // Generate the new Browser Exam Key
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            }
+            SaveConfigurationFileFromEditor(filename);
+        }
+
+
+        private void buttonApplyAndStartSEB_Click(object sender, EventArgs e)
+        {
+            buttonSaveSettings_Click(null, null);
+
+            StringBuilder sebClientExeBuilder = new StringBuilder(SEBClientInfo.SebClientDirectory).Append(SEBClientInfo.PRODUCT_NAME).Append(".exe");
+            string sebClientExe = sebClientExeBuilder.ToString();
+
+            var p = new Process();
+            p.StartInfo.FileName = sebClientExe;
+            p.Start();
+        }
 
 
         // ******************
@@ -2498,7 +2595,7 @@ namespace SebWindowsConfig
         private void radioCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop] = radioCreateNewDesktop.Checked;
-            if (radioCreateNewDesktop.Checked && (int)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 0)
+            if (radioCreateNewDesktop.Checked && (int)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 1)
             {
                 MessageBox.Show(
                     "Touch optimization will not work when the kiosk-mode is set to Create New Desktop, please change the appearance.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -2769,11 +2866,6 @@ namespace SebWindowsConfig
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void label6_Click(object sender, EventArgs e)
         {
 
@@ -2802,7 +2894,6 @@ namespace SebWindowsConfig
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomPage] = checkBoxEnableZoomPage.Checked;
         }
-
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

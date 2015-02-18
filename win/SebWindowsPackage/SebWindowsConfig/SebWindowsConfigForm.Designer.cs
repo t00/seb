@@ -272,11 +272,11 @@
             this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
             this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonConfigureClient = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonEditDuplicate = new System.Windows.Forms.Button();
+            this.buttonApplyAndStartSEB = new System.Windows.Forms.Button();
+            this.buttonRevertToLocalClientSettings = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -294,7 +294,7 @@
             this.radioButtonConfiguringAClient = new System.Windows.Forms.RadioButton();
             this.radioButtonStartingAnExam = new System.Windows.Forms.RadioButton();
             this.checkBoxAllowPreferencesWindow = new System.Windows.Forms.CheckBox();
-            this.buttonDefaultSettings = new System.Windows.Forms.Button();
+            this.buttonRevertToDefaultSettings = new System.Windows.Forms.Button();
             this.buttonRevertToLastOpened = new System.Windows.Forms.Button();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.checkBoxIgnoreExitKeys = new System.Windows.Forms.CheckBox();
@@ -1180,7 +1180,6 @@
             // 
             // comboBoxChooseIdentityToEmbed
             // 
-            this.comboBoxChooseIdentityToEmbed.Enabled = false;
             this.comboBoxChooseIdentityToEmbed.FormattingEnabled = true;
             this.comboBoxChooseIdentityToEmbed.Location = new System.Drawing.Point(19, 91);
             this.comboBoxChooseIdentityToEmbed.Margin = new System.Windows.Forms.Padding(2);
@@ -1191,7 +1190,6 @@
             // 
             // comboBoxChooseSSLClientCertificate
             // 
-            this.comboBoxChooseSSLClientCertificate.Enabled = false;
             this.comboBoxChooseSSLClientCertificate.FormattingEnabled = true;
             this.comboBoxChooseSSLClientCertificate.Location = new System.Drawing.Point(19, 41);
             this.comboBoxChooseSSLClientCertificate.Margin = new System.Windows.Forms.Padding(2);
@@ -3420,11 +3418,11 @@
             // 
             // tabPageConfigFile
             // 
-            this.tabPageConfigFile.Controls.Add(this.button3);
+            this.tabPageConfigFile.Controls.Add(this.buttonConfigureClient);
             this.tabPageConfigFile.Controls.Add(this.label8);
-            this.tabPageConfigFile.Controls.Add(this.button4);
-            this.tabPageConfigFile.Controls.Add(this.button5);
-            this.tabPageConfigFile.Controls.Add(this.button2);
+            this.tabPageConfigFile.Controls.Add(this.buttonEditDuplicate);
+            this.tabPageConfigFile.Controls.Add(this.buttonApplyAndStartSEB);
+            this.tabPageConfigFile.Controls.Add(this.buttonRevertToLocalClientSettings);
             this.tabPageConfigFile.Controls.Add(this.label7);
             this.tabPageConfigFile.Controls.Add(this.label6);
             this.tabPageConfigFile.Controls.Add(this.button1);
@@ -3442,7 +3440,7 @@
             this.tabPageConfigFile.Controls.Add(this.radioButtonConfiguringAClient);
             this.tabPageConfigFile.Controls.Add(this.radioButtonStartingAnExam);
             this.tabPageConfigFile.Controls.Add(this.checkBoxAllowPreferencesWindow);
-            this.tabPageConfigFile.Controls.Add(this.buttonDefaultSettings);
+            this.tabPageConfigFile.Controls.Add(this.buttonRevertToDefaultSettings);
             this.tabPageConfigFile.Controls.Add(this.buttonRevertToLastOpened);
             this.tabPageConfigFile.ImageIndex = 1;
             this.tabPageConfigFile.Location = new System.Drawing.Point(4, 39);
@@ -3454,16 +3452,17 @@
             this.tabPageConfigFile.Text = "Config File";
             this.tabPageConfigFile.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // buttonConfigureClient
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(378, 348);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(143, 32);
-            this.button3.TabIndex = 72;
-            this.button3.Text = "Configure Client";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonConfigureClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonConfigureClient.Location = new System.Drawing.Point(378, 348);
+            this.buttonConfigureClient.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonConfigureClient.Name = "buttonConfigureClient";
+            this.buttonConfigureClient.Size = new System.Drawing.Size(143, 32);
+            this.buttonConfigureClient.TabIndex = 72;
+            this.buttonConfigureClient.Text = "Configure Client";
+            this.buttonConfigureClient.UseVisualStyleBackColor = true;
+            this.buttonConfigureClient.Click += new System.EventHandler(this.buttonConfigureClient_Click);
             // 
             // label8
             // 
@@ -3475,38 +3474,41 @@
             this.label8.TabIndex = 71;
             this.label8.Text = "Use Current Settings to...";
             // 
-            // button4
+            // buttonEditDuplicate
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(378, 306);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(143, 32);
-            this.button4.TabIndex = 69;
-            this.button4.Text = "Edit Duplicate";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonEditDuplicate.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEditDuplicate.Location = new System.Drawing.Point(378, 306);
+            this.buttonEditDuplicate.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonEditDuplicate.Name = "buttonEditDuplicate";
+            this.buttonEditDuplicate.Size = new System.Drawing.Size(143, 32);
+            this.buttonEditDuplicate.TabIndex = 69;
+            this.buttonEditDuplicate.Text = "Edit Duplicate";
+            this.buttonEditDuplicate.UseVisualStyleBackColor = true;
+            this.buttonEditDuplicate.Click += new System.EventHandler(this.buttonEditDuplicate_Click);
             // 
-            // button5
+            // buttonApplyAndStartSEB
             // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(378, 391);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(143, 32);
-            this.button5.TabIndex = 70;
-            this.button5.Text = "Apply and Start SEB";
-            this.button5.UseVisualStyleBackColor = true;
+            this.buttonApplyAndStartSEB.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonApplyAndStartSEB.Location = new System.Drawing.Point(378, 391);
+            this.buttonApplyAndStartSEB.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonApplyAndStartSEB.Name = "buttonApplyAndStartSEB";
+            this.buttonApplyAndStartSEB.Size = new System.Drawing.Size(143, 32);
+            this.buttonApplyAndStartSEB.TabIndex = 70;
+            this.buttonApplyAndStartSEB.Text = "Apply and Start SEB";
+            this.buttonApplyAndStartSEB.UseVisualStyleBackColor = true;
+            this.buttonApplyAndStartSEB.Click += new System.EventHandler(this.buttonApplyAndStartSEB_Click);
             // 
-            // button2
+            // buttonRevertToLocalClientSettings
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(204, 348);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(143, 32);
-            this.button2.TabIndex = 68;
-            this.button2.Text = "Local Client Settings";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonRevertToLocalClientSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRevertToLocalClientSettings.Location = new System.Drawing.Point(204, 348);
+            this.buttonRevertToLocalClientSettings.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonRevertToLocalClientSettings.Name = "buttonRevertToLocalClientSettings";
+            this.buttonRevertToLocalClientSettings.Size = new System.Drawing.Size(143, 32);
+            this.buttonRevertToLocalClientSettings.TabIndex = 68;
+            this.buttonRevertToLocalClientSettings.Text = "Local Client Settings";
+            this.buttonRevertToLocalClientSettings.UseVisualStyleBackColor = true;
+            this.buttonRevertToLocalClientSettings.Click += new System.EventHandler(this.buttonRevertToLocalClientSettings_Click);
             // 
             // label7
             // 
@@ -3539,7 +3541,7 @@
             this.button1.TabIndex = 65;
             this.button1.Text = "Save Settings";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.buttonSaveSettings_Click);
             // 
             // labelSettingsPasswordCompare
             // 
@@ -3672,6 +3674,7 @@
             // radioButtonConfiguringAClient
             // 
             this.radioButtonConfiguringAClient.AutoSize = true;
+            this.radioButtonConfiguringAClient.Checked = true;
             this.radioButtonConfiguringAClient.Location = new System.Drawing.Point(45, 73);
             this.radioButtonConfiguringAClient.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonConfiguringAClient.Name = "radioButtonConfiguringAClient";
@@ -3711,17 +3714,17 @@
             this.checkBoxAllowPreferencesWindow.UseVisualStyleBackColor = true;
             this.checkBoxAllowPreferencesWindow.CheckedChanged += new System.EventHandler(this.checkBoxAllowPreferencesWindow_CheckedChanged);
             // 
-            // buttonDefaultSettings
+            // buttonRevertToDefaultSettings
             // 
-            this.buttonDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDefaultSettings.Location = new System.Drawing.Point(204, 306);
-            this.buttonDefaultSettings.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonDefaultSettings.Name = "buttonDefaultSettings";
-            this.buttonDefaultSettings.Size = new System.Drawing.Size(143, 32);
-            this.buttonDefaultSettings.TabIndex = 6;
-            this.buttonDefaultSettings.Text = "Default Settings";
-            this.buttonDefaultSettings.UseVisualStyleBackColor = true;
-            this.buttonDefaultSettings.Click += new System.EventHandler(this.buttonDefaultSettings_Click);
+            this.buttonRevertToDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRevertToDefaultSettings.Location = new System.Drawing.Point(204, 306);
+            this.buttonRevertToDefaultSettings.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonRevertToDefaultSettings.Name = "buttonRevertToDefaultSettings";
+            this.buttonRevertToDefaultSettings.Size = new System.Drawing.Size(143, 32);
+            this.buttonRevertToDefaultSettings.TabIndex = 6;
+            this.buttonRevertToDefaultSettings.Text = "Default Settings";
+            this.buttonRevertToDefaultSettings.UseVisualStyleBackColor = true;
+            this.buttonRevertToDefaultSettings.Click += new System.EventHandler(this.buttonRevertToDefaultSettings_Click);
             // 
             // buttonRevertToLastOpened
             // 
@@ -4268,7 +4271,7 @@
         private System.Windows.Forms.RadioButton radioButtonConfiguringAClient;
         private System.Windows.Forms.RadioButton radioButtonStartingAnExam;
         private System.Windows.Forms.CheckBox checkBoxAllowPreferencesWindow;
-        private System.Windows.Forms.Button buttonDefaultSettings;
+        private System.Windows.Forms.Button buttonRevertToDefaultSettings;
         private System.Windows.Forms.Button buttonRevertToLastOpened;
         private System.Windows.Forms.TabPage tabPageGeneral;
         private System.Windows.Forms.GroupBox groupBoxExitSequence;
@@ -4443,11 +4446,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonConfigureClient;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonEditDuplicate;
+        private System.Windows.Forms.Button buttonApplyAndStartSEB;
+        private System.Windows.Forms.Button buttonRevertToLocalClientSettings;
         private System.Windows.Forms.CheckBox checkBoxRemoveLocalStorage;
         private System.Windows.Forms.CheckBox checkBoxReloadWarning;
         private System.Windows.Forms.CheckBox checkBoxUseStandardDirectory;

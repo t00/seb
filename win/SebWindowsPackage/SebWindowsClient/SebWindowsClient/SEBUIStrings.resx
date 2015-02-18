@@ -279,4 +279,7 @@
   <data name="settingsRequireNotNewDesktopReason" xml:space="preserve">
     <value>Loaded exam settings require the standard desktop, but currently SEB is running on a new desktop. Ask your exam administrator/supporter to reconfigure local SEB client settings with the kiosk mode set to another than "Create new desktop". SEB will quit now.</value>
   </data>
+  <data name="settingsTitleDefaultSettings" xml:space="preserve">
+    <value>Default Settings</value>
+  </data>
 </root>
