@@ -50,10 +50,22 @@ namespace SebWindowsClient.UI
             }
             else if (wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Connected)
             {
-                var rssi = wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Connected ? wlanInterface.RSSI : 0;
-                var strengthInPercent = rssi > -35 ? 100 : rssi < -95 ? 0 : Math.Round((decimal) 100/(-35 + 95)*((decimal) rssi + 95), 2);
-                UpdateSignalStrength((int)strengthInPercent);
-                this.ToolTipText = String.Format("Connected to {0}", wlanInterface.CurrentConnection.profileName);
+                try
+                {
+                    var rssi = wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Connected
+                        ? wlanInterface.RSSI
+                        : 0;
+                    var strengthInPercent = rssi > -35
+                        ? 100
+                        : rssi < -95 ? 0 : Math.Round((decimal) 100/(-35 + 95)*((decimal) rssi + 95), 2);
+                    UpdateSignalStrength((int) strengthInPercent);
+                    this.ToolTipText = String.Format("Connected to {0}", wlanInterface.CurrentConnection.profileName);
+                }
+                catch (Exception ex)
+                {
+                    ChangeImage("0");
+                    this.ToolTipText = Resources.WLANNotConnected;
+                }
             }
             else
             {
