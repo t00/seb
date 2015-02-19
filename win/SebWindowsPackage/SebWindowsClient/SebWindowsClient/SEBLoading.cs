@@ -61,8 +61,15 @@ namespace SebWindowsClient
             {
                 Logger.AddInformation("shutting down loading screen");
                 // Shut down the loading screen
-                loading.Invoke(new EventHandler(loading.KillMe));
-                loading.Dispose();
+                if(loading.InvokeRequired)
+                {
+                    loading.Invoke(new EventHandler(loading.KillMe));
+                }
+                else
+                {
+                    loading.Close();
+                }
+                //loading.Dispose();
                 Logger.AddInformation("loading screen shut down");
             }
             catch (Exception)
