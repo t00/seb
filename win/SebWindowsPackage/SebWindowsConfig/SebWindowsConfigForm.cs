@@ -2914,6 +2914,11 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomPage] = checkBoxEnableZoomPage.Checked;
         }
 
+        private void checkBoxAllowSpellCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyAllowSpellCheck] = checkBoxAllowSpellCheck.Checked;
+        }
+
         private void SebWindowsConfigForm_Load(object sender, EventArgs e)
         {
 

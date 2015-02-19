@@ -338,6 +338,7 @@
             this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxAllowSpellCheck = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -3181,6 +3182,7 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.checkBoxAllowSpellCheck);
             this.tabPageAppearance.Controls.Add(this.checkBoxEnableZoomPage);
             this.tabPageAppearance.Controls.Add(this.checkBoxEnableZoomText);
             this.tabPageAppearance.Controls.Add(this.radioButtonTouchOptimized);
@@ -4213,6 +4215,19 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // checkBoxAllowSpellCheck
+            // 
+            this.checkBoxAllowSpellCheck.AutoSize = true;
+            this.checkBoxAllowSpellCheck.Location = new System.Drawing.Point(23, 379);
+            this.checkBoxAllowSpellCheck.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxAllowSpellCheck.Name = "checkBoxAllowSpellCheck";
+            this.checkBoxAllowSpellCheck.Size = new System.Drawing.Size(122, 17);
+            this.checkBoxAllowSpellCheck.TabIndex = 67;
+            this.checkBoxAllowSpellCheck.Text = "Allow spell checking";
+            this.toolTip1.SetToolTip(this.checkBoxAllowSpellCheck, "Allow using check spelling");
+            this.checkBoxAllowSpellCheck.UseVisualStyleBackColor = true;
+            this.checkBoxAllowSpellCheck.CheckedChanged += new System.EventHandler(this.checkBoxAllowSpellCheck_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4607,6 +4622,7 @@
         private System.Windows.Forms.ToolStripMenuItem configureClientToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applyAndStartSEBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxAllowSpellCheck;
 
     }
 }

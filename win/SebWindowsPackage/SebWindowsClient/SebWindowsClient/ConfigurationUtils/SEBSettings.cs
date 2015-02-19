@@ -113,6 +113,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyTouchOptimized               = "touchOptimized";
         public const String KeyEnableZoomText               = "enableZoomText";
         public const String KeyEnableZoomPage               = "enableZoomPage";
+        public const String KeyAllowSpellCheck              = "allowSpellCheck";
 
         //Touch optimized settings
         public const String KeyBrowserScreenKeyboard = "browserScreenKeyboard";
@@ -505,6 +506,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyTouchOptimized              , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomText              , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomPage              , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowSpellCheck             , false);
 
             //Touch Settings
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserScreenKeyboard               , 0);
