@@ -474,13 +474,18 @@ namespace SebWindowsClient.BlockShortcutsUtils
             {
                 ctrl_Pressed = true;
             }
-            if (KeyInfo.key == Keys.RControlKey)
+            else if (KeyInfo.key == Keys.RControlKey)
             {
                 ctrl_Pressed = true;
             }
-            if (KeyInfo.key == Keys.Q)
+            else if (KeyInfo.key == Keys.Q)
             {
                 Q_Pressed = true;
+            }
+            else
+            {
+                ctrl_Pressed = false;
+                Q_Pressed = false;
             }
 
             if (ctrl_Pressed && Q_Pressed)
@@ -526,14 +531,20 @@ namespace SebWindowsClient.BlockShortcutsUtils
             if (KeyInfo.key == exitKey1)
             {
                 exitKey1_Pressed = true;
-            }
-            if (KeyInfo.key == exitKey2)
+            } 
+            else if (KeyInfo.key == exitKey2)
             {
                 exitKey2_Pressed = true;
-            }
-            if (KeyInfo.key == exitKey3)
+            } 
+            else if (KeyInfo.key == exitKey3)
             {
                 exitKey3_Pressed = true;
+            }
+            else
+            {
+                exitKey1_Pressed = false;
+                exitKey2_Pressed = false;
+                exitKey3_Pressed = false;
             }
 
             if (exitKey1_Pressed && exitKey2_Pressed && exitKey3_Pressed)
