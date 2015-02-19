@@ -25,7 +25,7 @@ namespace SebWindowsClient.ServiceUtils
         {
             if (!_initialized)
             {
-                Logger.AddInformation("initializing wcf service connetion");
+                Logger.AddInformation("initializing wcf service connection");
                 var pipeFactory =
                     new ChannelFactory<IRegistryServiceContract>(
                         new NetNamedPipeBinding(NetNamedPipeSecurityMode.Transport),
@@ -168,6 +168,16 @@ namespace SebWindowsClient.ServiceUtils
                     return false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Reconnect to the Windows Service over .NET Pipe
+        /// </summary>
+        /// <returns></returns>
+        public static void Reconnect()
+        {
+            _initialized = false;
+            Initialize();
         }
     }
 }

@@ -1568,11 +1568,17 @@ namespace SebWindowsClient
                 try
                 {
                     Logger.AddInformation("restoring registry entries");
-                    if (SebWindowsServiceHandler.IsServiceAvailable)
-                        Logger.AddInformation("windows service is available");
-                    if (SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.ResetRegistry())
+
+                    if (!SebWindowsServiceHandler.IsServiceAvailable)
                     {
-                        Logger.AddWarning("Unable to reset Registry values",this,null);
+                        Logger.AddInformation("Restarting Service Connection");
+                        SebWindowsServiceHandler.Reconnect();
+                    }
+
+                    Logger.AddInformation("windows service is available");
+                    if (!SebWindowsServiceHandler.ResetRegistry())
+                    {
+                        Logger.AddWarning("Unable to reset Registry values", this, null);
                     }
                 }
                 catch (Exception ex)
@@ -1592,6 +1598,9 @@ namespace SebWindowsClient
                 }
 
                 // ShutDown Processes
+
+                //Deregister SEB closed Event
+                xulRunner.Exited -= xulRunner_Exited;
 
                 Logger.AddInformation("closing processes that where started by seb");
                 for(int i = 0; i < permittedProcessesReferences.Count; i++)
@@ -1750,7 +1759,7 @@ namespace SebWindowsClient
             Logger.AddInformation("Successfull ResetSEBDesktop");
 
 
-            Logger.AddInformation("closing form and then calling application.exit");
+            Logger.AddInformation("---------- EXITING SEB - ENDING SESSION -------------");
             //this.Close();
             Application.Exit();
         }
