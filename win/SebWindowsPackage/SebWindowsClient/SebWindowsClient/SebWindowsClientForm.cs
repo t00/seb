@@ -27,7 +27,6 @@ using SebWindowsClient.UI;
 using SebWindowsClient.XULRunnerCommunication;
 using SebWindowsServiceWCF.ServiceContracts;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
-using SebWindowsClient.ProcessUtils;
 
 
 //
@@ -1608,7 +1607,7 @@ namespace SebWindowsClient
                             var title = (string)currentProcessData[SEBSettings.KeyIdentifier];
                             proc = SEBWindowHandler.GetWindowHandleByTitle(title).GetProcess();
                         }
-                        if (proc != null)
+                        if (proc != null && !proc.HasExited)
                         {
                             Logger.AddInformation("attempting to close " + proc.ProcessName);
                             SEBNotAllowedProcessController.CloseProcess(proc);   
