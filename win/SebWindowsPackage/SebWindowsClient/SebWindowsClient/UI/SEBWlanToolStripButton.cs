@@ -43,14 +43,14 @@ namespace SebWindowsClient.UI
 
         private void Update()
         {
-            if (wlanInterface == null)
+            try
             {
-                ChangeImage("nointerface");
-                this.ToolTipText = Resources.NoWLANInterface;
-            }
-            else if (wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Connected)
-            {
-                try
+                if (wlanInterface == null)
+                {
+                    ChangeImage("nointerface");
+                    this.ToolTipText = Resources.NoWLANInterface;
+                }
+                else if (wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Connected)
                 {
                     var rssi = wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Connected
                         ? wlanInterface.RSSI
@@ -61,19 +61,18 @@ namespace SebWindowsClient.UI
                     UpdateSignalStrength((int) strengthInPercent);
                     this.ToolTipText = String.Format("Connected to {0}", wlanInterface.CurrentConnection.profileName);
                 }
-                catch (Exception ex)
+                else
                 {
                     ChangeImage("0");
                     this.ToolTipText = Resources.WLANNotConnected;
                 }
             }
-            else
+            catch (Exception ex)
             {
                 ChangeImage("0");
                 this.ToolTipText = Resources.WLANNotConnected;
             }
         }
-
 
         protected override void OnMouseHover(EventArgs e)
         {
