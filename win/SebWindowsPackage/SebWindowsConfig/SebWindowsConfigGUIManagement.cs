@@ -426,6 +426,7 @@ namespace SebWindowsConfig
             certificateReferences = SEBProtectionController.GetCertificatesAndNames(ref certificateNames);
             certificateNames.Insert(0, "None");
             comboBoxCryptoIdentity.Items.AddRange(certificateNames.ToArray());
+            comboBoxChooseIdentityToEmbed.Items.AddRange(certificateNames.ToArray());
 
             // At program start, no file has yet been opened, so revert is not possible
             buttonRevertToLastOpened.Enabled = false;

@@ -744,7 +744,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowUserSwitching , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "~/Documents");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "My Documents");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLAN    , false);
 
             // Default settings for group "Inside SEB"

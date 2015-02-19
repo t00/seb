@@ -329,7 +329,7 @@ namespace SebWindowsConfig
             checkBoxAllowDownUploads.Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowDownUploads];
             checkBoxOpenDownloads   .Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOpenDownloads];
             checkBoxDownloadPDFFiles.Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadPDFFiles];
-            labelDownloadDirectoryWin.Text             =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin];
+            textBoxDownloadDirectoryWin.Text             =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin];
             textBoxDownloadDirectoryOSX.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryOSX];
             listBoxChooseFileToUploadPolicy.SelectedIndex = (int)SEBSettings.settingsCurrent[SEBSettings.KeyChooseFileToUploadPolicy];
             checkBoxDownloadOpenSEBFiles.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyDownloadAndOpenSebConfig];
@@ -521,8 +521,8 @@ namespace SebWindowsConfig
             radioNoKiosMode  .Checked    = !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell] && !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop];
             checkBoxAllowUserSwitching .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching];
             checkBoxEnableLogging      .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
-            labelLogDirectoryWin.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
-            if (String.IsNullOrEmpty(labelLogDirectoryWin.Text))
+            textBoxLogDirectoryWin.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
+            if (String.IsNullOrEmpty(textBoxLogDirectoryWin.Text))
             {
                 checkBoxUseStandardDirectory.Checked = true;
             }
@@ -1238,6 +1238,15 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableSebBrowser] = !(checkBoxUseSebWithoutBrowser.Checked);
         }
 
+        private void checkboxShowReloadButton_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadButton] = checkboxShowReloadButton.Checked;
+        }
+
+        private void checkBoxReloadWarning_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadWarning] = checkBoxReloadWarning.Checked;
+        }
 
 
         // ********************
@@ -1264,7 +1273,22 @@ namespace SebWindowsConfig
             // If the user clicked "OK", ...
             string pathUsingEnvironmentVariables = SEBClientInfo.ContractEnvironmentVariables(path);
             SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin]     = pathUsingEnvironmentVariables;
-                                                  labelDownloadDirectoryWin.Text = pathUsingEnvironmentVariables;
+                                                  textBoxDownloadDirectoryWin.Text = pathUsingEnvironmentVariables;
+        }
+
+        private void textBoxDownloadDirectoryWin_TextChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin] = textBoxDownloadDirectoryWin.Text;
+        }
+
+        private void textBoxDownloadDirectoryOSX_TextChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryOSX] = textBoxDownloadDirectoryOSX.Text;
+        }
+
+        private void checkBoxDownloadOpenSEBFiles_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadAndOpenSebConfig] = checkBoxDownloadOpenSEBFiles.Checked;
         }
 
         private void checkBoxOpenDownloads_CheckedChanged(object sender, EventArgs e)
@@ -2284,9 +2308,13 @@ namespace SebWindowsConfig
 
         }
 
-        private void comboBoxChooseIdentity_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxChooseIdentityToEmbed_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[comboBoxChooseIdentityToEmbed.SelectedIndex];
+            //byte[] data = (byte[])SEBSettings.embeddedCertificateData[SEBSettings.KeyCertificateData];
+            Int32 type = 1;
+            String name = comboBoxCryptoIdentity.Text;
+            dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
         }
 
         private void dataGridViewEmbeddedCertificates_SelectionChanged(object sender, EventArgs e)
@@ -2644,8 +2672,9 @@ namespace SebWindowsConfig
         private void buttonLogDirectoryWin_Click(object sender, EventArgs e)
         {
             // Set the default directory in the Folder Browser Dialog
-            folderBrowserDialogLogDirectoryWin.RootFolder = Environment.SpecialFolder.MyDocuments;
-//          folderBrowserDialogLogDirectoryWin.RootFolder = Environment.CurrentDirectory;
+            //folderBrowserDialogLogDirectoryWin.SelectedPath = textBoxLogDirectoryWin.Text;
+            folderBrowserDialogLogDirectoryWin.RootFolder = Environment.SpecialFolder.Desktop;
+            //          folderBrowserDialogLogDirectoryWin.RootFolder = Environment.CurrentDirectory;
 
             // Get the user inputs in the File Dialog
             DialogResult dialogResult = folderBrowserDialogLogDirectoryWin.ShowDialog();
@@ -2655,8 +2684,9 @@ namespace SebWindowsConfig
             if (dialogResult.Equals(DialogResult.Cancel)) return;
 
             // If the user clicked "OK", ...
-            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin]     = path;                                      
-            labelLogDirectoryWin.Text = path;
+            string pathUsingEnvironmentVariables = SEBClientInfo.ContractEnvironmentVariables(path);
+            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin] = pathUsingEnvironmentVariables;
+            textBoxLogDirectoryWin.Text = pathUsingEnvironmentVariables;
             if (String.IsNullOrEmpty(path))
             {
                 checkBoxUseStandardDirectory.Checked = true;
@@ -2665,6 +2695,36 @@ namespace SebWindowsConfig
             {
                 checkBoxUseStandardDirectory.Checked = false;
             }
+        }
+
+        private void textBoxLogDirectoryWin_TextChanged(object sender, EventArgs e)
+        {
+            string path = textBoxLogDirectoryWin.Text;
+            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin] = path;
+
+            if (String.IsNullOrEmpty(path))
+            {
+                checkBoxUseStandardDirectory.Checked = true;
+            }
+            else
+            {
+                checkBoxUseStandardDirectory.Checked = false;
+            }
+        }
+
+        private void checkBoxUseStandardDirectory_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxUseStandardDirectory.Checked)
+            {
+                SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin] = "";
+                textBoxLogDirectoryWin.Text = "";
+            }
+        }
+
+        private void textBoxLogDirectoryOSX_TextChanged(object sender, EventArgs e)
+        {
+            string path = textBoxLogDirectoryOSX.Text;
+            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryOSX] = path;
         }
 
 
@@ -2803,12 +2863,6 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableF5] = checkBoxEnableF5.Checked;
         }
 
-        private void checkboxShowReloadButton_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadButton] = checkboxShowReloadButton.Checked;
-        }
-
-
         private void checkBoxEnableF6_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableF6] = checkBoxEnableF6.Checked;
@@ -2859,49 +2913,15 @@ namespace SebWindowsConfig
 
         }
 
-        private void textBoxLogDirectoryOSX_TextChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryOSX] = textBoxLogDirectoryOSX.Text;
-        }
-
-        private void textBoxDownloadDirectoryOSX_TextChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryOSX] = textBoxDownloadDirectoryOSX.Text;
-        }
-
-        private void checkBoxDownloadOpenSEBFiles_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadAndOpenSebConfig] = checkBoxDownloadOpenSEBFiles.Checked;
-        }
-
         private void checkBoxEnableScreenCapture_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnableScreenCapture.Checked;
             checkBoxEnablePrintScreen.Checked = checkBoxEnableScreenCapture.Checked;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void label6_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void checkBoxReloadWarning_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadWarning] = checkBoxReloadWarning.Checked;
-        }
-
-        private void checkBoxUseStandardDirectory_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxUseStandardDirectory.Checked)
-            {
-                SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin] = "";
-                labelLogDirectoryWin.Text = "";
-            }
         }
 
         private void checkBoxEnableZoomText_CheckedChanged(object sender, EventArgs e)

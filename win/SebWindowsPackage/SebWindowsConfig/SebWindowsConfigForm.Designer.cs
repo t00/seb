@@ -70,6 +70,7 @@
             this.checkBoxInsideSebEnableEaseOfAccess = new System.Windows.Forms.CheckBox();
             this.checkBoxInsideSebEnableVmWareClientShade = new System.Windows.Forms.CheckBox();
             this.tabPageSecurity = new System.Windows.Forms.TabPage();
+            this.textBoxLogDirectoryWin = new System.Windows.Forms.TextBox();
             this.checkBoxUseStandardDirectory = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableScreenCapture = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -79,7 +80,6 @@
             this.radioCreateNewDesktop = new System.Windows.Forms.RadioButton();
             this.radioKillExplorerShell = new System.Windows.Forms.RadioButton();
             this.checkboxAllowWlan = new System.Windows.Forms.CheckBox();
-            this.labelLogDirectoryWin = new System.Windows.Forms.Label();
             this.buttonLogDirectoryWin = new System.Windows.Forms.Button();
             this.checkBoxAllowUserSwitching = new System.Windows.Forms.CheckBox();
             this.labelSebServicePolicy = new System.Windows.Forms.Label();
@@ -217,10 +217,10 @@
             this.labelQuitURL = new System.Windows.Forms.Label();
             this.checkBoxSendBrowserExamKey = new System.Windows.Forms.CheckBox();
             this.tabPageDownUploads = new System.Windows.Forms.TabPage();
+            this.textBoxDownloadDirectoryWin = new System.Windows.Forms.TextBox();
             this.checkBoxDownloadOpenSEBFiles = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxDownloadDirectoryOSX = new System.Windows.Forms.TextBox();
-            this.labelDownloadDirectoryWin = new System.Windows.Forms.Label();
             this.buttonDownloadDirectoryWin = new System.Windows.Forms.Button();
             this.listBoxChooseFileToUploadPolicy = new System.Windows.Forms.ListBox();
             this.labelChooseFileToUploadPolicy = new System.Windows.Forms.Label();
@@ -253,6 +253,7 @@
             this.labelNewWindowPosition = new System.Windows.Forms.Label();
             this.listBoxNewBrowserWindowPositioning = new System.Windows.Forms.ListBox();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
+            this.checkBoxAllowSpellCheck = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableZoomPage = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableZoomText = new System.Windows.Forms.CheckBox();
             this.radioButtonTouchOptimized = new System.Windows.Forms.RadioButton();
@@ -329,6 +330,7 @@
             this.openSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.revertSettingsToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.localClientSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -337,8 +339,6 @@
             this.editDuplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxAllowSpellCheck = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -901,13 +901,13 @@
             // 
             // tabPageSecurity
             // 
+            this.tabPageSecurity.Controls.Add(this.textBoxLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.checkBoxUseStandardDirectory);
             this.tabPageSecurity.Controls.Add(this.checkBoxEnableScreenCapture);
             this.tabPageSecurity.Controls.Add(this.label4);
             this.tabPageSecurity.Controls.Add(this.textBoxLogDirectoryOSX);
             this.tabPageSecurity.Controls.Add(this.groupBox3);
             this.tabPageSecurity.Controls.Add(this.checkboxAllowWlan);
-            this.tabPageSecurity.Controls.Add(this.labelLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.buttonLogDirectoryWin);
             this.tabPageSecurity.Controls.Add(this.checkBoxAllowUserSwitching);
             this.tabPageSecurity.Controls.Add(this.labelSebServicePolicy);
@@ -923,6 +923,14 @@
             this.tabPageSecurity.TabIndex = 24;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLogDirectoryWin
+            // 
+            this.textBoxLogDirectoryWin.Location = new System.Drawing.Point(176, 232);
+            this.textBoxLogDirectoryWin.Name = "textBoxLogDirectoryWin";
+            this.textBoxLogDirectoryWin.Size = new System.Drawing.Size(379, 20);
+            this.textBoxLogDirectoryWin.TabIndex = 92;
+            this.textBoxLogDirectoryWin.TextChanged += new System.EventHandler(this.textBoxLogDirectoryWin_TextChanged);
             // 
             // checkBoxUseStandardDirectory
             // 
@@ -1046,15 +1054,6 @@
         "s which have previously been connected to (before using SEB).");
             this.checkboxAllowWlan.UseVisualStyleBackColor = true;
             this.checkboxAllowWlan.CheckedChanged += new System.EventHandler(this.checkBoxAllowWlan_CheckedChanged);
-            // 
-            // labelLogDirectoryWin
-            // 
-            this.labelLogDirectoryWin.AutoSize = true;
-            this.labelLogDirectoryWin.Location = new System.Drawing.Point(175, 234);
-            this.labelLogDirectoryWin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelLogDirectoryWin.Name = "labelLogDirectoryWin";
-            this.labelLogDirectoryWin.Size = new System.Drawing.Size(0, 13);
-            this.labelLogDirectoryWin.TabIndex = 79;
             // 
             // buttonLogDirectoryWin
             // 
@@ -1202,7 +1201,7 @@
             this.comboBoxChooseIdentityToEmbed.Name = "comboBoxChooseIdentityToEmbed";
             this.comboBoxChooseIdentityToEmbed.Size = new System.Drawing.Size(491, 21);
             this.comboBoxChooseIdentityToEmbed.TabIndex = 1;
-            this.comboBoxChooseIdentityToEmbed.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentity_SelectedIndexChanged);
+            this.comboBoxChooseIdentityToEmbed.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseIdentityToEmbed_SelectedIndexChanged);
             // 
             // comboBoxChooseSSLClientCertificate
             // 
@@ -2707,10 +2706,10 @@
             // 
             // tabPageDownUploads
             // 
+            this.tabPageDownUploads.Controls.Add(this.textBoxDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.checkBoxDownloadOpenSEBFiles);
             this.tabPageDownUploads.Controls.Add(this.label5);
             this.tabPageDownUploads.Controls.Add(this.textBoxDownloadDirectoryOSX);
-            this.tabPageDownUploads.Controls.Add(this.labelDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.buttonDownloadDirectoryWin);
             this.tabPageDownUploads.Controls.Add(this.listBoxChooseFileToUploadPolicy);
             this.tabPageDownUploads.Controls.Add(this.labelChooseFileToUploadPolicy);
@@ -2726,6 +2725,14 @@
             this.tabPageDownUploads.TabIndex = 17;
             this.tabPageDownUploads.Text = "Down/Uploads";
             this.tabPageDownUploads.UseVisualStyleBackColor = true;
+            // 
+            // textBoxDownloadDirectoryWin
+            // 
+            this.textBoxDownloadDirectoryWin.Location = new System.Drawing.Point(269, 55);
+            this.textBoxDownloadDirectoryWin.Name = "textBoxDownloadDirectoryWin";
+            this.textBoxDownloadDirectoryWin.Size = new System.Drawing.Size(379, 20);
+            this.textBoxDownloadDirectoryWin.TabIndex = 87;
+            this.textBoxDownloadDirectoryWin.TextChanged += new System.EventHandler(this.textBoxDownloadDirectoryWin_TextChanged);
             // 
             // checkBoxDownloadOpenSEBFiles
             // 
@@ -2760,15 +2767,6 @@
             this.textBoxDownloadDirectoryOSX.Size = new System.Drawing.Size(379, 20);
             this.textBoxDownloadDirectoryOSX.TabIndex = 84;
             this.textBoxDownloadDirectoryOSX.TextChanged += new System.EventHandler(this.textBoxDownloadDirectoryOSX_TextChanged);
-            // 
-            // labelDownloadDirectoryWin
-            // 
-            this.labelDownloadDirectoryWin.AutoSize = true;
-            this.labelDownloadDirectoryWin.Location = new System.Drawing.Point(268, 58);
-            this.labelDownloadDirectoryWin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelDownloadDirectoryWin.Name = "labelDownloadDirectoryWin";
-            this.labelDownloadDirectoryWin.Size = new System.Drawing.Size(0, 13);
-            this.labelDownloadDirectoryWin.TabIndex = 78;
             // 
             // buttonDownloadDirectoryWin
             // 
@@ -3204,6 +3202,19 @@
             this.tabPageAppearance.TabIndex = 8;
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAllowSpellCheck
+            // 
+            this.checkBoxAllowSpellCheck.AutoSize = true;
+            this.checkBoxAllowSpellCheck.Location = new System.Drawing.Point(23, 379);
+            this.checkBoxAllowSpellCheck.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxAllowSpellCheck.Name = "checkBoxAllowSpellCheck";
+            this.checkBoxAllowSpellCheck.Size = new System.Drawing.Size(122, 17);
+            this.checkBoxAllowSpellCheck.TabIndex = 67;
+            this.checkBoxAllowSpellCheck.Text = "Allow spell checking";
+            this.toolTip1.SetToolTip(this.checkBoxAllowSpellCheck, "Allow using check spelling");
+            this.checkBoxAllowSpellCheck.UseVisualStyleBackColor = true;
+            this.checkBoxAllowSpellCheck.CheckedChanged += new System.EventHandler(this.checkBoxAllowSpellCheck_CheckedChanged);
             // 
             // checkBoxEnableZoomPage
             // 
@@ -4145,6 +4156,14 @@
             this.saveSettingsAsToolStripMenuItem.Text = "Save Settings As...";
             this.saveSettingsAsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsAsToolStripMenuItem_Click);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt+F4";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // revertSettingsToToolStripMenuItem
             // 
             this.revertSettingsToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -4152,8 +4171,8 @@
             this.localClientSettingsToolStripMenuItem,
             this.lastOpenedToolStripMenuItem});
             this.revertSettingsToToolStripMenuItem.Name = "revertSettingsToToolStripMenuItem";
-            this.revertSettingsToToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
-            this.revertSettingsToToolStripMenuItem.Text = "Revert Settings to";
+            this.revertSettingsToToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.revertSettingsToToolStripMenuItem.Text = "Revert Settings";
             // 
             // defaultSettingsToolStripMenuItem
             // 
@@ -4183,8 +4202,8 @@
             this.configureClientToolStripMenuItem,
             this.applyAndStartSEBToolStripMenuItem});
             this.useSettingsToToolStripMenuItem.Name = "useSettingsToToolStripMenuItem";
-            this.useSettingsToToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
-            this.useSettingsToToolStripMenuItem.Text = "Use Settings to";
+            this.useSettingsToToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.useSettingsToToolStripMenuItem.Text = "Use Settings";
             // 
             // editDuplicateToolStripMenuItem
             // 
@@ -4206,27 +4225,6 @@
             this.applyAndStartSEBToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.applyAndStartSEBToolStripMenuItem.Text = "Apply and Start SEB";
             this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt+F4";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // checkBoxAllowSpellCheck
-            // 
-            this.checkBoxAllowSpellCheck.AutoSize = true;
-            this.checkBoxAllowSpellCheck.Location = new System.Drawing.Point(23, 379);
-            this.checkBoxAllowSpellCheck.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAllowSpellCheck.Name = "checkBoxAllowSpellCheck";
-            this.checkBoxAllowSpellCheck.Size = new System.Drawing.Size(122, 17);
-            this.checkBoxAllowSpellCheck.TabIndex = 67;
-            this.checkBoxAllowSpellCheck.Text = "Allow spell checking";
-            this.toolTip1.SetToolTip(this.checkBoxAllowSpellCheck, "Allow using check spelling");
-            this.checkBoxAllowSpellCheck.UseVisualStyleBackColor = true;
-            this.checkBoxAllowSpellCheck.CheckedChanged += new System.EventHandler(this.checkBoxAllowSpellCheck_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -4368,7 +4366,6 @@
         private System.Windows.Forms.Label labelQuitURL;
         private System.Windows.Forms.CheckBox checkBoxSendBrowserExamKey;
         private System.Windows.Forms.TabPage tabPageDownUploads;
-        private System.Windows.Forms.Label labelDownloadDirectoryWin;
         private System.Windows.Forms.Button buttonDownloadDirectoryWin;
         private System.Windows.Forms.ListBox listBoxChooseFileToUploadPolicy;
         private System.Windows.Forms.Label labelChooseFileToUploadPolicy;
@@ -4447,7 +4444,6 @@
         private System.Windows.Forms.TabControl tabControlSebWindowsConfig;
         private System.Windows.Forms.Button buttonLogDirectoryWin;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogLogDirectoryWin;
-        private System.Windows.Forms.Label labelLogDirectoryWin;
         private System.Windows.Forms.Label labelAdminPasswordCompare;
         private System.Windows.Forms.ListBox listBoxExitKey3;
         private System.Windows.Forms.TabControl tabControlApplications;
@@ -4623,6 +4619,8 @@
         private System.Windows.Forms.ToolStripMenuItem applyAndStartSEBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxAllowSpellCheck;
+        private System.Windows.Forms.TextBox textBoxDownloadDirectoryWin;
+        private System.Windows.Forms.TextBox textBoxLogDirectoryWin;
 
     }
 }

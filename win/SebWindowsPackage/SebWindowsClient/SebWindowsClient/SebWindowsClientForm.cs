@@ -366,6 +366,7 @@ namespace SebWindowsClient
                     }
                     else
                     {
+                        logDirectory = Environment.ExpandEnvironmentVariables(logDirectory);
                         xulRunnerArgumentsBuilder.Append(" -logfile \"").Append(logDirectory).Append("\\seb.log\"");
                     }
 
