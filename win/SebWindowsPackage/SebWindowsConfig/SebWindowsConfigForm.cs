@@ -2964,5 +2964,10 @@ namespace SebWindowsConfig
             buttonRevertToLastOpened_Click(null, null);
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig
