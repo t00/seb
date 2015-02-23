@@ -31,13 +31,21 @@ namespace SebWindowsClient.DiagnosticsUtils
         /// ----------------------------------------------------------------------------------------
         public static bool initLogger(string logFileDirectory = null, string logFilePath = null)
         {
-            if (logFileDirectory == null)
+            if (String.IsNullOrEmpty(logFileDirectory))
             {
-                logFileDirectory = String.Format(@"{0}\SafeExamBrowser\",Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+                logFileDirectory = SEBClientInfo.SebClientLogFileDirectory;
+                if (String.IsNullOrEmpty(logFileDirectory))
+                {
+                    logFileDirectory = String.Format(@"{0}\{1}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), SEBClientInfo.MANUFACTURER_LOCAL);
+                }
             }
-            if (logFilePath == null)
+            if (String.IsNullOrEmpty(logFilePath))
             {
-                logFilePath = String.Format(@"{0}SebClient.log",logFileDirectory);
+                logFilePath = SEBClientInfo.SebClientLogFile;
+                if (String.IsNullOrEmpty(logFilePath))
+                {
+                    logFilePath = String.Format(@"{0}\{1}", logFileDirectory, SEBClientInfo.SEB_CLIENT_LOG);
+                }
             }
 
             try

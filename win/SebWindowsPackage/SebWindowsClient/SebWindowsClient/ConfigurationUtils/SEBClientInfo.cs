@@ -115,7 +115,7 @@ namespace SebWindowsClient.ConfigurationUtils
  
         // Application path contains [MANUFACTURER]\[PRODUCT_NAME]
         // (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
-        private const string MANUFACTURER_LOCAL     = "SafeExamBrowser";
+        public const string MANUFACTURER_LOCAL     = "SafeExamBrowser";
         //private const string MANUFACTURER         = "ETH Zuerich";
         public const string PRODUCT_NAME           = "SafeExamBrowser";
         private const string SEB_BROWSER_DIRECTORY  = "SebWindowsBrowser";
@@ -336,10 +336,21 @@ namespace SebWindowsClient.ConfigurationUtils
         /// </summary>
         public static void InitializeLogger()
         {
-            //if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
-            //{
-                Logger.initLogger(SebClientLogFileDirectory, SebClientLogFile);
-            //}
+            if ((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
+            {
+                string logDirectory = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyLogDirectoryWin);
+                if (!String.IsNullOrEmpty(logDirectory))
+                {
+                    SebClientLogFileDirectory = logDirectory;
+                    SebClientLogFile = String.Format(@"{0}\{1}", logDirectory, SEB_CLIENT_LOG);
+
+                }
+                else
+                {
+                    SEBClientInfo.SetDefaultClientLogFile();
+                }
+                Logger.initLogger(SEBClientInfo.SebClientLogFileDirectory, null);
+            }
         }
 
         /// <summary>
@@ -397,17 +408,24 @@ namespace SebWindowsClient.ConfigurationUtils
             StringBuilder xulRunnerSebIniPathBuilder = new StringBuilder(XulSebDirectory).Append(XUL_RUNNER_INI); //.Append("\"");
             XulRunnerSebIniPath = xulRunnerSebIniPathBuilder.ToString();
 
-            // Set the location of the SebLogConfigFileDirectory
-            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(appDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
-            SebClientLogFileDirectory = SebClientLogFileDirectoryBuilder.ToString();
-
-
             // Get the two possible paths of the SebClientSettings.seb file
             StringBuilder sebClientSettingsProgramDataBuilder = new StringBuilder(SebClientSettingsProgramDataDirectory).Append(SEB_CLIENT_CONFIG);
             SebClientSettingsProgramDataFile = sebClientSettingsProgramDataBuilder.ToString();
 
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(SebClientSettingsLocalAppDirectory).Append(SEB_CLIENT_CONFIG);
             SebClientSettingsAppDataFile = sebClientSettingsAppDataBuilder.ToString();
+
+            // Set the default location of the SebClientLogFileDirectory
+            SetDefaultClientLogFile();
+        }
+
+        /// <summary>
+        /// Set the default location of the SebClientLogFileDirectory.
+        /// </summary>
+        public static void SetDefaultClientLogFile()
+        {
+            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(SebClientSettingsLocalAppDirectory); //.Append("\\").Append(MANUFACTURER_LOCAL).Append("\\");
+            SebClientLogFileDirectory = SebClientLogFileDirectoryBuilder.ToString();
 
             // Set the path of the SebClient.log file
             StringBuilder sebClientLogFileBuilder = new StringBuilder(SebClientLogFileDirectory).Append(SEB_CLIENT_LOG);
