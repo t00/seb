@@ -243,6 +243,9 @@
   <data name="reloadPageMessage" xml:space="preserve">
     <value>Do you really want to reload the current web page?</value>
   </data>
+  <data name="restartExamDefaultTitle" xml:space="preserve">
+    <value>Restart Exam</value>
+  </data>
   <data name="restartExamMessage" xml:space="preserve">
     <value>Enter password:</value>
   </data>

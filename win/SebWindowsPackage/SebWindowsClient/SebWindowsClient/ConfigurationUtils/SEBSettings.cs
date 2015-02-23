@@ -534,7 +534,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveBrowserProfile, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableSebBrowser        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamURL        , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText        , "Restart Exam");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText        , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamPasswordProtected        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowReloadButton        , true);
 

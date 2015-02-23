@@ -439,6 +439,15 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restart Exam.
+        /// </summary>
+        public static string restartExamDefaultTitle {
+            get {
+                return ResourceManager.GetString("restartExamDefaultTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter password:.
         /// </summary>
         public static string restartExamMessage {
