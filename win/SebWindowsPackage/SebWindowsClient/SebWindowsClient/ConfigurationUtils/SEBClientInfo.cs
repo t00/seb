@@ -341,9 +341,10 @@ namespace SebWindowsClient.ConfigurationUtils
                 string logDirectory = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyLogDirectoryWin);
                 if (!String.IsNullOrEmpty(logDirectory))
                 {
-                    SebClientLogFileDirectory = logDirectory;
-                    SebClientLogFile = String.Format(@"{0}\{1}", logDirectory, SEB_CLIENT_LOG);
+                    // Expand environment variables in log file path
+                    SebClientLogFileDirectory = Environment.ExpandEnvironmentVariables(logDirectory);
 
+                    SebClientLogFile = String.Format(@"{0}\{1}", SebClientLogFileDirectory, SEB_CLIENT_LOG);
                 }
                 else
                 {

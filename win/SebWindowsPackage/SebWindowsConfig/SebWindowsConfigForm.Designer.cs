@@ -654,6 +654,9 @@
             this.checkBoxEnableAltMouseWheel.Size = new System.Drawing.Size(137, 17);
             this.checkBoxEnableAltMouseWheel.TabIndex = 8;
             this.checkBoxEnableAltMouseWheel.Text = "Enable Alt-Mousewheel";
+            this.toolTip1.SetToolTip(this.checkBoxEnableAltMouseWheel, "Corresponds to \'Allow browsing back/forward\' in Browser pane. Disabling browsing " +
+        "to previously visited pagesmay increase security, because browsing back might al" +
+        "low to leave an exam");
             this.checkBoxEnableAltMouseWheel.UseVisualStyleBackColor = true;
             this.checkBoxEnableAltMouseWheel.CheckedChanged += new System.EventHandler(this.checkBoxEnableAltMouseWheel_CheckedChanged);
             // 
@@ -667,6 +670,8 @@
             this.checkBoxEnablePrintScreen.Size = new System.Drawing.Size(117, 17);
             this.checkBoxEnablePrintScreen.TabIndex = 7;
             this.checkBoxEnablePrintScreen.Text = "Enable PrintScreen";
+            this.toolTip1.SetToolTip(this.checkBoxEnablePrintScreen, "Controls Print Screen and OS X screen capture, corresponds with Enable screen cap" +
+        "ture in Security settings.");
             this.checkBoxEnablePrintScreen.UseVisualStyleBackColor = true;
             this.checkBoxEnablePrintScreen.CheckedChanged += new System.EventHandler(this.checkBoxEnablePrintScreen_CheckedChanged);
             // 
@@ -1323,6 +1328,7 @@
             this.textBoxIfYourNetworkAdministrator.TabIndex = 111;
             this.textBoxIfYourNetworkAdministrator.Text = "If your network administrator provided you with the address of an automatic proxy" +
     " configuration (.pac) file, enter it above.";
+            this.textBoxIfYourNetworkAdministrator.Visible = false;
             // 
             // labelProxyServerPort
             // 
@@ -1459,6 +1465,7 @@
             this.buttonChooseProxyConfigurationFile.TabIndex = 99;
             this.buttonChooseProxyConfigurationFile.Text = "Choose file...";
             this.buttonChooseProxyConfigurationFile.UseVisualStyleBackColor = true;
+            this.buttonChooseProxyConfigurationFile.Visible = false;
             this.buttonChooseProxyConfigurationFile.Click += new System.EventHandler(this.buttonChooseProxyConfigurationFile_Click);
             // 
             // labelProxyConfigurationFileURL
@@ -2891,7 +2898,8 @@
             this.checkBoxRemoveLocalStorage.Size = new System.Drawing.Size(159, 17);
             this.checkBoxRemoveLocalStorage.TabIndex = 64;
             this.checkBoxRemoveLocalStorage.Text = "Remove local storage (Mac)";
-            this.toolTip1.SetToolTip(this.checkBoxRemoveLocalStorage, "Remove local storage when quitting SEB. Caches are removed always.");
+            this.toolTip1.SetToolTip(this.checkBoxRemoveLocalStorage, "If your web application uses local storage, you have to be sure data is saved enc" +
+        "rypted and removed when no longer needed as SEB doesn\'t remove local storage");
             this.checkBoxRemoveLocalStorage.UseVisualStyleBackColor = true;
             // 
             // checkBoxRemoveProfile
@@ -2902,6 +2910,8 @@
             this.checkBoxRemoveProfile.Size = new System.Drawing.Size(125, 17);
             this.checkBoxRemoveProfile.TabIndex = 62;
             this.checkBoxRemoveProfile.Text = "Remove profile (Win)";
+            this.toolTip1.SetToolTip(this.checkBoxRemoveProfile, "Remove XULRunner browser profile (containing caches and also local storage) when " +
+        "quitting SEB");
             this.checkBoxRemoveProfile.UseVisualStyleBackColor = true;
             this.checkBoxRemoveProfile.CheckedChanged += new System.EventHandler(this.checkBoxRemoveProfile_CheckedChanged);
             // 
@@ -2958,12 +2968,10 @@
             this.checkBoxAllowBrowsingBackForward.Location = new System.Drawing.Point(23, 325);
             this.checkBoxAllowBrowsingBackForward.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowBrowsingBackForward.Name = "checkBoxAllowBrowsingBackForward";
-            this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(215, 17);
+            this.checkBoxAllowBrowsingBackForward.Size = new System.Drawing.Size(163, 17);
             this.checkBoxAllowBrowsingBackForward.TabIndex = 8;
-            this.checkBoxAllowBrowsingBackForward.Text = "Allow browsing back/forward (Mac only)";
-            this.toolTip1.SetToolTip(this.checkBoxAllowBrowsingBackForward, "Disabling browsing to previously visited pages (by cmd + Cursor left) increases s" +
-        "ecurity, because it might be possible to leave an exam by browsing back to an ex" +
-        "ternal start page.");
+            this.checkBoxAllowBrowsingBackForward.Text = "Allow browsing back/forward";
+            this.toolTip1.SetToolTip(this.checkBoxAllowBrowsingBackForward, resources.GetString("checkBoxAllowBrowsingBackForward.ToolTip"));
             this.checkBoxAllowBrowsingBackForward.UseVisualStyleBackColor = true;
             this.checkBoxAllowBrowsingBackForward.CheckedChanged += new System.EventHandler(this.checkBoxAllowBrowsingBackForward_CheckedChanged);
             // 
@@ -3037,6 +3045,7 @@
             this.toolTip1.SetToolTip(this.checkBoxBlockLinksJava, "USE WITH CARE: Hyperlinks invoked by JavaScript/plug-ins which direct to a differ" +
         "ent host than the one of the current main page will be ignored.");
             this.checkBoxBlockLinksJava.UseVisualStyleBackColor = true;
+            this.checkBoxBlockLinksJava.Visible = false;
             this.checkBoxBlockLinksJava.CheckedChanged += new System.EventHandler(this.checkBoxBlockLinksJava_CheckedChanged);
             // 
             // labelOpenLinksJava
@@ -3552,7 +3561,7 @@
             // buttonConfigureClient
             // 
             this.buttonConfigureClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonConfigureClient.Location = new System.Drawing.Point(378, 348);
+            this.buttonConfigureClient.Location = new System.Drawing.Point(380, 348);
             this.buttonConfigureClient.Margin = new System.Windows.Forms.Padding(2);
             this.buttonConfigureClient.Name = "buttonConfigureClient";
             this.buttonConfigureClient.Size = new System.Drawing.Size(143, 32);
@@ -3575,7 +3584,7 @@
             // buttonEditDuplicate
             // 
             this.buttonEditDuplicate.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEditDuplicate.Location = new System.Drawing.Point(378, 306);
+            this.buttonEditDuplicate.Location = new System.Drawing.Point(380, 306);
             this.buttonEditDuplicate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonEditDuplicate.Name = "buttonEditDuplicate";
             this.buttonEditDuplicate.Size = new System.Drawing.Size(143, 32);
@@ -3588,7 +3597,7 @@
             // buttonApplyAndStartSEB
             // 
             this.buttonApplyAndStartSEB.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonApplyAndStartSEB.Location = new System.Drawing.Point(378, 391);
+            this.buttonApplyAndStartSEB.Location = new System.Drawing.Point(380, 391);
             this.buttonApplyAndStartSEB.Margin = new System.Windows.Forms.Padding(2);
             this.buttonApplyAndStartSEB.Name = "buttonApplyAndStartSEB";
             this.buttonApplyAndStartSEB.Size = new System.Drawing.Size(143, 32);
@@ -3635,7 +3644,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(28, 348);
+            this.button1.Location = new System.Drawing.Point(29, 348);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(143, 32);
@@ -3662,7 +3671,7 @@
             // buttonSaveSettingsAs
             // 
             this.buttonSaveSettingsAs.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSaveSettingsAs.Location = new System.Drawing.Point(28, 391);
+            this.buttonSaveSettingsAs.Location = new System.Drawing.Point(29, 391);
             this.buttonSaveSettingsAs.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSaveSettingsAs.Name = "buttonSaveSettingsAs";
             this.buttonSaveSettingsAs.Size = new System.Drawing.Size(143, 32);
@@ -3675,10 +3684,10 @@
             // buttonOpenSettings
             // 
             this.buttonOpenSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOpenSettings.Location = new System.Drawing.Point(30, 306);
+            this.buttonOpenSettings.Location = new System.Drawing.Point(29, 306);
             this.buttonOpenSettings.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOpenSettings.Name = "buttonOpenSettings";
-            this.buttonOpenSettings.Size = new System.Drawing.Size(142, 32);
+            this.buttonOpenSettings.Size = new System.Drawing.Size(143, 32);
             this.buttonOpenSettings.TabIndex = 8;
             this.buttonOpenSettings.Text = "Open Settings...";
             this.toolTip1.SetToolTip(this.buttonOpenSettings, "Open a settings file for editing");

@@ -1229,6 +1229,7 @@ namespace SebWindowsConfig
         private void checkBoxAllowBrowsingBackForward_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowBrowsingBackForward] = checkBoxAllowBrowsingBackForward.Checked;
+            checkBoxEnableAltMouseWheel.Checked = checkBoxAllowBrowsingBackForward.Checked;
         }
 
         private void checkBoxRemoveProfile_CheckedChanged(object sender, EventArgs e)
@@ -1290,7 +1291,7 @@ namespace SebWindowsConfig
 
             // If the user clicked "OK", ...
             string pathUsingEnvironmentVariables = SEBClientInfo.ContractEnvironmentVariables(path);
-            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin]     = pathUsingEnvironmentVariables;
+            SEBSettings.settingsCurrent[SEBSettings.KeyDownloadDirectoryWin]       = pathUsingEnvironmentVariables;
                                                   textBoxDownloadDirectoryWin.Text = pathUsingEnvironmentVariables;
         }
 
@@ -2850,6 +2851,7 @@ namespace SebWindowsConfig
         private void checkBoxEnableAltMouseWheel_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableAltMouseWheel] = checkBoxEnableAltMouseWheel.Checked;
+            checkBoxAllowBrowsingBackForward.Checked = checkBoxEnableAltMouseWheel.Checked;
         }
 
 
