@@ -907,6 +907,7 @@ namespace SebWindowsConfig
             textBoxBrowserExamKey.Text = lastBrowserExamKey;
         }
 
+
         private void buttonRevertToLocalClientSettings_Click(object sender, EventArgs e)
         {
             // Get the path to the local client settings configuration file
