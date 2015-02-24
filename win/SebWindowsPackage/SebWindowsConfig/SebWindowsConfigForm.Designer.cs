@@ -228,9 +228,7 @@
             this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
-            this.checkBoxReloadWarning = new System.Windows.Forms.CheckBox();
             this.checkBoxRemoveLocalStorage = new System.Windows.Forms.CheckBox();
-            this.checkboxShowReloadButton = new System.Windows.Forms.CheckBox();
             this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
             this.listBoxOpenLinksJava = new System.Windows.Forms.ListBox();
             this.listBoxOpenLinksHTML = new System.Windows.Forms.ListBox();
@@ -253,10 +251,19 @@
             this.labelNewWindowPosition = new System.Windows.Forms.Label();
             this.listBoxNewBrowserWindowPositioning = new System.Windows.Forms.ListBox();
             this.tabPageAppearance = new System.Windows.Forms.TabPage();
-            this.checkBoxAllowSpellCheck = new System.Windows.Forms.CheckBox();
+            this.groupBoxEnableZoom = new System.Windows.Forms.GroupBox();
             this.checkBoxEnableZoomPage = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableZoomText = new System.Windows.Forms.CheckBox();
+            this.groupBoxZoomMode = new System.Windows.Forms.GroupBox();
+            this.radioButtonUseZoomPage = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseZoomText = new System.Windows.Forms.RadioButton();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
             this.radioButtonTouchOptimized = new System.Windows.Forms.RadioButton();
+            this.checkBoxShowReloadWarning = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowReloadButton = new System.Windows.Forms.CheckBox();
+            this.checkBoxAllowSpellCheck = new System.Windows.Forms.CheckBox();
             this.labelTaskBarHeight = new System.Windows.Forms.Label();
             this.comboBoxTaskBarHeight = new System.Windows.Forms.ComboBox();
             this.groupBoxMainBrowserWindow = new System.Windows.Forms.GroupBox();
@@ -270,8 +277,6 @@
             this.checkBoxShowMenuBar = new System.Windows.Forms.CheckBox();
             this.checkBoxHideBrowserWindowToolbar = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableBrowserWindowToolbar = new System.Windows.Forms.CheckBox();
-            this.radioButtonUseFullScreenMode = new System.Windows.Forms.RadioButton();
-            this.radioButtonUseBrowserWindow = new System.Windows.Forms.RadioButton();
             this.tabPageConfigFile = new System.Windows.Forms.TabPage();
             this.buttonConfigureClient = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -305,7 +310,6 @@
             this.listBoxExitKey1 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey3 = new System.Windows.Forms.ListBox();
             this.listBoxExitKey2 = new System.Windows.Forms.ListBox();
-            this.checkBoxIgnoreQuitPassword = new System.Windows.Forms.CheckBox();
             this.labelSebServerURL = new System.Windows.Forms.Label();
             this.textBoxSebServerURL = new System.Windows.Forms.TextBox();
             this.textBoxConfirmAdminPassword = new System.Windows.Forms.TextBox();
@@ -371,6 +375,9 @@
             this.tabPageBrowser.SuspendLayout();
             this.groupBoxNewBrowserWindow.SuspendLayout();
             this.tabPageAppearance.SuspendLayout();
+            this.groupBoxEnableZoom.SuspendLayout();
+            this.groupBoxZoomMode.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBoxMainBrowserWindow.SuspendLayout();
             this.tabPageConfigFile.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -1079,6 +1086,7 @@
             this.checkBoxAllowUserSwitching.Text = "Allow user switching (Mac only)";
             this.toolTip1.SetToolTip(this.checkBoxAllowUserSwitching, "Indicates if fast user switching is allowed.");
             this.checkBoxAllowUserSwitching.UseVisualStyleBackColor = true;
+            this.checkBoxAllowUserSwitching.Visible = false;
             this.checkBoxAllowUserSwitching.CheckedChanged += new System.EventHandler(this.checkBoxAllowUserSwitching_CheckedChanged);
             // 
             // labelSebServicePolicy
@@ -2547,7 +2555,8 @@
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(456, 22);
             this.textBox4.TabIndex = 118;
-            this.textBox4.Text = "Tool tip text of the restart button";
+            this.textBox4.Text = "Title/tool tip text of the restart button (leave empty for localized standard tex" +
+    "t)\r\n";
             // 
             // textBox3
             // 
@@ -2571,8 +2580,8 @@
             this.textBoxRestartExamText.Name = "textBoxRestartExamText";
             this.textBoxRestartExamText.Size = new System.Drawing.Size(526, 19);
             this.textBoxRestartExamText.TabIndex = 117;
-            this.toolTip1.SetToolTip(this.textBoxRestartExamText, "If a quit link is entered, it works regardless of other quit settings in the Gene" +
-        "ral settings pane.");
+            this.toolTip1.SetToolTip(this.textBoxRestartExamText, "This text is displayed as the title of the confirmation alert and as tool tip on " +
+        "the icon");
             this.textBoxRestartExamText.TextChanged += new System.EventHandler(this.textBoxRestartExamText_TextChanged);
             // 
             // textBoxRestartExamLink
@@ -2583,8 +2592,7 @@
             this.textBoxRestartExamLink.Name = "textBoxRestartExamLink";
             this.textBoxRestartExamLink.Size = new System.Drawing.Size(526, 19);
             this.textBoxRestartExamLink.TabIndex = 116;
-            this.toolTip1.SetToolTip(this.textBoxRestartExamLink, "If a quit link is entered, it works regardless of other quit settings in the Gene" +
-        "ral settings pane.");
+            this.toolTip1.SetToolTip(this.textBoxRestartExamLink, "This fully qualified URL is loaded when the restart exam button is pressed");
             this.textBoxRestartExamLink.TextChanged += new System.EventHandler(this.textBoxRestartExamLink_TextChanged);
             // 
             // checkBoxRestartExamPasswordProtected
@@ -2594,12 +2602,11 @@
             this.checkBoxRestartExamPasswordProtected.Location = new System.Drawing.Point(24, 419);
             this.checkBoxRestartExamPasswordProtected.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRestartExamPasswordProtected.Name = "checkBoxRestartExamPasswordProtected";
-            this.checkBoxRestartExamPasswordProtected.Size = new System.Drawing.Size(509, 17);
+            this.checkBoxRestartExamPasswordProtected.Size = new System.Drawing.Size(295, 17);
             this.checkBoxRestartExamPasswordProtected.TabIndex = 115;
-            this.checkBoxRestartExamPasswordProtected.Text = "Protect restart exam button with the quit password (this only works when a quit p" +
-    "assword has been set)";
-            this.toolTip1.SetToolTip(this.checkBoxRestartExamPasswordProtected, "Protect the restart exam button with the quit password (this only works when a qu" +
-        "it password has been set)");
+            this.checkBoxRestartExamPasswordProtected.Text = "Protect restart exam button with the quit/restart password";
+            this.toolTip1.SetToolTip(this.checkBoxRestartExamPasswordProtected, "The quit/restart password (if set) must be entered when the restart exam button w" +
+        "as pressed ");
             this.checkBoxRestartExamPasswordProtected.UseVisualStyleBackColor = true;
             this.checkBoxRestartExamPasswordProtected.CheckedChanged += new System.EventHandler(this.checkBoxRestartExamPasswordProtected_CheckedChanged);
             // 
@@ -2848,9 +2855,7 @@
             // 
             // tabPageBrowser
             // 
-            this.tabPageBrowser.Controls.Add(this.checkBoxReloadWarning);
             this.tabPageBrowser.Controls.Add(this.checkBoxRemoveLocalStorage);
-            this.tabPageBrowser.Controls.Add(this.checkboxShowReloadButton);
             this.tabPageBrowser.Controls.Add(this.checkBoxRemoveProfile);
             this.tabPageBrowser.Controls.Add(this.listBoxOpenLinksJava);
             this.tabPageBrowser.Controls.Add(this.listBoxOpenLinksHTML);
@@ -2876,24 +2881,11 @@
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
             // 
-            // checkBoxReloadWarning
-            // 
-            this.checkBoxReloadWarning.AutoSize = true;
-            this.checkBoxReloadWarning.Location = new System.Drawing.Point(242, 351);
-            this.checkBoxReloadWarning.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxReloadWarning.Name = "checkBoxReloadWarning";
-            this.checkBoxReloadWarning.Size = new System.Drawing.Size(125, 17);
-            this.checkBoxReloadWarning.TabIndex = 65;
-            this.checkBoxReloadWarning.Text = "Show reload warning";
-            this.toolTip1.SetToolTip(this.checkBoxReloadWarning, "User has to confirm reloading a web page with F5 or reload button");
-            this.checkBoxReloadWarning.UseVisualStyleBackColor = true;
-            this.checkBoxReloadWarning.CheckedChanged += new System.EventHandler(this.checkBoxReloadWarning_CheckedChanged);
-            // 
             // checkBoxRemoveLocalStorage
             // 
             this.checkBoxRemoveLocalStorage.AutoSize = true;
             this.checkBoxRemoveLocalStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRemoveLocalStorage.Location = new System.Drawing.Point(242, 377);
+            this.checkBoxRemoveLocalStorage.Location = new System.Drawing.Point(242, 352);
             this.checkBoxRemoveLocalStorage.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRemoveLocalStorage.Name = "checkBoxRemoveLocalStorage";
             this.checkBoxRemoveLocalStorage.Size = new System.Drawing.Size(159, 17);
@@ -2902,22 +2894,10 @@
             this.toolTip1.SetToolTip(this.checkBoxRemoveLocalStorage, "Remove local storage when quitting SEB. Caches are removed always.");
             this.checkBoxRemoveLocalStorage.UseVisualStyleBackColor = true;
             // 
-            // checkboxShowReloadButton
-            // 
-            this.checkboxShowReloadButton.AutoSize = true;
-            this.checkboxShowReloadButton.Location = new System.Drawing.Point(23, 351);
-            this.checkboxShowReloadButton.Margin = new System.Windows.Forms.Padding(2);
-            this.checkboxShowReloadButton.Name = "checkboxShowReloadButton";
-            this.checkboxShowReloadButton.Size = new System.Drawing.Size(194, 17);
-            this.checkboxShowReloadButton.TabIndex = 63;
-            this.checkboxShowReloadButton.Text = "Show reload button in SEB task bar";
-            this.checkboxShowReloadButton.UseVisualStyleBackColor = true;
-            this.checkboxShowReloadButton.CheckedChanged += new System.EventHandler(this.checkboxShowReloadButton_CheckedChanged);
-            // 
             // checkBoxRemoveProfile
             // 
             this.checkBoxRemoveProfile.AutoSize = true;
-            this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 377);
+            this.checkBoxRemoveProfile.Location = new System.Drawing.Point(23, 352);
             this.checkBoxRemoveProfile.Name = "checkBoxRemoveProfile";
             this.checkBoxRemoveProfile.Size = new System.Drawing.Size(125, 17);
             this.checkBoxRemoveProfile.TabIndex = 62;
@@ -2948,7 +2928,7 @@
             // labelUseSEBWithoutBrowser
             // 
             this.labelUseSEBWithoutBrowser.AutoSize = true;
-            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(45, 422);
+            this.labelUseSEBWithoutBrowser.Location = new System.Drawing.Point(45, 397);
             this.labelUseSEBWithoutBrowser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelUseSEBWithoutBrowser.Name = "labelUseSEBWithoutBrowser";
             this.labelUseSEBWithoutBrowser.Size = new System.Drawing.Size(436, 13);
@@ -3034,7 +3014,7 @@
             // checkBoxUseSebWithoutBrowser
             // 
             this.checkBoxUseSebWithoutBrowser.AutoSize = true;
-            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 403);
+            this.checkBoxUseSebWithoutBrowser.Location = new System.Drawing.Point(23, 378);
             this.checkBoxUseSebWithoutBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxUseSebWithoutBrowser.Name = "checkBoxUseSebWithoutBrowser";
             this.checkBoxUseSebWithoutBrowser.Size = new System.Drawing.Size(185, 17);
@@ -3180,10 +3160,12 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.groupBoxEnableZoom);
+            this.tabPageAppearance.Controls.Add(this.groupBoxZoomMode);
+            this.tabPageAppearance.Controls.Add(this.groupBox4);
+            this.tabPageAppearance.Controls.Add(this.checkBoxShowReloadWarning);
+            this.tabPageAppearance.Controls.Add(this.checkBoxShowReloadButton);
             this.tabPageAppearance.Controls.Add(this.checkBoxAllowSpellCheck);
-            this.tabPageAppearance.Controls.Add(this.checkBoxEnableZoomPage);
-            this.tabPageAppearance.Controls.Add(this.checkBoxEnableZoomText);
-            this.tabPageAppearance.Controls.Add(this.radioButtonTouchOptimized);
             this.tabPageAppearance.Controls.Add(this.labelTaskBarHeight);
             this.tabPageAppearance.Controls.Add(this.comboBoxTaskBarHeight);
             this.tabPageAppearance.Controls.Add(this.groupBoxMainBrowserWindow);
@@ -3191,8 +3173,6 @@
             this.tabPageAppearance.Controls.Add(this.checkBoxShowMenuBar);
             this.tabPageAppearance.Controls.Add(this.checkBoxHideBrowserWindowToolbar);
             this.tabPageAppearance.Controls.Add(this.checkBoxEnableBrowserWindowToolbar);
-            this.tabPageAppearance.Controls.Add(this.radioButtonUseFullScreenMode);
-            this.tabPageAppearance.Controls.Add(this.radioButtonUseBrowserWindow);
             this.tabPageAppearance.ImageIndex = 2;
             this.tabPageAppearance.Location = new System.Drawing.Point(4, 39);
             this.tabPageAppearance.Margin = new System.Windows.Forms.Padding(2);
@@ -3203,10 +3183,166 @@
             this.tabPageAppearance.Text = "Appearance";
             this.tabPageAppearance.UseVisualStyleBackColor = true;
             // 
+            // groupBoxEnableZoom
+            // 
+            this.groupBoxEnableZoom.Controls.Add(this.checkBoxEnableZoomPage);
+            this.groupBoxEnableZoom.Controls.Add(this.checkBoxEnableZoomText);
+            this.groupBoxEnableZoom.Location = new System.Drawing.Point(23, 366);
+            this.groupBoxEnableZoom.Name = "groupBoxEnableZoom";
+            this.groupBoxEnableZoom.Size = new System.Drawing.Size(203, 65);
+            this.groupBoxEnableZoom.TabIndex = 76;
+            this.groupBoxEnableZoom.TabStop = false;
+            this.groupBoxEnableZoom.Text = "Enable zoom (Win/Mac)";
+            // 
+            // checkBoxEnableZoomPage
+            // 
+            this.checkBoxEnableZoomPage.AutoSize = true;
+            this.checkBoxEnableZoomPage.Location = new System.Drawing.Point(10, 18);
+            this.checkBoxEnableZoomPage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableZoomPage.Name = "checkBoxEnableZoomPage";
+            this.checkBoxEnableZoomPage.Size = new System.Drawing.Size(114, 17);
+            this.checkBoxEnableZoomPage.TabIndex = 66;
+            this.checkBoxEnableZoomPage.Text = "Enable page zoom";
+            this.toolTip1.SetToolTip(this.checkBoxEnableZoomPage, "Pages can be zoomed with ctrl - cmd +/- or the commands in the view menu and brow" +
+        "ser window toolbar (Mac)");
+            this.checkBoxEnableZoomPage.UseVisualStyleBackColor = true;
+            this.checkBoxEnableZoomPage.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomPage_CheckedChanged);
+            // 
+            // checkBoxEnableZoomText
+            // 
+            this.checkBoxEnableZoomText.AutoSize = true;
+            this.checkBoxEnableZoomText.Location = new System.Drawing.Point(10, 39);
+            this.checkBoxEnableZoomText.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableZoomText.Name = "checkBoxEnableZoomText";
+            this.checkBoxEnableZoomText.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxEnableZoomText.TabIndex = 65;
+            this.checkBoxEnableZoomText.Text = "Enable text zoom";
+            this.toolTip1.SetToolTip(this.checkBoxEnableZoomText, "Text in browser windows can be zoomed with cmd +/- or the commands in the view me" +
+        "nu and browser window toolbar (Mac)");
+            this.checkBoxEnableZoomText.UseVisualStyleBackColor = true;
+            this.checkBoxEnableZoomText.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomText_CheckedChanged);
+            // 
+            // groupBoxZoomMode
+            // 
+            this.groupBoxZoomMode.Controls.Add(this.radioButtonUseZoomPage);
+            this.groupBoxZoomMode.Controls.Add(this.radioButtonUseZoomText);
+            this.groupBoxZoomMode.Location = new System.Drawing.Point(242, 366);
+            this.groupBoxZoomMode.Name = "groupBoxZoomMode";
+            this.groupBoxZoomMode.Size = new System.Drawing.Size(223, 65);
+            this.groupBoxZoomMode.TabIndex = 75;
+            this.groupBoxZoomMode.TabStop = false;
+            this.groupBoxZoomMode.Text = "Zoom mode Win (Ctrl-Mousewheel)";
+            // 
+            // radioButtonUseZoomPage
+            // 
+            this.radioButtonUseZoomPage.AutoSize = true;
+            this.radioButtonUseZoomPage.Checked = true;
+            this.radioButtonUseZoomPage.Location = new System.Drawing.Point(10, 18);
+            this.radioButtonUseZoomPage.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonUseZoomPage.Name = "radioButtonUseZoomPage";
+            this.radioButtonUseZoomPage.Size = new System.Drawing.Size(99, 17);
+            this.radioButtonUseZoomPage.TabIndex = 71;
+            this.radioButtonUseZoomPage.TabStop = true;
+            this.radioButtonUseZoomPage.Text = "Use page zoom";
+            this.radioButtonUseZoomPage.UseVisualStyleBackColor = true;
+            this.radioButtonUseZoomPage.CheckedChanged += new System.EventHandler(this.radioButtonUseZoomPage_CheckedChanged);
+            // 
+            // radioButtonUseZoomText
+            // 
+            this.radioButtonUseZoomText.AutoSize = true;
+            this.radioButtonUseZoomText.Location = new System.Drawing.Point(10, 39);
+            this.radioButtonUseZoomText.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonUseZoomText.Name = "radioButtonUseZoomText";
+            this.radioButtonUseZoomText.Size = new System.Drawing.Size(92, 17);
+            this.radioButtonUseZoomText.TabIndex = 70;
+            this.radioButtonUseZoomText.Text = "Use text zoom";
+            this.toolTip1.SetToolTip(this.radioButtonUseZoomText, "A settings file saved with this option will start the exam with the according set" +
+        "tings, but won\'t change the local SEB settings.");
+            this.radioButtonUseZoomText.UseVisualStyleBackColor = true;
+            this.radioButtonUseZoomText.CheckedChanged += new System.EventHandler(this.radioButtonUseZoomText_CheckedChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.radioButtonUseBrowserWindow);
+            this.groupBox4.Controls.Add(this.radioButtonUseFullScreenMode);
+            this.groupBox4.Controls.Add(this.radioButtonTouchOptimized);
+            this.groupBox4.Location = new System.Drawing.Point(23, 16);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(460, 88);
+            this.groupBox4.TabIndex = 74;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Browser view mode";
+            // 
+            // radioButtonUseBrowserWindow
+            // 
+            this.radioButtonUseBrowserWindow.AutoSize = true;
+            this.radioButtonUseBrowserWindow.Location = new System.Drawing.Point(22, 18);
+            this.radioButtonUseBrowserWindow.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonUseBrowserWindow.Name = "radioButtonUseBrowserWindow";
+            this.radioButtonUseBrowserWindow.Size = new System.Drawing.Size(123, 17);
+            this.radioButtonUseBrowserWindow.TabIndex = 0;
+            this.radioButtonUseBrowserWindow.Text = "Use browser window";
+            this.toolTip1.SetToolTip(this.radioButtonUseBrowserWindow, "Use a window for the SEB browser which can be scaled and moved around, also to an" +
+        "other screen when available.");
+            this.radioButtonUseBrowserWindow.UseVisualStyleBackColor = true;
+            this.radioButtonUseBrowserWindow.CheckedChanged += new System.EventHandler(this.radioButtonUseBrowserWindow_CheckedChanged);
+            // 
+            // radioButtonUseFullScreenMode
+            // 
+            this.radioButtonUseFullScreenMode.AutoSize = true;
+            this.radioButtonUseFullScreenMode.Checked = true;
+            this.radioButtonUseFullScreenMode.Location = new System.Drawing.Point(22, 40);
+            this.radioButtonUseFullScreenMode.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonUseFullScreenMode.Name = "radioButtonUseFullScreenMode";
+            this.radioButtonUseFullScreenMode.Size = new System.Drawing.Size(124, 17);
+            this.radioButtonUseFullScreenMode.TabIndex = 1;
+            this.radioButtonUseFullScreenMode.TabStop = true;
+            this.radioButtonUseFullScreenMode.Text = "Use full screen mode";
+            this.toolTip1.SetToolTip(this.radioButtonUseFullScreenMode, "Display the SEB browser full screen.");
+            this.radioButtonUseFullScreenMode.UseVisualStyleBackColor = true;
+            this.radioButtonUseFullScreenMode.CheckedChanged += new System.EventHandler(this.radioButtonUseFullScreenMode_CheckedChanged);
+            // 
+            // radioButtonTouchOptimized
+            // 
+            this.radioButtonTouchOptimized.AutoSize = true;
+            this.radioButtonTouchOptimized.Location = new System.Drawing.Point(22, 62);
+            this.radioButtonTouchOptimized.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonTouchOptimized.Name = "radioButtonTouchOptimized";
+            this.radioButtonTouchOptimized.Size = new System.Drawing.Size(366, 17);
+            this.radioButtonTouchOptimized.TabIndex = 64;
+            this.radioButtonTouchOptimized.Text = "Touch optimized (not working with the Create New Desktop kiosk mode)";
+            this.radioButtonTouchOptimized.UseVisualStyleBackColor = true;
+            this.radioButtonTouchOptimized.CheckedChanged += new System.EventHandler(this.radioButtonTouchOptimized_CheckedChanged);
+            // 
+            // checkBoxShowReloadWarning
+            // 
+            this.checkBoxShowReloadWarning.AutoSize = true;
+            this.checkBoxShowReloadWarning.Location = new System.Drawing.Point(242, 337);
+            this.checkBoxShowReloadWarning.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxShowReloadWarning.Name = "checkBoxShowReloadWarning";
+            this.checkBoxShowReloadWarning.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxShowReloadWarning.TabIndex = 69;
+            this.checkBoxShowReloadWarning.Text = "Show reload warning";
+            this.toolTip1.SetToolTip(this.checkBoxShowReloadWarning, "User has to confirm reloading a web page with F5 or reload button");
+            this.checkBoxShowReloadWarning.UseVisualStyleBackColor = true;
+            this.checkBoxShowReloadWarning.CheckedChanged += new System.EventHandler(this.checkBoxShowReloadWarning_CheckedChanged);
+            // 
+            // checkBoxShowReloadButton
+            // 
+            this.checkBoxShowReloadButton.AutoSize = true;
+            this.checkBoxShowReloadButton.Location = new System.Drawing.Point(23, 337);
+            this.checkBoxShowReloadButton.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxShowReloadButton.Name = "checkBoxShowReloadButton";
+            this.checkBoxShowReloadButton.Size = new System.Drawing.Size(194, 17);
+            this.checkBoxShowReloadButton.TabIndex = 68;
+            this.checkBoxShowReloadButton.Text = "Show reload button in SEB task bar";
+            this.checkBoxShowReloadButton.UseVisualStyleBackColor = true;
+            this.checkBoxShowReloadButton.CheckedChanged += new System.EventHandler(this.checkBoxShowReloadButton_CheckedChanged);
+            // 
             // checkBoxAllowSpellCheck
             // 
             this.checkBoxAllowSpellCheck.AutoSize = true;
-            this.checkBoxAllowSpellCheck.Location = new System.Drawing.Point(23, 379);
+            this.checkBoxAllowSpellCheck.Location = new System.Drawing.Point(23, 444);
             this.checkBoxAllowSpellCheck.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAllowSpellCheck.Name = "checkBoxAllowSpellCheck";
             this.checkBoxAllowSpellCheck.Size = new System.Drawing.Size(122, 17);
@@ -3215,44 +3351,6 @@
             this.toolTip1.SetToolTip(this.checkBoxAllowSpellCheck, "Allow using check spelling");
             this.checkBoxAllowSpellCheck.UseVisualStyleBackColor = true;
             this.checkBoxAllowSpellCheck.CheckedChanged += new System.EventHandler(this.checkBoxAllowSpellCheck_CheckedChanged);
-            // 
-            // checkBoxEnableZoomPage
-            // 
-            this.checkBoxEnableZoomPage.AutoSize = true;
-            this.checkBoxEnableZoomPage.Location = new System.Drawing.Point(23, 358);
-            this.checkBoxEnableZoomPage.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableZoomPage.Name = "checkBoxEnableZoomPage";
-            this.checkBoxEnableZoomPage.Size = new System.Drawing.Size(114, 17);
-            this.checkBoxEnableZoomPage.TabIndex = 66;
-            this.checkBoxEnableZoomPage.Text = "Enable page zoom";
-            this.toolTip1.SetToolTip(this.checkBoxEnableZoomPage, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
-            this.checkBoxEnableZoomPage.UseVisualStyleBackColor = true;
-            this.checkBoxEnableZoomPage.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomPage_CheckedChanged);
-            // 
-            // checkBoxEnableZoomText
-            // 
-            this.checkBoxEnableZoomText.AutoSize = true;
-            this.checkBoxEnableZoomText.Location = new System.Drawing.Point(23, 337);
-            this.checkBoxEnableZoomText.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableZoomText.Name = "checkBoxEnableZoomText";
-            this.checkBoxEnableZoomText.Size = new System.Drawing.Size(107, 17);
-            this.checkBoxEnableZoomText.TabIndex = 65;
-            this.checkBoxEnableZoomText.Text = "Enable text zoom";
-            this.toolTip1.SetToolTip(this.checkBoxEnableZoomText, "Show the OS X menu bar to allow to access settings like Wi-Fi.");
-            this.checkBoxEnableZoomText.UseVisualStyleBackColor = true;
-            this.checkBoxEnableZoomText.CheckedChanged += new System.EventHandler(this.checkBoxEnableZoomText_CheckedChanged);
-            // 
-            // radioButtonTouchOptimized
-            // 
-            this.radioButtonTouchOptimized.AutoSize = true;
-            this.radioButtonTouchOptimized.Location = new System.Drawing.Point(23, 72);
-            this.radioButtonTouchOptimized.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonTouchOptimized.Name = "radioButtonTouchOptimized";
-            this.radioButtonTouchOptimized.Size = new System.Drawing.Size(366, 17);
-            this.radioButtonTouchOptimized.TabIndex = 64;
-            this.radioButtonTouchOptimized.Text = "Touch optimized (not working with the Create New Desktop kiosk mode)";
-            this.radioButtonTouchOptimized.UseVisualStyleBackColor = true;
-            this.radioButtonTouchOptimized.CheckedChanged += new System.EventHandler(this.radioButtonTouchOptimized_CheckedChanged);
             // 
             // labelTaskBarHeight
             // 
@@ -3415,35 +3513,6 @@
             this.checkBoxEnableBrowserWindowToolbar.UseVisualStyleBackColor = true;
             this.checkBoxEnableBrowserWindowToolbar.CheckedChanged += new System.EventHandler(this.checkBoxEnableBrowserWindowToolbar_CheckedChanged);
             // 
-            // radioButtonUseFullScreenMode
-            // 
-            this.radioButtonUseFullScreenMode.AutoSize = true;
-            this.radioButtonUseFullScreenMode.Checked = true;
-            this.radioButtonUseFullScreenMode.Location = new System.Drawing.Point(23, 50);
-            this.radioButtonUseFullScreenMode.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonUseFullScreenMode.Name = "radioButtonUseFullScreenMode";
-            this.radioButtonUseFullScreenMode.Size = new System.Drawing.Size(124, 17);
-            this.radioButtonUseFullScreenMode.TabIndex = 1;
-            this.radioButtonUseFullScreenMode.TabStop = true;
-            this.radioButtonUseFullScreenMode.Text = "Use full screen mode";
-            this.toolTip1.SetToolTip(this.radioButtonUseFullScreenMode, "Display the SEB browser full screen.");
-            this.radioButtonUseFullScreenMode.UseVisualStyleBackColor = true;
-            this.radioButtonUseFullScreenMode.CheckedChanged += new System.EventHandler(this.radioButtonUseFullScreenMode_CheckedChanged);
-            // 
-            // radioButtonUseBrowserWindow
-            // 
-            this.radioButtonUseBrowserWindow.AutoSize = true;
-            this.radioButtonUseBrowserWindow.Location = new System.Drawing.Point(23, 28);
-            this.radioButtonUseBrowserWindow.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonUseBrowserWindow.Name = "radioButtonUseBrowserWindow";
-            this.radioButtonUseBrowserWindow.Size = new System.Drawing.Size(123, 17);
-            this.radioButtonUseBrowserWindow.TabIndex = 0;
-            this.radioButtonUseBrowserWindow.Text = "Use browser window";
-            this.toolTip1.SetToolTip(this.radioButtonUseBrowserWindow, "Use a window for the SEB browser which can be scaled and moved around, also to an" +
-        "other screen when available.");
-            this.radioButtonUseBrowserWindow.UseVisualStyleBackColor = true;
-            this.radioButtonUseBrowserWindow.CheckedChanged += new System.EventHandler(this.radioButtonUseBrowserWindow_CheckedChanged);
-            // 
             // tabPageConfigFile
             // 
             this.tabPageConfigFile.Controls.Add(this.buttonConfigureClient);
@@ -3489,6 +3558,7 @@
             this.buttonConfigureClient.Size = new System.Drawing.Size(143, 32);
             this.buttonConfigureClient.TabIndex = 72;
             this.buttonConfigureClient.Text = "Configure Client";
+            this.toolTip1.SetToolTip(this.buttonConfigureClient, "Configure client using current settings (overwriting current local settings)");
             this.buttonConfigureClient.UseVisualStyleBackColor = true;
             this.buttonConfigureClient.Click += new System.EventHandler(this.buttonConfigureClient_Click);
             // 
@@ -3511,6 +3581,7 @@
             this.buttonEditDuplicate.Size = new System.Drawing.Size(143, 32);
             this.buttonEditDuplicate.TabIndex = 69;
             this.buttonEditDuplicate.Text = "Edit Duplicate";
+            this.toolTip1.SetToolTip(this.buttonEditDuplicate, "Create duplicate of current settings for editing");
             this.buttonEditDuplicate.UseVisualStyleBackColor = true;
             this.buttonEditDuplicate.Click += new System.EventHandler(this.buttonEditDuplicate_Click);
             // 
@@ -3523,6 +3594,7 @@
             this.buttonApplyAndStartSEB.Size = new System.Drawing.Size(143, 32);
             this.buttonApplyAndStartSEB.TabIndex = 70;
             this.buttonApplyAndStartSEB.Text = "Apply and Start SEB";
+            this.toolTip1.SetToolTip(this.buttonApplyAndStartSEB, "Apply current settings and start SEB");
             this.buttonApplyAndStartSEB.UseVisualStyleBackColor = true;
             this.buttonApplyAndStartSEB.Click += new System.EventHandler(this.buttonApplyAndStartSEB_Click);
             // 
@@ -3535,6 +3607,7 @@
             this.buttonRevertToLocalClientSettings.Size = new System.Drawing.Size(143, 32);
             this.buttonRevertToLocalClientSettings.TabIndex = 68;
             this.buttonRevertToLocalClientSettings.Text = "Local Client Settings";
+            this.toolTip1.SetToolTip(this.buttonRevertToLocalClientSettings, "Revert to the local client settings");
             this.buttonRevertToLocalClientSettings.UseVisualStyleBackColor = true;
             this.buttonRevertToLocalClientSettings.Click += new System.EventHandler(this.buttonRevertToLocalClientSettings_Click);
             // 
@@ -3568,6 +3641,7 @@
             this.button1.Size = new System.Drawing.Size(143, 32);
             this.button1.TabIndex = 65;
             this.button1.Text = "Save Settings";
+            this.toolTip1.SetToolTip(this.button1, "Save settings file under same name");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.buttonSaveSettings_Click);
             // 
@@ -3594,6 +3668,7 @@
             this.buttonSaveSettingsAs.Size = new System.Drawing.Size(143, 32);
             this.buttonSaveSettingsAs.TabIndex = 9;
             this.buttonSaveSettingsAs.Text = "Save Settings As...";
+            this.toolTip1.SetToolTip(this.buttonSaveSettingsAs, "Choose file name and destination to save settings");
             this.buttonSaveSettingsAs.UseVisualStyleBackColor = true;
             this.buttonSaveSettingsAs.Click += new System.EventHandler(this.buttonSaveSettingsAs_Click);
             // 
@@ -3606,6 +3681,7 @@
             this.buttonOpenSettings.Size = new System.Drawing.Size(142, 32);
             this.buttonOpenSettings.TabIndex = 8;
             this.buttonOpenSettings.Text = "Open Settings...";
+            this.toolTip1.SetToolTip(this.buttonOpenSettings, "Open a settings file for editing");
             this.buttonOpenSettings.UseVisualStyleBackColor = true;
             this.buttonOpenSettings.Click += new System.EventHandler(this.buttonOpenSettings_Click);
             // 
@@ -3751,6 +3827,7 @@
             this.buttonRevertToDefaultSettings.Size = new System.Drawing.Size(143, 32);
             this.buttonRevertToDefaultSettings.TabIndex = 6;
             this.buttonRevertToDefaultSettings.Text = "Default Settings";
+            this.toolTip1.SetToolTip(this.buttonRevertToDefaultSettings, "Revert current settings to SEB defaults");
             this.buttonRevertToDefaultSettings.UseVisualStyleBackColor = true;
             this.buttonRevertToDefaultSettings.Click += new System.EventHandler(this.buttonRevertToDefaultSettings_Click);
             // 
@@ -3763,6 +3840,7 @@
             this.buttonRevertToLastOpened.Size = new System.Drawing.Size(143, 32);
             this.buttonRevertToLastOpened.TabIndex = 7;
             this.buttonRevertToLastOpened.Text = "Last Opened";
+            this.toolTip1.SetToolTip(this.buttonRevertToLastOpened, "Revert to last saved (or opened) settings");
             this.buttonRevertToLastOpened.UseVisualStyleBackColor = true;
             this.buttonRevertToLastOpened.Click += new System.EventHandler(this.buttonRevertToLastOpened_Click);
             // 
@@ -3772,7 +3850,6 @@
             this.tabPageGeneral.Controls.Add(this.labelQuitPasswordCompare);
             this.tabPageGeneral.Controls.Add(this.labelAdminPasswordCompare);
             this.tabPageGeneral.Controls.Add(this.groupBoxExitSequence);
-            this.tabPageGeneral.Controls.Add(this.checkBoxIgnoreQuitPassword);
             this.tabPageGeneral.Controls.Add(this.labelSebServerURL);
             this.tabPageGeneral.Controls.Add(this.textBoxSebServerURL);
             this.tabPageGeneral.Controls.Add(this.textBoxConfirmAdminPassword);
@@ -3802,7 +3879,7 @@
             // 
             this.checkBoxIgnoreExitKeys.AutoSize = true;
             this.checkBoxIgnoreExitKeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(19, 227);
+            this.checkBoxIgnoreExitKeys.Location = new System.Drawing.Point(19, 206);
             this.checkBoxIgnoreExitKeys.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnoreExitKeys.Name = "checkBoxIgnoreExitKeys";
             this.checkBoxIgnoreExitKeys.Size = new System.Drawing.Size(100, 17);
@@ -3892,22 +3969,6 @@
             this.listBoxExitKey2.Size = new System.Drawing.Size(31, 160);
             this.listBoxExitKey2.TabIndex = 1;
             this.listBoxExitKey2.SelectedIndexChanged += new System.EventHandler(this.listBoxExitKey2_SelectedIndexChanged);
-            // 
-            // checkBoxIgnoreQuitPassword
-            // 
-            this.checkBoxIgnoreQuitPassword.AutoSize = true;
-            this.checkBoxIgnoreQuitPassword.Enabled = false;
-            this.checkBoxIgnoreQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIgnoreQuitPassword.Location = new System.Drawing.Point(19, 206);
-            this.checkBoxIgnoreQuitPassword.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxIgnoreQuitPassword.Name = "checkBoxIgnoreQuitPassword";
-            this.checkBoxIgnoreQuitPassword.Size = new System.Drawing.Size(124, 17);
-            this.checkBoxIgnoreQuitPassword.TabIndex = 7;
-            this.checkBoxIgnoreQuitPassword.Text = "Ignore quit password";
-            this.toolTip1.SetToolTip(this.checkBoxIgnoreQuitPassword, "If selected, SEB ignores the quit password and can only be quit manually by using" +
-        " the exit keys.");
-            this.checkBoxIgnoreQuitPassword.UseVisualStyleBackColor = true;
-            this.checkBoxIgnoreQuitPassword.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreQuitPassword_CheckedChanged);
             // 
             // labelSebServerURL
             // 
@@ -4073,12 +4134,12 @@
             // 
             this.labelQuitPassword.AutoSize = true;
             this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitPassword.Location = new System.Drawing.Point(94, 283);
+            this.labelQuitPassword.Location = new System.Drawing.Point(60, 283);
             this.labelQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitPassword.Name = "labelQuitPassword";
-            this.labelQuitPassword.Size = new System.Drawing.Size(74, 13);
+            this.labelQuitPassword.Size = new System.Drawing.Size(108, 13);
             this.labelQuitPassword.TabIndex = 9;
-            this.labelQuitPassword.Text = "Quit password";
+            this.labelQuitPassword.Text = "Quit/restart password";
             // 
             // labelStartURL
             // 
@@ -4294,6 +4355,12 @@
             this.groupBoxNewBrowserWindow.PerformLayout();
             this.tabPageAppearance.ResumeLayout(false);
             this.tabPageAppearance.PerformLayout();
+            this.groupBoxEnableZoom.ResumeLayout(false);
+            this.groupBoxEnableZoom.PerformLayout();
+            this.groupBoxZoomMode.ResumeLayout(false);
+            this.groupBoxZoomMode.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBoxMainBrowserWindow.ResumeLayout(false);
             this.groupBoxMainBrowserWindow.PerformLayout();
             this.tabPageConfigFile.ResumeLayout(false);
@@ -4425,7 +4492,6 @@
         private System.Windows.Forms.GroupBox groupBoxExitSequence;
         private System.Windows.Forms.ListBox listBoxExitKey1;
         private System.Windows.Forms.ListBox listBoxExitKey2;
-        private System.Windows.Forms.CheckBox checkBoxIgnoreQuitPassword;
         private System.Windows.Forms.Label labelSebServerURL;
         private System.Windows.Forms.TextBox textBoxSebServerURL;
         private System.Windows.Forms.TextBox textBoxConfirmAdminPassword;
@@ -4582,7 +4648,6 @@
         private System.Windows.Forms.TextBox textBoxRestartExamLink;
         private System.Windows.Forms.CheckBox checkBoxRestartExamPasswordProtected;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkboxShowReloadButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxLogDirectoryOSX;
         private System.Windows.Forms.Label label5;
@@ -4599,7 +4664,6 @@
         private System.Windows.Forms.Button buttonApplyAndStartSEB;
         private System.Windows.Forms.Button buttonRevertToLocalClientSettings;
         private System.Windows.Forms.CheckBox checkBoxRemoveLocalStorage;
-        private System.Windows.Forms.CheckBox checkBoxReloadWarning;
         private System.Windows.Forms.CheckBox checkBoxUseStandardDirectory;
         private System.Windows.Forms.CheckBox checkBoxEnableZoomPage;
         private System.Windows.Forms.CheckBox checkBoxEnableZoomText;
@@ -4621,6 +4685,13 @@
         private System.Windows.Forms.CheckBox checkBoxAllowSpellCheck;
         private System.Windows.Forms.TextBox textBoxDownloadDirectoryWin;
         private System.Windows.Forms.TextBox textBoxLogDirectoryWin;
+        private System.Windows.Forms.RadioButton radioButtonUseZoomPage;
+        private System.Windows.Forms.RadioButton radioButtonUseZoomText;
+        private System.Windows.Forms.CheckBox checkBoxShowReloadWarning;
+        private System.Windows.Forms.CheckBox checkBoxShowReloadButton;
+        private System.Windows.Forms.GroupBox groupBoxZoomMode;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBoxEnableZoom;
 
     }
 }

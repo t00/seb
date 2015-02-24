@@ -239,7 +239,6 @@ namespace SebWindowsConfig
             }
 
             checkBoxAllowQuit         .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit];
-            checkBoxIgnoreQuitPassword.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyIgnoreQuitPassword];
             checkBoxIgnoreExitKeys    .Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyIgnoreExitKeys];
 
             // If a quit password is saved in the settings (as a hash), 
@@ -305,6 +304,8 @@ namespace SebWindowsConfig
             checkBoxShowMenuBar               .Checked     = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowMenuBar];
             checkBoxShowTaskBar               .Checked     = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowTaskBar];
             comboBoxTaskBarHeight             .Text        =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight].ToString();
+            radioButtonUseZoomPage            .Checked     =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] == 0);
+            radioButtonUseZoomText            .Checked     =    ((int)SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] == 1);
 
             // Group "Browser"
              listBoxOpenLinksHTML .SelectedIndex =     (int)SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkPolicy];
@@ -568,12 +569,21 @@ namespace SebWindowsConfig
             checkBoxEnableF10.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF10];
             checkBoxEnableF11.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF11];
             checkBoxEnableF12.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableF12];
-            checkboxShowReloadButton.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadButton];
+
+            checkBoxShowReloadButton.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadButton];
+            checkBoxShowReloadWarning.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadWarning];
+            checkBoxEnableZoomPage.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomPage];
+            checkBoxEnableZoomText.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomText];
+            radioButtonUseZoomPage.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] == 0);
+            radioButtonUseZoomText.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] == 1);
+            enableZoomAdjustZoomMode();
+
+            checkBoxAllowSpellCheck.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowSpellCheck];
 
             return;
         }
 
-                /// ----------------------------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Compare password textfields and show or hide compare label accordingly
         /// if passwords are same, save the password hash
@@ -676,12 +686,6 @@ namespace SebWindowsConfig
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit] = checkBoxAllowQuit.Checked;
         }
-
-        private void checkBoxIgnoreQuitPassword_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyIgnoreQuitPassword] = checkBoxIgnoreQuitPassword.Checked;
-        }
-
 
         private void textBoxQuitPassword_TextChanged(object sender, EventArgs e)
         {
@@ -1238,14 +1242,28 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableSebBrowser] = !(checkBoxUseSebWithoutBrowser.Checked);
         }
 
-        private void checkboxShowReloadButton_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxShowReloadButton_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadButton] = checkboxShowReloadButton.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadButton] = checkBoxShowReloadButton.Checked;
         }
 
-        private void checkBoxReloadWarning_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxShowReloadWarning_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadWarning] = checkBoxReloadWarning.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyShowReloadWarning] = checkBoxShowReloadWarning.Checked;
+        }
+
+        private void radioButtonUseZoomPage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUseZoomPage.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] = 0;
+            else SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] = 1;
+        }
+
+        private void radioButtonUseZoomText_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUseZoomText.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] = 1;
+            else SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] = 0;
         }
 
 
@@ -2927,11 +2945,35 @@ namespace SebWindowsConfig
         private void checkBoxEnableZoomText_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomText] = checkBoxEnableZoomText.Checked;
+            enableZoomAdjustZoomMode();
         }
 
         private void checkBoxEnableZoomPage_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableZoomPage] = checkBoxEnableZoomPage.Checked;
+            enableZoomAdjustZoomMode();
+        }
+
+        private void enableZoomAdjustZoomMode()
+        {
+            if (!checkBoxEnableZoomPage.Checked && !checkBoxEnableZoomText.Checked)
+            {
+                groupBoxZoomMode.Enabled = false;
+            }
+            if (checkBoxEnableZoomPage.Checked && !checkBoxEnableZoomText.Checked)
+            {
+                radioButtonUseZoomPage.Checked = true;
+                groupBoxZoomMode.Enabled = false;
+            }
+            else if (!checkBoxEnableZoomPage.Checked && checkBoxEnableZoomText.Checked)
+            {
+                radioButtonUseZoomText.Checked = true;
+                groupBoxZoomMode.Enabled = false;
+            }
+            else
+            {
+                groupBoxZoomMode.Enabled = true;
+            }
         }
 
         private void checkBoxAllowSpellCheck_CheckedChanged(object sender, EventArgs e)

@@ -86,7 +86,6 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyHashedAdminPassword  = "hashedAdminPassword";
         public const String KeyAllowQuit            = "allowQuit";
         public const String KeyIgnoreExitKeys       = "ignoreExitKeys";
-        public const String KeyIgnoreQuitPassword   = "ignoreQuitPassword";
         public const String KeyHashedQuitPassword   = "hashedQuitPassword";
         public const String KeyExitKey1             = "exitKey1";
         public const String KeyExitKey2             = "exitKey2";
@@ -113,6 +112,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyTouchOptimized               = "touchOptimized";
         public const String KeyEnableZoomText               = "enableZoomText";
         public const String KeyEnableZoomPage               = "enableZoomPage";
+        public const String KeyZoomMode                     = "zoomMode";
         public const String KeyAllowSpellCheck              = "allowSpellCheck";
 
         //Touch optimized settings
@@ -467,7 +467,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Clear();
 
             // Default settings for keys not belonging to any group
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.0RC");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyOriginatorVersion, "SEB_Win_2.1");
 
             // Default settings for group "General"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyStartURL           , "http://www.safeexambrowser.org");
@@ -475,7 +475,6 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedAdminPassword, "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowQuit          , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreExitKeys     , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyIgnoreQuitPassword , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedQuitPassword , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey1,  2);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyExitKey2, 10);
@@ -506,6 +505,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyTouchOptimized              , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomText              , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomPage              , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyZoomMode                    , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowSpellCheck             , false);
 
             //Touch Settings
@@ -531,12 +531,13 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableJavaScript        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBlockPopUpWindows       , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowBrowsingBackForward, false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveBrowserProfile, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveBrowserProfile    , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableSebBrowser        , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamURL        , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText        , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamURL          , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText         , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamPasswordProtected        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowReloadButton        , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyShowReloadWarning       , true);
 
             // NewBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValNewBrowserWindowByLinkWidth ] = 4;
