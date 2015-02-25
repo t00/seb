@@ -7,6 +7,7 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
 using System.Threading;
 using System.Windows;
+using System.Windows.Forms;
 using Fleck;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
@@ -82,8 +83,8 @@ namespace SebWindowsClient.XULRunnerCommunication
                     Thread.Sleep(1000);
                 }
                 if (IsRunning)
-                    MessageBox.Show(
-                        "Your TCP port 8706 is blocked. SEB uses this port to communicate with the browser. Although SEB is working without this, full functionality is not guaranteed");
+                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.alertWebSocketPortBlocked, SEBUIStrings.alertWebSocketPortBlockedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    //MessageBox.Show(SEBUIStrings.alertWebSocketPortBlocked);
             }
 
             try
@@ -102,7 +103,7 @@ namespace SebWindowsClient.XULRunnerCommunication
             }
             catch (Exception ex)
             {
-                Logger.AddError("Unable to start WebSocketsServer for communication with XulRunner", null, ex);
+                Logger.AddError("Unable to start WebSocketsServer for communication with XULRunner", null, ex);
             }
         }
 

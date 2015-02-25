@@ -61,6 +61,42 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WebSocket Port Blocked.
+        /// </summary>
+        public static string alertWebSocketPortBlocked {
+            get {
+                return ResourceManager.GetString("alertWebSocketPortBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your TCP port 8706 is blocked. SEB uses this port to communicate with the browser. Although SEB is working without this, full functionality is not guaranteed..
+        /// </summary>
+        public static string alertWebSocketPortBlockedMessage {
+            get {
+                return ResourceManager.GetString("alertWebSocketPortBlockedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Open SEB Link.
+        /// </summary>
+        public static string cannotOpenSEBLink {
+            get {
+                return ResourceManager.GetString("cannotOpenSEBLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening the SEB link failed. Check your internet connection and try again..
+        /// </summary>
+        public static string cannotOpenSEBLinkMessage {
+            get {
+                return ResourceManager.GetString("cannotOpenSEBLinkMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The certificate needed to decrypt settings has not been found in the Windows certificate store. .
         /// </summary>
         public static string certificateNotFoundInStore {
@@ -349,6 +385,24 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening Settings Failed.
+        /// </summary>
+        public static string openingSettingsFailed {
+            get {
+                return ResourceManager.GetString("openingSettingsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The configuration file could not be openend..
+        /// </summary>
+        public static string openingSettingsFailedMessage {
+            get {
+                return ResourceManager.GetString("openingSettingsFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Third Party Application Not Found.
         /// </summary>
         public static string permittedApplicationNotFound {
@@ -453,6 +507,24 @@ namespace SebWindowsClient {
         public static string restartExamMessage {
             get {
                 return ResourceManager.GetString("restartExamMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Settings Failed.
+        /// </summary>
+        public static string savingSettingsFailed {
+            get {
+                return ResourceManager.GetString("savingSettingsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The configuration file could not be saved..
+        /// </summary>
+        public static string savingSettingsFailedMessage {
+            get {
+                return ResourceManager.GetString("savingSettingsFailedMessage", resourceCulture);
             }
         }
         

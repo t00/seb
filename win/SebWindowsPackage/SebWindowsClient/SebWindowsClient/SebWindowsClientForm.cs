@@ -268,7 +268,8 @@ namespace SebWindowsClient
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(new Form() { TopMost = true }, "Unable to follow the link!");
+                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.cannotOpenSEBLink, SEBUIStrings.cannotOpenSEBLinkMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                            //MessageBox.Show(new Form() { TopMost = true }, "Unable to follow the link!");
                             Logger.AddError("Unable to follow the link", this, ex);
                         }
                     }                    

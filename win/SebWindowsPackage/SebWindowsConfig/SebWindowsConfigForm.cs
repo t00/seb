@@ -822,7 +822,11 @@ namespace SebWindowsConfig
             settingsPassword = textBoxSettingsPassword.Text;
         }
 
-        // Check if settings changed since last saved/opened
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Check if settings changed since last saved/opened
+        /// </summary>
+        /// ---------------------------------------------------------------------------------------- 
         private int checkSettingsChanged()
         {
             int result = 0;
@@ -859,7 +863,11 @@ namespace SebWindowsConfig
             if (fileDialogResult.Equals(DialogResult.Cancel)) return;
             if (fileDialogResult.Equals(DialogResult.OK))
             {
-                if (!LoadConfigurationFileIntoEditor(fileName)) return;
+                if (!LoadConfigurationFileIntoEditor(fileName))
+                {
+                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.openingSettingsFailed, SEBUIStrings.openingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    return;
+                }
                 // Generate Browser Exam Key of this new settings
                 lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
                 // Display the new Browser Exam Key in Exam pane
@@ -885,7 +893,10 @@ namespace SebWindowsConfig
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
-            SaveConfigurationFileFromEditor(fileName);
+            if (!SaveConfigurationFileFromEditor(fileName))
+            {
+                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+            }
         }
 
 
@@ -916,7 +927,12 @@ namespace SebWindowsConfig
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
-            if (fileDialogResult.Equals(DialogResult.OK)) SaveConfigurationFileFromEditor(fileName);
+            if (fileDialogResult.Equals(DialogResult.OK)) {
+                if (!SaveConfigurationFileFromEditor(fileName))
+                {
+                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                }
+            }
         }
 
 
@@ -2725,7 +2741,7 @@ namespace SebWindowsConfig
             if (radioCreateNewDesktop.Checked && (int)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 1)
             {
                 MessageBox.Show(
-                    "Touch optimization will not work when the kiosk-mode is set to Create New Desktop, please change the appearance.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    "Touch optimization will not work when kiosk mode is set to Create New Desktop, please change the appearance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

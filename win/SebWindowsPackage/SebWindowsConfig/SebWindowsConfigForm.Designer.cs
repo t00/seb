@@ -2997,9 +2997,9 @@
             this.checkBoxEnableJava.Location = new System.Drawing.Point(23, 300);
             this.checkBoxEnableJava.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJava.Name = "checkBoxEnableJava";
-            this.checkBoxEnableJava.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxEnableJava.Size = new System.Drawing.Size(85, 17);
             this.checkBoxEnableJava.TabIndex = 6;
-            this.checkBoxEnableJava.Text = "Enable Java (Mac)";
+            this.checkBoxEnableJava.Text = "Enable Java";
             this.toolTip1.SetToolTip(this.checkBoxEnableJava, "Enables Java applets.");
             this.checkBoxEnableJava.UseVisualStyleBackColor = true;
             this.checkBoxEnableJava.CheckedChanged += new System.EventHandler(this.checkBoxEnableJava_CheckedChanged);
