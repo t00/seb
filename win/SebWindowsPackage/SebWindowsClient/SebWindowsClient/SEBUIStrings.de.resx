@@ -282,4 +282,16 @@
   <data name="settingsRequireNotNewDesktopReason" xml:space="preserve">
     <value>Die geöffneten Prüfungseinstellungen verlangen den Standard-Desktop, aber momentan läuf SEB auf einem neuen Desktop. Ein Prüfungsadministrator/Supporter muss die lokalen SEB Client-Einstellungen ändern: Kiosk-Modus darf nicht auf "Create new desktop" gesetzt sein. SEB wird jetzt beendet.</value>
   </data>
+  <data name="settingsTitleDefaultSettings" xml:space="preserve">
+    <value>Voreinstellungen</value>
+  </data>
+  <data name="settingsUntitledFilename" xml:space="preserve">
+    <value>Unbenannt</value>
+  </data>
+  <data name="unsavedChangesQuestion" xml:space="preserve">
+    <value>Aktuelle Einstellungen haben ungesicherte Änderungen. Wollen Sie diese speichern?</value>
+  </data>
+  <data name="unsavedChangesTitle" xml:space="preserve">
+    <value>Ungesicherte Änderungen</value>
+  </data>
 </root>
