@@ -581,5 +581,23 @@ namespace SebWindowsClient {
                 return ResourceManager.GetString("settingsUntitledFilename", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current settings have unsaved changes. Do you want to save those first?.
+        /// </summary>
+        public static string unsavedChangesQuestion {
+            get {
+                return ResourceManager.GetString("unsavedChangesQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsaved Changes.
+        /// </summary>
+        public static string unsavedChangesTitle {
+            get {
+                return ResourceManager.GetString("unsavedChangesTitle", resourceCulture);
+            }
+        }
     }
 }

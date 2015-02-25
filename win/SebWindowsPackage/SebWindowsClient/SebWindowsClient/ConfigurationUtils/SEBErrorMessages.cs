@@ -271,12 +271,60 @@ namespace SebWindowsClient.ConfigurationUtils
         // **********************************
         // Output an error or warning message
         // **********************************
-        public static bool OutputErrorMessageNew(string messageTitle, string messageText, int messageKindIndex, MessageBoxButtons messageButtons,
+        public static int OutputErrorMessageIntResult(string messageTitle, string messageText, int messageKindIndex, MessageBoxButtons messageButtons,
             string sparam = null, int iparam = -1)
         {
             // If we are running in SebWindowsClient we need to activate it before showing the password dialog
             if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientMain.SEBToForeground();
             
+            int result = 0;
+
+            MessageBoxIcon icon;
+
+            if (messageIcon[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_ERROR)
+            {
+                icon = MessageBoxIcon.Error;
+            }
+            else if (messageIcon[messageKindIndex] == SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION)
+            {
+                icon = MessageBoxIcon.Question;
+            }
+            else
+            {
+                icon = MessageBoxIcon.Warning;
+            }
+
+            if (sparam != null)
+            {
+                messageText = messageText.Replace("%s", sparam);
+            }
+            if (iparam != -1)
+            {
+                messageText = messageText.Replace("%d", iparam.ToString());
+            }
+            DialogResult messageBoxResult = MessageBox.Show(new Form() { TopMost = true }, messageText, messageTitle, messageButtons, icon);
+            if (messageBoxResult == DialogResult.OK || messageBoxResult == DialogResult.Yes || messageBoxResult == DialogResult.Retry)
+            {
+                result = 1;
+            }
+            if (messageBoxResult == DialogResult.Cancel || messageBoxResult == DialogResult.Abort)
+            {
+                result = 2;
+            }
+
+            return result;
+
+        } // end of method   OutputErrorMessageIntResult()
+
+        // **********************************
+        // Output an error or warning message with three buttons
+        // **********************************
+        public static bool OutputErrorMessageNew(string messageTitle, string messageText, int messageKindIndex, MessageBoxButtons messageButtons,
+            string sparam = null, int iparam = -1)
+        {
+            // If we are running in SebWindowsClient we need to activate it before showing the password dialog
+            if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientMain.SEBToForeground();
+
             bool result = false;
 
             MessageBoxIcon icon;

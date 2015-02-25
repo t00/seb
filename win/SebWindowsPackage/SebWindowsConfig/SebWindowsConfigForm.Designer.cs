@@ -4312,6 +4312,7 @@
             this.Name = "SebWindowsConfigForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "SEB Windows Configuration Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsConfigForm_FormClosing);
             this.Load += new System.EventHandler(this.SebWindowsConfigForm_Load);
             this.tabPageHookedKeys.ResumeLayout(false);
             this.tabPageHookedKeys.PerformLayout();

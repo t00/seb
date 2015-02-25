@@ -743,7 +743,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyCreateNewDesktop   , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyKillExplorerShell  , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowUserSwitching , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "~/Documents");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLAN    , false);

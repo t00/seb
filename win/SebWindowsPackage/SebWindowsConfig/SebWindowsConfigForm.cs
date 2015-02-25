@@ -31,6 +31,8 @@ namespace SebWindowsConfig
         public bool     quitPasswordFieldsContainHash = false;
         public bool settingsPasswordFieldsContainHash = false;
 
+        public bool quittingMyself = false;
+
         string settingsPassword = "";
 
         private string lastBrowserExamKey = "";
@@ -79,7 +81,12 @@ namespace SebWindowsConfig
                 // If this didn't work, then there are no local client settings and we set the current settings title to "Default Settings"
                 currentPathSebConfigFile = SEBUIStrings.settingsTitleDefaultSettings;
                 UpdateAllWidgetsOfProgram();
-            };
+            }
+
+            // Update Browser Exam Key
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
 
         } // end of contructor   SebWindowsConfigForm()
 
@@ -815,9 +822,28 @@ namespace SebWindowsConfig
             settingsPassword = textBoxSettingsPassword.Text;
         }
 
+        // Check if settings changed since last saved/opened
+        private int checkSettingsChanged()
+        {
+            int result = 0;
+            // Generate current Browser Exam Key
+            string currentBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            if (!lastBrowserExamKey.Equals(currentBrowserExamKey))
+            {
+                result = SEBErrorMessages.OutputErrorMessageIntResult(SEBUIStrings.unsavedChangesTitle, SEBUIStrings.unsavedChangesQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNoCancel);
+            }
+            return result;
+        }
 
         private void buttonOpenSettings_Click(object sender, EventArgs e)
         {
+            // Check if settings changed since last saved/opened
+            int result = checkSettingsChanged();
+            // User selected cancel, abort
+            if (result == 2) return;
+            // User selected yes: Save current settings first
+            if (result == 1) buttonSaveSettings_Click(null, null);
+
             // Set the default directory and file name in the File Dialog
             openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
             openFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
@@ -896,6 +922,13 @@ namespace SebWindowsConfig
 
         private void buttonRevertToDefaultSettings_Click(object sender, EventArgs e)
         {
+            // Check if settings changed since last saved/opened
+            int result = checkSettingsChanged();
+            // User selected cancel, abort
+            if (result == 2) return;
+            // User selected yes: Save current settings first
+            if (result == 1) buttonSaveSettings_Click(null, null);
+
             settingsPassword                  = "";
             settingsPasswordFieldsContainHash = false;
             SEBSettings.RestoreDefaultAndCurrentSettings();
@@ -910,6 +943,13 @@ namespace SebWindowsConfig
 
         private void buttonRevertToLocalClientSettings_Click(object sender, EventArgs e)
         {
+            // Check if settings changed since last saved/opened
+            int result = checkSettingsChanged();
+            // User selected cancel, abort
+            if (result == 2) return;
+            // User selected yes: Save current settings first
+            if (result == 1) buttonSaveSettings_Click(null, null);
+
             // Get the path to the local client settings configuration file
             currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
             currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
@@ -934,6 +974,13 @@ namespace SebWindowsConfig
 
         private void buttonRevertToLastOpened_Click(object sender, EventArgs e)
         {
+            // Check if settings changed since last saved/opened
+            int result = checkSettingsChanged();
+            // User selected cancel, abort
+            if (result == 2) return;
+            // User selected yes: Save current settings first
+            if (result == 1) buttonSaveSettings_Click(null, null);
+
             if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile)) return;
             // Generate Browser Exam Key of this new settings
             lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
@@ -944,6 +991,13 @@ namespace SebWindowsConfig
 
         private void buttonEditDuplicate_Click(object sender, EventArgs e)
         {
+            // Check if settings changed since last saved/opened
+            int result = checkSettingsChanged();
+            // User selected cancel, abort
+            if (result == 2) return;
+            // User selected yes: Save current settings first
+            if (result == 1) buttonSaveSettings_Click(null, null);
+
             // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n") to the config name filename
             // Get the filename without extension
             string filename = Path.GetFileNameWithoutExtension(currentFileSebConfigFile);
@@ -1009,7 +1063,13 @@ namespace SebWindowsConfig
 
         private void buttonApplyAndStartSEB_Click(object sender, EventArgs e)
         {
-            buttonSaveSettings_Click(null, null);
+            // Check if settings changed and save them if yes
+            // Generate current Browser Exam Key
+            string currentBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            if (!lastBrowserExamKey.Equals(currentBrowserExamKey))
+            {
+                buttonSaveSettings_Click(null, null);
+            }
 
             // Get the path to the local client settings configuration file
             currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
@@ -3037,6 +3097,25 @@ namespace SebWindowsConfig
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void SebWindowsConfigForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!quittingMyself)
+            {
+                int result = checkSettingsChanged();
+                // User selected cancel, abort
+                if (result == 2)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                // User selected yes: Save current settings first
+                if (result == 1) buttonSaveSettings_Click(null, null);
+
+                quittingMyself = true;
+                Application.Exit();
+            }
         }
 
     } // end of   class     SebWindowsConfigForm
