@@ -53,7 +53,7 @@ namespace SebWindowsClient.UI
         {
             try
             {
-                if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
                 {
                     string progFiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
                     SEBWindowHandler.AllowedExecutables.Add("tabtip.ex");

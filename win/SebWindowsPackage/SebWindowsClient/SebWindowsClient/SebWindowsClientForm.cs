@@ -389,7 +389,7 @@ namespace SebWindowsClient
                 xulRunner.Exited += xulRunner_Exited;
 
                 //Maximize the Windows of the XulRunner if touch mode is enabled
-                //if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+                //if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
                 //{
                 //    while (!xulRunner.GetOpenWindows().Any())
                 //    {
@@ -734,7 +734,7 @@ namespace SebWindowsClient
             
 
             //Add the OnScreenKeyboardControl (only if not in Create New Desktop Mode)
-            if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1 && !(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+            if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true && !(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
                 taskbarToolStrip.Items.Add(new SEBOnScreenKeyboardToolStripButton());
 
             //Add the RestartExamButton if configured
@@ -1131,7 +1131,7 @@ namespace SebWindowsClient
             }
             var scaleFactor = dpiX / 96;
 
-            if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+            if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
             {
                 taskbarHeight = (int)(68 * scaleFactor);
                 this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight -8);

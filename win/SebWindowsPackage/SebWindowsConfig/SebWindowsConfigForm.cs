@@ -294,7 +294,7 @@ namespace SebWindowsConfig
             }
 
             // Group "Appearance"
-            if ((int)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 1)
+            if ((Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == true)
             {
                 radioButtonTouchOptimized.Checked = true;
             }
@@ -1119,8 +1119,8 @@ namespace SebWindowsConfig
             {
                 groupBoxMainBrowserWindow.Enabled = true;
                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 0;
-                SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] = 0;
-                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserScreenKeyboard] = 0;
+                SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] = false;
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserScreenKeyboard] = false;
             }
         }
 
@@ -1130,8 +1130,8 @@ namespace SebWindowsConfig
             {
                 groupBoxMainBrowserWindow.Enabled = false;
                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 1;
-                SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] = 0;
-                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserScreenKeyboard] = 0;
+                SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] = false;
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserScreenKeyboard] = false;
             }
         }
 
@@ -1149,8 +1149,8 @@ namespace SebWindowsConfig
                 SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkWidth] = "100%";
                 SEBSettings.settingsCurrent[SEBSettings.KeyNewBrowserWindowByLinkHeight] = "100%";
                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 1;
-                SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] = 1;
-                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserScreenKeyboard] = 1;
+                SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] = true;
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserScreenKeyboard] = true;
             }
         }
 
@@ -2738,7 +2738,7 @@ namespace SebWindowsConfig
         private void radioCreateNewDesktop_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop] = radioCreateNewDesktop.Checked;
-            if (radioCreateNewDesktop.Checked && (int)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == 1)
+            if (radioCreateNewDesktop.Checked && (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyTouchOptimized] == true)
             {
                 MessageBox.Show(
                     "Touch optimization will not work when kiosk mode is set to Create New Desktop, please change the appearance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

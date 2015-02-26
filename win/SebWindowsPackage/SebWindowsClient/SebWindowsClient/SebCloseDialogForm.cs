@@ -18,7 +18,7 @@ namespace SebWindowsClient
         public SebCloseDialogForm()
         {
             InitializeComponent();
-            if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+            if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
             {
                 this.Font = new Font(FontFamily.GenericSansSerif, 12);
                 this.lblQuitPassword.Left = (Screen.PrimaryScreen.Bounds.Width/2) - (this.lblQuitPassword.Width/2);

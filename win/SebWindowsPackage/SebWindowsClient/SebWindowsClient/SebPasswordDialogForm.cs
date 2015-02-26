@@ -59,7 +59,7 @@ namespace SebWindowsClient
             InitializeComponent();
             try
             {
-                if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
                 {
                     this.Font = new Font(FontFamily.GenericSansSerif, 12);
                     IntPtr hwnd = this.Handle;
@@ -115,7 +115,7 @@ namespace SebWindowsClient
                 this.lblSEBPassword.Text = value;
                 try
                 {
-                    if ((int)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == 1)
+                    if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
                     {
                         this.lblSEBPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.lblSEBPassword.Width / 2);
                     }

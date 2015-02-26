@@ -1,25 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.CryptographyUtils;
-using SebWindowsClient.DiagnosticsUtils;
-using PlistCS;
-using SebWindowsClient.XULRunnerCommunication;
-using ListObj  = System.Collections.Generic.List                <object>;
-using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
-using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
-
-
-//
+﻿//
 //  SEBSettings.cs
 //  SafeExamBrowser
 //
-//  Copyright (c) 2010-2014 Viktor Tomas, Dirk Bauer, Daniel R. Schneider, Pascal Wyss,
+//  Copyright (c) 2010-2015 Viktor Tomas, Dirk Bauer, Daniel R. Schneider, Pascal Wyss,
 //  ETH Zurich, Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -49,6 +32,22 @@ using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
 //
 //  Contributor(s): ______________________________________.
 //
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.DiagnosticsUtils;
+using PlistCS;
+using SebWindowsClient.XULRunnerCommunication;
+using ListObj  = System.Collections.Generic.List                <object>;
+using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
+using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
 
 namespace SebWindowsClient.ConfigurationUtils
 {
@@ -502,14 +501,14 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowMenuBar                 , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowTaskBar                 , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyTaskBarHeight               , 40);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyTouchOptimized              , 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyTouchOptimized              , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomText              , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomPage              , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyZoomMode                    , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowSpellCheck             , false);
 
             //Touch Settings
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserScreenKeyboard               , 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserScreenKeyboard       , false);
 
             // MainBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValMainBrowserWindowWidth ] = 2;
@@ -966,8 +965,22 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Add potentially missing keys to current Main Dictionary
             foreach (KeyValue p in SEBSettings.settingsDefault)
-                               if (SEBSettings.settingsCurrent.ContainsKey(p.Key) == false)
-                                   SEBSettings.settingsCurrent.Add        (p.Key, p.Value);
+                if (SEBSettings.settingsCurrent.ContainsKey(p.Key) == false)
+                {
+                    // Key is missing: Add the default value
+                    SEBSettings.settingsCurrent.Add(p.Key, p.Value);
+                }
+                else
+                {
+                    // Key exists in new settings: Check if it has the correct object type
+                    object value = SEBSettings.settingsCurrent[p.Key];
+                    object defaultValueObject = p.Value;
+                    if (!value.GetType().Equals(defaultValueObject.GetType()))
+                    {
+                        // The object type is not correct: Replace the object with the default value object
+                        SEBSettings.settingsCurrent[p.Key] = defaultValueObject;
+                    }
+                }
 
             // Get the Permitted Process List
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyPermittedProcesses];
