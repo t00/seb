@@ -2953,9 +2953,9 @@
             this.checkBoxBlockPopUpWindows.Location = new System.Drawing.Point(242, 300);
             this.checkBoxBlockPopUpWindows.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxBlockPopUpWindows.Name = "checkBoxBlockPopUpWindows";
-            this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(163, 17);
+            this.checkBoxBlockPopUpWindows.Size = new System.Drawing.Size(133, 17);
             this.checkBoxBlockPopUpWindows.TabIndex = 7;
-            this.checkBoxBlockPopUpWindows.Text = "Block pop-up windows (Mac)";
+            this.checkBoxBlockPopUpWindows.Text = "Block pop-up windows";
             this.toolTip1.SetToolTip(this.checkBoxBlockPopUpWindows, "Disables pop-up windows (often advertisement) opened by JavaScript without an use" +
         "r action such as a button click.");
             this.checkBoxBlockPopUpWindows.UseVisualStyleBackColor = true;
@@ -2982,9 +2982,9 @@
             this.checkBoxEnableJavaScript.Location = new System.Drawing.Point(242, 280);
             this.checkBoxEnableJavaScript.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnableJavaScript.Name = "checkBoxEnableJavaScript";
-            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxEnableJavaScript.Size = new System.Drawing.Size(112, 17);
             this.checkBoxEnableJavaScript.TabIndex = 5;
-            this.checkBoxEnableJavaScript.Text = "Enable JavaScript (Mac)";
+            this.checkBoxEnableJavaScript.Text = "Enable JavaScript";
             this.toolTip1.SetToolTip(this.checkBoxEnableJavaScript, "Enables JavaScript. Please note that most modern websites need JavaScript for ful" +
         "l functionality.");
             this.checkBoxEnableJavaScript.UseVisualStyleBackColor = true;
@@ -3011,9 +3011,9 @@
             this.checkBoxEnablePlugIns.Location = new System.Drawing.Point(23, 280);
             this.checkBoxEnablePlugIns.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePlugIns.Name = "checkBoxEnablePlugIns";
-            this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(128, 17);
+            this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(157, 17);
             this.checkBoxEnablePlugIns.TabIndex = 4;
-            this.checkBoxEnablePlugIns.Text = "Enable plug-ins (Mac)";
+            this.checkBoxEnablePlugIns.Text = "Enable plug-ins (Win: Flash)";
             this.toolTip1.SetToolTip(this.checkBoxEnablePlugIns, "Enables web plugins like Flash. For security reasons it\'s recommended to disable " +
         "this option if you don\'t use any plugin content.");
             this.checkBoxEnablePlugIns.UseVisualStyleBackColor = true;

@@ -967,7 +967,7 @@ namespace SebWindowsConfig
             if (result == 1) buttonSaveSettings_Click(null, null);
 
             // Get the path to the local client settings configuration file
-            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
+            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
             currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
             currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
@@ -1055,7 +1055,7 @@ namespace SebWindowsConfig
         private void buttonConfigureClient_Click(object sender, EventArgs e)
         {
             // Get the path to the local client settings configuration file
-            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
+            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
             currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
             string filename = sebClientSettingsAppDataBuilder.ToString();
@@ -1088,7 +1088,7 @@ namespace SebWindowsConfig
             }
 
             // Get the path to the local client settings configuration file
-            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsLocalAppDirectory;
+            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
             currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
             string localSebClientSettings = sebClientSettingsAppDataBuilder.ToString();
@@ -3038,20 +3038,26 @@ namespace SebWindowsConfig
             if (!checkBoxEnableZoomPage.Checked && !checkBoxEnableZoomText.Checked)
             {
                 groupBoxZoomMode.Enabled = false;
-            }
-            if (checkBoxEnableZoomPage.Checked && !checkBoxEnableZoomText.Checked)
+            } 
+            else if (checkBoxEnableZoomPage.Checked && !checkBoxEnableZoomText.Checked)
             {
+                groupBoxZoomMode.Enabled = true;
                 radioButtonUseZoomPage.Checked = true;
-                groupBoxZoomMode.Enabled = false;
+                radioButtonUseZoomPage.Enabled = true;
+                radioButtonUseZoomText.Enabled = false;
             }
             else if (!checkBoxEnableZoomPage.Checked && checkBoxEnableZoomText.Checked)
             {
+                groupBoxZoomMode.Enabled = true;
                 radioButtonUseZoomText.Checked = true;
-                groupBoxZoomMode.Enabled = false;
+                radioButtonUseZoomText.Enabled = true;
+                radioButtonUseZoomPage.Enabled = false;
             }
             else
             {
                 groupBoxZoomMode.Enabled = true;
+                radioButtonUseZoomPage.Enabled = true;
+                radioButtonUseZoomText.Enabled = true;
             }
         }
 

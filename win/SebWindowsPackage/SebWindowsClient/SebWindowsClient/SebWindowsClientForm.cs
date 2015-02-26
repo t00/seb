@@ -354,7 +354,7 @@ namespace SebWindowsClient
                 // Check if there is a user defined -profile parameter, otherwise use the standard one 
                 if (!(userDefinedArguments.ToLower()).Contains("-profile"))
                 {
-                    xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsLocalAppDirectory).Append("Profiles\"");
+                    xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsAppDataDirectory).Append("Profiles\"");
                 }
                 // If logging is enabled in settings and there is no custom xulrunner -logfile argument 
                 if (!userDefinedArguments.ToLower().Contains("-logfile") && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyEnableLogging))
@@ -362,8 +362,8 @@ namespace SebWindowsClient
                     string logDirectory = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyLogDirectoryWin);
                     if (String.IsNullOrEmpty(logDirectory))
                     {
-                        // When there is no directory indicated, we use the placeholder for telling xulrunner to use the xulrunner profile directory to store the log
-                        xulRunnerArgumentsBuilder.Append(" -logfile 1");
+                        // When there is no directory indicated, we use the placeholder for telling xulrunner to use the AppData directory to store the log
+                        xulRunnerArgumentsBuilder.Append(" -logfile \"").Append(SEBClientInfo.SebClientSettingsAppDataDirectory).Append("\\seb.log\"");
                     }
                     else
                     {

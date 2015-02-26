@@ -168,7 +168,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string SebClientDirectory             { get; set; }
         public static string SebClientLogFile               { get; set; }
         public static string SebClientSettingsProgramDataDirectory { get; set; }
-        public static string SebClientSettingsLocalAppDirectory   { get; set; }
+        public static string SebClientSettingsAppDataDirectory   { get; set; }
         public static string XulRunnerDirectory { get; set; }
         public static string XulSebDirectory    { get; set; }
         public static string SebClientSettingsProgramDataFile;
@@ -324,7 +324,7 @@ namespace SebWindowsClient.ConfigurationUtils
                           .Append(" Send Interval: "               ).Append(SendInterval)
                           .Append(" Recv Timeout: "                ).Append(RecvTimeout)
                           .Append(" Num Messages: "                ).Append(NumMessages)
-                          .Append(" SebClientConfigFileDirectory: ").Append(SebClientSettingsLocalAppDirectory)
+                          .Append(" SebClientConfigFileDirectory: ").Append(SebClientSettingsAppDataDirectory)
                           .Append(" SebClientConfigFile: "         ).Append(SebClientSettingsAppDataFile);
             Logger.AddInformation(userInfo.ToString(), null, null);
 
@@ -381,7 +381,7 @@ namespace SebWindowsClient.ConfigurationUtils
             // In the local application data directory (for unmanaged systems like student computers, user can write in this directory):
             // A SebClientSettigs.seb file in this directory can be created or replaced by opening a .seb file saved for configuring a client
             StringBuilder sebClientSettingsAppDataDirectoryBuilder = new StringBuilder(appDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
-            SebClientSettingsLocalAppDirectory = sebClientSettingsAppDataDirectoryBuilder.ToString();
+            SebClientSettingsAppDataDirectory = sebClientSettingsAppDataDirectoryBuilder.ToString();
 
             // Set the location of the SebWindowsClientDirectory
             StringBuilder sebClientDirectoryBuilder = new StringBuilder(ProgramFilesX86Directory).Append("\\").Append(PRODUCT_NAME).Append("\\");
@@ -413,7 +413,7 @@ namespace SebWindowsClient.ConfigurationUtils
             StringBuilder sebClientSettingsProgramDataBuilder = new StringBuilder(SebClientSettingsProgramDataDirectory).Append(SEB_CLIENT_CONFIG);
             SebClientSettingsProgramDataFile = sebClientSettingsProgramDataBuilder.ToString();
 
-            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(SebClientSettingsLocalAppDirectory).Append(SEB_CLIENT_CONFIG);
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(SebClientSettingsAppDataDirectory).Append(SEB_CLIENT_CONFIG);
             SebClientSettingsAppDataFile = sebClientSettingsAppDataBuilder.ToString();
 
             // Set the default location of the SebClientLogFileDirectory
@@ -425,7 +425,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// </summary>
         public static void SetDefaultClientLogFile()
         {
-            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(SebClientSettingsLocalAppDirectory); //.Append("\\").Append(MANUFACTURER_LOCAL).Append("\\");
+            StringBuilder SebClientLogFileDirectoryBuilder = new StringBuilder(SebClientSettingsAppDataDirectory); //.Append("\\").Append(MANUFACTURER_LOCAL).Append("\\");
             SebClientLogFileDirectory = SebClientLogFileDirectoryBuilder.ToString();
 
             // Set the path of the SebClient.log file
