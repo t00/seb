@@ -3000,7 +3000,8 @@
             this.checkBoxEnableJava.Size = new System.Drawing.Size(85, 17);
             this.checkBoxEnableJava.TabIndex = 6;
             this.checkBoxEnableJava.Text = "Enable Java";
-            this.toolTip1.SetToolTip(this.checkBoxEnableJava, "Enables Java applets.");
+            this.toolTip1.SetToolTip(this.checkBoxEnableJava, "Enables Java applets. Note: Only applets with the highest Java security level wil" +
+        "l run in SEB.");
             this.checkBoxEnableJava.UseVisualStyleBackColor = true;
             this.checkBoxEnableJava.CheckedChanged += new System.EventHandler(this.checkBoxEnableJava_CheckedChanged);
             // 
@@ -3014,8 +3015,8 @@
             this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(179, 17);
             this.checkBoxEnablePlugIns.TabIndex = 4;
             this.checkBoxEnablePlugIns.Text = "Enable plug-ins (Win: only Flash)";
-            this.toolTip1.SetToolTip(this.checkBoxEnablePlugIns, "Enables web plugins like Flash. For security reasons it\'s recommended to disable " +
-        "this option if you don\'t use any plugin content.");
+            this.toolTip1.SetToolTip(this.checkBoxEnablePlugIns, "Enables web plugins (Mac) or just Flash (Win). For security reasons it\'s recommen" +
+        "ded to disable this option if you don\'t use any plugin/Flash content.");
             this.checkBoxEnablePlugIns.UseVisualStyleBackColor = true;
             this.checkBoxEnablePlugIns.CheckedChanged += new System.EventHandler(this.checkBoxEnablePlugins_CheckedChanged);
             // 
