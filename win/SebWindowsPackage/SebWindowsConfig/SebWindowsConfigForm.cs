@@ -2690,6 +2690,7 @@ namespace SebWindowsConfig
             SEBSettings.proxiesData[SEBSettings.KeyAutoConfigurationURL] = textBoxAutoProxyConfigurationURL.Text;
         }
 
+
         private void buttonChooseProxyConfigurationFile_Click(object sender, EventArgs e)
         {
 
@@ -2750,7 +2751,7 @@ namespace SebWindowsConfig
         }
 
 
-        private void textBoxBypassedProxyHostList_Validated(object sender, EventArgs e)
+        private void textBoxBypassedProxyHostList_TextChanged(object sender, EventArgs e)
         {
             // Get the proxies data
             SEBSettings.proxiesData = (DictObj)SEBSettings.settingsCurrent[SEBSettings.KeyProxies];
@@ -2765,7 +2766,7 @@ namespace SebWindowsConfig
             }
             SEBSettings.proxiesData[SEBSettings.KeyExceptionsList] = bypassedProxyTrimmedHostList;
         }
-        
+
 
         // ****************
         // Group "Security"
@@ -3208,6 +3209,7 @@ namespace SebWindowsConfig
             else
                 e.Effect = DragDropEffects.None;
         }
+
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

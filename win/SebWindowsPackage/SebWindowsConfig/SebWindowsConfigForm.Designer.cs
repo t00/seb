@@ -1312,7 +1312,7 @@
             this.textBoxBypassedProxyHostList.Name = "textBoxBypassedProxyHostList";
             this.textBoxBypassedProxyHostList.Size = new System.Drawing.Size(656, 99);
             this.textBoxBypassedProxyHostList.TabIndex = 112;
-            this.textBoxBypassedProxyHostList.Validated += new System.EventHandler(this.textBoxBypassedProxyHostList_Validated);
+            this.textBoxBypassedProxyHostList.TextChanged += new System.EventHandler(this.textBoxBypassedProxyHostList_TextChanged);
             // 
             // textBoxIfYourNetworkAdministrator
             // 
@@ -4226,7 +4226,7 @@
             // saveSettingsAsToolStripMenuItem
             // 
             this.saveSettingsAsToolStripMenuItem.Name = "saveSettingsAsToolStripMenuItem";
-            this.saveSettingsAsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.saveSettingsAsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.saveSettingsAsToolStripMenuItem.Text = "Save Settings As...";
             this.saveSettingsAsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsAsToolStripMenuItem_Click);
             // 
@@ -4234,7 +4234,7 @@
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeyDisplayString = "Alt+F4";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -4282,14 +4282,14 @@
             // editDuplicateToolStripMenuItem
             // 
             this.editDuplicateToolStripMenuItem.Name = "editDuplicateToolStripMenuItem";
-            this.editDuplicateToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.editDuplicateToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.editDuplicateToolStripMenuItem.Text = "Edit Duplicate";
             this.editDuplicateToolStripMenuItem.Click += new System.EventHandler(this.editDuplicateToolStripMenuItem_Click);
             // 
             // configureClientToolStripMenuItem
             // 
             this.configureClientToolStripMenuItem.Name = "configureClientToolStripMenuItem";
-            this.configureClientToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.configureClientToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.configureClientToolStripMenuItem.Text = "Configure Client";
             this.configureClientToolStripMenuItem.Click += new System.EventHandler(this.configureClientToolStripMenuItem_Click);
             // 
