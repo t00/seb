@@ -1124,6 +1124,9 @@
   <data name="checkBoxAllowBrowsingBackForward.ToolTip" xml:space="preserve">
     <value>Corresponds with 'Enable Alt-Mousewheel' in Hooked Keys settings. Disabling browsing to previously visited pages increases security, because it might be possible to leave an exam by browsing back to an external start page.</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="folderBrowserDialogLogDirectoryWin.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>968, 17</value>
   </metadata>

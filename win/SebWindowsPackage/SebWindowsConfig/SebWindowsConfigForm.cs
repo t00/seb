@@ -846,24 +846,47 @@ namespace SebWindowsConfig
             // User selected cancel, abort
             if (result == 2) return;
             // User selected yes: Save current settings first
-            if (result == 1) buttonSaveSettings_Click(null, null);
-
-            // Set the default directory and file name in the File Dialog
-            openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
-            openFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
-            openFileDialogSebConfigFile.DefaultExt = "seb";
-            openFileDialogSebConfigFile.Filter = "SEB Files|*.seb";
-
-            // Get the user inputs in the File Dialog
-            DialogResult fileDialogResult = openFileDialogSebConfigFile.ShowDialog();
-            String fileName = openFileDialogSebConfigFile.FileName;
-
-            // If the user clicked "Cancel", do nothing
-            // If the user clicked "OK"    , read the settings from the configuration file
-            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-            if (fileDialogResult.Equals(DialogResult.OK))
+            if (result == 0 || saveCurrentSettings())
             {
-                if (!LoadConfigurationFileIntoEditor(fileName))
+                // Set the default directory and file name in the File Dialog
+                openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
+                openFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
+                openFileDialogSebConfigFile.DefaultExt = "seb";
+                openFileDialogSebConfigFile.Filter = "SEB Files|*.seb";
+
+                // Get the user inputs in the File Dialog
+                DialogResult fileDialogResult = openFileDialogSebConfigFile.ShowDialog();
+                String fileName = openFileDialogSebConfigFile.FileName;
+
+                // If the user clicked "Cancel", do nothing
+                // If the user clicked "OK"    , read the settings from the configuration file
+                if (fileDialogResult.Equals(DialogResult.Cancel)) return;
+                if (fileDialogResult.Equals(DialogResult.OK))
+                {
+                    if (!LoadConfigurationFileIntoEditor(fileName))
+                    {
+                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.openingSettingsFailed, SEBUIStrings.openingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        return;
+                    }
+                    // Generate Browser Exam Key of this new settings
+                    lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                    // Display the new Browser Exam Key in Exam pane
+                    textBoxBrowserExamKey.Text = lastBrowserExamKey;
+                }
+            }
+        }
+
+
+        public void openSettingsFile(string filePath)
+        {
+            // Check if settings changed since last saved/opened
+            int result = checkSettingsChanged();
+            // User selected cancel, abort
+            if (result == 2) return;
+            // User selected yes: Save current settings first
+            if (result == 0 || saveCurrentSettings())
+            {
+                if (!LoadConfigurationFileIntoEditor(filePath))
                 {
                     SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.openingSettingsFailed, SEBUIStrings.openingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
                     return;
@@ -875,7 +898,13 @@ namespace SebWindowsConfig
             }
         }
 
+
         private void buttonSaveSettings_Click(object sender, EventArgs e)
+        {
+            saveCurrentSettings();
+        }
+
+        public bool saveCurrentSettings()
         {
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
             String fileName = sebClientSettingsAppDataBuilder.ToString();
@@ -896,7 +925,9 @@ namespace SebWindowsConfig
             if (!SaveConfigurationFileFromEditor(fileName))
             {
                 SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                return false;
             }
+            return true;
         }
 
 
@@ -943,17 +974,18 @@ namespace SebWindowsConfig
             // User selected cancel, abort
             if (result == 2) return;
             // User selected yes: Save current settings first
-            if (result == 1) buttonSaveSettings_Click(null, null);
-
-            settingsPassword                  = "";
-            settingsPasswordFieldsContainHash = false;
-            SEBSettings.RestoreDefaultAndCurrentSettings();
-            SEBSettings.PermitXulRunnerProcess();
-            UpdateAllWidgetsOfProgram();
-            // Generate Browser Exam Key of default settings
-            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            // Display the new Browser Exam Key in Exam pane
-            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            if (result == 0 || saveCurrentSettings())
+            {
+                settingsPassword = "";
+                settingsPasswordFieldsContainHash = false;
+                SEBSettings.RestoreDefaultAndCurrentSettings();
+                SEBSettings.PermitXulRunnerProcess();
+                UpdateAllWidgetsOfProgram();
+                // Generate Browser Exam Key of default settings
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            }
         }
 
 
@@ -964,27 +996,28 @@ namespace SebWindowsConfig
             // User selected cancel, abort
             if (result == 2) return;
             // User selected yes: Save current settings first
-            if (result == 1) buttonSaveSettings_Click(null, null);
-
-            // Get the path to the local client settings configuration file
-            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
-            currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
-            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
-            currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
-
-            if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile))
+            if (result == 0 || saveCurrentSettings())
             {
-                settingsPassword = "";
-                settingsPasswordFieldsContainHash = false;
-                SEBSettings.RestoreDefaultAndCurrentSettings();
-                SEBSettings.PermitXulRunnerProcess();
-                currentPathSebConfigFile = SEBUIStrings.settingsTitleDefaultSettings;
-                UpdateAllWidgetsOfProgram();
+                // Get the path to the local client settings configuration file
+                currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
+                currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
+                StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
+                currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
+
+                if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile))
+                {
+                    settingsPassword = "";
+                    settingsPasswordFieldsContainHash = false;
+                    SEBSettings.RestoreDefaultAndCurrentSettings();
+                    SEBSettings.PermitXulRunnerProcess();
+                    currentPathSebConfigFile = SEBUIStrings.settingsTitleDefaultSettings;
+                    UpdateAllWidgetsOfProgram();
+                }
+                // Generate Browser Exam Key of this new settings
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
-            // Generate Browser Exam Key of this new settings
-            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            // Display the new Browser Exam Key in Exam pane
-            textBoxBrowserExamKey.Text = lastBrowserExamKey;
         }
 
 
@@ -995,13 +1028,14 @@ namespace SebWindowsConfig
             // User selected cancel, abort
             if (result == 2) return;
             // User selected yes: Save current settings first
-            if (result == 1) buttonSaveSettings_Click(null, null);
-
-            if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile)) return;
-            // Generate Browser Exam Key of this new settings
-            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            // Display the new Browser Exam Key in Exam pane
-            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            if (result == 0 || saveCurrentSettings())
+            {
+                if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile)) return;
+                // Generate Browser Exam Key of this new settings
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            }
         }
 
 
@@ -1012,43 +1046,55 @@ namespace SebWindowsConfig
             // User selected cancel, abort
             if (result == 2) return;
             // User selected yes: Save current settings first
-            if (result == 1) buttonSaveSettings_Click(null, null);
-
-            // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n") to the config name filename
-            // Get the filename without extension
-            string filename = Path.GetFileNameWithoutExtension(currentFileSebConfigFile);
-            // Get the extension (should be .seb)
-            string extension = Path.GetExtension(currentFileSebConfigFile);
-            StringBuilder newFilename = new StringBuilder();
-            if (filename.Length == 0)
+            if (result == 0 || saveCurrentSettings())
             {
-                newFilename.Append(SEBUIStrings.settingsUntitledFilename);
-                extension = ".seb";
-            } else {
-                int copyStringPosition = filename.LastIndexOf(SEBUIStrings.settingsDuplicateSuffix);
-                if (copyStringPosition == -1) {
-                    newFilename.Append(filename).Append(SEBUIStrings.settingsDuplicateSuffix);
-                } else {
-                    newFilename.Append(filename.Substring(0, copyStringPosition+SEBUIStrings.settingsDuplicateSuffix.Length));
-                    string copyNumberString = filename.Substring(copyStringPosition+SEBUIStrings.settingsDuplicateSuffix.Length);
-                    if (copyNumberString.Length == 0) {
-                        newFilename.Append(" 1");
-                    } else {
-                        int copyNumber = Convert.ToInt16(copyNumberString.Substring(1));
-                        if (copyNumber == 0) {
-                            newFilename.Append(SEBUIStrings.settingsDuplicateSuffix);
-                        } else {
-                            newFilename.Append(" ").Append((copyNumber + 1).ToString());
+                // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n") to the config name filename
+                // Get the filename without extension
+                string filename = Path.GetFileNameWithoutExtension(currentFileSebConfigFile);
+                // Get the extension (should be .seb)
+                string extension = Path.GetExtension(currentFileSebConfigFile);
+                StringBuilder newFilename = new StringBuilder();
+                if (filename.Length == 0)
+                {
+                    newFilename.Append(SEBUIStrings.settingsUntitledFilename);
+                    extension = ".seb";
+                }
+                else
+                {
+                    int copyStringPosition = filename.LastIndexOf(SEBUIStrings.settingsDuplicateSuffix);
+                    if (copyStringPosition == -1)
+                    {
+                        newFilename.Append(filename).Append(SEBUIStrings.settingsDuplicateSuffix);
+                    }
+                    else
+                    {
+                        newFilename.Append(filename.Substring(0, copyStringPosition + SEBUIStrings.settingsDuplicateSuffix.Length));
+                        string copyNumberString = filename.Substring(copyStringPosition + SEBUIStrings.settingsDuplicateSuffix.Length);
+                        if (copyNumberString.Length == 0)
+                        {
+                            newFilename.Append(" 1");
+                        }
+                        else
+                        {
+                            int copyNumber = Convert.ToInt16(copyNumberString.Substring(1));
+                            if (copyNumber == 0)
+                            {
+                                newFilename.Append(SEBUIStrings.settingsDuplicateSuffix);
+                            }
+                            else
+                            {
+                                newFilename.Append(" ").Append((copyNumber + 1).ToString());
+                            }
                         }
                     }
                 }
-            }
-            currentFileSebConfigFile = newFilename.Append(extension).ToString();
+                currentFileSebConfigFile = newFilename.Append(extension).ToString();
 
-            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
-            currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
-            // Update title of edited settings file
-            UpdateAllWidgetsOfProgram();
+                StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
+                currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
+                // Update title of edited settings file
+                UpdateAllWidgetsOfProgram();
+            }
         }
 
 
@@ -1084,9 +1130,8 @@ namespace SebWindowsConfig
             string currentBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
             if (!lastBrowserExamKey.Equals(currentBrowserExamKey))
             {
-                buttonSaveSettings_Click(null, null);
+                if (!saveCurrentSettings()) return;
             }
-
             // Get the path to the local client settings configuration file
             currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
             currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
@@ -3133,11 +3178,35 @@ namespace SebWindowsConfig
                     return;
                 }
                 // User selected yes: Save current settings first
-                if (result == 1) buttonSaveSettings_Click(null, null);
-
-                quittingMyself = true;
-                Application.Exit();
+                if (result == 0 || saveCurrentSettings())
+                {
+                    quittingMyself = true;
+                    Application.Exit();
+                }
             }
+        }
+
+        private void SebWindowsConfigForm_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length > 0)
+            {
+                string filePath = files[0];
+                string fileExtension = Path.GetExtension(filePath);
+                if (String.Equals(fileExtension, ".seb",
+                   StringComparison.OrdinalIgnoreCase))
+                {
+                    openSettingsFile(filePath);
+                }
+            }
+        }
+
+        private void SebWindowsConfigForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) 
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
         }
 
     } // end of   class     SebWindowsConfigForm

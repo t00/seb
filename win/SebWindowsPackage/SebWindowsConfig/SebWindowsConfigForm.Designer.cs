@@ -3011,9 +3011,9 @@
             this.checkBoxEnablePlugIns.Location = new System.Drawing.Point(23, 280);
             this.checkBoxEnablePlugIns.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxEnablePlugIns.Name = "checkBoxEnablePlugIns";
-            this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(157, 17);
+            this.checkBoxEnablePlugIns.Size = new System.Drawing.Size(179, 17);
             this.checkBoxEnablePlugIns.TabIndex = 4;
-            this.checkBoxEnablePlugIns.Text = "Enable plug-ins (Win: Flash)";
+            this.checkBoxEnablePlugIns.Text = "Enable plug-ins (Win: only Flash)";
             this.toolTip1.SetToolTip(this.checkBoxEnablePlugIns, "Enables web plugins like Flash. For security reasons it\'s recommended to disable " +
         "this option if you don\'t use any plugin content.");
             this.checkBoxEnablePlugIns.UseVisualStyleBackColor = true;
@@ -4304,6 +4304,7 @@
             // 
             // SebWindowsConfigForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
@@ -4320,6 +4321,8 @@
             this.Text = "SEB Windows Configuration Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SebWindowsConfigForm_FormClosing);
             this.Load += new System.EventHandler(this.SebWindowsConfigForm_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.SebWindowsConfigForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.SebWindowsConfigForm_DragEnter);
             this.tabPageHookedKeys.ResumeLayout(false);
             this.tabPageHookedKeys.PerformLayout();
             this.groupBoxFunctionKeys.ResumeLayout(false);
