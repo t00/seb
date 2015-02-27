@@ -4208,14 +4208,18 @@
             // openSettingsToolStripMenuItem
             // 
             this.openSettingsToolStripMenuItem.Name = "openSettingsToolStripMenuItem";
-            this.openSettingsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.openSettingsToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
+            this.openSettingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openSettingsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.openSettingsToolStripMenuItem.Text = "Open Settings...";
             this.openSettingsToolStripMenuItem.Click += new System.EventHandler(this.openSettingsToolStripMenuItem_Click);
             // 
             // saveSettingsToolStripMenuItem
             // 
             this.saveSettingsToolStripMenuItem.Name = "saveSettingsToolStripMenuItem";
-            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.saveSettingsToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
+            this.saveSettingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveSettingsToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.saveSettingsToolStripMenuItem.Text = "Save Settings";
             this.saveSettingsToolStripMenuItem.Click += new System.EventHandler(this.saveSettingsToolStripMenuItem_Click);
             // 
@@ -4292,7 +4296,9 @@
             // applyAndStartSEBToolStripMenuItem
             // 
             this.applyAndStartSEBToolStripMenuItem.Name = "applyAndStartSEBToolStripMenuItem";
-            this.applyAndStartSEBToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.applyAndStartSEBToolStripMenuItem.ShortcutKeyDisplayString = "F5";
+            this.applyAndStartSEBToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.applyAndStartSEBToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.applyAndStartSEBToolStripMenuItem.Text = "Apply and Start SEB";
             this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
             // 
