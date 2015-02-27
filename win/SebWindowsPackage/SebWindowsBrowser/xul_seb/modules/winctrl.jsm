@@ -54,7 +54,7 @@ var winctrl = (function() {
 						"seb.messaging.url"			:	"browserMessagingUrl",
 						"seb.messaging.socket"			:	"browserMessagingSocket",
 						"seb.messaging.ping.time"		:	"browserMessagingPingTime",
-						"seb.screenkeyboard.controller"		:	browserScreenKeyboard,
+						"seb.screenkeyboard.controller"		:	"browserScreenKeyboard",
 						"seb.pattern.regex"		    	:	urlFilterRegex,
 						"seb.trusted.content"			:	urlFilterTrustedContent,
 						"seb.whitelist.pattern"			:	"whitelistURLFilter",
@@ -76,11 +76,12 @@ var winctrl = (function() {
             "seb.reload.warning"			:	"showReloadWarning",
             "browser.download.dir"			:	"downloadDirectoryWin",
             "browser.zoom.full"			:	browserZoomFull,
-            "browser.zoom.maxPercent"			:	browserZoomMaxPercent,
-            "browser.zoom.minPercent"			:	browserZoomMinPercent,
-            "browser.link.open_newwindow" : browserLinkOpenNewWindow,
-            "browser.link.open_newwindow.restriction" : browserLinkOpenNewWindowRestriction,
-            "security.enable_java" : "enableJava",
+            "zoom.maxPercent"			:	zoomMaxPercent,
+            "zoom.minPercent"			:	zoomMinPercent,
+            //"browser.link.open_newwindow" : browserLinkOpenNewWindow,
+            //"browser.link.open_newwindow.restriction" : browserLinkOpenNewWindowRestriction,
+            "plugin.state.flash" : pluginEnableFlash,
+            "plugin.state.java" : pluginEnableJava,
             "javascript.enabled" : "enableJavaScript",
             "dom.disable_open_during_load" : "blockPopUpWindows",
             "layout.spellcheckDefault" : spellcheckDefault
@@ -139,7 +140,7 @@ var winctrl = (function() {
 		ret['width'] = config["mainBrowserWindowWidth"];
 		ret['height'] = config["mainBrowserWindowHeight"];
 		ret['position'] = pos[config["mainBrowserWindowPositioning"]];
-		if (config["touchOptimized"] == 1) {
+		if (config["touchOptimized"]) {
 			ret['width'] = "100%";
 			ret['height'] = "100%";
 		}
@@ -152,7 +153,7 @@ var winctrl = (function() {
 		ret['width'] = config["newBrowserWindowByLinkWidth"];
 		ret['height'] = config["newBrowserWindowByLinkHeight"];
 		ret['position'] = pos[config["newBrowserWindowByLinkPositioning"]];
-		if (config["touchOptimized"] == 1) {
+		if (config["touchOptimized"]) {
 			ret['width'] = "100%";
 			ret['height'] = "100%";
 		}
@@ -169,12 +170,12 @@ var winctrl = (function() {
     return ret;
   }
 
-  function browserZoomMaxPercent() {
+  function zoomMaxPercent() {
     var ret = (config["enableZoomPage"] == false && config["enableZoomText"] == false) ? 100 : 300;
     return ret;
   }
 
-  function browserZoomMinPercent() {
+  function zoomMinPercent() {
     var ret = (config["enableZoomPage"] == false && config["enableZoomText"] == false) ? 100 : 30;
     return ret;
   }
@@ -184,18 +185,28 @@ var winctrl = (function() {
     return ret;
   }
 
+  function pluginEnableFlash() {
+    var ret = (config["enablePlugIns"] == true) ? 2 : 0;
+    return ret;
+  }
+
+  function pluginEnableJava() {
+    var ret = (config["enableJava"] == true) ? 2 : 0;
+    return ret;
+  }
+
   function browserLinkOpenNewWindow() {
     if (config["newBrowserWindowByLinkPolicy"] == 1) {
-      return 1
+      return 1;
     }
-    return 2
+    return 2;
   }
 
   function browserLinkOpenNewWindowRestriction() {
     if (config["newBrowserWindowByScriptPolicy"] == 1) {
-      return 0
+      return 0;
     }
-    return 2
+    return 2;
   }
 
   function urlFilterRegex() {
@@ -206,11 +217,6 @@ var winctrl = (function() {
   function urlFilterTrustedContent() {
   	var ret = (config["urlFilterTrustedContent"] == 0) ? true : false;
   	return ret;
-  }
-
-  function browserScreenKeyboard() {
-	  var ret = (config["browserScreenKeyboard"] == 1) ? true : false;
-	  return ret;
   }
 
 	function browserExamKey() {

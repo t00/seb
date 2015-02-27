@@ -14,11 +14,12 @@
 							"network.proxy.no_proxies_on" : "localhost,127.0.0.1",
 							"browser.download.dir" : "",
 							"browser.zoom.full" : true,
-							"browser.zoom.maxPercent" : 300,
-							"browser.zoom.minPercent" : 30,
-							"browser.link.open_newwindow" : 2,
-							"browser.link.open_newwindow.restriction" : 2,
-							"security.enable_java" : false,
+							"zoom.maxPercent" : 300,
+							"zoom.minPercent" : 30,
+							"plugin.state.flash" : 2,
+							"plugin.state.java" : 0,
+							"javascript.enabled" : true,
+							"dom.disable_open_during_load" : false,
 							"layout.spellcheckDefault" : 0
 						  },
 	"seb.url"				: "http://www.safeexambrowser.org",
@@ -89,6 +90,6 @@
 						  "socket" : "wss://localhost:8443/websocket"
 						  },
 	"seb.restart.url"	: "",
-	"seb.touch.optimized"	: 0,
+	"seb.touch.optimized"	: false,
 	"seb.embedded.certs"	: ""
 }
