@@ -184,7 +184,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
             if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableRightMouse)[SEBSettings.KeyEnableRightMouse])
             {
-                Console.WriteLine(String.Format("NCode: {0}, wp; {1} {2}",nCode,wp,(MouseMessages)wp));
+                //Console.WriteLine(String.Format("NCode: {0}, wp; {1} {2}",nCode,wp,(MouseMessages)wp));
                 if (nCode >= 0 && (MouseMessages.WM_RBUTTONDOWN == (MouseMessages)wp || MouseMessages.WM_RBUTTONUP == (MouseMessages)wp))
                     return true;
             }
@@ -232,6 +232,11 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnablePrintScreen)[SEBSettings.KeyEnablePrintScreen])
                 {
                     if (KeyInfo.key == Keys.PrintScreen)
+                        return true;
+                }
+                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableRightMouse)[SEBSettings.KeyEnableRightMouse])
+                {
+                    if (KeyInfo.key == Keys.Apps)
                         return true;
                 }
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
