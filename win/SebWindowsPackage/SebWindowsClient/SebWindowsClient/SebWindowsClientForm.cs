@@ -711,6 +711,9 @@ namespace SebWindowsClient
 
             //Filling System Icons
 
+            //Watch (Time)
+            taskbarToolStrip.Items.Add(new SEBWatchToolStripButton());
+
             //QuitButton
             if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
             {
