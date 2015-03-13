@@ -4119,12 +4119,12 @@
             // 
             this.labelConfirmQuitPassword.AutoSize = true;
             this.labelConfirmQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(58, 306);
+            this.labelConfirmQuitPassword.Location = new System.Drawing.Point(25, 309);
             this.labelConfirmQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelConfirmQuitPassword.Name = "labelConfirmQuitPassword";
-            this.labelConfirmQuitPassword.Size = new System.Drawing.Size(110, 13);
+            this.labelConfirmQuitPassword.Size = new System.Drawing.Size(144, 13);
             this.labelConfirmQuitPassword.TabIndex = 10;
-            this.labelConfirmQuitPassword.Text = "Confirm quit password";
+            this.labelConfirmQuitPassword.Text = "Confirm quit/restart password";
             // 
             // checkBoxAllowQuit
             // 
@@ -4144,7 +4144,7 @@
             // 
             this.labelQuitPassword.AutoSize = true;
             this.labelQuitPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuitPassword.Location = new System.Drawing.Point(60, 283);
+            this.labelQuitPassword.Location = new System.Drawing.Point(59, 287);
             this.labelQuitPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelQuitPassword.Name = "labelQuitPassword";
             this.labelQuitPassword.Size = new System.Drawing.Size(108, 13);

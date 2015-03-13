@@ -1773,7 +1773,19 @@ namespace SebWindowsConfig
 
         private void buttonChoosePermittedApplication_Click(object sender, EventArgs e)
         {
+            var fileDialog = new OpenFileDialog
+            {
+                Multiselect = false
+            };
+            var res = fileDialog.ShowDialog();
 
+            if (res == DialogResult.OK)
+            {
+                textBoxPermittedProcessPath.Text = Path.GetDirectoryName(fileDialog.FileName);
+                textBoxPermittedProcessExecutable.Text = Path.GetFileName(fileDialog.FileName);
+                textBoxPermittedProcessTitle.Text = Path.GetFileNameWithoutExtension(fileDialog.FileName);
+                //TODO (pwyss 2015/03/13): Keep a list with tools that need special configurations and fill them accordingly (WindowHandlingProcess for example)
+            }
         }
 
         private void buttonChoosePermittedProcess_Click(object sender, EventArgs e)
