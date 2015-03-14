@@ -1781,9 +1781,40 @@ namespace SebWindowsConfig
 
             if (res == DialogResult.OK)
             {
-                textBoxPermittedProcessPath.Text = Path.GetDirectoryName(fileDialog.FileName);
                 textBoxPermittedProcessExecutable.Text = Path.GetFileName(fileDialog.FileName);
                 textBoxPermittedProcessTitle.Text = Path.GetFileNameWithoutExtension(fileDialog.FileName);
+                
+                var filePath = Path.GetDirectoryName(fileDialog.FileName);
+                if (filePath == null)
+                {
+                    return;
+                }
+
+                //Check SebWindo2wsClientForm.GetApplicationPath() for how SEB searches the locations
+                //Check if Path to the executable is in Registry - SEB gets the path from there if it exists
+                using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.RegistryKey.OpenRemoteBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, ""))
+                {
+                    string subKeyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\" + Path.GetFileName(fileDialog.FileName);
+                    using (Microsoft.Win32.RegistryKey subkey = key.OpenSubKey(subKeyName))
+                    {
+                        if (subkey != null)
+                        {
+                            object path = subkey.GetValue("Path");
+                            if (path != null)
+                            {
+                                filePath = filePath.Replace(path.ToString(), "");
+                                filePath = filePath.Replace(path.ToString().TrimEnd('\\'), "");
+                            }
+                        }
+                    }
+                }
+
+                //Replace all the seach locations - SEB looks in all these directories
+                filePath = filePath
+                    .Replace(SEBClientInfo.ProgramFilesX86Directory + "\\", "")
+                    .Replace(Environment.SystemDirectory + "\\", "");
+
+                textBoxPermittedProcessPath.Text = filePath;
                 //TODO (pwyss 2015/03/13): Keep a list with tools that need special configurations and fill them accordingly (WindowHandlingProcess for example)
             }
         }
