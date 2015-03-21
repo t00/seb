@@ -1208,6 +1208,7 @@
             // 
             // comboBoxChooseIdentityToEmbed
             // 
+            this.comboBoxChooseIdentityToEmbed.Enabled = false;
             this.comboBoxChooseIdentityToEmbed.FormattingEnabled = true;
             this.comboBoxChooseIdentityToEmbed.Location = new System.Drawing.Point(19, 91);
             this.comboBoxChooseIdentityToEmbed.Margin = new System.Windows.Forms.Padding(2);
@@ -1218,6 +1219,7 @@
             // 
             // comboBoxChooseSSLClientCertificate
             // 
+            this.comboBoxChooseSSLClientCertificate.Enabled = false;
             this.comboBoxChooseSSLClientCertificate.FormattingEnabled = true;
             this.comboBoxChooseSSLClientCertificate.Location = new System.Drawing.Point(19, 41);
             this.comboBoxChooseSSLClientCertificate.Margin = new System.Windows.Forms.Padding(2);
@@ -1228,6 +1230,7 @@
             // 
             // buttonRemoveCertificate
             // 
+            this.buttonRemoveCertificate.Enabled = false;
             this.buttonRemoveCertificate.Location = new System.Drawing.Point(19, 292);
             this.buttonRemoveCertificate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRemoveCertificate.Name = "buttonRemoveCertificate";
