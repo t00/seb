@@ -508,8 +508,12 @@ namespace SebWindowsConfig
           //dataGridViewBypassedProxies     .AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             //Group "Network - URL Filter"
+            checkBoxEnableURLFilter.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterEnable];
             checkBoxUrlFilterRulesRegex.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyUrlFilterRulesAsRegex];
-            chkFilterEmbeddedContent.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyUrlFilterEnableContentFilter];
+            checkBoxEnableURLContentFilter.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterEnableContentFilter];
+            checkBoxEnableURLContentFilter.Enabled = checkBoxEnableURLFilter.Checked;
+            checkBoxUrlFilterRulesRegex.Enabled = checkBoxEnableURLFilter.Checked;
+
 
             // Group "Network - Certificates"
 
@@ -2474,9 +2478,17 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyUrlFilterBlacklist] = String.Join(";", list);
         }
 
-        private void chkFilterEmbeddedContent_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxEnableURLFilter_CheckedChanged(object sender, EventArgs e)
         {
-            SEBSettings.settingsCurrent[SEBSettings.KeyUrlFilterEnableContentFilter] = chkFilterEmbeddedContent.Checked;
+            SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterEnable] = checkBoxEnableURLFilter.Checked;
+            checkBoxEnableURLContentFilter.Enabled = checkBoxEnableURLFilter.Checked;
+            checkBoxUrlFilterRulesRegex.Enabled = checkBoxEnableURLFilter.Checked;
+
+        }
+
+        private void checkBoxEnableURLContentFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterEnableContentFilter] = checkBoxEnableURLContentFilter.Checked;
         }
 
         private void checkBoxUrlFilterRulesRegex_CheckedChanged(object sender, EventArgs e)

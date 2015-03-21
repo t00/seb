@@ -144,31 +144,33 @@ namespace SebWindowsClient.ConfigurationUtils
                 string browserExamKey = SEBProtectionController.ComputeBrowserExamKey();
                 xulRunnerSettings[SEBSettings.KeyBrowserExamKey] = browserExamKey;
             }
-            
-            //Adjust URL Filter settings
-            if (!String.IsNullOrWhiteSpace(xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString()))
+
+            // Check if URL filter is enabled and send according keys to XULRunner seb only if it is
+            if ((bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnable] == false)
             {
+                xulRunnerSettings[SEBSettings.KeyUrlFilterBlacklist] = "";
+                xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] = "";
+            }
+            else
+            {
+                // URL filter is enabled: Set trusted content flag to same value (what actually doesn't make sense, but it's implemented wrong in seb winctrl.jsm)
+                xulRunnerSettings[SEBSettings.KeyUrlFilterTrustedContent] = (bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnableContentFilter];
+
                 //add the starturl to the whitelist if not yet added
                 if (!xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString().Contains(xulRunnerSettings[SEBSettings.KeyStartURL].ToString()))
                     xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += String.Format(";{0}", xulRunnerSettings[SEBSettings.KeyStartURL]);
-                
+
                 //Add the socket address if content filter is enabled
-                if ((Boolean) xulRunnerSettings[SEBSettings.KeyUrlFilterEnableContentFilter])
+                if ((bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnableContentFilter] == true)
                 {
                     //Add the Socket address with http protocoll instead of ws protocoll for the injected iframe
-                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += String.Format(";http{0}", SEBXULRunnerWebSocketServer.ServerAddress.Substring(2));
+                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += String.Format(";http:\\/\\/{0}\\/", SEBXULRunnerWebSocketServer.ServerAddress.Substring(5));
                 }
-                
-               
             }
-            xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket] = SEBXULRunnerWebSocketServer.ServerAddress;
-            Logger.AddInformation("Socket: " + xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket].ToString(),null,null);
 
-            // Expand environment variables in paths which XULRunner seb is processing
-            string downloadDirectoryWin = (string)xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin];
-            downloadDirectoryWin = Environment.ExpandEnvironmentVariables(downloadDirectoryWin);
-            //downloadDirectoryWin = downloadDirectoryWin.Replace(@"\", @"\\");
-            xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin] = downloadDirectoryWin;
+            // Add websocket sever address to XULRunner seb settings
+            xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket] = SEBXULRunnerWebSocketServer.ServerAddress;
+            Logger.AddInformation("Socket: " + xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket].ToString(), null, null);
 
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();

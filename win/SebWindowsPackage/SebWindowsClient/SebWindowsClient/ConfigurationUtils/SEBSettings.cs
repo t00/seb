@@ -186,17 +186,15 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableURLFilter        = "enableURLFilter";
         public const String KeyEnableURLContentFilter = "enableURLContentFilter";
 
-        // Group "Network - Filter"
+        // New "Network" - Filter
+        public const String KeyURLFilterEnable = "URLFilterEnable";
+        public const String KeyURLFilterEnableContentFilter = "URLFilterEnableContentFilter";
         public const String KeyURLFilterRules = "URLFilterRules";
-        public const String KeyExpression     = "expression";
-        public const String KeyRuleActions    = "ruleActions";
-        public const String KeyRegex          = "regex";
-        public const String KeyAction         = "action";
 
-        //Group "Network" - URL Filter
-        public const String KeyUrlFilterWhitelist = "whitelistURLFilter";
+        //Group "Network" - URL Filter XULRunner keys
         public const String KeyUrlFilterBlacklist = "blacklistURLFilter";
-        public const String KeyUrlFilterEnableContentFilter = "urlFilterTrustedContent";
+        public const String KeyUrlFilterWhitelist = "whitelistURLFilter";
+        public const String KeyUrlFilterTrustedContent = "urlFilterTrustedContent";
         public const String KeyUrlFilterRulesAsRegex = "urlFilterRegex";
 
         // Group "Network - Certificates"
@@ -636,45 +634,50 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableURLContentFilter, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyURLFilterRules        , new ListObj());
 
-            // Create a default action
-            SEBSettings.urlFilterActionDataDefault.Clear();
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyActive    , true);
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyRegex     , false);
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyExpression, "*");
-            SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyAction    , 0);
+            //// Create a default action
+            //SEBSettings.urlFilterActionDataDefault.Clear();
+            //SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyActive    , true);
+            //SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyRegex     , false);
+            //SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyExpression, "*");
+            //SEBSettings.urlFilterActionDataDefault.Add(SEBSettings.KeyAction    , 0);
 
-            // Create a default action list with one entry (the default action)
-            SEBSettings.urlFilterActionListDefault.Clear();
-            SEBSettings.urlFilterActionListDefault.Add(SEBSettings.urlFilterActionDataDefault);
+            //// Create a default action list with one entry (the default action)
+            //SEBSettings.urlFilterActionListDefault.Clear();
+            //SEBSettings.urlFilterActionListDefault.Add(SEBSettings.urlFilterActionDataDefault);
 
-            // Create a default rule with this default action list.
-            // This default rule is used for the "Insert Rule" operation:
-            // when a new rule is created, it initially contains one action.
-            SEBSettings.urlFilterRuleDataDefault.Clear();
-            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyActive     , true);
-            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyExpression , "Rule");
-            SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyRuleActions, SEBSettings.urlFilterActionListDefault);
+            //// Create a default rule with this default action list.
+            //// This default rule is used for the "Insert Rule" operation:
+            //// when a new rule is created, it initially contains one action.
+            //SEBSettings.urlFilterRuleDataDefault.Clear();
+            //SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyActive     , true);
+            //SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyExpression , "Rule");
+            //SEBSettings.urlFilterRuleDataDefault.Add(SEBSettings.KeyRuleActions, SEBSettings.urlFilterActionListDefault);
 
-            // Initialise the stored action
-            SEBSettings.urlFilterActionDataStorage.Clear();
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyActive    , true);
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyRegex     , false);
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyExpression, "*");
-            SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyAction    , 0);
+            //// Initialise the stored action
+            //SEBSettings.urlFilterActionDataStorage.Clear();
+            //SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyActive    , true);
+            //SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyRegex     , false);
+            //SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyExpression, "*");
+            //SEBSettings.urlFilterActionDataStorage.Add(SEBSettings.KeyAction    , 0);
 
-            // Initialise the stored action list with no entry
-            SEBSettings.urlFilterActionListStorage.Clear();
+            //// Initialise the stored action list with no entry
+            //SEBSettings.urlFilterActionListStorage.Clear();
 
-            // Initialise the stored rule
-            SEBSettings.urlFilterRuleDataStorage.Clear();
-            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyActive     , true);
-            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyExpression , "Rule");
-            SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyRuleActions, SEBSettings.urlFilterActionListStorage);
+            //// Initialise the stored rule
+            //SEBSettings.urlFilterRuleDataStorage.Clear();
+            //SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyActive     , true);
+            //SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyExpression , "Rule");
+            //SEBSettings.urlFilterRuleDataStorage.Add(SEBSettings.KeyRuleActions, SEBSettings.urlFilterActionListStorage);
 
-            //Default settings for group "Network - URL Filter"
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyUrlFilterWhitelist, "");
+            // Default settings for group "Network - Filter"
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyURLFilterEnable, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyURLFilterEnableContentFilter, false);
+            //SEBSettings.settingsDefault.Add(SEBSettings.KeyURLFilterRules, new ListObj());
+
+            //Group "Network" - URL Filter XULRunner keys
             SEBSettings.settingsDefault.Add(SEBSettings.KeyUrlFilterBlacklist, "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyUrlFilterEnableContentFilter, false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyUrlFilterWhitelist, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyUrlFilterTrustedContent, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyUrlFilterRulesAsRegex, false);
 
             // Default settings for group "Network - Certificates"
@@ -1051,36 +1054,36 @@ namespace SebWindowsClient.ConfigurationUtils
 
 
 
-            // Get the URL Filter Rule List
-            SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterRules];
+            //// Get the URL Filter Rule List
+            //SEBSettings.urlFilterRuleList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyURLFilterRules];
 
-            // Traverse URL Filter Rules of currently opened file
-            for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
-            {
-                // Get the URL Filter Rule Data
-                SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
+            //// Traverse URL Filter Rules of currently opened file
+            //for (int listIndex = 0; listIndex < SEBSettings.urlFilterRuleList.Count; listIndex++)
+            //{
+            //    // Get the URL Filter Rule Data
+            //    SEBSettings.urlFilterRuleData = (DictObj)SEBSettings.urlFilterRuleList[listIndex];
 
-                // Add potentially missing keys to current Rule Dictionary
-                foreach (KeyValue p in SEBSettings.urlFilterRuleDataDefault)
-                                   if (SEBSettings.urlFilterRuleData.ContainsKey(p.Key) == false)
-                                       SEBSettings.urlFilterRuleData.Add        (p.Key, p.Value);
+            //    // Add potentially missing keys to current Rule Dictionary
+            //    foreach (KeyValue p in SEBSettings.urlFilterRuleDataDefault)
+            //                       if (SEBSettings.urlFilterRuleData.ContainsKey(p.Key) == false)
+            //                           SEBSettings.urlFilterRuleData.Add        (p.Key, p.Value);
 
-                // Get the URL Filter Action List
-                SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.KeyRuleActions];
+            //    // Get the URL Filter Action List
+            //    SEBSettings.urlFilterActionList = (ListObj)SEBSettings.urlFilterRuleData[SEBSettings.KeyRuleActions];
 
-                // Traverse Actions of current Rule
-                for (int sublistIndex = 0; sublistIndex < SEBSettings.urlFilterActionList.Count; sublistIndex++)
-                {
-                    // Get the URL Filter Action Data
-                    SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[sublistIndex];
+            //    // Traverse Actions of current Rule
+            //    for (int sublistIndex = 0; sublistIndex < SEBSettings.urlFilterActionList.Count; sublistIndex++)
+            //    {
+            //        // Get the URL Filter Action Data
+            //        SEBSettings.urlFilterActionData = (DictObj)SEBSettings.urlFilterActionList[sublistIndex];
 
-                    // Add potentially missing keys to current Action Dictionary
-                    foreach (KeyValue p in SEBSettings.urlFilterActionDataDefault)
-                                       if (SEBSettings.urlFilterActionData.ContainsKey(p.Key) == false)
-                                           SEBSettings.urlFilterActionData.Add        (p.Key, p.Value);
+            //        // Add potentially missing keys to current Action Dictionary
+            //        foreach (KeyValue p in SEBSettings.urlFilterActionDataDefault)
+            //                           if (SEBSettings.urlFilterActionData.ContainsKey(p.Key) == false)
+            //                               SEBSettings.urlFilterActionData.Add        (p.Key, p.Value);
 
-                } // next sublistIndex
-            } // next listIndex
+            //    } // next sublistIndex
+            //} // next listIndex
 
 
 
@@ -1195,40 +1198,40 @@ namespace SebWindowsClient.ConfigurationUtils
                 } // next listIndex
             }
 
-            // Get the URL Filter Rule List
-            ListObj urlFilterRuleList = (ListObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyURLFilterRules);
-            if (urlFilterRuleList != null)
-            {
-                // Traverse URL Filter Rules of currently opened file
-                for (int listIndex = 0; listIndex < urlFilterRuleList.Count; listIndex++)
-                {
-                    // Get the URL Filter Rule Data
-                    DictObj urlFilterRuleData = (DictObj)urlFilterRuleList[listIndex];
+            //// Get the URL Filter Rule List
+            //ListObj urlFilterRuleList = (ListObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyURLFilterRules);
+            //if (urlFilterRuleList != null)
+            //{
+            //    // Traverse URL Filter Rules of currently opened file
+            //    for (int listIndex = 0; listIndex < urlFilterRuleList.Count; listIndex++)
+            //    {
+            //        // Get the URL Filter Rule Data
+            //        DictObj urlFilterRuleData = (DictObj)urlFilterRuleList[listIndex];
 
-                    // Add potentially missing keys to current Rule Dictionary
-                    foreach (KeyValue p in urlFilterRuleDataDefault)
-                        if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
-                            urlFilterRuleData.Add(p.Key, p.Value);
+            //        // Add potentially missing keys to current Rule Dictionary
+            //        foreach (KeyValue p in urlFilterRuleDataDefault)
+            //            if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+            //                urlFilterRuleData.Add(p.Key, p.Value);
 
-                    // Get the URL Filter Action List
-                    ListObj urlFilterActionList = (ListObj)valueForDictionaryKey(urlFilterRuleData, SEBSettings.KeyRuleActions);
-                    if (urlFilterActionList != null)
-                    {
-                        // Traverse Actions of current Rule
-                        for (int sublistIndex = 0; sublistIndex < urlFilterActionList.Count; sublistIndex++)
-                        {
-                            // Get the URL Filter Action Data
-                            DictObj urlFilterActionData = (DictObj)urlFilterActionList[sublistIndex];
+            //        // Get the URL Filter Action List
+            //        ListObj urlFilterActionList = (ListObj)valueForDictionaryKey(urlFilterRuleData, SEBSettings.KeyRuleActions);
+            //        if (urlFilterActionList != null)
+            //        {
+            //            // Traverse Actions of current Rule
+            //            for (int sublistIndex = 0; sublistIndex < urlFilterActionList.Count; sublistIndex++)
+            //            {
+            //                // Get the URL Filter Action Data
+            //                DictObj urlFilterActionData = (DictObj)urlFilterActionList[sublistIndex];
 
-                            // Add potentially missing keys to current Action Dictionary
-                            foreach (KeyValue p in urlFilterActionDataDefault)
-                                if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
-                                    urlFilterActionData.Add(p.Key, p.Value);
+            //                // Add potentially missing keys to current Action Dictionary
+            //                foreach (KeyValue p in urlFilterActionDataDefault)
+            //                    if (!(p.Value is ListObj && ((ListObj)p.Value).Count == 0) && !(p.Value is DictObj && ((DictObj)p.Value).Count == 0))
+            //                        urlFilterActionData.Add(p.Key, p.Value);
 
-                        } // next sublistIndex
-                    }
-                } // next listIndex
-            }
+            //            } // next sublistIndex
+            //        }
+            //    } // next listIndex
+            //}
 
             // Get the Proxies Dictionary
             DictObj proxiesData = (DictObj)valueForDictionaryKey(cleanSettings, SEBSettings.KeyProxies);

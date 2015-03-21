@@ -134,7 +134,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnRemoveWhitelistFilter = new System.Windows.Forms.Button();
             this.btnAddWhitelistFilter = new System.Windows.Forms.Button();
-            this.chkFilterEmbeddedContent = new System.Windows.Forms.CheckBox();
+            this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
@@ -343,6 +343,7 @@
             this.editDuplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1573,10 +1574,11 @@
             // 
             // tabPageUrlFilter
             // 
+            this.tabPageUrlFilter.Controls.Add(this.checkBoxEnableURLFilter);
             this.tabPageUrlFilter.Controls.Add(this.checkBoxUrlFilterRulesRegex);
             this.tabPageUrlFilter.Controls.Add(this.groupBox2);
             this.tabPageUrlFilter.Controls.Add(this.groupBox1);
-            this.tabPageUrlFilter.Controls.Add(this.chkFilterEmbeddedContent);
+            this.tabPageUrlFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
             this.tabPageUrlFilter.Location = new System.Drawing.Point(4, 22);
             this.tabPageUrlFilter.Name = "tabPageUrlFilter";
             this.tabPageUrlFilter.Padding = new System.Windows.Forms.Padding(3);
@@ -1589,7 +1591,7 @@
             // 
             this.checkBoxUrlFilterRulesRegex.AutoSize = true;
             this.checkBoxUrlFilterRulesRegex.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxUrlFilterRulesRegex.Location = new System.Drawing.Point(180, 14);
+            this.checkBoxUrlFilterRulesRegex.Location = new System.Drawing.Point(316, 14);
             this.checkBoxUrlFilterRulesRegex.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxUrlFilterRulesRegex.Name = "checkBoxUrlFilterRulesRegex";
             this.checkBoxUrlFilterRulesRegex.Size = new System.Drawing.Size(105, 17);
@@ -1722,18 +1724,18 @@
             this.btnAddWhitelistFilter.UseVisualStyleBackColor = true;
             this.btnAddWhitelistFilter.Click += new System.EventHandler(this.btnAddWhitelistFilter_Click);
             // 
-            // chkFilterEmbeddedContent
+            // checkBoxEnableURLContentFilter
             // 
-            this.chkFilterEmbeddedContent.AutoSize = true;
-            this.chkFilterEmbeddedContent.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkFilterEmbeddedContent.Location = new System.Drawing.Point(14, 14);
-            this.chkFilterEmbeddedContent.Margin = new System.Windows.Forms.Padding(2);
-            this.chkFilterEmbeddedContent.Name = "chkFilterEmbeddedContent";
-            this.chkFilterEmbeddedContent.Size = new System.Drawing.Size(162, 17);
-            this.chkFilterEmbeddedContent.TabIndex = 2;
-            this.chkFilterEmbeddedContent.Text = "Filter also embedded content";
-            this.chkFilterEmbeddedContent.UseVisualStyleBackColor = true;
-            this.chkFilterEmbeddedContent.CheckedChanged += new System.EventHandler(this.chkFilterEmbeddedContent_CheckedChanged);
+            this.checkBoxEnableURLContentFilter.AutoSize = true;
+            this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(150, 14);
+            this.checkBoxEnableURLContentFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
+            this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(162, 17);
+            this.checkBoxEnableURLContentFilter.TabIndex = 2;
+            this.checkBoxEnableURLContentFilter.Text = "Filter also embedded content";
+            this.checkBoxEnableURLContentFilter.UseVisualStyleBackColor = true;
+            this.checkBoxEnableURLContentFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLContentFilter_CheckedChanged);
             // 
             // tabPageApplications
             // 
@@ -4306,6 +4308,19 @@
             this.applyAndStartSEBToolStripMenuItem.Text = "Apply and Start SEB";
             this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
             // 
+            // checkBoxEnableURLFilter
+            // 
+            this.checkBoxEnableURLFilter.AutoSize = true;
+            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(20, 14);
+            this.checkBoxEnableURLFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
+            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxEnableURLFilter.TabIndex = 22;
+            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
+            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
+            this.checkBoxEnableURLFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLFilter_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AllowDrop = true;
@@ -4648,7 +4663,7 @@
         private System.Windows.Forms.DataGridView datagridWhitelist;
         private System.Windows.Forms.Button btnRemoveWhitelistFilter;
         private System.Windows.Forms.Button btnAddWhitelistFilter;
-        private System.Windows.Forms.CheckBox chkFilterEmbeddedContent;
+        private System.Windows.Forms.CheckBox checkBoxEnableURLContentFilter;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -4715,6 +4730,7 @@
         private System.Windows.Forms.GroupBox groupBoxZoomMode;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBoxEnableZoom;
+        private System.Windows.Forms.CheckBox checkBoxEnableURLFilter;
 
     }
 }
