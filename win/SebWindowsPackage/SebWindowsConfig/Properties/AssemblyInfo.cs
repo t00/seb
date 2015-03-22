@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SEB Config Tool")]
 [assembly: AssemblyDescription("SEB Configuration Tool")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ETH Zurich")]
 [assembly: AssemblyProduct("SEB Config Tool")]
-[assembly: AssemblyCopyright("Copyright © 2010-2014 ETH Zurich, Educational Development and Technology (LET)")]
+[assembly: AssemblyCopyright("Copyright © 2010-2015 ETH Zurich, Educational Development and Technology (LET)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.1.*")]
-[assembly: AssemblyInformationalVersion("2.1RC")]
+[assembly: AssemblyInformationalVersion("2.1")]
