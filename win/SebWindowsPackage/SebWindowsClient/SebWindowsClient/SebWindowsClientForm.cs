@@ -711,9 +711,6 @@ namespace SebWindowsClient
 
             //Filling System Icons
 
-            //Watch (Time)
-            taskbarToolStrip.Items.Add(new SEBWatchToolStripButton());
-
             //QuitButton
             if ((bool)SEBSettings.settingsCurrent[SEBSettings.KeyAllowQuit])
             {
@@ -758,6 +755,12 @@ namespace SebWindowsClient
             catch (Exception ex)
             {
                 Logger.AddError("Unable to add the Batterystatuscontrol",this,ex);
+            }
+
+            //Watch (Time)
+            if ((Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyShowTime)[SEBSettings.KeyShowTime] == true)
+            {
+                taskbarToolStrip.Items.Add(new SEBWatchToolStripButton());
             }
 
             // Start permitted processes

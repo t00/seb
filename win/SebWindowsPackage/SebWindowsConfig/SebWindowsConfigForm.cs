@@ -590,6 +590,7 @@ namespace SebWindowsConfig
             enableZoomAdjustZoomMode();
 
             checkBoxAllowSpellCheck.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowSpellCheck];
+            checkBoxShowTime.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowTime];
 
             return;
         }
@@ -1777,22 +1778,47 @@ namespace SebWindowsConfig
 
         private void buttonChoosePermittedApplication_Click(object sender, EventArgs e)
         {
+            var permittedApplicationInformation = ChooseApplicationDialog();
+            if (permittedApplicationInformation != null)
+            {
+                buttonAddPermittedProcess_Click(this, EventArgs.Empty);
+                textBoxPermittedProcessExecutable.Text = permittedApplicationInformation.Executable;
+                textBoxPermittedProcessTitle.Text = permittedApplicationInformation.Title;
+                textBoxPermittedProcessPath.Text = permittedApplicationInformation.Path;
+            }
+        }
+
+        private void ButtonChooseExecutable_Click(object sender, EventArgs e)
+        {
+            var permittedApplicationInformation = ChooseApplicationDialog();
+            textBoxPermittedProcessExecutable.Text = permittedApplicationInformation.Executable;
+            textBoxPermittedProcessTitle.Text = permittedApplicationInformation.Title;
+            textBoxPermittedProcessPath.Text = permittedApplicationInformation.Path;
+        }
+
+        private PermittedApplicationInformation ChooseApplicationDialog()
+        {
+            var permittedApplicationInformation = new PermittedApplicationInformation();
+
             var fileDialog = new OpenFileDialog
             {
+                InitialDirectory = Path.GetPathRoot(Environment.SystemDirectory),
                 Multiselect = false
             };
             var res = fileDialog.ShowDialog();
 
             if (res == DialogResult.OK)
             {
-                textBoxPermittedProcessExecutable.Text = Path.GetFileName(fileDialog.FileName);
-                textBoxPermittedProcessTitle.Text = Path.GetFileNameWithoutExtension(fileDialog.FileName);
-                
+                var filename = fileDialog.FileName.ToLower();
+                permittedApplicationInformation.Title = Path.GetFileNameWithoutExtension(fileDialog.FileName);
+                permittedApplicationInformation.Executable = Path.GetFileName(filename);
+
                 var filePath = Path.GetDirectoryName(fileDialog.FileName);
                 if (filePath == null)
                 {
-                    return;
+                    return null;
                 }
+                filePath = filePath.ToLower();
 
                 //Check SebWindo2wsClientForm.GetApplicationPath() for how SEB searches the locations
                 //Check if Path to the executable is in Registry - SEB gets the path from there if it exists
@@ -1806,8 +1832,8 @@ namespace SebWindowsConfig
                             object path = subkey.GetValue("Path");
                             if (path != null)
                             {
-                                filePath = filePath.Replace(path.ToString(), "");
-                                filePath = filePath.Replace(path.ToString().TrimEnd('\\'), "");
+                                filePath = filePath.Replace(path.ToString().ToLower(), "");
+                                filePath = filePath.Replace(path.ToString().TrimEnd('\\').ToLower(), "");
                             }
                         }
                     }
@@ -1815,12 +1841,16 @@ namespace SebWindowsConfig
 
                 //Replace all the seach locations - SEB looks in all these directories
                 filePath = filePath
-                    .Replace(SEBClientInfo.ProgramFilesX86Directory + "\\", "")
-                    .Replace(Environment.SystemDirectory + "\\", "");
+                    .Replace(SEBClientInfo.ProgramFilesX86Directory.ToLower() + "\\", "")
+                    .Replace(SEBClientInfo.ProgramFilesX86Directory.ToLower(), "")
+                    .Replace(Environment.SystemDirectory.ToLower() + "\\", "")
+                    .Replace(Environment.SystemDirectory.ToLower(), "");
 
-                textBoxPermittedProcessPath.Text = filePath;
+                permittedApplicationInformation.Path = filePath;
+                return permittedApplicationInformation;
                 //TODO (pwyss 2015/03/13): Keep a list with tools that need special configurations and fill them accordingly (WindowHandlingProcess for example)
             }
+            return null;
         }
 
         private void buttonChoosePermittedProcess_Click(object sender, EventArgs e)
@@ -3165,6 +3195,11 @@ namespace SebWindowsConfig
         private void checkBoxAllowSpellCheck_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowSpellCheck] = checkBoxAllowSpellCheck.Checked;
+        }
+
+        private void checkBoxShowTime_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyShowTime] = checkBoxShowTime.Checked;
         }
 
         private void SebWindowsConfigForm_Load(object sender, EventArgs e)

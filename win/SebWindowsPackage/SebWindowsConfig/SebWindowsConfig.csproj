@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PermittedApplicationInformation.cs" />
     <Compile Include="SebWindowsConfigGUIManagement.cs">
       <SubType>Form</SubType>
     </Compile>

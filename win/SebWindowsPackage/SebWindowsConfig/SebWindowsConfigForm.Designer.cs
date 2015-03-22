@@ -123,6 +123,7 @@
             this.radioButtonUseSebProxySettings = new System.Windows.Forms.RadioButton();
             this.radioButtonUseSystemProxySettings = new System.Windows.Forms.RadioButton();
             this.tabPageUrlFilter = new System.Windows.Forms.TabPage();
+            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
             this.checkBoxUrlFilterRulesRegex = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.datagridBlackListFilter = new System.Windows.Forms.DataGridView();
@@ -148,6 +149,7 @@
             this.buttonRemovePermittedProcess = new System.Windows.Forms.Button();
             this.buttonAddPermittedProcess = new System.Windows.Forms.Button();
             this.groupBoxPermittedProcess = new System.Windows.Forms.GroupBox();
+            this.ButtonChooseExecutable = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxPermittedProcessExecutables = new System.Windows.Forms.TextBox();
             this.checkBoxPermittedProcessStrongKill = new System.Windows.Forms.CheckBox();
@@ -343,7 +345,7 @@
             this.editDuplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowTime = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -1587,6 +1589,19 @@
             this.tabPageUrlFilter.Text = "Filter";
             this.tabPageUrlFilter.UseVisualStyleBackColor = true;
             // 
+            // checkBoxEnableURLFilter
+            // 
+            this.checkBoxEnableURLFilter.AutoSize = true;
+            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(20, 14);
+            this.checkBoxEnableURLFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
+            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxEnableURLFilter.TabIndex = 22;
+            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
+            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
+            this.checkBoxEnableURLFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLFilter_CheckedChanged);
+            // 
             // checkBoxUrlFilterRulesRegex
             // 
             this.checkBoxUrlFilterRulesRegex.AutoSize = true;
@@ -1876,6 +1891,7 @@
             // 
             // groupBoxPermittedProcess
             // 
+            this.groupBoxPermittedProcess.Controls.Add(this.ButtonChooseExecutable);
             this.groupBoxPermittedProcess.Controls.Add(this.label2);
             this.groupBoxPermittedProcess.Controls.Add(this.textBoxPermittedProcessExecutables);
             this.groupBoxPermittedProcess.Controls.Add(this.checkBoxPermittedProcessStrongKill);
@@ -1908,6 +1924,16 @@
             this.groupBoxPermittedProcess.TabIndex = 80;
             this.groupBoxPermittedProcess.TabStop = false;
             this.groupBoxPermittedProcess.Text = "Selected Process";
+            // 
+            // ButtonChooseExecutable
+            // 
+            this.ButtonChooseExecutable.Location = new System.Drawing.Point(486, 80);
+            this.ButtonChooseExecutable.Name = "ButtonChooseExecutable";
+            this.ButtonChooseExecutable.Size = new System.Drawing.Size(30, 22);
+            this.ButtonChooseExecutable.TabIndex = 92;
+            this.ButtonChooseExecutable.Text = "...";
+            this.ButtonChooseExecutable.UseVisualStyleBackColor = true;
+            this.ButtonChooseExecutable.Click += new System.EventHandler(this.ButtonChooseExecutable_Click);
             // 
             // label2
             // 
@@ -2095,7 +2121,7 @@
             this.textBoxPermittedProcessExecutable.Location = new System.Drawing.Point(199, 81);
             this.textBoxPermittedProcessExecutable.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPermittedProcessExecutable.Name = "textBoxPermittedProcessExecutable";
-            this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(317, 20);
+            this.textBoxPermittedProcessExecutable.Size = new System.Drawing.Size(282, 20);
             this.textBoxPermittedProcessExecutable.TabIndex = 4;
             this.toolTip1.SetToolTip(this.textBoxPermittedProcessExecutable, "File name of the executable, which should not contain any parts of a file system " +
         "path, only the filename of the exe file (like calc.exe).");
@@ -3175,6 +3201,7 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.checkBoxShowTime);
             this.tabPageAppearance.Controls.Add(this.groupBoxEnableZoom);
             this.tabPageAppearance.Controls.Add(this.groupBoxZoomMode);
             this.tabPageAppearance.Controls.Add(this.groupBox4);
@@ -4308,18 +4335,18 @@
             this.applyAndStartSEBToolStripMenuItem.Text = "Apply and Start SEB";
             this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
             // 
-            // checkBoxEnableURLFilter
+            // checkBoxShowTime
             // 
-            this.checkBoxEnableURLFilter.AutoSize = true;
-            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(20, 14);
-            this.checkBoxEnableURLFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
-            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxEnableURLFilter.TabIndex = 22;
-            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
-            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
-            this.checkBoxEnableURLFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLFilter_CheckedChanged);
+            this.checkBoxShowTime.AutoSize = true;
+            this.checkBoxShowTime.Location = new System.Drawing.Point(23, 465);
+            this.checkBoxShowTime.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxShowTime.Name = "checkBoxShowTime";
+            this.checkBoxShowTime.Size = new System.Drawing.Size(79, 17);
+            this.checkBoxShowTime.TabIndex = 77;
+            this.checkBoxShowTime.Text = "Show Time";
+            this.toolTip1.SetToolTip(this.checkBoxShowTime, "Allow using check spelling");
+            this.checkBoxShowTime.UseVisualStyleBackColor = true;
+            this.checkBoxShowTime.CheckedChanged += new System.EventHandler(this.checkBoxShowTime_CheckedChanged);
             // 
             // SebWindowsConfigForm
             // 
@@ -4731,6 +4758,8 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBoxEnableZoom;
         private System.Windows.Forms.CheckBox checkBoxEnableURLFilter;
+        private System.Windows.Forms.Button ButtonChooseExecutable;
+        private System.Windows.Forms.CheckBox checkBoxShowTime;
 
     }
 }
