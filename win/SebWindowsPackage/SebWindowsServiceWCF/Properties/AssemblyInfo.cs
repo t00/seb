@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SEB Windows Service with WCF")]
 [assembly: AssemblyDescription("Part of Safe Exam Browser")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ETH Zürich")]
+[assembly: AssemblyCompany("ETH Zurich")]
 [assembly: AssemblyProduct("SEB Windows Service WCF")]
 [assembly: AssemblyCopyright("Copyright © 2010-2015 ETH Zurich, Educational Development and Technology (LET)")]
 [assembly: AssemblyTrademark("")]
