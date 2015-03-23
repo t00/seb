@@ -158,13 +158,21 @@ namespace SebWindowsClient.ConfigurationUtils
 
                 //add the starturl to the whitelist if not yet added
                 if (!xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString().Contains(xulRunnerSettings[SEBSettings.KeyStartURL].ToString()))
-                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += String.Format(";{0}", xulRunnerSettings[SEBSettings.KeyStartURL]);
+                    if (!String.IsNullOrWhiteSpace(xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString()))
+                    {
+                        xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += @";";
+                    }
+                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += xulRunnerSettings[SEBSettings.KeyStartURL].ToString();
 
                 //Add the socket address if content filter is enabled
                 if ((bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnableContentFilter] == true)
                 {
+                    if (!String.IsNullOrWhiteSpace(xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString()))
+                    {
+                        xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += @";";
+                    }
                     //Add the Socket address with http protocoll instead of ws protocoll for the injected iframe
-                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += String.Format(";http:\\/\\/{0}\\/", SEBXULRunnerWebSocketServer.ServerAddress.Substring(5));
+                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += String.Format("http://{0}", SEBXULRunnerWebSocketServer.ServerAddress.Substring(5));
                 }
             }
 
