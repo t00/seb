@@ -91,7 +91,7 @@ namespace SebWindowsClient.CryptographyUtils
             foreach (X509Certificate2 x509Certificate in store.Certificates)
             {
                 certificates.Add(x509Certificate);
-                if(!String.IsNullOrWhiteSpace(x509Certificate.FriendlyName))
+                if (!String.IsNullOrWhiteSpace(x509Certificate.FriendlyName))
                     certificateNames.Add(x509Certificate.FriendlyName);
                 else if (!String.IsNullOrWhiteSpace(x509Certificate.SerialNumber))
                     certificateNames.Add(x509Certificate.SerialNumber);
@@ -101,6 +101,66 @@ namespace SebWindowsClient.CryptographyUtils
             store.Close();
             return certificates;
         }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        ///  Get array of CA certificate references and the according names from the certificate store.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static ArrayList GetSSLCertificatesAndNames(ref ArrayList certificateNames)
+        {
+            ArrayList certificates = new ArrayList();
+
+            X509Store store = new X509Store(StoreName.CertificateAuthority);
+            store.Open(OpenFlags.ReadOnly);
+            X509Certificate2Collection certsCollection = store.Certificates.Find(X509FindType.FindByKeyUsage, (X509KeyUsageFlags.DigitalSignature | X509KeyUsageFlags.KeyEncipherment), false);
+            store = new X509Store(StoreName.AddressBook);
+            store.Open(OpenFlags.ReadOnly);
+            X509Certificate2Collection certsCollection2 = store.Certificates.Find(X509FindType.FindByKeyUsage, (X509KeyUsageFlags.DigitalSignature | X509KeyUsageFlags.KeyEncipherment), false);
+            certsCollection.AddRange(certsCollection2);
+
+            foreach (X509Certificate2 x509Certificate in certsCollection)
+            {
+                certificates.Add(x509Certificate);
+                certificateNames.Add(Parse(x509Certificate.Subject, "CN").FirstOrDefault());
+            }
+
+            //Close the store.
+            store.Close();
+            return certificates;
+        }
+
+
+        /// <summary>
+        /// Recursively searches the supplied AD string for all groups.
+        /// </summary>
+        /// <param name="data">The string returned from AD to parse for a group.</param>
+        /// <param name="delimiter">The string to use as the seperator for the data. ex. ","</param>
+        /// <returns>null if no groups were found -OR- data is null or empty.</returns>
+        public static List<string> Parse(string data, string delimiter)
+        {
+            if (data == null) return null;
+            if (!delimiter.EndsWith("=")) delimiter = delimiter + "=";
+            if (!data.Contains(delimiter)) return null;
+            //base case
+            var result = new List<string>();
+            int start = data.IndexOf(delimiter) + delimiter.Length;
+            int length = data.IndexOf(',', start) - start;
+            if (length == 0) return null; //the group is empty
+            if (length > 0)
+            {
+                result.Add(data.Substring(start, length));
+                //only need to recurse when the comma was found, because there could be more groups
+                var rec = Parse(data.Substring(start + length), delimiter);
+                if (rec != null) result.AddRange(rec); //can't pass null into AddRange() :(
+            }
+            else //no comma found after current group so just use the whole remaining string
+            {
+                result.Add(data.Substring(start));
+            }
+            return result;
+        } 
 
 
         /// ----------------------------------------------------------------------------------------
