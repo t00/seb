@@ -12,6 +12,7 @@ using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.XULRunnerCommunication;
+using ListObj = System.Collections.Generic.List<object>;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using PlistCS;
 
@@ -116,9 +117,9 @@ namespace SebWindowsClient.ConfigurationUtils
                 {
                     // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
                     if (SEBClientInfo.CreateNewDesktopOldValue == false)
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsRequireNewDesktop, SEBUIStrings.settingsRequireNewDesktopReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.settingsRequireNewDesktop, SEBUIStrings.settingsRequireNewDesktopReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                     else
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsRequireNotNewDesktop, SEBUIStrings.settingsRequireNotNewDesktopReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.settingsRequireNotNewDesktop, SEBUIStrings.settingsRequireNotNewDesktopReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
 
                     //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                     SEBClientInfo.SebWindowsClientForm.ExitApplication();
@@ -145,6 +146,22 @@ namespace SebWindowsClient.ConfigurationUtils
                 Logger.AddInformation("Reconfiguring to configure a client");
                 /// If these SEB settings are ment to configure a client
 
+                // Check if we have embedded identities and import them into the Windows Certifcate Store
+                ListObj embeddedCertificates = (ListObj)sebPreferencesDict[SEBSettings.KeyEmbeddedCertificates];
+                for (int i = embeddedCertificates.Count - 1; i >= 0; i--)
+                {
+                    // Get the Embedded Certificate
+                    DictObj embeddedCertificate = (DictObj)embeddedCertificates[i];
+                    // Is it an identity?
+                    if ((int)embeddedCertificate[SEBSettings.KeyType] == 1)
+                    {
+                        // Store the identity into the Windows Certificate Store
+                        SEBProtectionController.StoreCertificateIntoStore((byte[])embeddedCertificate[SEBSettings.KeyCertificateData]);
+                    }
+                    // Remove the identity from settings, as it should be only stored in the Certificate Store and not in the locally stored settings file
+                    embeddedCertificates.RemoveAt(i);
+                }
+
                 // Store decrypted settings
                 SEBSettings.StoreSebClientSettings(sebPreferencesDict);
 
@@ -166,14 +183,14 @@ namespace SebWindowsClient.ConfigurationUtils
                     if (SEBClientInfo.CreateNewDesktopOldValue != (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop))
                     {
                         // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfiguredRestartNeeded, SEBUIStrings.sebReconfiguredRestartNeededReason, SEBGlobalConstants.IND_MESSAGE_KIND_WARNING, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.sebReconfiguredRestartNeeded, SEBUIStrings.sebReconfiguredRestartNeededReason, MessageBoxIcon.Warning, MessageBoxButtons.OK);
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         SEBClientInfo.SebWindowsClientForm.ExitApplication();
                         //Application.Exit();
                         return false;
                     }
 
-                    if (!SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
+                    if (SEBMessageBox.Show(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, MessageBoxIcon.Question, MessageBoxButtons.YesNo) == DialogResult.No)
                     {
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         SEBClientInfo.SebWindowsClientForm.ExitApplication();
@@ -259,7 +276,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (sebDataDecrypted == null)
                 {
                     //wrong password entered in 5th try: stop reading .seb file
-                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.decryptingSettingsFailed, SEBUIStrings.decryptingSettingsFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    SEBMessageBox.Show(SEBUIStrings.decryptingSettingsFailed, SEBUIStrings.decryptingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                     return null;
                 }
                 sebData = sebDataDecrypted;
@@ -299,7 +316,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         {
                             // No valid prefix and no unencrypted file with valid header
                             // cancel reading .seb file
-                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.settingsNotUsable, SEBUIStrings.settingsNotUsableReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                            SEBMessageBox.Show(SEBUIStrings.settingsNotUsable, SEBUIStrings.settingsNotUsableReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                             return null;
                         }
                     }
@@ -367,7 +384,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         // Error when deserializing the decrypted configuration data
                         // We abort reading the new settings here
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                         Console.WriteLine(readPlistException.Message);
                         return null;
                     }
@@ -412,7 +429,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         if (!passwordsMatch)
                         {
                             //wrong password entered in 5th try: stop reading .seb file
-                            SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongAdminPwd, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                            SEBMessageBox.Show(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongAdminPwd, MessageBoxIcon.Error, MessageBoxButtons.OK);
                             return null;
                         }
                     }
@@ -441,7 +458,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if (decryptedSebData == null)
                     {
                         //wrong password entered in 5th try: stop reading .seb file
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongPassword, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongPassword, MessageBoxIcon.Error, MessageBoxButtons.OK);
                         return null;
                     }
                     else
@@ -502,7 +519,7 @@ namespace SebWindowsClient.ConfigurationUtils
             }
             catch (Exception readPlistException)
             {
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                 Console.WriteLine(readPlistException.Message);
                 return null;
             }
@@ -543,7 +560,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if (!passwordsMatch)
                     {
                         //wrong password entered in 5th try: stop reading .seb file
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedWrongAdminPwd, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedWrongAdminPwd, MessageBoxIcon.Error, MessageBoxButtons.OK);
                         return null;
                     }
                 }
@@ -569,7 +586,7 @@ namespace SebWindowsClient.ConfigurationUtils
             X509Certificate2 certificateRef = SEBProtectionController.GetCertificateFromStore(publicKeyHash);
             if (certificateRef == null)
             {
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.errorDecryptingSettings, SEBUIStrings.certificateNotFoundInStore, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                SEBMessageBox.Show(SEBUIStrings.errorDecryptingSettings, SEBUIStrings.certificateNotFoundInStore, MessageBoxIcon.Error, MessageBoxButtons.OK);
                 return null;
             }
             // If these settings are being decrypted for editing, we will return the decryption certificate reference
@@ -679,7 +696,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Check if no password entered and no identity selected
                 if (String.IsNullOrEmpty(settingsPassword) && certificateRef == null)
                 {
-                    if (SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
+                    if (SEBMessageBox.Show(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, MessageBoxIcon.Question, MessageBoxButtons.YesNo, neverShowTouchOptimized: true) == DialogResult.Yes)
                     {
                         // OK: save .seb config data unencrypted
                         return encryptedSebData;

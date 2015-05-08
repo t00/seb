@@ -1,12 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Net;
 using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.ServiceModel.Channels;
-using System.ServiceModel.Security;
 using System.Threading;
-using System.Windows;
 using System.Windows.Forms;
 using Fleck;
 using SebWindowsClient.ConfigurationUtils;
@@ -83,7 +77,7 @@ namespace SebWindowsClient.XULRunnerCommunication
                     Thread.Sleep(1000);
                 }
                 if (IsRunning)
-                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.alertWebSocketPortBlocked, SEBUIStrings.alertWebSocketPortBlockedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    SEBMessageBox.Show(SEBUIStrings.alertWebSocketPortBlocked, SEBUIStrings.alertWebSocketPortBlockedMessage, MessageBoxIcon.Error, MessageBoxButtons.OK);
                     //MessageBox.Show(SEBUIStrings.alertWebSocketPortBlocked);
             }
 

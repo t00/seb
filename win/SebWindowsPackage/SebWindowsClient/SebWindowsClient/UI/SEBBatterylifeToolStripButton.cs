@@ -11,7 +11,7 @@ using FontStyle = System.Drawing.FontStyle;
 
 namespace SebWindowsClient.UI
 {
-    public class SEBBatterylifeToolStripButton : ToolStripButton
+    public class SEBBatterylifeToolStripButton : SEBToolStripButton
     {
         private PowerStatus powerStatus = SystemInformation.PowerStatus;
         private Timer timer;
@@ -55,7 +55,7 @@ namespace SebWindowsClient.UI
             base.TextImageRelation = TextImageRelation.Overlay;
             this.Alignment = ToolStripItemAlignment.Right;
             base.ForeColor = Color.Black;
-            base.Font = new Font("Arial", 7, FontStyle.Bold);
+            base.Font = new Font("Arial", (int)(base.FontSize * 0.7), FontStyle.Bold);
             base.Enabled = false;
         }
     }

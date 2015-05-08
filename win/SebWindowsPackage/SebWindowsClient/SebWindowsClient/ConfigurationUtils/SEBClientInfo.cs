@@ -121,13 +121,17 @@ namespace SebWindowsClient.ConfigurationUtils
         private const string SEB_BROWSER_DIRECTORY  = "SebWindowsBrowser";
         private const string XUL_RUNNER_DIRECTORY   = "xulrunner";
         private const string XUL_SEB_DIRECTORY      = "xul_seb";
+        public const string BROWSER_USERAGENT_DESKTOP = "Mozilla/5.0 (Windows NT 6.3; rv:37.0) Gecko/20100101 Firefox/37.0";
+        public const string BROWSER_USERAGENT_TOUCH = "Mozilla/5.0 (Windows NT 6.3; rv:37.0; Touch) Gecko/20100101 Firefox/37.0";
+        public const string BROWSER_USERAGENT_SEB = "SEB";
 
         public  const string END_OF_STRING_KEYWORD   = "---SEB---";
         private const string DEFAULT_USERNAME        = "";
         private const string DEFAULT_HOSTNAME        = "localhost";
         private const string DEFAULT_HOST_IP_ADDRESS = "127.0.0.1";
         private const int    DEFAULT_PORTNUMBER      = 57016;
-        private const int    DEFAULT_SEND_INTERVAL   = 100;
+        public const string  DEFAULT_KEY             = "Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
+        private const int    DEFAULT_SEND_INTERVAL = 100;
         private const int    DEFAULT_RECV_TIMEOUT    = 100;
         private const int    DEFAULT_NUM_MESSAGES    = 3;
 
@@ -251,8 +255,8 @@ namespace SebWindowsClient.ConfigurationUtils
             NumMessages            = DEFAULT_NUM_MESSAGES;
 
             // Initialise error messages
-            SEBErrorMessages.SetCurrentLanguage();
-            SEBErrorMessages.InitErrorMessages();
+            //SEBMessageBox.SetCurrentLanguage();
+            //SEBMessageBox.InitErrorMessages();
             //SEBSettings     .CreateDefaultAndCurrentSettingsFromScratch();
 
             //Sets paths to files SEB has to save or read from the file system

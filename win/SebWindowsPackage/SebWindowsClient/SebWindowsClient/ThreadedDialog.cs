@@ -108,6 +108,11 @@ namespace SebWindowsClient
                 // SEB is already running on a separate desktop: we can show the password entry dialog without a separate thread
                 return SebPasswordDialogForm.ShowPasswordDialogForm(title, passwordRequestText);
             }
+            //In Touch Mode, do not use the threaded Dialog because we know we can't use it
+            else if (SEBSettings.settingsCurrent.Count > 0 && (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized])
+            {
+                return SebPasswordDialogForm.ShowPasswordDialogForm(title, passwordRequestText);
+            }
             else
             {
                 // SEB isn't running on a separate desktop (or not yet): 

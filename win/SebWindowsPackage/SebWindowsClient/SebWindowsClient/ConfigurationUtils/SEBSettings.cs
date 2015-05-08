@@ -114,6 +114,7 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyZoomMode                     = "zoomMode";
         public const String KeyAllowSpellCheck              = "allowSpellCheck";
         public const String KeyShowTime              = "showTime";
+        public const String KeyShowInputLanguage              = "showInputLanguage";
 
         //Touch optimized settings
         public const String KeyBrowserScreenKeyboard = "browserScreenKeyboard";
@@ -133,11 +134,13 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyAllowBrowsingBackForward             = "allowBrowsingBackForward";
         public const String KeyRemoveBrowserProfile                 = "removeBrowserProfile";
         public const String KeyEnableSebBrowser                     = "enableSebBrowser";
-        public const String KeyRestartExamText                      = "restartExamText";
-        public const String KeyRestartExamURL                       = "restartExamURL";
-        public const String KeyRestartExamPasswordProtected         = "restartExamPasswordProtected";
         public const String KeyShowReloadButton                     = "showReloadButton";
         public const String KeyShowReloadWarning                    = "showReloadWarning";
+        public const String KeyBrowserUserAgentDesktopMode          = "browserUserAgentDesktopMode";
+        public const String KeyBrowserUserAgentDesktopModeCustom    = "browserUserAgentDesktopModeCustom";
+        public const String KeyBrowserUserAgentTouchMode            = "browserUserAgentTouchMode";
+        public const String KeyBrowserUserAgentTouchModeCustom      = "browserUserAgentTouchModeCustom";
+        public const String KeyBrowserUserAgent                     = "browserUserAgent";
 
         // Group "DownUploads"
         public const String KeyAllowDownUploads         = "allowDownUploads";
@@ -154,6 +157,10 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyBrowserURLSalt     = "browserURLSalt";
         public const String KeySendBrowserExamKey = "sendBrowserExamKey";
         public const String KeyQuitURL            = "quitURL";
+        public const String KeyRestartExamText = "restartExamText";
+        public const String KeyRestartExamURL = "restartExamURL";
+        public const String KeyRestartExamUseStartURL = "restartExamUseStartURL";
+        public const String KeyRestartExamPasswordProtected = "restartExamPasswordProtected";
 
         // Group "Applications"
         public const String KeyMonitorProcesses = "monitorProcesses";
@@ -168,6 +175,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public const String KeyActive      = "active";
         public const String KeyAutostart   = "autostart";
+        public const String KeyIconInTaskbar   = "iconInTaskbar";
         public const String KeyRunInBackground    = "runInBackground";
         public const String KeyAllowUser   = "allowUserToChooseApp";
         public const String KeyCurrentUser = "currentUser";
@@ -199,11 +207,12 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyUrlFilterRulesAsRegex = "urlFilterRegex";
 
         // Group "Network - Certificates"
-        public const String KeyEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
-        public const String KeyEmbedIdentity             = "EmbedIdentity";
+        //public const String KeyEmbedSSLServerCertificate = "EmbedSSLServerCertificate";
+        //public const String KeyEmbedIdentity             = "EmbedIdentity";
         public const String KeyEmbeddedCertificates      = "embeddedCertificates";
-        public const String KeyCertificateData           = "certificateData";
-        public const String KeyType                      = "type";
+        public const String KeyCertificateDataWin = "certificateDataWin";
+        public const String KeyCertificateData = "certificateData";
+        public const String KeyType = "type";
         public const String KeyName                      = "name";
 
         // Group "Network - Proxies"
@@ -274,7 +283,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyAllowVirtualMachine = "allowVirtualMachine";
         public const String KeyCreateNewDesktop    = "createNewDesktop";
         public const String KeyKillExplorerShell   = "killExplorerShell";
-        public const String KeyAllowUserSwitching  = "allowUserSwitching";
+        public const String KeyAllowUserSwitching = "allowUserSwitching";
+        public const String KeyEnableAppSwitcherCheck = "enableAppSwitcherCheck";
+        public const String KeyForceAppFolderInstall = "forceAppFolderInstall";
         public const String KeyEnableLogging       = "enableLogging";
         public const String KeyLogDirectoryOSX     = "logDirectoryOSX";
         public const String KeyLogDirectoryWin     = "logDirectoryWin";
@@ -490,7 +501,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.intArrayDefault[SEBSettings.ValCryptoIdentity] = 0;
             SEBSettings.strArrayDefault[SEBSettings.ValCryptoIdentity] = "";
 
-            // Default settings for group "Appearance"
+            // Default settings for group "User Interface"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserViewMode             , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyMainBrowserWindowWidth      , "100%");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyMainBrowserWindowHeight     , "100%");
@@ -506,6 +517,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyZoomMode                    , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowSpellCheck             , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowTime             , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyShowInputLanguage             , true);
 
             //Touch Settings
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserScreenKeyboard       , false);
@@ -532,11 +544,13 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowBrowsingBackForward, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyRemoveBrowserProfile    , false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableSebBrowser        , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamURL          , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText         , "");
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamPasswordProtected        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowReloadButton        , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowReloadWarning       , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentDesktopMode, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentDesktopModeCustom, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentTouchMode, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentTouchModeCustom, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgent, "");
 
             // NewBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValNewBrowserWindowByLinkWidth ] = 4;
@@ -559,6 +573,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserURLSalt    , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeySendBrowserExamKey, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyQuitURL           , "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamURL, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamUseStartURL, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamText, "");
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyRestartExamPasswordProtected, true);
 
             // Default settings for group "Applications"
             SEBSettings.settingsDefault.Add(SEBSettings.KeyMonitorProcesses         , true);
@@ -591,6 +609,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataXulRunner.Clear();
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyActive     , true);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAutostart  , true);
+            SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyIconInTaskbar  , true);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyRunInBackground   , false);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyAllowUser  , false);
             SEBSettings.permittedProcessDataXulRunner.Add(SEBSettings.KeyStrongKill , true);
@@ -607,6 +626,7 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.permittedProcessDataDefault.Clear();
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyActive     , true);
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyAutostart  , true);
+            SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyIconInTaskbar  , true);
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyRunInBackground   , false);
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyAllowUser  , false);
             SEBSettings.permittedProcessDataDefault.Add(SEBSettings.KeyStrongKill , false);
@@ -686,8 +706,9 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEmbeddedCertificates, new ListObj());
 
             SEBSettings.embeddedCertificateDataDefault.Clear();
-            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyCertificateData, new Byte[] {});
-            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyType           , 0);
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyCertificateData, new Byte[0]);
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyCertificateDataWin, "");
+            SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyType, 0);
             SEBSettings.embeddedCertificateDataDefault.Add(SEBSettings.KeyName           , "");
 
             // Default settings for group "Network - Proxies"
@@ -746,8 +767,10 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowVirtualMachine, false);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyCreateNewDesktop   , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyKillExplorerShell  , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowUserSwitching , true);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging      , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowUserSwitching, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableAppSwitcherCheck, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyForceAppFolderInstall, true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableLogging, true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryOSX    , "~/Documents");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyLogDirectoryWin    , "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowWLAN    , false);

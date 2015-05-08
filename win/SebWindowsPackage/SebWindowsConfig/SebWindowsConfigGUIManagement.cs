@@ -183,6 +183,7 @@ namespace SebWindowsConfig
         // The current SEB configuration file
         static String currentDireSebConfigFile;
         static String currentFileSebConfigFile;
+        static String lastPathSebConfigFile;
         static String currentPathSebConfigFile;
 
         // Strings for encryption identities (KeyChain, Certificate Store)
@@ -190,6 +191,7 @@ namespace SebWindowsConfig
         //static String[]  chooseIdentityStringArray = new String[1];
         static List<String> StringCryptoIdentity = new List<String>();
         static ArrayList certificateReferences = new ArrayList();
+        static ArrayList certificateSSLReferences = new ArrayList();
 
         // Entries of ListBoxes
       //static    Byte[]    ByteArrayExamKeySalt          = new Byte[] {};
@@ -424,9 +426,16 @@ namespace SebWindowsConfig
             // Assing the list of cryptographic identities/certificates to the ComboBox
             ArrayList certificateNames = new ArrayList();
             certificateReferences = SEBProtectionController.GetCertificatesAndNames(ref certificateNames);
-            certificateNames.Insert(0, "None");
+            comboBoxCryptoIdentity.Items.Add("None");
             comboBoxCryptoIdentity.Items.AddRange(certificateNames.ToArray());
             comboBoxChooseIdentityToEmbed.Items.AddRange(certificateNames.ToArray());
+            comboBoxChooseIdentityToEmbed.Text = SEBUIStrings.ChooseEmbeddedCert;
+
+            ArrayList certificateSSLNames = new ArrayList();
+            certificateSSLReferences = SEBProtectionController.GetSSLCertificatesAndNames(ref certificateSSLNames);
+            comboBoxChooseSSLClientCertificate.Items.AddRange(certificateSSLNames.ToArray());
+            comboBoxChooseSSLClientCertificate.Text = SEBUIStrings.ChooseEmbeddedCert;
+
 
             // At program start, no file has yet been opened, so revert is not possible
             buttonRevertToLastOpened.Enabled = false;

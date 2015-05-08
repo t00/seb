@@ -8,8 +8,10 @@ using System.IO;
 using System.IO.Compression;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
+using System.Windows.Forms;
 using Microsoft.VisualBasic.Devices;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DiagnosticsUtils;
 using PlistCS;
 
 //
@@ -90,11 +92,14 @@ namespace SebWindowsClient.CryptographyUtils
 
             foreach (X509Certificate2 x509Certificate in store.Certificates)
             {
-                certificates.Add(x509Certificate);
-                if (!String.IsNullOrWhiteSpace(x509Certificate.FriendlyName))
-                    certificateNames.Add(x509Certificate.FriendlyName);
-                else if (!String.IsNullOrWhiteSpace(x509Certificate.SerialNumber))
-                    certificateNames.Add(x509Certificate.SerialNumber);
+                if (x509Certificate.HasPrivateKey)
+                {
+                    certificates.Add(x509Certificate);
+                    if (!String.IsNullOrWhiteSpace(x509Certificate.FriendlyName))
+                        certificateNames.Add(x509Certificate.FriendlyName);
+                    else if (!String.IsNullOrWhiteSpace(x509Certificate.SerialNumber))
+                        certificateNames.Add(x509Certificate.SerialNumber);
+                }
             }
 
             //Close the store.
@@ -193,6 +198,54 @@ namespace SebWindowsClient.CryptographyUtils
             store.Close();
 
             return sebCertificate;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        ///  Store certificate into the store.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static void StoreCertificateIntoStore(byte[] certificateData)
+        {
+            X509Certificate2 x509 = new X509Certificate2();
+            X509Store store;
+
+            try
+            {
+                store = new X509Store(StoreLocation.CurrentUser);
+                store.Open(OpenFlags.ReadWrite);
+            }
+            catch (Exception storeOpenException)
+            {
+                Logger.AddError("The X509 store in Windows Certificate Store could not be opened: ", null, storeOpenException, storeOpenException.Message);
+                return;
+            }
+
+            try
+            {
+
+                x509.Import(certificateData, SEBClientInfo.DEFAULT_KEY, X509KeyStorageFlags.UserKeySet | X509KeyStorageFlags.PersistKeySet);
+            }
+            catch (Exception certImportException)
+            {
+                Logger.AddError("The identity data could not be imported into the X509 certificate store.", null, certImportException, certImportException.Message);
+                store.Close();
+                return;
+            }
+
+            try
+            {
+                store.Add(x509);
+            }
+            catch (Exception certAddingException)
+            {
+                Logger.AddError("The identity could not be added to the Windows Certificate Store", null, certAddingException, certAddingException.Message);
+                store.Close();
+                return;
+            }
+            Logger.AddInformation("The identity was successfully added to the Windows Certificate Store");
+            store.Close();
         }
 
         /// ----------------------------------------------------------------------------------------
@@ -344,12 +397,14 @@ namespace SebWindowsClient.CryptographyUtils
             }
             catch (CryptographicException cex)
             {
-                //return cex.Message;
+                Logger.AddError("Decrypting SEB config data encrypted with an identity failed with cryptographic exception:", null, cex, cex.Message);
+                SEBMessageBox.Show(SEBUIStrings.errorDecryptingSettings, SEBUIStrings.certificateDecryptingError + cex.Message, MessageBoxIcon.Error, MessageBoxButtons.OK);
                 return null;
             }
             catch (Exception ex)
             {
-                //return ex.Message;
+                Logger.AddError("Decrypting SEB config data encrypted with an identity failed with exception:", null, ex, ex.Message);
+                SEBMessageBox.Show(SEBUIStrings.errorDecryptingSettings, SEBUIStrings.certificateDecryptingError + ex.Message, MessageBoxIcon.Error, MessageBoxButtons.OK);
                 return null;
             }
         }

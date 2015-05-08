@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Script.Serialization;
-using System.IO;
-using System.Text;
-using System.Runtime.Serialization;
-using SebWindowsClient.CryptographyUtils;
-using SebWindowsClient.DiagnosticsUtils;
-using SebWindowsClient.XULRunnerCommunication;
-
-//
+﻿//
 //  SEBXulRunnerSettings.cs
 //  SafeExamBrowser
 //
-//  Copyright (c) 2010-2014 Viktor Tomas, Dirk Bauer, Daniel R. Schneider, Pascal Wyss,
+//  Copyright (c) 2010-2015 Viktor Tomas, Dirk Bauer, Daniel R. Schneider, Pascal Wyss,
 //  ETH Zurich, Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -44,6 +32,19 @@ using SebWindowsClient.XULRunnerCommunication;
 //
 //  Contributor(s): ______________________________________.
 //
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.IO;
+using System.Text;
+using System.Runtime.Serialization;
+using System.Windows.Forms;
+using SebWindowsClient.CryptographyUtils;
+using SebWindowsClient.DiagnosticsUtils;
+using SebWindowsClient.XULRunnerCommunication;
 
 namespace SebWindowsClient.ConfigurationUtils
 {
@@ -145,6 +146,12 @@ namespace SebWindowsClient.ConfigurationUtils
                 xulRunnerSettings[SEBSettings.KeyBrowserExamKey] = browserExamKey;
             }
 
+            // Eventually update setting 
+            if ((Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL] == true) 
+            {
+                xulRunnerSettings[SEBSettings.KeyRestartExamURL] = xulRunnerSettings[SEBSettings.KeyStartURL];
+            }
+
             // Check if URL filter is enabled and send according keys to XULRunner seb only if it is
             if ((bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnable] == false)
             {
@@ -179,6 +186,39 @@ namespace SebWindowsClient.ConfigurationUtils
             // Add websocket sever address to XULRunner seb settings
             xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket] = SEBXULRunnerWebSocketServer.ServerAddress;
             Logger.AddInformation("Socket: " + xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket].ToString(), null, null);
+
+            // Expand environment variables in paths which XULRunner seb is processing
+            string downloadDirectoryWin = (string)xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin];
+            downloadDirectoryWin = Environment.ExpandEnvironmentVariables(downloadDirectoryWin);
+            //downloadDirectoryWin = downloadDirectoryWin.Replace(@"\", @"\\");
+            xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin] = downloadDirectoryWin;
+
+            // Add proper browser user agent string to XULRunner seb settings
+            
+            if ((bool)xulRunnerSettings[SEBSettings.KeyTouchOptimized] == true)
+            {
+                if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchMode] == 0)
+                {
+                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_TOUCH;
+                }
+                else
+                {
+                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchModeCustom];
+                }
+            }
+            else
+            {
+                if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentDesktopMode] == 0)
+                {
+                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_DESKTOP;
+                }
+                else
+                {
+                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = xulRunnerSettings[SEBSettings.KeyBrowserUserAgentDesktopModeCustom];
+                }
+            }
+            xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] += " " + SEBClientInfo.BROWSER_USERAGENT_SEB + " " + Application.ProductVersion;
+
 
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();

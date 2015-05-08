@@ -182,6 +182,7 @@ namespace SebWindowsClient
                 catch (Exception ex) 
                 {
                     Logger.AddError("Unable to InitSebSettings",null, ex);
+                    return;
                 }
                 var splashThread = new Thread(new ThreadStart(StartSplash));
                 splashThread.Start();
@@ -196,7 +197,11 @@ namespace SebWindowsClient
                 }
                 
                 SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
-                SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
+                if (!SEBClientInfo.SebWindowsClientForm.OpenSEBForm())
+                {
+                    CloseSplash();
+                    return;
+                }
                 CloseSplash();
 
                 singleInstanceController = new SingleInstanceController();
@@ -355,7 +360,7 @@ namespace SebWindowsClient
         {
             Logger.AddInformation("Attempting to InitSebSettings");
             //SebWindowsClientForm.SetVisibility(true);
-            //SEBErrorMessages.OutputErrorMessageNew("Test", "Test, ob das Öffnen einer Message-Box createNewDesktop verunmöglicht.", SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+            //SEBMessageBox.Show("Test", "Test, ob das Öffnen einer Message-Box createNewDesktop verunmöglicht.", SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
 
             // If loading of a .seb file isn't in progress and client settings aren't set yet
             if (_loadingSebFile == false && clientSettingsSet == false)
@@ -363,7 +368,7 @@ namespace SebWindowsClient
                 // Set SebClient configuration
                 if (!SEBClientInfo.SetSebClientConfiguration())
                 {
-                    SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_SEB_CLIENT_SEB_ERROR, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                    SEBMessageBox.Show(SEBUIStrings.ErrorCaption, SEBUIStrings.ErrorWhenOpeningSettingsFile, MessageBoxIcon.Error, MessageBoxButtons.OK);
                     Logger.AddError("Error when opening the file SebClientSettings.seb!", null, null);
                     return false;
                 }
@@ -374,7 +379,7 @@ namespace SebWindowsClient
             // Check system version
             if (!SEBClientInfo.SetSystemVersionInfo())
             {
-                SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_NO_OS_SUPPORT, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                SEBMessageBox.Show(SEBUIStrings.ErrorCaption, SEBUIStrings.OSNotSupported, MessageBoxIcon.Error, MessageBoxButtons.OK);
                 Logger.AddError("Unknown OS. Exiting SEB.", null, null);
                 return false;
             }
@@ -396,7 +401,7 @@ namespace SebWindowsClient
                         SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
                         SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);
                         SEBClientInfo.SEBNewlDesktop.Close();
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.createNewDesktopFailed, SEBUIStrings.createNewDesktopFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.createNewDesktopFailed, SEBUIStrings.createNewDesktopFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                         return false;
                     }
                     SEBClientInfo.DesktopName = SEBClientInfo.SEB_NEW_DESKTOP_NAME;
@@ -648,7 +653,7 @@ namespace SebWindowsClient
             //if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
             {
                 //SEBClientInfo.SebWindowsClientForm.Activate();
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.detectedVirtualMachine, SEBUIStrings.detectedVirtualMachineForbiddenMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                SEBMessageBox.Show(SEBUIStrings.detectedVirtualMachine, SEBUIStrings.detectedVirtualMachineForbiddenMessage, MessageBoxIcon.Error, MessageBoxButtons.OK);
                 Logger.AddError("Forbidden to run SEB on a virtual machine!", null, null);
                 Logger.AddInformation("Safe Exam Browser is exiting", null, null);
                 Application.Exit();
@@ -667,14 +672,14 @@ namespace SebWindowsClient
                     if (!serviceAvailable)
                     {
                         //SEBClientInfo.SebWindowsClientForm.Activate();
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.indicateMissingServiceReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.indicateMissingService, SEBUIStrings.indicateMissingServiceReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                     }
                     break;
                 case (int)sebServicePolicies.forceSebService:
                     if (!serviceAvailable)
                     {
                         //SEBClientInfo.SebWindowsClientForm.Activate();
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, MessageBoxIcon.Error, MessageBoxButtons.OK);
                         Logger.AddError("SEB Windows service is not available and sebServicePolicies is set to forceSebService", null, null);
                         Logger.AddInformation("SafeExamBrowser is exiting", null, null);
                         Application.Exit();
@@ -685,7 +690,7 @@ namespace SebWindowsClient
                 //default:
                 //    if (!serviceAvailable)
                 //    {
-                //        SEBErrorMessages.OutputErrorMessage(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
+                //        SEBMessageBox.Show(SEBGlobalConstants.IND_WINDOWS_SERVICE_NOT_AVAILABLE, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR);
                 //    }
                 //    break;
             }

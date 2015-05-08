@@ -180,8 +180,14 @@
   <data name="enterPasswordAgain" xml:space="preserve">
     <value>Falsches Passwort! Passwort erneut eingeben:</value>
   </data>
+  <data name="ErrorCaption" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
   <data name="errorDecryptingSettings" xml:space="preserve">
     <value>Fehler beim Entschlüsseln der Einstellungen</value>
+  </data>
+  <data name="ErrorWhenOpeningSettingsFile" xml:space="preserve">
+    <value>Fehler beim Öffnen der Datei SebClientSettings.seb!</value>
   </data>
   <data name="forceSebServiceMessage" xml:space="preserve">
     <value>Der SEB-Windows-Dienst läuft nicht oder die SEB-Installation wurde beschädigt. Möglicherweise hilft ein Neustart des Rechners oder eine Neuinstallation von SEB. Informieren Sie Ihren Prüfungs-Administrator/Supporter. Die Prüfung kann nicht gestartet werden, SEB wird beendet.</value>
@@ -218,6 +224,9 @@
   </data>
   <data name="noEncryptionChosenSaveUnencrypted" xml:space="preserve">
     <value>Sie sollten entweder ein Passwort oder ein Zertifikat verwenden, um die Einstellungen zu verschlüsseln. Wollen Sie wirklich eine unverschlüsselte SEB-Einstellungsdatei speichern (für Prüfungseinsatz nicht empfohlen)?</value>
+  </data>
+  <data name="OSNotSupported" xml:space="preserve">
+    <value>Dieses Betriebssystem wird nicht unterstützt!</value>
   </data>
   <data name="permittedApplicationNotFound" xml:space="preserve">
     <value>Drittapplikation nicht gefunden</value>
@@ -299,5 +308,35 @@
   </data>
   <data name="unsavedChangesTitle" xml:space="preserve">
     <value>Ungesicherte Änderungen</value>
+  </data>
+  <data name="KeyboardLayout_CURRENTCULTURE" xml:space="preserve">
+    <value>Keyboard-Layout: {0} - Zum Wechseln Anklicken</value>
+  </data>
+  <data name="identityExportError" xml:space="preserve">
+    <value>Export der kryptografischen Identität fehlgeschlagen</value>
+  </data>
+  <data name="toolTipConnectedToWiFiNetwork" xml:space="preserve">
+    <value>Verbunden mit {0}</value>
+  </data>
+  <data name="toolTipNotConnectedToWiFiNetwork" xml:space="preserve">
+    <value>Nicht verbunden</value>
+  </data>
+  <data name="toolTipNoWiFiInterface" xml:space="preserve">
+    <value>Kein WLAN-Adapter gefunden</value>
+  </data>
+  <data name="toolTipOnScreenKeyboard" xml:space="preserve">
+    <value>Bildschirmtastatur ein-/ausblenden</value>
+  </data>
+  <data name="identityExportErrorMessage" xml:space="preserve">
+    <value>Die Identität (Zertifikat mit privatem Schlüssel) '{0}' konnte nicht exportiert werden. Ihr privater Schlüssel könnte als nicht-exportierbar gekennzeichnet sein.</value>
+  </data>
+  <data name="certificateDecryptingError" xml:space="preserve">
+    <value>Das Entschlüsseln der Einstellungen mittels Zertifikat und privatem Schlüssel aus dem Windows-Zertifikatsspeicher schlug fehl mit Fehlermeldung: </value>
+  </data>
+  <data name="webSocketServerNotStarted" xml:space="preserve">
+    <value>Kommunikation mit dem SEB-Browser konnte nicht aufgebaut werden</value>
+  </data>
+  <data name="webSocketServerNotStartedMessage" xml:space="preserve">
+    <value>SEB wird beendet, versuchen Sie, SEB neu zu starten. Wenn dies nicht hilft, starten Sie Ihren Rechner neu.</value>
   </data>
 </root>

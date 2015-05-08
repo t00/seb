@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE764AD0-A80F-479C-93A8-7EE1901E7C6A}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fleck", "SebWindowsClient\SebWindowsClient\Fleck\Fleck.csproj", "{8B12D929-AFA9-4307-BEFF-2ED0F1070FEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IconLib", "SebWindowsClient\SebWindowsClient\IconLib\IconLib\IconLib.csproj", "{CE53747F-D2E6-4E1E-9EF4-A0AE02671B1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroFramework", "SebWindowsClient\MetroFramework\MetroFramework\MetroFramework.csproj", "{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -123,6 +125,20 @@ Global
 		{CE53747F-D2E6-4E1E-9EF4-A0AE02671B1D}.Release|Win32.ActiveCfg = Release|Any CPU
 		{CE53747F-D2E6-4E1E-9EF4-A0AE02671B1D}.Release|x64.ActiveCfg = Release|Any CPU
 		{CE53747F-D2E6-4E1E-9EF4-A0AE02671B1D}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Release|Win32.ActiveCfg = Release|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Release|x64.ActiveCfg = Release|Any CPU
+		{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

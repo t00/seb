@@ -105,7 +105,7 @@
     <Compile Include="ConfigurationUtils\PList.cs" />
     <Compile Include="ConfigurationUtils\SEBConfigFileManager.cs" />
     <Compile Include="ConfigurationUtils\SEBSettings.cs" />
-    <Compile Include="ConfigurationUtils\SEBErrorMessages.cs" />
+    <Compile Include="ConfigurationUtils\SEBMessageBox.cs" />
     <Compile Include="ConfigurationUtils\SEBGlobalConstants.cs" />
     <Compile Include="ConfigurationUtils\SEBClientInfo.cs" />
     <Compile Include="ConfigurationUtils\SEBXulRunnerSettings.cs" />
@@ -172,6 +172,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\SEBQuitToolStripButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\SEBInputLanguageToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\SEBWlanToolStripButton.cs">
@@ -264,6 +267,9 @@
     <EmbeddedResource Include="UI\SEBQuitToolStripButton.resx">
       <DependentUpon>SEBQuitToolStripButton.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SEBInputLanguageToolStripButton.resx">
+      <DependentUpon>SEBInputLanguageToolStripButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SEBWlanToolStripButton.resx">
       <DependentUpon>SEBWlanToolStripButton.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WindowChooser.resx">
       <DependentUpon>WindowChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WlanUtils\SEBWlanNetworkSelector.de.resx">
+      <DependentUpon>SEBWlanNetworkSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WlanUtils\SEBWlanNetworkSelector.resx">
       <DependentUpon>SEBWlanNetworkSelector.cs</DependentUpon>
@@ -341,6 +350,10 @@
       <Project>{10093827-ff41-4c09-b2ff-9c0d27b4b41a}</Project>
       <Name>SebWindowsServiceWCF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MetroFramework\MetroFramework\MetroFramework.csproj">
+      <Project>{bb41ac8b-cbed-4387-a7e0-4567edb3f57f}</Project>
+      <Name>MetroFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="Fleck\Fleck.csproj">
       <Project>{8b12d929-afa9-4307-beff-2ed0f1070fee}</Project>
       <Name>Fleck</Name>
@@ -350,7 +363,9 @@
       <Name>IconLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Fleck\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

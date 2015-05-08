@@ -97,7 +97,16 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The certificate needed to decrypt settings has not been found in the Windows certificate store. .
+        ///   Looks up a localized string similar to Decrypting settings using a certificate and private key stored in the Windows Certificate Store failed with error: .
+        /// </summary>
+        public static string certificateDecryptingError {
+            get {
+                return ResourceManager.GetString("certificateDecryptingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The certificate needed to decrypt settings has not been found in the Windows Certificate Store..
         /// </summary>
         public static string certificateNotFoundInStore {
             get {
@@ -106,7 +115,16 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Permitted Processes Are Aleady Running.
+        ///   Looks up a localized string similar to Choose certificate to add.
+        /// </summary>
+        public static string ChooseEmbeddedCert {
+            get {
+                return ResourceManager.GetString("ChooseEmbeddedCert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permitted Processes Are Already Running.
         /// </summary>
         public static string closeProcesses {
             get {
@@ -268,6 +286,15 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorCaption {
+            get {
+                return ResourceManager.GetString("ErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error Decrypting Settings.
         /// </summary>
         public static string errorDecryptingSettings {
@@ -277,11 +304,38 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error when opening the file SebClientSettings.seb!.
+        /// </summary>
+        public static string ErrorWhenOpeningSettingsFile {
+            get {
+                return ResourceManager.GetString("ErrorWhenOpeningSettingsFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SEB Windows service is stopped or the installed SEB got corrupted. Rebooting your machine or reinstalling SEB might help. Inform your exam administrator/supporter. The exam cannot be started, SEB will quit now..
         /// </summary>
         public static string forceSebServiceMessage {
             get {
                 return ResourceManager.GetString("forceSebServiceMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting Identity Failed.
+        /// </summary>
+        public static string identityExportError {
+            get {
+                return ResourceManager.GetString("identityExportError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The identity (certificate with private key) &apos;{0}&apos; could not be exported. Its private key might be flagged as non-exportable..
+        /// </summary>
+        public static string identityExportErrorMessage {
+            get {
+                return ResourceManager.GetString("identityExportErrorMessage", resourceCulture);
             }
         }
         
@@ -300,6 +354,15 @@ namespace SebWindowsClient {
         public static string indicateMissingServiceReason {
             get {
                 return ResourceManager.GetString("indicateMissingServiceReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyboard Layout: {0} - Click to change.
+        /// </summary>
+        public static string KeyboardLayout_CURRENTCULTURE {
+            get {
+                return ResourceManager.GetString("KeyboardLayout_CURRENTCULTURE", resourceCulture);
             }
         }
         
@@ -399,6 +462,42 @@ namespace SebWindowsClient {
         public static string openingSettingsFailedMessage {
             get {
                 return ResourceManager.GetString("openingSettingsFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This OS is not supported!.
+        /// </summary>
+        public static string OSNotSupported {
+            get {
+                return ResourceManager.GetString("OSNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to administrator password.
+        /// </summary>
+        public static string passwordAdmin {
+            get {
+                return ResourceManager.GetString("passwordAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to quit/restart password.
+        /// </summary>
+        public static string passwordQuit {
+            get {
+                return ResourceManager.GetString("passwordQuit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to settings password.
+        /// </summary>
+        public static string passwordSettings {
+            get {
+                return ResourceManager.GetString("passwordSettings", resourceCulture);
             }
         }
         
@@ -655,6 +754,60 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connected to {0}.
+        /// </summary>
+        public static string toolTipConnectedToWiFiNetwork {
+            get {
+                return ResourceManager.GetString("toolTipConnectedToWiFiNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Connected.
+        /// </summary>
+        public static string toolTipNotConnectedToWiFiNetwork {
+            get {
+                return ResourceManager.GetString("toolTipNotConnectedToWiFiNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No WiFi Interface Found.
+        /// </summary>
+        public static string toolTipNoWiFiInterface {
+            get {
+                return ResourceManager.GetString("toolTipNoWiFiInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show/Hide On-Screen Keyboard.
+        /// </summary>
+        public static string toolTipOnScreenKeyboard {
+            get {
+                return ResourceManager.GetString("toolTipOnScreenKeyboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the correct confirm %s first..
+        /// </summary>
+        public static string unconfirmedPasswordMessage {
+            get {
+                return ResourceManager.GetString("unconfirmedPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Correct Confirm Password.
+        /// </summary>
+        public static string unconfirmedPasswordTitle {
+            get {
+                return ResourceManager.GetString("unconfirmedPasswordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current settings have unsaved changes. Do you want to save those first?.
         /// </summary>
         public static string unsavedChangesQuestion {
@@ -669,6 +822,24 @@ namespace SebWindowsClient {
         public static string unsavedChangesTitle {
             get {
                 return ResourceManager.GetString("unsavedChangesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t Establish Communication with the SEB Browser.
+        /// </summary>
+        public static string webSocketServerNotStarted {
+            get {
+                return ResourceManager.GetString("webSocketServerNotStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEB will quit, try to restart SEB, if this doesn&apos;t help restart your machine..
+        /// </summary>
+        public static string webSocketServerNotStartedMessage {
+            get {
+                return ResourceManager.GetString("webSocketServerNotStartedMessage", resourceCulture);
             }
         }
     }

@@ -36,6 +36,7 @@ namespace SebWindowsConfig
         string settingsPassword = "";
 
         private string lastBrowserExamKey = "";
+        private string lastSettingsPassword = "";
 
         private const string SEB_CONFIG_LOG = "SebConfig.log";
 
@@ -85,6 +86,7 @@ namespace SebWindowsConfig
 
             // Update Browser Exam Key
             lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            lastSettingsPassword = textBoxSettingsPassword.Text;
             // Display the new Browser Exam Key in Exam pane
             textBoxBrowserExamKey.Text = lastBrowserExamKey;
 
@@ -333,6 +335,16 @@ namespace SebWindowsConfig
             checkBoxUseSebWithoutBrowser    .Checked = !((Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableSebBrowser]);
             // BEWARE: you must invert this value since "Use Without" is "Not Enable"!
 
+            radioButtonUserAgentDesktopDefault.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] == 0);
+            radioButtonUserAgentDesktopCustom.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] == 1);
+            textBoxUserAgentDesktopModeCustom.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopModeCustom];
+            textBoxUserAgentDesktopModeDefault.Text = SEBClientInfo.BROWSER_USERAGENT_DESKTOP;
+
+            radioButtonUserAgentTouchDefault.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] == 0);
+            radioButtonUserAgentTouchCustom.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] == 1);
+            textBoxUserAgentTouchModeCustom.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchModeCustom];
+            textBoxUserAgentTouchModeDefault.Text = SEBClientInfo.BROWSER_USERAGENT_TOUCH;
+
             // Group "Down/Uploads"
             checkBoxAllowDownUploads.Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowDownUploads];
             checkBoxOpenDownloads   .Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyOpenDownloads];
@@ -346,6 +358,8 @@ namespace SebWindowsConfig
            //textBoxBrowserExamKey    .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserExamKey];
             textBoxQuitURL           .Text    =  (String)SEBSettings.settingsCurrent[SEBSettings.KeyQuitURL];
             checkBoxSendBrowserExamKey.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeySendBrowserExamKey];
+            checkBoxUseStartURL.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL];
+            textBoxRestartExamLink.Enabled = !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL];
             checkBoxRestartExamPasswordProtected.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamPasswordProtected];
             textBoxRestartExamLink.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamURL];
             textBoxRestartExamText.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamText];
@@ -444,7 +458,6 @@ namespace SebWindowsConfig
             for (int index = 0; index < SEBSettings.embeddedCertificateList.Count; index++)
             {
                 SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[index];
-                byte[] data = (byte[])SEBSettings.embeddedCertificateData[SEBSettings.KeyCertificateData];
                 Int32       type                    = (Int32  )SEBSettings.embeddedCertificateData[SEBSettings.KeyType];
                 String      name                    = (String )SEBSettings.embeddedCertificateData[SEBSettings.KeyName];
                 dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
@@ -532,7 +545,9 @@ namespace SebWindowsConfig
             radioKillExplorerShell  .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell];
             radioNoKiosMode  .Checked    = !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyKillExplorerShell] && !(Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop];
             checkBoxAllowUserSwitching .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching];
-            checkBoxEnableLogging      .Checked    = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
+            checkBoxEnableAppSwitcherCheck.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableAppSwitcherCheck];
+            checkBoxForceAppFolderInstall.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyForceAppFolderInstall];
+            checkBoxEnableLogging.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging];
             textBoxLogDirectoryWin.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyLogDirectoryWin];
             if (String.IsNullOrEmpty(textBoxLogDirectoryWin.Text))
             {
@@ -591,6 +606,7 @@ namespace SebWindowsConfig
 
             checkBoxAllowSpellCheck.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowSpellCheck];
             checkBoxShowTime.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowTime];
+            checkBoxShowKeyboardLayout.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowInputLanguage];
 
             return;
         }
@@ -647,16 +663,79 @@ namespace SebWindowsConfig
                 }
                 // Save the new hash string into settings
                 if (!passwordFieldsContainHash && settingsKey != null) SEBSettings.settingsCurrent[settingsKey] = newStringHashcode;
-                // Enable the save settings button
-                this.buttonSaveSettingsAs.Enabled = true;
+                // Enable the save/use settings buttons
+                //SetButtonsCommandsEnabled(true);
             }
             else
             {
-                this.buttonSaveSettingsAs.Enabled = false;
+                //SetButtonsCommandsEnabled(false);
                 label.Visible = true;
             }
         }
 
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Change the enabled status of buttons and menu commands 
+        /// for saving and using current settings.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private void SetButtonsCommandsEnabled(bool enabledStatus)
+        {
+            buttonSaveSettings.Enabled = enabledStatus;
+            buttonSaveSettingsAs.Enabled = enabledStatus;
+            buttonConfigureClient.Enabled = enabledStatus;
+            buttonApplyAndStartSEB.Enabled = enabledStatus;
+
+            saveSettingsToolStripMenuItem.Enabled = enabledStatus;
+            saveSettingsAsToolStripMenuItem.Enabled = enabledStatus;
+            configureClientToolStripMenuItem.Enabled = enabledStatus;
+            applyAndStartSEBToolStripMenuItem.Enabled = enabledStatus;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Check if there are some unconfirmed passwords and show alert if so.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private bool ArePasswordsUnconfirmed()
+        {
+            bool passwordIsUnconfirmed = false;
+            string unconfirmedPassword;
+
+            if (textBoxAdminPassword.Text.CompareTo(textBoxConfirmAdminPassword.Text) != 0)
+            {
+                unconfirmedPassword = SEBUIStrings.passwordAdmin;
+                PresentAlertForUnconfirmedPassword(unconfirmedPassword);
+                passwordIsUnconfirmed = true;
+            }
+
+            if (textBoxQuitPassword.Text.CompareTo(textBoxConfirmQuitPassword.Text) != 0)
+            {
+                unconfirmedPassword = SEBUIStrings.passwordQuit;
+                PresentAlertForUnconfirmedPassword(unconfirmedPassword);
+                passwordIsUnconfirmed = true;
+            }
+
+            if (textBoxSettingsPassword.Text.CompareTo(textBoxConfirmSettingsPassword.Text) != 0)
+            {
+                unconfirmedPassword = SEBUIStrings.passwordSettings;
+                PresentAlertForUnconfirmedPassword(unconfirmedPassword);
+                passwordIsUnconfirmed = true;
+            }
+
+            return passwordIsUnconfirmed;
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Check if there are some unconfirmed passwords and show alert if so.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private void PresentAlertForUnconfirmedPassword(string unconfirmedPassword)
+        {
+            SEBMessageBox.Show(SEBUIStrings.unconfirmedPasswordTitle, SEBUIStrings.unconfirmedPasswordMessage.Replace("%s", unconfirmedPassword), MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
+        }
 
         // **************
         //
@@ -672,11 +751,6 @@ namespace SebWindowsConfig
         private void textBoxStartURL_TextChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyStartURL] = textBoxStartURL.Text;
-        }
-
-        private void buttonPasteFromSavedClipboard_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void textBoxSebServerURL_TextChanged(object sender, EventArgs e)
@@ -837,9 +911,17 @@ namespace SebWindowsConfig
             int result = 0;
             // Generate current Browser Exam Key
             string currentBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            if (!lastBrowserExamKey.Equals(currentBrowserExamKey))
+            if (!lastBrowserExamKey.Equals(currentBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
             {
-                result = SEBErrorMessages.OutputErrorMessageIntResult(SEBUIStrings.unsavedChangesTitle, SEBUIStrings.unsavedChangesQuestion, SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNoCancel);
+                var messageBoxResult = SEBMessageBox.Show(SEBUIStrings.unsavedChangesTitle, SEBUIStrings.unsavedChangesQuestion, MessageBoxIcon.Question, MessageBoxButtons.YesNoCancel, neverShowTouchOptimized: true);
+                if (messageBoxResult == DialogResult.Yes)
+                {
+                    result = 1;
+                }
+                if (messageBoxResult == DialogResult.Cancel)
+                {
+                    result = 2;
+                }
             }
             return result;
         }
@@ -850,34 +932,40 @@ namespace SebWindowsConfig
             int result = checkSettingsChanged();
             // User selected cancel, abort
             if (result == 2) return;
-            // User selected yes: Save current settings first
-            if (result == 0 || saveCurrentSettings())
+            // User selected "Save current settings first: yes"
+            if (result == 1)
             {
-                // Set the default directory and file name in the File Dialog
-                openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
-                openFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
-                openFileDialogSebConfigFile.DefaultExt = "seb";
-                openFileDialogSebConfigFile.Filter = "SEB Files|*.seb";
+                // Abort if saving settings failed
+                if (!saveCurrentSettings()) return;
+            }
 
-                // Get the user inputs in the File Dialog
-                DialogResult fileDialogResult = openFileDialogSebConfigFile.ShowDialog();
-                String fileName = openFileDialogSebConfigFile.FileName;
+            // Set the default directory and file name in the File Dialog
+            openFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
+            //openFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
+            openFileDialogSebConfigFile.DefaultExt = "seb";
+            openFileDialogSebConfigFile.Filter = "SEB Files|*.seb";
 
-                // If the user clicked "Cancel", do nothing
-                // If the user clicked "OK"    , read the settings from the configuration file
-                if (fileDialogResult.Equals(DialogResult.Cancel)) return;
-                if (fileDialogResult.Equals(DialogResult.OK))
+            // Get the user inputs in the File Dialog
+            DialogResult fileDialogResult = openFileDialogSebConfigFile.ShowDialog();
+            String fileName = openFileDialogSebConfigFile.FileName;
+
+            // If the user clicked "Cancel", do nothing
+            // If the user clicked "OK"    , read the settings from the configuration file
+            if (fileDialogResult.Equals(DialogResult.Cancel)) return;
+            if (fileDialogResult.Equals(DialogResult.OK))
+            {
+                if (!LoadConfigurationFileIntoEditor(fileName))
                 {
-                    if (!LoadConfigurationFileIntoEditor(fileName))
-                    {
-                        SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.openingSettingsFailed, SEBUIStrings.openingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                        return;
-                    }
-                    // Generate Browser Exam Key of this new settings
-                    lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                    // Display the new Browser Exam Key in Exam pane
-                    textBoxBrowserExamKey.Text = lastBrowserExamKey;
+                    SEBMessageBox.Show(SEBUIStrings.openingSettingsFailed, SEBUIStrings.openingSettingsFailedMessage, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
+                    return;
                 }
+                // Generate Browser Exam Key of this new settings
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                lastSettingsPassword = textBoxSettingsPassword.Text;
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+                // Reset the path of the last saved file which is used in case "Edit duplicate" was used
+                lastPathSebConfigFile = null;
             }
         }
 
@@ -888,19 +976,26 @@ namespace SebWindowsConfig
             int result = checkSettingsChanged();
             // User selected cancel, abort
             if (result == 2) return;
-            // User selected yes: Save current settings first
-            if (result == 0 || saveCurrentSettings())
+            // User selected "Save current settings first: yes"
+            // User selected "Save current settings first: yes"
+            if (result == 1)
             {
-                if (!LoadConfigurationFileIntoEditor(filePath))
-                {
-                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.openingSettingsFailed, SEBUIStrings.openingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
-                    return;
-                }
-                // Generate Browser Exam Key of this new settings
-                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                // Display the new Browser Exam Key in Exam pane
-                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+                // Abort if saving settings failed
+                if (!saveCurrentSettings()) return;
             }
+
+            if (!LoadConfigurationFileIntoEditor(filePath))
+            {
+                SEBMessageBox.Show(SEBUIStrings.openingSettingsFailed, SEBUIStrings.openingSettingsFailedMessage, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
+                return;
+            }
+            // Generate Browser Exam Key of this new settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            lastSettingsPassword = textBoxSettingsPassword.Text;
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            // Reset the path of the last saved file which is used in case "Edit duplicate" was used
+            lastPathSebConfigFile = null;
         }
 
 
@@ -911,12 +1006,15 @@ namespace SebWindowsConfig
 
         public bool saveCurrentSettings()
         {
+            // Check if there are unconfirmed passwords, if yes show an alert and abort saving
+            if (ArePasswordsUnconfirmed()) return false;
+
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
             String fileName = sebClientSettingsAppDataBuilder.ToString();
 
             // Generate Browser Exam Key and its salt, if settings changed
             string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            if (!lastBrowserExamKey.Equals(newBrowserExamKey))
+            if (!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
             {
                 // If the exam key changed, then settings changed and we will generate a new salt
                 byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
@@ -924,20 +1022,26 @@ namespace SebWindowsConfig
                 SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
                 // Generate the new Browser Exam Key
                 lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                lastSettingsPassword = textBoxSettingsPassword.Text;
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
             if (!SaveConfigurationFileFromEditor(fileName))
             {
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                SEBMessageBox.Show(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
                 return false;
             }
+            // Reset the path of the last saved file which is used in case "Edit duplicate" was used
+            lastPathSebConfigFile = null;
             return true;
         }
 
 
         private void buttonSaveSettingsAs_Click(object sender, EventArgs e)
         {
+            // Check if there are unconfirmed passwords, if yes show an alert and abort saving
+            if (ArePasswordsUnconfirmed()) return;
+
             // Set the default directory and file name in the File Dialog
             saveFileDialogSebConfigFile.InitialDirectory = currentDireSebConfigFile;
             saveFileDialogSebConfigFile.FileName = currentFileSebConfigFile;
@@ -952,7 +1056,7 @@ namespace SebWindowsConfig
 
             // Generate Browser Exam Key and its salt, if settings changed
             string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            if (!lastBrowserExamKey.Equals(newBrowserExamKey))
+            if (!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
             {
                 // If the exam key changed, then settings changed and we will generate a new salt
                 byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
@@ -960,14 +1064,18 @@ namespace SebWindowsConfig
                 SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
                 // Generate the new Browser Exam Key
                 lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                lastSettingsPassword = textBoxSettingsPassword.Text;
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
             if (fileDialogResult.Equals(DialogResult.OK)) {
                 if (!SaveConfigurationFileFromEditor(fileName))
                 {
-                    SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                    SEBMessageBox.Show(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
+                    return;
                 }
+                // Reset the path of the last saved file which is used in case "Edit duplicate" was used
+                lastPathSebConfigFile = null;
             }
         }
 
@@ -978,19 +1086,23 @@ namespace SebWindowsConfig
             int result = checkSettingsChanged();
             // User selected cancel, abort
             if (result == 2) return;
-            // User selected yes: Save current settings first
-            if (result == 0 || saveCurrentSettings())
+            // User selected "Save current settings first: yes"
+            if (result == 1)
             {
-                settingsPassword = "";
-                settingsPasswordFieldsContainHash = false;
-                SEBSettings.RestoreDefaultAndCurrentSettings();
-                SEBSettings.PermitXulRunnerProcess();
-                UpdateAllWidgetsOfProgram();
-                // Generate Browser Exam Key of default settings
-                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                // Display the new Browser Exam Key in Exam pane
-                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+                // Abort if saving settings failed
+                if (!saveCurrentSettings()) return;
             }
+
+            settingsPassword = "";
+            settingsPasswordFieldsContainHash = false;
+            SEBSettings.RestoreDefaultAndCurrentSettings();
+            SEBSettings.PermitXulRunnerProcess();
+            UpdateAllWidgetsOfProgram();
+            // Generate Browser Exam Key of default settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            lastSettingsPassword = textBoxSettingsPassword.Text;
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
         }
 
 
@@ -1000,9 +1112,13 @@ namespace SebWindowsConfig
             int result = checkSettingsChanged();
             // User selected cancel, abort
             if (result == 2) return;
-            // User selected yes: Save current settings first
-            if (result == 0 || saveCurrentSettings())
+            // User selected "Save current settings first: yes"
+            if (result == 1)
             {
+                // Abort if saving settings failed
+                if (!saveCurrentSettings()) return;
+            }
+
                 // Get the path to the local client settings configuration file
                 currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
                 currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
@@ -1020,9 +1136,9 @@ namespace SebWindowsConfig
                 }
                 // Generate Browser Exam Key of this new settings
                 lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                lastSettingsPassword = textBoxSettingsPassword.Text;
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
-            }
         }
 
 
@@ -1032,15 +1148,20 @@ namespace SebWindowsConfig
             int result = checkSettingsChanged();
             // User selected cancel, abort
             if (result == 2) return;
-            // User selected yes: Save current settings first
-            if (result == 0 || saveCurrentSettings())
+            // User selected "Save current settings first: yes"
+            if (result == 1)
             {
-                if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile)) return;
-                // Generate Browser Exam Key of this new settings
-                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                // Display the new Browser Exam Key in Exam pane
-                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+                // Abort if saving settings failed
+                if (!saveCurrentSettings()) return;
             }
+
+            if (!LoadConfigurationFileIntoEditor(String.IsNullOrEmpty(lastPathSebConfigFile) ? currentPathSebConfigFile : lastPathSebConfigFile)) return;
+            lastPathSebConfigFile = null;
+            // Generate Browser Exam Key of this new settings
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            lastSettingsPassword = textBoxSettingsPassword.Text;
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
         }
 
 
@@ -1050,9 +1171,14 @@ namespace SebWindowsConfig
             int result = checkSettingsChanged();
             // User selected cancel, abort
             if (result == 2) return;
-            // User selected yes: Save current settings first
-            if (result == 0 || saveCurrentSettings())
+            // User selected yes: Save current settings first and proceed only, when saving didn't fail
+            // User selected "Save current settings first: yes"
+            if (result == 1)
             {
+                // Abort if saving settings failed
+                if (!saveCurrentSettings()) return;
+            }
+
                 // Add string " copy" (or " n+1" if the filename already ends with " copy" or " copy n") to the config name filename
                 // Get the filename without extension
                 string filename = Path.GetFileNameWithoutExtension(currentFileSebConfigFile);
@@ -1093,13 +1219,13 @@ namespace SebWindowsConfig
                         }
                     }
                 }
+                lastPathSebConfigFile = currentPathSebConfigFile;
                 currentFileSebConfigFile = newFilename.Append(extension).ToString();
 
                 StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
                 currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
                 // Update title of edited settings file
                 UpdateAllWidgetsOfProgram();
-            }
         }
 
 
@@ -1113,7 +1239,7 @@ namespace SebWindowsConfig
 
             // Generate Browser Exam Key and its salt, if settings changed
             string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            if (!lastBrowserExamKey.Equals(newBrowserExamKey))
+            if (!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
             {
                 // If the exam key changed, then settings changed and we will generate a new salt
                 byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
@@ -1121,6 +1247,7 @@ namespace SebWindowsConfig
                 SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
                 // Generate the new Browser Exam Key
                 lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                lastSettingsPassword = textBoxSettingsPassword.Text;
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
@@ -1133,7 +1260,7 @@ namespace SebWindowsConfig
             // Check if settings changed and save them if yes
             // Generate current Browser Exam Key
             string currentBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-            if (!lastBrowserExamKey.Equals(currentBrowserExamKey))
+            if (!lastBrowserExamKey.Equals(currentBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text) || !String.IsNullOrEmpty(lastPathSebConfigFile))
             {
                 if (!saveCurrentSettings()) return;
             }
@@ -1149,7 +1276,7 @@ namespace SebWindowsConfig
             var p = new Process();
             p.StartInfo.FileName = sebClientExe;
 
-            if (!currentPathSebConfigFile.Equals(localSebClientSettings))
+            if (!currentPathSebConfigFile.Equals(localSebClientSettings) && !currentPathSebConfigFile.Equals(SEBUIStrings.settingsTitleDefaultSettings))
             {
                 p.StartInfo.Arguments = String.Format("\"{0}\"", currentPathSebConfigFile);
             }
@@ -1394,6 +1521,46 @@ namespace SebWindowsConfig
             else SEBSettings.settingsCurrent[SEBSettings.KeyZoomMode] = 0;
         }
 
+        private void radioButtonUserAgentDesktopDefault_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUserAgentDesktopDefault.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 0;
+            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 1;
+        }
+
+        private void radioButtonUserAgentDesktopCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUserAgentDesktopCustom.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 1;
+            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 0;
+        }
+
+        private void textBoxUserAgentDesktopModeCustom_TextChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopModeCustom] = textBoxUserAgentDesktopModeCustom.Text;
+            radioButtonUserAgentDesktopCustom.Checked = true;
+        }
+
+        private void radioButtonUserAgentTouchDefault_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUserAgentTouchDefault.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 0;
+            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 1;
+        }
+
+        private void radioButtonUserAgentTouchCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUserAgentTouchCustom.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 1;
+            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 0;
+        }
+
+        private void textBoxUserAgentTouchModeCustom_TextChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchModeCustom] = textBoxUserAgentTouchModeCustom.Text;
+            radioButtonUserAgentTouchCustom.Checked = true;
+        }
+
 
         // ********************
         // Group "Down/Uploads"
@@ -1536,6 +1703,7 @@ namespace SebWindowsConfig
             // Update the widgets in the "Selected Process" group
             checkBoxPermittedProcessActive    .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyActive];
             checkBoxPermittedProcessAutostart .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAutostart];
+            checkBoxPermittedProcessIconInTaskbar .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyIconInTaskbar];
             checkBoxPermittedProcessAutohide  .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyRunInBackground];
             checkBoxPermittedProcessAllowUser .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAllowUser];
             checkBoxPermittedProcessStrongKill.Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyStrongKill];
@@ -1727,6 +1895,7 @@ namespace SebWindowsConfig
 
             processData[SEBSettings.KeyActive     ] = true;
             processData[SEBSettings.KeyAutostart  ] = false;
+            processData[SEBSettings.KeyIconInTaskbar  ] = true;
             processData[SEBSettings.KeyRunInBackground   ] = false;
             processData[SEBSettings.KeyAllowUser  ] = false;
             processData[SEBSettings.KeyStrongKill ] = false;
@@ -1791,9 +1960,12 @@ namespace SebWindowsConfig
         private void ButtonChooseExecutable_Click(object sender, EventArgs e)
         {
             var permittedApplicationInformation = ChooseApplicationDialog();
-            textBoxPermittedProcessExecutable.Text = permittedApplicationInformation.Executable;
-            textBoxPermittedProcessTitle.Text = permittedApplicationInformation.Title;
-            textBoxPermittedProcessPath.Text = permittedApplicationInformation.Path;
+            if (permittedApplicationInformation != null)
+            {
+                textBoxPermittedProcessExecutable.Text = permittedApplicationInformation.Executable;
+                textBoxPermittedProcessTitle.Text = permittedApplicationInformation.Title;
+                textBoxPermittedProcessPath.Text = permittedApplicationInformation.Path;
+            }
         }
 
         private PermittedApplicationInformation ChooseApplicationDialog()
@@ -1880,6 +2052,14 @@ namespace SebWindowsConfig
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyAutostart] = checkBoxPermittedProcessAutostart.Checked;
+        }
+
+        private void checkBoxPermittedProcessIconInTaskbar_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SEBSettings.permittedProcessIndex < 0) return;
+            SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyPermittedProcesses];
+            SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
+            SEBSettings.permittedProcessData[SEBSettings.KeyIconInTaskbar] = checkBoxPermittedProcessIconInTaskbar.Checked;
         }
 
         private void checkBoxPermittedProcessAutohide_CheckedChanged(object sender, EventArgs e)
@@ -2531,16 +2711,95 @@ namespace SebWindowsConfig
         // ******************************
         private void comboBoxChooseSSLClientCertificate_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var cert = (X509Certificate2)certificateSSLReferences[comboBoxChooseSSLClientCertificate.SelectedIndex];
+            
+            SEBSettings.embeddedCertificateList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyEmbeddedCertificates];
 
+            SEBSettings.embeddedCertificateIndex = SEBSettings.embeddedCertificateList.Count;
+
+            DictObj certData = new DictObj();
+
+            //certData[SEBSettings.KeyCertificateData] = cert.RawData;
+            certData[SEBSettings.KeyCertificateDataWin] = exportToPEM(cert);
+            certData[SEBSettings.KeyType] = 0;
+            certData[SEBSettings.KeyName] = comboBoxChooseSSLClientCertificate.SelectedItem;
+
+            SEBSettings.embeddedCertificateList.Insert(SEBSettings.embeddedCertificateIndex, certData);
+
+            dataGridViewEmbeddedCertificates.Rows.Insert(SEBSettings.embeddedCertificateIndex, "SSL Certificate", comboBoxChooseSSLClientCertificate.SelectedItem);
+            dataGridViewEmbeddedCertificates.Rows[SEBSettings.embeddedCertificateIndex].Selected = true;
+
+            comboBoxChooseSSLClientCertificate.BeginInvoke((Action)(() =>
+            {
+                comboBoxChooseSSLClientCertificate.Text = SEBUIStrings.ChooseEmbeddedCert;
+            }));
+
+            dataGridViewEmbeddedCertificates.Enabled = true;
         }
 
         private void comboBoxChooseIdentityToEmbed_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //SEBSettings.embeddedCertificateData = (DictObj)SEBSettings.embeddedCertificateList[comboBoxChooseIdentityToEmbed.SelectedIndex];
-            //byte[] data = (byte[])SEBSettings.embeddedCertificateData[SEBSettings.KeyCertificateData];
-            Int32 type = 1;
-            String name = comboBoxCryptoIdentity.Text;
-            dataGridViewEmbeddedCertificates.Rows.Add(StringCertificateType[type], name);
+            var cert = (X509Certificate2)certificateReferences[comboBoxChooseIdentityToEmbed.SelectedIndex];
+
+            SEBSettings.embeddedCertificateList = (ListObj)SEBSettings.settingsCurrent[SEBSettings.KeyEmbeddedCertificates];
+
+            SEBSettings.embeddedCertificateIndex = SEBSettings.embeddedCertificateList.Count;
+
+            DictObj identityToEmbedd = new DictObj();
+
+            byte[] certData = new byte[0];
+
+            try
+            {
+                certData = cert.Export(X509ContentType.Pkcs12, SEBClientInfo.DEFAULT_KEY);
+            }
+
+            catch (Exception certExportException)
+            {
+                Logger.AddError(string.Format("The identity (certificate with private key) {0} could not be exported", comboBoxChooseIdentityToEmbed.SelectedItem), null, certExportException, certExportException.Message);
+
+                SEBMessageBox.Show(SEBUIStrings.identityExportError, string.Format(SEBUIStrings.identityExportErrorMessage, comboBoxChooseIdentityToEmbed.SelectedItem), MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
+            }
+
+            if (certData.Length > 0)
+            {
+                identityToEmbedd[SEBSettings.KeyCertificateData] = certData;
+                //certData[SEBSettings.KeyCertificateDataWin] = exportToPEM(cert);
+                identityToEmbedd[SEBSettings.KeyType] = 1;
+                identityToEmbedd[SEBSettings.KeyName] = comboBoxChooseIdentityToEmbed.SelectedItem;
+
+                SEBSettings.embeddedCertificateList.Insert(SEBSettings.embeddedCertificateIndex, identityToEmbedd);
+
+                dataGridViewEmbeddedCertificates.Rows.Insert(SEBSettings.embeddedCertificateIndex, "Identity", comboBoxChooseIdentityToEmbed.SelectedItem);
+                dataGridViewEmbeddedCertificates.Rows[SEBSettings.embeddedCertificateIndex].Selected = true;
+            }
+
+            comboBoxChooseIdentityToEmbed.BeginInvoke((Action) (() =>
+            {
+                comboBoxChooseIdentityToEmbed.Text = SEBUIStrings.ChooseEmbeddedCert;
+            }));
+
+            dataGridViewEmbeddedCertificates.Enabled = true;
+        }
+
+        /// <summary>
+        /// Export a certificate to a PEM format string
+        /// </summary>
+        /// <param name="cert">The certificate to export</param>
+        /// <returns>A PEM encoded string</returns>
+        private string exportToPEM(X509Certificate cert)
+        {
+            string certToBase64String = Convert.ToBase64String(cert.Export(X509ContentType.Cert));
+            //certToBase64String = certToBase64String.Replace("/", @"\/");
+            //certToBase64String = certToBase64String.Substring(0, certToBase64String.Length - 1);
+
+            StringBuilder builder = new StringBuilder();
+
+            //builder.Append("-----BEGIN CERTIFICATE-----");
+            builder.Append(certToBase64String); //Convert.ToBase64String(cert.Export(X509ContentType.Cert))); //, Base64FormattingOptions.InsertLineBreaks));
+            //builder.Append("-----END CERTIFICATE-----");
+
+            return builder.ToString();
         }
 
         private void dataGridViewEmbeddedCertificates_SelectionChanged(object sender, EventArgs e)
@@ -2891,6 +3150,16 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowUserSwitching] = checkBoxAllowUserSwitching.Checked;
         }
 
+        private void checkBoxEnableAppSwitcherCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnableAppSwitcherCheck] = checkBoxEnableAppSwitcherCheck.Checked;
+        }
+
+        private void checkBoxForceAppFolderInstall_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyForceAppFolderInstall] = checkBoxForceAppFolderInstall.Checked;
+        }
+
         private void checkBoxEnableLogging_CheckedChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyEnableLogging] = checkBoxEnableLogging.Checked;
@@ -3136,17 +3405,6 @@ namespace SebWindowsConfig
 
         }
 
-        private void checkBoxCopyBrowserExamKey_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxEnableScreenCapture_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnableScreenCapture.Checked;
-            checkBoxEnablePrintScreen.Checked = checkBoxEnableScreenCapture.Checked;
-        }
-
         private void label6_Click(object sender, EventArgs e)
         {
 
@@ -3202,6 +3460,11 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyShowTime] = checkBoxShowTime.Checked;
         }
 
+        private void checkBoxShowKeyboardLayout_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyShowInputLanguage] = checkBoxShowKeyboardLayout.Checked;
+        }
+
         private void SebWindowsConfigForm_Load(object sender, EventArgs e)
         {
 
@@ -3254,6 +3517,7 @@ namespace SebWindowsConfig
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (ArePasswordsUnconfirmed()) return;
             Application.Exit();
         }
 
@@ -3261,6 +3525,12 @@ namespace SebWindowsConfig
         {
             if (!quittingMyself)
             {
+                if (ArePasswordsUnconfirmed())
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
                 int result = checkSettingsChanged();
                 // User selected cancel, abort
                 if (result == 2)
@@ -3268,9 +3538,15 @@ namespace SebWindowsConfig
                     e.Cancel = true;
                     return;
                 }
-                // User selected yes: Save current settings first
-                if (result == 0 || saveCurrentSettings())
+                // User selected "Save current settings first: yes"
+                if (result == 1)
                 {
+                    // Abort if saving settings failed
+                    if (!saveCurrentSettings())
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                     quittingMyself = true;
                     Application.Exit();
                 }
@@ -3298,6 +3574,31 @@ namespace SebWindowsConfig
                 e.Effect = DragDropEffects.Copy;
             else
                 e.Effect = DragDropEffects.None;
+        }
+
+        private void tabControlSebWindowsConfig_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (ArePasswordsUnconfirmed())
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxUseStartURL_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL] = checkBoxUseStartURL.Checked;
+            textBoxRestartExamLink.Enabled = !checkBoxUseStartURL.Checked;
+        }
+
+        private void checkBoxEnableScreenCapture_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnableScreenCapture.Checked;
+            checkBoxEnablePrintScreen.Checked = checkBoxEnableScreenCapture.Checked;
         }
 
 

@@ -35,7 +35,7 @@ namespace SebWindowsClient.UI
             }
             catch (Exception ex)
             {
-                Logger.AddError("No wlan interface found",this,ex);
+                Logger.AddError("No WiFi interface found",this,ex);
                 base.Enabled = false;
                 Update();
             }
@@ -48,7 +48,7 @@ namespace SebWindowsClient.UI
                 if (wlanInterface == null)
                 {
                     ChangeImage("nointerface");
-                    this.ToolTipText = Resources.NoWLANInterface;
+                    this.ToolTipText = SEBUIStrings.toolTipNoWiFiInterface;
                 }
                 else if (wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Connected)
                 {
@@ -59,18 +59,18 @@ namespace SebWindowsClient.UI
                         ? 100
                         : rssi < -95 ? 0 : Math.Round((decimal) 100/(-35 + 95)*((decimal) rssi + 95), 2);
                     UpdateSignalStrength((int) strengthInPercent);
-                    this.ToolTipText = String.Format("Connected to {0}", wlanInterface.CurrentConnection.profileName);
+                    this.ToolTipText = String.Format(SEBUIStrings.toolTipConnectedToWiFiNetwork, wlanInterface.CurrentConnection.profileName);
                 }
                 else
                 {
                     ChangeImage("0");
-                    this.ToolTipText = Resources.WLANNotConnected;
+                    this.ToolTipText = SEBUIStrings.toolTipNotConnectedToWiFiNetwork;
                 }
             }
             catch (Exception ex)
             {
                 ChangeImage("0");
-                this.ToolTipText = Resources.WLANNotConnected;
+                this.ToolTipText = SEBUIStrings.toolTipNotConnectedToWiFiNetwork;
             }
         }
 

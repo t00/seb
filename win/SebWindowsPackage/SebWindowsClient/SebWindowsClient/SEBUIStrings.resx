@@ -130,10 +130,10 @@
     <value>Opening the SEB link failed. Check your internet connection and try again.</value>
   </data>
   <data name="certificateNotFoundInStore" xml:space="preserve">
-    <value>The certificate needed to decrypt settings has not been found in the Windows certificate store. </value>
+    <value>The certificate needed to decrypt settings has not been found in the Windows Certificate Store.</value>
   </data>
   <data name="closeProcesses" xml:space="preserve">
-    <value>Permitted Processes Are Aleady Running</value>
+    <value>Permitted Processes Are Already Running</value>
   </data>
   <data name="closeProcessesQuestion" xml:space="preserve">
     <value>The processes below are already running, they need to be closed before starting the exam. Do you want to close those processes now (this may lead to loss of data!)? Otherwise SEB will quit and you can close those applications yourself before trying to start the exam again.</value>
@@ -320,5 +320,62 @@
   </data>
   <data name="unsavedChangesTitle" xml:space="preserve">
     <value>Unsaved Changes</value>
+  </data>
+  <data name="KeyboardLayout_CURRENTCULTURE" xml:space="preserve">
+    <value>Keyboard Layout: {0} - Click to change</value>
+  </data>
+  <data name="ChooseEmbeddedCert" xml:space="preserve">
+    <value>Choose certificate to add</value>
+  </data>
+  <data name="ErrorCaption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorWhenOpeningSettingsFile" xml:space="preserve">
+    <value>Error when opening the file SebClientSettings.seb!</value>
+  </data>
+  <data name="OSNotSupported" xml:space="preserve">
+    <value>This OS is not supported!</value>
+  </data>
+  <data name="passwordAdmin" xml:space="preserve">
+    <value>administrator password</value>
+  </data>
+  <data name="passwordQuit" xml:space="preserve">
+    <value>quit/restart password</value>
+  </data>
+  <data name="passwordSettings" xml:space="preserve">
+    <value>settings password</value>
+  </data>
+  <data name="unconfirmedPasswordMessage" xml:space="preserve">
+    <value>Please enter the correct confirm %s first.</value>
+  </data>
+  <data name="unconfirmedPasswordTitle" xml:space="preserve">
+    <value>No Correct Confirm Password</value>
+  </data>
+  <data name="toolTipConnectedToWiFiNetwork" xml:space="preserve">
+    <value>Connected to {0}</value>
+  </data>
+  <data name="toolTipNotConnectedToWiFiNetwork" xml:space="preserve">
+    <value>Not Connected</value>
+  </data>
+  <data name="toolTipNoWiFiInterface" xml:space="preserve">
+    <value>No WiFi Interface Found</value>
+  </data>
+  <data name="toolTipOnScreenKeyboard" xml:space="preserve">
+    <value>Show/Hide On-Screen Keyboard</value>
+  </data>
+  <data name="identityExportError" xml:space="preserve">
+    <value>Exporting Identity Failed</value>
+  </data>
+  <data name="identityExportErrorMessage" xml:space="preserve">
+    <value>The identity (certificate with private key) '{0}' could not be exported. Its private key might be flagged as non-exportable.</value>
+  </data>
+  <data name="certificateDecryptingError" xml:space="preserve">
+    <value>Decrypting settings using a certificate and private key stored in the Windows Certificate Store failed with error: </value>
+  </data>
+  <data name="webSocketServerNotStarted" xml:space="preserve">
+    <value>Couldn't Establish Communication with the SEB Browser</value>
+  </data>
+  <data name="webSocketServerNotStartedMessage" xml:space="preserve">
+    <value>SEB will quit, try to restart SEB, if this doesn't help restart your machine.</value>
   </data>
 </root>

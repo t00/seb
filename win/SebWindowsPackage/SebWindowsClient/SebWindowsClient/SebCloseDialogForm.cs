@@ -64,7 +64,7 @@ namespace SebWindowsClient
             if (quit != 0)
             {
                 this.Hide();
-                SEBErrorMessages.OutputErrorMessageNew(SEBUIStrings.quittingFailed, SEBUIStrings.quittingFailedReason, SEBGlobalConstants.IND_MESSAGE_KIND_ERROR, MessageBoxButtons.OK);
+                SEBMessageBox.Show(SEBUIStrings.quittingFailed, SEBUIStrings.quittingFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
                 this.txtQuitPassword.Text = "";
                 this.Visible = false;
             }

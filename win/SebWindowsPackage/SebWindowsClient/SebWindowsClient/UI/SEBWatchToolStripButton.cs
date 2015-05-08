@@ -5,7 +5,7 @@ using FontStyle = System.Drawing.FontStyle;
 
 namespace SebWindowsClient.UI
 {
-    public class SEBWatchToolStripButton : ToolStripButton
+    public class SEBWatchToolStripButton : SEBToolStripButton
     {
         private Timer timer;
 
@@ -42,7 +42,7 @@ namespace SebWindowsClient.UI
         {
             this.Alignment = ToolStripItemAlignment.Right;
             base.ForeColor = Color.Black;
-            base.Font = new Font("Arial", 10, FontStyle.Bold);
+            base.Font = new Font("Arial", base.FontSize, FontStyle.Bold);
             base.Enabled = false;
         }
     }

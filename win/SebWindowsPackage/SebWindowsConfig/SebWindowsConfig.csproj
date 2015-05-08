@@ -130,6 +130,10 @@
     <Content Include="SEBConfigToolIcon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SebWindowsClient\MetroFramework\MetroFramework\MetroFramework.csproj">
+      <Project>{BB41AC8B-CBED-4387-A7E0-4567EDB3F57F}</Project>
+      <Name>MetroFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SebWindowsClient\SebWindowsClient\SebWindowsClient.csproj">
       <Project>{eff410a4-2656-4426-8489-89b1232ea0f0}</Project>
       <Name>SebWindowsClient</Name>

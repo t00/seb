@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceModel;
 using System.ServiceProcess;
+using System.Threading;
 using SebWindowsServiceWCF.ServiceContracts;
 using SebWindowsServiceWCF.ServiceImplementations;
 
@@ -49,6 +50,7 @@ namespace SebWindowsServiceWCF
 
                 using (var service = new RegistryService())
                 {
+                    Thread.Sleep(1000);
                     service.Reset();
                 }
             }

@@ -16,15 +16,12 @@ namespace SebWindowsClient.UI
 {
     public class SEBOnScreenKeyboardToolStripButton : SEBToolStripButton
     {
+        public static event EventHandler OnKeyboardStateChanged;
+
         public SEBOnScreenKeyboardToolStripButton()
         {
             InitializeComponent();
             this.Alignment = ToolStripItemAlignment.Right;
-        }
-
-        private void CheckTablet()
-        {
-        
         }
 
         protected override void OnClick(EventArgs e)
@@ -58,7 +55,12 @@ namespace SebWindowsClient.UI
                     string progFiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
                     SEBWindowHandler.AllowedExecutables.Add("tabtip.ex");
                     string onScreenKeyboardPath = Path.Combine(progFiles, "TabTip.exe");
-                    Process.Start(onScreenKeyboardPath);
+                    var proc = Process.Start(onScreenKeyboardPath);
+                    if (OnKeyboardStateChanged != null)
+                    {
+                        OnKeyboardStateChanged(null, EventArgs.Empty);
+                    }
+                    
                 }
             }
             catch
@@ -75,10 +77,13 @@ namespace SebWindowsClient.UI
                 {
                     onscreenProcess.Kill();
                 }
+                if (OnKeyboardStateChanged != null)
+                {
+                    OnKeyboardStateChanged(null, EventArgs.Empty);
+                }
             }
             catch
             {}
-            
         }
 
         private void InitializeComponent()
@@ -86,7 +91,7 @@ namespace SebWindowsClient.UI
             // 
             // SEBOnScreenKeyboardToolStripButton
             // 
-            this.ToolTipText = "Show/Hide on Screen Keyboard";
+            this.ToolTipText = SEBUIStrings.toolTipOnScreenKeyboard;
             base.Image = (Bitmap)Resources.ResourceManager.GetObject("keyboard");
 
             SEBXULRunnerWebSocketServer.OnXulRunnerTextFocus += OnTextFocus;
