@@ -1225,9 +1225,9 @@
             // 
             // tabControlNetwork
             // 
+            this.tabControlNetwork.Controls.Add(this.tabPageUrlFilter);
             this.tabControlNetwork.Controls.Add(this.tabPageCertificates);
             this.tabControlNetwork.Controls.Add(this.tabPageProxies);
-            this.tabControlNetwork.Controls.Add(this.tabPageUrlFilter);
             this.tabControlNetwork.Location = new System.Drawing.Point(22, 24);
             this.tabControlNetwork.Margin = new System.Windows.Forms.Padding(2);
             this.tabControlNetwork.Name = "tabControlNetwork";
