@@ -42,6 +42,27 @@ namespace SebWindowsConfig
 
         //X509Certificate2 fileCertificateRef = null;
 
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// OnLoad: Get the file name from command line arguments and load it.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            string[] args = Environment.GetCommandLineArgs();
+
+            string es = string.Join(", ", args);
+            Logger.AddError("OnLoad EventArgs: " + es, null, null);
+
+            if (args.Length > 1)
+            {
+                LoadConfigurationFileIntoEditor(args[1]);
+            }
+        }
+
+
         // ***********
         //
         // Constructor
