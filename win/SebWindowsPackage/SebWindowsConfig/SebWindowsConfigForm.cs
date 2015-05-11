@@ -661,7 +661,7 @@ namespace SebWindowsConfig
                 }
             }
 
-            // Password fields contain actual passwords, not the placeholder for a hash value
+            // Compare text value of password fields, regardless if they contain actual passwords or a hash
             if (password.CompareTo(confirmPassword) == 0)
             {
                 /// Passwords are same
@@ -683,13 +683,27 @@ namespace SebWindowsConfig
                     newStringHashcode = BitConverter.ToString(hashcodeBytes);
                     newStringHashcode = newStringHashcode.Replace("-", "");
                 }
-                // Save the new hash string into settings
+                // Save the new password into settings password variable
+                if (!passwordFieldsContainHash && settingsKey == null)
+                {
+                    settingsPassword = password;
+                }
+                // Save the new hash string into settings 
                 if (!passwordFieldsContainHash && settingsKey != null) SEBSettings.settingsCurrent[settingsKey] = newStringHashcode;
                 // Enable the save/use settings buttons
                 //SetButtonsCommandsEnabled(true);
             }
             else
             {
+                /// Passwords are not same
+
+                // If this was a settings password hash and it got edited: Clear the settings password variable and the hash flag
+                if (passwordFieldsContainHash && settingsKey == null)
+                {
+                    settingsPassword = "";
+                    settingsPasswordFieldsContainHash = false;
+                }
+
                 //SetButtonsCommandsEnabled(false);
                 label.Visible = true;
             }
@@ -912,7 +926,7 @@ namespace SebWindowsConfig
             ComparePasswords(textBoxSettingsPassword, textBoxConfirmSettingsPassword, ref settingsPasswordFieldsContainHash, labelSettingsPasswordCompare, null);
             // We can store the settings password regardless if the same is entered in the confirm text field, 
             // as saving the .seb file is only allowed when they are same
-            settingsPassword = textBoxSettingsPassword.Text;
+            //settingsPassword = textBoxSettingsPassword.Text;
         }
 
         private void textBoxConfirmSettingsPassword_TextChanged(object sender, EventArgs e)
@@ -920,7 +934,7 @@ namespace SebWindowsConfig
             ComparePasswords(textBoxSettingsPassword, textBoxConfirmSettingsPassword, ref settingsPasswordFieldsContainHash, labelSettingsPasswordCompare, null);
             // We can store the settings password regardless if the same is entered in the confirm text field, 
             // as saving the .seb file is only allowed when they are same
-            settingsPassword = textBoxSettingsPassword.Text;
+            //settingsPassword = textBoxSettingsPassword.Text;
         }
 
         /// ----------------------------------------------------------------------------------------
