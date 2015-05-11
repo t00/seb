@@ -59,6 +59,11 @@ namespace SebWindowsConfig
             if (args.Length > 1)
             {
                 LoadConfigurationFileIntoEditor(args[1]);
+                // Update Browser Exam Key
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                lastSettingsPassword = textBoxSettingsPassword.Text;
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
         }
 
@@ -154,11 +159,6 @@ namespace SebWindowsConfig
                 // if found (this should always be the case), select that certificate in the comboBox list
                 if (indexOfCertificateRef != -1) comboBoxCryptoIdentity.SelectedIndex = indexOfCertificateRef+1;
             }
-
-            //Plist.writeXml(SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.xml");
-            //Plist.writeXml(SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_LoadConfigurationFile.xml");
-            //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsDefault, "DebugSettingsDefault_In_LoadConfigurationFile.txt");
-            //SEBSettings.LoggSettingsDictionary(ref SEBSettings.settingsCurrent, "DebugSettingsCurrent_In_LoadConfigurationFile.txt");
 
             // GUI-related part: Update the widgets
             currentDireSebConfigFile = Path.GetDirectoryName(fileName);
