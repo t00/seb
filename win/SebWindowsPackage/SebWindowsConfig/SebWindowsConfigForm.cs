@@ -983,6 +983,7 @@ namespace SebWindowsConfig
                 }
                 // Generate Browser Exam Key of this new settings
                 lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Save the current settings password so it can be used for comparing later if it changed
                 lastSettingsPassword = textBoxSettingsPassword.Text;
                 // Display the new Browser Exam Key in Exam pane
                 textBoxBrowserExamKey.Text = lastBrowserExamKey;
@@ -1013,6 +1014,7 @@ namespace SebWindowsConfig
             }
             // Generate Browser Exam Key of this new settings
             lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Save the current settings password so it can be used for comparing later if it changed
             lastSettingsPassword = textBoxSettingsPassword.Text;
             // Display the new Browser Exam Key in Exam pane
             textBoxBrowserExamKey.Text = lastBrowserExamKey;
@@ -1266,26 +1268,34 @@ namespace SebWindowsConfig
         private void buttonConfigureClient_Click(object sender, EventArgs e)
         {
             // Get the path to the local client settings configuration file
-            currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
-            currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
-            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
+            StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(SEBClientInfo.SebClientSettingsAppDataDirectory).Append(SEBClientInfo.SEB_CLIENT_CONFIG);
             string filename = sebClientSettingsAppDataBuilder.ToString();
 
             // Generate Browser Exam Key and its salt, if settings changed
             string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Save current Browser Exam Key salt in case saving fails
+            byte[] currentExamKeySalt = (byte[])SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt];
+
             if (!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
             {
                 // If the exam key changed, then settings changed and we will generate a new salt
                 byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
                 // Save the new salt
                 SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
-                // Generate the new Browser Exam Key
-                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                lastSettingsPassword = textBoxSettingsPassword.Text;
-                // Display the new Browser Exam Key in Exam pane
-                textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
-            SaveConfigurationFileFromEditor(filename);
+            if (!SaveConfigurationFileFromEditor(filename))
+            {
+                // SebClientSettings.seb config file wasn't saved successfully, revert changed settings
+                // Restore the old Browser Exam Key salt
+                SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = currentExamKeySalt;
+                return;
+            }
+            // Generate the new Browser Exam Key
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Save the current settings password so it can be used for comparing later if it changed
+            lastSettingsPassword = textBoxSettingsPassword.Text;
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
         }
 
 
@@ -1310,7 +1320,7 @@ namespace SebWindowsConfig
             var p = new Process();
             p.StartInfo.FileName = sebClientExe;
 
-            if (!currentPathSebConfigFile.Equals(localSebClientSettings) && !currentPathSebConfigFile.Equals(SEBUIStrings.settingsTitleDefaultSettings))
+            if (!currentPathSebConfigFile.Equals(SEBUIStrings.settingsTitleDefaultSettings))
             {
                 p.StartInfo.Arguments = String.Format("\"{0}\"", currentPathSebConfigFile);
             }
