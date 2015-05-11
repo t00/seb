@@ -163,7 +163,7 @@
     <value>Falsches Passwort! In diesen Einstellungen benutztes SEB-Administrator-Passwort erneut eingeben:</value>
   </data>
   <data name="enterCurrentAdminPwdForReconfiguring" xml:space="preserve">
-    <value>SEB kann nur umkonfiguriert werden, wenn das aktuelle SEB-Administrator-Passwort eingegeben wird (weil dieses nach der Installation von SEB geändert wurde):</value>
+    <value>SEB kann nur umkonfiguriert werden, wenn das aktuelle SEB-Administrator-Passwort eingegeben wird:</value>
   </data>
   <data name="enterCurrentAdminPwdForReconfiguringAgain" xml:space="preserve">
     <value>Falsches Passwort! SEB-Administrator-Passwort erneut eingeben:</value>

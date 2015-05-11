@@ -232,7 +232,7 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):.
+        ///   Looks up a localized string similar to You can only reconfigure SEB by entering the current SEB administrator password:.
         /// </summary>
         public static string enterCurrentAdminPwdForReconfiguring {
             get {

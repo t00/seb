@@ -276,7 +276,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 if (sebDataDecrypted == null)
                 {
                     //wrong password entered in 5th try: stop reading .seb file
-                    SEBMessageBox.Show(SEBUIStrings.decryptingSettingsFailed, SEBUIStrings.decryptingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
+                    SEBMessageBox.Show(SEBUIStrings.decryptingSettingsFailed, SEBUIStrings.decryptingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
                     return null;
                 }
                 sebData = sebDataDecrypted;
@@ -316,7 +316,7 @@ namespace SebWindowsClient.ConfigurationUtils
                         {
                             // No valid prefix and no unencrypted file with valid header
                             // cancel reading .seb file
-                            SEBMessageBox.Show(SEBUIStrings.settingsNotUsable, SEBUIStrings.settingsNotUsableReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
+                            SEBMessageBox.Show(SEBUIStrings.settingsNotUsable, SEBUIStrings.settingsNotUsableReason, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
                             return null;
                         }
                     }
@@ -384,56 +384,68 @@ namespace SebWindowsClient.ConfigurationUtils
                     {
                         // Error when deserializing the decrypted configuration data
                         // We abort reading the new settings here
-                        SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
                         Console.WriteLine(readPlistException.Message);
                         return null;
                     }
+                    // Get the admin password set in these settings
                     string sebFileHashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(sebPreferencesDict, SEBSettings.KeyHashedAdminPassword);
+                    if (sebFileHashedAdminPassword == null)
+                    {
+                        sebFileHashedAdminPassword = "";
+                    }
+                    // Has the SEB config file the same admin password inside as the current one?
                     if (String.Compare(hashedAdminPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) != 0)
                     {
-                        //No: The admin password inside the .seb file wasn't the same like the current one
-                        //now we have to ask for the current admin password and
-                        //allow reconfiguring only if the user enters the right one
-                        // Allow up to 5 attempts for entering current admin password
-                        int i = 5;
-                        password = null;
-                        string hashedPassword;
-                        string enterPasswordString = SEBUIStrings.enterCurrentAdminPwdForReconfiguring;
-                        bool passwordsMatch;
-                        do
+                        //No: The admin password inside the .seb file wasn't the same as the current one
+                        if (forEditing)
                         {
-                            i--;
-                            // Prompt for password
-                            password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
-                            // If cancel was pressed, abort
-                            if (password == null) return null;
-                            if (password == "")
+                            // If the file is openend for editing (and not to reconfigure SEB)
+                            // we have to ask the user for the admin password inside the file
+                            if (!askForPasswordAndCompareToHashedPassword(sebFileHashedAdminPassword, forEditing))
                             {
-                                hashedPassword = "";
+                                // If the user didn't enter the right password we abort
+                                return null;
                             }
-                            else
-                            {
-                                hashedPassword = SEBProtectionController.ComputePasswordHash(password);
-                            }
-                            if (String.Compare(hashedPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) == 0)
-                            {
-                                passwordsMatch = true;
-                            }
-                            else
-                            {
-                                passwordsMatch = false;
-                            }
-                            // in case we get an error we allow the user to try it again
-                            enterPasswordString = SEBUIStrings.enterCurrentAdminPwdForReconfiguringAgain;
-                        } while ((password == null || !passwordsMatch) && i > 0);
-                        if (!passwordsMatch)
+                        }
+                        else
                         {
-                            //wrong password entered in 5th try: stop reading .seb file
-                            SEBMessageBox.Show(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongAdminPwd, MessageBoxIcon.Error, MessageBoxButtons.OK);
-                            return null;
+                            // The file was actually opened for reconfiguring the SEB client:
+                            // we have to ask for the current admin password and
+                            // allow reconfiguring only if the user enters the right one
+                            // Allow up to 5 attempts for entering current admin password
+                            int i = 5;
+                            password = null;
+                            string hashedPassword;
+                            string enterPasswordString = SEBUIStrings.enterCurrentAdminPwdForReconfiguring;
+                            bool passwordsMatch;
+                            do
+                            {
+                                i--;
+                                // Prompt for password
+                                password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.reconfiguringLocalSettings, enterPasswordString);
+                                // If cancel was pressed, abort
+                                if (password == null) return null;
+                                if (password.Length == 0)
+                                {
+                                    hashedPassword = "";
+                                }
+                                else
+                                {
+                                    hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                                }
+                                passwordsMatch = (String.Compare(hashedPassword, hashedAdminPassword, StringComparison.OrdinalIgnoreCase) == 0);
+                                // in case we get an error we allow the user to try it again
+                                enterPasswordString = SEBUIStrings.enterCurrentAdminPwdForReconfiguringAgain;
+                            } while (!passwordsMatch && i > 0);
+                            if (!passwordsMatch)
+                            {
+                                //wrong password entered in 5th try: stop reading .seb file
+                                SEBMessageBox.Show(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongAdminPwd, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
+                                return null;
+                            }
                         }
                     }
-
                 }
                 else
                 {
@@ -458,7 +470,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     if (decryptedSebData == null)
                     {
                         //wrong password entered in 5th try: stop reading .seb file
-                        SEBMessageBox.Show(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongPassword, MessageBoxIcon.Error, MessageBoxButtons.OK);
+                        SEBMessageBox.Show(SEBUIStrings.reconfiguringLocalSettingsFailed, SEBUIStrings.reconfiguringLocalSettingsFailedWrongPassword, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
                         return null;
                     }
                     else
@@ -519,54 +531,86 @@ namespace SebWindowsClient.ConfigurationUtils
             }
             catch (Exception readPlistException)
             {
-                SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
+                SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedReason, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
                 Console.WriteLine(readPlistException.Message);
                 return null;
             }
             // In editing mode, the user has to enter the right SEB administrator password used in those settings before he can access their contents
             if (forEditing)
             {
+                // Get the admin password set in these settings
                 string sebFileHashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(sebPreferencesDict, SEBSettings.KeyHashedAdminPassword);
                 // If there was no or empty admin password set in these settings, the user can access them anyways
                 if (!String.IsNullOrEmpty(sebFileHashedAdminPassword))
                 {
-                    // We have to ask for the SEB administrator password used in the settings 
-                    // and allow opening settings only if the user enters the right one
-                    // Allow up to 5 attempts for entering  admin password
-                    int i = 5;
-                    string password = null;
-                    string hashedPassword;
-                    string enterPasswordString = SEBUIStrings.enterAdminPasswordRequired;
-                    bool passwordsMatch;
-                    do
+                    // Get the current hashed admin password
+                    string hashedAdminPassword = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyHashedAdminPassword);
+                    if (hashedAdminPassword == null)
                     {
-                        i--;
-                        // Prompt for password
-                        password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
-                        // If cancel was pressed, abort
-                        if (password == null) return null;
-                        hashedPassword = SEBProtectionController.ComputePasswordHash(password);
-                        if (String.Compare(sebFileHashedAdminPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            passwordsMatch = true;
-                        }
-                        else
-                        {
-                            passwordsMatch = false;
-                        }
-                        // in case we get an error we allow the user to try it again
-                        enterPasswordString = SEBUIStrings.enterAdminPasswordRequiredAgain;
-                    } while ((password == null || !passwordsMatch) && i > 0);
-                    if (!passwordsMatch)
+                        hashedAdminPassword = "";
+                    }
+                    // If the current hashed admin password is same as the hashed admin password from the settings file
+                    // then the user is allowed to access the settings
+                    if (String.Compare(hashedAdminPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) != 0)
                     {
-                        //wrong password entered in 5th try: stop reading .seb file
-                        SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedWrongAdminPwd, MessageBoxIcon.Error, MessageBoxButtons.OK);
-                        return null;
+                        // otherwise we have to ask for the SEB administrator password used in those settings and
+                        // allow opening settings only if the user enters the right one
+
+                        if (!askForPasswordAndCompareToHashedPassword(sebFileHashedAdminPassword, forEditing))
+                        {
+                            return null;
+                        }
                     }
                 }
             }
             // Reading preferences was successful!
             return sebPreferencesDict;
+        }
+
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        /// Ask user to enter password and compare it to the passed (hashed) password string 
+        /// Returns true if correct password was entered 
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        private static bool askForPasswordAndCompareToHashedPassword(string sebFileHashedAdminPassword, bool forEditing)
+        {
+            // We have to ask for the SEB administrator password used in the settings 
+            // and allow opening settings only if the user enters the right one
+            // Allow up to 5 attempts for entering  admin password
+            int i = 5;
+            string password = null;
+            string hashedPassword;
+            string enterPasswordString = SEBUIStrings.enterAdminPasswordRequired;
+            bool passwordsMatch;
+            do
+            {
+                i--;
+                // Prompt for password
+                password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
+                // If cancel was pressed, abort
+                if (password == null) return false;
+                if (password.Length == 0)
+                {
+                    hashedPassword = "";
+                }
+                else
+                {
+                    hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                }
+                passwordsMatch = (String.Compare(hashedPassword, sebFileHashedAdminPassword, StringComparison.OrdinalIgnoreCase) == 0);
+                // in case we get an error we allow the user to try it again
+                enterPasswordString = SEBUIStrings.enterAdminPasswordRequiredAgain;
+            } while ((password == null || !passwordsMatch) && i > 0);
+            if (!passwordsMatch)
+            {
+                //wrong password entered in 5th try: stop reading .seb file
+                SEBMessageBox.Show(SEBUIStrings.loadingSettingsFailed, SEBUIStrings.loadingSettingsFailedWrongAdminPwd, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
+                return false;
+            }
+            // Right password entered
+            return passwordsMatch;
         }
 
 
@@ -586,7 +630,7 @@ namespace SebWindowsClient.ConfigurationUtils
             X509Certificate2 certificateRef = SEBProtectionController.GetCertificateFromStore(publicKeyHash);
             if (certificateRef == null)
             {
-                SEBMessageBox.Show(SEBUIStrings.errorDecryptingSettings, SEBUIStrings.certificateNotFoundInStore, MessageBoxIcon.Error, MessageBoxButtons.OK);
+                SEBMessageBox.Show(SEBUIStrings.errorDecryptingSettings, SEBUIStrings.certificateNotFoundInStore, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: forEditing);
                 return null;
             }
             // If these settings are being decrypted for editing, we will return the decryption certificate reference
@@ -670,7 +714,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// </summary>
         /// ----------------------------------------------------------------------------------------
 
-        public static byte[] EncryptSEBSettingsWithCredentials(string settingsPassword, bool passwordIsHash, X509Certificate2 certificateRef, SEBSettings.sebConfigPurposes configPurpose)
+        public static byte[] EncryptSEBSettingsWithCredentials(string settingsPassword, bool passwordIsHash, X509Certificate2 certificateRef, SEBSettings.sebConfigPurposes configPurpose, bool forEditing)
         {
             // Get current settings dictionary and clean it from empty arrays and dictionaries
             //DictObj cleanedCurrentSettings = SEBSettings.CleanSettingsDictionary();
@@ -696,7 +740,7 @@ namespace SebWindowsClient.ConfigurationUtils
                 // Check if no password entered and no identity selected
                 if (String.IsNullOrEmpty(settingsPassword) && certificateRef == null)
                 {
-                    if (SEBMessageBox.Show(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, MessageBoxIcon.Question, MessageBoxButtons.YesNo, neverShowTouchOptimized: true) == DialogResult.Yes)
+                    if (SEBMessageBox.Show(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, MessageBoxIcon.Question, MessageBoxButtons.YesNo, neverShowTouchOptimized: forEditing) == DialogResult.Yes)
                     {
                         // OK: save .seb config data unencrypted
                         return encryptedSebData;

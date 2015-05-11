@@ -169,7 +169,7 @@
     <value>Wrong password! Try again to enter the correct SEB administrator password from these settings:</value>
   </data>
   <data name="enterCurrentAdminPwdForReconfiguring" xml:space="preserve">
-    <value>You can only reconfigure SEB by entering the current SEB administrator password (because it was changed since installing SEB):</value>
+    <value>You can only reconfigure SEB by entering the current SEB administrator password:</value>
   </data>
   <data name="enterCurrentAdminPwdForReconfiguringAgain" xml:space="preserve">
     <value>Wrong password! Try again to enter the correct current SEB administrator password:</value>
