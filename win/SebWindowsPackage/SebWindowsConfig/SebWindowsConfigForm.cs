@@ -353,6 +353,7 @@ namespace SebWindowsConfig
             checkBoxBlockPopUpWindows       .Checked =   (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyBlockPopUpWindows];
             checkBoxAllowBrowsingBackForward.Checked =   (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowBrowsingBackForward];
             checkBoxRemoveProfile           .Checked =   (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRemoveBrowserProfile];
+            checkBoxDisableLocalStorage.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyDisableLocalStorage];
             checkBoxUseSebWithoutBrowser    .Checked = !((Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableSebBrowser]);
             // BEWARE: you must invert this value since "Use Without" is "Not Enable"!
 
@@ -1033,25 +1034,31 @@ namespace SebWindowsConfig
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
             String fileName = sebClientSettingsAppDataBuilder.ToString();
 
-            // Generate Browser Exam Key and its salt, if settings changed
+            /// Generate Browser Exam Key and its salt, if settings or the settings password changed
             string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Save current Browser Exam Key salt in case saving fails
+            byte[] currentExamKeySalt = (byte[])SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt];
+
             if (!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
             {
-                // If the exam key changed, then settings changed and we will generate a new salt
+                // As the exam key changed, we will generate a new salt
                 byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
                 // Save the new salt
                 SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
-                // Generate the new Browser Exam Key
-                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                lastSettingsPassword = textBoxSettingsPassword.Text;
-                // Display the new Browser Exam Key in Exam pane
-                textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
             if (!SaveConfigurationFileFromEditor(fileName))
             {
                 SEBMessageBox.Show(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
+                // Restore the old Browser Exam Key salt
+                SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = currentExamKeySalt;
                 return false;
             }
+            // Generate the new Browser Exam Key
+            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Display the new Browser Exam Key in Exam pane
+            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            // Save the current settings password so it can be used for comparing later if it changed
+            lastSettingsPassword = textBoxSettingsPassword.Text;
             // Reset the path of the last saved file which is used in case "Edit duplicate" was used
             lastPathSebConfigFile = null;
             return true;
@@ -1077,24 +1084,30 @@ namespace SebWindowsConfig
 
             // Generate Browser Exam Key and its salt, if settings changed
             string newBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            // Save current Browser Exam Key salt in case saving fails
+            byte[] currentExamKeySalt = (byte[])SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt];
+
             if (!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
             {
                 // If the exam key changed, then settings changed and we will generate a new salt
                 byte[] newExamKeySalt = SEBProtectionController.GenerateBrowserExamKeySalt();
                 // Save the new salt
                 SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = newExamKeySalt;
-                // Generate the new Browser Exam Key
-                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                lastSettingsPassword = textBoxSettingsPassword.Text;
-                // Display the new Browser Exam Key in Exam pane
-                textBoxBrowserExamKey.Text = lastBrowserExamKey;
             }
             if (fileDialogResult.Equals(DialogResult.OK)) {
                 if (!SaveConfigurationFileFromEditor(fileName))
                 {
                     SEBMessageBox.Show(SEBUIStrings.savingSettingsFailed, SEBUIStrings.savingSettingsFailedMessage, MessageBoxIcon.Error, MessageBoxButtons.OK, neverShowTouchOptimized: true);
+                    // Restore the old Browser Exam Key salt
+                    SEBSettings.settingsCurrent[SEBSettings.KeyExamKeySalt] = currentExamKeySalt;
                     return;
                 }
+                // Generate the new Browser Exam Key
+                lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+                // Display the new Browser Exam Key in Exam pane
+                textBoxBrowserExamKey.Text = lastBrowserExamKey;
+                // Save the current settings password so it can be used for comparing later if it changed
+                lastSettingsPassword = textBoxSettingsPassword.Text;
                 // Reset the path of the last saved file which is used in case "Edit duplicate" was used
                 lastPathSebConfigFile = null;
             }
@@ -1512,6 +1525,11 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyRemoveBrowserProfile] = checkBoxRemoveProfile.Checked;
         }
 
+        private void checkBoxDisableLocalStorage_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyDisableLocalStorage] = checkBoxDisableLocalStorage.Checked;
+        }
+
         // BEWARE: you must invert this value since "Use Without" is "Not Enable"!
         private void checkBoxUseSebWithoutBrowser_CheckedChanged(object sender, EventArgs e)
         {
@@ -1663,6 +1681,12 @@ namespace SebWindowsConfig
         private void textBoxQuitURL_TextChanged(object sender, EventArgs e)
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyQuitURL] = textBoxQuitURL.Text;
+        }
+
+        private void checkBoxUseStartURL_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL] = checkBoxUseStartURL.Checked;
+            textBoxRestartExamLink.Enabled = !checkBoxUseStartURL.Checked;
         }
 
         private void textBoxRestartExamLink_TextChanged(object sender, EventArgs e)
@@ -3608,12 +3632,6 @@ namespace SebWindowsConfig
         private void label1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void checkBoxUseStartURL_CheckedChanged(object sender, EventArgs e)
-        {
-            SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL] = checkBoxUseStartURL.Checked;
-            textBoxRestartExamLink.Enabled = !checkBoxUseStartURL.Checked;
         }
 
         private void checkBoxEnableScreenCapture_CheckedChanged(object sender, EventArgs e)

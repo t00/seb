@@ -91,6 +91,20 @@
             this.checkBoxAllowVirtualMachine = new System.Windows.Forms.CheckBox();
             this.tabPageNetwork = new System.Windows.Forms.TabPage();
             this.tabControlNetwork = new System.Windows.Forms.TabControl();
+            this.tabPageUrlFilter = new System.Windows.Forms.TabPage();
+            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
+            this.checkBoxUrlFilterRulesRegex = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.datagridBlackListFilter = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRemoveBlackListFilter = new System.Windows.Forms.Button();
+            this.btnAddBlackListFilter = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.datagridWhitelist = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRemoveWhitelistFilter = new System.Windows.Forms.Button();
+            this.btnAddWhitelistFilter = new System.Windows.Forms.Button();
+            this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.tabPageCertificates = new System.Windows.Forms.TabPage();
             this.labelChooseIdentityToEmbed = new System.Windows.Forms.Label();
             this.labelChooseSSLClientCertificate = new System.Windows.Forms.Label();
@@ -125,20 +139,6 @@
             this.labelProxyProtocol = new System.Windows.Forms.Label();
             this.radioButtonUseSebProxySettings = new System.Windows.Forms.RadioButton();
             this.radioButtonUseSystemProxySettings = new System.Windows.Forms.RadioButton();
-            this.tabPageUrlFilter = new System.Windows.Forms.TabPage();
-            this.checkBoxEnableURLFilter = new System.Windows.Forms.CheckBox();
-            this.checkBoxUrlFilterRulesRegex = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.datagridBlackListFilter = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnRemoveBlackListFilter = new System.Windows.Forms.Button();
-            this.btnAddBlackListFilter = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.datagridWhitelist = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnRemoveWhitelistFilter = new System.Windows.Forms.Button();
-            this.btnAddWhitelistFilter = new System.Windows.Forms.Button();
-            this.checkBoxEnableURLContentFilter = new System.Windows.Forms.CheckBox();
             this.tabPageApplications = new System.Windows.Forms.TabPage();
             this.tabControlApplications = new System.Windows.Forms.TabControl();
             this.tabPagePermittedProcesses = new System.Windows.Forms.TabPage();
@@ -253,7 +253,7 @@
             this.checkBoxEnablePlugIns = new System.Windows.Forms.CheckBox();
             this.checkBoxShowReloadWarning = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableJava = new System.Windows.Forms.CheckBox();
-            this.checkBoxRemoveLocalStorage = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisableLocalStorage = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableJavaScript = new System.Windows.Forms.CheckBox();
             this.checkBoxRemoveProfile = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowBrowsingBackForward = new System.Windows.Forms.CheckBox();
@@ -380,15 +380,15 @@
             this.groupBox3.SuspendLayout();
             this.tabPageNetwork.SuspendLayout();
             this.tabControlNetwork.SuspendLayout();
-            this.tabPageCertificates.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).BeginInit();
-            this.tabPageProxies.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).BeginInit();
             this.tabPageUrlFilter.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridBlackListFilter)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datagridWhitelist)).BeginInit();
+            this.tabPageCertificates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).BeginInit();
+            this.tabPageProxies.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).BeginInit();
             this.tabPageApplications.SuspendLayout();
             this.tabControlApplications.SuspendLayout();
             this.tabPagePermittedProcesses.SuspendLayout();
@@ -1235,6 +1235,184 @@
             this.tabControlNetwork.Size = new System.Drawing.Size(706, 488);
             this.tabControlNetwork.TabIndex = 0;
             // 
+            // tabPageUrlFilter
+            // 
+            this.tabPageUrlFilter.Controls.Add(this.checkBoxEnableURLFilter);
+            this.tabPageUrlFilter.Controls.Add(this.checkBoxUrlFilterRulesRegex);
+            this.tabPageUrlFilter.Controls.Add(this.groupBox2);
+            this.tabPageUrlFilter.Controls.Add(this.groupBox1);
+            this.tabPageUrlFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
+            this.tabPageUrlFilter.Location = new System.Drawing.Point(4, 22);
+            this.tabPageUrlFilter.Name = "tabPageUrlFilter";
+            this.tabPageUrlFilter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageUrlFilter.Size = new System.Drawing.Size(698, 462);
+            this.tabPageUrlFilter.TabIndex = 3;
+            this.tabPageUrlFilter.Text = "Filter";
+            this.tabPageUrlFilter.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxEnableURLFilter
+            // 
+            this.checkBoxEnableURLFilter.AutoSize = true;
+            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(20, 14);
+            this.checkBoxEnableURLFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
+            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxEnableURLFilter.TabIndex = 22;
+            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
+            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
+            this.checkBoxEnableURLFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLFilter_CheckedChanged);
+            // 
+            // checkBoxUrlFilterRulesRegex
+            // 
+            this.checkBoxUrlFilterRulesRegex.AutoSize = true;
+            this.checkBoxUrlFilterRulesRegex.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxUrlFilterRulesRegex.Location = new System.Drawing.Point(316, 14);
+            this.checkBoxUrlFilterRulesRegex.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxUrlFilterRulesRegex.Name = "checkBoxUrlFilterRulesRegex";
+            this.checkBoxUrlFilterRulesRegex.Size = new System.Drawing.Size(164, 17);
+            this.checkBoxUrlFilterRulesRegex.TabIndex = 21;
+            this.checkBoxUrlFilterRulesRegex.Text = "Rules are regular expressions";
+            this.checkBoxUrlFilterRulesRegex.UseVisualStyleBackColor = true;
+            this.checkBoxUrlFilterRulesRegex.CheckedChanged += new System.EventHandler(this.checkBoxUrlFilterRulesRegex_CheckedChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.datagridBlackListFilter);
+            this.groupBox2.Controls.Add(this.btnRemoveBlackListFilter);
+            this.groupBox2.Controls.Add(this.btnAddBlackListFilter);
+            this.groupBox2.Location = new System.Drawing.Point(14, 214);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(666, 163);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Blacklist";
+            // 
+            // datagridBlackListFilter
+            // 
+            this.datagridBlackListFilter.AllowUserToAddRows = false;
+            this.datagridBlackListFilter.AllowUserToDeleteRows = false;
+            this.datagridBlackListFilter.AllowUserToResizeColumns = false;
+            this.datagridBlackListFilter.AllowUserToResizeRows = false;
+            this.datagridBlackListFilter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridBlackListFilter.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn4});
+            this.datagridBlackListFilter.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.datagridBlackListFilter.Location = new System.Drawing.Point(5, 18);
+            this.datagridBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.datagridBlackListFilter.MultiSelect = false;
+            this.datagridBlackListFilter.Name = "datagridBlackListFilter";
+            this.datagridBlackListFilter.RowHeadersVisible = false;
+            this.datagridBlackListFilter.RowTemplate.Height = 24;
+            this.datagridBlackListFilter.Size = new System.Drawing.Size(656, 118);
+            this.datagridBlackListFilter.TabIndex = 15;
+            this.datagridBlackListFilter.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridBlacklist_CellValueChanged);
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Filter Rules";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ToolTipText = "Filter Rule";
+            // 
+            // btnRemoveBlackListFilter
+            // 
+            this.btnRemoveBlackListFilter.Location = new System.Drawing.Point(32, 140);
+            this.btnRemoveBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveBlackListFilter.Name = "btnRemoveBlackListFilter";
+            this.btnRemoveBlackListFilter.Size = new System.Drawing.Size(19, 19);
+            this.btnRemoveBlackListFilter.TabIndex = 17;
+            this.btnRemoveBlackListFilter.Text = "-";
+            this.btnRemoveBlackListFilter.UseVisualStyleBackColor = true;
+            this.btnRemoveBlackListFilter.Click += new System.EventHandler(this.btnRemoveBlacklistFilter_Click);
+            // 
+            // btnAddBlackListFilter
+            // 
+            this.btnAddBlackListFilter.Location = new System.Drawing.Point(5, 140);
+            this.btnAddBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddBlackListFilter.Name = "btnAddBlackListFilter";
+            this.btnAddBlackListFilter.Size = new System.Drawing.Size(22, 19);
+            this.btnAddBlackListFilter.TabIndex = 16;
+            this.btnAddBlackListFilter.Text = "+";
+            this.btnAddBlackListFilter.UseVisualStyleBackColor = true;
+            this.btnAddBlackListFilter.Click += new System.EventHandler(this.btnAddBlacklistFilter_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.datagridWhitelist);
+            this.groupBox1.Controls.Add(this.btnRemoveWhitelistFilter);
+            this.groupBox1.Controls.Add(this.btnAddWhitelistFilter);
+            this.groupBox1.Location = new System.Drawing.Point(15, 36);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(666, 163);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Whitelist";
+            // 
+            // datagridWhitelist
+            // 
+            this.datagridWhitelist.AllowUserToAddRows = false;
+            this.datagridWhitelist.AllowUserToDeleteRows = false;
+            this.datagridWhitelist.AllowUserToResizeColumns = false;
+            this.datagridWhitelist.AllowUserToResizeRows = false;
+            this.datagridWhitelist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridWhitelist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3});
+            this.datagridWhitelist.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.datagridWhitelist.Location = new System.Drawing.Point(5, 18);
+            this.datagridWhitelist.Margin = new System.Windows.Forms.Padding(2);
+            this.datagridWhitelist.MultiSelect = false;
+            this.datagridWhitelist.Name = "datagridWhitelist";
+            this.datagridWhitelist.RowHeadersVisible = false;
+            this.datagridWhitelist.RowTemplate.Height = 24;
+            this.datagridWhitelist.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.datagridWhitelist.ShowEditingIcon = false;
+            this.datagridWhitelist.Size = new System.Drawing.Size(656, 118);
+            this.datagridWhitelist.TabIndex = 15;
+            this.datagridWhitelist.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridWhitelist_CellValueChanged);
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Filter Rules";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ToolTipText = "Filter Rule";
+            // 
+            // btnRemoveWhitelistFilter
+            // 
+            this.btnRemoveWhitelistFilter.Location = new System.Drawing.Point(32, 140);
+            this.btnRemoveWhitelistFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveWhitelistFilter.Name = "btnRemoveWhitelistFilter";
+            this.btnRemoveWhitelistFilter.Size = new System.Drawing.Size(19, 19);
+            this.btnRemoveWhitelistFilter.TabIndex = 17;
+            this.btnRemoveWhitelistFilter.Text = "-";
+            this.btnRemoveWhitelistFilter.UseVisualStyleBackColor = true;
+            this.btnRemoveWhitelistFilter.Click += new System.EventHandler(this.btnRemoveWhitelistFilter_Click);
+            // 
+            // btnAddWhitelistFilter
+            // 
+            this.btnAddWhitelistFilter.Location = new System.Drawing.Point(5, 140);
+            this.btnAddWhitelistFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddWhitelistFilter.Name = "btnAddWhitelistFilter";
+            this.btnAddWhitelistFilter.Size = new System.Drawing.Size(22, 19);
+            this.btnAddWhitelistFilter.TabIndex = 16;
+            this.btnAddWhitelistFilter.Text = "+";
+            this.btnAddWhitelistFilter.UseVisualStyleBackColor = true;
+            this.btnAddWhitelistFilter.Click += new System.EventHandler(this.btnAddWhitelistFilter_Click);
+            // 
+            // checkBoxEnableURLContentFilter
+            // 
+            this.checkBoxEnableURLContentFilter.AutoSize = true;
+            this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(150, 14);
+            this.checkBoxEnableURLContentFilter.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
+            this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(162, 17);
+            this.checkBoxEnableURLContentFilter.TabIndex = 2;
+            this.checkBoxEnableURLContentFilter.Text = "Filter also embedded content";
+            this.checkBoxEnableURLContentFilter.UseVisualStyleBackColor = true;
+            this.checkBoxEnableURLContentFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLContentFilter_CheckedChanged);
+            // 
             // tabPageCertificates
             // 
             this.tabPageCertificates.Controls.Add(this.labelChooseIdentityToEmbed);
@@ -1637,184 +1815,6 @@
             this.toolTip1.SetToolTip(this.radioButtonUseSystemProxySettings, "System proxy settings of the exam client computer are used");
             this.radioButtonUseSystemProxySettings.UseVisualStyleBackColor = true;
             this.radioButtonUseSystemProxySettings.CheckedChanged += new System.EventHandler(this.radioButtonUseSystemProxySettings_CheckedChanged);
-            // 
-            // tabPageUrlFilter
-            // 
-            this.tabPageUrlFilter.Controls.Add(this.checkBoxEnableURLFilter);
-            this.tabPageUrlFilter.Controls.Add(this.checkBoxUrlFilterRulesRegex);
-            this.tabPageUrlFilter.Controls.Add(this.groupBox2);
-            this.tabPageUrlFilter.Controls.Add(this.groupBox1);
-            this.tabPageUrlFilter.Controls.Add(this.checkBoxEnableURLContentFilter);
-            this.tabPageUrlFilter.Location = new System.Drawing.Point(4, 22);
-            this.tabPageUrlFilter.Name = "tabPageUrlFilter";
-            this.tabPageUrlFilter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUrlFilter.Size = new System.Drawing.Size(698, 462);
-            this.tabPageUrlFilter.TabIndex = 3;
-            this.tabPageUrlFilter.Text = "Filter";
-            this.tabPageUrlFilter.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxEnableURLFilter
-            // 
-            this.checkBoxEnableURLFilter.AutoSize = true;
-            this.checkBoxEnableURLFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableURLFilter.Location = new System.Drawing.Point(20, 14);
-            this.checkBoxEnableURLFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableURLFilter.Name = "checkBoxEnableURLFilter";
-            this.checkBoxEnableURLFilter.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxEnableURLFilter.TabIndex = 22;
-            this.checkBoxEnableURLFilter.Text = "Activate URL filtering";
-            this.checkBoxEnableURLFilter.UseVisualStyleBackColor = true;
-            this.checkBoxEnableURLFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLFilter_CheckedChanged);
-            // 
-            // checkBoxUrlFilterRulesRegex
-            // 
-            this.checkBoxUrlFilterRulesRegex.AutoSize = true;
-            this.checkBoxUrlFilterRulesRegex.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxUrlFilterRulesRegex.Location = new System.Drawing.Point(316, 14);
-            this.checkBoxUrlFilterRulesRegex.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxUrlFilterRulesRegex.Name = "checkBoxUrlFilterRulesRegex";
-            this.checkBoxUrlFilterRulesRegex.Size = new System.Drawing.Size(164, 17);
-            this.checkBoxUrlFilterRulesRegex.TabIndex = 21;
-            this.checkBoxUrlFilterRulesRegex.Text = "Rules are regular expressions";
-            this.checkBoxUrlFilterRulesRegex.UseVisualStyleBackColor = true;
-            this.checkBoxUrlFilterRulesRegex.CheckedChanged += new System.EventHandler(this.checkBoxUrlFilterRulesRegex_CheckedChanged);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.datagridBlackListFilter);
-            this.groupBox2.Controls.Add(this.btnRemoveBlackListFilter);
-            this.groupBox2.Controls.Add(this.btnAddBlackListFilter);
-            this.groupBox2.Location = new System.Drawing.Point(14, 214);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(666, 163);
-            this.groupBox2.TabIndex = 20;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Blacklist";
-            // 
-            // datagridBlackListFilter
-            // 
-            this.datagridBlackListFilter.AllowUserToAddRows = false;
-            this.datagridBlackListFilter.AllowUserToDeleteRows = false;
-            this.datagridBlackListFilter.AllowUserToResizeColumns = false;
-            this.datagridBlackListFilter.AllowUserToResizeRows = false;
-            this.datagridBlackListFilter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datagridBlackListFilter.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn4});
-            this.datagridBlackListFilter.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.datagridBlackListFilter.Location = new System.Drawing.Point(5, 18);
-            this.datagridBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.datagridBlackListFilter.MultiSelect = false;
-            this.datagridBlackListFilter.Name = "datagridBlackListFilter";
-            this.datagridBlackListFilter.RowHeadersVisible = false;
-            this.datagridBlackListFilter.RowTemplate.Height = 24;
-            this.datagridBlackListFilter.Size = new System.Drawing.Size(656, 118);
-            this.datagridBlackListFilter.TabIndex = 15;
-            this.datagridBlackListFilter.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridBlacklist_CellValueChanged);
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Filter Rules";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ToolTipText = "Filter Rule";
-            // 
-            // btnRemoveBlackListFilter
-            // 
-            this.btnRemoveBlackListFilter.Location = new System.Drawing.Point(32, 140);
-            this.btnRemoveBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.btnRemoveBlackListFilter.Name = "btnRemoveBlackListFilter";
-            this.btnRemoveBlackListFilter.Size = new System.Drawing.Size(19, 19);
-            this.btnRemoveBlackListFilter.TabIndex = 17;
-            this.btnRemoveBlackListFilter.Text = "-";
-            this.btnRemoveBlackListFilter.UseVisualStyleBackColor = true;
-            this.btnRemoveBlackListFilter.Click += new System.EventHandler(this.btnRemoveBlacklistFilter_Click);
-            // 
-            // btnAddBlackListFilter
-            // 
-            this.btnAddBlackListFilter.Location = new System.Drawing.Point(5, 140);
-            this.btnAddBlackListFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAddBlackListFilter.Name = "btnAddBlackListFilter";
-            this.btnAddBlackListFilter.Size = new System.Drawing.Size(22, 19);
-            this.btnAddBlackListFilter.TabIndex = 16;
-            this.btnAddBlackListFilter.Text = "+";
-            this.btnAddBlackListFilter.UseVisualStyleBackColor = true;
-            this.btnAddBlackListFilter.Click += new System.EventHandler(this.btnAddBlacklistFilter_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.datagridWhitelist);
-            this.groupBox1.Controls.Add(this.btnRemoveWhitelistFilter);
-            this.groupBox1.Controls.Add(this.btnAddWhitelistFilter);
-            this.groupBox1.Location = new System.Drawing.Point(15, 36);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(666, 163);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Whitelist";
-            // 
-            // datagridWhitelist
-            // 
-            this.datagridWhitelist.AllowUserToAddRows = false;
-            this.datagridWhitelist.AllowUserToDeleteRows = false;
-            this.datagridWhitelist.AllowUserToResizeColumns = false;
-            this.datagridWhitelist.AllowUserToResizeRows = false;
-            this.datagridWhitelist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datagridWhitelist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3});
-            this.datagridWhitelist.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.datagridWhitelist.Location = new System.Drawing.Point(5, 18);
-            this.datagridWhitelist.Margin = new System.Windows.Forms.Padding(2);
-            this.datagridWhitelist.MultiSelect = false;
-            this.datagridWhitelist.Name = "datagridWhitelist";
-            this.datagridWhitelist.RowHeadersVisible = false;
-            this.datagridWhitelist.RowTemplate.Height = 24;
-            this.datagridWhitelist.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.datagridWhitelist.ShowEditingIcon = false;
-            this.datagridWhitelist.Size = new System.Drawing.Size(656, 118);
-            this.datagridWhitelist.TabIndex = 15;
-            this.datagridWhitelist.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridWhitelist_CellValueChanged);
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Filter Rules";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ToolTipText = "Filter Rule";
-            // 
-            // btnRemoveWhitelistFilter
-            // 
-            this.btnRemoveWhitelistFilter.Location = new System.Drawing.Point(32, 140);
-            this.btnRemoveWhitelistFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.btnRemoveWhitelistFilter.Name = "btnRemoveWhitelistFilter";
-            this.btnRemoveWhitelistFilter.Size = new System.Drawing.Size(19, 19);
-            this.btnRemoveWhitelistFilter.TabIndex = 17;
-            this.btnRemoveWhitelistFilter.Text = "-";
-            this.btnRemoveWhitelistFilter.UseVisualStyleBackColor = true;
-            this.btnRemoveWhitelistFilter.Click += new System.EventHandler(this.btnRemoveWhitelistFilter_Click);
-            // 
-            // btnAddWhitelistFilter
-            // 
-            this.btnAddWhitelistFilter.Location = new System.Drawing.Point(5, 140);
-            this.btnAddWhitelistFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAddWhitelistFilter.Name = "btnAddWhitelistFilter";
-            this.btnAddWhitelistFilter.Size = new System.Drawing.Size(22, 19);
-            this.btnAddWhitelistFilter.TabIndex = 16;
-            this.btnAddWhitelistFilter.Text = "+";
-            this.btnAddWhitelistFilter.UseVisualStyleBackColor = true;
-            this.btnAddWhitelistFilter.Click += new System.EventHandler(this.btnAddWhitelistFilter_Click);
-            // 
-            // checkBoxEnableURLContentFilter
-            // 
-            this.checkBoxEnableURLContentFilter.AutoSize = true;
-            this.checkBoxEnableURLContentFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEnableURLContentFilter.Location = new System.Drawing.Point(150, 14);
-            this.checkBoxEnableURLContentFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxEnableURLContentFilter.Name = "checkBoxEnableURLContentFilter";
-            this.checkBoxEnableURLContentFilter.Size = new System.Drawing.Size(162, 17);
-            this.checkBoxEnableURLContentFilter.TabIndex = 2;
-            this.checkBoxEnableURLContentFilter.Text = "Filter also embedded content";
-            this.checkBoxEnableURLContentFilter.UseVisualStyleBackColor = true;
-            this.checkBoxEnableURLContentFilter.CheckedChanged += new System.EventHandler(this.checkBoxEnableURLContentFilter_CheckedChanged);
             // 
             // tabPageApplications
             // 
@@ -3202,7 +3202,7 @@
             this.groupBox11.Controls.Add(this.checkBoxEnablePlugIns);
             this.groupBox11.Controls.Add(this.checkBoxShowReloadWarning);
             this.groupBox11.Controls.Add(this.checkBoxEnableJava);
-            this.groupBox11.Controls.Add(this.checkBoxRemoveLocalStorage);
+            this.groupBox11.Controls.Add(this.checkBoxDisableLocalStorage);
             this.groupBox11.Controls.Add(this.checkBoxEnableJavaScript);
             this.groupBox11.Controls.Add(this.checkBoxRemoveProfile);
             this.groupBox11.Controls.Add(this.checkBoxAllowBrowsingBackForward);
@@ -3257,19 +3257,20 @@
             this.checkBoxEnableJava.UseVisualStyleBackColor = true;
             this.checkBoxEnableJava.CheckedChanged += new System.EventHandler(this.checkBoxEnableJava_CheckedChanged);
             // 
-            // checkBoxRemoveLocalStorage
+            // checkBoxDisableLocalStorage
             // 
-            this.checkBoxRemoveLocalStorage.AutoSize = true;
-            this.checkBoxRemoveLocalStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRemoveLocalStorage.Location = new System.Drawing.Point(259, 101);
-            this.checkBoxRemoveLocalStorage.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxRemoveLocalStorage.Name = "checkBoxRemoveLocalStorage";
-            this.checkBoxRemoveLocalStorage.Size = new System.Drawing.Size(154, 17);
-            this.checkBoxRemoveLocalStorage.TabIndex = 7;
-            this.checkBoxRemoveLocalStorage.Text = "Disable local storage (Mac)";
-            this.toolTip1.SetToolTip(this.checkBoxRemoveLocalStorage, "If your web application uses local storage, you have to be sure data is saved enc" +
+            this.checkBoxDisableLocalStorage.AutoSize = true;
+            this.checkBoxDisableLocalStorage.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisableLocalStorage.Location = new System.Drawing.Point(259, 101);
+            this.checkBoxDisableLocalStorage.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxDisableLocalStorage.Name = "checkBoxDisableLocalStorage";
+            this.checkBoxDisableLocalStorage.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxDisableLocalStorage.TabIndex = 7;
+            this.checkBoxDisableLocalStorage.Text = "Disable local storage (Mac)";
+            this.toolTip1.SetToolTip(this.checkBoxDisableLocalStorage, "If your web application uses local storage, you have to be sure data is saved enc" +
         "rypted and removed when no longer needed as SEB doesn\'t remove local storage");
-            this.checkBoxRemoveLocalStorage.UseVisualStyleBackColor = true;
+            this.checkBoxDisableLocalStorage.UseVisualStyleBackColor = true;
+            this.checkBoxDisableLocalStorage.CheckedChanged += new System.EventHandler(this.checkBoxDisableLocalStorage_CheckedChanged);
             // 
             // checkBoxEnableJavaScript
             // 
@@ -4754,18 +4755,18 @@
             this.groupBox3.PerformLayout();
             this.tabPageNetwork.ResumeLayout(false);
             this.tabControlNetwork.ResumeLayout(false);
-            this.tabPageCertificates.ResumeLayout(false);
-            this.tabPageCertificates.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).EndInit();
-            this.tabPageProxies.ResumeLayout(false);
-            this.tabPageProxies.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).EndInit();
             this.tabPageUrlFilter.ResumeLayout(false);
             this.tabPageUrlFilter.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datagridBlackListFilter)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datagridWhitelist)).EndInit();
+            this.tabPageCertificates.ResumeLayout(false);
+            this.tabPageCertificates.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmbeddedCertificates)).EndInit();
+            this.tabPageProxies.ResumeLayout(false);
+            this.tabPageProxies.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProxyProtocols)).EndInit();
             this.tabPageApplications.ResumeLayout(false);
             this.tabPageApplications.PerformLayout();
             this.tabControlApplications.ResumeLayout(false);
@@ -5108,7 +5109,7 @@
         private System.Windows.Forms.Button buttonEditDuplicate;
         private System.Windows.Forms.Button buttonApplyAndStartSEB;
         private System.Windows.Forms.Button buttonRevertToLocalClientSettings;
-        private System.Windows.Forms.CheckBox checkBoxRemoveLocalStorage;
+        private System.Windows.Forms.CheckBox checkBoxDisableLocalStorage;
         private System.Windows.Forms.CheckBox checkBoxUseStandardDirectory;
         private System.Windows.Forms.CheckBox checkBoxEnableZoomPage;
         private System.Windows.Forms.CheckBox checkBoxEnableZoomText;
