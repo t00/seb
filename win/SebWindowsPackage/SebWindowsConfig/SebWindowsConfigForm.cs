@@ -1320,7 +1320,7 @@ namespace SebWindowsConfig
             var p = new Process();
             p.StartInfo.FileName = sebClientExe;
 
-            if (!currentPathSebConfigFile.Equals(SEBUIStrings.settingsTitleDefaultSettings))
+            if (!currentPathSebConfigFile.Equals(localSebClientSettings) && !currentPathSebConfigFile.Equals(SEBUIStrings.settingsTitleDefaultSettings))
             {
                 p.StartInfo.Arguments = String.Format("\"{0}\"", currentPathSebConfigFile);
             }
