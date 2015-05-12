@@ -462,7 +462,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     // allow reconfiguring only if the user enters the right one
                     // We don't check this for the case the current admin password was used to encrypt the new settings
                     // In this case there can be a new admin pw defined in the new settings and users don't need to enter the old one
-                    if (passwordIsHash == false)
+                    if (passwordIsHash == false && hashedAdminPassword.Length > 0)
                     {
                         // Allow up to 5 attempts for entering current admin password
                         int i = 5;
@@ -570,6 +570,8 @@ namespace SebWindowsClient.ConfigurationUtils
         /// ----------------------------------------------------------------------------------------
         private static bool askForPasswordAndCompareToHashedPassword(string sebFileHashedAdminPassword, bool forEditing)
         {
+            // Check if there wasn't a hashed password (= emptry password)
+            if (sebFileHashedAdminPassword.Length == 0) return true;
             // We have to ask for the SEB administrator password used in the settings 
             // and allow opening settings only if the user enters the right one
             // Allow up to 5 attempts for entering  admin password
