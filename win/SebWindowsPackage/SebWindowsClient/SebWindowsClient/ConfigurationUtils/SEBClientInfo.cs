@@ -192,6 +192,8 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public static SebWindowsClientForm SebWindowsClientForm;
 
+        public static string LoadingSettingsFileName = "";
+
         #endregion
 
 		#region Structures

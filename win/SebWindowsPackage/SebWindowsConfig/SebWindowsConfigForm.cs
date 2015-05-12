@@ -54,7 +54,7 @@ namespace SebWindowsConfig
             string[] args = Environment.GetCommandLineArgs();
 
             string es = string.Join(", ", args);
-            Logger.AddError("OnLoad EventArgs: " + es, null, null);
+            Logger.AddInformation("OnLoad EventArgs: " + es, null, null);
 
             if (args.Length > 1)
             {
@@ -103,6 +103,8 @@ namespace SebWindowsConfig
             InitialiseGUIWidgets();
 
             // When starting up, load the default local client settings
+            Logger.AddInformation("Loading the default local client settings", null, null);
+            SEBClientInfo.LoadingSettingsFileName = "Local Client Settings";
             if (!LoadConfigurationFileIntoEditor(currentPathSebConfigFile))
             {
                 // If this didn't work, then there are no local client settings and we set the current settings title to "Default Settings"
@@ -128,6 +130,13 @@ namespace SebWindowsConfig
         {
             Cursor.Current = Cursors.WaitCursor;
             // Read the file into "new" settings
+            Logger.AddInformation("Loading settings from file " + fileName, null, null);
+
+            // Set the filename into the global variable so it gets displayed in the password dialogs
+            if (String.IsNullOrEmpty(SEBClientInfo.LoadingSettingsFileName))
+            {
+                SEBClientInfo.LoadingSettingsFileName = Path.GetFileName(fileName);
+            }
 
             // In these variables we get back the configuration file password the user entered for decrypting and/or 
             // the certificate reference found in the config file:
@@ -135,7 +144,12 @@ namespace SebWindowsConfig
             X509Certificate2 fileCertificateRef = null;
             bool             passwordIsHash     = false;
 
-            if (!SEBSettings.ReadSebConfigurationFile(fileName, true, ref filePassword, ref passwordIsHash, ref fileCertificateRef)) return false;
+            if (!SEBSettings.ReadSebConfigurationFile(fileName, true, ref filePassword, ref passwordIsHash, ref fileCertificateRef)) 
+            {
+                SEBClientInfo.LoadingSettingsFileName = "";
+                return false;
+            }
+            SEBClientInfo.LoadingSettingsFileName = "";
 
             if (!String.IsNullOrEmpty(filePassword)) {
                 // If we got the settings password because the user entered it when opening the .seb file, 

@@ -582,7 +582,7 @@ namespace SebWindowsClient.ConfigurationUtils
             {
                 i--;
                 // Prompt for password
-                password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.loadingSettings, enterPasswordString);
+                password = ThreadedDialog.ShowPasswordDialogForm(SEBUIStrings.loadingSettings + (String.IsNullOrEmpty(SEBClientInfo.LoadingSettingsFileName) ? "" : ": " + SEBClientInfo.LoadingSettingsFileName), enterPasswordString);
                 // If cancel was pressed, abort
                 if (password == null) return false;
                 if (password.Length == 0)
