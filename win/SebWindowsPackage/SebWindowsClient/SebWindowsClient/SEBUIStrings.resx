@@ -378,4 +378,7 @@
   <data name="webSocketServerNotStartedMessage" xml:space="preserve">
     <value>SEB will quit, try to restart SEB, if this doesn't help restart your machine.</value>
   </data>
+  <data name="reconfiguringLocalSettingsFailedWrongCurrentAdminPwd" xml:space="preserve">
+    <value>You didn't enter the correct current SEB administrator password.</value>
+  </data>
 </root>

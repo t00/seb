@@ -565,6 +565,15 @@ namespace SebWindowsClient {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You didn&apos;t enter the correct current SEB administrator password..
+        /// </summary>
+        public static string reconfiguringLocalSettingsFailedWrongCurrentAdminPwd {
+            get {
+                return ResourceManager.GetString("reconfiguringLocalSettingsFailedWrongCurrentAdminPwd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you don&apos;t enter the correct password these settings were encrypted with, you cannot use them..
         /// </summary>
         public static string reconfiguringLocalSettingsFailedWrongPassword {
