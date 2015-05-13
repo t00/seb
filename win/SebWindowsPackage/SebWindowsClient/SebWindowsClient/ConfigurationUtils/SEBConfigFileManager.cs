@@ -338,7 +338,7 @@ namespace SebWindowsClient.ConfigurationUtils
             }
 
             // Get preferences dictionary from decrypted data
-            DictObj sebPreferencesDict = GetPreferencesDictFromSebData(sebData, forEditing);
+            DictObj sebPreferencesDict = GetPreferencesDictFromConfigData(sebData, forEditing);
             // If we didn't get a preferences dict back, we abort reading settings
             if (sebPreferencesDict == null) return null;
 
@@ -515,7 +515,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// and returns the decrypted bytes 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        private static DictObj GetPreferencesDictFromSebData(byte[] sebData, bool forEditing)
+        private static DictObj GetPreferencesDictFromConfigData(byte[] sebData, bool forEditing)
         {
             DictObj sebPreferencesDict = null;
             try
@@ -570,7 +570,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// ----------------------------------------------------------------------------------------
         private static bool askForPasswordAndCompareToHashedPassword(string sebFileHashedAdminPassword, bool forEditing)
         {
-            // Check if there wasn't a hashed password (= emptry password)
+            // Check if there wasn't a hashed password (= empty password)
             if (sebFileHashedAdminPassword.Length == 0) return true;
             // We have to ask for the SEB administrator password used in the settings 
             // and allow opening settings only if the user enters the right one
