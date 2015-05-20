@@ -101,6 +101,9 @@ namespace SebWindowsClient
     {
         public static string ShowPasswordDialogForm(string title, string passwordRequestText)
         {
+            // If we are running in SebWindowsClient we need to activate it before showing the password dialog
+            if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientMain.SEBToForeground();
+
             //No longer necessary as you cannot switch from not-create-new-desktop to create-new-desktop and the other way around
             // Check if SEB is running on a separate desktop
             if (SebWindowsClientMain.sessionCreateNewDesktop)  //Switch to default desktop: SEBDesktopController.Show(SEBClientInfo.OriginalDesktop.DesktopName);
