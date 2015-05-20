@@ -370,6 +370,7 @@
             this.editDuplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxAllowDictionaryLookup = new System.Windows.Forms.CheckBox();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -3512,6 +3513,7 @@
             // 
             // tabPageAppearance
             // 
+            this.tabPageAppearance.Controls.Add(this.checkBoxAllowDictionaryLookup);
             this.tabPageAppearance.Controls.Add(this.groupBox6);
             this.tabPageAppearance.Controls.Add(this.groupBox5);
             this.tabPageAppearance.Controls.Add(this.groupBoxEnableZoom);
@@ -4716,6 +4718,19 @@
             this.applyAndStartSEBToolStripMenuItem.Text = "Apply and Start SEB";
             this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
             // 
+            // checkBoxAllowDictionaryLookup
+            // 
+            this.checkBoxAllowDictionaryLookup.AutoSize = true;
+            this.checkBoxAllowDictionaryLookup.Location = new System.Drawing.Point(282, 523);
+            this.checkBoxAllowDictionaryLookup.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxAllowDictionaryLookup.Name = "checkBoxAllowDictionaryLookup";
+            this.checkBoxAllowDictionaryLookup.Size = new System.Drawing.Size(164, 17);
+            this.checkBoxAllowDictionaryLookup.TabIndex = 84;
+            this.checkBoxAllowDictionaryLookup.Text = "Allow dictionary lookup (Mac)";
+            this.toolTip1.SetToolTip(this.checkBoxAllowDictionaryLookup, "Allow to use the OS X dictionary lookup using a 3 finger tap");
+            this.checkBoxAllowDictionaryLookup.UseVisualStyleBackColor = true;
+            this.checkBoxAllowDictionaryLookup.CheckedChanged += new System.EventHandler(this.checkBoxAllowDictionaryLookup_CheckedChanged);
+            // 
             // SebWindowsConfigForm
             // 
             this.AllowDrop = true;
@@ -5169,6 +5184,7 @@
         private System.Windows.Forms.TextBox textBoxUserAgentTouchModeCustom;
         private System.Windows.Forms.RadioButton radioButtonUserAgentTouchDefault;
         private System.Windows.Forms.RadioButton radioButtonUserAgentTouchCustom;
+        private System.Windows.Forms.CheckBox checkBoxAllowDictionaryLookup;
 
     }
 }

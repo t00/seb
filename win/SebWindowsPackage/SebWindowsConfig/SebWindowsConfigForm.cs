@@ -641,6 +641,7 @@ namespace SebWindowsConfig
             enableZoomAdjustZoomMode();
 
             checkBoxAllowSpellCheck.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowSpellCheck];
+            checkBoxAllowDictionaryLookup.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowDictionaryLookup];
             checkBoxShowTime.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowTime];
             checkBoxShowKeyboardLayout.Checked = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyShowInputLanguage];
 
@@ -3537,6 +3538,12 @@ namespace SebWindowsConfig
         {
             SEBSettings.settingsCurrent[SEBSettings.KeyAllowSpellCheck] = checkBoxAllowSpellCheck.Checked;
         }
+
+        private void checkBoxAllowDictionaryLookup_CheckedChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyAllowDictionaryLookup] = checkBoxAllowDictionaryLookup.Checked;
+        }
+
 
         private void checkBoxShowTime_CheckedChanged(object sender, EventArgs e)
         {

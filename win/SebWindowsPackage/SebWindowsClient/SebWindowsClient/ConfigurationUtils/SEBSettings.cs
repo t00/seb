@@ -113,8 +113,9 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableZoomPage               = "enableZoomPage";
         public const String KeyZoomMode                     = "zoomMode";
         public const String KeyAllowSpellCheck              = "allowSpellCheck";
-        public const String KeyShowTime              = "showTime";
-        public const String KeyShowInputLanguage              = "showInputLanguage";
+        public const String KeyShowTime                     = "showTime";
+        public const String KeyShowInputLanguage            = "showInputLanguage";
+        public const String KeyAllowDictionaryLookup        = "allowDictionaryLookup";
 
         //Touch optimized settings
         public const String KeyBrowserScreenKeyboard = "browserScreenKeyboard";
@@ -517,7 +518,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyEnableZoomPage              , true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyZoomMode                    , 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowSpellCheck             , false);
-            SEBSettings.settingsDefault.Add(SEBSettings.KeyShowTime             , true);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyAllowDictionaryLookup       , false);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyShowTime, true);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyShowInputLanguage             , true);
 
             //Touch Settings
