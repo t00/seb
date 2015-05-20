@@ -73,7 +73,6 @@ namespace SebWindowsClient
                 //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                 this.Visible = false;
                 SEBClientInfo.SebWindowsClientForm.ExitApplication();
-                //Application.Exit();
             }
         }
 

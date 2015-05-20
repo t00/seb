@@ -127,8 +127,6 @@ namespace SebWindowsClient.ConfigurationUtils
 
                     //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                     SEBClientInfo.SebWindowsClientForm.ExitApplication();
-                    //Application.Exit();
-                    return false;
                 }
 
                 // Re-Initialize SEB according to the new settings
@@ -194,16 +192,12 @@ namespace SebWindowsClient.ConfigurationUtils
                         SEBMessageBox.Show(SEBUIStrings.sebReconfiguredRestartNeeded, SEBUIStrings.sebReconfiguredRestartNeededReason, MessageBoxIcon.Warning, MessageBoxButtons.OK);
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         SEBClientInfo.SebWindowsClientForm.ExitApplication();
-                        //Application.Exit();
-                        return false;
                     }
 
                     if (SEBMessageBox.Show(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, MessageBoxIcon.Question, MessageBoxButtons.YesNo) == DialogResult.No)
                     {
                         //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
                         SEBClientInfo.SebWindowsClientForm.ExitApplication();
-                        //Application.Exit();
-                        return false;
                     }
 
                     return true; //reading preferences was successful

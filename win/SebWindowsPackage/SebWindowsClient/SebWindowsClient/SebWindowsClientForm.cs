@@ -305,8 +305,7 @@ namespace SebWindowsClient
                     //ExitApplication();
                     Logger.AddError("Settings could not be decrypted or stored.", this, null, null);
                     SebWindowsClientMain.LoadingSebFile(false);
-                    ExitApplication();
-                    Environment.Exit(0);
+                    //ExitApplication();
                     return;
                 }
 
