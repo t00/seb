@@ -219,6 +219,8 @@ namespace SebWindowsClient.ConfigurationUtils
             }
             xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] += " " + SEBClientInfo.BROWSER_USERAGENT_SEB + " " + Application.ProductVersion;
 
+            // Set onscreen keyboard settings flag when touch optimized is enabled
+            xulRunnerSettings[SEBSettings.KeyBrowserScreenKeyboard] = xulRunnerSettings[SEBSettings.KeyTouchOptimized];
 
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
