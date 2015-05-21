@@ -1392,7 +1392,7 @@ namespace SebWindowsConfig
                 if ((Boolean) SEBSettings.settingsCurrent[SEBSettings.KeyCreateNewDesktop])
                 {
                     MessageBox.Show(
-                    "Touch optimization will not work when kiosk mode is set to Create New Desktop, please change the appearance.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    "Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security tab.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 groupBoxMainBrowserWindow.Enabled = false;
                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserViewMode] = 1;
