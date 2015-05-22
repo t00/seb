@@ -709,7 +709,8 @@ namespace SebWindowsClient
             //{
             try
             {
-                SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
+                //SetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
+                SebApplicationChooserForm.forceSetForegroundWindow(SEBClientInfo.SebWindowsClientForm.Handle);
                 SEBClientInfo.SebWindowsClientForm.Activate();
             }
             catch (Exception)
