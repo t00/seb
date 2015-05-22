@@ -756,7 +756,7 @@ namespace SebWindowsClient
             if ((Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] ==
                 true && !(Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
             {
-                SEBOnScreenKeyboardToolStripButton.OnKeyboardStateChanged += (x, y) => SetFormOnDesktop();
+                SEBOnScreenKeyboardToolStripButton.OnKeyboardStateChanged += (x, y) => PlaceFormOnDesktop();
                 taskbarToolStrip.Items.Add(new SEBOnScreenKeyboardToolStripButton());
             }
 
@@ -1186,6 +1186,14 @@ namespace SebWindowsClient
             SetParent(this.Handle, GetDesktopWindow());
             //this.BackColor = Color.Red;
 
+            this.TopMost = true;
+            PlaceFormOnDesktop();            
+
+            return true;
+        }
+
+        private void PlaceFormOnDesktop()
+        {
             //int height = Screen.PrimaryScreen.Bounds.Height;
             int width = Screen.PrimaryScreen.Bounds.Width;
             int x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
@@ -1194,11 +1202,8 @@ namespace SebWindowsClient
             this.Height = taskbarHeight;
             this.Width = width;
             this.Location = new Point(x, y);
-            this.TopMost = true;
 
             SEBXULRunnerWebSocketServer.SendDisplaySettingsChanged();
-
-            return true;
         }
 
         /// <summary>
