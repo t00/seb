@@ -1153,12 +1153,11 @@ namespace SebWindowsClient
         /// ----------------------------------------------------------------------------------------
         private bool SetFormOnDesktop()
         {
-            //TODO: Calculation Formula!
-            //Aply highDPI scaling
-            //96 DPI = 100% scaling
-            //120 DPI = 125% scaling
-            //144 DPI = 150% scaling
-            //192 DPI = 200% scaling
+            if (!(bool) SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyShowTaskBar))
+            {
+                return false;
+            }
+
             int dpiX;
             using (var g = this.CreateGraphics())
             {
@@ -1187,7 +1186,7 @@ namespace SebWindowsClient
             //this.BackColor = Color.Red;
 
             this.TopMost = true;
-            PlaceFormOnDesktop();            
+            PlaceFormOnDesktop(false);            
 
             return true;
         }
