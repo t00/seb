@@ -1186,7 +1186,7 @@ namespace SebWindowsClient
             //this.BackColor = Color.Red;
 
             this.TopMost = true;
-            PlaceFormOnDesktop(false);            
+            PlaceFormOnDesktop();            
 
             return true;
         }
