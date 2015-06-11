@@ -129,12 +129,12 @@ namespace SebWindowsClient
 
         private void txtSEBPassword_Enter(object sender, EventArgs e)
         {
-            SEBOnScreenKeyboardToolStripButton.ShowKeyboard();
+            TapTipHandler.ShowKeyboard();
         }
 
         private void txtSEBPassword_Leave(object sender, EventArgs e)
         {
-            SEBOnScreenKeyboardToolStripButton.HideKeyboard();
+            TapTipHandler.HideKeyboard();
         }
 
     }

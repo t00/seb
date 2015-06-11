@@ -78,12 +78,12 @@ namespace SebWindowsClient
 
         private void txtQuitPassword_Enter(object sender, EventArgs e)
         {
-            SEBOnScreenKeyboardToolStripButton.ShowKeyboard();
+            TapTipHandler.ShowKeyboard();
         }
 
         private void txtQuitPassword_Leave(object sender, EventArgs e)
         {
-            SEBOnScreenKeyboardToolStripButton.HideKeyboard();
+            TapTipHandler.HideKeyboard();
         }
     }
 }

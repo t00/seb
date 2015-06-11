@@ -756,8 +756,10 @@ namespace SebWindowsClient
             if ((Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] ==
                 true && !(Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
             {
-                SEBOnScreenKeyboardToolStripButton.OnKeyboardStateChanged += (x, y) => PlaceFormOnDesktop();
-                taskbarToolStrip.Items.Add(new SEBOnScreenKeyboardToolStripButton());
+                var sebOnScreenKeyboardToolStripButton = new SEBOnScreenKeyboardToolStripButton();
+                sebOnScreenKeyboardToolStripButton.OnKeyboardStateChanged += shown => this.BeginInvoke(new Action(
+                    () => this.PlaceFormOnDesktop(shown)));
+                taskbarToolStrip.Items.Add(sebOnScreenKeyboardToolStripButton);
             }
 
             //Add the RestartExamButton if configured
@@ -1186,21 +1188,28 @@ namespace SebWindowsClient
             //this.BackColor = Color.Red;
 
             this.TopMost = true;
-            PlaceFormOnDesktop();            
+            PlaceFormOnDesktop(false);            
 
             return true;
         }
 
-        private void PlaceFormOnDesktop()
+        private void PlaceFormOnDesktop(bool KeyboardShown)
         {
-            //int height = Screen.PrimaryScreen.Bounds.Height;
-            int width = Screen.PrimaryScreen.Bounds.Width;
-            int x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
-            int y = Screen.PrimaryScreen.Bounds.Height - taskbarHeight;
+            if (KeyboardShown && TapTipHandler.IsKeyboardDocked())
+                this.Hide();
+            else
+            {
 
-            this.Height = taskbarHeight;
-            this.Width = width;
-            this.Location = new Point(x, y);
+                //int height = Screen.PrimaryScreen.Bounds.Height;
+                int width = Screen.PrimaryScreen.Bounds.Width;
+                var x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
+                var y = Screen.PrimaryScreen.Bounds.Height - taskbarHeight;
+
+                this.Height = taskbarHeight;
+                this.Width = width;
+                this.Location = new Point(x, y);
+                this.Show();
+            }
 
             SEBXULRunnerWebSocketServer.SendDisplaySettingsChanged();
         }
