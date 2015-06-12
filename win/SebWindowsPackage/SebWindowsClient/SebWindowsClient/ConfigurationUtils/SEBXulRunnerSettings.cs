@@ -201,7 +201,11 @@ namespace SebWindowsClient.ConfigurationUtils
                 {
                     xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_TOUCH;
                 }
-                else
+                else if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchMode] == 1)
+                {
+                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_TOUCH_IPAD;
+                }
+                else if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchMode] == 2)
                 {
                     xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchModeCustom];
                 }
