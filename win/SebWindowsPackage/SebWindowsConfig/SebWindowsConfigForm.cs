@@ -371,15 +371,21 @@ namespace SebWindowsConfig
             checkBoxUseSebWithoutBrowser    .Checked = !((Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyEnableSebBrowser]);
             // BEWARE: you must invert this value since "Use Without" is "Not Enable"!
 
+            radioButtonUserAgentMacDefault.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentMac] == 0);
+            radioButtonUserAgentMacCustom.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentMac] == 1);
+            textBoxUserAgentMacCustom.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentMacCustom];
+
             radioButtonUserAgentDesktopDefault.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] == 0);
             radioButtonUserAgentDesktopCustom.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] == 1);
             textBoxUserAgentDesktopModeCustom.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopModeCustom];
             textBoxUserAgentDesktopModeDefault.Text = SEBClientInfo.BROWSER_USERAGENT_DESKTOP;
 
             radioButtonUserAgentTouchDefault.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] == 0);
-            radioButtonUserAgentTouchCustom.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] == 1);
+            radioButtonUserAgentTouchIPad.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] == 1);
+            radioButtonUserAgentTouchCustom.Checked = ((int)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] == 2);
             textBoxUserAgentTouchModeCustom.Text = (String)SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchModeCustom];
             textBoxUserAgentTouchModeDefault.Text = SEBClientInfo.BROWSER_USERAGENT_TOUCH;
+            textBoxUserAgentTouchModeIPad.Text = SEBClientInfo.BROWSER_USERAGENT_TOUCH_IPAD;
 
             // Group "Down/Uploads"
             checkBoxAllowDownUploads.Checked           = (Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyAllowDownUploads];
@@ -1603,14 +1609,14 @@ namespace SebWindowsConfig
         {
             if (radioButtonUserAgentDesktopDefault.Checked == true)
                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 0;
-            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 1;
+            //else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 1;
         }
 
         private void radioButtonUserAgentDesktopCustom_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonUserAgentDesktopCustom.Checked == true)
                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 1;
-            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 0;
+            //else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentDesktopMode] = 0;
         }
 
         private void textBoxUserAgentDesktopModeCustom_TextChanged(object sender, EventArgs e)
@@ -1623,14 +1629,20 @@ namespace SebWindowsConfig
         {
             if (radioButtonUserAgentTouchDefault.Checked == true)
                 SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 0;
-            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 1;
+            //else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 1;
+        }
+
+        private void radioButtonUserAgentTouchIPad_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUserAgentTouchIPad.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 1;
         }
 
         private void radioButtonUserAgentTouchCustom_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonUserAgentTouchCustom.Checked == true)
-                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 1;
-            else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 0;
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 2;
+            //else SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentTouchMode] = 0;
         }
 
         private void textBoxUserAgentTouchModeCustom_TextChanged(object sender, EventArgs e)
@@ -1640,6 +1652,25 @@ namespace SebWindowsConfig
         }
 
 
+        private void radioButtonUserAgentMacDefault_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUserAgentMacDefault.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentMac] = 0;
+        }
+
+        private void radioButtonUserAgentMacCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUserAgentMacCustom.Checked == true)
+                SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentMac] = 1;
+        }
+
+        private void textBoxUserAgentMacCustom_TextChanged(object sender, EventArgs e)
+        {
+            SEBSettings.settingsCurrent[SEBSettings.KeyBrowserUserAgentMacCustom] = textBoxUserAgentMacCustom.Text;
+            radioButtonUserAgentMacCustom.Checked = true;
+        }
+
+        
         // ********************
         // Group "Down/Uploads"
         // ********************
@@ -3684,7 +3715,6 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyEnablePrintScreen] = checkBoxEnableScreenCapture.Checked;
             checkBoxEnablePrintScreen.Checked = checkBoxEnableScreenCapture.Checked;
         }
-
 
     } // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

@@ -138,11 +138,13 @@ namespace SebWindowsClient.ConfigurationUtils
         public const String KeyEnableSebBrowser                     = "enableSebBrowser";
         public const String KeyShowReloadButton                     = "showReloadButton";
         public const String KeyShowReloadWarning                    = "showReloadWarning";
-        public const String KeyBrowserUserAgentDesktopMode          = "browserUserAgentDesktopMode";
-        public const String KeyBrowserUserAgentDesktopModeCustom    = "browserUserAgentDesktopModeCustom";
-        public const String KeyBrowserUserAgentTouchMode            = "browserUserAgentTouchMode";
-        public const String KeyBrowserUserAgentTouchModeCustom      = "browserUserAgentTouchModeCustom";
+        public const String KeyBrowserUserAgentDesktopMode          = "browserUserAgentWinDesktopMode";
+        public const String KeyBrowserUserAgentDesktopModeCustom    = "browserUserAgentWinDesktopModeCustom";
+        public const String KeyBrowserUserAgentTouchMode            = "browserUserAgentWinTouchMode";
+        public const String KeyBrowserUserAgentTouchModeCustom      = "browserUserAgentWinTouchModeCustom";
         public const String KeyBrowserUserAgent                     = "browserUserAgent";
+        public const String KeyBrowserUserAgentMac                  = "browserUserAgentMac";
+        public const String KeyBrowserUserAgentMacCustom            = "browserUserAgentMacCustom";
 
         // Group "DownUploads"
         public const String KeyAllowDownUploads         = "allowDownUploads";
@@ -555,7 +557,8 @@ namespace SebWindowsClient.ConfigurationUtils
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentTouchMode, 0);
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentTouchModeCustom, "");
             SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgent, "");
-
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentMac, 0);
+            SEBSettings.settingsDefault.Add(SEBSettings.KeyBrowserUserAgentMacCustom, "");
             // NewBrowserWindow Width and Height is stored additionally
             SEBSettings.intArrayDefault[SEBSettings.ValNewBrowserWindowByLinkWidth ] = 4;
             SEBSettings.intArrayDefault[SEBSettings.ValNewBrowserWindowByLinkHeight] = 2;

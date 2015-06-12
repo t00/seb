@@ -121,8 +121,9 @@ namespace SebWindowsClient.ConfigurationUtils
         private const string SEB_BROWSER_DIRECTORY  = "SebWindowsBrowser";
         private const string XUL_RUNNER_DIRECTORY   = "xulrunner";
         private const string XUL_SEB_DIRECTORY      = "xul_seb";
-        public const string BROWSER_USERAGENT_DESKTOP = "Mozilla/5.0 (Windows NT 6.3; rv:37.0) Gecko/20100101 Firefox/37.0";
-        public const string BROWSER_USERAGENT_TOUCH = "Mozilla/5.0 (Windows NT 6.3; rv:37.0; Touch) Gecko/20100101 Firefox/37.0";
+        public const string BROWSER_USERAGENT_DESKTOP = "Mozilla/5.0 (Windows NT 6.3; rv:38.0) Gecko/20100101 Firefox/38.0";
+        public const string BROWSER_USERAGENT_TOUCH = "Mozilla/5.0 (Windows NT 6.3; rv:38.0; Touch) Gecko/20100101 Firefox/38.0";
+        public const string BROWSER_USERAGENT_TOUCH_IPAD = "Mozilla/5.0 (iPad; CPU OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B410 Safari/600.1.4";
         public const string BROWSER_USERAGENT_SEB = "SEB";
 
         public  const string END_OF_STRING_KEYWORD   = "---SEB---";
