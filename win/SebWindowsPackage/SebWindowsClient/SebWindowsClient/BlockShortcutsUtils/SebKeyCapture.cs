@@ -46,6 +46,7 @@ using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.XULRunnerCommunication;
 using MessageBox = System.Windows.Forms.MessageBox;
+using Point = System.Drawing.Point;
 
 namespace SebWindowsClient.BlockShortcutsUtils
 {
@@ -589,9 +590,11 @@ namespace SebWindowsClient.BlockShortcutsUtils
         /// </summary>
         private static IntPtr CaptureMouseButton(int nCode, IntPtr wp, IntPtr lp)
         {
+
             // If the nCode is non-negative, filter the key stroke.
             if (nCode >= 0)
             {
+                TextTouchExitSequence(System.Windows.Forms.Cursor.Position);
                 //KBDLLHOOKSTRUCT KeyInfo =
                 //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
@@ -602,6 +605,25 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
             // Pass the event to the next hook in the chain.
             return CallNextHookEx(ptrMouseHook, nCode, wp, lp);
+        }
+
+        private static DateTime TouchExitSequenceStartedTime;
+        private static int TouchExitSequenceStartedX;
+        private static void TextTouchExitSequence(Point cursorsPosition)
+        {
+            if (cursorsPosition.Y == 0)
+            {
+                TouchExitSequenceStartedTime = DateTime.Now;
+                TouchExitSequenceStartedX = cursorsPosition.X;
+            }
+            else if(
+                Math.Abs(cursorsPosition.X - TouchExitSequenceStartedX) < Screen.PrimaryScreen.WorkingArea.Width / 3 && 
+                DateTime.Now - TouchExitSequenceStartedTime < new TimeSpan(0,0,2) &&
+                cursorsPosition.Y > Screen.PrimaryScreen.WorkingArea.Height / 3 &&
+                cursorsPosition.Y < Screen.PrimaryScreen.WorkingArea.Height / 3 * 2)
+            {
+                SEBClientInfo.SebWindowsClientForm.ShowCloseDialogForm();
+            }
         }
 
         /// <summary>
@@ -640,7 +662,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 KBDLLHOOKSTRUCT KeyInfo =
                   (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
-                Console.WriteLine(String.Format("Ncode: {0}, wp:{1}, Key:{2}, KeyInt:{3}, flags: {4}",nCode, wp, KeyInfo.key, (int)KeyInfo.key, KeyInfo.flags));
+                //Console.WriteLine(String.Format("Ncode: {0}, wp:{1}, Key:{2}, KeyInt:{3}, flags: {4}",nCode, wp, KeyInfo.key, (int)KeyInfo.key, KeyInfo.flags));
 
                 if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
                 {
