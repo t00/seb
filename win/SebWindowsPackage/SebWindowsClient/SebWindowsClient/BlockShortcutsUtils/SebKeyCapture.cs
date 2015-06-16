@@ -594,7 +594,10 @@ namespace SebWindowsClient.BlockShortcutsUtils
             // If the nCode is non-negative, filter the key stroke.
             if (nCode >= 0)
             {
-                TextTouchExitSequence(System.Windows.Forms.Cursor.Position);
+                if ((bool) SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyTouchOptimized))
+                {
+                    TextTouchExitSequence(System.Windows.Forms.Cursor.Position);
+                }
                 //KBDLLHOOKSTRUCT KeyInfo =
                 //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
 
