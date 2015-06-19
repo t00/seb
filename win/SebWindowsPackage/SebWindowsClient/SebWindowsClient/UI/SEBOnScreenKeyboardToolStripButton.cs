@@ -73,7 +73,6 @@ namespace SebWindowsClient.UI
                         var t = new System.Timers.Timer {Interval = 500};
                         t.Elapsed += (sender, args) =>
                         {
-                            Console.WriteLine("Checking...");
                             if (!IsKeyboardVisible())
                             {
                                 OnKeyboardStateChanged(false);
