@@ -757,9 +757,10 @@ namespace SebWindowsClient
                 true && !(Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
             {
                 var sebOnScreenKeyboardToolStripButton = new SEBOnScreenKeyboardToolStripButton();
-                sebOnScreenKeyboardToolStripButton.OnKeyboardStateChanged += shown => this.BeginInvoke(new Action(
-                    () => this.PlaceFormOnDesktop(shown)));
                 taskbarToolStrip.Items.Add(sebOnScreenKeyboardToolStripButton);
+                TapTipHandler.RegisterXulRunnerEvents();
+                TapTipHandler.OnKeyboardStateChanged += shown => this.BeginInvoke(new Action(
+                    () => this.PlaceFormOnDesktop(shown)));
             }
 
             //Add the RestartExamButton if configured

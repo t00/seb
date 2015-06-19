@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -16,9 +17,6 @@ namespace SebWindowsClient.UI
 {
     public class SEBOnScreenKeyboardToolStripButton : SEBToolStripButton
     {
-        public delegate void KeyboardStateChangedEventHandler(bool shown);
-        public event KeyboardStateChangedEventHandler OnKeyboardStateChanged;
-
         public SEBOnScreenKeyboardToolStripButton()
         {
             InitializeComponent();
@@ -44,28 +42,6 @@ namespace SebWindowsClient.UI
             // 
             this.ToolTipText = SEBUIStrings.toolTipOnScreenKeyboard;
             base.Image = (Bitmap)Resources.ResourceManager.GetObject("keyboard");
-
-            SEBXULRunnerWebSocketServer.OnXulRunnerTextFocus += OnTextFocus;
-            SEBXULRunnerWebSocketServer.OnXulRunnerTextBlur += OnTextBlur;
-
-            TapTipHandler.OnKeyboardStateChanged += shown => OnKeyboardStateChanged(shown);
-        }
-
-        private void OnTextBlur(object sender, EventArgs e)
-        {
-            TapTipHandler.HideKeyboard();
-        }
-
-        private void OnTextFocus(object sender, EventArgs e)
-        {
-            TapTipHandler.ShowKeyboard();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            SEBXULRunnerWebSocketServer.OnXulRunnerTextFocus -= OnTextFocus;
-            SEBXULRunnerWebSocketServer.OnXulRunnerTextBlur -= OnTextBlur;
-            base.Dispose(disposing);
         }
     }
 
@@ -74,60 +50,64 @@ namespace SebWindowsClient.UI
         public delegate void KeyboardStateChangedEventHandler(bool shown);
         public static event KeyboardStateChangedEventHandler OnKeyboardStateChanged;
 
+        public static void RegisterXulRunnerEvents()
+        {
+            SEBXULRunnerWebSocketServer.OnXulRunnerTextFocus += (x,y) => ShowKeyboard();
+            SEBXULRunnerWebSocketServer.OnXulRunnerTextBlur += (x, y) => HideKeyboard();
+        }
+
         public static void ShowKeyboard()
         {
-            if (IsKeyboardVisible())
-                return;
-
             try
             {
                 if (!SEBWindowHandler.AllowedExecutables.Contains("taptip.exe"))
                     SEBWindowHandler.AllowedExecutables.Add("tabtip.ex");
 
-                string progFiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
-                string onScreenKeyboardPath = Path.Combine(progFiles, "TabTip.exe");
-                Process.Start(onScreenKeyboardPath);
-                if (OnKeyboardStateChanged != null)
+                if (!IsKeyboardVisible())
                 {
-                    OnKeyboardStateChanged(true);
-                    var t = new System.Windows.Forms.Timer();
-                    t.Interval = 500;
-                    t.Start();
-                    t.Tick += (sender, args) =>
+                    string progFiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
+                    string onScreenKeyboardPath = Path.Combine(progFiles, "TabTip.exe");
+                    Process.Start(onScreenKeyboardPath);
+                    if (OnKeyboardStateChanged != null)
                     {
-                        if (!IsKeyboardVisible())
+                        var t = new System.Timers.Timer {Interval = 500};
+                        t.Elapsed += (sender, args) =>
                         {
-                            OnKeyboardStateChanged(false);
-                            t.Stop();
-                        }
-                    };
+                            Console.WriteLine("Checking...");
+                            if (!IsKeyboardVisible())
+                            {
+                                OnKeyboardStateChanged(false);
+                                t.Stop();
+                            }
+                        };
+                        t.Start();
+                    }
                 }
+                OnKeyboardStateChanged(true);
             }
             catch
             { }
         }
-
 
         public static void HideKeyboard()
         {
-            if (!IsKeyboardVisible())
-                return;
-
-            try
+            if (IsKeyboardVisible())
             {
-                //Kill all on screen keyboards
-                foreach (Process onscreenProcess in Process.GetProcessesByName("TabTip"))
-                {
-                    onscreenProcess.Kill();
-                }
-                if (OnKeyboardStateChanged != null)
-                {
-                    OnKeyboardStateChanged(false);
-                }
+                uint WM_SYSCOMMAND = 274;
+                IntPtr SC_CLOSE = new IntPtr(61536);
+                IntPtr KeyboardWnd = FindWindow("IPTip_Main_Window", null);
+                PostMessage(KeyboardWnd, WM_SYSCOMMAND, SC_CLOSE, (IntPtr)0);   
             }
-            catch
-            { }
+
+            if (OnKeyboardStateChanged != null)
+            {
+                OnKeyboardStateChanged(false);
+            }
         }
+
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
         /// The window is disabled. See http://msdn.microsoft.com/en-gb/library/windows/desktop/ms632600(v=vs.85).aspx.
