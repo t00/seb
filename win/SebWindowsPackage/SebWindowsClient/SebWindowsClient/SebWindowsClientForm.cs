@@ -1172,15 +1172,16 @@ namespace SebWindowsClient
             float sebTaskBarHeight = (int) SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyTaskBarHeight);
             if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
             {
-                taskbarHeight = (int)(68 * scaleFactor);
+                taskbarHeight = (int)(sebTaskBarHeight * 1.7 * scaleFactor);
                 this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight -8);
+                // It's wrong to change current settings here, because this also changes the browser exam key!
+                //SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = taskbarHeight;
             }
             else
             {
                 taskbarHeight = (int)(sebTaskBarHeight * scaleFactor);
                 this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight -8);
             }
-            //SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = taskbarHeight;
 
             //Modify Working Area
             SEBWorkingAreaHandler.SetTaskBarSpaceHeight(taskbarHeight);

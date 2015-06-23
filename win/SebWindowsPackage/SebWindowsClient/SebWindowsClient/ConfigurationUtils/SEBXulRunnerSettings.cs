@@ -197,6 +197,9 @@ namespace SebWindowsClient.ConfigurationUtils
             
             if ((bool)xulRunnerSettings[SEBSettings.KeyTouchOptimized] == true)
             {
+                // Set correct task bar height according to display dpi
+                xulRunnerSettings[SEBSettings.KeyTaskBarHeight] = (int)Math.Round((int)xulRunnerSettings[SEBSettings.KeyTaskBarHeight] * 1.7);
+
                 if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchMode] == 0)
                 {
                     xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_TOUCH;
@@ -225,9 +228,6 @@ namespace SebWindowsClient.ConfigurationUtils
 
             // Set onscreen keyboard settings flag when touch optimized is enabled
             xulRunnerSettings[SEBSettings.KeyBrowserScreenKeyboard] = xulRunnerSettings[SEBSettings.KeyTouchOptimized];
-
-            // Set correct task bar height according to display dpi
-            //xulRunnerSettings[SEBSettings.KeyTaskBarHeight] = (int) Math.Round((int) xulRunnerSettings[SEBSettings.KeyTaskBarHeight] * SEBClientInfo.scaleFactor);
 
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
