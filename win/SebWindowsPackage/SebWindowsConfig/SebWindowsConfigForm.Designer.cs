@@ -3777,12 +3777,12 @@
             // 
             this.labelTaskBarHeight.AutoSize = true;
             this.labelTaskBarHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTaskBarHeight.Location = new System.Drawing.Point(283, 20);
+            this.labelTaskBarHeight.Location = new System.Drawing.Point(266, 20);
             this.labelTaskBarHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTaskBarHeight.Name = "labelTaskBarHeight";
-            this.labelTaskBarHeight.Size = new System.Drawing.Size(95, 13);
+            this.labelTaskBarHeight.Size = new System.Drawing.Size(110, 13);
             this.labelTaskBarHeight.TabIndex = 63;
-            this.labelTaskBarHeight.Text = "Dock height (Mac)";
+            this.labelTaskBarHeight.Text = "Task bar/dock height";
             this.labelTaskBarHeight.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // checkBoxShowTime
