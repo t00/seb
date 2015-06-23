@@ -25,13 +25,15 @@ namespace SebWindowsClient.UI
         {
             get
             {
+                float sebTaskBarHeight = (int) SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyTaskBarHeight);
+                float fontSize = 10 * (sebTaskBarHeight/40) * SEBClientInfo.scaleFactor;
                 if ((Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized])
                 {
-                    return 14;
+                    return (int)Math.Round(1.7 * fontSize);
                 }
                 else
                 {
-                    return 10;
+                    return (int) Math.Round(fontSize);
                 }
             }
         }
