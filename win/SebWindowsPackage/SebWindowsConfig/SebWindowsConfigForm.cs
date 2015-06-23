@@ -1170,10 +1170,10 @@ namespace SebWindowsConfig
             SEBSettings.PermitXulRunnerProcess();
             UpdateAllWidgetsOfProgram();
             // Generate Browser Exam Key of default settings
-            lastBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
+            string currentBrowserExamKey = SEBProtectionController.ComputeBrowserExamKey();
             lastSettingsPassword = textBoxSettingsPassword.Text;
             // Display the new Browser Exam Key in Exam pane
-            textBoxBrowserExamKey.Text = lastBrowserExamKey;
+            textBoxBrowserExamKey.Text = currentBrowserExamKey;
         }
 
 
