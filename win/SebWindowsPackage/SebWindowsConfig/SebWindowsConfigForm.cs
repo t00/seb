@@ -1477,6 +1477,13 @@ namespace SebWindowsConfig
             SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = Int32.Parse(comboBoxTaskBarHeight.Text);
         }
 
+        private void comboBoxTaskBarHeight_TextUpdate(object sender, EventArgs e)
+        {
+            SEBSettings.intArrayCurrent[SEBSettings.ValTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
+            SEBSettings.strArrayCurrent[SEBSettings.ValTaskBarHeight] = comboBoxTaskBarHeight.Text;
+            //SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = comboBoxTaskBarHeight.SelectedIndex;
+            SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = Int32.Parse(comboBoxTaskBarHeight.Text);
+        }
 
 
         // ***************
@@ -1820,7 +1827,8 @@ namespace SebWindowsConfig
             checkBoxPermittedProcessAutostart .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAutostart];
             checkBoxPermittedProcessIconInTaskbar .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyIconInTaskbar];
             checkBoxPermittedProcessAutohide  .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyRunInBackground];
-            checkBoxPermittedProcessAllowUser .Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAllowUser];
+            checkBoxPermittedProcessIconInTaskbar.Enabled = !checkBoxPermittedProcessAutohide.Checked | checkBoxPermittedProcessAutostart.Checked;
+            checkBoxPermittedProcessAllowUser.Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyAllowUser];
             checkBoxPermittedProcessStrongKill.Checked = (Boolean)SEBSettings.permittedProcessData[SEBSettings.KeyStrongKill];
              listBoxPermittedProcessOS.SelectedIndex   =   (Int32)SEBSettings.permittedProcessData[SEBSettings.KeyOS];
              textBoxPermittedProcessTitle      .Text   =  (String)SEBSettings.permittedProcessData[SEBSettings.KeyTitle];
@@ -2167,6 +2175,7 @@ namespace SebWindowsConfig
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyAutostart] = checkBoxPermittedProcessAutostart.Checked;
+            checkBoxPermittedProcessIconInTaskbar.Enabled = !checkBoxPermittedProcessAutohide.Checked | checkBoxPermittedProcessAutostart.Checked;
         }
 
         private void checkBoxPermittedProcessIconInTaskbar_CheckedChanged(object sender, EventArgs e)
@@ -2183,8 +2192,7 @@ namespace SebWindowsConfig
             SEBSettings.permittedProcessList = (ListObj)SEBSettings.settingsCurrent     [SEBSettings.KeyPermittedProcesses];
             SEBSettings.permittedProcessData = (DictObj)SEBSettings.permittedProcessList[SEBSettings.permittedProcessIndex];
             SEBSettings.permittedProcessData[SEBSettings.KeyRunInBackground] = checkBoxPermittedProcessAutohide.Checked;
-            //checkBoxPermittedProcessAutostart.Checked = checkBoxPermittedProcessAutohide.Checked;
-            //checkBoxPermittedProcessAutostart.Enabled = !checkBoxPermittedProcessAutohide.Checked;
+            checkBoxPermittedProcessIconInTaskbar.Enabled = !checkBoxPermittedProcessAutohide.Checked | checkBoxPermittedProcessAutostart.Checked;
         }
 
         private void checkBoxPermittedProcessAllowUser_CheckedChanged(object sender, EventArgs e)

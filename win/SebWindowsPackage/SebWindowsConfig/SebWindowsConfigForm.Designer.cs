@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsConfigForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialogSebConfigFile = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebConfigFile = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
@@ -237,7 +237,14 @@
             this.checkBoxOpenDownloads = new System.Windows.Forms.CheckBox();
             this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBoxUserAgentMacCustom = new System.Windows.Forms.TextBox();
+            this.radioButtonUserAgentMacDefault = new System.Windows.Forms.RadioButton();
+            this.radioButtonUserAgentMacCustom = new System.Windows.Forms.RadioButton();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.textBoxUserAgentTouchModeIPad = new System.Windows.Forms.TextBox();
+            this.radioButtonUserAgentTouchIPad = new System.Windows.Forms.RadioButton();
             this.textBoxUserAgentTouchModeDefault = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBoxUserAgentTouchModeCustom = new System.Windows.Forms.TextBox();
@@ -371,13 +378,6 @@
             this.editDuplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configureClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applyAndStartSEBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBoxUserAgentMacCustom = new System.Windows.Forms.TextBox();
-            this.radioButtonUserAgentMacDefault = new System.Windows.Forms.RadioButton();
-            this.radioButtonUserAgentMacCustom = new System.Windows.Forms.RadioButton();
-            this.textBoxUserAgentTouchModeIPad = new System.Windows.Forms.TextBox();
-            this.radioButtonUserAgentTouchIPad = new System.Windows.Forms.RadioButton();
             this.tabPageHookedKeys.SuspendLayout();
             this.groupBoxFunctionKeys.SuspendLayout();
             this.groupBoxSpecialKeys.SuspendLayout();
@@ -412,6 +412,7 @@
             this.groupBox7.SuspendLayout();
             this.tabPageDownUploads.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -428,7 +429,6 @@
             this.groupBoxExitSequence.SuspendLayout();
             this.tabControlSebWindowsConfig.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox14.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialogSebConfigFile
@@ -1514,8 +1514,8 @@
             // 
             // Type
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Silver;
-            this.Type.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
+            this.Type.DefaultCellStyle = dataGridViewCellStyle2;
             this.Type.HeaderText = "Type";
             this.Type.Name = "Type";
             this.Type.ReadOnly = true;
@@ -2280,11 +2280,12 @@
             this.checkBoxPermittedProcessAutohide.Location = new System.Drawing.Point(14, 246);
             this.checkBoxPermittedProcessAutohide.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxPermittedProcessAutohide.Name = "checkBoxPermittedProcessAutohide";
-            this.checkBoxPermittedProcessAutohide.Size = new System.Drawing.Size(117, 17);
+            this.checkBoxPermittedProcessAutohide.Size = new System.Drawing.Size(160, 17);
             this.checkBoxPermittedProcessAutohide.TabIndex = 11;
-            this.checkBoxPermittedProcessAutohide.Text = "Run in background";
+            this.checkBoxPermittedProcessAutohide.Text = "Allow running in background";
+            this.checkBoxPermittedProcessAutohide.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.checkBoxPermittedProcessAutohide, "Allow the permitted process to already be running when SEB starts. Such a process" +
-        " doesn\'t have an icon in the task bar.");
+        " can\'t have an icon in the task bar.");
             this.checkBoxPermittedProcessAutohide.UseVisualStyleBackColor = true;
             this.checkBoxPermittedProcessAutohide.CheckedChanged += new System.EventHandler(this.checkBoxPermittedProcessAutohide_CheckedChanged);
             // 
@@ -3048,6 +3049,76 @@
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
             // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.textBox8);
+            this.groupBox14.Controls.Add(this.textBoxUserAgentMacCustom);
+            this.groupBox14.Controls.Add(this.radioButtonUserAgentMacDefault);
+            this.groupBox14.Controls.Add(this.radioButtonUserAgentMacCustom);
+            this.groupBox14.Location = new System.Drawing.Point(542, 288);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(500, 123);
+            this.groupBox14.TabIndex = 74;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "User agent (Mac)";
+            // 
+            // textBox8
+            // 
+            this.textBox8.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox8.Location = new System.Drawing.Point(14, 93);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox8.Multiline = true;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(456, 22);
+            this.textBox8.TabIndex = 120;
+            this.textBox8.Text = "Custom SEB for Mac OS X user agent string (SEB appends its version number automat" +
+    "ically)";
+            // 
+            // textBoxUserAgentMacCustom
+            // 
+            this.textBoxUserAgentMacCustom.AcceptsReturn = true;
+            this.textBoxUserAgentMacCustom.AcceptsTab = true;
+            this.textBoxUserAgentMacCustom.AllowDrop = true;
+            this.textBoxUserAgentMacCustom.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUserAgentMacCustom.Location = new System.Drawing.Point(14, 68);
+            this.textBoxUserAgentMacCustom.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxUserAgentMacCustom.Name = "textBoxUserAgentMacCustom";
+            this.textBoxUserAgentMacCustom.Size = new System.Drawing.Size(472, 19);
+            this.textBoxUserAgentMacCustom.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxUserAgentMacCustom, "This text is displayed as the title of the confirmation alert and as tool tip on " +
+        "the icon");
+            this.textBoxUserAgentMacCustom.TextChanged += new System.EventHandler(this.textBoxUserAgentMacCustom_TextChanged);
+            // 
+            // radioButtonUserAgentMacDefault
+            // 
+            this.radioButtonUserAgentMacDefault.AutoSize = true;
+            this.radioButtonUserAgentMacDefault.Checked = true;
+            this.radioButtonUserAgentMacDefault.Location = new System.Drawing.Point(13, 23);
+            this.radioButtonUserAgentMacDefault.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonUserAgentMacDefault.Name = "radioButtonUserAgentMacDefault";
+            this.radioButtonUserAgentMacDefault.Size = new System.Drawing.Size(272, 17);
+            this.radioButtonUserAgentMacDefault.TabIndex = 0;
+            this.radioButtonUserAgentMacDefault.TabStop = true;
+            this.radioButtonUserAgentMacDefault.Text = "Default (depends on installed Safari/WebKit version)";
+            this.radioButtonUserAgentMacDefault.UseVisualStyleBackColor = true;
+            this.radioButtonUserAgentMacDefault.CheckedChanged += new System.EventHandler(this.radioButtonUserAgentMacDefault_CheckedChanged);
+            // 
+            // radioButtonUserAgentMacCustom
+            // 
+            this.radioButtonUserAgentMacCustom.AutoSize = true;
+            this.radioButtonUserAgentMacCustom.Location = new System.Drawing.Point(13, 44);
+            this.radioButtonUserAgentMacCustom.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonUserAgentMacCustom.Name = "radioButtonUserAgentMacCustom";
+            this.radioButtonUserAgentMacCustom.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonUserAgentMacCustom.TabIndex = 2;
+            this.radioButtonUserAgentMacCustom.Text = "Custom";
+            this.toolTip1.SetToolTip(this.radioButtonUserAgentMacCustom, "Zoom only text on web pages using Ctrl-Mousewheel (Win)");
+            this.radioButtonUserAgentMacCustom.UseVisualStyleBackColor = true;
+            this.radioButtonUserAgentMacCustom.CheckedChanged += new System.EventHandler(this.radioButtonUserAgentMacCustom_CheckedChanged);
+            // 
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.textBoxUserAgentTouchModeIPad);
@@ -3063,6 +3134,29 @@
             this.groupBox13.TabIndex = 73;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "User agent for touch/tablet mode";
+            // 
+            // textBoxUserAgentTouchModeIPad
+            // 
+            this.textBoxUserAgentTouchModeIPad.Location = new System.Drawing.Point(114, 43);
+            this.textBoxUserAgentTouchModeIPad.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxUserAgentTouchModeIPad.Name = "textBoxUserAgentTouchModeIPad";
+            this.textBoxUserAgentTouchModeIPad.ReadOnly = true;
+            this.textBoxUserAgentTouchModeIPad.Size = new System.Drawing.Size(372, 20);
+            this.textBoxUserAgentTouchModeIPad.TabIndex = 122;
+            // 
+            // radioButtonUserAgentTouchIPad
+            // 
+            this.radioButtonUserAgentTouchIPad.AutoSize = true;
+            this.radioButtonUserAgentTouchIPad.Checked = true;
+            this.radioButtonUserAgentTouchIPad.Location = new System.Drawing.Point(13, 44);
+            this.radioButtonUserAgentTouchIPad.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonUserAgentTouchIPad.Name = "radioButtonUserAgentTouchIPad";
+            this.radioButtonUserAgentTouchIPad.Size = new System.Drawing.Size(83, 17);
+            this.radioButtonUserAgentTouchIPad.TabIndex = 121;
+            this.radioButtonUserAgentTouchIPad.TabStop = true;
+            this.radioButtonUserAgentTouchIPad.Text = "Touch iPad:";
+            this.radioButtonUserAgentTouchIPad.UseVisualStyleBackColor = true;
+            this.radioButtonUserAgentTouchIPad.CheckedChanged += new System.EventHandler(this.radioButtonUserAgentTouchIPad_CheckedChanged);
             // 
             // textBoxUserAgentTouchModeDefault
             // 
@@ -3664,6 +3758,7 @@
             this.comboBoxTaskBarHeight.TabIndex = 6;
             this.toolTip1.SetToolTip(this.comboBoxTaskBarHeight, "Height of SEB dock/task bar in points/pixels");
             this.comboBoxTaskBarHeight.SelectedIndexChanged += new System.EventHandler(this.comboBoxTaskBarHeight_SelectedIndexChanged);
+            this.comboBoxTaskBarHeight.TextUpdate += new System.EventHandler(this.comboBoxTaskBarHeight_TextUpdate);
             // 
             // checkBoxShowKeyboardLayout
             // 
@@ -4743,99 +4838,6 @@
             this.applyAndStartSEBToolStripMenuItem.Text = "Apply and Start SEB";
             this.applyAndStartSEBToolStripMenuItem.Click += new System.EventHandler(this.applyAndStartSEBToolStripMenuItem_Click);
             // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.textBox8);
-            this.groupBox14.Controls.Add(this.textBoxUserAgentMacCustom);
-            this.groupBox14.Controls.Add(this.radioButtonUserAgentMacDefault);
-            this.groupBox14.Controls.Add(this.radioButtonUserAgentMacCustom);
-            this.groupBox14.Location = new System.Drawing.Point(542, 288);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(500, 123);
-            this.groupBox14.TabIndex = 74;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "User agent (Mac)";
-            // 
-            // textBox8
-            // 
-            this.textBox8.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(14, 93);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(456, 22);
-            this.textBox8.TabIndex = 120;
-            this.textBox8.Text = "Custom SEB for Mac OS X user agent string (SEB appends its version number automat" +
-    "ically)";
-            // 
-            // textBoxUserAgentMacCustom
-            // 
-            this.textBoxUserAgentMacCustom.AcceptsReturn = true;
-            this.textBoxUserAgentMacCustom.AcceptsTab = true;
-            this.textBoxUserAgentMacCustom.AllowDrop = true;
-            this.textBoxUserAgentMacCustom.Font = new System.Drawing.Font("Courier New", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUserAgentMacCustom.Location = new System.Drawing.Point(14, 68);
-            this.textBoxUserAgentMacCustom.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxUserAgentMacCustom.Name = "textBoxUserAgentMacCustom";
-            this.textBoxUserAgentMacCustom.Size = new System.Drawing.Size(472, 19);
-            this.textBoxUserAgentMacCustom.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.textBoxUserAgentMacCustom, "This text is displayed as the title of the confirmation alert and as tool tip on " +
-        "the icon");
-            this.textBoxUserAgentMacCustom.TextChanged += new System.EventHandler(this.textBoxUserAgentMacCustom_TextChanged);
-            // 
-            // radioButtonUserAgentMacDefault
-            // 
-            this.radioButtonUserAgentMacDefault.AutoSize = true;
-            this.radioButtonUserAgentMacDefault.Checked = true;
-            this.radioButtonUserAgentMacDefault.Location = new System.Drawing.Point(13, 23);
-            this.radioButtonUserAgentMacDefault.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonUserAgentMacDefault.Name = "radioButtonUserAgentMacDefault";
-            this.radioButtonUserAgentMacDefault.Size = new System.Drawing.Size(272, 17);
-            this.radioButtonUserAgentMacDefault.TabIndex = 0;
-            this.radioButtonUserAgentMacDefault.TabStop = true;
-            this.radioButtonUserAgentMacDefault.Text = "Default (depends on installed Safari/WebKit version)";
-            this.radioButtonUserAgentMacDefault.UseVisualStyleBackColor = true;
-            this.radioButtonUserAgentMacDefault.CheckedChanged += new System.EventHandler(this.radioButtonUserAgentMacDefault_CheckedChanged);
-            // 
-            // radioButtonUserAgentMacCustom
-            // 
-            this.radioButtonUserAgentMacCustom.AutoSize = true;
-            this.radioButtonUserAgentMacCustom.Location = new System.Drawing.Point(13, 44);
-            this.radioButtonUserAgentMacCustom.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonUserAgentMacCustom.Name = "radioButtonUserAgentMacCustom";
-            this.radioButtonUserAgentMacCustom.Size = new System.Drawing.Size(60, 17);
-            this.radioButtonUserAgentMacCustom.TabIndex = 2;
-            this.radioButtonUserAgentMacCustom.Text = "Custom";
-            this.toolTip1.SetToolTip(this.radioButtonUserAgentMacCustom, "Zoom only text on web pages using Ctrl-Mousewheel (Win)");
-            this.radioButtonUserAgentMacCustom.UseVisualStyleBackColor = true;
-            this.radioButtonUserAgentMacCustom.CheckedChanged += new System.EventHandler(this.radioButtonUserAgentMacCustom_CheckedChanged);
-            // 
-            // textBoxUserAgentTouchModeIPad
-            // 
-            this.textBoxUserAgentTouchModeIPad.Location = new System.Drawing.Point(114, 43);
-            this.textBoxUserAgentTouchModeIPad.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxUserAgentTouchModeIPad.Name = "textBoxUserAgentTouchModeIPad";
-            this.textBoxUserAgentTouchModeIPad.ReadOnly = true;
-            this.textBoxUserAgentTouchModeIPad.Size = new System.Drawing.Size(372, 20);
-            this.textBoxUserAgentTouchModeIPad.TabIndex = 122;
-            // 
-            // radioButtonUserAgentTouchIPad
-            // 
-            this.radioButtonUserAgentTouchIPad.AutoSize = true;
-            this.radioButtonUserAgentTouchIPad.Checked = true;
-            this.radioButtonUserAgentTouchIPad.Location = new System.Drawing.Point(13, 44);
-            this.radioButtonUserAgentTouchIPad.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonUserAgentTouchIPad.Name = "radioButtonUserAgentTouchIPad";
-            this.radioButtonUserAgentTouchIPad.Size = new System.Drawing.Size(83, 17);
-            this.radioButtonUserAgentTouchIPad.TabIndex = 121;
-            this.radioButtonUserAgentTouchIPad.TabStop = true;
-            this.radioButtonUserAgentTouchIPad.Text = "Touch iPad:";
-            this.radioButtonUserAgentTouchIPad.UseVisualStyleBackColor = true;
-            this.radioButtonUserAgentTouchIPad.CheckedChanged += new System.EventHandler(this.radioButtonUserAgentTouchIPad_CheckedChanged);
-            // 
             // SebWindowsConfigForm
             // 
             this.AllowDrop = true;
@@ -4912,6 +4914,8 @@
             this.tabPageDownUploads.PerformLayout();
             this.tabPageBrowser.ResumeLayout(false);
             this.tabPageBrowser.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -4942,8 +4946,6 @@
             this.tabControlSebWindowsConfig.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
