@@ -208,6 +208,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SEBSplashScreen.resx">
       <DependentUpon>SEBSplashScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SebPasswordDialogForm.de.resx">
       <DependentUpon>SebPasswordDialogForm.cs</DependentUpon>

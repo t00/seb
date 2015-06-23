@@ -195,6 +195,9 @@ namespace SebWindowsClient.ConfigurationUtils
 
         public static string LoadingSettingsFileName = "";
 
+        public static float scaleFactor = 1;
+        public static int appChooserHeight = 132;
+
         #endregion
 
 		#region Structures

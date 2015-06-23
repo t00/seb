@@ -226,6 +226,9 @@ namespace SebWindowsClient.ConfigurationUtils
             // Set onscreen keyboard settings flag when touch optimized is enabled
             xulRunnerSettings[SEBSettings.KeyBrowserScreenKeyboard] = xulRunnerSettings[SEBSettings.KeyTouchOptimized];
 
+            // Set correct task bar height according to display dpi
+            //xulRunnerSettings[SEBSettings.KeyTaskBarHeight] = (int) Math.Round((int) xulRunnerSettings[SEBSettings.KeyTaskBarHeight] * SEBClientInfo.scaleFactor);
+
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string jsonSettings = serializer.Serialize(xulRunnerSettings);

@@ -1161,13 +1161,15 @@ namespace SebWindowsClient
                 return false;
             }
 
-            int dpiX;
+            float dpiX;
             using (var g = this.CreateGraphics())
             {
-                dpiX = (int)g.DpiX;
+                dpiX = g.DpiX;
             }
-            var scaleFactor = dpiX / 96;
+            float scaleFactor = dpiX / 96;
+            SEBClientInfo.scaleFactor = scaleFactor;
 
+            float sebTaskBarHeight = (int) SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyTaskBarHeight);
             if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
             {
                 taskbarHeight = (int)(68 * scaleFactor);
@@ -1175,10 +1177,10 @@ namespace SebWindowsClient
             }
             else
             {
-                taskbarHeight = (int)(40 * scaleFactor);
+                taskbarHeight = (int)(sebTaskBarHeight * scaleFactor);
                 this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight -8);
             }
-            SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = taskbarHeight;
+            //SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = taskbarHeight;
 
             //Modify Working Area
             SEBWorkingAreaHandler.SetTaskBarSpaceHeight(taskbarHeight);
