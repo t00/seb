@@ -2,3 +2,4 @@
 bin
 obj
 /win/SebWindowsPackage/SebInstaller/Source
+/win/SebWindowsPackage/SebInstaller/Components.wxs

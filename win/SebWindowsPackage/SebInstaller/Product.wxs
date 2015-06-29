@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Safe Exam Browser" Language="1033" Version="2.2.1.0" Manufacturer="Safe Exam Browser" UpgradeCode="07e97a20-8e59-4893-bbe9-d3c57663abb4">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes"/>
+
+		<Property Id="INSTALLPROGRAMSHORTCUT" Value="1" Secure="yes"/>
+		<Property Id="INSTALLDESKTOPSHORTCUT" Value="1" Secure="yes"/>
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+		<Property Id="PREVIOUSFOUND" Secure="yes" />
+
+		<Property Id="WixShellExecTarget" Value="[#SafeExamBrowser.exe]" />
+		<CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+		
+		<Feature Id="ProductFeature" Title="Safe Exam Browser" Level="1">
+			<ComponentGroupRef Id="SafeExamBrowser" />
+			<ComponentRef Id="ProgramMenuShortcut" />
+			<ComponentRef Id="DesktopShortcut" />
+			<ComponentRef Id="SafeExamBrowserService" />
+		</Feature>
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLLOCATION" Name="Safe Exam Browser"/>
+			</Directory>
+
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ProgramMenuCompanyFolder" Name="Safe Exam Browser" />
+			</Directory>
+			<Directory Id="DesktopFolder" Name="Desktop" />
+
+			<Component Id="ProgramMenuShortcut">
+				<Condition>INSTALLPROGRAMSHORTCUT</Condition>
+				<CreateFolder/>
+				<RegistryKey Root="HKCU" Key="Software\Safe Exam Browser\ProgramMenuShortcut" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
+					<RegistryValue Name="MSI" Value="1" Type="integer" KeyPath="yes"/>
+				</RegistryKey>
+				<Shortcut Id="ProgramMenuShortcut"
+				  Directory="ProgramMenuCompanyFolder"
+				  Name="Safe Exam Browser"
+				  Target="[INSTALLLOCATION]\SafeExamBrowser.exe"
+				  WorkingDirectory="INSTALLLOCATION"
+				  Icon="ProductIcon" />
+				<RemoveFolder Id='RemoveProgramMenuCompanyFolder' Directory='ProgramMenuCompanyFolder' On='uninstall' />
+			</Component>
+
+			<Component Id="DesktopShortcut">
+				<Condition>INSTALLDESKTOPSHORTCUT</Condition>
+				<RegistryKey Root="HKCU" Key="Software\Safe Exam Browser\DesktopShortcut" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
+					<RegistryValue Name="MSI" Value="1" Type="integer" KeyPath="yes"/>
+				</RegistryKey>
+				<Shortcut Id="DesktopShortcut"
+				  Directory="ProgramMenuFolder"
+				  Name="Safe Exam Browser"
+				  Target="[INSTALLLOCATION]\SafeExamBrowser.exe"
+				  WorkingDirectory="INSTALLLOCATION"
+				  Icon="ProductIcon" />
+			</Component>
+		</Directory>
+
+		<Icon Id="ProductIcon" SourceFile="$(var.SolutionDir)SEBicon.ico" />
+		<UI>
+			<UIRef Id="WixUI_InstallDir" />
+			<Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+		</UI>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="SebInstaller" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<DirectoryRef Id="INSTALLLOCATION">
+			<Component Id="SafeExamBrowserService">
+				<File Id='SafeExamBrowserService' Name='SebWindowsServiceWCF.exe' Source='Source\SebWindowsServiceWCF.exe' KeyPath='yes'/>
+				<ServiceInstall
+					Id="SafeExamBrowserServiceInstall"
+					Type="ownProcess"
+					Name="SafeExamBrowserService"
+					DisplayName="Safe Exam Browser Service"
+					Description="This service handles computer lock down when Safe Exam Browser is running"
+					Start="auto"
+					Account="[SERVICEACCOUNT]"
+					Password="[SERVICEPASSWORD]"
+					ErrorControl="normal"
+					/>
+				<ServiceControl Id="SafeExamBrowserServiceStart" Start="install" Stop="both" Remove="uninstall" Name="SafeExamBrowserService" Wait="yes" />
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+</Wix>
