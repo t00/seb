@@ -7,20 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.DesktopUtils;
 using System.Diagnostics;
-using System.Net;
-using System.Security.Principal;
-using System.Xml.Serialization;
-using System.IO;
-using SebWindowsClient.CryptographyUtils;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Cryptography;
 using System.Text;
 //using COM.Tools.VMDetect;
 using SebWindowsClient.ServiceUtils;
@@ -28,7 +20,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 
 using Microsoft.VisualBasic.ApplicationServices;
-using SebWindowsClient.XULRunnerCommunication;
 
 //
 //  SebWindowsClient.cs

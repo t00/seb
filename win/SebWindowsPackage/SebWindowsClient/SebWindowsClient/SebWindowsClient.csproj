@@ -50,6 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -135,7 +136,6 @@
     <Compile Include="SebCloseDialogForm.Designer.cs">
       <DependentUpon>SebCloseDialogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Intptr.cs" />
     <Compile Include="SebApplicationChooserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,14 +323,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\refresh.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="refresh.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\signalstrength\0.png" />
     <Resource Include="Resources\signalstrength\100.png" />
     <Resource Include="Resources\signalstrength\33.png" />
@@ -338,9 +330,10 @@
     <Resource Include="Resources\signalstrength\nointerface.png" />
     <Resource Include="Resources\keyboard.png" />
     <None Include="Resources\SebGlobalDialogImage.bmp" />
-    <None Include="Resources\AboutSEB.png" />
     <None Include="Resources\battery.png" />
     <None Include="Resources\quit.png" />
+    <None Include="Resources\refresh.bmp" />
+    <None Include="Resources\refresh.png" />
     <Content Include="Resources\reload.png" />
     <Content Include="Resources\restartExam.png" />
     <Content Include="Resources\loading.gif" />
@@ -368,6 +361,10 @@
     <Folder Include="Fleck\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(SolutionDir)..\..\browser\binaries\win\xulrunner" "$(TargetDir)\SebWindowsBrowser\xulrunner\" /S /D /Y
+XCOPY "$(SolutionDir)SebWindowsBrowser\xul_seb" "$(TargetDir)\SebWindowsBrowser\xul_seb\" /S /D /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

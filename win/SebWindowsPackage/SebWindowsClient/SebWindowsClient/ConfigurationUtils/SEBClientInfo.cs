@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.DesktopUtils;
-using System.Xml.Serialization;
-using SebWindowsClient.CryptographyUtils;
-using System.Security.Cryptography.X509Certificates;
-using PlistCS;
 using System.Collections;
 //
 //  SEBClientInfo.cs
