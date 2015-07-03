@@ -53,7 +53,7 @@ namespace SebWindowsClient.ConfigurationUtils
             if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientMain.SEBToForeground();
 
             DialogResult messageBoxResult;
-            if (!neverShowTouchOptimized && (Boolean) SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
+            if (!neverShowTouchOptimized && SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized, false))
             {
                 messageBoxResult =
                     MetroMessageBox.Show(

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-//
+﻿//
 //  SEBGlobalConstants.cs
 //  SafeExamBrowser
 //
@@ -42,8 +37,6 @@ namespace SebWindowsClient.ConfigurationUtils
 {
     public class SEBGlobalConstants
     {
-        #region Constants
-
         // Error levels
         public const int ERROR       = 0;
         public const int WARNING     = 1;
@@ -133,20 +126,5 @@ namespace SebWindowsClient.ConfigurationUtils
         public const int IND_MESSAGE_KIND_WARNING  = 1;
         public const int IND_MESSAGE_KIND_QUESTION = 2;
         public const int IND_MESSAGE_KIND_NUM      = 3;
-
-
-        public const int  OS_UNKNOWN =  800;
-        public const int  WIN_95     =  950;
-        public const int  WIN_98     =  980;
-        public const int  WIN_ME     =  999;
-        public const int  WIN_NT_351 = 1351;
-        public const int  WIN_NT_40  = 1400;
-        public const int  WIN_2000   = 2000;
-        public const int  WIN_XP     = 2010;
-        public const int WIN_VISTA   = 2050;
-        public const int WIN_7       = 2050;
-        public const int WIN_8       = 2050;
-
-        #endregion
     }
 }

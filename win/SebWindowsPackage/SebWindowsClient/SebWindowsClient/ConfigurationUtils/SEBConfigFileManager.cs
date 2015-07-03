@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Threading;
 using SebWindowsClient.CryptographyUtils;
-using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
-using SebWindowsClient.XULRunnerCommunication;
-using ListObj = System.Collections.Generic.List<object>;
 using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using PlistCS;
 
@@ -75,141 +68,25 @@ namespace SebWindowsClient.ConfigurationUtils
         public static bool StoreDecryptedSEBSettings(byte[] sebData)
         {
             Logger.AddInformation("Reconfiguring");
-            DictObj sebPreferencesDict;
-            string sebFilePassword = null;
+	        string sebFilePassword = null;
             bool passwordIsHash = false;
             X509Certificate2 sebFileCertificateRef = null;
 
-            sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref passwordIsHash, ref sebFileCertificateRef);
+            var sebPreferencesDict = DecryptSEBSettings(sebData, false, ref sebFilePassword, ref passwordIsHash, ref sebFileCertificateRef);
             if (sebPreferencesDict == null) return false; //Decryption didn't work, we abort
 
-            // Reset SEB, close third party applications
-            SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
-            Logger.AddInformation("Attempting to CloseSEBForm for reconfiguration");
-            SEBClientInfo.SebWindowsClientForm.CloseSEBForm();
-            Logger.AddInformation("Succesfully CloseSEBForm for reconfiguration");
-            SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-            //SEBClientInfo.SebWindowsClientForm.Close();
-            //SEBClientInfo.SebWindowsClientForm.Dispose();
+			// We need to check if setting for createNewDesktop changed
+			SEBClientInfo.CreateNewDesktopOldValue = (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop, false);
 
-            // We need to check if setting for createNewDesktop changed
-            SEBClientInfo.CreateNewDesktopOldValue = (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop);
+			// Store decrypted settings
+			Logger.AddInformation("Attempting to StoreSebClientSettings");
+			SEBSettings.StoreSebClientSettings(sebPreferencesDict);
+			Logger.AddInformation("Successfully StoreSebClientSettings");
 
-            if ((int)sebPreferencesDict[SEBSettings.KeySebConfigPurpose] == (int)SEBSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
-            {
-                ///
-                /// If these SEB settings are ment to start an exam
-                ///
-
-                Logger.AddInformation("Reconfiguring to start an exam");
-                /// If these SEB settings are ment to start an exam
-
-                // Store decrypted settings
-                Logger.AddInformation("Attempting to StoreSebClientSettings");
-                SEBSettings.StoreSebClientSettings(sebPreferencesDict);
-                Logger.AddInformation("Successfully StoreSebClientSettings");
-
-                // Set the flag that SEB is running in exam mode now
-                SEBClientInfo.examMode = true;
-
-                //Re-initialize logger
-                SEBClientInfo.InitializeLogger();
-
-                // Check if SEB is running on the standard desktop and the new settings demand to run in new desktop (createNewDesktop = true)
-                // or the other way around!
-                if (SEBClientInfo.CreateNewDesktopOldValue != (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop))
-                {
-                    // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
-                    if (SEBClientInfo.CreateNewDesktopOldValue == false)
-                        SEBMessageBox.Show(SEBUIStrings.settingsRequireNewDesktop, SEBUIStrings.settingsRequireNewDesktopReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
-                    else
-                        SEBMessageBox.Show(SEBUIStrings.settingsRequireNotNewDesktop, SEBUIStrings.settingsRequireNotNewDesktopReason, MessageBoxIcon.Error, MessageBoxButtons.OK);
-
-                    //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                    SEBClientInfo.SebWindowsClientForm.ExitApplication();
-                }
-
-                // Re-Initialize SEB according to the new settings
-                Logger.AddInformation("Attemting to InitSEBDesktop for reconfiguration");
-                if (!SebWindowsClientMain.InitSEBDesktop()) return false;
-                Logger.AddInformation("Sucessfully InitSEBDesktop for reconfiguration");
-                // Re-open the main form
-                //SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
-                //SebWindowsClientMain.singleInstanceController.SetMainForm(SEBClientInfo.SebWindowsClientForm);
-
-                //return if initializing SEB with openend preferences was successful
-                Logger.AddInformation("Attempting to OpenSEBForm for reconfiguration");
-                var ret = SEBClientInfo.SebWindowsClientForm.OpenSEBForm();
-                Logger.AddInformation("Successfully OpenSEBForm for reconfiguration");
-                return ret;
-            }
-            else
-            {
-                ///
-                /// If these SEB settings are ment to configure a client
-                ///
-
-                Logger.AddInformation("Reconfiguring to configure a client");
-                /// If these SEB settings are ment to configure a client
-
-                // Check if we have embedded identities and import them into the Windows Certifcate Store
-                ListObj embeddedCertificates = (ListObj)sebPreferencesDict[SEBSettings.KeyEmbeddedCertificates];
-                for (int i = embeddedCertificates.Count - 1; i >= 0; i--)
-                {
-                    // Get the Embedded Certificate
-                    DictObj embeddedCertificate = (DictObj)embeddedCertificates[i];
-                    // Is it an identity?
-                    if ((int)embeddedCertificate[SEBSettings.KeyType] == 1)
-                    {
-                        // Store the identity into the Windows Certificate Store
-                        SEBProtectionController.StoreCertificateIntoStore((byte[])embeddedCertificate[SEBSettings.KeyCertificateData]);
-                    }
-                    // Remove the identity from settings, as it should be only stored in the Certificate Store and not in the locally stored settings file
-                    embeddedCertificates.RemoveAt(i);
-                }
-
-                // Store decrypted settings
-                SEBSettings.StoreSebClientSettings(sebPreferencesDict);
-
-                //Re-initialize logger
-                SEBClientInfo.InitializeLogger();
-
-                // Write new settings to the localapp directory
-                SEBSettings.WriteSebConfigurationFile(SEBClientInfo.SebClientSettingsAppDataFile, "", false, null, SEBSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
-
-                // Re-Initialize SEB desktop according to the new settings
-                if (!SebWindowsClientMain.InitSEBDesktop()) return false;
-
-                if (SEBClientInfo.SebWindowsClientForm.OpenSEBForm())
-                {
-                    // Activate SebWindowsClient so the message box gets focus
-                    //SEBClientInfo.SebWindowsClientForm.Activate();
-
-                    // Check if setting for createNewDesktop changed
-                    if (SEBClientInfo.CreateNewDesktopOldValue != (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyCreateNewDesktop))
-                    {
-                        // If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
-                        SEBMessageBox.Show(SEBUIStrings.sebReconfiguredRestartNeeded, SEBUIStrings.sebReconfiguredRestartNeededReason, MessageBoxIcon.Warning, MessageBoxButtons.OK);
-                        //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                        SEBClientInfo.SebWindowsClientForm.ExitApplication();
-                    }
-
-                    if (SEBMessageBox.Show(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, MessageBoxIcon.Question, MessageBoxButtons.YesNo) == DialogResult.No)
-                    {
-                        //SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
-                        SEBClientInfo.SebWindowsClientForm.ExitApplication();
-                    }
-
-                    return true; //reading preferences was successful
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return true;
         }
 
-        /// ----------------------------------------------------------------------------------------
+	    /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Decrypt and deserialize SEB settings
         /// When forEditing = true, then the decrypting password the user entered and/or 

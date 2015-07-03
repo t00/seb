@@ -4,10 +4,7 @@
 //     Biel, 2012
 // -------------------------------------------------------------
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Security;
 using System.IO;
 using SebWindowsClient.ConfigurationUtils;
 
@@ -20,16 +17,15 @@ namespace SebWindowsClient.DiagnosticsUtils
     /// ----------------------------------------------------------------------------------------
     public static class Logger
     {
-
         //private static FileStream _logFile = null;
-        private static StreamWriter _sw = null;
+        private static StreamWriter logWriter;
 
         /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Open Logger.
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static bool initLogger(string logFileDirectory = null, string logFilePath = null)
+        public static bool InitLogger(string logFileDirectory = null, string logFilePath = null)
         {
             if (String.IsNullOrEmpty(logFileDirectory))
             {
@@ -50,13 +46,13 @@ namespace SebWindowsClient.DiagnosticsUtils
 
             try
             {
-                if (_sw == null)
+                if (logWriter == null)
                 {
                     //_logFile = new FileStream(logFile, FileMode.OpenOrCreate);
                     if (Directory.Exists         (logFileDirectory) == false)
                         Directory.CreateDirectory(logFileDirectory);
 
-                    _sw = new StreamWriter(logFilePath, true);
+                    logWriter = new StreamWriter(logFilePath, true);
                 }
                 return true;
             }
@@ -77,11 +73,11 @@ namespace SebWindowsClient.DiagnosticsUtils
         {
             try
             {
-                if (_sw != null)
+                if (logWriter != null)
                 {
                     //_logFile = new FileStream(logFile, FileMode.OpenOrCreate);
-                    _sw.Close();
-                    _sw = null;
+                    logWriter.Close();
+                    logWriter = null;
                 }
             }
             catch (Exception ex)
@@ -106,7 +102,7 @@ namespace SebWindowsClient.DiagnosticsUtils
         private static void Insert(int eventCode, string eventType, int eventDetailCode, string message, string exceptionType,
             string details, DateTime? eventDateTime = null, string additionalData = null)
         {
-            Logger.initLogger();
+            Logger.InitLogger();
             string machineName = System.Environment.MachineName;
             if (!eventDateTime.HasValue) eventDateTime = DateTime.Now;
 
@@ -127,10 +123,10 @@ namespace SebWindowsClient.DiagnosticsUtils
             logEntry.Append(" Additional data: ");
             logEntry.Append(additionalData);
 
-            if (_sw != null)
+            if (logWriter != null)
             {
 
-                _sw.WriteLine(logEntry);
+                logWriter.WriteLine(logEntry);
 
                 //_sw.Close();
             }

@@ -85,6 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockShortcutsUtils\SebKeyCapture.cs" />
+    <Compile Include="ConfigurationUtils\WindowsVersionHelpers.cs" />
+    <Compile Include="CryptographyUtils\CertificateValidator.cs" />
     <Compile Include="ProcessUtils\ProcessInfo.cs" />
     <Compile Include="ProcessUtils\SEBProcessHandler.cs" />
     <Compile Include="ProcessUtils\SEBWindowHandler.cs" />

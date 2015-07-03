@@ -36,14 +36,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.DiagnosticsUtils;
-using PlistCS;
 using SebWindowsClient.XULRunnerCommunication;
 using ListObj  = System.Collections.Generic.List                <object>;
 using DictObj  = System.Collections.Generic.Dictionary  <string, object>;
@@ -409,10 +404,15 @@ namespace SebWindowsClient.ConfigurationUtils
         public static int     bypassedProxyIndex;
         public static ListObj bypassedProxyList        = new ListObj();
         public static String  bypassedProxyData        = "";
-        public static String  bypassedProxyDataDefault = ""; 
+        public static String  bypassedProxyDataDefault = "";
+
+	    public static bool IsEmpty
+	    {
+		    get { return !settingsCurrent.Any(); }
+	    }
 
 
-        // ************************
+	    // ************************
         // Methods for SEB settings
         // ************************
 
@@ -1304,7 +1304,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// return null for the value if the key doesn't exist 
         /// </summary>
         /// ----------------------------------------------------------------------------------------
-        public static object valueForDictionaryKey(DictObj dictionary, string key)
+        public static object valueForDictionaryKey(DictObj dictionary, string key, object defaultValue = null)
         {
             if (dictionary.ContainsKey(key))
             {
@@ -1312,7 +1312,7 @@ namespace SebWindowsClient.ConfigurationUtils
             }
             else
             {
-                return null;
+				return defaultValue;
             }
         }
 
@@ -1489,7 +1489,7 @@ namespace SebWindowsClient.ConfigurationUtils
                     // Decrypt the configuration settings.
                     // Convert the XML structure into a C# dictionary object.
 
-                    settingsDict = ConfigurationUtils.SEBConfigFileManager.DecryptSEBSettings(sebSettings, false, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
+                    settingsDict = SEBConfigFileManager.DecryptSEBSettings(sebSettings, false, ref filePassword, ref passwordIsHash, ref fileCertificateRef);
                     if (settingsDict == null)
                     {
                         Logger.AddError("The .seb file could not be decrypted. ", null, null, "");
@@ -1517,20 +1517,19 @@ namespace SebWindowsClient.ConfigurationUtils
         public static void StoreSebClientSettings(DictObj settingsDict)
         {
             // Recreate the default and current settings dictionaries
-            SEBSettings.CreateDefaultAndCurrentSettingsFromScratch();
-            SEBSettings.settingsCurrent.Clear();
+            CreateDefaultAndCurrentSettingsFromScratch();
+            settingsCurrent.Clear();
 
             // If we got new settings, we use them (othervise use defaults)
-            if (settingsDict != null) SEBSettings.settingsCurrent = settingsDict;
+            if (settingsDict != null) settingsCurrent = settingsDict;
 
             // Fill up the Dictionary read from file with default settings, where necessary
-            SEBSettings.FillSettingsDictionary();
-            SEBSettings.FillSettingsArrays();
+            FillSettingsDictionary();
+            FillSettingsArrays();
 
             // Add the XulRunner process to the Permitted Process List, if necessary
-            SEBSettings.PermitXulRunnerProcess();
+            PermitXulRunnerProcess();
         }
-
 
         // *********************************************
         // Read the settings from the configuration file

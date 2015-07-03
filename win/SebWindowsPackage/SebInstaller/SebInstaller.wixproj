@@ -23,6 +23,14 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SebRegistryResetter\SebRegistryResetter.csproj">
+      <Name>SebRegistryResetter</Name>
+      <Project>{38e2404c-7230-412c-96c6-0b8cf2f7b46a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\SebWindowsClient\SebWindowsClient\SebWindowsClient.csproj">
       <Name>SebWindowsClient</Name>
       <Project>{eff410a4-2656-4426-8489-89b1232ea0f0}</Project>
@@ -54,11 +62,12 @@
   <Target Name="BeforeBuild">
     <Exec Command="rmdir /Q /S &quot;$(ProjectDir)Source\&quot;" />
     <Exec Command="md &quot;$(ProjectDir)Source&quot;" />
-    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.exe.config&quot; &quot;$(ProjectDir)Source\&quot;" />
-    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SafeExamBrowser.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
-    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.dll&quot; &quot;$(ProjectDir)Source\&quot;" />
-    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\de&quot; &quot;$(ProjectDir)Source\de&quot;" />
-    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsBrowser&quot; &quot;$(ProjectDir)Source\SebWindowsBrowser&quot;" />
+	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebRegistryResetter\bin\$(Configuration)\SebRegistryResetter.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
+	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SafeExamBrowser.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
+	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.exe.config&quot; &quot;$(ProjectDir)Source\&quot;" />
+	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.dll&quot; &quot;$(ProjectDir)Source\&quot;" />
+	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\de&quot; &quot;$(ProjectDir)Source\de&quot;" />
+	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsBrowser&quot; &quot;$(ProjectDir)Source\SebWindowsBrowser&quot;" />
     <HeatDirectory RunAsSeparateProcess="true"
 		NoLogo="$(HarvestDirectoryNoLogo)"
 		SuppressAllWarnings="$(HarvestDirectorySuppressAllWarnings)"
@@ -81,7 +90,7 @@
 		SuppressCom="%(HarvestDirectory.SuppressCom)"
 		SuppressRootDirectory="true"
 		SuppressRegistry="true" />
-    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsServiceWCF.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
+		<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsServiceWCF.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
   </Target>
   <!--
   <Target Name="AfterBuild">

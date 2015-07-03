@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Configuration;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
-using System.IO.Compression;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.Devices;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DiagnosticsUtils;
 using PlistCS;
