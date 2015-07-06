@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.DesktopUtils;
-
-//
+﻿//
 //  ThreadedDialog.cs
 //  SafeExamBrowser
 //
@@ -40,6 +31,14 @@ using SebWindowsClient.DesktopUtils;
 //
 //  Contributor(s): ______________________________________.
 //
+
+using System;
+using System.Threading;
+using System.Windows.Forms;
+using SebShared;
+using SebShared.Properties;
+using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.DesktopUtils;
 
 namespace SebWindowsClient
 {
@@ -82,13 +81,9 @@ namespace SebWindowsClient
                 }
             }
         }
-        public void RequestStop()
-        {
-            _shouldStop = true;
-        }
+
         // Volatile is used as hint to the compiler that this data 
         // member will be accessed by multiple threads. 
-        private volatile bool _shouldStop;
         public volatile string dialogTitle;
         public volatile string dialogText;
         public volatile string dialogResultText;
@@ -112,7 +107,7 @@ namespace SebWindowsClient
                 return SebPasswordDialogForm.ShowPasswordDialogForm(title, passwordRequestText);
             }
             //In Touch Mode, do not use the threaded Dialog because we know we can't use it
-            else if (SEBSettings.settingsCurrent.Count > 0 && (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized])
+            else if (SebSettings.settingsCurrent.Count > 0 && (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized])
             {
                 return SebPasswordDialogForm.ShowPasswordDialogForm(title, passwordRequestText);
             }
@@ -174,9 +169,7 @@ namespace SebWindowsClient
             if (SebWindowsClientMain.sessionCreateNewDesktop) SEBDesktopController.Show(SEBClientInfo.SEBNewlDesktop.DesktopName);
 
             return workerObject.fileNameFullPath;
-
         }
-
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using SebWindowsClient.DiagnosticsUtils;
+using SebShared.DiagnosticUtils;
 
 namespace SebWindowsClient.ConfigurationUtils
 {

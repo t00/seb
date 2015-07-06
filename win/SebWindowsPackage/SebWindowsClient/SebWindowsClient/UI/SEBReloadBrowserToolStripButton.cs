@@ -2,11 +2,10 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using SebWindowsClient.ConfigurationUtils;
+using SebShared.Properties;
 using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.Properties;
 using SebWindowsClient.XULRunnerCommunication;
-
 
 namespace SebWindowsClient.UI
 {

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
-using System.Windows.Forms;
-//
-//  SEBMessageBox.cs
+﻿//
+//  SebMessageBox.cs
 //  SafeExamBrowser
 //
 //  Copyright (c) 2010-2014 Viktor Tomas, Dirk Bauer, Daniel R. Schneider, Pascal Wyss,
@@ -38,40 +32,20 @@ using System.Windows.Forms;
 //
 //  Contributor(s): ______________________________________.
 //
-using MetroFramework;
 
-namespace SebWindowsClient.ConfigurationUtils
+using System;
+using System.Windows;
+
+namespace SebShared.Utils
 {
-    public class SEBMessageBox
-    {        
-        // **********************************
-        // Output an error or warning message
-        // **********************************
-        public static DialogResult Show(string messageTitle, string messageText, MessageBoxIcon messageBoxIcon, MessageBoxButtons messageButtons, bool neverShowTouchOptimized = false)
+    public class SebMessageBox
+    {
+	    public static event Action BeforeShow = delegate { };
+
+        public static MessageBoxResult Show(string messageTitle, string messageText, MessageBoxImage messageBoxIcon, MessageBoxButton messageButtons)
         {
-            // If we are running in SebWindowsClient we need to activate it before showing the password dialog
-            if (SEBClientInfo.SebWindowsClientForm != null) SebWindowsClientMain.SEBToForeground();
-
-            DialogResult messageBoxResult;
-            if (!neverShowTouchOptimized && SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized, false))
-            {
-                messageBoxResult =
-                    MetroMessageBox.Show(
-                        new Form()
-                        {
-                            TopMost = true,
-                            Top = 0,
-                            Left = 0,
-                            Width = Screen.PrimaryScreen.Bounds.Width,
-                            Height = Screen.PrimaryScreen.Bounds.Height
-                        }, messageText, messageTitle, messageButtons, messageBoxIcon);
-            }
-            else
-            {
-                messageBoxResult = MessageBox.Show(new Form() { TopMost = true }, messageText, messageTitle, messageButtons, messageBoxIcon);
-            }
-
-            return messageBoxResult;
+	        BeforeShow();
+	        return MessageBox.Show(messageText, messageTitle, messageButtons, messageBoxIcon);
         }
     }
 }

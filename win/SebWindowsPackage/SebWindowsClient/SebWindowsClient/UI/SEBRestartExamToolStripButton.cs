@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Threading;
+using SebShared.CryptographyUtils;
+using SebShared;
+using SebShared.Properties;
 using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.CryptographyUtils;
-using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.Properties;
 using SebWindowsClient.XULRunnerCommunication;
 
@@ -20,7 +16,7 @@ namespace SebWindowsClient.UI
         public SEBRestartExamToolStripButton()
         {
             // Get text (title/tool tip) for restarting exam
-            string restartExamTitle = (String)SEBClientInfo.getSebSetting(SEBSettings.KeyRestartExamText)[SEBSettings.KeyRestartExamText];
+            string restartExamTitle = (String)SEBClientInfo.getSebSetting(SebSettings.KeyRestartExamText)[SebSettings.KeyRestartExamText];
             // If there was no individual restart exam text set, we use the default text (which is localized)
             if (String.IsNullOrEmpty(restartExamTitle))
             {
@@ -33,11 +29,11 @@ namespace SebWindowsClient.UI
 
         protected override void OnClick(EventArgs e)
         {
-            if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyRestartExamPasswordProtected)[SEBSettings.KeyRestartExamPasswordProtected])
+            if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyRestartExamPasswordProtected)[SebSettings.KeyRestartExamPasswordProtected])
             {
-                var quitPassword = (String)SEBClientInfo.getSebSetting(SEBSettings.KeyHashedQuitPassword)[SEBSettings.KeyHashedQuitPassword];
+                var quitPassword = (String)SEBClientInfo.getSebSetting(SebSettings.KeyHashedQuitPassword)[SebSettings.KeyHashedQuitPassword];
                 // Get text (title/tool tip) for restarting exam
-                string restartExamTitle = (String)SEBClientInfo.getSebSetting(SEBSettings.KeyRestartExamText)[SEBSettings.KeyRestartExamText];
+                string restartExamTitle = (String)SEBClientInfo.getSebSetting(SebSettings.KeyRestartExamText)[SebSettings.KeyRestartExamText];
                 // If there was no individual restart exam text set, we use the default text (which is localized)
                 if (String.IsNullOrEmpty(restartExamTitle)) {
                     restartExamTitle = SEBUIStrings.restartExamDefaultTitle;
@@ -46,7 +42,7 @@ namespace SebWindowsClient.UI
                 {
                     var password = SebPasswordDialogForm.ShowPasswordDialogForm(restartExamTitle, SEBUIStrings.restartExamMessage);
                     if (String.IsNullOrWhiteSpace(password)) return;
-                    var hashedPassword = SEBProtectionController.ComputePasswordHash(password);
+                    var hashedPassword = SebProtectionController.ComputePasswordHash(password);
                     if (String.Compare(quitPassword, hashedPassword, StringComparison.OrdinalIgnoreCase) != 0)
                         return;
                 }

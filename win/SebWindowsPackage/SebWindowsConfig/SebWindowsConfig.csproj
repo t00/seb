@@ -40,6 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -55,6 +56,7 @@
     <ApplicationIcon>SEBConfigToolIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -124,6 +126,10 @@
     <Content Include="SEBConfigToolIcon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SebShared\SebShared.csproj">
+      <Project>{E1FC3E02-7D54-40DD-AD27-D8320E75A253}</Project>
+      <Name>SebShared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SebWindowsClient\SebWindowsClient\SebWindowsClient.csproj">
       <Project>{eff410a4-2656-4426-8489-89b1232ea0f0}</Project>
       <Name>SebWindowsClient</Name>

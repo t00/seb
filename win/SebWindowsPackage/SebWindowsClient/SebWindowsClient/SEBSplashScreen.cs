@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using SebShared;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DesktopUtils;
 
@@ -77,7 +76,7 @@ namespace SebWindowsClient
         static public void StartSplash()
         {
             //Set the threads desktop to the new desktop if "Create new Desktop" is activated
-            if (SEBClientInfo.SEBNewlDesktop != null && (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyCreateNewDesktop)[SEBSettings.KeyCreateNewDesktop])
+            if (SEBClientInfo.SEBNewlDesktop != null && (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyCreateNewDesktop)[SebSettings.KeyCreateNewDesktop])
                 SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
             else
                 SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);

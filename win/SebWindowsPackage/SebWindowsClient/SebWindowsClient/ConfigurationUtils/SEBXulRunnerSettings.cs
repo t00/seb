@@ -35,15 +35,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Script.Serialization;
 using System.IO;
 using System.Text;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
-using SebWindowsClient.CryptographyUtils;
-using SebWindowsClient.DiagnosticsUtils;
+using SebShared.CryptographyUtils;
+using SebShared;
+using SebShared.DiagnosticUtils;
 using SebWindowsClient.XULRunnerCommunication;
 
 namespace SebWindowsClient.ConfigurationUtils
@@ -140,94 +138,92 @@ namespace SebWindowsClient.ConfigurationUtils
         public static string XULRunnerConfigDictionarySerialize(Dictionary<string, object> xulRunnerSettings)
         {
             // Add current Browser Exam Key
-            if ((bool)xulRunnerSettings[SEBSettings.KeySendBrowserExamKey])
+            if ((bool)xulRunnerSettings[SebSettings.KeySendBrowserExamKey])
             {
-                string browserExamKey = SEBProtectionController.ComputeBrowserExamKey();
-                xulRunnerSettings[SEBSettings.KeyBrowserExamKey] = browserExamKey;
+                string browserExamKey = SebProtectionController.ComputeBrowserExamKey();
+                xulRunnerSettings[SebSettings.KeyBrowserExamKey] = browserExamKey;
             }
 
             // Eventually update setting 
-            if ((Boolean)SEBSettings.settingsCurrent[SEBSettings.KeyRestartExamUseStartURL] == true) 
+            if ((Boolean)SebSettings.settingsCurrent[SebSettings.KeyRestartExamUseStartURL] == true) 
             {
-                xulRunnerSettings[SEBSettings.KeyRestartExamURL] = xulRunnerSettings[SEBSettings.KeyStartURL];
+                xulRunnerSettings[SebSettings.KeyRestartExamURL] = xulRunnerSettings[SebSettings.KeyStartURL];
             }
 
             // Check if URL filter is enabled and send according keys to XULRunner seb only if it is
-            if ((bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnable] == false)
+            if ((bool)xulRunnerSettings[SebSettings.KeyURLFilterEnable] == false)
             {
-                xulRunnerSettings[SEBSettings.KeyUrlFilterBlacklist] = "";
-                xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] = "";
+                xulRunnerSettings[SebSettings.KeyUrlFilterBlacklist] = "";
+                xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist] = "";
             }
             else
             {
                 // URL filter is enabled: Set trusted content flag to same value (what actually doesn't make sense, but it's implemented wrong in seb winctrl.jsm)
-                xulRunnerSettings[SEBSettings.KeyUrlFilterTrustedContent] = (bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnableContentFilter];
+                xulRunnerSettings[SebSettings.KeyUrlFilterTrustedContent] = (bool)xulRunnerSettings[SebSettings.KeyURLFilterEnableContentFilter];
 
                 //add the starturl to the whitelist if not yet added
-                if (!xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString().Contains(xulRunnerSettings[SEBSettings.KeyStartURL].ToString()))
-                    if (!String.IsNullOrWhiteSpace(xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString()))
+                if (!xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist].ToString().Contains(xulRunnerSettings[SebSettings.KeyStartURL].ToString()))
+                    if (!String.IsNullOrWhiteSpace(xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist].ToString()))
                     {
-                        xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += @";";
+                        xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist] += @";";
                     }
-                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += xulRunnerSettings[SEBSettings.KeyStartURL].ToString();
+                    xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist] += xulRunnerSettings[SebSettings.KeyStartURL].ToString();
 
                 //Add the socket address if content filter is enabled
-                if ((bool)xulRunnerSettings[SEBSettings.KeyURLFilterEnableContentFilter] == true)
+                if ((bool)xulRunnerSettings[SebSettings.KeyURLFilterEnableContentFilter] == true)
                 {
-                    if (!String.IsNullOrWhiteSpace(xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist].ToString()))
+                    if (!String.IsNullOrWhiteSpace(xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist].ToString()))
                     {
-                        xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += @";";
+                        xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist] += @";";
                     }
                     //Add the Socket address with http protocoll instead of ws protocoll for the injected iframe
-                    xulRunnerSettings[SEBSettings.KeyUrlFilterWhitelist] += String.Format("http://{0}", SEBXULRunnerWebSocketServer.ServerAddress.Substring(5));
+                    xulRunnerSettings[SebSettings.KeyUrlFilterWhitelist] += String.Format("http://{0}", SEBXULRunnerWebSocketServer.ServerAddress.Substring(5));
                 }
             }
 
-            // Add websocket sever address to XULRunner seb settings
-            xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket] = SEBXULRunnerWebSocketServer.ServerAddress;
-            Logger.AddInformation("Socket: " + xulRunnerSettings[SEBSettings.KeyBrowserMessagingSocket].ToString(), null, null);
+			Logger.AddInformation("Socket: " + SEBXULRunnerWebSocketServer.ServerAddress);
 
             // Expand environment variables in paths which XULRunner seb is processing
-            string downloadDirectoryWin = (string)xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin];
+            string downloadDirectoryWin = (string)xulRunnerSettings[SebSettings.KeyDownloadDirectoryWin];
             downloadDirectoryWin = Environment.ExpandEnvironmentVariables(downloadDirectoryWin);
             //downloadDirectoryWin = downloadDirectoryWin.Replace(@"\", @"\\");
-            xulRunnerSettings[SEBSettings.KeyDownloadDirectoryWin] = downloadDirectoryWin;
+            xulRunnerSettings[SebSettings.KeyDownloadDirectoryWin] = downloadDirectoryWin;
 
             // Add proper browser user agent string to XULRunner seb settings
             
-            if ((bool)xulRunnerSettings[SEBSettings.KeyTouchOptimized] == true)
+            if ((bool)xulRunnerSettings[SebSettings.KeyTouchOptimized] == true)
             {
                 // Set correct task bar height according to display dpi
-                xulRunnerSettings[SEBSettings.KeyTaskBarHeight] = (int)Math.Round((int)xulRunnerSettings[SEBSettings.KeyTaskBarHeight] * 1.7);
+                xulRunnerSettings[SebSettings.KeyTaskBarHeight] = (int)Math.Round((int)xulRunnerSettings[SebSettings.KeyTaskBarHeight] * 1.7);
 
-                if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchMode] == 0)
+                if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 0)
                 {
-                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_TOUCH;
+                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_TOUCH;
                 }
-                else if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchMode] == 1)
+                else if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 1)
                 {
-                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_TOUCH_IPAD;
+                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_TOUCH_IPAD;
                 }
-                else if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchMode] == 2)
+                else if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 2)
                 {
-                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = xulRunnerSettings[SEBSettings.KeyBrowserUserAgentTouchModeCustom];
+                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchModeCustom];
                 }
             }
             else
             {
-                if ((int)xulRunnerSettings[SEBSettings.KeyBrowserUserAgentDesktopMode] == 0)
+                if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentDesktopMode] == 0)
                 {
-                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = SEBClientInfo.BROWSER_USERAGENT_DESKTOP;
+                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_DESKTOP;
                 }
                 else
                 {
-                    xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] = xulRunnerSettings[SEBSettings.KeyBrowserUserAgentDesktopModeCustom];
+                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = xulRunnerSettings[SebSettings.KeyBrowserUserAgentDesktopModeCustom];
                 }
             }
-            xulRunnerSettings[SEBSettings.KeyBrowserUserAgent] += " " + SEBClientInfo.BROWSER_USERAGENT_SEB + " " + Application.ProductVersion;
+            xulRunnerSettings[SebSettings.KeyBrowserUserAgent] += " " + SebConstants.BROWSER_USERAGENT_SEB + " " + Application.ProductVersion;
 
             // Set onscreen keyboard settings flag when touch optimized is enabled
-            xulRunnerSettings[SEBSettings.KeyBrowserScreenKeyboard] = xulRunnerSettings[SEBSettings.KeyTouchOptimized];
+            xulRunnerSettings[SebSettings.KeyBrowserScreenKeyboard] = xulRunnerSettings[SebSettings.KeyTouchOptimized];
 
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();

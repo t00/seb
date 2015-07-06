@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.DiagnosticsUtils;
+using SebShared.DiagnosticUtils;
+using SebShared.Properties;
 using SebWindowsClient.Properties;
 using SebWindowsClient.WlanUtils;
 
@@ -67,7 +64,7 @@ namespace SebWindowsClient.UI
                     this.ToolTipText = SEBUIStrings.toolTipNotConnectedToWiFiNetwork;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ChangeImage("0");
                 this.ToolTipText = SEBUIStrings.toolTipNotConnectedToWiFiNetwork;

@@ -37,7 +37,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-using SebWindowsClient.DiagnosticsUtils;
+using SebShared;
+using SebShared.DiagnosticUtils;
 using SebWindowsClient.DesktopUtils;
 using System.Collections;
 
@@ -88,44 +89,6 @@ namespace SebWindowsClient.ConfigurationUtils
 
 	public class SEBClientInfo
 	{
-		// Socket protocol
-		//static int ai_family   = AF_INET;
-		//static int ai_socktype = SOCK_STREAM;
-		//static int ai_protocol = IPPROTO_TCP;
-
-		#region Constants
-
-		// Name and location of SEB configuration files and logfiles
-		public const string SEB_CLIENT_CONFIG = "SebClientSettings.seb";
-		public const string SEB_CLIENT_LOG = "SebClient.log";
-		private const string XUL_RUNNER_CONFIG = "config.json";
-		public const string XUL_RUNNER = "xulrunner.exe";
-		private const string XUL_RUNNER_INI = "seb.ini";
-
-		// Application path contains [MANUFACTURER]\[PRODUCT_NAME]
-		// (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
-		public const string MANUFACTURER_LOCAL = "SafeExamBrowser";
-		//private const string MANUFACTURER         = "ETH Zuerich";
-		public const string PRODUCT_NAME = "SafeExamBrowser";
-		private const string SEB_BROWSER_DIRECTORY = "SebWindowsBrowser";
-		private const string XUL_RUNNER_DIRECTORY = "xulrunner";
-		private const string XUL_SEB_DIRECTORY = "xul_seb";
-		public const string BROWSER_USERAGENT_DESKTOP = "Mozilla/5.0 (Windows NT 6.3; rv:38.0) Gecko/20100101 Firefox/38.0";
-		public const string BROWSER_USERAGENT_TOUCH = "Mozilla/5.0 (Windows NT 6.3; rv:38.0; Touch) Gecko/20100101 Firefox/38.0";
-		public const string BROWSER_USERAGENT_TOUCH_IPAD = "Mozilla/5.0 (iPad; CPU OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B410 Safari/600.1.4";
-		public const string BROWSER_USERAGENT_SEB = "SEB";
-
-		public const string END_OF_STRING_KEYWORD = "---SEB---";
-		private const string DEFAULT_USERNAME = "";
-		public const string DEFAULT_KEY = "Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
-
-		public const string SEB_NEW_DESKTOP_NAME = "SEBDesktop";
-		public const string SEB_WINDOWS_SERVICE_NAME = "SebWindowsService";
-
-		#endregion
-
-		#region Public Properties
-
 		public static bool ExplorerShellWasKilled { get; set; }
 		public static bool SupportsMultipleDesktops { get; set; }
 		public static bool HasExamStarted = false;
@@ -171,8 +134,6 @@ namespace SebWindowsClient.ConfigurationUtils
 		public static float scaleFactor = 1;
 		public static int appChooserHeight = 132;
 
-		#endregion
-
 		//public static SEBClientConfig sebClientConfig;
 
 		public static T getSebSetting<T>(string key, T defaultValue)
@@ -191,7 +152,7 @@ namespace SebWindowsClient.ConfigurationUtils
 			object sebSetting = null;
 			try
 			{
-				sebSetting = SEBSettings.settingsCurrent[key];
+				sebSetting = SebSettings.settingsCurrent[key];
 			}
 			catch
 			{
@@ -199,9 +160,9 @@ namespace SebWindowsClient.ConfigurationUtils
 			}
 
 			if(sebSetting != null)
-				return SEBSettings.settingsCurrent;
+				return SebSettings.settingsCurrent;
 			else
-				return SEBSettings.settingsDefault;
+				return SebSettings.settingsDefault;
 		}
 
 		/// <summary>
@@ -234,20 +195,20 @@ namespace SebWindowsClient.ConfigurationUtils
 		/// </summary>
 		public static void InitializeLogger()
 		{
-			if((Boolean)getSebSetting(SEBSettings.KeyEnableLogging)[SEBSettings.KeyEnableLogging])
+			if((Boolean)getSebSetting(SebSettings.KeyEnableLogging)[SebSettings.KeyEnableLogging])
 			{
-				var logDirectory = (string)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyLogDirectoryWin);
+				var logDirectory = (string)SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyLogDirectoryWin);
 				if(!String.IsNullOrEmpty(logDirectory))
 				{
 					// Expand environment variables in log file path
 					SebClientLogFileDirectory = Environment.ExpandEnvironmentVariables(logDirectory);
-					SebClientLogFile = String.Format(@"{0}\{1}", SebClientLogFileDirectory, SEB_CLIENT_LOG);
+					SebClientLogFile = String.Format(@"{0}\{1}", SebClientLogFileDirectory, SebConstants.SEB_CLIENT_LOG);
 				}
 				else
 				{
 					SetDefaultClientLogFile();
 				}
-				Logger.InitLogger(SebClientLogFileDirectory);
+				Logger.InitLogger(SebClientLogFileDirectory, SebClientLogFile);
 			}
 		}
 
@@ -272,45 +233,45 @@ namespace SebWindowsClient.ConfigurationUtils
 			// If there is a SebClientSettigs.seb file, then this has priority and is used by the SEB client, another
 			// SebClientSettigs.seb file in the local app data folder is ignored then and the SEB client cannot be 
 			// reconfigured by opening a .seb file saved for configuring a client
-			StringBuilder sebClientSettingsProgramDataDirectoryBuilder = new StringBuilder(programDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
+			StringBuilder sebClientSettingsProgramDataDirectoryBuilder = new StringBuilder(programDataDirectory).Append("\\").Append(SebConstants.MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
 			SebClientSettingsProgramDataDirectory = sebClientSettingsProgramDataDirectoryBuilder.ToString();
 
 			// In the local application data directory (for unmanaged systems like student computers, user can write in this directory):
 			// A SebClientSettigs.seb file in this directory can be created or replaced by opening a .seb file saved for configuring a client
-			StringBuilder sebClientSettingsAppDataDirectoryBuilder = new StringBuilder(appDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
+			StringBuilder sebClientSettingsAppDataDirectoryBuilder = new StringBuilder(appDataDirectory).Append("\\").Append(SebConstants.MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
 			SebClientSettingsAppDataDirectory = sebClientSettingsAppDataDirectoryBuilder.ToString();
 
 			// Set the location of the SebWindowsClientDirectory
-			StringBuilder sebClientDirectoryBuilder = new StringBuilder(ProgramFilesX86Directory).Append("\\").Append(PRODUCT_NAME).Append("\\");
+			StringBuilder sebClientDirectoryBuilder = new StringBuilder(ProgramFilesX86Directory).Append("\\").Append(SebConstants.PRODUCT_NAME).Append("\\");
 			SebClientDirectory = sebClientDirectoryBuilder.ToString();
 
 			// Set the location of the XulRunnerDirectory
 			//StringBuilder xulRunnerDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_RUNNER_DIRECTORY).Append("\\");
 			//XulRunnerDirectory = xulRunnerDirectoryBuilder.ToString();
-			StringBuilder xulRunnerDirectoryBuilder = new StringBuilder(SEB_BROWSER_DIRECTORY).Append("\\").Append(XUL_RUNNER_DIRECTORY).Append("\\");
+			StringBuilder xulRunnerDirectoryBuilder = new StringBuilder(SebConstants.SEB_BROWSER_DIRECTORY).Append("\\").Append(SebConstants.XUL_RUNNER_DIRECTORY).Append("\\");
 			XulRunnerDirectory = xulRunnerDirectoryBuilder.ToString();
 
 			// Set the location of the XulSebDirectory
 			//StringBuilder xulSebDirectoryBuilder = new StringBuilder(SebClientDirectory).Append(XUL_SEB_DIRECTORY).Append("\\");
 			//XulSebDirectory = xulSebDirectoryBuilder.ToString();
-			StringBuilder xulSebDirectoryBuilder = new StringBuilder(SEB_BROWSER_DIRECTORY).Append("\\").Append(XUL_SEB_DIRECTORY).Append("\\");
+			StringBuilder xulSebDirectoryBuilder = new StringBuilder(SebConstants.SEB_BROWSER_DIRECTORY).Append("\\").Append(SebConstants.XUL_SEB_DIRECTORY).Append("\\");
 			XulSebDirectory = xulSebDirectoryBuilder.ToString();
 
 			// Set the location of the XulRunnerExePath
 			//StringBuilder xulRunnerExePathBuilder = new StringBuilder("\"").Append(XulRunnerDirectory).Append(XUL_RUNNER).Append("\"");
 			//XulRunnerExePath = xulRunnerExePathBuilder.ToString();
-			StringBuilder xulRunnerExePathBuilder = new StringBuilder(XulRunnerDirectory).Append(XUL_RUNNER); //.Append("\"");
+			StringBuilder xulRunnerExePathBuilder = new StringBuilder(XulRunnerDirectory).Append(SebConstants.XUL_RUNNER); //.Append("\"");
 			XulRunnerExePath = xulRunnerExePathBuilder.ToString();
 
 			// Set the location of the seb.ini
-			StringBuilder xulRunnerSebIniPathBuilder = new StringBuilder(XulSebDirectory).Append(XUL_RUNNER_INI); //.Append("\"");
+			StringBuilder xulRunnerSebIniPathBuilder = new StringBuilder(XulSebDirectory).Append(SebConstants.XUL_RUNNER_INI); //.Append("\"");
 			XulRunnerSebIniPath = xulRunnerSebIniPathBuilder.ToString();
 
 			// Get the two possible paths of the SebClientSettings.seb file
-			StringBuilder sebClientSettingsProgramDataBuilder = new StringBuilder(SebClientSettingsProgramDataDirectory).Append(SEB_CLIENT_CONFIG);
+			StringBuilder sebClientSettingsProgramDataBuilder = new StringBuilder(SebClientSettingsProgramDataDirectory).Append(SebConstants.SEB_CLIENT_CONFIG);
 			SebClientSettingsProgramDataFile = sebClientSettingsProgramDataBuilder.ToString();
 
-			StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(SebClientSettingsAppDataDirectory).Append(SEB_CLIENT_CONFIG);
+			StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(SebClientSettingsAppDataDirectory).Append(SebConstants.SEB_CLIENT_CONFIG);
 			SebClientSettingsAppDataFile = sebClientSettingsAppDataBuilder.ToString();
 
 			// Set the default location of the SebClientLogFileDirectory
@@ -326,7 +287,7 @@ namespace SebWindowsClient.ConfigurationUtils
 			SebClientLogFileDirectory = SebClientLogFileDirectoryBuilder.ToString();
 
 			// Set the path of the SebClient.log file
-			StringBuilder sebClientLogFileBuilder = new StringBuilder(SebClientLogFileDirectory).Append(SEB_CLIENT_LOG);
+			StringBuilder sebClientLogFileBuilder = new StringBuilder(SebClientLogFileDirectory).Append(SebConstants.SEB_CLIENT_LOG);
 			SebClientLogFile = sebClientLogFileBuilder.ToString();
 		}
 
@@ -344,17 +305,17 @@ namespace SebWindowsClient.ConfigurationUtils
 				//string programDataDirectory = Environment.GetEnvironmentVariable("PROGRAMMDATA");
 
 				// Set the location of the XULRunnerConfigFileDirectory
-				StringBuilder xulRunnerConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
+				StringBuilder xulRunnerConfigFileDirectoryBuilder = new StringBuilder(localAppDataDirectory).Append("\\").Append(SebConstants.MANUFACTURER_LOCAL).Append("\\"); //.Append(PRODUCT_NAME).Append("\\");
 				XulRunnerConfigFileDirectory = xulRunnerConfigFileDirectoryBuilder.ToString();
 
 				// Set the location of the config.json file
-				StringBuilder xulRunnerConfigFileBuilder = new StringBuilder(XulRunnerConfigFileDirectory).Append(XUL_RUNNER_CONFIG);
+				StringBuilder xulRunnerConfigFileBuilder = new StringBuilder(XulRunnerConfigFileDirectory).Append(SebConstants.XUL_RUNNER_CONFIG);
 				XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
 				XULRunnerConfig xulRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-				xulRunnerConfig.seb_openwin_width = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.KeyNewBrowserWindowByLinkWidth)[SEBSettings.KeyNewBrowserWindowByLinkWidth].ToString());
-				xulRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SEBSettings.KeyNewBrowserWindowByLinkHeight)[SEBSettings.KeyNewBrowserWindowByLinkHeight].ToString());
-				if((Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyBrowserViewMode)[SEBSettings.KeyBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
+				xulRunnerConfig.seb_openwin_width = Int32.Parse(SEBClientInfo.getSebSetting(SebSettings.KeyNewBrowserWindowByLinkWidth)[SebSettings.KeyNewBrowserWindowByLinkWidth].ToString());
+				xulRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SebSettings.KeyNewBrowserWindowByLinkHeight)[SebSettings.KeyNewBrowserWindowByLinkHeight].ToString());
+				if((Int32)SEBClientInfo.getSebSetting(SebSettings.KeyBrowserViewMode)[SebSettings.KeyBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
 				{
 					xulRunnerConfig.seb_mainWindow_titlebar_enabled = true;
 				}
@@ -363,7 +324,7 @@ namespace SebWindowsClient.ConfigurationUtils
 					xulRunnerConfig.seb_mainWindow_titlebar_enabled = false;
 
 				}
-				xulRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SEBSettings.KeyStartURL)[SEBSettings.KeyStartURL].ToString();
+				xulRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SebSettings.KeyStartURL)[SebSettings.KeyStartURL].ToString();
 				setXulRunnerConfiguration = true;
 				SEBXulRunnerSettings.XULRunnerConfigSerialize(xulRunnerConfig, XulRunnerConfigFile);
 			}

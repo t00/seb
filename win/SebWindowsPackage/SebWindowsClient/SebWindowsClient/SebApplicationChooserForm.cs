@@ -15,7 +15,6 @@ using System.Runtime.InteropServices;
 //     BFH-TI, http://www.ti.bfh.ch
 //     Biel, 2012
 // -------------------------------------------------------------
-using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsClient.ProcessUtils;
 
 namespace SebWindowsClient

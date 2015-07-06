@@ -4,15 +4,11 @@
 //     Biel, 2012
 // -------------------------------------------------------------
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using System.Collections;
 using System.Management;
 using System.Threading;
-using SebWindowsClient.DiagnosticsUtils;
-using SebWindowsClient.ConfigurationUtils;
+using SebShared.DiagnosticUtils;
 using SebWindowsClient.XULRunnerCommunication;
 
 namespace SebWindowsClient.ProcessUtils

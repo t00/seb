@@ -28,6 +28,9 @@ namespace SebWindowsClient.DesktopUtils
 		[DllImport("kernel32.dll")]
 		private static extern int GetProcessId(IntPtr process);
 
+		[DllImport("kernel32.dll")]
+		public static extern int GetCurrentThreadId();
+
 		//
 		// Imported winAPI functions.
 		//
@@ -621,7 +624,7 @@ namespace SebWindowsClient.DesktopUtils
 		public static SEBDesktopController GetCurrent()
 		{
 			// get the desktop.
-			return new SEBDesktopController(GetThreadDesktop(AppDomain.GetCurrentThreadId()));
+			return new SEBDesktopController(GetThreadDesktop(GetCurrentThreadId()));
 		}
 
 		/// <summary>

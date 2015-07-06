@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using SebShared;
 using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.CryptographyUtils;
 using SebWindowsClient.UI;
 
 namespace SebWindowsClient
@@ -59,7 +54,7 @@ namespace SebWindowsClient
             InitializeComponent();
             try
             {
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
+                if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
                 {
                     this.Font = new Font(FontFamily.GenericSansSerif, 12);
                     IntPtr hwnd = this.Handle;
@@ -115,7 +110,7 @@ namespace SebWindowsClient
                 this.lblSEBPassword.Text = value;
                 try
                 {
-                    if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
+                    if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
                     {
                         this.lblSEBPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.lblSEBPassword.Width / 2);
                     }

@@ -34,18 +34,12 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
+using SebShared;
+using SebShared.DiagnosticUtils;
 using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.DiagnosticsUtils;
-using SebWindowsClient.ProcessUtils;
-using SebWindowsClient.XULRunnerCommunication;
-using MessageBox = System.Windows.Forms.MessageBox;
 using Point = System.Drawing.Point;
 
 namespace SebWindowsClient.BlockShortcutsUtils
@@ -154,8 +148,6 @@ namespace SebWindowsClient.BlockShortcutsUtils
         private static bool Q_Pressed = false;
 
         // Alt-Tab sequence
-        private static bool Alt_Pressed = false;
-        private static bool Tab_Pressed = false;
         private static bool Tab_Pressed_First_Time = true;
 
         #endregion
@@ -183,13 +175,13 @@ namespace SebWindowsClient.BlockShortcutsUtils
         {
             MSLLHOOKSTRUCT MouseButtonInfo = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(MSLLHOOKSTRUCT));
 
-            if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableRightMouse)[SEBSettings.KeyEnableRightMouse])
+            if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableRightMouse)[SebSettings.KeyEnableRightMouse])
             {
                 //Console.WriteLine(String.Format("NCode: {0}, wp; {1} {2}",nCode,wp,(MouseMessages)wp));
                 if (nCode >= 0 && (MouseMessages.WM_RBUTTONDOWN == (MouseMessages)wp || MouseMessages.WM_RBUTTONUP == (MouseMessages)wp))
                     return true;
             }
-            if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltMouseWheel)[SEBSettings.KeyEnableAltMouseWheel])
+            if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableAltMouseWheel)[SebSettings.KeyEnableAltMouseWheel])
             {
                 KBDLLHOOKSTRUCT KeyInfo = (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
                 if ((Control.ModifierKeys & Keys.Alt) != 0 && KeyInfo.flags < 0)
@@ -210,37 +202,37 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
             try
             {
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableEsc)[SEBSettings.KeyEnableEsc] && (KeyInfo.key == Keys.Escape))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableEsc)[SebSettings.KeyEnableEsc] && (KeyInfo.key == Keys.Escape))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableCtrlEsc)[SEBSettings.KeyEnableCtrlEsc])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableCtrlEsc)[SebSettings.KeyEnableCtrlEsc])
                 {
                     if ((KeyInfo.flags == 0) && (KeyInfo.key == Keys.Escape))
                         return true;
 
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltEsc)[SEBSettings.KeyEnableAltEsc])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableAltEsc)[SebSettings.KeyEnableAltEsc])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Escape))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableAltTab)[SebSettings.KeyEnableAltTab])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnablePrintScreen)[SEBSettings.KeyEnablePrintScreen])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnablePrintScreen)[SebSettings.KeyEnablePrintScreen])
                 {
                     if (KeyInfo.key == Keys.PrintScreen)
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableRightMouse)[SEBSettings.KeyEnableRightMouse])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableRightMouse)[SebSettings.KeyEnableRightMouse])
                 {
                     if (KeyInfo.key == Keys.Apps)
                         return true;
                 }
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
+                if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableAltTab)[SebSettings.KeyEnableAltTab])
                 {
                     //if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.Tab))
                     //{
@@ -272,56 +264,56 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 //        }
                 //    }
                 //}
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltF4)[SEBSettings.KeyEnableAltF4])
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableAltF4)[SebSettings.KeyEnableAltF4])
                 {
                     if ((KeyInfo.flags == 32) && (KeyInfo.key == Keys.F4))
                         return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF1)[SEBSettings.KeyEnableF1] && (KeyInfo.key == Keys.F1))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF1)[SebSettings.KeyEnableF1] && (KeyInfo.key == Keys.F1))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF2)[SEBSettings.KeyEnableF2] && (KeyInfo.key == Keys.F2))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF2)[SebSettings.KeyEnableF2] && (KeyInfo.key == Keys.F2))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF3)[SEBSettings.KeyEnableF3] && (KeyInfo.key == Keys.F3))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF3)[SebSettings.KeyEnableF3] && (KeyInfo.key == Keys.F3))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF4)[SEBSettings.KeyEnableF4] && (KeyInfo.key == Keys.F4))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF4)[SebSettings.KeyEnableF4] && (KeyInfo.key == Keys.F4))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF5)[SEBSettings.KeyEnableF5] && (KeyInfo.key == Keys.F5))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF5)[SebSettings.KeyEnableF5] && (KeyInfo.key == Keys.F5))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF6)[SEBSettings.KeyEnableF6] && (KeyInfo.key == Keys.F6))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF6)[SebSettings.KeyEnableF6] && (KeyInfo.key == Keys.F6))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF7)[SEBSettings.KeyEnableF7] && (KeyInfo.key == Keys.F7))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF7)[SebSettings.KeyEnableF7] && (KeyInfo.key == Keys.F7))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF8)[SEBSettings.KeyEnableF8] && (KeyInfo.key == Keys.F8))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF8)[SebSettings.KeyEnableF8] && (KeyInfo.key == Keys.F8))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF9)[SEBSettings.KeyEnableF9] && (KeyInfo.key == Keys.F9))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF9)[SebSettings.KeyEnableF9] && (KeyInfo.key == Keys.F9))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF10)[SEBSettings.KeyEnableF10] && (KeyInfo.key == Keys.F10))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF10)[SebSettings.KeyEnableF10] && (KeyInfo.key == Keys.F10))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF11)[SEBSettings.KeyEnableF11] && (KeyInfo.key == Keys.F11))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF11)[SebSettings.KeyEnableF11] && (KeyInfo.key == Keys.F11))
                 {
                     return true;
                 }
-                if (!(Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableF12)[SEBSettings.KeyEnableF12] && (KeyInfo.key == Keys.F12))
+                if (!(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableF12)[SebSettings.KeyEnableF12] && (KeyInfo.key == Keys.F12))
                 {
                     return true;
                 }
@@ -338,9 +330,9 @@ namespace SebWindowsClient.BlockShortcutsUtils
         ///</summary>
         private static void SetExitKeys()
         {
-            int iExitKey1 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyExitKey1)[SEBSettings.KeyExitKey1];
-            int iExitKey2 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyExitKey2)[SEBSettings.KeyExitKey2];
-            int iExitKey3 = (Int32)SEBClientInfo.getSebSetting(SEBSettings.KeyExitKey3)[SEBSettings.KeyExitKey3];
+            int iExitKey1 = (Int32)SEBClientInfo.getSebSetting(SebSettings.KeyExitKey1)[SebSettings.KeyExitKey1];
+            int iExitKey2 = (Int32)SEBClientInfo.getSebSetting(SebSettings.KeyExitKey2)[SebSettings.KeyExitKey2];
+            int iExitKey3 = (Int32)SEBClientInfo.getSebSetting(SebSettings.KeyExitKey3)[SebSettings.KeyExitKey3];
             switch (iExitKey1)
             {
                 case 0:
@@ -594,7 +586,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
             // If the nCode is non-negative, filter the key stroke.
             if (nCode >= 0)
             {
-                if ((bool) SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyTouchOptimized))
+                if ((bool) SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyTouchOptimized))
                 {
                     TextTouchExitSequence(System.Windows.Forms.Cursor.Position);
                 }
@@ -640,7 +632,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 {
                     SEBClientInfo.SebWindowsClientForm.ShowCloseDialogForm();
                 }
-                if (SetAndTestExitKeySequence(wp, lp) && (bool)SEBSettings.valueForDictionaryKey(SEBSettings.settingsCurrent, SEBSettings.KeyIgnoreExitKeys) == false)
+                if (SetAndTestExitKeySequence(wp, lp) && (bool)SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyIgnoreExitKeys) == false)
                 {
                     SEBClientInfo.SebWindowsClientForm.ExitApplication();
                 }
@@ -667,7 +659,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
                 //Console.WriteLine(String.Format("Ncode: {0}, wp:{1}, Key:{2}, KeyInt:{3}, flags: {4}",nCode, wp, KeyInfo.key, (int)KeyInfo.key, KeyInfo.flags));
 
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyEnableAltTab)[SEBSettings.KeyEnableAltTab])
+                if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyEnableAltTab)[SebSettings.KeyEnableAltTab])
                 {
                     //ALT-TAB for App-Switcher (wp 260 = keydown, wp 257 = keyup)
                     if (KeyInfo.key == Keys.Tab && KeyInfo.flags == 32 && (int)wp == 260)
@@ -697,23 +689,6 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 //Reject any key that's not on our list.
                 if (DisableKey(wp, lp))
                     return (IntPtr)1;
-
-                
-                //Handle F5
-                //if ((int)wp == 256 && KeyInfo.key == Keys.F5)
-                //{
-                //    var foregroundHandle = SEBWindowHandler.GetForegroundWindow();
-                //    if (foregroundHandle.GetProcess().GetExecutableName().Contains("xul"))
-                //    {
-                //        if (!SEBMessageBox.Show(SEBUIStrings.reloadPage, SEBUIStrings.reloadPageMessage,
-                //        SEBGlobalConstants.IND_MESSAGE_KIND_QUESTION, MessageBoxButtons.YesNo))
-                //        {
-                //            SEBWindowHandler.BringWindowToTop(foregroundHandle);
-                //            return (IntPtr)1;
-                //        }
-                //        SEBWindowHandler.BringWindowToTop(foregroundHandle);
-                //    }
-                //}
             }
 
             // Pass the event to the next hook in the chain.

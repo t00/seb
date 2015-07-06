@@ -37,12 +37,6 @@ namespace SebWindowsClient.ConfigurationUtils
 {
     public class SEBGlobalConstants
     {
-        // Error levels
-        public const int ERROR       = 0;
-        public const int WARNING     = 1;
-        public const int INFORMATION = 2;
-        public const int QUESTION    = 3;
-
         public const string HKCU = "HKEY_CURRENT_USER";
         public const string HKLM = "HKEY_LOCAL_MACHINE";
 

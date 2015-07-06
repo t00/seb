@@ -3,11 +3,13 @@
 //     BFH-TI, http://www.ti.bfh.ch
 //     Biel, 2012
 // -------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using SebShared;
+using SebShared.DiagnosticUtils;
 using SebWindowsClient.ConfigurationUtils;
-using SebWindowsClient.DiagnosticsUtils;
 using SebWindowsServiceWCF.ServiceContracts;
 
 namespace SebWindowsClient.ServiceUtils
@@ -101,15 +103,15 @@ namespace SebWindowsClient.ServiceUtils
         {
             var valuesToSet = new Dictionary<RegistryIdentifiers, object>
             {
-                {RegistryIdentifiers.DisableLockWorkstation, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableLockThisComputer )[SEBSettings.KeyInsideSebEnableLockThisComputer ] ? 0 : 1},
-                {RegistryIdentifiers.DisableChangePassword, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableChangeAPassword  )[SEBSettings.KeyInsideSebEnableChangeAPassword  ] ? 0 : 1},
-                {RegistryIdentifiers.DisableTaskMgr, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableStartTaskManager )[SEBSettings.KeyInsideSebEnableStartTaskManager ] ? 0 : 1},
-                {RegistryIdentifiers.HideFastUserSwitching, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableSwitchUser       )[SEBSettings.KeyInsideSebEnableSwitchUser       ] ? 0 : 1},
-                {RegistryIdentifiers.NoLogoff, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableLogOff           )[SEBSettings.KeyInsideSebEnableLogOff           ] ? 0 : 1},
-                {RegistryIdentifiers.NoClose, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableShutDown         )[SEBSettings.KeyInsideSebEnableShutDown         ] ? 0 : 1},
-                {RegistryIdentifiers.EnableShade, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableVmWareClientShade)[SEBSettings.KeyInsideSebEnableVmWareClientShade] ? 1 : 0},
-                {RegistryIdentifiers.EnableShadeHorizon, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableVmWareClientShade)[SEBSettings.KeyInsideSebEnableVmWareClientShade] ? "True" : "False"},
-                {RegistryIdentifiers.EaseOfAccess, (Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyInsideSebEnableEaseOfAccess     )[SEBSettings.KeyInsideSebEnableEaseOfAccess     ] ? "" : "SebDummy.exe"},
+                {RegistryIdentifiers.DisableLockWorkstation, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableLockThisComputer )[SebSettings.KeyInsideSebEnableLockThisComputer ] ? 0 : 1},
+                {RegistryIdentifiers.DisableChangePassword, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableChangeAPassword  )[SebSettings.KeyInsideSebEnableChangeAPassword  ] ? 0 : 1},
+                {RegistryIdentifiers.DisableTaskMgr, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableStartTaskManager )[SebSettings.KeyInsideSebEnableStartTaskManager ] ? 0 : 1},
+                {RegistryIdentifiers.HideFastUserSwitching, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableSwitchUser       )[SebSettings.KeyInsideSebEnableSwitchUser       ] ? 0 : 1},
+                {RegistryIdentifiers.NoLogoff, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableLogOff           )[SebSettings.KeyInsideSebEnableLogOff           ] ? 0 : 1},
+                {RegistryIdentifiers.NoClose, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableShutDown         )[SebSettings.KeyInsideSebEnableShutDown         ] ? 0 : 1},
+                {RegistryIdentifiers.EnableShade, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableVmWareClientShade)[SebSettings.KeyInsideSebEnableVmWareClientShade] ? 1 : 0},
+                {RegistryIdentifiers.EnableShadeHorizon, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableVmWareClientShade)[SebSettings.KeyInsideSebEnableVmWareClientShade] ? "True" : "False"},
+                {RegistryIdentifiers.EaseOfAccess, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableEaseOfAccess     )[SebSettings.KeyInsideSebEnableEaseOfAccess     ] ? "" : "SebDummy.exe"},
             };
 
             return SetRegistryAccordingToConfiguration(valuesToSet);

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
+using SebShared.Properties;
 
 namespace SebWindowsClient.UI
 {
@@ -27,7 +28,7 @@ namespace SebWindowsClient.UI
                 timer.Interval = 1000;
                 timer.Start();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 base.Enabled = false;
                 Update();
@@ -43,7 +44,7 @@ namespace SebWindowsClient.UI
             }
             catch (Exception ex)
             {
-                this.Text = "Error";
+                this.Text = "Error: " + ex.Message;
             }
         }
 

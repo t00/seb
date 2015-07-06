@@ -40,6 +40,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -51,6 +52,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <DebugSymbols>true</DebugSymbols>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -64,20 +66,12 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -85,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlockShortcutsUtils\SebKeyCapture.cs" />
+    <Compile Include="ConfigurationUtils\SebPasswordInput.cs" />
     <Compile Include="ConfigurationUtils\WindowsVersionHelpers.cs" />
     <Compile Include="CryptographyUtils\CertificateValidator.cs" />
     <Compile Include="ProcessUtils\ProcessInfo.cs" />
@@ -105,27 +100,11 @@
     <Compile Include="taskbarToolStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConfigurationUtils\PList.cs" />
-    <Compile Include="ConfigurationUtils\SEBConfigFileManager.cs" />
-    <Compile Include="ConfigurationUtils\SEBSettings.cs" />
-    <Compile Include="ConfigurationUtils\SEBMessageBox.cs" />
     <Compile Include="ConfigurationUtils\SEBGlobalConstants.cs" />
     <Compile Include="ConfigurationUtils\SEBClientInfo.cs" />
     <Compile Include="ConfigurationUtils\SEBXulRunnerSettings.cs" />
-    <Compile Include="CryptographyUtils\SEBProtectionController.cs" />
     <Compile Include="DesktopUtils\SEBDesktopController.cs" />
     <Compile Include="DesktopUtils\SEBDesktopWallpaper.cs" />
-    <Compile Include="DiagnosticsUtils\Logger.cs" />
-    <Compile Include="SEBUIStrings.de.Designer.cs">
-      <DependentUpon>SEBUIStrings.de.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="SEBUIStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SEBUIStrings.resx</DependentUpon>
-    </Compile>
     <Compile Include="SebPasswordDialogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,16 +193,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SebPasswordDialogForm.de.resx">
       <DependentUpon>SebPasswordDialogForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SEBUIStrings.de.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SEBUIStrings.de.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SEBUIStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SEBUIStrings.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SebPasswordDialogForm.resx">
       <DependentUpon>SebPasswordDialogForm.cs</DependentUpon>
@@ -342,13 +311,13 @@
     <Content Include="SEBicon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SebShared\SebShared.csproj">
+      <Project>{E1FC3E02-7D54-40DD-AD27-D8320E75A253}</Project>
+      <Name>SebShared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SebWindowsServiceWCF\SebWindowsServiceWCF.csproj">
       <Project>{10093827-ff41-4c09-b2ff-9c0d27b4b41a}</Project>
       <Name>SebWindowsServiceWCF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MetroFramework\MetroFramework\MetroFramework.csproj">
-      <Project>{bb41ac8b-cbed-4387-a7e0-4567edb3f57f}</Project>
-      <Name>MetroFramework</Name>
     </ProjectReference>
     <ProjectReference Include="Fleck\Fleck.csproj">
       <Project>{8b12d929-afa9-4307-beff-2ed0f1070fee}</Project>
@@ -360,6 +329,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DiagnosticsUtils\" />
     <Folder Include="Fleck\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

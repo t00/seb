@@ -31,9 +31,9 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
-namespace PlistCS
+namespace SebShared.Utils
 {
-    public static class Plist
+    public static class PropertyList
     {
         private static List<int> offsetTable = new List<int>();
         private static List<byte> objectTable = new List<byte>();

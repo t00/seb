@@ -3,12 +3,8 @@
 //     BFH-TI, http://www.ti.bfh.ch
 //     Biel, 2012
 // -------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Runtime.InteropServices;
-using Microsoft.Win32;
 
 namespace SebWindowsClient.DesktopUtils
 {
@@ -23,8 +19,6 @@ namespace SebWindowsClient.DesktopUtils
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int SystemParametersInfo(
             int uAction, int uParam, string lpvParam, int fuWinIni);
-
-        private static string _currentWallpaper = null;
 
         public enum Style : int
         {

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using SebShared;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.ProcessUtils;
 
@@ -34,7 +32,7 @@ namespace SebWindowsClient
             {
                 _process = process;
                 var appImages = new ImageList();
-                if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true)
+                if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
                 {
                     appImages.ImageSize = new Size(48, 48);
                     this.Height = this.Height + 16;
@@ -117,7 +115,7 @@ namespace SebWindowsClient
             windowHandle.BringToTop();
 
             //If we are working in touch optimized mode, open every window in full screen (e.g. maximized), except XULRunner because it seems not to accept the working area property and resizes to fully fullscreen
-            if ((Boolean)SEBClientInfo.getSebSetting(SEBSettings.KeyTouchOptimized)[SEBSettings.KeyTouchOptimized] == true
+            if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true
                         && !_process.ProcessName.Contains("xulrunner"))
                 _openedWindows.First().Key.MaximizeWindow();
 

@@ -117,7 +117,7 @@ namespace SebRegistryResetter
             {
                 sid = SIDHandler.GetSIDFromUsername(username);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("User not found in the registry!");

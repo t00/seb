@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using SebWindowsClient;
-using SebWindowsClient.CryptographyUtils;
+using SebShared;
+using SebShared.CryptographyUtils;
+using SebShared.Properties;
 using SebWindowsClient.ConfigurationUtils;
 
 
@@ -219,8 +220,6 @@ namespace SebWindowsConfig
         // Lookup table: rule -> startRow of rule (in the table)
         // Lookup table: rule ->   endRow of rule (in the table)
         // Lookup table: rule -> show this rule or not (expand/collapse)?
-        static int           urlFilterTableRow;
-        static Boolean       urlFilterTableRowIsTitle;
         static List<int>     urlFilterTableRuleIndex   = new List<int    >();
         static List<int>     urlFilterTableActionIndex = new List<int    >();
         static List<Boolean> urlFilterTableIsTitleRow  = new List<Boolean>();
@@ -247,10 +246,10 @@ namespace SebWindowsConfig
         private void InitialiseGlobalVariablesForGUIWidgets()
         {
 
-            SEBSettings.   permittedProcessIndex = 0;
-            SEBSettings.  prohibitedProcessIndex = 0;
-            SEBSettings.embeddedCertificateIndex = 0;
-            SEBSettings.      bypassedProxyIndex = 0;
+            SebSettings.   permittedProcessIndex = 0;
+            SebSettings.  prohibitedProcessIndex = 0;
+            SebSettings.embeddedCertificateIndex = 0;
+            SebSettings.      bypassedProxyIndex = 0;
 
             // Define the strings for the Encryption Identity
             StringCryptoIdentity.Add("none");
@@ -364,30 +363,30 @@ namespace SebWindowsConfig
             }
 
             // Define the strings for the Proxy Protocol Types
-            KeyProxyProtocolType[0] = SEBSettings.KeyAutoDiscovery;
-            KeyProxyProtocolType[1] = SEBSettings.KeyAutoConfiguration;
-            KeyProxyProtocolType[2] = SEBSettings.KeyHTTP;
-            KeyProxyProtocolType[3] = SEBSettings.KeyHTTPS;
-            KeyProxyProtocolType[4] = SEBSettings.KeyFTP;
-            KeyProxyProtocolType[5] = SEBSettings.KeySOCKS;
-            KeyProxyProtocolType[6] = SEBSettings.KeyRTSP;
+            KeyProxyProtocolType[0] = SebSettings.KeyAutoDiscovery;
+            KeyProxyProtocolType[1] = SebSettings.KeyAutoConfiguration;
+            KeyProxyProtocolType[2] = SebSettings.KeyHTTP;
+            KeyProxyProtocolType[3] = SebSettings.KeyHTTPS;
+            KeyProxyProtocolType[4] = SebSettings.KeyFTP;
+            KeyProxyProtocolType[5] = SebSettings.KeySOCKS;
+            KeyProxyProtocolType[6] = SebSettings.KeyRTSP;
 
             // Define the strings for the Proxy Protocol Attributes
-            KeyProxyProtocolAttribute[0] = SEBSettings.KeyEnable;
-            KeyProxyProtocolAttribute[1] = SEBSettings.KeyPort;
-            KeyProxyProtocolAttribute[2] = SEBSettings.KeyHost;
-            KeyProxyProtocolAttribute[3] = SEBSettings.KeyRequires;
-            KeyProxyProtocolAttribute[4] = SEBSettings.KeyUsername;
-            KeyProxyProtocolAttribute[5] = SEBSettings.KeyPassword;
+            KeyProxyProtocolAttribute[0] = SebSettings.KeyEnable;
+            KeyProxyProtocolAttribute[1] = SebSettings.KeyPort;
+            KeyProxyProtocolAttribute[2] = SebSettings.KeyHost;
+            KeyProxyProtocolAttribute[3] = SebSettings.KeyRequires;
+            KeyProxyProtocolAttribute[4] = SebSettings.KeyUsername;
+            KeyProxyProtocolAttribute[5] = SebSettings.KeyPassword;
 
             // Define the strings for the Proxy Protocol Enables
-            KeyProxyProtocolEnable[0] = SEBSettings.KeyAutoDiscoveryEnabled;
-            KeyProxyProtocolEnable[1] = SEBSettings.KeyAutoConfigurationEnabled;
-            KeyProxyProtocolEnable[2] = SEBSettings.KeyHTTPEnable;
-            KeyProxyProtocolEnable[3] = SEBSettings.KeyHTTPSEnable;
-            KeyProxyProtocolEnable[4] = SEBSettings.KeyFTPEnable;
-            KeyProxyProtocolEnable[5] = SEBSettings.KeySOCKSEnable;
-            KeyProxyProtocolEnable[6] = SEBSettings.KeyRTSPEnable;
+            KeyProxyProtocolEnable[0] = SebSettings.KeyAutoDiscoveryEnabled;
+            KeyProxyProtocolEnable[1] = SebSettings.KeyAutoConfigurationEnabled;
+            KeyProxyProtocolEnable[2] = SebSettings.KeyHTTPEnable;
+            KeyProxyProtocolEnable[3] = SebSettings.KeyHTTPSEnable;
+            KeyProxyProtocolEnable[4] = SebSettings.KeyFTPEnable;
+            KeyProxyProtocolEnable[5] = SebSettings.KeySOCKSEnable;
+            KeyProxyProtocolEnable[6] = SebSettings.KeyRTSPEnable;
         }
 
 
@@ -399,7 +398,7 @@ namespace SebWindowsConfig
         {
             // At program start, the local client settings configuration file is loaded
             currentDireSebConfigFile = SEBClientInfo.SebClientSettingsAppDataDirectory;
-            currentFileSebConfigFile = SEBClientInfo.SEB_CLIENT_CONFIG;
+			currentFileSebConfigFile = SebConstants.SEB_CLIENT_CONFIG;
             StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
             currentPathSebConfigFile = sebClientSettingsAppDataBuilder.ToString();
 
@@ -415,14 +414,14 @@ namespace SebWindowsConfig
 
             // Assing the list of cryptographic identities/certificates to the ComboBox
             ArrayList certificateNames = new ArrayList();
-            certificateReferences = SEBProtectionController.GetCertificatesAndNames(ref certificateNames);
+            certificateReferences = SebProtectionController.GetCertificatesAndNames(ref certificateNames);
             comboBoxCryptoIdentity.Items.Add("None");
             comboBoxCryptoIdentity.Items.AddRange(certificateNames.ToArray());
             comboBoxChooseIdentityToEmbed.Items.AddRange(certificateNames.ToArray());
             comboBoxChooseIdentityToEmbed.Text = SEBUIStrings.ChooseEmbeddedCert;
 
             ArrayList certificateSSLNames = new ArrayList();
-            certificateSSLReferences = SEBProtectionController.GetSSLCertificatesAndNames(ref certificateSSLNames);
+            certificateSSLReferences = SebProtectionController.GetSSLCertificatesAndNames(ref certificateSSLNames);
             comboBoxChooseSSLClientCertificate.Items.AddRange(certificateSSLNames.ToArray());
             comboBoxChooseSSLClientCertificate.Text = SEBUIStrings.ChooseEmbeddedCert;
 
@@ -544,8 +543,6 @@ namespace SebWindowsConfig
             listBoxProhibitedProcessOS.Items.AddRange(StringOS);
 
             // Help data structures for table access to URL Filter Rules
-            urlFilterTableRow           = -1;
-            urlFilterTableRowIsTitle    = false;
             urlFilterTableRuleIndex     .Clear();
             urlFilterTableActionIndex   .Clear();
             urlFilterTableIsTitleRow    .Clear();
