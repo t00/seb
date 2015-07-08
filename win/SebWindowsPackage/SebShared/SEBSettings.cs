@@ -38,7 +38,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using SebShared;
 using SebShared.DiagnosticUtils;
 
 namespace SebShared
@@ -88,6 +87,7 @@ namespace SebShared
 		public const String KeySebConfigPurpose = "sebConfigPurpose";
 		public const String KeyAllowPreferencesWindow = "allowPreferencesWindow";
 		public const String KeyCryptoIdentity = "cryptoIdentity";
+		public const String KeySebStoreConfig = "storeConfig";
 
 		// Group "Appearance"
 		public const String KeyBrowserViewMode = "browserViewMode";
@@ -493,6 +493,7 @@ namespace SebShared
 
 			// Default settings for group "Config File"
 			settingsDefault.Add(KeySebConfigPurpose, 0);
+			settingsDefault.Add(KeySebStoreConfig, true);
 			settingsDefault.Add(KeyAllowPreferencesWindow, true);
 			//SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
 
