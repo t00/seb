@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
@@ -1346,8 +1347,12 @@ namespace SebWindowsConfig
 			StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(currentFileSebConfigFile);
 			string localSebClientSettings = sebClientSettingsAppDataBuilder.ToString();
 
-			StringBuilder sebClientExeBuilder = new StringBuilder(SEBClientInfo.SebClientDirectory).Append(SebConstants.PRODUCT_NAME).Append(".exe");
+			StringBuilder sebClientExeBuilder = new StringBuilder(SEBClientInfo.SebClientDirectory).Append(SebConstants.FILENAME_SEB);
 			string sebClientExe = sebClientExeBuilder.ToString();
+			if(!File.Exists(sebClientExe))
+			{
+				sebClientExe = Path.Combine(Path.GetDirectoryName(new Uri(Assembly.GetAssembly(typeof(SEBClientInfo)).CodeBase).LocalPath), SebConstants.FILENAME_SEB);
+			}
 
 			var p = new Process();
 			p.StartInfo.FileName = sebClientExe;

@@ -20,6 +20,9 @@
 		public const string MANUFACTURER_LOCAL = "SafeExamBrowser";
 		//private const string MANUFACTURER         = "ETH Zuerich";
 		public const string PRODUCT_NAME = "SafeExamBrowser";
+		public const string FILENAME_SEB = "SafeExamBrowser.exe";
+		public const string FILENAME_SEBSHARED = "SebShared.dll";
+		public const string FILENAME_WCFSERVICE = "SebWindowsServiceWCF.exe";
 		public const string SEB_BROWSER_DIRECTORY = "SebWindowsBrowser";
 		public const string XUL_RUNNER_DIRECTORY = "xulrunner";
 		public const string XUL_SEB_DIRECTORY = "xul_seb";
@@ -27,6 +30,7 @@
 		public const string BROWSER_USERAGENT_TOUCH = "Mozilla/5.0 (Windows NT 6.3; rv:38.0; Touch) Gecko/20100101 Firefox/38.0";
 		public const string BROWSER_USERAGENT_TOUCH_IPAD = "Mozilla/5.0 (iPad; CPU OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B410 Safari/600.1.4";
 		public const string BROWSER_USERAGENT_SEB = "SEB";
+		public const string SEB_REQUEST_HEADER = "X-SafeExamBrowser-RequestHash";
 
 		public const string END_OF_STRING_KEYWORD = "---SEB---";
 		public const string DEFAULT_KEY = "Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";

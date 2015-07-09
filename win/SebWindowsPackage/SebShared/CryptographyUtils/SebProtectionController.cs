@@ -39,6 +39,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -460,57 +461,69 @@ namespace SebShared.CryptographyUtils
 			return pswdHash.Replace("-", "");
 		}
 
+		public static string ComputeBrowserExamKey()
+		{
+			var binDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+			var fileNames = new List<string>
+			{
+				Path.Combine(binDir, SebConstants.FILENAME_SEB),
+				Path.Combine(binDir, SebConstants.FILENAME_SEBSHARED),
+				Path.Combine(binDir, SebConstants.FILENAME_WCFSERVICE),
+			};
+
+			var xulRunnerPath = Path.Combine(binDir, SebConstants.SEB_BROWSER_DIRECTORY);
+			if(Directory.Exists(xulRunnerPath))
+			{
+				fileNames.AddRange(Directory.GetFiles(xulRunnerPath, "*.*", SearchOption.AllDirectories));
+			}
+
+			return ComputeBrowserExamKey(ComputeFilesHash(fileNames));
+		}
+
 		/// ----------------------------------------------------------------------------------------
 		/// <summary>
 		/// Compute a Browser Exam Key SHA256 hash base16 string.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static string ComputeBrowserExamKey()
+		public static string ComputeBrowserExamKey(string filesHash)
 		{
 			// Serialize preferences dictionary to an XML string
-			string sebXML = PropertyList.writeXml(SebSettings.settingsCurrent);
+			var sebXml = PropertyList.writeXml(SebSettings.settingsCurrent);
 
 			//Add the Hash of the Executable and of the XulRunnerFiles to the message
-			sebXML = String.Format("{0}{1}{2}", sebXML, ComputeExecutableHash(), ComputeXulRunnerHash());
+			sebXml = String.Format("{0}{1}", sebXml, filesHash);
 
-			byte[] message = Encoding.UTF8.GetBytes(sebXML);
-			byte[] salt = (byte[])SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyExamKeySalt);
+			var message = Encoding.UTF8.GetBytes(sebXml);
+			var salt = (byte[])SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyExamKeySalt);
 			var hash = new HMACSHA256(salt);
-			byte[] browserExamKey = hash.ComputeHash(message);
-			string browserExamKeyString = BitConverter.ToString(browserExamKey);
-			//browserExamKeyString.Replace("-", "");
+			var browserExamKey = hash.ComputeHash(message);
+			var browserExamKeyString = BitConverter.ToString(browserExamKey);
 			return browserExamKeyString.Replace("-", "").ToLower();
 		}
 
-		public static string ComputeExecutableHash()
+		public static string ComputeFilesHash(IEnumerable<string> fileNames)
 		{
-			//Find installed exe of SafeExamBrowser
-			return ComputeFileHash("SafeExamBrowser.exe");
-		}
-
-		public static string ComputeXulRunnerHash()
-		{
-			var bigHash = "";
-			if(Directory.Exists("SafeExamBrowser"))
+			var bigHash = new StringBuilder();
+			foreach(var fileName in fileNames)
 			{
-				foreach(var file in Directory.GetFiles("SafeExamBrowser", "*.*", SearchOption.AllDirectories))
-				{
-					bigHash += ComputeFileHash(file);
-				}
+				bigHash.Append(ComputeFileHash(fileName));
 			}
 			var sha = new SHA256Managed();
-			byte[] hash = sha.ComputeHash(Encoding.UTF8.GetBytes(bigHash));
+			var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(bigHash.ToString()));
 			return BitConverter.ToString(hash).Replace("-", String.Empty);
 		}
 
 		private static string ComputeFileHash(string file)
 		{
-			if(!File.Exists(file)) return null;
+			if(!File.Exists(file))
+			{
+				return null;
+			}
 
-			using(FileStream stream = File.OpenRead(file))
+			using(var stream = File.OpenRead(file))
 			{
 				var sha = new SHA256Managed();
-				byte[] hash = sha.ComputeHash(stream);
+				var hash = sha.ComputeHash(stream);
 				return BitConverter.ToString(hash).Replace("-", String.Empty);
 			}
 		}
