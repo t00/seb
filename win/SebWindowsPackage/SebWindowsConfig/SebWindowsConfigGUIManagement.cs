@@ -246,10 +246,10 @@ namespace SebWindowsConfig
         private void InitialiseGlobalVariablesForGUIWidgets()
         {
 
-            SebSettings.   permittedProcessIndex = 0;
-            SebSettings.  prohibitedProcessIndex = 0;
-            SebSettings.embeddedCertificateIndex = 0;
-            SebSettings.      bypassedProxyIndex = 0;
+            SebInstance.Settings.   permittedProcessIndex = 0;
+            SebInstance.Settings.  prohibitedProcessIndex = 0;
+            SebInstance.Settings.embeddedCertificateIndex = 0;
+            SebInstance.Settings.      bypassedProxyIndex = 0;
 
             // Define the strings for the Encryption Identity
             StringCryptoIdentity.Add("none");

@@ -488,13 +488,13 @@ namespace SebShared.CryptographyUtils
 		public static string ComputeBrowserExamKey(string filesHash)
 		{
 			// Serialize preferences dictionary to an XML string
-			var sebXml = PropertyList.writeXml(SebSettings.settingsCurrent);
+			var sebXml = PropertyList.writeXml(SebInstance.Settings.settingsCurrent);
 
 			//Add the Hash of the Executable and of the XulRunnerFiles to the message
 			sebXml = String.Format("{0}{1}", sebXml, filesHash);
 
 			var message = Encoding.UTF8.GetBytes(sebXml);
-			var salt = (byte[])SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyExamKeySalt);
+			var salt = (byte[])SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyExamKeySalt);
 			var hash = new HMACSHA256(salt);
 			var browserExamKey = hash.ComputeHash(message);
 			var browserExamKeyString = BitConverter.ToString(browserExamKey);

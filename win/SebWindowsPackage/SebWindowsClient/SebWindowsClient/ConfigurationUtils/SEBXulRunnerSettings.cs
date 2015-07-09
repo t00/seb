@@ -145,7 +145,7 @@ namespace SebWindowsClient.ConfigurationUtils
             }
 
             // Eventually update setting 
-            if ((Boolean)SebSettings.settingsCurrent[SebSettings.KeyRestartExamUseStartURL] == true) 
+            if ((Boolean)SebInstance.Settings.settingsCurrent[SebSettings.KeyRestartExamUseStartURL] == true) 
             {
                 xulRunnerSettings[SebSettings.KeyRestartExamURL] = xulRunnerSettings[SebSettings.KeyStartURL];
             }

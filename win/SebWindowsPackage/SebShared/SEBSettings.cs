@@ -342,67 +342,67 @@ namespace SebShared
 		// *********************************
 
 		// Some settings are not stored in Plists but in Arrays
-		public static String[] strArrayDefault = new String[ValNum + 1];
-		public static String[] strArrayCurrent = new String[ValNum + 1];
+		public String[] strArrayDefault = new String[ValNum + 1];
+		public String[] strArrayCurrent = new String[ValNum + 1];
 
-		public static int[] intArrayDefault = new int[ValNum + 1];
-		public static int[] intArrayCurrent = new int[ValNum + 1];
+		public int[] intArrayDefault = new int[ValNum + 1];
+		public int[] intArrayCurrent = new int[ValNum + 1];
 
 		// Class SEBSettings contains all settings
 		// and is used for importing/exporting the settings
 		// from/to a human-readable .xml and an encrypted.seb file format.
-		public static Dictionary<string, object> settingsDefault = new Dictionary<string, object>();
-		public static Dictionary<string, object> settingsCurrent = new Dictionary<string, object>();
+		public Dictionary<string, object> settingsDefault = new Dictionary<string, object>();
+		public Dictionary<string, object> settingsCurrent = new Dictionary<string, object>();
 
-		public static int permittedProcessIndex;
-		public static List<object> permittedProcessList = new List<object>();
-		public static Dictionary<string, object> permittedProcessData = new Dictionary<string, object>();
-		public static Dictionary<string, object> permittedProcessDataDefault = new Dictionary<string, object>();
-		public static Dictionary<string, object> permittedProcessDataXulRunner = new Dictionary<string, object>();
+		public int permittedProcessIndex;
+		public List<object> permittedProcessList = new List<object>();
+		public Dictionary<string, object> permittedProcessData = new Dictionary<string, object>();
+		public Dictionary<string, object> permittedProcessDataDefault = new Dictionary<string, object>();
+		public Dictionary<string, object> permittedProcessDataXulRunner = new Dictionary<string, object>();
 
-		public static int permittedArgumentIndex;
-		public static List<object> permittedArgumentList = new List<object>();
-		public static Dictionary<string, object> permittedArgumentData = new Dictionary<string, object>();
-		public static Dictionary<string, object> permittedArgumentDataDefault = new Dictionary<string, object>();
-		public static Dictionary<string, object> permittedArgumentDataXulRunner1 = new Dictionary<string, object>();
-		public static Dictionary<string, object> permittedArgumentDataXulRunner2 = new Dictionary<string, object>();
-		public static List<object> permittedArgumentListXulRunner = new List<object>();
+		public int permittedArgumentIndex;
+		public List<object> permittedArgumentList = new List<object>();
+		public Dictionary<string, object> permittedArgumentData = new Dictionary<string, object>();
+		public Dictionary<string, object> permittedArgumentDataDefault = new Dictionary<string, object>();
+		public Dictionary<string, object> permittedArgumentDataXulRunner1 = new Dictionary<string, object>();
+		public Dictionary<string, object> permittedArgumentDataXulRunner2 = new Dictionary<string, object>();
+		public List<object> permittedArgumentListXulRunner = new List<object>();
 
-		public static int prohibitedProcessIndex;
-		public static List<object> prohibitedProcessList = new List<object>();
-		public static Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
-		public static Dictionary<string, object> prohibitedProcessDataDefault = new Dictionary<string, object>();
+		public int prohibitedProcessIndex;
+		public List<object> prohibitedProcessList = new List<object>();
+		public Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
+		public Dictionary<string, object> prohibitedProcessDataDefault = new Dictionary<string, object>();
 
-		public static int urlFilterRuleIndex;
-		public static List<object> urlFilterRuleList = new List<object>();
-		public static Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
-		public static Dictionary<string, object> urlFilterRuleDataDefault = new Dictionary<string, object>();
-		public static Dictionary<string, object> urlFilterRuleDataStorage = new Dictionary<string, object>();
+		public int urlFilterRuleIndex;
+		public List<object> urlFilterRuleList = new List<object>();
+		public Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
+		public Dictionary<string, object> urlFilterRuleDataDefault = new Dictionary<string, object>();
+		public Dictionary<string, object> urlFilterRuleDataStorage = new Dictionary<string, object>();
 
-		public static int urlFilterActionIndex;
-		public static List<object> urlFilterActionList = new List<object>();
-		public static List<object> urlFilterActionListDefault = new List<object>();
-		public static List<object> urlFilterActionListStorage = new List<object>();
-		public static Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
-		public static Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
-		public static Dictionary<string, object> urlFilterActionDataStorage = new Dictionary<string, object>();
+		public int urlFilterActionIndex;
+		public List<object> urlFilterActionList = new List<object>();
+		public List<object> urlFilterActionListDefault = new List<object>();
+		public List<object> urlFilterActionListStorage = new List<object>();
+		public Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
+		public Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
+		public Dictionary<string, object> urlFilterActionDataStorage = new Dictionary<string, object>();
 
-		public static int embeddedCertificateIndex;
-		public static List<object> embeddedCertificateList = new List<object>();
-		public static Dictionary<string, object> embeddedCertificateData = new Dictionary<string, object>();
-		public static Dictionary<string, object> embeddedCertificateDataDefault = new Dictionary<string, object>();
+		public int embeddedCertificateIndex;
+		public List<object> embeddedCertificateList = new List<object>();
+		public Dictionary<string, object> embeddedCertificateData = new Dictionary<string, object>();
+		public Dictionary<string, object> embeddedCertificateDataDefault = new Dictionary<string, object>();
 
-		public static Dictionary<string, object> proxiesData = new Dictionary<string, object>();
-		public static Dictionary<string, object> proxiesDataDefault = new Dictionary<string, object>();
+		public Dictionary<string, object> proxiesData = new Dictionary<string, object>();
+		public Dictionary<string, object> proxiesDataDefault = new Dictionary<string, object>();
 
-		public static int proxyProtocolIndex;
+		public int proxyProtocolIndex;
 
-		public static int bypassedProxyIndex;
-		public static List<object> bypassedProxyList = new List<object>();
-		public static String bypassedProxyData = "";
-		public static String bypassedProxyDataDefault = "";
+		public int bypassedProxyIndex;
+		public List<object> bypassedProxyList = new List<object>();
+		public String bypassedProxyData = "";
+		public String bypassedProxyDataDefault = "";
 
-		public static bool IsEmpty
+		public bool IsEmpty
 		{
 			get { return !settingsCurrent.Any(); }
 		}
@@ -416,7 +416,7 @@ namespace SebShared
 		// ********************************************************************
 		// Set all the default values for the Plist structure "settingsDefault"
 		// ********************************************************************
-		public static void CreateDefaultAndCurrentSettingsFromScratch()
+		public void CreateDefaultAndCurrentSettingsFromScratch()
 		{
 			// Destroy all default lists and dictionaries
 			settingsDefault = new Dictionary<string, object>();
@@ -851,12 +851,10 @@ namespace SebShared
 			bypassedProxyData = "";
 		}
 
-
-
 		// *****************************************
 		// Restore default settings and new settings
 		// *****************************************
-		public static void RestoreDefaultAndCurrentSettings()
+		public void RestoreDefaultAndCurrentSettings()
 		{
 			// Set all the default values for the Plist structure "settingsCurrent"
 
@@ -878,7 +876,7 @@ namespace SebShared
 		// ********************
 		// Copy settings arrays
 		// ********************
-		public static void FillSettingsArrays()
+		public void FillSettingsArrays()
 		{
 			// Set all array values to default values
 			for(int value = 1; value <= ValNum; value++)
@@ -889,109 +887,10 @@ namespace SebShared
 			return;
 		}
 
-
-
-		// ************************
-		// Copy settings dictionary
-		// ************************
-		/*
-				public static void CopySettingsDictionary(ref DictObj sebSettingsSource,
-														  ref DictObj sebSettingsTarget)
-				{
-					// Copy all settings from one dictionary to another
-					// Create a dictionary "target settings".
-					// Copy source settings to target settings
-					foreach (KeyValue pair in sebSettingsSource)
-					{
-						string key   = pair.Key;
-						object value = pair.Value;
-
-						if  (sebSettingsTarget.ContainsKey(key))
-							 sebSettingsTarget[key] = value;
-						else sebSettingsTarget.Add(key, value);
-					}
-
-					return;
-				}
-		*/
-
-
-		// **************
-		// Merge settings
-		// **************
-		/*
-				public static void MergeSettings(ref object objectSource, ref object objectTarget)
-				{
-					// Determine the type of the input objects
-					string typeSource = objectSource.GetType().ToString();
-					string typeTarget = objectTarget.GetType().ToString();
-
-					if (typeSource != typeTarget) return;
-
-					// Treat the complex datatype Dictionary<string, object>
-					if (typeSource.Contains("Dictionary"))
-					{
-						DictObj dictSource = (DictObj)objectSource;
-						DictObj dictTarget = (DictObj)objectTarget;
-
-						//foreach (KeyValue pair in dictSource)
-						for (int index = 0; index < dictSource.Count; index++)
-						{
-							KeyValue pair  = dictSource.ElementAt(index);
-							string   key   = pair.Key;
-							object   value = pair.Value;
-							string   type  = pair.Value.GetType().ToString();
-
-							if  (dictTarget.ContainsKey(key))
-								 dictTarget[key] = value;
-							else dictTarget.Add(key, value);
-
-							if (type.Contains("Dictionary") || type.Contains("List"))
-							{
-								object childSource = dictSource[key];
-								object childTarget = dictTarget[key];
-								MergeSettings(ref childSource, ref childTarget);
-							}
-
-						} // next (KeyValue pair in dictSource)
-					} // end if (typeSource.Contains("Dictionary"))
-
-
-					// Treat the complex datatype List<object>
-					if (typeSource.Contains("List"))
-					{
-						ListObj listSource = (ListObj)objectSource;
-						ListObj listTarget = (ListObj)objectTarget;
-
-						//foreach (object elem in listSource)
-						for (int index = 0; index < listSource.Count; index++)
-						{
-							object elem = listSource[index];
-							string type = elem.GetType().ToString();
-
-							if  (listTarget.Count > index)
-								 listTarget[index] = elem;
-							else listTarget.Add(elem);
-
-							if (type.Contains("Dictionary") || type.Contains("List"))
-							{
-								object childSource = listSource[index];
-								object childTarget = listTarget[index];
-								MergeSettings(ref childSource, ref childTarget);
-							}
-
-						} // next (element in listSource)
-					} // end if (typeSource.Contains("List"))
-
-					return;
-				}
-		*/
-
-
 		// ************************
 		// Fill settings dictionary
 		// ************************
-		public static void FillSettingsDictionary()
+		public void FillSettingsDictionary()
 		{
 
 			// Add potentially missing keys to current Main Dictionary
@@ -1146,7 +1045,7 @@ namespace SebShared
 		/// Return a settings dictionary with removed empty ListObj and DictObj elements 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static Dictionary<string, object> CleanSettingsDictionary()
+		public Dictionary<string, object> CleanSettingsDictionary()
 		{
 			Dictionary<string, object> cleanSettings = new Dictionary<string, object>();
 
@@ -1307,7 +1206,7 @@ namespace SebShared
 		/// return null for the value if the key doesn't exist 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static object valueForDictionaryKey(Dictionary<string, object> dictionary, string key, object defaultValue = null)
+		public object valueForDictionaryKey(Dictionary<string, object> dictionary, string key, object defaultValue = null)
 		{
 			if(dictionary.ContainsKey(key))
 			{
@@ -1325,7 +1224,7 @@ namespace SebShared
 		/// Clone a dictionary 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static Dictionary<TKey, TValue> CloneDictionaryCloningValues<TKey, TValue>(Dictionary<TKey, TValue> original) where TValue: ICloneable
+		public Dictionary<TKey, TValue> CloneDictionaryCloningValues<TKey, TValue>(Dictionary<TKey, TValue> original) where TValue: ICloneable
 		{
 			Dictionary<TKey, TValue> ret = new Dictionary<TKey, TValue>(original.Count, original.Comparer);
 			foreach(KeyValuePair<TKey, TValue> entry in original)
@@ -1338,7 +1237,7 @@ namespace SebShared
 		// **********************************************
 		// Add XulRunnerProcess to Permitted Process List
 		// **********************************************
-		public static void PermitXulRunnerProcess()
+		public void PermitXulRunnerProcess()
 		{
 			// Get the Permitted Process List
 			permittedProcessList = (List<object>)settingsCurrent[KeyPermittedProcesses];
@@ -1377,7 +1276,7 @@ namespace SebShared
 		// **************
 		// Print settings
 		// **************
-		public static void PrintSettingsRecursively(object objectSource, StreamWriter fileWriter, String indenting)
+		public void PrintSettingsRecursively(object objectSource, StreamWriter fileWriter, String indenting)
 		{
 
 			// Determine the type of the input object
@@ -1439,7 +1338,7 @@ namespace SebShared
 		// *************************
 		// Print settings dictionary
 		// *************************
-		public static void LoggSettingsDictionary(ref Dictionary<string, object> sebSettings, String fileName)
+		public void LoggSettingsDictionary(ref Dictionary<string, object> sebSettings, String fileName)
 		{
 			FileStream fileStream;
 			StreamWriter fileWriter;
@@ -1473,7 +1372,7 @@ namespace SebShared
 		/// Decrypt, deserialize and store new settings as current SEB settings 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static bool LoadEncryptedSettings(byte[] sebSettings, GetPasswordMethod getPassword)
+		public bool LoadEncryptedSettings(byte[] sebSettings, GetPasswordMethod getPassword)
 		{
 			Dictionary<string, object> settingsDict = null;
 			// If we were passed empty settings, we skip decrypting and just use default settings
@@ -1512,7 +1411,7 @@ namespace SebShared
 		/// or use default settings if none were passed.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static void StoreSebClientSettings(Dictionary<string, object> settingsDict)
+		public void StoreSebClientSettings(Dictionary<string, object> settingsDict)
 		{
 			// Recreate the default and current settings dictionaries
 			CreateDefaultAndCurrentSettingsFromScratch();
@@ -1532,7 +1431,7 @@ namespace SebShared
 		// *********************************************
 		// Read the settings from the configuration file
 		// *********************************************
-		public static bool ReadSebConfigurationFile(String fileName, GetPasswordMethod getPassword, bool forEditing, ref string filePassword, ref bool passwordIsHash, ref X509Certificate2 fileCertificateRef)
+		public bool ReadSebConfigurationFile(String fileName, GetPasswordMethod getPassword, bool forEditing, ref string filePassword, ref bool passwordIsHash, ref X509Certificate2 fileCertificateRef)
 		{
 			var newSettings = new Dictionary<string, object>();
 			try
@@ -1585,7 +1484,7 @@ namespace SebShared
 		// ********************************************************
 		// Write the settings to the configuration file and save it
 		// ********************************************************
-		public static bool WriteSebConfigurationFile(String fileName, string filePassword, bool passwordIsHash, X509Certificate2 fileCertificateRef, sebConfigPurposes configPurpose, bool forEditing = false)
+		public bool WriteSebConfigurationFile(String fileName, string filePassword, bool passwordIsHash, X509Certificate2 fileCertificateRef, sebConfigPurposes configPurpose, bool forEditing = false)
 		{
 			try
 			{

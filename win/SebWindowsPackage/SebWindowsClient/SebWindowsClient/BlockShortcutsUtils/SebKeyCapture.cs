@@ -586,7 +586,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
             // If the nCode is non-negative, filter the key stroke.
             if (nCode >= 0)
             {
-                if ((bool) SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyTouchOptimized))
+                if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
                 {
                     TextTouchExitSequence(System.Windows.Forms.Cursor.Position);
                 }
@@ -632,7 +632,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
                 {
                     SEBClientInfo.SebWindowsClientForm.ShowCloseDialogForm();
                 }
-                if (SetAndTestExitKeySequence(wp, lp) && (bool)SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyIgnoreExitKeys) == false)
+                if (SetAndTestExitKeySequence(wp, lp) && (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyIgnoreExitKeys) == false)
                 {
                     SEBClientInfo.SebWindowsClientForm.ExitApplication();
                 }

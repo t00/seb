@@ -58,7 +58,6 @@ namespace SebShared
 
 	public class SebConfigFileManager
 	{
-
 		// Prefixes
 		public const int PREFIX_LENGTH = 4;
 		public const string PUBLIC_KEY_HASH_MODE = "pkhs";
@@ -90,7 +89,7 @@ namespace SebShared
 
 			// Store decrypted settings
 			Logger.AddInformation("Attempting to StoreSebClientSettings");
-			SebSettings.StoreSebClientSettings(sebPreferencesDict);
+			SebInstance.Settings.StoreSebClientSettings(sebPreferencesDict);
 			Logger.AddInformation("Successfully StoreSebClientSettings");
 
 			return true;
@@ -237,7 +236,7 @@ namespace SebShared
 			string password;
 			// First try to decrypt with the current admin password
 			// get admin password hash
-			string hashedAdminPassword = (string)SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyHashedAdminPassword);
+			string hashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyHashedAdminPassword);
 			if(hashedAdminPassword == null)
 			{
 				hashedAdminPassword = "";
@@ -306,7 +305,7 @@ namespace SebShared
 				return null;
 			}
 			// Get the admin password set in these settings
-			string sebFileHashedAdminPassword = (string)SebSettings.valueForDictionaryKey(sebPreferencesDict, SebSettings.KeyHashedAdminPassword);
+			string sebFileHashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(sebPreferencesDict, SebSettings.KeyHashedAdminPassword);
 			if(sebFileHashedAdminPassword == null)
 			{
 				sebFileHashedAdminPassword = "";
@@ -384,12 +383,12 @@ namespace SebShared
 			if(forEditing)
 			{
 				// Get the admin password set in these settings
-				string sebFileHashedAdminPassword = (string)SebSettings.valueForDictionaryKey(sebPreferencesDict, SebSettings.KeyHashedAdminPassword);
+				string sebFileHashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(sebPreferencesDict, SebSettings.KeyHashedAdminPassword);
 				// If there was no or empty admin password set in these settings, the user can access them anyways
 				if(!String.IsNullOrEmpty(sebFileHashedAdminPassword))
 				{
 					// Get the current hashed admin password
-					string hashedAdminPassword = (string)SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyHashedAdminPassword);
+					string hashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyHashedAdminPassword);
 					if(hashedAdminPassword == null)
 					{
 						hashedAdminPassword = "";
@@ -522,7 +521,7 @@ namespace SebShared
 			//DictObj cleanedCurrentSettings = SEBSettings.CleanSettingsDictionary();
 
 			// Serialize preferences dictionary to an XML string
-			string sebXML = PropertyList.writeXml(SebSettings.settingsCurrent);
+			string sebXML = PropertyList.writeXml(SebInstance.Settings.settingsCurrent);
 			string cleanedSebXML = sebXML.Replace("<array />", "<array></array>");
 			cleanedSebXML = cleanedSebXML.Replace("<dict />", "<dict></dict>");
 			cleanedSebXML = cleanedSebXML.Replace("<data />", "<data></data>");

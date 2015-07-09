@@ -152,7 +152,7 @@ namespace SebWindowsClient.ConfigurationUtils
 			object sebSetting = null;
 			try
 			{
-				sebSetting = SebSettings.settingsCurrent[key];
+				sebSetting = SebInstance.Settings.settingsCurrent[key];
 			}
 			catch
 			{
@@ -160,9 +160,9 @@ namespace SebWindowsClient.ConfigurationUtils
 			}
 
 			if(sebSetting != null)
-				return SebSettings.settingsCurrent;
+				return SebInstance.Settings.settingsCurrent;
 			else
-				return SebSettings.settingsDefault;
+				return SebInstance.Settings.settingsDefault;
 		}
 
 		/// <summary>
@@ -197,7 +197,7 @@ namespace SebWindowsClient.ConfigurationUtils
 		{
 			if((Boolean)getSebSetting(SebSettings.KeyEnableLogging)[SebSettings.KeyEnableLogging])
 			{
-				var logDirectory = (string)SebSettings.valueForDictionaryKey(SebSettings.settingsCurrent, SebSettings.KeyLogDirectoryWin);
+				var logDirectory = (string)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyLogDirectoryWin);
 				if(!String.IsNullOrEmpty(logDirectory))
 				{
 					// Expand environment variables in log file path

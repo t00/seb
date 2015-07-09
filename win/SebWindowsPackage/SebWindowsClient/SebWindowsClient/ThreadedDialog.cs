@@ -107,7 +107,7 @@ namespace SebWindowsClient
                 return SebPasswordDialogForm.ShowPasswordDialogForm(title, passwordRequestText);
             }
             //In Touch Mode, do not use the threaded Dialog because we know we can't use it
-            else if (SebSettings.settingsCurrent.Count > 0 && (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized])
+            else if (SebInstance.Settings.settingsCurrent.Count > 0 && (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized])
             {
                 return SebPasswordDialogForm.ShowPasswordDialogForm(title, passwordRequestText);
             }
