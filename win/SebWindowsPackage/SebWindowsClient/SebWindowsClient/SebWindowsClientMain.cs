@@ -325,7 +325,7 @@ namespace SebWindowsClient
 				// Write new settings to the localapp directory
 				if((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeySebStoreConfig])
 				{
-					SebInstance.Settings.WriteSebConfigurationFile(SEBClientInfo.SebClientSettingsAppDataFile, "", false, null, SebSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
+					SebInstance.Settings.WriteSebConfigurationFile(SebInstance.Settings, SEBClientInfo.SebClientSettingsAppDataFile, "", false, null, SebSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
 				}
 
 				// Re-Initialize SEB desktop according to the new settings
@@ -950,7 +950,7 @@ namespace SebWindowsClient
 
 			// We will need to check if setting for createNewDesktop changed
 			SEBClientInfo.CreateNewDesktopOldValue = (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyCreateNewDesktop, false);
-			if(!SebConfigFileManager.StoreDecryptedSEBSettings(sebSettings, SebPasswordInput.ClientGetPassword))
+			if(!SebConfigFileManager.StoreDecryptedSEBSettings(sebSettings, SebPasswordInput.ClientGetPassword, SebInstance.Settings))
 			{
 				Logger.AddInformation("StoreDecryptedSettings returned false, this means the user canceled when entering the password, didn't enter a right one after 5 attempts or new settings were corrupted, exiting");
 				Logger.AddError("Settings could not be decrypted or stored.", path, null, null);

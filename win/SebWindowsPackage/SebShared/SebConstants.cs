@@ -8,6 +8,8 @@
 		public const int INFORMATION = 2;
 		public const int QUESTION = 3;
 
+		public const string SEB_VERSION = "SEB_Win_2.1";
+
 		// Name and location of SEB configuration files and logfiles
 		public const string SEB_CLIENT_CONFIG = "SebClientSettings.seb";
 		public const string SEB_CLIENT_LOG = "SebClient.log";

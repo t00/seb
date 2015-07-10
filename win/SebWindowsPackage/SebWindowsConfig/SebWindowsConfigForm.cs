@@ -229,7 +229,7 @@ namespace SebWindowsConfig
 			SebSettings.sebConfigPurposes configPurpose = (SebSettings.sebConfigPurposes)currentConfigPurpose;
 
 			// Write the "new" settings to file
-			if(!SebInstance.Settings.WriteSebConfigurationFile(fileName, filePassword, settingsPasswordFieldsContainHash, fileCertificateRef, configPurpose, forEditing : true)) return false;
+			if(!SebInstance.Settings.WriteSebConfigurationFile(SebInstance.Settings, fileName, filePassword, settingsPasswordFieldsContainHash, fileCertificateRef, configPurpose, forEditing : true)) return false;
 
 			// If the settings could be written to file, update the widgets
 			currentDireSebConfigFile = Path.GetDirectoryName(fileName);

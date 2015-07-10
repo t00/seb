@@ -74,7 +74,7 @@ namespace SebShared
 		/// Decrypt, parse and use new SEB settings
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static bool StoreDecryptedSEBSettings(byte[] sebData, GetPasswordMethod getPassword)
+		public static bool StoreDecryptedSEBSettings(byte[] sebData, GetPasswordMethod getPassword, SebSettings settings)
 		{
 			Logger.AddInformation("Reconfiguring");
 			string sebFilePassword = null;
@@ -89,7 +89,7 @@ namespace SebShared
 
 			// Store decrypted settings
 			Logger.AddInformation("Attempting to StoreSebClientSettings");
-			SebInstance.Settings.StoreSebClientSettings(sebPreferencesDict);
+			settings.StoreSebClientSettings(sebPreferencesDict);
 			Logger.AddInformation("Successfully StoreSebClientSettings");
 
 			return true;
@@ -514,14 +514,13 @@ namespace SebShared
 		/// Read SEB settings from UserDefaults and encrypt them using provided security credentials
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-
-		public static byte[] EncryptSEBSettingsWithCredentials(string settingsPassword, bool passwordIsHash, X509Certificate2 certificateRef, SebSettings.sebConfigPurposes configPurpose, bool forEditing)
+		public static byte[] EncryptSEBSettingsWithCredentials(SebSettings settings, string settingsPassword, bool passwordIsHash, X509Certificate2 certificateRef, SebSettings.sebConfigPurposes configPurpose, bool forEditing)
 		{
 			// Get current settings dictionary and clean it from empty arrays and dictionaries
 			//DictObj cleanedCurrentSettings = SEBSettings.CleanSettingsDictionary();
 
 			// Serialize preferences dictionary to an XML string
-			string sebXML = PropertyList.writeXml(SebInstance.Settings.settingsCurrent);
+			string sebXML = PropertyList.writeXml(settings.settingsCurrent);
 			string cleanedSebXML = sebXML.Replace("<array />", "<array></array>");
 			cleanedSebXML = cleanedSebXML.Replace("<dict />", "<dict></dict>");
 			cleanedSebXML = cleanedSebXML.Replace("<data />", "<data></data>");

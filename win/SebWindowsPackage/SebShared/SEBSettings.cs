@@ -336,6 +336,25 @@ namespace SebShared
 			operatingSystemOSX, operatingSystemWin
 		}
 
+		public T Get<T>(string key)
+		{
+			return Get<T>(key, default(T));
+		}
+
+		public T Get<T>(string key, T defaultValue)
+		{
+			object value;
+			if(settingsCurrent.TryGetValue(key, out value))
+			{
+				return (T) value;
+			}
+			return defaultValue;
+		}
+
+		public void Set<T>(string key, T value)
+		{
+			settingsCurrent[key] = value;
+		}
 
 		// *********************************
 		// Global Variables for SEB settings
@@ -476,10 +495,10 @@ namespace SebShared
 			settingsDefault.Clear();
 
 			// Default settings for keys not belonging to any group
-			settingsDefault.Add(KeyOriginatorVersion, "SEB_Win_2.1");
+			settingsDefault.Add(KeyOriginatorVersion, SebConstants.SEB_VERSION);
 
 			// Default settings for group "General"
-			settingsDefault.Add(KeyStartURL, "http://www.safeexambrowser.org");
+			settingsDefault.Add(KeyStartURL, "");
 			settingsDefault.Add(KeySebServerURL, "");
 			settingsDefault.Add(KeyHashedAdminPassword, "");
 			settingsDefault.Add(KeyAllowQuit, true);
@@ -1479,12 +1498,10 @@ namespace SebShared
 			return true;
 		}
 
-
-
 		// ********************************************************
 		// Write the settings to the configuration file and save it
 		// ********************************************************
-		public bool WriteSebConfigurationFile(String fileName, string filePassword, bool passwordIsHash, X509Certificate2 fileCertificateRef, sebConfigPurposes configPurpose, bool forEditing = false)
+		public bool WriteSebConfigurationFile(SebSettings settings, String fileName, string filePassword, bool passwordIsHash, X509Certificate2 fileCertificateRef, sebConfigPurposes configPurpose, bool forEditing = false)
 		{
 			try
 			{
@@ -1492,7 +1509,7 @@ namespace SebShared
 				// Encrypt the configuration settings depending on passed credentials
 				// Write the configuration settings into .seb file.
 
-				byte[] encryptedSettings = SebConfigFileManager.EncryptSEBSettingsWithCredentials(filePassword, passwordIsHash, fileCertificateRef, configPurpose, forEditing);
+				byte[] encryptedSettings = SebConfigFileManager.EncryptSEBSettingsWithCredentials(settings, filePassword, passwordIsHash, fileCertificateRef, configPurpose, forEditing);
 				File.WriteAllBytes(fileName, encryptedSettings);
 			}
 			catch(Exception streamWriteException)
