@@ -463,20 +463,25 @@ namespace SebShared.CryptographyUtils
 
 		public static string ComputeBrowserExamKey(SebSettings settings, string binDir)
 		{
+			return ComputeBrowserExamKeyFromFilesHash(settings, CreateFilesHashWindows(binDir));
+		}
+
+		public static string CreateFilesHashWindows(string rootDirectory)
+		{
 			var fileNames = new List<string>
 			{
-				Path.Combine(binDir, SebConstants.FILENAME_SEB),
-				Path.Combine(binDir, SebConstants.FILENAME_SEBSHARED),
-				Path.Combine(binDir, SebConstants.FILENAME_WCFSERVICE),
+				Path.Combine(rootDirectory, SebConstants.FILENAME_SEB),
+				Path.Combine(rootDirectory, SebConstants.FILENAME_SEBSHARED),
+				Path.Combine(rootDirectory, SebConstants.FILENAME_WCFSERVICE),
 			};
 
-			var xulRunnerPath = Path.Combine(binDir, SebConstants.SEB_BROWSER_DIRECTORY);
+			var xulRunnerPath = Path.Combine(rootDirectory, SebConstants.SEB_BROWSER_DIRECTORY);
 			if(Directory.Exists(xulRunnerPath))
 			{
 				fileNames.AddRange(Directory.GetFiles(xulRunnerPath, "*.*", SearchOption.AllDirectories));
 			}
 
-			return ComputeBrowserExamKeyFromFilesHash(settings, ComputeFilesHash(fileNames));
+			return fileNames.Any() ? ComputeFilesHash(fileNames) : null;
 		}
 
 		/// ----------------------------------------------------------------------------------------
@@ -486,6 +491,10 @@ namespace SebShared.CryptographyUtils
 		/// ----------------------------------------------------------------------------------------
 		public static string ComputeBrowserExamKeyFromFilesHash(SebSettings settings, string filesHash)
 		{
+			if(string.IsNullOrEmpty(filesHash))
+			{
+				throw new ArgumentException("filesHash");
+			}
 			// Serialize preferences dictionary to an XML string
 			var sebXml = PropertyList.writeXml(settings.settingsCurrent);
 

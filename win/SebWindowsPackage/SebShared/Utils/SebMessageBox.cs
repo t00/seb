@@ -40,12 +40,27 @@ namespace SebShared.Utils
 {
     public class SebMessageBox
     {
-	    public static event Action BeforeShow = delegate { };
+		public static bool DisableInteractive { get; set; }
 
-        public static MessageBoxResult Show(string messageTitle, string messageText, MessageBoxImage messageBoxIcon, MessageBoxButton messageButtons)
+		public static event Action BeforeShow = delegate { };
+
+	    public static event Func<string, string, MessageBoxImage, MessageBoxButton, MessageBoxResult> OnShow;
+
+	    public static MessageBoxResult Show(string messageTitle, string messageText, MessageBoxImage messageBoxIcon, MessageBoxButton messageButtons)
         {
+		    if(DisableInteractive)
+		    {
+			    return MessageBoxResult.None;
+		    }
 	        BeforeShow();
-	        return MessageBox.Show(messageText, messageTitle, messageButtons, messageBoxIcon);
+	        if(OnShow != null)
+	        {
+		        return OnShow(messageTitle, messageText, messageBoxIcon, messageButtons);
+	        }
+	        else
+	        {
+		        return MessageBox.Show(messageText, messageTitle, messageButtons, messageBoxIcon);
+	        }
         }
     }
 }

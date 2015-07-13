@@ -540,7 +540,7 @@ namespace SebShared
 				// Check if no password entered and no identity selected
 				if(String.IsNullOrEmpty(settingsPassword) && certificateRef == null)
 				{
-					if(SebMessageBox.Show(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, MessageBoxImage.Question, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+					if(SebMessageBox.DisableInteractive || SebMessageBox.Show(SEBUIStrings.noEncryptionChosen, SEBUIStrings.noEncryptionChosenSaveUnencrypted, MessageBoxImage.Question, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 					{
 						// OK: save .seb config data unencrypted
 						return encryptedSebData;
@@ -560,7 +560,7 @@ namespace SebShared
 				encryptingPassword = settingsPassword;
 			}
 			// So if password is empty (special case) or provided
-			if(!(encryptingPassword == null))
+			if(encryptingPassword != null)
 			{
 				// encrypt with password
 				encryptedSebData = EncryptDataUsingPassword(encryptedSebData, encryptingPassword, passwordIsHash, configPurpose);
