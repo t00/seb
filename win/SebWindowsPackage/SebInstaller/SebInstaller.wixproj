@@ -17,10 +17,12 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;SourceDir=$(ProjectDir)Source</DefineConstants>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SebRegistryResetter\SebRegistryResetter.csproj">
@@ -62,35 +64,14 @@
   <Target Name="BeforeBuild">
     <Exec Command="rmdir /Q /S &quot;$(ProjectDir)Source\&quot;" />
     <Exec Command="md &quot;$(ProjectDir)Source&quot;" />
-	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebRegistryResetter\bin\$(Configuration)\SebRegistryResetter.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
-	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SafeExamBrowser.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
-	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.exe.config&quot; &quot;$(ProjectDir)Source\&quot;" />
-	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.dll&quot; &quot;$(ProjectDir)Source\&quot;" />
-	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\de&quot; &quot;$(ProjectDir)Source\de&quot;" />
-	<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsBrowser&quot; &quot;$(ProjectDir)Source\SebWindowsBrowser&quot;" />
-    <HeatDirectory RunAsSeparateProcess="true"
-		NoLogo="$(HarvestDirectoryNoLogo)"
-		SuppressAllWarnings="$(HarvestDirectorySuppressAllWarnings)"
-		SuppressSpecificWarnings="$(HarvestDirectorySuppressSpecificWarnings)"
-		ToolPath="$(WixToolPath)"
-		TreatWarningsAsErrors="$(HarvestDirectoryTreatWarningsAsErrors)"
-		TreatSpecificWarningsAsErrors="$(HarvestDirectoryTreatSpecificWarningsAsErrors)"
-		VerboseOutput="$(HarvestDirectoryVerboseOutput)"
-		AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)"
-		GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)"
-		OutputFile="Components.wxs"
-		SuppressFragments="$(HarvestDirectorySuppressFragments)"
-		SuppressUniqueIds="$(HarvestDirectorySuppressUniqueIds)"
-		Transforms="%(HarvestDirectory.Transforms)"
-		Directory="$(ProjectDir)Source\"
-		ComponentGroupName="SafeExamBrowser"
-		DirectoryRefId="INSTALLLOCATION"
-		KeepEmptyDirectories="false"
-		PreprocessorVariable="var.SourceDir"
-		SuppressCom="%(HarvestDirectory.SuppressCom)"
-		SuppressRootDirectory="true"
-		SuppressRegistry="true" />
-		<Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsServiceWCF.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
+    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebRegistryResetter\bin\$(Configuration)\SebRegistryResetter.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
+    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SafeExamBrowser.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
+    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.exe.config&quot; &quot;$(ProjectDir)Source\&quot;" />
+    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\*.dll&quot; &quot;$(ProjectDir)Source\&quot;" />
+    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\de&quot; &quot;$(ProjectDir)Source\de&quot;" />
+    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsBrowser&quot; &quot;$(ProjectDir)Source\SebWindowsBrowser&quot;" />
+    <HeatDirectory RunAsSeparateProcess="true" NoLogo="$(HarvestDirectoryNoLogo)" SuppressAllWarnings="$(HarvestDirectorySuppressAllWarnings)" SuppressSpecificWarnings="$(HarvestDirectorySuppressSpecificWarnings)" ToolPath="$(WixToolPath)" TreatWarningsAsErrors="$(HarvestDirectoryTreatWarningsAsErrors)" TreatSpecificWarningsAsErrors="$(HarvestDirectoryTreatSpecificWarningsAsErrors)" VerboseOutput="$(HarvestDirectoryVerboseOutput)" AutogenerateGuids="$(HarvestDirectoryAutogenerateGuids)" GenerateGuidsNow="$(HarvestDirectoryGenerateGuidsNow)" OutputFile="Components.wxs" SuppressFragments="$(HarvestDirectorySuppressFragments)" SuppressUniqueIds="$(HarvestDirectorySuppressUniqueIds)" Transforms="%(HarvestDirectory.Transforms)" Directory="$(ProjectDir)Source\" ComponentGroupName="SafeExamBrowser" DirectoryRefId="INSTALLLOCATION" KeepEmptyDirectories="false" PreprocessorVariable="var.SourceDir" SuppressCom="%(HarvestDirectory.SuppressCom)" SuppressRootDirectory="true" SuppressRegistry="true" />
+    <Exec Command="xcopy /K /Q /I /Y /E &quot;$(SolutionDir)SebWindowsClient\SebWindowsClient\bin\$(Configuration)\SebWindowsServiceWCF.exe&quot; &quot;$(ProjectDir)Source\&quot;" />
   </Target>
   <!--
   <Target Name="AfterBuild">
