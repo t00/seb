@@ -35,6 +35,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Web.Script.Serialization;
 using System.IO;
 using System.Text;
@@ -140,7 +141,8 @@ namespace SebWindowsClient.ConfigurationUtils
             // Add current Browser Exam Key
             if ((bool)xulRunnerSettings[SebSettings.KeySendBrowserExamKey])
             {
-                string browserExamKey = SebProtectionController.ComputeBrowserExamKey();
+				var binDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+                var browserExamKey = SebProtectionController.ComputeBrowserExamKey(SebInstance.Settings, binDir);
                 xulRunnerSettings[SebSettings.KeyBrowserExamKey] = browserExamKey;
             }
 

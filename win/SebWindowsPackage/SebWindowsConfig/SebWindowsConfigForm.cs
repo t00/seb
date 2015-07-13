@@ -59,13 +59,18 @@ namespace SebWindowsConfig
 			{
 				LoadConfigurationFileIntoEditor(args[1]);
 				// Update Browser Exam Key
-				lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+				lastBrowserExamKey = GetBrowserExamKey();
 				lastSettingsPassword = textBoxSettingsPassword.Text;
 				// Display the new Browser Exam Key in Exam pane
 				textBoxBrowserExamKey.Text = lastBrowserExamKey;
 			}
 		}
 
+		private string GetBrowserExamKey()
+		{
+			var binDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+			return SebProtectionController.ComputeBrowserExamKey(SebInstance.Settings, binDir);
+		}
 
 		// ***********
 		//
@@ -80,7 +85,7 @@ namespace SebWindowsConfig
 			// This is necessary to instanciate the password dialog
 			//SEBConfigFileManager.InitSEBConfigFileManager();
 
-			/// Initialize the Logger
+			// Initialize the Logger
 
 			//Sets paths to files SEB has to save or read from the file system
 			SEBClientInfo.SetSebPaths();
@@ -112,7 +117,7 @@ namespace SebWindowsConfig
 			}
 
 			// Update Browser Exam Key
-			lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			lastBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
@@ -681,7 +686,7 @@ namespace SebWindowsConfig
 			// Compare text value of password fields, regardless if they contain actual passwords or a hash
 			if(password.CompareTo(confirmPassword) == 0)
 			{
-				/// Passwords are same
+				// Passwords are same
 				// Hide the "Please confirm password" label
 				label.Visible = false;
 
@@ -712,8 +717,7 @@ namespace SebWindowsConfig
 			}
 			else
 			{
-				/// Passwords are not same
-
+				// Passwords are not same
 				// If this was a settings password hash and it got edited: Clear the settings password variable and the hash flag
 				if(passwordFieldsContainHash && settingsKey == null)
 				{
@@ -963,7 +967,7 @@ namespace SebWindowsConfig
 		{
 			int result = 0;
 			// Generate current Browser Exam Key
-			string currentBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			string currentBrowserExamKey = GetBrowserExamKey();
 			if(!lastBrowserExamKey.Equals(currentBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
 			{
 				var messageBoxResult = SebMessageBox.Show(SEBUIStrings.unsavedChangesTitle, SEBUIStrings.unsavedChangesQuestion, MessageBoxImage.Question, MessageBoxButton.YesNoCancel);
@@ -1013,7 +1017,7 @@ namespace SebWindowsConfig
 					return;
 				}
 				// Generate Browser Exam Key of this new settings
-				lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+				lastBrowserExamKey = GetBrowserExamKey();
 				// Save the current settings password so it can be used for comparing later if it changed
 				lastSettingsPassword = textBoxSettingsPassword.Text;
 				// Display the new Browser Exam Key in Exam pane
@@ -1044,7 +1048,7 @@ namespace SebWindowsConfig
 				return;
 			}
 			// Generate Browser Exam Key of this new settings
-			lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			lastBrowserExamKey = GetBrowserExamKey();
 			// Save the current settings password so it can be used for comparing later if it changed
 			lastSettingsPassword = textBoxSettingsPassword.Text;
 			// Display the new Browser Exam Key in Exam pane
@@ -1067,8 +1071,8 @@ namespace SebWindowsConfig
 			StringBuilder sebClientSettingsAppDataBuilder = new StringBuilder(currentDireSebConfigFile).Append(@"\").Append(currentFileSebConfigFile);
 			String fileName = sebClientSettingsAppDataBuilder.ToString();
 
-			/// Generate Browser Exam Key and its salt, if settings or the settings password changed
-			string newBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			// Generate Browser Exam Key and its salt, if settings or the settings password changed
+			string newBrowserExamKey = GetBrowserExamKey();
 			// Save current Browser Exam Key salt in case saving fails
 			byte[] currentExamKeySalt = (byte[])SebInstance.Settings.settingsCurrent[SebSettings.KeyExamKeySalt];
 
@@ -1087,7 +1091,7 @@ namespace SebWindowsConfig
 				return false;
 			}
 			// Generate the new Browser Exam Key
-			lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			lastBrowserExamKey = GetBrowserExamKey();
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
 			// Save the current settings password so it can be used for comparing later if it changed
@@ -1116,7 +1120,7 @@ namespace SebWindowsConfig
 			if(fileDialogResult.Equals(DialogResult.Cancel)) return;
 
 			// Generate Browser Exam Key and its salt, if settings changed
-			string newBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			string newBrowserExamKey = GetBrowserExamKey();
 			// Save current Browser Exam Key salt in case saving fails
 			byte[] currentExamKeySalt = (byte[])SebInstance.Settings.settingsCurrent[SebSettings.KeyExamKeySalt];
 
@@ -1137,7 +1141,7 @@ namespace SebWindowsConfig
 					return;
 				}
 				// Generate the new Browser Exam Key
-				lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+				lastBrowserExamKey = GetBrowserExamKey();
 				// Display the new Browser Exam Key in Exam pane
 				textBoxBrowserExamKey.Text = lastBrowserExamKey;
 				// Save the current settings password so it can be used for comparing later if it changed
@@ -1167,7 +1171,7 @@ namespace SebWindowsConfig
 			SebInstance.Settings.PermitXulRunnerProcess();
 			UpdateAllWidgetsOfProgram();
 			// Generate Browser Exam Key of default settings
-			string currentBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			string currentBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = currentBrowserExamKey;
@@ -1203,7 +1207,7 @@ namespace SebWindowsConfig
 				UpdateAllWidgetsOfProgram();
 			}
 			// Generate Browser Exam Key of this new settings
-			lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			lastBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
@@ -1226,7 +1230,7 @@ namespace SebWindowsConfig
 			if(!LoadConfigurationFileIntoEditor(String.IsNullOrEmpty(lastPathSebConfigFile) ? currentPathSebConfigFile : lastPathSebConfigFile)) return;
 			lastPathSebConfigFile = null;
 			// Generate Browser Exam Key of this new settings
-			lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			lastBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
@@ -1304,7 +1308,7 @@ namespace SebWindowsConfig
 			string filename = sebClientSettingsAppDataBuilder.ToString();
 
 			// Generate Browser Exam Key and its salt, if settings changed
-			string newBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			string newBrowserExamKey = GetBrowserExamKey();
 			// Save current Browser Exam Key salt in case saving fails
 			byte[] currentExamKeySalt = (byte[])SebInstance.Settings.settingsCurrent[SebSettings.KeyExamKeySalt];
 
@@ -1323,7 +1327,7 @@ namespace SebWindowsConfig
 				return;
 			}
 			// Generate the new Browser Exam Key
-			lastBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			lastBrowserExamKey = GetBrowserExamKey();
 			// Save the current settings password so it can be used for comparing later if it changed
 			lastSettingsPassword = textBoxSettingsPassword.Text;
 			// Display the new Browser Exam Key in Exam pane
@@ -1335,7 +1339,7 @@ namespace SebWindowsConfig
 		{
 			// Check if settings changed and save them if yes
 			// Generate current Browser Exam Key
-			string currentBrowserExamKey = SebProtectionController.ComputeBrowserExamKey();
+			string currentBrowserExamKey = GetBrowserExamKey();
 			if(!lastBrowserExamKey.Equals(currentBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text) || !String.IsNullOrEmpty(lastPathSebConfigFile))
 			{
 				if(!saveCurrentSettings()) return;
@@ -1743,7 +1747,7 @@ namespace SebWindowsConfig
 		// ************
 		private void buttonGenerateBrowserExamKey_Click(object sender, EventArgs e)
 		{
-			textBoxBrowserExamKey.Text = SebProtectionController.ComputeBrowserExamKey();
+			textBoxBrowserExamKey.Text = GetBrowserExamKey();
 		}
 
 		private void textBoxBrowserExamKey_TextChanged(object sender, EventArgs e)

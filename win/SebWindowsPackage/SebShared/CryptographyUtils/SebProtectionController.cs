@@ -461,9 +461,8 @@ namespace SebShared.CryptographyUtils
 			return pswdHash.Replace("-", "");
 		}
 
-		public static string ComputeBrowserExamKey()
+		public static string ComputeBrowserExamKey(SebSettings settings, string binDir)
 		{
-			var binDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
 			var fileNames = new List<string>
 			{
 				Path.Combine(binDir, SebConstants.FILENAME_SEB),
@@ -477,7 +476,7 @@ namespace SebShared.CryptographyUtils
 				fileNames.AddRange(Directory.GetFiles(xulRunnerPath, "*.*", SearchOption.AllDirectories));
 			}
 
-			return ComputeBrowserExamKey(ComputeFilesHash(fileNames));
+			return ComputeBrowserExamKeyFromFilesHash(settings, ComputeFilesHash(fileNames));
 		}
 
 		/// ----------------------------------------------------------------------------------------
@@ -485,16 +484,16 @@ namespace SebShared.CryptographyUtils
 		/// Compute a Browser Exam Key SHA256 hash base16 string.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static string ComputeBrowserExamKey(string filesHash)
+		public static string ComputeBrowserExamKeyFromFilesHash(SebSettings settings, string filesHash)
 		{
 			// Serialize preferences dictionary to an XML string
-			var sebXml = PropertyList.writeXml(SebInstance.Settings.settingsCurrent);
+			var sebXml = PropertyList.writeXml(settings.settingsCurrent);
 
 			//Add the Hash of the Executable and of the XulRunnerFiles to the message
 			sebXml = String.Format("{0}{1}", sebXml, filesHash);
 
 			var message = Encoding.UTF8.GetBytes(sebXml);
-			var salt = (byte[])SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyExamKeySalt);
+			var salt = (byte[])settings.valueForDictionaryKey(settings.settingsCurrent, SebSettings.KeyExamKeySalt);
 			var hash = new HMACSHA256(salt);
 			var browserExamKey = hash.ComputeHash(message);
 			var browserExamKeyString = BitConverter.ToString(browserExamKey);

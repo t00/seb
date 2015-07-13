@@ -285,7 +285,7 @@ namespace SebShared
 				// identify that password as hash
 				passwordIsHash = true;
 			}
-			/// Decryption worked
+			// Decryption worked
 
 			// Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
 			decryptedSebData = GZipByte.Decompress(decryptedSebData);
