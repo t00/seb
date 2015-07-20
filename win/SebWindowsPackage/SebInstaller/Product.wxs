@@ -95,20 +95,20 @@
 					<RegistryValue Type="string" Name="URL Protocol" Value=""/>
 					<RegistryValue Type="string" Value="URL:Safe Exam Browser"/>
 					<RegistryKey Key="DefaultIcon">
-						<RegistryValue Type="string" Value="SafeExamBrowser.exe" />
+						<RegistryValue Type="string" Value="SafeExamBrowser.exe,1" />
 					</RegistryKey>
 					<RegistryKey Key="shell\open\command">
-						<RegistryValue Type="string" Value="&quot;[INSTALLFOLDER]SafeExamBrowser.exe&quot; &quot;%1&quot;" />
+						<RegistryValue Type="string" Value="&quot;[INSTALLLOCATION]SafeExamBrowser.exe&quot; &quot;%1&quot;" />
 					</RegistryKey>
 				</RegistryKey>
 				<RegistryKey Root="HKCR" Key="sebs">
 					<RegistryValue Type="string" Name="URL Protocol" Value=""/>
 					<RegistryValue Type="string" Value="URL:Safe Exam Browser Secure"/>
 					<RegistryKey Key="DefaultIcon">
-						<RegistryValue Type="string" Value="SafeExamBrowser.exe" />
+						<RegistryValue Type="string" Value="SafeExamBrowser.exe,1" />
 					</RegistryKey>
 					<RegistryKey Key="shell\open\command">
-						<RegistryValue Type="string" Value="&quot;[INSTALLFOLDER]SafeExamBrowser.exe&quot; &quot;%1&quot;" />
+						<RegistryValue Type="string" Value="&quot;[INSTALLLOCATION]SafeExamBrowser.exe&quot; &quot;%1&quot;" />
 					</RegistryKey>
 				</RegistryKey>
 			</Component>
