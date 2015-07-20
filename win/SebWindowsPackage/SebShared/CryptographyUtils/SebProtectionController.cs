@@ -512,7 +512,7 @@ namespace SebShared.CryptographyUtils
 		public static string ComputeFilesHash(IEnumerable<string> fileNames)
 		{
 			var bigHash = new StringBuilder();
-			foreach(var fileName in fileNames)
+			foreach(var fileName in fileNames.OrderBy(x => x, StringComparer.InvariantCultureIgnoreCase))
 			{
 				bigHash.Append(ComputeFileHash(fileName));
 			}
