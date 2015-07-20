@@ -88,7 +88,7 @@ namespace SebShared.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening the SEB link failed. Check your internet connection and try again..
+        ///   Looks up a localized string similar to Opening the SEB link failed. Check your internet connection and try again. ({0}).
         /// </summary>
         public static string cannotOpenSEBLinkMessage {
             get {

@@ -127,7 +127,7 @@
     <value>Cannot Open SEB Link</value>
   </data>
   <data name="cannotOpenSEBLinkMessage" xml:space="preserve">
-    <value>Opening the SEB link failed. Check your internet connection and try again.</value>
+    <value>Opening the SEB link failed. Check your internet connection and try again. ({0})</value>
   </data>
   <data name="certificateNotFoundInStore" xml:space="preserve">
     <value>The certificate needed to decrypt settings has not been found in the Windows Certificate Store.</value>

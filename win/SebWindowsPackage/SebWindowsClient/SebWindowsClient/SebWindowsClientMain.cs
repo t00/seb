@@ -215,6 +215,7 @@ namespace SebWindowsClient
 				splashThread.Start();
 			}
 
+			SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
 			try
 			{
 				OpenExam();
@@ -223,19 +224,12 @@ namespace SebWindowsClient
 			{
 				Logger.AddInformation("Unable to InitSEBDesktop");
 			}
-
-			SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
-			if(!SEBClientInfo.SebWindowsClientForm.OpenSEBForm())
+			finally
 			{
 				if(showSplash)
 				{
 					CloseSplash();
 				}
-				return;
-			}
-			if(showSplash)
-			{
-				CloseSplash();
 			}
 
 			singleInstanceController = new SingleInstanceController();
@@ -906,7 +900,7 @@ namespace SebWindowsClient
 						try
 						{
 							var myWebClient = new WebClient();
-							var downloadUri = new UriBuilder(protocol, uri.Host, uri.Port, uri.AbsolutePath);
+							var downloadUri = new UriBuilder(protocol, uri.Host, uri.Port, uri.AbsolutePath, uri.Query);
 							using(myWebClient)
 							{
 								sebSettings = myWebClient.DownloadData(downloadUri.Uri);
@@ -919,7 +913,7 @@ namespace SebWindowsClient
 					}
 					catch(Exception ex)
 					{
-						SebMessageBox.Show(SEBUIStrings.cannotOpenSEBLink, SEBUIStrings.cannotOpenSEBLinkMessage, MessageBoxImage.Error, MessageBoxButton.OK);
+						SebMessageBox.Show(SEBUIStrings.cannotOpenSEBLink, string.Format(SEBUIStrings.cannotOpenSEBLinkMessage, ex.Message), MessageBoxImage.Error, MessageBoxButton.OK);
 						Logger.AddError("Unable to follow the link provided", path, ex);
 						return false;
 					}

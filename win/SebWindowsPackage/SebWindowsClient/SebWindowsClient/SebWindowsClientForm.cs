@@ -190,6 +190,8 @@ namespace SebWindowsClient
 			base.OnLoad(e);
 			//Show splashscreen
 			var splashThread = new Thread(SEBSplashScreen.StartSplash);
+
+			SEBXULRunnerWebSocketServer.StartServer();
 			if(!SEBXULRunnerWebSocketServer.Started)
 			{
 				Logger.AddInformation("SEBXULRunnerWebSocketServer.Started returned false, this means the WebSocketServer communicating with the SEB XULRunner browser couldn't be started, exiting");
@@ -1391,7 +1393,6 @@ namespace SebWindowsClient
 			if(SebWindowsClientMain.CheckVMService())
 			{
 				Logger.AddInformation("attempting to start socket server");
-				SEBXULRunnerWebSocketServer.StartServer();
 
 				//Set Registry Values to lock down CTRL+ALT+DELETE Menu (with SEBWindowsServiceWCF)
 				try
