@@ -215,6 +215,8 @@ namespace SebWindowsClient
 				splashThread.Start();
 			}
 
+			SEBClientInfo.CreateNewDesktopOldValue = SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop);
+
 			SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
 			try
 			{
