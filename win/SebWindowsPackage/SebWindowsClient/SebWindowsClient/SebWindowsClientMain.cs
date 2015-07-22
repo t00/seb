@@ -78,7 +78,7 @@ namespace SebWindowsClient
 
 		void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
 		{
-			if(SebWindowsClientMain.CheckLoadCommandLineSettings())
+			if(SebWindowsClientMain.CheckLoadSettingsCommandLine())
 			{
 				var form = MainForm as SebWindowsClientForm;
 				if(form != null)
@@ -181,6 +181,7 @@ namespace SebWindowsClient
 
 			var arguments = Environment.GetCommandLineArgs();
 			var showSplash = arguments.Count() == 1;
+			var areSettingsFromCommandLine = false;
 			Logger.AddInformation("---------- INITIALIZING SEB - STARTING SESSION -------------");
 			try
 			{
@@ -189,7 +190,8 @@ namespace SebWindowsClient
 					return;
 				}
 
-				if(!CheckLoadCommandLineSettings())
+				areSettingsFromCommandLine = CheckLoadSettingsCommandLine();
+				if(!areSettingsFromCommandLine)
 				{
 					if(!LoadClientSettings())
 					{
@@ -220,7 +222,7 @@ namespace SebWindowsClient
 			SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
 			try
 			{
-				OpenExam();
+				OpenExam(true, areSettingsFromCommandLine);
 			}
 			catch(Exception)
 			{
@@ -238,14 +240,17 @@ namespace SebWindowsClient
 			singleInstanceController.Run(arguments);
 		}
 
-		private static bool OpenExam()
+		private static bool OpenExam(bool firstTime, bool askStartConfiguringClient)
 		{
-			// Reset SEB, close third party applications
-			SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
-			Logger.AddInformation("Attempting to CloseSEBForm for reconfiguration");
-			SEBClientInfo.SebWindowsClientForm.CloseSEBForm();
-			Logger.AddInformation("Succesfully CloseSEBForm for reconfiguration");
-			SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+			if(!firstTime)
+			{
+				// Reset SEB, close third party applications
+				SEBClientInfo.SebWindowsClientForm.closeSebClient = false;
+				Logger.AddInformation("Attempting to CloseSEBForm for reconfiguration");
+				SEBClientInfo.SebWindowsClientForm.CloseSEBForm();
+				Logger.AddInformation("Succesfully CloseSEBForm for reconfiguration");
+				SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
+			}
 
 			if((int)SebInstance.Settings.settingsCurrent[SebSettings.KeySebConfigPurpose] == (int)SebSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
 			{
@@ -268,9 +273,13 @@ namespace SebWindowsClient
 				{
 					// If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
 					if(SEBClientInfo.CreateNewDesktopOldValue == false)
+					{
 						SebMessageBox.Show(SEBUIStrings.settingsRequireNewDesktop, SEBUIStrings.settingsRequireNewDesktopReason, MessageBoxImage.Error, MessageBoxButton.OK);
+					}
 					else
+					{
 						SebMessageBox.Show(SEBUIStrings.settingsRequireNotNewDesktop, SEBUIStrings.settingsRequireNotNewDesktopReason, MessageBoxImage.Error, MessageBoxButton.OK);
+					}
 
 					//SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
 					SEBClientInfo.SebWindowsClientForm.ExitApplication();
@@ -278,7 +287,10 @@ namespace SebWindowsClient
 
 				// Re-Initialize SEB according to the new settings
 				Logger.AddInformation("Attemting to InitSEBDesktop for reconfiguration");
-				if(!InitSEBDesktop()) return false;
+				if(!InitSEBDesktop())
+				{
+					return false;
+				}
 				Logger.AddInformation("Sucessfully InitSEBDesktop for reconfiguration");
 				// Re-open the main form
 				//SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
@@ -325,7 +337,10 @@ namespace SebWindowsClient
 				}
 
 				// Re-Initialize SEB desktop according to the new settings
-				if(!InitSEBDesktop()) return false;
+				if(!InitSEBDesktop())
+				{
+					return false;
+				}
 
 				if(SEBClientInfo.SebWindowsClientForm.OpenSEBForm())
 				{
@@ -341,7 +356,7 @@ namespace SebWindowsClient
 						SEBClientInfo.SebWindowsClientForm.ExitApplication();
 					}
 
-					if(SebMessageBox.Show(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, MessageBoxImage.Question, MessageBoxButton.YesNo) == MessageBoxResult.No)
+					if((askStartConfiguringClient && SebMessageBox.Show(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, MessageBoxImage.Question, MessageBoxButton.YesNo) == MessageBoxResult.No))
 					{
 						//SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
 						SEBClientInfo.SebWindowsClientForm.ExitApplication();
@@ -796,7 +811,7 @@ namespace SebWindowsClient
 		/// </summary>
 		/// <returns>true if succeed</returns>
 		/// ----------------------------------------------------------------------------------------
-		public static bool CheckLoadCommandLineSettings()
+		public static bool CheckLoadSettingsCommandLine()
 		{
 			var args = Environment.GetCommandLineArgs();
 			Logger.AddInformation("LoadSettings command line: " + string.Join(", ", args));
