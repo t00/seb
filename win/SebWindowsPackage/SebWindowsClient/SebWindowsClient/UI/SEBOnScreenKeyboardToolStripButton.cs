@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using SebShared;
 using SebShared.Properties;
 using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.Properties;
@@ -22,13 +23,16 @@ namespace SebWindowsClient.UI
 
 		protected override void OnClick(EventArgs e)
 		{
-			if(TapTipHandler.IsKeyboardVisible())
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableOnScreenKeyboardNative))
 			{
-				TapTipHandler.HideKeyboard();
-			}
-			else
-			{
-				TapTipHandler.ShowKeyboard();
+				if(TapTipHandler.IsKeyboardVisible())
+				{
+					TapTipHandler.HideKeyboard();
+				}
+				else
+				{
+					TapTipHandler.ShowKeyboard();
+				}
 			}
 		}
 
@@ -49,8 +53,11 @@ namespace SebWindowsClient.UI
 
 		public static void RegisterXulRunnerEvents()
 		{
-			SEBXULRunnerWebSocketServer.OnXulRunnerTextFocus += (x, y) => ShowKeyboard();
-			SEBXULRunnerWebSocketServer.OnXulRunnerTextBlur += (x, y) => HideKeyboard();
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableOnScreenKeyboardWeb))
+			{
+				SEBXULRunnerWebSocketServer.OnXulRunnerTextFocus += (x, y) => ShowKeyboard();
+				SEBXULRunnerWebSocketServer.OnXulRunnerTextBlur += (x, y) => HideKeyboard();
+			}
 		}
 
 		public static void ShowKeyboard()

@@ -124,12 +124,18 @@ namespace SebWindowsClient
 
         private void txtSEBPassword_Enter(object sender, EventArgs e)
         {
-            TapTipHandler.ShowKeyboard();
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableOnScreenKeyboardNative))
+	        {
+		        TapTipHandler.ShowKeyboard();
+	        }
         }
 
         private void txtSEBPassword_Leave(object sender, EventArgs e)
         {
-            TapTipHandler.HideKeyboard();
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableOnScreenKeyboardNative))
+	        {
+		        TapTipHandler.HideKeyboard();
+	        }
         }
 
     }

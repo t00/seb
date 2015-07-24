@@ -102,6 +102,8 @@ namespace SebShared
 		public const String KeyTouchOptimized = "touchOptimized";
 		public const String KeyEnableZoomText = "enableZoomText";
 		public const String KeyEnableZoomPage = "enableZoomPage";
+		public const String KeyEnableOnScreenKeyboardNative = "enableOSKWindows";
+		public const String KeyEnableOnScreenKeyboardWeb = "enableOSKWeb";
 		public const String KeyZoomMode = "zoomMode";
 		public const String KeyAllowSpellCheck = "allowSpellCheck";
 		public const String KeyShowTime = "showTime";
@@ -531,6 +533,8 @@ namespace SebShared
 			settingsDefault.Add(KeyShowTaskBar, true);
 			settingsDefault.Add(KeyTaskBarHeight, 40);
 			settingsDefault.Add(KeyTouchOptimized, false);
+			settingsDefault.Add(KeyEnableOnScreenKeyboardNative, false);
+			settingsDefault.Add(KeyEnableOnScreenKeyboardWeb, true);
 			settingsDefault.Add(KeyEnableZoomText, true);
 			settingsDefault.Add(KeyEnableZoomPage, true);
 			settingsDefault.Add(KeyZoomMode, 0);
