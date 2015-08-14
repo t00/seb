@@ -85,6 +85,7 @@
     <Compile Include="ProcessUtils\ProcessInfo.cs" />
     <Compile Include="ProcessUtils\SEBProcessHandler.cs" />
     <Compile Include="ProcessUtils\SEBWindowHandler.cs" />
+    <Compile Include="ProcessUtils\SingleInstanceController.cs" />
     <Compile Include="SEBLoading.cs">
       <SubType>Form</SubType>
     </Compile>

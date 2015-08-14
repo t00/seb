@@ -67,42 +67,9 @@ using Application = System.Windows.Forms.Application;
 
 namespace SebWindowsClient
 {
-	public class SingleInstanceController: WindowsFormsApplicationBase
-	{
-		public SingleInstanceController()
-		{
-			IsSingleInstance = true;
-
-			StartupNextInstance += this_StartupNextInstance;
-		}
-
-		void this_StartupNextInstance(object sender, StartupNextInstanceEventArgs e)
-		{
-			if(SebWindowsClientMain.CheckLoadSettingsCommandLine())
-			{
-				var form = MainForm as SebWindowsClientForm;
-				if(form != null)
-				{
-					form.Navigate();
-				}
-			}
-		}
-
-		protected override void OnCreateMainForm()
-		{
-			//SEBClientInfo.SebWindowsClientForm = new SebWindowsClientForm();
-			MainForm = SEBClientInfo.SebWindowsClientForm;
-		}
-
-		public void SetMainForm(Form newMainForm)
-		{
-			MainForm = newMainForm;
-		}
-	}
-
 	static class SebWindowsClientMain
 	{
-		public static SingleInstanceController singleInstanceController;
+		public static SingleInstanceController<SebWindowsClientForm> Instance;
 
 		[DllImport("user32.dll", SetLastError = true)]
 		static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -167,6 +134,20 @@ namespace SebWindowsClient
 		//[STAThread] //Do not use this, it breaks the ability to switch to a new desktop
 		static void Main()
 		{
+			Instance = new SingleInstanceController<SebWindowsClientForm>(CreateMainForm, (mainForm, args) =>
+			{
+				if(CheckLoadSettingsCommandLine(args))
+				{
+					SebWindowsClientForm.SEBToForeground();
+					OpenExam(false, true);
+				}
+			});
+			Instance.Run();
+		}
+
+		public static SebWindowsClientForm CreateMainForm(string[] arguments)
+		{
+			Application.SetCompatibleTextRenderingDefault(false);
 			// If we are running in SebWindowsClient we need to activate it before showing a dialog
 			SebMessageBox.BeforeShow += delegate
 			{
@@ -177,38 +158,36 @@ namespace SebWindowsClient
 			};
 
 			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
 
-			var arguments = Environment.GetCommandLineArgs();
-			var showSplash = arguments.Count() == 1;
+			var showSplash = !arguments.Any();
 			var areSettingsFromCommandLine = false;
 			Logger.AddInformation("---------- INITIALIZING SEB - STARTING SESSION -------------");
 			try
 			{
 				if(!CheckLoadClientInfo())
 				{
-					return;
+					return null;
 				}
 
-				areSettingsFromCommandLine = CheckLoadSettingsCommandLine();
+				areSettingsFromCommandLine = CheckLoadSettingsCommandLine(arguments);
 				if(!areSettingsFromCommandLine)
 				{
 					if(!LoadClientSettings())
 					{
-						return;
+						return null;
 					}
 				}
 
 				if(!CheckCreateDesktop())
 				{
-					return;
+					return null;
 				}
 
 			}
 			catch(Exception ex)
 			{
 				Logger.AddError("Unable to InitSebSettings", null, ex);
-				return;
+				return null;
 			}
 
 			if(showSplash)
@@ -236,11 +215,10 @@ namespace SebWindowsClient
 				}
 			}
 
-			singleInstanceController = new SingleInstanceController();
-			singleInstanceController.Run(arguments);
+			return SEBClientInfo.SebWindowsClientForm;
 		}
 
-		private static bool OpenExam(bool firstTime, bool askStartConfiguringClient)
+		public static bool OpenExam(bool firstTime, bool askStartConfiguringClient)
 		{
 			if(!firstTime)
 			{
@@ -811,14 +789,13 @@ namespace SebWindowsClient
 		/// </summary>
 		/// <returns>true if succeed</returns>
 		/// ----------------------------------------------------------------------------------------
-		public static bool CheckLoadSettingsCommandLine()
+		public static bool CheckLoadSettingsCommandLine(string[] args)
 		{
-			var args = Environment.GetCommandLineArgs();
 			Logger.AddInformation("LoadSettings command line: " + string.Join(", ", args));
-			if(args.Length > 1)
+			if(args.Length > 0)
 			{
-				Settings.Default.LastExamUri = args[1];
-				return LoadSettings(args[1]);
+				Settings.Default.LastExamUri = args[0];
+				return LoadSettings(args[0]);
 			}
 			return false;
 		}

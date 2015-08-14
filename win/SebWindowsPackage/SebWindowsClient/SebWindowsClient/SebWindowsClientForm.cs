@@ -201,11 +201,6 @@ namespace SebWindowsClient
 			SEBSplashScreen.CloseSplash();
 		}
 
-		public void Navigate()
-		{
-			SEBToForeground();
-		}
-
 		/// ----------------------------------------------------------------------------------------
 		/// <summary>
 		/// Move SEB to the foreground.
