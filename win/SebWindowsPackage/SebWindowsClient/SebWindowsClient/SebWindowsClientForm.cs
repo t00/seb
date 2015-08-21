@@ -182,27 +182,6 @@ namespace SebWindowsClient
 
 		/// ----------------------------------------------------------------------------------------
 		/// <summary>
-		/// OnLoad: Get the file name from command line arguments and load it.
-		/// </summary>
-		/// ----------------------------------------------------------------------------------------
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad(e);
-			//Show splashscreen
-			var splashThread = new Thread(SEBSplashScreen.StartSplash);
-
-			SEBXULRunnerWebSocketServer.StartServer();
-			if(!SEBXULRunnerWebSocketServer.Started)
-			{
-				Logger.AddInformation("SEBXULRunnerWebSocketServer.Started returned false, this means the WebSocketServer communicating with the SEB XULRunner browser couldn't be started, exiting");
-				SebMessageBox.Show(SEBUIStrings.webSocketServerNotStarted, SEBUIStrings.webSocketServerNotStartedMessage, MessageBoxImage.Error, MessageBoxButton.OK);
-				ExitApplication();
-			}
-			SEBSplashScreen.CloseSplash();
-		}
-
-		/// ----------------------------------------------------------------------------------------
-		/// <summary>
 		/// Move SEB to the foreground.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------

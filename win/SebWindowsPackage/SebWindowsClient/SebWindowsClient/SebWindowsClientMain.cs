@@ -10,7 +10,6 @@ using System.Linq;
 using System.Management;
 using System.Net;
 using System.Windows;
-using System.Windows.Forms;
 using SebShared.CryptographyUtils;
 using SebShared.DiagnosticUtils;
 using SebShared.Properties;
@@ -26,8 +25,7 @@ using SebWindowsClient.Properties;
 using SebWindowsClient.ServiceUtils;
 using System.Runtime.InteropServices;
 using System.Threading;
-
-using Microsoft.VisualBasic.ApplicationServices;
+using SebWindowsClient.XULRunnerCommunication;
 using Application = System.Windows.Forms.Application;
 
 //
@@ -182,7 +180,10 @@ namespace SebWindowsClient
 				{
 					return null;
 				}
-
+				if(!SEBXULRunnerWebSocketServer.CheckStartServer())
+				{
+					return null;
+				}
 			}
 			catch(Exception ex)
 			{

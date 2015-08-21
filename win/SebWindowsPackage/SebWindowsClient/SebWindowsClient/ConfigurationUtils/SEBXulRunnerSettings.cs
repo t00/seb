@@ -152,6 +152,9 @@ namespace SebWindowsClient.ConfigurationUtils
                 xulRunnerSettings[SebSettings.KeyRestartExamURL] = xulRunnerSettings[SebSettings.KeyStartURL];
             }
 
+			// Enable messaging socket
+			xulRunnerSettings[SebSettings.KeyBrowserMessagingSocket] = SEBXULRunnerWebSocketServer.ServerAddress;
+
             // Check if URL filter is enabled and send according keys to XULRunner seb only if it is
             if ((bool)xulRunnerSettings[SebSettings.KeyURLFilterEnable] == false)
             {

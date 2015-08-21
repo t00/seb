@@ -25,7 +25,7 @@ namespace SebWindowsClient.XULRunnerCommunication
 		{
 			get
 			{
-				return String.Format("ws://localhost:{0}", port);
+				return String.Format("ws://127.0.0.1:{0}", XulRunnerPort);
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace SebWindowsClient.XULRunnerCommunication
 
 				foreach(TcpConnectionInformation tcpi in tcpConnInfoArray)
 				{
-					if(tcpi.LocalEndPoint.Port == port && tcpi.State != TcpState.TimeWait)
+					if(tcpi.LocalEndPoint.Port == XulRunnerPort && tcpi.State != TcpState.TimeWait)
 					{
 						Logger.AddInformation("Server already running!");
 						return true;
@@ -59,8 +59,22 @@ namespace SebWindowsClient.XULRunnerCommunication
 
 		private static IWebSocketConnection XULRunner;
 
-		private static int port = 8706;
+		private const int XulRunnerPort = 8706;
+
 		private static WebSocketServer server;
+
+		public static bool CheckStartServer()
+		{
+			StartServer();
+			if(!Started)
+			{
+				Logger.AddInformation("SEBXULRunnerWebSocketServer.Started returned false, this means the WebSocketServer communicating with the SEB XULRunner browser couldn't be started, exiting");
+				SebMessageBox.Show(SEBUIStrings.webSocketServerNotStarted, SEBUIStrings.webSocketServerNotStartedMessage, MessageBoxImage.Error, MessageBoxButton.OK);
+				SEBClientInfo.SebWindowsClientForm.ExitApplication();
+				return false;
+			}
+			return true;
+		}
 
 		/// <summary>
 		/// Start the server if not already running
