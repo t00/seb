@@ -206,20 +206,20 @@ namespace SebWindowsClient
 		// Start xulRunner process.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		private bool StartXulRunner(string userDefinedArguments)
+		private void StartXulRunner(string userDefinedArguments)
 		{
 			//xulRunnerExitEventHandled = false;
-			string xulRunnerPath = "";
-			string desktopName = "";
+			var xulRunnerPath = "";
+			var desktopName = "";
 			if(userDefinedArguments == null) userDefinedArguments = "";
 			try
 			{
 				// Create JSON object with XULRunner parameters to pass to xulrunner.exe as base64 string
-				string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SebInstance.Settings.settingsCurrent);
+				var XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SebInstance.Settings.settingsCurrent);
 				// Create the path to xulrunner.exe plus all arguments
-				StringBuilder xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
+				var xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
 				// Create all arguments, including user defined
-				StringBuilder xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append("\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\"");
+				var xulRunnerArgumentsBuilder = new StringBuilder(" -app \"").Append(Application.StartupPath).Append("\\").Append(SEBClientInfo.XulRunnerSebIniPath).Append("\"");
 				// Check if there is a user defined -profile parameter, otherwise use the standard one 
 				if(!(userDefinedArguments.ToLower()).Contains("-profile"))
 				{
@@ -246,7 +246,7 @@ namespace SebWindowsClient
 					}
 				}
 				xulRunnerArgumentsBuilder.Append(" ").Append(Environment.ExpandEnvironmentVariables(userDefinedArguments)).Append(" –purgecaches -ctrl \"").Append(XULRunnerParameters).Append("\"");
-				string xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
+				var xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
 				xulRunnerPathBuilder.Append(xulRunnerArguments);
 				xulRunnerPath = xulRunnerPathBuilder.ToString();
 				//Logger.AddError("Starting XULRunner with call: " + xulRunnerPath, this, null);
@@ -270,13 +270,12 @@ namespace SebWindowsClient
 				//    }
 				//}
 
-				return true;
-
+				return;
 			}
 			catch(Exception ex)
 			{
 				Logger.AddError("An error occurred starting XULRunner, path: " + xulRunnerPath + " desktop name: " + desktopName + " ", this, ex, ex.Message);
-				return false;
+				return;
 			}
 		}
 
@@ -1072,41 +1071,6 @@ namespace SebWindowsClient
 
 			SEBXULRunnerWebSocketServer.SendDisplaySettingsChanged();
 		}
-
-		/// <summary>
-		/// Returns the handle of the active window of a process
-		/// </summary>
-		/// <param name="taskBarWnd">window handle of taskbar</param>
-		/// <returns>window handle of start menu</returns>
-		private static IntPtr GetActiveWindowOfProcess(Process proc)
-		{
-			//if (proc != null)
-			//{
-			//    // enumerate all threads of that process...
-			//    foreach (ProcessThread thread in proc.Threads)
-			//    {
-			//        if (EnumThreadWindows(thread.Id, MyEnumThreadWindowsForProcess, IntPtr.Zero)) break;
-			//    }
-			//}
-			return vistaStartMenuWnd;
-		}
-
-		/// <summary>
-		/// Callback method that is called from 'EnumThreadWindows' in 'GetVistaStartMenuWnd'.
-		/// </summary>
-		/// <param name="hWnd">window handle</param>
-		/// <param name="lParam">parameter</param>
-		/// <returns>true to continue enumeration, false to stop it</returns>
-		private static bool MyEnumThreadWindowsForProcess(int pid, IntPtr lParam)
-		{
-			//if (pid ==)
-			//{
-			//    vistaStartMenuWnd = hWnd;
-			//    return false;
-			//}
-			return true;
-		}
-
 
 		/// <summary>
 		/// Hide or show the Windows taskbar and startmenu.
