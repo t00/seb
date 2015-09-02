@@ -499,12 +499,12 @@ namespace SebWindowsClient
 
 			// Clean clipboard
 			SEBClipboard.CleanClipboard();
-			Logger.AddInformation("Clipboard cleaned.", null, null);
+			Logger.AddInformation("Clipboard cleaned.");
 
 			//Search for permitted Applications (used in Taskswitcher (ALT-TAB) and in foreground watchdog
 			SEBWindowHandler.AllowedExecutables.Clear();
 			//Add the SafeExamBrowser to the allowed executables
-			SEBWindowHandler.AllowedExecutables.Add("safeexambrowser");
+			SEBWindowHandler.AllowedExecutables.Add(Process.GetCurrentProcess().ProcessName.ToLower());
 			//Add allowed executables from all allowedProcessList
 			foreach(Dictionary<string, object> process in SebInstance.Settings.permittedProcessList)
 			{
@@ -743,7 +743,7 @@ namespace SebWindowsClient
 					//SEBClientInfo.SebWindowsClientForm.Activate();
 					SebMessageBox.Show(SEBUIStrings.indicateMissingService, SEBUIStrings.forceSebServiceMessage, MessageBoxImage.Error, MessageBoxButton.OK);
 					Logger.AddError("SEB Windows service is not available and sebServicePolicies is set to forceSebService", null, null);
-					Logger.AddInformation("SafeExamBrowser is exiting", null, null);
+					Logger.AddInformation("SEB is exiting", null, null);
 					Application.Exit();
 
 					return false;
@@ -823,7 +823,7 @@ namespace SebWindowsClient
 
 			do
 			{
-				var url = Microsoft.VisualBasic.Interaction.InputBox("Please enter the location of the Safe Exam Browser settings", "Load settings", Settings.Default.LastExamUri);
+				var url = Microsoft.VisualBasic.Interaction.InputBox(SEBUIStrings.openingSettingsEnterLocation, "Load settings", Settings.Default.LastExamUri);
 				if(string.IsNullOrEmpty(url))
 				{
 					return false;

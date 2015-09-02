@@ -309,6 +309,8 @@
     <Content Include="Resources\reload.png" />
     <Content Include="Resources\restartExam.png" />
     <Content Include="Resources\loading.gif" />
+    <None Include="Resources\SebBackgroundLeftSemi.bmp" />
+    <None Include="Resources\SebSplashImage.bmp" />
     <Content Include="SEBicon.ico" />
   </ItemGroup>
   <ItemGroup>

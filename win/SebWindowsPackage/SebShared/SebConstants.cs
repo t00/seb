@@ -17,10 +17,7 @@
 		public const string XUL_RUNNER_CONFIG = "config.json";
 		public const string XUL_RUNNER_INI = "seb.ini";
 
-		// Application path contains [MANUFACTURER]\[PRODUCT_NAME]
-		// (see also "SebWindowsPackageSetup" Project in MS Visual Studio 10)
 		public const string MANUFACTURER_LOCAL = "SafeExamBrowser";
-		//private const string MANUFACTURER         = "ETH Zuerich";
 		public const string PRODUCT_NAME = "SafeExamBrowser";
 		public const string FILENAME_SEB = "SafeExamBrowser.exe";
 		public const string FILENAME_SEBSHARED = "SebShared.dll";

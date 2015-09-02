@@ -339,4 +339,7 @@
   <data name="webSocketServerNotStartedMessage" xml:space="preserve">
     <value>SEB wird beendet, versuchen Sie, SEB neu zu starten. Wenn dies nicht hilft, starten Sie Ihren Rechner neu.</value>
   </data>
+  <data name="openingSettingsEnterLocation" xml:space="preserve">
+    <value>Bitte geben Sie die Position der SEB-Einstellungen</value>
+  </data>
 </root>

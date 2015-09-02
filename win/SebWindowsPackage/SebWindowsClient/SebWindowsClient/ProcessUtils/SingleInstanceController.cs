@@ -48,8 +48,15 @@ namespace SebWindowsClient.ProcessUtils
 					if(hasHandle)
 					{
 						var mainForm = onCreateMainForm(arguments);
-						StartArgumentsServer(mainForm);
-						Application.Run(mainForm);
+						if(mainForm != null)
+						{
+							StartArgumentsServer(mainForm);
+							Application.Run(mainForm);
+						}
+						else
+						{
+							Application.Exit();
+						}
 					}
 					else
 					{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using SebShared;
+using SebShared.Properties;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.DesktopUtils;
 
@@ -12,11 +13,11 @@ namespace SebWindowsClient
         public SEBSplashScreen()
         {
             InitializeComponent();
-
-            this.TxtVersion.Text = "Safe Exam Browser for Windows";
+	        this.tbCopyright.Text = SEBUIStrings.sebSplashCopyright;
+            this.tbVersion.Text = SEBUIStrings.sebSplashVersion;
             try
             {
-                this.TxtVersion.Text += " " + Application.ProductVersion;
+                this.tbVersion.Text += " " + Application.ProductVersion;
             }
             catch (Exception)
             {
@@ -25,7 +26,7 @@ namespace SebWindowsClient
 
             this.Click += KillMe;
             this.pictureBox1.Click += KillMe;
-            this.TxtVersion.Click += KillMe;
+            this.tbVersion.Click += KillMe;
             this.lblLoading.Click += KillMe;
 
             var t = new Timer {Interval = 200};

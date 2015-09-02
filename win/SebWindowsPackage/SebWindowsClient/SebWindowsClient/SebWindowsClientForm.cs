@@ -500,7 +500,7 @@ namespace SebWindowsClient
 							if(fullPath != null)
 							{
 								var x = toolStripButton.Height;
-								processImage = Iconextractor.ExtractHighResIconImage(fullPath, taskbarHeight - 8);
+								processImage = IconExtractor.ExtractHighResIconImage(fullPath, taskbarHeight - 8);
 								if(processImage == null)
 								{
 									processIcon = GetApplicationIcon(fullPath);
