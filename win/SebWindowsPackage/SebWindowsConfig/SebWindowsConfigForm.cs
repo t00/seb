@@ -350,6 +350,7 @@ namespace SebWindowsConfig
 			checkBoxShowTaskBar.Checked = (Boolean)SebInstance.Settings.settingsCurrent[SebSettings.KeyShowTaskBar];
 			comboBoxTaskBarHeight.Text = (String)SebInstance.Settings.settingsCurrent[SebSettings.KeyTaskBarHeight].ToString();
 			radioButtonUseZoomPage.Checked = ((int)SebInstance.Settings.settingsCurrent[SebSettings.KeyZoomMode] == 0);
+			checkBoxEnableTouchExit.Checked = (Boolean)SebInstance.Settings.settingsCurrent[SebSettings.KeyEnableTouchExit];
 			radioButtonUseZoomText.Checked = ((int)SebInstance.Settings.settingsCurrent[SebSettings.KeyZoomMode] == 1);
 
 			// Group "Browser"
@@ -1377,6 +1378,8 @@ namespace SebWindowsConfig
 		private void radioButtonUseBrowserWindow_CheckedChanged(object sender, EventArgs e)
 		{
 			if(radioButtonUseBrowserWindow.Checked == true)
+                checkBoxEnableTouchExit.Enabled = false;
+                checkBoxEnableTouchExit.Checked = false;
 			{
 				groupBoxMainBrowserWindow.Enabled = true;
 				SebInstance.Settings.settingsCurrent[SebSettings.KeyBrowserViewMode] = 0;
@@ -1388,6 +1391,8 @@ namespace SebWindowsConfig
 		private void radioButtonUseFullScreenMode_CheckedChanged(object sender, EventArgs e)
 		{
 			if(radioButtonUseFullScreenMode.Checked == true)
+                checkBoxEnableTouchExit.Enabled = false;
+                checkBoxEnableTouchExit.Checked = false;
 			{
 				groupBoxMainBrowserWindow.Enabled = false;
 				SebInstance.Settings.settingsCurrent[SebSettings.KeyBrowserViewMode] = 1;
@@ -1410,6 +1415,10 @@ namespace SebWindowsConfig
 				SebInstance.Settings.settingsCurrent[SebSettings.KeyNewBrowserWindowByLinkWidth] = "100%";
 				SebInstance.Settings.settingsCurrent[SebSettings.KeyNewBrowserWindowByLinkHeight] = "100%";
 				SebInstance.Settings.settingsCurrent[SebSettings.KeyBrowserViewMode] = 1;
+                if ((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeyTouchOptimized] == false)
+                {
+                    checkBoxEnableTouchExit.Checked = true;
+                }
 				SebInstance.Settings.settingsCurrent[SebSettings.KeyTouchOptimized] = true;
 				SebInstance.Settings.settingsCurrent[SebSettings.KeyBrowserScreenKeyboard] = true;
 			}
@@ -3728,6 +3737,11 @@ namespace SebWindowsConfig
 			SebInstance.Settings.settingsCurrent[SebSettings.KeyEnablePrintScreen] = checkBoxEnableScreenCapture.Checked;
 			checkBoxEnablePrintScreen.Checked = checkBoxEnableScreenCapture.Checked;
 		}
+
+        private void checkBoxEnableTouchExit_CheckedChanged(object sender, EventArgs e)
+        {
+            SebInstance.Settings.settingsCurrent[SebSettings.KeyEnableTouchExit] = checkBoxEnableTouchExit.Checked;
+        }
 
 	} // end of   class     SebWindowsConfigForm
 }     // end of   namespace SebWindowsConfig

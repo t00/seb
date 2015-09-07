@@ -109,6 +109,7 @@ namespace SebShared
 		public const String KeyShowTime = "showTime";
 		public const String KeyShowInputLanguage = "showInputLanguage";
 		public const String KeyAllowDictionaryLookup = "allowDictionaryLookup";
+        public const String KeyEnableTouchExit = "enabletouchexit";
 
 		//Touch optimized settings
 		public const String KeyBrowserScreenKeyboard = "browserScreenKeyboard";
@@ -516,6 +517,7 @@ namespace SebShared
 			settingsDefault.Add(KeySebConfigPurpose, 0);
 			settingsDefault.Add(KeySebStoreConfig, true);
 			settingsDefault.Add(KeyAllowPreferencesWindow, true);
+            settingsDefault.Add(KeyEnableTouchExit, false);
 			//SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
 
 			// CryptoIdentity is stored additionally
@@ -1440,7 +1442,7 @@ namespace SebShared
 			CreateDefaultAndCurrentSettingsFromScratch();
 			settingsCurrent.Clear();
 
-			// If we got new settings, we use them (othervise use defaults)
+            // If we got new settings, we use them (otherwise use defaults)
 			if(settingsDict != null) settingsCurrent = settingsDict;
 
 			// Fill up the Dictionary read from file with default settings, where necessary

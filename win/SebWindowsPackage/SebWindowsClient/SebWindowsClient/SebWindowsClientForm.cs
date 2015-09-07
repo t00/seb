@@ -110,7 +110,7 @@ namespace SebWindowsClient
 		private static IntPtr processWindowHandle = IntPtr.Zero;
 		private delegate bool EnumThreadProc(IntPtr hwnd, IntPtr lParam);
 
-		private int taskbarHeight;
+        private int taskbarHeight = 0;
 
 		//private SebApplicationChooserForm SebApplicationChooser = null;
 
@@ -265,13 +265,10 @@ namespace SebWindowsClient
 				//        oW.Key.MaximizeWindow();
 				//    }
 				//}
-
-				return;
 			}
 			catch(Exception ex)
 			{
 				Logger.AddError("An error occurred starting XULRunner, path: " + xulRunnerPath + " desktop name: " + desktopName + " ", this, ex, ex.Message);
-				return;
 			}
 		}
 
@@ -440,7 +437,7 @@ namespace SebWindowsClient
 				else
 				{
 					ExitApplication();
-					return;
+                    return;
 				}
 			}
 
@@ -1038,14 +1035,14 @@ namespace SebWindowsClient
 			//this.BackColor = Color.Red;
 
 			this.TopMost = true;
-			PlaceFormOnDesktop(false);
+			PlaceFormOnDesktop(false, true);
 
 			return true;
 		}
 
-		private void PlaceFormOnDesktop(bool KeyboardShown)
+		private void PlaceFormOnDesktop(bool KeyboardShown, bool isInitial = false)
 		{
-			if(KeyboardShown && TapTipHandler.IsKeyboardDocked())
+			if(KeyboardShown && TapTipHandler.IsKeyboardDocked() && (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
             {
 				this.Hide();
                 var keyboardHeight = TapTipHandler.GetKeyboardWindowHandle().GetWindowHeight();
@@ -1068,10 +1065,25 @@ namespace SebWindowsClient
 				this.Width = width;
 				this.Location = new Point(x, y);
 				this.Show();
-                var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
-                if (topWindow.Value != null)
+
+                if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
                 {
-                    topWindow.Key.AdaptWindowToWorkingArea(taskbarHeight);
+                    var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
+                    if (topWindow.Value != null)
+                    {
+                        if (isInitial)
+                        {
+                            //Maximize the XulRunner Window
+                            foreach (var oW in xulRunner.GetOpenWindows())
+                            {
+                                oW.Key.MaximizeWindow();
+                            }
+                        }
+                        else
+                        {
+                            topWindow.Key.AdaptWindowToWorkingArea(taskbarHeight);
+                        }
+                    }
                 }
             }            
 
@@ -1281,8 +1293,13 @@ namespace SebWindowsClient
 			}
 		}
 
+		private bool closeDialogConfirmationIsOpen;
 		public void ShowCloseDialogFormConfirmation()
 		{
+            if (closeDialogConfirmationIsOpen)
+                return;
+
+            closeDialogConfirmationIsOpen = true;
 			SebWindowsClientMain.SEBToForeground();
 			this.TopMost = true;
 			if(SebMessageBox.Show(SEBUIStrings.confirmQuitting, SEBUIStrings.confirmQuittingQuestion, MessageBoxImage.Question, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
@@ -1290,6 +1307,10 @@ namespace SebWindowsClient
 				//SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
 				ExitApplication();
 			}
+            else
+            {
+                closeDialogConfirmationIsOpen = false;
+            }
 		}
 
 		/// ----------------------------------------------------------------------------------------
@@ -1323,15 +1344,7 @@ namespace SebWindowsClient
 				//this.BackColor = Color.Transparent;
 				this.Location = new System.Drawing.Point(-50000, -50000);
 
-				//this.Size = new System.Drawing.Size(1, 1);
-
-				//if (this.Controls.Contains(this.taskbarToolStrip))
-				//{
-				//    this.Controls.Remove(this.taskbarToolStrip);
-				//    taskbarToolStrip.Hide();
-				//    Logger.AddInformation("Tried to remove SEB taskbar from form.", null, null);
-				//    if (this.Controls.Contains(this.taskbarToolStrip)) Logger.AddInformation("Removing SEB taskbar from form didn't work.", null, null);
-				//}
+                PlaceFormOnDesktop(false, true);
 			}
 
 			// Check if VM and SEB Windows Service available and required

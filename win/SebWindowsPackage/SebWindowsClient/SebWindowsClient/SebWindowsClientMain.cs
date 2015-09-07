@@ -139,6 +139,10 @@ namespace SebWindowsClient
 					SebWindowsClientForm.SEBToForeground();
 					OpenExam(false, true);
 				}
+				else
+				{
+				    Logger.AddError("SingleInstanceController command line load failed", null, null);
+				}
 			});
 			Instance.Run();
 		}

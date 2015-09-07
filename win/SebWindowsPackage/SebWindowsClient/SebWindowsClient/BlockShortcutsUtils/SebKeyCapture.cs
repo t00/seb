@@ -586,9 +586,10 @@ namespace SebWindowsClient.BlockShortcutsUtils
             // If the nCode is non-negative, filter the key stroke.
             if (nCode >= 0)
             {
-                if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+                if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized) &&
+				    (bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyEnableTouchExit))
                 {
-                    TextTouchExitSequence(System.Windows.Forms.Cursor.Position);
+                    TestTouchExitSequence(System.Windows.Forms.Cursor.Position);
                 }
                 //KBDLLHOOKSTRUCT KeyInfo =
                 //  (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lp, typeof(KBDLLHOOKSTRUCT));
@@ -604,7 +605,7 @@ namespace SebWindowsClient.BlockShortcutsUtils
 
         private static DateTime TouchExitSequenceStartedTime;
         private static int TouchExitSequenceStartedX;
-        private static void TextTouchExitSequence(Point cursorsPosition)
+        private static void TestTouchExitSequence(Point cursorsPosition)
         {
             if (cursorsPosition.Y == 0)
             {
