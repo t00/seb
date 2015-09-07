@@ -694,11 +694,6 @@ namespace SebWindowsClient
 			}
 
 			SEBToForeground();
-			//System.Diagnostics.Process oskProcess = null;
-			// create the process.
-			//oskProcess = SEBDesktopController.CreateProcess("C:\Program Files\Common Files\Microsoft Shared\ink\TabTip.exe", SEBClientInfo.DesktopName);
-			//SEBDesktopController.CreateProcess("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe", SEBClientInfo.DesktopName);
-			//oskProcess = Process.Start("C:\\Program Files\\Common Files\\Microsoft Shared\\ink\\TabTip.exe");
 		}
 
 		/// ----------------------------------------------------------------------------------------
@@ -1037,6 +1032,8 @@ namespace SebWindowsClient
 				taskbarHeight = (int)(sebTaskBarHeight * scaleFactor);
 				this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight - 8);
 			}
+
+            Logger.AddInformation("Taskbarheight from settings: " +sebTaskBarHeight.ToString() + " Current taskbar height: " + taskbarHeight.ToString());
 
 			//Modify Working Area
 			SEBWorkingAreaHandler.SetTaskBarSpaceHeight(taskbarHeight);

@@ -64,13 +64,15 @@ namespace SebWindowsClient.UI
 		{
 			try
 			{
-				if(!SEBWindowHandler.AllowedExecutables.Contains("taptip.exe"))
+				if(!SEBWindowHandler.AllowedExecutables.Contains("tabtip.exe"))
                     SEBWindowHandler.AllowedExecutables.Add("tabtip.exe");
 
 				if(!IsKeyboardVisible())
 				{
-					string progFiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
-					string onScreenKeyboardPath = Path.Combine(progFiles, "TabTip.exe");
+                    string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                    //string progfiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
+                    string inkDir = @"Common Files\Microsoft Shared\ink";
+                    string onScreenKeyboardPath = Path.Combine(programFiles, inkDir, "TabTip.exe");
 					Process.Start(onScreenKeyboardPath);
 					if(OnKeyboardStateChanged != null)
 					{
