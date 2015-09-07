@@ -238,6 +238,9 @@ namespace SebWindowsClient
                 //this.Height = (int)Math.Round(SEBClientInfo.appChooserHeight * scaleFactor);
             }
 
+            int formHeight = this.Height;
+            listApplications.Height = formHeight - 24;
+
             this.CenterToScreen();
 
             // Re-enable the display.
@@ -350,7 +353,8 @@ namespace SebWindowsClient
             //else
             //    SetForegroundWindow(hWnd);
         }
-         /// ----------------------------------------------------------------------------------------
+
+        /// ----------------------------------------------------------------------------------------
         /// <summary>
         /// Set selected Process window in foreground.
         /// </summary>

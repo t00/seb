@@ -36,10 +36,10 @@ namespace SebWindowsClient.UI
             if(!_originalWorkingAreaSet)
             {
                 _originalWorkingArea.Bottom = Screen.PrimaryScreen.WorkingArea.Bottom;
-            _originalWorkingArea.Left = Screen.PrimaryScreen.WorkingArea.Left;
-            _originalWorkingArea.Right = Screen.PrimaryScreen.WorkingArea.Right;
-            _originalWorkingArea.Top = Screen.PrimaryScreen.WorkingArea.Top;
-            _originalWorkingAreaSet = true;
+                _originalWorkingArea.Left = Screen.PrimaryScreen.WorkingArea.Left;
+                _originalWorkingArea.Right = Screen.PrimaryScreen.WorkingArea.Right;
+                _originalWorkingArea.Top = Screen.PrimaryScreen.WorkingArea.Top;
+                _originalWorkingAreaSet = true;
             }
             
 

@@ -146,15 +146,8 @@ namespace SebWindowsClient
 
 			SEBXULRunnerWebSocketServer.OnXulRunnerCloseRequested += OnXULRunnerShutdDownRequested;
 			SEBXULRunnerWebSocketServer.OnXulRunnerQuitLinkClicked += OnXulRunnerQuitLinkPressed;
-			Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (x, y) =>
-			{
-				//Maximize the XulRunner Window
-				foreach(var oW in xulRunner.GetOpenWindows())
-				{
-					oW.Key.MaximizeWindow();
-				}
-				SetFormOnDesktop();
-			};
+			Microsoft.Win32.SystemEvents.DisplaySettingsChanged += (x, y) => PlaceFormOnDesktop(TapTipHandler.IsKeyboardVisible());
+
 			try
 			{
 				SEBProcessHandler.PreventSleep();
@@ -1056,7 +1049,12 @@ namespace SebWindowsClient
             {
 				this.Hide();
                 var keyboardHeight = TapTipHandler.GetKeyboardWindowHandle().GetWindowHeight();
-                SEBWorkingAreaHandler.SetTaskBarSpaceHeight((int)(keyboardHeight * scaleFactor));
+                SEBWorkingAreaHandler.SetTaskBarSpaceHeight(keyboardHeight);
+                var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
+                if (topWindow.Value != null)
+                {
+                    topWindow.Key.AdaptWindowToWorkingArea(keyboardHeight);
+                }
             }
 			else
 			{
@@ -1070,13 +1068,12 @@ namespace SebWindowsClient
 				this.Width = width;
 				this.Location = new Point(x, y);
 				this.Show();
-			}
-
-            var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
-            if (topWindow.Value != null)
-            {
-                topWindow.Key.RestoreWindow();
-            }
+                var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
+                if (topWindow.Value != null)
+                {
+                    topWindow.Key.AdaptWindowToWorkingArea(taskbarHeight);
+                }
+            }            
 
 			SEBXULRunnerWebSocketServer.SendDisplaySettingsChanged();
 		}

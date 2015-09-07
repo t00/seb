@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using SebShared.DiagnosticUtils;
 
+using System.Windows.Forms;
 namespace SebWindowsClient.ProcessUtils
 {
     /// <summary>
@@ -34,7 +35,8 @@ namespace SebWindowsClient.ProcessUtils
             SW_SHOWMAXIMIZED = 3,
             SW_SHOWNOACTIVATE = 4,
             SW_RESTORE = 9,
-            SW_SHOWDEFAULT = 10
+            SW_SHOWDEFAULT = 10,
+            SW_MAX = 11
         }
 
         #endregion
@@ -224,11 +226,11 @@ namespace SebWindowsClient.ProcessUtils
         /// <summary>
         /// Restore the window
         /// </summary>
-        /// <param name="handle">The handle</param>
-        public static void RestoreWindow(this IntPtr windowHandle)
+        /// <param name="windowHandle">The handle</param>
+        public static void AdaptWindowToWorkingArea(this IntPtr windowHandle, int taskbarHeight)
         {
-
             EditWindowByHandle(windowHandle, ShowWindowCommand.SW_SHOWNORMAL);
+            MoveWindow(windowHandle, 0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height - taskbarHeight, true);
             EditWindowByHandle(windowHandle, ShowWindowCommand.SW_SHOWMAXIMIZED);
         }
 
@@ -439,8 +441,14 @@ namespace SebWindowsClient.ProcessUtils
 
         #region DLL Imports
 
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         [DllImport("user32.dll")]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
