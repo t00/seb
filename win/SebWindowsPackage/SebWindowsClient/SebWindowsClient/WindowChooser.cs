@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SebShared;
 using SebWindowsClient.ConfigurationUtils;
 using SebWindowsClient.ProcessUtils;
+using SebWindowsClient.Properties;
 
 namespace SebWindowsClient
 {
@@ -24,23 +25,35 @@ namespace SebWindowsClient
         /// <param name="top">The positiop where the icon on the taskbar is placed</param>
         public WindowChooser(Process process, int left, int top)
         {
-            this.Left = left;
-            this.Top = top - 75;
+	        this.Left = 0;
             InitializeComponent();
             this.appList.Click += ShowWindow;
+	
+	        int heightOfAppChooserList = (int)(82 * SEBClientInfo.scaleFactor);
+	        int heightOfIcons = (int)(32 * SEBClientInfo.scaleFactor);
+	        int heightOfCloseIcon = (int)(24 * SEBClientInfo.scaleFactor);
+	
             try
             {
                 _process = process;
                 var appImages = new ImageList();
+	            ImageList closeImages = null;
                 if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
                 {
-                    appImages.ImageSize = new Size(48, 48);
-                    this.Height = this.Height + 16;
-                    this.Top = this.Top - 10;
+	                  heightOfIcons = (int)(48*SEBClientInfo.scaleFactor);
+	
+	                  appImages.ImageSize = new Size(heightOfIcons, heightOfIcons);
+	                  closeImages = new ImageList();
+	                  closeImages.ImageSize = new Size(heightOfIcons, heightOfCloseIcon);
+	                  closeImages.ColorDepth = ColorDepth.Depth32Bit;
+	                  this.closeListView.Click += CloseWindow;
+	                  this.appList.Height = heightOfAppChooserList;
+	                  this.closeListView.Height = heightOfCloseIcon + 12;
                 }
                 else
                 {
-                    appImages.ImageSize = new Size(32, 32);
+	                  appImages.ImageSize = new Size(heightOfIcons, heightOfIcons);
+	                  this.appList.Height = heightOfAppChooserList;
                 }
                 appImages.ColorDepth = ColorDepth.Depth32Bit;
 
@@ -64,12 +77,27 @@ namespace SebWindowsClient
                 {
                     Image image = GetSmallWindowIcon(openWindow.Key);
                     appImages.Images.Add(image);
-                    appList.Items.Add(openWindow.Value, index);
+                    var appItem = new ListViewItem(openWindow.Value, index);
+                    appList.Items.Add(appItem);
+                    if (closeImages != null)
+                    {
+                        closeImages.Images.Add(Resources.closewindow);
+                        var closeItem = new ListViewItem("close", index);
+                        closeListView.Items.Add(closeItem);
+                    }
+
                     index++;
                 }
 
+                if (closeImages != null)
+                {
+                    this.closeListView.View = View.LargeIcon;
+                    this.closeListView.LargeImageList = closeImages;
+                }
                 this.appList.View = View.LargeIcon;
                 this.appList.LargeImageList = appImages;
+                this.Height = 6 + appList.Size.Height + (closeImages != null ? heightOfCloseIcon : 0) + 6;
+                this.Top = top - this.Height;
             }
             catch (Exception)
             {
@@ -77,14 +105,14 @@ namespace SebWindowsClient
             }
 
             //Calculate the width
-            this.Width = Math.Min(appList.Items.Count*200,Screen.PrimaryScreen.Bounds.Width);
+            this.Width = Screen.PrimaryScreen.Bounds.Width;
             this.Show();
             this.appList.Focus();
 
-            //Hide it after 3 secs
+            //Hide it after 4 secs
             var t = new Timer();
             t.Tick += CloseIt;
-            t.Interval = 3000;
+            t.Interval = 4000;
             t.Start();
         }
 
@@ -104,6 +132,13 @@ namespace SebWindowsClient
         {
             var selectedIndex = appList.SelectedIndices[0];
             ShowWindow(_openedWindows[selectedIndex].Key);
+        }
+
+        private void CloseWindow(object sender, EventArgs e)
+        {
+            var selectedIndex = closeListView.SelectedIndices[0];
+            _openedWindows[selectedIndex].Key.CloseWindow();
+            this.Close();
         }
 
         /// <summary>

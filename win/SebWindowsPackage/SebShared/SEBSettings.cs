@@ -109,7 +109,7 @@ namespace SebShared
 		public const String KeyShowTime = "showTime";
 		public const String KeyShowInputLanguage = "showInputLanguage";
 		public const String KeyAllowDictionaryLookup = "allowDictionaryLookup";
-        public const String KeyEnableTouchExit = "enabletouchexit";
+        public const String KeyEnableTouchExit = "enableTouchExit";
 
 		//Touch optimized settings
 		public const String KeyBrowserScreenKeyboard = "browserScreenKeyboard";
@@ -517,7 +517,7 @@ namespace SebShared
 			settingsDefault.Add(KeySebConfigPurpose, 0);
 			settingsDefault.Add(KeySebStoreConfig, true);
 			settingsDefault.Add(KeyAllowPreferencesWindow, true);
-            settingsDefault.Add(KeyEnableTouchExit, false);
+            
 			//SEBSettings.settingsDefault.Add(SEBSettings.KeyHashedSettingsPassword , "");
 
 			// CryptoIdentity is stored additionally
@@ -544,6 +544,7 @@ namespace SebShared
 			settingsDefault.Add(KeyAllowDictionaryLookup, false);
 			settingsDefault.Add(KeyShowTime, true);
 			settingsDefault.Add(KeyShowInputLanguage, true);
+			settingsDefault.Add(KeyEnableTouchExit, false);
 
 			//Touch Settings
 			settingsDefault.Add(KeyBrowserScreenKeyboard, false);

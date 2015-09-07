@@ -194,6 +194,7 @@ namespace SebWindowsClient
             this.listApplications.Clear();
             this.listApplications.View = View.LargeIcon;
             this.listApplications.LargeImageList = ilApplicationIcons;
+            this.listApplications.Scrollable = false;
 
             //listApplications.SmallImageList = imagesSmall;
             //listApplications.LargeImageList = imagesLarge;

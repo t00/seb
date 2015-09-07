@@ -302,6 +302,13 @@ namespace SebWindowsClient.ProcessUtils
             }
         }
 
+
+        const int WM_CLOSE = 0x0010;
+        public static void CloseWindow(this IntPtr windowHandle)
+        {
+            SendMessage(windowHandle, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+        }
+
         private static WINDOWPLACEMENT GetPlacement(this IntPtr hwnd)
         {
             var placement = new WINDOWPLACEMENT();

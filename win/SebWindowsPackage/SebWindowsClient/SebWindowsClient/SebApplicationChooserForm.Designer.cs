@@ -42,7 +42,7 @@
             this.listApplications.Location = new System.Drawing.Point(18, 17);
             this.listApplications.MultiSelect = false;
             this.listApplications.Name = "listApplications";
-            this.listApplications.Size = new System.Drawing.Size(66, 108);
+            this.listApplications.Size = new System.Drawing.Size(66, 102);
             this.listApplications.TabIndex = 0;
             this.listApplications.UseCompatibleStateImageBehavior = false;
             // 
@@ -52,7 +52,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(94, 130);
+            this.ClientSize = new System.Drawing.Size(94, 124);
             this.ControlBox = false;
             this.Controls.Add(this.listApplications);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
