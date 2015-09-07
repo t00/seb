@@ -107,6 +107,7 @@ namespace SebWindowsClient.ProcessUtils
                             {
                                 Logger.AddInformation("Closing XulRunner over Socket");
                                 SEBXULRunnerWebSocketServer.SendAllowCloseToXulRunner();
+                                Thread.Sleep(500);
                             }
 
                             string name = "processHasExitedTrue";
