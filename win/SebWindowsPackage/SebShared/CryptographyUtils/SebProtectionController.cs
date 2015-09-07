@@ -76,16 +76,38 @@ namespace SebShared.CryptographyUtils
 			unknown
 		};
 
+        /// ------------------------------------------------------------------------------------------
+        /// <summary>
+        ///  Get array of certificate references and the according names from both certificate stores.
+        /// </summary>
+        /// ------------------------------------------------------------------------------------------
+        public static ArrayList GetCertificatesAndNames(ref ArrayList certificateNames)
+        {
+            ArrayList certificates = new ArrayList();
+
+            // First search the certificate store for the current user
+            X509Store store = new X509Store(StoreLocation.CurrentUser);
+            certificates = GetCertificatesAndNamesFromStore(ref certificateNames, store);
+
+            // If the certificate wasn't found there, search the store for the local machine
+            ArrayList certificateNamesLocalMachine = new ArrayList();
+            store = new X509Store(StoreLocation.LocalMachine);
+            certificates.AddRange(GetCertificatesAndNamesFromStore(ref certificateNamesLocalMachine, store));
+            certificateNames.AddRange(certificateNamesLocalMachine);
+
+            return certificates;
+        }
+
+
 		/// ----------------------------------------------------------------------------------------
 		/// <summary>
-		///  Get array of certificate references and the according names from the certificate store.
+        ///  Helper method: Get array of certificate references and the according names from the passed certificate store.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static ArrayList GetCertificatesAndNames(ref ArrayList certificateNames)
+        public static ArrayList GetCertificatesAndNamesFromStore(ref ArrayList certificateNames, X509Store store)
 		{
 			ArrayList certificates = new ArrayList();
 
-			X509Store store = new X509Store(StoreLocation.CurrentUser);
 			store.Open(OpenFlags.ReadOnly);
 
 			foreach(X509Certificate2 x509Certificate in store.Certificates)
@@ -168,14 +190,36 @@ namespace SebShared.CryptographyUtils
 
 		/// ----------------------------------------------------------------------------------------
 		/// <summary>
-		///  Get certificate from store.
+        ///  Get certificate from both stores.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
 		public static X509Certificate2 GetCertificateFromStore(byte[] publicKeyHash)
 		{
 			X509Certificate2 sebCertificate = null;
 
+            // First search the certificate store for the current user
 			X509Store store = new X509Store(StoreLocation.CurrentUser);
+            sebCertificate = GetCertificateFromPassedStore(publicKeyHash, store);
+
+            // If the certificate wasn't found there, search the store for the local machine
+            if (sebCertificate == null)
+            {
+                store = new X509Store(StoreLocation.LocalMachine);
+                sebCertificate = GetCertificateFromPassedStore(publicKeyHash, store);
+            }
+
+            return sebCertificate;
+        }
+
+        /// ----------------------------------------------------------------------------------------
+        /// <summary>
+        ///  Helper method: Search passed store for certificate with passed public key hash.
+        /// </summary>
+        /// ----------------------------------------------------------------------------------------
+        public static X509Certificate2 GetCertificateFromPassedStore(byte[] publicKeyHash, X509Store store)
+        {
+            X509Certificate2 sebCertificate = null;
+
 			store.Open(OpenFlags.ReadOnly);
 
 			foreach(X509Certificate2 x509Certificate in store.Certificates)
