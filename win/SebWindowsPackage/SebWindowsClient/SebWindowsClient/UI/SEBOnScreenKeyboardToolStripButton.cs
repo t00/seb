@@ -85,11 +85,12 @@ namespace SebWindowsClient.UI
 						{
 							if(!IsKeyboardVisible())
 							{
-								OnKeyboardStateChanged(false);
 								t.Stop();
+								OnKeyboardStateChanged(false);
 							}
 						};
 						t.Start();
+						OnKeyboardStateChanged(true);
 					}
 				}
 				OnKeyboardStateChanged(true);
@@ -105,11 +106,11 @@ namespace SebWindowsClient.UI
 				uint WM_SYSCOMMAND = 274;
 				IntPtr SC_CLOSE = new IntPtr(61536);
 				PostMessage(GetKeyboardWindowHandle(), WM_SYSCOMMAND, SC_CLOSE, (IntPtr)0);
-			}
 
-			if(OnKeyboardStateChanged != null)
-			{
-				OnKeyboardStateChanged(false);
+				if(OnKeyboardStateChanged != null)
+				{
+					OnKeyboardStateChanged(false);
+				}
 			}
 		}
 
