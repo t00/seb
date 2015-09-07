@@ -10,6 +10,7 @@ using SebShared.Properties;
 using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.Properties;
 using SebWindowsClient.XULRunnerCommunication;
+using SebWindowsClient.ConfigurationUtils;
 
 namespace SebWindowsClient.UI
 {
@@ -62,6 +63,10 @@ namespace SebWindowsClient.UI
 
 		public static void ShowKeyboard()
 		{
+            if (!(bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+            {
+			    return;
+			}
 			try
 			{
 				if(!SEBWindowHandler.AllowedExecutables.Contains("tabtip.exe"))

@@ -215,7 +215,10 @@ namespace SebWindowsClient
 			try
 			{
 				// Create JSON object with XULRunner parameters to pass to xulrunner.exe as base64 string
-				var XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(SebInstance.Settings.settingsCurrent);
+                DictObj currentSettings = SebInstance.Settings.settingsCurrent;
+                var xulRunnerSettings = currentSettings.ToDictionary(entry => entry.Key,
+                                               entry => entry.Value);
+                string XULRunnerParameters = SEBXulRunnerSettings.XULRunnerConfigDictionarySerialize(xulRunnerSettings);
 				// Create the path to xulrunner.exe plus all arguments
 				var xulRunnerPathBuilder = new StringBuilder(SEBClientInfo.XulRunnerExePath);
 				// Create all arguments, including user defined
@@ -1024,8 +1027,6 @@ namespace SebWindowsClient
 			{
 				taskbarHeight = (int)(sebTaskBarHeight * 1.7 * scaleFactor);
 				this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight - 8);
-				// It's wrong to change current settings here, because this also changes the browser exam key!
-				//SEBSettings.settingsCurrent[SEBSettings.KeyTaskBarHeight] = taskbarHeight;
 			}
 			else
 			{
@@ -1259,6 +1260,7 @@ namespace SebWindowsClient
 				if(String.IsNullOrEmpty(hashedQuitPassword) == true)
 				// If there is no quit password set, we just ask user to confirm quitting
 				{
+                    SetForegroundWindow(this.Handle);
 					ShowCloseDialogFormConfirmation();
 				}
 				else
