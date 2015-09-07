@@ -18,29 +18,57 @@ namespace SebWindowsClient
 			InitializeComponent();
 			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
 			{
-				this.Font = new Font(FontFamily.GenericSansSerif, 12);
-				this.lblQuitPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.lblQuitPassword.Width / 2);
-				IntPtr hwnd = this.Handle;
-				this.FormBorderStyle = FormBorderStyle.None;
-				this.Top = 0;
-				this.Left = 0;
-				this.Width = Screen.PrimaryScreen.Bounds.Width;
-				this.Height = Screen.PrimaryScreen.Bounds.Height;
-				this.btnCancel.BackColor = Color.Red;
-				this.btnCancel.FlatStyle = FlatStyle.Flat;
-				this.btnCancel.Height = 35;
-				this.btnCancel.Width = 120;
-				this.btnCancel.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.btnCancel.Width / 2) + 100;
-				this.btnOk.BackColor = Color.Green;
-				this.btnOk.FlatStyle = FlatStyle.Flat;
-				this.btnOk.Height = 35;
-				this.btnOk.Width = 120;
-				this.btnOk.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.btnOk.Width / 2) - 100;
-				this.txtQuitPassword.Width = 400;
-				this.txtQuitPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.txtQuitPassword.Width / 2);
-				this.txtQuitPassword.Height = 30;
+                InitializeForTouch();
 			}
 		}
+
+        public void InitializeForTouch()
+        {
+            this.Font = new Font(FontFamily.GenericSansSerif, 12);
+            this.lblQuitPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.lblQuitPassword.Width / 2);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Top = 0;
+            this.Left = 0;
+            this.Width = Screen.PrimaryScreen.Bounds.Width;
+            this.Height = Screen.PrimaryScreen.Bounds.Height;
+            this.btnCancel.BackColor = Color.Red;
+            this.btnCancel.FlatStyle = FlatStyle.Flat;
+            this.btnCancel.Height = 35;
+            this.btnCancel.Width = 120;
+            this.btnCancel.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.btnCancel.Width / 2) + 100;
+            this.btnOk.BackColor = Color.Green;
+            this.btnOk.FlatStyle = FlatStyle.Flat;
+            this.btnOk.Height = 35;
+            this.btnOk.Width = 120;
+            this.btnOk.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.btnOk.Width / 2) - 100;
+            this.txtQuitPassword.Width = 400;
+            this.txtQuitPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.txtQuitPassword.Width / 2);
+            this.txtQuitPassword.Height = 30;
+        }
+
+        public void InitializeForNonTouch()
+        {
+            this.Font = DefaultFont;
+            this.lblQuitPassword.Left = 16;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.Width = 483;
+            this.Height = 190;
+            this.Top = Screen.PrimaryScreen.Bounds.Height/2 - this.Height / 2;
+            this.Left = Screen.PrimaryScreen.Bounds.Width/2 - this.Width/2;
+            this.btnCancel.BackColor = SystemColors.Control;
+            this.btnCancel.FlatStyle = FlatStyle.Standard;
+            this.btnCancel.Height = 28;
+            this.btnCancel.Width = 100;
+            this.btnCancel.Left = 240;
+            this.btnOk.BackColor = SystemColors.Control;
+            this.btnOk.FlatStyle = FlatStyle.Standard;
+            this.btnOk.Height = 28;
+            this.btnOk.Width = 100;
+            this.btnOk.Left = 125;
+            this.txtQuitPassword.Width = 432;
+            this.txtQuitPassword.Left = 16;
+            this.txtQuitPassword.Height = 22;
+        }
 
 		private void btnCancel_Click(object sender, EventArgs e)
 		{

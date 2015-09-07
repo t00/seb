@@ -1285,6 +1285,16 @@ namespace SebWindowsClient
 				else
 				{
 					SetForegroundWindow(this.Handle);
+                    if ((bool) SebInstance.Settings.settingsCurrent[SebSettings.KeyTouchOptimized])
+                    {
+                        sebCloseDialogForm.InitializeForTouch();
+                    }
+                    else
+                    {
+                        sebCloseDialogForm.InitializeForNonTouch();
+                    }
+                    
+
 					// Show testDialog as a modal dialog and determine if DialogResult = OK.
 					sebCloseDialogForm.Visible = true;
 					sebCloseDialogForm.Activate();
