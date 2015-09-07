@@ -1022,6 +1022,7 @@ namespace SebWindowsClient
 			}
 			float scaleFactor = dpiX / 96;
 			SEBClientInfo.scaleFactor = scaleFactor;
+            Logger.AddInformation("Current display DPI setting: " + dpiX.ToString() + " and scale factor: " +scaleFactor.ToString());
 
 			float sebTaskBarHeight = (int)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTaskBarHeight);
 			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)

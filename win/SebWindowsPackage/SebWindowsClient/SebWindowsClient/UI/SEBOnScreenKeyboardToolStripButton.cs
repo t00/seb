@@ -65,7 +65,7 @@ namespace SebWindowsClient.UI
 			try
 			{
 				if(!SEBWindowHandler.AllowedExecutables.Contains("taptip.exe"))
-					SEBWindowHandler.AllowedExecutables.Add("tabtip.ex");
+                    SEBWindowHandler.AllowedExecutables.Add("tabtip.exe");
 
 				if(!IsKeyboardVisible())
 				{

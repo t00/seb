@@ -144,6 +144,7 @@ namespace SebWindowsClient.ConfigurationUtils
 				var binDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
                 var browserExamKey = SebProtectionController.ComputeBrowserExamKey(SebInstance.Settings, binDir);
                 xulRunnerSettings[SebSettings.KeyBrowserExamKey] = browserExamKey;
+                xulRunnerSettings[SebSettings.KeyBrowserURLSalt] = true;
             }
 
             // Eventually update setting 
@@ -228,7 +229,7 @@ namespace SebWindowsClient.ConfigurationUtils
             xulRunnerSettings[SebSettings.KeyBrowserUserAgent] += " " + SebConstants.BROWSER_USERAGENT_SEB + " " + Application.ProductVersion;
 
             // Set onscreen keyboard settings flag when touch optimized is enabled
-            xulRunnerSettings[SebSettings.KeyBrowserScreenKeyboard] = xulRunnerSettings[SebSettings.KeyTouchOptimized];
+            xulRunnerSettings[SebSettings.KeyBrowserScreenKeyboard] = (bool)xulRunnerSettings[SebSettings.KeyTouchOptimized];
 
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();

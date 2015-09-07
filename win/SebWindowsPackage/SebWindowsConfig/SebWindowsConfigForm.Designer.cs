@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SebWindowsConfigForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.openFileDialogSebConfigFile = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogSebConfigFile = new System.Windows.Forms.SaveFileDialog();
             this.imageListTabIcons = new System.Windows.Forms.ImageList(this.components);
@@ -238,7 +238,6 @@
             this.checkBoxAllowDownUploads = new System.Windows.Forms.CheckBox();
             this.tabPageBrowser = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBoxUserAgentMacCustom = new System.Windows.Forms.TextBox();
             this.radioButtonUserAgentMacDefault = new System.Windows.Forms.RadioButton();
             this.radioButtonUserAgentMacCustom = new System.Windows.Forms.RadioButton();
@@ -246,7 +245,6 @@
             this.textBoxUserAgentTouchModeIPad = new System.Windows.Forms.TextBox();
             this.radioButtonUserAgentTouchIPad = new System.Windows.Forms.RadioButton();
             this.textBoxUserAgentTouchModeDefault = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBoxUserAgentTouchModeCustom = new System.Windows.Forms.TextBox();
             this.radioButtonUserAgentTouchDefault = new System.Windows.Forms.RadioButton();
             this.radioButtonUserAgentTouchCustom = new System.Windows.Forms.RadioButton();
@@ -1514,8 +1512,8 @@
             // 
             // Type
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
-            this.Type.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            this.Type.DefaultCellStyle = dataGridViewCellStyle1;
             this.Type.HeaderText = "Type";
             this.Type.Name = "Type";
             this.Type.ReadOnly = true;
@@ -3051,31 +3049,15 @@
             // 
             // groupBox14
             // 
-            this.groupBox14.Controls.Add(this.textBox8);
             this.groupBox14.Controls.Add(this.textBoxUserAgentMacCustom);
             this.groupBox14.Controls.Add(this.radioButtonUserAgentMacDefault);
             this.groupBox14.Controls.Add(this.radioButtonUserAgentMacCustom);
-            this.groupBox14.Location = new System.Drawing.Point(542, 288);
+            this.groupBox14.Location = new System.Drawing.Point(542, 309);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(500, 123);
+            this.groupBox14.Size = new System.Drawing.Size(500, 102);
             this.groupBox14.TabIndex = 74;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "User agent (Mac)";
-            // 
-            // textBox8
-            // 
-            this.textBox8.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(14, 93);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(456, 22);
-            this.textBox8.TabIndex = 120;
-            this.textBox8.Text = "Custom SEB for Mac OS X user agent string (SEB appends its version number automat" +
-    "ically)";
             // 
             // textBoxUserAgentMacCustom
             // 
@@ -3124,13 +3106,12 @@
             this.groupBox13.Controls.Add(this.textBoxUserAgentTouchModeIPad);
             this.groupBox13.Controls.Add(this.radioButtonUserAgentTouchIPad);
             this.groupBox13.Controls.Add(this.textBoxUserAgentTouchModeDefault);
-            this.groupBox13.Controls.Add(this.textBox7);
             this.groupBox13.Controls.Add(this.textBoxUserAgentTouchModeCustom);
             this.groupBox13.Controls.Add(this.radioButtonUserAgentTouchDefault);
             this.groupBox13.Controls.Add(this.radioButtonUserAgentTouchCustom);
             this.groupBox13.Location = new System.Drawing.Point(542, 423);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(500, 153);
+            this.groupBox13.Size = new System.Drawing.Size(500, 123);
             this.groupBox13.TabIndex = 73;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "User agent for touch/tablet mode";
@@ -3143,6 +3124,8 @@
             this.textBoxUserAgentTouchModeIPad.ReadOnly = true;
             this.textBoxUserAgentTouchModeIPad.Size = new System.Drawing.Size(372, 20);
             this.textBoxUserAgentTouchModeIPad.TabIndex = 122;
+            this.toolTip1.SetToolTip(this.textBoxUserAgentTouchModeIPad, "An iPad user agent is recognized by most websites which have a tablet mobile them" +
+        "e.");
             // 
             // radioButtonUserAgentTouchIPad
             // 
@@ -3166,21 +3149,6 @@
             this.textBoxUserAgentTouchModeDefault.ReadOnly = true;
             this.textBoxUserAgentTouchModeDefault.Size = new System.Drawing.Size(372, 20);
             this.textBoxUserAgentTouchModeDefault.TabIndex = 1;
-            // 
-            // textBox7
-            // 
-            this.textBox7.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(14, 114);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox7.Multiline = true;
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(456, 22);
-            this.textBox7.TabIndex = 120;
-            this.textBox7.Text = "Custom touch/tablet user agent string (SEB appends its version number automatical" +
-    "ly)";
             // 
             // textBoxUserAgentTouchModeCustom
             // 
@@ -5289,13 +5257,11 @@
         private System.Windows.Forms.RadioButton radioButtonUserAgentDesktopCustom;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.TextBox textBoxUserAgentTouchModeDefault;
-        private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBoxUserAgentTouchModeCustom;
         private System.Windows.Forms.RadioButton radioButtonUserAgentTouchDefault;
         private System.Windows.Forms.RadioButton radioButtonUserAgentTouchCustom;
         private System.Windows.Forms.CheckBox checkBoxAllowDictionaryLookup;
         private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBoxUserAgentMacCustom;
         private System.Windows.Forms.RadioButton radioButtonUserAgentMacDefault;
         private System.Windows.Forms.RadioButton radioButtonUserAgentMacCustom;

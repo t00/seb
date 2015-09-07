@@ -29,8 +29,8 @@ namespace SebWindowsClient
         private static IntPtr IDI_APPLICATION = new IntPtr(0x7F00);
         private static int GCL_HICON = -14;
 
-        private static int appChooserFormXPadding = 40;
-        private static int appChooserFormXGap = 45;
+        private static int appChooserFormXPadding = 22;
+//        private static int appChooserFormXGap = 45;
 
         private int selectedItemIndex = 0;
 
@@ -196,14 +196,21 @@ namespace SebWindowsClient
 
             //listApplications.SmallImageList = imagesSmall;
             //listApplications.LargeImageList = imagesLarge;
+            int appItemsTotalWidth = 0;
+            int appItemsMaxHeight = 0;
             for (int i = 0; i < lRunningApplications.Count(); i++)
             {
                 ListViewItem listItem = new ListViewItem(lRunningApplications[i]);
                 listItem.ImageIndex = i;
 
-                //Rectangle itemRect = listItem.Bounds;
-
                 this.listApplications.Items.Add(listItem);
+
+                Rectangle listItemRect = this.listApplications.GetItemRect(i);
+                Logger.AddInformation("ListView.GetItemRect: " + listItemRect.ToString(), null, null);
+                appItemsTotalWidth += listItemRect.Width;
+                if (listItemRect.Height > appItemsMaxHeight) {
+                    appItemsMaxHeight = listItemRect.Height;
+                }
             }
             this.listApplications.Dock = DockStyle.Fill;
             this.listApplications.AutoSize = true;
@@ -213,16 +220,22 @@ namespace SebWindowsClient
             int numberIcons = lRunningApplications.Count();
             int formWidth;
             float scaleFactor = SEBClientInfo.scaleFactor;
-            if (numberIcons > 0) formWidth = (int) Math.Round(2 * appChooserFormXPadding * scaleFactor + numberIcons * 32 + (numberIcons - 1) * appChooserFormXGap * scaleFactor);
-            else formWidth = (int) Math.Round(2 * appChooserFormXPadding * scaleFactor);
+            //if (numberIcons > 0) formWidth = (int)Math.Round(2 * appChooserFormXPadding * scaleFactor + numberIcons * 32 + (numberIcons - 1) * appChooserFormXGap * scaleFactor);
+            //else formWidth = (int)Math.Round(2 * appChooserFormXPadding * scaleFactor);
+            if (numberIcons > 0) formWidth = (int)Math.Round((2 * appChooserFormXPadding + appItemsTotalWidth) * scaleFactor);
+            else formWidth = (int)Math.Round(2 * appChooserFormXPadding * scaleFactor);
             // Check if calculated width is larger that current screen width, if yes, adjust height accordingly
             if (Screen.PrimaryScreen.Bounds.Width < formWidth)
             {
                 formWidth = Screen.PrimaryScreen.Bounds.Width;
-                this.Height = (int) Math.Round(264 * scaleFactor);
+                this.Height = (int)Math.Round((2 * appChooserFormXPadding + 2 * appItemsMaxHeight + appChooserFormXPadding) * scaleFactor);
             }
-            this.Width = formWidth;
-            this.Height = (int) Math.Round(SEBClientInfo.appChooserHeight * scaleFactor);
+            else
+            {
+                this.Width = formWidth;
+                this.Height = (int)Math.Round((2 * appChooserFormXPadding + appItemsMaxHeight) * scaleFactor);
+                //this.Height = (int)Math.Round(SEBClientInfo.appChooserHeight * scaleFactor);
+            }
 
             this.CenterToScreen();
 
