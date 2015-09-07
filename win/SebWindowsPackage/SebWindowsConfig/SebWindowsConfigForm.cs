@@ -36,6 +36,7 @@ namespace SebWindowsConfig
 
 		private string lastBrowserExamKey = "";
 		private string lastSettingsPassword = "";
+        private int lastCryptoIdentityIndex = 0;
 
 		private const string SEB_CONFIG_LOG = "SebConfig.log";
 
@@ -61,6 +62,7 @@ namespace SebWindowsConfig
 				// Update Browser Exam Key
 				lastBrowserExamKey = GetBrowserExamKey();
 				lastSettingsPassword = textBoxSettingsPassword.Text;
+                lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 				// Display the new Browser Exam Key in Exam pane
 				textBoxBrowserExamKey.Text = lastBrowserExamKey;
 			}
@@ -119,6 +121,7 @@ namespace SebWindowsConfig
 			// Update Browser Exam Key
 			lastBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
+            lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
 
@@ -969,7 +972,7 @@ namespace SebWindowsConfig
 			int result = 0;
 			// Generate current Browser Exam Key
 			string currentBrowserExamKey = GetBrowserExamKey();
-			if(!lastBrowserExamKey.Equals(currentBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
+			if(!lastBrowserExamKey.Equals(currentBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text) || lastCryptoIdentityIndex != comboBoxCryptoIdentity.SelectedIndex)
 			{
 				var messageBoxResult = SebMessageBox.Show(SEBUIStrings.unsavedChangesTitle, SEBUIStrings.unsavedChangesQuestion, MessageBoxImage.Question, MessageBoxButton.YesNoCancel);
 				if(messageBoxResult == MessageBoxResult.Yes)
@@ -1021,6 +1024,7 @@ namespace SebWindowsConfig
 				lastBrowserExamKey = GetBrowserExamKey();
 				// Save the current settings password so it can be used for comparing later if it changed
 				lastSettingsPassword = textBoxSettingsPassword.Text;
+                lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 				// Display the new Browser Exam Key in Exam pane
 				textBoxBrowserExamKey.Text = lastBrowserExamKey;
 				// Reset the path of the last saved file which is used in case "Edit duplicate" was used
@@ -1052,6 +1056,7 @@ namespace SebWindowsConfig
 			lastBrowserExamKey = GetBrowserExamKey();
 			// Save the current settings password so it can be used for comparing later if it changed
 			lastSettingsPassword = textBoxSettingsPassword.Text;
+            lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
 			// Reset the path of the last saved file which is used in case "Edit duplicate" was used
@@ -1077,7 +1082,7 @@ namespace SebWindowsConfig
 			// Save current Browser Exam Key salt in case saving fails
 			byte[] currentExamKeySalt = (byte[])SebInstance.Settings.settingsCurrent[SebSettings.KeyExamKeySalt];
 
-			if(!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
+			if(!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text) || lastCryptoIdentityIndex != comboBoxCryptoIdentity.SelectedIndex)
 			{
 				// As the exam key changed, we will generate a new salt
 				byte[] newExamKeySalt = SebProtectionController.GenerateBrowserExamKeySalt();
@@ -1125,7 +1130,7 @@ namespace SebWindowsConfig
 			// Save current Browser Exam Key salt in case saving fails
 			byte[] currentExamKeySalt = (byte[])SebInstance.Settings.settingsCurrent[SebSettings.KeyExamKeySalt];
 
-			if(!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
+			if(!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text) || lastCryptoIdentityIndex != comboBoxCryptoIdentity.SelectedIndex)
 			{
 				// If the exam key changed, then settings changed and we will generate a new salt
 				byte[] newExamKeySalt = SebProtectionController.GenerateBrowserExamKeySalt();
@@ -1147,6 +1152,7 @@ namespace SebWindowsConfig
 				textBoxBrowserExamKey.Text = lastBrowserExamKey;
 				// Save the current settings password so it can be used for comparing later if it changed
 				lastSettingsPassword = textBoxSettingsPassword.Text;
+                lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 				// Reset the path of the last saved file which is used in case "Edit duplicate" was used
 				lastPathSebConfigFile = null;
 			}
@@ -1174,6 +1180,7 @@ namespace SebWindowsConfig
 			// Generate Browser Exam Key of default settings
 			string currentBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
+            lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = currentBrowserExamKey;
 		}
@@ -1210,6 +1217,7 @@ namespace SebWindowsConfig
 			// Generate Browser Exam Key of this new settings
 			lastBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
+                lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
 		}
@@ -1233,6 +1241,7 @@ namespace SebWindowsConfig
 			// Generate Browser Exam Key of this new settings
 			lastBrowserExamKey = GetBrowserExamKey();
 			lastSettingsPassword = textBoxSettingsPassword.Text;
+            lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
 		}
@@ -1313,7 +1322,7 @@ namespace SebWindowsConfig
 			// Save current Browser Exam Key salt in case saving fails
 			byte[] currentExamKeySalt = (byte[])SebInstance.Settings.settingsCurrent[SebSettings.KeyExamKeySalt];
 
-			if(!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text))
+			if(!lastBrowserExamKey.Equals(newBrowserExamKey) || !lastSettingsPassword.Equals(textBoxSettingsPassword.Text) || lastCryptoIdentityIndex != comboBoxCryptoIdentity.SelectedIndex)
 			{
 				// If the exam key changed, then settings changed and we will generate a new salt
 				byte[] newExamKeySalt = SebProtectionController.GenerateBrowserExamKeySalt();
@@ -1331,6 +1340,7 @@ namespace SebWindowsConfig
 			lastBrowserExamKey = GetBrowserExamKey();
 			// Save the current settings password so it can be used for comparing later if it changed
 			lastSettingsPassword = textBoxSettingsPassword.Text;
+            lastCryptoIdentityIndex = comboBoxCryptoIdentity.SelectedIndex;
 			// Display the new Browser Exam Key in Exam pane
 			textBoxBrowserExamKey.Text = lastBrowserExamKey;
 		}

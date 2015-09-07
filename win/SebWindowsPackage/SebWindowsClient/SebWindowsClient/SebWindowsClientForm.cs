@@ -1057,14 +1057,17 @@ namespace SebWindowsClient
 			{
                 //Modify Working Area
                 SEBWorkingAreaHandler.SetTaskBarSpaceHeight(taskbarHeight);
-				//int height = Screen.PrimaryScreen.Bounds.Height;
-				int width = Screen.PrimaryScreen.Bounds.Width;
-				var x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
-				var y = Screen.PrimaryScreen.Bounds.Height - taskbarHeight;
-				this.Height = taskbarHeight;
-				this.Width = width;
-				this.Location = new Point(x, y);
-				this.Show();
+                if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyShowTaskBar))
+                {
+                    //int height = Screen.PrimaryScreen.Bounds.Height;
+                    int width = Screen.PrimaryScreen.Bounds.Width;
+                    var x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
+                    var y = Screen.PrimaryScreen.Bounds.Height - taskbarHeight;
+                    this.Height = taskbarHeight;
+                    this.Width = width;
+                    this.Location = new Point(x, y);
+                    this.Show();
+                }
 
                 if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
                 {
@@ -1353,6 +1356,8 @@ namespace SebWindowsClient
 				this.Width = 1;
 				//this.BackColor = Color.Transparent;
 				this.Location = new System.Drawing.Point(-50000, -50000);
+
+                taskbarHeight = 0;
 
                 PlaceFormOnDesktop(false, true);
 			}

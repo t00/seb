@@ -227,10 +227,18 @@ namespace SebWindowsClient.ProcessUtils
         /// Restore the window
         /// </summary>
         /// <param name="windowHandle">The handle</param>
-        public static void AdaptWindowToWorkingArea(this IntPtr windowHandle, int taskbarHeight)
+        public static void AdaptWindowToWorkingArea(this IntPtr windowHandle, int? taskbarHeight = null)
         {
             EditWindowByHandle(windowHandle, ShowWindowCommand.SW_SHOWNORMAL);
-            MoveWindow(windowHandle, 0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height - taskbarHeight, true);
+            if (taskbarHeight != null)
+            {
+                MoveWindow(windowHandle, 0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height - taskbarHeight.Value, true);    
+            }
+            else
+            {
+                MoveWindow(windowHandle, 0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.WorkingArea.Height, true);
+            }
+            
             EditWindowByHandle(windowHandle, ShowWindowCommand.SW_SHOWMAXIMIZED);
         }
 

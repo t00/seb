@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using SebShared;
 using SebWindowsClient.ConfigurationUtils;
+using SebWindowsClient.ProcessUtils;
 using SebWindowsClient.UI;
 
 namespace SebWindowsClient
@@ -54,36 +56,66 @@ namespace SebWindowsClient
             InitializeComponent();
             try
             {
-                if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
-                {
-                    this.Font = new Font(FontFamily.GenericSansSerif, 12);
-                    IntPtr hwnd = this.Handle;
-                    this.FormBorderStyle = FormBorderStyle.None;
-                    this.Top = 0;
-                    this.Left = 0;
-                    this.Width = Screen.PrimaryScreen.Bounds.Width;
-                    this.Height = Screen.PrimaryScreen.Bounds.Height;
-                    this.btnCancel.BackColor = Color.Red;
-                    this.btnCancel.FlatStyle = FlatStyle.Flat;
-                    this.btnCancel.Height = 35;
-                    this.btnCancel.Width = 120;
-                    this.btnCancel.Left = (Screen.PrimaryScreen.Bounds.Width/2) - (this.btnCancel.Width/2) + 100;
-                    this.btnOk.BackColor = Color.Green;
-                    this.btnOk.FlatStyle = FlatStyle.Flat;
-                    this.btnOk.Height = 35;
-                    this.btnOk.Width = 120;
-                    this.btnOk.Left = (Screen.PrimaryScreen.Bounds.Width/2) - (this.btnOk.Width/2) - 100;
-                    this.txtSEBPassword.Width = 400;
-                    this.txtSEBPassword.Left = (Screen.PrimaryScreen.Bounds.Width/2) - (this.txtSEBPassword.Width/2);
-                    this.txtSEBPassword.Height = 30;
-                }
+                if ((bool) SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized])
+				{
+					InitializeForTouch();
+				}
+				else
+				{
+					InitializeForNonTouch();
+				}
             }
             catch
             {
             }
-            
+        }
 
-            //this.txtSEBPassword.Focus();
+        public void InitializeForTouch()
+        {
+            this.Font = new Font(FontFamily.GenericSansSerif, 12);
+            IntPtr hwnd = this.Handle;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Top = 0;
+            this.Left = 0;
+            this.Width = Screen.PrimaryScreen.Bounds.Width;
+            this.Height = Screen.PrimaryScreen.Bounds.Height;
+            this.btnCancel.BackColor = Color.Red;
+            this.btnCancel.FlatStyle = FlatStyle.Flat;
+            this.btnCancel.Height = 35;
+            this.btnCancel.Width = 120;
+            this.btnCancel.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.btnCancel.Width / 2) + 100;
+            this.btnOk.BackColor = Color.Green;
+            this.btnOk.FlatStyle = FlatStyle.Flat;
+            this.btnOk.Height = 35;
+            this.btnOk.Width = 120;
+            this.btnOk.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.btnOk.Width / 2) - 100;
+            this.txtSEBPassword.Width = 400;
+            this.txtSEBPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.txtSEBPassword.Width / 2);
+            this.txtSEBPassword.Height = 30;
+        }
+  
+        public void InitializeForNonTouch()
+        {
+            this.Font = DefaultFont;
+            this.lblSEBPassword.Left = (int)(12 * SEBClientInfo.scaleFactor);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.Width = (int)(365 * SEBClientInfo.scaleFactor);
+            this.Height = (int)(175 * SEBClientInfo.scaleFactor);
+            this.Top = Screen.PrimaryScreen.Bounds.Height / 2 - this.Height / 2;
+            this.Left = Screen.PrimaryScreen.Bounds.Width / 2 - this.Width / 2;
+            this.btnCancel.BackColor = SystemColors.Control;
+            this.btnCancel.FlatStyle = FlatStyle.Standard;
+            this.btnCancel.Height = (int)(23 * SEBClientInfo.scaleFactor);
+            this.btnCancel.Width = (int)(75 * SEBClientInfo.scaleFactor);
+            this.btnCancel.Left = (int)(180 * SEBClientInfo.scaleFactor);
+            this.btnOk.BackColor = SystemColors.Control;
+            this.btnOk.FlatStyle = FlatStyle.Standard;
+            this.btnOk.Height = (int)(23 * SEBClientInfo.scaleFactor);
+            this.btnOk.Width = (int)(75 * SEBClientInfo.scaleFactor);
+            this.btnOk.Left = (int)(94 * SEBClientInfo.scaleFactor);
+            this.txtSEBPassword.Width = (int)(325 * SEBClientInfo.scaleFactor);
+            this.txtSEBPassword.Left = (int)(12 * SEBClientInfo.scaleFactor);
+            this.txtSEBPassword.Height = (int)(20 * SEBClientInfo.scaleFactor);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -96,6 +128,14 @@ namespace SebWindowsClient
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Visible = false;
+            if ((bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+            {
+                var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
+                if (topWindow.Value != null)
+                {
+                    topWindow.Key.AdaptWindowToWorkingArea();
+                }
+            }
         }
 
         // Expose the label for changing from outside of the form
