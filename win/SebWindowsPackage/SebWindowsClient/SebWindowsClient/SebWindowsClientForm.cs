@@ -999,7 +999,7 @@ namespace SebWindowsClient
 			//}
 		}
 
-
+        private float scaleFactor = 1;
 
 		/// ----------------------------------------------------------------------------------------
 		/// <summary>
@@ -1018,7 +1018,7 @@ namespace SebWindowsClient
 			{
 				dpiX = g.DpiX;
 			}
-			float scaleFactor = dpiX / 96;
+            scaleFactor = dpiX / 96;
 			SEBClientInfo.scaleFactor = scaleFactor;
             Logger.AddInformation("Current display DPI setting: " + dpiX.ToString() + " and scale factor: " +scaleFactor.ToString());
 
@@ -1053,20 +1053,30 @@ namespace SebWindowsClient
 		private void PlaceFormOnDesktop(bool KeyboardShown)
 		{
 			if(KeyboardShown && TapTipHandler.IsKeyboardDocked())
+            {
 				this.Hide();
+                var keyboardHeight = TapTipHandler.GetKeyboardWindowHandle().GetWindowHeight();
+                SEBWorkingAreaHandler.SetTaskBarSpaceHeight((int)(keyboardHeight * scaleFactor));
+            }
 			else
 			{
-
+                //Modify Working Area
+                SEBWorkingAreaHandler.SetTaskBarSpaceHeight(taskbarHeight);
 				//int height = Screen.PrimaryScreen.Bounds.Height;
 				int width = Screen.PrimaryScreen.Bounds.Width;
 				var x = 0; //Screen.PrimaryScreen.WorkingArea.Width - this.Width;
 				var y = Screen.PrimaryScreen.Bounds.Height - taskbarHeight;
-
 				this.Height = taskbarHeight;
 				this.Width = width;
 				this.Location = new Point(x, y);
 				this.Show();
 			}
+
+            var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
+            if (topWindow.Value != null)
+            {
+                topWindow.Key.RestoreWindow();
+            }
 
 			SEBXULRunnerWebSocketServer.SendDisplaySettingsChanged();
 		}

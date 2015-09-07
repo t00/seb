@@ -74,8 +74,7 @@ namespace SebWindowsClient.UI
 
 				if(!IsKeyboardVisible())
 				{
-                    string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-                    //string progfiles = @"C:\Program Files\Common Files\Microsoft Shared\ink";
+                    string programFiles = Environment.GetEnvironmentVariable("PROGRAMFILES") ?? @"C:\Program Files";
                     string inkDir = @"Common Files\Microsoft Shared\ink";
                     string onScreenKeyboardPath = Path.Combine(programFiles, inkDir, "TabTip.exe");
 					Process.Start(onScreenKeyboardPath);
@@ -157,6 +156,7 @@ namespace SebWindowsClient.UI
 
 			if(keyboardHandle != IntPtr.Zero)
 			{
+                keyboardHandle.MaximizeWindow();
 				UInt32 style = GetWindowLong(keyboardHandle, GWL_STYLE);
 				visible = ((style & WS_DISABLED) != WS_DISABLED);
 			}

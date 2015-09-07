@@ -42,6 +42,7 @@ var winctrl = (function() {
 						"seb.request.key"			:	browserExamKey,
 						"seb.request.salt"			:	"browserURLSalt",
 						"seb.mainWindow.titlebar.enabled"	:	titleBarEnabled,
+						"seb.popupWindows.titlebar.enabled"	:	popupTitleBarEnabled,
 						"seb.mainWindow.screen"			:	mainWindowScreen,
 						"seb.popupWindows.screen"		:	popupScreen,
 						"seb.taskbar.enabled"			:	"showTaskBar",
@@ -136,15 +137,11 @@ var winctrl = (function() {
 	}
 
 	function mainWindowScreen() {
-		var ret = {};
-		ret['fullsize'] = (config["browserViewMode"] == 0) ? false : true;
+		var ret = {};		 
+		ret['fullsize'] = ((config["browserViewMode"] == 1) || (config["touchOptimized"] == 1)) ? true : false;
 		ret['width'] = config["mainBrowserWindowWidth"];
 		ret['height'] = config["mainBrowserWindowHeight"];
 		ret['position'] = pos[config["mainBrowserWindowPositioning"]];
-		if (config["touchOptimized"]) {
-			ret['width'] = "100%";
-			ret['height'] = "100%";
-		}
 		return ret;
 	}
 
@@ -154,18 +151,28 @@ var winctrl = (function() {
 		ret['width'] = config["newBrowserWindowByLinkWidth"];
 		ret['height'] = config["newBrowserWindowByLinkHeight"];
 		ret['position'] = pos[config["newBrowserWindowByLinkPositioning"]];
-		if (config["touchOptimized"]) {
-			ret['width'] = "100%";
-			ret['height'] = "100%";
+
+		if (config["touchOptimized"] == 1) {
+			ret['fullsize'] = true;
 		}
 		return ret;
 	}
 
-  function titleBarEnabled() {
-    var ret = (config["browserViewMode"] == 0) ? true : false;
-    return ret;
-  }
-
+	function titleBarEnabled() {
+		var ret = ((config["browserViewMode"] == 1) || (config["touchOptimized"] == 1)) ? false : true;
+		return ret;
+	}
+	
+	function popupTitleBarEnabled() {
+		var ret = (config["touchOptimized"] == 1) ? false : true;
+		return ret;
+	}
+	
+    	function browserScreenKeyboard() {
+	        var ret = (config["browserScreenKeyboard"] == 1) ? true : false;
+	        return ret;
+    	}
+	
   function browserZoomFull() {
     var ret = (config["zoomMode"] == 0) ? true : false;
     return ret;
@@ -210,15 +217,17 @@ var winctrl = (function() {
     return 2;
   }
 
-  function urlFilterRegex() {
-  	var ret = (config["urlFilterRegex"] == 1) ? true : false;
-  	return ret;
-  }
+    	function urlFilterRegex() {
+        	var ret = (config["urlFilterRegex"] == 1) ? true : false;
+        	return ret;
+    	}
 
-  function urlFilterTrustedContent() {
-  	var ret = (config["urlFilterTrustedContent"] == 0) ? true : false;
-  	return ret;
-  }
+
+    	function urlFilterTrustedContent() {
+        	var ret = (config["urlFilterTrustedContent"] == 0) ? true : false;
+        	return ret;
+    	}
+    	
 
 	function browserExamKey() {
 		// add some logic

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -28,12 +29,12 @@ namespace SebWindowsClient.ProcessUtils
         enum ShowWindowCommand
         {
             SW_HIDE = 0,
-            //SW_SHOWNORMAL = 1,
+            SW_SHOWNORMAL = 1,
             SW_SHOWMINIMIZED = 2,
             SW_SHOWMAXIMIZED = 3,
-            //SW_SHOWNOACTIVATE = 4,
+            SW_SHOWNOACTIVATE = 4,
             SW_RESTORE = 9,
-            //SW_SHOWDEFAULT = 10
+            SW_SHOWDEFAULT = 10
         }
 
         #endregion
@@ -218,6 +219,27 @@ namespace SebWindowsClient.ProcessUtils
         public static void MaximizeWindow(this IntPtr windowHandle)
         {
             EditWindowByHandle(windowHandle, ShowWindowCommand.SW_SHOWMAXIMIZED);
+        }
+
+        /// <summary>
+        /// Restore the window
+        /// </summary>
+        /// <param name="handle">The handle</param>
+        public static void RestoreWindow(this IntPtr windowHandle)
+        {
+
+            EditWindowByHandle(windowHandle, ShowWindowCommand.SW_SHOWNORMAL);
+            EditWindowByHandle(windowHandle, ShowWindowCommand.SW_SHOWMAXIMIZED);
+        }
+
+        public static int GetWindowHeight(this IntPtr windowHandle)
+        {
+            var rct = new RECT();
+            if (!GetWindowRect(new HandleRef(null, windowHandle), out rct))
+            {
+                return 0;
+            }
+            return rct.Bottom - rct.Top;
         }
 
         public static string GetWindowTitle(this IntPtr windowHandle)
@@ -464,6 +486,19 @@ namespace SebWindowsClient.ProcessUtils
             public System.Drawing.Point ptMinPosition;
             public System.Drawing.Point ptMaxPosition;
             public System.Drawing.Rectangle rcNormalPosition;
+        }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetWindowRect(HandleRef hWnd, out RECT lpRect);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;        // x position of upper-left corner
+            public int Top;         // y position of upper-left corner
+            public int Right;       // x position of lower-right corner
+            public int Bottom;      // y position of lower-right corner
         }
 
         #endregion
