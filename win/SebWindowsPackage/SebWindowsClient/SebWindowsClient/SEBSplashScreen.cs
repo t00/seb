@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using SebShared;
 using SebShared.Properties;
@@ -14,16 +15,24 @@ namespace SebWindowsClient
         {
             InitializeComponent();
 	        this.tbCopyright.Text = SEBUIStrings.sebSplashCopyright;
+	        tbCopyright.Visible = !string.IsNullOrEmpty(tbCopyright.Text);
             this.tbVersion.Text = SEBUIStrings.sebSplashVersion;
             try
             {
-                this.tbVersion.Text += " " + Application.ProductVersion;
+				tbVersion.Visible = !string.IsNullOrEmpty(tbVersion.Text);
+				this.tbVersion.Text += " " + Application.ProductVersion;
             }
             catch (Exception)
             {
                 //No Version info available
             }
 
+	        if(pictureBox1.Image != null && pictureBox1.Image.Height > 0)
+	        {
+				pictureBox1.Width = pictureBox1.Image.Width;
+				pictureBox1.Height = pictureBox1.Image.Height;
+				ClientSize = new Size(pictureBox1.Image.Width, pictureBox1.Image.Height + lblLoading.Height);
+	        }
             this.Click += KillMe;
             this.pictureBox1.Click += KillMe;
             this.tbVersion.Click += KillMe;
