@@ -151,9 +151,9 @@ namespace SebWindowsClient.XULRunnerCommunication
 		{
 			try
 			{
-				if(XULRunner != null && 
-				   (!string.IsNullOrEmpty((String)SEBClientInfo.getSebSetting(SebSettings.KeyRestartExamURL)[SebSettings.KeyRestartExamURL])
-				   || (bool)SEBClientInfo.getSebSetting(SebSettings.KeyRestartExamUseStartURL)[SebSettings.KeyRestartExamUseStartURL]))
+				if(XULRunner != null &&
+				   (!string.IsNullOrEmpty(SebInstance.Settings.Get<string>(SebSettings.KeyRestartExamURL))
+				   || SebInstance.Settings.Get<bool>(SebSettings.KeyRestartExamUseStartURL)))
 				{
 					Console.WriteLine("SEB.Restart Exam sent");
 					Logger.AddInformation("WebSocket: Send message: SEB.restartExam");

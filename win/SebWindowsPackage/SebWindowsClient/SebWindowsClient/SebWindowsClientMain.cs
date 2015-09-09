@@ -235,7 +235,7 @@ namespace SebWindowsClient
 				SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
 			}
 
-			if((int)SebInstance.Settings.settingsCurrent[SebSettings.KeySebConfigPurpose] == (int)SebSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
+			if(SebInstance.Settings.Get<int>(SebSettings.KeySebConfigPurpose) == (int)SebSettings.sebConfigPurposes.sebConfigPurposeStartingExam)
 			{
 				//
 				// If these SEB settings are ment to start an exam
@@ -252,7 +252,7 @@ namespace SebWindowsClient
 
 				// Check if SEB is running on the standard desktop and the new settings demand to run in new desktop (createNewDesktop = true)
 				// or the other way around!
-				if(SEBClientInfo.CreateNewDesktopOldValue != (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyCreateNewDesktop))
+				if(SEBClientInfo.CreateNewDesktopOldValue != SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop))
 				{
 					// If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
 					if(SEBClientInfo.CreateNewDesktopOldValue == false)
@@ -295,7 +295,7 @@ namespace SebWindowsClient
 				// If these SEB settings are ment to configure a client
 
 				// Check if we have embedded identities and import them into the Windows Certifcate Store
-				var embeddedCertificates = (List<object>)SebInstance.Settings.settingsCurrent[SebSettings.KeyEmbeddedCertificates];
+				var embeddedCertificates = SebInstance.Settings.Get<List<object>>(SebSettings.KeyEmbeddedCertificates);
 				for(int i = embeddedCertificates.Count - 1; i >= 0; i--)
 				{
 					// Get the Embedded Certificate
@@ -314,7 +314,7 @@ namespace SebWindowsClient
 				SEBClientInfo.InitializeLogger();
 
 				// Write new settings to the localapp directory
-				if((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeySebStoreConfig])
+				if(SebInstance.Settings.Get<bool>(SebSettings.KeySebStoreConfig))
 				{
 					SebInstance.Settings.WriteSebConfigurationFile(SebInstance.Settings, SEBClientInfo.SebClientSettingsAppDataFile, "", false, null, SebSettings.sebConfigPurposes.sebConfigPurposeConfiguringClient);
 				}
@@ -331,7 +331,7 @@ namespace SebWindowsClient
 					//SEBClientInfo.SebWindowsClientForm.Activate();
 
 					// Check if setting for createNewDesktop changed
-					if(SEBClientInfo.CreateNewDesktopOldValue != (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyCreateNewDesktop))
+					if(SEBClientInfo.CreateNewDesktopOldValue != SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop))
 					{
 						// If it did, SEB needs to quit and be restarted manually for the new setting to take effekt
 						SebMessageBox.Show(SEBUIStrings.sebReconfiguredRestartNeeded, SEBUIStrings.sebReconfiguredRestartNeededReason, MessageBoxImage.Warning, MessageBoxButton.OK);
@@ -357,7 +357,7 @@ namespace SebWindowsClient
 		static public void StartSplash()
 		{
 			//Set the threads desktop to the new desktop if "Create new Desktop" is activated
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyCreateNewDesktop)[SebSettings.KeyCreateNewDesktop])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop))
 				SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
 
 			// Instance a splash form given the image names
@@ -456,7 +456,7 @@ namespace SebWindowsClient
 			//on NT4/NT5 ++ a new desktop is created
 			if(WindowsVersionHelpers.SupportsMultipleDesktops)
 			{
-				sessionCreateNewDesktop = (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyCreateNewDesktop)[SebSettings.KeyCreateNewDesktop];
+				sessionCreateNewDesktop = SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop);
 				if(sessionCreateNewDesktop)
 				{
 					SEBClientInfo.OriginalDesktop = SEBDesktopController.GetCurrent();
@@ -531,7 +531,7 @@ namespace SebWindowsClient
 #endif
 
 			//Process watching
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyMonitorProcesses)[SebSettings.KeyMonitorProcesses])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyMonitorProcesses))
 			{
 				#region Foreground Window Watching (Allowed Executables)
 
@@ -574,7 +574,7 @@ namespace SebWindowsClient
 			//Kill Explorer Shell
 			// Global variable indicating if the explorer shell has been killed
 			SEBClientInfo.ExplorerShellWasKilled = false;
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyKillExplorerShell)[SebSettings.KeyKillExplorerShell])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyKillExplorerShell))
 			{
 				//Minimize all Open Windows
 				try
@@ -714,7 +714,7 @@ namespace SebWindowsClient
 		public static bool CheckVMService()
 		{
 			// Test if run inside virtual machine
-			bool allowVirtualMachine = (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyAllowVirtualMachine)[SebSettings.KeyAllowVirtualMachine];
+			bool allowVirtualMachine = SebInstance.Settings.Get<bool>(SebSettings.KeyAllowVirtualMachine);
 			if(IsInsideVM() && (!allowVirtualMachine))
 			//if ((IsInsideVMWare() || IsInsideVPC()) && (!allowVirtualMachine))
 			{
@@ -729,7 +729,7 @@ namespace SebWindowsClient
 			// Test if Windows Service is running
 			bool serviceAvailable = SebWindowsServiceHandler.IsServiceAvailable;
 
-			int forceService = (Int32)SEBClientInfo.getSebSetting(SebSettings.KeySebServicePolicy)[SebSettings.KeySebServicePolicy];
+			int forceService = SebInstance.Settings.Get<Int32>(SebSettings.KeySebServicePolicy);
 			switch(forceService)
 			{
 				case (int)sebServicePolicies.ignoreService:
@@ -890,7 +890,7 @@ namespace SebWindowsClient
 			// The URI is holding a seb:// web address for a .seb settings file: download it
 			{
 				// But only download and use the seb:// link to a .seb file if this is enabled
-				if(SebInstance.Settings.IsEmpty || (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyDownloadAndOpenSebConfig))
+				if(SebInstance.Settings.IsEmpty || SebInstance.Settings.Get<bool>(SebSettings.KeyDownloadAndOpenSebConfig))
 				{
 					try
 					{
@@ -942,7 +942,7 @@ namespace SebWindowsClient
 			Logger.AddInformation("Attempting to StoreDecryptedSEBSettings");
 
 			// We will need to check if setting for createNewDesktop changed
-			SEBClientInfo.CreateNewDesktopOldValue = (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyCreateNewDesktop, false);
+			SEBClientInfo.CreateNewDesktopOldValue = SebInstance.Settings.GetOrDefault(SebSettings.KeyCreateNewDesktop, false);
 			if(!SebConfigFileManager.StoreDecryptedSEBSettings(sebSettings, SebPasswordInput.ClientGetPassword, SebInstance.Settings))
 			{
 				Logger.AddInformation("StoreDecryptedSettings returned false, this means the user canceled when entering the password, didn't enter a right one after 5 attempts or new settings were corrupted, exiting");

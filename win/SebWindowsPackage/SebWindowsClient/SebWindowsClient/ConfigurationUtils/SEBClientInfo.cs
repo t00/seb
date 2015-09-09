@@ -134,37 +134,6 @@ namespace SebWindowsClient.ConfigurationUtils
 		public static float scaleFactor = 1;
 		public static int appChooserHeight = 132;
 
-		//public static SEBClientConfig sebClientConfig;
-
-		public static T getSebSetting<T>(string key, T defaultValue)
-		{
-			var settings = getSebSetting(key);
-			object r;
-			if(settings.TryGetValue(key, out r))
-			{
-				return (T)r;
-			}
-			return defaultValue;
-		}
-
-		public static Dictionary<string, object> getSebSetting(string key)
-		{
-			object sebSetting = null;
-			try
-			{
-				sebSetting = SebInstance.Settings.settingsCurrent[key];
-			}
-			catch
-			{
-				sebSetting = null;
-			}
-
-			if(sebSetting != null)
-				return SebInstance.Settings.settingsCurrent;
-			else
-				return SebInstance.Settings.settingsDefault;
-		}
-
 		/// <summary>
 		/// Sets user, host info, send-recv interval, recv timeout, Logger and read SebClient configuration.
 		/// </summary>
@@ -195,9 +164,9 @@ namespace SebWindowsClient.ConfigurationUtils
 		/// </summary>
 		public static void InitializeLogger()
 		{
-			if((Boolean)getSebSetting(SebSettings.KeyEnableLogging)[SebSettings.KeyEnableLogging])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableLogging))
 			{
-				var logDirectory = (string)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyLogDirectoryWin);
+				var logDirectory = SebInstance.Settings.Get<string>(SebSettings.KeyLogDirectoryWin);
 				if(!String.IsNullOrEmpty(logDirectory))
 				{
 					// Expand environment variables in log file path
@@ -313,9 +282,9 @@ namespace SebWindowsClient.ConfigurationUtils
 				XulRunnerConfigFile = xulRunnerConfigFileBuilder.ToString();
 
 				XULRunnerConfig xulRunnerConfig = SEBXulRunnerSettings.XULRunnerConfigDeserialize(XulRunnerConfigFile);
-				xulRunnerConfig.seb_openwin_width = Int32.Parse(SEBClientInfo.getSebSetting(SebSettings.KeyNewBrowserWindowByLinkWidth)[SebSettings.KeyNewBrowserWindowByLinkWidth].ToString());
-				xulRunnerConfig.seb_openwin_height = Int32.Parse(SEBClientInfo.getSebSetting(SebSettings.KeyNewBrowserWindowByLinkHeight)[SebSettings.KeyNewBrowserWindowByLinkHeight].ToString());
-				if((Int32)SEBClientInfo.getSebSetting(SebSettings.KeyBrowserViewMode)[SebSettings.KeyBrowserViewMode] == (int)browserViewModes.browserViewModeWindow)
+				xulRunnerConfig.seb_openwin_width = Int32.Parse(SebInstance.Settings.Get<string>(SebSettings.KeyNewBrowserWindowByLinkWidth, true));
+				xulRunnerConfig.seb_openwin_height = Int32.Parse(SebInstance.Settings.Get<string>(SebSettings.KeyNewBrowserWindowByLinkHeight, true));
+				if(SebInstance.Settings.Get<int>(SebSettings.KeyBrowserViewMode) == (int)browserViewModes.browserViewModeWindow)
 				{
 					xulRunnerConfig.seb_mainWindow_titlebar_enabled = true;
 				}
@@ -324,7 +293,7 @@ namespace SebWindowsClient.ConfigurationUtils
 					xulRunnerConfig.seb_mainWindow_titlebar_enabled = false;
 
 				}
-				xulRunnerConfig.seb_url = SEBClientInfo.getSebSetting(SebSettings.KeyStartURL)[SebSettings.KeyStartURL].ToString();
+				xulRunnerConfig.seb_url = SebInstance.Settings.Get<string>(SebSettings.KeyStartURL);
 				setXulRunnerConfiguration = true;
 				SEBXulRunnerSettings.XULRunnerConfigSerialize(xulRunnerConfig, XulRunnerConfigFile);
 			}

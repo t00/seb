@@ -19,7 +19,7 @@ namespace SebWindowsClient
 		public SebCloseDialogForm()
 		{
 			InitializeComponent();
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
 			{
                 InitializeForTouch();
 			}
@@ -81,7 +81,7 @@ namespace SebWindowsClient
 		{
 			this.txtQuitPassword.Text = "";
 			this.Visible = false;
-            if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+            if (SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
             {
                 var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
                 if (topWindow.Value != null)
@@ -96,7 +96,7 @@ namespace SebWindowsClient
 			string userQuitPassword = this.txtQuitPassword.Text;
 
 			string hPassword = SebProtectionController.ComputePasswordHash(userQuitPassword);
-			string settingsPasswordHash = (string)SEBClientInfo.getSebSetting(SebSettings.KeyHashedQuitPassword)[SebSettings.KeyHashedQuitPassword];
+			string settingsPasswordHash = SebInstance.Settings.Get<string>(SebSettings.KeyHashedQuitPassword);
 			int quit = String.Compare(settingsPasswordHash, hPassword, StringComparison.OrdinalIgnoreCase);
 			if(quit != 0)
 			{

@@ -63,7 +63,7 @@ namespace SebWindowsClient.UI
 
 		public static void ShowKeyboard()
 		{
-            if (!(bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+            if (!SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
             {
 			    return;
 			}

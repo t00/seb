@@ -236,7 +236,7 @@ namespace SebShared
 			string password;
 			// First try to decrypt with the current admin password
 			// get admin password hash
-			string hashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyHashedAdminPassword);
+			string hashedAdminPassword = SebInstance.Settings.Get<string>(SebSettings.KeyHashedAdminPassword);
 			if(hashedAdminPassword == null)
 			{
 				hashedAdminPassword = "";
@@ -383,12 +383,12 @@ namespace SebShared
 			if(forEditing)
 			{
 				// Get the admin password set in these settings
-				string sebFileHashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(sebPreferencesDict, SebSettings.KeyHashedAdminPassword);
+				string sebFileHashedAdminPassword = SebInstance.Settings.Get<string>(SebSettings.KeyHashedAdminPassword);
 				// If there was no or empty admin password set in these settings, the user can access them anyways
 				if(!String.IsNullOrEmpty(sebFileHashedAdminPassword))
 				{
 					// Get the current hashed admin password
-					string hashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyHashedAdminPassword);
+					string hashedAdminPassword = SebInstance.Settings.Get<string>(SebSettings.KeyHashedAdminPassword);
 					if(hashedAdminPassword == null)
 					{
 						hashedAdminPassword = "";

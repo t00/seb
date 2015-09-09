@@ -54,20 +54,14 @@ namespace SebWindowsClient
         public SebPasswordDialogForm()
         {
             InitializeComponent();
-            try
-            {
-                if ((bool) SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized])
-				{
-					InitializeForTouch();
-				}
-				else
-				{
-					InitializeForNonTouch();
-				}
-            }
-            catch
-            {
-            }
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
+			{
+				InitializeForTouch();
+			}
+			else
+			{
+				InitializeForNonTouch();
+			}
         }
 
         public void InitializeForTouch()
@@ -128,7 +122,7 @@ namespace SebWindowsClient
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            if ((bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+            if (SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
             {
                 var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
                 if (topWindow.Value != null)
@@ -137,7 +131,7 @@ namespace SebWindowsClient
                 }
             }
         }
-
+		
         // Expose the label for changing from outside of the form
         public string LabelText
         {
@@ -150,7 +144,7 @@ namespace SebWindowsClient
                 this.lblSEBPassword.Text = value;
                 try
                 {
-                    if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
+					if(SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
                     {
                         this.lblSEBPassword.Left = (Screen.PrimaryScreen.Bounds.Width / 2) - (this.lblSEBPassword.Width / 2);
                     }

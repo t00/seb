@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using SebShared;
 using SebShared.DiagnosticUtils;
-using SebWindowsClient.ConfigurationUtils;
 using SebWindowsServiceWCF.ServiceContracts;
 
 namespace SebWindowsClient.ServiceUtils
@@ -103,15 +102,15 @@ namespace SebWindowsClient.ServiceUtils
         {
             var valuesToSet = new Dictionary<RegistryIdentifiers, object>
             {
-                {RegistryIdentifiers.DisableLockWorkstation, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableLockThisComputer )[SebSettings.KeyInsideSebEnableLockThisComputer ] ? 0 : 1},
-                {RegistryIdentifiers.DisableChangePassword, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableChangeAPassword  )[SebSettings.KeyInsideSebEnableChangeAPassword  ] ? 0 : 1},
-                {RegistryIdentifiers.DisableTaskMgr, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableStartTaskManager )[SebSettings.KeyInsideSebEnableStartTaskManager ] ? 0 : 1},
-                {RegistryIdentifiers.HideFastUserSwitching, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableSwitchUser       )[SebSettings.KeyInsideSebEnableSwitchUser       ] ? 0 : 1},
-                {RegistryIdentifiers.NoLogoff, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableLogOff           )[SebSettings.KeyInsideSebEnableLogOff           ] ? 0 : 1},
-                {RegistryIdentifiers.NoClose, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableShutDown         )[SebSettings.KeyInsideSebEnableShutDown         ] ? 0 : 1},
-                {RegistryIdentifiers.EnableShade, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableVmWareClientShade)[SebSettings.KeyInsideSebEnableVmWareClientShade] ? 1 : 0},
-                {RegistryIdentifiers.EnableShadeHorizon, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableVmWareClientShade)[SebSettings.KeyInsideSebEnableVmWareClientShade] ? "True" : "False"},
-                {RegistryIdentifiers.EaseOfAccess, (Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyInsideSebEnableEaseOfAccess     )[SebSettings.KeyInsideSebEnableEaseOfAccess     ] ? "" : "SebDummy.exe"},
+                {RegistryIdentifiers.DisableLockWorkstation, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableLockThisComputer) ? 0 : 1},
+                {RegistryIdentifiers.DisableChangePassword, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableChangeAPassword) ? 0 : 1},
+                {RegistryIdentifiers.DisableTaskMgr, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableStartTaskManager) ? 0 : 1},
+                {RegistryIdentifiers.HideFastUserSwitching, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableSwitchUser) ? 0 : 1},
+                {RegistryIdentifiers.NoLogoff, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableLogOff) ? 0 : 1},
+                {RegistryIdentifiers.NoClose, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableShutDown) ? 0 : 1},
+                {RegistryIdentifiers.EnableShade, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableVmWareClientShade) ? 1 : 0},
+                {RegistryIdentifiers.EnableShadeHorizon, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableVmWareClientShade) ? "True" : "False"},
+                {RegistryIdentifiers.EaseOfAccess, SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableEaseOfAccess) ? "" : "SebDummy.exe"},
             };
 
             return SetRegistryAccordingToConfiguration(valuesToSet);

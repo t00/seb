@@ -40,7 +40,7 @@ namespace SebWindowsClient
         {
             //Set the threads desktop to the new desktop if "Create new Desktop" is activated
             //Set the threads desktop to the new desktop if "Create new Desktop" is activated
-            if ((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyCreateNewDesktop)[SebSettings.KeyCreateNewDesktop] || SEBClientInfo.CreateNewDesktopOldValue)
+            if (SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop) || SEBClientInfo.CreateNewDesktopOldValue)
                 SEBDesktopController.SetCurrent(SEBClientInfo.SEBNewlDesktop);
             else
                 SEBDesktopController.SetCurrent(SEBClientInfo.OriginalDesktop);

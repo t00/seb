@@ -160,7 +160,7 @@ namespace SebWindowsClient
 
 		private void OnXULRunnerShutdDownRequested(object sender, EventArgs e)
 		{
-			if((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeyAllowQuit])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyAllowQuit))
 			{
 				Logger.AddInformation("Receiving Shutdown Request and opening ShowCloseDialogForm");
 				this.BeginInvoke(new Action(this.ShowCloseDialogForm));
@@ -219,9 +219,9 @@ namespace SebWindowsClient
 					xulRunnerArgumentsBuilder.Append(" -profile \"").Append(SEBClientInfo.SebClientSettingsAppDataDirectory).Append("Profiles\"");
 				}
 				// If logging is enabled in settings and there is no custom xulrunner -logfile argument 
-				if(!userDefinedArguments.ToLower().Contains("-logfile") && (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyEnableLogging))
+				if(!userDefinedArguments.ToLower().Contains("-logfile") && SebInstance.Settings.Get<bool>(SebSettings.KeyEnableLogging))
 				{
-					string logDirectory = (string)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyLogDirectoryWin);
+					string logDirectory = SebInstance.Settings.Get<string>(SebSettings.KeyLogDirectoryWin);
 					if(String.IsNullOrEmpty(logDirectory))
 					{
 						// When there is no directory indicated, we use the placeholder for telling xulrunner to use the AppData directory to store the log
@@ -334,7 +334,7 @@ namespace SebWindowsClient
 			permittedProcessesReferences.Clear();
 			permittedProcessesIconImages.Clear();
 
-			List<object> permittedProcessList = (List<object>)SEBClientInfo.getSebSetting(SebSettings.KeyPermittedProcesses)[SebSettings.KeyPermittedProcesses];
+			List<object> permittedProcessList = SebInstance.Settings.Get<List<object>>(SebSettings.KeyPermittedProcesses);
 			if(permittedProcessList.Count > 0)
 			{
 				// Check if permitted third party applications are already running
@@ -357,7 +357,7 @@ namespace SebWindowsClient
 						string executable = (string)permittedProcess[SebSettings.KeyExecutable];
 						if(String.IsNullOrEmpty(title)) title = executable;
 						string identifier = (string)permittedProcess[SebSettings.KeyIdentifier];
-						if(!(executable.Contains(SebConstants.XUL_RUNNER) && !(bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyEnableSebBrowser)))
+						if(!(executable.Contains(SebConstants.XUL_RUNNER) && !SebInstance.Settings.Get<bool>(SebSettings.KeyEnableSebBrowser)))
 						{
 							// Check if the process is already running
 							//runningApplications = Process.GetProcesses();
@@ -460,7 +460,7 @@ namespace SebWindowsClient
 						string title = (string)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyTitle);
 						string executable = (string)permittedProcess[SebSettings.KeyExecutable];
 						if(String.IsNullOrEmpty(title)) title = executable;
-						if(!(executable.Contains(SebConstants.XUL_RUNNER) && !(bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyEnableSebBrowser)))
+						if(!(executable.Contains(SebConstants.XUL_RUNNER) && !SebInstance.Settings.Get<bool>(SebSettings.KeyEnableSebBrowser)))
 						{
 							var toolStripButton = new SEBToolStripButton();
 
@@ -536,7 +536,7 @@ namespace SebWindowsClient
 								else
 								{
 									// The permitted process is XULRunner: Build list of arguments that are allowed to be user defined
-									if((bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyEnableSebBrowser))
+									if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableSebBrowser))
 									{
 										StringBuilder startProcessNameBuilder = new StringBuilder("");
 										List<object> argumentList = (List<object>)permittedProcess[SebSettings.KeyArguments];
@@ -573,7 +573,7 @@ namespace SebWindowsClient
 			//Filling System Icons
 
 			//QuitButton
-			if((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeyAllowQuit])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyAllowQuit))
 			{
 				var quitButton = new SEBQuitToolStripButton();
 				quitButton.Click += (x, y) => ShowCloseDialogForm();
@@ -583,7 +583,7 @@ namespace SebWindowsClient
 			//Wlan Control
 			try
 			{
-				if((bool)SEBClientInfo.getSebSetting(SebSettings.KeyAllowWLAN)[SebSettings.KeyAllowWLAN])
+				if(SebInstance.Settings.Get<bool>(SebSettings.KeyAllowWLAN))
 				{
 					taskbarToolStrip.Items.Add(new SEBWlanToolStripButton());
 				}
@@ -596,22 +596,20 @@ namespace SebWindowsClient
 
 			//Add the OnScreenKeyboardControl (only if not in Create New Desktop Mode)
 
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] ==
-				true && !(Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyCreateNewDesktop)[SebSettings.KeyCreateNewDesktop])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized) && !SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop))
 			{
 				var sebOnScreenKeyboardToolStripButton = new SEBOnScreenKeyboardToolStripButton();
 				taskbarToolStrip.Items.Add(sebOnScreenKeyboardToolStripButton);
 				TapTipHandler.RegisterXulRunnerEvents();
-				TapTipHandler.OnKeyboardStateChanged += shown => this.BeginInvoke(new Action(
-					() => this.PlaceFormOnDesktop(shown)));
+				TapTipHandler.OnKeyboardStateChanged += shown => this.BeginInvoke(new Action(() => PlaceFormOnDesktop(shown)));
 			}
 
 			//Add the RestartExamButton if configured
-			if(!String.IsNullOrEmpty(SEBClientInfo.getSebSetting(SebSettings.KeyRestartExamURL)[SebSettings.KeyRestartExamURL].ToString()) || (bool)SebInstance.Settings.settingsCurrent[SebSettings.KeyRestartExamUseStartURL] == true)
+			if(!String.IsNullOrEmpty(SebInstance.Settings.Get<string>(SebSettings.KeyRestartExamURL)) || SebInstance.Settings.Get<bool>(SebSettings.KeyRestartExamUseStartURL))
 				taskbarToolStrip.Items.Add(new SEBRestartExamToolStripButton());
 
 			//Add the ReloadhBrowserButton
-			if((bool)SEBClientInfo.getSebSetting(SebSettings.KeyShowReloadButton)[SebSettings.KeyShowReloadButton])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyShowReloadButton))
 				taskbarToolStrip.Items.Add(new SEBReloadBrowserToolStripButton());
 
 			//Add the BatterystatusControl to the toolbar
@@ -627,13 +625,13 @@ namespace SebWindowsClient
 			}
 
 			//KeyboardLayout Chooser
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyShowInputLanguage)[SebSettings.KeyShowInputLanguage] == true)
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyShowInputLanguage))
 			{
 				taskbarToolStrip.Items.Add(new SEBInputLanguageToolStripButton());
 			}
 
 			//Watch (Time)
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyShowTime)[SebSettings.KeyShowTime] == true)
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyShowTime))
 			{
 				taskbarToolStrip.Items.Add(new SEBWatchToolStripButton());
 			}
@@ -671,7 +669,7 @@ namespace SebWindowsClient
 					}
 					else
 					{
-						if((bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyEnableSebBrowser))
+						if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableSebBrowser))
 						{
 							// Start XULRunner
 							StartXulRunner((string)permittedProcessesCalls[permittedProcessesIndex]);
@@ -995,7 +993,7 @@ namespace SebWindowsClient
 		/// ----------------------------------------------------------------------------------------
 		private bool SetFormOnDesktop()
 		{
-			if(!(bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyShowTaskBar))
+			if(!SebInstance.Settings.Get<bool>(SebSettings.KeyShowTaskBar))
 			{
 				return false;
 			}
@@ -1009,8 +1007,8 @@ namespace SebWindowsClient
 			SEBClientInfo.scaleFactor = scaleFactor;
             Logger.AddInformation("Current display DPI setting: " + dpiX.ToString() + " and scale factor: " +scaleFactor.ToString());
 
-			float sebTaskBarHeight = (int)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTaskBarHeight);
-			if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyTouchOptimized)[SebSettings.KeyTouchOptimized] == true)
+			float sebTaskBarHeight = SebInstance.Settings.Get<int>(SebSettings.KeyTaskBarHeight);
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
 			{
 				taskbarHeight = (int)(sebTaskBarHeight * 1.7 * scaleFactor);
 				this.taskbarToolStrip.ImageScalingSize = new Size(taskbarHeight - 8, taskbarHeight - 8);
@@ -1039,7 +1037,7 @@ namespace SebWindowsClient
 
 		private void PlaceFormOnDesktop(bool KeyboardShown, bool isInitial = false)
 		{
-			if(KeyboardShown && TapTipHandler.IsKeyboardDocked() && (bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+			if(KeyboardShown && TapTipHandler.IsKeyboardDocked() && SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
             {
 				this.Hide();
                 var keyboardHeight = TapTipHandler.GetKeyboardWindowHandle().GetWindowHeight();
@@ -1054,7 +1052,7 @@ namespace SebWindowsClient
 			{
                 //Modify Working Area
                 SEBWorkingAreaHandler.SetTaskBarSpaceHeight(taskbarHeight);
-                if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyShowTaskBar))
+				if(SebInstance.Settings.Get<bool>(SebSettings.KeyShowTaskBar))
                 {
                     //int height = Screen.PrimaryScreen.Bounds.Height;
                     int width = Screen.PrimaryScreen.Bounds.Width;
@@ -1066,7 +1064,7 @@ namespace SebWindowsClient
                     this.Show();
                 }
 
-                if ((bool) SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyTouchOptimized))
+				if(SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
                 {
                     var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
                     if (topWindow.Value != null)
@@ -1182,7 +1180,7 @@ namespace SebWindowsClient
 			// the user will be asked to quit all those processes him/herself or to let SEB kill them
 			// Prohibited processes with the strongKill flag set can be killed without user consent
 
-			List<object> prohibitedProcessList = (List<object>)SEBClientInfo.getSebSetting(SebSettings.KeyProhibitedProcesses)[SebSettings.KeyProhibitedProcesses];
+			List<object> prohibitedProcessList = SebInstance.Settings.Get<List<object>>(SebSettings.KeyProhibitedProcesses);
 			if(prohibitedProcessList.Count() > 0)
 			{
 				// Check if the prohibited processes are running
@@ -1271,11 +1269,11 @@ namespace SebWindowsClient
 		public void ShowCloseDialogForm()
 		{
 			// Test if quitting SEB is allowed
-			if((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeyAllowQuit] == true)
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyAllowQuit))
 			{
 				SebWindowsClientMain.SEBToForeground();
 				// Is a quit password set?
-				string hashedQuitPassword = (string)SebInstance.Settings.settingsCurrent[SebSettings.KeyHashedQuitPassword];
+				string hashedQuitPassword = SebInstance.Settings.Get<string>(SebSettings.KeyHashedQuitPassword);
 				if(String.IsNullOrEmpty(hashedQuitPassword) == true)
 				// If there is no quit password set, we just ask user to confirm quitting
 				{
@@ -1285,7 +1283,7 @@ namespace SebWindowsClient
 				else
 				{
 					SetForegroundWindow(this.Handle);
-                    if ((bool) SebInstance.Settings.settingsCurrent[SebSettings.KeyTouchOptimized])
+                    if (SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
                     {
                         sebCloseDialogForm.InitializeForTouch();
                     }
@@ -1331,7 +1329,7 @@ namespace SebWindowsClient
 		public bool OpenSEBForm()
 		{
 			Logger.AddInformation("entering Opensebform");
-			if((bool)SebInstance.Settings.valueForDictionaryKey(SebInstance.Settings.settingsCurrent, SebSettings.KeyShowTaskBar))
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyShowTaskBar))
 			{
 				//this.Show();
 				Logger.AddInformation("attempting to position the taskbar");
@@ -1516,7 +1514,7 @@ namespace SebWindowsClient
 						if(proc != null && !proc.HasExited && proc.MainWindowHandle == IntPtr.Zero)
 						{
 							//Get Process from WindowHandle by Name
-							var permittedProcessSettings = (List<object>)SEBClientInfo.getSebSetting(SebSettings.KeyPermittedProcesses)[SebSettings.KeyPermittedProcesses];
+							var permittedProcessSettings = SebInstance.Settings.Get<List<object>>(SebSettings.KeyPermittedProcesses);
 							var currentProcessData = (Dictionary<string, object>)permittedProcessSettings[i];
 							var title = (string)currentProcessData[SebSettings.KeyIdentifier];
 							proc = SEBWindowHandler.GetWindowHandleByTitle(title).GetProcess();
@@ -1557,7 +1555,7 @@ namespace SebWindowsClient
 				SEBDesktopWallpaper.Reset();
 
 				// Restart the explorer.exe shell
-				if((Boolean)SEBClientInfo.getSebSetting(SebSettings.KeyKillExplorerShell)[SebSettings.KeyKillExplorerShell])
+				if(SebInstance.Settings.Get<bool>(SebSettings.KeyKillExplorerShell))
 				{
 					if(SEBClientInfo.ExplorerShellWasKilled)
 					{
@@ -1624,7 +1622,7 @@ namespace SebWindowsClient
 		public void ExitApplication(bool showLoadingScreen = true)
 		{
 			//Only show the loading screen when not in CreateNewDesktop-Mode
-			if((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeyCreateNewDesktop])
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyCreateNewDesktop))
 			{
 				showLoadingScreen = false;
 			}
@@ -1679,7 +1677,7 @@ namespace SebWindowsClient
 		/// ----------------------------------------------------------------------------------------
 		private void noSelectButton1_Click(object sender, EventArgs e)
 		{
-			if((bool)SebInstance.Settings.settingsCurrent[SebSettings.KeyAllowQuit] == true)
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyAllowQuit))
 			{
 				ShowCloseDialogForm();
 			}

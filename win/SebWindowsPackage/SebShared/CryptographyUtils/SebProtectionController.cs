@@ -546,7 +546,7 @@ namespace SebShared.CryptographyUtils
 			sebXml = String.Format("{0}{1}", sebXml, filesHash);
 
 			var message = Encoding.UTF8.GetBytes(sebXml);
-			var salt = (byte[])settings.valueForDictionaryKey(settings.settingsCurrent, SebSettings.KeyExamKeySalt);
+			var salt = settings.Get<byte[]>(SebSettings.KeyExamKeySalt);
 			var hash = new HMACSHA256(salt);
 			var browserExamKey = hash.ComputeHash(message);
 			var browserExamKeyString = BitConverter.ToString(browserExamKey);

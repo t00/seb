@@ -339,12 +339,21 @@ namespace SebShared
 			operatingSystemOSX, operatingSystemWin
 		}
 
-		public T Get<T>(string key)
+		public T Get<T>(string key, bool convert = false)
 		{
-			return Get<T>(key, default(T));
+			object value;
+			if(settingsCurrent.TryGetValue(key, out value))
+			{
+				return convert ? (T)Convert.ChangeType(value, typeof(T)) : (T)value;
+			}
+			if(settingsDefault.TryGetValue(key, out value))
+			{
+				return convert ? (T)Convert.ChangeType(value, typeof(T)) : (T)value;
+			}
+			return default(T);
 		}
 
-		public T Get<T>(string key, T defaultValue)
+		public T GetOrDefault<T>(string key, T defaultValue)
 		{
 			object value;
 			if(settingsCurrent.TryGetValue(key, out value))
