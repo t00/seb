@@ -16,6 +16,7 @@
 		public const string XUL_RUNNER = "xulrunner.exe";
 		public const string XUL_RUNNER_CONFIG = "config.json";
 		public const string XUL_RUNNER_INI = "seb.ini";
+		public const string SEB_PROCESS_TITLE = "SEB";
 
 		public const string MANUFACTURER_LOCAL = "SafeExamBrowser";
 		public const string PRODUCT_NAME = "SafeExamBrowser";

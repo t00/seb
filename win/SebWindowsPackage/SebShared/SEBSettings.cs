@@ -652,7 +652,7 @@ namespace SebShared
 			permittedProcessDataXulRunner.Add(KeyAllowUser, false);
 			permittedProcessDataXulRunner.Add(KeyStrongKill, true);
 			permittedProcessDataXulRunner.Add(KeyOS, IntWin);
-			permittedProcessDataXulRunner.Add(KeyTitle, "SEB");
+			permittedProcessDataXulRunner.Add(KeyTitle, SebConstants.SEB_PROCESS_TITLE);
 			permittedProcessDataXulRunner.Add(KeyDescription, "");
 			permittedProcessDataXulRunner.Add(KeyExecutable, SebConstants.XUL_RUNNER);
 			permittedProcessDataXulRunner.Add(KeyPath, "../xulrunner/");
