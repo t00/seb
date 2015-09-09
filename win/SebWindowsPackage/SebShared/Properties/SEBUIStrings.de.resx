@@ -342,4 +342,7 @@
   <data name="openingSettingsEnterLocation" xml:space="preserve">
     <value>Bitte geben Sie die Position der SEB-Einstellungen</value>
   </data>
+  <data name="openingSettingsTitle" xml:space="preserve">
+    <value>Einstellungen laden</value>
+  </data>
 </root>

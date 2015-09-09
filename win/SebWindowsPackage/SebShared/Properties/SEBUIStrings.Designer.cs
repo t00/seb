@@ -475,6 +475,15 @@ namespace SebShared.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load settings.
+        /// </summary>
+        public static string openingSettingsTitle {
+            get {
+                return ResourceManager.GetString("openingSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This OS is not supported!.
         /// </summary>
         public static string OSNotSupported {

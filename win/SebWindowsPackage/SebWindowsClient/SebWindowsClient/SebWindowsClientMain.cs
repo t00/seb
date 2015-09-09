@@ -825,9 +825,14 @@ namespace SebWindowsClient
 				Logger.AddError("Could not load SebClientSettigs.seb from the Roaming Application Data directory", SEBClientInfo.SebClientSettingsAppDataFile, null);
 			}
 
+			if(SebConstants.SEB_FAIL_NO_CONFIG)
+			{
+				SebMessageBox.Show(SEBUIStrings.openingSettingsTitle, SEBUIStrings.openingSettingsFailed, MessageBoxImage.Error, MessageBoxButton.OK);
+				return false;
+			}
 			do
 			{
-				var url = Microsoft.VisualBasic.Interaction.InputBox(SEBUIStrings.openingSettingsEnterLocation, "Load settings", Settings.Default.LastExamUri);
+				var url = Microsoft.VisualBasic.Interaction.InputBox(SEBUIStrings.openingSettingsEnterLocation, SEBUIStrings.openingSettingsTitle, Settings.Default.LastExamUri);
 				if(string.IsNullOrEmpty(url))
 				{
 					return false;
