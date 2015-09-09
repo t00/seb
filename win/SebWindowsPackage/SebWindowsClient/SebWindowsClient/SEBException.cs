@@ -5,6 +5,7 @@
 //     BFH-TI, http://www.ti.bfh.ch
 //     Biel, 2012
 // -------------------------------------------------------------
+using SebShared;
 
 namespace SebWindowsClient
 {
@@ -35,7 +36,7 @@ namespace SebWindowsClient
         /// ---------------------------------------------------------------------------------------
         public override string Source
         {
-            get { return "SEB"; }
+			get { return SebConstants.SEB_PROCESS_TITLE; }
             set { base.Source = value; }
         }
     }

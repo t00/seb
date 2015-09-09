@@ -392,8 +392,7 @@ namespace SebWindowsClient
 										else
 										{
 											runningProcessesToClose.Add(proc);
-											runningApplicationsToClose.Add(title == "SEB" ? executable : title);
-											//runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
+											runningApplicationsToClose.Add(title == SebConstants.SEB_PROCESS_TITLE ? executable : title);
 											j++;
 										}
 									}
@@ -1213,8 +1212,7 @@ namespace SebWindowsClient
 								else
 								{
 									runningProcessesToClose.Add(runningApplications[j]);
-									runningApplicationsToClose.Add(title == "SEB" ? executable : title);
-									//runningApplicationsToClose.Add((title == "SEB" ? "" : (title == "" ? "" : title + " - ")) + executable);
+									runningApplicationsToClose.Add(title == SebConstants.SEB_PROCESS_TITLE ? executable : title);
 								}
 							}
 						}
