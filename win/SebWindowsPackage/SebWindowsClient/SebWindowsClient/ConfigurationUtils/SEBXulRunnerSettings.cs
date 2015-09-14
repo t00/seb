@@ -133,6 +133,7 @@ namespace SebWindowsClient.ConfigurationUtils
 
             return objXULRunnerConfig;
         }
+
         /// <summary>
         /// JSON Serialization of Settings Dictionary
         /// </summary>

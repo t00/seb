@@ -42,6 +42,49 @@ using SebShared.DiagnosticUtils;
 
 namespace SebShared
 {
+	public enum chooseFileToUploadPolicies
+	{
+		manuallyWithFileRequester = 0,
+		attemptUploadSameFileDownloadedBefore = 1,
+		onlyAllowUploadSameFileDownloadedBefore = 2
+	};
+
+	public enum newBrowserWindowPolicies
+	{
+		getGenerallyBlocked = 0,
+		openInSameWindow = 1,
+		openInNewWindow = 2
+	};
+
+	public enum sebServicePolicies
+	{
+		ignoreService = 0,
+		indicateMissingService = 1,
+		forceSebService = 2
+	};
+
+	public enum browserViewModes
+	{
+		browserViewModeWindow = 0,
+		browserViewModeFullscreen = 1
+	};
+
+	// MAC
+	public enum sebPurposePolicies
+	{
+		sebPurposePolicyStartingExam = 0,
+		sebPurposePolicyConfiguringClient = 1
+	};
+
+	public enum urlFilterRuleActions
+	{
+		urlFilterActionBlock = 0,
+		urlFilterActionAllow = 1,
+		urlFilterActionSkip = 2,
+		urlFilterActionAn = 3,
+		urlFilterActionOr = 4
+	};
+
 	public class SebSettings
 	{
 		// **************************
