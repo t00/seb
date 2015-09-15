@@ -533,12 +533,8 @@ namespace SebShared.CryptographyUtils
 		/// Compute a Browser Exam Key SHA256 hash base16 string.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static string ComputeBrowserExamKeyFromFilesHash(SebSettings settings, string filesHash)
+		public static string ComputeBrowserExamKeyFromFilesHash(SebSettings settings, string filesHash = null)
 		{
-			if(string.IsNullOrEmpty(filesHash))
-			{
-				throw new ArgumentException("filesHash");
-			}
 			// Serialize preferences dictionary to an XML string
 			var sebXml = PropertyList.writeXml(settings.settingsCurrent);
 
@@ -551,6 +547,16 @@ namespace SebShared.CryptographyUtils
 			var browserExamKey = hash.ComputeHash(message);
 			var browserExamKeyString = BitConverter.ToString(browserExamKey);
 			return browserExamKeyString.Replace("-", "").ToLower();
+		}
+
+		public static string CreateSaltedBrowserExamKey(SebSettings settings, Uri uri, string platformHash)
+		{
+			var hash = new SHA256Managed();
+			var hashBase = uri.AbsoluteUri + platformHash;
+			var hashBaseBytes = Encoding.UTF8.GetBytes(hashBase);
+			var resultKey = hash.ComputeHash(hashBaseBytes);
+			var keyString = BitConverter.ToString(resultKey);
+			return keyString.Replace("-", "").ToLower();
 		}
 
 		public static string ComputeFilesHash(IEnumerable<string> fileNames)
