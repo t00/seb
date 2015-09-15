@@ -85,6 +85,15 @@ namespace SebShared
 		urlFilterActionOr = 4
 	};
 
+	public enum sebLogLevels
+	{
+		sebLogLevelError = 0,
+		sebLogLevelWarning = 1,
+		sebLogLevelInfo = 2,
+		sebLogLevelDebug = 3,
+		sebLogLevelVerbose = 4
+	}
+
 	public class SebSettings
 	{
 		// **************************
@@ -328,6 +337,7 @@ namespace SebShared
 		public const String KeyEnableAppSwitcherCheck = "enableAppSwitcherCheck";
 		public const String KeyForceAppFolderInstall = "forceAppFolderInstall";
 		public const String KeyEnableLogging = "enableLogging";
+		public const String KeyLogLevel = "logLevel";
 		public const String KeyLogDirectoryOSX = "logDirectoryOSX";
 		public const String KeyLogDirectoryWin = "logDirectoryWin";
 		public const String KeyAllowWLAN = "allowWlan";
@@ -852,6 +862,7 @@ namespace SebShared
 			settingsDefault.Add(KeyEnableAppSwitcherCheck, true);
 			settingsDefault.Add(KeyForceAppFolderInstall, true);
 			settingsDefault.Add(KeyEnableLogging, true);
+			settingsDefault.Add(KeyLogLevel, (int)sebLogLevels.sebLogLevelError);
 			settingsDefault.Add(KeyLogDirectoryOSX, "~/Documents");
 			settingsDefault.Add(KeyLogDirectoryWin, "");
 			settingsDefault.Add(KeyAllowWLAN, false);
