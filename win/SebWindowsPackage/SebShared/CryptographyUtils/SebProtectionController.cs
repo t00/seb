@@ -44,6 +44,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows;
+using System.Windows.Documents;
 using SebShared.DiagnosticUtils;
 using SebShared.Properties;
 using SebShared.Utils;
@@ -537,26 +538,26 @@ namespace SebShared.CryptographyUtils
 		{
 			// Serialize preferences dictionary to an XML string
 			var sebXml = PropertyList.writeXml(settings.settingsCurrent);
-
 			//Add the Hash of the Executable and of the XulRunnerFiles to the message
 			sebXml = String.Format("{0}{1}", sebXml, filesHash);
-
-			var message = Encoding.UTF8.GetBytes(sebXml);
-			var salt = settings.Get<byte[]>(SebSettings.KeyExamKeySalt);
-			var hash = new HMACSHA256(salt);
-			var browserExamKey = hash.ComputeHash(message);
-			var browserExamKeyString = BitConverter.ToString(browserExamKey);
-			return browserExamKeyString.Replace("-", "").ToLower();
+			// TODO: Implement proper and secure HMAC-SHA256
+			// var salt = settings.Get<byte[]>(SebSettings.KeyExamKeySalt);
+			// var hash = new HMACSHA256(salt);
+			return GetStringSHA256(sebXml);
 		}
 
 		public static string CreateSaltedBrowserExamKey(SebSettings settings, Uri uri, string platformHash)
 		{
+			return GetStringSHA256(uri.AbsoluteUri + platformHash);
+		}
+
+		private static string GetStringSHA256(string messageText)
+		{
+			var message = Encoding.UTF8.GetBytes(messageText);
 			var hash = new SHA256Managed();
-			var hashBase = uri.AbsoluteUri + platformHash;
-			var hashBaseBytes = Encoding.UTF8.GetBytes(hashBase);
-			var resultKey = hash.ComputeHash(hashBaseBytes);
-			var keyString = BitConverter.ToString(resultKey);
-			return keyString.Replace("-", "").ToLower();
+			var browserExamKey = hash.ComputeHash(message);
+			var browserExamKeyString = BitConverter.ToString(browserExamKey);
+			return browserExamKeyString.Replace("-", "").ToLower();
 		}
 
 		public static string ComputeFilesHash(IEnumerable<string> fileNames)

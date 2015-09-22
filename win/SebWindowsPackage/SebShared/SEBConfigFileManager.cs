@@ -102,7 +102,7 @@ namespace SebShared
 		/// certificate reference found in the .seb file is returned 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public static Dictionary<string, object> DecryptSEBSettings(byte[] sebData, GetPasswordMethod getPassword, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash, ref X509Certificate2 sebFileCertificateRef)
+		public static IDictionary<string, object> DecryptSEBSettings(byte[] sebData, GetPasswordMethod getPassword, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash, ref X509Certificate2 sebFileCertificateRef)
 		{
 			// Ungzip the .seb (according to specification >= v14) source data
 			byte[] unzippedSebData = GZipByte.Decompress(sebData);
@@ -177,7 +177,6 @@ namespace SebShared
 					// and quit afterwards, returning if reading the .seb file was successfull
 					var sebSettings = DecryptDataWithPasswordForConfiguringClient(sebData, getPassword, forEditing, ref sebFilePassword, ref passwordIsHash);
 					return sebSettings;
-
 				}
 				else
 				{
@@ -230,21 +229,21 @@ namespace SebShared
 		/// for configuring the client 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		private static Dictionary<string, object> DecryptDataWithPasswordForConfiguringClient(byte[] sebData, GetPasswordMethod getPassword, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash)
+		private static IDictionary<string, object> DecryptDataWithPasswordForConfiguringClient(byte[] sebData, GetPasswordMethod getPassword, bool forEditing, ref string sebFilePassword, ref bool passwordIsHash)
 		{
 			passwordIsHash = false;
 			string password;
 			// First try to decrypt with the current admin password
 			// get admin password hash
-			string hashedAdminPassword = SebInstance.Settings.Get<string>(SebSettings.KeyHashedAdminPassword);
+			var hashedAdminPassword = SebInstance.Settings.Get<string>(SebSettings.KeyHashedAdminPassword);
 			if(hashedAdminPassword == null)
 			{
 				hashedAdminPassword = "";
 			}
 			// We use always uppercase letters in the base16 hashed admin password used for encrypting
 			hashedAdminPassword = hashedAdminPassword.ToUpper();
-			Dictionary<string, object> sebPreferencesDict = null;
-			byte[] decryptedSebData = SebProtectionController.DecryptDataWithPassword(sebData, hashedAdminPassword);
+			IDictionary<string, object> sebPreferencesDict;
+			var decryptedSebData = SebProtectionController.DecryptDataWithPassword(sebData, hashedAdminPassword);
 			if(decryptedSebData == null)
 			{
 				// If decryption with admin password didn't work, try it with an empty password
@@ -294,7 +293,7 @@ namespace SebShared
 
 			try
 			{
-				sebPreferencesDict = (Dictionary<string, object>)PropertyList.readPlist(decryptedSebData);
+				sebPreferencesDict = (IDictionary<string, object>)PropertyList.readPlist(decryptedSebData);
 			}
 			catch(Exception readPlistException)
 			{
@@ -305,7 +304,7 @@ namespace SebShared
 				return null;
 			}
 			// Get the admin password set in these settings
-			string sebFileHashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(sebPreferencesDict, SebSettings.KeyHashedAdminPassword);
+			var sebFileHashedAdminPassword = (string)SebInstance.Settings.valueForDictionaryKey(sebPreferencesDict, SebSettings.KeyHashedAdminPassword);
 			if(sebFileHashedAdminPassword == null)
 			{
 				sebFileHashedAdminPassword = "";
@@ -365,13 +364,13 @@ namespace SebShared
 		/// and returns the decrypted bytes 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		private static Dictionary<string, object> GetPreferencesDictFromConfigData(byte[] sebData, GetPasswordMethod getPassword, bool forEditing)
+		private static IDictionary<string, object> GetPreferencesDictFromConfigData(byte[] sebData, GetPasswordMethod getPassword, bool forEditing)
 		{
-			Dictionary<string, object> sebPreferencesDict = null;
+			IDictionary<string, object> sebPreferencesDict = null;
 			try
 			{
 				// Get preferences dictionary from decrypted data
-				sebPreferencesDict = (Dictionary<string, object>)PropertyList.readPlist(sebData);
+				sebPreferencesDict = (IDictionary<string, object>)PropertyList.readPlist(sebData);
 			}
 			catch(Exception readPlistException)
 			{
@@ -520,12 +519,8 @@ namespace SebShared
 			//DictObj cleanedCurrentSettings = SEBSettings.CleanSettingsDictionary();
 
 			// Serialize preferences dictionary to an XML string
-			string sebXML = PropertyList.writeXml(settings.settingsCurrent);
-			string cleanedSebXML = sebXML.Replace("<array />", "<array></array>");
-			cleanedSebXML = cleanedSebXML.Replace("<dict />", "<dict></dict>");
-			cleanedSebXML = cleanedSebXML.Replace("<data />", "<data></data>");
-
-			byte[] encryptedSebData = Encoding.UTF8.GetBytes(cleanedSebXML);
+			var sebXML = PropertyList.writeXml(settings.settingsCurrent);
+			var encryptedSebData = Encoding.UTF8.GetBytes(sebXML);
 
 			string encryptingPassword = null;
 
@@ -679,14 +674,13 @@ namespace SebShared
 		{
 			try
 			{
-				using(GZipStream stream = new GZipStream(new MemoryStream(input),
-							  CompressionMode.Decompress))
+				using(var stream = new GZipStream(new MemoryStream(input), CompressionMode.Decompress))
 				{
 					const int size = 4096;
 					byte[] buffer = new byte[size];
-					using(MemoryStream output = new MemoryStream())
+					using(var output = new MemoryStream())
 					{
-						int count = 0;
+						int count;
 						do
 						{
 							count = stream.Read(buffer, 0, size);

@@ -38,7 +38,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using SebShared.DiagnosticUtils;
+using SebShared.Utils;
 
 namespace SebShared
 {
@@ -118,9 +120,6 @@ namespace SebShared
 		public const int ValTaskBarHeight = 6;
 		public const int ValNum = 6;
 
-		// Keys not belonging to any group
-		public const String KeyOriginatorVersion = "originatorVersion";
-
 		// Group "General"
 		public const String KeyStartURL = "startURL";
 		public const String KeySebServerURL = "sebServerURL";
@@ -162,6 +161,7 @@ namespace SebShared
 		public const String KeyShowInputLanguage = "showInputLanguage";
 		public const String KeyAllowDictionaryLookup = "allowDictionaryLookup";
         public const String KeyEnableTouchExit = "enableTouchExit";
+		public const String KeyIgnoreQuitPassword = "ignoreQuitPassword";
 
 		//Touch optimized settings
 		public const String KeyBrowserScreenKeyboard = "browserScreenKeyboard";
@@ -249,6 +249,8 @@ namespace SebShared
 		public const String KeyURLFilterEnable = "URLFilterEnable";
 		public const String KeyURLFilterEnableContentFilter = "URLFilterEnableContentFilter";
 		public const String KeyURLFilterRules = "URLFilterRules";
+		public const String KeyURLFilterIgnoreList = "URLFilterIgnoreList";
+		public const String KeyURLFilterMessage = "URLFilterMessage";
 
 		//Group "Network" - URL Filter XULRunner keys
 		public const String KeyUrlFilterBlacklist = "blacklistURLFilter";
@@ -340,7 +342,8 @@ namespace SebShared
 		public const String KeyLogLevel = "logLevel";
 		public const String KeyLogDirectoryOSX = "logDirectoryOSX";
 		public const String KeyLogDirectoryWin = "logDirectoryWin";
-		public const String KeyAllowWLAN = "allowWlan";
+		public const String KeyAllowWLAN = "allowWLAN";
+		public const String KeySebServerFallback = "sebServerFallback";
 
 		// Group "Registry"
 
@@ -435,54 +438,54 @@ namespace SebShared
 		// Class SEBSettings contains all settings
 		// and is used for importing/exporting the settings
 		// from/to a human-readable .xml and an encrypted.seb file format.
-		public Dictionary<string, object> settingsDefault = new Dictionary<string, object>();
-		public Dictionary<string, object> settingsCurrent = new Dictionary<string, object>();
+		public IDictionary<string, object> settingsDefault = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> settingsCurrent = new SortedDictionary<string, object>(GetKeyComparer());
 
 		public int permittedProcessIndex;
-		public List<object> permittedProcessList = new List<object>();
-		public Dictionary<string, object> permittedProcessData = new Dictionary<string, object>();
-		public Dictionary<string, object> permittedProcessDataDefault = new Dictionary<string, object>();
-		public Dictionary<string, object> permittedProcessDataXulRunner = new Dictionary<string, object>();
+		public IList<object> permittedProcessList = new List<object>();
+		public IDictionary<string, object> permittedProcessData = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> permittedProcessDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> permittedProcessDataXulRunner = new SortedDictionary<string, object>(GetKeyComparer());
 
 		public int permittedArgumentIndex;
-		public List<object> permittedArgumentList = new List<object>();
-		public Dictionary<string, object> permittedArgumentData = new Dictionary<string, object>();
-		public Dictionary<string, object> permittedArgumentDataDefault = new Dictionary<string, object>();
-		public Dictionary<string, object> permittedArgumentDataXulRunner1 = new Dictionary<string, object>();
-		public Dictionary<string, object> permittedArgumentDataXulRunner2 = new Dictionary<string, object>();
-		public List<object> permittedArgumentListXulRunner = new List<object>();
+		public IList<object> permittedArgumentList = new List<object>();
+		public IDictionary<string, object> permittedArgumentData = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> permittedArgumentDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> permittedArgumentDataXulRunner1 = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> permittedArgumentDataXulRunner2 = new SortedDictionary<string, object>(GetKeyComparer());
+		public IList<object> permittedArgumentListXulRunner = new List<object>();
 
 		public int prohibitedProcessIndex;
-		public List<object> prohibitedProcessList = new List<object>();
-		public Dictionary<string, object> prohibitedProcessData = new Dictionary<string, object>();
-		public Dictionary<string, object> prohibitedProcessDataDefault = new Dictionary<string, object>();
+		public IList<object> prohibitedProcessList = new List<object>();
+		public IDictionary<string, object> prohibitedProcessData = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> prohibitedProcessDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
 
 		public int urlFilterRuleIndex;
-		public List<object> urlFilterRuleList = new List<object>();
-		public Dictionary<string, object> urlFilterRuleData = new Dictionary<string, object>();
-		public Dictionary<string, object> urlFilterRuleDataDefault = new Dictionary<string, object>();
-		public Dictionary<string, object> urlFilterRuleDataStorage = new Dictionary<string, object>();
+		public IList<object> urlFilterRuleList = new List<object>();
+		public IDictionary<string, object> urlFilterRuleData = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> urlFilterRuleDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> urlFilterRuleDataStorage = new SortedDictionary<string, object>(GetKeyComparer());
 
 		public int urlFilterActionIndex;
-		public List<object> urlFilterActionList = new List<object>();
-		public List<object> urlFilterActionListDefault = new List<object>();
-		public List<object> urlFilterActionListStorage = new List<object>();
-		public Dictionary<string, object> urlFilterActionData = new Dictionary<string, object>();
-		public Dictionary<string, object> urlFilterActionDataDefault = new Dictionary<string, object>();
-		public Dictionary<string, object> urlFilterActionDataStorage = new Dictionary<string, object>();
+		public IList<object> urlFilterActionList = new List<object>();
+		public IList<object> urlFilterActionListDefault = new List<object>();
+		public IList<object> urlFilterActionListStorage = new List<object>();
+		public IDictionary<string, object> urlFilterActionData = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> urlFilterActionDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> urlFilterActionDataStorage = new SortedDictionary<string, object>(GetKeyComparer());
 
 		public int embeddedCertificateIndex;
-		public List<object> embeddedCertificateList = new List<object>();
-		public Dictionary<string, object> embeddedCertificateData = new Dictionary<string, object>();
-		public Dictionary<string, object> embeddedCertificateDataDefault = new Dictionary<string, object>();
+		public IList<object> embeddedCertificateList = new List<object>();
+		public IDictionary<string, object> embeddedCertificateData = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> embeddedCertificateDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
 
-		public Dictionary<string, object> proxiesData = new Dictionary<string, object>();
-		public Dictionary<string, object> proxiesDataDefault = new Dictionary<string, object>();
+		public IDictionary<string, object> proxiesData = new SortedDictionary<string, object>(GetKeyComparer());
+		public IDictionary<string, object> proxiesDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
 
 		public int proxyProtocolIndex;
 
 		public int bypassedProxyIndex;
-		public List<object> bypassedProxyList = new List<object>();
+		public IList<object> bypassedProxyList = new List<object>();
 		public String bypassedProxyData = "";
 		public String bypassedProxyDataDefault = "";
 
@@ -503,43 +506,43 @@ namespace SebShared
 		public void CreateDefaultAndCurrentSettingsFromScratch()
 		{
 			// Destroy all default lists and dictionaries
-			settingsDefault = new Dictionary<string, object>();
-			settingsCurrent = new Dictionary<string, object>();
+			settingsDefault = new SortedDictionary<string, object>(GetKeyComparer());
+			settingsCurrent = new SortedDictionary<string, object>(GetKeyComparer());
 
 			permittedProcessList = new List<object>();
-			permittedProcessData = new Dictionary<string, object>();
-			permittedProcessDataDefault = new Dictionary<string, object>();
-			permittedProcessDataXulRunner = new Dictionary<string, object>();
+			permittedProcessData = new SortedDictionary<string, object>(GetKeyComparer());
+			permittedProcessDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+			permittedProcessDataXulRunner = new SortedDictionary<string, object>(GetKeyComparer());
 
 			permittedArgumentList = new List<object>();
-			permittedArgumentData = new Dictionary<string, object>();
-			permittedArgumentDataDefault = new Dictionary<string, object>();
-			permittedArgumentDataXulRunner1 = new Dictionary<string, object>();
-			permittedArgumentDataXulRunner2 = new Dictionary<string, object>();
+			permittedArgumentData = new SortedDictionary<string, object>(GetKeyComparer());
+			permittedArgumentDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+			permittedArgumentDataXulRunner1 = new SortedDictionary<string, object>(GetKeyComparer());
+			permittedArgumentDataXulRunner2 = new SortedDictionary<string, object>(GetKeyComparer());
 			permittedArgumentListXulRunner = new List<object>();
 
 			prohibitedProcessList = new List<object>();
-			prohibitedProcessData = new Dictionary<string, object>();
-			prohibitedProcessDataDefault = new Dictionary<string, object>();
+			prohibitedProcessData = new SortedDictionary<string, object>(GetKeyComparer());
+			prohibitedProcessDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
 
 			urlFilterRuleList = new List<object>();
-			urlFilterRuleData = new Dictionary<string, object>();
-			urlFilterRuleDataDefault = new Dictionary<string, object>();
-			urlFilterRuleDataStorage = new Dictionary<string, object>();
+			urlFilterRuleData = new SortedDictionary<string, object>(GetKeyComparer());
+			urlFilterRuleDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+			urlFilterRuleDataStorage = new SortedDictionary<string, object>(GetKeyComparer());
 
 			urlFilterActionList = new List<object>();
 			urlFilterActionListDefault = new List<object>();
 			urlFilterActionListStorage = new List<object>();
-			urlFilterActionData = new Dictionary<string, object>();
-			urlFilterActionDataDefault = new Dictionary<string, object>();
-			urlFilterActionDataStorage = new Dictionary<string, object>();
+			urlFilterActionData = new SortedDictionary<string, object>(GetKeyComparer());
+			urlFilterActionDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
+			urlFilterActionDataStorage = new SortedDictionary<string, object>(GetKeyComparer());
 
 			embeddedCertificateList = new List<object>();
-			embeddedCertificateData = new Dictionary<string, object>();
-			embeddedCertificateDataDefault = new Dictionary<string, object>();
+			embeddedCertificateData = new SortedDictionary<string, object>(GetKeyComparer());
+			embeddedCertificateDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
 
-			proxiesData = new Dictionary<string, object>();
-			proxiesDataDefault = new Dictionary<string, object>();
+			proxiesData = new SortedDictionary<string, object>(GetKeyComparer());
+			proxiesDataDefault = new SortedDictionary<string, object>(GetKeyComparer());
 
 			bypassedProxyList = new List<object>();
 			bypassedProxyData = "";
@@ -558,9 +561,6 @@ namespace SebShared
 
 			// Initialise the default settings Plist
 			settingsDefault.Clear();
-
-			// Default settings for keys not belonging to any group
-			settingsDefault.Add(KeyOriginatorVersion, SebConstants.SEB_VERSION);
 
 			// Default settings for group "General"
 			settingsDefault.Add(KeyStartURL, "");
@@ -588,6 +588,7 @@ namespace SebShared
 
 			// Default settings for group "User Interface"
 			settingsDefault.Add(KeyBrowserViewMode, 0);
+			settingsDefault.Add(KeyBrowserMessagingSocket, string.Format(@"ws:\localhost:8706"));
 			settingsDefault.Add(KeyMainBrowserWindowWidth, "100%");
 			settingsDefault.Add(KeyMainBrowserWindowHeight, "100%");
 			settingsDefault.Add(KeyMainBrowserWindowPositioning, 1);
@@ -607,6 +608,7 @@ namespace SebShared
 			settingsDefault.Add(KeyShowTime, true);
 			settingsDefault.Add(KeyShowInputLanguage, true);
 			settingsDefault.Add(KeyEnableTouchExit, false);
+			settingsDefault.Add(KeyIgnoreQuitPassword, false);
 
 			//Touch Settings
 			settingsDefault.Add(KeyBrowserScreenKeyboard, false);
@@ -746,6 +748,8 @@ namespace SebShared
 			settingsDefault.Add(KeyEnableURLFilter, false);
 			settingsDefault.Add(KeyEnableURLContentFilter, false);
 			settingsDefault.Add(KeyURLFilterRules, new List<object>());
+			settingsDefault.Add(KeyURLFilterIgnoreList, new List<object>());
+			settingsDefault.Add(KeyURLFilterMessage, 0);
 
 			//// Create a default action
 			//SEBSettings.urlFilterActionDataDefault.Clear();
@@ -791,7 +795,7 @@ namespace SebShared
 			settingsDefault.Add(KeyUrlFilterBlacklist, "");
 			settingsDefault.Add(KeyUrlFilterWhitelist, "");
 			settingsDefault.Add(KeyUrlFilterTrustedContent, false);
-			settingsDefault.Add(KeyUrlFilterRulesAsRegex, false);
+			settingsDefault.Add(KeyUrlFilterRulesAsRegex, true);
 
 			// Default settings for group "Network - Certificates"
 			settingsDefault.Add(KeyEmbeddedCertificates, new List<object>());
@@ -866,6 +870,7 @@ namespace SebShared
 			settingsDefault.Add(KeyLogDirectoryOSX, "~/Documents");
 			settingsDefault.Add(KeyLogDirectoryWin, "");
 			settingsDefault.Add(KeyAllowWLAN, false);
+			settingsDefault.Add(KeySebServerFallback, false);
 
 			// Default settings for group "Inside SEB"
 			settingsDefault.Add(KeyInsideSebEnableSwitchUser, false);
@@ -1002,13 +1007,13 @@ namespace SebShared
 				}
 
 			// Get the Permitted Process List
-			permittedProcessList = (List<object>)settingsCurrent[KeyPermittedProcesses];
+			permittedProcessList = (IList<object>)settingsCurrent[KeyPermittedProcesses];
 
 			// Traverse Permitted Processes of currently opened file
 			for(int listIndex = 0; listIndex < permittedProcessList.Count; listIndex++)
 			{
 				// Get the Permitted Process Data
-				permittedProcessData = (Dictionary<string, object>)permittedProcessList[listIndex];
+				permittedProcessData = (IDictionary<string, object>)permittedProcessList[listIndex];
 
 				// Add potentially missing keys to current Process Dictionary
 				foreach(KeyValuePair<string, object> p in permittedProcessDataDefault)
@@ -1016,13 +1021,13 @@ namespace SebShared
 						permittedProcessData.Add(p.Key, p.Value);
 
 				// Get the Permitted Argument List
-				permittedArgumentList = (List<object>)permittedProcessData[KeyArguments];
+				permittedArgumentList = (IList<object>)permittedProcessData[KeyArguments];
 
 				// Traverse Arguments of current Process
 				for(int sublistIndex = 0; sublistIndex < permittedArgumentList.Count; sublistIndex++)
 				{
 					// Get the Permitted Argument Data
-					permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[sublistIndex];
+					permittedArgumentData = (IDictionary<string, object>)permittedArgumentList[sublistIndex];
 
 					// Add potentially missing keys to current Argument Dictionary
 					foreach(var p in permittedArgumentDataDefault)
@@ -1038,16 +1043,16 @@ namespace SebShared
 
 
 			// Get the Prohibited Process List
-			prohibitedProcessList = (List<object>)settingsCurrent[KeyProhibitedProcesses];
+			prohibitedProcessList = (IList<object>)settingsCurrent[KeyProhibitedProcesses];
 
 			// Traverse Prohibited Processes of currently opened file
 			for(int listIndex = 0; listIndex < prohibitedProcessList.Count; listIndex++)
 			{
 				// Get the Prohibited Process Data
-				prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[listIndex];
+				prohibitedProcessData = (IDictionary<string, object>)prohibitedProcessList[listIndex];
 
 				// Add potentially missing keys to current Process Dictionary
-				foreach(KeyValuePair<string, object> p in prohibitedProcessDataDefault)
+				foreach(var p in prohibitedProcessDataDefault)
 					if(prohibitedProcessData.ContainsKey(p.Key) == false)
 						prohibitedProcessData.Add(p.Key, p.Value);
 
@@ -1056,19 +1061,18 @@ namespace SebShared
 
 
 			// Get the Embedded Certificate List
-			embeddedCertificateList = (List<object>)settingsCurrent[KeyEmbeddedCertificates];
+			embeddedCertificateList = (IList<object>)settingsCurrent[KeyEmbeddedCertificates];
 
 			// Traverse Embedded Certificates of currently opened file
-			for(int listIndex = 0; listIndex < embeddedCertificateList.Count; listIndex++)
+			for(var listIndex = 0; listIndex < embeddedCertificateList.Count; listIndex++)
 			{
 				// Get the Embedded Certificate Data
-				embeddedCertificateData = (Dictionary<string, object>)embeddedCertificateList[listIndex];
+				embeddedCertificateData = (IDictionary<string, object>)embeddedCertificateList[listIndex];
 
 				// Add potentially missing keys to current Certificate Dictionary
 				foreach(KeyValuePair<string, object> p in embeddedCertificateDataDefault)
 					if(embeddedCertificateData.ContainsKey(p.Key) == false)
 						embeddedCertificateData.Add(p.Key, p.Value);
-
 			} // next listIndex
 
 
@@ -1107,15 +1111,15 @@ namespace SebShared
 
 
 			// Get the Proxies Dictionary
-			proxiesData = (Dictionary<string, object>)settingsCurrent[KeyProxies];
+			proxiesData = (IDictionary<string, object>)settingsCurrent[KeyProxies];
 
 			// Add potentially missing keys to current Proxies Dictionary
-			foreach(KeyValuePair<string, object> p in proxiesDataDefault)
+			foreach(var p in proxiesDataDefault)
 				if(proxiesData.ContainsKey(p.Key) == false)
 					proxiesData.Add(p.Key, p.Value);
 
 			// Get the Bypassed Proxy List
-			bypassedProxyList = (List<object>)proxiesData[KeyExceptionsList];
+			bypassedProxyList = (IList<object>)proxiesData[KeyExceptionsList];
 
 			// Traverse Bypassed Proxies of currently opened file
 			for(int listIndex = 0; listIndex < bypassedProxyList.Count; listIndex++)
@@ -1134,41 +1138,41 @@ namespace SebShared
 		/// Return a settings dictionary with removed empty ListObj and DictObj elements 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public Dictionary<string, object> CleanSettingsDictionary()
+		public IDictionary<string, object> CleanSettingsDictionary()
 		{
-			Dictionary<string, object> cleanSettings = new Dictionary<string, object>();
+			var cleanSettings = new SortedDictionary<string, object>(GetKeyComparer());
 
 			// Add key/values to the clear dictionary if they're not an empty array (ListObj) or empty dictionary (DictObj)
 			foreach(KeyValuePair<string, object> p in settingsDefault)
-				if(!(p.Value is List<object> && ((List<object>)p.Value).Count == 0) && !(p.Value is Dictionary<string, object> && ((Dictionary<string, object>)p.Value).Count == 0))
+				if(!(p.Value is IList<object> && ((IList<object>)p.Value).Count == 0) && !(p.Value is IDictionary<string, object> && ((IDictionary<string, object>)p.Value).Count == 0))
 					cleanSettings.Add(p.Key, p.Value);
 
 
 			// Get the Permitted Process List
-			List<object> permittedProcessList = (List<object>)valueForDictionaryKey(cleanSettings, KeyPermittedProcesses);
+			var permittedProcessList = (IList<object>)valueForDictionaryKey(cleanSettings, KeyPermittedProcesses);
 			if(permittedProcessList != null)
 			{
 				// Traverse Permitted Processes of currently opened file
 				for(int listIndex = 0; listIndex < permittedProcessList.Count; listIndex++)
 				{
 					// Get the Permitted Process Data
-					Dictionary<string, object> permittedProcessData = (Dictionary<string, object>)permittedProcessList[listIndex];
+					var permittedProcessData = (IDictionary<string, object>)permittedProcessList[listIndex];
 					if(permittedProcessData != null)
 					{
 						// Add potentially missing keys to current Process Dictionary
-						foreach(KeyValuePair<string, object> p in permittedProcessDataDefault)
-							if(permittedProcessData.ContainsKey(p.Key) == false && !(p.Value is List<object> && ((List<object>)p.Value).Count == 0) && !(p.Value is Dictionary<string, object> && ((Dictionary<string, object>)p.Value).Count == 0))
+						foreach(var p in permittedProcessDataDefault)
+							if(permittedProcessData.ContainsKey(p.Key) == false && !(p.Value is IList<object> && ((IList<object>)p.Value).Count == 0) && !(p.Value is IDictionary<string, object> && ((IDictionary<string, object>)p.Value).Count == 0))
 								permittedProcessData.Add(p.Key, p.Value);
 
 						// Get the Permitted Argument List
-						var permittedArgumentList = (List<object>)valueForDictionaryKey(permittedProcessData, KeyArguments);
+						var permittedArgumentList = (IList<object>)valueForDictionaryKey(permittedProcessData, KeyArguments);
 						if(permittedArgumentList != null)
 						{
 							// Traverse Arguments of current Process
 							for(var sublistIndex = 0; sublistIndex < permittedArgumentList.Count; sublistIndex++)
 							{
 								// Get the Permitted Argument Data
-								var permittedArgumentData = (Dictionary<string, object>)permittedArgumentList[sublistIndex];
+								var permittedArgumentData = (IDictionary<string, object>)permittedArgumentList[sublistIndex];
 
 								// Add potentially missing keys to current Argument Dictionary
 								foreach(var p in permittedArgumentDataDefault)
@@ -1186,36 +1190,36 @@ namespace SebShared
 			}
 
 			// Get the Prohibited Process List
-			List<object> prohibitedProcessList = (List<object>)valueForDictionaryKey(cleanSettings, KeyProhibitedProcesses);
+			var prohibitedProcessList = (IList<object>)valueForDictionaryKey(cleanSettings, KeyProhibitedProcesses);
 			if(prohibitedProcessList != null)
 			{
 				// Traverse Prohibited Processes of currently opened file
 				for(int listIndex = 0; listIndex < prohibitedProcessList.Count; listIndex++)
 				{
 					// Get the Prohibited Process Data
-					Dictionary<string, object> prohibitedProcessData = (Dictionary<string, object>)prohibitedProcessList[listIndex];
+					var prohibitedProcessData = (IDictionary<string, object>)prohibitedProcessList[listIndex];
 
 					// Add potentially missing keys to current Process Dictionary
-					foreach(KeyValuePair<string, object> p in prohibitedProcessDataDefault)
-						if(!(p.Value is List<object> && ((List<object>)p.Value).Count == 0) && !(p.Value is Dictionary<string, object> && ((Dictionary<string, object>)p.Value).Count == 0))
+					foreach(var p in prohibitedProcessDataDefault)
+						if(!(p.Value is IList<object> && ((IList<object>)p.Value).Count == 0) && !(p.Value is IDictionary<string, object> && ((IDictionary<string, object>)p.Value).Count == 0))
 							prohibitedProcessData.Add(p.Key, p.Value);
 
 				} // next listIndex
 			}
 
 			// Get the Embedded Certificate List
-			List<object> embeddedCertificateList = (List<object>)valueForDictionaryKey(cleanSettings, KeyEmbeddedCertificates);
+			var embeddedCertificateList = (IList<object>)valueForDictionaryKey(cleanSettings, KeyEmbeddedCertificates);
 			if(embeddedCertificateList != null)
 			{
 				// Traverse Embedded Certificates of currently opened file
 				for(int listIndex = 0; listIndex < embeddedCertificateList.Count; listIndex++)
 				{
 					// Get the Embedded Certificate Data
-					Dictionary<string, object> embeddedCertificateData = (Dictionary<string, object>)embeddedCertificateList[listIndex];
+					var embeddedCertificateData = (IDictionary<string, object>)embeddedCertificateList[listIndex];
 
 					// Add potentially missing keys to current Certificate Dictionary
 					foreach(KeyValuePair<string, object> p in embeddedCertificateDataDefault)
-						if(!(p.Value is List<object> && ((List<object>)p.Value).Count == 0) && !(p.Value is Dictionary<string, object> && ((Dictionary<string, object>)p.Value).Count == 0))
+						if(!(p.Value is IList<object> && ((IList<object>)p.Value).Count == 0) && !(p.Value is IDictionary<string, object> && ((IDictionary<string, object>)p.Value).Count == 0))
 							embeddedCertificateData.Add(p.Key, p.Value);
 
 				} // next listIndex
@@ -1257,16 +1261,16 @@ namespace SebShared
 			//}
 
 			// Get the Proxies Dictionary
-			Dictionary<string, object> proxiesData = (Dictionary<string, object>)valueForDictionaryKey(cleanSettings, KeyProxies);
+			var proxiesData = (IDictionary<string, object>)valueForDictionaryKey(cleanSettings, KeyProxies);
 			if(proxiesData != null)
 			{
 				// Add potentially missing keys to current Proxies Dictionary
-				foreach(KeyValuePair<string, object> p in proxiesDataDefault)
-					if(proxiesData.ContainsKey(p.Key) == false && !(p.Value is List<object> && ((List<object>)p.Value).Count == 0) && !(p.Value is Dictionary<string, object> && ((Dictionary<string, object>)p.Value).Count == 0))
+				foreach(var p in proxiesDataDefault)
+					if(proxiesData.ContainsKey(p.Key) == false && !(p.Value is List<object> && ((IList<object>)p.Value).Count == 0) && !(p.Value is IDictionary<string, object> && ((IDictionary<string, object>)p.Value).Count == 0))
 						proxiesData.Add(p.Key, p.Value);
 
 				// Get the Bypassed Proxy List
-				List<object> bypassedProxyList = (List<object>)valueForDictionaryKey(proxiesData, KeyExceptionsList);
+				var bypassedProxyList = (IList<object>)valueForDictionaryKey(proxiesData, KeyExceptionsList);
 				if(bypassedProxyList != null)
 				{
 					if(bypassedProxyList.Count == 0)
@@ -1295,7 +1299,7 @@ namespace SebShared
 		/// return null for the value if the key doesn't exist 
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public object valueForDictionaryKey(Dictionary<string, object> dictionary, string key, object defaultValue = null)
+		public object valueForDictionaryKey(IDictionary<string, object> dictionary, string key, object defaultValue = null)
 		{
 			if(dictionary.ContainsKey(key))
 			{
@@ -1307,37 +1311,21 @@ namespace SebShared
 			}
 		}
 
-
-		/// ----------------------------------------------------------------------------------------
-		/// <summary>
-		/// Clone a dictionary 
-		/// </summary>
-		/// ----------------------------------------------------------------------------------------
-		public Dictionary<TKey, TValue> CloneDictionaryCloningValues<TKey, TValue>(Dictionary<TKey, TValue> original) where TValue: ICloneable
-		{
-			Dictionary<TKey, TValue> ret = new Dictionary<TKey, TValue>(original.Count, original.Comparer);
-			foreach(KeyValuePair<TKey, TValue> entry in original)
-			{
-				ret.Add(entry.Key, (TValue)entry.Value.Clone());
-			}
-			return ret;
-		}
-
 		// **********************************************
 		// Add XulRunnerProcess to Permitted Process List
 		// **********************************************
 		public void PermitXulRunnerProcess()
 		{
 			// Get the Permitted Process List
-			permittedProcessList = (List<object>)settingsCurrent[KeyPermittedProcesses];
+			permittedProcessList = (IList<object>)settingsCurrent[KeyPermittedProcesses];
 
 			// Position of XulRunner process in Permitted Process List
-			int indexOfProcessXulRunnerExe = -1;
+			var indexOfProcessXulRunnerExe = -1;
 
 			// Traverse Permitted Processes of currently opened file
-			for(int listIndex = 0; listIndex < permittedProcessList.Count; listIndex++)
+			for(var listIndex = 0; listIndex < permittedProcessList.Count; listIndex++)
 			{
-				permittedProcessData = (Dictionary<string, object>)permittedProcessList[listIndex];
+				permittedProcessData = (IDictionary<string, object>)permittedProcessList[listIndex];
 
 				// Check if XulRunner process is in Permitted Process List
 				if(permittedProcessData[KeyExecutable].Equals(SebConstants.XUL_RUNNER))
@@ -1371,11 +1359,10 @@ namespace SebShared
 			// Determine the type of the input object
 			string typeSource = objectSource.GetType().ToString();
 
-
 			// Treat the complex datatype Dictionary<string, object>
 			if(typeSource.Contains("Dictionary"))
 			{
-				Dictionary<string, object> dictSource = (Dictionary<string, object>)objectSource;
+				var dictSource = (IDictionary<string, object>)objectSource;
 
 				//foreach (KeyValue pair in dictSource)
 				for(int index = 0; index < dictSource.Count; index++)
@@ -1401,23 +1388,22 @@ namespace SebShared
 			// Treat the complex datatype List<object>
 			if(typeSource.Contains("List"))
 			{
-				List<object> listSource = (List<object>)objectSource;
+				var listSource = (IList<object>)objectSource;
 
 				//foreach (object elem in listSource)
-				for(int index = 0; index < listSource.Count; index++)
+				for(var index = 0; index < listSource.Count; index++)
 				{
-					object elem = listSource[index];
-					string type = elem.GetType().ToString();
+					var elem = listSource[index];
+					var type = elem.GetType().ToString();
 
 					// Print one element of list
 					fileWriter.WriteLine(indenting + elem);
 
 					if(type.Contains("Dictionary") || type.Contains("List"))
 					{
-						object childSource = listSource[index];
+						var childSource = listSource[index];
 						PrintSettingsRecursively(childSource, fileWriter, indenting + "   ");
 					}
-
 				} // next (element in listSource)
 			} // end if (typeSource.Contains("List"))
 
@@ -1427,7 +1413,7 @@ namespace SebShared
 		// *************************
 		// Print settings dictionary
 		// *************************
-		public void LoggSettingsDictionary(ref Dictionary<string, object> sebSettings, String fileName)
+		public void LoggSettingsDictionary(ref IDictionary<string, object> sebSettings, String fileName)
 		{
 			FileStream fileStream;
 			StreamWriter fileWriter;
@@ -1463,7 +1449,7 @@ namespace SebShared
 		/// ----------------------------------------------------------------------------------------
 		public bool LoadEncryptedSettings(byte[] sebSettings, GetPasswordMethod getPassword)
 		{
-			Dictionary<string, object> settingsDict = null;
+			IDictionary<string, object> settingsDict = null;
 			// If we were passed empty settings, we skip decrypting and just use default settings
 			if(sebSettings != null)
 			{
@@ -1500,7 +1486,7 @@ namespace SebShared
 		/// or use default settings if none were passed.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public void StoreSebClientSettings(Dictionary<string, object> settingsDict)
+		public void StoreSebClientSettings(IDictionary<string, object> settingsDict)
 		{
 			// Recreate the default and current settings dictionaries
 			CreateDefaultAndCurrentSettingsFromScratch();
@@ -1522,7 +1508,7 @@ namespace SebShared
 		// *********************************************
 		public bool ReadSebConfigurationFile(String fileName, GetPasswordMethod getPassword, bool forEditing, ref string filePassword, ref bool passwordIsHash, ref X509Certificate2 fileCertificateRef)
 		{
-			var newSettings = new Dictionary<string, object>();
+			IDictionary<string, object> newSettings;
 			try
 			{
 				// Read the configuration settings from .seb file.
@@ -1589,6 +1575,43 @@ namespace SebShared
 				return false;
 			}
 			return true;
+		}
+
+		static SebSettings()
+		{
+			PropertyList.TagComparer = GetKeyComparer();
+		}
+
+		public static IComparer<string> GetKeyComparer()
+		{
+			return keyComparer ?? (keyComparer = new MacDictionaryOrderComparer());
+		}
+		private static IComparer<string> keyComparer;
+
+		private class MacDictionaryOrderComparer : IComparer<string>
+		{
+			public int Compare(string x, string y)
+			{
+				//var bx = Encoding.UTF8.GetBytes(x);
+				//var by = Encoding.UTF8.GetBytes(y);
+				var len = Math.Min(x.Length, y.Length);
+				for(var i = 0; i < len; i++)
+				{
+					var xu = Char.IsUpper(x[i]);
+					var yu = Char.IsUpper(y[i]);
+					if(xu != yu)
+					{
+						return xu ? -1 : 1;
+					}
+					var c = x[i].CompareTo(y[i]);
+					if(c != 0)
+					{
+						return c;
+					}
+				}
+
+				return x.Length.CompareTo(y.Length);
+			}
 		}
 	}
 }

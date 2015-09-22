@@ -137,7 +137,7 @@ namespace SebWindowsClient.ConfigurationUtils
         /// <summary>
         /// JSON Serialization of Settings Dictionary
         /// </summary>
-        public static string XULRunnerConfigDictionarySerialize(Dictionary<string, object> xulRunnerSettings)
+        public static string XULRunnerConfigDictionarySerialize(IDictionary<string, object> xulRunnerSettings)
         {
             // Add current Browser Exam Key
             if ((bool)xulRunnerSettings[SebSettings.KeySendBrowserExamKey])

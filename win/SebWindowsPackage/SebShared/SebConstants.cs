@@ -9,7 +9,6 @@
 		public const int QUESTION = 3;
 
 		public static bool SEB_FAIL_NO_CONFIG = false;
-		public const string SEB_VERSION = "SEB_Win_2.1";
 
 		// Name and location of SEB configuration files and logfiles
 		public const string SEB_CLIENT_CONFIG = "SebClientSettings.seb";

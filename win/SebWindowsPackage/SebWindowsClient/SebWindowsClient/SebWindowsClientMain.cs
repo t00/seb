@@ -299,7 +299,7 @@ namespace SebWindowsClient
 				for(int i = embeddedCertificates.Count - 1; i >= 0; i--)
 				{
 					// Get the Embedded Certificate
-					var embeddedCertificate = (Dictionary<string, object>)embeddedCertificates[i];
+					var embeddedCertificate = (IDictionary<string, object>)embeddedCertificates[i];
 					// Is it an identity?
 					if((int)embeddedCertificate[SebSettings.KeyType] == 1)
 					{
@@ -510,7 +510,7 @@ namespace SebWindowsClient
 			//Add the SafeExamBrowser to the allowed executables
 			SEBWindowHandler.AllowedExecutables.Add(Process.GetCurrentProcess().ProcessName.ToLower());
 			//Add allowed executables from all allowedProcessList
-			foreach(Dictionary<string, object> process in SebInstance.Settings.permittedProcessList)
+			foreach(IDictionary<string, object> process in SebInstance.Settings.permittedProcessList)
 			{
 				if((bool)process[SebSettings.KeyActive])
 				{
@@ -550,7 +550,7 @@ namespace SebWindowsClient
 				//Handle prohibited executables watching
 				SEBProcessHandler.ProhibitedExecutables.Clear();
 				//Add prohibited executables
-				foreach(Dictionary<string, object> process in SebInstance.Settings.prohibitedProcessList)
+				foreach(IDictionary<string, object> process in SebInstance.Settings.prohibitedProcessList)
 				{
 					if((bool)process[SebSettings.KeyActive])
 					{

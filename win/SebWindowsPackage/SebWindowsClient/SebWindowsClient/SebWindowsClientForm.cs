@@ -56,7 +56,6 @@ using SebWindowsClient.ServiceUtils;
 using SebWindowsClient.UI;
 using SebWindowsClient.XULRunnerCommunication;
 using Application = System.Windows.Forms.Application;
-using DictObj = System.Collections.Generic.Dictionary<string, object>;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 
@@ -338,18 +337,18 @@ namespace SebWindowsClient
 			if(permittedProcessList.Count > 0)
 			{
 				// Check if permitted third party applications are already running
-				List<Process> runningApplications = new List<Process>();
+				var runningApplications = new List<Process>();
 				runningApplications = Process.GetProcesses().ToList();
 				//Process[] runningApplications = Process.GetProcesses();
 				for(int i = 0; i < permittedProcessList.Count; i++)
 				{
-					Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+					var permittedProcess = (IDictionary<string, object>)permittedProcessList[i];
 
 					//Do not kill permitted processses that are set to run in background
 					if((bool)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyRunInBackground))
 						continue;
 
-					SebSettings.operatingSystems permittedProcessOS = (SebSettings.operatingSystems)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyOS);
+					var permittedProcessOS = (SebSettings.operatingSystems)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyOS);
 					bool permittedProcessActive = (bool)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyActive);
 					if(permittedProcessOS == SebSettings.operatingSystems.operatingSystemWin && permittedProcessActive)
 					{
@@ -442,7 +441,7 @@ namespace SebWindowsClient
 			{
 				for(int i = 0; i < permittedProcessList.Count; i++)
 				{
-					Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+					var permittedProcess = (IDictionary<string, object>)permittedProcessList[i];
 
 					//Do not add permitted processses that are set to run in background and not autostart
 					if((bool)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyRunInBackground) &&
@@ -516,11 +515,11 @@ namespace SebWindowsClient
 								// Treat XULRunner different than other processes
 								if(!executable.Contains(SebConstants.XUL_RUNNER))
 								{
-									StringBuilder startProcessNameBuilder = new StringBuilder(fullPath);
-									List<object> argumentList = (List<object>)permittedProcess[SebSettings.KeyArguments];
+									var startProcessNameBuilder = new StringBuilder(fullPath);
+									var argumentList = (IList<object>)permittedProcess[SebSettings.KeyArguments];
 									for(int j = 0; j < argumentList.Count; j++)
 									{
-										Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
+										var argument = (IDictionary<string, object>)argumentList[j];
 										if((Boolean)argument[SebSettings.KeyActive])
 										{
 											startProcessNameBuilder.Append(" ").Append((string)argument[SebSettings.KeyArgument]);
@@ -538,10 +537,10 @@ namespace SebWindowsClient
 									if(SebInstance.Settings.Get<bool>(SebSettings.KeyEnableSebBrowser))
 									{
 										StringBuilder startProcessNameBuilder = new StringBuilder("");
-										List<object> argumentList = (List<object>)permittedProcess[SebSettings.KeyArguments];
+										var argumentList = (IList<object>) permittedProcess[SebSettings.KeyArguments];
 										for(int j = 0; j < argumentList.Count; j++)
 										{
-											Dictionary<string, object> argument = (Dictionary<string, object>)argumentList[j];
+											var argument = (IDictionary<string, object>)argumentList[j];
 											if((Boolean)argument[SebSettings.KeyActive])
 											{
 												string argumentString = (string)argument[SebSettings.KeyArgument];
@@ -640,7 +639,7 @@ namespace SebWindowsClient
 			for(int i = 0; i < permittedProcessList.Count; i++)
 			//foreach (string processCallToStart in permittedProcessesCalls)
 			{
-				Dictionary<string, object> permittedProcess = (Dictionary<string, object>)permittedProcessList[i];
+				var permittedProcess = (IDictionary<string, object>)permittedProcessList[i];
 
 				//Do not start permitted processses that are set to run in background and not autostart
 				if((bool)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyRunInBackground) &&
@@ -788,7 +787,7 @@ namespace SebWindowsClient
 		/// by searching the application paths which are set in the Registry.
 		/// </summary>
 		/// ----------------------------------------------------------------------------------------
-		public string GetPermittedApplicationPath(DictObj permittedProcess)
+		public string GetPermittedApplicationPath(IDictionary<string, object> permittedProcess)
 		{
 			string executable = (string)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyExecutable);
 			if(executable == null) executable = "";
@@ -1179,7 +1178,7 @@ namespace SebWindowsClient
 			// the user will be asked to quit all those processes him/herself or to let SEB kill them
 			// Prohibited processes with the strongKill flag set can be killed without user consent
 
-			List<object> prohibitedProcessList = SebInstance.Settings.Get<List<object>>(SebSettings.KeyProhibitedProcesses);
+			var prohibitedProcessList = SebInstance.Settings.Get<IList<object>>(SebSettings.KeyProhibitedProcesses);
 			if(prohibitedProcessList.Count() > 0)
 			{
 				// Check if the prohibited processes are running
@@ -1188,8 +1187,8 @@ namespace SebWindowsClient
 				runningApplicationsToClose.Clear();
 				for(int i = 0; i < prohibitedProcessList.Count; i++)
 				{
-					Dictionary<string, object> prohibitedProcess = (Dictionary<string, object>)prohibitedProcessList[i];
-					SebSettings.operatingSystems prohibitedProcessOS = (SebSettings.operatingSystems)SebInstance.Settings.valueForDictionaryKey(prohibitedProcess, SebSettings.KeyOS);
+					var prohibitedProcess = (IDictionary<string, object>)prohibitedProcessList[i];
+					var prohibitedProcessOS = (SebSettings.operatingSystems)SebInstance.Settings.valueForDictionaryKey(prohibitedProcess, SebSettings.KeyOS);
 					bool prohibitedProcessActive = (bool)SebInstance.Settings.valueForDictionaryKey(prohibitedProcess, SebSettings.KeyActive);
 					if(prohibitedProcessOS == SebSettings.operatingSystems.operatingSystemWin && prohibitedProcessActive)
 					{
@@ -1513,7 +1512,7 @@ namespace SebWindowsClient
 						{
 							//Get Process from WindowHandle by Name
 							var permittedProcessSettings = SebInstance.Settings.Get<List<object>>(SebSettings.KeyPermittedProcesses);
-							var currentProcessData = (Dictionary<string, object>)permittedProcessSettings[i];
+							var currentProcessData = (IDictionary<string, object>)permittedProcessSettings[i];
 							var title = (string)currentProcessData[SebSettings.KeyIdentifier];
 							proc = SEBWindowHandler.GetWindowHandleByTitle(title).GetProcess();
 						}

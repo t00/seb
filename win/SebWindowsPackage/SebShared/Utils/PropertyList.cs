@@ -28,6 +28,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -120,33 +121,36 @@ namespace SebShared.Utils
 
         public static string writeXml(object value)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
-                XmlWriterSettings xmlWriterSettings = new XmlWriterSettings();
-                xmlWriterSettings.Encoding = new System.Text.UTF8Encoding(false);
+                var xmlWriterSettings = new XmlWriterSettings();
+                xmlWriterSettings.Encoding = new UTF8Encoding(false);
                 xmlWriterSettings.ConformanceLevel = ConformanceLevel.Document;
-                xmlWriterSettings.Indent = true;
+	            xmlWriterSettings.IndentChars = "\t";
+				xmlWriterSettings.Indent = true;
+	            xmlWriterSettings.OmitXmlDeclaration = true;
+	            xmlWriterSettings.NewLineChars = "\n";
 
-                using (XmlWriter xmlWriter = XmlWriter.Create(ms, xmlWriterSettings))
+                using (var xmlWriter = XmlWriter.Create(ms, xmlWriterSettings))
                 {
-                    xmlWriter.WriteStartDocument(); 
-                    //xmlWriter.WriteComment("DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" " + "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"");
-                    xmlWriter.WriteDocType("plist", "-//Apple Computer//DTD PLIST 1.0//EN", "http://www.apple.com/DTDs/PropertyList-1.0.dtd", null);
-                    xmlWriter.WriteStartElement("plist");
-                    xmlWriter.WriteAttributeString("version", "1.0");
-                    compose(value, xmlWriter);
-                    xmlWriter.WriteEndElement();
+					xmlWriter.WriteStartDocument();
+					xmlWriter.WriteDocType("plist", "-//Apple//DTD PLIST 1.0//EN", "http://www.apple.com/DTDs/PropertyList-1.0.dtd", null);
+					compose(value, xmlWriter);
                     xmlWriter.WriteEndDocument();
                     xmlWriter.Flush();
                     xmlWriter.Close();
-                    return System.Text.Encoding.UTF8.GetString(ms.ToArray());
+	                var xmlResult = Encoding.UTF8.GetString(ms.ToArray()).Replace(" />\n", "/>\n");
+	                var dictPos = xmlResult.IndexOf("<dict>", StringComparison.InvariantCulture);
+	                var header = xmlResult.Substring(0, dictPos);
+	                var body = xmlResult.Substring(dictPos);
+					return string.Format("<?xml version=\"1.0\" encoding=\"UTF-8\"?>{2}{0}<plist version=\"1.0\">{2}{1}{2}</plist>{2}", header, body, xmlWriter.Settings.NewLineChars);
                 }
             }
         }
 
         public static void writeBinary(object value, string path)
         {
-            using (BinaryWriter writer = new BinaryWriter(new FileStream(path, FileMode.Create)))
+            using (var writer = new BinaryWriter(new FileStream(path, FileMode.Create)))
             {
                 writer.Write(writeBinary(value));
             }
@@ -223,7 +227,7 @@ namespace SebShared.Utils
         private static object readXml(XmlDocument xml)
         {
             XmlNode rootNode = xml.DocumentElement.ChildNodes[0];
-            return (Dictionary<string, object>)parse(rootNode);
+            return parse(rootNode);
         }
 
         private static object readBinary(byte[] data)
@@ -251,7 +255,7 @@ namespace SebShared.Utils
             return parseBinary(0);
         }
 
-        private static Dictionary<string, object> parseDictionary(XmlNode node)
+        private static IDictionary<string, object> parseDictionary(XmlNode node)
         {
             XmlNodeList children = node.ChildNodes;
             if (children.Count % 2 != 0)
@@ -259,7 +263,7 @@ namespace SebShared.Utils
                 throw new DataMisalignedException("Dictionary elements must have an even number of child nodes");
             }
 
-            Dictionary<string, object> dict = new Dictionary<string, object>();
+			var dict = (TagComparer == null) ? new SortedDictionary<string, object>() : new SortedDictionary<string, object>(TagComparer);
 
             for (int i = 0; i < children.Count; i += 2)
             {
@@ -282,9 +286,11 @@ namespace SebShared.Utils
             return dict;
         }
 
-        private static List<object> parseArray(XmlNode node)
+	    public static IComparer<string> TagComparer { get; set; }
+
+	    private static IList<object> parseArray(XmlNode node)
         {
-            List<object> array = new List<object>();
+            var array = new List<object>();
 
             foreach (XmlNode child in node.ChildNodes)
             {
@@ -298,7 +304,7 @@ namespace SebShared.Utils
             return array;
         }
 
-        private static void composeArray(List<object> value, XmlWriter writer)
+        private static void composeArray(IEnumerable<object> value, XmlWriter writer)
         {
             writer.WriteStartElement("array");
             foreach (object obj in value)
@@ -333,60 +339,55 @@ namespace SebShared.Utils
                 case "date":
                     return XmlConvert.ToDateTime(node.InnerText, XmlDateTimeSerializationMode.Utc);
                 case "data":
-                    return Convert.FromBase64String(node.InnerText);
+                    return Convert.FromBase64String(node.InnerText.Trim());
             }
 
             throw new ApplicationException(String.Format("Plist Node `{0}' is not supported", node.Name));
         }
 
+	    static void WriteMacElementString(this XmlWriter writer, string elementName, string value)
+	    {
+		    writer.WriteStartElement(elementName);
+			writer.WriteString(value);
+			writer.WriteFullEndElement();
+	    }
+
         private static void compose(object value, XmlWriter writer)
         {
-
             if (value == null || value is string)
             {
-                writer.WriteElementString("string", value as string);
+				writer.WriteMacElementString("string", value as string);
             }
             else if (value is int || value is long)
             {
-                writer.WriteElementString("integer", ((int)value).ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+				writer.WriteMacElementString("integer", ((int)value).ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
             }
-            else if (value is System.Collections.Generic.Dictionary<string, object> ||
-              value.GetType().ToString().StartsWith("System.Collections.Generic.Dictionary`2[System.String"))
+            else if (value is IDictionary<string, object>)
             {
-                //Convert to Dictionary<string, object>
-                Dictionary<string, object> dic = value as Dictionary<string, object>;
-                if (dic == null)
-                {
-                    dic = new Dictionary<string, object>();
-                    IDictionary idic = (IDictionary)value;
-                    foreach (var key in idic.Keys)
-                    {
-                        dic.Add(key.ToString(), idic[key]);
-                    }
-                }
-                writeDictionaryValues(dic, writer);
+                var dic = (IDictionary<string, object>)value;
+	            writeDictionaryValues(dic, writer);
             }
-            else if (value is List<object>)
+            else if (value is IList<object>)
             {
-                composeArray((List<object>)value, writer);
+                composeArray((IList<object>)value, writer);
             }
             else if (value is byte[])
             {
-                writer.WriteElementString("data", Convert.ToBase64String((Byte[])value));
+				writer.WriteMacElementString("data", string.Format("{1}{2}{0}{1}{2}", Convert.ToBase64String((Byte[])value), writer.Settings.NewLineChars, "\t"));
             }
             else if (value is float || value is double)
             {
-                writer.WriteElementString("real", ((double)value).ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+				writer.WriteMacElementString("real", ((double)value).ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
             }
             else if (value is DateTime)
             {
                 DateTime time = (DateTime)value;
                 string theString = XmlConvert.ToString(time, XmlDateTimeSerializationMode.Utc);
-                writer.WriteElementString("date", theString);//, "yyyy-MM-ddTHH:mm:ssZ"));
+				writer.WriteMacElementString("date", theString);//, "yyyy-MM-ddTHH:mm:ssZ"));
             }
             else if (value is bool)
             {
-                writer.WriteElementString(value.ToString().ToLower(), "");
+				writer.WriteElementString(value.ToString().ToLower(), "");
             }
             else
             {
@@ -394,7 +395,7 @@ namespace SebShared.Utils
             }
         }
 
-        private static void writeDictionaryValues(Dictionary<string, object> dictionary, XmlWriter writer)
+        private static void writeDictionaryValues(IDictionary<string, object> dictionary, XmlWriter writer)
         {
             writer.WriteStartElement("dict");
             foreach (string key in dictionary.Keys)
@@ -409,38 +410,32 @@ namespace SebShared.Utils
         private static int countObject(object value)
         {
             int count = 0;
-            switch (value.GetType().ToString())
-            {
-                case "System.Collections.Generic.Dictionary`2[System.String,System.Object]":
-                    Dictionary<string, object> dict = (Dictionary<string, object>)value;
-                    foreach (string key in dict.Keys)
-                    {
-                        count += countObject(dict[key]);
-                    }
-                    count += dict.Keys.Count;
-                    count++;
-                    break;
-                case "System.Collections.Generic.List`1[System.Object]":
-                    List<object> list = (List<object>)value;
-                    foreach (object obj in list)
-                    {
-                        count += countObject(obj);
-                    }
-                    count++;
-                    break;
-                default:
-                    count++;
-                    break;
-            }
-            return count;
+	        if(value is IDictionary<string, object>)
+	        {
+				var dict = (IDictionary<string, object>)value;
+				foreach(string key in dict.Keys)
+				{
+					count += countObject(dict[key]);
+				}
+				count += dict.Keys.Count;
+			}
+			else if(value is IList<object>)
+			{
+				var list = (IList<object>)value;
+				foreach(object obj in list)
+				{
+					count += countObject(obj);
+				}
+			}
+            return count++;
         }
 
-        private static byte[] writeBinaryDictionary(Dictionary<string, object> dictionary)
+        private static byte[] writeBinaryDictionary(IDictionary<string, object> dictionary)
         {
-            List<byte> buffer = new List<byte>();
-            List<byte> header = new List<byte>();
-            List<int> refs = new List<int>();
-            for (int i = dictionary.Count - 1; i >= 0; i--)
+            var buffer = new List<byte>();
+            var header = new List<byte>();
+            var refs = new List<int>();
+            for (var i = dictionary.Count - 1; i >= 0; i--)
             {
                 var o = new object[dictionary.Count];
                 dictionary.Values.CopyTo(o, 0);
@@ -485,13 +480,13 @@ namespace SebShared.Utils
             return buffer.ToArray();
         }
 
-        private static byte[] composeBinaryArray(List<object> objects)
+        private static byte[] composeBinaryArray(IList<object> objects)
         {
-            List<byte> buffer = new List<byte>();
-            List<byte> header = new List<byte>();
-            List<int> refs = new List<int>();
+            var buffer = new List<byte>();
+            var header = new List<byte>();
+            var refs = new List<int>();
 
-            for (int i = objects.Count - 1; i >= 0; i--)
+            for (var i = objects.Count - 1; i >= 0; i--)
             {
                 composeBinary(objects[i]);
                 offsetTable.Add(objectTable.Count);
@@ -525,43 +520,41 @@ namespace SebShared.Utils
 
         private static byte[] composeBinary(object obj)
         {
-            byte[] value;
-            switch (obj.GetType().ToString())
-            {
-                case "System.Collections.Generic.Dictionary`2[System.String,System.Object]":
-                    value = writeBinaryDictionary((Dictionary<string, object>)obj);
-                    return value;
-
-                case "System.Collections.Generic.List`1[System.Object]":
-                    value = composeBinaryArray((List<object>)obj);
-                    return value;
-
-                case "System.Byte[]":
-                    value = writeBinaryByteArray((byte[])obj);
-                    return value;
-
-                case "System.Double":
-                    value = writeBinaryDouble((double)obj);
-                    return value;
-
-                case "System.Int32":
-                    value = writeBinaryInteger((int)obj, true);
-                    return value;
-
-                case "System.String":
-                    value = writeBinaryString((string)obj, true);
-                    return value;
-
-                case "System.DateTime":
-                    value = writeBinaryDate((DateTime)obj);
-                    return value;
-
-                case "System.Boolean":
-                    value = writeBinaryBool((bool)obj);
-                    return value;
-
-                default:
-                    return new byte[0];
+	        if(obj is IDictionary<string, object>)
+	        {
+				return writeBinaryDictionary((IDictionary<string, object>)obj);
+	        }
+			else if(obj is ICollection<object>)
+			{
+				return composeBinaryArray((IList<object>)obj);
+			}
+			else if(obj.GetType().IsArray && typeof(byte).IsAssignableFrom(obj.GetType().GetElementType()))
+			{
+				return writeBinaryByteArray((byte[])obj);
+			}
+			else if(obj is double)
+			{
+				return writeBinaryDouble((double)obj);
+			}
+			else if(obj is int)
+			{
+				return writeBinaryInteger((int)obj, true);
+			}
+			else if(obj is string)
+			{
+				return writeBinaryString((string)obj, true);
+			}
+			else if(obj is DateTime)
+			{
+				return writeBinaryDate((DateTime)obj);
+			}
+			else if(obj is bool)
+			{
+				return writeBinaryBool((bool)obj);
+			}
+			else
+			{
+				return new byte[0];
             }
         }
 
@@ -719,8 +712,8 @@ namespace SebShared.Utils
 
         private static object parseBinaryDictionary(int objRef)
         {
-            Dictionary<string, object> buffer = new Dictionary<string, object>();
-            List<int> refs = new List<int>();
+            var buffer = new Dictionary<string, object>();
+            var refs = new List<int>();
             int refCount = 0;
 
             byte dictByte = objectTable[offsetTable[objRef]];
