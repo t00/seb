@@ -339,7 +339,7 @@ namespace SebWindowsClient
 						SEBClientInfo.SebWindowsClientForm.ExitApplication();
 					}
 
-					if((askStartConfiguringClient && SebMessageBox.Show(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, MessageBoxImage.Question, MessageBoxButton.YesNo) == MessageBoxResult.No))
+					if((SebConstants.SEB_ASK_START_COMMAND_LINE && askStartConfiguringClient && SebMessageBox.Show(SEBUIStrings.sebReconfigured, SEBUIStrings.sebReconfiguredQuestion, MessageBoxImage.Question, MessageBoxButton.YesNo) == MessageBoxResult.No))
 					{
 						//SEBClientInfo.SebWindowsClientForm.closeSebClient = true;
 						SEBClientInfo.SebWindowsClientForm.ExitApplication();

@@ -9,6 +9,7 @@
 		public const int QUESTION = 3;
 
 		public static bool SEB_FAIL_NO_CONFIG = false;
+		public static bool SEB_ASK_START_COMMAND_LINE = true;
 
 		// Name and location of SEB configuration files and logfiles
 		public const string SEB_CLIENT_CONFIG = "SebClientSettings.seb";
