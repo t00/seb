@@ -132,20 +132,21 @@ namespace SebWindowsServiceWCF.ServiceImplementations
         {
             try
             {
-                var auc = new AutomaticUpdatesClass();
+				Logger.Log("Connecting to windows update");
+				var auc = new AutomaticUpdatesClass();
 
                 if(enable)
                     auc.Resume();
                 else
                     auc.Pause();
 
-                Logger.Log(String.Format("Set windows update to {0}",enable));
-
+                Logger.Log(string.Format("Set windows update to {0}",enable));
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
+				Logger.Log(e, string.Format("Error configuring windows update"));
+				return false;
             }
         }
 

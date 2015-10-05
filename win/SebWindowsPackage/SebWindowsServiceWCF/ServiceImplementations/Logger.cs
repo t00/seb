@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -9,8 +10,6 @@ namespace SebWindowsServiceWCF.ServiceImplementations
     /// </summary>
     public static class Logger
     {
-        private static string _filepath;
-
         /// <summary>
         /// Logg the content of the exception together with a message
         /// </summary>
@@ -18,7 +17,7 @@ namespace SebWindowsServiceWCF.ServiceImplementations
         /// <param name="content">Message</param>
         public static void Log(Exception ex, string content)
         {
-            Log(String.Format("{3} {0}: {1}\n{2}", ex.Message, content, ex.StackTrace, ex.ToString()));
+			Log(string.Format("{3} {0}: {1}{4}{2}", ex.Message, content, ex.StackTrace, ex, Environment.NewLine));
         }
 
         /// <summary>
@@ -27,20 +26,17 @@ namespace SebWindowsServiceWCF.ServiceImplementations
         /// <param name="content">Message</param>
         public static void Log(string content)
         {
-            try
-            {
-                //The logfile is stored where the executable of the service is
-                _filepath = String.Format(@"{0}\sebwindowsservice.log", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-                if (!File.Exists(_filepath))
-                    File.Create(_filepath);
-
-                using (var file = new StreamWriter(_filepath, true))
-                {
-                    file.WriteLine(String.Format("*******\n{1}:{0}\n",content,DateTime.Now.ToLocalTime()));
-                }
-            }
-            //If unable to log, you're lost...
-            catch { }
+	        try
+	        {
+		        File.AppendAllText(LogFilePath, string.Format("{0:O}: {1}{2}", DateTime.Now.ToLocalTime(), content, Environment.NewLine));
+	        }
+	        catch
+	        {
+				EventLog.WriteEntry("SebWindowsServiceWCF", content);
+			}
         }
+
+		//The logfile is stored where the executable of the service is
+		private static readonly string LogFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "sebwindowsservice.log");
     }
 }
