@@ -38,7 +38,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using SebShared.DiagnosticUtils;
 using SebShared.Utils;
 
@@ -356,6 +355,7 @@ namespace SebShared
 		public const String KeyInsideSebEnableShutDown = "insideSebEnableShutDown";
 		public const String KeyInsideSebEnableEaseOfAccess = "insideSebEnableEaseOfAccess";
 		public const String KeyInsideSebEnableVmWareClientShade = "insideSebEnableVmWareClientShade";
+		public const string KeyInsideSebEnableWindowsUpdate = "insideSebEnableWindowsUpdate";
 
 		// Group "Hooked Keys"
 		public const String KeyHookKeys = "hookKeys";
@@ -881,6 +881,7 @@ namespace SebShared
 			settingsDefault.Add(KeyInsideSebEnableShutDown, false);
 			settingsDefault.Add(KeyInsideSebEnableEaseOfAccess, false);
 			settingsDefault.Add(KeyInsideSebEnableVmWareClientShade, false);
+			settingsDefault.Add(KeyInsideSebEnableWindowsUpdate, false);
 
 			// Default settings for group "Hooked Keys"
 			settingsDefault.Add(KeyHookKeys, true);

@@ -1372,15 +1372,20 @@ namespace SebWindowsClient
 				}
 
 				//Disable windows update service (with SEBWindowsServiceWCF)
-				try
+				if(!SebInstance.Settings.Get<bool>(SebSettings.KeyInsideSebEnableWindowsUpdate))
 				{
-					Logger.AddInformation("disabling windows update");
-					if(SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.DisableWindowsUpdate())
-						Logger.AddWarning("Unable to disable windows upate service", this, null);
-				}
-				catch(Exception ex)
-				{
-					Logger.AddError("Unable to disable windows update service", this, ex);
+					try
+					{
+						Logger.AddInformation("disabling windows update");
+						if(SebWindowsServiceHandler.IsServiceAvailable && !SebWindowsServiceHandler.DisableWindowsUpdate())
+						{
+							Logger.AddWarning("Unable to disable windows upate service", this, null);
+						}
+					}
+					catch(Exception ex)
+					{
+						Logger.AddError("Unable to disable windows update service", this, ex);
+					}
 				}
 
 				try
