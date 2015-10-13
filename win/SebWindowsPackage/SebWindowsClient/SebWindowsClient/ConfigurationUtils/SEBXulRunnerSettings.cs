@@ -196,37 +196,44 @@ namespace SebWindowsClient.ConfigurationUtils
             xulRunnerSettings[SebSettings.KeyDownloadDirectoryWin] = downloadDirectoryWin;
 
             // Add proper browser user agent string to XULRunner seb settings
-            
-            if ((bool)xulRunnerSettings[SebSettings.KeyTouchOptimized] == true)
-            {
-                // Set correct task bar height according to display dpi
-                xulRunnerSettings[SebSettings.KeyTaskBarHeight] = (int)Math.Round((int)xulRunnerSettings[SebSettings.KeyTaskBarHeight] * 1.7);
 
-                if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 0)
+            if((int) xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 2)
+            {
+                var custom = xulRunnerSettings[SebSettings.KeyBrowserUserAgentDesktopModeCustom];
+                if(string.IsNullOrEmpty((string) custom))
                 {
-                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_TOUCH;
+                    xulRunnerSettings.Remove(SebSettings.KeyBrowserUserAgent);
                 }
-                else if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 1)
-                {
-                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_TOUCH_IPAD;
-                }
-                else if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 2)
+                else
                 {
                     xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchModeCustom];
                 }
             }
             else
             {
-                if ((int)xulRunnerSettings[SebSettings.KeyBrowserUserAgentDesktopMode] == 0)
+                if((bool) xulRunnerSettings[SebSettings.KeyTouchOptimized])
                 {
-                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_DESKTOP;
+                    // Set correct task bar height according to display dpi
+                    xulRunnerSettings[SebSettings.KeyTaskBarHeight] = (int) Math.Round((int) xulRunnerSettings[SebSettings.KeyTaskBarHeight]*1.7);
+
+                    if((int) xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 0)
+                    {
+                        xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_TOUCH;
+                    }
+                    else if((int) xulRunnerSettings[SebSettings.KeyBrowserUserAgentTouchMode] == 1)
+                    {
+                        xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_TOUCH_IPAD;
+                    }
                 }
                 else
                 {
-                    xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = xulRunnerSettings[SebSettings.KeyBrowserUserAgentDesktopModeCustom];
+                    if((int) xulRunnerSettings[SebSettings.KeyBrowserUserAgentDesktopMode] == 0)
+                    {
+                        xulRunnerSettings[SebSettings.KeyBrowserUserAgent] = SebConstants.BROWSER_USERAGENT_DESKTOP;
+                    }
                 }
+                xulRunnerSettings[SebSettings.KeyBrowserUserAgent] += "  " + SebConstants.BROWSER_USERAGENT_SEB + " " + Application.ProductVersion;
             }
-            xulRunnerSettings[SebSettings.KeyBrowserUserAgent] += " " + SebConstants.BROWSER_USERAGENT_SEB + " " + Application.ProductVersion;
 
             // Set onscreen keyboard settings flag when touch optimized is enabled
             xulRunnerSettings[SebSettings.KeyBrowserScreenKeyboard] = (bool)xulRunnerSettings[SebSettings.KeyTouchOptimized];
