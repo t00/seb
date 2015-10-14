@@ -79,7 +79,7 @@ var winctrl = (function() {
             "browser.download.dir"			:	"downloadDirectoryWin",
             "browser.zoom.full"			:	browserZoomFull,
             "zoom.maxPercent"			:	zoomMaxPercent,
-            "zoom.minPercent"			:	zoomMinPercent,
+            "browser.helperApps.neverAsk.openFile"	:	"settingsMimeType",
             //"browser.link.open_newwindow" : browserLinkOpenNewWindow,
             //"browser.link.open_newwindow.restriction" : browserLinkOpenNewWindowRestriction,
             "plugin.state.flash" : pluginEnableFlash,

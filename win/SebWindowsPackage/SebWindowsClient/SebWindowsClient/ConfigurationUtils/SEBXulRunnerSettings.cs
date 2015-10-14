@@ -241,7 +241,10 @@ namespace SebWindowsClient.ConfigurationUtils
 			// Set predefined header name
 			xulRunnerSettings[SebSettings.KeyBrowserURLHeader] = SebConstants.SEB_REQUEST_HEADER;
 
-            // Serialise 
+			// Set mime type allowed to open
+			xulRunnerSettings[SebSettings.KeySettingsMimeType] = SebConstants.SEB_MIME_TYPE;
+
+			// Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string jsonSettings = serializer.Serialize(xulRunnerSettings);
             // Convert to Base64 String
