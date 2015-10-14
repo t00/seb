@@ -238,6 +238,9 @@ namespace SebWindowsClient.ConfigurationUtils
             // Set onscreen keyboard settings flag when touch optimized is enabled
             xulRunnerSettings[SebSettings.KeyBrowserScreenKeyboard] = (bool)xulRunnerSettings[SebSettings.KeyTouchOptimized];
 
+			// Set predefined header name
+			xulRunnerSettings[SebSettings.KeyBrowserURLHeader] = SebConstants.SEB_REQUEST_HEADER;
+
             // Serialise 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string jsonSettings = serializer.Serialize(xulRunnerSettings);

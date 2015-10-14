@@ -204,6 +204,7 @@ namespace SebShared
 		public const String KeyExamKeySalt = "examKeySalt";
 		public const String KeyBrowserExamKey = "browserExamKey";
 		public const String KeyBrowserURLSalt = "browserURLSalt";
+		public const String KeyBrowserURLHeader = "browserURLHeader";
 		public const String KeySendBrowserExamKey = "sendBrowserExamKey";
 		public const String KeyQuitURL = "quitURL";
 		public const String KeyRestartExamText = "restartExamText";

@@ -41,6 +41,7 @@ var winctrl = (function() {
 						"seb.language"				:	"browserLanguage",
 						"seb.request.key"			:	browserExamKey,
 						"seb.request.salt"			:	"browserURLSalt",
+						"seb.request.header"			:	"browserURLHeader",
 						"seb.mainWindow.titlebar.enabled"	:	titleBarEnabled,
 						"seb.popupWindows.titlebar.enabled"	:	popupTitleBarEnabled,
 						"seb.mainWindow.screen"			:	mainWindowScreen,
