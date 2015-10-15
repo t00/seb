@@ -87,7 +87,9 @@ var winctrl = (function() {
             "javascript.enabled" : "enableJavaScript",
             "dom.disable_open_during_load" : "blockPopUpWindows",
             "layout.spellcheckDefault" : spellcheckDefault,
-	    "general.useragent.override" : "browserUserAgent"
+			"general.useragent.override" : "browserUserAgent",
+			"network.protocol-handler.warn-external.seb"	:	warnURLScheme,
+			"network.protocol-handler.warn-external.sebs"	:	warnURLScheme
 					},
 		pos = {
 				0 : "left",
@@ -202,6 +204,10 @@ var winctrl = (function() {
   function pluginEnableJava() {
     var ret = (config["enableJava"] == true) ? 2 : 0;
     return ret;
+  }
+  
+  function warnURLScheme() {
+    return false;
   }
 
   function browserLinkOpenNewWindow() {
