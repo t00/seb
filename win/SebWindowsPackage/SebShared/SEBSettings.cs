@@ -181,6 +181,7 @@ namespace SebShared
 		public const String KeyRemoveBrowserProfile = "removeBrowserProfile";
 		public const String KeyDisableLocalStorage = "removeLocalStorage";
 		public const String KeyEnableSebBrowser = "enableSebBrowser";
+		public const String KeyShowBatteryIndicator = "showBatteryIndicator";
 		public const String KeyShowReloadButton = "showReloadButton";
 		public const String KeyShowReloadWarning = "showReloadWarning";
 		public const String KeyBrowserUserAgentDesktopMode = "browserUserAgentWinDesktopMode";
@@ -640,6 +641,7 @@ namespace SebShared
 			settingsDefault.Add(KeyEnableSebBrowser, true);
 			settingsDefault.Add(KeyShowReloadButton, true);
 			settingsDefault.Add(KeyShowReloadWarning, true);
+			settingsDefault.Add(KeyShowBatteryIndicator, true);
 			settingsDefault.Add(KeyBrowserUserAgentDesktopMode, 0);
 			settingsDefault.Add(KeyBrowserUserAgentDesktopModeCustom, "");
 			settingsDefault.Add(KeyBrowserUserAgentTouchMode, 0);

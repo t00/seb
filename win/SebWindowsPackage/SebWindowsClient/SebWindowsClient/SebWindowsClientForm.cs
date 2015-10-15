@@ -610,16 +610,18 @@ namespace SebWindowsClient
 			if(SebInstance.Settings.Get<bool>(SebSettings.KeyShowReloadButton))
 				taskbarToolStrip.Items.Add(new SEBReloadBrowserToolStripButton());
 
-			//Add the BatterystatusControl to the toolbar
-			try
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyShowBatteryIndicator))
 			{
-				//Always add it, and hide it if connected to power source
-				//if (SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Offline)
-				taskbarToolStrip.Items.Add(new SEBBatterylifeToolStripButton());
-			}
-			catch(Exception ex)
-			{
-				Logger.AddError("Unable to add the Batterystatuscontrol", this, ex);
+				try
+				{
+					//Always add it, and hide it if connected to power source
+					//if (SystemInformation.PowerStatus.PowerLineStatus == PowerLineStatus.Offline)
+					taskbarToolStrip.Items.Add(new SEBBatterylifeToolStripButton());
+				}
+				catch(Exception ex)
+				{
+					Logger.AddError("Unable to add the Batterystatuscontrol", this, ex);
+				}
 			}
 
 			//KeyboardLayout Chooser
