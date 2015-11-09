@@ -17,7 +17,7 @@ using SebShared;
 using SebWindowsClient.ConfigurationUtils;
 using Application = System.Windows.Forms.Application;
 using ListObj = System.Collections.Generic.List<object>;
-using DictObj = System.Collections.Generic.Dictionary<string, object>;
+using DictObj = System.Collections.Generic.SortedDictionary<string, object>;
 using KeyValue = System.Collections.Generic.KeyValuePair<string, object>;
 using MessageBox = System.Windows.Forms.MessageBox;
 
