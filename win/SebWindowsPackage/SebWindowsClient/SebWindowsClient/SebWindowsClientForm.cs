@@ -37,6 +37,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -470,6 +471,11 @@ namespace SebWindowsClient
 							if(!(Boolean)SebInstance.Settings.valueForDictionaryKey(permittedProcess, SebSettings.KeyIconInTaskbar))
 								toolStripButton.Visible = false;
 
+							var fv = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+							if(title == SebConstants.SEB_PROCESS_TITLE)
+							{
+								title = title + " " + fv.ToString();
+							}
 							toolStripButton.Padding = new Padding(5, 0, 5, 0);
 							toolStripButton.ToolTipText = title;
 							toolStripButton.Identifier = identifier;
