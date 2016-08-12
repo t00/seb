@@ -114,15 +114,15 @@ namespace SebWindowsClient
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //SEBClientInfo.SebWindowsClientForm.sebPassword = null;
-            this.txtSEBPassword.Text = "";
-            //this.Visible = false;
+			txtSEBPassword.Text = null;
+			DialogResult = DialogResult.Cancel;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            if (SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
+			DialogResult = DialogResult.OK;
+			if(SebInstance.Settings.Get<bool>(SebSettings.KeyTouchOptimized))
             {
                 var topWindow = SEBWindowHandler.GetOpenWindows().FirstOrDefault();
                 if (topWindow.Value != null)

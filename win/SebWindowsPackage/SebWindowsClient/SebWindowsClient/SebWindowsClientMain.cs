@@ -134,7 +134,7 @@ namespace SebWindowsClient
 		{
 			Instance = new SingleInstanceController<SebWindowsClientForm>(CreateMainForm, (mainForm, args) =>
 			{
-				if(CheckLoadSettingsCommandLine(args))
+				if(CheckLoadSettingsCommandLine(args) == true)
 				{
 					SebWindowsClientForm.SEBToForeground();
 					OpenExam(false, true);
@@ -171,13 +171,21 @@ namespace SebWindowsClient
 					return null;
 				}
 
-				areSettingsFromCommandLine = CheckLoadSettingsCommandLine(arguments);
-				if(!areSettingsFromCommandLine)
+				var loadedCommandLine = CheckLoadSettingsCommandLine(arguments);
+				if(loadedCommandLine == null)
 				{
 					if(!LoadClientSettings())
 					{
 						return null;
 					}
+				}
+				else if(loadedCommandLine.Value)
+				{
+					areSettingsFromCommandLine = true;
+				}
+				else
+				{
+					return null;
 				}
 
 				if(!CheckCreateDesktop())
@@ -794,7 +802,7 @@ namespace SebWindowsClient
 		/// </summary>
 		/// <returns>true if succeed</returns>
 		/// ----------------------------------------------------------------------------------------
-		public static bool CheckLoadSettingsCommandLine(string[] args)
+		public static bool? CheckLoadSettingsCommandLine(string[] args)
 		{
 			Logger.AddInformation("LoadSettings command line: " + string.Join(", ", args));
 			if(args.Length > 0)
@@ -802,7 +810,7 @@ namespace SebWindowsClient
 				Settings.Default.LastExamUri = args[0];
 				return LoadSettings(args[0]);
 			}
-			return false;
+			return null;
 		}
 
 		private static bool LoadClientSettings()
