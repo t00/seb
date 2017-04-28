@@ -35,6 +35,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -142,7 +143,11 @@ namespace SebWindowsClient
 		/// ----------------------------------------------------------------------------------------
 		public SebWindowsClientForm()
 		{
-			InitializeComponent();
+		    absHandler = new AppBarHandler(this, AppBarHandler.Edge.Bottom);
+            Load += (s, e) => { absHandler.RegisterBar(); };
+		    Closing += (s, e) => { absHandler.UnregisterBar(); };
+
+            InitializeComponent();
 
 			SEBXULRunnerWebSocketServer.OnXulRunnerCloseRequested += OnXULRunnerShutdDownRequested;
 			SEBXULRunnerWebSocketServer.OnXulRunnerQuitLinkClicked += OnXulRunnerQuitLinkPressed;
@@ -1307,7 +1312,9 @@ namespace SebWindowsClient
 		}
 
 		private bool closeDialogConfirmationIsOpen;
-		public void ShowCloseDialogFormConfirmation()
+	    private AppBarHandler absHandler;
+
+	    public void ShowCloseDialogFormConfirmation()
 		{
             if (closeDialogConfirmationIsOpen)
                 return;
@@ -1692,6 +1699,12 @@ namespace SebWindowsClient
 				ShowCloseDialogForm();
 			}
 		}
+
+	    protected override void WndProc(ref Message m)
+	    {
+	        absHandler.HandleWndProc(m);
+            base.WndProc(ref m);
+        }
 	}
 
 	/// ----------------------------------------------------------------------------------------

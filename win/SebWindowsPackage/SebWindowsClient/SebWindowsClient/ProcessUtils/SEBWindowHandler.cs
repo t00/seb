@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using SebShared.DiagnosticUtils;
-
 using System.Windows.Forms;
+
 namespace SebWindowsClient.ProcessUtils
 {
     /// <summary>
@@ -588,5 +587,185 @@ namespace SebWindowsClient.ProcessUtils
         public static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint lpdwProcessId);
 
         #endregion
+    }
+
+    public class AppBarHandler
+    {
+        public enum Edge : int
+        {
+            Left = 0,
+            Top,
+            Right,
+            Bottom
+        }
+
+        public AppBarHandler(Form form, Edge edge)
+        {
+            this.form = form;
+            this.edge = edge;
+        }
+
+        public void RegisterBar()
+        {
+            if (fBarRegistered)
+            {
+                return;
+            }
+            APPBARDATA abd = new APPBARDATA();
+            abd.cbSize = Marshal.SizeOf(abd);
+            abd.hWnd = form.Handle;
+            uCallBack = RegisterWindowMessage("AppBarMessage");
+            abd.uCallbackMessage = uCallBack;
+
+            uint ret = SHAppBarMessage((int)ABMsg.ABM_NEW, ref abd);
+            fBarRegistered = true;
+
+            SetAppBarPos(edge);
+        }
+
+        public void UnregisterBar()
+        {
+            if (fBarRegistered)
+            {
+                return;
+            }
+            APPBARDATA abd = new APPBARDATA();
+            abd.cbSize = Marshal.SizeOf(abd);
+            abd.hWnd = form.Handle;
+            SHAppBarMessage((int) ABMsg.ABM_REMOVE, ref abd);
+            fBarRegistered = false;
+        }
+
+        public void SetAppBarPos(Edge edge)
+        {
+            APPBARDATA abd = new APPBARDATA();
+            abd.cbSize = Marshal.SizeOf(abd);
+            abd.hWnd = form.Handle;
+            abd.uEdge = (int)edge;
+
+            if (abd.uEdge == (int)Edge.Left || abd.uEdge == (int)Edge.Right)
+            {
+                abd.rc.Top = 0;
+                abd.rc.Bottom = SystemInformation.PrimaryMonitorSize.Height;
+                if (abd.uEdge == (int)Edge.Left)
+                {
+                    abd.rc.Left = 0;
+                    abd.rc.Right = form.Size.Width;
+                }
+                else
+                {
+                    abd.rc.Right = SystemInformation.PrimaryMonitorSize.Width;
+                    abd.rc.Left = abd.rc.Right - form.Size.Width;
+                }
+
+            }
+            else
+            {
+                abd.rc.Left = 0;
+                abd.rc.Right = SystemInformation.PrimaryMonitorSize.Width;
+                if (abd.uEdge == (int)Edge.Top)
+                {
+                    abd.rc.Top = 0;
+                    abd.rc.Bottom = form.Size.Height;
+                }
+                else
+                {
+                    abd.rc.Bottom = SystemInformation.PrimaryMonitorSize.Height;
+                    abd.rc.Top = abd.rc.Bottom - form.Size.Height;
+                }
+            }
+
+            SHAppBarMessage((int)ABMsg.ABM_QUERYPOS, ref abd);
+
+            switch (abd.uEdge)
+            {
+                case (int)Edge.Left:
+                    abd.rc.Right = abd.rc.Left + form.Size.Width;
+                    break;
+                case (int)Edge.Right:
+                    abd.rc.Left = abd.rc.Right - form.Size.Width;
+                    break;
+                case (int)Edge.Top:
+                    abd.rc.Bottom = abd.rc.Top + form.Size.Height;
+                    break;
+                case (int)Edge.Bottom:
+                    abd.rc.Top = abd.rc.Bottom - form.Size.Height;
+                    break;
+            }
+
+            SHAppBarMessage((int)ABMsg.ABM_SETPOS, ref abd);
+            MoveWindow(abd.hWnd, abd.rc.Left, abd.rc.Top, abd.rc.Right - abd.rc.Left, abd.rc.Bottom - abd.rc.Top, true);
+        }
+
+        public void HandleWndProc(Message m)
+        {
+            if (m.Msg == uCallBack)
+            {
+                switch (m.WParam.ToInt32())
+                {
+                    case (int)ABNotify.ABN_POSCHANGED:
+                        SetAppBarPos(edge);
+                        break;
+                }
+            }
+        }
+
+        private static bool fBarRegistered;
+        private static int uCallBack;
+        private readonly Form form;
+        private Edge edge;
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;        // x position of upper-left corner
+            public int Top;         // y position of upper-left corner
+            public int Right;       // x position of lower-right corner
+            public int Bottom;      // y position of lower-right corner
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct APPBARDATA
+        {
+            public int cbSize;
+            public IntPtr hWnd;
+            public int uCallbackMessage;
+            public int uEdge;
+            public RECT rc;
+            public IntPtr lParam;
+        }
+
+        enum ABMsg : int
+        {
+            ABM_NEW = 0,
+            ABM_REMOVE,
+            ABM_QUERYPOS,
+            ABM_SETPOS,
+            ABM_GETSTATE,
+            ABM_GETTASKBARPOS,
+            ABM_ACTIVATE,
+            ABM_GETAUTOHIDEBAR,
+            ABM_SETAUTOHIDEBAR,
+            ABM_WINDOWPOSCHANGED,
+            ABM_SETSTATE
+        }
+        enum ABNotify : int
+        {
+            ABN_STATECHANGE = 0,
+            ABN_POSCHANGED,
+            ABN_FULLSCREENAPP,
+            ABN_WINDOWARRANGE
+        }
+        [DllImport("SHELL32", CallingConvention = CallingConvention.StdCall)]
+        static extern uint SHAppBarMessage(int dwMessage, ref APPBARDATA pData);
+
+        [DllImport("USER32")]
+        static extern int GetSystemMetrics(int Index);
+
+        [DllImport("User32.dll", ExactSpelling = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        static extern bool MoveWindow(IntPtr hWnd, int x, int y, int cx, int cy, bool repaint);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        static extern int RegisterWindowMessage(string msg);
     }
 }
