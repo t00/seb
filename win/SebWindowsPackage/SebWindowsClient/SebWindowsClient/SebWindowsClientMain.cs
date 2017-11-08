@@ -533,7 +533,7 @@ namespace SebWindowsClient
 				}
 			}
 
-#if DEBUG
+#if DEBUG_VS
 			//Add visual studio to allowed executables for debugging
 			SEBWindowHandler.AllowedExecutables.Add("devenv");
 #endif

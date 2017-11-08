@@ -244,7 +244,16 @@ namespace SebWindowsClient
 					}
 				}
 				xulRunnerArgumentsBuilder.Append(" ").Append(Environment.ExpandEnvironmentVariables(userDefinedArguments)).Append(" –purgecaches -ctrl \"").Append(XULRunnerParameters).Append("\"");
-				var xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
+
+#if DEBUG_XUL
+			    if (!xulRunnerArgumentsBuilder.ToString().Contains("-debug"))
+			    {
+			        xulRunnerArgumentsBuilder.Append(" -debug 1");
+			    }
+                xulRunnerArgumentsBuilder.Append(" -jsconsole");
+#endif
+
+                var xulRunnerArguments = xulRunnerArgumentsBuilder.ToString();
 				xulRunnerPathBuilder.Append(xulRunnerArguments);
 				xulRunnerPath = xulRunnerPathBuilder.ToString();
 				//Logger.AddError("Starting XULRunner with call: " + xulRunnerPath, this, null);
